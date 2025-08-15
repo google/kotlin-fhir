@@ -21,6 +21,7 @@ package com.google.fhir.model.r5
 import com.google.fhir.model.r5.serializers.DeviceConformsToSerializer
 import com.google.fhir.model.r5.serializers.DeviceNameSerializer
 import com.google.fhir.model.r5.serializers.DevicePropertySerializer
+import com.google.fhir.model.r5.serializers.DevicePropertyValueSerializer
 import com.google.fhir.model.r5.serializers.DeviceSerializer
 import com.google.fhir.model.r5.serializers.DeviceUdiCarrierSerializer
 import com.google.fhir.model.r5.serializers.DeviceVersionSerializer
@@ -638,6 +639,7 @@ public data class Device(
      */
     public var `value`: Value,
   ) : BackboneElement() {
+    @Serializable(with = DevicePropertyValueSerializer::class)
     public sealed interface Value {
       public fun asQuantity(): Quantity? = this as? Quantity
 

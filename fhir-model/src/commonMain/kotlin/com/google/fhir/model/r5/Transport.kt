@@ -19,7 +19,9 @@
 package com.google.fhir.model.r5
 
 import com.google.fhir.model.r5.serializers.TransportInputSerializer
+import com.google.fhir.model.r5.serializers.TransportInputValueSerializer
 import com.google.fhir.model.r5.serializers.TransportOutputSerializer
+import com.google.fhir.model.r5.serializers.TransportOutputValueSerializer
 import com.google.fhir.model.r5.serializers.TransportRestrictionSerializer
 import com.google.fhir.model.r5.serializers.TransportSerializer
 import kotlin.Suppress
@@ -389,6 +391,7 @@ public data class Transport(
     /** The value of the input parameter as a basic type. */
     public var `value`: Value,
   ) : BackboneElement() {
+    @Serializable(with = TransportInputValueSerializer::class)
     public sealed interface Value {
       public fun asBase64Binary(): Base64Binary? = this as? Base64Binary
 
@@ -791,6 +794,7 @@ public data class Transport(
     /** The value of the Output parameter as a basic type. */
     public var `value`: Value,
   ) : BackboneElement() {
+    @Serializable(with = TransportOutputValueSerializer::class)
     public sealed interface Value {
       public fun asBase64Binary(): Base64Binary? = this as? Base64Binary
 

@@ -21,9 +21,12 @@ package com.google.fhir.model.r5
 import com.google.fhir.model.r5.serializers.ClaimResponseAddItemBodySiteSerializer
 import com.google.fhir.model.r5.serializers.ClaimResponseAddItemDetailSerializer
 import com.google.fhir.model.r5.serializers.ClaimResponseAddItemDetailSubDetailSerializer
+import com.google.fhir.model.r5.serializers.ClaimResponseAddItemLocationSerializer
 import com.google.fhir.model.r5.serializers.ClaimResponseAddItemSerializer
+import com.google.fhir.model.r5.serializers.ClaimResponseAddItemServicedSerializer
 import com.google.fhir.model.r5.serializers.ClaimResponseErrorSerializer
 import com.google.fhir.model.r5.serializers.ClaimResponseEventSerializer
+import com.google.fhir.model.r5.serializers.ClaimResponseEventWhenSerializer
 import com.google.fhir.model.r5.serializers.ClaimResponseInsuranceSerializer
 import com.google.fhir.model.r5.serializers.ClaimResponseItemAdjudicationSerializer
 import com.google.fhir.model.r5.serializers.ClaimResponseItemDetailSerializer
@@ -373,6 +376,7 @@ public data class ClaimResponse(
      */
     public var `when`: When,
   ) : BackboneElement() {
+    @Serializable(with = ClaimResponseEventWhenSerializer::class)
     public sealed interface When {
       public fun asDateTime(): DateTime? = this as? DateTime
 
@@ -1122,6 +1126,7 @@ public data class ClaimResponse(
       ) : BackboneElement()
     }
 
+    @Serializable(with = ClaimResponseAddItemServicedSerializer::class)
     public sealed interface Serviced {
       public fun asDate(): Date? = this as? Date
 
@@ -1143,6 +1148,7 @@ public data class ClaimResponse(
       }
     }
 
+    @Serializable(with = ClaimResponseAddItemLocationSerializer::class)
     public sealed interface Location {
       public fun asCodeableConcept(): CodeableConcept? = this as? CodeableConcept
 

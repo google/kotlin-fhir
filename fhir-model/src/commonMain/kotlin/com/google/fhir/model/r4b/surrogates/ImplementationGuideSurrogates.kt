@@ -197,6 +197,40 @@ internal data class ImplementationGuideDefinitionGroupingSurrogate(
 }
 
 @Serializable
+internal data class ImplementationGuideDefinitionResourceExampleSurrogate(
+  public var exampleBoolean: KotlinBoolean? = null,
+  public var _exampleBoolean: Element? = null,
+  public var exampleCanonical: KotlinString? = null,
+  public var _exampleCanonical: Element? = null,
+) {
+  public fun toModel(): ImplementationGuide.Definition.Resource.Example =
+    ImplementationGuide.Definition.Resource.Example?.from(
+      R4bBoolean.of(
+        this@ImplementationGuideDefinitionResourceExampleSurrogate.exampleBoolean,
+        this@ImplementationGuideDefinitionResourceExampleSurrogate._exampleBoolean,
+      ),
+      Canonical.of(
+        this@ImplementationGuideDefinitionResourceExampleSurrogate.exampleCanonical,
+        this@ImplementationGuideDefinitionResourceExampleSurrogate._exampleCanonical,
+      ),
+    )!!
+
+  public companion object {
+    public fun fromModel(
+      model: ImplementationGuide.Definition.Resource.Example
+    ): ImplementationGuideDefinitionResourceExampleSurrogate =
+      with(model) {
+        ImplementationGuideDefinitionResourceExampleSurrogate(
+          exampleBoolean = this@with.asBoolean()?.value?.value,
+          _exampleBoolean = this@with.asBoolean()?.value?.toElement(),
+          exampleCanonical = this@with.asCanonical()?.value?.value,
+          _exampleCanonical = this@with.asCanonical()?.value?.toElement(),
+        )
+      }
+  }
+}
+
+@Serializable
 internal data class ImplementationGuideDefinitionResourceSurrogate(
   public var id: KotlinString? = null,
   public var extension: MutableList<Extension>? = null,
@@ -208,10 +242,7 @@ internal data class ImplementationGuideDefinitionResourceSurrogate(
   public var _name: Element? = null,
   public var description: KotlinString? = null,
   public var _description: Element? = null,
-  public var exampleBoolean: KotlinBoolean? = null,
-  public var _exampleBoolean: Element? = null,
-  public var exampleCanonical: KotlinString? = null,
-  public var _exampleCanonical: Element? = null,
+  public var example: ImplementationGuide.Definition.Resource.Example? = null,
   public var groupingId: KotlinString? = null,
   public var _groupingId: Element? = null,
 ) {
@@ -257,17 +288,7 @@ internal data class ImplementationGuideDefinitionResourceSurrogate(
           this@ImplementationGuideDefinitionResourceSurrogate.description,
           this@ImplementationGuideDefinitionResourceSurrogate._description,
         ),
-      example =
-        ImplementationGuide.Definition.Resource.Example?.from(
-          R4bBoolean.of(
-            this@ImplementationGuideDefinitionResourceSurrogate.exampleBoolean,
-            this@ImplementationGuideDefinitionResourceSurrogate._exampleBoolean,
-          ),
-          Canonical.of(
-            this@ImplementationGuideDefinitionResourceSurrogate.exampleCanonical,
-            this@ImplementationGuideDefinitionResourceSurrogate._exampleCanonical,
-          ),
-        ),
+      example = this@ImplementationGuideDefinitionResourceSurrogate.example,
       groupingId =
         Id.of(
           this@ImplementationGuideDefinitionResourceSurrogate.groupingId,
@@ -300,12 +321,38 @@ internal data class ImplementationGuideDefinitionResourceSurrogate(
           _name = this@with.name?.toElement(),
           description = this@with.description?.value,
           _description = this@with.description?.toElement(),
-          exampleBoolean = this@with.example?.asBoolean()?.value?.value,
-          _exampleBoolean = this@with.example?.asBoolean()?.value?.toElement(),
-          exampleCanonical = this@with.example?.asCanonical()?.value?.value,
-          _exampleCanonical = this@with.example?.asCanonical()?.value?.toElement(),
+          example = this@with.example,
           groupingId = this@with.groupingId?.value,
           _groupingId = this@with.groupingId?.toElement(),
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class ImplementationGuideDefinitionPageNameSurrogate(
+  public var nameUrl: KotlinString? = null,
+  public var _nameUrl: Element? = null,
+  public var nameReference: Reference? = null,
+) {
+  public fun toModel(): ImplementationGuide.Definition.Page.Name =
+    ImplementationGuide.Definition.Page.Name.from(
+      Url.of(
+        this@ImplementationGuideDefinitionPageNameSurrogate.nameUrl,
+        this@ImplementationGuideDefinitionPageNameSurrogate._nameUrl,
+      ),
+      this@ImplementationGuideDefinitionPageNameSurrogate.nameReference,
+    )!! !!
+
+  public companion object {
+    public fun fromModel(
+      model: ImplementationGuide.Definition.Page.Name
+    ): ImplementationGuideDefinitionPageNameSurrogate =
+      with(model) {
+        ImplementationGuideDefinitionPageNameSurrogate(
+          nameUrl = this@with.asUrl()?.value?.value,
+          _nameUrl = this@with.asUrl()?.value?.toElement(),
+          nameReference = this@with.asReference()?.value,
         )
       }
   }
@@ -316,9 +363,7 @@ internal data class ImplementationGuideDefinitionPageSurrogate(
   public var id: KotlinString? = null,
   public var extension: MutableList<Extension>? = null,
   public var modifierExtension: MutableList<Extension>? = null,
-  public var nameUrl: KotlinString? = null,
-  public var _nameUrl: Element? = null,
-  public var nameReference: Reference? = null,
+  public var name: ImplementationGuide.Definition.Page.Name,
   public var title: KotlinString? = null,
   public var _title: Element? = null,
   public var generation: KotlinString? = null,
@@ -331,14 +376,7 @@ internal data class ImplementationGuideDefinitionPageSurrogate(
       extension = this@ImplementationGuideDefinitionPageSurrogate.extension ?: mutableListOf(),
       modifierExtension =
         this@ImplementationGuideDefinitionPageSurrogate.modifierExtension ?: mutableListOf(),
-      name =
-        ImplementationGuide.Definition.Page.Name.from(
-          Url.of(
-            this@ImplementationGuideDefinitionPageSurrogate.nameUrl,
-            this@ImplementationGuideDefinitionPageSurrogate._nameUrl,
-          ),
-          this@ImplementationGuideDefinitionPageSurrogate.nameReference,
-        )!!,
+      name = this@ImplementationGuideDefinitionPageSurrogate.name,
       title =
         R4bString.of(
           this@ImplementationGuideDefinitionPageSurrogate.title,
@@ -363,9 +401,7 @@ internal data class ImplementationGuideDefinitionPageSurrogate(
           id = this@with.id,
           extension = this@with.extension.takeUnless { it.all { it == null } },
           modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          nameUrl = this@with.name?.asUrl()?.value?.value,
-          _nameUrl = this@with.name?.asUrl()?.value?.toElement(),
-          nameReference = this@with.name?.asReference()?.value,
+          name = this@with.name,
           title = this@with.title.value,
           _title = this@with.title.toElement(),
           generation = this@with.generation.value?.getCode(),
@@ -523,15 +559,46 @@ internal data class ImplementationGuideDefinitionSurrogate(
 }
 
 @Serializable
+internal data class ImplementationGuideManifestResourceExampleSurrogate(
+  public var exampleBoolean: KotlinBoolean? = null,
+  public var _exampleBoolean: Element? = null,
+  public var exampleCanonical: KotlinString? = null,
+  public var _exampleCanonical: Element? = null,
+) {
+  public fun toModel(): ImplementationGuide.Manifest.Resource.Example =
+    ImplementationGuide.Manifest.Resource.Example?.from(
+      R4bBoolean.of(
+        this@ImplementationGuideManifestResourceExampleSurrogate.exampleBoolean,
+        this@ImplementationGuideManifestResourceExampleSurrogate._exampleBoolean,
+      ),
+      Canonical.of(
+        this@ImplementationGuideManifestResourceExampleSurrogate.exampleCanonical,
+        this@ImplementationGuideManifestResourceExampleSurrogate._exampleCanonical,
+      ),
+    )!!
+
+  public companion object {
+    public fun fromModel(
+      model: ImplementationGuide.Manifest.Resource.Example
+    ): ImplementationGuideManifestResourceExampleSurrogate =
+      with(model) {
+        ImplementationGuideManifestResourceExampleSurrogate(
+          exampleBoolean = this@with.asBoolean()?.value?.value,
+          _exampleBoolean = this@with.asBoolean()?.value?.toElement(),
+          exampleCanonical = this@with.asCanonical()?.value?.value,
+          _exampleCanonical = this@with.asCanonical()?.value?.toElement(),
+        )
+      }
+  }
+}
+
+@Serializable
 internal data class ImplementationGuideManifestResourceSurrogate(
   public var id: KotlinString? = null,
   public var extension: MutableList<Extension>? = null,
   public var modifierExtension: MutableList<Extension>? = null,
   public var reference: Reference,
-  public var exampleBoolean: KotlinBoolean? = null,
-  public var _exampleBoolean: Element? = null,
-  public var exampleCanonical: KotlinString? = null,
-  public var _exampleCanonical: Element? = null,
+  public var example: ImplementationGuide.Manifest.Resource.Example? = null,
   public var relativePath: KotlinString? = null,
   public var _relativePath: Element? = null,
 ) {
@@ -542,17 +609,7 @@ internal data class ImplementationGuideManifestResourceSurrogate(
       modifierExtension =
         this@ImplementationGuideManifestResourceSurrogate.modifierExtension ?: mutableListOf(),
       reference = this@ImplementationGuideManifestResourceSurrogate.reference,
-      example =
-        ImplementationGuide.Manifest.Resource.Example?.from(
-          R4bBoolean.of(
-            this@ImplementationGuideManifestResourceSurrogate.exampleBoolean,
-            this@ImplementationGuideManifestResourceSurrogate._exampleBoolean,
-          ),
-          Canonical.of(
-            this@ImplementationGuideManifestResourceSurrogate.exampleCanonical,
-            this@ImplementationGuideManifestResourceSurrogate._exampleCanonical,
-          ),
-        ),
+      example = this@ImplementationGuideManifestResourceSurrogate.example,
       relativePath =
         Url.of(
           this@ImplementationGuideManifestResourceSurrogate.relativePath,
@@ -570,10 +627,7 @@ internal data class ImplementationGuideManifestResourceSurrogate(
           extension = this@with.extension.takeUnless { it.all { it == null } },
           modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
           reference = this@with.reference,
-          exampleBoolean = this@with.example?.asBoolean()?.value?.value,
-          _exampleBoolean = this@with.example?.asBoolean()?.value?.toElement(),
-          exampleCanonical = this@with.example?.asCanonical()?.value?.value,
-          _exampleCanonical = this@with.example?.asCanonical()?.value?.toElement(),
+          example = this@with.example,
           relativePath = this@with.relativePath?.value,
           _relativePath = this@with.relativePath?.toElement(),
         )

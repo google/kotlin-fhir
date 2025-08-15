@@ -160,6 +160,33 @@ internal data class MessageDefinitionAllowedResponseSurrogate(
 }
 
 @Serializable
+internal data class MessageDefinitionEventSurrogate(
+  public var eventCoding: Coding? = null,
+  public var eventUri: KotlinString? = null,
+  public var _eventUri: Element? = null,
+) {
+  public fun toModel(): MessageDefinition.Event =
+    MessageDefinition.Event.from(
+      this@MessageDefinitionEventSurrogate.eventCoding,
+      Uri.of(
+        this@MessageDefinitionEventSurrogate.eventUri,
+        this@MessageDefinitionEventSurrogate._eventUri,
+      ),
+    )!! !!
+
+  public companion object {
+    public fun fromModel(model: MessageDefinition.Event): MessageDefinitionEventSurrogate =
+      with(model) {
+        MessageDefinitionEventSurrogate(
+          eventCoding = this@with.asCoding()?.value,
+          eventUri = this@with.asUri()?.value?.value,
+          _eventUri = this@with.asUri()?.value?.toElement(),
+        )
+      }
+  }
+}
+
+@Serializable
 internal data class MessageDefinitionSurrogate(
   public var id: KotlinString? = null,
   public var meta: Meta? = null,
@@ -203,9 +230,7 @@ internal data class MessageDefinitionSurrogate(
   public var _base: Element? = null,
   public var parent: MutableList<KotlinString?>? = null,
   public var _parent: MutableList<Element?>? = null,
-  public var eventCoding: Coding? = null,
-  public var eventUri: KotlinString? = null,
-  public var _eventUri: Element? = null,
+  public var event: MessageDefinition.Event,
   public var category: KotlinString? = null,
   public var _category: Element? = null,
   public var focus: MutableList<MessageDefinition.Focus>? = null,
@@ -318,14 +343,7 @@ internal data class MessageDefinitionSurrogate(
             .map { (value, element) -> Canonical.of(value, element)!! }
             .toMutableList()
         },
-      event =
-        MessageDefinition.Event.from(
-          this@MessageDefinitionSurrogate.eventCoding,
-          Uri.of(
-            this@MessageDefinitionSurrogate.eventUri,
-            this@MessageDefinitionSurrogate._eventUri,
-          ),
-        )!!,
+      event = this@MessageDefinitionSurrogate.event,
       category =
         this@MessageDefinitionSurrogate.category?.let {
           Enumeration.of(
@@ -421,9 +439,7 @@ internal data class MessageDefinitionSurrogate(
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
               ?.toMutableList(),
-          eventCoding = this@with.event?.asCoding()?.value,
-          eventUri = this@with.event?.asUri()?.value?.value,
-          _eventUri = this@with.event?.asUri()?.value?.toElement(),
+          event = this@with.event,
           category = this@with.category?.value?.getCode(),
           _category = this@with.category?.toElement(),
           focus = this@with.focus.takeUnless { it.all { it == null } },

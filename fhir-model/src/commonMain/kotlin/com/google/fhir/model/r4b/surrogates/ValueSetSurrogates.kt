@@ -338,12 +338,7 @@ internal data class ValueSetComposeSurrogate(
 }
 
 @Serializable
-internal data class ValueSetExpansionParameterSurrogate(
-  public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var name: KotlinString? = null,
-  public var _name: Element? = null,
+internal data class ValueSetExpansionParameterValueSurrogate(
   public var valueString: KotlinString? = null,
   public var _valueString: Element? = null,
   public var valueBoolean: KotlinBoolean? = null,
@@ -359,6 +354,72 @@ internal data class ValueSetExpansionParameterSurrogate(
   public var valueDateTime: KotlinString? = null,
   public var _valueDateTime: Element? = null,
 ) {
+  public fun toModel(): ValueSet.Expansion.Parameter.Value =
+    ValueSet.Expansion.Parameter.Value?.from(
+      R4bString.of(
+        this@ValueSetExpansionParameterValueSurrogate.valueString,
+        this@ValueSetExpansionParameterValueSurrogate._valueString,
+      ),
+      R4bBoolean.of(
+        this@ValueSetExpansionParameterValueSurrogate.valueBoolean,
+        this@ValueSetExpansionParameterValueSurrogate._valueBoolean,
+      ),
+      Integer.of(
+        this@ValueSetExpansionParameterValueSurrogate.valueInteger,
+        this@ValueSetExpansionParameterValueSurrogate._valueInteger,
+      ),
+      Decimal.of(
+        this@ValueSetExpansionParameterValueSurrogate.valueDecimal,
+        this@ValueSetExpansionParameterValueSurrogate._valueDecimal,
+      ),
+      Uri.of(
+        this@ValueSetExpansionParameterValueSurrogate.valueUri,
+        this@ValueSetExpansionParameterValueSurrogate._valueUri,
+      ),
+      Code.of(
+        this@ValueSetExpansionParameterValueSurrogate.valueCode,
+        this@ValueSetExpansionParameterValueSurrogate._valueCode,
+      ),
+      DateTime.of(
+        FhirDateTime.fromString(this@ValueSetExpansionParameterValueSurrogate.valueDateTime),
+        this@ValueSetExpansionParameterValueSurrogate._valueDateTime,
+      ),
+    )!!
+
+  public companion object {
+    public fun fromModel(
+      model: ValueSet.Expansion.Parameter.Value
+    ): ValueSetExpansionParameterValueSurrogate =
+      with(model) {
+        ValueSetExpansionParameterValueSurrogate(
+          valueString = this@with.asString()?.value?.value,
+          _valueString = this@with.asString()?.value?.toElement(),
+          valueBoolean = this@with.asBoolean()?.value?.value,
+          _valueBoolean = this@with.asBoolean()?.value?.toElement(),
+          valueInteger = this@with.asInteger()?.value?.value,
+          _valueInteger = this@with.asInteger()?.value?.toElement(),
+          valueDecimal = this@with.asDecimal()?.value?.value,
+          _valueDecimal = this@with.asDecimal()?.value?.toElement(),
+          valueUri = this@with.asUri()?.value?.value,
+          _valueUri = this@with.asUri()?.value?.toElement(),
+          valueCode = this@with.asCode()?.value?.value,
+          _valueCode = this@with.asCode()?.value?.toElement(),
+          valueDateTime = this@with.asDateTime()?.value?.value?.toString(),
+          _valueDateTime = this@with.asDateTime()?.value?.toElement(),
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class ValueSetExpansionParameterSurrogate(
+  public var id: KotlinString? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var name: KotlinString? = null,
+  public var _name: Element? = null,
+  public var `value`: ValueSet.Expansion.Parameter.Value? = null,
+) {
   public fun toModel(): ValueSet.Expansion.Parameter =
     ValueSet.Expansion.Parameter(
       id = this@ValueSetExpansionParameterSurrogate.id,
@@ -370,37 +431,7 @@ internal data class ValueSetExpansionParameterSurrogate(
           this@ValueSetExpansionParameterSurrogate.name,
           this@ValueSetExpansionParameterSurrogate._name,
         )!!,
-      `value` =
-        ValueSet.Expansion.Parameter.Value?.from(
-          R4bString.of(
-            this@ValueSetExpansionParameterSurrogate.valueString,
-            this@ValueSetExpansionParameterSurrogate._valueString,
-          ),
-          R4bBoolean.of(
-            this@ValueSetExpansionParameterSurrogate.valueBoolean,
-            this@ValueSetExpansionParameterSurrogate._valueBoolean,
-          ),
-          Integer.of(
-            this@ValueSetExpansionParameterSurrogate.valueInteger,
-            this@ValueSetExpansionParameterSurrogate._valueInteger,
-          ),
-          Decimal.of(
-            this@ValueSetExpansionParameterSurrogate.valueDecimal,
-            this@ValueSetExpansionParameterSurrogate._valueDecimal,
-          ),
-          Uri.of(
-            this@ValueSetExpansionParameterSurrogate.valueUri,
-            this@ValueSetExpansionParameterSurrogate._valueUri,
-          ),
-          Code.of(
-            this@ValueSetExpansionParameterSurrogate.valueCode,
-            this@ValueSetExpansionParameterSurrogate._valueCode,
-          ),
-          DateTime.of(
-            FhirDateTime.fromString(this@ValueSetExpansionParameterSurrogate.valueDateTime),
-            this@ValueSetExpansionParameterSurrogate._valueDateTime,
-          ),
-        ),
+      `value` = this@ValueSetExpansionParameterSurrogate.`value`,
     )
 
   public companion object {
@@ -412,20 +443,7 @@ internal data class ValueSetExpansionParameterSurrogate(
           modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
           name = this@with.name.value,
           _name = this@with.name.toElement(),
-          valueString = this@with.`value`?.asString()?.value?.value,
-          _valueString = this@with.`value`?.asString()?.value?.toElement(),
-          valueBoolean = this@with.`value`?.asBoolean()?.value?.value,
-          _valueBoolean = this@with.`value`?.asBoolean()?.value?.toElement(),
-          valueInteger = this@with.`value`?.asInteger()?.value?.value,
-          _valueInteger = this@with.`value`?.asInteger()?.value?.toElement(),
-          valueDecimal = this@with.`value`?.asDecimal()?.value?.value,
-          _valueDecimal = this@with.`value`?.asDecimal()?.value?.toElement(),
-          valueUri = this@with.`value`?.asUri()?.value?.value,
-          _valueUri = this@with.`value`?.asUri()?.value?.toElement(),
-          valueCode = this@with.`value`?.asCode()?.value?.value,
-          _valueCode = this@with.`value`?.asCode()?.value?.toElement(),
-          valueDateTime = this@with.`value`?.asDateTime()?.value?.value?.toString(),
-          _valueDateTime = this@with.`value`?.asDateTime()?.value?.toElement(),
+          `value` = this@with.`value`,
         )
       }
   }

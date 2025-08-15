@@ -21,7 +21,10 @@ package com.google.fhir.model.r5
 import com.google.fhir.model.r5.serializers.IngredientManufacturerSerializer
 import com.google.fhir.model.r5.serializers.IngredientSerializer
 import com.google.fhir.model.r5.serializers.IngredientSubstanceSerializer
+import com.google.fhir.model.r5.serializers.IngredientSubstanceStrengthConcentrationSerializer
+import com.google.fhir.model.r5.serializers.IngredientSubstanceStrengthPresentationSerializer
 import com.google.fhir.model.r5.serializers.IngredientSubstanceStrengthReferenceStrengthSerializer
+import com.google.fhir.model.r5.serializers.IngredientSubstanceStrengthReferenceStrengthStrengthSerializer
 import com.google.fhir.model.r5.serializers.IngredientSubstanceStrengthSerializer
 import kotlin.Suppress
 import kotlin.collections.MutableList
@@ -428,6 +431,7 @@ public data class Ingredient(
         /** The country or countries for which the strength range applies. */
         public var country: MutableList<CodeableConcept> = mutableListOf(),
       ) : BackboneElement() {
+        @Serializable(with = IngredientSubstanceStrengthReferenceStrengthStrengthSerializer::class)
         public sealed interface Strength {
           public fun asRatio(): Ratio? = this as? Ratio
 
@@ -458,6 +462,7 @@ public data class Ingredient(
         }
       }
 
+      @Serializable(with = IngredientSubstanceStrengthPresentationSerializer::class)
       public sealed interface Presentation {
         public fun asRatio(): Ratio? = this as? Ratio
 
@@ -495,6 +500,7 @@ public data class Ingredient(
         }
       }
 
+      @Serializable(with = IngredientSubstanceStrengthConcentrationSerializer::class)
       public sealed interface Concentration {
         public fun asRatio(): Ratio? = this as? Ratio
 

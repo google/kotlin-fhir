@@ -87,14 +87,39 @@ internal data class IngredientManufacturerSurrogate(
 }
 
 @Serializable
+internal data class IngredientSubstanceStrengthReferenceStrengthStrengthSurrogate(
+  public var strengthRatio: Ratio? = null,
+  public var strengthRatioRange: RatioRange? = null,
+  public var strengthQuantity: Quantity? = null,
+) {
+  public fun toModel(): Ingredient.Substance.Strength.ReferenceStrength.Strength =
+    Ingredient.Substance.Strength.ReferenceStrength.Strength.from(
+      this@IngredientSubstanceStrengthReferenceStrengthStrengthSurrogate.strengthRatio,
+      this@IngredientSubstanceStrengthReferenceStrengthStrengthSurrogate.strengthRatioRange,
+      this@IngredientSubstanceStrengthReferenceStrengthStrengthSurrogate.strengthQuantity,
+    )!! !!
+
+  public companion object {
+    public fun fromModel(
+      model: Ingredient.Substance.Strength.ReferenceStrength.Strength
+    ): IngredientSubstanceStrengthReferenceStrengthStrengthSurrogate =
+      with(model) {
+        IngredientSubstanceStrengthReferenceStrengthStrengthSurrogate(
+          strengthRatio = this@with.asRatio()?.value,
+          strengthRatioRange = this@with.asRatioRange()?.value,
+          strengthQuantity = this@with.asQuantity()?.value,
+        )
+      }
+  }
+}
+
+@Serializable
 internal data class IngredientSubstanceStrengthReferenceStrengthSurrogate(
   public var id: KotlinString? = null,
   public var extension: MutableList<Extension>? = null,
   public var modifierExtension: MutableList<Extension>? = null,
   public var substance: CodeableReference,
-  public var strengthRatio: Ratio? = null,
-  public var strengthRatioRange: RatioRange? = null,
-  public var strengthQuantity: Quantity? = null,
+  public var strength: Ingredient.Substance.Strength.ReferenceStrength.Strength,
   public var measurementPoint: KotlinString? = null,
   public var _measurementPoint: Element? = null,
   public var country: MutableList<CodeableConcept>? = null,
@@ -108,12 +133,7 @@ internal data class IngredientSubstanceStrengthReferenceStrengthSurrogate(
         this@IngredientSubstanceStrengthReferenceStrengthSurrogate.modifierExtension
           ?: mutableListOf(),
       substance = this@IngredientSubstanceStrengthReferenceStrengthSurrogate.substance,
-      strength =
-        Ingredient.Substance.Strength.ReferenceStrength.Strength.from(
-          this@IngredientSubstanceStrengthReferenceStrengthSurrogate.strengthRatio,
-          this@IngredientSubstanceStrengthReferenceStrengthSurrogate.strengthRatioRange,
-          this@IngredientSubstanceStrengthReferenceStrengthSurrogate.strengthQuantity,
-        )!!,
+      strength = this@IngredientSubstanceStrengthReferenceStrengthSurrogate.strength,
       measurementPoint =
         R5String.of(
           this@IngredientSubstanceStrengthReferenceStrengthSurrogate.measurementPoint,
@@ -133,12 +153,70 @@ internal data class IngredientSubstanceStrengthReferenceStrengthSurrogate(
           extension = this@with.extension.takeUnless { it.all { it == null } },
           modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
           substance = this@with.substance,
-          strengthRatio = this@with.strength?.asRatio()?.value,
-          strengthRatioRange = this@with.strength?.asRatioRange()?.value,
-          strengthQuantity = this@with.strength?.asQuantity()?.value,
+          strength = this@with.strength,
           measurementPoint = this@with.measurementPoint?.value,
           _measurementPoint = this@with.measurementPoint?.toElement(),
           country = this@with.country.takeUnless { it.all { it == null } },
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class IngredientSubstanceStrengthPresentationSurrogate(
+  public var presentationRatio: Ratio? = null,
+  public var presentationRatioRange: RatioRange? = null,
+  public var presentationCodeableConcept: CodeableConcept? = null,
+  public var presentationQuantity: Quantity? = null,
+) {
+  public fun toModel(): Ingredient.Substance.Strength.Presentation =
+    Ingredient.Substance.Strength.Presentation?.from(
+      this@IngredientSubstanceStrengthPresentationSurrogate.presentationRatio,
+      this@IngredientSubstanceStrengthPresentationSurrogate.presentationRatioRange,
+      this@IngredientSubstanceStrengthPresentationSurrogate.presentationCodeableConcept,
+      this@IngredientSubstanceStrengthPresentationSurrogate.presentationQuantity,
+    )!!
+
+  public companion object {
+    public fun fromModel(
+      model: Ingredient.Substance.Strength.Presentation
+    ): IngredientSubstanceStrengthPresentationSurrogate =
+      with(model) {
+        IngredientSubstanceStrengthPresentationSurrogate(
+          presentationRatio = this@with.asRatio()?.value,
+          presentationRatioRange = this@with.asRatioRange()?.value,
+          presentationCodeableConcept = this@with.asCodeableConcept()?.value,
+          presentationQuantity = this@with.asQuantity()?.value,
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class IngredientSubstanceStrengthConcentrationSurrogate(
+  public var concentrationRatio: Ratio? = null,
+  public var concentrationRatioRange: RatioRange? = null,
+  public var concentrationCodeableConcept: CodeableConcept? = null,
+  public var concentrationQuantity: Quantity? = null,
+) {
+  public fun toModel(): Ingredient.Substance.Strength.Concentration =
+    Ingredient.Substance.Strength.Concentration?.from(
+      this@IngredientSubstanceStrengthConcentrationSurrogate.concentrationRatio,
+      this@IngredientSubstanceStrengthConcentrationSurrogate.concentrationRatioRange,
+      this@IngredientSubstanceStrengthConcentrationSurrogate.concentrationCodeableConcept,
+      this@IngredientSubstanceStrengthConcentrationSurrogate.concentrationQuantity,
+    )!!
+
+  public companion object {
+    public fun fromModel(
+      model: Ingredient.Substance.Strength.Concentration
+    ): IngredientSubstanceStrengthConcentrationSurrogate =
+      with(model) {
+        IngredientSubstanceStrengthConcentrationSurrogate(
+          concentrationRatio = this@with.asRatio()?.value,
+          concentrationRatioRange = this@with.asRatioRange()?.value,
+          concentrationCodeableConcept = this@with.asCodeableConcept()?.value,
+          concentrationQuantity = this@with.asQuantity()?.value,
         )
       }
   }
@@ -149,16 +227,10 @@ internal data class IngredientSubstanceStrengthSurrogate(
   public var id: KotlinString? = null,
   public var extension: MutableList<Extension>? = null,
   public var modifierExtension: MutableList<Extension>? = null,
-  public var presentationRatio: Ratio? = null,
-  public var presentationRatioRange: RatioRange? = null,
-  public var presentationCodeableConcept: CodeableConcept? = null,
-  public var presentationQuantity: Quantity? = null,
+  public var presentation: Ingredient.Substance.Strength.Presentation? = null,
   public var textPresentation: KotlinString? = null,
   public var _textPresentation: Element? = null,
-  public var concentrationRatio: Ratio? = null,
-  public var concentrationRatioRange: RatioRange? = null,
-  public var concentrationCodeableConcept: CodeableConcept? = null,
-  public var concentrationQuantity: Quantity? = null,
+  public var concentration: Ingredient.Substance.Strength.Concentration? = null,
   public var textConcentration: KotlinString? = null,
   public var _textConcentration: Element? = null,
   public var basis: CodeableConcept? = null,
@@ -173,25 +245,13 @@ internal data class IngredientSubstanceStrengthSurrogate(
       extension = this@IngredientSubstanceStrengthSurrogate.extension ?: mutableListOf(),
       modifierExtension =
         this@IngredientSubstanceStrengthSurrogate.modifierExtension ?: mutableListOf(),
-      presentation =
-        Ingredient.Substance.Strength.Presentation?.from(
-          this@IngredientSubstanceStrengthSurrogate.presentationRatio,
-          this@IngredientSubstanceStrengthSurrogate.presentationRatioRange,
-          this@IngredientSubstanceStrengthSurrogate.presentationCodeableConcept,
-          this@IngredientSubstanceStrengthSurrogate.presentationQuantity,
-        ),
+      presentation = this@IngredientSubstanceStrengthSurrogate.presentation,
       textPresentation =
         R5String.of(
           this@IngredientSubstanceStrengthSurrogate.textPresentation,
           this@IngredientSubstanceStrengthSurrogate._textPresentation,
         ),
-      concentration =
-        Ingredient.Substance.Strength.Concentration?.from(
-          this@IngredientSubstanceStrengthSurrogate.concentrationRatio,
-          this@IngredientSubstanceStrengthSurrogate.concentrationRatioRange,
-          this@IngredientSubstanceStrengthSurrogate.concentrationCodeableConcept,
-          this@IngredientSubstanceStrengthSurrogate.concentrationQuantity,
-        ),
+      concentration = this@IngredientSubstanceStrengthSurrogate.concentration,
       textConcentration =
         R5String.of(
           this@IngredientSubstanceStrengthSurrogate.textConcentration,
@@ -217,16 +277,10 @@ internal data class IngredientSubstanceStrengthSurrogate(
           id = this@with.id,
           extension = this@with.extension.takeUnless { it.all { it == null } },
           modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          presentationRatio = this@with.presentation?.asRatio()?.value,
-          presentationRatioRange = this@with.presentation?.asRatioRange()?.value,
-          presentationCodeableConcept = this@with.presentation?.asCodeableConcept()?.value,
-          presentationQuantity = this@with.presentation?.asQuantity()?.value,
+          presentation = this@with.presentation,
           textPresentation = this@with.textPresentation?.value,
           _textPresentation = this@with.textPresentation?.toElement(),
-          concentrationRatio = this@with.concentration?.asRatio()?.value,
-          concentrationRatioRange = this@with.concentration?.asRatioRange()?.value,
-          concentrationCodeableConcept = this@with.concentration?.asCodeableConcept()?.value,
-          concentrationQuantity = this@with.concentration?.asQuantity()?.value,
+          concentration = this@with.concentration,
           textConcentration = this@with.textConcentration?.value,
           _textConcentration = this@with.textConcentration?.toElement(),
           basis = this@with.basis,

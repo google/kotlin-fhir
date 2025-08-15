@@ -52,6 +52,88 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
+internal data class ServiceRequestQuantitySurrogate(
+  public var quantityQuantity: Quantity? = null,
+  public var quantityRatio: Ratio? = null,
+  public var quantityRange: Range? = null,
+) {
+  public fun toModel(): ServiceRequest.Quantity =
+    ServiceRequest.Quantity?.from(
+      this@ServiceRequestQuantitySurrogate.quantityQuantity,
+      this@ServiceRequestQuantitySurrogate.quantityRatio,
+      this@ServiceRequestQuantitySurrogate.quantityRange,
+    )!!
+
+  public companion object {
+    public fun fromModel(model: ServiceRequest.Quantity): ServiceRequestQuantitySurrogate =
+      with(model) {
+        ServiceRequestQuantitySurrogate(
+          quantityQuantity = this@with.asQuantity()?.value,
+          quantityRatio = this@with.asRatio()?.value,
+          quantityRange = this@with.asRange()?.value,
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class ServiceRequestOccurrenceSurrogate(
+  public var occurrenceDateTime: KotlinString? = null,
+  public var _occurrenceDateTime: Element? = null,
+  public var occurrencePeriod: Period? = null,
+  public var occurrenceTiming: Timing? = null,
+) {
+  public fun toModel(): ServiceRequest.Occurrence =
+    ServiceRequest.Occurrence?.from(
+      DateTime.of(
+        FhirDateTime.fromString(this@ServiceRequestOccurrenceSurrogate.occurrenceDateTime),
+        this@ServiceRequestOccurrenceSurrogate._occurrenceDateTime,
+      ),
+      this@ServiceRequestOccurrenceSurrogate.occurrencePeriod,
+      this@ServiceRequestOccurrenceSurrogate.occurrenceTiming,
+    )!!
+
+  public companion object {
+    public fun fromModel(model: ServiceRequest.Occurrence): ServiceRequestOccurrenceSurrogate =
+      with(model) {
+        ServiceRequestOccurrenceSurrogate(
+          occurrenceDateTime = this@with.asDateTime()?.value?.value?.toString(),
+          _occurrenceDateTime = this@with.asDateTime()?.value?.toElement(),
+          occurrencePeriod = this@with.asPeriod()?.value,
+          occurrenceTiming = this@with.asTiming()?.value,
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class ServiceRequestAsNeededSurrogate(
+  public var asNeededBoolean: KotlinBoolean? = null,
+  public var _asNeededBoolean: Element? = null,
+  public var asNeededCodeableConcept: CodeableConcept? = null,
+) {
+  public fun toModel(): ServiceRequest.AsNeeded =
+    ServiceRequest.AsNeeded?.from(
+      R4bBoolean.of(
+        this@ServiceRequestAsNeededSurrogate.asNeededBoolean,
+        this@ServiceRequestAsNeededSurrogate._asNeededBoolean,
+      ),
+      this@ServiceRequestAsNeededSurrogate.asNeededCodeableConcept,
+    )!!
+
+  public companion object {
+    public fun fromModel(model: ServiceRequest.AsNeeded): ServiceRequestAsNeededSurrogate =
+      with(model) {
+        ServiceRequestAsNeededSurrogate(
+          asNeededBoolean = this@with.asBoolean()?.value?.value,
+          _asNeededBoolean = this@with.asBoolean()?.value?.toElement(),
+          asNeededCodeableConcept = this@with.asCodeableConcept()?.value,
+        )
+      }
+  }
+}
+
+@Serializable
 internal data class ServiceRequestSurrogate(
   public var id: KotlinString? = null,
   public var meta: Meta? = null,
@@ -82,18 +164,11 @@ internal data class ServiceRequestSurrogate(
   public var _doNotPerform: Element? = null,
   public var code: CodeableConcept? = null,
   public var orderDetail: MutableList<CodeableConcept>? = null,
-  public var quantityQuantity: Quantity? = null,
-  public var quantityRatio: Ratio? = null,
-  public var quantityRange: Range? = null,
+  public var quantity: ServiceRequest.Quantity? = null,
   public var subject: Reference,
   public var encounter: Reference? = null,
-  public var occurrenceDateTime: KotlinString? = null,
-  public var _occurrenceDateTime: Element? = null,
-  public var occurrencePeriod: Period? = null,
-  public var occurrenceTiming: Timing? = null,
-  public var asNeededBoolean: KotlinBoolean? = null,
-  public var _asNeededBoolean: Element? = null,
-  public var asNeededCodeableConcept: CodeableConcept? = null,
+  public var occurrence: ServiceRequest.Occurrence? = null,
+  public var asNeeded: ServiceRequest.AsNeeded? = null,
   public var authoredOn: KotlinString? = null,
   public var _authoredOn: Element? = null,
   public var requester: Reference? = null,
@@ -192,31 +267,11 @@ internal data class ServiceRequestSurrogate(
         ),
       code = this@ServiceRequestSurrogate.code,
       orderDetail = this@ServiceRequestSurrogate.orderDetail ?: mutableListOf(),
-      quantity =
-        ServiceRequest.Quantity?.from(
-          this@ServiceRequestSurrogate.quantityQuantity,
-          this@ServiceRequestSurrogate.quantityRatio,
-          this@ServiceRequestSurrogate.quantityRange,
-        ),
+      quantity = this@ServiceRequestSurrogate.quantity,
       subject = this@ServiceRequestSurrogate.subject,
       encounter = this@ServiceRequestSurrogate.encounter,
-      occurrence =
-        ServiceRequest.Occurrence?.from(
-          DateTime.of(
-            FhirDateTime.fromString(this@ServiceRequestSurrogate.occurrenceDateTime),
-            this@ServiceRequestSurrogate._occurrenceDateTime,
-          ),
-          this@ServiceRequestSurrogate.occurrencePeriod,
-          this@ServiceRequestSurrogate.occurrenceTiming,
-        ),
-      asNeeded =
-        ServiceRequest.AsNeeded?.from(
-          R4bBoolean.of(
-            this@ServiceRequestSurrogate.asNeededBoolean,
-            this@ServiceRequestSurrogate._asNeededBoolean,
-          ),
-          this@ServiceRequestSurrogate.asNeededCodeableConcept,
-        ),
+      occurrence = this@ServiceRequestSurrogate.occurrence,
+      asNeeded = this@ServiceRequestSurrogate.asNeeded,
       authoredOn =
         DateTime.of(
           FhirDateTime.fromString(this@ServiceRequestSurrogate.authoredOn),
@@ -293,18 +348,11 @@ internal data class ServiceRequestSurrogate(
           _doNotPerform = this@with.doNotPerform?.toElement(),
           code = this@with.code,
           orderDetail = this@with.orderDetail.takeUnless { it.all { it == null } },
-          quantityQuantity = this@with.quantity?.asQuantity()?.value,
-          quantityRatio = this@with.quantity?.asRatio()?.value,
-          quantityRange = this@with.quantity?.asRange()?.value,
+          quantity = this@with.quantity,
           subject = this@with.subject,
           encounter = this@with.encounter,
-          occurrenceDateTime = this@with.occurrence?.asDateTime()?.value?.value?.toString(),
-          _occurrenceDateTime = this@with.occurrence?.asDateTime()?.value?.toElement(),
-          occurrencePeriod = this@with.occurrence?.asPeriod()?.value,
-          occurrenceTiming = this@with.occurrence?.asTiming()?.value,
-          asNeededBoolean = this@with.asNeeded?.asBoolean()?.value?.value,
-          _asNeededBoolean = this@with.asNeeded?.asBoolean()?.value?.toElement(),
-          asNeededCodeableConcept = this@with.asNeeded?.asCodeableConcept()?.value,
+          occurrence = this@with.occurrence,
+          asNeeded = this@with.asNeeded,
           authoredOn = this@with.authoredOn?.value?.toString(),
           _authoredOn = this@with.authoredOn?.toElement(),
           requester = this@with.requester,

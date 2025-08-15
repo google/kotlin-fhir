@@ -19,28 +19,84 @@
 package com.google.fhir.model.r5.serializers
 
 import com.google.fhir.model.r5.Communication
+import com.google.fhir.model.r5.FhirJsonTransformer
+import com.google.fhir.model.r5.surrogates.CommunicationPayloadContentSurrogate
 import com.google.fhir.model.r5.surrogates.CommunicationPayloadSurrogate
 import com.google.fhir.model.r5.surrogates.CommunicationSurrogate
+import kotlin.String
 import kotlin.Suppress
+import kotlin.collections.List
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.descriptors.SerialDescriptor
 import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
+import kotlinx.serialization.json.JsonDecoder
+import kotlinx.serialization.json.JsonEncoder
+import kotlinx.serialization.json.JsonObject
+import kotlinx.serialization.json.JsonPrimitive
+import kotlinx.serialization.json.jsonObject
+
+public object CommunicationPayloadContentSerializer : KSerializer<Communication.Payload.Content> {
+  internal val surrogateSerializer: KSerializer<CommunicationPayloadContentSurrogate> by lazy {
+    CommunicationPayloadContentSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Content", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): Communication.Payload.Content =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: Communication.Payload.Content) {
+    surrogateSerializer.serialize(encoder, CommunicationPayloadContentSurrogate.fromModel(value))
+  }
+}
 
 public object CommunicationPayloadSerializer : KSerializer<Communication.Payload> {
   internal val surrogateSerializer: KSerializer<CommunicationPayloadSurrogate> by lazy {
     CommunicationPayloadSurrogate.serializer()
   }
 
+  private val resourceType: String? = null
+
+  private val multiChoiceProperties: List<String> = listOf("content")
+
   override val descriptor: SerialDescriptor by lazy {
     SerialDescriptor("Payload", surrogateSerializer.descriptor)
   }
 
-  override fun deserialize(decoder: Decoder): Communication.Payload =
-    surrogateSerializer.deserialize(decoder).toModel()
+  override fun deserialize(decoder: Decoder): Communication.Payload {
+    val jsonDecoder =
+      decoder as? JsonDecoder ?: error("This serializer only supports JSON decoding")
+    val oldJsonObject =
+      if (resourceType.isNullOrBlank()) {
+        jsonDecoder.decodeJsonElement().jsonObject
+      } else
+        JsonObject(
+          jsonDecoder.decodeJsonElement().jsonObject.toMutableMap().apply { remove("resourceType") }
+        )
+    val unflattenedJsonObject = FhirJsonTransformer.unflatten(oldJsonObject, multiChoiceProperties)
+    val surrogate =
+      jsonDecoder.json.decodeFromJsonElement(surrogateSerializer, unflattenedJsonObject)
+    return surrogate.toModel()
+  }
 
   override fun serialize(encoder: Encoder, `value`: Communication.Payload) {
-    surrogateSerializer.serialize(encoder, CommunicationPayloadSurrogate.fromModel(value))
+    val jsonEncoder =
+      encoder as? JsonEncoder ?: error("This serializer only supports JSON encoding")
+    val surrogate = CommunicationPayloadSurrogate.fromModel(value)
+    val oldJsonObject =
+      if (resourceType.isNullOrBlank()) {
+        jsonEncoder.json.encodeToJsonElement(surrogateSerializer, surrogate).jsonObject
+      } else {
+        JsonObject(
+          mutableMapOf("resourceType" to JsonPrimitive(resourceType))
+            .plus(jsonEncoder.json.encodeToJsonElement(surrogateSerializer, surrogate).jsonObject)
+        )
+      }
+    val flattenedJsonObject = FhirJsonTransformer.flatten(oldJsonObject, multiChoiceProperties)
+    jsonEncoder.encodeJsonElement(flattenedJsonObject)
   }
 }
 

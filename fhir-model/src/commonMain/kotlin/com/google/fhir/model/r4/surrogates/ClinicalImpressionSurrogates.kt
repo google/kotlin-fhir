@@ -120,6 +120,35 @@ internal data class ClinicalImpressionFindingSurrogate(
 }
 
 @Serializable
+internal data class ClinicalImpressionEffectiveSurrogate(
+  public var effectiveDateTime: KotlinString? = null,
+  public var _effectiveDateTime: Element? = null,
+  public var effectivePeriod: Period? = null,
+) {
+  public fun toModel(): ClinicalImpression.Effective =
+    ClinicalImpression.Effective?.from(
+      DateTime.of(
+        FhirDateTime.fromString(this@ClinicalImpressionEffectiveSurrogate.effectiveDateTime),
+        this@ClinicalImpressionEffectiveSurrogate._effectiveDateTime,
+      ),
+      this@ClinicalImpressionEffectiveSurrogate.effectivePeriod,
+    )!!
+
+  public companion object {
+    public fun fromModel(
+      model: ClinicalImpression.Effective
+    ): ClinicalImpressionEffectiveSurrogate =
+      with(model) {
+        ClinicalImpressionEffectiveSurrogate(
+          effectiveDateTime = this@with.asDateTime()?.value?.value?.toString(),
+          _effectiveDateTime = this@with.asDateTime()?.value?.toElement(),
+          effectivePeriod = this@with.asPeriod()?.value,
+        )
+      }
+  }
+}
+
+@Serializable
 internal data class ClinicalImpressionSurrogate(
   public var id: KotlinString? = null,
   public var meta: Meta? = null,
@@ -140,9 +169,7 @@ internal data class ClinicalImpressionSurrogate(
   public var _description: Element? = null,
   public var subject: Reference,
   public var encounter: Reference? = null,
-  public var effectiveDateTime: KotlinString? = null,
-  public var _effectiveDateTime: Element? = null,
-  public var effectivePeriod: Period? = null,
+  public var effective: ClinicalImpression.Effective? = null,
   public var date: KotlinString? = null,
   public var _date: Element? = null,
   public var assessor: Reference? = null,
@@ -194,14 +221,7 @@ internal data class ClinicalImpressionSurrogate(
         ),
       subject = this@ClinicalImpressionSurrogate.subject,
       encounter = this@ClinicalImpressionSurrogate.encounter,
-      effective =
-        ClinicalImpression.Effective?.from(
-          DateTime.of(
-            FhirDateTime.fromString(this@ClinicalImpressionSurrogate.effectiveDateTime),
-            this@ClinicalImpressionSurrogate._effectiveDateTime,
-          ),
-          this@ClinicalImpressionSurrogate.effectivePeriod,
-        ),
+      effective = this@ClinicalImpressionSurrogate.effective,
       date =
         DateTime.of(
           FhirDateTime.fromString(this@ClinicalImpressionSurrogate.date),
@@ -263,9 +283,7 @@ internal data class ClinicalImpressionSurrogate(
           _description = this@with.description?.toElement(),
           subject = this@with.subject,
           encounter = this@with.encounter,
-          effectiveDateTime = this@with.effective?.asDateTime()?.value?.value?.toString(),
-          _effectiveDateTime = this@with.effective?.asDateTime()?.value?.toElement(),
-          effectivePeriod = this@with.effective?.asPeriod()?.value,
+          effective = this@with.effective,
           date = this@with.date?.value?.toString(),
           _date = this@with.date?.toElement(),
           assessor = this@with.assessor,

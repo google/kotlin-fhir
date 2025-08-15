@@ -18,6 +18,7 @@
 
 package com.google.fhir.model.r5.serializers
 
+import com.google.fhir.model.r5.FhirJsonTransformer
 import com.google.fhir.model.r5.TestScript
 import com.google.fhir.model.r5.surrogates.TestScriptDestinationSurrogate
 import com.google.fhir.model.r5.surrogates.TestScriptFixtureSurrogate
@@ -26,6 +27,7 @@ import com.google.fhir.model.r5.surrogates.TestScriptMetadataLinkSurrogate
 import com.google.fhir.model.r5.surrogates.TestScriptMetadataSurrogate
 import com.google.fhir.model.r5.surrogates.TestScriptOriginSurrogate
 import com.google.fhir.model.r5.surrogates.TestScriptScopeSurrogate
+import com.google.fhir.model.r5.surrogates.TestScriptSetupActionAssertRequirementLinkSurrogate
 import com.google.fhir.model.r5.surrogates.TestScriptSetupActionAssertRequirementSurrogate
 import com.google.fhir.model.r5.surrogates.TestScriptSetupActionAssertSurrogate
 import com.google.fhir.model.r5.surrogates.TestScriptSetupActionOperationRequestHeaderSurrogate
@@ -38,11 +40,19 @@ import com.google.fhir.model.r5.surrogates.TestScriptTeardownSurrogate
 import com.google.fhir.model.r5.surrogates.TestScriptTestActionSurrogate
 import com.google.fhir.model.r5.surrogates.TestScriptTestSurrogate
 import com.google.fhir.model.r5.surrogates.TestScriptVariableSurrogate
+import com.google.fhir.model.r5.surrogates.TestScriptVersionAlgorithmSurrogate
+import kotlin.String
 import kotlin.Suppress
+import kotlin.collections.List
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.descriptors.SerialDescriptor
 import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
+import kotlinx.serialization.json.JsonDecoder
+import kotlinx.serialization.json.JsonEncoder
+import kotlinx.serialization.json.JsonObject
+import kotlinx.serialization.json.JsonPrimitive
+import kotlinx.serialization.json.jsonObject
 
 public object TestScriptOriginSerializer : KSerializer<TestScript.Origin> {
   internal val surrogateSerializer: KSerializer<TestScriptOriginSurrogate> by lazy {
@@ -223,6 +233,31 @@ public object TestScriptSetupActionOperationSerializer :
   }
 }
 
+public object TestScriptSetupActionAssertRequirementLinkSerializer :
+  KSerializer<TestScript.Setup.Action.Assert.Requirement.Link> {
+  internal val surrogateSerializer:
+    KSerializer<TestScriptSetupActionAssertRequirementLinkSurrogate> by lazy {
+    TestScriptSetupActionAssertRequirementLinkSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Link", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): TestScript.Setup.Action.Assert.Requirement.Link =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(
+    encoder: Encoder,
+    `value`: TestScript.Setup.Action.Assert.Requirement.Link,
+  ) {
+    surrogateSerializer.serialize(
+      encoder,
+      TestScriptSetupActionAssertRequirementLinkSurrogate.fromModel(value),
+    )
+  }
+}
+
 public object TestScriptSetupActionAssertRequirementSerializer :
   KSerializer<TestScript.Setup.Action.Assert.Requirement> {
   internal val surrogateSerializer:
@@ -230,18 +265,45 @@ public object TestScriptSetupActionAssertRequirementSerializer :
     TestScriptSetupActionAssertRequirementSurrogate.serializer()
   }
 
+  private val resourceType: String? = null
+
+  private val multiChoiceProperties: List<String> = listOf("link")
+
   override val descriptor: SerialDescriptor by lazy {
     SerialDescriptor("Requirement", surrogateSerializer.descriptor)
   }
 
-  override fun deserialize(decoder: Decoder): TestScript.Setup.Action.Assert.Requirement =
-    surrogateSerializer.deserialize(decoder).toModel()
+  override fun deserialize(decoder: Decoder): TestScript.Setup.Action.Assert.Requirement {
+    val jsonDecoder =
+      decoder as? JsonDecoder ?: error("This serializer only supports JSON decoding")
+    val oldJsonObject =
+      if (resourceType.isNullOrBlank()) {
+        jsonDecoder.decodeJsonElement().jsonObject
+      } else
+        JsonObject(
+          jsonDecoder.decodeJsonElement().jsonObject.toMutableMap().apply { remove("resourceType") }
+        )
+    val unflattenedJsonObject = FhirJsonTransformer.unflatten(oldJsonObject, multiChoiceProperties)
+    val surrogate =
+      jsonDecoder.json.decodeFromJsonElement(surrogateSerializer, unflattenedJsonObject)
+    return surrogate.toModel()
+  }
 
   override fun serialize(encoder: Encoder, `value`: TestScript.Setup.Action.Assert.Requirement) {
-    surrogateSerializer.serialize(
-      encoder,
-      TestScriptSetupActionAssertRequirementSurrogate.fromModel(value),
-    )
+    val jsonEncoder =
+      encoder as? JsonEncoder ?: error("This serializer only supports JSON encoding")
+    val surrogate = TestScriptSetupActionAssertRequirementSurrogate.fromModel(value)
+    val oldJsonObject =
+      if (resourceType.isNullOrBlank()) {
+        jsonEncoder.json.encodeToJsonElement(surrogateSerializer, surrogate).jsonObject
+      } else {
+        JsonObject(
+          mutableMapOf("resourceType" to JsonPrimitive(resourceType))
+            .plus(jsonEncoder.json.encodeToJsonElement(surrogateSerializer, surrogate).jsonObject)
+        )
+      }
+    val flattenedJsonObject = FhirJsonTransformer.flatten(oldJsonObject, multiChoiceProperties)
+    jsonEncoder.encodeJsonElement(flattenedJsonObject)
   }
 }
 
@@ -364,19 +426,66 @@ public object TestScriptTeardownSerializer : KSerializer<TestScript.Teardown> {
   }
 }
 
+public object TestScriptVersionAlgorithmSerializer : KSerializer<TestScript.VersionAlgorithm> {
+  internal val surrogateSerializer: KSerializer<TestScriptVersionAlgorithmSurrogate> by lazy {
+    TestScriptVersionAlgorithmSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("VersionAlgorithm", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): TestScript.VersionAlgorithm =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: TestScript.VersionAlgorithm) {
+    surrogateSerializer.serialize(encoder, TestScriptVersionAlgorithmSurrogate.fromModel(value))
+  }
+}
+
 public object TestScriptSerializer : KSerializer<TestScript> {
   internal val surrogateSerializer: KSerializer<TestScriptSurrogate> by lazy {
     TestScriptSurrogate.serializer()
   }
 
+  private val resourceType: String? = "TestScript"
+
+  private val multiChoiceProperties: List<String> = listOf("versionAlgorithm")
+
   override val descriptor: SerialDescriptor by lazy {
     SerialDescriptor("TestScript", surrogateSerializer.descriptor)
   }
 
-  override fun deserialize(decoder: Decoder): TestScript =
-    surrogateSerializer.deserialize(decoder).toModel()
+  override fun deserialize(decoder: Decoder): TestScript {
+    val jsonDecoder =
+      decoder as? JsonDecoder ?: error("This serializer only supports JSON decoding")
+    val oldJsonObject =
+      if (resourceType.isNullOrBlank()) {
+        jsonDecoder.decodeJsonElement().jsonObject
+      } else
+        JsonObject(
+          jsonDecoder.decodeJsonElement().jsonObject.toMutableMap().apply { remove("resourceType") }
+        )
+    val unflattenedJsonObject = FhirJsonTransformer.unflatten(oldJsonObject, multiChoiceProperties)
+    val surrogate =
+      jsonDecoder.json.decodeFromJsonElement(surrogateSerializer, unflattenedJsonObject)
+    return surrogate.toModel()
+  }
 
   override fun serialize(encoder: Encoder, `value`: TestScript) {
-    surrogateSerializer.serialize(encoder, TestScriptSurrogate.fromModel(value))
+    val jsonEncoder =
+      encoder as? JsonEncoder ?: error("This serializer only supports JSON encoding")
+    val surrogate = TestScriptSurrogate.fromModel(value)
+    val oldJsonObject =
+      if (resourceType.isNullOrBlank()) {
+        jsonEncoder.json.encodeToJsonElement(surrogateSerializer, surrogate).jsonObject
+      } else {
+        JsonObject(
+          mutableMapOf("resourceType" to JsonPrimitive(resourceType))
+            .plus(jsonEncoder.json.encodeToJsonElement(surrogateSerializer, surrogate).jsonObject)
+        )
+      }
+    val flattenedJsonObject = FhirJsonTransformer.flatten(oldJsonObject, multiChoiceProperties)
+    jsonEncoder.encodeJsonElement(flattenedJsonObject)
   }
 }

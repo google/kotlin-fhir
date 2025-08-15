@@ -153,14 +153,45 @@ internal data class TestReportSetupActionOperationSurrogate(
 }
 
 @Serializable
-internal data class TestReportSetupActionAssertRequirementSurrogate(
-  public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+internal data class TestReportSetupActionAssertRequirementLinkSurrogate(
   public var linkUri: KotlinString? = null,
   public var _linkUri: Element? = null,
   public var linkCanonical: KotlinString? = null,
   public var _linkCanonical: Element? = null,
+) {
+  public fun toModel(): TestReport.Setup.Action.Assert.Requirement.Link =
+    TestReport.Setup.Action.Assert.Requirement.Link?.from(
+      Uri.of(
+        this@TestReportSetupActionAssertRequirementLinkSurrogate.linkUri,
+        this@TestReportSetupActionAssertRequirementLinkSurrogate._linkUri,
+      ),
+      Canonical.of(
+        this@TestReportSetupActionAssertRequirementLinkSurrogate.linkCanonical,
+        this@TestReportSetupActionAssertRequirementLinkSurrogate._linkCanonical,
+      ),
+    )!!
+
+  public companion object {
+    public fun fromModel(
+      model: TestReport.Setup.Action.Assert.Requirement.Link
+    ): TestReportSetupActionAssertRequirementLinkSurrogate =
+      with(model) {
+        TestReportSetupActionAssertRequirementLinkSurrogate(
+          linkUri = this@with.asUri()?.value?.value,
+          _linkUri = this@with.asUri()?.value?.toElement(),
+          linkCanonical = this@with.asCanonical()?.value?.value,
+          _linkCanonical = this@with.asCanonical()?.value?.toElement(),
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class TestReportSetupActionAssertRequirementSurrogate(
+  public var id: KotlinString? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var link: TestReport.Setup.Action.Assert.Requirement.Link? = null,
 ) {
   public fun toModel(): TestReport.Setup.Action.Assert.Requirement =
     TestReport.Setup.Action.Assert.Requirement(
@@ -168,17 +199,7 @@ internal data class TestReportSetupActionAssertRequirementSurrogate(
       extension = this@TestReportSetupActionAssertRequirementSurrogate.extension ?: mutableListOf(),
       modifierExtension =
         this@TestReportSetupActionAssertRequirementSurrogate.modifierExtension ?: mutableListOf(),
-      link =
-        TestReport.Setup.Action.Assert.Requirement.Link?.from(
-          Uri.of(
-            this@TestReportSetupActionAssertRequirementSurrogate.linkUri,
-            this@TestReportSetupActionAssertRequirementSurrogate._linkUri,
-          ),
-          Canonical.of(
-            this@TestReportSetupActionAssertRequirementSurrogate.linkCanonical,
-            this@TestReportSetupActionAssertRequirementSurrogate._linkCanonical,
-          ),
-        ),
+      link = this@TestReportSetupActionAssertRequirementSurrogate.link,
     )
 
   public companion object {
@@ -190,10 +211,7 @@ internal data class TestReportSetupActionAssertRequirementSurrogate(
           id = this@with.id,
           extension = this@with.extension.takeUnless { it.all { it == null } },
           modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          linkUri = this@with.link?.asUri()?.value?.value,
-          _linkUri = this@with.link?.asUri()?.value?.toElement(),
-          linkCanonical = this@with.link?.asCanonical()?.value?.value,
-          _linkCanonical = this@with.link?.asCanonical()?.value?.toElement(),
+          link = this@with.link,
         )
       }
   }

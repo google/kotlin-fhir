@@ -22,6 +22,7 @@ import com.google.fhir.model.r4b.serializers.NutritionProductIngredientSerialize
 import com.google.fhir.model.r4b.serializers.NutritionProductInstanceSerializer
 import com.google.fhir.model.r4b.serializers.NutritionProductNutrientSerializer
 import com.google.fhir.model.r4b.serializers.NutritionProductProductCharacteristicSerializer
+import com.google.fhir.model.r4b.serializers.NutritionProductProductCharacteristicValueSerializer
 import com.google.fhir.model.r4b.serializers.NutritionProductSerializer
 import kotlin.Suppress
 import kotlin.collections.MutableList
@@ -319,6 +320,7 @@ public data class NutritionProduct(
      */
     public var `value`: Value,
   ) : BackboneElement() {
+    @Serializable(with = NutritionProductProductCharacteristicValueSerializer::class)
     public sealed interface Value {
       public fun asCodeableConcept(): CodeableConcept? = this as? CodeableConcept
 

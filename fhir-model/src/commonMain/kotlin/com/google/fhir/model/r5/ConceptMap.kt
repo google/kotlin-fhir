@@ -21,12 +21,17 @@ package com.google.fhir.model.r5
 import com.google.fhir.model.r5.serializers.ConceptMapAdditionalAttributeSerializer
 import com.google.fhir.model.r5.serializers.ConceptMapGroupElementSerializer
 import com.google.fhir.model.r5.serializers.ConceptMapGroupElementTargetDependsOnSerializer
+import com.google.fhir.model.r5.serializers.ConceptMapGroupElementTargetDependsOnValueSerializer
 import com.google.fhir.model.r5.serializers.ConceptMapGroupElementTargetPropertySerializer
+import com.google.fhir.model.r5.serializers.ConceptMapGroupElementTargetPropertyValueSerializer
 import com.google.fhir.model.r5.serializers.ConceptMapGroupElementTargetSerializer
 import com.google.fhir.model.r5.serializers.ConceptMapGroupSerializer
 import com.google.fhir.model.r5.serializers.ConceptMapGroupUnmappedSerializer
 import com.google.fhir.model.r5.serializers.ConceptMapPropertySerializer
 import com.google.fhir.model.r5.serializers.ConceptMapSerializer
+import com.google.fhir.model.r5.serializers.ConceptMapSourceScopeSerializer
+import com.google.fhir.model.r5.serializers.ConceptMapTargetScopeSerializer
+import com.google.fhir.model.r5.serializers.ConceptMapVersionAlgorithmSerializer
 import kotlin.Suppress
 import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
@@ -846,6 +851,7 @@ public data class ConceptMap(
            */
           public var `value`: Value,
         ) : BackboneElement() {
+          @Serializable(with = ConceptMapGroupElementTargetPropertyValueSerializer::class)
           public sealed interface Value {
             public fun asCoding(): Coding? = this as? Coding
 
@@ -955,6 +961,7 @@ public data class ConceptMap(
           /** This mapping applies if the data element value is a code from this value set. */
           public var valueSet: Canonical? = null,
         ) : BackboneElement() {
+          @Serializable(with = ConceptMapGroupElementTargetDependsOnValueSerializer::class)
           public sealed interface Value {
             public fun asCode(): Code? = this as? Code
 
@@ -1083,6 +1090,7 @@ public data class ConceptMap(
     ) : BackboneElement()
   }
 
+  @Serializable(with = ConceptMapVersionAlgorithmSerializer::class)
   public sealed interface VersionAlgorithm {
     public fun asString(): String? = this as? String
 
@@ -1106,6 +1114,7 @@ public data class ConceptMap(
     }
   }
 
+  @Serializable(with = ConceptMapSourceScopeSerializer::class)
   public sealed interface SourceScope {
     public fun asUri(): Uri? = this as? Uri
 
@@ -1128,6 +1137,7 @@ public data class ConceptMap(
     }
   }
 
+  @Serializable(with = ConceptMapTargetScopeSerializer::class)
   public sealed interface TargetScope {
     public fun asUri(): Uri? = this as? Uri
 

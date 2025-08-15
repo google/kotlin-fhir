@@ -20,7 +20,9 @@ package com.google.fhir.model.r4b
 
 import com.google.fhir.model.r4b.serializers.ClinicalUseDefinitionContraindicationOtherTherapySerializer
 import com.google.fhir.model.r4b.serializers.ClinicalUseDefinitionContraindicationSerializer
+import com.google.fhir.model.r4b.serializers.ClinicalUseDefinitionIndicationDurationSerializer
 import com.google.fhir.model.r4b.serializers.ClinicalUseDefinitionIndicationSerializer
+import com.google.fhir.model.r4b.serializers.ClinicalUseDefinitionInteractionInteractantItemSerializer
 import com.google.fhir.model.r4b.serializers.ClinicalUseDefinitionInteractionInteractantSerializer
 import com.google.fhir.model.r4b.serializers.ClinicalUseDefinitionInteractionSerializer
 import com.google.fhir.model.r4b.serializers.ClinicalUseDefinitionSerializer
@@ -349,6 +351,7 @@ public data class ClinicalUseDefinition(
      */
     public var otherTherapy: MutableList<Contraindication.OtherTherapy> = mutableListOf(),
   ) : BackboneElement() {
+    @Serializable(with = ClinicalUseDefinitionIndicationDurationSerializer::class)
     public sealed interface Duration {
       public fun asRange(): Range? = this as? Range
 
@@ -471,6 +474,7 @@ public data class ClinicalUseDefinition(
       /** The specific medication, food or laboratory test that interacts. */
       public var item: Item,
     ) : BackboneElement() {
+      @Serializable(with = ClinicalUseDefinitionInteractionInteractantItemSerializer::class)
       public sealed interface Item {
         public fun asReference(): Reference? = this as? Reference
 

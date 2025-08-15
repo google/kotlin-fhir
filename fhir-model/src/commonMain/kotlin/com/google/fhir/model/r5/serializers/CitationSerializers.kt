@@ -19,6 +19,7 @@
 package com.google.fhir.model.r5.serializers
 
 import com.google.fhir.model.r5.Citation
+import com.google.fhir.model.r5.FhirJsonTransformer
 import com.google.fhir.model.r5.surrogates.CitationCitedArtifactAbstractSurrogate
 import com.google.fhir.model.r5.surrogates.CitationCitedArtifactClassificationSurrogate
 import com.google.fhir.model.r5.surrogates.CitationCitedArtifactContributorshipEntryContributionInstanceSurrogate
@@ -38,11 +39,19 @@ import com.google.fhir.model.r5.surrogates.CitationClassificationSurrogate
 import com.google.fhir.model.r5.surrogates.CitationStatusDateSurrogate
 import com.google.fhir.model.r5.surrogates.CitationSummarySurrogate
 import com.google.fhir.model.r5.surrogates.CitationSurrogate
+import com.google.fhir.model.r5.surrogates.CitationVersionAlgorithmSurrogate
+import kotlin.String
 import kotlin.Suppress
+import kotlin.collections.List
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.descriptors.SerialDescriptor
 import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
+import kotlinx.serialization.json.JsonDecoder
+import kotlinx.serialization.json.JsonEncoder
+import kotlinx.serialization.json.JsonObject
+import kotlinx.serialization.json.JsonPrimitive
+import kotlinx.serialization.json.jsonObject
 
 public object CitationSummarySerializer : KSerializer<Citation.Summary> {
   internal val surrogateSerializer: KSerializer<CitationSummarySurrogate> by lazy {
@@ -406,19 +415,66 @@ public object CitationCitedArtifactSerializer : KSerializer<Citation.CitedArtifa
   }
 }
 
+public object CitationVersionAlgorithmSerializer : KSerializer<Citation.VersionAlgorithm> {
+  internal val surrogateSerializer: KSerializer<CitationVersionAlgorithmSurrogate> by lazy {
+    CitationVersionAlgorithmSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("VersionAlgorithm", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): Citation.VersionAlgorithm =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: Citation.VersionAlgorithm) {
+    surrogateSerializer.serialize(encoder, CitationVersionAlgorithmSurrogate.fromModel(value))
+  }
+}
+
 public object CitationSerializer : KSerializer<Citation> {
   internal val surrogateSerializer: KSerializer<CitationSurrogate> by lazy {
     CitationSurrogate.serializer()
   }
 
+  private val resourceType: String? = "Citation"
+
+  private val multiChoiceProperties: List<String> = listOf("versionAlgorithm")
+
   override val descriptor: SerialDescriptor by lazy {
     SerialDescriptor("Citation", surrogateSerializer.descriptor)
   }
 
-  override fun deserialize(decoder: Decoder): Citation =
-    surrogateSerializer.deserialize(decoder).toModel()
+  override fun deserialize(decoder: Decoder): Citation {
+    val jsonDecoder =
+      decoder as? JsonDecoder ?: error("This serializer only supports JSON decoding")
+    val oldJsonObject =
+      if (resourceType.isNullOrBlank()) {
+        jsonDecoder.decodeJsonElement().jsonObject
+      } else
+        JsonObject(
+          jsonDecoder.decodeJsonElement().jsonObject.toMutableMap().apply { remove("resourceType") }
+        )
+    val unflattenedJsonObject = FhirJsonTransformer.unflatten(oldJsonObject, multiChoiceProperties)
+    val surrogate =
+      jsonDecoder.json.decodeFromJsonElement(surrogateSerializer, unflattenedJsonObject)
+    return surrogate.toModel()
+  }
 
   override fun serialize(encoder: Encoder, `value`: Citation) {
-    surrogateSerializer.serialize(encoder, CitationSurrogate.fromModel(value))
+    val jsonEncoder =
+      encoder as? JsonEncoder ?: error("This serializer only supports JSON encoding")
+    val surrogate = CitationSurrogate.fromModel(value)
+    val oldJsonObject =
+      if (resourceType.isNullOrBlank()) {
+        jsonEncoder.json.encodeToJsonElement(surrogateSerializer, surrogate).jsonObject
+      } else {
+        JsonObject(
+          mutableMapOf("resourceType" to JsonPrimitive(resourceType))
+            .plus(jsonEncoder.json.encodeToJsonElement(surrogateSerializer, surrogate).jsonObject)
+        )
+      }
+    val flattenedJsonObject = FhirJsonTransformer.flatten(oldJsonObject, multiChoiceProperties)
+    jsonEncoder.encodeJsonElement(flattenedJsonObject)
   }
 }

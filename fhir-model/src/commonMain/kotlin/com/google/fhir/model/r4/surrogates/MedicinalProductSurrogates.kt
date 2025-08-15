@@ -221,6 +221,30 @@ internal data class MedicinalProductManufacturingBusinessOperationSurrogate(
 }
 
 @Serializable
+internal data class MedicinalProductSpecialDesignationIndicationSurrogate(
+  public var indicationCodeableConcept: CodeableConcept? = null,
+  public var indicationReference: Reference? = null,
+) {
+  public fun toModel(): MedicinalProduct.SpecialDesignation.Indication =
+    MedicinalProduct.SpecialDesignation.Indication?.from(
+      this@MedicinalProductSpecialDesignationIndicationSurrogate.indicationCodeableConcept,
+      this@MedicinalProductSpecialDesignationIndicationSurrogate.indicationReference,
+    )!!
+
+  public companion object {
+    public fun fromModel(
+      model: MedicinalProduct.SpecialDesignation.Indication
+    ): MedicinalProductSpecialDesignationIndicationSurrogate =
+      with(model) {
+        MedicinalProductSpecialDesignationIndicationSurrogate(
+          indicationCodeableConcept = this@with.asCodeableConcept()?.value,
+          indicationReference = this@with.asReference()?.value,
+        )
+      }
+  }
+}
+
+@Serializable
 internal data class MedicinalProductSpecialDesignationSurrogate(
   public var id: KotlinString? = null,
   public var extension: MutableList<Extension>? = null,
@@ -228,8 +252,7 @@ internal data class MedicinalProductSpecialDesignationSurrogate(
   public var identifier: MutableList<Identifier>? = null,
   public var type: CodeableConcept? = null,
   public var intendedUse: CodeableConcept? = null,
-  public var indicationCodeableConcept: CodeableConcept? = null,
-  public var indicationReference: Reference? = null,
+  public var indication: MedicinalProduct.SpecialDesignation.Indication? = null,
   public var status: CodeableConcept? = null,
   public var date: KotlinString? = null,
   public var _date: Element? = null,
@@ -244,11 +267,7 @@ internal data class MedicinalProductSpecialDesignationSurrogate(
       identifier = this@MedicinalProductSpecialDesignationSurrogate.identifier ?: mutableListOf(),
       type = this@MedicinalProductSpecialDesignationSurrogate.type,
       intendedUse = this@MedicinalProductSpecialDesignationSurrogate.intendedUse,
-      indication =
-        MedicinalProduct.SpecialDesignation.Indication?.from(
-          this@MedicinalProductSpecialDesignationSurrogate.indicationCodeableConcept,
-          this@MedicinalProductSpecialDesignationSurrogate.indicationReference,
-        ),
+      indication = this@MedicinalProductSpecialDesignationSurrogate.indication,
       status = this@MedicinalProductSpecialDesignationSurrogate.status,
       date =
         DateTime.of(
@@ -270,8 +289,7 @@ internal data class MedicinalProductSpecialDesignationSurrogate(
           identifier = this@with.identifier.takeUnless { it.all { it == null } },
           type = this@with.type,
           intendedUse = this@with.intendedUse,
-          indicationCodeableConcept = this@with.indication?.asCodeableConcept()?.value,
-          indicationReference = this@with.indication?.asReference()?.value,
+          indication = this@with.indication,
           status = this@with.status,
           date = this@with.date?.value?.toString(),
           _date = this@with.date?.toElement(),

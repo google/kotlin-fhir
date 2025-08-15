@@ -18,6 +18,8 @@
 
 package com.google.fhir.model.r4b
 
+import com.google.fhir.model.r4b.serializers.CommunicationRequestOccurrenceSerializer
+import com.google.fhir.model.r4b.serializers.CommunicationRequestPayloadContentSerializer
 import com.google.fhir.model.r4b.serializers.CommunicationRequestPayloadSerializer
 import com.google.fhir.model.r4b.serializers.CommunicationRequestSerializer
 import kotlin.String
@@ -296,6 +298,7 @@ public data class CommunicationRequest(
      */
     public var content: Content,
   ) : BackboneElement() {
+    @Serializable(with = CommunicationRequestPayloadContentSerializer::class)
     public sealed interface Content {
       public fun asString(): String? = this as? String
 
@@ -326,6 +329,7 @@ public data class CommunicationRequest(
     }
   }
 
+  @Serializable(with = CommunicationRequestOccurrenceSerializer::class)
   public sealed interface Occurrence {
     public fun asDateTime(): DateTime? = this as? DateTime
 

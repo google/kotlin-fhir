@@ -46,6 +46,41 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
+internal data class GuidanceResponseModuleSurrogate(
+  public var moduleUri: String? = null,
+  public var _moduleUri: Element? = null,
+  public var moduleCanonical: String? = null,
+  public var _moduleCanonical: Element? = null,
+  public var moduleCodeableConcept: CodeableConcept? = null,
+) {
+  public fun toModel(): GuidanceResponse.Module =
+    GuidanceResponse.Module.from(
+      Uri.of(
+        this@GuidanceResponseModuleSurrogate.moduleUri,
+        this@GuidanceResponseModuleSurrogate._moduleUri,
+      ),
+      Canonical.of(
+        this@GuidanceResponseModuleSurrogate.moduleCanonical,
+        this@GuidanceResponseModuleSurrogate._moduleCanonical,
+      ),
+      this@GuidanceResponseModuleSurrogate.moduleCodeableConcept,
+    )!! !!
+
+  public companion object {
+    public fun fromModel(model: GuidanceResponse.Module): GuidanceResponseModuleSurrogate =
+      with(model) {
+        GuidanceResponseModuleSurrogate(
+          moduleUri = this@with.asUri()?.value?.value,
+          _moduleUri = this@with.asUri()?.value?.toElement(),
+          moduleCanonical = this@with.asCanonical()?.value?.value,
+          _moduleCanonical = this@with.asCanonical()?.value?.toElement(),
+          moduleCodeableConcept = this@with.asCodeableConcept()?.value,
+        )
+      }
+  }
+}
+
+@Serializable
 internal data class GuidanceResponseSurrogate(
   public var id: String? = null,
   public var meta: Meta? = null,
@@ -59,11 +94,7 @@ internal data class GuidanceResponseSurrogate(
   public var modifierExtension: MutableList<Extension>? = null,
   public var requestIdentifier: Identifier? = null,
   public var identifier: MutableList<Identifier>? = null,
-  public var moduleUri: String? = null,
-  public var _moduleUri: Element? = null,
-  public var moduleCanonical: String? = null,
-  public var _moduleCanonical: Element? = null,
-  public var moduleCodeableConcept: CodeableConcept? = null,
+  public var module: GuidanceResponse.Module,
   public var status: String? = null,
   public var _status: Element? = null,
   public var subject: Reference? = null,
@@ -95,18 +126,7 @@ internal data class GuidanceResponseSurrogate(
       modifierExtension = this@GuidanceResponseSurrogate.modifierExtension ?: mutableListOf(),
       requestIdentifier = this@GuidanceResponseSurrogate.requestIdentifier,
       identifier = this@GuidanceResponseSurrogate.identifier ?: mutableListOf(),
-      module =
-        GuidanceResponse.Module.from(
-          Uri.of(
-            this@GuidanceResponseSurrogate.moduleUri,
-            this@GuidanceResponseSurrogate._moduleUri,
-          ),
-          Canonical.of(
-            this@GuidanceResponseSurrogate.moduleCanonical,
-            this@GuidanceResponseSurrogate._moduleCanonical,
-          ),
-          this@GuidanceResponseSurrogate.moduleCodeableConcept,
-        )!!,
+      module = this@GuidanceResponseSurrogate.module,
       status =
         Enumeration.of(
           com.google.fhir.model.r5.GuidanceResponse.GuidanceResponseStatus.fromCode(
@@ -146,11 +166,7 @@ internal data class GuidanceResponseSurrogate(
           modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
           requestIdentifier = this@with.requestIdentifier,
           identifier = this@with.identifier.takeUnless { it.all { it == null } },
-          moduleUri = this@with.module?.asUri()?.value?.value,
-          _moduleUri = this@with.module?.asUri()?.value?.toElement(),
-          moduleCanonical = this@with.module?.asCanonical()?.value?.value,
-          _moduleCanonical = this@with.module?.asCanonical()?.value?.toElement(),
-          moduleCodeableConcept = this@with.module?.asCodeableConcept()?.value,
+          module = this@with.module,
           status = this@with.status.value?.getCode(),
           _status = this@with.status.toElement(),
           subject = this@with.subject,

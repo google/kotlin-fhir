@@ -21,8 +21,10 @@ package com.google.fhir.model.r4b
 import com.google.fhir.model.r4b.serializers.StructureMapGroupInputSerializer
 import com.google.fhir.model.r4b.serializers.StructureMapGroupRuleDependentSerializer
 import com.google.fhir.model.r4b.serializers.StructureMapGroupRuleSerializer
+import com.google.fhir.model.r4b.serializers.StructureMapGroupRuleSourceDefaultValueSerializer
 import com.google.fhir.model.r4b.serializers.StructureMapGroupRuleSourceSerializer
 import com.google.fhir.model.r4b.serializers.StructureMapGroupRuleTargetParameterSerializer
+import com.google.fhir.model.r4b.serializers.StructureMapGroupRuleTargetParameterValueSerializer
 import com.google.fhir.model.r4b.serializers.StructureMapGroupRuleTargetSerializer
 import com.google.fhir.model.r4b.serializers.StructureMapGroupSerializer
 import com.google.fhir.model.r4b.serializers.StructureMapSerializer
@@ -597,6 +599,7 @@ public data class StructureMap(
          */
         public var logMessage: String? = null,
       ) : BackboneElement() {
+        @Serializable(with = StructureMapGroupRuleSourceDefaultValueSerializer::class)
         public sealed interface DefaultValue {
           public fun asBase64Binary(): Base64Binary? = this as? Base64Binary
 
@@ -1057,6 +1060,7 @@ public data class StructureMap(
           /** Parameter value - variable or literal. */
           public var `value`: Value,
         ) : BackboneElement() {
+          @Serializable(with = StructureMapGroupRuleTargetParameterValueSerializer::class)
           public sealed interface Value {
             public fun asId(): Id? = this as? Id
 

@@ -19,17 +19,27 @@
 package com.google.fhir.model.r5.serializers
 
 import com.google.fhir.model.r5.CodeSystem
+import com.google.fhir.model.r5.FhirJsonTransformer
 import com.google.fhir.model.r5.surrogates.CodeSystemConceptDesignationSurrogate
 import com.google.fhir.model.r5.surrogates.CodeSystemConceptPropertySurrogate
+import com.google.fhir.model.r5.surrogates.CodeSystemConceptPropertyValueSurrogate
 import com.google.fhir.model.r5.surrogates.CodeSystemConceptSurrogate
 import com.google.fhir.model.r5.surrogates.CodeSystemFilterSurrogate
 import com.google.fhir.model.r5.surrogates.CodeSystemPropertySurrogate
 import com.google.fhir.model.r5.surrogates.CodeSystemSurrogate
+import com.google.fhir.model.r5.surrogates.CodeSystemVersionAlgorithmSurrogate
+import kotlin.String
 import kotlin.Suppress
+import kotlin.collections.List
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.descriptors.SerialDescriptor
 import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
+import kotlinx.serialization.json.JsonDecoder
+import kotlinx.serialization.json.JsonEncoder
+import kotlinx.serialization.json.JsonObject
+import kotlinx.serialization.json.JsonPrimitive
+import kotlinx.serialization.json.jsonObject
 
 public object CodeSystemFilterSerializer : KSerializer<CodeSystem.Filter> {
   internal val surrogateSerializer: KSerializer<CodeSystemFilterSurrogate> by lazy {
@@ -82,20 +92,68 @@ public object CodeSystemConceptDesignationSerializer : KSerializer<CodeSystem.Co
   }
 }
 
+public object CodeSystemConceptPropertyValueSerializer :
+  KSerializer<CodeSystem.Concept.Property.Value> {
+  internal val surrogateSerializer: KSerializer<CodeSystemConceptPropertyValueSurrogate> by lazy {
+    CodeSystemConceptPropertyValueSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Value", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): CodeSystem.Concept.Property.Value =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: CodeSystem.Concept.Property.Value) {
+    surrogateSerializer.serialize(encoder, CodeSystemConceptPropertyValueSurrogate.fromModel(value))
+  }
+}
+
 public object CodeSystemConceptPropertySerializer : KSerializer<CodeSystem.Concept.Property> {
   internal val surrogateSerializer: KSerializer<CodeSystemConceptPropertySurrogate> by lazy {
     CodeSystemConceptPropertySurrogate.serializer()
   }
 
+  private val resourceType: String? = null
+
+  private val multiChoiceProperties: List<String> = listOf("value")
+
   override val descriptor: SerialDescriptor by lazy {
     SerialDescriptor("Property", surrogateSerializer.descriptor)
   }
 
-  override fun deserialize(decoder: Decoder): CodeSystem.Concept.Property =
-    surrogateSerializer.deserialize(decoder).toModel()
+  override fun deserialize(decoder: Decoder): CodeSystem.Concept.Property {
+    val jsonDecoder =
+      decoder as? JsonDecoder ?: error("This serializer only supports JSON decoding")
+    val oldJsonObject =
+      if (resourceType.isNullOrBlank()) {
+        jsonDecoder.decodeJsonElement().jsonObject
+      } else
+        JsonObject(
+          jsonDecoder.decodeJsonElement().jsonObject.toMutableMap().apply { remove("resourceType") }
+        )
+    val unflattenedJsonObject = FhirJsonTransformer.unflatten(oldJsonObject, multiChoiceProperties)
+    val surrogate =
+      jsonDecoder.json.decodeFromJsonElement(surrogateSerializer, unflattenedJsonObject)
+    return surrogate.toModel()
+  }
 
   override fun serialize(encoder: Encoder, `value`: CodeSystem.Concept.Property) {
-    surrogateSerializer.serialize(encoder, CodeSystemConceptPropertySurrogate.fromModel(value))
+    val jsonEncoder =
+      encoder as? JsonEncoder ?: error("This serializer only supports JSON encoding")
+    val surrogate = CodeSystemConceptPropertySurrogate.fromModel(value)
+    val oldJsonObject =
+      if (resourceType.isNullOrBlank()) {
+        jsonEncoder.json.encodeToJsonElement(surrogateSerializer, surrogate).jsonObject
+      } else {
+        JsonObject(
+          mutableMapOf("resourceType" to JsonPrimitive(resourceType))
+            .plus(jsonEncoder.json.encodeToJsonElement(surrogateSerializer, surrogate).jsonObject)
+        )
+      }
+    val flattenedJsonObject = FhirJsonTransformer.flatten(oldJsonObject, multiChoiceProperties)
+    jsonEncoder.encodeJsonElement(flattenedJsonObject)
   }
 }
 
@@ -116,19 +174,66 @@ public object CodeSystemConceptSerializer : KSerializer<CodeSystem.Concept> {
   }
 }
 
+public object CodeSystemVersionAlgorithmSerializer : KSerializer<CodeSystem.VersionAlgorithm> {
+  internal val surrogateSerializer: KSerializer<CodeSystemVersionAlgorithmSurrogate> by lazy {
+    CodeSystemVersionAlgorithmSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("VersionAlgorithm", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): CodeSystem.VersionAlgorithm =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: CodeSystem.VersionAlgorithm) {
+    surrogateSerializer.serialize(encoder, CodeSystemVersionAlgorithmSurrogate.fromModel(value))
+  }
+}
+
 public object CodeSystemSerializer : KSerializer<CodeSystem> {
   internal val surrogateSerializer: KSerializer<CodeSystemSurrogate> by lazy {
     CodeSystemSurrogate.serializer()
   }
 
+  private val resourceType: String? = "CodeSystem"
+
+  private val multiChoiceProperties: List<String> = listOf("versionAlgorithm")
+
   override val descriptor: SerialDescriptor by lazy {
     SerialDescriptor("CodeSystem", surrogateSerializer.descriptor)
   }
 
-  override fun deserialize(decoder: Decoder): CodeSystem =
-    surrogateSerializer.deserialize(decoder).toModel()
+  override fun deserialize(decoder: Decoder): CodeSystem {
+    val jsonDecoder =
+      decoder as? JsonDecoder ?: error("This serializer only supports JSON decoding")
+    val oldJsonObject =
+      if (resourceType.isNullOrBlank()) {
+        jsonDecoder.decodeJsonElement().jsonObject
+      } else
+        JsonObject(
+          jsonDecoder.decodeJsonElement().jsonObject.toMutableMap().apply { remove("resourceType") }
+        )
+    val unflattenedJsonObject = FhirJsonTransformer.unflatten(oldJsonObject, multiChoiceProperties)
+    val surrogate =
+      jsonDecoder.json.decodeFromJsonElement(surrogateSerializer, unflattenedJsonObject)
+    return surrogate.toModel()
+  }
 
   override fun serialize(encoder: Encoder, `value`: CodeSystem) {
-    surrogateSerializer.serialize(encoder, CodeSystemSurrogate.fromModel(value))
+    val jsonEncoder =
+      encoder as? JsonEncoder ?: error("This serializer only supports JSON encoding")
+    val surrogate = CodeSystemSurrogate.fromModel(value)
+    val oldJsonObject =
+      if (resourceType.isNullOrBlank()) {
+        jsonEncoder.json.encodeToJsonElement(surrogateSerializer, surrogate).jsonObject
+      } else {
+        JsonObject(
+          mutableMapOf("resourceType" to JsonPrimitive(resourceType))
+            .plus(jsonEncoder.json.encodeToJsonElement(surrogateSerializer, surrogate).jsonObject)
+        )
+      }
+    val flattenedJsonObject = FhirJsonTransformer.flatten(oldJsonObject, multiChoiceProperties)
+    jsonEncoder.encodeJsonElement(flattenedJsonObject)
   }
 }

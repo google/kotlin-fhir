@@ -189,6 +189,74 @@ internal data class ImmunizationReactionSurrogate(
 }
 
 @Serializable
+internal data class ImmunizationProtocolAppliedDoseNumberSurrogate(
+  public var doseNumberPositiveInt: Int? = null,
+  public var _doseNumberPositiveInt: Element? = null,
+  public var doseNumberString: KotlinString? = null,
+  public var _doseNumberString: Element? = null,
+) {
+  public fun toModel(): Immunization.ProtocolApplied.DoseNumber =
+    Immunization.ProtocolApplied.DoseNumber.from(
+      PositiveInt.of(
+        this@ImmunizationProtocolAppliedDoseNumberSurrogate.doseNumberPositiveInt,
+        this@ImmunizationProtocolAppliedDoseNumberSurrogate._doseNumberPositiveInt,
+      ),
+      R4bString.of(
+        this@ImmunizationProtocolAppliedDoseNumberSurrogate.doseNumberString,
+        this@ImmunizationProtocolAppliedDoseNumberSurrogate._doseNumberString,
+      ),
+    )!! !!
+
+  public companion object {
+    public fun fromModel(
+      model: Immunization.ProtocolApplied.DoseNumber
+    ): ImmunizationProtocolAppliedDoseNumberSurrogate =
+      with(model) {
+        ImmunizationProtocolAppliedDoseNumberSurrogate(
+          doseNumberPositiveInt = this@with.asPositiveInt()?.value?.value,
+          _doseNumberPositiveInt = this@with.asPositiveInt()?.value?.toElement(),
+          doseNumberString = this@with.asString()?.value?.value,
+          _doseNumberString = this@with.asString()?.value?.toElement(),
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class ImmunizationProtocolAppliedSeriesDosesSurrogate(
+  public var seriesDosesPositiveInt: Int? = null,
+  public var _seriesDosesPositiveInt: Element? = null,
+  public var seriesDosesString: KotlinString? = null,
+  public var _seriesDosesString: Element? = null,
+) {
+  public fun toModel(): Immunization.ProtocolApplied.SeriesDoses =
+    Immunization.ProtocolApplied.SeriesDoses?.from(
+      PositiveInt.of(
+        this@ImmunizationProtocolAppliedSeriesDosesSurrogate.seriesDosesPositiveInt,
+        this@ImmunizationProtocolAppliedSeriesDosesSurrogate._seriesDosesPositiveInt,
+      ),
+      R4bString.of(
+        this@ImmunizationProtocolAppliedSeriesDosesSurrogate.seriesDosesString,
+        this@ImmunizationProtocolAppliedSeriesDosesSurrogate._seriesDosesString,
+      ),
+    )!!
+
+  public companion object {
+    public fun fromModel(
+      model: Immunization.ProtocolApplied.SeriesDoses
+    ): ImmunizationProtocolAppliedSeriesDosesSurrogate =
+      with(model) {
+        ImmunizationProtocolAppliedSeriesDosesSurrogate(
+          seriesDosesPositiveInt = this@with.asPositiveInt()?.value?.value,
+          _seriesDosesPositiveInt = this@with.asPositiveInt()?.value?.toElement(),
+          seriesDosesString = this@with.asString()?.value?.value,
+          _seriesDosesString = this@with.asString()?.value?.toElement(),
+        )
+      }
+  }
+}
+
+@Serializable
 internal data class ImmunizationProtocolAppliedSurrogate(
   public var id: KotlinString? = null,
   public var extension: MutableList<Extension>? = null,
@@ -197,14 +265,8 @@ internal data class ImmunizationProtocolAppliedSurrogate(
   public var _series: Element? = null,
   public var authority: Reference? = null,
   public var targetDisease: MutableList<CodeableConcept>? = null,
-  public var doseNumberPositiveInt: Int? = null,
-  public var _doseNumberPositiveInt: Element? = null,
-  public var doseNumberString: KotlinString? = null,
-  public var _doseNumberString: Element? = null,
-  public var seriesDosesPositiveInt: Int? = null,
-  public var _seriesDosesPositiveInt: Element? = null,
-  public var seriesDosesString: KotlinString? = null,
-  public var _seriesDosesString: Element? = null,
+  public var doseNumber: Immunization.ProtocolApplied.DoseNumber,
+  public var seriesDoses: Immunization.ProtocolApplied.SeriesDoses? = null,
 ) {
   public fun toModel(): Immunization.ProtocolApplied =
     Immunization.ProtocolApplied(
@@ -219,28 +281,8 @@ internal data class ImmunizationProtocolAppliedSurrogate(
         ),
       authority = this@ImmunizationProtocolAppliedSurrogate.authority,
       targetDisease = this@ImmunizationProtocolAppliedSurrogate.targetDisease ?: mutableListOf(),
-      doseNumber =
-        Immunization.ProtocolApplied.DoseNumber.from(
-          PositiveInt.of(
-            this@ImmunizationProtocolAppliedSurrogate.doseNumberPositiveInt,
-            this@ImmunizationProtocolAppliedSurrogate._doseNumberPositiveInt,
-          ),
-          R4bString.of(
-            this@ImmunizationProtocolAppliedSurrogate.doseNumberString,
-            this@ImmunizationProtocolAppliedSurrogate._doseNumberString,
-          ),
-        )!!,
-      seriesDoses =
-        Immunization.ProtocolApplied.SeriesDoses?.from(
-          PositiveInt.of(
-            this@ImmunizationProtocolAppliedSurrogate.seriesDosesPositiveInt,
-            this@ImmunizationProtocolAppliedSurrogate._seriesDosesPositiveInt,
-          ),
-          R4bString.of(
-            this@ImmunizationProtocolAppliedSurrogate.seriesDosesString,
-            this@ImmunizationProtocolAppliedSurrogate._seriesDosesString,
-          ),
-        ),
+      doseNumber = this@ImmunizationProtocolAppliedSurrogate.doseNumber,
+      seriesDoses = this@ImmunizationProtocolAppliedSurrogate.seriesDoses,
     )
 
   public companion object {
@@ -256,14 +298,40 @@ internal data class ImmunizationProtocolAppliedSurrogate(
           _series = this@with.series?.toElement(),
           authority = this@with.authority,
           targetDisease = this@with.targetDisease.takeUnless { it.all { it == null } },
-          doseNumberPositiveInt = this@with.doseNumber?.asPositiveInt()?.value?.value,
-          _doseNumberPositiveInt = this@with.doseNumber?.asPositiveInt()?.value?.toElement(),
-          doseNumberString = this@with.doseNumber?.asString()?.value?.value,
-          _doseNumberString = this@with.doseNumber?.asString()?.value?.toElement(),
-          seriesDosesPositiveInt = this@with.seriesDoses?.asPositiveInt()?.value?.value,
-          _seriesDosesPositiveInt = this@with.seriesDoses?.asPositiveInt()?.value?.toElement(),
-          seriesDosesString = this@with.seriesDoses?.asString()?.value?.value,
-          _seriesDosesString = this@with.seriesDoses?.asString()?.value?.toElement(),
+          doseNumber = this@with.doseNumber,
+          seriesDoses = this@with.seriesDoses,
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class ImmunizationOccurrenceSurrogate(
+  public var occurrenceDateTime: KotlinString? = null,
+  public var _occurrenceDateTime: Element? = null,
+  public var occurrenceString: KotlinString? = null,
+  public var _occurrenceString: Element? = null,
+) {
+  public fun toModel(): Immunization.Occurrence =
+    Immunization.Occurrence.from(
+      DateTime.of(
+        FhirDateTime.fromString(this@ImmunizationOccurrenceSurrogate.occurrenceDateTime),
+        this@ImmunizationOccurrenceSurrogate._occurrenceDateTime,
+      ),
+      R4bString.of(
+        this@ImmunizationOccurrenceSurrogate.occurrenceString,
+        this@ImmunizationOccurrenceSurrogate._occurrenceString,
+      ),
+    )!! !!
+
+  public companion object {
+    public fun fromModel(model: Immunization.Occurrence): ImmunizationOccurrenceSurrogate =
+      with(model) {
+        ImmunizationOccurrenceSurrogate(
+          occurrenceDateTime = this@with.asDateTime()?.value?.value?.toString(),
+          _occurrenceDateTime = this@with.asDateTime()?.value?.toElement(),
+          occurrenceString = this@with.asString()?.value?.value,
+          _occurrenceString = this@with.asString()?.value?.toElement(),
         )
       }
   }
@@ -288,10 +356,7 @@ internal data class ImmunizationSurrogate(
   public var vaccineCode: CodeableConcept,
   public var patient: Reference,
   public var encounter: Reference? = null,
-  public var occurrenceDateTime: KotlinString? = null,
-  public var _occurrenceDateTime: Element? = null,
-  public var occurrenceString: KotlinString? = null,
-  public var _occurrenceString: Element? = null,
+  public var occurrence: Immunization.Occurrence,
   public var recorded: KotlinString? = null,
   public var _recorded: Element? = null,
   public var primarySource: KotlinBoolean? = null,
@@ -342,17 +407,7 @@ internal data class ImmunizationSurrogate(
       vaccineCode = this@ImmunizationSurrogate.vaccineCode,
       patient = this@ImmunizationSurrogate.patient,
       encounter = this@ImmunizationSurrogate.encounter,
-      occurrence =
-        Immunization.Occurrence.from(
-          DateTime.of(
-            FhirDateTime.fromString(this@ImmunizationSurrogate.occurrenceDateTime),
-            this@ImmunizationSurrogate._occurrenceDateTime,
-          ),
-          R4bString.of(
-            this@ImmunizationSurrogate.occurrenceString,
-            this@ImmunizationSurrogate._occurrenceString,
-          ),
-        )!!,
+      occurrence = this@ImmunizationSurrogate.occurrence,
       recorded =
         DateTime.of(
           FhirDateTime.fromString(this@ImmunizationSurrogate.recorded),
@@ -414,10 +469,7 @@ internal data class ImmunizationSurrogate(
           vaccineCode = this@with.vaccineCode,
           patient = this@with.patient,
           encounter = this@with.encounter,
-          occurrenceDateTime = this@with.occurrence?.asDateTime()?.value?.value?.toString(),
-          _occurrenceDateTime = this@with.occurrence?.asDateTime()?.value?.toElement(),
-          occurrenceString = this@with.occurrence?.asString()?.value?.value,
-          _occurrenceString = this@with.occurrence?.asString()?.value?.toElement(),
+          occurrence = this@with.occurrence,
           recorded = this@with.recorded?.value?.toString(),
           _recorded = this@with.recorded?.toElement(),
           primarySource = this@with.primarySource?.value,

@@ -18,7 +18,10 @@
 
 package com.google.fhir.model.r4
 
+import com.google.fhir.model.r4.serializers.SupplyRequestItemSerializer
+import com.google.fhir.model.r4.serializers.SupplyRequestOccurrenceSerializer
 import com.google.fhir.model.r4.serializers.SupplyRequestParameterSerializer
+import com.google.fhir.model.r4.serializers.SupplyRequestParameterValueSerializer
 import com.google.fhir.model.r4.serializers.SupplyRequestSerializer
 import kotlin.String
 import kotlin.Suppress
@@ -224,6 +227,7 @@ public data class SupplyRequest(
      */
     public var `value`: Value? = null,
   ) : BackboneElement() {
+    @Serializable(with = SupplyRequestParameterValueSerializer::class)
     public sealed interface Value {
       public fun asCodeableConcept(): CodeableConcept? = this as? CodeableConcept
 
@@ -260,6 +264,7 @@ public data class SupplyRequest(
     }
   }
 
+  @Serializable(with = SupplyRequestItemSerializer::class)
   public sealed interface Item {
     public fun asCodeableConcept(): CodeableConcept? = this as? CodeableConcept
 
@@ -283,6 +288,7 @@ public data class SupplyRequest(
     }
   }
 
+  @Serializable(with = SupplyRequestOccurrenceSerializer::class)
   public sealed interface Occurrence {
     public fun asDateTime(): DateTime? = this as? DateTime
 

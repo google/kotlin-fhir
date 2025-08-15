@@ -34,14 +34,39 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
+internal data class ProductShelfLifePeriodSurrogate(
+  public var periodDuration: Duration? = null,
+  public var periodString: KotlinString? = null,
+  public var _periodString: Element? = null,
+) {
+  public fun toModel(): ProductShelfLife.Period =
+    ProductShelfLife.Period?.from(
+      this@ProductShelfLifePeriodSurrogate.periodDuration,
+      R5String.of(
+        this@ProductShelfLifePeriodSurrogate.periodString,
+        this@ProductShelfLifePeriodSurrogate._periodString,
+      ),
+    )!!
+
+  public companion object {
+    public fun fromModel(model: ProductShelfLife.Period): ProductShelfLifePeriodSurrogate =
+      with(model) {
+        ProductShelfLifePeriodSurrogate(
+          periodDuration = this@with.asDuration()?.value,
+          periodString = this@with.asString()?.value?.value,
+          _periodString = this@with.asString()?.value?.toElement(),
+        )
+      }
+  }
+}
+
+@Serializable
 internal data class ProductShelfLifeSurrogate(
   public var id: KotlinString? = null,
   public var extension: MutableList<Extension>? = null,
   public var modifierExtension: MutableList<Extension>? = null,
   public var type: CodeableConcept? = null,
-  public var periodDuration: Duration? = null,
-  public var periodString: KotlinString? = null,
-  public var _periodString: Element? = null,
+  public var period: ProductShelfLife.Period? = null,
   public var specialPrecautionsForStorage: MutableList<CodeableConcept>? = null,
 ) {
   public fun toModel(): ProductShelfLife =
@@ -50,14 +75,7 @@ internal data class ProductShelfLifeSurrogate(
       extension = this@ProductShelfLifeSurrogate.extension ?: mutableListOf(),
       modifierExtension = this@ProductShelfLifeSurrogate.modifierExtension ?: mutableListOf(),
       type = this@ProductShelfLifeSurrogate.type,
-      period =
-        ProductShelfLife.Period?.from(
-          this@ProductShelfLifeSurrogate.periodDuration,
-          R5String.of(
-            this@ProductShelfLifeSurrogate.periodString,
-            this@ProductShelfLifeSurrogate._periodString,
-          ),
-        ),
+      period = this@ProductShelfLifeSurrogate.period,
       specialPrecautionsForStorage =
         this@ProductShelfLifeSurrogate.specialPrecautionsForStorage ?: mutableListOf(),
     )
@@ -70,9 +88,7 @@ internal data class ProductShelfLifeSurrogate(
           extension = this@with.extension.takeUnless { it.all { it == null } },
           modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
           type = this@with.type,
-          periodDuration = this@with.period?.asDuration()?.value,
-          periodString = this@with.period?.asString()?.value?.value,
-          _periodString = this@with.period?.asString()?.value?.toElement(),
+          period = this@with.period,
           specialPrecautionsForStorage =
             this@with.specialPrecautionsForStorage.takeUnless { it.all { it == null } },
         )

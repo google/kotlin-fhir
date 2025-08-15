@@ -18,10 +18,13 @@
 
 package com.google.fhir.model.r4b
 
+import com.google.fhir.model.r4b.serializers.EvidenceReportCiteAsSerializer
 import com.google.fhir.model.r4b.serializers.EvidenceReportRelatesToSerializer
+import com.google.fhir.model.r4b.serializers.EvidenceReportRelatesToTargetSerializer
 import com.google.fhir.model.r4b.serializers.EvidenceReportSectionSerializer
 import com.google.fhir.model.r4b.serializers.EvidenceReportSerializer
 import com.google.fhir.model.r4b.serializers.EvidenceReportSubjectCharacteristicSerializer
+import com.google.fhir.model.r4b.serializers.EvidenceReportSubjectCharacteristicValueSerializer
 import com.google.fhir.model.r4b.serializers.EvidenceReportSubjectSerializer
 import kotlin.Suppress
 import kotlin.collections.MutableList
@@ -359,6 +362,7 @@ public data class EvidenceReport(
       /** Timeframe for the characteristic. */
       public var period: Period? = null,
     ) : BackboneElement() {
+      @Serializable(with = EvidenceReportSubjectCharacteristicValueSerializer::class)
       public sealed interface Value {
         public fun asReference(): Reference? = this as? Reference
 
@@ -456,6 +460,7 @@ public data class EvidenceReport(
     /** The target composition/document of this relationship. */
     public var target: Target,
   ) : BackboneElement() {
+    @Serializable(with = EvidenceReportRelatesToTargetSerializer::class)
     public sealed interface Target {
       public fun asIdentifier(): Identifier? = this as? Identifier
 
@@ -608,6 +613,7 @@ public data class EvidenceReport(
     public var section: MutableList<Section> = mutableListOf(),
   ) : BackboneElement()
 
+  @Serializable(with = EvidenceReportCiteAsSerializer::class)
   public sealed interface CiteAs {
     public fun asReference(): Reference? = this as? Reference
 

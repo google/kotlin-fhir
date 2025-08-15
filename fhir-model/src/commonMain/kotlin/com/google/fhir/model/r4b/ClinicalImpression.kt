@@ -18,6 +18,7 @@
 
 package com.google.fhir.model.r4b
 
+import com.google.fhir.model.r4b.serializers.ClinicalImpressionEffectiveSerializer
 import com.google.fhir.model.r4b.serializers.ClinicalImpressionFindingSerializer
 import com.google.fhir.model.r4b.serializers.ClinicalImpressionInvestigationSerializer
 import com.google.fhir.model.r4b.serializers.ClinicalImpressionSerializer
@@ -359,6 +360,7 @@ public data class ClinicalImpression(
     public var basis: String? = null,
   ) : BackboneElement()
 
+  @Serializable(with = ClinicalImpressionEffectiveSerializer::class)
   public sealed interface Effective {
     public fun asDateTime(): DateTime? = this as? DateTime
 

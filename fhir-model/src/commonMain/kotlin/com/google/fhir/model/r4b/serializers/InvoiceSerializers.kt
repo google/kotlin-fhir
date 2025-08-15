@@ -18,16 +18,25 @@
 
 package com.google.fhir.model.r4b.serializers
 
+import com.google.fhir.model.r4b.FhirJsonTransformer
 import com.google.fhir.model.r4b.Invoice
+import com.google.fhir.model.r4b.surrogates.InvoiceLineItemChargeItemSurrogate
 import com.google.fhir.model.r4b.surrogates.InvoiceLineItemPriceComponentSurrogate
 import com.google.fhir.model.r4b.surrogates.InvoiceLineItemSurrogate
 import com.google.fhir.model.r4b.surrogates.InvoiceParticipantSurrogate
 import com.google.fhir.model.r4b.surrogates.InvoiceSurrogate
+import kotlin.String
 import kotlin.Suppress
+import kotlin.collections.List
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.descriptors.SerialDescriptor
 import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
+import kotlinx.serialization.json.JsonDecoder
+import kotlinx.serialization.json.JsonEncoder
+import kotlinx.serialization.json.JsonObject
+import kotlinx.serialization.json.JsonPrimitive
+import kotlinx.serialization.json.jsonObject
 
 public object InvoiceParticipantSerializer : KSerializer<Invoice.Participant> {
   internal val surrogateSerializer: KSerializer<InvoiceParticipantSurrogate> by lazy {
@@ -64,20 +73,67 @@ public object InvoiceLineItemPriceComponentSerializer :
   }
 }
 
+public object InvoiceLineItemChargeItemSerializer : KSerializer<Invoice.LineItem.ChargeItem> {
+  internal val surrogateSerializer: KSerializer<InvoiceLineItemChargeItemSurrogate> by lazy {
+    InvoiceLineItemChargeItemSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("ChargeItem", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): Invoice.LineItem.ChargeItem =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: Invoice.LineItem.ChargeItem) {
+    surrogateSerializer.serialize(encoder, InvoiceLineItemChargeItemSurrogate.fromModel(value))
+  }
+}
+
 public object InvoiceLineItemSerializer : KSerializer<Invoice.LineItem> {
   internal val surrogateSerializer: KSerializer<InvoiceLineItemSurrogate> by lazy {
     InvoiceLineItemSurrogate.serializer()
   }
 
+  private val resourceType: String? = null
+
+  private val multiChoiceProperties: List<String> = listOf("chargeItem")
+
   override val descriptor: SerialDescriptor by lazy {
     SerialDescriptor("LineItem", surrogateSerializer.descriptor)
   }
 
-  override fun deserialize(decoder: Decoder): Invoice.LineItem =
-    surrogateSerializer.deserialize(decoder).toModel()
+  override fun deserialize(decoder: Decoder): Invoice.LineItem {
+    val jsonDecoder =
+      decoder as? JsonDecoder ?: error("This serializer only supports JSON decoding")
+    val oldJsonObject =
+      if (resourceType.isNullOrBlank()) {
+        jsonDecoder.decodeJsonElement().jsonObject
+      } else
+        JsonObject(
+          jsonDecoder.decodeJsonElement().jsonObject.toMutableMap().apply { remove("resourceType") }
+        )
+    val unflattenedJsonObject = FhirJsonTransformer.unflatten(oldJsonObject, multiChoiceProperties)
+    val surrogate =
+      jsonDecoder.json.decodeFromJsonElement(surrogateSerializer, unflattenedJsonObject)
+    return surrogate.toModel()
+  }
 
   override fun serialize(encoder: Encoder, `value`: Invoice.LineItem) {
-    surrogateSerializer.serialize(encoder, InvoiceLineItemSurrogate.fromModel(value))
+    val jsonEncoder =
+      encoder as? JsonEncoder ?: error("This serializer only supports JSON encoding")
+    val surrogate = InvoiceLineItemSurrogate.fromModel(value)
+    val oldJsonObject =
+      if (resourceType.isNullOrBlank()) {
+        jsonEncoder.json.encodeToJsonElement(surrogateSerializer, surrogate).jsonObject
+      } else {
+        JsonObject(
+          mutableMapOf("resourceType" to JsonPrimitive(resourceType))
+            .plus(jsonEncoder.json.encodeToJsonElement(surrogateSerializer, surrogate).jsonObject)
+        )
+      }
+    val flattenedJsonObject = FhirJsonTransformer.flatten(oldJsonObject, multiChoiceProperties)
+    jsonEncoder.encodeJsonElement(flattenedJsonObject)
   }
 }
 

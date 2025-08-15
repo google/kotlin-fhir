@@ -50,11 +50,7 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
-internal data class ManufacturedItemDefinitionPropertySurrogate(
-  public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var type: CodeableConcept,
+internal data class ManufacturedItemDefinitionPropertyValueSurrogate(
   public var valueCodeableConcept: CodeableConcept? = null,
   public var valueQuantity: Quantity? = null,
   public var valueDate: KotlinString? = null,
@@ -66,6 +62,55 @@ internal data class ManufacturedItemDefinitionPropertySurrogate(
   public var valueAttachment: Attachment? = null,
   public var valueReference: Reference? = null,
 ) {
+  public fun toModel(): ManufacturedItemDefinition.Property.Value =
+    ManufacturedItemDefinition.Property.Value?.from(
+      this@ManufacturedItemDefinitionPropertyValueSurrogate.valueCodeableConcept,
+      this@ManufacturedItemDefinitionPropertyValueSurrogate.valueQuantity,
+      Date.of(
+        FhirDate.fromString(this@ManufacturedItemDefinitionPropertyValueSurrogate.valueDate),
+        this@ManufacturedItemDefinitionPropertyValueSurrogate._valueDate,
+      ),
+      R5Boolean.of(
+        this@ManufacturedItemDefinitionPropertyValueSurrogate.valueBoolean,
+        this@ManufacturedItemDefinitionPropertyValueSurrogate._valueBoolean,
+      ),
+      Markdown.of(
+        this@ManufacturedItemDefinitionPropertyValueSurrogate.valueMarkdown,
+        this@ManufacturedItemDefinitionPropertyValueSurrogate._valueMarkdown,
+      ),
+      this@ManufacturedItemDefinitionPropertyValueSurrogate.valueAttachment,
+      this@ManufacturedItemDefinitionPropertyValueSurrogate.valueReference,
+    )!!
+
+  public companion object {
+    public fun fromModel(
+      model: ManufacturedItemDefinition.Property.Value
+    ): ManufacturedItemDefinitionPropertyValueSurrogate =
+      with(model) {
+        ManufacturedItemDefinitionPropertyValueSurrogate(
+          valueCodeableConcept = this@with.asCodeableConcept()?.value,
+          valueQuantity = this@with.asQuantity()?.value,
+          valueDate = this@with.asDate()?.value?.value?.toString(),
+          _valueDate = this@with.asDate()?.value?.toElement(),
+          valueBoolean = this@with.asBoolean()?.value?.value,
+          _valueBoolean = this@with.asBoolean()?.value?.toElement(),
+          valueMarkdown = this@with.asMarkdown()?.value?.value,
+          _valueMarkdown = this@with.asMarkdown()?.value?.toElement(),
+          valueAttachment = this@with.asAttachment()?.value,
+          valueReference = this@with.asReference()?.value,
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class ManufacturedItemDefinitionPropertySurrogate(
+  public var id: KotlinString? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var type: CodeableConcept,
+  public var `value`: ManufacturedItemDefinition.Property.Value? = null,
+) {
   public fun toModel(): ManufacturedItemDefinition.Property =
     ManufacturedItemDefinition.Property(
       id = this@ManufacturedItemDefinitionPropertySurrogate.id,
@@ -73,25 +118,7 @@ internal data class ManufacturedItemDefinitionPropertySurrogate(
       modifierExtension =
         this@ManufacturedItemDefinitionPropertySurrogate.modifierExtension ?: mutableListOf(),
       type = this@ManufacturedItemDefinitionPropertySurrogate.type,
-      `value` =
-        ManufacturedItemDefinition.Property.Value?.from(
-          this@ManufacturedItemDefinitionPropertySurrogate.valueCodeableConcept,
-          this@ManufacturedItemDefinitionPropertySurrogate.valueQuantity,
-          Date.of(
-            FhirDate.fromString(this@ManufacturedItemDefinitionPropertySurrogate.valueDate),
-            this@ManufacturedItemDefinitionPropertySurrogate._valueDate,
-          ),
-          R5Boolean.of(
-            this@ManufacturedItemDefinitionPropertySurrogate.valueBoolean,
-            this@ManufacturedItemDefinitionPropertySurrogate._valueBoolean,
-          ),
-          Markdown.of(
-            this@ManufacturedItemDefinitionPropertySurrogate.valueMarkdown,
-            this@ManufacturedItemDefinitionPropertySurrogate._valueMarkdown,
-          ),
-          this@ManufacturedItemDefinitionPropertySurrogate.valueAttachment,
-          this@ManufacturedItemDefinitionPropertySurrogate.valueReference,
-        ),
+      `value` = this@ManufacturedItemDefinitionPropertySurrogate.`value`,
     )
 
   public companion object {
@@ -104,16 +131,7 @@ internal data class ManufacturedItemDefinitionPropertySurrogate(
           extension = this@with.extension.takeUnless { it.all { it == null } },
           modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
           type = this@with.type,
-          valueCodeableConcept = this@with.`value`?.asCodeableConcept()?.value,
-          valueQuantity = this@with.`value`?.asQuantity()?.value,
-          valueDate = this@with.`value`?.asDate()?.value?.value?.toString(),
-          _valueDate = this@with.`value`?.asDate()?.value?.toElement(),
-          valueBoolean = this@with.`value`?.asBoolean()?.value?.value,
-          _valueBoolean = this@with.`value`?.asBoolean()?.value?.toElement(),
-          valueMarkdown = this@with.`value`?.asMarkdown()?.value?.value,
-          _valueMarkdown = this@with.`value`?.asMarkdown()?.value?.toElement(),
-          valueAttachment = this@with.`value`?.asAttachment()?.value,
-          valueReference = this@with.`value`?.asReference()?.value,
+          `value` = this@with.`value`,
         )
       }
   }

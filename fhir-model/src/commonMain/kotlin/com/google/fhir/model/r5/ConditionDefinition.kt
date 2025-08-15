@@ -22,8 +22,10 @@ import com.google.fhir.model.r5.serializers.ConditionDefinitionMedicationSeriali
 import com.google.fhir.model.r5.serializers.ConditionDefinitionObservationSerializer
 import com.google.fhir.model.r5.serializers.ConditionDefinitionPlanSerializer
 import com.google.fhir.model.r5.serializers.ConditionDefinitionPreconditionSerializer
+import com.google.fhir.model.r5.serializers.ConditionDefinitionPreconditionValueSerializer
 import com.google.fhir.model.r5.serializers.ConditionDefinitionQuestionnaireSerializer
 import com.google.fhir.model.r5.serializers.ConditionDefinitionSerializer
+import com.google.fhir.model.r5.serializers.ConditionDefinitionVersionAlgorithmSerializer
 import kotlin.Suppress
 import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
@@ -472,6 +474,7 @@ public data class ConditionDefinition(
     /** Value of Observation. */
     public var `value`: Value? = null,
   ) : BackboneElement() {
+    @Serializable(with = ConditionDefinitionPreconditionValueSerializer::class)
     public sealed interface Value {
       public fun asCodeableConcept(): CodeableConcept? = this as? CodeableConcept
 
@@ -588,6 +591,7 @@ public data class ConditionDefinition(
     public var reference: Reference,
   ) : BackboneElement()
 
+  @Serializable(with = ConditionDefinitionVersionAlgorithmSerializer::class)
   public sealed interface VersionAlgorithm {
     public fun asString(): String? = this as? String
 

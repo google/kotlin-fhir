@@ -81,6 +81,30 @@ internal data class MedicationAdministrationPerformerSurrogate(
 }
 
 @Serializable
+internal data class MedicationAdministrationDosageRateSurrogate(
+  public var rateRatio: Ratio? = null,
+  public var rateQuantity: Quantity? = null,
+) {
+  public fun toModel(): MedicationAdministration.Dosage.Rate =
+    MedicationAdministration.Dosage.Rate?.from(
+      this@MedicationAdministrationDosageRateSurrogate.rateRatio,
+      this@MedicationAdministrationDosageRateSurrogate.rateQuantity,
+    )!!
+
+  public companion object {
+    public fun fromModel(
+      model: MedicationAdministration.Dosage.Rate
+    ): MedicationAdministrationDosageRateSurrogate =
+      with(model) {
+        MedicationAdministrationDosageRateSurrogate(
+          rateRatio = this@with.asRatio()?.value,
+          rateQuantity = this@with.asQuantity()?.value,
+        )
+      }
+  }
+}
+
+@Serializable
 internal data class MedicationAdministrationDosageSurrogate(
   public var id: KotlinString? = null,
   public var extension: MutableList<Extension>? = null,
@@ -91,8 +115,7 @@ internal data class MedicationAdministrationDosageSurrogate(
   public var route: CodeableConcept? = null,
   public var method: CodeableConcept? = null,
   public var dose: Quantity? = null,
-  public var rateRatio: Ratio? = null,
-  public var rateQuantity: Quantity? = null,
+  public var rate: MedicationAdministration.Dosage.Rate? = null,
 ) {
   public fun toModel(): MedicationAdministration.Dosage =
     MedicationAdministration.Dosage(
@@ -109,11 +132,7 @@ internal data class MedicationAdministrationDosageSurrogate(
       route = this@MedicationAdministrationDosageSurrogate.route,
       method = this@MedicationAdministrationDosageSurrogate.method,
       dose = this@MedicationAdministrationDosageSurrogate.dose,
-      rate =
-        MedicationAdministration.Dosage.Rate?.from(
-          this@MedicationAdministrationDosageSurrogate.rateRatio,
-          this@MedicationAdministrationDosageSurrogate.rateQuantity,
-        ),
+      rate = this@MedicationAdministrationDosageSurrogate.rate,
     )
 
   public companion object {
@@ -131,8 +150,60 @@ internal data class MedicationAdministrationDosageSurrogate(
           route = this@with.route,
           method = this@with.method,
           dose = this@with.dose,
-          rateRatio = this@with.rate?.asRatio()?.value,
-          rateQuantity = this@with.rate?.asQuantity()?.value,
+          rate = this@with.rate,
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class MedicationAdministrationMedicationSurrogate(
+  public var medicationCodeableConcept: CodeableConcept? = null,
+  public var medicationReference: Reference? = null,
+) {
+  public fun toModel(): MedicationAdministration.Medication =
+    MedicationAdministration.Medication.from(
+      this@MedicationAdministrationMedicationSurrogate.medicationCodeableConcept,
+      this@MedicationAdministrationMedicationSurrogate.medicationReference,
+    )!! !!
+
+  public companion object {
+    public fun fromModel(
+      model: MedicationAdministration.Medication
+    ): MedicationAdministrationMedicationSurrogate =
+      with(model) {
+        MedicationAdministrationMedicationSurrogate(
+          medicationCodeableConcept = this@with.asCodeableConcept()?.value,
+          medicationReference = this@with.asReference()?.value,
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class MedicationAdministrationEffectiveSurrogate(
+  public var effectiveDateTime: KotlinString? = null,
+  public var _effectiveDateTime: Element? = null,
+  public var effectivePeriod: Period? = null,
+) {
+  public fun toModel(): MedicationAdministration.Effective =
+    MedicationAdministration.Effective.from(
+      DateTime.of(
+        FhirDateTime.fromString(this@MedicationAdministrationEffectiveSurrogate.effectiveDateTime),
+        this@MedicationAdministrationEffectiveSurrogate._effectiveDateTime,
+      ),
+      this@MedicationAdministrationEffectiveSurrogate.effectivePeriod,
+    )!! !!
+
+  public companion object {
+    public fun fromModel(
+      model: MedicationAdministration.Effective
+    ): MedicationAdministrationEffectiveSurrogate =
+      with(model) {
+        MedicationAdministrationEffectiveSurrogate(
+          effectiveDateTime = this@with.asDateTime()?.value?.value?.toString(),
+          _effectiveDateTime = this@with.asDateTime()?.value?.toElement(),
+          effectivePeriod = this@with.asPeriod()?.value,
         )
       }
   }
@@ -158,14 +229,11 @@ internal data class MedicationAdministrationSurrogate(
   public var _status: Element? = null,
   public var statusReason: MutableList<CodeableConcept>? = null,
   public var category: CodeableConcept? = null,
-  public var medicationCodeableConcept: CodeableConcept? = null,
-  public var medicationReference: Reference? = null,
+  public var medication: MedicationAdministration.Medication,
   public var subject: Reference,
   public var context: Reference? = null,
   public var supportingInformation: MutableList<Reference>? = null,
-  public var effectiveDateTime: KotlinString? = null,
-  public var _effectiveDateTime: Element? = null,
-  public var effectivePeriod: Period? = null,
+  public var effective: MedicationAdministration.Effective,
   public var performer: MutableList<MedicationAdministration.Performer>? = null,
   public var reasonCode: MutableList<CodeableConcept>? = null,
   public var reasonReference: MutableList<Reference>? = null,
@@ -220,23 +288,12 @@ internal data class MedicationAdministrationSurrogate(
         ),
       statusReason = this@MedicationAdministrationSurrogate.statusReason ?: mutableListOf(),
       category = this@MedicationAdministrationSurrogate.category,
-      medication =
-        MedicationAdministration.Medication.from(
-          this@MedicationAdministrationSurrogate.medicationCodeableConcept,
-          this@MedicationAdministrationSurrogate.medicationReference,
-        )!!,
+      medication = this@MedicationAdministrationSurrogate.medication,
       subject = this@MedicationAdministrationSurrogate.subject,
       context = this@MedicationAdministrationSurrogate.context,
       supportingInformation =
         this@MedicationAdministrationSurrogate.supportingInformation ?: mutableListOf(),
-      effective =
-        MedicationAdministration.Effective.from(
-          DateTime.of(
-            FhirDateTime.fromString(this@MedicationAdministrationSurrogate.effectiveDateTime),
-            this@MedicationAdministrationSurrogate._effectiveDateTime,
-          ),
-          this@MedicationAdministrationSurrogate.effectivePeriod,
-        )!!,
+      effective = this@MedicationAdministrationSurrogate.effective,
       performer = this@MedicationAdministrationSurrogate.performer ?: mutableListOf(),
       reasonCode = this@MedicationAdministrationSurrogate.reasonCode ?: mutableListOf(),
       reasonReference = this@MedicationAdministrationSurrogate.reasonReference ?: mutableListOf(),
@@ -278,15 +335,12 @@ internal data class MedicationAdministrationSurrogate(
           _status = this@with.status.toElement(),
           statusReason = this@with.statusReason.takeUnless { it.all { it == null } },
           category = this@with.category,
-          medicationCodeableConcept = this@with.medication?.asCodeableConcept()?.value,
-          medicationReference = this@with.medication?.asReference()?.value,
+          medication = this@with.medication,
           subject = this@with.subject,
           context = this@with.context,
           supportingInformation =
             this@with.supportingInformation.takeUnless { it.all { it == null } },
-          effectiveDateTime = this@with.effective?.asDateTime()?.value?.value?.toString(),
-          _effectiveDateTime = this@with.effective?.asDateTime()?.value?.toElement(),
-          effectivePeriod = this@with.effective?.asPeriod()?.value,
+          effective = this@with.effective,
           performer = this@with.performer.takeUnless { it.all { it == null } },
           reasonCode = this@with.reasonCode.takeUnless { it.all { it == null } },
           reasonReference = this@with.reasonReference.takeUnless { it.all { it == null } },

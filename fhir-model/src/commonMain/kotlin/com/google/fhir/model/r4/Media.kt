@@ -18,6 +18,7 @@
 
 package com.google.fhir.model.r4
 
+import com.google.fhir.model.r4.serializers.MediaCreatedSerializer
 import com.google.fhir.model.r4.serializers.MediaSerializer
 import kotlin.Suppress
 import kotlin.collections.MutableList
@@ -253,6 +254,7 @@ public data class Media(
    */
   public var note: MutableList<Annotation> = mutableListOf(),
 ) : DomainResource() {
+  @Serializable(with = MediaCreatedSerializer::class)
   public sealed interface Created {
     public fun asDateTime(): DateTime? = this as? DateTime
 

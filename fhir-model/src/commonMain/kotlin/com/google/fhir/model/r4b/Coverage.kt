@@ -21,6 +21,7 @@ package com.google.fhir.model.r4b
 import com.google.fhir.model.r4b.serializers.CoverageClassSerializer
 import com.google.fhir.model.r4b.serializers.CoverageCostToBeneficiaryExceptionSerializer
 import com.google.fhir.model.r4b.serializers.CoverageCostToBeneficiarySerializer
+import com.google.fhir.model.r4b.serializers.CoverageCostToBeneficiaryValueSerializer
 import com.google.fhir.model.r4b.serializers.CoverageSerializer
 import kotlin.Suppress
 import kotlin.collections.MutableList
@@ -400,6 +401,7 @@ public data class Coverage(
       public var period: Period? = null,
     ) : BackboneElement()
 
+    @Serializable(with = CoverageCostToBeneficiaryValueSerializer::class)
     public sealed interface Value {
       public fun asQuantity(): Quantity? = this as? Quantity
 

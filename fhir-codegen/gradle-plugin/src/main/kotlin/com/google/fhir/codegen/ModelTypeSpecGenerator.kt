@@ -59,6 +59,7 @@ class ModelTypeSpecGenerator(
     modelClassName: ClassName,
     structureDefinition: StructureDefinition,
     isBaseClass: Boolean,
+    surrogateTypeSpecGenerator: SurrogateTypeSpecGenerator,
     surrogateFileSpec: FileSpec.Builder,
     serializerFileSpec: FileSpec.Builder,
   ): TypeSpec {
@@ -146,14 +147,15 @@ class ModelTypeSpecGenerator(
             enclosingModelClassName = modelClassName,
             backboneElements = structureDefinition.backboneElements,
             structureDefinition = structureDefinition,
-            surrogateTypeSpec = surrogateFileSpec,
-            serializerTypeSpec = serializerFileSpec,
+            surrogateTypeSpecGenerator = surrogateTypeSpecGenerator,
+            surrogateFileSpec = surrogateFileSpec,
+            serializerFileSpec = serializerFileSpec,
             createBindingToEnumTypeSpecEntry = { bindingName, typeSpec ->
               enumClassesMap.putIfAbsent(bindingName, typeSpec)
             },
           )
 
-          addSealedInterfaces(modelClassName, structureDefinition.rootElements)
+          addSealedInterfaces(modelClassName, structureDefinition.rootElements, serializerFileSpec)
 
           addEnumClassTypeSpec(
             elements = structureDefinition.rootElements,
@@ -208,8 +210,9 @@ class ModelTypeSpecGenerator(
     enclosingModelClassName: ClassName,
     backboneElements: Map<Element, List<Element>>,
     structureDefinition: StructureDefinition,
-    surrogateTypeSpec: FileSpec.Builder,
-    serializerTypeSpec: FileSpec.Builder,
+    surrogateTypeSpecGenerator: SurrogateTypeSpecGenerator,
+    surrogateFileSpec: FileSpec.Builder,
+    serializerFileSpec: FileSpec.Builder,
     createBindingToEnumTypeSpecEntry: (String, TypeSpec) -> Unit,
   ): TypeSpec.Builder {
     backboneElements
@@ -235,28 +238,35 @@ class ModelTypeSpecGenerator(
             .buildProperties(backboneElementClassName, elements, null, false, valueSetMap)
             .addBackboneElement(
               backboneElement.path,
-              enclosingModelClassName.nestedClass(name),
+              backboneElementClassName,
               backboneElements,
               structureDefinition,
-              surrogateTypeSpec,
-              serializerTypeSpec,
+              surrogateTypeSpecGenerator,
+              surrogateFileSpec,
+              serializerFileSpec,
               createBindingToEnumTypeSpecEntry,
             )
             .addSealedInterfaces(
               backboneElementClassName,
               structureDefinition.getElements(backboneElementClassName),
+              serializerFileSpec,
             )
             .build()
         )
 
         // TODO: Handle cases where the BackboneElement does not need the surrogate class and
         //  the custom serializer since it does not have any primitive fields.
-        surrogateTypeSpec.addType(
-          SurrogateTypeSpecGenerator(valueSetMap)
-            .generate(enclosingModelClassName.nestedClass(name.capitalized()), elements)
-        )
-        serializerTypeSpec.addType(
-          SerializerTypeSpecGenerator.generate(enclosingModelClassName.nestedClass(name))
+        surrogateFileSpec.apply {
+          surrogateTypeSpecGenerator
+            .generateSealedInterfaceSurrogates(backboneElementClassName, elements)
+            .forEach(this::addType)
+          addType(
+            surrogateTypeSpecGenerator.generateModelSurrogate(backboneElementClassName, elements)
+          )
+        }
+
+        serializerFileSpec.addType(
+          SerializerTypeSpecGenerator.generate(backboneElementClassName, elements)
         )
       }
 
@@ -386,6 +396,7 @@ private fun TypeSpec.Builder.buildProperties(
 private fun TypeSpec.Builder.addSealedInterfaces(
   enclosingModelClassName: ClassName,
   elements: List<Element>,
+  serializerFileSpec: FileSpec.Builder,
 ): TypeSpec.Builder {
   for (element in elements.filter { it.path.endsWith("[x]") }) {
     val sealedInterfaceClassName =
@@ -393,6 +404,11 @@ private fun TypeSpec.Builder.addSealedInterfaces(
     addType(
       TypeSpec.interfaceBuilder(sealedInterfaceClassName)
         .addModifiers(KModifier.SEALED)
+        .addAnnotation(
+          AnnotationSpec.builder(Serializable::class)
+            .addMember("with = %T::class", sealedInterfaceClassName.toSerializerClassName())
+            .build()
+        )
         .apply {
           for (type in element.type!!) {
             addType(
@@ -428,6 +444,7 @@ private fun TypeSpec.Builder.addSealedInterfaces(
         }
         .build()
     )
+    serializerFileSpec.addType(SerializerTypeSpecGenerator.generate(sealedInterfaceClassName, null))
   }
   return this
 }

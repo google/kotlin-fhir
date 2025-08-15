@@ -18,16 +18,51 @@
 
 package com.google.fhir.model.r5.serializers
 
+import com.google.fhir.model.r5.FhirJsonTransformer
 import com.google.fhir.model.r5.ServiceRequest
+import com.google.fhir.model.r5.surrogates.ServiceRequestAsNeededSurrogate
+import com.google.fhir.model.r5.surrogates.ServiceRequestOccurrenceSurrogate
 import com.google.fhir.model.r5.surrogates.ServiceRequestOrderDetailParameterSurrogate
+import com.google.fhir.model.r5.surrogates.ServiceRequestOrderDetailParameterValueSurrogate
 import com.google.fhir.model.r5.surrogates.ServiceRequestOrderDetailSurrogate
+import com.google.fhir.model.r5.surrogates.ServiceRequestPatientInstructionInstructionSurrogate
 import com.google.fhir.model.r5.surrogates.ServiceRequestPatientInstructionSurrogate
+import com.google.fhir.model.r5.surrogates.ServiceRequestQuantitySurrogate
 import com.google.fhir.model.r5.surrogates.ServiceRequestSurrogate
+import kotlin.String
 import kotlin.Suppress
+import kotlin.collections.List
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.descriptors.SerialDescriptor
 import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
+import kotlinx.serialization.json.JsonDecoder
+import kotlinx.serialization.json.JsonEncoder
+import kotlinx.serialization.json.JsonObject
+import kotlinx.serialization.json.JsonPrimitive
+import kotlinx.serialization.json.jsonObject
+
+public object ServiceRequestOrderDetailParameterValueSerializer :
+  KSerializer<ServiceRequest.OrderDetail.Parameter.Value> {
+  internal val surrogateSerializer:
+    KSerializer<ServiceRequestOrderDetailParameterValueSurrogate> by lazy {
+    ServiceRequestOrderDetailParameterValueSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Value", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): ServiceRequest.OrderDetail.Parameter.Value =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: ServiceRequest.OrderDetail.Parameter.Value) {
+    surrogateSerializer.serialize(
+      encoder,
+      ServiceRequestOrderDetailParameterValueSurrogate.fromModel(value),
+    )
+  }
+}
 
 public object ServiceRequestOrderDetailParameterSerializer :
   KSerializer<ServiceRequest.OrderDetail.Parameter> {
@@ -36,18 +71,45 @@ public object ServiceRequestOrderDetailParameterSerializer :
     ServiceRequestOrderDetailParameterSurrogate.serializer()
   }
 
+  private val resourceType: String? = null
+
+  private val multiChoiceProperties: List<String> = listOf("value")
+
   override val descriptor: SerialDescriptor by lazy {
     SerialDescriptor("Parameter", surrogateSerializer.descriptor)
   }
 
-  override fun deserialize(decoder: Decoder): ServiceRequest.OrderDetail.Parameter =
-    surrogateSerializer.deserialize(decoder).toModel()
+  override fun deserialize(decoder: Decoder): ServiceRequest.OrderDetail.Parameter {
+    val jsonDecoder =
+      decoder as? JsonDecoder ?: error("This serializer only supports JSON decoding")
+    val oldJsonObject =
+      if (resourceType.isNullOrBlank()) {
+        jsonDecoder.decodeJsonElement().jsonObject
+      } else
+        JsonObject(
+          jsonDecoder.decodeJsonElement().jsonObject.toMutableMap().apply { remove("resourceType") }
+        )
+    val unflattenedJsonObject = FhirJsonTransformer.unflatten(oldJsonObject, multiChoiceProperties)
+    val surrogate =
+      jsonDecoder.json.decodeFromJsonElement(surrogateSerializer, unflattenedJsonObject)
+    return surrogate.toModel()
+  }
 
   override fun serialize(encoder: Encoder, `value`: ServiceRequest.OrderDetail.Parameter) {
-    surrogateSerializer.serialize(
-      encoder,
-      ServiceRequestOrderDetailParameterSurrogate.fromModel(value),
-    )
+    val jsonEncoder =
+      encoder as? JsonEncoder ?: error("This serializer only supports JSON encoding")
+    val surrogate = ServiceRequestOrderDetailParameterSurrogate.fromModel(value)
+    val oldJsonObject =
+      if (resourceType.isNullOrBlank()) {
+        jsonEncoder.json.encodeToJsonElement(surrogateSerializer, surrogate).jsonObject
+      } else {
+        JsonObject(
+          mutableMapOf("resourceType" to JsonPrimitive(resourceType))
+            .plus(jsonEncoder.json.encodeToJsonElement(surrogateSerializer, surrogate).jsonObject)
+        )
+      }
+    val flattenedJsonObject = FhirJsonTransformer.flatten(oldJsonObject, multiChoiceProperties)
+    jsonEncoder.encodeJsonElement(flattenedJsonObject)
   }
 }
 
@@ -68,24 +130,124 @@ public object ServiceRequestOrderDetailSerializer : KSerializer<ServiceRequest.O
   }
 }
 
+public object ServiceRequestPatientInstructionInstructionSerializer :
+  KSerializer<ServiceRequest.PatientInstruction.Instruction> {
+  internal val surrogateSerializer:
+    KSerializer<ServiceRequestPatientInstructionInstructionSurrogate> by lazy {
+    ServiceRequestPatientInstructionInstructionSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Instruction", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): ServiceRequest.PatientInstruction.Instruction =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: ServiceRequest.PatientInstruction.Instruction) {
+    surrogateSerializer.serialize(
+      encoder,
+      ServiceRequestPatientInstructionInstructionSurrogate.fromModel(value),
+    )
+  }
+}
+
 public object ServiceRequestPatientInstructionSerializer :
   KSerializer<ServiceRequest.PatientInstruction> {
   internal val surrogateSerializer: KSerializer<ServiceRequestPatientInstructionSurrogate> by lazy {
     ServiceRequestPatientInstructionSurrogate.serializer()
   }
 
+  private val resourceType: String? = null
+
+  private val multiChoiceProperties: List<String> = listOf("instruction")
+
   override val descriptor: SerialDescriptor by lazy {
     SerialDescriptor("PatientInstruction", surrogateSerializer.descriptor)
   }
 
-  override fun deserialize(decoder: Decoder): ServiceRequest.PatientInstruction =
-    surrogateSerializer.deserialize(decoder).toModel()
+  override fun deserialize(decoder: Decoder): ServiceRequest.PatientInstruction {
+    val jsonDecoder =
+      decoder as? JsonDecoder ?: error("This serializer only supports JSON decoding")
+    val oldJsonObject =
+      if (resourceType.isNullOrBlank()) {
+        jsonDecoder.decodeJsonElement().jsonObject
+      } else
+        JsonObject(
+          jsonDecoder.decodeJsonElement().jsonObject.toMutableMap().apply { remove("resourceType") }
+        )
+    val unflattenedJsonObject = FhirJsonTransformer.unflatten(oldJsonObject, multiChoiceProperties)
+    val surrogate =
+      jsonDecoder.json.decodeFromJsonElement(surrogateSerializer, unflattenedJsonObject)
+    return surrogate.toModel()
+  }
 
   override fun serialize(encoder: Encoder, `value`: ServiceRequest.PatientInstruction) {
-    surrogateSerializer.serialize(
-      encoder,
-      ServiceRequestPatientInstructionSurrogate.fromModel(value),
-    )
+    val jsonEncoder =
+      encoder as? JsonEncoder ?: error("This serializer only supports JSON encoding")
+    val surrogate = ServiceRequestPatientInstructionSurrogate.fromModel(value)
+    val oldJsonObject =
+      if (resourceType.isNullOrBlank()) {
+        jsonEncoder.json.encodeToJsonElement(surrogateSerializer, surrogate).jsonObject
+      } else {
+        JsonObject(
+          mutableMapOf("resourceType" to JsonPrimitive(resourceType))
+            .plus(jsonEncoder.json.encodeToJsonElement(surrogateSerializer, surrogate).jsonObject)
+        )
+      }
+    val flattenedJsonObject = FhirJsonTransformer.flatten(oldJsonObject, multiChoiceProperties)
+    jsonEncoder.encodeJsonElement(flattenedJsonObject)
+  }
+}
+
+public object ServiceRequestQuantitySerializer : KSerializer<ServiceRequest.Quantity> {
+  internal val surrogateSerializer: KSerializer<ServiceRequestQuantitySurrogate> by lazy {
+    ServiceRequestQuantitySurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Quantity", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): ServiceRequest.Quantity =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: ServiceRequest.Quantity) {
+    surrogateSerializer.serialize(encoder, ServiceRequestQuantitySurrogate.fromModel(value))
+  }
+}
+
+public object ServiceRequestOccurrenceSerializer : KSerializer<ServiceRequest.Occurrence> {
+  internal val surrogateSerializer: KSerializer<ServiceRequestOccurrenceSurrogate> by lazy {
+    ServiceRequestOccurrenceSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Occurrence", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): ServiceRequest.Occurrence =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: ServiceRequest.Occurrence) {
+    surrogateSerializer.serialize(encoder, ServiceRequestOccurrenceSurrogate.fromModel(value))
+  }
+}
+
+public object ServiceRequestAsNeededSerializer : KSerializer<ServiceRequest.AsNeeded> {
+  internal val surrogateSerializer: KSerializer<ServiceRequestAsNeededSurrogate> by lazy {
+    ServiceRequestAsNeededSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("AsNeeded", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): ServiceRequest.AsNeeded =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: ServiceRequest.AsNeeded) {
+    surrogateSerializer.serialize(encoder, ServiceRequestAsNeededSurrogate.fromModel(value))
   }
 }
 
@@ -94,14 +256,44 @@ public object ServiceRequestSerializer : KSerializer<ServiceRequest> {
     ServiceRequestSurrogate.serializer()
   }
 
+  private val resourceType: String? = "ServiceRequest"
+
+  private val multiChoiceProperties: List<String> = listOf("quantity", "occurrence", "asNeeded")
+
   override val descriptor: SerialDescriptor by lazy {
     SerialDescriptor("ServiceRequest", surrogateSerializer.descriptor)
   }
 
-  override fun deserialize(decoder: Decoder): ServiceRequest =
-    surrogateSerializer.deserialize(decoder).toModel()
+  override fun deserialize(decoder: Decoder): ServiceRequest {
+    val jsonDecoder =
+      decoder as? JsonDecoder ?: error("This serializer only supports JSON decoding")
+    val oldJsonObject =
+      if (resourceType.isNullOrBlank()) {
+        jsonDecoder.decodeJsonElement().jsonObject
+      } else
+        JsonObject(
+          jsonDecoder.decodeJsonElement().jsonObject.toMutableMap().apply { remove("resourceType") }
+        )
+    val unflattenedJsonObject = FhirJsonTransformer.unflatten(oldJsonObject, multiChoiceProperties)
+    val surrogate =
+      jsonDecoder.json.decodeFromJsonElement(surrogateSerializer, unflattenedJsonObject)
+    return surrogate.toModel()
+  }
 
   override fun serialize(encoder: Encoder, `value`: ServiceRequest) {
-    surrogateSerializer.serialize(encoder, ServiceRequestSurrogate.fromModel(value))
+    val jsonEncoder =
+      encoder as? JsonEncoder ?: error("This serializer only supports JSON encoding")
+    val surrogate = ServiceRequestSurrogate.fromModel(value)
+    val oldJsonObject =
+      if (resourceType.isNullOrBlank()) {
+        jsonEncoder.json.encodeToJsonElement(surrogateSerializer, surrogate).jsonObject
+      } else {
+        JsonObject(
+          mutableMapOf("resourceType" to JsonPrimitive(resourceType))
+            .plus(jsonEncoder.json.encodeToJsonElement(surrogateSerializer, surrogate).jsonObject)
+        )
+      }
+    val flattenedJsonObject = FhirJsonTransformer.flatten(oldJsonObject, multiChoiceProperties)
+    jsonEncoder.encodeJsonElement(flattenedJsonObject)
   }
 }

@@ -18,27 +18,83 @@
 
 package com.google.fhir.model.r4b.serializers
 
+import com.google.fhir.model.r4b.FhirJsonTransformer
 import com.google.fhir.model.r4b.GuidanceResponse
+import com.google.fhir.model.r4b.surrogates.GuidanceResponseModuleSurrogate
 import com.google.fhir.model.r4b.surrogates.GuidanceResponseSurrogate
+import kotlin.String
 import kotlin.Suppress
+import kotlin.collections.List
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.descriptors.SerialDescriptor
 import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
+import kotlinx.serialization.json.JsonDecoder
+import kotlinx.serialization.json.JsonEncoder
+import kotlinx.serialization.json.JsonObject
+import kotlinx.serialization.json.JsonPrimitive
+import kotlinx.serialization.json.jsonObject
+
+public object GuidanceResponseModuleSerializer : KSerializer<GuidanceResponse.Module> {
+  internal val surrogateSerializer: KSerializer<GuidanceResponseModuleSurrogate> by lazy {
+    GuidanceResponseModuleSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Module", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): GuidanceResponse.Module =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: GuidanceResponse.Module) {
+    surrogateSerializer.serialize(encoder, GuidanceResponseModuleSurrogate.fromModel(value))
+  }
+}
 
 public object GuidanceResponseSerializer : KSerializer<GuidanceResponse> {
   internal val surrogateSerializer: KSerializer<GuidanceResponseSurrogate> by lazy {
     GuidanceResponseSurrogate.serializer()
   }
 
+  private val resourceType: String? = "GuidanceResponse"
+
+  private val multiChoiceProperties: List<String> = listOf("module")
+
   override val descriptor: SerialDescriptor by lazy {
     SerialDescriptor("GuidanceResponse", surrogateSerializer.descriptor)
   }
 
-  override fun deserialize(decoder: Decoder): GuidanceResponse =
-    surrogateSerializer.deserialize(decoder).toModel()
+  override fun deserialize(decoder: Decoder): GuidanceResponse {
+    val jsonDecoder =
+      decoder as? JsonDecoder ?: error("This serializer only supports JSON decoding")
+    val oldJsonObject =
+      if (resourceType.isNullOrBlank()) {
+        jsonDecoder.decodeJsonElement().jsonObject
+      } else
+        JsonObject(
+          jsonDecoder.decodeJsonElement().jsonObject.toMutableMap().apply { remove("resourceType") }
+        )
+    val unflattenedJsonObject = FhirJsonTransformer.unflatten(oldJsonObject, multiChoiceProperties)
+    val surrogate =
+      jsonDecoder.json.decodeFromJsonElement(surrogateSerializer, unflattenedJsonObject)
+    return surrogate.toModel()
+  }
 
   override fun serialize(encoder: Encoder, `value`: GuidanceResponse) {
-    surrogateSerializer.serialize(encoder, GuidanceResponseSurrogate.fromModel(value))
+    val jsonEncoder =
+      encoder as? JsonEncoder ?: error("This serializer only supports JSON encoding")
+    val surrogate = GuidanceResponseSurrogate.fromModel(value)
+    val oldJsonObject =
+      if (resourceType.isNullOrBlank()) {
+        jsonEncoder.json.encodeToJsonElement(surrogateSerializer, surrogate).jsonObject
+      } else {
+        JsonObject(
+          mutableMapOf("resourceType" to JsonPrimitive(resourceType))
+            .plus(jsonEncoder.json.encodeToJsonElement(surrogateSerializer, surrogate).jsonObject)
+        )
+      }
+    val flattenedJsonObject = FhirJsonTransformer.flatten(oldJsonObject, multiChoiceProperties)
+    jsonEncoder.encodeJsonElement(flattenedJsonObject)
   }
 }

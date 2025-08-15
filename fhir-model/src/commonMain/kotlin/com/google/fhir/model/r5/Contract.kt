@@ -19,21 +19,30 @@
 package com.google.fhir.model.r5
 
 import com.google.fhir.model.r5.serializers.ContractContentDefinitionSerializer
+import com.google.fhir.model.r5.serializers.ContractFriendlyContentSerializer
 import com.google.fhir.model.r5.serializers.ContractFriendlySerializer
+import com.google.fhir.model.r5.serializers.ContractLegalContentSerializer
 import com.google.fhir.model.r5.serializers.ContractLegalSerializer
+import com.google.fhir.model.r5.serializers.ContractLegallyBindingSerializer
+import com.google.fhir.model.r5.serializers.ContractRuleContentSerializer
 import com.google.fhir.model.r5.serializers.ContractRuleSerializer
 import com.google.fhir.model.r5.serializers.ContractSerializer
 import com.google.fhir.model.r5.serializers.ContractSignerSerializer
+import com.google.fhir.model.r5.serializers.ContractTermActionOccurrenceSerializer
 import com.google.fhir.model.r5.serializers.ContractTermActionSerializer
 import com.google.fhir.model.r5.serializers.ContractTermActionSubjectSerializer
 import com.google.fhir.model.r5.serializers.ContractTermAssetContextSerializer
 import com.google.fhir.model.r5.serializers.ContractTermAssetSerializer
+import com.google.fhir.model.r5.serializers.ContractTermAssetValuedItemEntitySerializer
 import com.google.fhir.model.r5.serializers.ContractTermAssetValuedItemSerializer
 import com.google.fhir.model.r5.serializers.ContractTermOfferAnswerSerializer
+import com.google.fhir.model.r5.serializers.ContractTermOfferAnswerValueSerializer
 import com.google.fhir.model.r5.serializers.ContractTermOfferPartySerializer
 import com.google.fhir.model.r5.serializers.ContractTermOfferSerializer
 import com.google.fhir.model.r5.serializers.ContractTermSecurityLabelSerializer
 import com.google.fhir.model.r5.serializers.ContractTermSerializer
+import com.google.fhir.model.r5.serializers.ContractTermTopicSerializer
+import com.google.fhir.model.r5.serializers.ContractTopicSerializer
 import kotlin.Suppress
 import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
@@ -764,6 +773,7 @@ public data class Contract(
          */
         public var `value`: Value,
       ) : BackboneElement() {
+        @Serializable(with = ContractTermOfferAnswerValueSerializer::class)
         public sealed interface Value {
           public fun asBoolean(): Boolean? = this as? Boolean
 
@@ -1074,6 +1084,7 @@ public data class Contract(
         /** A set of security labels that define which terms are controlled by this condition. */
         public var securityLabelNumber: MutableList<UnsignedInt> = mutableListOf(),
       ) : BackboneElement() {
+        @Serializable(with = ContractTermAssetValuedItemEntitySerializer::class)
         public sealed interface Entity {
           public fun asCodeableConcept(): CodeableConcept? = this as? CodeableConcept
 
@@ -1258,6 +1269,7 @@ public data class Contract(
         public var role: CodeableConcept? = null,
       ) : BackboneElement()
 
+      @Serializable(with = ContractTermActionOccurrenceSerializer::class)
       public sealed interface Occurrence {
         public fun asDateTime(): DateTime? = this as? DateTime
 
@@ -1287,6 +1299,7 @@ public data class Contract(
       }
     }
 
+    @Serializable(with = ContractTermTopicSerializer::class)
     public sealed interface Topic {
       public fun asCodeableConcept(): CodeableConcept? = this as? CodeableConcept
 
@@ -1415,6 +1428,7 @@ public data class Contract(
      */
     public var content: Content,
   ) : BackboneElement() {
+    @Serializable(with = ContractFriendlyContentSerializer::class)
     public sealed interface Content {
       public fun asAttachment(): Attachment? = this as? Attachment
 
@@ -1481,6 +1495,7 @@ public data class Contract(
     /** Contract legal text in human renderable form. */
     public var content: Content,
   ) : BackboneElement() {
+    @Serializable(with = ContractLegalContentSerializer::class)
     public sealed interface Content {
       public fun asAttachment(): Attachment? = this as? Attachment
 
@@ -1547,6 +1562,7 @@ public data class Contract(
     /** Computable Contract conveyed using a policy rule language (e.g. XACML, DKAL, SecPal). */
     public var content: Content,
   ) : BackboneElement() {
+    @Serializable(with = ContractRuleContentSerializer::class)
     public sealed interface Content {
       public fun asAttachment(): Attachment? = this as? Attachment
 
@@ -1570,6 +1586,7 @@ public data class Contract(
     }
   }
 
+  @Serializable(with = ContractTopicSerializer::class)
   public sealed interface Topic {
     public fun asCodeableConcept(): CodeableConcept? = this as? CodeableConcept
 
@@ -1593,6 +1610,7 @@ public data class Contract(
     }
   }
 
+  @Serializable(with = ContractLegallyBindingSerializer::class)
   public sealed interface LegallyBinding {
     public fun asAttachment(): Attachment? = this as? Attachment
 

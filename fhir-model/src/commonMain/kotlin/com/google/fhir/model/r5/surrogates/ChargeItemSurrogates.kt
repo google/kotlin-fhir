@@ -80,6 +80,36 @@ internal data class ChargeItemPerformerSurrogate(
 }
 
 @Serializable
+internal data class ChargeItemOccurrenceSurrogate(
+  public var occurrenceDateTime: String? = null,
+  public var _occurrenceDateTime: Element? = null,
+  public var occurrencePeriod: Period? = null,
+  public var occurrenceTiming: Timing? = null,
+) {
+  public fun toModel(): ChargeItem.Occurrence =
+    ChargeItem.Occurrence?.from(
+      DateTime.of(
+        FhirDateTime.fromString(this@ChargeItemOccurrenceSurrogate.occurrenceDateTime),
+        this@ChargeItemOccurrenceSurrogate._occurrenceDateTime,
+      ),
+      this@ChargeItemOccurrenceSurrogate.occurrencePeriod,
+      this@ChargeItemOccurrenceSurrogate.occurrenceTiming,
+    )!!
+
+  public companion object {
+    public fun fromModel(model: ChargeItem.Occurrence): ChargeItemOccurrenceSurrogate =
+      with(model) {
+        ChargeItemOccurrenceSurrogate(
+          occurrenceDateTime = this@with.asDateTime()?.value?.value?.toString(),
+          _occurrenceDateTime = this@with.asDateTime()?.value?.toElement(),
+          occurrencePeriod = this@with.asPeriod()?.value,
+          occurrenceTiming = this@with.asTiming()?.value,
+        )
+      }
+  }
+}
+
+@Serializable
 internal data class ChargeItemSurrogate(
   public var id: String? = null,
   public var meta: Meta? = null,
@@ -102,10 +132,7 @@ internal data class ChargeItemSurrogate(
   public var code: CodeableConcept,
   public var subject: Reference,
   public var encounter: Reference? = null,
-  public var occurrenceDateTime: String? = null,
-  public var _occurrenceDateTime: Element? = null,
-  public var occurrencePeriod: Period? = null,
-  public var occurrenceTiming: Timing? = null,
+  public var occurrence: ChargeItem.Occurrence? = null,
   public var performer: MutableList<ChargeItem.Performer>? = null,
   public var performingOrganization: Reference? = null,
   public var requestingOrganization: Reference? = null,
@@ -180,15 +207,7 @@ internal data class ChargeItemSurrogate(
       code = this@ChargeItemSurrogate.code,
       subject = this@ChargeItemSurrogate.subject,
       encounter = this@ChargeItemSurrogate.encounter,
-      occurrence =
-        ChargeItem.Occurrence?.from(
-          DateTime.of(
-            FhirDateTime.fromString(this@ChargeItemSurrogate.occurrenceDateTime),
-            this@ChargeItemSurrogate._occurrenceDateTime,
-          ),
-          this@ChargeItemSurrogate.occurrencePeriod,
-          this@ChargeItemSurrogate.occurrenceTiming,
-        ),
+      occurrence = this@ChargeItemSurrogate.occurrence,
       performer = this@ChargeItemSurrogate.performer ?: mutableListOf(),
       performingOrganization = this@ChargeItemSurrogate.performingOrganization,
       requestingOrganization = this@ChargeItemSurrogate.requestingOrganization,
@@ -255,10 +274,7 @@ internal data class ChargeItemSurrogate(
           code = this@with.code,
           subject = this@with.subject,
           encounter = this@with.encounter,
-          occurrenceDateTime = this@with.occurrence?.asDateTime()?.value?.value?.toString(),
-          _occurrenceDateTime = this@with.occurrence?.asDateTime()?.value?.toElement(),
-          occurrencePeriod = this@with.occurrence?.asPeriod()?.value,
-          occurrenceTiming = this@with.occurrence?.asTiming()?.value,
+          occurrence = this@with.occurrence,
           performer = this@with.performer.takeUnless { it.all { it == null } },
           performingOrganization = this@with.performingOrganization,
           requestingOrganization = this@with.requestingOrganization,

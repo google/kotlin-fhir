@@ -18,6 +18,8 @@
 
 package com.google.fhir.model.r4b
 
+import com.google.fhir.model.r4b.serializers.CarePlanActivityDetailProductSerializer
+import com.google.fhir.model.r4b.serializers.CarePlanActivityDetailScheduledSerializer
 import com.google.fhir.model.r4b.serializers.CarePlanActivityDetailSerializer
 import com.google.fhir.model.r4b.serializers.CarePlanActivitySerializer
 import com.google.fhir.model.r4b.serializers.CarePlanSerializer
@@ -514,6 +516,7 @@ public data class CarePlan(
        */
       public var description: String? = null,
     ) : BackboneElement() {
+      @Serializable(with = CarePlanActivityDetailScheduledSerializer::class)
       public sealed interface Scheduled {
         public fun asTiming(): Timing? = this as? Timing
 
@@ -541,6 +544,7 @@ public data class CarePlan(
         }
       }
 
+      @Serializable(with = CarePlanActivityDetailProductSerializer::class)
       public sealed interface Product {
         public fun asCodeableConcept(): CodeableConcept? = this as? CodeableConcept
 

@@ -19,6 +19,7 @@
 package com.google.fhir.model.r5
 
 import com.google.fhir.model.r5.serializers.MedicationStatementAdherenceSerializer
+import com.google.fhir.model.r5.serializers.MedicationStatementEffectiveSerializer
 import com.google.fhir.model.r5.serializers.MedicationStatementSerializer
 import kotlin.String
 import kotlin.Suppress
@@ -316,6 +317,7 @@ public data class MedicationStatement(
     public var reason: CodeableConcept? = null,
   ) : BackboneElement()
 
+  @Serializable(with = MedicationStatementEffectiveSerializer::class)
   public sealed interface Effective {
     public fun asDateTime(): DateTime? = this as? DateTime
 

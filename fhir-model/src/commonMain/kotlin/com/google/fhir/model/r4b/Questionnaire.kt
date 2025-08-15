@@ -19,8 +19,11 @@
 package com.google.fhir.model.r4b
 
 import com.google.fhir.model.r4b.serializers.QuestionnaireItemAnswerOptionSerializer
+import com.google.fhir.model.r4b.serializers.QuestionnaireItemAnswerOptionValueSerializer
+import com.google.fhir.model.r4b.serializers.QuestionnaireItemEnableWhenAnswerSerializer
 import com.google.fhir.model.r4b.serializers.QuestionnaireItemEnableWhenSerializer
 import com.google.fhir.model.r4b.serializers.QuestionnaireItemInitialSerializer
+import com.google.fhir.model.r4b.serializers.QuestionnaireItemInitialValueSerializer
 import com.google.fhir.model.r4b.serializers.QuestionnaireItemSerializer
 import com.google.fhir.model.r4b.serializers.QuestionnaireSerializer
 import kotlin.Suppress
@@ -570,6 +573,7 @@ public data class Questionnaire(
        */
       public var answer: Answer,
     ) : BackboneElement() {
+      @Serializable(with = QuestionnaireItemEnableWhenAnswerSerializer::class)
       public sealed interface Answer {
         public fun asBoolean(): Boolean? = this as? Boolean
 
@@ -695,6 +699,7 @@ public data class Questionnaire(
        */
       public var initialSelected: Boolean? = null,
     ) : BackboneElement() {
+      @Serializable(with = QuestionnaireItemAnswerOptionValueSerializer::class)
       public sealed interface Value {
         public fun asInteger(): Integer? = this as? Integer
 
@@ -792,6 +797,7 @@ public data class Questionnaire(
        */
       public var `value`: Value,
     ) : BackboneElement() {
+      @Serializable(with = QuestionnaireItemInitialValueSerializer::class)
       public sealed interface Value {
         public fun asBoolean(): Boolean? = this as? Boolean
 

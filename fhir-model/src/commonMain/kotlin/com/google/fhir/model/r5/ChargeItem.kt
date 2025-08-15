@@ -18,6 +18,7 @@
 
 package com.google.fhir.model.r5
 
+import com.google.fhir.model.r5.serializers.ChargeItemOccurrenceSerializer
 import com.google.fhir.model.r5.serializers.ChargeItemPerformerSerializer
 import com.google.fhir.model.r5.serializers.ChargeItemSerializer
 import kotlin.String
@@ -327,6 +328,7 @@ public data class ChargeItem(
     public var actor: Reference,
   ) : BackboneElement()
 
+  @Serializable(with = ChargeItemOccurrenceSerializer::class)
   public sealed interface Occurrence {
     public fun asDateTime(): DateTime? = this as? DateTime
 

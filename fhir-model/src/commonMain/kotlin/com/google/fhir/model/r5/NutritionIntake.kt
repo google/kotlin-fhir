@@ -20,7 +20,9 @@ package com.google.fhir.model.r5
 
 import com.google.fhir.model.r5.serializers.NutritionIntakeConsumedItemSerializer
 import com.google.fhir.model.r5.serializers.NutritionIntakeIngredientLabelSerializer
+import com.google.fhir.model.r5.serializers.NutritionIntakeOccurrenceSerializer
 import com.google.fhir.model.r5.serializers.NutritionIntakePerformerSerializer
+import com.google.fhir.model.r5.serializers.NutritionIntakeReportedSerializer
 import com.google.fhir.model.r5.serializers.NutritionIntakeSerializer
 import kotlin.String
 import kotlin.Suppress
@@ -393,6 +395,7 @@ public data class NutritionIntake(
     public var actor: Reference,
   ) : BackboneElement()
 
+  @Serializable(with = NutritionIntakeOccurrenceSerializer::class)
   public sealed interface Occurrence {
     public fun asDateTime(): DateTime? = this as? DateTime
 
@@ -414,6 +417,7 @@ public data class NutritionIntake(
     }
   }
 
+  @Serializable(with = NutritionIntakeReportedSerializer::class)
   public sealed interface Reported {
     public fun asBoolean(): Boolean? = this as? Boolean
 

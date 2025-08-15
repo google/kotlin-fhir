@@ -18,6 +18,7 @@
 
 package com.google.fhir.model.r5
 
+import com.google.fhir.model.r5.serializers.AnnotationAuthorSerializer
 import com.google.fhir.model.r5.serializers.AnnotationSerializer
 import kotlin.String
 import kotlin.Suppress
@@ -59,6 +60,7 @@ public data class Annotation(
   /** The text of the annotation in markdown format. */
   public var text: Markdown,
 ) : DataType() {
+  @Serializable(with = AnnotationAuthorSerializer::class)
   public sealed interface Author {
     public fun asReference(): Reference? = this as? Reference
 

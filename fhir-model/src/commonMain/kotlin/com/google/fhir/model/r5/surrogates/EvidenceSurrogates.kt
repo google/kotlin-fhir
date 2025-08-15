@@ -461,6 +461,60 @@ internal data class EvidenceCertaintySurrogate(
 }
 
 @Serializable
+internal data class EvidenceVersionAlgorithmSurrogate(
+  public var versionAlgorithmString: KotlinString? = null,
+  public var _versionAlgorithmString: Element? = null,
+  public var versionAlgorithmCoding: Coding? = null,
+) {
+  public fun toModel(): Evidence.VersionAlgorithm =
+    Evidence.VersionAlgorithm?.from(
+      R5String.of(
+        this@EvidenceVersionAlgorithmSurrogate.versionAlgorithmString,
+        this@EvidenceVersionAlgorithmSurrogate._versionAlgorithmString,
+      ),
+      this@EvidenceVersionAlgorithmSurrogate.versionAlgorithmCoding,
+    )!!
+
+  public companion object {
+    public fun fromModel(model: Evidence.VersionAlgorithm): EvidenceVersionAlgorithmSurrogate =
+      with(model) {
+        EvidenceVersionAlgorithmSurrogate(
+          versionAlgorithmString = this@with.asString()?.value?.value,
+          _versionAlgorithmString = this@with.asString()?.value?.toElement(),
+          versionAlgorithmCoding = this@with.asCoding()?.value,
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class EvidenceCiteAsSurrogate(
+  public var citeAsReference: Reference? = null,
+  public var citeAsMarkdown: KotlinString? = null,
+  public var _citeAsMarkdown: Element? = null,
+) {
+  public fun toModel(): Evidence.CiteAs =
+    Evidence.CiteAs?.from(
+      this@EvidenceCiteAsSurrogate.citeAsReference,
+      Markdown.of(
+        this@EvidenceCiteAsSurrogate.citeAsMarkdown,
+        this@EvidenceCiteAsSurrogate._citeAsMarkdown,
+      ),
+    )!!
+
+  public companion object {
+    public fun fromModel(model: Evidence.CiteAs): EvidenceCiteAsSurrogate =
+      with(model) {
+        EvidenceCiteAsSurrogate(
+          citeAsReference = this@with.asReference()?.value,
+          citeAsMarkdown = this@with.asMarkdown()?.value?.value,
+          _citeAsMarkdown = this@with.asMarkdown()?.value?.toElement(),
+        )
+      }
+  }
+}
+
+@Serializable
 internal data class EvidenceSurrogate(
   public var id: KotlinString? = null,
   public var meta: Meta? = null,
@@ -477,16 +531,12 @@ internal data class EvidenceSurrogate(
   public var identifier: MutableList<Identifier>? = null,
   public var version: KotlinString? = null,
   public var _version: Element? = null,
-  public var versionAlgorithmString: KotlinString? = null,
-  public var _versionAlgorithmString: Element? = null,
-  public var versionAlgorithmCoding: Coding? = null,
+  public var versionAlgorithm: Evidence.VersionAlgorithm? = null,
   public var name: KotlinString? = null,
   public var _name: Element? = null,
   public var title: KotlinString? = null,
   public var _title: Element? = null,
-  public var citeAsReference: Reference? = null,
-  public var citeAsMarkdown: KotlinString? = null,
-  public var _citeAsMarkdown: Element? = null,
+  public var citeAs: Evidence.CiteAs? = null,
   public var status: KotlinString? = null,
   public var _status: Element? = null,
   public var experimental: KotlinBoolean? = null,
@@ -537,21 +587,10 @@ internal data class EvidenceSurrogate(
       url = Uri.of(this@EvidenceSurrogate.url, this@EvidenceSurrogate._url),
       identifier = this@EvidenceSurrogate.identifier ?: mutableListOf(),
       version = R5String.of(this@EvidenceSurrogate.version, this@EvidenceSurrogate._version),
-      versionAlgorithm =
-        Evidence.VersionAlgorithm?.from(
-          R5String.of(
-            this@EvidenceSurrogate.versionAlgorithmString,
-            this@EvidenceSurrogate._versionAlgorithmString,
-          ),
-          this@EvidenceSurrogate.versionAlgorithmCoding,
-        ),
+      versionAlgorithm = this@EvidenceSurrogate.versionAlgorithm,
       name = R5String.of(this@EvidenceSurrogate.name, this@EvidenceSurrogate._name),
       title = R5String.of(this@EvidenceSurrogate.title, this@EvidenceSurrogate._title),
-      citeAs =
-        Evidence.CiteAs?.from(
-          this@EvidenceSurrogate.citeAsReference,
-          Markdown.of(this@EvidenceSurrogate.citeAsMarkdown, this@EvidenceSurrogate._citeAsMarkdown),
-        ),
+      citeAs = this@EvidenceSurrogate.citeAs,
       status =
         Enumeration.of(
           com.google.fhir.model.r5.PublicationStatus.fromCode(this@EvidenceSurrogate.status!!),
@@ -616,16 +655,12 @@ internal data class EvidenceSurrogate(
           identifier = this@with.identifier.takeUnless { it.all { it == null } },
           version = this@with.version?.value,
           _version = this@with.version?.toElement(),
-          versionAlgorithmString = this@with.versionAlgorithm?.asString()?.value?.value,
-          _versionAlgorithmString = this@with.versionAlgorithm?.asString()?.value?.toElement(),
-          versionAlgorithmCoding = this@with.versionAlgorithm?.asCoding()?.value,
+          versionAlgorithm = this@with.versionAlgorithm,
           name = this@with.name?.value,
           _name = this@with.name?.toElement(),
           title = this@with.title?.value,
           _title = this@with.title?.toElement(),
-          citeAsReference = this@with.citeAs?.asReference()?.value,
-          citeAsMarkdown = this@with.citeAs?.asMarkdown()?.value?.value,
-          _citeAsMarkdown = this@with.citeAs?.asMarkdown()?.value?.toElement(),
+          citeAs = this@with.citeAs,
           status = this@with.status.value?.getCode(),
           _status = this@with.status.toElement(),
           experimental = this@with.experimental?.value,

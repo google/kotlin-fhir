@@ -120,6 +120,33 @@ internal data class DetectedIssueMitigationSurrogate(
 }
 
 @Serializable
+internal data class DetectedIssueIdentifiedSurrogate(
+  public var identifiedDateTime: String? = null,
+  public var _identifiedDateTime: Element? = null,
+  public var identifiedPeriod: Period? = null,
+) {
+  public fun toModel(): DetectedIssue.Identified =
+    DetectedIssue.Identified?.from(
+      DateTime.of(
+        FhirDateTime.fromString(this@DetectedIssueIdentifiedSurrogate.identifiedDateTime),
+        this@DetectedIssueIdentifiedSurrogate._identifiedDateTime,
+      ),
+      this@DetectedIssueIdentifiedSurrogate.identifiedPeriod,
+    )!!
+
+  public companion object {
+    public fun fromModel(model: DetectedIssue.Identified): DetectedIssueIdentifiedSurrogate =
+      with(model) {
+        DetectedIssueIdentifiedSurrogate(
+          identifiedDateTime = this@with.asDateTime()?.value?.value?.toString(),
+          _identifiedDateTime = this@with.asDateTime()?.value?.toElement(),
+          identifiedPeriod = this@with.asPeriod()?.value,
+        )
+      }
+  }
+}
+
+@Serializable
 internal data class DetectedIssueSurrogate(
   public var id: String? = null,
   public var meta: Meta? = null,
@@ -140,9 +167,7 @@ internal data class DetectedIssueSurrogate(
   public var _severity: Element? = null,
   public var subject: Reference? = null,
   public var encounter: Reference? = null,
-  public var identifiedDateTime: String? = null,
-  public var _identifiedDateTime: Element? = null,
-  public var identifiedPeriod: Period? = null,
+  public var identified: DetectedIssue.Identified? = null,
   public var author: Reference? = null,
   public var implicated: MutableList<Reference>? = null,
   public var evidence: MutableList<DetectedIssue.Evidence>? = null,
@@ -186,14 +211,7 @@ internal data class DetectedIssueSurrogate(
         },
       subject = this@DetectedIssueSurrogate.subject,
       encounter = this@DetectedIssueSurrogate.encounter,
-      identified =
-        DetectedIssue.Identified?.from(
-          DateTime.of(
-            FhirDateTime.fromString(this@DetectedIssueSurrogate.identifiedDateTime),
-            this@DetectedIssueSurrogate._identifiedDateTime,
-          ),
-          this@DetectedIssueSurrogate.identifiedPeriod,
-        ),
+      identified = this@DetectedIssueSurrogate.identified,
       author = this@DetectedIssueSurrogate.author,
       implicated = this@DetectedIssueSurrogate.implicated ?: mutableListOf(),
       evidence = this@DetectedIssueSurrogate.evidence ?: mutableListOf(),
@@ -226,9 +244,7 @@ internal data class DetectedIssueSurrogate(
           _severity = this@with.severity?.toElement(),
           subject = this@with.subject,
           encounter = this@with.encounter,
-          identifiedDateTime = this@with.identified?.asDateTime()?.value?.value?.toString(),
-          _identifiedDateTime = this@with.identified?.asDateTime()?.value?.toElement(),
-          identifiedPeriod = this@with.identified?.asPeriod()?.value,
+          identified = this@with.identified,
           author = this@with.author,
           implicated = this@with.implicated.takeUnless { it.all { it == null } },
           evidence = this@with.evidence.takeUnless { it.all { it == null } },

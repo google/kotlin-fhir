@@ -115,11 +115,7 @@ internal data class NutritionProductIngredientSurrogate(
 }
 
 @Serializable
-internal data class NutritionProductProductCharacteristicSurrogate(
-  public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var type: CodeableConcept,
+internal data class NutritionProductProductCharacteristicValueSurrogate(
   public var valueCodeableConcept: CodeableConcept? = null,
   public var valueString: KotlinString? = null,
   public var _valueString: Element? = null,
@@ -130,6 +126,53 @@ internal data class NutritionProductProductCharacteristicSurrogate(
   public var valueBoolean: KotlinBoolean? = null,
   public var _valueBoolean: Element? = null,
 ) {
+  public fun toModel(): NutritionProduct.ProductCharacteristic.Value =
+    NutritionProduct.ProductCharacteristic.Value.from(
+      this@NutritionProductProductCharacteristicValueSurrogate.valueCodeableConcept,
+      R4bString.of(
+        this@NutritionProductProductCharacteristicValueSurrogate.valueString,
+        this@NutritionProductProductCharacteristicValueSurrogate._valueString,
+      ),
+      this@NutritionProductProductCharacteristicValueSurrogate.valueQuantity,
+      Base64Binary.of(
+        this@NutritionProductProductCharacteristicValueSurrogate.valueBase64Binary,
+        this@NutritionProductProductCharacteristicValueSurrogate._valueBase64Binary,
+      ),
+      this@NutritionProductProductCharacteristicValueSurrogate.valueAttachment,
+      R4bBoolean.of(
+        this@NutritionProductProductCharacteristicValueSurrogate.valueBoolean,
+        this@NutritionProductProductCharacteristicValueSurrogate._valueBoolean,
+      ),
+    )!! !!
+
+  public companion object {
+    public fun fromModel(
+      model: NutritionProduct.ProductCharacteristic.Value
+    ): NutritionProductProductCharacteristicValueSurrogate =
+      with(model) {
+        NutritionProductProductCharacteristicValueSurrogate(
+          valueCodeableConcept = this@with.asCodeableConcept()?.value,
+          valueString = this@with.asString()?.value?.value,
+          _valueString = this@with.asString()?.value?.toElement(),
+          valueQuantity = this@with.asQuantity()?.value,
+          valueBase64Binary = this@with.asBase64Binary()?.value?.value,
+          _valueBase64Binary = this@with.asBase64Binary()?.value?.toElement(),
+          valueAttachment = this@with.asAttachment()?.value,
+          valueBoolean = this@with.asBoolean()?.value?.value,
+          _valueBoolean = this@with.asBoolean()?.value?.toElement(),
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class NutritionProductProductCharacteristicSurrogate(
+  public var id: KotlinString? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var type: CodeableConcept,
+  public var `value`: NutritionProduct.ProductCharacteristic.Value,
+) {
   public fun toModel(): NutritionProduct.ProductCharacteristic =
     NutritionProduct.ProductCharacteristic(
       id = this@NutritionProductProductCharacteristicSurrogate.id,
@@ -137,24 +180,7 @@ internal data class NutritionProductProductCharacteristicSurrogate(
       modifierExtension =
         this@NutritionProductProductCharacteristicSurrogate.modifierExtension ?: mutableListOf(),
       type = this@NutritionProductProductCharacteristicSurrogate.type,
-      `value` =
-        NutritionProduct.ProductCharacteristic.Value.from(
-          this@NutritionProductProductCharacteristicSurrogate.valueCodeableConcept,
-          R4bString.of(
-            this@NutritionProductProductCharacteristicSurrogate.valueString,
-            this@NutritionProductProductCharacteristicSurrogate._valueString,
-          ),
-          this@NutritionProductProductCharacteristicSurrogate.valueQuantity,
-          Base64Binary.of(
-            this@NutritionProductProductCharacteristicSurrogate.valueBase64Binary,
-            this@NutritionProductProductCharacteristicSurrogate._valueBase64Binary,
-          ),
-          this@NutritionProductProductCharacteristicSurrogate.valueAttachment,
-          R4bBoolean.of(
-            this@NutritionProductProductCharacteristicSurrogate.valueBoolean,
-            this@NutritionProductProductCharacteristicSurrogate._valueBoolean,
-          ),
-        )!!,
+      `value` = this@NutritionProductProductCharacteristicSurrogate.`value`,
     )
 
   public companion object {
@@ -167,15 +193,7 @@ internal data class NutritionProductProductCharacteristicSurrogate(
           extension = this@with.extension.takeUnless { it.all { it == null } },
           modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
           type = this@with.type,
-          valueCodeableConcept = this@with.`value`?.asCodeableConcept()?.value,
-          valueString = this@with.`value`?.asString()?.value?.value,
-          _valueString = this@with.`value`?.asString()?.value?.toElement(),
-          valueQuantity = this@with.`value`?.asQuantity()?.value,
-          valueBase64Binary = this@with.`value`?.asBase64Binary()?.value?.value,
-          _valueBase64Binary = this@with.`value`?.asBase64Binary()?.value?.toElement(),
-          valueAttachment = this@with.`value`?.asAttachment()?.value,
-          valueBoolean = this@with.`value`?.asBoolean()?.value?.value,
-          _valueBoolean = this@with.`value`?.asBoolean()?.value?.toElement(),
+          `value` = this@with.`value`,
         )
       }
   }

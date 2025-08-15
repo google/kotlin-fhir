@@ -19,8 +19,11 @@
 package com.google.fhir.model.r4
 
 import com.google.fhir.model.r4.serializers.ObservationComponentSerializer
+import com.google.fhir.model.r4.serializers.ObservationComponentValueSerializer
+import com.google.fhir.model.r4.serializers.ObservationEffectiveSerializer
 import com.google.fhir.model.r4.serializers.ObservationReferenceRangeSerializer
 import com.google.fhir.model.r4.serializers.ObservationSerializer
+import com.google.fhir.model.r4.serializers.ObservationValueSerializer
 import kotlin.Suppress
 import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
@@ -537,6 +540,7 @@ public data class Observation(
      */
     public var referenceRange: MutableList<ReferenceRange> = mutableListOf(),
   ) : BackboneElement() {
+    @Serializable(with = ObservationComponentValueSerializer::class)
     public sealed interface Value {
       public fun asQuantity(): Quantity? = this as? Quantity
 
@@ -616,6 +620,7 @@ public data class Observation(
     }
   }
 
+  @Serializable(with = ObservationEffectiveSerializer::class)
   public sealed interface Effective {
     public fun asDateTime(): DateTime? = this as? DateTime
 
@@ -649,6 +654,7 @@ public data class Observation(
     }
   }
 
+  @Serializable(with = ObservationValueSerializer::class)
   public sealed interface Value {
     public fun asQuantity(): Quantity? = this as? Quantity
 

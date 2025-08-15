@@ -18,6 +18,7 @@
 
 package com.google.fhir.model.r4b
 
+import com.google.fhir.model.r4b.serializers.TimingRepeatBoundsSerializer
 import com.google.fhir.model.r4b.serializers.TimingRepeatSerializer
 import com.google.fhir.model.r4b.serializers.TimingSerializer
 import kotlin.String
@@ -202,6 +203,7 @@ public data class Timing(
      */
     public var offset: UnsignedInt? = null,
   ) : Element() {
+    @Serializable(with = TimingRepeatBoundsSerializer::class)
     public sealed interface Bounds {
       public fun asDuration(): Duration? = this as? Duration
 

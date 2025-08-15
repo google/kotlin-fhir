@@ -19,13 +19,22 @@
 package com.google.fhir.model.r5.serializers
 
 import com.google.fhir.model.r5.CompartmentDefinition
+import com.google.fhir.model.r5.FhirJsonTransformer
 import com.google.fhir.model.r5.surrogates.CompartmentDefinitionResourceSurrogate
 import com.google.fhir.model.r5.surrogates.CompartmentDefinitionSurrogate
+import com.google.fhir.model.r5.surrogates.CompartmentDefinitionVersionAlgorithmSurrogate
+import kotlin.String
 import kotlin.Suppress
+import kotlin.collections.List
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.descriptors.SerialDescriptor
 import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
+import kotlinx.serialization.json.JsonDecoder
+import kotlinx.serialization.json.JsonEncoder
+import kotlinx.serialization.json.JsonObject
+import kotlinx.serialization.json.JsonPrimitive
+import kotlinx.serialization.json.jsonObject
 
 public object CompartmentDefinitionResourceSerializer :
   KSerializer<CompartmentDefinition.Resource> {
@@ -45,19 +54,71 @@ public object CompartmentDefinitionResourceSerializer :
   }
 }
 
+public object CompartmentDefinitionVersionAlgorithmSerializer :
+  KSerializer<CompartmentDefinition.VersionAlgorithm> {
+  internal val surrogateSerializer:
+    KSerializer<CompartmentDefinitionVersionAlgorithmSurrogate> by lazy {
+    CompartmentDefinitionVersionAlgorithmSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("VersionAlgorithm", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): CompartmentDefinition.VersionAlgorithm =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: CompartmentDefinition.VersionAlgorithm) {
+    surrogateSerializer.serialize(
+      encoder,
+      CompartmentDefinitionVersionAlgorithmSurrogate.fromModel(value),
+    )
+  }
+}
+
 public object CompartmentDefinitionSerializer : KSerializer<CompartmentDefinition> {
   internal val surrogateSerializer: KSerializer<CompartmentDefinitionSurrogate> by lazy {
     CompartmentDefinitionSurrogate.serializer()
   }
 
+  private val resourceType: String? = "CompartmentDefinition"
+
+  private val multiChoiceProperties: List<String> = listOf("versionAlgorithm")
+
   override val descriptor: SerialDescriptor by lazy {
     SerialDescriptor("CompartmentDefinition", surrogateSerializer.descriptor)
   }
 
-  override fun deserialize(decoder: Decoder): CompartmentDefinition =
-    surrogateSerializer.deserialize(decoder).toModel()
+  override fun deserialize(decoder: Decoder): CompartmentDefinition {
+    val jsonDecoder =
+      decoder as? JsonDecoder ?: error("This serializer only supports JSON decoding")
+    val oldJsonObject =
+      if (resourceType.isNullOrBlank()) {
+        jsonDecoder.decodeJsonElement().jsonObject
+      } else
+        JsonObject(
+          jsonDecoder.decodeJsonElement().jsonObject.toMutableMap().apply { remove("resourceType") }
+        )
+    val unflattenedJsonObject = FhirJsonTransformer.unflatten(oldJsonObject, multiChoiceProperties)
+    val surrogate =
+      jsonDecoder.json.decodeFromJsonElement(surrogateSerializer, unflattenedJsonObject)
+    return surrogate.toModel()
+  }
 
   override fun serialize(encoder: Encoder, `value`: CompartmentDefinition) {
-    surrogateSerializer.serialize(encoder, CompartmentDefinitionSurrogate.fromModel(value))
+    val jsonEncoder =
+      encoder as? JsonEncoder ?: error("This serializer only supports JSON encoding")
+    val surrogate = CompartmentDefinitionSurrogate.fromModel(value)
+    val oldJsonObject =
+      if (resourceType.isNullOrBlank()) {
+        jsonEncoder.json.encodeToJsonElement(surrogateSerializer, surrogate).jsonObject
+      } else {
+        JsonObject(
+          mutableMapOf("resourceType" to JsonPrimitive(resourceType))
+            .plus(jsonEncoder.json.encodeToJsonElement(surrogateSerializer, surrogate).jsonObject)
+        )
+      }
+    val flattenedJsonObject = FhirJsonTransformer.flatten(oldJsonObject, multiChoiceProperties)
+    jsonEncoder.encodeJsonElement(flattenedJsonObject)
   }
 }

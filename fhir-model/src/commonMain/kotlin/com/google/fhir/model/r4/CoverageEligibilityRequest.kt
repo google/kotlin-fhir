@@ -19,9 +19,11 @@
 package com.google.fhir.model.r4
 
 import com.google.fhir.model.r4.serializers.CoverageEligibilityRequestInsuranceSerializer
+import com.google.fhir.model.r4.serializers.CoverageEligibilityRequestItemDiagnosisDiagnosisSerializer
 import com.google.fhir.model.r4.serializers.CoverageEligibilityRequestItemDiagnosisSerializer
 import com.google.fhir.model.r4.serializers.CoverageEligibilityRequestItemSerializer
 import com.google.fhir.model.r4.serializers.CoverageEligibilityRequestSerializer
+import com.google.fhir.model.r4.serializers.CoverageEligibilityRequestServicedSerializer
 import com.google.fhir.model.r4.serializers.CoverageEligibilityRequestSupportingInfoSerializer
 import kotlin.Suppress
 import kotlin.collections.MutableList
@@ -454,6 +456,7 @@ public data class CoverageEligibilityRequest(
        */
       public var diagnosis: Diagnosis? = null,
     ) : BackboneElement() {
+      @Serializable(with = CoverageEligibilityRequestItemDiagnosisDiagnosisSerializer::class)
       public sealed interface Diagnosis {
         public fun asCodeableConcept(): CodeableConcept? = this as? CodeableConcept
 
@@ -480,6 +483,7 @@ public data class CoverageEligibilityRequest(
     }
   }
 
+  @Serializable(with = CoverageEligibilityRequestServicedSerializer::class)
   public sealed interface Serviced {
     public fun asDate(): Date? = this as? Date
 

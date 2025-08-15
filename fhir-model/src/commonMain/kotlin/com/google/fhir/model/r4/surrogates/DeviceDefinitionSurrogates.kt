@@ -309,6 +309,35 @@ internal data class DeviceDefinitionMaterialSurrogate(
 }
 
 @Serializable
+internal data class DeviceDefinitionManufacturerSurrogate(
+  public var manufacturerString: KotlinString? = null,
+  public var _manufacturerString: Element? = null,
+  public var manufacturerReference: Reference? = null,
+) {
+  public fun toModel(): DeviceDefinition.Manufacturer =
+    DeviceDefinition.Manufacturer?.from(
+      R4String.of(
+        this@DeviceDefinitionManufacturerSurrogate.manufacturerString,
+        this@DeviceDefinitionManufacturerSurrogate._manufacturerString,
+      ),
+      this@DeviceDefinitionManufacturerSurrogate.manufacturerReference,
+    )!!
+
+  public companion object {
+    public fun fromModel(
+      model: DeviceDefinition.Manufacturer
+    ): DeviceDefinitionManufacturerSurrogate =
+      with(model) {
+        DeviceDefinitionManufacturerSurrogate(
+          manufacturerString = this@with.asString()?.value?.value,
+          _manufacturerString = this@with.asString()?.value?.toElement(),
+          manufacturerReference = this@with.asReference()?.value,
+        )
+      }
+  }
+}
+
+@Serializable
 internal data class DeviceDefinitionSurrogate(
   public var id: KotlinString? = null,
   public var meta: Meta? = null,
@@ -322,9 +351,7 @@ internal data class DeviceDefinitionSurrogate(
   public var modifierExtension: MutableList<Extension>? = null,
   public var identifier: MutableList<Identifier>? = null,
   public var udiDeviceIdentifier: MutableList<DeviceDefinition.UdiDeviceIdentifier>? = null,
-  public var manufacturerString: KotlinString? = null,
-  public var _manufacturerString: Element? = null,
-  public var manufacturerReference: Reference? = null,
+  public var manufacturer: DeviceDefinition.Manufacturer? = null,
   public var deviceName: MutableList<DeviceDefinition.DeviceName>? = null,
   public var modelNumber: KotlinString? = null,
   public var _modelNumber: Element? = null,
@@ -366,14 +393,7 @@ internal data class DeviceDefinitionSurrogate(
       modifierExtension = this@DeviceDefinitionSurrogate.modifierExtension ?: mutableListOf(),
       identifier = this@DeviceDefinitionSurrogate.identifier ?: mutableListOf(),
       udiDeviceIdentifier = this@DeviceDefinitionSurrogate.udiDeviceIdentifier ?: mutableListOf(),
-      manufacturer =
-        DeviceDefinition.Manufacturer?.from(
-          R4String.of(
-            this@DeviceDefinitionSurrogate.manufacturerString,
-            this@DeviceDefinitionSurrogate._manufacturerString,
-          ),
-          this@DeviceDefinitionSurrogate.manufacturerReference,
-        ),
+      manufacturer = this@DeviceDefinitionSurrogate.manufacturer,
       deviceName = this@DeviceDefinitionSurrogate.deviceName ?: mutableListOf(),
       modelNumber =
         R4String.of(
@@ -434,9 +454,7 @@ internal data class DeviceDefinitionSurrogate(
           modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
           identifier = this@with.identifier.takeUnless { it.all { it == null } },
           udiDeviceIdentifier = this@with.udiDeviceIdentifier.takeUnless { it.all { it == null } },
-          manufacturerString = this@with.manufacturer?.asString()?.value?.value,
-          _manufacturerString = this@with.manufacturer?.asString()?.value?.toElement(),
-          manufacturerReference = this@with.manufacturer?.asReference()?.value,
+          manufacturer = this@with.manufacturer,
           deviceName = this@with.deviceName.takeUnless { it.all { it == null } },
           modelNumber = this@with.modelNumber?.value,
           _modelNumber = this@with.modelNumber?.toElement(),

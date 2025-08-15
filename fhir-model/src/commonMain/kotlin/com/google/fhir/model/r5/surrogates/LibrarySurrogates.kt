@@ -56,6 +56,55 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
+internal data class LibraryVersionAlgorithmSurrogate(
+  public var versionAlgorithmString: KotlinString? = null,
+  public var _versionAlgorithmString: Element? = null,
+  public var versionAlgorithmCoding: Coding? = null,
+) {
+  public fun toModel(): Library.VersionAlgorithm =
+    Library.VersionAlgorithm?.from(
+      R5String.of(
+        this@LibraryVersionAlgorithmSurrogate.versionAlgorithmString,
+        this@LibraryVersionAlgorithmSurrogate._versionAlgorithmString,
+      ),
+      this@LibraryVersionAlgorithmSurrogate.versionAlgorithmCoding,
+    )!!
+
+  public companion object {
+    public fun fromModel(model: Library.VersionAlgorithm): LibraryVersionAlgorithmSurrogate =
+      with(model) {
+        LibraryVersionAlgorithmSurrogate(
+          versionAlgorithmString = this@with.asString()?.value?.value,
+          _versionAlgorithmString = this@with.asString()?.value?.toElement(),
+          versionAlgorithmCoding = this@with.asCoding()?.value,
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class LibrarySubjectSurrogate(
+  public var subjectCodeableConcept: CodeableConcept? = null,
+  public var subjectReference: Reference? = null,
+) {
+  public fun toModel(): Library.Subject =
+    Library.Subject?.from(
+      this@LibrarySubjectSurrogate.subjectCodeableConcept,
+      this@LibrarySubjectSurrogate.subjectReference,
+    )!!
+
+  public companion object {
+    public fun fromModel(model: Library.Subject): LibrarySubjectSurrogate =
+      with(model) {
+        LibrarySubjectSurrogate(
+          subjectCodeableConcept = this@with.asCodeableConcept()?.value,
+          subjectReference = this@with.asReference()?.value,
+        )
+      }
+  }
+}
+
+@Serializable
 internal data class LibrarySurrogate(
   public var id: KotlinString? = null,
   public var meta: Meta? = null,
@@ -72,9 +121,7 @@ internal data class LibrarySurrogate(
   public var identifier: MutableList<Identifier>? = null,
   public var version: KotlinString? = null,
   public var _version: Element? = null,
-  public var versionAlgorithmString: KotlinString? = null,
-  public var _versionAlgorithmString: Element? = null,
-  public var versionAlgorithmCoding: Coding? = null,
+  public var versionAlgorithm: Library.VersionAlgorithm? = null,
   public var name: KotlinString? = null,
   public var _name: Element? = null,
   public var title: KotlinString? = null,
@@ -86,8 +133,7 @@ internal data class LibrarySurrogate(
   public var experimental: KotlinBoolean? = null,
   public var _experimental: Element? = null,
   public var type: CodeableConcept,
-  public var subjectCodeableConcept: CodeableConcept? = null,
-  public var subjectReference: Reference? = null,
+  public var subject: Library.Subject? = null,
   public var date: KotlinString? = null,
   public var _date: Element? = null,
   public var publisher: KotlinString? = null,
@@ -134,14 +180,7 @@ internal data class LibrarySurrogate(
       url = Uri.of(this@LibrarySurrogate.url, this@LibrarySurrogate._url),
       identifier = this@LibrarySurrogate.identifier ?: mutableListOf(),
       version = R5String.of(this@LibrarySurrogate.version, this@LibrarySurrogate._version),
-      versionAlgorithm =
-        Library.VersionAlgorithm?.from(
-          R5String.of(
-            this@LibrarySurrogate.versionAlgorithmString,
-            this@LibrarySurrogate._versionAlgorithmString,
-          ),
-          this@LibrarySurrogate.versionAlgorithmCoding,
-        ),
+      versionAlgorithm = this@LibrarySurrogate.versionAlgorithm,
       name = R5String.of(this@LibrarySurrogate.name, this@LibrarySurrogate._name),
       title = R5String.of(this@LibrarySurrogate.title, this@LibrarySurrogate._title),
       subtitle = R5String.of(this@LibrarySurrogate.subtitle, this@LibrarySurrogate._subtitle),
@@ -153,11 +192,7 @@ internal data class LibrarySurrogate(
       experimental =
         R5Boolean.of(this@LibrarySurrogate.experimental, this@LibrarySurrogate._experimental),
       type = this@LibrarySurrogate.type,
-      subject =
-        Library.Subject?.from(
-          this@LibrarySurrogate.subjectCodeableConcept,
-          this@LibrarySurrogate.subjectReference,
-        ),
+      subject = this@LibrarySurrogate.subject,
       date =
         DateTime.of(
           FhirDateTime.fromString(this@LibrarySurrogate.date),
@@ -215,9 +250,7 @@ internal data class LibrarySurrogate(
           identifier = this@with.identifier.takeUnless { it.all { it == null } },
           version = this@with.version?.value,
           _version = this@with.version?.toElement(),
-          versionAlgorithmString = this@with.versionAlgorithm?.asString()?.value?.value,
-          _versionAlgorithmString = this@with.versionAlgorithm?.asString()?.value?.toElement(),
-          versionAlgorithmCoding = this@with.versionAlgorithm?.asCoding()?.value,
+          versionAlgorithm = this@with.versionAlgorithm,
           name = this@with.name?.value,
           _name = this@with.name?.toElement(),
           title = this@with.title?.value,
@@ -229,8 +262,7 @@ internal data class LibrarySurrogate(
           experimental = this@with.experimental?.value,
           _experimental = this@with.experimental?.toElement(),
           type = this@with.type,
-          subjectCodeableConcept = this@with.subject?.asCodeableConcept()?.value,
-          subjectReference = this@with.subject?.asReference()?.value,
+          subject = this@with.subject,
           date = this@with.date?.value?.toString(),
           _date = this@with.date?.toElement(),
           publisher = this@with.publisher?.value,

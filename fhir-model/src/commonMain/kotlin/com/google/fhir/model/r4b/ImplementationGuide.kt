@@ -19,14 +19,17 @@
 package com.google.fhir.model.r4b
 
 import com.google.fhir.model.r4b.serializers.ImplementationGuideDefinitionGroupingSerializer
+import com.google.fhir.model.r4b.serializers.ImplementationGuideDefinitionPageNameSerializer
 import com.google.fhir.model.r4b.serializers.ImplementationGuideDefinitionPageSerializer
 import com.google.fhir.model.r4b.serializers.ImplementationGuideDefinitionParameterSerializer
+import com.google.fhir.model.r4b.serializers.ImplementationGuideDefinitionResourceExampleSerializer
 import com.google.fhir.model.r4b.serializers.ImplementationGuideDefinitionResourceSerializer
 import com.google.fhir.model.r4b.serializers.ImplementationGuideDefinitionSerializer
 import com.google.fhir.model.r4b.serializers.ImplementationGuideDefinitionTemplateSerializer
 import com.google.fhir.model.r4b.serializers.ImplementationGuideDependsOnSerializer
 import com.google.fhir.model.r4b.serializers.ImplementationGuideGlobalSerializer
 import com.google.fhir.model.r4b.serializers.ImplementationGuideManifestPageSerializer
+import com.google.fhir.model.r4b.serializers.ImplementationGuideManifestResourceExampleSerializer
 import com.google.fhir.model.r4b.serializers.ImplementationGuideManifestResourceSerializer
 import com.google.fhir.model.r4b.serializers.ImplementationGuideManifestSerializer
 import com.google.fhir.model.r4b.serializers.ImplementationGuideSerializer
@@ -636,6 +639,7 @@ public data class ImplementationGuide(
        */
       public var groupingId: Id? = null,
     ) : BackboneElement() {
+      @Serializable(with = ImplementationGuideDefinitionResourceExampleSerializer::class)
       public sealed interface Example {
         public fun asBoolean(): Boolean? = this as? Boolean
 
@@ -723,6 +727,7 @@ public data class ImplementationGuide(
        */
       public var page: MutableList<Page> = mutableListOf(),
     ) : BackboneElement() {
+      @Serializable(with = ImplementationGuideDefinitionPageNameSerializer::class)
       public sealed interface Name {
         public fun asUrl(): Url? = this as? Url
 
@@ -970,6 +975,7 @@ public data class ImplementationGuide(
        */
       public var relativePath: Url? = null,
     ) : BackboneElement() {
+      @Serializable(with = ImplementationGuideManifestResourceExampleSerializer::class)
       public sealed interface Example {
         public fun asBoolean(): Boolean? = this as? Boolean
 

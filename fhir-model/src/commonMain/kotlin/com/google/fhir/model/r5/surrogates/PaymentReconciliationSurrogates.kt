@@ -49,6 +49,43 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
+internal data class PaymentReconciliationAllocationTargetItemSurrogate(
+  public var targetItemString: KotlinString? = null,
+  public var _targetItemString: Element? = null,
+  public var targetItemIdentifier: Identifier? = null,
+  public var targetItemPositiveInt: Int? = null,
+  public var _targetItemPositiveInt: Element? = null,
+) {
+  public fun toModel(): PaymentReconciliation.Allocation.TargetItem =
+    PaymentReconciliation.Allocation.TargetItem?.from(
+      R5String.of(
+        this@PaymentReconciliationAllocationTargetItemSurrogate.targetItemString,
+        this@PaymentReconciliationAllocationTargetItemSurrogate._targetItemString,
+      ),
+      this@PaymentReconciliationAllocationTargetItemSurrogate.targetItemIdentifier,
+      PositiveInt.of(
+        this@PaymentReconciliationAllocationTargetItemSurrogate.targetItemPositiveInt,
+        this@PaymentReconciliationAllocationTargetItemSurrogate._targetItemPositiveInt,
+      ),
+    )!!
+
+  public companion object {
+    public fun fromModel(
+      model: PaymentReconciliation.Allocation.TargetItem
+    ): PaymentReconciliationAllocationTargetItemSurrogate =
+      with(model) {
+        PaymentReconciliationAllocationTargetItemSurrogate(
+          targetItemString = this@with.asString()?.value?.value,
+          _targetItemString = this@with.asString()?.value?.toElement(),
+          targetItemIdentifier = this@with.asIdentifier()?.value,
+          targetItemPositiveInt = this@with.asPositiveInt()?.value?.value,
+          _targetItemPositiveInt = this@with.asPositiveInt()?.value?.toElement(),
+        )
+      }
+  }
+}
+
+@Serializable
 internal data class PaymentReconciliationAllocationSurrogate(
   public var id: KotlinString? = null,
   public var extension: MutableList<Extension>? = null,
@@ -56,11 +93,7 @@ internal data class PaymentReconciliationAllocationSurrogate(
   public var identifier: Identifier? = null,
   public var predecessor: Identifier? = null,
   public var target: Reference? = null,
-  public var targetItemString: KotlinString? = null,
-  public var _targetItemString: Element? = null,
-  public var targetItemIdentifier: Identifier? = null,
-  public var targetItemPositiveInt: Int? = null,
-  public var _targetItemPositiveInt: Element? = null,
+  public var targetItem: PaymentReconciliation.Allocation.TargetItem? = null,
   public var encounter: Reference? = null,
   public var account: Reference? = null,
   public var type: CodeableConcept? = null,
@@ -81,18 +114,7 @@ internal data class PaymentReconciliationAllocationSurrogate(
       identifier = this@PaymentReconciliationAllocationSurrogate.identifier,
       predecessor = this@PaymentReconciliationAllocationSurrogate.predecessor,
       target = this@PaymentReconciliationAllocationSurrogate.target,
-      targetItem =
-        PaymentReconciliation.Allocation.TargetItem?.from(
-          R5String.of(
-            this@PaymentReconciliationAllocationSurrogate.targetItemString,
-            this@PaymentReconciliationAllocationSurrogate._targetItemString,
-          ),
-          this@PaymentReconciliationAllocationSurrogate.targetItemIdentifier,
-          PositiveInt.of(
-            this@PaymentReconciliationAllocationSurrogate.targetItemPositiveInt,
-            this@PaymentReconciliationAllocationSurrogate._targetItemPositiveInt,
-          ),
-        ),
+      targetItem = this@PaymentReconciliationAllocationSurrogate.targetItem,
       encounter = this@PaymentReconciliationAllocationSurrogate.encounter,
       account = this@PaymentReconciliationAllocationSurrogate.account,
       type = this@PaymentReconciliationAllocationSurrogate.type,
@@ -120,11 +142,7 @@ internal data class PaymentReconciliationAllocationSurrogate(
           identifier = this@with.identifier,
           predecessor = this@with.predecessor,
           target = this@with.target,
-          targetItemString = this@with.targetItem?.asString()?.value?.value,
-          _targetItemString = this@with.targetItem?.asString()?.value?.toElement(),
-          targetItemIdentifier = this@with.targetItem?.asIdentifier()?.value,
-          targetItemPositiveInt = this@with.targetItem?.asPositiveInt()?.value?.value,
-          _targetItemPositiveInt = this@with.targetItem?.asPositiveInt()?.value?.toElement(),
+          targetItem = this@with.targetItem,
           encounter = this@with.encounter,
           account = this@with.account,
           type = this@with.type,

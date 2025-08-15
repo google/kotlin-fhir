@@ -18,9 +18,12 @@
 
 package com.google.fhir.model.r5
 
+import com.google.fhir.model.r5.serializers.MessageHeaderDestinationEndpointSerializer
 import com.google.fhir.model.r5.serializers.MessageHeaderDestinationSerializer
+import com.google.fhir.model.r5.serializers.MessageHeaderEventSerializer
 import com.google.fhir.model.r5.serializers.MessageHeaderResponseSerializer
 import com.google.fhir.model.r5.serializers.MessageHeaderSerializer
+import com.google.fhir.model.r5.serializers.MessageHeaderSourceEndpointSerializer
 import com.google.fhir.model.r5.serializers.MessageHeaderSourceSerializer
 import kotlin.Suppress
 import kotlin.collections.MutableList
@@ -261,6 +264,7 @@ public data class MessageHeader(
      */
     public var `receiver`: Reference? = null,
   ) : BackboneElement() {
+    @Serializable(with = MessageHeaderDestinationEndpointSerializer::class)
     public sealed interface Endpoint {
       public fun asUrl(): Url? = this as? Url
 
@@ -346,6 +350,7 @@ public data class MessageHeader(
      */
     public var contact: ContactPoint? = null,
   ) : BackboneElement() {
+    @Serializable(with = MessageHeaderSourceEndpointSerializer::class)
     public sealed interface Endpoint {
       public fun asUrl(): Url? = this as? Url
 
@@ -431,6 +436,7 @@ public data class MessageHeader(
     public var details: Reference? = null,
   ) : BackboneElement()
 
+  @Serializable(with = MessageHeaderEventSerializer::class)
   public sealed interface Event {
     public fun asCoding(): Coding? = this as? Coding
 

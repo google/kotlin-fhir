@@ -20,8 +20,10 @@ package com.google.fhir.model.r4b
 
 import com.google.fhir.model.r4b.serializers.DataRequirementCodeFilterSerializer
 import com.google.fhir.model.r4b.serializers.DataRequirementDateFilterSerializer
+import com.google.fhir.model.r4b.serializers.DataRequirementDateFilterValueSerializer
 import com.google.fhir.model.r4b.serializers.DataRequirementSerializer
 import com.google.fhir.model.r4b.serializers.DataRequirementSortSerializer
+import com.google.fhir.model.r4b.serializers.DataRequirementSubjectSerializer
 import kotlin.Suppress
 import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
@@ -217,6 +219,7 @@ public data class DataRequirement(
      */
     public var `value`: Value? = null,
   ) : Element() {
+    @Serializable(with = DataRequirementDateFilterValueSerializer::class)
     public sealed interface Value {
       public fun asDateTime(): DateTime? = this as? DateTime
 
@@ -277,6 +280,7 @@ public data class DataRequirement(
     public var direction: Enumeration<SortDirection>,
   ) : Element()
 
+  @Serializable(with = DataRequirementSubjectSerializer::class)
   public sealed interface Subject {
     public fun asCodeableConcept(): CodeableConcept? = this as? CodeableConcept
 

@@ -19,17 +19,27 @@
 package com.google.fhir.model.r5.serializers
 
 import com.google.fhir.model.r5.ConditionDefinition
+import com.google.fhir.model.r5.FhirJsonTransformer
 import com.google.fhir.model.r5.surrogates.ConditionDefinitionMedicationSurrogate
 import com.google.fhir.model.r5.surrogates.ConditionDefinitionObservationSurrogate
 import com.google.fhir.model.r5.surrogates.ConditionDefinitionPlanSurrogate
 import com.google.fhir.model.r5.surrogates.ConditionDefinitionPreconditionSurrogate
+import com.google.fhir.model.r5.surrogates.ConditionDefinitionPreconditionValueSurrogate
 import com.google.fhir.model.r5.surrogates.ConditionDefinitionQuestionnaireSurrogate
 import com.google.fhir.model.r5.surrogates.ConditionDefinitionSurrogate
+import com.google.fhir.model.r5.surrogates.ConditionDefinitionVersionAlgorithmSurrogate
+import kotlin.String
 import kotlin.Suppress
+import kotlin.collections.List
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.descriptors.SerialDescriptor
 import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
+import kotlinx.serialization.json.JsonDecoder
+import kotlinx.serialization.json.JsonEncoder
+import kotlinx.serialization.json.JsonObject
+import kotlinx.serialization.json.JsonPrimitive
+import kotlinx.serialization.json.jsonObject
 
 public object ConditionDefinitionObservationSerializer :
   KSerializer<ConditionDefinition.Observation> {
@@ -67,24 +77,73 @@ public object ConditionDefinitionMedicationSerializer :
   }
 }
 
+public object ConditionDefinitionPreconditionValueSerializer :
+  KSerializer<ConditionDefinition.Precondition.Value> {
+  internal val surrogateSerializer:
+    KSerializer<ConditionDefinitionPreconditionValueSurrogate> by lazy {
+    ConditionDefinitionPreconditionValueSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Value", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): ConditionDefinition.Precondition.Value =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: ConditionDefinition.Precondition.Value) {
+    surrogateSerializer.serialize(
+      encoder,
+      ConditionDefinitionPreconditionValueSurrogate.fromModel(value),
+    )
+  }
+}
+
 public object ConditionDefinitionPreconditionSerializer :
   KSerializer<ConditionDefinition.Precondition> {
   internal val surrogateSerializer: KSerializer<ConditionDefinitionPreconditionSurrogate> by lazy {
     ConditionDefinitionPreconditionSurrogate.serializer()
   }
 
+  private val resourceType: String? = null
+
+  private val multiChoiceProperties: List<String> = listOf("value")
+
   override val descriptor: SerialDescriptor by lazy {
     SerialDescriptor("Precondition", surrogateSerializer.descriptor)
   }
 
-  override fun deserialize(decoder: Decoder): ConditionDefinition.Precondition =
-    surrogateSerializer.deserialize(decoder).toModel()
+  override fun deserialize(decoder: Decoder): ConditionDefinition.Precondition {
+    val jsonDecoder =
+      decoder as? JsonDecoder ?: error("This serializer only supports JSON decoding")
+    val oldJsonObject =
+      if (resourceType.isNullOrBlank()) {
+        jsonDecoder.decodeJsonElement().jsonObject
+      } else
+        JsonObject(
+          jsonDecoder.decodeJsonElement().jsonObject.toMutableMap().apply { remove("resourceType") }
+        )
+    val unflattenedJsonObject = FhirJsonTransformer.unflatten(oldJsonObject, multiChoiceProperties)
+    val surrogate =
+      jsonDecoder.json.decodeFromJsonElement(surrogateSerializer, unflattenedJsonObject)
+    return surrogate.toModel()
+  }
 
   override fun serialize(encoder: Encoder, `value`: ConditionDefinition.Precondition) {
-    surrogateSerializer.serialize(
-      encoder,
-      ConditionDefinitionPreconditionSurrogate.fromModel(value),
-    )
+    val jsonEncoder =
+      encoder as? JsonEncoder ?: error("This serializer only supports JSON encoding")
+    val surrogate = ConditionDefinitionPreconditionSurrogate.fromModel(value)
+    val oldJsonObject =
+      if (resourceType.isNullOrBlank()) {
+        jsonEncoder.json.encodeToJsonElement(surrogateSerializer, surrogate).jsonObject
+      } else {
+        JsonObject(
+          mutableMapOf("resourceType" to JsonPrimitive(resourceType))
+            .plus(jsonEncoder.json.encodeToJsonElement(surrogateSerializer, surrogate).jsonObject)
+        )
+      }
+    val flattenedJsonObject = FhirJsonTransformer.flatten(oldJsonObject, multiChoiceProperties)
+    jsonEncoder.encodeJsonElement(flattenedJsonObject)
   }
 }
 
@@ -126,19 +185,71 @@ public object ConditionDefinitionPlanSerializer : KSerializer<ConditionDefinitio
   }
 }
 
+public object ConditionDefinitionVersionAlgorithmSerializer :
+  KSerializer<ConditionDefinition.VersionAlgorithm> {
+  internal val surrogateSerializer:
+    KSerializer<ConditionDefinitionVersionAlgorithmSurrogate> by lazy {
+    ConditionDefinitionVersionAlgorithmSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("VersionAlgorithm", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): ConditionDefinition.VersionAlgorithm =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: ConditionDefinition.VersionAlgorithm) {
+    surrogateSerializer.serialize(
+      encoder,
+      ConditionDefinitionVersionAlgorithmSurrogate.fromModel(value),
+    )
+  }
+}
+
 public object ConditionDefinitionSerializer : KSerializer<ConditionDefinition> {
   internal val surrogateSerializer: KSerializer<ConditionDefinitionSurrogate> by lazy {
     ConditionDefinitionSurrogate.serializer()
   }
 
+  private val resourceType: String? = "ConditionDefinition"
+
+  private val multiChoiceProperties: List<String> = listOf("versionAlgorithm")
+
   override val descriptor: SerialDescriptor by lazy {
     SerialDescriptor("ConditionDefinition", surrogateSerializer.descriptor)
   }
 
-  override fun deserialize(decoder: Decoder): ConditionDefinition =
-    surrogateSerializer.deserialize(decoder).toModel()
+  override fun deserialize(decoder: Decoder): ConditionDefinition {
+    val jsonDecoder =
+      decoder as? JsonDecoder ?: error("This serializer only supports JSON decoding")
+    val oldJsonObject =
+      if (resourceType.isNullOrBlank()) {
+        jsonDecoder.decodeJsonElement().jsonObject
+      } else
+        JsonObject(
+          jsonDecoder.decodeJsonElement().jsonObject.toMutableMap().apply { remove("resourceType") }
+        )
+    val unflattenedJsonObject = FhirJsonTransformer.unflatten(oldJsonObject, multiChoiceProperties)
+    val surrogate =
+      jsonDecoder.json.decodeFromJsonElement(surrogateSerializer, unflattenedJsonObject)
+    return surrogate.toModel()
+  }
 
   override fun serialize(encoder: Encoder, `value`: ConditionDefinition) {
-    surrogateSerializer.serialize(encoder, ConditionDefinitionSurrogate.fromModel(value))
+    val jsonEncoder =
+      encoder as? JsonEncoder ?: error("This serializer only supports JSON encoding")
+    val surrogate = ConditionDefinitionSurrogate.fromModel(value)
+    val oldJsonObject =
+      if (resourceType.isNullOrBlank()) {
+        jsonEncoder.json.encodeToJsonElement(surrogateSerializer, surrogate).jsonObject
+      } else {
+        JsonObject(
+          mutableMapOf("resourceType" to JsonPrimitive(resourceType))
+            .plus(jsonEncoder.json.encodeToJsonElement(surrogateSerializer, surrogate).jsonObject)
+        )
+      }
+    val flattenedJsonObject = FhirJsonTransformer.flatten(oldJsonObject, multiChoiceProperties)
+    jsonEncoder.encodeJsonElement(flattenedJsonObject)
   }
 }

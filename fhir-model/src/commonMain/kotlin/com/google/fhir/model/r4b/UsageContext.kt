@@ -19,6 +19,7 @@
 package com.google.fhir.model.r4b
 
 import com.google.fhir.model.r4b.serializers.UsageContextSerializer
+import com.google.fhir.model.r4b.serializers.UsageContextValueSerializer
 import kotlin.String
 import kotlin.Suppress
 import kotlin.collections.MutableList
@@ -58,6 +59,7 @@ public data class UsageContext(
    */
   public var `value`: Value,
 ) : Element() {
+  @Serializable(with = UsageContextValueSerializer::class)
   public sealed interface Value {
     public fun asCodeableConcept(): CodeableConcept? = this as? CodeableConcept
 

@@ -19,6 +19,7 @@
 package com.google.fhir.model.r5
 
 import com.google.fhir.model.r5.serializers.SubstanceIngredientSerializer
+import com.google.fhir.model.r5.serializers.SubstanceIngredientSubstanceSerializer
 import com.google.fhir.model.r5.serializers.SubstanceSerializer
 import kotlin.String
 import kotlin.Suppress
@@ -212,6 +213,7 @@ public data class Substance(
     /** Another substance that is a component of this substance. */
     public var substance: Substance,
   ) : BackboneElement() {
+    @Serializable(with = SubstanceIngredientSubstanceSerializer::class)
     public sealed interface Substance {
       public fun asCodeableConcept(): CodeableConcept? = this as? CodeableConcept
 

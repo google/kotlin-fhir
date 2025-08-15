@@ -19,6 +19,7 @@
 package com.google.fhir.model.r4
 
 import com.google.fhir.model.r4.serializers.DetectedIssueEvidenceSerializer
+import com.google.fhir.model.r4.serializers.DetectedIssueIdentifiedSerializer
 import com.google.fhir.model.r4.serializers.DetectedIssueMitigationSerializer
 import com.google.fhir.model.r4.serializers.DetectedIssueSerializer
 import kotlin.Suppress
@@ -304,6 +305,7 @@ public data class DetectedIssue(
     public var author: Reference? = null,
   ) : BackboneElement()
 
+  @Serializable(with = DetectedIssueIdentifiedSerializer::class)
   public sealed interface Identified {
     public fun asDateTime(): DateTime? = this as? DateTime
 

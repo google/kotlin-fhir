@@ -19,13 +19,23 @@
 package com.google.fhir.model.r5.serializers
 
 import com.google.fhir.model.r5.ArtifactAssessment
+import com.google.fhir.model.r5.FhirJsonTransformer
+import com.google.fhir.model.r5.surrogates.ArtifactAssessmentArtifactSurrogate
+import com.google.fhir.model.r5.surrogates.ArtifactAssessmentCiteAsSurrogate
 import com.google.fhir.model.r5.surrogates.ArtifactAssessmentContentSurrogate
 import com.google.fhir.model.r5.surrogates.ArtifactAssessmentSurrogate
+import kotlin.String
 import kotlin.Suppress
+import kotlin.collections.List
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.descriptors.SerialDescriptor
 import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
+import kotlinx.serialization.json.JsonDecoder
+import kotlinx.serialization.json.JsonEncoder
+import kotlinx.serialization.json.JsonObject
+import kotlinx.serialization.json.JsonPrimitive
+import kotlinx.serialization.json.jsonObject
 
 public object ArtifactAssessmentContentSerializer : KSerializer<ArtifactAssessment.Content> {
   internal val surrogateSerializer: KSerializer<ArtifactAssessmentContentSurrogate> by lazy {
@@ -44,19 +54,83 @@ public object ArtifactAssessmentContentSerializer : KSerializer<ArtifactAssessme
   }
 }
 
+public object ArtifactAssessmentCiteAsSerializer : KSerializer<ArtifactAssessment.CiteAs> {
+  internal val surrogateSerializer: KSerializer<ArtifactAssessmentCiteAsSurrogate> by lazy {
+    ArtifactAssessmentCiteAsSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("CiteAs", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): ArtifactAssessment.CiteAs =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: ArtifactAssessment.CiteAs) {
+    surrogateSerializer.serialize(encoder, ArtifactAssessmentCiteAsSurrogate.fromModel(value))
+  }
+}
+
+public object ArtifactAssessmentArtifactSerializer : KSerializer<ArtifactAssessment.Artifact> {
+  internal val surrogateSerializer: KSerializer<ArtifactAssessmentArtifactSurrogate> by lazy {
+    ArtifactAssessmentArtifactSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Artifact", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): ArtifactAssessment.Artifact =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: ArtifactAssessment.Artifact) {
+    surrogateSerializer.serialize(encoder, ArtifactAssessmentArtifactSurrogate.fromModel(value))
+  }
+}
+
 public object ArtifactAssessmentSerializer : KSerializer<ArtifactAssessment> {
   internal val surrogateSerializer: KSerializer<ArtifactAssessmentSurrogate> by lazy {
     ArtifactAssessmentSurrogate.serializer()
   }
 
+  private val resourceType: String? = "ArtifactAssessment"
+
+  private val multiChoiceProperties: List<String> = listOf("citeAs", "artifact")
+
   override val descriptor: SerialDescriptor by lazy {
     SerialDescriptor("ArtifactAssessment", surrogateSerializer.descriptor)
   }
 
-  override fun deserialize(decoder: Decoder): ArtifactAssessment =
-    surrogateSerializer.deserialize(decoder).toModel()
+  override fun deserialize(decoder: Decoder): ArtifactAssessment {
+    val jsonDecoder =
+      decoder as? JsonDecoder ?: error("This serializer only supports JSON decoding")
+    val oldJsonObject =
+      if (resourceType.isNullOrBlank()) {
+        jsonDecoder.decodeJsonElement().jsonObject
+      } else
+        JsonObject(
+          jsonDecoder.decodeJsonElement().jsonObject.toMutableMap().apply { remove("resourceType") }
+        )
+    val unflattenedJsonObject = FhirJsonTransformer.unflatten(oldJsonObject, multiChoiceProperties)
+    val surrogate =
+      jsonDecoder.json.decodeFromJsonElement(surrogateSerializer, unflattenedJsonObject)
+    return surrogate.toModel()
+  }
 
   override fun serialize(encoder: Encoder, `value`: ArtifactAssessment) {
-    surrogateSerializer.serialize(encoder, ArtifactAssessmentSurrogate.fromModel(value))
+    val jsonEncoder =
+      encoder as? JsonEncoder ?: error("This serializer only supports JSON encoding")
+    val surrogate = ArtifactAssessmentSurrogate.fromModel(value)
+    val oldJsonObject =
+      if (resourceType.isNullOrBlank()) {
+        jsonEncoder.json.encodeToJsonElement(surrogateSerializer, surrogate).jsonObject
+      } else {
+        JsonObject(
+          mutableMapOf("resourceType" to JsonPrimitive(resourceType))
+            .plus(jsonEncoder.json.encodeToJsonElement(surrogateSerializer, surrogate).jsonObject)
+        )
+      }
+    val flattenedJsonObject = FhirJsonTransformer.flatten(oldJsonObject, multiChoiceProperties)
+    jsonEncoder.encodeJsonElement(flattenedJsonObject)
   }
 }

@@ -23,6 +23,7 @@ import com.google.fhir.model.r5.serializers.OperationDefinitionParameterBindingS
 import com.google.fhir.model.r5.serializers.OperationDefinitionParameterReferencedFromSerializer
 import com.google.fhir.model.r5.serializers.OperationDefinitionParameterSerializer
 import com.google.fhir.model.r5.serializers.OperationDefinitionSerializer
+import com.google.fhir.model.r5.serializers.OperationDefinitionVersionAlgorithmSerializer
 import kotlin.Suppress
 import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
@@ -690,6 +691,7 @@ public data class OperationDefinition(
     public var comment: String? = null,
   ) : BackboneElement()
 
+  @Serializable(with = OperationDefinitionVersionAlgorithmSerializer::class)
   public sealed interface VersionAlgorithm {
     public fun asString(): String? = this as? String
 

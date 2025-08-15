@@ -19,14 +19,23 @@
 package com.google.fhir.model.r5.serializers
 
 import com.google.fhir.model.r5.AllergyIntolerance
+import com.google.fhir.model.r5.FhirJsonTransformer
+import com.google.fhir.model.r5.surrogates.AllergyIntoleranceOnsetSurrogate
 import com.google.fhir.model.r5.surrogates.AllergyIntoleranceParticipantSurrogate
 import com.google.fhir.model.r5.surrogates.AllergyIntoleranceReactionSurrogate
 import com.google.fhir.model.r5.surrogates.AllergyIntoleranceSurrogate
+import kotlin.String
 import kotlin.Suppress
+import kotlin.collections.List
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.descriptors.SerialDescriptor
 import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
+import kotlinx.serialization.json.JsonDecoder
+import kotlinx.serialization.json.JsonEncoder
+import kotlinx.serialization.json.JsonObject
+import kotlinx.serialization.json.JsonPrimitive
+import kotlinx.serialization.json.jsonObject
 
 public object AllergyIntoleranceParticipantSerializer :
   KSerializer<AllergyIntolerance.Participant> {
@@ -63,19 +72,66 @@ public object AllergyIntoleranceReactionSerializer : KSerializer<AllergyIntolera
   }
 }
 
+public object AllergyIntoleranceOnsetSerializer : KSerializer<AllergyIntolerance.Onset> {
+  internal val surrogateSerializer: KSerializer<AllergyIntoleranceOnsetSurrogate> by lazy {
+    AllergyIntoleranceOnsetSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Onset", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): AllergyIntolerance.Onset =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: AllergyIntolerance.Onset) {
+    surrogateSerializer.serialize(encoder, AllergyIntoleranceOnsetSurrogate.fromModel(value))
+  }
+}
+
 public object AllergyIntoleranceSerializer : KSerializer<AllergyIntolerance> {
   internal val surrogateSerializer: KSerializer<AllergyIntoleranceSurrogate> by lazy {
     AllergyIntoleranceSurrogate.serializer()
   }
 
+  private val resourceType: String? = "AllergyIntolerance"
+
+  private val multiChoiceProperties: List<String> = listOf("onset")
+
   override val descriptor: SerialDescriptor by lazy {
     SerialDescriptor("AllergyIntolerance", surrogateSerializer.descriptor)
   }
 
-  override fun deserialize(decoder: Decoder): AllergyIntolerance =
-    surrogateSerializer.deserialize(decoder).toModel()
+  override fun deserialize(decoder: Decoder): AllergyIntolerance {
+    val jsonDecoder =
+      decoder as? JsonDecoder ?: error("This serializer only supports JSON decoding")
+    val oldJsonObject =
+      if (resourceType.isNullOrBlank()) {
+        jsonDecoder.decodeJsonElement().jsonObject
+      } else
+        JsonObject(
+          jsonDecoder.decodeJsonElement().jsonObject.toMutableMap().apply { remove("resourceType") }
+        )
+    val unflattenedJsonObject = FhirJsonTransformer.unflatten(oldJsonObject, multiChoiceProperties)
+    val surrogate =
+      jsonDecoder.json.decodeFromJsonElement(surrogateSerializer, unflattenedJsonObject)
+    return surrogate.toModel()
+  }
 
   override fun serialize(encoder: Encoder, `value`: AllergyIntolerance) {
-    surrogateSerializer.serialize(encoder, AllergyIntoleranceSurrogate.fromModel(value))
+    val jsonEncoder =
+      encoder as? JsonEncoder ?: error("This serializer only supports JSON encoding")
+    val surrogate = AllergyIntoleranceSurrogate.fromModel(value)
+    val oldJsonObject =
+      if (resourceType.isNullOrBlank()) {
+        jsonEncoder.json.encodeToJsonElement(surrogateSerializer, surrogate).jsonObject
+      } else {
+        JsonObject(
+          mutableMapOf("resourceType" to JsonPrimitive(resourceType))
+            .plus(jsonEncoder.json.encodeToJsonElement(surrogateSerializer, surrogate).jsonObject)
+        )
+      }
+    val flattenedJsonObject = FhirJsonTransformer.flatten(oldJsonObject, multiChoiceProperties)
+    jsonEncoder.encodeJsonElement(flattenedJsonObject)
   }
 }

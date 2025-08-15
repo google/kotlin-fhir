@@ -18,6 +18,8 @@
 
 package com.google.fhir.model.r4
 
+import com.google.fhir.model.r4.serializers.MedicationStatementEffectiveSerializer
+import com.google.fhir.model.r4.serializers.MedicationStatementMedicationSerializer
 import com.google.fhir.model.r4.serializers.MedicationStatementSerializer
 import kotlin.String
 import kotlin.Suppress
@@ -256,6 +258,7 @@ public data class MedicationStatement(
    */
   public var dosage: MutableList<Dosage> = mutableListOf(),
 ) : DomainResource() {
+  @Serializable(with = MedicationStatementMedicationSerializer::class)
   public sealed interface Medication {
     public fun asCodeableConcept(): CodeableConcept? = this as? CodeableConcept
 
@@ -280,6 +283,7 @@ public data class MedicationStatement(
     }
   }
 
+  @Serializable(with = MedicationStatementEffectiveSerializer::class)
   public sealed interface Effective {
     public fun asDateTime(): DateTime? = this as? DateTime
 

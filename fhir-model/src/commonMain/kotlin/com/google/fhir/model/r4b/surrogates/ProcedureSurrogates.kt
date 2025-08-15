@@ -113,6 +113,47 @@ internal data class ProcedureFocalDeviceSurrogate(
 }
 
 @Serializable
+internal data class ProcedurePerformedSurrogate(
+  public var performedDateTime: KotlinString? = null,
+  public var _performedDateTime: Element? = null,
+  public var performedPeriod: Period? = null,
+  public var performedString: KotlinString? = null,
+  public var _performedString: Element? = null,
+  public var performedAge: Age? = null,
+  public var performedRange: Range? = null,
+) {
+  public fun toModel(): Procedure.Performed =
+    Procedure.Performed?.from(
+      DateTime.of(
+        FhirDateTime.fromString(this@ProcedurePerformedSurrogate.performedDateTime),
+        this@ProcedurePerformedSurrogate._performedDateTime,
+      ),
+      this@ProcedurePerformedSurrogate.performedPeriod,
+      R4bString.of(
+        this@ProcedurePerformedSurrogate.performedString,
+        this@ProcedurePerformedSurrogate._performedString,
+      ),
+      this@ProcedurePerformedSurrogate.performedAge,
+      this@ProcedurePerformedSurrogate.performedRange,
+    )!!
+
+  public companion object {
+    public fun fromModel(model: Procedure.Performed): ProcedurePerformedSurrogate =
+      with(model) {
+        ProcedurePerformedSurrogate(
+          performedDateTime = this@with.asDateTime()?.value?.value?.toString(),
+          _performedDateTime = this@with.asDateTime()?.value?.toElement(),
+          performedPeriod = this@with.asPeriod()?.value,
+          performedString = this@with.asString()?.value?.value,
+          _performedString = this@with.asString()?.value?.toElement(),
+          performedAge = this@with.asAge()?.value,
+          performedRange = this@with.asRange()?.value,
+        )
+      }
+  }
+}
+
+@Serializable
 internal data class ProcedureSurrogate(
   public var id: KotlinString? = null,
   public var meta: Meta? = null,
@@ -138,13 +179,7 @@ internal data class ProcedureSurrogate(
   public var code: CodeableConcept? = null,
   public var subject: Reference,
   public var encounter: Reference? = null,
-  public var performedDateTime: KotlinString? = null,
-  public var _performedDateTime: Element? = null,
-  public var performedPeriod: Period? = null,
-  public var performedString: KotlinString? = null,
-  public var _performedString: Element? = null,
-  public var performedAge: Age? = null,
-  public var performedRange: Range? = null,
+  public var performed: Procedure.Performed? = null,
   public var recorder: Reference? = null,
   public var asserter: Reference? = null,
   public var performer: MutableList<Procedure.Performer>? = null,
@@ -220,20 +255,7 @@ internal data class ProcedureSurrogate(
       code = this@ProcedureSurrogate.code,
       subject = this@ProcedureSurrogate.subject,
       encounter = this@ProcedureSurrogate.encounter,
-      performed =
-        Procedure.Performed?.from(
-          DateTime.of(
-            FhirDateTime.fromString(this@ProcedureSurrogate.performedDateTime),
-            this@ProcedureSurrogate._performedDateTime,
-          ),
-          this@ProcedureSurrogate.performedPeriod,
-          R4bString.of(
-            this@ProcedureSurrogate.performedString,
-            this@ProcedureSurrogate._performedString,
-          ),
-          this@ProcedureSurrogate.performedAge,
-          this@ProcedureSurrogate.performedRange,
-        ),
+      performed = this@ProcedureSurrogate.performed,
       recorder = this@ProcedureSurrogate.recorder,
       asserter = this@ProcedureSurrogate.asserter,
       performer = this@ProcedureSurrogate.performer ?: mutableListOf(),
@@ -298,13 +320,7 @@ internal data class ProcedureSurrogate(
           code = this@with.code,
           subject = this@with.subject,
           encounter = this@with.encounter,
-          performedDateTime = this@with.performed?.asDateTime()?.value?.value?.toString(),
-          _performedDateTime = this@with.performed?.asDateTime()?.value?.toElement(),
-          performedPeriod = this@with.performed?.asPeriod()?.value,
-          performedString = this@with.performed?.asString()?.value?.value,
-          _performedString = this@with.performed?.asString()?.value?.toElement(),
-          performedAge = this@with.performed?.asAge()?.value,
-          performedRange = this@with.performed?.asRange()?.value,
+          performed = this@with.performed,
           recorder = this@with.recorder,
           asserter = this@with.asserter,
           performer = this@with.performer.takeUnless { it.all { it == null } },

@@ -21,6 +21,7 @@ package com.google.fhir.model.r4b
 import com.google.fhir.model.r4b.serializers.AuditEventAgentNetworkSerializer
 import com.google.fhir.model.r4b.serializers.AuditEventAgentSerializer
 import com.google.fhir.model.r4b.serializers.AuditEventEntityDetailSerializer
+import com.google.fhir.model.r4b.serializers.AuditEventEntityDetailValueSerializer
 import com.google.fhir.model.r4b.serializers.AuditEventEntitySerializer
 import com.google.fhir.model.r4b.serializers.AuditEventSerializer
 import com.google.fhir.model.r4b.serializers.AuditEventSourceSerializer
@@ -550,6 +551,7 @@ public data class AuditEvent(
        */
       public var `value`: Value,
     ) : BackboneElement() {
+      @Serializable(with = AuditEventEntityDetailValueSerializer::class)
       public sealed interface Value {
         public fun asString(): String? = this as? String
 

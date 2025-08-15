@@ -20,10 +20,14 @@ package com.google.fhir.model.r5
 
 import com.google.fhir.model.r5.serializers.CoverageEligibilityResponseErrorSerializer
 import com.google.fhir.model.r5.serializers.CoverageEligibilityResponseEventSerializer
+import com.google.fhir.model.r5.serializers.CoverageEligibilityResponseEventWhenSerializer
+import com.google.fhir.model.r5.serializers.CoverageEligibilityResponseInsuranceItemBenefitAllowedSerializer
 import com.google.fhir.model.r5.serializers.CoverageEligibilityResponseInsuranceItemBenefitSerializer
+import com.google.fhir.model.r5.serializers.CoverageEligibilityResponseInsuranceItemBenefitUsedSerializer
 import com.google.fhir.model.r5.serializers.CoverageEligibilityResponseInsuranceItemSerializer
 import com.google.fhir.model.r5.serializers.CoverageEligibilityResponseInsuranceSerializer
 import com.google.fhir.model.r5.serializers.CoverageEligibilityResponseSerializer
+import com.google.fhir.model.r5.serializers.CoverageEligibilityResponseServicedSerializer
 import kotlin.Suppress
 import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
@@ -257,6 +261,7 @@ public data class CoverageEligibilityResponse(
      */
     public var `when`: When,
   ) : BackboneElement() {
+    @Serializable(with = CoverageEligibilityResponseEventWhenSerializer::class)
     public sealed interface When {
       public fun asDateTime(): DateTime? = this as? DateTime
 
@@ -501,6 +506,9 @@ public data class CoverageEligibilityResponse(
         /** The quantity of the benefit which have been consumed to date. */
         public var used: Used? = null,
       ) : BackboneElement() {
+        @Serializable(
+          with = CoverageEligibilityResponseInsuranceItemBenefitAllowedSerializer::class
+        )
         public sealed interface Allowed {
           public fun asUnsignedInt(): UnsignedInt? = this as? UnsignedInt
 
@@ -529,6 +537,7 @@ public data class CoverageEligibilityResponse(
           }
         }
 
+        @Serializable(with = CoverageEligibilityResponseInsuranceItemBenefitUsedSerializer::class)
         public sealed interface Used {
           public fun asUnsignedInt(): UnsignedInt? = this as? UnsignedInt
 
@@ -616,6 +625,7 @@ public data class CoverageEligibilityResponse(
     public var expression: MutableList<String> = mutableListOf(),
   ) : BackboneElement()
 
+  @Serializable(with = CoverageEligibilityResponseServicedSerializer::class)
   public sealed interface Serviced {
     public fun asDate(): Date? = this as? Date
 

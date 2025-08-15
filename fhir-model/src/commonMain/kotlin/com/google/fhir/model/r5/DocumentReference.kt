@@ -20,6 +20,7 @@ package com.google.fhir.model.r5
 
 import com.google.fhir.model.r5.serializers.DocumentReferenceAttesterSerializer
 import com.google.fhir.model.r5.serializers.DocumentReferenceContentProfileSerializer
+import com.google.fhir.model.r5.serializers.DocumentReferenceContentProfileValueSerializer
 import com.google.fhir.model.r5.serializers.DocumentReferenceContentSerializer
 import com.google.fhir.model.r5.serializers.DocumentReferenceRelatesToSerializer
 import com.google.fhir.model.r5.serializers.DocumentReferenceSerializer
@@ -508,6 +509,7 @@ public data class DocumentReference(
       /** Code|uri|canonical. */
       public var `value`: Value,
     ) : BackboneElement() {
+      @Serializable(with = DocumentReferenceContentProfileValueSerializer::class)
       public sealed interface Value {
         public fun asCoding(): Coding? = this as? Coding
 

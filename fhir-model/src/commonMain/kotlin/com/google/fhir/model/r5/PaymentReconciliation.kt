@@ -19,6 +19,7 @@
 package com.google.fhir.model.r5
 
 import com.google.fhir.model.r5.serializers.PaymentReconciliationAllocationSerializer
+import com.google.fhir.model.r5.serializers.PaymentReconciliationAllocationTargetItemSerializer
 import com.google.fhir.model.r5.serializers.PaymentReconciliationProcessNoteSerializer
 import com.google.fhir.model.r5.serializers.PaymentReconciliationSerializer
 import kotlin.Suppress
@@ -313,6 +314,7 @@ public data class PaymentReconciliation(
     /** The monetary amount allocated from the total payment to the payable. */
     public var amount: Money? = null,
   ) : BackboneElement() {
+    @Serializable(with = PaymentReconciliationAllocationTargetItemSerializer::class)
     public sealed interface TargetItem {
       public fun asString(): String? = this as? String
 

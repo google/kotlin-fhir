@@ -21,6 +21,7 @@ package com.google.fhir.model.r5
 import com.google.fhir.model.r5.serializers.ManufacturedItemDefinitionComponentConstituentSerializer
 import com.google.fhir.model.r5.serializers.ManufacturedItemDefinitionComponentSerializer
 import com.google.fhir.model.r5.serializers.ManufacturedItemDefinitionPropertySerializer
+import com.google.fhir.model.r5.serializers.ManufacturedItemDefinitionPropertyValueSerializer
 import com.google.fhir.model.r5.serializers.ManufacturedItemDefinitionSerializer
 import kotlin.Suppress
 import kotlin.collections.MutableList
@@ -211,6 +212,7 @@ public data class ManufacturedItemDefinition(
     /** A value for the characteristic. */
     public var `value`: Value? = null,
   ) : BackboneElement() {
+    @Serializable(with = ManufacturedItemDefinitionPropertyValueSerializer::class)
     public sealed interface Value {
       public fun asCodeableConcept(): CodeableConcept? = this as? CodeableConcept
 

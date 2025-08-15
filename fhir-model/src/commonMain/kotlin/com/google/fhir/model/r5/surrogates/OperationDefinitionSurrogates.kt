@@ -420,6 +420,35 @@ internal data class OperationDefinitionOverloadSurrogate(
 }
 
 @Serializable
+internal data class OperationDefinitionVersionAlgorithmSurrogate(
+  public var versionAlgorithmString: KotlinString? = null,
+  public var _versionAlgorithmString: Element? = null,
+  public var versionAlgorithmCoding: Coding? = null,
+) {
+  public fun toModel(): OperationDefinition.VersionAlgorithm =
+    OperationDefinition.VersionAlgorithm?.from(
+      R5String.of(
+        this@OperationDefinitionVersionAlgorithmSurrogate.versionAlgorithmString,
+        this@OperationDefinitionVersionAlgorithmSurrogate._versionAlgorithmString,
+      ),
+      this@OperationDefinitionVersionAlgorithmSurrogate.versionAlgorithmCoding,
+    )!!
+
+  public companion object {
+    public fun fromModel(
+      model: OperationDefinition.VersionAlgorithm
+    ): OperationDefinitionVersionAlgorithmSurrogate =
+      with(model) {
+        OperationDefinitionVersionAlgorithmSurrogate(
+          versionAlgorithmString = this@with.asString()?.value?.value,
+          _versionAlgorithmString = this@with.asString()?.value?.toElement(),
+          versionAlgorithmCoding = this@with.asCoding()?.value,
+        )
+      }
+  }
+}
+
+@Serializable
 internal data class OperationDefinitionSurrogate(
   public var id: KotlinString? = null,
   public var meta: Meta? = null,
@@ -436,9 +465,7 @@ internal data class OperationDefinitionSurrogate(
   public var identifier: MutableList<Identifier>? = null,
   public var version: KotlinString? = null,
   public var _version: Element? = null,
-  public var versionAlgorithmString: KotlinString? = null,
-  public var _versionAlgorithmString: Element? = null,
-  public var versionAlgorithmCoding: Coding? = null,
+  public var versionAlgorithm: OperationDefinition.VersionAlgorithm? = null,
   public var name: KotlinString? = null,
   public var _name: Element? = null,
   public var title: KotlinString? = null,
@@ -512,14 +539,7 @@ internal data class OperationDefinitionSurrogate(
           this@OperationDefinitionSurrogate.version,
           this@OperationDefinitionSurrogate._version,
         ),
-      versionAlgorithm =
-        OperationDefinition.VersionAlgorithm?.from(
-          R5String.of(
-            this@OperationDefinitionSurrogate.versionAlgorithmString,
-            this@OperationDefinitionSurrogate._versionAlgorithmString,
-          ),
-          this@OperationDefinitionSurrogate.versionAlgorithmCoding,
-        ),
+      versionAlgorithm = this@OperationDefinitionSurrogate.versionAlgorithm,
       name =
         R5String.of(
           this@OperationDefinitionSurrogate.name,
@@ -670,9 +690,7 @@ internal data class OperationDefinitionSurrogate(
           identifier = this@with.identifier.takeUnless { it.all { it == null } },
           version = this@with.version?.value,
           _version = this@with.version?.toElement(),
-          versionAlgorithmString = this@with.versionAlgorithm?.asString()?.value?.value,
-          _versionAlgorithmString = this@with.versionAlgorithm?.asString()?.value?.toElement(),
-          versionAlgorithmCoding = this@with.versionAlgorithm?.asCoding()?.value,
+          versionAlgorithm = this@with.versionAlgorithm,
           name = this@with.name.value,
           _name = this@with.name.toElement(),
           title = this@with.title?.value,

@@ -18,6 +18,8 @@
 
 package com.google.fhir.model.r5
 
+import com.google.fhir.model.r5.serializers.ConditionAbatementSerializer
+import com.google.fhir.model.r5.serializers.ConditionOnsetSerializer
 import com.google.fhir.model.r5.serializers.ConditionParticipantSerializer
 import com.google.fhir.model.r5.serializers.ConditionSerializer
 import com.google.fhir.model.r5.serializers.ConditionStageSerializer
@@ -389,6 +391,7 @@ public data class Condition(
     public var type: CodeableConcept? = null,
   ) : BackboneElement()
 
+  @Serializable(with = ConditionOnsetSerializer::class)
   public sealed interface Onset {
     public fun asDateTime(): DateTime? = this as? DateTime
 
@@ -428,6 +431,7 @@ public data class Condition(
     }
   }
 
+  @Serializable(with = ConditionAbatementSerializer::class)
   public sealed interface Abatement {
     public fun asDateTime(): DateTime? = this as? DateTime
 

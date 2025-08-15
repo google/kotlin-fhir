@@ -18,18 +18,28 @@
 
 package com.google.fhir.model.r4b.serializers
 
+import com.google.fhir.model.r4b.FhirJsonTransformer
 import com.google.fhir.model.r4b.PackagedProductDefinition
 import com.google.fhir.model.r4b.surrogates.PackagedProductDefinitionLegalStatusOfSupplySurrogate
 import com.google.fhir.model.r4b.surrogates.PackagedProductDefinitionPackageContainedItemSurrogate
 import com.google.fhir.model.r4b.surrogates.PackagedProductDefinitionPackagePropertySurrogate
+import com.google.fhir.model.r4b.surrogates.PackagedProductDefinitionPackagePropertyValueSurrogate
+import com.google.fhir.model.r4b.surrogates.PackagedProductDefinitionPackageShelfLifeStoragePeriodSurrogate
 import com.google.fhir.model.r4b.surrogates.PackagedProductDefinitionPackageShelfLifeStorageSurrogate
 import com.google.fhir.model.r4b.surrogates.PackagedProductDefinitionPackageSurrogate
 import com.google.fhir.model.r4b.surrogates.PackagedProductDefinitionSurrogate
+import kotlin.String
 import kotlin.Suppress
+import kotlin.collections.List
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.descriptors.SerialDescriptor
 import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
+import kotlinx.serialization.json.JsonDecoder
+import kotlinx.serialization.json.JsonEncoder
+import kotlinx.serialization.json.JsonObject
+import kotlinx.serialization.json.JsonPrimitive
+import kotlinx.serialization.json.jsonObject
 
 public object PackagedProductDefinitionLegalStatusOfSupplySerializer :
   KSerializer<PackagedProductDefinition.LegalStatusOfSupply> {
@@ -53,6 +63,33 @@ public object PackagedProductDefinitionLegalStatusOfSupplySerializer :
   }
 }
 
+public object PackagedProductDefinitionPackageShelfLifeStoragePeriodSerializer :
+  KSerializer<PackagedProductDefinition.Package.ShelfLifeStorage.Period> {
+  internal val surrogateSerializer:
+    KSerializer<PackagedProductDefinitionPackageShelfLifeStoragePeriodSurrogate> by lazy {
+    PackagedProductDefinitionPackageShelfLifeStoragePeriodSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Period", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(
+    decoder: Decoder
+  ): PackagedProductDefinition.Package.ShelfLifeStorage.Period =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(
+    encoder: Encoder,
+    `value`: PackagedProductDefinition.Package.ShelfLifeStorage.Period,
+  ) {
+    surrogateSerializer.serialize(
+      encoder,
+      PackagedProductDefinitionPackageShelfLifeStoragePeriodSurrogate.fromModel(value),
+    )
+  }
+}
+
 public object PackagedProductDefinitionPackageShelfLifeStorageSerializer :
   KSerializer<PackagedProductDefinition.Package.ShelfLifeStorage> {
   internal val surrogateSerializer:
@@ -60,20 +97,72 @@ public object PackagedProductDefinitionPackageShelfLifeStorageSerializer :
     PackagedProductDefinitionPackageShelfLifeStorageSurrogate.serializer()
   }
 
+  private val resourceType: String? = null
+
+  private val multiChoiceProperties: List<String> = listOf("period")
+
   override val descriptor: SerialDescriptor by lazy {
     SerialDescriptor("ShelfLifeStorage", surrogateSerializer.descriptor)
   }
 
-  override fun deserialize(decoder: Decoder): PackagedProductDefinition.Package.ShelfLifeStorage =
-    surrogateSerializer.deserialize(decoder).toModel()
+  override fun deserialize(decoder: Decoder): PackagedProductDefinition.Package.ShelfLifeStorage {
+    val jsonDecoder =
+      decoder as? JsonDecoder ?: error("This serializer only supports JSON decoding")
+    val oldJsonObject =
+      if (resourceType.isNullOrBlank()) {
+        jsonDecoder.decodeJsonElement().jsonObject
+      } else
+        JsonObject(
+          jsonDecoder.decodeJsonElement().jsonObject.toMutableMap().apply { remove("resourceType") }
+        )
+    val unflattenedJsonObject = FhirJsonTransformer.unflatten(oldJsonObject, multiChoiceProperties)
+    val surrogate =
+      jsonDecoder.json.decodeFromJsonElement(surrogateSerializer, unflattenedJsonObject)
+    return surrogate.toModel()
+  }
 
   override fun serialize(
     encoder: Encoder,
     `value`: PackagedProductDefinition.Package.ShelfLifeStorage,
   ) {
+    val jsonEncoder =
+      encoder as? JsonEncoder ?: error("This serializer only supports JSON encoding")
+    val surrogate = PackagedProductDefinitionPackageShelfLifeStorageSurrogate.fromModel(value)
+    val oldJsonObject =
+      if (resourceType.isNullOrBlank()) {
+        jsonEncoder.json.encodeToJsonElement(surrogateSerializer, surrogate).jsonObject
+      } else {
+        JsonObject(
+          mutableMapOf("resourceType" to JsonPrimitive(resourceType))
+            .plus(jsonEncoder.json.encodeToJsonElement(surrogateSerializer, surrogate).jsonObject)
+        )
+      }
+    val flattenedJsonObject = FhirJsonTransformer.flatten(oldJsonObject, multiChoiceProperties)
+    jsonEncoder.encodeJsonElement(flattenedJsonObject)
+  }
+}
+
+public object PackagedProductDefinitionPackagePropertyValueSerializer :
+  KSerializer<PackagedProductDefinition.Package.Property.Value> {
+  internal val surrogateSerializer:
+    KSerializer<PackagedProductDefinitionPackagePropertyValueSurrogate> by lazy {
+    PackagedProductDefinitionPackagePropertyValueSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Value", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): PackagedProductDefinition.Package.Property.Value =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(
+    encoder: Encoder,
+    `value`: PackagedProductDefinition.Package.Property.Value,
+  ) {
     surrogateSerializer.serialize(
       encoder,
-      PackagedProductDefinitionPackageShelfLifeStorageSurrogate.fromModel(value),
+      PackagedProductDefinitionPackagePropertyValueSurrogate.fromModel(value),
     )
   }
 }
@@ -85,18 +174,45 @@ public object PackagedProductDefinitionPackagePropertySerializer :
     PackagedProductDefinitionPackagePropertySurrogate.serializer()
   }
 
+  private val resourceType: String? = null
+
+  private val multiChoiceProperties: List<String> = listOf("value")
+
   override val descriptor: SerialDescriptor by lazy {
     SerialDescriptor("Property", surrogateSerializer.descriptor)
   }
 
-  override fun deserialize(decoder: Decoder): PackagedProductDefinition.Package.Property =
-    surrogateSerializer.deserialize(decoder).toModel()
+  override fun deserialize(decoder: Decoder): PackagedProductDefinition.Package.Property {
+    val jsonDecoder =
+      decoder as? JsonDecoder ?: error("This serializer only supports JSON decoding")
+    val oldJsonObject =
+      if (resourceType.isNullOrBlank()) {
+        jsonDecoder.decodeJsonElement().jsonObject
+      } else
+        JsonObject(
+          jsonDecoder.decodeJsonElement().jsonObject.toMutableMap().apply { remove("resourceType") }
+        )
+    val unflattenedJsonObject = FhirJsonTransformer.unflatten(oldJsonObject, multiChoiceProperties)
+    val surrogate =
+      jsonDecoder.json.decodeFromJsonElement(surrogateSerializer, unflattenedJsonObject)
+    return surrogate.toModel()
+  }
 
   override fun serialize(encoder: Encoder, `value`: PackagedProductDefinition.Package.Property) {
-    surrogateSerializer.serialize(
-      encoder,
-      PackagedProductDefinitionPackagePropertySurrogate.fromModel(value),
-    )
+    val jsonEncoder =
+      encoder as? JsonEncoder ?: error("This serializer only supports JSON encoding")
+    val surrogate = PackagedProductDefinitionPackagePropertySurrogate.fromModel(value)
+    val oldJsonObject =
+      if (resourceType.isNullOrBlank()) {
+        jsonEncoder.json.encodeToJsonElement(surrogateSerializer, surrogate).jsonObject
+      } else {
+        JsonObject(
+          mutableMapOf("resourceType" to JsonPrimitive(resourceType))
+            .plus(jsonEncoder.json.encodeToJsonElement(surrogateSerializer, surrogate).jsonObject)
+        )
+      }
+    val flattenedJsonObject = FhirJsonTransformer.flatten(oldJsonObject, multiChoiceProperties)
+    jsonEncoder.encodeJsonElement(flattenedJsonObject)
   }
 }
 

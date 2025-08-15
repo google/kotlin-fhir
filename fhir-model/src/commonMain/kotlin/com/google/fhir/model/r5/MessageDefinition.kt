@@ -19,8 +19,10 @@
 package com.google.fhir.model.r5
 
 import com.google.fhir.model.r5.serializers.MessageDefinitionAllowedResponseSerializer
+import com.google.fhir.model.r5.serializers.MessageDefinitionEventSerializer
 import com.google.fhir.model.r5.serializers.MessageDefinitionFocusSerializer
 import com.google.fhir.model.r5.serializers.MessageDefinitionSerializer
+import com.google.fhir.model.r5.serializers.MessageDefinitionVersionAlgorithmSerializer
 import kotlin.Suppress
 import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
@@ -473,6 +475,7 @@ public data class MessageDefinition(
     public var situation: Markdown? = null,
   ) : BackboneElement()
 
+  @Serializable(with = MessageDefinitionVersionAlgorithmSerializer::class)
   public sealed interface VersionAlgorithm {
     public fun asString(): String? = this as? String
 
@@ -496,6 +499,7 @@ public data class MessageDefinition(
     }
   }
 
+  @Serializable(with = MessageDefinitionEventSerializer::class)
   public sealed interface Event {
     public fun asCoding(): Coding? = this as? Coding
 

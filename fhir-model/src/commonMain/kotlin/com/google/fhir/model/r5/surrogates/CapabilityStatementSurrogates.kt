@@ -999,6 +999,35 @@ internal data class CapabilityStatementDocumentSurrogate(
 }
 
 @Serializable
+internal data class CapabilityStatementVersionAlgorithmSurrogate(
+  public var versionAlgorithmString: KotlinString? = null,
+  public var _versionAlgorithmString: Element? = null,
+  public var versionAlgorithmCoding: Coding? = null,
+) {
+  public fun toModel(): CapabilityStatement.VersionAlgorithm =
+    CapabilityStatement.VersionAlgorithm?.from(
+      R5String.of(
+        this@CapabilityStatementVersionAlgorithmSurrogate.versionAlgorithmString,
+        this@CapabilityStatementVersionAlgorithmSurrogate._versionAlgorithmString,
+      ),
+      this@CapabilityStatementVersionAlgorithmSurrogate.versionAlgorithmCoding,
+    )!!
+
+  public companion object {
+    public fun fromModel(
+      model: CapabilityStatement.VersionAlgorithm
+    ): CapabilityStatementVersionAlgorithmSurrogate =
+      with(model) {
+        CapabilityStatementVersionAlgorithmSurrogate(
+          versionAlgorithmString = this@with.asString()?.value?.value,
+          _versionAlgorithmString = this@with.asString()?.value?.toElement(),
+          versionAlgorithmCoding = this@with.asCoding()?.value,
+        )
+      }
+  }
+}
+
+@Serializable
 internal data class CapabilityStatementSurrogate(
   public var id: KotlinString? = null,
   public var meta: Meta? = null,
@@ -1015,9 +1044,7 @@ internal data class CapabilityStatementSurrogate(
   public var identifier: MutableList<Identifier>? = null,
   public var version: KotlinString? = null,
   public var _version: Element? = null,
-  public var versionAlgorithmString: KotlinString? = null,
-  public var _versionAlgorithmString: Element? = null,
-  public var versionAlgorithmCoding: Coding? = null,
+  public var versionAlgorithm: CapabilityStatement.VersionAlgorithm? = null,
   public var name: KotlinString? = null,
   public var _name: Element? = null,
   public var title: KotlinString? = null,
@@ -1088,14 +1115,7 @@ internal data class CapabilityStatementSurrogate(
           this@CapabilityStatementSurrogate.version,
           this@CapabilityStatementSurrogate._version,
         ),
-      versionAlgorithm =
-        CapabilityStatement.VersionAlgorithm?.from(
-          R5String.of(
-            this@CapabilityStatementSurrogate.versionAlgorithmString,
-            this@CapabilityStatementSurrogate._versionAlgorithmString,
-          ),
-          this@CapabilityStatementSurrogate.versionAlgorithmCoding,
-        ),
+      versionAlgorithm = this@CapabilityStatementSurrogate.versionAlgorithm,
       name =
         R5String.of(
           this@CapabilityStatementSurrogate.name,
@@ -1287,9 +1307,7 @@ internal data class CapabilityStatementSurrogate(
           identifier = this@with.identifier.takeUnless { it.all { it == null } },
           version = this@with.version?.value,
           _version = this@with.version?.toElement(),
-          versionAlgorithmString = this@with.versionAlgorithm?.asString()?.value?.value,
-          _versionAlgorithmString = this@with.versionAlgorithm?.asString()?.value?.toElement(),
-          versionAlgorithmCoding = this@with.versionAlgorithm?.asCoding()?.value,
+          versionAlgorithm = this@with.versionAlgorithm,
           name = this@with.name?.value,
           _name = this@with.name?.toElement(),
           title = this@with.title?.value,

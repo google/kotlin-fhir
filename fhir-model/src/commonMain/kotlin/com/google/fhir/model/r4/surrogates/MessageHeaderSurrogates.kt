@@ -207,6 +207,30 @@ internal data class MessageHeaderResponseSurrogate(
 }
 
 @Serializable
+internal data class MessageHeaderEventSurrogate(
+  public var eventCoding: Coding? = null,
+  public var eventUri: KotlinString? = null,
+  public var _eventUri: Element? = null,
+) {
+  public fun toModel(): MessageHeader.Event =
+    MessageHeader.Event.from(
+      this@MessageHeaderEventSurrogate.eventCoding,
+      Uri.of(this@MessageHeaderEventSurrogate.eventUri, this@MessageHeaderEventSurrogate._eventUri),
+    )!! !!
+
+  public companion object {
+    public fun fromModel(model: MessageHeader.Event): MessageHeaderEventSurrogate =
+      with(model) {
+        MessageHeaderEventSurrogate(
+          eventCoding = this@with.asCoding()?.value,
+          eventUri = this@with.asUri()?.value?.value,
+          _eventUri = this@with.asUri()?.value?.toElement(),
+        )
+      }
+  }
+}
+
+@Serializable
 internal data class MessageHeaderSurrogate(
   public var id: KotlinString? = null,
   public var meta: Meta? = null,
@@ -218,9 +242,7 @@ internal data class MessageHeaderSurrogate(
   public var contained: MutableList<Resource>? = null,
   public var extension: MutableList<Extension>? = null,
   public var modifierExtension: MutableList<Extension>? = null,
-  public var eventCoding: Coding? = null,
-  public var eventUri: KotlinString? = null,
-  public var _eventUri: Element? = null,
+  public var event: MessageHeader.Event,
   public var destination: MutableList<MessageHeader.Destination>? = null,
   public var sender: Reference? = null,
   public var enterer: Reference? = null,
@@ -248,11 +270,7 @@ internal data class MessageHeaderSurrogate(
       contained = this@MessageHeaderSurrogate.contained ?: mutableListOf(),
       extension = this@MessageHeaderSurrogate.extension ?: mutableListOf(),
       modifierExtension = this@MessageHeaderSurrogate.modifierExtension ?: mutableListOf(),
-      event =
-        MessageHeader.Event.from(
-          this@MessageHeaderSurrogate.eventCoding,
-          Uri.of(this@MessageHeaderSurrogate.eventUri, this@MessageHeaderSurrogate._eventUri),
-        )!!,
+      event = this@MessageHeaderSurrogate.event,
       destination = this@MessageHeaderSurrogate.destination ?: mutableListOf(),
       sender = this@MessageHeaderSurrogate.sender,
       enterer = this@MessageHeaderSurrogate.enterer,
@@ -283,9 +301,7 @@ internal data class MessageHeaderSurrogate(
           contained = this@with.contained.takeUnless { it.all { it == null } },
           extension = this@with.extension.takeUnless { it.all { it == null } },
           modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          eventCoding = this@with.event?.asCoding()?.value,
-          eventUri = this@with.event?.asUri()?.value?.value,
-          _eventUri = this@with.event?.asUri()?.value?.toElement(),
+          event = this@with.event,
           destination = this@with.destination.takeUnless { it.all { it == null } },
           sender = this@with.sender,
           enterer = this@with.enterer,

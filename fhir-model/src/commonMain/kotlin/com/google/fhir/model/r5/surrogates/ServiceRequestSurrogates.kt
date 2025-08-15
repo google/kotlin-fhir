@@ -54,11 +54,7 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
-internal data class ServiceRequestOrderDetailParameterSurrogate(
-  public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var code: CodeableConcept,
+internal data class ServiceRequestOrderDetailParameterValueSurrogate(
   public var valueQuantity: Quantity? = null,
   public var valueRatio: Ratio? = null,
   public var valueRange: Range? = null,
@@ -69,6 +65,51 @@ internal data class ServiceRequestOrderDetailParameterSurrogate(
   public var _valueString: Element? = null,
   public var valuePeriod: Period? = null,
 ) {
+  public fun toModel(): ServiceRequest.OrderDetail.Parameter.Value =
+    ServiceRequest.OrderDetail.Parameter.Value.from(
+      this@ServiceRequestOrderDetailParameterValueSurrogate.valueQuantity,
+      this@ServiceRequestOrderDetailParameterValueSurrogate.valueRatio,
+      this@ServiceRequestOrderDetailParameterValueSurrogate.valueRange,
+      R5Boolean.of(
+        this@ServiceRequestOrderDetailParameterValueSurrogate.valueBoolean,
+        this@ServiceRequestOrderDetailParameterValueSurrogate._valueBoolean,
+      ),
+      this@ServiceRequestOrderDetailParameterValueSurrogate.valueCodeableConcept,
+      R5String.of(
+        this@ServiceRequestOrderDetailParameterValueSurrogate.valueString,
+        this@ServiceRequestOrderDetailParameterValueSurrogate._valueString,
+      ),
+      this@ServiceRequestOrderDetailParameterValueSurrogate.valuePeriod,
+    )!! !!
+
+  public companion object {
+    public fun fromModel(
+      model: ServiceRequest.OrderDetail.Parameter.Value
+    ): ServiceRequestOrderDetailParameterValueSurrogate =
+      with(model) {
+        ServiceRequestOrderDetailParameterValueSurrogate(
+          valueQuantity = this@with.asQuantity()?.value,
+          valueRatio = this@with.asRatio()?.value,
+          valueRange = this@with.asRange()?.value,
+          valueBoolean = this@with.asBoolean()?.value?.value,
+          _valueBoolean = this@with.asBoolean()?.value?.toElement(),
+          valueCodeableConcept = this@with.asCodeableConcept()?.value,
+          valueString = this@with.asString()?.value?.value,
+          _valueString = this@with.asString()?.value?.toElement(),
+          valuePeriod = this@with.asPeriod()?.value,
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class ServiceRequestOrderDetailParameterSurrogate(
+  public var id: KotlinString? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var code: CodeableConcept,
+  public var `value`: ServiceRequest.OrderDetail.Parameter.Value,
+) {
   public fun toModel(): ServiceRequest.OrderDetail.Parameter =
     ServiceRequest.OrderDetail.Parameter(
       id = this@ServiceRequestOrderDetailParameterSurrogate.id,
@@ -76,22 +117,7 @@ internal data class ServiceRequestOrderDetailParameterSurrogate(
       modifierExtension =
         this@ServiceRequestOrderDetailParameterSurrogate.modifierExtension ?: mutableListOf(),
       code = this@ServiceRequestOrderDetailParameterSurrogate.code,
-      `value` =
-        ServiceRequest.OrderDetail.Parameter.Value.from(
-          this@ServiceRequestOrderDetailParameterSurrogate.valueQuantity,
-          this@ServiceRequestOrderDetailParameterSurrogate.valueRatio,
-          this@ServiceRequestOrderDetailParameterSurrogate.valueRange,
-          R5Boolean.of(
-            this@ServiceRequestOrderDetailParameterSurrogate.valueBoolean,
-            this@ServiceRequestOrderDetailParameterSurrogate._valueBoolean,
-          ),
-          this@ServiceRequestOrderDetailParameterSurrogate.valueCodeableConcept,
-          R5String.of(
-            this@ServiceRequestOrderDetailParameterSurrogate.valueString,
-            this@ServiceRequestOrderDetailParameterSurrogate._valueString,
-          ),
-          this@ServiceRequestOrderDetailParameterSurrogate.valuePeriod,
-        )!!,
+      `value` = this@ServiceRequestOrderDetailParameterSurrogate.`value`,
     )
 
   public companion object {
@@ -104,15 +130,7 @@ internal data class ServiceRequestOrderDetailParameterSurrogate(
           extension = this@with.extension.takeUnless { it.all { it == null } },
           modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
           code = this@with.code,
-          valueQuantity = this@with.`value`?.asQuantity()?.value,
-          valueRatio = this@with.`value`?.asRatio()?.value,
-          valueRange = this@with.`value`?.asRange()?.value,
-          valueBoolean = this@with.`value`?.asBoolean()?.value?.value,
-          _valueBoolean = this@with.`value`?.asBoolean()?.value?.toElement(),
-          valueCodeableConcept = this@with.`value`?.asCodeableConcept()?.value,
-          valueString = this@with.`value`?.asString()?.value?.value,
-          _valueString = this@with.`value`?.asString()?.value?.toElement(),
-          valuePeriod = this@with.`value`?.asPeriod()?.value,
+          `value` = this@with.`value`,
         )
       }
   }
@@ -151,13 +169,40 @@ internal data class ServiceRequestOrderDetailSurrogate(
 }
 
 @Serializable
+internal data class ServiceRequestPatientInstructionInstructionSurrogate(
+  public var instructionMarkdown: KotlinString? = null,
+  public var _instructionMarkdown: Element? = null,
+  public var instructionReference: Reference? = null,
+) {
+  public fun toModel(): ServiceRequest.PatientInstruction.Instruction =
+    ServiceRequest.PatientInstruction.Instruction?.from(
+      Markdown.of(
+        this@ServiceRequestPatientInstructionInstructionSurrogate.instructionMarkdown,
+        this@ServiceRequestPatientInstructionInstructionSurrogate._instructionMarkdown,
+      ),
+      this@ServiceRequestPatientInstructionInstructionSurrogate.instructionReference,
+    )!!
+
+  public companion object {
+    public fun fromModel(
+      model: ServiceRequest.PatientInstruction.Instruction
+    ): ServiceRequestPatientInstructionInstructionSurrogate =
+      with(model) {
+        ServiceRequestPatientInstructionInstructionSurrogate(
+          instructionMarkdown = this@with.asMarkdown()?.value?.value,
+          _instructionMarkdown = this@with.asMarkdown()?.value?.toElement(),
+          instructionReference = this@with.asReference()?.value,
+        )
+      }
+  }
+}
+
+@Serializable
 internal data class ServiceRequestPatientInstructionSurrogate(
   public var id: KotlinString? = null,
   public var extension: MutableList<Extension>? = null,
   public var modifierExtension: MutableList<Extension>? = null,
-  public var instructionMarkdown: KotlinString? = null,
-  public var _instructionMarkdown: Element? = null,
-  public var instructionReference: Reference? = null,
+  public var instruction: ServiceRequest.PatientInstruction.Instruction? = null,
 ) {
   public fun toModel(): ServiceRequest.PatientInstruction =
     ServiceRequest.PatientInstruction(
@@ -165,14 +210,7 @@ internal data class ServiceRequestPatientInstructionSurrogate(
       extension = this@ServiceRequestPatientInstructionSurrogate.extension ?: mutableListOf(),
       modifierExtension =
         this@ServiceRequestPatientInstructionSurrogate.modifierExtension ?: mutableListOf(),
-      instruction =
-        ServiceRequest.PatientInstruction.Instruction?.from(
-          Markdown.of(
-            this@ServiceRequestPatientInstructionSurrogate.instructionMarkdown,
-            this@ServiceRequestPatientInstructionSurrogate._instructionMarkdown,
-          ),
-          this@ServiceRequestPatientInstructionSurrogate.instructionReference,
-        ),
+      instruction = this@ServiceRequestPatientInstructionSurrogate.instruction,
     )
 
   public companion object {
@@ -184,9 +222,89 @@ internal data class ServiceRequestPatientInstructionSurrogate(
           id = this@with.id,
           extension = this@with.extension.takeUnless { it.all { it == null } },
           modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          instructionMarkdown = this@with.instruction?.asMarkdown()?.value?.value,
-          _instructionMarkdown = this@with.instruction?.asMarkdown()?.value?.toElement(),
-          instructionReference = this@with.instruction?.asReference()?.value,
+          instruction = this@with.instruction,
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class ServiceRequestQuantitySurrogate(
+  public var quantityQuantity: Quantity? = null,
+  public var quantityRatio: Ratio? = null,
+  public var quantityRange: Range? = null,
+) {
+  public fun toModel(): ServiceRequest.Quantity =
+    ServiceRequest.Quantity?.from(
+      this@ServiceRequestQuantitySurrogate.quantityQuantity,
+      this@ServiceRequestQuantitySurrogate.quantityRatio,
+      this@ServiceRequestQuantitySurrogate.quantityRange,
+    )!!
+
+  public companion object {
+    public fun fromModel(model: ServiceRequest.Quantity): ServiceRequestQuantitySurrogate =
+      with(model) {
+        ServiceRequestQuantitySurrogate(
+          quantityQuantity = this@with.asQuantity()?.value,
+          quantityRatio = this@with.asRatio()?.value,
+          quantityRange = this@with.asRange()?.value,
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class ServiceRequestOccurrenceSurrogate(
+  public var occurrenceDateTime: KotlinString? = null,
+  public var _occurrenceDateTime: Element? = null,
+  public var occurrencePeriod: Period? = null,
+  public var occurrenceTiming: Timing? = null,
+) {
+  public fun toModel(): ServiceRequest.Occurrence =
+    ServiceRequest.Occurrence?.from(
+      DateTime.of(
+        FhirDateTime.fromString(this@ServiceRequestOccurrenceSurrogate.occurrenceDateTime),
+        this@ServiceRequestOccurrenceSurrogate._occurrenceDateTime,
+      ),
+      this@ServiceRequestOccurrenceSurrogate.occurrencePeriod,
+      this@ServiceRequestOccurrenceSurrogate.occurrenceTiming,
+    )!!
+
+  public companion object {
+    public fun fromModel(model: ServiceRequest.Occurrence): ServiceRequestOccurrenceSurrogate =
+      with(model) {
+        ServiceRequestOccurrenceSurrogate(
+          occurrenceDateTime = this@with.asDateTime()?.value?.value?.toString(),
+          _occurrenceDateTime = this@with.asDateTime()?.value?.toElement(),
+          occurrencePeriod = this@with.asPeriod()?.value,
+          occurrenceTiming = this@with.asTiming()?.value,
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class ServiceRequestAsNeededSurrogate(
+  public var asNeededBoolean: KotlinBoolean? = null,
+  public var _asNeededBoolean: Element? = null,
+  public var asNeededCodeableConcept: CodeableConcept? = null,
+) {
+  public fun toModel(): ServiceRequest.AsNeeded =
+    ServiceRequest.AsNeeded?.from(
+      R5Boolean.of(
+        this@ServiceRequestAsNeededSurrogate.asNeededBoolean,
+        this@ServiceRequestAsNeededSurrogate._asNeededBoolean,
+      ),
+      this@ServiceRequestAsNeededSurrogate.asNeededCodeableConcept,
+    )!!
+
+  public companion object {
+    public fun fromModel(model: ServiceRequest.AsNeeded): ServiceRequestAsNeededSurrogate =
+      with(model) {
+        ServiceRequestAsNeededSurrogate(
+          asNeededBoolean = this@with.asBoolean()?.value?.value,
+          _asNeededBoolean = this@with.asBoolean()?.value?.toElement(),
+          asNeededCodeableConcept = this@with.asCodeableConcept()?.value,
         )
       }
   }
@@ -223,19 +341,12 @@ internal data class ServiceRequestSurrogate(
   public var _doNotPerform: Element? = null,
   public var code: CodeableReference? = null,
   public var orderDetail: MutableList<ServiceRequest.OrderDetail>? = null,
-  public var quantityQuantity: Quantity? = null,
-  public var quantityRatio: Ratio? = null,
-  public var quantityRange: Range? = null,
+  public var quantity: ServiceRequest.Quantity? = null,
   public var subject: Reference,
   public var focus: MutableList<Reference>? = null,
   public var encounter: Reference? = null,
-  public var occurrenceDateTime: KotlinString? = null,
-  public var _occurrenceDateTime: Element? = null,
-  public var occurrencePeriod: Period? = null,
-  public var occurrenceTiming: Timing? = null,
-  public var asNeededBoolean: KotlinBoolean? = null,
-  public var _asNeededBoolean: Element? = null,
-  public var asNeededCodeableConcept: CodeableConcept? = null,
+  public var occurrence: ServiceRequest.Occurrence? = null,
+  public var asNeeded: ServiceRequest.AsNeeded? = null,
   public var authoredOn: KotlinString? = null,
   public var _authoredOn: Element? = null,
   public var requester: Reference? = null,
@@ -332,32 +443,12 @@ internal data class ServiceRequestSurrogate(
         ),
       code = this@ServiceRequestSurrogate.code,
       orderDetail = this@ServiceRequestSurrogate.orderDetail ?: mutableListOf(),
-      quantity =
-        ServiceRequest.Quantity?.from(
-          this@ServiceRequestSurrogate.quantityQuantity,
-          this@ServiceRequestSurrogate.quantityRatio,
-          this@ServiceRequestSurrogate.quantityRange,
-        ),
+      quantity = this@ServiceRequestSurrogate.quantity,
       subject = this@ServiceRequestSurrogate.subject,
       focus = this@ServiceRequestSurrogate.focus ?: mutableListOf(),
       encounter = this@ServiceRequestSurrogate.encounter,
-      occurrence =
-        ServiceRequest.Occurrence?.from(
-          DateTime.of(
-            FhirDateTime.fromString(this@ServiceRequestSurrogate.occurrenceDateTime),
-            this@ServiceRequestSurrogate._occurrenceDateTime,
-          ),
-          this@ServiceRequestSurrogate.occurrencePeriod,
-          this@ServiceRequestSurrogate.occurrenceTiming,
-        ),
-      asNeeded =
-        ServiceRequest.AsNeeded?.from(
-          R5Boolean.of(
-            this@ServiceRequestSurrogate.asNeededBoolean,
-            this@ServiceRequestSurrogate._asNeededBoolean,
-          ),
-          this@ServiceRequestSurrogate.asNeededCodeableConcept,
-        ),
+      occurrence = this@ServiceRequestSurrogate.occurrence,
+      asNeeded = this@ServiceRequestSurrogate.asNeeded,
       authoredOn =
         DateTime.of(
           FhirDateTime.fromString(this@ServiceRequestSurrogate.authoredOn),
@@ -429,19 +520,12 @@ internal data class ServiceRequestSurrogate(
           _doNotPerform = this@with.doNotPerform?.toElement(),
           code = this@with.code,
           orderDetail = this@with.orderDetail.takeUnless { it.all { it == null } },
-          quantityQuantity = this@with.quantity?.asQuantity()?.value,
-          quantityRatio = this@with.quantity?.asRatio()?.value,
-          quantityRange = this@with.quantity?.asRange()?.value,
+          quantity = this@with.quantity,
           subject = this@with.subject,
           focus = this@with.focus.takeUnless { it.all { it == null } },
           encounter = this@with.encounter,
-          occurrenceDateTime = this@with.occurrence?.asDateTime()?.value?.value?.toString(),
-          _occurrenceDateTime = this@with.occurrence?.asDateTime()?.value?.toElement(),
-          occurrencePeriod = this@with.occurrence?.asPeriod()?.value,
-          occurrenceTiming = this@with.occurrence?.asTiming()?.value,
-          asNeededBoolean = this@with.asNeeded?.asBoolean()?.value?.value,
-          _asNeededBoolean = this@with.asNeeded?.asBoolean()?.value?.toElement(),
-          asNeededCodeableConcept = this@with.asNeeded?.asCodeableConcept()?.value,
+          occurrence = this@with.occurrence,
+          asNeeded = this@with.asNeeded,
           authoredOn = this@with.authoredOn?.value?.toString(),
           _authoredOn = this@with.authoredOn?.toElement(),
           requester = this@with.requester,

@@ -19,6 +19,7 @@
 package com.google.fhir.model.r4b
 
 import com.google.fhir.model.r4b.serializers.EvidenceCertaintySerializer
+import com.google.fhir.model.r4b.serializers.EvidenceCiteAsSerializer
 import com.google.fhir.model.r4b.serializers.EvidenceSerializer
 import com.google.fhir.model.r4b.serializers.EvidenceStatisticAttributeEstimateSerializer
 import com.google.fhir.model.r4b.serializers.EvidenceStatisticModelCharacteristicSerializer
@@ -717,6 +718,7 @@ public data class Evidence(
     public var subcomponent: MutableList<Certainty> = mutableListOf(),
   ) : BackboneElement()
 
+  @Serializable(with = EvidenceCiteAsSerializer::class)
   public sealed interface CiteAs {
     public fun asReference(): Reference? = this as? Reference
 

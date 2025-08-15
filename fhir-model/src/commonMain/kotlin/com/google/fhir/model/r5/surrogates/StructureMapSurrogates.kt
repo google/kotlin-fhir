@@ -349,10 +349,7 @@ internal data class StructureMapGroupRuleSourceSurrogate(
 }
 
 @Serializable
-internal data class StructureMapGroupRuleTargetParameterSurrogate(
-  public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+internal data class StructureMapGroupRuleTargetParameterValueSurrogate(
   public var valueId: KotlinString? = null,
   public var _valueId: Element? = null,
   public var valueString: KotlinString? = null,
@@ -370,49 +367,85 @@ internal data class StructureMapGroupRuleTargetParameterSurrogate(
   public var valueDateTime: KotlinString? = null,
   public var _valueDateTime: Element? = null,
 ) {
+  public fun toModel(): StructureMap.Group.Rule.Target.Parameter.Value =
+    StructureMap.Group.Rule.Target.Parameter.Value.from(
+      Id.of(
+        this@StructureMapGroupRuleTargetParameterValueSurrogate.valueId,
+        this@StructureMapGroupRuleTargetParameterValueSurrogate._valueId,
+      ),
+      R5String.of(
+        this@StructureMapGroupRuleTargetParameterValueSurrogate.valueString,
+        this@StructureMapGroupRuleTargetParameterValueSurrogate._valueString,
+      ),
+      R5Boolean.of(
+        this@StructureMapGroupRuleTargetParameterValueSurrogate.valueBoolean,
+        this@StructureMapGroupRuleTargetParameterValueSurrogate._valueBoolean,
+      ),
+      Integer.of(
+        this@StructureMapGroupRuleTargetParameterValueSurrogate.valueInteger,
+        this@StructureMapGroupRuleTargetParameterValueSurrogate._valueInteger,
+      ),
+      Decimal.of(
+        this@StructureMapGroupRuleTargetParameterValueSurrogate.valueDecimal,
+        this@StructureMapGroupRuleTargetParameterValueSurrogate._valueDecimal,
+      ),
+      Date.of(
+        FhirDate.fromString(this@StructureMapGroupRuleTargetParameterValueSurrogate.valueDate),
+        this@StructureMapGroupRuleTargetParameterValueSurrogate._valueDate,
+      ),
+      Time.of(
+        this@StructureMapGroupRuleTargetParameterValueSurrogate.valueTime,
+        this@StructureMapGroupRuleTargetParameterValueSurrogate._valueTime,
+      ),
+      DateTime.of(
+        FhirDateTime.fromString(
+          this@StructureMapGroupRuleTargetParameterValueSurrogate.valueDateTime
+        ),
+        this@StructureMapGroupRuleTargetParameterValueSurrogate._valueDateTime,
+      ),
+    )!! !!
+
+  public companion object {
+    public fun fromModel(
+      model: StructureMap.Group.Rule.Target.Parameter.Value
+    ): StructureMapGroupRuleTargetParameterValueSurrogate =
+      with(model) {
+        StructureMapGroupRuleTargetParameterValueSurrogate(
+          valueId = this@with.asId()?.value?.value,
+          _valueId = this@with.asId()?.value?.toElement(),
+          valueString = this@with.asString()?.value?.value,
+          _valueString = this@with.asString()?.value?.toElement(),
+          valueBoolean = this@with.asBoolean()?.value?.value,
+          _valueBoolean = this@with.asBoolean()?.value?.toElement(),
+          valueInteger = this@with.asInteger()?.value?.value,
+          _valueInteger = this@with.asInteger()?.value?.toElement(),
+          valueDecimal = this@with.asDecimal()?.value?.value,
+          _valueDecimal = this@with.asDecimal()?.value?.toElement(),
+          valueDate = this@with.asDate()?.value?.value?.toString(),
+          _valueDate = this@with.asDate()?.value?.toElement(),
+          valueTime = this@with.asTime()?.value?.value,
+          _valueTime = this@with.asTime()?.value?.toElement(),
+          valueDateTime = this@with.asDateTime()?.value?.value?.toString(),
+          _valueDateTime = this@with.asDateTime()?.value?.toElement(),
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class StructureMapGroupRuleTargetParameterSurrogate(
+  public var id: KotlinString? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var `value`: StructureMap.Group.Rule.Target.Parameter.Value,
+) {
   public fun toModel(): StructureMap.Group.Rule.Target.Parameter =
     StructureMap.Group.Rule.Target.Parameter(
       id = this@StructureMapGroupRuleTargetParameterSurrogate.id,
       extension = this@StructureMapGroupRuleTargetParameterSurrogate.extension ?: mutableListOf(),
       modifierExtension =
         this@StructureMapGroupRuleTargetParameterSurrogate.modifierExtension ?: mutableListOf(),
-      `value` =
-        StructureMap.Group.Rule.Target.Parameter.Value.from(
-          Id.of(
-            this@StructureMapGroupRuleTargetParameterSurrogate.valueId,
-            this@StructureMapGroupRuleTargetParameterSurrogate._valueId,
-          ),
-          R5String.of(
-            this@StructureMapGroupRuleTargetParameterSurrogate.valueString,
-            this@StructureMapGroupRuleTargetParameterSurrogate._valueString,
-          ),
-          R5Boolean.of(
-            this@StructureMapGroupRuleTargetParameterSurrogate.valueBoolean,
-            this@StructureMapGroupRuleTargetParameterSurrogate._valueBoolean,
-          ),
-          Integer.of(
-            this@StructureMapGroupRuleTargetParameterSurrogate.valueInteger,
-            this@StructureMapGroupRuleTargetParameterSurrogate._valueInteger,
-          ),
-          Decimal.of(
-            this@StructureMapGroupRuleTargetParameterSurrogate.valueDecimal,
-            this@StructureMapGroupRuleTargetParameterSurrogate._valueDecimal,
-          ),
-          Date.of(
-            FhirDate.fromString(this@StructureMapGroupRuleTargetParameterSurrogate.valueDate),
-            this@StructureMapGroupRuleTargetParameterSurrogate._valueDate,
-          ),
-          Time.of(
-            this@StructureMapGroupRuleTargetParameterSurrogate.valueTime,
-            this@StructureMapGroupRuleTargetParameterSurrogate._valueTime,
-          ),
-          DateTime.of(
-            FhirDateTime.fromString(
-              this@StructureMapGroupRuleTargetParameterSurrogate.valueDateTime
-            ),
-            this@StructureMapGroupRuleTargetParameterSurrogate._valueDateTime,
-          ),
-        )!!,
+      `value` = this@StructureMapGroupRuleTargetParameterSurrogate.`value`,
     )
 
   public companion object {
@@ -424,22 +457,7 @@ internal data class StructureMapGroupRuleTargetParameterSurrogate(
           id = this@with.id,
           extension = this@with.extension.takeUnless { it.all { it == null } },
           modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          valueId = this@with.`value`?.asId()?.value?.value,
-          _valueId = this@with.`value`?.asId()?.value?.toElement(),
-          valueString = this@with.`value`?.asString()?.value?.value,
-          _valueString = this@with.`value`?.asString()?.value?.toElement(),
-          valueBoolean = this@with.`value`?.asBoolean()?.value?.value,
-          _valueBoolean = this@with.`value`?.asBoolean()?.value?.toElement(),
-          valueInteger = this@with.`value`?.asInteger()?.value?.value,
-          _valueInteger = this@with.`value`?.asInteger()?.value?.toElement(),
-          valueDecimal = this@with.`value`?.asDecimal()?.value?.value,
-          _valueDecimal = this@with.`value`?.asDecimal()?.value?.toElement(),
-          valueDate = this@with.`value`?.asDate()?.value?.value?.toString(),
-          _valueDate = this@with.`value`?.asDate()?.value?.toElement(),
-          valueTime = this@with.`value`?.asTime()?.value?.value,
-          _valueTime = this@with.`value`?.asTime()?.value?.toElement(),
-          valueDateTime = this@with.`value`?.asDateTime()?.value?.value?.toString(),
-          _valueDateTime = this@with.`value`?.asDateTime()?.value?.toElement(),
+          `value` = this@with.`value`,
         )
       }
   }
@@ -714,6 +732,35 @@ internal data class StructureMapGroupSurrogate(
 }
 
 @Serializable
+internal data class StructureMapVersionAlgorithmSurrogate(
+  public var versionAlgorithmString: KotlinString? = null,
+  public var _versionAlgorithmString: Element? = null,
+  public var versionAlgorithmCoding: Coding? = null,
+) {
+  public fun toModel(): StructureMap.VersionAlgorithm =
+    StructureMap.VersionAlgorithm?.from(
+      R5String.of(
+        this@StructureMapVersionAlgorithmSurrogate.versionAlgorithmString,
+        this@StructureMapVersionAlgorithmSurrogate._versionAlgorithmString,
+      ),
+      this@StructureMapVersionAlgorithmSurrogate.versionAlgorithmCoding,
+    )!!
+
+  public companion object {
+    public fun fromModel(
+      model: StructureMap.VersionAlgorithm
+    ): StructureMapVersionAlgorithmSurrogate =
+      with(model) {
+        StructureMapVersionAlgorithmSurrogate(
+          versionAlgorithmString = this@with.asString()?.value?.value,
+          _versionAlgorithmString = this@with.asString()?.value?.toElement(),
+          versionAlgorithmCoding = this@with.asCoding()?.value,
+        )
+      }
+  }
+}
+
+@Serializable
 internal data class StructureMapSurrogate(
   public var id: KotlinString? = null,
   public var meta: Meta? = null,
@@ -730,9 +777,7 @@ internal data class StructureMapSurrogate(
   public var identifier: MutableList<Identifier>? = null,
   public var version: KotlinString? = null,
   public var _version: Element? = null,
-  public var versionAlgorithmString: KotlinString? = null,
-  public var _versionAlgorithmString: Element? = null,
-  public var versionAlgorithmCoding: Coding? = null,
+  public var versionAlgorithm: StructureMap.VersionAlgorithm? = null,
   public var name: KotlinString? = null,
   public var _name: Element? = null,
   public var title: KotlinString? = null,
@@ -777,14 +822,7 @@ internal data class StructureMapSurrogate(
       identifier = this@StructureMapSurrogate.identifier ?: mutableListOf(),
       version =
         R5String.of(this@StructureMapSurrogate.version, this@StructureMapSurrogate._version),
-      versionAlgorithm =
-        StructureMap.VersionAlgorithm?.from(
-          R5String.of(
-            this@StructureMapSurrogate.versionAlgorithmString,
-            this@StructureMapSurrogate._versionAlgorithmString,
-          ),
-          this@StructureMapSurrogate.versionAlgorithmCoding,
-        ),
+      versionAlgorithm = this@StructureMapSurrogate.versionAlgorithm,
       name = R5String.of(this@StructureMapSurrogate.name, this@StructureMapSurrogate._name)!!,
       title = R5String.of(this@StructureMapSurrogate.title, this@StructureMapSurrogate._title),
       status =
@@ -860,9 +898,7 @@ internal data class StructureMapSurrogate(
           identifier = this@with.identifier.takeUnless { it.all { it == null } },
           version = this@with.version?.value,
           _version = this@with.version?.toElement(),
-          versionAlgorithmString = this@with.versionAlgorithm?.asString()?.value?.value,
-          _versionAlgorithmString = this@with.versionAlgorithm?.asString()?.value?.toElement(),
-          versionAlgorithmCoding = this@with.versionAlgorithm?.asCoding()?.value,
+          versionAlgorithm = this@with.versionAlgorithm,
           name = this@with.name.value,
           _name = this@with.name.toElement(),
           title = this@with.title?.value,

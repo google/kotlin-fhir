@@ -19,6 +19,7 @@
 package com.google.fhir.model.r4b
 
 import com.google.fhir.model.r4b.serializers.ManufacturedItemDefinitionPropertySerializer
+import com.google.fhir.model.r4b.serializers.ManufacturedItemDefinitionPropertyValueSerializer
 import com.google.fhir.model.r4b.serializers.ManufacturedItemDefinitionSerializer
 import kotlin.String
 import kotlin.Suppress
@@ -199,6 +200,7 @@ public data class ManufacturedItemDefinition(
     /** A value for the characteristic. */
     public var `value`: Value? = null,
   ) : BackboneElement() {
+    @Serializable(with = ManufacturedItemDefinitionPropertyValueSerializer::class)
     public sealed interface Value {
       public fun asCodeableConcept(): CodeableConcept? = this as? CodeableConcept
 

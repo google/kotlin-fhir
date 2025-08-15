@@ -38,16 +38,51 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
-internal data class VirtualServiceDetailSurrogate(
-  public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var channelType: Coding? = null,
+internal data class VirtualServiceDetailAddressSurrogate(
   public var addressUrl: KotlinString? = null,
   public var _addressUrl: Element? = null,
   public var addressString: KotlinString? = null,
   public var _addressString: Element? = null,
   public var addressContactPoint: ContactPoint? = null,
   public var addressExtendedContactDetail: ExtendedContactDetail? = null,
+) {
+  public fun toModel(): VirtualServiceDetail.Address =
+    VirtualServiceDetail.Address?.from(
+      Url.of(
+        this@VirtualServiceDetailAddressSurrogate.addressUrl,
+        this@VirtualServiceDetailAddressSurrogate._addressUrl,
+      ),
+      R5String.of(
+        this@VirtualServiceDetailAddressSurrogate.addressString,
+        this@VirtualServiceDetailAddressSurrogate._addressString,
+      ),
+      this@VirtualServiceDetailAddressSurrogate.addressContactPoint,
+      this@VirtualServiceDetailAddressSurrogate.addressExtendedContactDetail,
+    )!!
+
+  public companion object {
+    public fun fromModel(
+      model: VirtualServiceDetail.Address
+    ): VirtualServiceDetailAddressSurrogate =
+      with(model) {
+        VirtualServiceDetailAddressSurrogate(
+          addressUrl = this@with.asUrl()?.value?.value,
+          _addressUrl = this@with.asUrl()?.value?.toElement(),
+          addressString = this@with.asString()?.value?.value,
+          _addressString = this@with.asString()?.value?.toElement(),
+          addressContactPoint = this@with.asContactPoint()?.value,
+          addressExtendedContactDetail = this@with.asExtendedContactDetail()?.value,
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class VirtualServiceDetailSurrogate(
+  public var id: KotlinString? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var channelType: Coding? = null,
+  public var address: VirtualServiceDetail.Address? = null,
   public var additionalInfo: MutableList<KotlinString?>? = null,
   public var _additionalInfo: MutableList<Element?>? = null,
   public var maxParticipants: Int? = null,
@@ -60,19 +95,7 @@ internal data class VirtualServiceDetailSurrogate(
       id = this@VirtualServiceDetailSurrogate.id,
       extension = this@VirtualServiceDetailSurrogate.extension ?: mutableListOf(),
       channelType = this@VirtualServiceDetailSurrogate.channelType,
-      address =
-        VirtualServiceDetail.Address?.from(
-          Url.of(
-            this@VirtualServiceDetailSurrogate.addressUrl,
-            this@VirtualServiceDetailSurrogate._addressUrl,
-          ),
-          R5String.of(
-            this@VirtualServiceDetailSurrogate.addressString,
-            this@VirtualServiceDetailSurrogate._addressString,
-          ),
-          this@VirtualServiceDetailSurrogate.addressContactPoint,
-          this@VirtualServiceDetailSurrogate.addressExtendedContactDetail,
-        ),
+      address = this@VirtualServiceDetailSurrogate.address,
       additionalInfo =
         if (
           this@VirtualServiceDetailSurrogate.additionalInfo == null &&
@@ -108,12 +131,7 @@ internal data class VirtualServiceDetailSurrogate(
           id = this@with.id,
           extension = this@with.extension.takeUnless { it.all { it == null } },
           channelType = this@with.channelType,
-          addressUrl = this@with.address?.asUrl()?.value?.value,
-          _addressUrl = this@with.address?.asUrl()?.value?.toElement(),
-          addressString = this@with.address?.asString()?.value?.value,
-          _addressString = this@with.address?.asString()?.value?.toElement(),
-          addressContactPoint = this@with.address?.asContactPoint()?.value,
-          addressExtendedContactDetail = this@with.address?.asExtendedContactDetail()?.value,
+          address = this@with.address,
           additionalInfo =
             this@with.additionalInfo
               .map { it.value }
