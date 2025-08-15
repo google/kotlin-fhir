@@ -105,7 +105,7 @@ Kotlin code is generated for StructureDefinitions in the following FHIR packages
 > - CapabilityStatements, CodeSystems, ConceptMaps, NamingSystems, OperationDefinitions,
 > SearchParameters, and ValueSets
 
-## FHIR Data Model  in Kotlin
+## Data model
 
 ### Mapping FHIR primitive data types to Kotlin
 
