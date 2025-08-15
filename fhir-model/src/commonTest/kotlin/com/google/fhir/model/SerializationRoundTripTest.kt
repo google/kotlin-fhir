@@ -16,13 +16,8 @@
 
 package com.google.fhir.model
 
-import com.google.fhir.model.r4.configureR4
-import com.google.fhir.model.r4b.configureR4b
-import com.google.fhir.model.r5.configureR5
+import com.google.fhir.model.r4.Resource
 import kotlin.test.Test
-import kotlin.test.assertEquals
-import kotlinx.serialization.json.Json
-import kotlinx.serialization.json.jsonObject
 
 const val r4ExamplePackage = "hl7.fhir.r4.examples/package/"
 const val r4bExamplePackage = "hl7.fhir.r4b.examples/package/"
@@ -138,8 +133,7 @@ class SerializationRoundTripTest {
       )
       .forEach {
         val exampleJson = prettyPrintJson(it)
-        val domainResource: com.google.fhir.model.r4.Resource =
-          jsonR4.decodeFromString<com.google.fhir.model.r4.Resource>(exampleJson)
+        val domainResource: Resource = jsonR4.decodeFromString<Resource>(exampleJson)
         val reserializedString = jsonR4.encodeToString(domainResource)
         assertEqualsIgnoringZeros(exampleJson, reserializedString)
       }
@@ -176,110 +170,4 @@ class SerializationRoundTripTest {
         assertEqualsIgnoringZeros(exampleJson, reserializedString)
       }
   }
-
-  @Test
-  fun shouldMatchResourcesWithSimilarPropertiesOnComparisonInR4() {
-    loadR4Examples(
-        fileNameFilter = {
-          return@loadR4Examples (filterFileName(it) && !exclusionListR4.contains(it))
-        }
-      )
-      .forEach {
-        val exampleJson = prettyPrintJson(it)
-        val firstResource: com.google.fhir.model.r4.Resource =
-          jsonR4.decodeFromString<com.google.fhir.model.r4.Resource>(exampleJson)
-        val secondResource: com.google.fhir.model.r4.Resource =
-          jsonR4.decodeFromString<com.google.fhir.model.r4.Resource>(exampleJson)
-        assertEquals(firstResource, secondResource)
-      }
-  }
-
-  @Test
-  fun shouldMatchResourcesWithSimilarPropertiesOnComparisonInR4B() {
-    loadR4BExamples(
-        fileNameFilter = {
-          return@loadR4BExamples (filterFileName(it) && !exclusionListR4B.contains(it))
-        }
-      )
-      .forEach {
-        val exampleJson = prettyPrintJson(it)
-        val firstResource: com.google.fhir.model.r4b.Resource =
-          jsonR4B.decodeFromString<com.google.fhir.model.r4b.Resource>(exampleJson)
-        val secondResource: com.google.fhir.model.r4b.Resource =
-          jsonR4B.decodeFromString<com.google.fhir.model.r4b.Resource>(exampleJson)
-        assertEquals(firstResource, secondResource)
-      }
-  }
-
-  @Test
-  fun shouldMatchResourcesWithSimilarPropertiesOnComparisonInR5() {
-    loadR5Examples(
-        fileNameFilter = {
-          return@loadR5Examples (filterFileName(it) && !exclusionListR5.contains(it))
-        }
-      )
-      .forEach {
-        val exampleJson = prettyPrintJson(it)
-        val firstResource: com.google.fhir.model.r5.Resource =
-          jsonR5.decodeFromString<com.google.fhir.model.r5.Resource>(exampleJson)
-        val secondResource: com.google.fhir.model.r5.Resource =
-          jsonR5.decodeFromString<com.google.fhir.model.r5.Resource>(exampleJson)
-        assertEquals(firstResource, secondResource)
-      }
-  }
-
-  companion object {
-    private val jsonR4 = Json {
-      prettyPrint = true
-      configureR4()
-    }
-
-    private val jsonR4B = Json {
-      prettyPrint = true
-      configureR4b()
-    }
-
-    private val jsonR5 = Json {
-      prettyPrint = true
-      configureR5()
-    }
-
-    private val prettyPrintJson = Json { prettyPrint = true }
-
-    fun filterFileName(name: String): Boolean {
-      return name.endsWith(".json") &&
-        !name.startsWith('.') // filter out `.index.json` file
-        &&
-        name != "package.json"
-    }
-
-    private fun prettyPrintJson(jsonString: String): String {
-      val jsonElement =
-        prettyPrintJson.parseToJsonElement(jsonString) // Parse the string to a JsonElement
-      return prettyPrintJson.encodeToString(jsonElement) // Re-encode with pretty printing
-    }
-
-    private fun assertEqualsIgnoringZeros(exampleJson: String, reserializedString: String) {
-      val expected =
-        exampleJson
-          .removeZerosAfterDecimalPoint()
-          .replace("+00:00", "Z") // Unify UTC offset representation for Z
-      val actual = reserializedString.removeZerosAfterDecimalPoint()
-
-      // Some resources have non-standard JSON property ordering, so we sort the JSON
-      // properties by the key before comparing them.
-      assertEquals(
-        prettyPrintJson.parseToJsonElement(expected).jsonObject.entries.sortedBy { it.key },
-        prettyPrintJson.parseToJsonElement(actual).jsonObject.entries.sortedBy { it.key },
-      )
-    }
-
-    private fun String.removeZerosAfterDecimalPoint(): String = replace(trailingZeroRegex, "")
-  }
 }
-
-expect fun loadR4Examples(fileNameFilter: (String) -> Boolean): Sequence<String>
-
-expect fun loadR4BExamples(fileNameFilter: (String) -> Boolean): Sequence<String>
-
-expect fun loadR5Examples(fileNameFilter: (String) -> Boolean): Sequence<String>

@@ -18,17 +18,6 @@ package com.google.fhir.model
 
 import java.io.File
 
-private fun loadExamplesFromFileSystem(
-  directoryName: String,
-  fileNameFilter: (String) -> Boolean,
-): Sequence<String> {
-  return File("${System.getProperty("projectRootDir")}/third_party/${directoryName}")
-    .listFiles()!!
-    .asSequence()
-    .filter { fileNameFilter(it.name) }
-    .map { it.readText() }
-}
-
 actual fun loadR4Examples(fileNameFilter: (String) -> Boolean): Sequence<String> {
   return loadExamplesFromFileSystem(r4ExamplePackage, fileNameFilter)
 }
@@ -39,4 +28,15 @@ actual fun loadR4BExamples(fileNameFilter: (String) -> Boolean): Sequence<String
 
 actual fun loadR5Examples(fileNameFilter: (String) -> Boolean): Sequence<String> {
   return loadExamplesFromFileSystem(r5ExamplePackage, fileNameFilter)
+}
+
+private fun loadExamplesFromFileSystem(
+  directoryName: String,
+  fileNameFilter: (String) -> Boolean,
+): Sequence<String> {
+  return File("${System.getProperty("projectRootDir")}/third_party/${directoryName}")
+    .listFiles()!!
+    .asSequence()
+    .filter { fileNameFilter(it.name) }
+    .map { it.readText() }
 }
