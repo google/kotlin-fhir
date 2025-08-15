@@ -16,19 +16,22 @@
 
 package com.google.fhir.model
 
-const val r4ExamplePackage = "hl7.fhir.r4.examples/package/"
-const val r4bExamplePackage = "hl7.fhir.r4b.examples/package/"
-const val r5ExamplePackage = "hl7.fhir.r5.examples/package/"
+import com.google.fhir.model.r4.configureR4
+import com.google.fhir.model.r4b.configureR4b
+import com.google.fhir.model.r5.configureR5
+import kotlinx.serialization.json.Json
 
-fun filterFileName(name: String): Boolean {
-  return name.endsWith(".json") &&
-    !name.startsWith('.') // filter out `.index.json` file
-    &&
-    name != "package.json"
+val jsonR4 = Json {
+  prettyPrint = true
+  configureR4()
 }
 
-expect fun loadR4Examples(fileNameFilter: (String) -> Boolean): Sequence<String>
+val jsonR4B = Json {
+  prettyPrint = true
+  configureR4b()
+}
 
-expect fun loadR4BExamples(fileNameFilter: (String) -> Boolean): Sequence<String>
-
-expect fun loadR5Examples(fileNameFilter: (String) -> Boolean): Sequence<String>
+val jsonR5 = Json {
+  prettyPrint = true
+  configureR5()
+}

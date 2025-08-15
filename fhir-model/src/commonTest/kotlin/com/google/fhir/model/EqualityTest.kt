@@ -18,89 +18,65 @@ package com.google.fhir.model
 
 import kotlin.test.Test
 import kotlin.test.assertEquals
-import kotlinx.serialization.json.Json
-import kotlinx.serialization.json.jsonObject
 
-/**
- * This test verifies the generated code can be used to deserialize published FHIR examples and
- * serialize them back to the original JSON.
- */
-class SerializationRoundTripTest {
+class EqualityTest {
+
   @Test
-  fun shouldMatchOriginalJsonAfterDeserializationAndSerializationInR4() {
+  fun shouldMatchResourcesWithSimilarPropertiesOnComparisonInR4() {
     loadR4Examples(
         fileNameFilter = {
           return@loadR4Examples (filterFileName(it) && !exclusionListR4.contains(it))
         }
       )
-      .forEach {
-        val exampleJson = prettyPrintJson(it)
-        val domainResource = jsonR4.decodeFromString<com.google.fhir.model.r4.Resource>(exampleJson)
-        val reserializedString = jsonR4.encodeToString(domainResource)
-        assertEqualsIgnoringZeros(exampleJson, reserializedString)
+      .forEach { exampleJson ->
+        val firstResource = jsonR4.decodeFromString<com.google.fhir.model.r4.Resource>(exampleJson)
+        val secondResource = jsonR4.decodeFromString<com.google.fhir.model.r4.Resource>(exampleJson)
+        assertEquals(firstResource, secondResource)
       }
   }
 
   @Test
-  fun shouldMatchOriginalJsonAfterDeserializationAndSerializationInR4B() {
+  fun shouldMatchResourcesWithSimilarPropertiesOnComparisonInR4B() {
     loadR4BExamples(
         fileNameFilter = {
           return@loadR4BExamples (filterFileName(it) && !exclusionListR4B.contains(it))
         }
       )
-      .forEach {
-        val exampleJson = prettyPrintJson(it)
-        val domainResource: com.google.fhir.model.r4b.Resource =
+      .forEach { exampleJson ->
+        val firstResource: com.google.fhir.model.r4b.Resource =
           jsonR4B.decodeFromString<com.google.fhir.model.r4b.Resource>(exampleJson)
-        val reserializedString = jsonR4B.encodeToString(domainResource)
-        assertEqualsIgnoringZeros(exampleJson, reserializedString)
+        val secondResource: com.google.fhir.model.r4b.Resource =
+          jsonR4B.decodeFromString<com.google.fhir.model.r4b.Resource>(exampleJson)
+        assertEquals(firstResource, secondResource)
       }
   }
 
   @Test
-  fun shouldMatchOriginalJsonAfterDeserializationAndSerializationInR5() {
+  fun shouldMatchResourcesWithSimilarPropertiesOnComparisonInR5() {
     loadR5Examples(
         fileNameFilter = {
           return@loadR5Examples (filterFileName(it) && !exclusionListR5.contains(it))
         }
       )
-      .forEach {
-        val exampleJson = prettyPrintJson(it)
-        val domainResource: com.google.fhir.model.r5.Resource =
+      .forEach { exampleJson ->
+        val firstResource: com.google.fhir.model.r5.Resource =
           jsonR5.decodeFromString<com.google.fhir.model.r5.Resource>(exampleJson)
-        val reserializedString = jsonR5.encodeToString(domainResource)
-        assertEqualsIgnoringZeros(exampleJson, reserializedString)
+        val secondResource: com.google.fhir.model.r5.Resource =
+          jsonR5.decodeFromString<com.google.fhir.model.r5.Resource>(exampleJson)
+        assertEquals(firstResource, secondResource)
       }
   }
 
   companion object {
-    private val prettyPrintJson = Json { prettyPrint = true }
-
-    private val trailingZeroRegex = "\\.0+".toRegex()
 
     private val exclusionListR4 =
       listOf(
-        // Hanging for no reason
-        "Bundle-terminologies.json",
-        "CodeSystem-v2-0003.json",
-        "Bundle-valueset-expansions.json",
-
-        // Java heap space
-        "Bundle-resources.json",
-        "Bundle-dataelements.json",
-        "CodeSystem-v3-ManagedParticipationStatus.json",
-
-        // Instant with trailing 0s
-        "ValueSet-v3-hl7PublishingSubSection.json",
 
         // Pattern in ElementDefinition
         "StructureDefinition-example-section-library.json",
         "StructureDefinition-triglyceride.json",
         "Bundle-profiles-others.json",
         "StructureDefinition-provenance-relevant-history.json",
-
-        // Scientific notation
-        "Observation-decimal.json",
 
         // Invalid resources
         "ActivityDefinition-administer-zika-virus-exposure-assessment.json",
@@ -111,8 +87,6 @@ class SerializationRoundTripTest {
 
     private val exclusionListR4B =
       listOf(
-        // Java heap space
-        "Bundle-resources.json",
 
         // Pattern
         "StructureDefinition-example-section-library.json",
@@ -121,30 +95,15 @@ class SerializationRoundTripTest {
         "StructureDefinition-provenance-relevant-history.json",
         "StructureDefinition-lipidprofile.json",
 
-        // Scientific notation
-        "Observation-decimal.json",
-
         // Invalid resource
         "Bundle-valuesets.json",
         "CodeSystem-catalogType.json",
         "ValueSet-catalogType.json",
-
-        // Invalid resources
         "ActivityDefinition-administer-zika-virus-exposure-assessment.json",
       )
 
     private val exclusionListR5 =
       listOf(
-        // Hanging
-        "Bundle-searchParams.json",
-
-        // Java heap space
-        "Bundle-resources.json",
-
-        // Trailing 0 in milliseconds
-        "ArtifactAssessment-example-certainty-rating.json",
-        "Citation-citation-example-research-doi.json",
-
         // Pattern
         "StructureDefinition-search-set-bundle.json",
         "StructureDefinition-fhirpathlibrary.json",
@@ -165,34 +124,8 @@ class SerializationRoundTripTest {
         "StructureDefinition-modelinfolibrary.json",
         "StructureDefinition-lipidprofile.json",
 
-        // Scientific notation
-        "Observation-decimal.json",
-
         // Unknown code 'text/CQL' for enum ExpressionLanguage; codes are case-sensitive
         "ChargeItemDefinition-ebm.json",
       )
-
-    private fun assertEqualsIgnoringZeros(exampleJson: String, reserializedString: String) {
-      val expected =
-        exampleJson
-          .removeZerosAfterDecimalPoint()
-          .replace("+00:00", "Z") // Unify UTC offset representation for Z
-      val actual = reserializedString.removeZerosAfterDecimalPoint()
-
-      // Some resources have non-standard JSON property ordering, so we sort the JSON
-      // properties by the key before comparing them.
-      assertEquals(
-        prettyPrintJson.parseToJsonElement(expected).jsonObject.entries.sortedBy { it.key },
-        prettyPrintJson.parseToJsonElement(actual).jsonObject.entries.sortedBy { it.key },
-      )
-    }
-
-    private fun String.removeZerosAfterDecimalPoint(): String = replace(trailingZeroRegex, "")
-
-    private fun prettyPrintJson(jsonString: String): String {
-      val jsonElement =
-        prettyPrintJson.parseToJsonElement(jsonString) // Parse the string to a JsonElement
-      return prettyPrintJson.encodeToString(jsonElement) // Re-encode with pretty printing
-    }
   }
 }
