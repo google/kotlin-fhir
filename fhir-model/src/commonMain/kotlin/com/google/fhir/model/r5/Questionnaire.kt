@@ -19,10 +19,14 @@
 package com.google.fhir.model.r5
 
 import com.google.fhir.model.r5.serializers.QuestionnaireItemAnswerOptionSerializer
+import com.google.fhir.model.r5.serializers.QuestionnaireItemAnswerOptionValueSerializer
+import com.google.fhir.model.r5.serializers.QuestionnaireItemEnableWhenAnswerSerializer
 import com.google.fhir.model.r5.serializers.QuestionnaireItemEnableWhenSerializer
 import com.google.fhir.model.r5.serializers.QuestionnaireItemInitialSerializer
+import com.google.fhir.model.r5.serializers.QuestionnaireItemInitialValueSerializer
 import com.google.fhir.model.r5.serializers.QuestionnaireItemSerializer
 import com.google.fhir.model.r5.serializers.QuestionnaireSerializer
+import com.google.fhir.model.r5.serializers.QuestionnaireVersionAlgorithmSerializer
 import kotlin.Suppress
 import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
@@ -677,6 +681,7 @@ public data class Questionnaire(
        */
       public var answer: Answer,
     ) : BackboneElement() {
+      @Serializable(with = QuestionnaireItemEnableWhenAnswerSerializer::class)
       public sealed interface Answer {
         public fun asBoolean(): Boolean? = this as? Boolean
 
@@ -800,6 +805,7 @@ public data class Questionnaire(
        */
       public var initialSelected: Boolean? = null,
     ) : BackboneElement() {
+      @Serializable(with = QuestionnaireItemAnswerOptionValueSerializer::class)
       public sealed interface Value {
         public fun asInteger(): Integer? = this as? Integer
 
@@ -896,6 +902,7 @@ public data class Questionnaire(
        */
       public var `value`: Value,
     ) : BackboneElement() {
+      @Serializable(with = QuestionnaireItemInitialValueSerializer::class)
       public sealed interface Value {
         public fun asBoolean(): Boolean? = this as? Boolean
 
@@ -980,6 +987,7 @@ public data class Questionnaire(
     }
   }
 
+  @Serializable(with = QuestionnaireVersionAlgorithmSerializer::class)
   public sealed interface VersionAlgorithm {
     public fun asString(): String? = this as? String
 

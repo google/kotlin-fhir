@@ -24,6 +24,7 @@ import com.google.fhir.model.r5.serializers.SubscriptionTopicNotificationShapeSe
 import com.google.fhir.model.r5.serializers.SubscriptionTopicResourceTriggerQueryCriteriaSerializer
 import com.google.fhir.model.r5.serializers.SubscriptionTopicResourceTriggerSerializer
 import com.google.fhir.model.r5.serializers.SubscriptionTopicSerializer
+import com.google.fhir.model.r5.serializers.SubscriptionTopicVersionAlgorithmSerializer
 import kotlin.Suppress
 import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
@@ -752,6 +753,7 @@ public data class SubscriptionTopic(
     public var revInclude: MutableList<String> = mutableListOf(),
   ) : BackboneElement()
 
+  @Serializable(with = SubscriptionTopicVersionAlgorithmSerializer::class)
   public sealed interface VersionAlgorithm {
     public fun asString(): String? = this as? String
 

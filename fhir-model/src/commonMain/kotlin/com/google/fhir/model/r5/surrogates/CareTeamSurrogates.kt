@@ -46,6 +46,30 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
+internal data class CareTeamParticipantCoverageSurrogate(
+  public var coveragePeriod: Period? = null,
+  public var coverageTiming: Timing? = null,
+) {
+  public fun toModel(): CareTeam.Participant.Coverage =
+    CareTeam.Participant.Coverage?.from(
+      this@CareTeamParticipantCoverageSurrogate.coveragePeriod,
+      this@CareTeamParticipantCoverageSurrogate.coverageTiming,
+    )!!
+
+  public companion object {
+    public fun fromModel(
+      model: CareTeam.Participant.Coverage
+    ): CareTeamParticipantCoverageSurrogate =
+      with(model) {
+        CareTeamParticipantCoverageSurrogate(
+          coveragePeriod = this@with.asPeriod()?.value,
+          coverageTiming = this@with.asTiming()?.value,
+        )
+      }
+  }
+}
+
+@Serializable
 internal data class CareTeamParticipantSurrogate(
   public var id: KotlinString? = null,
   public var extension: MutableList<Extension>? = null,
@@ -53,8 +77,7 @@ internal data class CareTeamParticipantSurrogate(
   public var role: CodeableConcept? = null,
   public var member: Reference? = null,
   public var onBehalfOf: Reference? = null,
-  public var coveragePeriod: Period? = null,
-  public var coverageTiming: Timing? = null,
+  public var coverage: CareTeam.Participant.Coverage? = null,
 ) {
   public fun toModel(): CareTeam.Participant =
     CareTeam.Participant(
@@ -64,11 +87,7 @@ internal data class CareTeamParticipantSurrogate(
       role = this@CareTeamParticipantSurrogate.role,
       member = this@CareTeamParticipantSurrogate.member,
       onBehalfOf = this@CareTeamParticipantSurrogate.onBehalfOf,
-      coverage =
-        CareTeam.Participant.Coverage?.from(
-          this@CareTeamParticipantSurrogate.coveragePeriod,
-          this@CareTeamParticipantSurrogate.coverageTiming,
-        ),
+      coverage = this@CareTeamParticipantSurrogate.coverage,
     )
 
   public companion object {
@@ -81,8 +100,7 @@ internal data class CareTeamParticipantSurrogate(
           role = this@with.role,
           member = this@with.member,
           onBehalfOf = this@with.onBehalfOf,
-          coveragePeriod = this@with.coverage?.asPeriod()?.value,
-          coverageTiming = this@with.coverage?.asTiming()?.value,
+          coverage = this@with.coverage,
         )
       }
   }

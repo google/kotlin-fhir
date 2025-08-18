@@ -30,6 +30,7 @@ import com.google.fhir.model.r5.serializers.DeviceDefinitionMaterialSerializer
 import com.google.fhir.model.r5.serializers.DeviceDefinitionPackagingDistributorSerializer
 import com.google.fhir.model.r5.serializers.DeviceDefinitionPackagingSerializer
 import com.google.fhir.model.r5.serializers.DeviceDefinitionPropertySerializer
+import com.google.fhir.model.r5.serializers.DeviceDefinitionPropertyValueSerializer
 import com.google.fhir.model.r5.serializers.DeviceDefinitionRegulatoryIdentifierSerializer
 import com.google.fhir.model.r5.serializers.DeviceDefinitionSerializer
 import com.google.fhir.model.r5.serializers.DeviceDefinitionUdiDeviceIdentifierMarketDistributionSerializer
@@ -841,6 +842,7 @@ public data class DeviceDefinition(
      */
     public var `value`: Value,
   ) : BackboneElement() {
+    @Serializable(with = DeviceDefinitionPropertyValueSerializer::class)
     public sealed interface Value {
       public fun asQuantity(): Quantity? = this as? Quantity
 

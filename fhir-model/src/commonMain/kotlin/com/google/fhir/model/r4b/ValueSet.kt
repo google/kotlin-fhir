@@ -25,6 +25,7 @@ import com.google.fhir.model.r4b.serializers.ValueSetComposeIncludeSerializer
 import com.google.fhir.model.r4b.serializers.ValueSetComposeSerializer
 import com.google.fhir.model.r4b.serializers.ValueSetExpansionContainsSerializer
 import com.google.fhir.model.r4b.serializers.ValueSetExpansionParameterSerializer
+import com.google.fhir.model.r4b.serializers.ValueSetExpansionParameterValueSerializer
 import com.google.fhir.model.r4b.serializers.ValueSetExpansionSerializer
 import com.google.fhir.model.r4b.serializers.ValueSetSerializer
 import kotlin.Suppress
@@ -846,6 +847,7 @@ public data class ValueSet(
       /** The value of the parameter. */
       public var `value`: Value? = null,
     ) : BackboneElement() {
+      @Serializable(with = ValueSetExpansionParameterValueSerializer::class)
       public sealed interface Value {
         public fun asString(): String? = this as? String
 

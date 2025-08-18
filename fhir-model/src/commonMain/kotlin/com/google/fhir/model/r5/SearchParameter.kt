@@ -20,6 +20,7 @@ package com.google.fhir.model.r5
 
 import com.google.fhir.model.r5.serializers.SearchParameterComponentSerializer
 import com.google.fhir.model.r5.serializers.SearchParameterSerializer
+import com.google.fhir.model.r5.serializers.SearchParameterVersionAlgorithmSerializer
 import kotlin.Suppress
 import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
@@ -461,6 +462,7 @@ public data class SearchParameter(
     public var expression: String,
   ) : BackboneElement()
 
+  @Serializable(with = SearchParameterVersionAlgorithmSerializer::class)
   public sealed interface VersionAlgorithm {
     public fun asString(): String? = this as? String
 

@@ -19,17 +19,50 @@
 package com.google.fhir.model.r5.serializers
 
 import com.google.fhir.model.r5.CoverageEligibilityRequest
+import com.google.fhir.model.r5.FhirJsonTransformer
 import com.google.fhir.model.r5.surrogates.CoverageEligibilityRequestEventSurrogate
+import com.google.fhir.model.r5.surrogates.CoverageEligibilityRequestEventWhenSurrogate
 import com.google.fhir.model.r5.surrogates.CoverageEligibilityRequestInsuranceSurrogate
+import com.google.fhir.model.r5.surrogates.CoverageEligibilityRequestItemDiagnosisDiagnosisSurrogate
 import com.google.fhir.model.r5.surrogates.CoverageEligibilityRequestItemDiagnosisSurrogate
 import com.google.fhir.model.r5.surrogates.CoverageEligibilityRequestItemSurrogate
+import com.google.fhir.model.r5.surrogates.CoverageEligibilityRequestServicedSurrogate
 import com.google.fhir.model.r5.surrogates.CoverageEligibilityRequestSupportingInfoSurrogate
 import com.google.fhir.model.r5.surrogates.CoverageEligibilityRequestSurrogate
+import kotlin.String
 import kotlin.Suppress
+import kotlin.collections.List
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.descriptors.SerialDescriptor
 import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
+import kotlinx.serialization.json.JsonDecoder
+import kotlinx.serialization.json.JsonEncoder
+import kotlinx.serialization.json.JsonObject
+import kotlinx.serialization.json.JsonPrimitive
+import kotlinx.serialization.json.jsonObject
+
+public object CoverageEligibilityRequestEventWhenSerializer :
+  KSerializer<CoverageEligibilityRequest.Event.When> {
+  internal val surrogateSerializer:
+    KSerializer<CoverageEligibilityRequestEventWhenSurrogate> by lazy {
+    CoverageEligibilityRequestEventWhenSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("When", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): CoverageEligibilityRequest.Event.When =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: CoverageEligibilityRequest.Event.When) {
+    surrogateSerializer.serialize(
+      encoder,
+      CoverageEligibilityRequestEventWhenSurrogate.fromModel(value),
+    )
+  }
+}
 
 public object CoverageEligibilityRequestEventSerializer :
   KSerializer<CoverageEligibilityRequest.Event> {
@@ -37,18 +70,45 @@ public object CoverageEligibilityRequestEventSerializer :
     CoverageEligibilityRequestEventSurrogate.serializer()
   }
 
+  private val resourceType: String? = null
+
+  private val multiChoiceProperties: List<String> = listOf("when")
+
   override val descriptor: SerialDescriptor by lazy {
     SerialDescriptor("Event", surrogateSerializer.descriptor)
   }
 
-  override fun deserialize(decoder: Decoder): CoverageEligibilityRequest.Event =
-    surrogateSerializer.deserialize(decoder).toModel()
+  override fun deserialize(decoder: Decoder): CoverageEligibilityRequest.Event {
+    val jsonDecoder =
+      decoder as? JsonDecoder ?: error("This serializer only supports JSON decoding")
+    val oldJsonObject =
+      if (resourceType.isNullOrBlank()) {
+        jsonDecoder.decodeJsonElement().jsonObject
+      } else
+        JsonObject(
+          jsonDecoder.decodeJsonElement().jsonObject.toMutableMap().apply { remove("resourceType") }
+        )
+    val unflattenedJsonObject = FhirJsonTransformer.unflatten(oldJsonObject, multiChoiceProperties)
+    val surrogate =
+      jsonDecoder.json.decodeFromJsonElement(surrogateSerializer, unflattenedJsonObject)
+    return surrogate.toModel()
+  }
 
   override fun serialize(encoder: Encoder, `value`: CoverageEligibilityRequest.Event) {
-    surrogateSerializer.serialize(
-      encoder,
-      CoverageEligibilityRequestEventSurrogate.fromModel(value),
-    )
+    val jsonEncoder =
+      encoder as? JsonEncoder ?: error("This serializer only supports JSON encoding")
+    val surrogate = CoverageEligibilityRequestEventSurrogate.fromModel(value)
+    val oldJsonObject =
+      if (resourceType.isNullOrBlank()) {
+        jsonEncoder.json.encodeToJsonElement(surrogateSerializer, surrogate).jsonObject
+      } else {
+        JsonObject(
+          mutableMapOf("resourceType" to JsonPrimitive(resourceType))
+            .plus(jsonEncoder.json.encodeToJsonElement(surrogateSerializer, surrogate).jsonObject)
+        )
+      }
+    val flattenedJsonObject = FhirJsonTransformer.flatten(oldJsonObject, multiChoiceProperties)
+    jsonEncoder.encodeJsonElement(flattenedJsonObject)
   }
 }
 
@@ -96,6 +156,31 @@ public object CoverageEligibilityRequestInsuranceSerializer :
   }
 }
 
+public object CoverageEligibilityRequestItemDiagnosisDiagnosisSerializer :
+  KSerializer<CoverageEligibilityRequest.Item.Diagnosis.Diagnosis> {
+  internal val surrogateSerializer:
+    KSerializer<CoverageEligibilityRequestItemDiagnosisDiagnosisSurrogate> by lazy {
+    CoverageEligibilityRequestItemDiagnosisDiagnosisSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Diagnosis", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): CoverageEligibilityRequest.Item.Diagnosis.Diagnosis =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(
+    encoder: Encoder,
+    `value`: CoverageEligibilityRequest.Item.Diagnosis.Diagnosis,
+  ) {
+    surrogateSerializer.serialize(
+      encoder,
+      CoverageEligibilityRequestItemDiagnosisDiagnosisSurrogate.fromModel(value),
+    )
+  }
+}
+
 public object CoverageEligibilityRequestItemDiagnosisSerializer :
   KSerializer<CoverageEligibilityRequest.Item.Diagnosis> {
   internal val surrogateSerializer:
@@ -103,18 +188,45 @@ public object CoverageEligibilityRequestItemDiagnosisSerializer :
     CoverageEligibilityRequestItemDiagnosisSurrogate.serializer()
   }
 
+  private val resourceType: String? = null
+
+  private val multiChoiceProperties: List<String> = listOf("diagnosis")
+
   override val descriptor: SerialDescriptor by lazy {
     SerialDescriptor("Diagnosis", surrogateSerializer.descriptor)
   }
 
-  override fun deserialize(decoder: Decoder): CoverageEligibilityRequest.Item.Diagnosis =
-    surrogateSerializer.deserialize(decoder).toModel()
+  override fun deserialize(decoder: Decoder): CoverageEligibilityRequest.Item.Diagnosis {
+    val jsonDecoder =
+      decoder as? JsonDecoder ?: error("This serializer only supports JSON decoding")
+    val oldJsonObject =
+      if (resourceType.isNullOrBlank()) {
+        jsonDecoder.decodeJsonElement().jsonObject
+      } else
+        JsonObject(
+          jsonDecoder.decodeJsonElement().jsonObject.toMutableMap().apply { remove("resourceType") }
+        )
+    val unflattenedJsonObject = FhirJsonTransformer.unflatten(oldJsonObject, multiChoiceProperties)
+    val surrogate =
+      jsonDecoder.json.decodeFromJsonElement(surrogateSerializer, unflattenedJsonObject)
+    return surrogate.toModel()
+  }
 
   override fun serialize(encoder: Encoder, `value`: CoverageEligibilityRequest.Item.Diagnosis) {
-    surrogateSerializer.serialize(
-      encoder,
-      CoverageEligibilityRequestItemDiagnosisSurrogate.fromModel(value),
-    )
+    val jsonEncoder =
+      encoder as? JsonEncoder ?: error("This serializer only supports JSON encoding")
+    val surrogate = CoverageEligibilityRequestItemDiagnosisSurrogate.fromModel(value)
+    val oldJsonObject =
+      if (resourceType.isNullOrBlank()) {
+        jsonEncoder.json.encodeToJsonElement(surrogateSerializer, surrogate).jsonObject
+      } else {
+        JsonObject(
+          mutableMapOf("resourceType" to JsonPrimitive(resourceType))
+            .plus(jsonEncoder.json.encodeToJsonElement(surrogateSerializer, surrogate).jsonObject)
+        )
+      }
+    val flattenedJsonObject = FhirJsonTransformer.flatten(oldJsonObject, multiChoiceProperties)
+    jsonEncoder.encodeJsonElement(flattenedJsonObject)
   }
 }
 
@@ -136,19 +248,71 @@ public object CoverageEligibilityRequestItemSerializer :
   }
 }
 
+public object CoverageEligibilityRequestServicedSerializer :
+  KSerializer<CoverageEligibilityRequest.Serviced> {
+  internal val surrogateSerializer:
+    KSerializer<CoverageEligibilityRequestServicedSurrogate> by lazy {
+    CoverageEligibilityRequestServicedSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Serviced", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): CoverageEligibilityRequest.Serviced =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: CoverageEligibilityRequest.Serviced) {
+    surrogateSerializer.serialize(
+      encoder,
+      CoverageEligibilityRequestServicedSurrogate.fromModel(value),
+    )
+  }
+}
+
 public object CoverageEligibilityRequestSerializer : KSerializer<CoverageEligibilityRequest> {
   internal val surrogateSerializer: KSerializer<CoverageEligibilityRequestSurrogate> by lazy {
     CoverageEligibilityRequestSurrogate.serializer()
   }
 
+  private val resourceType: String? = "CoverageEligibilityRequest"
+
+  private val multiChoiceProperties: List<String> = listOf("serviced")
+
   override val descriptor: SerialDescriptor by lazy {
     SerialDescriptor("CoverageEligibilityRequest", surrogateSerializer.descriptor)
   }
 
-  override fun deserialize(decoder: Decoder): CoverageEligibilityRequest =
-    surrogateSerializer.deserialize(decoder).toModel()
+  override fun deserialize(decoder: Decoder): CoverageEligibilityRequest {
+    val jsonDecoder =
+      decoder as? JsonDecoder ?: error("This serializer only supports JSON decoding")
+    val oldJsonObject =
+      if (resourceType.isNullOrBlank()) {
+        jsonDecoder.decodeJsonElement().jsonObject
+      } else
+        JsonObject(
+          jsonDecoder.decodeJsonElement().jsonObject.toMutableMap().apply { remove("resourceType") }
+        )
+    val unflattenedJsonObject = FhirJsonTransformer.unflatten(oldJsonObject, multiChoiceProperties)
+    val surrogate =
+      jsonDecoder.json.decodeFromJsonElement(surrogateSerializer, unflattenedJsonObject)
+    return surrogate.toModel()
+  }
 
   override fun serialize(encoder: Encoder, `value`: CoverageEligibilityRequest) {
-    surrogateSerializer.serialize(encoder, CoverageEligibilityRequestSurrogate.fromModel(value))
+    val jsonEncoder =
+      encoder as? JsonEncoder ?: error("This serializer only supports JSON encoding")
+    val surrogate = CoverageEligibilityRequestSurrogate.fromModel(value)
+    val oldJsonObject =
+      if (resourceType.isNullOrBlank()) {
+        jsonEncoder.json.encodeToJsonElement(surrogateSerializer, surrogate).jsonObject
+      } else {
+        JsonObject(
+          mutableMapOf("resourceType" to JsonPrimitive(resourceType))
+            .plus(jsonEncoder.json.encodeToJsonElement(surrogateSerializer, surrogate).jsonObject)
+        )
+      }
+    val flattenedJsonObject = FhirJsonTransformer.flatten(oldJsonObject, multiChoiceProperties)
+    jsonEncoder.encodeJsonElement(flattenedJsonObject)
   }
 }

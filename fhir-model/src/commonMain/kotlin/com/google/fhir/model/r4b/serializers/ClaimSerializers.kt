@@ -19,23 +19,38 @@
 package com.google.fhir.model.r4b.serializers
 
 import com.google.fhir.model.r4b.Claim
+import com.google.fhir.model.r4b.FhirJsonTransformer
+import com.google.fhir.model.r4b.surrogates.ClaimAccidentLocationSurrogate
 import com.google.fhir.model.r4b.surrogates.ClaimAccidentSurrogate
 import com.google.fhir.model.r4b.surrogates.ClaimCareTeamSurrogate
+import com.google.fhir.model.r4b.surrogates.ClaimDiagnosisDiagnosisSurrogate
 import com.google.fhir.model.r4b.surrogates.ClaimDiagnosisSurrogate
 import com.google.fhir.model.r4b.surrogates.ClaimInsuranceSurrogate
 import com.google.fhir.model.r4b.surrogates.ClaimItemDetailSubDetailSurrogate
 import com.google.fhir.model.r4b.surrogates.ClaimItemDetailSurrogate
+import com.google.fhir.model.r4b.surrogates.ClaimItemLocationSurrogate
+import com.google.fhir.model.r4b.surrogates.ClaimItemServicedSurrogate
 import com.google.fhir.model.r4b.surrogates.ClaimItemSurrogate
 import com.google.fhir.model.r4b.surrogates.ClaimPayeeSurrogate
+import com.google.fhir.model.r4b.surrogates.ClaimProcedureProcedureSurrogate
 import com.google.fhir.model.r4b.surrogates.ClaimProcedureSurrogate
 import com.google.fhir.model.r4b.surrogates.ClaimRelatedSurrogate
 import com.google.fhir.model.r4b.surrogates.ClaimSupportingInfoSurrogate
+import com.google.fhir.model.r4b.surrogates.ClaimSupportingInfoTimingSurrogate
+import com.google.fhir.model.r4b.surrogates.ClaimSupportingInfoValueSurrogate
 import com.google.fhir.model.r4b.surrogates.ClaimSurrogate
+import kotlin.String
 import kotlin.Suppress
+import kotlin.collections.List
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.descriptors.SerialDescriptor
 import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
+import kotlinx.serialization.json.JsonDecoder
+import kotlinx.serialization.json.JsonEncoder
+import kotlinx.serialization.json.JsonObject
+import kotlinx.serialization.json.JsonPrimitive
+import kotlinx.serialization.json.jsonObject
 
 public object ClaimRelatedSerializer : KSerializer<Claim.Related> {
   internal val surrogateSerializer: KSerializer<ClaimRelatedSurrogate> by lazy {
@@ -88,20 +103,101 @@ public object ClaimCareTeamSerializer : KSerializer<Claim.CareTeam> {
   }
 }
 
+public object ClaimSupportingInfoTimingSerializer : KSerializer<Claim.SupportingInfo.Timing> {
+  internal val surrogateSerializer: KSerializer<ClaimSupportingInfoTimingSurrogate> by lazy {
+    ClaimSupportingInfoTimingSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Timing", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): Claim.SupportingInfo.Timing =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: Claim.SupportingInfo.Timing) {
+    surrogateSerializer.serialize(encoder, ClaimSupportingInfoTimingSurrogate.fromModel(value))
+  }
+}
+
+public object ClaimSupportingInfoValueSerializer : KSerializer<Claim.SupportingInfo.Value> {
+  internal val surrogateSerializer: KSerializer<ClaimSupportingInfoValueSurrogate> by lazy {
+    ClaimSupportingInfoValueSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Value", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): Claim.SupportingInfo.Value =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: Claim.SupportingInfo.Value) {
+    surrogateSerializer.serialize(encoder, ClaimSupportingInfoValueSurrogate.fromModel(value))
+  }
+}
+
 public object ClaimSupportingInfoSerializer : KSerializer<Claim.SupportingInfo> {
   internal val surrogateSerializer: KSerializer<ClaimSupportingInfoSurrogate> by lazy {
     ClaimSupportingInfoSurrogate.serializer()
   }
 
+  private val resourceType: String? = null
+
+  private val multiChoiceProperties: List<String> = listOf("timing", "value")
+
   override val descriptor: SerialDescriptor by lazy {
     SerialDescriptor("SupportingInfo", surrogateSerializer.descriptor)
   }
 
-  override fun deserialize(decoder: Decoder): Claim.SupportingInfo =
-    surrogateSerializer.deserialize(decoder).toModel()
+  override fun deserialize(decoder: Decoder): Claim.SupportingInfo {
+    val jsonDecoder =
+      decoder as? JsonDecoder ?: error("This serializer only supports JSON decoding")
+    val oldJsonObject =
+      if (resourceType.isNullOrBlank()) {
+        jsonDecoder.decodeJsonElement().jsonObject
+      } else
+        JsonObject(
+          jsonDecoder.decodeJsonElement().jsonObject.toMutableMap().apply { remove("resourceType") }
+        )
+    val unflattenedJsonObject = FhirJsonTransformer.unflatten(oldJsonObject, multiChoiceProperties)
+    val surrogate =
+      jsonDecoder.json.decodeFromJsonElement(surrogateSerializer, unflattenedJsonObject)
+    return surrogate.toModel()
+  }
 
   override fun serialize(encoder: Encoder, `value`: Claim.SupportingInfo) {
-    surrogateSerializer.serialize(encoder, ClaimSupportingInfoSurrogate.fromModel(value))
+    val jsonEncoder =
+      encoder as? JsonEncoder ?: error("This serializer only supports JSON encoding")
+    val surrogate = ClaimSupportingInfoSurrogate.fromModel(value)
+    val oldJsonObject =
+      if (resourceType.isNullOrBlank()) {
+        jsonEncoder.json.encodeToJsonElement(surrogateSerializer, surrogate).jsonObject
+      } else {
+        JsonObject(
+          mutableMapOf("resourceType" to JsonPrimitive(resourceType))
+            .plus(jsonEncoder.json.encodeToJsonElement(surrogateSerializer, surrogate).jsonObject)
+        )
+      }
+    val flattenedJsonObject = FhirJsonTransformer.flatten(oldJsonObject, multiChoiceProperties)
+    jsonEncoder.encodeJsonElement(flattenedJsonObject)
+  }
+}
+
+public object ClaimDiagnosisDiagnosisSerializer : KSerializer<Claim.Diagnosis.Diagnosis> {
+  internal val surrogateSerializer: KSerializer<ClaimDiagnosisDiagnosisSurrogate> by lazy {
+    ClaimDiagnosisDiagnosisSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Diagnosis", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): Claim.Diagnosis.Diagnosis =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: Claim.Diagnosis.Diagnosis) {
+    surrogateSerializer.serialize(encoder, ClaimDiagnosisDiagnosisSurrogate.fromModel(value))
   }
 }
 
@@ -110,15 +206,62 @@ public object ClaimDiagnosisSerializer : KSerializer<Claim.Diagnosis> {
     ClaimDiagnosisSurrogate.serializer()
   }
 
+  private val resourceType: String? = null
+
+  private val multiChoiceProperties: List<String> = listOf("diagnosis")
+
   override val descriptor: SerialDescriptor by lazy {
     SerialDescriptor("Diagnosis", surrogateSerializer.descriptor)
   }
 
-  override fun deserialize(decoder: Decoder): Claim.Diagnosis =
-    surrogateSerializer.deserialize(decoder).toModel()
+  override fun deserialize(decoder: Decoder): Claim.Diagnosis {
+    val jsonDecoder =
+      decoder as? JsonDecoder ?: error("This serializer only supports JSON decoding")
+    val oldJsonObject =
+      if (resourceType.isNullOrBlank()) {
+        jsonDecoder.decodeJsonElement().jsonObject
+      } else
+        JsonObject(
+          jsonDecoder.decodeJsonElement().jsonObject.toMutableMap().apply { remove("resourceType") }
+        )
+    val unflattenedJsonObject = FhirJsonTransformer.unflatten(oldJsonObject, multiChoiceProperties)
+    val surrogate =
+      jsonDecoder.json.decodeFromJsonElement(surrogateSerializer, unflattenedJsonObject)
+    return surrogate.toModel()
+  }
 
   override fun serialize(encoder: Encoder, `value`: Claim.Diagnosis) {
-    surrogateSerializer.serialize(encoder, ClaimDiagnosisSurrogate.fromModel(value))
+    val jsonEncoder =
+      encoder as? JsonEncoder ?: error("This serializer only supports JSON encoding")
+    val surrogate = ClaimDiagnosisSurrogate.fromModel(value)
+    val oldJsonObject =
+      if (resourceType.isNullOrBlank()) {
+        jsonEncoder.json.encodeToJsonElement(surrogateSerializer, surrogate).jsonObject
+      } else {
+        JsonObject(
+          mutableMapOf("resourceType" to JsonPrimitive(resourceType))
+            .plus(jsonEncoder.json.encodeToJsonElement(surrogateSerializer, surrogate).jsonObject)
+        )
+      }
+    val flattenedJsonObject = FhirJsonTransformer.flatten(oldJsonObject, multiChoiceProperties)
+    jsonEncoder.encodeJsonElement(flattenedJsonObject)
+  }
+}
+
+public object ClaimProcedureProcedureSerializer : KSerializer<Claim.Procedure.Procedure> {
+  internal val surrogateSerializer: KSerializer<ClaimProcedureProcedureSurrogate> by lazy {
+    ClaimProcedureProcedureSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Procedure", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): Claim.Procedure.Procedure =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: Claim.Procedure.Procedure) {
+    surrogateSerializer.serialize(encoder, ClaimProcedureProcedureSurrogate.fromModel(value))
   }
 }
 
@@ -127,15 +270,45 @@ public object ClaimProcedureSerializer : KSerializer<Claim.Procedure> {
     ClaimProcedureSurrogate.serializer()
   }
 
+  private val resourceType: String? = null
+
+  private val multiChoiceProperties: List<String> = listOf("procedure")
+
   override val descriptor: SerialDescriptor by lazy {
     SerialDescriptor("Procedure", surrogateSerializer.descriptor)
   }
 
-  override fun deserialize(decoder: Decoder): Claim.Procedure =
-    surrogateSerializer.deserialize(decoder).toModel()
+  override fun deserialize(decoder: Decoder): Claim.Procedure {
+    val jsonDecoder =
+      decoder as? JsonDecoder ?: error("This serializer only supports JSON decoding")
+    val oldJsonObject =
+      if (resourceType.isNullOrBlank()) {
+        jsonDecoder.decodeJsonElement().jsonObject
+      } else
+        JsonObject(
+          jsonDecoder.decodeJsonElement().jsonObject.toMutableMap().apply { remove("resourceType") }
+        )
+    val unflattenedJsonObject = FhirJsonTransformer.unflatten(oldJsonObject, multiChoiceProperties)
+    val surrogate =
+      jsonDecoder.json.decodeFromJsonElement(surrogateSerializer, unflattenedJsonObject)
+    return surrogate.toModel()
+  }
 
   override fun serialize(encoder: Encoder, `value`: Claim.Procedure) {
-    surrogateSerializer.serialize(encoder, ClaimProcedureSurrogate.fromModel(value))
+    val jsonEncoder =
+      encoder as? JsonEncoder ?: error("This serializer only supports JSON encoding")
+    val surrogate = ClaimProcedureSurrogate.fromModel(value)
+    val oldJsonObject =
+      if (resourceType.isNullOrBlank()) {
+        jsonEncoder.json.encodeToJsonElement(surrogateSerializer, surrogate).jsonObject
+      } else {
+        JsonObject(
+          mutableMapOf("resourceType" to JsonPrimitive(resourceType))
+            .plus(jsonEncoder.json.encodeToJsonElement(surrogateSerializer, surrogate).jsonObject)
+        )
+      }
+    val flattenedJsonObject = FhirJsonTransformer.flatten(oldJsonObject, multiChoiceProperties)
+    jsonEncoder.encodeJsonElement(flattenedJsonObject)
   }
 }
 
@@ -156,20 +329,67 @@ public object ClaimInsuranceSerializer : KSerializer<Claim.Insurance> {
   }
 }
 
+public object ClaimAccidentLocationSerializer : KSerializer<Claim.Accident.Location> {
+  internal val surrogateSerializer: KSerializer<ClaimAccidentLocationSurrogate> by lazy {
+    ClaimAccidentLocationSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Location", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): Claim.Accident.Location =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: Claim.Accident.Location) {
+    surrogateSerializer.serialize(encoder, ClaimAccidentLocationSurrogate.fromModel(value))
+  }
+}
+
 public object ClaimAccidentSerializer : KSerializer<Claim.Accident> {
   internal val surrogateSerializer: KSerializer<ClaimAccidentSurrogate> by lazy {
     ClaimAccidentSurrogate.serializer()
   }
 
+  private val resourceType: String? = null
+
+  private val multiChoiceProperties: List<String> = listOf("location")
+
   override val descriptor: SerialDescriptor by lazy {
     SerialDescriptor("Accident", surrogateSerializer.descriptor)
   }
 
-  override fun deserialize(decoder: Decoder): Claim.Accident =
-    surrogateSerializer.deserialize(decoder).toModel()
+  override fun deserialize(decoder: Decoder): Claim.Accident {
+    val jsonDecoder =
+      decoder as? JsonDecoder ?: error("This serializer only supports JSON decoding")
+    val oldJsonObject =
+      if (resourceType.isNullOrBlank()) {
+        jsonDecoder.decodeJsonElement().jsonObject
+      } else
+        JsonObject(
+          jsonDecoder.decodeJsonElement().jsonObject.toMutableMap().apply { remove("resourceType") }
+        )
+    val unflattenedJsonObject = FhirJsonTransformer.unflatten(oldJsonObject, multiChoiceProperties)
+    val surrogate =
+      jsonDecoder.json.decodeFromJsonElement(surrogateSerializer, unflattenedJsonObject)
+    return surrogate.toModel()
+  }
 
   override fun serialize(encoder: Encoder, `value`: Claim.Accident) {
-    surrogateSerializer.serialize(encoder, ClaimAccidentSurrogate.fromModel(value))
+    val jsonEncoder =
+      encoder as? JsonEncoder ?: error("This serializer only supports JSON encoding")
+    val surrogate = ClaimAccidentSurrogate.fromModel(value)
+    val oldJsonObject =
+      if (resourceType.isNullOrBlank()) {
+        jsonEncoder.json.encodeToJsonElement(surrogateSerializer, surrogate).jsonObject
+      } else {
+        JsonObject(
+          mutableMapOf("resourceType" to JsonPrimitive(resourceType))
+            .plus(jsonEncoder.json.encodeToJsonElement(surrogateSerializer, surrogate).jsonObject)
+        )
+      }
+    val flattenedJsonObject = FhirJsonTransformer.flatten(oldJsonObject, multiChoiceProperties)
+    jsonEncoder.encodeJsonElement(flattenedJsonObject)
   }
 }
 
@@ -207,20 +427,84 @@ public object ClaimItemDetailSerializer : KSerializer<Claim.Item.Detail> {
   }
 }
 
+public object ClaimItemServicedSerializer : KSerializer<Claim.Item.Serviced> {
+  internal val surrogateSerializer: KSerializer<ClaimItemServicedSurrogate> by lazy {
+    ClaimItemServicedSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Serviced", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): Claim.Item.Serviced =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: Claim.Item.Serviced) {
+    surrogateSerializer.serialize(encoder, ClaimItemServicedSurrogate.fromModel(value))
+  }
+}
+
+public object ClaimItemLocationSerializer : KSerializer<Claim.Item.Location> {
+  internal val surrogateSerializer: KSerializer<ClaimItemLocationSurrogate> by lazy {
+    ClaimItemLocationSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Location", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): Claim.Item.Location =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: Claim.Item.Location) {
+    surrogateSerializer.serialize(encoder, ClaimItemLocationSurrogate.fromModel(value))
+  }
+}
+
 public object ClaimItemSerializer : KSerializer<Claim.Item> {
   internal val surrogateSerializer: KSerializer<ClaimItemSurrogate> by lazy {
     ClaimItemSurrogate.serializer()
   }
 
+  private val resourceType: String? = null
+
+  private val multiChoiceProperties: List<String> = listOf("serviced", "location")
+
   override val descriptor: SerialDescriptor by lazy {
     SerialDescriptor("Item", surrogateSerializer.descriptor)
   }
 
-  override fun deserialize(decoder: Decoder): Claim.Item =
-    surrogateSerializer.deserialize(decoder).toModel()
+  override fun deserialize(decoder: Decoder): Claim.Item {
+    val jsonDecoder =
+      decoder as? JsonDecoder ?: error("This serializer only supports JSON decoding")
+    val oldJsonObject =
+      if (resourceType.isNullOrBlank()) {
+        jsonDecoder.decodeJsonElement().jsonObject
+      } else
+        JsonObject(
+          jsonDecoder.decodeJsonElement().jsonObject.toMutableMap().apply { remove("resourceType") }
+        )
+    val unflattenedJsonObject = FhirJsonTransformer.unflatten(oldJsonObject, multiChoiceProperties)
+    val surrogate =
+      jsonDecoder.json.decodeFromJsonElement(surrogateSerializer, unflattenedJsonObject)
+    return surrogate.toModel()
+  }
 
   override fun serialize(encoder: Encoder, `value`: Claim.Item) {
-    surrogateSerializer.serialize(encoder, ClaimItemSurrogate.fromModel(value))
+    val jsonEncoder =
+      encoder as? JsonEncoder ?: error("This serializer only supports JSON encoding")
+    val surrogate = ClaimItemSurrogate.fromModel(value)
+    val oldJsonObject =
+      if (resourceType.isNullOrBlank()) {
+        jsonEncoder.json.encodeToJsonElement(surrogateSerializer, surrogate).jsonObject
+      } else {
+        JsonObject(
+          mutableMapOf("resourceType" to JsonPrimitive(resourceType))
+            .plus(jsonEncoder.json.encodeToJsonElement(surrogateSerializer, surrogate).jsonObject)
+        )
+      }
+    val flattenedJsonObject = FhirJsonTransformer.flatten(oldJsonObject, multiChoiceProperties)
+    jsonEncoder.encodeJsonElement(flattenedJsonObject)
   }
 }
 

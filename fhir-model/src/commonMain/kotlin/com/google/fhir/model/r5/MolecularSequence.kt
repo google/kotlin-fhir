@@ -20,6 +20,7 @@ package com.google.fhir.model.r5
 
 import com.google.fhir.model.r5.serializers.MolecularSequenceRelativeEditSerializer
 import com.google.fhir.model.r5.serializers.MolecularSequenceRelativeSerializer
+import com.google.fhir.model.r5.serializers.MolecularSequenceRelativeStartingSequenceSequenceSerializer
 import com.google.fhir.model.r5.serializers.MolecularSequenceRelativeStartingSequenceSerializer
 import com.google.fhir.model.r5.serializers.MolecularSequenceSerializer
 import kotlin.Suppress
@@ -305,6 +306,7 @@ public data class MolecularSequence(
        */
       public var strand: Enumeration<StrandType>? = null,
     ) : BackboneElement() {
+      @Serializable(with = MolecularSequenceRelativeStartingSequenceSequenceSerializer::class)
       public sealed interface Sequence {
         public fun asCodeableConcept(): CodeableConcept? = this as? CodeableConcept
 

@@ -18,17 +18,28 @@
 
 package com.google.fhir.model.r4.serializers
 
+import com.google.fhir.model.r4.FhirJsonTransformer
 import com.google.fhir.model.r4.Immunization
 import com.google.fhir.model.r4.surrogates.ImmunizationEducationSurrogate
+import com.google.fhir.model.r4.surrogates.ImmunizationOccurrenceSurrogate
 import com.google.fhir.model.r4.surrogates.ImmunizationPerformerSurrogate
+import com.google.fhir.model.r4.surrogates.ImmunizationProtocolAppliedDoseNumberSurrogate
+import com.google.fhir.model.r4.surrogates.ImmunizationProtocolAppliedSeriesDosesSurrogate
 import com.google.fhir.model.r4.surrogates.ImmunizationProtocolAppliedSurrogate
 import com.google.fhir.model.r4.surrogates.ImmunizationReactionSurrogate
 import com.google.fhir.model.r4.surrogates.ImmunizationSurrogate
+import kotlin.String
 import kotlin.Suppress
+import kotlin.collections.List
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.descriptors.SerialDescriptor
 import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
+import kotlinx.serialization.json.JsonDecoder
+import kotlinx.serialization.json.JsonEncoder
+import kotlinx.serialization.json.JsonObject
+import kotlinx.serialization.json.JsonPrimitive
+import kotlinx.serialization.json.jsonObject
 
 public object ImmunizationPerformerSerializer : KSerializer<Immunization.Performer> {
   internal val surrogateSerializer: KSerializer<ImmunizationPerformerSurrogate> by lazy {
@@ -81,20 +92,111 @@ public object ImmunizationReactionSerializer : KSerializer<Immunization.Reaction
   }
 }
 
+public object ImmunizationProtocolAppliedDoseNumberSerializer :
+  KSerializer<Immunization.ProtocolApplied.DoseNumber> {
+  internal val surrogateSerializer:
+    KSerializer<ImmunizationProtocolAppliedDoseNumberSurrogate> by lazy {
+    ImmunizationProtocolAppliedDoseNumberSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("DoseNumber", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): Immunization.ProtocolApplied.DoseNumber =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: Immunization.ProtocolApplied.DoseNumber) {
+    surrogateSerializer.serialize(
+      encoder,
+      ImmunizationProtocolAppliedDoseNumberSurrogate.fromModel(value),
+    )
+  }
+}
+
+public object ImmunizationProtocolAppliedSeriesDosesSerializer :
+  KSerializer<Immunization.ProtocolApplied.SeriesDoses> {
+  internal val surrogateSerializer:
+    KSerializer<ImmunizationProtocolAppliedSeriesDosesSurrogate> by lazy {
+    ImmunizationProtocolAppliedSeriesDosesSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("SeriesDoses", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): Immunization.ProtocolApplied.SeriesDoses =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: Immunization.ProtocolApplied.SeriesDoses) {
+    surrogateSerializer.serialize(
+      encoder,
+      ImmunizationProtocolAppliedSeriesDosesSurrogate.fromModel(value),
+    )
+  }
+}
+
 public object ImmunizationProtocolAppliedSerializer : KSerializer<Immunization.ProtocolApplied> {
   internal val surrogateSerializer: KSerializer<ImmunizationProtocolAppliedSurrogate> by lazy {
     ImmunizationProtocolAppliedSurrogate.serializer()
   }
 
+  private val resourceType: String? = null
+
+  private val multiChoiceProperties: List<String> = listOf("doseNumber", "seriesDoses")
+
   override val descriptor: SerialDescriptor by lazy {
     SerialDescriptor("ProtocolApplied", surrogateSerializer.descriptor)
   }
 
-  override fun deserialize(decoder: Decoder): Immunization.ProtocolApplied =
-    surrogateSerializer.deserialize(decoder).toModel()
+  override fun deserialize(decoder: Decoder): Immunization.ProtocolApplied {
+    val jsonDecoder =
+      decoder as? JsonDecoder ?: error("This serializer only supports JSON decoding")
+    val oldJsonObject =
+      if (resourceType.isNullOrBlank()) {
+        jsonDecoder.decodeJsonElement().jsonObject
+      } else
+        JsonObject(
+          jsonDecoder.decodeJsonElement().jsonObject.toMutableMap().apply { remove("resourceType") }
+        )
+    val unflattenedJsonObject = FhirJsonTransformer.unflatten(oldJsonObject, multiChoiceProperties)
+    val surrogate =
+      jsonDecoder.json.decodeFromJsonElement(surrogateSerializer, unflattenedJsonObject)
+    return surrogate.toModel()
+  }
 
   override fun serialize(encoder: Encoder, `value`: Immunization.ProtocolApplied) {
-    surrogateSerializer.serialize(encoder, ImmunizationProtocolAppliedSurrogate.fromModel(value))
+    val jsonEncoder =
+      encoder as? JsonEncoder ?: error("This serializer only supports JSON encoding")
+    val surrogate = ImmunizationProtocolAppliedSurrogate.fromModel(value)
+    val oldJsonObject =
+      if (resourceType.isNullOrBlank()) {
+        jsonEncoder.json.encodeToJsonElement(surrogateSerializer, surrogate).jsonObject
+      } else {
+        JsonObject(
+          mutableMapOf("resourceType" to JsonPrimitive(resourceType))
+            .plus(jsonEncoder.json.encodeToJsonElement(surrogateSerializer, surrogate).jsonObject)
+        )
+      }
+    val flattenedJsonObject = FhirJsonTransformer.flatten(oldJsonObject, multiChoiceProperties)
+    jsonEncoder.encodeJsonElement(flattenedJsonObject)
+  }
+}
+
+public object ImmunizationOccurrenceSerializer : KSerializer<Immunization.Occurrence> {
+  internal val surrogateSerializer: KSerializer<ImmunizationOccurrenceSurrogate> by lazy {
+    ImmunizationOccurrenceSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Occurrence", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): Immunization.Occurrence =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: Immunization.Occurrence) {
+    surrogateSerializer.serialize(encoder, ImmunizationOccurrenceSurrogate.fromModel(value))
   }
 }
 
@@ -103,14 +205,44 @@ public object ImmunizationSerializer : KSerializer<Immunization> {
     ImmunizationSurrogate.serializer()
   }
 
+  private val resourceType: String? = "Immunization"
+
+  private val multiChoiceProperties: List<String> = listOf("occurrence")
+
   override val descriptor: SerialDescriptor by lazy {
     SerialDescriptor("Immunization", surrogateSerializer.descriptor)
   }
 
-  override fun deserialize(decoder: Decoder): Immunization =
-    surrogateSerializer.deserialize(decoder).toModel()
+  override fun deserialize(decoder: Decoder): Immunization {
+    val jsonDecoder =
+      decoder as? JsonDecoder ?: error("This serializer only supports JSON decoding")
+    val oldJsonObject =
+      if (resourceType.isNullOrBlank()) {
+        jsonDecoder.decodeJsonElement().jsonObject
+      } else
+        JsonObject(
+          jsonDecoder.decodeJsonElement().jsonObject.toMutableMap().apply { remove("resourceType") }
+        )
+    val unflattenedJsonObject = FhirJsonTransformer.unflatten(oldJsonObject, multiChoiceProperties)
+    val surrogate =
+      jsonDecoder.json.decodeFromJsonElement(surrogateSerializer, unflattenedJsonObject)
+    return surrogate.toModel()
+  }
 
   override fun serialize(encoder: Encoder, `value`: Immunization) {
-    surrogateSerializer.serialize(encoder, ImmunizationSurrogate.fromModel(value))
+    val jsonEncoder =
+      encoder as? JsonEncoder ?: error("This serializer only supports JSON encoding")
+    val surrogate = ImmunizationSurrogate.fromModel(value)
+    val oldJsonObject =
+      if (resourceType.isNullOrBlank()) {
+        jsonEncoder.json.encodeToJsonElement(surrogateSerializer, surrogate).jsonObject
+      } else {
+        JsonObject(
+          mutableMapOf("resourceType" to JsonPrimitive(resourceType))
+            .plus(jsonEncoder.json.encodeToJsonElement(surrogateSerializer, surrogate).jsonObject)
+        )
+      }
+    val flattenedJsonObject = FhirJsonTransformer.flatten(oldJsonObject, multiChoiceProperties)
+    jsonEncoder.encodeJsonElement(flattenedJsonObject)
   }
 }

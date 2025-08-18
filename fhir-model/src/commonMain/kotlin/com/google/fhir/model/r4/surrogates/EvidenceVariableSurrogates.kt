@@ -59,12 +59,7 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
-internal data class EvidenceVariableCharacteristicSurrogate(
-  public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var description: KotlinString? = null,
-  public var _description: Element? = null,
+internal data class EvidenceVariableCharacteristicDefinitionSurrogate(
   public var definitionReference: Reference? = null,
   public var definitionCanonical: KotlinString? = null,
   public var _definitionCanonical: Element? = null,
@@ -72,14 +67,89 @@ internal data class EvidenceVariableCharacteristicSurrogate(
   public var definitionExpression: Expression? = null,
   public var definitionDataRequirement: DataRequirement? = null,
   public var definitionTriggerDefinition: TriggerDefinition? = null,
-  public var usageContext: MutableList<UsageContext>? = null,
-  public var exclude: KotlinBoolean? = null,
-  public var _exclude: Element? = null,
+) {
+  public fun toModel(): EvidenceVariable.Characteristic.Definition =
+    EvidenceVariable.Characteristic.Definition.from(
+      this@EvidenceVariableCharacteristicDefinitionSurrogate.definitionReference,
+      Canonical.of(
+        this@EvidenceVariableCharacteristicDefinitionSurrogate.definitionCanonical,
+        this@EvidenceVariableCharacteristicDefinitionSurrogate._definitionCanonical,
+      ),
+      this@EvidenceVariableCharacteristicDefinitionSurrogate.definitionCodeableConcept,
+      this@EvidenceVariableCharacteristicDefinitionSurrogate.definitionExpression,
+      this@EvidenceVariableCharacteristicDefinitionSurrogate.definitionDataRequirement,
+      this@EvidenceVariableCharacteristicDefinitionSurrogate.definitionTriggerDefinition,
+    )!! !!
+
+  public companion object {
+    public fun fromModel(
+      model: EvidenceVariable.Characteristic.Definition
+    ): EvidenceVariableCharacteristicDefinitionSurrogate =
+      with(model) {
+        EvidenceVariableCharacteristicDefinitionSurrogate(
+          definitionReference = this@with.asReference()?.value,
+          definitionCanonical = this@with.asCanonical()?.value?.value,
+          _definitionCanonical = this@with.asCanonical()?.value?.toElement(),
+          definitionCodeableConcept = this@with.asCodeableConcept()?.value,
+          definitionExpression = this@with.asExpression()?.value,
+          definitionDataRequirement = this@with.asDataRequirement()?.value,
+          definitionTriggerDefinition = this@with.asTriggerDefinition()?.value,
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class EvidenceVariableCharacteristicParticipantEffectiveSurrogate(
   public var participantEffectiveDateTime: KotlinString? = null,
   public var _participantEffectiveDateTime: Element? = null,
   public var participantEffectivePeriod: Period? = null,
   public var participantEffectiveDuration: Duration? = null,
   public var participantEffectiveTiming: Timing? = null,
+) {
+  public fun toModel(): EvidenceVariable.Characteristic.ParticipantEffective =
+    EvidenceVariable.Characteristic.ParticipantEffective?.from(
+      DateTime.of(
+        FhirDateTime.fromString(
+          this@EvidenceVariableCharacteristicParticipantEffectiveSurrogate
+            .participantEffectiveDateTime
+        ),
+        this@EvidenceVariableCharacteristicParticipantEffectiveSurrogate
+          ._participantEffectiveDateTime,
+      ),
+      this@EvidenceVariableCharacteristicParticipantEffectiveSurrogate.participantEffectivePeriod,
+      this@EvidenceVariableCharacteristicParticipantEffectiveSurrogate.participantEffectiveDuration,
+      this@EvidenceVariableCharacteristicParticipantEffectiveSurrogate.participantEffectiveTiming,
+    )!!
+
+  public companion object {
+    public fun fromModel(
+      model: EvidenceVariable.Characteristic.ParticipantEffective
+    ): EvidenceVariableCharacteristicParticipantEffectiveSurrogate =
+      with(model) {
+        EvidenceVariableCharacteristicParticipantEffectiveSurrogate(
+          participantEffectiveDateTime = this@with.asDateTime()?.value?.value?.toString(),
+          _participantEffectiveDateTime = this@with.asDateTime()?.value?.toElement(),
+          participantEffectivePeriod = this@with.asPeriod()?.value,
+          participantEffectiveDuration = this@with.asDuration()?.value,
+          participantEffectiveTiming = this@with.asTiming()?.value,
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class EvidenceVariableCharacteristicSurrogate(
+  public var id: KotlinString? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var description: KotlinString? = null,
+  public var _description: Element? = null,
+  public var definition: EvidenceVariable.Characteristic.Definition,
+  public var usageContext: MutableList<UsageContext>? = null,
+  public var exclude: KotlinBoolean? = null,
+  public var _exclude: Element? = null,
+  public var participantEffective: EvidenceVariable.Characteristic.ParticipantEffective? = null,
   public var timeFromStart: Duration? = null,
   public var groupMeasure: KotlinString? = null,
   public var _groupMeasure: Element? = null,
@@ -95,36 +165,14 @@ internal data class EvidenceVariableCharacteristicSurrogate(
           this@EvidenceVariableCharacteristicSurrogate.description,
           this@EvidenceVariableCharacteristicSurrogate._description,
         ),
-      definition =
-        EvidenceVariable.Characteristic.Definition.from(
-          this@EvidenceVariableCharacteristicSurrogate.definitionReference,
-          Canonical.of(
-            this@EvidenceVariableCharacteristicSurrogate.definitionCanonical,
-            this@EvidenceVariableCharacteristicSurrogate._definitionCanonical,
-          ),
-          this@EvidenceVariableCharacteristicSurrogate.definitionCodeableConcept,
-          this@EvidenceVariableCharacteristicSurrogate.definitionExpression,
-          this@EvidenceVariableCharacteristicSurrogate.definitionDataRequirement,
-          this@EvidenceVariableCharacteristicSurrogate.definitionTriggerDefinition,
-        )!!,
+      definition = this@EvidenceVariableCharacteristicSurrogate.definition,
       usageContext = this@EvidenceVariableCharacteristicSurrogate.usageContext ?: mutableListOf(),
       exclude =
         R4Boolean.of(
           this@EvidenceVariableCharacteristicSurrogate.exclude,
           this@EvidenceVariableCharacteristicSurrogate._exclude,
         ),
-      participantEffective =
-        EvidenceVariable.Characteristic.ParticipantEffective?.from(
-          DateTime.of(
-            FhirDateTime.fromString(
-              this@EvidenceVariableCharacteristicSurrogate.participantEffectiveDateTime
-            ),
-            this@EvidenceVariableCharacteristicSurrogate._participantEffectiveDateTime,
-          ),
-          this@EvidenceVariableCharacteristicSurrogate.participantEffectivePeriod,
-          this@EvidenceVariableCharacteristicSurrogate.participantEffectiveDuration,
-          this@EvidenceVariableCharacteristicSurrogate.participantEffectiveTiming,
-        ),
+      participantEffective = this@EvidenceVariableCharacteristicSurrogate.participantEffective,
       timeFromStart = this@EvidenceVariableCharacteristicSurrogate.timeFromStart,
       groupMeasure =
         this@EvidenceVariableCharacteristicSurrogate.groupMeasure?.let {
@@ -146,23 +194,11 @@ internal data class EvidenceVariableCharacteristicSurrogate(
           modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
           description = this@with.description?.value,
           _description = this@with.description?.toElement(),
-          definitionReference = this@with.definition?.asReference()?.value,
-          definitionCanonical = this@with.definition?.asCanonical()?.value?.value,
-          _definitionCanonical = this@with.definition?.asCanonical()?.value?.toElement(),
-          definitionCodeableConcept = this@with.definition?.asCodeableConcept()?.value,
-          definitionExpression = this@with.definition?.asExpression()?.value,
-          definitionDataRequirement = this@with.definition?.asDataRequirement()?.value,
-          definitionTriggerDefinition = this@with.definition?.asTriggerDefinition()?.value,
+          definition = this@with.definition,
           usageContext = this@with.usageContext.takeUnless { it.all { it == null } },
           exclude = this@with.exclude?.value,
           _exclude = this@with.exclude?.toElement(),
-          participantEffectiveDateTime =
-            this@with.participantEffective?.asDateTime()?.value?.value?.toString(),
-          _participantEffectiveDateTime =
-            this@with.participantEffective?.asDateTime()?.value?.toElement(),
-          participantEffectivePeriod = this@with.participantEffective?.asPeriod()?.value,
-          participantEffectiveDuration = this@with.participantEffective?.asDuration()?.value,
-          participantEffectiveTiming = this@with.participantEffective?.asTiming()?.value,
+          participantEffective = this@with.participantEffective,
           timeFromStart = this@with.timeFromStart,
           groupMeasure = this@with.groupMeasure?.value?.getCode(),
           _groupMeasure = this@with.groupMeasure?.toElement(),

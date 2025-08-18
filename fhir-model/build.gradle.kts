@@ -113,7 +113,7 @@ kotlin {
             // task above.
             kotlin.setSrcDirs(listOf(file("src/commonMain/kotlin")))
             dependencies {
-                implementation(libs.kotlinx.datetime)
+                api(libs.kotlinx.datetime)
                 implementation(libs.kotlinx.serialization.json)
             }
         }

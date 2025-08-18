@@ -119,6 +119,33 @@ internal data class DiagnosticReportMediaSurrogate(
 }
 
 @Serializable
+internal data class DiagnosticReportEffectiveSurrogate(
+  public var effectiveDateTime: KotlinString? = null,
+  public var _effectiveDateTime: Element? = null,
+  public var effectivePeriod: Period? = null,
+) {
+  public fun toModel(): DiagnosticReport.Effective =
+    DiagnosticReport.Effective?.from(
+      DateTime.of(
+        FhirDateTime.fromString(this@DiagnosticReportEffectiveSurrogate.effectiveDateTime),
+        this@DiagnosticReportEffectiveSurrogate._effectiveDateTime,
+      ),
+      this@DiagnosticReportEffectiveSurrogate.effectivePeriod,
+    )!!
+
+  public companion object {
+    public fun fromModel(model: DiagnosticReport.Effective): DiagnosticReportEffectiveSurrogate =
+      with(model) {
+        DiagnosticReportEffectiveSurrogate(
+          effectiveDateTime = this@with.asDateTime()?.value?.value?.toString(),
+          _effectiveDateTime = this@with.asDateTime()?.value?.toElement(),
+          effectivePeriod = this@with.asPeriod()?.value,
+        )
+      }
+  }
+}
+
+@Serializable
 internal data class DiagnosticReportSurrogate(
   public var id: KotlinString? = null,
   public var meta: Meta? = null,
@@ -138,9 +165,7 @@ internal data class DiagnosticReportSurrogate(
   public var code: CodeableConcept,
   public var subject: Reference? = null,
   public var encounter: Reference? = null,
-  public var effectiveDateTime: KotlinString? = null,
-  public var _effectiveDateTime: Element? = null,
-  public var effectivePeriod: Period? = null,
+  public var effective: DiagnosticReport.Effective? = null,
   public var issued: KotlinString? = null,
   public var _issued: Element? = null,
   public var performer: MutableList<Reference>? = null,
@@ -185,14 +210,7 @@ internal data class DiagnosticReportSurrogate(
       code = this@DiagnosticReportSurrogate.code,
       subject = this@DiagnosticReportSurrogate.subject,
       encounter = this@DiagnosticReportSurrogate.encounter,
-      effective =
-        DiagnosticReport.Effective?.from(
-          DateTime.of(
-            FhirDateTime.fromString(this@DiagnosticReportSurrogate.effectiveDateTime),
-            this@DiagnosticReportSurrogate._effectiveDateTime,
-          ),
-          this@DiagnosticReportSurrogate.effectivePeriod,
-        ),
+      effective = this@DiagnosticReportSurrogate.effective,
       issued =
         Instant.of(
           FhirDateTime.fromString(this@DiagnosticReportSurrogate.issued),
@@ -238,9 +256,7 @@ internal data class DiagnosticReportSurrogate(
           code = this@with.code,
           subject = this@with.subject,
           encounter = this@with.encounter,
-          effectiveDateTime = this@with.effective?.asDateTime()?.value?.value?.toString(),
-          _effectiveDateTime = this@with.effective?.asDateTime()?.value?.toElement(),
-          effectivePeriod = this@with.effective?.asPeriod()?.value,
+          effective = this@with.effective,
           issued = this@with.issued?.value?.toString(),
           _issued = this@with.issued?.toElement(),
           performer = this@with.performer.takeUnless { it.all { it == null } },

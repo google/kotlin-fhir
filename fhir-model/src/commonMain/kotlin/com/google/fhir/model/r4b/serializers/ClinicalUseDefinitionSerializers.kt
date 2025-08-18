@@ -19,19 +19,29 @@
 package com.google.fhir.model.r4b.serializers
 
 import com.google.fhir.model.r4b.ClinicalUseDefinition
+import com.google.fhir.model.r4b.FhirJsonTransformer
 import com.google.fhir.model.r4b.surrogates.ClinicalUseDefinitionContraindicationOtherTherapySurrogate
 import com.google.fhir.model.r4b.surrogates.ClinicalUseDefinitionContraindicationSurrogate
+import com.google.fhir.model.r4b.surrogates.ClinicalUseDefinitionIndicationDurationSurrogate
 import com.google.fhir.model.r4b.surrogates.ClinicalUseDefinitionIndicationSurrogate
+import com.google.fhir.model.r4b.surrogates.ClinicalUseDefinitionInteractionInteractantItemSurrogate
 import com.google.fhir.model.r4b.surrogates.ClinicalUseDefinitionInteractionInteractantSurrogate
 import com.google.fhir.model.r4b.surrogates.ClinicalUseDefinitionInteractionSurrogate
 import com.google.fhir.model.r4b.surrogates.ClinicalUseDefinitionSurrogate
 import com.google.fhir.model.r4b.surrogates.ClinicalUseDefinitionUndesirableEffectSurrogate
 import com.google.fhir.model.r4b.surrogates.ClinicalUseDefinitionWarningSurrogate
+import kotlin.String
 import kotlin.Suppress
+import kotlin.collections.List
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.descriptors.SerialDescriptor
 import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
+import kotlinx.serialization.json.JsonDecoder
+import kotlinx.serialization.json.JsonEncoder
+import kotlinx.serialization.json.JsonObject
+import kotlinx.serialization.json.JsonPrimitive
+import kotlinx.serialization.json.jsonObject
 
 public object ClinicalUseDefinitionContraindicationOtherTherapySerializer :
   KSerializer<ClinicalUseDefinition.Contraindication.OtherTherapy> {
@@ -80,23 +90,97 @@ public object ClinicalUseDefinitionContraindicationSerializer :
   }
 }
 
+public object ClinicalUseDefinitionIndicationDurationSerializer :
+  KSerializer<ClinicalUseDefinition.Indication.Duration> {
+  internal val surrogateSerializer:
+    KSerializer<ClinicalUseDefinitionIndicationDurationSurrogate> by lazy {
+    ClinicalUseDefinitionIndicationDurationSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Duration", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): ClinicalUseDefinition.Indication.Duration =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: ClinicalUseDefinition.Indication.Duration) {
+    surrogateSerializer.serialize(
+      encoder,
+      ClinicalUseDefinitionIndicationDurationSurrogate.fromModel(value),
+    )
+  }
+}
+
 public object ClinicalUseDefinitionIndicationSerializer :
   KSerializer<ClinicalUseDefinition.Indication> {
   internal val surrogateSerializer: KSerializer<ClinicalUseDefinitionIndicationSurrogate> by lazy {
     ClinicalUseDefinitionIndicationSurrogate.serializer()
   }
 
+  private val resourceType: String? = null
+
+  private val multiChoiceProperties: List<String> = listOf("duration")
+
   override val descriptor: SerialDescriptor by lazy {
     SerialDescriptor("Indication", surrogateSerializer.descriptor)
   }
 
-  override fun deserialize(decoder: Decoder): ClinicalUseDefinition.Indication =
-    surrogateSerializer.deserialize(decoder).toModel()
+  override fun deserialize(decoder: Decoder): ClinicalUseDefinition.Indication {
+    val jsonDecoder =
+      decoder as? JsonDecoder ?: error("This serializer only supports JSON decoding")
+    val oldJsonObject =
+      if (resourceType.isNullOrBlank()) {
+        jsonDecoder.decodeJsonElement().jsonObject
+      } else
+        JsonObject(
+          jsonDecoder.decodeJsonElement().jsonObject.toMutableMap().apply { remove("resourceType") }
+        )
+    val unflattenedJsonObject = FhirJsonTransformer.unflatten(oldJsonObject, multiChoiceProperties)
+    val surrogate =
+      jsonDecoder.json.decodeFromJsonElement(surrogateSerializer, unflattenedJsonObject)
+    return surrogate.toModel()
+  }
 
   override fun serialize(encoder: Encoder, `value`: ClinicalUseDefinition.Indication) {
+    val jsonEncoder =
+      encoder as? JsonEncoder ?: error("This serializer only supports JSON encoding")
+    val surrogate = ClinicalUseDefinitionIndicationSurrogate.fromModel(value)
+    val oldJsonObject =
+      if (resourceType.isNullOrBlank()) {
+        jsonEncoder.json.encodeToJsonElement(surrogateSerializer, surrogate).jsonObject
+      } else {
+        JsonObject(
+          mutableMapOf("resourceType" to JsonPrimitive(resourceType))
+            .plus(jsonEncoder.json.encodeToJsonElement(surrogateSerializer, surrogate).jsonObject)
+        )
+      }
+    val flattenedJsonObject = FhirJsonTransformer.flatten(oldJsonObject, multiChoiceProperties)
+    jsonEncoder.encodeJsonElement(flattenedJsonObject)
+  }
+}
+
+public object ClinicalUseDefinitionInteractionInteractantItemSerializer :
+  KSerializer<ClinicalUseDefinition.Interaction.Interactant.Item> {
+  internal val surrogateSerializer:
+    KSerializer<ClinicalUseDefinitionInteractionInteractantItemSurrogate> by lazy {
+    ClinicalUseDefinitionInteractionInteractantItemSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Item", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): ClinicalUseDefinition.Interaction.Interactant.Item =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(
+    encoder: Encoder,
+    `value`: ClinicalUseDefinition.Interaction.Interactant.Item,
+  ) {
     surrogateSerializer.serialize(
       encoder,
-      ClinicalUseDefinitionIndicationSurrogate.fromModel(value),
+      ClinicalUseDefinitionInteractionInteractantItemSurrogate.fromModel(value),
     )
   }
 }
@@ -108,18 +192,45 @@ public object ClinicalUseDefinitionInteractionInteractantSerializer :
     ClinicalUseDefinitionInteractionInteractantSurrogate.serializer()
   }
 
+  private val resourceType: String? = null
+
+  private val multiChoiceProperties: List<String> = listOf("item")
+
   override val descriptor: SerialDescriptor by lazy {
     SerialDescriptor("Interactant", surrogateSerializer.descriptor)
   }
 
-  override fun deserialize(decoder: Decoder): ClinicalUseDefinition.Interaction.Interactant =
-    surrogateSerializer.deserialize(decoder).toModel()
+  override fun deserialize(decoder: Decoder): ClinicalUseDefinition.Interaction.Interactant {
+    val jsonDecoder =
+      decoder as? JsonDecoder ?: error("This serializer only supports JSON decoding")
+    val oldJsonObject =
+      if (resourceType.isNullOrBlank()) {
+        jsonDecoder.decodeJsonElement().jsonObject
+      } else
+        JsonObject(
+          jsonDecoder.decodeJsonElement().jsonObject.toMutableMap().apply { remove("resourceType") }
+        )
+    val unflattenedJsonObject = FhirJsonTransformer.unflatten(oldJsonObject, multiChoiceProperties)
+    val surrogate =
+      jsonDecoder.json.decodeFromJsonElement(surrogateSerializer, unflattenedJsonObject)
+    return surrogate.toModel()
+  }
 
   override fun serialize(encoder: Encoder, `value`: ClinicalUseDefinition.Interaction.Interactant) {
-    surrogateSerializer.serialize(
-      encoder,
-      ClinicalUseDefinitionInteractionInteractantSurrogate.fromModel(value),
-    )
+    val jsonEncoder =
+      encoder as? JsonEncoder ?: error("This serializer only supports JSON encoding")
+    val surrogate = ClinicalUseDefinitionInteractionInteractantSurrogate.fromModel(value)
+    val oldJsonObject =
+      if (resourceType.isNullOrBlank()) {
+        jsonEncoder.json.encodeToJsonElement(surrogateSerializer, surrogate).jsonObject
+      } else {
+        JsonObject(
+          mutableMapOf("resourceType" to JsonPrimitive(resourceType))
+            .plus(jsonEncoder.json.encodeToJsonElement(surrogateSerializer, surrogate).jsonObject)
+        )
+      }
+    val flattenedJsonObject = FhirJsonTransformer.flatten(oldJsonObject, multiChoiceProperties)
+    jsonEncoder.encodeJsonElement(flattenedJsonObject)
   }
 }
 

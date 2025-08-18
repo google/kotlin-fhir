@@ -77,6 +77,36 @@ internal data class DeviceUsageAdherenceSurrogate(
 }
 
 @Serializable
+internal data class DeviceUsageTimingSurrogate(
+  public var timingTiming: Timing? = null,
+  public var timingPeriod: Period? = null,
+  public var timingDateTime: String? = null,
+  public var _timingDateTime: Element? = null,
+) {
+  public fun toModel(): DeviceUsage.Timing =
+    DeviceUsage.Timing?.from(
+      this@DeviceUsageTimingSurrogate.timingTiming,
+      this@DeviceUsageTimingSurrogate.timingPeriod,
+      DateTime.of(
+        FhirDateTime.fromString(this@DeviceUsageTimingSurrogate.timingDateTime),
+        this@DeviceUsageTimingSurrogate._timingDateTime,
+      ),
+    )!!
+
+  public companion object {
+    public fun fromModel(model: DeviceUsage.Timing): DeviceUsageTimingSurrogate =
+      with(model) {
+        DeviceUsageTimingSurrogate(
+          timingTiming = this@with.asTiming()?.value,
+          timingPeriod = this@with.asPeriod()?.value,
+          timingDateTime = this@with.asDateTime()?.value?.value?.toString(),
+          _timingDateTime = this@with.asDateTime()?.value?.toElement(),
+        )
+      }
+  }
+}
+
+@Serializable
 internal data class DeviceUsageSurrogate(
   public var id: String? = null,
   public var meta: Meta? = null,
@@ -96,10 +126,7 @@ internal data class DeviceUsageSurrogate(
   public var patient: Reference,
   public var derivedFrom: MutableList<Reference>? = null,
   public var context: Reference? = null,
-  public var timingTiming: Timing? = null,
-  public var timingPeriod: Period? = null,
-  public var timingDateTime: String? = null,
-  public var _timingDateTime: Element? = null,
+  public var timing: DeviceUsage.Timing? = null,
   public var dateAsserted: String? = null,
   public var _dateAsserted: Element? = null,
   public var usageStatus: CodeableConcept? = null,
@@ -135,15 +162,7 @@ internal data class DeviceUsageSurrogate(
       patient = this@DeviceUsageSurrogate.patient,
       derivedFrom = this@DeviceUsageSurrogate.derivedFrom ?: mutableListOf(),
       context = this@DeviceUsageSurrogate.context,
-      timing =
-        DeviceUsage.Timing?.from(
-          this@DeviceUsageSurrogate.timingTiming,
-          this@DeviceUsageSurrogate.timingPeriod,
-          DateTime.of(
-            FhirDateTime.fromString(this@DeviceUsageSurrogate.timingDateTime),
-            this@DeviceUsageSurrogate._timingDateTime,
-          ),
-        ),
+      timing = this@DeviceUsageSurrogate.timing,
       dateAsserted =
         DateTime.of(
           FhirDateTime.fromString(this@DeviceUsageSurrogate.dateAsserted),
@@ -181,10 +200,7 @@ internal data class DeviceUsageSurrogate(
           patient = this@with.patient,
           derivedFrom = this@with.derivedFrom.takeUnless { it.all { it == null } },
           context = this@with.context,
-          timingTiming = this@with.timing?.asTiming()?.value,
-          timingPeriod = this@with.timing?.asPeriod()?.value,
-          timingDateTime = this@with.timing?.asDateTime()?.value?.value?.toString(),
-          _timingDateTime = this@with.timing?.asDateTime()?.value?.toElement(),
+          timing = this@with.timing,
           dateAsserted = this@with.dateAsserted?.value?.toString(),
           _dateAsserted = this@with.dateAsserted?.toElement(),
           usageStatus = this@with.usageStatus,

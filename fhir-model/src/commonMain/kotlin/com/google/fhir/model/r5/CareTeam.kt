@@ -18,6 +18,7 @@
 
 package com.google.fhir.model.r5
 
+import com.google.fhir.model.r5.serializers.CareTeamParticipantCoverageSerializer
 import com.google.fhir.model.r5.serializers.CareTeamParticipantSerializer
 import com.google.fhir.model.r5.serializers.CareTeamSerializer
 import kotlin.Suppress
@@ -260,6 +261,7 @@ public data class CareTeam(
      */
     public var coverage: Coverage? = null,
   ) : BackboneElement() {
+    @Serializable(with = CareTeamParticipantCoverageSerializer::class)
     public sealed interface Coverage {
       public fun asPeriod(): Period? = this as? Period
 

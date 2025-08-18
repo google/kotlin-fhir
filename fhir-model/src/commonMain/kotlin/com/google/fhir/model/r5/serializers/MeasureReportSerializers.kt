@@ -18,19 +18,31 @@
 
 package com.google.fhir.model.r5.serializers
 
+import com.google.fhir.model.r5.FhirJsonTransformer
 import com.google.fhir.model.r5.MeasureReport
+import com.google.fhir.model.r5.surrogates.MeasureReportGroupMeasureScoreSurrogate
 import com.google.fhir.model.r5.surrogates.MeasureReportGroupPopulationSurrogate
 import com.google.fhir.model.r5.surrogates.MeasureReportGroupStratifierStratumComponentSurrogate
+import com.google.fhir.model.r5.surrogates.MeasureReportGroupStratifierStratumComponentValueSurrogate
+import com.google.fhir.model.r5.surrogates.MeasureReportGroupStratifierStratumMeasureScoreSurrogate
 import com.google.fhir.model.r5.surrogates.MeasureReportGroupStratifierStratumPopulationSurrogate
 import com.google.fhir.model.r5.surrogates.MeasureReportGroupStratifierStratumSurrogate
+import com.google.fhir.model.r5.surrogates.MeasureReportGroupStratifierStratumValueSurrogate
 import com.google.fhir.model.r5.surrogates.MeasureReportGroupStratifierSurrogate
 import com.google.fhir.model.r5.surrogates.MeasureReportGroupSurrogate
 import com.google.fhir.model.r5.surrogates.MeasureReportSurrogate
+import kotlin.String
 import kotlin.Suppress
+import kotlin.collections.List
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.descriptors.SerialDescriptor
 import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
+import kotlinx.serialization.json.JsonDecoder
+import kotlinx.serialization.json.JsonEncoder
+import kotlinx.serialization.json.JsonObject
+import kotlinx.serialization.json.JsonPrimitive
+import kotlinx.serialization.json.jsonObject
 
 public object MeasureReportGroupPopulationSerializer : KSerializer<MeasureReport.Group.Population> {
   internal val surrogateSerializer: KSerializer<MeasureReportGroupPopulationSurrogate> by lazy {
@@ -49,6 +61,33 @@ public object MeasureReportGroupPopulationSerializer : KSerializer<MeasureReport
   }
 }
 
+public object MeasureReportGroupStratifierStratumComponentValueSerializer :
+  KSerializer<MeasureReport.Group.Stratifier.Stratum.Component.Value> {
+  internal val surrogateSerializer:
+    KSerializer<MeasureReportGroupStratifierStratumComponentValueSurrogate> by lazy {
+    MeasureReportGroupStratifierStratumComponentValueSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Value", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(
+    decoder: Decoder
+  ): MeasureReport.Group.Stratifier.Stratum.Component.Value =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(
+    encoder: Encoder,
+    `value`: MeasureReport.Group.Stratifier.Stratum.Component.Value,
+  ) {
+    surrogateSerializer.serialize(
+      encoder,
+      MeasureReportGroupStratifierStratumComponentValueSurrogate.fromModel(value),
+    )
+  }
+}
+
 public object MeasureReportGroupStratifierStratumComponentSerializer :
   KSerializer<MeasureReport.Group.Stratifier.Stratum.Component> {
   internal val surrogateSerializer:
@@ -56,21 +95,48 @@ public object MeasureReportGroupStratifierStratumComponentSerializer :
     MeasureReportGroupStratifierStratumComponentSurrogate.serializer()
   }
 
+  private val resourceType: String? = null
+
+  private val multiChoiceProperties: List<String> = listOf("value")
+
   override val descriptor: SerialDescriptor by lazy {
     SerialDescriptor("Component", surrogateSerializer.descriptor)
   }
 
-  override fun deserialize(decoder: Decoder): MeasureReport.Group.Stratifier.Stratum.Component =
-    surrogateSerializer.deserialize(decoder).toModel()
+  override fun deserialize(decoder: Decoder): MeasureReport.Group.Stratifier.Stratum.Component {
+    val jsonDecoder =
+      decoder as? JsonDecoder ?: error("This serializer only supports JSON decoding")
+    val oldJsonObject =
+      if (resourceType.isNullOrBlank()) {
+        jsonDecoder.decodeJsonElement().jsonObject
+      } else
+        JsonObject(
+          jsonDecoder.decodeJsonElement().jsonObject.toMutableMap().apply { remove("resourceType") }
+        )
+    val unflattenedJsonObject = FhirJsonTransformer.unflatten(oldJsonObject, multiChoiceProperties)
+    val surrogate =
+      jsonDecoder.json.decodeFromJsonElement(surrogateSerializer, unflattenedJsonObject)
+    return surrogate.toModel()
+  }
 
   override fun serialize(
     encoder: Encoder,
     `value`: MeasureReport.Group.Stratifier.Stratum.Component,
   ) {
-    surrogateSerializer.serialize(
-      encoder,
-      MeasureReportGroupStratifierStratumComponentSurrogate.fromModel(value),
-    )
+    val jsonEncoder =
+      encoder as? JsonEncoder ?: error("This serializer only supports JSON encoding")
+    val surrogate = MeasureReportGroupStratifierStratumComponentSurrogate.fromModel(value)
+    val oldJsonObject =
+      if (resourceType.isNullOrBlank()) {
+        jsonEncoder.json.encodeToJsonElement(surrogateSerializer, surrogate).jsonObject
+      } else {
+        JsonObject(
+          mutableMapOf("resourceType" to JsonPrimitive(resourceType))
+            .plus(jsonEncoder.json.encodeToJsonElement(surrogateSerializer, surrogate).jsonObject)
+        )
+      }
+    val flattenedJsonObject = FhirJsonTransformer.flatten(oldJsonObject, multiChoiceProperties)
+    jsonEncoder.encodeJsonElement(flattenedJsonObject)
   }
 }
 
@@ -99,6 +165,53 @@ public object MeasureReportGroupStratifierStratumPopulationSerializer :
   }
 }
 
+public object MeasureReportGroupStratifierStratumValueSerializer :
+  KSerializer<MeasureReport.Group.Stratifier.Stratum.Value> {
+  internal val surrogateSerializer:
+    KSerializer<MeasureReportGroupStratifierStratumValueSurrogate> by lazy {
+    MeasureReportGroupStratifierStratumValueSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Value", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): MeasureReport.Group.Stratifier.Stratum.Value =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: MeasureReport.Group.Stratifier.Stratum.Value) {
+    surrogateSerializer.serialize(
+      encoder,
+      MeasureReportGroupStratifierStratumValueSurrogate.fromModel(value),
+    )
+  }
+}
+
+public object MeasureReportGroupStratifierStratumMeasureScoreSerializer :
+  KSerializer<MeasureReport.Group.Stratifier.Stratum.MeasureScore> {
+  internal val surrogateSerializer:
+    KSerializer<MeasureReportGroupStratifierStratumMeasureScoreSurrogate> by lazy {
+    MeasureReportGroupStratifierStratumMeasureScoreSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("MeasureScore", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): MeasureReport.Group.Stratifier.Stratum.MeasureScore =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(
+    encoder: Encoder,
+    `value`: MeasureReport.Group.Stratifier.Stratum.MeasureScore,
+  ) {
+    surrogateSerializer.serialize(
+      encoder,
+      MeasureReportGroupStratifierStratumMeasureScoreSurrogate.fromModel(value),
+    )
+  }
+}
+
 public object MeasureReportGroupStratifierStratumSerializer :
   KSerializer<MeasureReport.Group.Stratifier.Stratum> {
   internal val surrogateSerializer:
@@ -106,18 +219,45 @@ public object MeasureReportGroupStratifierStratumSerializer :
     MeasureReportGroupStratifierStratumSurrogate.serializer()
   }
 
+  private val resourceType: String? = null
+
+  private val multiChoiceProperties: List<String> = listOf("value", "measureScore")
+
   override val descriptor: SerialDescriptor by lazy {
     SerialDescriptor("Stratum", surrogateSerializer.descriptor)
   }
 
-  override fun deserialize(decoder: Decoder): MeasureReport.Group.Stratifier.Stratum =
-    surrogateSerializer.deserialize(decoder).toModel()
+  override fun deserialize(decoder: Decoder): MeasureReport.Group.Stratifier.Stratum {
+    val jsonDecoder =
+      decoder as? JsonDecoder ?: error("This serializer only supports JSON decoding")
+    val oldJsonObject =
+      if (resourceType.isNullOrBlank()) {
+        jsonDecoder.decodeJsonElement().jsonObject
+      } else
+        JsonObject(
+          jsonDecoder.decodeJsonElement().jsonObject.toMutableMap().apply { remove("resourceType") }
+        )
+    val unflattenedJsonObject = FhirJsonTransformer.unflatten(oldJsonObject, multiChoiceProperties)
+    val surrogate =
+      jsonDecoder.json.decodeFromJsonElement(surrogateSerializer, unflattenedJsonObject)
+    return surrogate.toModel()
+  }
 
   override fun serialize(encoder: Encoder, `value`: MeasureReport.Group.Stratifier.Stratum) {
-    surrogateSerializer.serialize(
-      encoder,
-      MeasureReportGroupStratifierStratumSurrogate.fromModel(value),
-    )
+    val jsonEncoder =
+      encoder as? JsonEncoder ?: error("This serializer only supports JSON encoding")
+    val surrogate = MeasureReportGroupStratifierStratumSurrogate.fromModel(value)
+    val oldJsonObject =
+      if (resourceType.isNullOrBlank()) {
+        jsonEncoder.json.encodeToJsonElement(surrogateSerializer, surrogate).jsonObject
+      } else {
+        JsonObject(
+          mutableMapOf("resourceType" to JsonPrimitive(resourceType))
+            .plus(jsonEncoder.json.encodeToJsonElement(surrogateSerializer, surrogate).jsonObject)
+        )
+      }
+    val flattenedJsonObject = FhirJsonTransformer.flatten(oldJsonObject, multiChoiceProperties)
+    jsonEncoder.encodeJsonElement(flattenedJsonObject)
   }
 }
 
@@ -138,20 +278,68 @@ public object MeasureReportGroupStratifierSerializer : KSerializer<MeasureReport
   }
 }
 
+public object MeasureReportGroupMeasureScoreSerializer :
+  KSerializer<MeasureReport.Group.MeasureScore> {
+  internal val surrogateSerializer: KSerializer<MeasureReportGroupMeasureScoreSurrogate> by lazy {
+    MeasureReportGroupMeasureScoreSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("MeasureScore", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): MeasureReport.Group.MeasureScore =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: MeasureReport.Group.MeasureScore) {
+    surrogateSerializer.serialize(encoder, MeasureReportGroupMeasureScoreSurrogate.fromModel(value))
+  }
+}
+
 public object MeasureReportGroupSerializer : KSerializer<MeasureReport.Group> {
   internal val surrogateSerializer: KSerializer<MeasureReportGroupSurrogate> by lazy {
     MeasureReportGroupSurrogate.serializer()
   }
 
+  private val resourceType: String? = null
+
+  private val multiChoiceProperties: List<String> = listOf("measureScore")
+
   override val descriptor: SerialDescriptor by lazy {
     SerialDescriptor("Group", surrogateSerializer.descriptor)
   }
 
-  override fun deserialize(decoder: Decoder): MeasureReport.Group =
-    surrogateSerializer.deserialize(decoder).toModel()
+  override fun deserialize(decoder: Decoder): MeasureReport.Group {
+    val jsonDecoder =
+      decoder as? JsonDecoder ?: error("This serializer only supports JSON decoding")
+    val oldJsonObject =
+      if (resourceType.isNullOrBlank()) {
+        jsonDecoder.decodeJsonElement().jsonObject
+      } else
+        JsonObject(
+          jsonDecoder.decodeJsonElement().jsonObject.toMutableMap().apply { remove("resourceType") }
+        )
+    val unflattenedJsonObject = FhirJsonTransformer.unflatten(oldJsonObject, multiChoiceProperties)
+    val surrogate =
+      jsonDecoder.json.decodeFromJsonElement(surrogateSerializer, unflattenedJsonObject)
+    return surrogate.toModel()
+  }
 
   override fun serialize(encoder: Encoder, `value`: MeasureReport.Group) {
-    surrogateSerializer.serialize(encoder, MeasureReportGroupSurrogate.fromModel(value))
+    val jsonEncoder =
+      encoder as? JsonEncoder ?: error("This serializer only supports JSON encoding")
+    val surrogate = MeasureReportGroupSurrogate.fromModel(value)
+    val oldJsonObject =
+      if (resourceType.isNullOrBlank()) {
+        jsonEncoder.json.encodeToJsonElement(surrogateSerializer, surrogate).jsonObject
+      } else {
+        JsonObject(
+          mutableMapOf("resourceType" to JsonPrimitive(resourceType))
+            .plus(jsonEncoder.json.encodeToJsonElement(surrogateSerializer, surrogate).jsonObject)
+        )
+      }
+    val flattenedJsonObject = FhirJsonTransformer.flatten(oldJsonObject, multiChoiceProperties)
+    jsonEncoder.encodeJsonElement(flattenedJsonObject)
   }
 }
 

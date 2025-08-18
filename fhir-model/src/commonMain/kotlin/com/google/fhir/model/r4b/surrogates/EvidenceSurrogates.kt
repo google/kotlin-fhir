@@ -458,6 +458,33 @@ internal data class EvidenceCertaintySurrogate(
 }
 
 @Serializable
+internal data class EvidenceCiteAsSurrogate(
+  public var citeAsReference: Reference? = null,
+  public var citeAsMarkdown: KotlinString? = null,
+  public var _citeAsMarkdown: Element? = null,
+) {
+  public fun toModel(): Evidence.CiteAs =
+    Evidence.CiteAs?.from(
+      this@EvidenceCiteAsSurrogate.citeAsReference,
+      Markdown.of(
+        this@EvidenceCiteAsSurrogate.citeAsMarkdown,
+        this@EvidenceCiteAsSurrogate._citeAsMarkdown,
+      ),
+    )!!
+
+  public companion object {
+    public fun fromModel(model: Evidence.CiteAs): EvidenceCiteAsSurrogate =
+      with(model) {
+        EvidenceCiteAsSurrogate(
+          citeAsReference = this@with.asReference()?.value,
+          citeAsMarkdown = this@with.asMarkdown()?.value?.value,
+          _citeAsMarkdown = this@with.asMarkdown()?.value?.toElement(),
+        )
+      }
+  }
+}
+
+@Serializable
 internal data class EvidenceSurrogate(
   public var id: KotlinString? = null,
   public var meta: Meta? = null,
@@ -476,9 +503,7 @@ internal data class EvidenceSurrogate(
   public var _version: Element? = null,
   public var title: KotlinString? = null,
   public var _title: Element? = null,
-  public var citeAsReference: Reference? = null,
-  public var citeAsMarkdown: KotlinString? = null,
-  public var _citeAsMarkdown: Element? = null,
+  public var citeAs: Evidence.CiteAs? = null,
   public var status: KotlinString? = null,
   public var _status: Element? = null,
   public var date: KotlinString? = null,
@@ -522,11 +547,7 @@ internal data class EvidenceSurrogate(
       identifier = this@EvidenceSurrogate.identifier ?: mutableListOf(),
       version = R4bString.of(this@EvidenceSurrogate.version, this@EvidenceSurrogate._version),
       title = R4bString.of(this@EvidenceSurrogate.title, this@EvidenceSurrogate._title),
-      citeAs =
-        Evidence.CiteAs?.from(
-          this@EvidenceSurrogate.citeAsReference,
-          Markdown.of(this@EvidenceSurrogate.citeAsMarkdown, this@EvidenceSurrogate._citeAsMarkdown),
-        ),
+      citeAs = this@EvidenceSurrogate.citeAs,
       status =
         Enumeration.of(
           com.google.fhir.model.r4b.PublicationStatus.fromCode(this@EvidenceSurrogate.status!!),
@@ -587,9 +608,7 @@ internal data class EvidenceSurrogate(
           _version = this@with.version?.toElement(),
           title = this@with.title?.value,
           _title = this@with.title?.toElement(),
-          citeAsReference = this@with.citeAs?.asReference()?.value,
-          citeAsMarkdown = this@with.citeAs?.asMarkdown()?.value?.value,
-          _citeAsMarkdown = this@with.citeAs?.asMarkdown()?.value?.toElement(),
+          citeAs = this@with.citeAs,
           status = this@with.status.value?.getCode(),
           _status = this@with.status.toElement(),
           date = this@with.date?.value?.toString(),

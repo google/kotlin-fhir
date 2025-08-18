@@ -61,49 +61,7 @@ The library does not support `macos` targets in the tier 1 list, or any
 reflects their limited usage currently rather than technical difficulty. Please contact the team if
 you require support for these platforms.
 
-## Implementation
-
-### Overview
-
-```mermaid
-graph LR
-    subgraph Gradle binary plugin
-        A(FHIR spec<br>in JSON) -- kotlinx.serialization --> B(instances of<br>StructureDefinition<br>Kotlin data class<br>)
-        B -- KotlinPoet --> C[generated FHIR Resource classes]
-    end
-    C -- compiler --> D[jvm target]
-    C -- compiler --> E[native target]
-    C -- compiler --> F[js target]
-```
-
-The Kotlin FHIR library uses a Gradle binary plugin to automate the generation of Kotlin code
-directly
-from FHIR specification. This plugin uses [
-`kotlinx.serialization`](https://github.com/Kotlin/kotlinx.serialization) library to parse and load
-FHIR resource `StructureDefinition`s into an in-memory representation, and then
-uses [KotlinPoet](https://square.github.io/kotlinpoet/) to generate corresponding class definitions
-for each FHIR resource type. Finally, these generated Kotlin classes are compiled into JVM,
-JavaScript and native targets, enabling their use across various platforms.
-
-### Definitions
-
-Kotlin code is generated for StructureDefinitions in the following FHIR packages:
-
-- [hl7.fhir.r4.core](https://simplifier.net/packages/hl7.fhir.r4.core)
-- [hl7.fhir.r4b.core](https://simplifier.net/packages/hl7.fhir.r4b.core)
-- [hl7.fhir.r5.core](https://simplifier.net/packages/hl7.fhir.r5.core)
-
-> **Note:** The following are **NOT** included in the generated code:
-> - [Logical](https://hl7.org/fhir/R4/valueset-structure-definition-kind.html) StructureDefinitions,
-> such as [Definition](https://hl7.org/fhir/R4/definition.html),
-> [Request](https://hl7.org/fhir/R4/request.html), and [Event](https://hl7.org/fhir/R4/event.html)
-> in R4
-> - Profiles StructureDefinitions
-> - Constraints (e.g. in [R4](https://hl7.org/fhir/R4/conformance-rules.html#constraints)) and
-> bindings (e.g. in [R4](https://hl7.org/fhir/R4/terminologies.html#binding)) in
-> StructureDefinitions are not represented in the generated code
-> - CapabilityStatements, CodeSystems, ConceptMaps, NamingSystems, OperationDefinitions,
-> SearchParameters, and ValueSets
+## Data model
 
 ### Mapping FHIR primitive data types to Kotlin
 
@@ -252,7 +210,7 @@ The following FHIR value sets are excluded from Kotlin enum generation due to si
 | [`http://hl7.org/fhir/ValueSet/specimen-combined`](http://hl7.org/fhir/ValueSet/specimen-combined) | In R5, this system is excluded to prevent enum conflicts, as "PublicationStatus" is used by multiple value sets. We default to the value set with system [`http://hl7.org/fhir/publication-status`](http://hl7.org/fhir/publication-status), matching the R4 and R4B enum definitions. | `R5`                |
 | [`http://hl7.org/fhir/ValueSet/use-context`](http://hl7.org/fhir/ValueSet/use-context)             | Describes several flexible context usage; not suitable for enum generation.                                                                                                                                                                                                            | `R4`,`R4B`,`R5`     |
 
-### Mapping FHIR JSON representation to Kotlin
+## Serialization and deserialization
 
 The [Kotlin serialization](https://github.com/Kotlin/kotlinx.serialization) library is used for JSON
 serialization/deserialization. All generated classes are marked with annotation `@Serializable`.
@@ -265,41 +223,182 @@ FHIR resource or element containing primitive data types cannot be directly mapp
 To address this issue, the library generates
 [surrogate](https://github.com/Kotlin/kotlinx.serialization/blob/master/docs/serializers.md#composite-serializer-via-surrogate)
 classes (e.g. `PatientSurrogate`) for data classes containing primitive data types, mapping each
-primitive data type to two JSON properties . It also generates custom serializers (e.g.
-`PatientSerializer`) that delegate the serialization/deserialization process to the corresponding
-surrogate classes and translate between the data classes and surrogate classes.
+primitive data type to two JSON properties (e.g. `gender` and `_gender`) . It also generates custom
+serializers (e.g. `PatientSerializer`) that delegate the serialization/deserialization process to the
+corresponding surrogate classes and translate between the data classes and surrogate classes.
 
-### FHIR codegen
+Serialization and deserialization for **sealed interfaces** follow a similar surrogate-based approach,
+with an **additional step to flatten and unflatten JSON**. For polymorphic properties—for example,
+`Patient.MultipleBirth`—the library generates a custom serializer (e.g., `PatientMultipleBirthSerializer`)
+used in the resource’s surrogate class (e.g., `PatientSurrogate`).
+
+This uses the FhirJsonTransformer (in [R4](https://github.com/google/kotlin-fhir/blob/main/fhir-model/src/commonMain/kotlin/com/google/fhir/model/r4/FhirJsonTransformer.kt), [R4B](https://github.com/google/kotlin-fhir/blob/main/fhir-model/src/commonMain/kotlin/com/google/fhir/model/r4b/FhirJsonTransformer.kt), [R5](https://github.com/google/kotlin-fhir/blob/main/fhir-model/src/commonMain/kotlin/com/google/fhir/model/r5/FhirJsonTransformer.kt)),
+to flatten JSON during serialization and restore it during deserialization. This avoids hitting the [JVM constructor argument limit](https://docs.oracle.com/javase/specs/jvms/se19/html/jvms-4.html#jvms-4.3.3) caused by
+FHIR fields with many possible types (e.g., [ElementDefinition.pattern](https://www.hl7.org/fhir/R4B/elementdefinition-definitions.html#ElementDefinition.pattern_x_)).
+Instead of expanding all types in the surrogate class—which would exceed the limit— polymorphic fields are handled by
+custom serializers.
+
+The `toModel` function in each surrogate class merges primitive type values with their extension fields into a single
+object, and consolidates related fields for sealed interfaces into their proper model representation.
 
 ```mermaid
 graph LR
-    subgraph FHIR codegen
-        A[FhirCodegen]
-        B[ModelTypeSpecGenerator]
-        C[SurrogateTypeSpecGenerator]
-        D[SerializerTypeSpecGenerator]
+    A["**Patient JSON**
+    {
+    #nbsp;#nbsp;gender: ...
+    #nbsp;#nbsp;_gender: ...
+    #nbsp;#nbsp;multipleBirthBoolean: ...
+    #nbsp;#nbsp;_multipleBirthBoolean: ...
+    #nbsp;#nbsp;multipleBirthInteger: ...
+    #nbsp;#nbsp;_multipleBirthInteger: ...
+    #nbsp;#nbsp;contact: [
+    #nbsp;#nbsp;#nbsp;#nbsp;{
+    #nbsp;#nbsp;#nbsp;#nbsp;#nbsp;#nbsp;name: {
+    #nbsp;#nbsp;#nbsp;#nbsp;#nbsp;#nbsp;#nbsp;#nbsp;family: ...
+    #nbsp;#nbsp;#nbsp;#nbsp;#nbsp;#nbsp;#nbsp;#nbsp;_family: ...
+    #nbsp;#nbsp;#nbsp;#nbsp;#nbsp;#nbsp;#nbsp;#nbsp;given: ...
+    #nbsp;#nbsp;#nbsp;#nbsp;#nbsp;#nbsp;}
+    #nbsp;#nbsp;#nbsp;#nbsp;#nbsp;#nbsp;telecom: [...]
+    #nbsp;#nbsp;#nbsp;#nbsp;}
+    #nbsp;#nbsp;]
+    }
+    "]
+    B["**Patient JSON (transformed)**
+    {
+    #nbsp;#nbsp;gender: ...
+    #nbsp;#nbsp;_gender: ...
+    #nbsp;#nbsp;multipleBirth:{
+    #nbsp;#nbsp;#nbsp;#nbsp;multipleBirthBoolean: ...
+    #nbsp;#nbsp;#nbsp;#nbsp;_multipleBirthBoolean: ...
+    #nbsp;#nbsp;#nbsp;#nbsp;multipleBirthInteger: ...
+    #nbsp;#nbsp;#nbsp;#nbsp;_multipleBirthInteger: ...
+    #nbsp;#nbsp;}
+     #nbsp;#nbsp;contact: [
+    #nbsp;#nbsp;#nbsp;#nbsp;{
+    #nbsp;#nbsp;#nbsp;#nbsp;#nbsp;#nbsp;name: {
+    #nbsp;#nbsp;#nbsp;#nbsp;#nbsp;#nbsp;#nbsp;#nbsp;family: ...
+    #nbsp;#nbsp;#nbsp;#nbsp;#nbsp;#nbsp;#nbsp;#nbsp;_family: ...
+    #nbsp;#nbsp;#nbsp;#nbsp;#nbsp;#nbsp;#nbsp;#nbsp;given: ...
+    #nbsp;#nbsp;#nbsp;#nbsp;#nbsp;#nbsp;}
+    #nbsp;#nbsp;#nbsp;#nbsp;#nbsp;#nbsp;telecom: [...]
+    #nbsp;#nbsp;#nbsp;#nbsp;}
+    #nbsp;#nbsp;]
+    }
+    "]
+    C["**PatientSurrogate object**
+    gender
+    _gender
+    multipleBirth (Sealed Interface)
+    contact (MutableList&lt;Patient.Contact&gt;)
+    "]
+    D["**PatientMultipleBirthSurrogate object**
+    multipleBirthBoolean: ...
+    _multipleBirthBoolean: ...
+    multipleBirthInteger: ...
+    _multipleBirthInteger: ...
+    "]
+    E["**Patient object**
+    gender
+    multipleBirth
+    contact
+    "]
+    F["**PatientMultipleBirth** sealed interface
+    "]
+    G["**PatientContactSurrogate object**
+    name: HumanName
+    telecom: MutableList&lt;ContactPoint&gt;
+    "]
+    H["**Patient.Contact** backbone element
+    "]
+
+    A-->Transformer[FhirJsonTransformer]@{ shape: pill }
+    subgraph S1[PatientSerializer]
+      Transformer --> B
+      B -- deserialize fields --> C
+      B -- deserialize sealed interfaces (via surrogate) --> D
+      subgraph S2[PatientMultipleBirthSerializer]
+        D -- convert to model --> F
+      end
+      F --> C
+      B -- deserialize backbone elements (via surrogate) --> G
+      subgraph S3[PatientContactSerializer]
+        G -- convert to model --> H
+      end
+      H --> C
     end
-    subgraph Generated code
-        E[Patient]
-        F[PatientSurrogate]
-        G[PatientSerializer]
-    end
-    A --> B
-    A --> C
-    A --> D
-    B --> E
-    C --> F
-    D --> G
+    C -- convert to model --> E
+
+    style A text-align:left
+    style B text-align:left
+    style C text-align:left
+    style D text-align:left
+    style E text-align:left
+    style F text-align:left
+    style G text-align:left
+    style H text-align:left
+    style S1 stroke-dasharray: 5 5
+    style S2 stroke-dasharray: 5 5
+    style S3 stroke-dasharray: 5 5
 ```
+
+> Note: The reverse process can be applied for serialization.
+
+## Implementation
+
+### Overview
+
+```mermaid
+graph LR
+    subgraph Gradle binary plugin
+        A(FHIR spec<br>in JSON) -- kotlinx.serialization --> B(instances of<br>StructureDefinition<br>Kotlin data class<br>)
+        B -- KotlinPoet --> C[generated FHIR Resource classes]
+    end
+    C -- compiler --> D[jvm target]
+    C -- compiler --> E[native target]
+    C -- compiler --> F[js target]
+```
+
+The Kotlin FHIR library uses a Gradle binary plugin to automate the generation of Kotlin code
+directly
+from FHIR specification. This plugin uses [
+`kotlinx.serialization`](https://github.com/Kotlin/kotlinx.serialization) library to parse and load
+FHIR resource `StructureDefinition`s into an in-memory representation, and then
+uses [KotlinPoet](https://square.github.io/kotlinpoet/) to generate corresponding class definitions
+for each FHIR resource type. Finally, these generated Kotlin classes are compiled into JVM,
+JavaScript and native targets, enabling their use across various platforms.
+
+### Definitions
+
+Kotlin code is generated for StructureDefinitions in the following FHIR packages:
+
+- [hl7.fhir.r4.core](https://simplifier.net/packages/hl7.fhir.r4.core)
+- [hl7.fhir.r4b.core](https://simplifier.net/packages/hl7.fhir.r4b.core)
+- [hl7.fhir.r5.core](https://simplifier.net/packages/hl7.fhir.r5.core)
+
+> **Note:** The following are **NOT** included in the generated code:
+> - [Logical](https://hl7.org/fhir/R4/valueset-structure-definition-kind.html) StructureDefinitions,
+>
+>> such as [Definition](https://hl7.org/fhir/R4/definition.html),
+>> [Request](https://hl7.org/fhir/R4/request.html), and [Event](https://hl7.org/fhir/R4/event.html)
+>> in R4
+>> - Profiles StructureDefinitions
+>> - Constraints (e.g. in [R4](https://hl7.org/fhir/R4/conformance-rules.html#constraints)) and
+>> bindings (e.g. in [R4](https://hl7.org/fhir/R4/terminologies.html#binding)) in
+>> StructureDefinitions are not represented in the generated code
+>> - CapabilityStatements, CodeSystems, ConceptMaps, NamingSystems, OperationDefinitions,
+>> SearchParameters, and ValueSets
+
+### FHIR codegen
 
 To put all this together, the
 [FHIR codegen](fhir-codegen/gradle-plugin/src/main/kotlin/com/google/fhir/codegen) in the Gradle
-binary plugin generates three classes for each FHIR resource type:
+binary plugin generates, for each FHIR resource type:
 
-- the model class (the most important class) in the root package e.g. `com.google.fhir.model.r4`,
-- the surrogate class (for mapping primitive data types to JSON properties) in the surrogate package
-  e.g. `com.google.fhir.model.r4.surrogates`, and
-- the serializer class (to delegate serialization/deserialization to the surrogate class) in the
+- the model class (the primary class) in the root package e.g. `com.google.fhir.model.r4`,
+- the surrogate classes (one for basic primitive type
+  mapping to JSON properties, plus extras for each multi-choice/polymorphic property and backbone element)
+  in the surrogate package e.g. `com.google.fhir.model.r4.surrogates`, and
+- the serializer classes (to delegate serialization/deserialization to the corresponding surrogate classes) in the
   serializer package e.g. `com.google.fhir.model.r4.serializers`,
 
 using

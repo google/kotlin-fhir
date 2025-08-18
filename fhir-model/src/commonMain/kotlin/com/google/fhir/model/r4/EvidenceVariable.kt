@@ -18,6 +18,8 @@
 
 package com.google.fhir.model.r4
 
+import com.google.fhir.model.r4.serializers.EvidenceVariableCharacteristicDefinitionSerializer
+import com.google.fhir.model.r4.serializers.EvidenceVariableCharacteristicParticipantEffectiveSerializer
 import com.google.fhir.model.r4.serializers.EvidenceVariableCharacteristicSerializer
 import com.google.fhir.model.r4.serializers.EvidenceVariableSerializer
 import kotlin.Suppress
@@ -398,6 +400,7 @@ public data class EvidenceVariable(
     /** Indicates how elements are aggregated within the study effective period. */
     public var groupMeasure: Enumeration<GroupMeasure>? = null,
   ) : BackboneElement() {
+    @Serializable(with = EvidenceVariableCharacteristicDefinitionSerializer::class)
     public sealed interface Definition {
       public fun asReference(): Reference? = this as? Reference
 
@@ -452,6 +455,7 @@ public data class EvidenceVariable(
       }
     }
 
+    @Serializable(with = EvidenceVariableCharacteristicParticipantEffectiveSerializer::class)
     public sealed interface ParticipantEffective {
       public fun asDateTime(): DateTime? = this as? DateTime
 

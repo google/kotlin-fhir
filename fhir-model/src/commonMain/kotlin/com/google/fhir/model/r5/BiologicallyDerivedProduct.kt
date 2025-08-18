@@ -18,8 +18,10 @@
 
 package com.google.fhir.model.r5
 
+import com.google.fhir.model.r5.serializers.BiologicallyDerivedProductCollectionCollectedSerializer
 import com.google.fhir.model.r5.serializers.BiologicallyDerivedProductCollectionSerializer
 import com.google.fhir.model.r5.serializers.BiologicallyDerivedProductPropertySerializer
+import com.google.fhir.model.r5.serializers.BiologicallyDerivedProductPropertyValueSerializer
 import com.google.fhir.model.r5.serializers.BiologicallyDerivedProductSerializer
 import kotlin.Suppress
 import kotlin.collections.MutableList
@@ -254,6 +256,7 @@ public data class BiologicallyDerivedProduct(
     /** Time of product collection. */
     public var collected: Collected? = null,
   ) : BackboneElement() {
+    @Serializable(with = BiologicallyDerivedProductCollectionCollectedSerializer::class)
     public sealed interface Collected {
       public fun asDateTime(): DateTime? = this as? DateTime
 
@@ -332,6 +335,7 @@ public data class BiologicallyDerivedProduct(
      */
     public var `value`: Value,
   ) : BackboneElement() {
+    @Serializable(with = BiologicallyDerivedProductPropertyValueSerializer::class)
     public sealed interface Value {
       public fun asBoolean(): Boolean? = this as? Boolean
 

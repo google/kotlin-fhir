@@ -19,27 +19,44 @@
 package com.google.fhir.model.r5.serializers
 
 import com.google.fhir.model.r5.Contract
+import com.google.fhir.model.r5.FhirJsonTransformer
 import com.google.fhir.model.r5.surrogates.ContractContentDefinitionSurrogate
+import com.google.fhir.model.r5.surrogates.ContractFriendlyContentSurrogate
 import com.google.fhir.model.r5.surrogates.ContractFriendlySurrogate
+import com.google.fhir.model.r5.surrogates.ContractLegalContentSurrogate
 import com.google.fhir.model.r5.surrogates.ContractLegalSurrogate
+import com.google.fhir.model.r5.surrogates.ContractLegallyBindingSurrogate
+import com.google.fhir.model.r5.surrogates.ContractRuleContentSurrogate
 import com.google.fhir.model.r5.surrogates.ContractRuleSurrogate
 import com.google.fhir.model.r5.surrogates.ContractSignerSurrogate
 import com.google.fhir.model.r5.surrogates.ContractSurrogate
+import com.google.fhir.model.r5.surrogates.ContractTermActionOccurrenceSurrogate
 import com.google.fhir.model.r5.surrogates.ContractTermActionSubjectSurrogate
 import com.google.fhir.model.r5.surrogates.ContractTermActionSurrogate
 import com.google.fhir.model.r5.surrogates.ContractTermAssetContextSurrogate
 import com.google.fhir.model.r5.surrogates.ContractTermAssetSurrogate
+import com.google.fhir.model.r5.surrogates.ContractTermAssetValuedItemEntitySurrogate
 import com.google.fhir.model.r5.surrogates.ContractTermAssetValuedItemSurrogate
 import com.google.fhir.model.r5.surrogates.ContractTermOfferAnswerSurrogate
+import com.google.fhir.model.r5.surrogates.ContractTermOfferAnswerValueSurrogate
 import com.google.fhir.model.r5.surrogates.ContractTermOfferPartySurrogate
 import com.google.fhir.model.r5.surrogates.ContractTermOfferSurrogate
 import com.google.fhir.model.r5.surrogates.ContractTermSecurityLabelSurrogate
 import com.google.fhir.model.r5.surrogates.ContractTermSurrogate
+import com.google.fhir.model.r5.surrogates.ContractTermTopicSurrogate
+import com.google.fhir.model.r5.surrogates.ContractTopicSurrogate
+import kotlin.String
 import kotlin.Suppress
+import kotlin.collections.List
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.descriptors.SerialDescriptor
 import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
+import kotlinx.serialization.json.JsonDecoder
+import kotlinx.serialization.json.JsonEncoder
+import kotlinx.serialization.json.JsonObject
+import kotlinx.serialization.json.JsonPrimitive
+import kotlinx.serialization.json.jsonObject
 
 public object ContractContentDefinitionSerializer : KSerializer<Contract.ContentDefinition> {
   internal val surrogateSerializer: KSerializer<ContractContentDefinitionSurrogate> by lazy {
@@ -92,20 +109,68 @@ public object ContractTermOfferPartySerializer : KSerializer<Contract.Term.Offer
   }
 }
 
+public object ContractTermOfferAnswerValueSerializer :
+  KSerializer<Contract.Term.Offer.Answer.Value> {
+  internal val surrogateSerializer: KSerializer<ContractTermOfferAnswerValueSurrogate> by lazy {
+    ContractTermOfferAnswerValueSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Value", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): Contract.Term.Offer.Answer.Value =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: Contract.Term.Offer.Answer.Value) {
+    surrogateSerializer.serialize(encoder, ContractTermOfferAnswerValueSurrogate.fromModel(value))
+  }
+}
+
 public object ContractTermOfferAnswerSerializer : KSerializer<Contract.Term.Offer.Answer> {
   internal val surrogateSerializer: KSerializer<ContractTermOfferAnswerSurrogate> by lazy {
     ContractTermOfferAnswerSurrogate.serializer()
   }
 
+  private val resourceType: String? = null
+
+  private val multiChoiceProperties: List<String> = listOf("value")
+
   override val descriptor: SerialDescriptor by lazy {
     SerialDescriptor("Answer", surrogateSerializer.descriptor)
   }
 
-  override fun deserialize(decoder: Decoder): Contract.Term.Offer.Answer =
-    surrogateSerializer.deserialize(decoder).toModel()
+  override fun deserialize(decoder: Decoder): Contract.Term.Offer.Answer {
+    val jsonDecoder =
+      decoder as? JsonDecoder ?: error("This serializer only supports JSON decoding")
+    val oldJsonObject =
+      if (resourceType.isNullOrBlank()) {
+        jsonDecoder.decodeJsonElement().jsonObject
+      } else
+        JsonObject(
+          jsonDecoder.decodeJsonElement().jsonObject.toMutableMap().apply { remove("resourceType") }
+        )
+    val unflattenedJsonObject = FhirJsonTransformer.unflatten(oldJsonObject, multiChoiceProperties)
+    val surrogate =
+      jsonDecoder.json.decodeFromJsonElement(surrogateSerializer, unflattenedJsonObject)
+    return surrogate.toModel()
+  }
 
   override fun serialize(encoder: Encoder, `value`: Contract.Term.Offer.Answer) {
-    surrogateSerializer.serialize(encoder, ContractTermOfferAnswerSurrogate.fromModel(value))
+    val jsonEncoder =
+      encoder as? JsonEncoder ?: error("This serializer only supports JSON encoding")
+    val surrogate = ContractTermOfferAnswerSurrogate.fromModel(value)
+    val oldJsonObject =
+      if (resourceType.isNullOrBlank()) {
+        jsonEncoder.json.encodeToJsonElement(surrogateSerializer, surrogate).jsonObject
+      } else {
+        JsonObject(
+          mutableMapOf("resourceType" to JsonPrimitive(resourceType))
+            .plus(jsonEncoder.json.encodeToJsonElement(surrogateSerializer, surrogate).jsonObject)
+        )
+      }
+    val flattenedJsonObject = FhirJsonTransformer.flatten(oldJsonObject, multiChoiceProperties)
+    jsonEncoder.encodeJsonElement(flattenedJsonObject)
   }
 }
 
@@ -143,20 +208,72 @@ public object ContractTermAssetContextSerializer : KSerializer<Contract.Term.Ass
   }
 }
 
+public object ContractTermAssetValuedItemEntitySerializer :
+  KSerializer<Contract.Term.Asset.ValuedItem.Entity> {
+  internal val surrogateSerializer:
+    KSerializer<ContractTermAssetValuedItemEntitySurrogate> by lazy {
+    ContractTermAssetValuedItemEntitySurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Entity", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): Contract.Term.Asset.ValuedItem.Entity =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: Contract.Term.Asset.ValuedItem.Entity) {
+    surrogateSerializer.serialize(
+      encoder,
+      ContractTermAssetValuedItemEntitySurrogate.fromModel(value),
+    )
+  }
+}
+
 public object ContractTermAssetValuedItemSerializer : KSerializer<Contract.Term.Asset.ValuedItem> {
   internal val surrogateSerializer: KSerializer<ContractTermAssetValuedItemSurrogate> by lazy {
     ContractTermAssetValuedItemSurrogate.serializer()
   }
 
+  private val resourceType: String? = null
+
+  private val multiChoiceProperties: List<String> = listOf("entity")
+
   override val descriptor: SerialDescriptor by lazy {
     SerialDescriptor("ValuedItem", surrogateSerializer.descriptor)
   }
 
-  override fun deserialize(decoder: Decoder): Contract.Term.Asset.ValuedItem =
-    surrogateSerializer.deserialize(decoder).toModel()
+  override fun deserialize(decoder: Decoder): Contract.Term.Asset.ValuedItem {
+    val jsonDecoder =
+      decoder as? JsonDecoder ?: error("This serializer only supports JSON decoding")
+    val oldJsonObject =
+      if (resourceType.isNullOrBlank()) {
+        jsonDecoder.decodeJsonElement().jsonObject
+      } else
+        JsonObject(
+          jsonDecoder.decodeJsonElement().jsonObject.toMutableMap().apply { remove("resourceType") }
+        )
+    val unflattenedJsonObject = FhirJsonTransformer.unflatten(oldJsonObject, multiChoiceProperties)
+    val surrogate =
+      jsonDecoder.json.decodeFromJsonElement(surrogateSerializer, unflattenedJsonObject)
+    return surrogate.toModel()
+  }
 
   override fun serialize(encoder: Encoder, `value`: Contract.Term.Asset.ValuedItem) {
-    surrogateSerializer.serialize(encoder, ContractTermAssetValuedItemSurrogate.fromModel(value))
+    val jsonEncoder =
+      encoder as? JsonEncoder ?: error("This serializer only supports JSON encoding")
+    val surrogate = ContractTermAssetValuedItemSurrogate.fromModel(value)
+    val oldJsonObject =
+      if (resourceType.isNullOrBlank()) {
+        jsonEncoder.json.encodeToJsonElement(surrogateSerializer, surrogate).jsonObject
+      } else {
+        JsonObject(
+          mutableMapOf("resourceType" to JsonPrimitive(resourceType))
+            .plus(jsonEncoder.json.encodeToJsonElement(surrogateSerializer, surrogate).jsonObject)
+        )
+      }
+    val flattenedJsonObject = FhirJsonTransformer.flatten(oldJsonObject, multiChoiceProperties)
+    jsonEncoder.encodeJsonElement(flattenedJsonObject)
   }
 }
 
@@ -194,20 +311,85 @@ public object ContractTermActionSubjectSerializer : KSerializer<Contract.Term.Ac
   }
 }
 
+public object ContractTermActionOccurrenceSerializer :
+  KSerializer<Contract.Term.Action.Occurrence> {
+  internal val surrogateSerializer: KSerializer<ContractTermActionOccurrenceSurrogate> by lazy {
+    ContractTermActionOccurrenceSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Occurrence", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): Contract.Term.Action.Occurrence =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: Contract.Term.Action.Occurrence) {
+    surrogateSerializer.serialize(encoder, ContractTermActionOccurrenceSurrogate.fromModel(value))
+  }
+}
+
 public object ContractTermActionSerializer : KSerializer<Contract.Term.Action> {
   internal val surrogateSerializer: KSerializer<ContractTermActionSurrogate> by lazy {
     ContractTermActionSurrogate.serializer()
   }
 
+  private val resourceType: String? = null
+
+  private val multiChoiceProperties: List<String> = listOf("occurrence")
+
   override val descriptor: SerialDescriptor by lazy {
     SerialDescriptor("Action", surrogateSerializer.descriptor)
   }
 
-  override fun deserialize(decoder: Decoder): Contract.Term.Action =
-    surrogateSerializer.deserialize(decoder).toModel()
+  override fun deserialize(decoder: Decoder): Contract.Term.Action {
+    val jsonDecoder =
+      decoder as? JsonDecoder ?: error("This serializer only supports JSON decoding")
+    val oldJsonObject =
+      if (resourceType.isNullOrBlank()) {
+        jsonDecoder.decodeJsonElement().jsonObject
+      } else
+        JsonObject(
+          jsonDecoder.decodeJsonElement().jsonObject.toMutableMap().apply { remove("resourceType") }
+        )
+    val unflattenedJsonObject = FhirJsonTransformer.unflatten(oldJsonObject, multiChoiceProperties)
+    val surrogate =
+      jsonDecoder.json.decodeFromJsonElement(surrogateSerializer, unflattenedJsonObject)
+    return surrogate.toModel()
+  }
 
   override fun serialize(encoder: Encoder, `value`: Contract.Term.Action) {
-    surrogateSerializer.serialize(encoder, ContractTermActionSurrogate.fromModel(value))
+    val jsonEncoder =
+      encoder as? JsonEncoder ?: error("This serializer only supports JSON encoding")
+    val surrogate = ContractTermActionSurrogate.fromModel(value)
+    val oldJsonObject =
+      if (resourceType.isNullOrBlank()) {
+        jsonEncoder.json.encodeToJsonElement(surrogateSerializer, surrogate).jsonObject
+      } else {
+        JsonObject(
+          mutableMapOf("resourceType" to JsonPrimitive(resourceType))
+            .plus(jsonEncoder.json.encodeToJsonElement(surrogateSerializer, surrogate).jsonObject)
+        )
+      }
+    val flattenedJsonObject = FhirJsonTransformer.flatten(oldJsonObject, multiChoiceProperties)
+    jsonEncoder.encodeJsonElement(flattenedJsonObject)
+  }
+}
+
+public object ContractTermTopicSerializer : KSerializer<Contract.Term.Topic> {
+  internal val surrogateSerializer: KSerializer<ContractTermTopicSurrogate> by lazy {
+    ContractTermTopicSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Topic", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): Contract.Term.Topic =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: Contract.Term.Topic) {
+    surrogateSerializer.serialize(encoder, ContractTermTopicSurrogate.fromModel(value))
   }
 }
 
@@ -216,15 +398,45 @@ public object ContractTermSerializer : KSerializer<Contract.Term> {
     ContractTermSurrogate.serializer()
   }
 
+  private val resourceType: String? = null
+
+  private val multiChoiceProperties: List<String> = listOf("topic")
+
   override val descriptor: SerialDescriptor by lazy {
     SerialDescriptor("Term", surrogateSerializer.descriptor)
   }
 
-  override fun deserialize(decoder: Decoder): Contract.Term =
-    surrogateSerializer.deserialize(decoder).toModel()
+  override fun deserialize(decoder: Decoder): Contract.Term {
+    val jsonDecoder =
+      decoder as? JsonDecoder ?: error("This serializer only supports JSON decoding")
+    val oldJsonObject =
+      if (resourceType.isNullOrBlank()) {
+        jsonDecoder.decodeJsonElement().jsonObject
+      } else
+        JsonObject(
+          jsonDecoder.decodeJsonElement().jsonObject.toMutableMap().apply { remove("resourceType") }
+        )
+    val unflattenedJsonObject = FhirJsonTransformer.unflatten(oldJsonObject, multiChoiceProperties)
+    val surrogate =
+      jsonDecoder.json.decodeFromJsonElement(surrogateSerializer, unflattenedJsonObject)
+    return surrogate.toModel()
+  }
 
   override fun serialize(encoder: Encoder, `value`: Contract.Term) {
-    surrogateSerializer.serialize(encoder, ContractTermSurrogate.fromModel(value))
+    val jsonEncoder =
+      encoder as? JsonEncoder ?: error("This serializer only supports JSON encoding")
+    val surrogate = ContractTermSurrogate.fromModel(value)
+    val oldJsonObject =
+      if (resourceType.isNullOrBlank()) {
+        jsonEncoder.json.encodeToJsonElement(surrogateSerializer, surrogate).jsonObject
+      } else {
+        JsonObject(
+          mutableMapOf("resourceType" to JsonPrimitive(resourceType))
+            .plus(jsonEncoder.json.encodeToJsonElement(surrogateSerializer, surrogate).jsonObject)
+        )
+      }
+    val flattenedJsonObject = FhirJsonTransformer.flatten(oldJsonObject, multiChoiceProperties)
+    jsonEncoder.encodeJsonElement(flattenedJsonObject)
   }
 }
 
@@ -245,20 +457,84 @@ public object ContractSignerSerializer : KSerializer<Contract.Signer> {
   }
 }
 
+public object ContractFriendlyContentSerializer : KSerializer<Contract.Friendly.Content> {
+  internal val surrogateSerializer: KSerializer<ContractFriendlyContentSurrogate> by lazy {
+    ContractFriendlyContentSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Content", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): Contract.Friendly.Content =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: Contract.Friendly.Content) {
+    surrogateSerializer.serialize(encoder, ContractFriendlyContentSurrogate.fromModel(value))
+  }
+}
+
 public object ContractFriendlySerializer : KSerializer<Contract.Friendly> {
   internal val surrogateSerializer: KSerializer<ContractFriendlySurrogate> by lazy {
     ContractFriendlySurrogate.serializer()
   }
 
+  private val resourceType: String? = null
+
+  private val multiChoiceProperties: List<String> = listOf("content")
+
   override val descriptor: SerialDescriptor by lazy {
     SerialDescriptor("Friendly", surrogateSerializer.descriptor)
   }
 
-  override fun deserialize(decoder: Decoder): Contract.Friendly =
-    surrogateSerializer.deserialize(decoder).toModel()
+  override fun deserialize(decoder: Decoder): Contract.Friendly {
+    val jsonDecoder =
+      decoder as? JsonDecoder ?: error("This serializer only supports JSON decoding")
+    val oldJsonObject =
+      if (resourceType.isNullOrBlank()) {
+        jsonDecoder.decodeJsonElement().jsonObject
+      } else
+        JsonObject(
+          jsonDecoder.decodeJsonElement().jsonObject.toMutableMap().apply { remove("resourceType") }
+        )
+    val unflattenedJsonObject = FhirJsonTransformer.unflatten(oldJsonObject, multiChoiceProperties)
+    val surrogate =
+      jsonDecoder.json.decodeFromJsonElement(surrogateSerializer, unflattenedJsonObject)
+    return surrogate.toModel()
+  }
 
   override fun serialize(encoder: Encoder, `value`: Contract.Friendly) {
-    surrogateSerializer.serialize(encoder, ContractFriendlySurrogate.fromModel(value))
+    val jsonEncoder =
+      encoder as? JsonEncoder ?: error("This serializer only supports JSON encoding")
+    val surrogate = ContractFriendlySurrogate.fromModel(value)
+    val oldJsonObject =
+      if (resourceType.isNullOrBlank()) {
+        jsonEncoder.json.encodeToJsonElement(surrogateSerializer, surrogate).jsonObject
+      } else {
+        JsonObject(
+          mutableMapOf("resourceType" to JsonPrimitive(resourceType))
+            .plus(jsonEncoder.json.encodeToJsonElement(surrogateSerializer, surrogate).jsonObject)
+        )
+      }
+    val flattenedJsonObject = FhirJsonTransformer.flatten(oldJsonObject, multiChoiceProperties)
+    jsonEncoder.encodeJsonElement(flattenedJsonObject)
+  }
+}
+
+public object ContractLegalContentSerializer : KSerializer<Contract.Legal.Content> {
+  internal val surrogateSerializer: KSerializer<ContractLegalContentSurrogate> by lazy {
+    ContractLegalContentSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Content", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): Contract.Legal.Content =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: Contract.Legal.Content) {
+    surrogateSerializer.serialize(encoder, ContractLegalContentSurrogate.fromModel(value))
   }
 }
 
@@ -267,15 +543,62 @@ public object ContractLegalSerializer : KSerializer<Contract.Legal> {
     ContractLegalSurrogate.serializer()
   }
 
+  private val resourceType: String? = null
+
+  private val multiChoiceProperties: List<String> = listOf("content")
+
   override val descriptor: SerialDescriptor by lazy {
     SerialDescriptor("Legal", surrogateSerializer.descriptor)
   }
 
-  override fun deserialize(decoder: Decoder): Contract.Legal =
-    surrogateSerializer.deserialize(decoder).toModel()
+  override fun deserialize(decoder: Decoder): Contract.Legal {
+    val jsonDecoder =
+      decoder as? JsonDecoder ?: error("This serializer only supports JSON decoding")
+    val oldJsonObject =
+      if (resourceType.isNullOrBlank()) {
+        jsonDecoder.decodeJsonElement().jsonObject
+      } else
+        JsonObject(
+          jsonDecoder.decodeJsonElement().jsonObject.toMutableMap().apply { remove("resourceType") }
+        )
+    val unflattenedJsonObject = FhirJsonTransformer.unflatten(oldJsonObject, multiChoiceProperties)
+    val surrogate =
+      jsonDecoder.json.decodeFromJsonElement(surrogateSerializer, unflattenedJsonObject)
+    return surrogate.toModel()
+  }
 
   override fun serialize(encoder: Encoder, `value`: Contract.Legal) {
-    surrogateSerializer.serialize(encoder, ContractLegalSurrogate.fromModel(value))
+    val jsonEncoder =
+      encoder as? JsonEncoder ?: error("This serializer only supports JSON encoding")
+    val surrogate = ContractLegalSurrogate.fromModel(value)
+    val oldJsonObject =
+      if (resourceType.isNullOrBlank()) {
+        jsonEncoder.json.encodeToJsonElement(surrogateSerializer, surrogate).jsonObject
+      } else {
+        JsonObject(
+          mutableMapOf("resourceType" to JsonPrimitive(resourceType))
+            .plus(jsonEncoder.json.encodeToJsonElement(surrogateSerializer, surrogate).jsonObject)
+        )
+      }
+    val flattenedJsonObject = FhirJsonTransformer.flatten(oldJsonObject, multiChoiceProperties)
+    jsonEncoder.encodeJsonElement(flattenedJsonObject)
+  }
+}
+
+public object ContractRuleContentSerializer : KSerializer<Contract.Rule.Content> {
+  internal val surrogateSerializer: KSerializer<ContractRuleContentSurrogate> by lazy {
+    ContractRuleContentSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Content", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): Contract.Rule.Content =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: Contract.Rule.Content) {
+    surrogateSerializer.serialize(encoder, ContractRuleContentSurrogate.fromModel(value))
   }
 }
 
@@ -284,15 +607,79 @@ public object ContractRuleSerializer : KSerializer<Contract.Rule> {
     ContractRuleSurrogate.serializer()
   }
 
+  private val resourceType: String? = null
+
+  private val multiChoiceProperties: List<String> = listOf("content")
+
   override val descriptor: SerialDescriptor by lazy {
     SerialDescriptor("Rule", surrogateSerializer.descriptor)
   }
 
-  override fun deserialize(decoder: Decoder): Contract.Rule =
-    surrogateSerializer.deserialize(decoder).toModel()
+  override fun deserialize(decoder: Decoder): Contract.Rule {
+    val jsonDecoder =
+      decoder as? JsonDecoder ?: error("This serializer only supports JSON decoding")
+    val oldJsonObject =
+      if (resourceType.isNullOrBlank()) {
+        jsonDecoder.decodeJsonElement().jsonObject
+      } else
+        JsonObject(
+          jsonDecoder.decodeJsonElement().jsonObject.toMutableMap().apply { remove("resourceType") }
+        )
+    val unflattenedJsonObject = FhirJsonTransformer.unflatten(oldJsonObject, multiChoiceProperties)
+    val surrogate =
+      jsonDecoder.json.decodeFromJsonElement(surrogateSerializer, unflattenedJsonObject)
+    return surrogate.toModel()
+  }
 
   override fun serialize(encoder: Encoder, `value`: Contract.Rule) {
-    surrogateSerializer.serialize(encoder, ContractRuleSurrogate.fromModel(value))
+    val jsonEncoder =
+      encoder as? JsonEncoder ?: error("This serializer only supports JSON encoding")
+    val surrogate = ContractRuleSurrogate.fromModel(value)
+    val oldJsonObject =
+      if (resourceType.isNullOrBlank()) {
+        jsonEncoder.json.encodeToJsonElement(surrogateSerializer, surrogate).jsonObject
+      } else {
+        JsonObject(
+          mutableMapOf("resourceType" to JsonPrimitive(resourceType))
+            .plus(jsonEncoder.json.encodeToJsonElement(surrogateSerializer, surrogate).jsonObject)
+        )
+      }
+    val flattenedJsonObject = FhirJsonTransformer.flatten(oldJsonObject, multiChoiceProperties)
+    jsonEncoder.encodeJsonElement(flattenedJsonObject)
+  }
+}
+
+public object ContractTopicSerializer : KSerializer<Contract.Topic> {
+  internal val surrogateSerializer: KSerializer<ContractTopicSurrogate> by lazy {
+    ContractTopicSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Topic", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): Contract.Topic =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: Contract.Topic) {
+    surrogateSerializer.serialize(encoder, ContractTopicSurrogate.fromModel(value))
+  }
+}
+
+public object ContractLegallyBindingSerializer : KSerializer<Contract.LegallyBinding> {
+  internal val surrogateSerializer: KSerializer<ContractLegallyBindingSurrogate> by lazy {
+    ContractLegallyBindingSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("LegallyBinding", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): Contract.LegallyBinding =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: Contract.LegallyBinding) {
+    surrogateSerializer.serialize(encoder, ContractLegallyBindingSurrogate.fromModel(value))
   }
 }
 
@@ -301,14 +688,44 @@ public object ContractSerializer : KSerializer<Contract> {
     ContractSurrogate.serializer()
   }
 
+  private val resourceType: String? = "Contract"
+
+  private val multiChoiceProperties: List<String> = listOf("topic", "legallyBinding")
+
   override val descriptor: SerialDescriptor by lazy {
     SerialDescriptor("Contract", surrogateSerializer.descriptor)
   }
 
-  override fun deserialize(decoder: Decoder): Contract =
-    surrogateSerializer.deserialize(decoder).toModel()
+  override fun deserialize(decoder: Decoder): Contract {
+    val jsonDecoder =
+      decoder as? JsonDecoder ?: error("This serializer only supports JSON decoding")
+    val oldJsonObject =
+      if (resourceType.isNullOrBlank()) {
+        jsonDecoder.decodeJsonElement().jsonObject
+      } else
+        JsonObject(
+          jsonDecoder.decodeJsonElement().jsonObject.toMutableMap().apply { remove("resourceType") }
+        )
+    val unflattenedJsonObject = FhirJsonTransformer.unflatten(oldJsonObject, multiChoiceProperties)
+    val surrogate =
+      jsonDecoder.json.decodeFromJsonElement(surrogateSerializer, unflattenedJsonObject)
+    return surrogate.toModel()
+  }
 
   override fun serialize(encoder: Encoder, `value`: Contract) {
-    surrogateSerializer.serialize(encoder, ContractSurrogate.fromModel(value))
+    val jsonEncoder =
+      encoder as? JsonEncoder ?: error("This serializer only supports JSON encoding")
+    val surrogate = ContractSurrogate.fromModel(value)
+    val oldJsonObject =
+      if (resourceType.isNullOrBlank()) {
+        jsonEncoder.json.encodeToJsonElement(surrogateSerializer, surrogate).jsonObject
+      } else {
+        JsonObject(
+          mutableMapOf("resourceType" to JsonPrimitive(resourceType))
+            .plus(jsonEncoder.json.encodeToJsonElement(surrogateSerializer, surrogate).jsonObject)
+        )
+      }
+    val flattenedJsonObject = FhirJsonTransformer.flatten(oldJsonObject, multiChoiceProperties)
+    jsonEncoder.encodeJsonElement(flattenedJsonObject)
   }
 }

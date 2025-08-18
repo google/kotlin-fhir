@@ -18,29 +18,104 @@
 
 package com.google.fhir.model.r4b.serializers
 
+import com.google.fhir.model.r4b.FhirJsonTransformer
 import com.google.fhir.model.r4b.SupplyDelivery
+import com.google.fhir.model.r4b.surrogates.SupplyDeliveryOccurrenceSurrogate
+import com.google.fhir.model.r4b.surrogates.SupplyDeliverySuppliedItemItemSurrogate
 import com.google.fhir.model.r4b.surrogates.SupplyDeliverySuppliedItemSurrogate
 import com.google.fhir.model.r4b.surrogates.SupplyDeliverySurrogate
+import kotlin.String
 import kotlin.Suppress
+import kotlin.collections.List
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.descriptors.SerialDescriptor
 import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
+import kotlinx.serialization.json.JsonDecoder
+import kotlinx.serialization.json.JsonEncoder
+import kotlinx.serialization.json.JsonObject
+import kotlinx.serialization.json.JsonPrimitive
+import kotlinx.serialization.json.jsonObject
+
+public object SupplyDeliverySuppliedItemItemSerializer :
+  KSerializer<SupplyDelivery.SuppliedItem.Item> {
+  internal val surrogateSerializer: KSerializer<SupplyDeliverySuppliedItemItemSurrogate> by lazy {
+    SupplyDeliverySuppliedItemItemSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Item", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): SupplyDelivery.SuppliedItem.Item =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: SupplyDelivery.SuppliedItem.Item) {
+    surrogateSerializer.serialize(encoder, SupplyDeliverySuppliedItemItemSurrogate.fromModel(value))
+  }
+}
 
 public object SupplyDeliverySuppliedItemSerializer : KSerializer<SupplyDelivery.SuppliedItem> {
   internal val surrogateSerializer: KSerializer<SupplyDeliverySuppliedItemSurrogate> by lazy {
     SupplyDeliverySuppliedItemSurrogate.serializer()
   }
 
+  private val resourceType: String? = null
+
+  private val multiChoiceProperties: List<String> = listOf("item")
+
   override val descriptor: SerialDescriptor by lazy {
     SerialDescriptor("SuppliedItem", surrogateSerializer.descriptor)
   }
 
-  override fun deserialize(decoder: Decoder): SupplyDelivery.SuppliedItem =
-    surrogateSerializer.deserialize(decoder).toModel()
+  override fun deserialize(decoder: Decoder): SupplyDelivery.SuppliedItem {
+    val jsonDecoder =
+      decoder as? JsonDecoder ?: error("This serializer only supports JSON decoding")
+    val oldJsonObject =
+      if (resourceType.isNullOrBlank()) {
+        jsonDecoder.decodeJsonElement().jsonObject
+      } else
+        JsonObject(
+          jsonDecoder.decodeJsonElement().jsonObject.toMutableMap().apply { remove("resourceType") }
+        )
+    val unflattenedJsonObject = FhirJsonTransformer.unflatten(oldJsonObject, multiChoiceProperties)
+    val surrogate =
+      jsonDecoder.json.decodeFromJsonElement(surrogateSerializer, unflattenedJsonObject)
+    return surrogate.toModel()
+  }
 
   override fun serialize(encoder: Encoder, `value`: SupplyDelivery.SuppliedItem) {
-    surrogateSerializer.serialize(encoder, SupplyDeliverySuppliedItemSurrogate.fromModel(value))
+    val jsonEncoder =
+      encoder as? JsonEncoder ?: error("This serializer only supports JSON encoding")
+    val surrogate = SupplyDeliverySuppliedItemSurrogate.fromModel(value)
+    val oldJsonObject =
+      if (resourceType.isNullOrBlank()) {
+        jsonEncoder.json.encodeToJsonElement(surrogateSerializer, surrogate).jsonObject
+      } else {
+        JsonObject(
+          mutableMapOf("resourceType" to JsonPrimitive(resourceType))
+            .plus(jsonEncoder.json.encodeToJsonElement(surrogateSerializer, surrogate).jsonObject)
+        )
+      }
+    val flattenedJsonObject = FhirJsonTransformer.flatten(oldJsonObject, multiChoiceProperties)
+    jsonEncoder.encodeJsonElement(flattenedJsonObject)
+  }
+}
+
+public object SupplyDeliveryOccurrenceSerializer : KSerializer<SupplyDelivery.Occurrence> {
+  internal val surrogateSerializer: KSerializer<SupplyDeliveryOccurrenceSurrogate> by lazy {
+    SupplyDeliveryOccurrenceSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Occurrence", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): SupplyDelivery.Occurrence =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: SupplyDelivery.Occurrence) {
+    surrogateSerializer.serialize(encoder, SupplyDeliveryOccurrenceSurrogate.fromModel(value))
   }
 }
 
@@ -49,14 +124,44 @@ public object SupplyDeliverySerializer : KSerializer<SupplyDelivery> {
     SupplyDeliverySurrogate.serializer()
   }
 
+  private val resourceType: String? = "SupplyDelivery"
+
+  private val multiChoiceProperties: List<String> = listOf("occurrence")
+
   override val descriptor: SerialDescriptor by lazy {
     SerialDescriptor("SupplyDelivery", surrogateSerializer.descriptor)
   }
 
-  override fun deserialize(decoder: Decoder): SupplyDelivery =
-    surrogateSerializer.deserialize(decoder).toModel()
+  override fun deserialize(decoder: Decoder): SupplyDelivery {
+    val jsonDecoder =
+      decoder as? JsonDecoder ?: error("This serializer only supports JSON decoding")
+    val oldJsonObject =
+      if (resourceType.isNullOrBlank()) {
+        jsonDecoder.decodeJsonElement().jsonObject
+      } else
+        JsonObject(
+          jsonDecoder.decodeJsonElement().jsonObject.toMutableMap().apply { remove("resourceType") }
+        )
+    val unflattenedJsonObject = FhirJsonTransformer.unflatten(oldJsonObject, multiChoiceProperties)
+    val surrogate =
+      jsonDecoder.json.decodeFromJsonElement(surrogateSerializer, unflattenedJsonObject)
+    return surrogate.toModel()
+  }
 
   override fun serialize(encoder: Encoder, `value`: SupplyDelivery) {
-    surrogateSerializer.serialize(encoder, SupplyDeliverySurrogate.fromModel(value))
+    val jsonEncoder =
+      encoder as? JsonEncoder ?: error("This serializer only supports JSON encoding")
+    val surrogate = SupplyDeliverySurrogate.fromModel(value)
+    val oldJsonObject =
+      if (resourceType.isNullOrBlank()) {
+        jsonEncoder.json.encodeToJsonElement(surrogateSerializer, surrogate).jsonObject
+      } else {
+        JsonObject(
+          mutableMapOf("resourceType" to JsonPrimitive(resourceType))
+            .plus(jsonEncoder.json.encodeToJsonElement(surrogateSerializer, surrogate).jsonObject)
+        )
+      }
+    val flattenedJsonObject = FhirJsonTransformer.flatten(oldJsonObject, multiChoiceProperties)
+    jsonEncoder.encodeJsonElement(flattenedJsonObject)
   }
 }

@@ -18,13 +18,19 @@
 
 package com.google.fhir.model.r5
 
+import com.google.fhir.model.r5.serializers.AdverseEventContributingFactorItemSerializer
 import com.google.fhir.model.r5.serializers.AdverseEventContributingFactorSerializer
+import com.google.fhir.model.r5.serializers.AdverseEventMitigatingActionItemSerializer
 import com.google.fhir.model.r5.serializers.AdverseEventMitigatingActionSerializer
+import com.google.fhir.model.r5.serializers.AdverseEventOccurrenceSerializer
 import com.google.fhir.model.r5.serializers.AdverseEventParticipantSerializer
+import com.google.fhir.model.r5.serializers.AdverseEventPreventiveActionItemSerializer
 import com.google.fhir.model.r5.serializers.AdverseEventPreventiveActionSerializer
 import com.google.fhir.model.r5.serializers.AdverseEventSerializer
+import com.google.fhir.model.r5.serializers.AdverseEventSupportingInfoItemSerializer
 import com.google.fhir.model.r5.serializers.AdverseEventSupportingInfoSerializer
 import com.google.fhir.model.r5.serializers.AdverseEventSuspectEntityCausalitySerializer
+import com.google.fhir.model.r5.serializers.AdverseEventSuspectEntityInstanceSerializer
 import com.google.fhir.model.r5.serializers.AdverseEventSuspectEntitySerializer
 import kotlin.String
 import kotlin.Suppress
@@ -421,6 +427,7 @@ public data class AdverseEvent(
       public var author: Reference? = null,
     ) : BackboneElement()
 
+    @Serializable(with = AdverseEventSuspectEntityInstanceSerializer::class)
     public sealed interface Instance {
       public fun asCodeableConcept(): CodeableConcept? = this as? CodeableConcept
 
@@ -495,6 +502,7 @@ public data class AdverseEvent(
      */
     public var item: Item,
   ) : BackboneElement() {
+    @Serializable(with = AdverseEventContributingFactorItemSerializer::class)
     public sealed interface Item {
       public fun asReference(): Reference? = this as? Reference
 
@@ -562,6 +570,7 @@ public data class AdverseEvent(
     /** The action that contributed to avoiding the adverse event. */
     public var item: Item,
   ) : BackboneElement() {
+    @Serializable(with = AdverseEventPreventiveActionItemSerializer::class)
     public sealed interface Item {
       public fun asReference(): Reference? = this as? Reference
 
@@ -635,6 +644,7 @@ public data class AdverseEvent(
      */
     public var item: Item,
   ) : BackboneElement() {
+    @Serializable(with = AdverseEventMitigatingActionItemSerializer::class)
     public sealed interface Item {
       public fun asReference(): Reference? = this as? Reference
 
@@ -710,6 +720,7 @@ public data class AdverseEvent(
      */
     public var item: Item,
   ) : BackboneElement() {
+    @Serializable(with = AdverseEventSupportingInfoItemSerializer::class)
     public sealed interface Item {
       public fun asReference(): Reference? = this as? Reference
 
@@ -734,6 +745,7 @@ public data class AdverseEvent(
     }
   }
 
+  @Serializable(with = AdverseEventOccurrenceSerializer::class)
   public sealed interface Occurrence {
     public fun asDateTime(): DateTime? = this as? DateTime
 

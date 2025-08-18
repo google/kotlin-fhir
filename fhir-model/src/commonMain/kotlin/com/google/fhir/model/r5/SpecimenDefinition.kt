@@ -19,10 +19,14 @@
 package com.google.fhir.model.r5
 
 import com.google.fhir.model.r5.serializers.SpecimenDefinitionSerializer
+import com.google.fhir.model.r5.serializers.SpecimenDefinitionSubjectSerializer
+import com.google.fhir.model.r5.serializers.SpecimenDefinitionTypeTestedContainerAdditiveAdditiveSerializer
 import com.google.fhir.model.r5.serializers.SpecimenDefinitionTypeTestedContainerAdditiveSerializer
+import com.google.fhir.model.r5.serializers.SpecimenDefinitionTypeTestedContainerMinimumVolumeSerializer
 import com.google.fhir.model.r5.serializers.SpecimenDefinitionTypeTestedContainerSerializer
 import com.google.fhir.model.r5.serializers.SpecimenDefinitionTypeTestedHandlingSerializer
 import com.google.fhir.model.r5.serializers.SpecimenDefinitionTypeTestedSerializer
+import com.google.fhir.model.r5.serializers.SpecimenDefinitionVersionAlgorithmSerializer
 import kotlin.Suppress
 import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
@@ -502,6 +506,7 @@ public data class SpecimenDefinition(
          */
         public var additive: Additive,
       ) : BackboneElement() {
+        @Serializable(with = SpecimenDefinitionTypeTestedContainerAdditiveAdditiveSerializer::class)
         public sealed interface Additive {
           public fun asCodeableConcept(): CodeableConcept? = this as? CodeableConcept
 
@@ -527,6 +532,7 @@ public data class SpecimenDefinition(
         }
       }
 
+      @Serializable(with = SpecimenDefinitionTypeTestedContainerMinimumVolumeSerializer::class)
       public sealed interface MinimumVolume {
         public fun asQuantity(): Quantity? = this as? Quantity
 
@@ -611,6 +617,7 @@ public data class SpecimenDefinition(
     ) : BackboneElement()
   }
 
+  @Serializable(with = SpecimenDefinitionVersionAlgorithmSerializer::class)
   public sealed interface VersionAlgorithm {
     public fun asString(): String? = this as? String
 
@@ -634,6 +641,7 @@ public data class SpecimenDefinition(
     }
   }
 
+  @Serializable(with = SpecimenDefinitionSubjectSerializer::class)
   public sealed interface Subject {
     public fun asCodeableConcept(): CodeableConcept? = this as? CodeableConcept
 

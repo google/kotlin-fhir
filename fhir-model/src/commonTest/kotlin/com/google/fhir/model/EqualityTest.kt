@@ -71,13 +71,6 @@ class EqualityTest {
 
     private val exclusionListR4 =
       listOf(
-
-        // Pattern in ElementDefinition
-        "StructureDefinition-example-section-library.json",
-        "StructureDefinition-triglyceride.json",
-        "Bundle-profiles-others.json",
-        "StructureDefinition-provenance-relevant-history.json",
-
         // Invalid resources
         "ActivityDefinition-administer-zika-virus-exposure-assessment.json",
         "ImplementationGuide-fhir.json",
@@ -87,14 +80,6 @@ class EqualityTest {
 
     private val exclusionListR4B =
       listOf(
-
-        // Pattern
-        "StructureDefinition-example-section-library.json",
-        "StructureDefinition-triglyceride.json",
-        "Bundle-profiles-others.json",
-        "StructureDefinition-provenance-relevant-history.json",
-        "StructureDefinition-lipidprofile.json",
-
         // Invalid resource
         "Bundle-valuesets.json",
         "CodeSystem-catalogType.json",
@@ -104,26 +89,6 @@ class EqualityTest {
 
     private val exclusionListR5 =
       listOf(
-        // Pattern
-        "StructureDefinition-search-set-bundle.json",
-        "StructureDefinition-fhirpathlibrary.json",
-        "StructureDefinition-subscription-notification-bundle.json",
-        "StructureDefinition-transaction-bundle.json",
-        "StructureDefinition-transaction-response-bundle.json",
-        "StructureDefinition-elmlibrary.json",
-        "StructureDefinition-batch-response-bundle.json",
-        "StructureDefinition-history-bundle.json",
-        "StructureDefinition-example-section-library.json",
-        "StructureDefinition-triglyceride.json",
-        "StructureDefinition-logiclibrary.json",
-        "StructureDefinition-batch-bundle.json",
-        "Bundle-profiles-others.json",
-        "StructureDefinition-moduledefinitionlibrary.json",
-        "StructureDefinition-provenance-relevant-history.json",
-        "StructureDefinition-cqllibrary.json",
-        "StructureDefinition-modelinfolibrary.json",
-        "StructureDefinition-lipidprofile.json",
-
         // Unknown code 'text/CQL' for enum ExpressionLanguage; codes are case-sensitive
         "ChargeItemDefinition-ebm.json",
       )

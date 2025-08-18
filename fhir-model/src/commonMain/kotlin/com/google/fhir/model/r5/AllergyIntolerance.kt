@@ -18,6 +18,7 @@
 
 package com.google.fhir.model.r5
 
+import com.google.fhir.model.r5.serializers.AllergyIntoleranceOnsetSerializer
 import com.google.fhir.model.r5.serializers.AllergyIntoleranceParticipantSerializer
 import com.google.fhir.model.r5.serializers.AllergyIntoleranceReactionSerializer
 import com.google.fhir.model.r5.serializers.AllergyIntoleranceSerializer
@@ -462,6 +463,7 @@ public data class AllergyIntolerance(
     public var note: MutableList<Annotation> = mutableListOf(),
   ) : BackboneElement()
 
+  @Serializable(with = AllergyIntoleranceOnsetSerializer::class)
   public sealed interface Onset {
     public fun asDateTime(): DateTime? = this as? DateTime
 

@@ -20,6 +20,7 @@ package com.google.fhir.model.r5
 
 import com.google.fhir.model.r5.serializers.TestReportParticipantSerializer
 import com.google.fhir.model.r5.serializers.TestReportSerializer
+import com.google.fhir.model.r5.serializers.TestReportSetupActionAssertRequirementLinkSerializer
 import com.google.fhir.model.r5.serializers.TestReportSetupActionAssertRequirementSerializer
 import com.google.fhir.model.r5.serializers.TestReportSetupActionAssertSerializer
 import com.google.fhir.model.r5.serializers.TestReportSetupActionOperationSerializer
@@ -484,6 +485,7 @@ public data class TestReport(
           /** Link or reference providing traceability to the testing requirement for this test. */
           public var link: Link? = null,
         ) : BackboneElement() {
+          @Serializable(with = TestReportSetupActionAssertRequirementLinkSerializer::class)
           public sealed interface Link {
             public fun asUri(): Uri? = this as? Uri
 

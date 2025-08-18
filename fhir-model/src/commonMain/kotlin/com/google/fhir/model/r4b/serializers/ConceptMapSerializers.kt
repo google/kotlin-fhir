@@ -19,17 +19,27 @@
 package com.google.fhir.model.r4b.serializers
 
 import com.google.fhir.model.r4b.ConceptMap
+import com.google.fhir.model.r4b.FhirJsonTransformer
 import com.google.fhir.model.r4b.surrogates.ConceptMapGroupElementSurrogate
 import com.google.fhir.model.r4b.surrogates.ConceptMapGroupElementTargetDependsOnSurrogate
 import com.google.fhir.model.r4b.surrogates.ConceptMapGroupElementTargetSurrogate
 import com.google.fhir.model.r4b.surrogates.ConceptMapGroupSurrogate
 import com.google.fhir.model.r4b.surrogates.ConceptMapGroupUnmappedSurrogate
+import com.google.fhir.model.r4b.surrogates.ConceptMapSourceSurrogate
 import com.google.fhir.model.r4b.surrogates.ConceptMapSurrogate
+import com.google.fhir.model.r4b.surrogates.ConceptMapTargetSurrogate
+import kotlin.String
 import kotlin.Suppress
+import kotlin.collections.List
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.descriptors.SerialDescriptor
 import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
+import kotlinx.serialization.json.JsonDecoder
+import kotlinx.serialization.json.JsonEncoder
+import kotlinx.serialization.json.JsonObject
+import kotlinx.serialization.json.JsonPrimitive
+import kotlinx.serialization.json.jsonObject
 
 public object ConceptMapGroupElementTargetDependsOnSerializer :
   KSerializer<ConceptMap.Group.Element.Target.DependsOn> {
@@ -122,19 +132,83 @@ public object ConceptMapGroupSerializer : KSerializer<ConceptMap.Group> {
   }
 }
 
+public object ConceptMapSourceSerializer : KSerializer<ConceptMap.Source> {
+  internal val surrogateSerializer: KSerializer<ConceptMapSourceSurrogate> by lazy {
+    ConceptMapSourceSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Source", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): ConceptMap.Source =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: ConceptMap.Source) {
+    surrogateSerializer.serialize(encoder, ConceptMapSourceSurrogate.fromModel(value))
+  }
+}
+
+public object ConceptMapTargetSerializer : KSerializer<ConceptMap.Target> {
+  internal val surrogateSerializer: KSerializer<ConceptMapTargetSurrogate> by lazy {
+    ConceptMapTargetSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Target", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): ConceptMap.Target =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: ConceptMap.Target) {
+    surrogateSerializer.serialize(encoder, ConceptMapTargetSurrogate.fromModel(value))
+  }
+}
+
 public object ConceptMapSerializer : KSerializer<ConceptMap> {
   internal val surrogateSerializer: KSerializer<ConceptMapSurrogate> by lazy {
     ConceptMapSurrogate.serializer()
   }
 
+  private val resourceType: String? = "ConceptMap"
+
+  private val multiChoiceProperties: List<String> = listOf("source", "target")
+
   override val descriptor: SerialDescriptor by lazy {
     SerialDescriptor("ConceptMap", surrogateSerializer.descriptor)
   }
 
-  override fun deserialize(decoder: Decoder): ConceptMap =
-    surrogateSerializer.deserialize(decoder).toModel()
+  override fun deserialize(decoder: Decoder): ConceptMap {
+    val jsonDecoder =
+      decoder as? JsonDecoder ?: error("This serializer only supports JSON decoding")
+    val oldJsonObject =
+      if (resourceType.isNullOrBlank()) {
+        jsonDecoder.decodeJsonElement().jsonObject
+      } else
+        JsonObject(
+          jsonDecoder.decodeJsonElement().jsonObject.toMutableMap().apply { remove("resourceType") }
+        )
+    val unflattenedJsonObject = FhirJsonTransformer.unflatten(oldJsonObject, multiChoiceProperties)
+    val surrogate =
+      jsonDecoder.json.decodeFromJsonElement(surrogateSerializer, unflattenedJsonObject)
+    return surrogate.toModel()
+  }
 
   override fun serialize(encoder: Encoder, `value`: ConceptMap) {
-    surrogateSerializer.serialize(encoder, ConceptMapSurrogate.fromModel(value))
+    val jsonEncoder =
+      encoder as? JsonEncoder ?: error("This serializer only supports JSON encoding")
+    val surrogate = ConceptMapSurrogate.fromModel(value)
+    val oldJsonObject =
+      if (resourceType.isNullOrBlank()) {
+        jsonEncoder.json.encodeToJsonElement(surrogateSerializer, surrogate).jsonObject
+      } else {
+        JsonObject(
+          mutableMapOf("resourceType" to JsonPrimitive(resourceType))
+            .plus(jsonEncoder.json.encodeToJsonElement(surrogateSerializer, surrogate).jsonObject)
+        )
+      }
+    val flattenedJsonObject = FhirJsonTransformer.flatten(oldJsonObject, multiChoiceProperties)
+    jsonEncoder.encodeJsonElement(flattenedJsonObject)
   }
 }

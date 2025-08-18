@@ -19,7 +19,9 @@
 package com.google.fhir.model.r5
 
 import com.google.fhir.model.r5.serializers.TaskInputSerializer
+import com.google.fhir.model.r5.serializers.TaskInputValueSerializer
 import com.google.fhir.model.r5.serializers.TaskOutputSerializer
+import com.google.fhir.model.r5.serializers.TaskOutputValueSerializer
 import com.google.fhir.model.r5.serializers.TaskPerformerSerializer
 import com.google.fhir.model.r5.serializers.TaskRestrictionSerializer
 import com.google.fhir.model.r5.serializers.TaskSerializer
@@ -490,6 +492,7 @@ public data class Task(
     /** The value of the input parameter as a basic type. */
     public var `value`: Value,
   ) : BackboneElement() {
+    @Serializable(with = TaskInputValueSerializer::class)
     public sealed interface Value {
       public fun asBase64Binary(): Base64Binary? = this as? Base64Binary
 
@@ -892,6 +895,7 @@ public data class Task(
     /** The value of the Output parameter as a basic type. */
     public var `value`: Value,
   ) : BackboneElement() {
+    @Serializable(with = TaskOutputValueSerializer::class)
     public sealed interface Value {
       public fun asBase64Binary(): Base64Binary? = this as? Base64Binary
 

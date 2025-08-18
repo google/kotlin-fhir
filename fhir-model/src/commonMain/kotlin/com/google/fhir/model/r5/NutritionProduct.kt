@@ -19,6 +19,7 @@
 package com.google.fhir.model.r5
 
 import com.google.fhir.model.r5.serializers.NutritionProductCharacteristicSerializer
+import com.google.fhir.model.r5.serializers.NutritionProductCharacteristicValueSerializer
 import com.google.fhir.model.r5.serializers.NutritionProductIngredientSerializer
 import com.google.fhir.model.r5.serializers.NutritionProductInstanceSerializer
 import com.google.fhir.model.r5.serializers.NutritionProductNutrientSerializer
@@ -324,6 +325,7 @@ public data class NutritionProduct(
      */
     public var `value`: Value,
   ) : BackboneElement() {
+    @Serializable(with = NutritionProductCharacteristicValueSerializer::class)
     public sealed interface Value {
       public fun asCodeableConcept(): CodeableConcept? = this as? CodeableConcept
 

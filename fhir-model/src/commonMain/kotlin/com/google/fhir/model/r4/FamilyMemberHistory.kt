@@ -18,7 +18,11 @@
 
 package com.google.fhir.model.r4
 
+import com.google.fhir.model.r4.serializers.FamilyMemberHistoryAgeSerializer
+import com.google.fhir.model.r4.serializers.FamilyMemberHistoryBornSerializer
+import com.google.fhir.model.r4.serializers.FamilyMemberHistoryConditionOnsetSerializer
 import com.google.fhir.model.r4.serializers.FamilyMemberHistoryConditionSerializer
+import com.google.fhir.model.r4.serializers.FamilyMemberHistoryDeceasedSerializer
 import com.google.fhir.model.r4.serializers.FamilyMemberHistorySerializer
 import kotlin.Suppress
 import kotlin.collections.MutableList
@@ -298,6 +302,7 @@ public data class FamilyMemberHistory(
     /** An area where general notes can be placed about this specific condition. */
     public var note: MutableList<Annotation> = mutableListOf(),
   ) : BackboneElement() {
+    @Serializable(with = FamilyMemberHistoryConditionOnsetSerializer::class)
     public sealed interface Onset {
       public fun asAge(): Age? = this as? Age
 
@@ -332,6 +337,7 @@ public data class FamilyMemberHistory(
     }
   }
 
+  @Serializable(with = FamilyMemberHistoryBornSerializer::class)
   public sealed interface Born {
     public fun asPeriod(): Period? = this as? Period
 
@@ -359,6 +365,7 @@ public data class FamilyMemberHistory(
     }
   }
 
+  @Serializable(with = FamilyMemberHistoryAgeSerializer::class)
   public sealed interface Age {
     public fun asAge(): Age? = this as? Age
 
@@ -389,6 +396,7 @@ public data class FamilyMemberHistory(
     }
   }
 
+  @Serializable(with = FamilyMemberHistoryDeceasedSerializer::class)
   public sealed interface Deceased {
     public fun asBoolean(): Boolean? = this as? Boolean
 

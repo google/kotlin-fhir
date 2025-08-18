@@ -19,10 +19,14 @@
 package com.google.fhir.model.r4
 
 import com.google.fhir.model.r4.serializers.MedicationKnowledgeAdministrationGuidelinesDosageSerializer
+import com.google.fhir.model.r4.serializers.MedicationKnowledgeAdministrationGuidelinesIndicationSerializer
+import com.google.fhir.model.r4.serializers.MedicationKnowledgeAdministrationGuidelinesPatientCharacteristicsCharacteristicSerializer
 import com.google.fhir.model.r4.serializers.MedicationKnowledgeAdministrationGuidelinesPatientCharacteristicsSerializer
 import com.google.fhir.model.r4.serializers.MedicationKnowledgeAdministrationGuidelinesSerializer
 import com.google.fhir.model.r4.serializers.MedicationKnowledgeCostSerializer
 import com.google.fhir.model.r4.serializers.MedicationKnowledgeDrugCharacteristicSerializer
+import com.google.fhir.model.r4.serializers.MedicationKnowledgeDrugCharacteristicValueSerializer
+import com.google.fhir.model.r4.serializers.MedicationKnowledgeIngredientItemSerializer
 import com.google.fhir.model.r4.serializers.MedicationKnowledgeIngredientSerializer
 import com.google.fhir.model.r4.serializers.MedicationKnowledgeKineticsSerializer
 import com.google.fhir.model.r4.serializers.MedicationKnowledgeMedicineClassificationSerializer
@@ -388,6 +392,7 @@ public data class MedicationKnowledge(
      */
     public var strength: Ratio? = null,
   ) : BackboneElement() {
+    @Serializable(with = MedicationKnowledgeIngredientItemSerializer::class)
     public sealed interface Item {
       public fun asCodeableConcept(): CodeableConcept? = this as? CodeableConcept
 
@@ -658,6 +663,10 @@ public data class MedicationKnowledge(
       /** The specific characteristic (e.g. height, weight, gender, etc.). */
       public var `value`: MutableList<String> = mutableListOf(),
     ) : BackboneElement() {
+      @Serializable(
+        with =
+          MedicationKnowledgeAdministrationGuidelinesPatientCharacteristicsCharacteristicSerializer::class
+      )
       public sealed interface Characteristic {
         public fun asCodeableConcept(): CodeableConcept? = this as? CodeableConcept
 
@@ -683,6 +692,7 @@ public data class MedicationKnowledge(
       }
     }
 
+    @Serializable(with = MedicationKnowledgeAdministrationGuidelinesIndicationSerializer::class)
     public sealed interface Indication {
       public fun asCodeableConcept(): CodeableConcept? = this as? CodeableConcept
 
@@ -862,6 +872,7 @@ public data class MedicationKnowledge(
      */
     public var `value`: Value? = null,
   ) : BackboneElement() {
+    @Serializable(with = MedicationKnowledgeDrugCharacteristicValueSerializer::class)
     public sealed interface Value {
       public fun asCodeableConcept(): CodeableConcept? = this as? CodeableConcept
 

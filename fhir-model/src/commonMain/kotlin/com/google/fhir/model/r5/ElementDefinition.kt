@@ -22,8 +22,14 @@ import com.google.fhir.model.r5.serializers.ElementDefinitionBaseSerializer
 import com.google.fhir.model.r5.serializers.ElementDefinitionBindingAdditionalSerializer
 import com.google.fhir.model.r5.serializers.ElementDefinitionBindingSerializer
 import com.google.fhir.model.r5.serializers.ElementDefinitionConstraintSerializer
+import com.google.fhir.model.r5.serializers.ElementDefinitionDefaultValueSerializer
 import com.google.fhir.model.r5.serializers.ElementDefinitionExampleSerializer
+import com.google.fhir.model.r5.serializers.ElementDefinitionExampleValueSerializer
+import com.google.fhir.model.r5.serializers.ElementDefinitionFixedSerializer
 import com.google.fhir.model.r5.serializers.ElementDefinitionMappingSerializer
+import com.google.fhir.model.r5.serializers.ElementDefinitionMaxValueSerializer
+import com.google.fhir.model.r5.serializers.ElementDefinitionMinValueSerializer
+import com.google.fhir.model.r5.serializers.ElementDefinitionPatternSerializer
 import com.google.fhir.model.r5.serializers.ElementDefinitionSerializer
 import com.google.fhir.model.r5.serializers.ElementDefinitionSlicingDiscriminatorSerializer
 import com.google.fhir.model.r5.serializers.ElementDefinitionSlicingSerializer
@@ -714,6 +720,7 @@ public data class ElementDefinition(
      */
     public var `value`: Value,
   ) : Element() {
+    @Serializable(with = ElementDefinitionExampleValueSerializer::class)
     public sealed interface Value {
       public fun asBase64Binary(): Base64Binary? = this as? Base64Binary
 
@@ -1293,6 +1300,7 @@ public data class ElementDefinition(
     public var comment: Markdown? = null,
   ) : Element()
 
+  @Serializable(with = ElementDefinitionDefaultValueSerializer::class)
   public sealed interface DefaultValue {
     public fun asBase64Binary(): Base64Binary? = this as? Base64Binary
 
@@ -1664,6 +1672,7 @@ public data class ElementDefinition(
     }
   }
 
+  @Serializable(with = ElementDefinitionFixedSerializer::class)
   public sealed interface Fixed {
     public fun asBase64Binary(): Base64Binary? = this as? Base64Binary
 
@@ -2017,6 +2026,7 @@ public data class ElementDefinition(
     }
   }
 
+  @Serializable(with = ElementDefinitionPatternSerializer::class)
   public sealed interface Pattern {
     public fun asBase64Binary(): Base64Binary? = this as? Base64Binary
 
@@ -2373,6 +2383,7 @@ public data class ElementDefinition(
     }
   }
 
+  @Serializable(with = ElementDefinitionMinValueSerializer::class)
   public sealed interface MinValue {
     public fun asDate(): Date? = this as? Date
 
@@ -2444,6 +2455,7 @@ public data class ElementDefinition(
     }
   }
 
+  @Serializable(with = ElementDefinitionMaxValueSerializer::class)
   public sealed interface MaxValue {
     public fun asDate(): Date? = this as? Date
 

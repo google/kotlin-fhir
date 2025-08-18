@@ -19,6 +19,7 @@
 package com.google.fhir.model.r4b
 
 import com.google.fhir.model.r4b.serializers.DeviceUseStatementSerializer
+import com.google.fhir.model.r4b.serializers.DeviceUseStatementTimingSerializer
 import kotlin.String
 import kotlin.Suppress
 import kotlin.collections.MutableList
@@ -180,6 +181,7 @@ public data class DeviceUseStatement(
    */
   public var note: MutableList<Annotation> = mutableListOf(),
 ) : DomainResource() {
+  @Serializable(with = DeviceUseStatementTimingSerializer::class)
   public sealed interface Timing {
     public fun asTiming(): Timing? = this as? Timing
 

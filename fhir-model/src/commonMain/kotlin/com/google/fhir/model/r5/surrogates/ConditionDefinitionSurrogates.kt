@@ -118,6 +118,30 @@ internal data class ConditionDefinitionMedicationSurrogate(
 }
 
 @Serializable
+internal data class ConditionDefinitionPreconditionValueSurrogate(
+  public var valueCodeableConcept: CodeableConcept? = null,
+  public var valueQuantity: Quantity? = null,
+) {
+  public fun toModel(): ConditionDefinition.Precondition.Value =
+    ConditionDefinition.Precondition.Value?.from(
+      this@ConditionDefinitionPreconditionValueSurrogate.valueCodeableConcept,
+      this@ConditionDefinitionPreconditionValueSurrogate.valueQuantity,
+    )!!
+
+  public companion object {
+    public fun fromModel(
+      model: ConditionDefinition.Precondition.Value
+    ): ConditionDefinitionPreconditionValueSurrogate =
+      with(model) {
+        ConditionDefinitionPreconditionValueSurrogate(
+          valueCodeableConcept = this@with.asCodeableConcept()?.value,
+          valueQuantity = this@with.asQuantity()?.value,
+        )
+      }
+  }
+}
+
+@Serializable
 internal data class ConditionDefinitionPreconditionSurrogate(
   public var id: KotlinString? = null,
   public var extension: MutableList<Extension>? = null,
@@ -125,8 +149,7 @@ internal data class ConditionDefinitionPreconditionSurrogate(
   public var type: KotlinString? = null,
   public var _type: Element? = null,
   public var code: CodeableConcept,
-  public var valueCodeableConcept: CodeableConcept? = null,
-  public var valueQuantity: Quantity? = null,
+  public var `value`: ConditionDefinition.Precondition.Value? = null,
 ) {
   public fun toModel(): ConditionDefinition.Precondition =
     ConditionDefinition.Precondition(
@@ -142,11 +165,7 @@ internal data class ConditionDefinitionPreconditionSurrogate(
           this@ConditionDefinitionPreconditionSurrogate._type,
         ),
       code = this@ConditionDefinitionPreconditionSurrogate.code,
-      `value` =
-        ConditionDefinition.Precondition.Value?.from(
-          this@ConditionDefinitionPreconditionSurrogate.valueCodeableConcept,
-          this@ConditionDefinitionPreconditionSurrogate.valueQuantity,
-        ),
+      `value` = this@ConditionDefinitionPreconditionSurrogate.`value`,
     )
 
   public companion object {
@@ -161,8 +180,7 @@ internal data class ConditionDefinitionPreconditionSurrogate(
           type = this@with.type.value?.getCode(),
           _type = this@with.type.toElement(),
           code = this@with.code,
-          valueCodeableConcept = this@with.`value`?.asCodeableConcept()?.value,
-          valueQuantity = this@with.`value`?.asQuantity()?.value,
+          `value` = this@with.`value`,
         )
       }
   }
@@ -243,6 +261,35 @@ internal data class ConditionDefinitionPlanSurrogate(
 }
 
 @Serializable
+internal data class ConditionDefinitionVersionAlgorithmSurrogate(
+  public var versionAlgorithmString: KotlinString? = null,
+  public var _versionAlgorithmString: Element? = null,
+  public var versionAlgorithmCoding: Coding? = null,
+) {
+  public fun toModel(): ConditionDefinition.VersionAlgorithm =
+    ConditionDefinition.VersionAlgorithm?.from(
+      R5String.of(
+        this@ConditionDefinitionVersionAlgorithmSurrogate.versionAlgorithmString,
+        this@ConditionDefinitionVersionAlgorithmSurrogate._versionAlgorithmString,
+      ),
+      this@ConditionDefinitionVersionAlgorithmSurrogate.versionAlgorithmCoding,
+    )!!
+
+  public companion object {
+    public fun fromModel(
+      model: ConditionDefinition.VersionAlgorithm
+    ): ConditionDefinitionVersionAlgorithmSurrogate =
+      with(model) {
+        ConditionDefinitionVersionAlgorithmSurrogate(
+          versionAlgorithmString = this@with.asString()?.value?.value,
+          _versionAlgorithmString = this@with.asString()?.value?.toElement(),
+          versionAlgorithmCoding = this@with.asCoding()?.value,
+        )
+      }
+  }
+}
+
+@Serializable
 internal data class ConditionDefinitionSurrogate(
   public var id: KotlinString? = null,
   public var meta: Meta? = null,
@@ -259,9 +306,7 @@ internal data class ConditionDefinitionSurrogate(
   public var identifier: MutableList<Identifier>? = null,
   public var version: KotlinString? = null,
   public var _version: Element? = null,
-  public var versionAlgorithmString: KotlinString? = null,
-  public var _versionAlgorithmString: Element? = null,
-  public var versionAlgorithmCoding: Coding? = null,
+  public var versionAlgorithm: ConditionDefinition.VersionAlgorithm? = null,
   public var name: KotlinString? = null,
   public var _name: Element? = null,
   public var title: KotlinString? = null,
@@ -325,14 +370,7 @@ internal data class ConditionDefinitionSurrogate(
           this@ConditionDefinitionSurrogate.version,
           this@ConditionDefinitionSurrogate._version,
         ),
-      versionAlgorithm =
-        ConditionDefinition.VersionAlgorithm?.from(
-          R5String.of(
-            this@ConditionDefinitionSurrogate.versionAlgorithmString,
-            this@ConditionDefinitionSurrogate._versionAlgorithmString,
-          ),
-          this@ConditionDefinitionSurrogate.versionAlgorithmCoding,
-        ),
+      versionAlgorithm = this@ConditionDefinitionSurrogate.versionAlgorithm,
       name =
         R5String.of(
           this@ConditionDefinitionSurrogate.name,
@@ -440,9 +478,7 @@ internal data class ConditionDefinitionSurrogate(
           identifier = this@with.identifier.takeUnless { it.all { it == null } },
           version = this@with.version?.value,
           _version = this@with.version?.toElement(),
-          versionAlgorithmString = this@with.versionAlgorithm?.asString()?.value?.value,
-          _versionAlgorithmString = this@with.versionAlgorithm?.asString()?.value?.toElement(),
-          versionAlgorithmCoding = this@with.versionAlgorithm?.asCoding()?.value,
+          versionAlgorithm = this@with.versionAlgorithm,
           name = this@with.name?.value,
           _name = this@with.name?.toElement(),
           title = this@with.title?.value,

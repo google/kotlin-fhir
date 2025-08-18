@@ -19,6 +19,7 @@
 package com.google.fhir.model.r5
 
 import com.google.fhir.model.r5.serializers.AdministrableProductDefinitionPropertySerializer
+import com.google.fhir.model.r5.serializers.AdministrableProductDefinitionPropertyValueSerializer
 import com.google.fhir.model.r5.serializers.AdministrableProductDefinitionRouteOfAdministrationSerializer
 import com.google.fhir.model.r5.serializers.AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesSerializer
 import com.google.fhir.model.r5.serializers.AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesWithdrawalPeriodSerializer
@@ -250,6 +251,7 @@ public data class AdministrableProductDefinition(
     /** The status of characteristic e.g. assigned or pending. */
     public var status: CodeableConcept? = null,
   ) : BackboneElement() {
+    @Serializable(with = AdministrableProductDefinitionPropertyValueSerializer::class)
     public sealed interface Value {
       public fun asCodeableConcept(): CodeableConcept? = this as? CodeableConcept
 

@@ -44,6 +44,35 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
+internal data class RegulatedAuthorizationCaseDateSurrogate(
+  public var datePeriod: Period? = null,
+  public var dateDateTime: String? = null,
+  public var _dateDateTime: Element? = null,
+) {
+  public fun toModel(): RegulatedAuthorization.Case.Date =
+    RegulatedAuthorization.Case.Date?.from(
+      this@RegulatedAuthorizationCaseDateSurrogate.datePeriod,
+      DateTime.of(
+        FhirDateTime.fromString(this@RegulatedAuthorizationCaseDateSurrogate.dateDateTime),
+        this@RegulatedAuthorizationCaseDateSurrogate._dateDateTime,
+      ),
+    )!!
+
+  public companion object {
+    public fun fromModel(
+      model: RegulatedAuthorization.Case.Date
+    ): RegulatedAuthorizationCaseDateSurrogate =
+      with(model) {
+        RegulatedAuthorizationCaseDateSurrogate(
+          datePeriod = this@with.asPeriod()?.value,
+          dateDateTime = this@with.asDateTime()?.value?.value?.toString(),
+          _dateDateTime = this@with.asDateTime()?.value?.toElement(),
+        )
+      }
+  }
+}
+
+@Serializable
 internal data class RegulatedAuthorizationCaseSurrogate(
   public var id: String? = null,
   public var extension: MutableList<Extension>? = null,
@@ -51,9 +80,7 @@ internal data class RegulatedAuthorizationCaseSurrogate(
   public var identifier: Identifier? = null,
   public var type: CodeableConcept? = null,
   public var status: CodeableConcept? = null,
-  public var datePeriod: Period? = null,
-  public var dateDateTime: String? = null,
-  public var _dateDateTime: Element? = null,
+  public var date: RegulatedAuthorization.Case.Date? = null,
   public var application: MutableList<RegulatedAuthorization.Case>? = null,
 ) {
   public fun toModel(): RegulatedAuthorization.Case =
@@ -65,14 +92,7 @@ internal data class RegulatedAuthorizationCaseSurrogate(
       identifier = this@RegulatedAuthorizationCaseSurrogate.identifier,
       type = this@RegulatedAuthorizationCaseSurrogate.type,
       status = this@RegulatedAuthorizationCaseSurrogate.status,
-      date =
-        RegulatedAuthorization.Case.Date?.from(
-          this@RegulatedAuthorizationCaseSurrogate.datePeriod,
-          DateTime.of(
-            FhirDateTime.fromString(this@RegulatedAuthorizationCaseSurrogate.dateDateTime),
-            this@RegulatedAuthorizationCaseSurrogate._dateDateTime,
-          ),
-        ),
+      date = this@RegulatedAuthorizationCaseSurrogate.date,
       application = this@RegulatedAuthorizationCaseSurrogate.application ?: mutableListOf(),
     )
 
@@ -86,9 +106,7 @@ internal data class RegulatedAuthorizationCaseSurrogate(
           identifier = this@with.identifier,
           type = this@with.type,
           status = this@with.status,
-          datePeriod = this@with.date?.asPeriod()?.value,
-          dateDateTime = this@with.date?.asDateTime()?.value?.value?.toString(),
-          _dateDateTime = this@with.date?.asDateTime()?.value?.toElement(),
+          date = this@with.date,
           application = this@with.application.takeUnless { it.all { it == null } },
         )
       }

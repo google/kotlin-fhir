@@ -18,7 +18,9 @@
 
 package com.google.fhir.model.r4
 
+import com.google.fhir.model.r4.serializers.ImmunizationEvaluationDoseNumberSerializer
 import com.google.fhir.model.r4.serializers.ImmunizationEvaluationSerializer
+import com.google.fhir.model.r4.serializers.ImmunizationEvaluationSeriesDosesSerializer
 import kotlin.Suppress
 import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
@@ -170,6 +172,7 @@ public data class ImmunizationEvaluation(
    */
   public var seriesDoses: SeriesDoses? = null,
 ) : DomainResource() {
+  @Serializable(with = ImmunizationEvaluationDoseNumberSerializer::class)
   public sealed interface DoseNumber {
     public fun asPositiveInt(): PositiveInt? = this as? PositiveInt
 
@@ -192,6 +195,7 @@ public data class ImmunizationEvaluation(
     }
   }
 
+  @Serializable(with = ImmunizationEvaluationSeriesDosesSerializer::class)
   public sealed interface SeriesDoses {
     public fun asPositiveInt(): PositiveInt? = this as? PositiveInt
 

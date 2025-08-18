@@ -21,6 +21,7 @@ package com.google.fhir.model.r5
 import com.google.fhir.model.r5.serializers.MedicationRequestDispenseRequestInitialFillSerializer
 import com.google.fhir.model.r5.serializers.MedicationRequestDispenseRequestSerializer
 import com.google.fhir.model.r5.serializers.MedicationRequestSerializer
+import com.google.fhir.model.r5.serializers.MedicationRequestSubstitutionAllowedSerializer
 import com.google.fhir.model.r5.serializers.MedicationRequestSubstitutionSerializer
 import kotlin.String
 import kotlin.Suppress
@@ -597,6 +598,7 @@ public data class MedicationRequest(
      */
     public var reason: CodeableConcept? = null,
   ) : BackboneElement() {
+    @Serializable(with = MedicationRequestSubstitutionAllowedSerializer::class)
     public sealed interface Allowed {
       public fun asBoolean(): Boolean? = this as? Boolean
 

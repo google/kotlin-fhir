@@ -484,6 +484,62 @@ internal data class ClaimResponseAddItemDetailSurrogate(
 }
 
 @Serializable
+internal data class ClaimResponseAddItemServicedSurrogate(
+  public var servicedDate: KotlinString? = null,
+  public var _servicedDate: Element? = null,
+  public var servicedPeriod: Period? = null,
+) {
+  public fun toModel(): ClaimResponse.AddItem.Serviced =
+    ClaimResponse.AddItem.Serviced?.from(
+      Date.of(
+        FhirDate.fromString(this@ClaimResponseAddItemServicedSurrogate.servicedDate),
+        this@ClaimResponseAddItemServicedSurrogate._servicedDate,
+      ),
+      this@ClaimResponseAddItemServicedSurrogate.servicedPeriod,
+    )!!
+
+  public companion object {
+    public fun fromModel(
+      model: ClaimResponse.AddItem.Serviced
+    ): ClaimResponseAddItemServicedSurrogate =
+      with(model) {
+        ClaimResponseAddItemServicedSurrogate(
+          servicedDate = this@with.asDate()?.value?.value?.toString(),
+          _servicedDate = this@with.asDate()?.value?.toElement(),
+          servicedPeriod = this@with.asPeriod()?.value,
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class ClaimResponseAddItemLocationSurrogate(
+  public var locationCodeableConcept: CodeableConcept? = null,
+  public var locationAddress: Address? = null,
+  public var locationReference: Reference? = null,
+) {
+  public fun toModel(): ClaimResponse.AddItem.Location =
+    ClaimResponse.AddItem.Location?.from(
+      this@ClaimResponseAddItemLocationSurrogate.locationCodeableConcept,
+      this@ClaimResponseAddItemLocationSurrogate.locationAddress,
+      this@ClaimResponseAddItemLocationSurrogate.locationReference,
+    )!!
+
+  public companion object {
+    public fun fromModel(
+      model: ClaimResponse.AddItem.Location
+    ): ClaimResponseAddItemLocationSurrogate =
+      with(model) {
+        ClaimResponseAddItemLocationSurrogate(
+          locationCodeableConcept = this@with.asCodeableConcept()?.value,
+          locationAddress = this@with.asAddress()?.value,
+          locationReference = this@with.asReference()?.value,
+        )
+      }
+  }
+}
+
+@Serializable
 internal data class ClaimResponseAddItemSurrogate(
   public var id: KotlinString? = null,
   public var extension: MutableList<Extension>? = null,
@@ -498,12 +554,8 @@ internal data class ClaimResponseAddItemSurrogate(
   public var productOrService: CodeableConcept,
   public var modifier: MutableList<CodeableConcept>? = null,
   public var programCode: MutableList<CodeableConcept>? = null,
-  public var servicedDate: KotlinString? = null,
-  public var _servicedDate: Element? = null,
-  public var servicedPeriod: Period? = null,
-  public var locationCodeableConcept: CodeableConcept? = null,
-  public var locationAddress: Address? = null,
-  public var locationReference: Reference? = null,
+  public var serviced: ClaimResponse.AddItem.Serviced? = null,
+  public var location: ClaimResponse.AddItem.Location? = null,
   public var quantity: Quantity? = null,
   public var unitPrice: Money? = null,
   public var factor: Double? = null,
@@ -573,20 +625,8 @@ internal data class ClaimResponseAddItemSurrogate(
       productOrService = this@ClaimResponseAddItemSurrogate.productOrService,
       modifier = this@ClaimResponseAddItemSurrogate.modifier ?: mutableListOf(),
       programCode = this@ClaimResponseAddItemSurrogate.programCode ?: mutableListOf(),
-      serviced =
-        ClaimResponse.AddItem.Serviced?.from(
-          Date.of(
-            FhirDate.fromString(this@ClaimResponseAddItemSurrogate.servicedDate),
-            this@ClaimResponseAddItemSurrogate._servicedDate,
-          ),
-          this@ClaimResponseAddItemSurrogate.servicedPeriod,
-        ),
-      location =
-        ClaimResponse.AddItem.Location?.from(
-          this@ClaimResponseAddItemSurrogate.locationCodeableConcept,
-          this@ClaimResponseAddItemSurrogate.locationAddress,
-          this@ClaimResponseAddItemSurrogate.locationReference,
-        ),
+      serviced = this@ClaimResponseAddItemSurrogate.serviced,
+      location = this@ClaimResponseAddItemSurrogate.location,
       quantity = this@ClaimResponseAddItemSurrogate.quantity,
       unitPrice = this@ClaimResponseAddItemSurrogate.unitPrice,
       factor =
@@ -661,12 +701,8 @@ internal data class ClaimResponseAddItemSurrogate(
           productOrService = this@with.productOrService,
           modifier = this@with.modifier.takeUnless { it.all { it == null } },
           programCode = this@with.programCode.takeUnless { it.all { it == null } },
-          servicedDate = this@with.serviced?.asDate()?.value?.value?.toString(),
-          _servicedDate = this@with.serviced?.asDate()?.value?.toElement(),
-          servicedPeriod = this@with.serviced?.asPeriod()?.value,
-          locationCodeableConcept = this@with.location?.asCodeableConcept()?.value,
-          locationAddress = this@with.location?.asAddress()?.value,
-          locationReference = this@with.location?.asReference()?.value,
+          serviced = this@with.serviced,
+          location = this@with.location,
           quantity = this@with.quantity,
           unitPrice = this@with.unitPrice,
           factor = this@with.factor?.value,

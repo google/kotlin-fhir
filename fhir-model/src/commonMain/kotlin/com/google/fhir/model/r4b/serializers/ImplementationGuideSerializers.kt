@@ -18,24 +18,35 @@
 
 package com.google.fhir.model.r4b.serializers
 
+import com.google.fhir.model.r4b.FhirJsonTransformer
 import com.google.fhir.model.r4b.ImplementationGuide
 import com.google.fhir.model.r4b.surrogates.ImplementationGuideDefinitionGroupingSurrogate
+import com.google.fhir.model.r4b.surrogates.ImplementationGuideDefinitionPageNameSurrogate
 import com.google.fhir.model.r4b.surrogates.ImplementationGuideDefinitionPageSurrogate
 import com.google.fhir.model.r4b.surrogates.ImplementationGuideDefinitionParameterSurrogate
+import com.google.fhir.model.r4b.surrogates.ImplementationGuideDefinitionResourceExampleSurrogate
 import com.google.fhir.model.r4b.surrogates.ImplementationGuideDefinitionResourceSurrogate
 import com.google.fhir.model.r4b.surrogates.ImplementationGuideDefinitionSurrogate
 import com.google.fhir.model.r4b.surrogates.ImplementationGuideDefinitionTemplateSurrogate
 import com.google.fhir.model.r4b.surrogates.ImplementationGuideDependsOnSurrogate
 import com.google.fhir.model.r4b.surrogates.ImplementationGuideGlobalSurrogate
 import com.google.fhir.model.r4b.surrogates.ImplementationGuideManifestPageSurrogate
+import com.google.fhir.model.r4b.surrogates.ImplementationGuideManifestResourceExampleSurrogate
 import com.google.fhir.model.r4b.surrogates.ImplementationGuideManifestResourceSurrogate
 import com.google.fhir.model.r4b.surrogates.ImplementationGuideManifestSurrogate
 import com.google.fhir.model.r4b.surrogates.ImplementationGuideSurrogate
+import kotlin.String
 import kotlin.Suppress
+import kotlin.collections.List
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.descriptors.SerialDescriptor
 import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
+import kotlinx.serialization.json.JsonDecoder
+import kotlinx.serialization.json.JsonEncoder
+import kotlinx.serialization.json.JsonObject
+import kotlinx.serialization.json.JsonPrimitive
+import kotlinx.serialization.json.jsonObject
 
 public object ImplementationGuideDependsOnSerializer : KSerializer<ImplementationGuide.DependsOn> {
   internal val surrogateSerializer: KSerializer<ImplementationGuideDependsOnSurrogate> by lazy {
@@ -93,6 +104,31 @@ public object ImplementationGuideDefinitionGroupingSerializer :
   }
 }
 
+public object ImplementationGuideDefinitionResourceExampleSerializer :
+  KSerializer<ImplementationGuide.Definition.Resource.Example> {
+  internal val surrogateSerializer:
+    KSerializer<ImplementationGuideDefinitionResourceExampleSurrogate> by lazy {
+    ImplementationGuideDefinitionResourceExampleSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Example", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): ImplementationGuide.Definition.Resource.Example =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(
+    encoder: Encoder,
+    `value`: ImplementationGuide.Definition.Resource.Example,
+  ) {
+    surrogateSerializer.serialize(
+      encoder,
+      ImplementationGuideDefinitionResourceExampleSurrogate.fromModel(value),
+    )
+  }
+}
+
 public object ImplementationGuideDefinitionResourceSerializer :
   KSerializer<ImplementationGuide.Definition.Resource> {
   internal val surrogateSerializer:
@@ -100,17 +136,66 @@ public object ImplementationGuideDefinitionResourceSerializer :
     ImplementationGuideDefinitionResourceSurrogate.serializer()
   }
 
+  private val resourceType: String? = null
+
+  private val multiChoiceProperties: List<String> = listOf("example")
+
   override val descriptor: SerialDescriptor by lazy {
     SerialDescriptor("Resource", surrogateSerializer.descriptor)
   }
 
-  override fun deserialize(decoder: Decoder): ImplementationGuide.Definition.Resource =
-    surrogateSerializer.deserialize(decoder).toModel()
+  override fun deserialize(decoder: Decoder): ImplementationGuide.Definition.Resource {
+    val jsonDecoder =
+      decoder as? JsonDecoder ?: error("This serializer only supports JSON decoding")
+    val oldJsonObject =
+      if (resourceType.isNullOrBlank()) {
+        jsonDecoder.decodeJsonElement().jsonObject
+      } else
+        JsonObject(
+          jsonDecoder.decodeJsonElement().jsonObject.toMutableMap().apply { remove("resourceType") }
+        )
+    val unflattenedJsonObject = FhirJsonTransformer.unflatten(oldJsonObject, multiChoiceProperties)
+    val surrogate =
+      jsonDecoder.json.decodeFromJsonElement(surrogateSerializer, unflattenedJsonObject)
+    return surrogate.toModel()
+  }
 
   override fun serialize(encoder: Encoder, `value`: ImplementationGuide.Definition.Resource) {
+    val jsonEncoder =
+      encoder as? JsonEncoder ?: error("This serializer only supports JSON encoding")
+    val surrogate = ImplementationGuideDefinitionResourceSurrogate.fromModel(value)
+    val oldJsonObject =
+      if (resourceType.isNullOrBlank()) {
+        jsonEncoder.json.encodeToJsonElement(surrogateSerializer, surrogate).jsonObject
+      } else {
+        JsonObject(
+          mutableMapOf("resourceType" to JsonPrimitive(resourceType))
+            .plus(jsonEncoder.json.encodeToJsonElement(surrogateSerializer, surrogate).jsonObject)
+        )
+      }
+    val flattenedJsonObject = FhirJsonTransformer.flatten(oldJsonObject, multiChoiceProperties)
+    jsonEncoder.encodeJsonElement(flattenedJsonObject)
+  }
+}
+
+public object ImplementationGuideDefinitionPageNameSerializer :
+  KSerializer<ImplementationGuide.Definition.Page.Name> {
+  internal val surrogateSerializer:
+    KSerializer<ImplementationGuideDefinitionPageNameSurrogate> by lazy {
+    ImplementationGuideDefinitionPageNameSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Name", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): ImplementationGuide.Definition.Page.Name =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: ImplementationGuide.Definition.Page.Name) {
     surrogateSerializer.serialize(
       encoder,
-      ImplementationGuideDefinitionResourceSurrogate.fromModel(value),
+      ImplementationGuideDefinitionPageNameSurrogate.fromModel(value),
     )
   }
 }
@@ -122,18 +207,45 @@ public object ImplementationGuideDefinitionPageSerializer :
     ImplementationGuideDefinitionPageSurrogate.serializer()
   }
 
+  private val resourceType: String? = null
+
+  private val multiChoiceProperties: List<String> = listOf("name")
+
   override val descriptor: SerialDescriptor by lazy {
     SerialDescriptor("Page", surrogateSerializer.descriptor)
   }
 
-  override fun deserialize(decoder: Decoder): ImplementationGuide.Definition.Page =
-    surrogateSerializer.deserialize(decoder).toModel()
+  override fun deserialize(decoder: Decoder): ImplementationGuide.Definition.Page {
+    val jsonDecoder =
+      decoder as? JsonDecoder ?: error("This serializer only supports JSON decoding")
+    val oldJsonObject =
+      if (resourceType.isNullOrBlank()) {
+        jsonDecoder.decodeJsonElement().jsonObject
+      } else
+        JsonObject(
+          jsonDecoder.decodeJsonElement().jsonObject.toMutableMap().apply { remove("resourceType") }
+        )
+    val unflattenedJsonObject = FhirJsonTransformer.unflatten(oldJsonObject, multiChoiceProperties)
+    val surrogate =
+      jsonDecoder.json.decodeFromJsonElement(surrogateSerializer, unflattenedJsonObject)
+    return surrogate.toModel()
+  }
 
   override fun serialize(encoder: Encoder, `value`: ImplementationGuide.Definition.Page) {
-    surrogateSerializer.serialize(
-      encoder,
-      ImplementationGuideDefinitionPageSurrogate.fromModel(value),
-    )
+    val jsonEncoder =
+      encoder as? JsonEncoder ?: error("This serializer only supports JSON encoding")
+    val surrogate = ImplementationGuideDefinitionPageSurrogate.fromModel(value)
+    val oldJsonObject =
+      if (resourceType.isNullOrBlank()) {
+        jsonEncoder.json.encodeToJsonElement(surrogateSerializer, surrogate).jsonObject
+      } else {
+        JsonObject(
+          mutableMapOf("resourceType" to JsonPrimitive(resourceType))
+            .plus(jsonEncoder.json.encodeToJsonElement(surrogateSerializer, surrogate).jsonObject)
+        )
+      }
+    val flattenedJsonObject = FhirJsonTransformer.flatten(oldJsonObject, multiChoiceProperties)
+    jsonEncoder.encodeJsonElement(flattenedJsonObject)
   }
 }
 
@@ -199,6 +311,28 @@ public object ImplementationGuideDefinitionSerializer :
   }
 }
 
+public object ImplementationGuideManifestResourceExampleSerializer :
+  KSerializer<ImplementationGuide.Manifest.Resource.Example> {
+  internal val surrogateSerializer:
+    KSerializer<ImplementationGuideManifestResourceExampleSurrogate> by lazy {
+    ImplementationGuideManifestResourceExampleSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Example", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): ImplementationGuide.Manifest.Resource.Example =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: ImplementationGuide.Manifest.Resource.Example) {
+    surrogateSerializer.serialize(
+      encoder,
+      ImplementationGuideManifestResourceExampleSurrogate.fromModel(value),
+    )
+  }
+}
+
 public object ImplementationGuideManifestResourceSerializer :
   KSerializer<ImplementationGuide.Manifest.Resource> {
   internal val surrogateSerializer:
@@ -206,18 +340,45 @@ public object ImplementationGuideManifestResourceSerializer :
     ImplementationGuideManifestResourceSurrogate.serializer()
   }
 
+  private val resourceType: String? = null
+
+  private val multiChoiceProperties: List<String> = listOf("example")
+
   override val descriptor: SerialDescriptor by lazy {
     SerialDescriptor("Resource", surrogateSerializer.descriptor)
   }
 
-  override fun deserialize(decoder: Decoder): ImplementationGuide.Manifest.Resource =
-    surrogateSerializer.deserialize(decoder).toModel()
+  override fun deserialize(decoder: Decoder): ImplementationGuide.Manifest.Resource {
+    val jsonDecoder =
+      decoder as? JsonDecoder ?: error("This serializer only supports JSON decoding")
+    val oldJsonObject =
+      if (resourceType.isNullOrBlank()) {
+        jsonDecoder.decodeJsonElement().jsonObject
+      } else
+        JsonObject(
+          jsonDecoder.decodeJsonElement().jsonObject.toMutableMap().apply { remove("resourceType") }
+        )
+    val unflattenedJsonObject = FhirJsonTransformer.unflatten(oldJsonObject, multiChoiceProperties)
+    val surrogate =
+      jsonDecoder.json.decodeFromJsonElement(surrogateSerializer, unflattenedJsonObject)
+    return surrogate.toModel()
+  }
 
   override fun serialize(encoder: Encoder, `value`: ImplementationGuide.Manifest.Resource) {
-    surrogateSerializer.serialize(
-      encoder,
-      ImplementationGuideManifestResourceSurrogate.fromModel(value),
-    )
+    val jsonEncoder =
+      encoder as? JsonEncoder ?: error("This serializer only supports JSON encoding")
+    val surrogate = ImplementationGuideManifestResourceSurrogate.fromModel(value)
+    val oldJsonObject =
+      if (resourceType.isNullOrBlank()) {
+        jsonEncoder.json.encodeToJsonElement(surrogateSerializer, surrogate).jsonObject
+      } else {
+        JsonObject(
+          mutableMapOf("resourceType" to JsonPrimitive(resourceType))
+            .plus(jsonEncoder.json.encodeToJsonElement(surrogateSerializer, surrogate).jsonObject)
+        )
+      }
+    val flattenedJsonObject = FhirJsonTransformer.flatten(oldJsonObject, multiChoiceProperties)
+    jsonEncoder.encodeJsonElement(flattenedJsonObject)
   }
 }
 

@@ -19,6 +19,7 @@
 package com.google.fhir.model.r5
 
 import com.google.fhir.model.r5.serializers.ActorDefinitionSerializer
+import com.google.fhir.model.r5.serializers.ActorDefinitionVersionAlgorithmSerializer
 import kotlin.Suppress
 import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
@@ -317,6 +318,7 @@ public data class ActorDefinition(
    */
   public var derivedFrom: MutableList<Canonical> = mutableListOf(),
 ) : DomainResource() {
+  @Serializable(with = ActorDefinitionVersionAlgorithmSerializer::class)
   public sealed interface VersionAlgorithm {
     public fun asString(): String? = this as? String
 

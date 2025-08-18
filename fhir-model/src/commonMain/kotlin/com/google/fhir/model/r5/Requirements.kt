@@ -20,6 +20,7 @@ package com.google.fhir.model.r5
 
 import com.google.fhir.model.r5.serializers.RequirementsSerializer
 import com.google.fhir.model.r5.serializers.RequirementsStatementSerializer
+import com.google.fhir.model.r5.serializers.RequirementsVersionAlgorithmSerializer
 import kotlin.Suppress
 import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
@@ -423,6 +424,7 @@ public data class Requirements(
     public var source: MutableList<Reference> = mutableListOf(),
   ) : BackboneElement()
 
+  @Serializable(with = RequirementsVersionAlgorithmSerializer::class)
   public sealed interface VersionAlgorithm {
     public fun asString(): String? = this as? String
 

@@ -107,11 +107,7 @@ internal data class ObservationReferenceRangeSurrogate(
 }
 
 @Serializable
-internal data class ObservationComponentSurrogate(
-  public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var code: CodeableConcept,
+internal data class ObservationComponentValueSurrogate(
   public var valueQuantity: Quantity? = null,
   public var valueCodeableConcept: CodeableConcept? = null,
   public var valueString: KotlinString? = null,
@@ -128,6 +124,69 @@ internal data class ObservationComponentSurrogate(
   public var valueDateTime: KotlinString? = null,
   public var _valueDateTime: Element? = null,
   public var valuePeriod: Period? = null,
+) {
+  public fun toModel(): Observation.Component.Value =
+    Observation.Component.Value?.from(
+      this@ObservationComponentValueSurrogate.valueQuantity,
+      this@ObservationComponentValueSurrogate.valueCodeableConcept,
+      R4String.of(
+        this@ObservationComponentValueSurrogate.valueString,
+        this@ObservationComponentValueSurrogate._valueString,
+      ),
+      R4Boolean.of(
+        this@ObservationComponentValueSurrogate.valueBoolean,
+        this@ObservationComponentValueSurrogate._valueBoolean,
+      ),
+      Integer.of(
+        this@ObservationComponentValueSurrogate.valueInteger,
+        this@ObservationComponentValueSurrogate._valueInteger,
+      ),
+      this@ObservationComponentValueSurrogate.valueRange,
+      this@ObservationComponentValueSurrogate.valueRatio,
+      this@ObservationComponentValueSurrogate.valueSampledData,
+      Time.of(
+        this@ObservationComponentValueSurrogate.valueTime,
+        this@ObservationComponentValueSurrogate._valueTime,
+      ),
+      DateTime.of(
+        FhirDateTime.fromString(this@ObservationComponentValueSurrogate.valueDateTime),
+        this@ObservationComponentValueSurrogate._valueDateTime,
+      ),
+      this@ObservationComponentValueSurrogate.valuePeriod,
+    )!!
+
+  public companion object {
+    public fun fromModel(model: Observation.Component.Value): ObservationComponentValueSurrogate =
+      with(model) {
+        ObservationComponentValueSurrogate(
+          valueQuantity = this@with.asQuantity()?.value,
+          valueCodeableConcept = this@with.asCodeableConcept()?.value,
+          valueString = this@with.asString()?.value?.value,
+          _valueString = this@with.asString()?.value?.toElement(),
+          valueBoolean = this@with.asBoolean()?.value?.value,
+          _valueBoolean = this@with.asBoolean()?.value?.toElement(),
+          valueInteger = this@with.asInteger()?.value?.value,
+          _valueInteger = this@with.asInteger()?.value?.toElement(),
+          valueRange = this@with.asRange()?.value,
+          valueRatio = this@with.asRatio()?.value,
+          valueSampledData = this@with.asSampledData()?.value,
+          valueTime = this@with.asTime()?.value?.value,
+          _valueTime = this@with.asTime()?.value?.toElement(),
+          valueDateTime = this@with.asDateTime()?.value?.value?.toString(),
+          _valueDateTime = this@with.asDateTime()?.value?.toElement(),
+          valuePeriod = this@with.asPeriod()?.value,
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class ObservationComponentSurrogate(
+  public var id: KotlinString? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var code: CodeableConcept,
+  public var `value`: Observation.Component.Value? = null,
   public var dataAbsentReason: CodeableConcept? = null,
   public var interpretation: MutableList<CodeableConcept>? = null,
   public var referenceRange: MutableList<Observation.ReferenceRange>? = null,
@@ -138,35 +197,7 @@ internal data class ObservationComponentSurrogate(
       extension = this@ObservationComponentSurrogate.extension ?: mutableListOf(),
       modifierExtension = this@ObservationComponentSurrogate.modifierExtension ?: mutableListOf(),
       code = this@ObservationComponentSurrogate.code,
-      `value` =
-        Observation.Component.Value?.from(
-          this@ObservationComponentSurrogate.valueQuantity,
-          this@ObservationComponentSurrogate.valueCodeableConcept,
-          R4String.of(
-            this@ObservationComponentSurrogate.valueString,
-            this@ObservationComponentSurrogate._valueString,
-          ),
-          R4Boolean.of(
-            this@ObservationComponentSurrogate.valueBoolean,
-            this@ObservationComponentSurrogate._valueBoolean,
-          ),
-          Integer.of(
-            this@ObservationComponentSurrogate.valueInteger,
-            this@ObservationComponentSurrogate._valueInteger,
-          ),
-          this@ObservationComponentSurrogate.valueRange,
-          this@ObservationComponentSurrogate.valueRatio,
-          this@ObservationComponentSurrogate.valueSampledData,
-          Time.of(
-            this@ObservationComponentSurrogate.valueTime,
-            this@ObservationComponentSurrogate._valueTime,
-          ),
-          DateTime.of(
-            FhirDateTime.fromString(this@ObservationComponentSurrogate.valueDateTime),
-            this@ObservationComponentSurrogate._valueDateTime,
-          ),
-          this@ObservationComponentSurrogate.valuePeriod,
-        ),
+      `value` = this@ObservationComponentSurrogate.`value`,
       dataAbsentReason = this@ObservationComponentSurrogate.dataAbsentReason,
       interpretation = this@ObservationComponentSurrogate.interpretation ?: mutableListOf(),
       referenceRange = this@ObservationComponentSurrogate.referenceRange ?: mutableListOf(),
@@ -180,25 +211,119 @@ internal data class ObservationComponentSurrogate(
           extension = this@with.extension.takeUnless { it.all { it == null } },
           modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
           code = this@with.code,
-          valueQuantity = this@with.`value`?.asQuantity()?.value,
-          valueCodeableConcept = this@with.`value`?.asCodeableConcept()?.value,
-          valueString = this@with.`value`?.asString()?.value?.value,
-          _valueString = this@with.`value`?.asString()?.value?.toElement(),
-          valueBoolean = this@with.`value`?.asBoolean()?.value?.value,
-          _valueBoolean = this@with.`value`?.asBoolean()?.value?.toElement(),
-          valueInteger = this@with.`value`?.asInteger()?.value?.value,
-          _valueInteger = this@with.`value`?.asInteger()?.value?.toElement(),
-          valueRange = this@with.`value`?.asRange()?.value,
-          valueRatio = this@with.`value`?.asRatio()?.value,
-          valueSampledData = this@with.`value`?.asSampledData()?.value,
-          valueTime = this@with.`value`?.asTime()?.value?.value,
-          _valueTime = this@with.`value`?.asTime()?.value?.toElement(),
-          valueDateTime = this@with.`value`?.asDateTime()?.value?.value?.toString(),
-          _valueDateTime = this@with.`value`?.asDateTime()?.value?.toElement(),
-          valuePeriod = this@with.`value`?.asPeriod()?.value,
+          `value` = this@with.`value`,
           dataAbsentReason = this@with.dataAbsentReason,
           interpretation = this@with.interpretation.takeUnless { it.all { it == null } },
           referenceRange = this@with.referenceRange.takeUnless { it.all { it == null } },
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class ObservationEffectiveSurrogate(
+  public var effectiveDateTime: KotlinString? = null,
+  public var _effectiveDateTime: Element? = null,
+  public var effectivePeriod: Period? = null,
+  public var effectiveTiming: Timing? = null,
+  public var effectiveInstant: KotlinString? = null,
+  public var _effectiveInstant: Element? = null,
+) {
+  public fun toModel(): Observation.Effective =
+    Observation.Effective?.from(
+      DateTime.of(
+        FhirDateTime.fromString(this@ObservationEffectiveSurrogate.effectiveDateTime),
+        this@ObservationEffectiveSurrogate._effectiveDateTime,
+      ),
+      this@ObservationEffectiveSurrogate.effectivePeriod,
+      this@ObservationEffectiveSurrogate.effectiveTiming,
+      Instant.of(
+        FhirDateTime.fromString(this@ObservationEffectiveSurrogate.effectiveInstant),
+        this@ObservationEffectiveSurrogate._effectiveInstant,
+      ),
+    )!!
+
+  public companion object {
+    public fun fromModel(model: Observation.Effective): ObservationEffectiveSurrogate =
+      with(model) {
+        ObservationEffectiveSurrogate(
+          effectiveDateTime = this@with.asDateTime()?.value?.value?.toString(),
+          _effectiveDateTime = this@with.asDateTime()?.value?.toElement(),
+          effectivePeriod = this@with.asPeriod()?.value,
+          effectiveTiming = this@with.asTiming()?.value,
+          effectiveInstant = this@with.asInstant()?.value?.value?.toString(),
+          _effectiveInstant = this@with.asInstant()?.value?.toElement(),
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class ObservationValueSurrogate(
+  public var valueQuantity: Quantity? = null,
+  public var valueCodeableConcept: CodeableConcept? = null,
+  public var valueString: KotlinString? = null,
+  public var _valueString: Element? = null,
+  public var valueBoolean: KotlinBoolean? = null,
+  public var _valueBoolean: Element? = null,
+  public var valueInteger: Int? = null,
+  public var _valueInteger: Element? = null,
+  public var valueRange: Range? = null,
+  public var valueRatio: Ratio? = null,
+  public var valueSampledData: SampledData? = null,
+  public var valueTime: LocalTime? = null,
+  public var _valueTime: Element? = null,
+  public var valueDateTime: KotlinString? = null,
+  public var _valueDateTime: Element? = null,
+  public var valuePeriod: Period? = null,
+) {
+  public fun toModel(): Observation.Value =
+    Observation.Value?.from(
+      this@ObservationValueSurrogate.valueQuantity,
+      this@ObservationValueSurrogate.valueCodeableConcept,
+      R4String.of(
+        this@ObservationValueSurrogate.valueString,
+        this@ObservationValueSurrogate._valueString,
+      ),
+      R4Boolean.of(
+        this@ObservationValueSurrogate.valueBoolean,
+        this@ObservationValueSurrogate._valueBoolean,
+      ),
+      Integer.of(
+        this@ObservationValueSurrogate.valueInteger,
+        this@ObservationValueSurrogate._valueInteger,
+      ),
+      this@ObservationValueSurrogate.valueRange,
+      this@ObservationValueSurrogate.valueRatio,
+      this@ObservationValueSurrogate.valueSampledData,
+      Time.of(this@ObservationValueSurrogate.valueTime, this@ObservationValueSurrogate._valueTime),
+      DateTime.of(
+        FhirDateTime.fromString(this@ObservationValueSurrogate.valueDateTime),
+        this@ObservationValueSurrogate._valueDateTime,
+      ),
+      this@ObservationValueSurrogate.valuePeriod,
+    )!!
+
+  public companion object {
+    public fun fromModel(model: Observation.Value): ObservationValueSurrogate =
+      with(model) {
+        ObservationValueSurrogate(
+          valueQuantity = this@with.asQuantity()?.value,
+          valueCodeableConcept = this@with.asCodeableConcept()?.value,
+          valueString = this@with.asString()?.value?.value,
+          _valueString = this@with.asString()?.value?.toElement(),
+          valueBoolean = this@with.asBoolean()?.value?.value,
+          _valueBoolean = this@with.asBoolean()?.value?.toElement(),
+          valueInteger = this@with.asInteger()?.value?.value,
+          _valueInteger = this@with.asInteger()?.value?.toElement(),
+          valueRange = this@with.asRange()?.value,
+          valueRatio = this@with.asRatio()?.value,
+          valueSampledData = this@with.asSampledData()?.value,
+          valueTime = this@with.asTime()?.value?.value,
+          _valueTime = this@with.asTime()?.value?.toElement(),
+          valueDateTime = this@with.asDateTime()?.value?.value?.toString(),
+          _valueDateTime = this@with.asDateTime()?.value?.toElement(),
+          valuePeriod = this@with.asPeriod()?.value,
         )
       }
   }
@@ -226,31 +351,11 @@ internal data class ObservationSurrogate(
   public var subject: Reference? = null,
   public var focus: MutableList<Reference>? = null,
   public var encounter: Reference? = null,
-  public var effectiveDateTime: KotlinString? = null,
-  public var _effectiveDateTime: Element? = null,
-  public var effectivePeriod: Period? = null,
-  public var effectiveTiming: Timing? = null,
-  public var effectiveInstant: KotlinString? = null,
-  public var _effectiveInstant: Element? = null,
+  public var effective: Observation.Effective? = null,
   public var issued: KotlinString? = null,
   public var _issued: Element? = null,
   public var performer: MutableList<Reference>? = null,
-  public var valueQuantity: Quantity? = null,
-  public var valueCodeableConcept: CodeableConcept? = null,
-  public var valueString: KotlinString? = null,
-  public var _valueString: Element? = null,
-  public var valueBoolean: KotlinBoolean? = null,
-  public var _valueBoolean: Element? = null,
-  public var valueInteger: Int? = null,
-  public var _valueInteger: Element? = null,
-  public var valueRange: Range? = null,
-  public var valueRatio: Ratio? = null,
-  public var valueSampledData: SampledData? = null,
-  public var valueTime: LocalTime? = null,
-  public var _valueTime: Element? = null,
-  public var valueDateTime: KotlinString? = null,
-  public var _valueDateTime: Element? = null,
-  public var valuePeriod: Period? = null,
+  public var `value`: Observation.Value? = null,
   public var dataAbsentReason: CodeableConcept? = null,
   public var interpretation: MutableList<CodeableConcept>? = null,
   public var note: MutableList<Annotation>? = null,
@@ -289,51 +394,14 @@ internal data class ObservationSurrogate(
       subject = this@ObservationSurrogate.subject,
       focus = this@ObservationSurrogate.focus ?: mutableListOf(),
       encounter = this@ObservationSurrogate.encounter,
-      effective =
-        Observation.Effective?.from(
-          DateTime.of(
-            FhirDateTime.fromString(this@ObservationSurrogate.effectiveDateTime),
-            this@ObservationSurrogate._effectiveDateTime,
-          ),
-          this@ObservationSurrogate.effectivePeriod,
-          this@ObservationSurrogate.effectiveTiming,
-          Instant.of(
-            FhirDateTime.fromString(this@ObservationSurrogate.effectiveInstant),
-            this@ObservationSurrogate._effectiveInstant,
-          ),
-        ),
+      effective = this@ObservationSurrogate.effective,
       issued =
         Instant.of(
           FhirDateTime.fromString(this@ObservationSurrogate.issued),
           this@ObservationSurrogate._issued,
         ),
       performer = this@ObservationSurrogate.performer ?: mutableListOf(),
-      `value` =
-        Observation.Value?.from(
-          this@ObservationSurrogate.valueQuantity,
-          this@ObservationSurrogate.valueCodeableConcept,
-          R4String.of(
-            this@ObservationSurrogate.valueString,
-            this@ObservationSurrogate._valueString,
-          ),
-          R4Boolean.of(
-            this@ObservationSurrogate.valueBoolean,
-            this@ObservationSurrogate._valueBoolean,
-          ),
-          Integer.of(
-            this@ObservationSurrogate.valueInteger,
-            this@ObservationSurrogate._valueInteger,
-          ),
-          this@ObservationSurrogate.valueRange,
-          this@ObservationSurrogate.valueRatio,
-          this@ObservationSurrogate.valueSampledData,
-          Time.of(this@ObservationSurrogate.valueTime, this@ObservationSurrogate._valueTime),
-          DateTime.of(
-            FhirDateTime.fromString(this@ObservationSurrogate.valueDateTime),
-            this@ObservationSurrogate._valueDateTime,
-          ),
-          this@ObservationSurrogate.valuePeriod,
-        ),
+      `value` = this@ObservationSurrogate.`value`,
       dataAbsentReason = this@ObservationSurrogate.dataAbsentReason,
       interpretation = this@ObservationSurrogate.interpretation ?: mutableListOf(),
       note = this@ObservationSurrogate.note ?: mutableListOf(),
@@ -371,31 +439,11 @@ internal data class ObservationSurrogate(
           subject = this@with.subject,
           focus = this@with.focus.takeUnless { it.all { it == null } },
           encounter = this@with.encounter,
-          effectiveDateTime = this@with.effective?.asDateTime()?.value?.value?.toString(),
-          _effectiveDateTime = this@with.effective?.asDateTime()?.value?.toElement(),
-          effectivePeriod = this@with.effective?.asPeriod()?.value,
-          effectiveTiming = this@with.effective?.asTiming()?.value,
-          effectiveInstant = this@with.effective?.asInstant()?.value?.value?.toString(),
-          _effectiveInstant = this@with.effective?.asInstant()?.value?.toElement(),
+          effective = this@with.effective,
           issued = this@with.issued?.value?.toString(),
           _issued = this@with.issued?.toElement(),
           performer = this@with.performer.takeUnless { it.all { it == null } },
-          valueQuantity = this@with.`value`?.asQuantity()?.value,
-          valueCodeableConcept = this@with.`value`?.asCodeableConcept()?.value,
-          valueString = this@with.`value`?.asString()?.value?.value,
-          _valueString = this@with.`value`?.asString()?.value?.toElement(),
-          valueBoolean = this@with.`value`?.asBoolean()?.value?.value,
-          _valueBoolean = this@with.`value`?.asBoolean()?.value?.toElement(),
-          valueInteger = this@with.`value`?.asInteger()?.value?.value,
-          _valueInteger = this@with.`value`?.asInteger()?.value?.toElement(),
-          valueRange = this@with.`value`?.asRange()?.value,
-          valueRatio = this@with.`value`?.asRatio()?.value,
-          valueSampledData = this@with.`value`?.asSampledData()?.value,
-          valueTime = this@with.`value`?.asTime()?.value?.value,
-          _valueTime = this@with.`value`?.asTime()?.value?.toElement(),
-          valueDateTime = this@with.`value`?.asDateTime()?.value?.value?.toString(),
-          _valueDateTime = this@with.`value`?.asDateTime()?.value?.toElement(),
-          valuePeriod = this@with.`value`?.asPeriod()?.value,
+          `value` = this@with.`value`,
           dataAbsentReason = this@with.dataAbsentReason,
           interpretation = this@with.interpretation.takeUnless { it.all { it == null } },
           note = this@with.note.takeUnless { it.all { it == null } },

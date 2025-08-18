@@ -20,6 +20,7 @@ package com.google.fhir.model.r5
 
 import com.google.fhir.model.r5.serializers.MedicationBatchSerializer
 import com.google.fhir.model.r5.serializers.MedicationIngredientSerializer
+import com.google.fhir.model.r5.serializers.MedicationIngredientStrengthSerializer
 import com.google.fhir.model.r5.serializers.MedicationSerializer
 import kotlin.Suppress
 import kotlin.collections.MutableList
@@ -257,6 +258,7 @@ public data class Medication(
      */
     public var strength: Strength? = null,
   ) : BackboneElement() {
+    @Serializable(with = MedicationIngredientStrengthSerializer::class)
     public sealed interface Strength {
       public fun asRatio(): Ratio? = this as? Ratio
 

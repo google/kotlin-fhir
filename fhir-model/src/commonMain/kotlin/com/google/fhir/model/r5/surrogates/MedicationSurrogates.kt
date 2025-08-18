@@ -48,6 +48,33 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
+internal data class MedicationIngredientStrengthSurrogate(
+  public var strengthRatio: Ratio? = null,
+  public var strengthCodeableConcept: CodeableConcept? = null,
+  public var strengthQuantity: Quantity? = null,
+) {
+  public fun toModel(): Medication.Ingredient.Strength =
+    Medication.Ingredient.Strength?.from(
+      this@MedicationIngredientStrengthSurrogate.strengthRatio,
+      this@MedicationIngredientStrengthSurrogate.strengthCodeableConcept,
+      this@MedicationIngredientStrengthSurrogate.strengthQuantity,
+    )!!
+
+  public companion object {
+    public fun fromModel(
+      model: Medication.Ingredient.Strength
+    ): MedicationIngredientStrengthSurrogate =
+      with(model) {
+        MedicationIngredientStrengthSurrogate(
+          strengthRatio = this@with.asRatio()?.value,
+          strengthCodeableConcept = this@with.asCodeableConcept()?.value,
+          strengthQuantity = this@with.asQuantity()?.value,
+        )
+      }
+  }
+}
+
+@Serializable
 internal data class MedicationIngredientSurrogate(
   public var id: KotlinString? = null,
   public var extension: MutableList<Extension>? = null,
@@ -55,9 +82,7 @@ internal data class MedicationIngredientSurrogate(
   public var item: CodeableReference,
   public var isActive: KotlinBoolean? = null,
   public var _isActive: Element? = null,
-  public var strengthRatio: Ratio? = null,
-  public var strengthCodeableConcept: CodeableConcept? = null,
-  public var strengthQuantity: Quantity? = null,
+  public var strength: Medication.Ingredient.Strength? = null,
 ) {
   public fun toModel(): Medication.Ingredient =
     Medication.Ingredient(
@@ -70,12 +95,7 @@ internal data class MedicationIngredientSurrogate(
           this@MedicationIngredientSurrogate.isActive,
           this@MedicationIngredientSurrogate._isActive,
         ),
-      strength =
-        Medication.Ingredient.Strength?.from(
-          this@MedicationIngredientSurrogate.strengthRatio,
-          this@MedicationIngredientSurrogate.strengthCodeableConcept,
-          this@MedicationIngredientSurrogate.strengthQuantity,
-        ),
+      strength = this@MedicationIngredientSurrogate.strength,
     )
 
   public companion object {
@@ -88,9 +108,7 @@ internal data class MedicationIngredientSurrogate(
           item = this@with.item,
           isActive = this@with.isActive?.value,
           _isActive = this@with.isActive?.toElement(),
-          strengthRatio = this@with.strength?.asRatio()?.value,
-          strengthCodeableConcept = this@with.strength?.asCodeableConcept()?.value,
-          strengthQuantity = this@with.strength?.asQuantity()?.value,
+          strength = this@with.strength,
         )
       }
   }

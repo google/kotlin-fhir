@@ -18,6 +18,7 @@
 
 package com.google.fhir.model.r5
 
+import com.google.fhir.model.r5.serializers.CommunicationPayloadContentSerializer
 import com.google.fhir.model.r5.serializers.CommunicationPayloadSerializer
 import com.google.fhir.model.r5.serializers.CommunicationSerializer
 import kotlin.String
@@ -316,6 +317,7 @@ public data class Communication(
      */
     public var content: Content,
   ) : BackboneElement() {
+    @Serializable(with = CommunicationPayloadContentSerializer::class)
     public sealed interface Content {
       public fun asAttachment(): Attachment? = this as? Attachment
 

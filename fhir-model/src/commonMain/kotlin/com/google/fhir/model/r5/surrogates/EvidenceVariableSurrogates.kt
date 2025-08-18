@@ -61,13 +61,7 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
-internal data class EvidenceVariableCharacteristicDefinitionByTypeAndValueSurrogate(
-  public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var type: CodeableConcept,
-  public var method: MutableList<CodeableConcept>? = null,
-  public var device: Reference? = null,
+internal data class EvidenceVariableCharacteristicDefinitionByTypeAndValueValueSurrogate(
   public var valueCodeableConcept: CodeableConcept? = null,
   public var valueBoolean: KotlinBoolean? = null,
   public var _valueBoolean: Element? = null,
@@ -76,6 +70,52 @@ internal data class EvidenceVariableCharacteristicDefinitionByTypeAndValueSurrog
   public var valueReference: Reference? = null,
   public var valueId: KotlinString? = null,
   public var _valueId: Element? = null,
+) {
+  public fun toModel(): EvidenceVariable.Characteristic.DefinitionByTypeAndValue.Value =
+    EvidenceVariable.Characteristic.DefinitionByTypeAndValue.Value.from(
+      this@EvidenceVariableCharacteristicDefinitionByTypeAndValueValueSurrogate
+        .valueCodeableConcept,
+      R5Boolean.of(
+        this@EvidenceVariableCharacteristicDefinitionByTypeAndValueValueSurrogate.valueBoolean,
+        this@EvidenceVariableCharacteristicDefinitionByTypeAndValueValueSurrogate._valueBoolean,
+      ),
+      this@EvidenceVariableCharacteristicDefinitionByTypeAndValueValueSurrogate.valueQuantity,
+      this@EvidenceVariableCharacteristicDefinitionByTypeAndValueValueSurrogate.valueRange,
+      this@EvidenceVariableCharacteristicDefinitionByTypeAndValueValueSurrogate.valueReference,
+      Id.of(
+        this@EvidenceVariableCharacteristicDefinitionByTypeAndValueValueSurrogate.valueId,
+        this@EvidenceVariableCharacteristicDefinitionByTypeAndValueValueSurrogate._valueId,
+      ),
+    )!! !!
+
+  public companion object {
+    public fun fromModel(
+      model: EvidenceVariable.Characteristic.DefinitionByTypeAndValue.Value
+    ): EvidenceVariableCharacteristicDefinitionByTypeAndValueValueSurrogate =
+      with(model) {
+        EvidenceVariableCharacteristicDefinitionByTypeAndValueValueSurrogate(
+          valueCodeableConcept = this@with.asCodeableConcept()?.value,
+          valueBoolean = this@with.asBoolean()?.value?.value,
+          _valueBoolean = this@with.asBoolean()?.value?.toElement(),
+          valueQuantity = this@with.asQuantity()?.value,
+          valueRange = this@with.asRange()?.value,
+          valueReference = this@with.asReference()?.value,
+          valueId = this@with.asId()?.value?.value,
+          _valueId = this@with.asId()?.value?.toElement(),
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class EvidenceVariableCharacteristicDefinitionByTypeAndValueSurrogate(
+  public var id: KotlinString? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var type: CodeableConcept,
+  public var method: MutableList<CodeableConcept>? = null,
+  public var device: Reference? = null,
+  public var `value`: EvidenceVariable.Characteristic.DefinitionByTypeAndValue.Value,
   public var offset: CodeableConcept? = null,
 ) {
   public fun toModel(): EvidenceVariable.Characteristic.DefinitionByTypeAndValue =
@@ -92,21 +132,7 @@ internal data class EvidenceVariableCharacteristicDefinitionByTypeAndValueSurrog
         this@EvidenceVariableCharacteristicDefinitionByTypeAndValueSurrogate.method
           ?: mutableListOf(),
       device = this@EvidenceVariableCharacteristicDefinitionByTypeAndValueSurrogate.device,
-      `value` =
-        EvidenceVariable.Characteristic.DefinitionByTypeAndValue.Value.from(
-          this@EvidenceVariableCharacteristicDefinitionByTypeAndValueSurrogate.valueCodeableConcept,
-          R5Boolean.of(
-            this@EvidenceVariableCharacteristicDefinitionByTypeAndValueSurrogate.valueBoolean,
-            this@EvidenceVariableCharacteristicDefinitionByTypeAndValueSurrogate._valueBoolean,
-          ),
-          this@EvidenceVariableCharacteristicDefinitionByTypeAndValueSurrogate.valueQuantity,
-          this@EvidenceVariableCharacteristicDefinitionByTypeAndValueSurrogate.valueRange,
-          this@EvidenceVariableCharacteristicDefinitionByTypeAndValueSurrogate.valueReference,
-          Id.of(
-            this@EvidenceVariableCharacteristicDefinitionByTypeAndValueSurrogate.valueId,
-            this@EvidenceVariableCharacteristicDefinitionByTypeAndValueSurrogate._valueId,
-          ),
-        )!!,
+      `value` = this@EvidenceVariableCharacteristicDefinitionByTypeAndValueSurrogate.`value`,
       offset = this@EvidenceVariableCharacteristicDefinitionByTypeAndValueSurrogate.offset,
     )
 
@@ -122,14 +148,7 @@ internal data class EvidenceVariableCharacteristicDefinitionByTypeAndValueSurrog
           type = this@with.type,
           method = this@with.method.takeUnless { it.all { it == null } },
           device = this@with.device,
-          valueCodeableConcept = this@with.`value`?.asCodeableConcept()?.value,
-          valueBoolean = this@with.`value`?.asBoolean()?.value?.value,
-          _valueBoolean = this@with.`value`?.asBoolean()?.value?.toElement(),
-          valueQuantity = this@with.`value`?.asQuantity()?.value,
-          valueRange = this@with.`value`?.asRange()?.value,
-          valueReference = this@with.`value`?.asReference()?.value,
-          valueId = this@with.`value`?.asId()?.value?.value,
-          _valueId = this@with.`value`?.asId()?.value?.toElement(),
+          `value` = this@with.`value`,
           offset = this@with.offset,
         )
       }
@@ -193,6 +212,48 @@ internal data class EvidenceVariableCharacteristicDefinitionByCombinationSurroga
 }
 
 @Serializable
+internal data class EvidenceVariableCharacteristicTimeFromEventEventSurrogate(
+  public var eventCodeableConcept: CodeableConcept? = null,
+  public var eventReference: Reference? = null,
+  public var eventDateTime: KotlinString? = null,
+  public var _eventDateTime: Element? = null,
+  public var eventId: KotlinString? = null,
+  public var _eventId: Element? = null,
+) {
+  public fun toModel(): EvidenceVariable.Characteristic.TimeFromEvent.Event =
+    EvidenceVariable.Characteristic.TimeFromEvent.Event?.from(
+      this@EvidenceVariableCharacteristicTimeFromEventEventSurrogate.eventCodeableConcept,
+      this@EvidenceVariableCharacteristicTimeFromEventEventSurrogate.eventReference,
+      DateTime.of(
+        FhirDateTime.fromString(
+          this@EvidenceVariableCharacteristicTimeFromEventEventSurrogate.eventDateTime
+        ),
+        this@EvidenceVariableCharacteristicTimeFromEventEventSurrogate._eventDateTime,
+      ),
+      Id.of(
+        this@EvidenceVariableCharacteristicTimeFromEventEventSurrogate.eventId,
+        this@EvidenceVariableCharacteristicTimeFromEventEventSurrogate._eventId,
+      ),
+    )!!
+
+  public companion object {
+    public fun fromModel(
+      model: EvidenceVariable.Characteristic.TimeFromEvent.Event
+    ): EvidenceVariableCharacteristicTimeFromEventEventSurrogate =
+      with(model) {
+        EvidenceVariableCharacteristicTimeFromEventEventSurrogate(
+          eventCodeableConcept = this@with.asCodeableConcept()?.value,
+          eventReference = this@with.asReference()?.value,
+          eventDateTime = this@with.asDateTime()?.value?.value?.toString(),
+          _eventDateTime = this@with.asDateTime()?.value?.toElement(),
+          eventId = this@with.asId()?.value?.value,
+          _eventId = this@with.asId()?.value?.toElement(),
+        )
+      }
+  }
+}
+
+@Serializable
 internal data class EvidenceVariableCharacteristicTimeFromEventSurrogate(
   public var id: KotlinString? = null,
   public var extension: MutableList<Extension>? = null,
@@ -200,12 +261,7 @@ internal data class EvidenceVariableCharacteristicTimeFromEventSurrogate(
   public var description: KotlinString? = null,
   public var _description: Element? = null,
   public var note: MutableList<Annotation>? = null,
-  public var eventCodeableConcept: CodeableConcept? = null,
-  public var eventReference: Reference? = null,
-  public var eventDateTime: KotlinString? = null,
-  public var _eventDateTime: Element? = null,
-  public var eventId: KotlinString? = null,
-  public var _eventId: Element? = null,
+  public var event: EvidenceVariable.Characteristic.TimeFromEvent.Event? = null,
   public var quantity: Quantity? = null,
   public var range: Range? = null,
 ) {
@@ -223,21 +279,7 @@ internal data class EvidenceVariableCharacteristicTimeFromEventSurrogate(
           this@EvidenceVariableCharacteristicTimeFromEventSurrogate._description,
         ),
       note = this@EvidenceVariableCharacteristicTimeFromEventSurrogate.note ?: mutableListOf(),
-      event =
-        EvidenceVariable.Characteristic.TimeFromEvent.Event?.from(
-          this@EvidenceVariableCharacteristicTimeFromEventSurrogate.eventCodeableConcept,
-          this@EvidenceVariableCharacteristicTimeFromEventSurrogate.eventReference,
-          DateTime.of(
-            FhirDateTime.fromString(
-              this@EvidenceVariableCharacteristicTimeFromEventSurrogate.eventDateTime
-            ),
-            this@EvidenceVariableCharacteristicTimeFromEventSurrogate._eventDateTime,
-          ),
-          Id.of(
-            this@EvidenceVariableCharacteristicTimeFromEventSurrogate.eventId,
-            this@EvidenceVariableCharacteristicTimeFromEventSurrogate._eventId,
-          ),
-        ),
+      event = this@EvidenceVariableCharacteristicTimeFromEventSurrogate.event,
       quantity = this@EvidenceVariableCharacteristicTimeFromEventSurrogate.quantity,
       range = this@EvidenceVariableCharacteristicTimeFromEventSurrogate.range,
     )
@@ -254,14 +296,57 @@ internal data class EvidenceVariableCharacteristicTimeFromEventSurrogate(
           description = this@with.description?.value,
           _description = this@with.description?.toElement(),
           note = this@with.note.takeUnless { it.all { it == null } },
-          eventCodeableConcept = this@with.event?.asCodeableConcept()?.value,
-          eventReference = this@with.event?.asReference()?.value,
-          eventDateTime = this@with.event?.asDateTime()?.value?.value?.toString(),
-          _eventDateTime = this@with.event?.asDateTime()?.value?.toElement(),
-          eventId = this@with.event?.asId()?.value?.value,
-          _eventId = this@with.event?.asId()?.value?.toElement(),
+          event = this@with.event,
           quantity = this@with.quantity,
           range = this@with.range,
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class EvidenceVariableCharacteristicInstancesSurrogate(
+  public var instancesQuantity: Quantity? = null,
+  public var instancesRange: Range? = null,
+) {
+  public fun toModel(): EvidenceVariable.Characteristic.Instances =
+    EvidenceVariable.Characteristic.Instances?.from(
+      this@EvidenceVariableCharacteristicInstancesSurrogate.instancesQuantity,
+      this@EvidenceVariableCharacteristicInstancesSurrogate.instancesRange,
+    )!!
+
+  public companion object {
+    public fun fromModel(
+      model: EvidenceVariable.Characteristic.Instances
+    ): EvidenceVariableCharacteristicInstancesSurrogate =
+      with(model) {
+        EvidenceVariableCharacteristicInstancesSurrogate(
+          instancesQuantity = this@with.asQuantity()?.value,
+          instancesRange = this@with.asRange()?.value,
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class EvidenceVariableCharacteristicDurationSurrogate(
+  public var durationQuantity: Quantity? = null,
+  public var durationRange: Range? = null,
+) {
+  public fun toModel(): EvidenceVariable.Characteristic.Duration =
+    EvidenceVariable.Characteristic.Duration?.from(
+      this@EvidenceVariableCharacteristicDurationSurrogate.durationQuantity,
+      this@EvidenceVariableCharacteristicDurationSurrogate.durationRange,
+    )!!
+
+  public companion object {
+    public fun fromModel(
+      model: EvidenceVariable.Characteristic.Duration
+    ): EvidenceVariableCharacteristicDurationSurrogate =
+      with(model) {
+        EvidenceVariableCharacteristicDurationSurrogate(
+          durationQuantity = this@with.asQuantity()?.value,
+          durationRange = this@with.asRange()?.value,
         )
       }
   }
@@ -290,10 +375,8 @@ internal data class EvidenceVariableCharacteristicSurrogate(
     null,
   public var definitionByCombination: EvidenceVariable.Characteristic.DefinitionByCombination? =
     null,
-  public var instancesQuantity: Quantity? = null,
-  public var instancesRange: Range? = null,
-  public var durationQuantity: Quantity? = null,
-  public var durationRange: Range? = null,
+  public var instances: EvidenceVariable.Characteristic.Instances? = null,
+  public var duration: EvidenceVariable.Characteristic.Duration? = null,
   public var timeFromEvent: MutableList<EvidenceVariable.Characteristic.TimeFromEvent>? = null,
 ) {
   public fun toModel(): EvidenceVariable.Characteristic =
@@ -336,16 +419,8 @@ internal data class EvidenceVariableCharacteristicSurrogate(
         this@EvidenceVariableCharacteristicSurrogate.definitionByTypeAndValue,
       definitionByCombination =
         this@EvidenceVariableCharacteristicSurrogate.definitionByCombination,
-      instances =
-        EvidenceVariable.Characteristic.Instances?.from(
-          this@EvidenceVariableCharacteristicSurrogate.instancesQuantity,
-          this@EvidenceVariableCharacteristicSurrogate.instancesRange,
-        ),
-      duration =
-        EvidenceVariable.Characteristic.Duration?.from(
-          this@EvidenceVariableCharacteristicSurrogate.durationQuantity,
-          this@EvidenceVariableCharacteristicSurrogate.durationRange,
-        ),
+      instances = this@EvidenceVariableCharacteristicSurrogate.instances,
+      duration = this@EvidenceVariableCharacteristicSurrogate.duration,
       timeFromEvent = this@EvidenceVariableCharacteristicSurrogate.timeFromEvent ?: mutableListOf(),
     )
 
@@ -374,11 +449,36 @@ internal data class EvidenceVariableCharacteristicSurrogate(
           _definitionId = this@with.definitionId?.toElement(),
           definitionByTypeAndValue = this@with.definitionByTypeAndValue,
           definitionByCombination = this@with.definitionByCombination,
-          instancesQuantity = this@with.instances?.asQuantity()?.value,
-          instancesRange = this@with.instances?.asRange()?.value,
-          durationQuantity = this@with.duration?.asQuantity()?.value,
-          durationRange = this@with.duration?.asRange()?.value,
+          instances = this@with.instances,
+          duration = this@with.duration,
           timeFromEvent = this@with.timeFromEvent.takeUnless { it.all { it == null } },
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class EvidenceVariableCategoryValueSurrogate(
+  public var valueCodeableConcept: CodeableConcept? = null,
+  public var valueQuantity: Quantity? = null,
+  public var valueRange: Range? = null,
+) {
+  public fun toModel(): EvidenceVariable.Category.Value =
+    EvidenceVariable.Category.Value?.from(
+      this@EvidenceVariableCategoryValueSurrogate.valueCodeableConcept,
+      this@EvidenceVariableCategoryValueSurrogate.valueQuantity,
+      this@EvidenceVariableCategoryValueSurrogate.valueRange,
+    )!!
+
+  public companion object {
+    public fun fromModel(
+      model: EvidenceVariable.Category.Value
+    ): EvidenceVariableCategoryValueSurrogate =
+      with(model) {
+        EvidenceVariableCategoryValueSurrogate(
+          valueCodeableConcept = this@with.asCodeableConcept()?.value,
+          valueQuantity = this@with.asQuantity()?.value,
+          valueRange = this@with.asRange()?.value,
         )
       }
   }
@@ -391,9 +491,7 @@ internal data class EvidenceVariableCategorySurrogate(
   public var modifierExtension: MutableList<Extension>? = null,
   public var name: KotlinString? = null,
   public var _name: Element? = null,
-  public var valueCodeableConcept: CodeableConcept? = null,
-  public var valueQuantity: Quantity? = null,
-  public var valueRange: Range? = null,
+  public var `value`: EvidenceVariable.Category.Value? = null,
 ) {
   public fun toModel(): EvidenceVariable.Category =
     EvidenceVariable.Category(
@@ -406,12 +504,7 @@ internal data class EvidenceVariableCategorySurrogate(
           this@EvidenceVariableCategorySurrogate.name,
           this@EvidenceVariableCategorySurrogate._name,
         ),
-      `value` =
-        EvidenceVariable.Category.Value?.from(
-          this@EvidenceVariableCategorySurrogate.valueCodeableConcept,
-          this@EvidenceVariableCategorySurrogate.valueQuantity,
-          this@EvidenceVariableCategorySurrogate.valueRange,
-        ),
+      `value` = this@EvidenceVariableCategorySurrogate.`value`,
     )
 
   public companion object {
@@ -423,9 +516,36 @@ internal data class EvidenceVariableCategorySurrogate(
           modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
           name = this@with.name?.value,
           _name = this@with.name?.toElement(),
-          valueCodeableConcept = this@with.`value`?.asCodeableConcept()?.value,
-          valueQuantity = this@with.`value`?.asQuantity()?.value,
-          valueRange = this@with.`value`?.asRange()?.value,
+          `value` = this@with.`value`,
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class EvidenceVariableVersionAlgorithmSurrogate(
+  public var versionAlgorithmString: KotlinString? = null,
+  public var _versionAlgorithmString: Element? = null,
+  public var versionAlgorithmCoding: Coding? = null,
+) {
+  public fun toModel(): EvidenceVariable.VersionAlgorithm =
+    EvidenceVariable.VersionAlgorithm?.from(
+      R5String.of(
+        this@EvidenceVariableVersionAlgorithmSurrogate.versionAlgorithmString,
+        this@EvidenceVariableVersionAlgorithmSurrogate._versionAlgorithmString,
+      ),
+      this@EvidenceVariableVersionAlgorithmSurrogate.versionAlgorithmCoding,
+    )!!
+
+  public companion object {
+    public fun fromModel(
+      model: EvidenceVariable.VersionAlgorithm
+    ): EvidenceVariableVersionAlgorithmSurrogate =
+      with(model) {
+        EvidenceVariableVersionAlgorithmSurrogate(
+          versionAlgorithmString = this@with.asString()?.value?.value,
+          _versionAlgorithmString = this@with.asString()?.value?.toElement(),
+          versionAlgorithmCoding = this@with.asCoding()?.value,
         )
       }
   }
@@ -448,9 +568,7 @@ internal data class EvidenceVariableSurrogate(
   public var identifier: MutableList<Identifier>? = null,
   public var version: KotlinString? = null,
   public var _version: Element? = null,
-  public var versionAlgorithmString: KotlinString? = null,
-  public var _versionAlgorithmString: Element? = null,
-  public var versionAlgorithmCoding: Coding? = null,
+  public var versionAlgorithm: EvidenceVariable.VersionAlgorithm? = null,
   public var name: KotlinString? = null,
   public var _name: Element? = null,
   public var title: KotlinString? = null,
@@ -515,14 +633,7 @@ internal data class EvidenceVariableSurrogate(
           this@EvidenceVariableSurrogate.version,
           this@EvidenceVariableSurrogate._version,
         ),
-      versionAlgorithm =
-        EvidenceVariable.VersionAlgorithm?.from(
-          R5String.of(
-            this@EvidenceVariableSurrogate.versionAlgorithmString,
-            this@EvidenceVariableSurrogate._versionAlgorithmString,
-          ),
-          this@EvidenceVariableSurrogate.versionAlgorithmCoding,
-        ),
+      versionAlgorithm = this@EvidenceVariableSurrogate.versionAlgorithm,
       name = R5String.of(this@EvidenceVariableSurrogate.name, this@EvidenceVariableSurrogate._name),
       title =
         R5String.of(this@EvidenceVariableSurrogate.title, this@EvidenceVariableSurrogate._title),
@@ -627,9 +738,7 @@ internal data class EvidenceVariableSurrogate(
           identifier = this@with.identifier.takeUnless { it.all { it == null } },
           version = this@with.version?.value,
           _version = this@with.version?.toElement(),
-          versionAlgorithmString = this@with.versionAlgorithm?.asString()?.value?.value,
-          _versionAlgorithmString = this@with.versionAlgorithm?.asString()?.value?.toElement(),
-          versionAlgorithmCoding = this@with.versionAlgorithm?.asCoding()?.value,
+          versionAlgorithm = this@with.versionAlgorithm,
           name = this@with.name?.value,
           _name = this@with.name?.toElement(),
           title = this@with.title?.value,

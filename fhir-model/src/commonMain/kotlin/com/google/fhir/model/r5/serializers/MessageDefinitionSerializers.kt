@@ -18,15 +18,25 @@
 
 package com.google.fhir.model.r5.serializers
 
+import com.google.fhir.model.r5.FhirJsonTransformer
 import com.google.fhir.model.r5.MessageDefinition
 import com.google.fhir.model.r5.surrogates.MessageDefinitionAllowedResponseSurrogate
+import com.google.fhir.model.r5.surrogates.MessageDefinitionEventSurrogate
 import com.google.fhir.model.r5.surrogates.MessageDefinitionFocusSurrogate
 import com.google.fhir.model.r5.surrogates.MessageDefinitionSurrogate
+import com.google.fhir.model.r5.surrogates.MessageDefinitionVersionAlgorithmSurrogate
+import kotlin.String
 import kotlin.Suppress
+import kotlin.collections.List
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.descriptors.SerialDescriptor
 import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
+import kotlinx.serialization.json.JsonDecoder
+import kotlinx.serialization.json.JsonEncoder
+import kotlinx.serialization.json.JsonObject
+import kotlinx.serialization.json.JsonPrimitive
+import kotlinx.serialization.json.jsonObject
 
 public object MessageDefinitionFocusSerializer : KSerializer<MessageDefinition.Focus> {
   internal val surrogateSerializer: KSerializer<MessageDefinitionFocusSurrogate> by lazy {
@@ -66,19 +76,88 @@ public object MessageDefinitionAllowedResponseSerializer :
   }
 }
 
+public object MessageDefinitionVersionAlgorithmSerializer :
+  KSerializer<MessageDefinition.VersionAlgorithm> {
+  internal val surrogateSerializer:
+    KSerializer<MessageDefinitionVersionAlgorithmSurrogate> by lazy {
+    MessageDefinitionVersionAlgorithmSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("VersionAlgorithm", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): MessageDefinition.VersionAlgorithm =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: MessageDefinition.VersionAlgorithm) {
+    surrogateSerializer.serialize(
+      encoder,
+      MessageDefinitionVersionAlgorithmSurrogate.fromModel(value),
+    )
+  }
+}
+
+public object MessageDefinitionEventSerializer : KSerializer<MessageDefinition.Event> {
+  internal val surrogateSerializer: KSerializer<MessageDefinitionEventSurrogate> by lazy {
+    MessageDefinitionEventSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Event", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): MessageDefinition.Event =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: MessageDefinition.Event) {
+    surrogateSerializer.serialize(encoder, MessageDefinitionEventSurrogate.fromModel(value))
+  }
+}
+
 public object MessageDefinitionSerializer : KSerializer<MessageDefinition> {
   internal val surrogateSerializer: KSerializer<MessageDefinitionSurrogate> by lazy {
     MessageDefinitionSurrogate.serializer()
   }
 
+  private val resourceType: String? = "MessageDefinition"
+
+  private val multiChoiceProperties: List<String> = listOf("versionAlgorithm", "event")
+
   override val descriptor: SerialDescriptor by lazy {
     SerialDescriptor("MessageDefinition", surrogateSerializer.descriptor)
   }
 
-  override fun deserialize(decoder: Decoder): MessageDefinition =
-    surrogateSerializer.deserialize(decoder).toModel()
+  override fun deserialize(decoder: Decoder): MessageDefinition {
+    val jsonDecoder =
+      decoder as? JsonDecoder ?: error("This serializer only supports JSON decoding")
+    val oldJsonObject =
+      if (resourceType.isNullOrBlank()) {
+        jsonDecoder.decodeJsonElement().jsonObject
+      } else
+        JsonObject(
+          jsonDecoder.decodeJsonElement().jsonObject.toMutableMap().apply { remove("resourceType") }
+        )
+    val unflattenedJsonObject = FhirJsonTransformer.unflatten(oldJsonObject, multiChoiceProperties)
+    val surrogate =
+      jsonDecoder.json.decodeFromJsonElement(surrogateSerializer, unflattenedJsonObject)
+    return surrogate.toModel()
+  }
 
   override fun serialize(encoder: Encoder, `value`: MessageDefinition) {
-    surrogateSerializer.serialize(encoder, MessageDefinitionSurrogate.fromModel(value))
+    val jsonEncoder =
+      encoder as? JsonEncoder ?: error("This serializer only supports JSON encoding")
+    val surrogate = MessageDefinitionSurrogate.fromModel(value)
+    val oldJsonObject =
+      if (resourceType.isNullOrBlank()) {
+        jsonEncoder.json.encodeToJsonElement(surrogateSerializer, surrogate).jsonObject
+      } else {
+        JsonObject(
+          mutableMapOf("resourceType" to JsonPrimitive(resourceType))
+            .plus(jsonEncoder.json.encodeToJsonElement(surrogateSerializer, surrogate).jsonObject)
+        )
+      }
+    val flattenedJsonObject = FhirJsonTransformer.flatten(oldJsonObject, multiChoiceProperties)
+    jsonEncoder.encodeJsonElement(flattenedJsonObject)
   }
 }

@@ -19,17 +19,26 @@
 package com.google.fhir.model.r4b.serializers
 
 import com.google.fhir.model.r4b.AuditEvent
+import com.google.fhir.model.r4b.FhirJsonTransformer
 import com.google.fhir.model.r4b.surrogates.AuditEventAgentNetworkSurrogate
 import com.google.fhir.model.r4b.surrogates.AuditEventAgentSurrogate
 import com.google.fhir.model.r4b.surrogates.AuditEventEntityDetailSurrogate
+import com.google.fhir.model.r4b.surrogates.AuditEventEntityDetailValueSurrogate
 import com.google.fhir.model.r4b.surrogates.AuditEventEntitySurrogate
 import com.google.fhir.model.r4b.surrogates.AuditEventSourceSurrogate
 import com.google.fhir.model.r4b.surrogates.AuditEventSurrogate
+import kotlin.String
 import kotlin.Suppress
+import kotlin.collections.List
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.descriptors.SerialDescriptor
 import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
+import kotlinx.serialization.json.JsonDecoder
+import kotlinx.serialization.json.JsonEncoder
+import kotlinx.serialization.json.JsonObject
+import kotlinx.serialization.json.JsonPrimitive
+import kotlinx.serialization.json.jsonObject
 
 public object AuditEventAgentNetworkSerializer : KSerializer<AuditEvent.Agent.Network> {
   internal val surrogateSerializer: KSerializer<AuditEventAgentNetworkSurrogate> by lazy {
@@ -82,20 +91,67 @@ public object AuditEventSourceSerializer : KSerializer<AuditEvent.Source> {
   }
 }
 
+public object AuditEventEntityDetailValueSerializer : KSerializer<AuditEvent.Entity.Detail.Value> {
+  internal val surrogateSerializer: KSerializer<AuditEventEntityDetailValueSurrogate> by lazy {
+    AuditEventEntityDetailValueSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Value", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): AuditEvent.Entity.Detail.Value =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: AuditEvent.Entity.Detail.Value) {
+    surrogateSerializer.serialize(encoder, AuditEventEntityDetailValueSurrogate.fromModel(value))
+  }
+}
+
 public object AuditEventEntityDetailSerializer : KSerializer<AuditEvent.Entity.Detail> {
   internal val surrogateSerializer: KSerializer<AuditEventEntityDetailSurrogate> by lazy {
     AuditEventEntityDetailSurrogate.serializer()
   }
 
+  private val resourceType: String? = null
+
+  private val multiChoiceProperties: List<String> = listOf("value")
+
   override val descriptor: SerialDescriptor by lazy {
     SerialDescriptor("Detail", surrogateSerializer.descriptor)
   }
 
-  override fun deserialize(decoder: Decoder): AuditEvent.Entity.Detail =
-    surrogateSerializer.deserialize(decoder).toModel()
+  override fun deserialize(decoder: Decoder): AuditEvent.Entity.Detail {
+    val jsonDecoder =
+      decoder as? JsonDecoder ?: error("This serializer only supports JSON decoding")
+    val oldJsonObject =
+      if (resourceType.isNullOrBlank()) {
+        jsonDecoder.decodeJsonElement().jsonObject
+      } else
+        JsonObject(
+          jsonDecoder.decodeJsonElement().jsonObject.toMutableMap().apply { remove("resourceType") }
+        )
+    val unflattenedJsonObject = FhirJsonTransformer.unflatten(oldJsonObject, multiChoiceProperties)
+    val surrogate =
+      jsonDecoder.json.decodeFromJsonElement(surrogateSerializer, unflattenedJsonObject)
+    return surrogate.toModel()
+  }
 
   override fun serialize(encoder: Encoder, `value`: AuditEvent.Entity.Detail) {
-    surrogateSerializer.serialize(encoder, AuditEventEntityDetailSurrogate.fromModel(value))
+    val jsonEncoder =
+      encoder as? JsonEncoder ?: error("This serializer only supports JSON encoding")
+    val surrogate = AuditEventEntityDetailSurrogate.fromModel(value)
+    val oldJsonObject =
+      if (resourceType.isNullOrBlank()) {
+        jsonEncoder.json.encodeToJsonElement(surrogateSerializer, surrogate).jsonObject
+      } else {
+        JsonObject(
+          mutableMapOf("resourceType" to JsonPrimitive(resourceType))
+            .plus(jsonEncoder.json.encodeToJsonElement(surrogateSerializer, surrogate).jsonObject)
+        )
+      }
+    val flattenedJsonObject = FhirJsonTransformer.flatten(oldJsonObject, multiChoiceProperties)
+    jsonEncoder.encodeJsonElement(flattenedJsonObject)
   }
 }
 

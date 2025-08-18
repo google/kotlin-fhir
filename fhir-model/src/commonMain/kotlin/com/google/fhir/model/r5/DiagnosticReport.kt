@@ -18,6 +18,7 @@
 
 package com.google.fhir.model.r5
 
+import com.google.fhir.model.r5.serializers.DiagnosticReportEffectiveSerializer
 import com.google.fhir.model.r5.serializers.DiagnosticReportMediaSerializer
 import com.google.fhir.model.r5.serializers.DiagnosticReportSerializer
 import com.google.fhir.model.r5.serializers.DiagnosticReportSupportingInfoSerializer
@@ -393,6 +394,7 @@ public data class DiagnosticReport(
     public var link: Reference,
   ) : BackboneElement()
 
+  @Serializable(with = DiagnosticReportEffectiveSerializer::class)
   public sealed interface Effective {
     public fun asDateTime(): DateTime? = this as? DateTime
 

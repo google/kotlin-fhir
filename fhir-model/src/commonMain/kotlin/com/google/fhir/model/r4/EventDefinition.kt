@@ -19,6 +19,7 @@
 package com.google.fhir.model.r4
 
 import com.google.fhir.model.r4.serializers.EventDefinitionSerializer
+import com.google.fhir.model.r4.serializers.EventDefinitionSubjectSerializer
 import kotlin.Suppress
 import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
@@ -330,6 +331,7 @@ public data class EventDefinition(
    */
   public var trigger: MutableList<TriggerDefinition> = mutableListOf(),
 ) : DomainResource() {
+  @Serializable(with = EventDefinitionSubjectSerializer::class)
   public sealed interface Subject {
     public fun asCodeableConcept(): CodeableConcept? = this as? CodeableConcept
 

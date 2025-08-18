@@ -19,6 +19,7 @@
 package com.google.fhir.model.r4b
 
 import com.google.fhir.model.r4b.serializers.MedicinalProductDefinitionCharacteristicSerializer
+import com.google.fhir.model.r4b.serializers.MedicinalProductDefinitionCharacteristicValueSerializer
 import com.google.fhir.model.r4b.serializers.MedicinalProductDefinitionContactSerializer
 import com.google.fhir.model.r4b.serializers.MedicinalProductDefinitionCrossReferenceSerializer
 import com.google.fhir.model.r4b.serializers.MedicinalProductDefinitionNameCountryLanguageSerializer
@@ -615,6 +616,7 @@ public data class MedicinalProductDefinition(
     /** A value for the characteristic. */
     public var `value`: Value? = null,
   ) : BackboneElement() {
+    @Serializable(with = MedicinalProductDefinitionCharacteristicValueSerializer::class)
     public sealed interface Value {
       public fun asCodeableConcept(): CodeableConcept? = this as? CodeableConcept
 

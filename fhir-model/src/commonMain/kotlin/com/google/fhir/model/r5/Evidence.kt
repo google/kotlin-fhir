@@ -19,6 +19,7 @@
 package com.google.fhir.model.r5
 
 import com.google.fhir.model.r5.serializers.EvidenceCertaintySerializer
+import com.google.fhir.model.r5.serializers.EvidenceCiteAsSerializer
 import com.google.fhir.model.r5.serializers.EvidenceSerializer
 import com.google.fhir.model.r5.serializers.EvidenceStatisticAttributeEstimateSerializer
 import com.google.fhir.model.r5.serializers.EvidenceStatisticModelCharacteristicSerializer
@@ -26,6 +27,7 @@ import com.google.fhir.model.r5.serializers.EvidenceStatisticModelCharacteristic
 import com.google.fhir.model.r5.serializers.EvidenceStatisticSampleSizeSerializer
 import com.google.fhir.model.r5.serializers.EvidenceStatisticSerializer
 import com.google.fhir.model.r5.serializers.EvidenceVariableDefinitionSerializer
+import com.google.fhir.model.r5.serializers.EvidenceVersionAlgorithmSerializer
 import kotlin.Suppress
 import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
@@ -788,6 +790,7 @@ public data class Evidence(
     public var subcomponent: MutableList<Certainty> = mutableListOf(),
   ) : BackboneElement()
 
+  @Serializable(with = EvidenceVersionAlgorithmSerializer::class)
   public sealed interface VersionAlgorithm {
     public fun asString(): String? = this as? String
 
@@ -811,6 +814,7 @@ public data class Evidence(
     }
   }
 
+  @Serializable(with = EvidenceCiteAsSerializer::class)
   public sealed interface CiteAs {
     public fun asReference(): Reference? = this as? Reference
 

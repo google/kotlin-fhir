@@ -18,6 +18,7 @@
 
 package com.google.fhir.model.r5
 
+import com.google.fhir.model.r5.serializers.VirtualServiceDetailAddressSerializer
 import com.google.fhir.model.r5.serializers.VirtualServiceDetailSerializer
 import kotlin.Suppress
 import kotlin.collections.MutableList
@@ -86,6 +87,7 @@ public data class VirtualServiceDetail(
    */
   public var sessionKey: String? = null,
 ) : DataType() {
+  @Serializable(with = VirtualServiceDetailAddressSerializer::class)
   public sealed interface Address {
     public fun asUrl(): Url? = this as? Url
 

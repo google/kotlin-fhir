@@ -18,6 +18,7 @@
 
 package com.google.fhir.model.r5
 
+import com.google.fhir.model.r5.serializers.ProductShelfLifePeriodSerializer
 import com.google.fhir.model.r5.serializers.ProductShelfLifeSerializer
 import kotlin.String
 import kotlin.Suppress
@@ -87,6 +88,7 @@ public data class ProductShelfLife(
    */
   public var specialPrecautionsForStorage: MutableList<CodeableConcept> = mutableListOf(),
 ) : BackboneType() {
+  @Serializable(with = ProductShelfLifePeriodSerializer::class)
   public sealed interface Period {
     public fun asDuration(): Duration? = this as? Duration
 

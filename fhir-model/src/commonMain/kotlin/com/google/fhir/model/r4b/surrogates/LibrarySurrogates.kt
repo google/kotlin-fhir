@@ -55,6 +55,28 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
+internal data class LibrarySubjectSurrogate(
+  public var subjectCodeableConcept: CodeableConcept? = null,
+  public var subjectReference: Reference? = null,
+) {
+  public fun toModel(): Library.Subject =
+    Library.Subject?.from(
+      this@LibrarySubjectSurrogate.subjectCodeableConcept,
+      this@LibrarySubjectSurrogate.subjectReference,
+    )!!
+
+  public companion object {
+    public fun fromModel(model: Library.Subject): LibrarySubjectSurrogate =
+      with(model) {
+        LibrarySubjectSurrogate(
+          subjectCodeableConcept = this@with.asCodeableConcept()?.value,
+          subjectReference = this@with.asReference()?.value,
+        )
+      }
+  }
+}
+
+@Serializable
 internal data class LibrarySurrogate(
   public var id: KotlinString? = null,
   public var meta: Meta? = null,
@@ -82,8 +104,7 @@ internal data class LibrarySurrogate(
   public var experimental: KotlinBoolean? = null,
   public var _experimental: Element? = null,
   public var type: CodeableConcept,
-  public var subjectCodeableConcept: CodeableConcept? = null,
-  public var subjectReference: Reference? = null,
+  public var subject: Library.Subject? = null,
   public var date: KotlinString? = null,
   public var _date: Element? = null,
   public var publisher: KotlinString? = null,
@@ -139,11 +160,7 @@ internal data class LibrarySurrogate(
       experimental =
         R4bBoolean.of(this@LibrarySurrogate.experimental, this@LibrarySurrogate._experimental),
       type = this@LibrarySurrogate.type,
-      subject =
-        Library.Subject?.from(
-          this@LibrarySurrogate.subjectCodeableConcept,
-          this@LibrarySurrogate.subjectReference,
-        ),
+      subject = this@LibrarySurrogate.subject,
       date =
         DateTime.of(
           FhirDateTime.fromString(this@LibrarySurrogate.date),
@@ -210,8 +227,7 @@ internal data class LibrarySurrogate(
           experimental = this@with.experimental?.value,
           _experimental = this@with.experimental?.toElement(),
           type = this@with.type,
-          subjectCodeableConcept = this@with.subject?.asCodeableConcept()?.value,
-          subjectReference = this@with.subject?.asReference()?.value,
+          subject = this@with.subject,
           date = this@with.date?.value?.toString(),
           _date = this@with.date?.toElement(),
           publisher = this@with.publisher?.value,

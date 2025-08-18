@@ -50,11 +50,7 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
-internal data class AdministrableProductDefinitionPropertySurrogate(
-  public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var type: CodeableConcept,
+internal data class AdministrableProductDefinitionPropertyValueSurrogate(
   public var valueCodeableConcept: CodeableConcept? = null,
   public var valueQuantity: Quantity? = null,
   public var valueDate: KotlinString? = null,
@@ -65,6 +61,55 @@ internal data class AdministrableProductDefinitionPropertySurrogate(
   public var _valueMarkdown: Element? = null,
   public var valueAttachment: Attachment? = null,
   public var valueReference: Reference? = null,
+) {
+  public fun toModel(): AdministrableProductDefinition.Property.Value =
+    AdministrableProductDefinition.Property.Value?.from(
+      this@AdministrableProductDefinitionPropertyValueSurrogate.valueCodeableConcept,
+      this@AdministrableProductDefinitionPropertyValueSurrogate.valueQuantity,
+      Date.of(
+        FhirDate.fromString(this@AdministrableProductDefinitionPropertyValueSurrogate.valueDate),
+        this@AdministrableProductDefinitionPropertyValueSurrogate._valueDate,
+      ),
+      R5Boolean.of(
+        this@AdministrableProductDefinitionPropertyValueSurrogate.valueBoolean,
+        this@AdministrableProductDefinitionPropertyValueSurrogate._valueBoolean,
+      ),
+      Markdown.of(
+        this@AdministrableProductDefinitionPropertyValueSurrogate.valueMarkdown,
+        this@AdministrableProductDefinitionPropertyValueSurrogate._valueMarkdown,
+      ),
+      this@AdministrableProductDefinitionPropertyValueSurrogate.valueAttachment,
+      this@AdministrableProductDefinitionPropertyValueSurrogate.valueReference,
+    )!!
+
+  public companion object {
+    public fun fromModel(
+      model: AdministrableProductDefinition.Property.Value
+    ): AdministrableProductDefinitionPropertyValueSurrogate =
+      with(model) {
+        AdministrableProductDefinitionPropertyValueSurrogate(
+          valueCodeableConcept = this@with.asCodeableConcept()?.value,
+          valueQuantity = this@with.asQuantity()?.value,
+          valueDate = this@with.asDate()?.value?.value?.toString(),
+          _valueDate = this@with.asDate()?.value?.toElement(),
+          valueBoolean = this@with.asBoolean()?.value?.value,
+          _valueBoolean = this@with.asBoolean()?.value?.toElement(),
+          valueMarkdown = this@with.asMarkdown()?.value?.value,
+          _valueMarkdown = this@with.asMarkdown()?.value?.toElement(),
+          valueAttachment = this@with.asAttachment()?.value,
+          valueReference = this@with.asReference()?.value,
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class AdministrableProductDefinitionPropertySurrogate(
+  public var id: KotlinString? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var type: CodeableConcept,
+  public var `value`: AdministrableProductDefinition.Property.Value? = null,
   public var status: CodeableConcept? = null,
 ) {
   public fun toModel(): AdministrableProductDefinition.Property =
@@ -74,25 +119,7 @@ internal data class AdministrableProductDefinitionPropertySurrogate(
       modifierExtension =
         this@AdministrableProductDefinitionPropertySurrogate.modifierExtension ?: mutableListOf(),
       type = this@AdministrableProductDefinitionPropertySurrogate.type,
-      `value` =
-        AdministrableProductDefinition.Property.Value?.from(
-          this@AdministrableProductDefinitionPropertySurrogate.valueCodeableConcept,
-          this@AdministrableProductDefinitionPropertySurrogate.valueQuantity,
-          Date.of(
-            FhirDate.fromString(this@AdministrableProductDefinitionPropertySurrogate.valueDate),
-            this@AdministrableProductDefinitionPropertySurrogate._valueDate,
-          ),
-          R5Boolean.of(
-            this@AdministrableProductDefinitionPropertySurrogate.valueBoolean,
-            this@AdministrableProductDefinitionPropertySurrogate._valueBoolean,
-          ),
-          Markdown.of(
-            this@AdministrableProductDefinitionPropertySurrogate.valueMarkdown,
-            this@AdministrableProductDefinitionPropertySurrogate._valueMarkdown,
-          ),
-          this@AdministrableProductDefinitionPropertySurrogate.valueAttachment,
-          this@AdministrableProductDefinitionPropertySurrogate.valueReference,
-        ),
+      `value` = this@AdministrableProductDefinitionPropertySurrogate.`value`,
       status = this@AdministrableProductDefinitionPropertySurrogate.status,
     )
 
@@ -106,16 +133,7 @@ internal data class AdministrableProductDefinitionPropertySurrogate(
           extension = this@with.extension.takeUnless { it.all { it == null } },
           modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
           type = this@with.type,
-          valueCodeableConcept = this@with.`value`?.asCodeableConcept()?.value,
-          valueQuantity = this@with.`value`?.asQuantity()?.value,
-          valueDate = this@with.`value`?.asDate()?.value?.value?.toString(),
-          _valueDate = this@with.`value`?.asDate()?.value?.toElement(),
-          valueBoolean = this@with.`value`?.asBoolean()?.value?.value,
-          _valueBoolean = this@with.`value`?.asBoolean()?.value?.toElement(),
-          valueMarkdown = this@with.`value`?.asMarkdown()?.value?.value,
-          _valueMarkdown = this@with.`value`?.asMarkdown()?.value?.toElement(),
-          valueAttachment = this@with.`value`?.asAttachment()?.value,
-          valueReference = this@with.`value`?.asReference()?.value,
+          `value` = this@with.`value`,
           status = this@with.status,
         )
       }

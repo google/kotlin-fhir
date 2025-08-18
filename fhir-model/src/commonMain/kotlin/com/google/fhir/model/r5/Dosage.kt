@@ -18,6 +18,8 @@
 
 package com.google.fhir.model.r5
 
+import com.google.fhir.model.r5.serializers.DosageDoseAndRateDoseSerializer
+import com.google.fhir.model.r5.serializers.DosageDoseAndRateRateSerializer
 import com.google.fhir.model.r5.serializers.DosageDoseAndRateSerializer
 import com.google.fhir.model.r5.serializers.DosageSerializer
 import kotlin.Suppress
@@ -205,6 +207,7 @@ public data class Dosage(
      */
     public var rate: Rate? = null,
   ) : Element() {
+    @Serializable(with = DosageDoseAndRateDoseSerializer::class)
     public sealed interface Dose {
       public fun asRange(): Range? = this as? Range
 
@@ -226,6 +229,7 @@ public data class Dosage(
       }
     }
 
+    @Serializable(with = DosageDoseAndRateRateSerializer::class)
     public sealed interface Rate {
       public fun asRatio(): Ratio? = this as? Ratio
 

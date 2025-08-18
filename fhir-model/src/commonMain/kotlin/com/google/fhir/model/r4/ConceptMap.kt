@@ -24,6 +24,8 @@ import com.google.fhir.model.r4.serializers.ConceptMapGroupElementTargetSerializ
 import com.google.fhir.model.r4.serializers.ConceptMapGroupSerializer
 import com.google.fhir.model.r4.serializers.ConceptMapGroupUnmappedSerializer
 import com.google.fhir.model.r4.serializers.ConceptMapSerializer
+import com.google.fhir.model.r4.serializers.ConceptMapSourceSerializer
+import com.google.fhir.model.r4.serializers.ConceptMapTargetSerializer
 import kotlin.Suppress
 import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
@@ -652,6 +654,7 @@ public data class ConceptMap(
     ) : BackboneElement()
   }
 
+  @Serializable(with = ConceptMapSourceSerializer::class)
   public sealed interface Source {
     public fun asUri(): Uri? = this as? Uri
 
@@ -673,6 +676,7 @@ public data class ConceptMap(
     }
   }
 
+  @Serializable(with = ConceptMapTargetSerializer::class)
   public sealed interface Target {
     public fun asUri(): Uri? = this as? Uri
 

@@ -21,12 +21,14 @@ package com.google.fhir.model.r5
 import com.google.fhir.model.r5.serializers.ExampleScenarioActorSerializer
 import com.google.fhir.model.r5.serializers.ExampleScenarioInstanceContainedInstanceSerializer
 import com.google.fhir.model.r5.serializers.ExampleScenarioInstanceSerializer
+import com.google.fhir.model.r5.serializers.ExampleScenarioInstanceStructureProfileSerializer
 import com.google.fhir.model.r5.serializers.ExampleScenarioInstanceVersionSerializer
 import com.google.fhir.model.r5.serializers.ExampleScenarioProcessSerializer
 import com.google.fhir.model.r5.serializers.ExampleScenarioProcessStepAlternativeSerializer
 import com.google.fhir.model.r5.serializers.ExampleScenarioProcessStepOperationSerializer
 import com.google.fhir.model.r5.serializers.ExampleScenarioProcessStepSerializer
 import com.google.fhir.model.r5.serializers.ExampleScenarioSerializer
+import com.google.fhir.model.r5.serializers.ExampleScenarioVersionAlgorithmSerializer
 import kotlin.Suppress
 import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
@@ -559,6 +561,7 @@ public data class ExampleScenario(
       public var versionReference: String? = null,
     ) : BackboneElement()
 
+    @Serializable(with = ExampleScenarioInstanceStructureProfileSerializer::class)
     public sealed interface StructureProfile {
       public fun asCanonical(): Canonical? = this as? Canonical
 
@@ -862,6 +865,7 @@ public data class ExampleScenario(
     }
   }
 
+  @Serializable(with = ExampleScenarioVersionAlgorithmSerializer::class)
   public sealed interface VersionAlgorithm {
     public fun asString(): String? = this as? String
 

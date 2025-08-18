@@ -18,9 +18,12 @@
 
 package com.google.fhir.model.r4
 
+import com.google.fhir.model.r4.serializers.BiologicallyDerivedProductCollectionCollectedSerializer
 import com.google.fhir.model.r4.serializers.BiologicallyDerivedProductCollectionSerializer
 import com.google.fhir.model.r4.serializers.BiologicallyDerivedProductManipulationSerializer
+import com.google.fhir.model.r4.serializers.BiologicallyDerivedProductManipulationTimeSerializer
 import com.google.fhir.model.r4.serializers.BiologicallyDerivedProductProcessingSerializer
+import com.google.fhir.model.r4.serializers.BiologicallyDerivedProductProcessingTimeSerializer
 import com.google.fhir.model.r4.serializers.BiologicallyDerivedProductSerializer
 import com.google.fhir.model.r4.serializers.BiologicallyDerivedProductStorageSerializer
 import kotlin.Suppress
@@ -223,6 +226,7 @@ public data class BiologicallyDerivedProduct(
     /** Time of product collection. */
     public var collected: Collected? = null,
   ) : BackboneElement() {
+    @Serializable(with = BiologicallyDerivedProductCollectionCollectedSerializer::class)
     public sealed interface Collected {
       public fun asDateTime(): DateTime? = this as? DateTime
 
@@ -298,6 +302,7 @@ public data class BiologicallyDerivedProduct(
     /** Time of processing. */
     public var time: Time? = null,
   ) : BackboneElement() {
+    @Serializable(with = BiologicallyDerivedProductProcessingTimeSerializer::class)
     public sealed interface Time {
       public fun asDateTime(): DateTime? = this as? DateTime
 
@@ -369,6 +374,7 @@ public data class BiologicallyDerivedProduct(
     /** Time of manipulation. */
     public var time: Time? = null,
   ) : BackboneElement() {
+    @Serializable(with = BiologicallyDerivedProductManipulationTimeSerializer::class)
     public sealed interface Time {
       public fun asDateTime(): DateTime? = this as? DateTime
 

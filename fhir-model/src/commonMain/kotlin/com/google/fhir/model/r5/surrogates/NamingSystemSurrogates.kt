@@ -127,6 +127,35 @@ internal data class NamingSystemUniqueIdSurrogate(
 }
 
 @Serializable
+internal data class NamingSystemVersionAlgorithmSurrogate(
+  public var versionAlgorithmString: KotlinString? = null,
+  public var _versionAlgorithmString: Element? = null,
+  public var versionAlgorithmCoding: Coding? = null,
+) {
+  public fun toModel(): NamingSystem.VersionAlgorithm =
+    NamingSystem.VersionAlgorithm?.from(
+      R5String.of(
+        this@NamingSystemVersionAlgorithmSurrogate.versionAlgorithmString,
+        this@NamingSystemVersionAlgorithmSurrogate._versionAlgorithmString,
+      ),
+      this@NamingSystemVersionAlgorithmSurrogate.versionAlgorithmCoding,
+    )!!
+
+  public companion object {
+    public fun fromModel(
+      model: NamingSystem.VersionAlgorithm
+    ): NamingSystemVersionAlgorithmSurrogate =
+      with(model) {
+        NamingSystemVersionAlgorithmSurrogate(
+          versionAlgorithmString = this@with.asString()?.value?.value,
+          _versionAlgorithmString = this@with.asString()?.value?.toElement(),
+          versionAlgorithmCoding = this@with.asCoding()?.value,
+        )
+      }
+  }
+}
+
+@Serializable
 internal data class NamingSystemSurrogate(
   public var id: KotlinString? = null,
   public var meta: Meta? = null,
@@ -143,9 +172,7 @@ internal data class NamingSystemSurrogate(
   public var identifier: MutableList<Identifier>? = null,
   public var version: KotlinString? = null,
   public var _version: Element? = null,
-  public var versionAlgorithmString: KotlinString? = null,
-  public var _versionAlgorithmString: Element? = null,
-  public var versionAlgorithmCoding: Coding? = null,
+  public var versionAlgorithm: NamingSystem.VersionAlgorithm? = null,
   public var name: KotlinString? = null,
   public var _name: Element? = null,
   public var title: KotlinString? = null,
@@ -204,14 +231,7 @@ internal data class NamingSystemSurrogate(
       identifier = this@NamingSystemSurrogate.identifier ?: mutableListOf(),
       version =
         R5String.of(this@NamingSystemSurrogate.version, this@NamingSystemSurrogate._version),
-      versionAlgorithm =
-        NamingSystem.VersionAlgorithm?.from(
-          R5String.of(
-            this@NamingSystemSurrogate.versionAlgorithmString,
-            this@NamingSystemSurrogate._versionAlgorithmString,
-          ),
-          this@NamingSystemSurrogate.versionAlgorithmCoding,
-        ),
+      versionAlgorithm = this@NamingSystemSurrogate.versionAlgorithm,
       name = R5String.of(this@NamingSystemSurrogate.name, this@NamingSystemSurrogate._name)!!,
       title = R5String.of(this@NamingSystemSurrogate.title, this@NamingSystemSurrogate._title),
       status =
@@ -301,9 +321,7 @@ internal data class NamingSystemSurrogate(
           identifier = this@with.identifier.takeUnless { it.all { it == null } },
           version = this@with.version?.value,
           _version = this@with.version?.toElement(),
-          versionAlgorithmString = this@with.versionAlgorithm?.asString()?.value?.value,
-          _versionAlgorithmString = this@with.versionAlgorithm?.asString()?.value?.toElement(),
-          versionAlgorithmCoding = this@with.versionAlgorithm?.asCoding()?.value,
+          versionAlgorithm = this@with.versionAlgorithm,
           name = this@with.name.value,
           _name = this@with.name.toElement(),
           title = this@with.title?.value,

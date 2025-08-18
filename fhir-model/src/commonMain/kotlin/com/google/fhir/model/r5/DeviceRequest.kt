@@ -18,7 +18,9 @@
 
 package com.google.fhir.model.r5
 
+import com.google.fhir.model.r5.serializers.DeviceRequestOccurrenceSerializer
 import com.google.fhir.model.r5.serializers.DeviceRequestParameterSerializer
+import com.google.fhir.model.r5.serializers.DeviceRequestParameterValueSerializer
 import com.google.fhir.model.r5.serializers.DeviceRequestSerializer
 import kotlin.String
 import kotlin.Suppress
@@ -296,6 +298,7 @@ public data class DeviceRequest(
      */
     public var `value`: Value? = null,
   ) : BackboneElement() {
+    @Serializable(with = DeviceRequestParameterValueSerializer::class)
     public sealed interface Value {
       public fun asCodeableConcept(): CodeableConcept? = this as? CodeableConcept
 
@@ -332,6 +335,7 @@ public data class DeviceRequest(
     }
   }
 
+  @Serializable(with = DeviceRequestOccurrenceSerializer::class)
   public sealed interface Occurrence {
     public fun asDateTime(): DateTime? = this as? DateTime
 

@@ -18,20 +18,28 @@
 
 package com.google.fhir.model.r5
 
+import com.google.fhir.model.r5.serializers.ClaimAccidentLocationSerializer
 import com.google.fhir.model.r5.serializers.ClaimAccidentSerializer
 import com.google.fhir.model.r5.serializers.ClaimCareTeamSerializer
+import com.google.fhir.model.r5.serializers.ClaimDiagnosisDiagnosisSerializer
 import com.google.fhir.model.r5.serializers.ClaimDiagnosisSerializer
 import com.google.fhir.model.r5.serializers.ClaimEventSerializer
+import com.google.fhir.model.r5.serializers.ClaimEventWhenSerializer
 import com.google.fhir.model.r5.serializers.ClaimInsuranceSerializer
 import com.google.fhir.model.r5.serializers.ClaimItemBodySiteSerializer
 import com.google.fhir.model.r5.serializers.ClaimItemDetailSerializer
 import com.google.fhir.model.r5.serializers.ClaimItemDetailSubDetailSerializer
+import com.google.fhir.model.r5.serializers.ClaimItemLocationSerializer
 import com.google.fhir.model.r5.serializers.ClaimItemSerializer
+import com.google.fhir.model.r5.serializers.ClaimItemServicedSerializer
 import com.google.fhir.model.r5.serializers.ClaimPayeeSerializer
+import com.google.fhir.model.r5.serializers.ClaimProcedureProcedureSerializer
 import com.google.fhir.model.r5.serializers.ClaimProcedureSerializer
 import com.google.fhir.model.r5.serializers.ClaimRelatedSerializer
 import com.google.fhir.model.r5.serializers.ClaimSerializer
 import com.google.fhir.model.r5.serializers.ClaimSupportingInfoSerializer
+import com.google.fhir.model.r5.serializers.ClaimSupportingInfoTimingSerializer
+import com.google.fhir.model.r5.serializers.ClaimSupportingInfoValueSerializer
 import kotlin.Suppress
 import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
@@ -501,6 +509,7 @@ public data class Claim(
      */
     public var `when`: When,
   ) : BackboneElement() {
+    @Serializable(with = ClaimEventWhenSerializer::class)
     public sealed interface When {
       public fun asDateTime(): DateTime? = this as? DateTime
 
@@ -659,6 +668,7 @@ public data class Claim(
      */
     public var reason: CodeableConcept? = null,
   ) : BackboneElement() {
+    @Serializable(with = ClaimSupportingInfoTimingSerializer::class)
     public sealed interface Timing {
       public fun asDate(): Date? = this as? Date
 
@@ -680,6 +690,7 @@ public data class Claim(
       }
     }
 
+    @Serializable(with = ClaimSupportingInfoValueSerializer::class)
     public sealed interface Value {
       public fun asBoolean(): Boolean? = this as? Boolean
 
@@ -786,6 +797,7 @@ public data class Claim(
     /** Indication of whether the diagnosis was present on admission to a facility. */
     public var onAdmission: CodeableConcept? = null,
   ) : BackboneElement() {
+    @Serializable(with = ClaimDiagnosisDiagnosisSerializer::class)
     public sealed interface Diagnosis {
       public fun asCodeableConcept(): CodeableConcept? = this as? CodeableConcept
 
@@ -869,6 +881,7 @@ public data class Claim(
     /** Unique Device Identifiers associated with this line item. */
     public var udi: MutableList<Reference> = mutableListOf(),
   ) : BackboneElement() {
+    @Serializable(with = ClaimProcedureProcedureSerializer::class)
     public sealed interface Procedure {
       public fun asCodeableConcept(): CodeableConcept? = this as? CodeableConcept
 
@@ -1049,6 +1062,7 @@ public data class Claim(
     /** The physical location of the accident event. */
     public var location: Location? = null,
   ) : BackboneElement() {
+    @Serializable(with = ClaimAccidentLocationSerializer::class)
     public sealed interface Location {
       public fun asAddress(): Address? = this as? Address
 
@@ -1537,6 +1551,7 @@ public data class Claim(
       ) : BackboneElement()
     }
 
+    @Serializable(with = ClaimItemServicedSerializer::class)
     public sealed interface Serviced {
       public fun asDate(): Date? = this as? Date
 
@@ -1558,6 +1573,7 @@ public data class Claim(
       }
     }
 
+    @Serializable(with = ClaimItemLocationSerializer::class)
     public sealed interface Location {
       public fun asCodeableConcept(): CodeableConcept? = this as? CodeableConcept
 

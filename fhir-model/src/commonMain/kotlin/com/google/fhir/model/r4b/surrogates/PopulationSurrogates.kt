@@ -32,12 +32,33 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
+internal data class PopulationAgeSurrogate(
+  public var ageRange: Range? = null,
+  public var ageCodeableConcept: CodeableConcept? = null,
+) {
+  public fun toModel(): Population.Age =
+    Population.Age?.from(
+      this@PopulationAgeSurrogate.ageRange,
+      this@PopulationAgeSurrogate.ageCodeableConcept,
+    )!!
+
+  public companion object {
+    public fun fromModel(model: Population.Age): PopulationAgeSurrogate =
+      with(model) {
+        PopulationAgeSurrogate(
+          ageRange = this@with.asRange()?.value,
+          ageCodeableConcept = this@with.asCodeableConcept()?.value,
+        )
+      }
+  }
+}
+
+@Serializable
 internal data class PopulationSurrogate(
   public var id: String? = null,
   public var extension: MutableList<Extension>? = null,
   public var modifierExtension: MutableList<Extension>? = null,
-  public var ageRange: Range? = null,
-  public var ageCodeableConcept: CodeableConcept? = null,
+  public var age: Population.Age? = null,
   public var gender: CodeableConcept? = null,
   public var race: CodeableConcept? = null,
   public var physiologicalCondition: CodeableConcept? = null,
@@ -47,11 +68,7 @@ internal data class PopulationSurrogate(
       id = this@PopulationSurrogate.id,
       extension = this@PopulationSurrogate.extension ?: mutableListOf(),
       modifierExtension = this@PopulationSurrogate.modifierExtension ?: mutableListOf(),
-      age =
-        Population.Age?.from(
-          this@PopulationSurrogate.ageRange,
-          this@PopulationSurrogate.ageCodeableConcept,
-        ),
+      age = this@PopulationSurrogate.age,
       gender = this@PopulationSurrogate.gender,
       race = this@PopulationSurrogate.race,
       physiologicalCondition = this@PopulationSurrogate.physiologicalCondition,
@@ -64,8 +81,7 @@ internal data class PopulationSurrogate(
           id = this@with.id,
           extension = this@with.extension.takeUnless { it.all { it == null } },
           modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          ageRange = this@with.age?.asRange()?.value,
-          ageCodeableConcept = this@with.age?.asCodeableConcept()?.value,
+          age = this@with.age,
           gender = this@with.gender,
           race = this@with.race,
           physiologicalCondition = this@with.physiologicalCondition,

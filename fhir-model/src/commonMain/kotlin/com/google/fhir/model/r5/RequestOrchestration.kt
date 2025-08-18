@@ -19,12 +19,16 @@
 package com.google.fhir.model.r5
 
 import com.google.fhir.model.r5.serializers.RequestOrchestrationActionConditionSerializer
+import com.google.fhir.model.r5.serializers.RequestOrchestrationActionDefinitionSerializer
 import com.google.fhir.model.r5.serializers.RequestOrchestrationActionDynamicValueSerializer
 import com.google.fhir.model.r5.serializers.RequestOrchestrationActionInputSerializer
 import com.google.fhir.model.r5.serializers.RequestOrchestrationActionOutputSerializer
+import com.google.fhir.model.r5.serializers.RequestOrchestrationActionParticipantActorSerializer
 import com.google.fhir.model.r5.serializers.RequestOrchestrationActionParticipantSerializer
+import com.google.fhir.model.r5.serializers.RequestOrchestrationActionRelatedActionOffsetSerializer
 import com.google.fhir.model.r5.serializers.RequestOrchestrationActionRelatedActionSerializer
 import com.google.fhir.model.r5.serializers.RequestOrchestrationActionSerializer
+import com.google.fhir.model.r5.serializers.RequestOrchestrationActionTimingSerializer
 import com.google.fhir.model.r5.serializers.RequestOrchestrationSerializer
 import kotlin.Suppress
 import kotlin.collections.MutableList
@@ -605,6 +609,7 @@ public data class RequestOrchestration(
        */
       public var offset: Offset? = null,
     ) : BackboneElement() {
+      @Serializable(with = RequestOrchestrationActionRelatedActionOffsetSerializer::class)
       public sealed interface Offset {
         public fun asDuration(): Duration? = this as? Duration
 
@@ -687,6 +692,7 @@ public data class RequestOrchestration(
       /** A reference to the actual participant. */
       public var actor: Actor? = null,
     ) : BackboneElement() {
+      @Serializable(with = RequestOrchestrationActionParticipantActorSerializer::class)
       public sealed interface Actor {
         public fun asCanonical(): Canonical? = this as? Canonical
 
@@ -779,6 +785,7 @@ public data class RequestOrchestration(
       public var expression: Expression? = null,
     ) : BackboneElement()
 
+    @Serializable(with = RequestOrchestrationActionTimingSerializer::class)
     public sealed interface Timing {
       public fun asDateTime(): DateTime? = this as? DateTime
 
@@ -826,6 +833,7 @@ public data class RequestOrchestration(
       }
     }
 
+    @Serializable(with = RequestOrchestrationActionDefinitionSerializer::class)
     public sealed interface Definition {
       public fun asCanonical(): Canonical? = this as? Canonical
 

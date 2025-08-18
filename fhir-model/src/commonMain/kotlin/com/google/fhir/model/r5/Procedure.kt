@@ -19,7 +19,9 @@
 package com.google.fhir.model.r5
 
 import com.google.fhir.model.r5.serializers.ProcedureFocalDeviceSerializer
+import com.google.fhir.model.r5.serializers.ProcedureOccurrenceSerializer
 import com.google.fhir.model.r5.serializers.ProcedurePerformerSerializer
+import com.google.fhir.model.r5.serializers.ProcedureReportedSerializer
 import com.google.fhir.model.r5.serializers.ProcedureSerializer
 import kotlin.String
 import kotlin.Suppress
@@ -444,6 +446,7 @@ public data class Procedure(
     public var manipulated: Reference,
   ) : BackboneElement()
 
+  @Serializable(with = ProcedureOccurrenceSerializer::class)
   public sealed interface Occurrence {
     public fun asDateTime(): DateTime? = this as? DateTime
 
@@ -489,6 +492,7 @@ public data class Procedure(
     }
   }
 
+  @Serializable(with = ProcedureReportedSerializer::class)
   public sealed interface Reported {
     public fun asBoolean(): Boolean? = this as? Boolean
 

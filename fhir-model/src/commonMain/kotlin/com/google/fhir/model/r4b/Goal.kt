@@ -19,6 +19,9 @@
 package com.google.fhir.model.r4b
 
 import com.google.fhir.model.r4b.serializers.GoalSerializer
+import com.google.fhir.model.r4b.serializers.GoalStartSerializer
+import com.google.fhir.model.r4b.serializers.GoalTargetDetailSerializer
+import com.google.fhir.model.r4b.serializers.GoalTargetDueSerializer
 import com.google.fhir.model.r4b.serializers.GoalTargetSerializer
 import kotlin.Suppress
 import kotlin.collections.MutableList
@@ -290,6 +293,7 @@ public data class Goal(
     /** Indicates either the date or the duration after start by which the goal should be met. */
     public var due: Due? = null,
   ) : BackboneElement() {
+    @Serializable(with = GoalTargetDetailSerializer::class)
     public sealed interface Detail {
       public fun asQuantity(): Quantity? = this as? Quantity
 
@@ -343,6 +347,7 @@ public data class Goal(
       }
     }
 
+    @Serializable(with = GoalTargetDueSerializer::class)
     public sealed interface Due {
       public fun asDate(): Date? = this as? Date
 
@@ -365,6 +370,7 @@ public data class Goal(
     }
   }
 
+  @Serializable(with = GoalStartSerializer::class)
   public sealed interface Start {
     public fun asDate(): Date? = this as? Date
 

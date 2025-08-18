@@ -213,11 +213,7 @@ internal data class InventoryItemAssociationSurrogate(
 }
 
 @Serializable
-internal data class InventoryItemCharacteristicSurrogate(
-  public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var characteristicType: CodeableConcept,
+internal data class InventoryItemCharacteristicValueSurrogate(
   public var valueString: KotlinString? = null,
   public var _valueString: Element? = null,
   public var valueInteger: Int? = null,
@@ -238,6 +234,79 @@ internal data class InventoryItemCharacteristicSurrogate(
   public var valueDuration: Duration? = null,
   public var valueCodeableConcept: CodeableConcept? = null,
 ) {
+  public fun toModel(): InventoryItem.Characteristic.Value =
+    InventoryItem.Characteristic.Value.from(
+      R5String.of(
+        this@InventoryItemCharacteristicValueSurrogate.valueString,
+        this@InventoryItemCharacteristicValueSurrogate._valueString,
+      ),
+      Integer.of(
+        this@InventoryItemCharacteristicValueSurrogate.valueInteger,
+        this@InventoryItemCharacteristicValueSurrogate._valueInteger,
+      ),
+      Decimal.of(
+        this@InventoryItemCharacteristicValueSurrogate.valueDecimal,
+        this@InventoryItemCharacteristicValueSurrogate._valueDecimal,
+      ),
+      R5Boolean.of(
+        this@InventoryItemCharacteristicValueSurrogate.valueBoolean,
+        this@InventoryItemCharacteristicValueSurrogate._valueBoolean,
+      ),
+      Url.of(
+        this@InventoryItemCharacteristicValueSurrogate.valueUrl,
+        this@InventoryItemCharacteristicValueSurrogate._valueUrl,
+      ),
+      DateTime.of(
+        FhirDateTime.fromString(this@InventoryItemCharacteristicValueSurrogate.valueDateTime),
+        this@InventoryItemCharacteristicValueSurrogate._valueDateTime,
+      ),
+      this@InventoryItemCharacteristicValueSurrogate.valueQuantity,
+      this@InventoryItemCharacteristicValueSurrogate.valueRange,
+      this@InventoryItemCharacteristicValueSurrogate.valueRatio,
+      this@InventoryItemCharacteristicValueSurrogate.valueAnnotation,
+      this@InventoryItemCharacteristicValueSurrogate.valueAddress,
+      this@InventoryItemCharacteristicValueSurrogate.valueDuration,
+      this@InventoryItemCharacteristicValueSurrogate.valueCodeableConcept,
+    )!! !!
+
+  public companion object {
+    public fun fromModel(
+      model: InventoryItem.Characteristic.Value
+    ): InventoryItemCharacteristicValueSurrogate =
+      with(model) {
+        InventoryItemCharacteristicValueSurrogate(
+          valueString = this@with.asString()?.value?.value,
+          _valueString = this@with.asString()?.value?.toElement(),
+          valueInteger = this@with.asInteger()?.value?.value,
+          _valueInteger = this@with.asInteger()?.value?.toElement(),
+          valueDecimal = this@with.asDecimal()?.value?.value,
+          _valueDecimal = this@with.asDecimal()?.value?.toElement(),
+          valueBoolean = this@with.asBoolean()?.value?.value,
+          _valueBoolean = this@with.asBoolean()?.value?.toElement(),
+          valueUrl = this@with.asUrl()?.value?.value,
+          _valueUrl = this@with.asUrl()?.value?.toElement(),
+          valueDateTime = this@with.asDateTime()?.value?.value?.toString(),
+          _valueDateTime = this@with.asDateTime()?.value?.toElement(),
+          valueQuantity = this@with.asQuantity()?.value,
+          valueRange = this@with.asRange()?.value,
+          valueRatio = this@with.asRatio()?.value,
+          valueAnnotation = this@with.asAnnotation()?.value,
+          valueAddress = this@with.asAddress()?.value,
+          valueDuration = this@with.asDuration()?.value,
+          valueCodeableConcept = this@with.asCodeableConcept()?.value,
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class InventoryItemCharacteristicSurrogate(
+  public var id: KotlinString? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var characteristicType: CodeableConcept,
+  public var `value`: InventoryItem.Characteristic.Value,
+) {
   public fun toModel(): InventoryItem.Characteristic =
     InventoryItem.Characteristic(
       id = this@InventoryItemCharacteristicSurrogate.id,
@@ -245,40 +314,7 @@ internal data class InventoryItemCharacteristicSurrogate(
       modifierExtension =
         this@InventoryItemCharacteristicSurrogate.modifierExtension ?: mutableListOf(),
       characteristicType = this@InventoryItemCharacteristicSurrogate.characteristicType,
-      `value` =
-        InventoryItem.Characteristic.Value.from(
-          R5String.of(
-            this@InventoryItemCharacteristicSurrogate.valueString,
-            this@InventoryItemCharacteristicSurrogate._valueString,
-          ),
-          Integer.of(
-            this@InventoryItemCharacteristicSurrogate.valueInteger,
-            this@InventoryItemCharacteristicSurrogate._valueInteger,
-          ),
-          Decimal.of(
-            this@InventoryItemCharacteristicSurrogate.valueDecimal,
-            this@InventoryItemCharacteristicSurrogate._valueDecimal,
-          ),
-          R5Boolean.of(
-            this@InventoryItemCharacteristicSurrogate.valueBoolean,
-            this@InventoryItemCharacteristicSurrogate._valueBoolean,
-          ),
-          Url.of(
-            this@InventoryItemCharacteristicSurrogate.valueUrl,
-            this@InventoryItemCharacteristicSurrogate._valueUrl,
-          ),
-          DateTime.of(
-            FhirDateTime.fromString(this@InventoryItemCharacteristicSurrogate.valueDateTime),
-            this@InventoryItemCharacteristicSurrogate._valueDateTime,
-          ),
-          this@InventoryItemCharacteristicSurrogate.valueQuantity,
-          this@InventoryItemCharacteristicSurrogate.valueRange,
-          this@InventoryItemCharacteristicSurrogate.valueRatio,
-          this@InventoryItemCharacteristicSurrogate.valueAnnotation,
-          this@InventoryItemCharacteristicSurrogate.valueAddress,
-          this@InventoryItemCharacteristicSurrogate.valueDuration,
-          this@InventoryItemCharacteristicSurrogate.valueCodeableConcept,
-        )!!,
+      `value` = this@InventoryItemCharacteristicSurrogate.`value`,
     )
 
   public companion object {
@@ -291,25 +327,7 @@ internal data class InventoryItemCharacteristicSurrogate(
           extension = this@with.extension.takeUnless { it.all { it == null } },
           modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
           characteristicType = this@with.characteristicType,
-          valueString = this@with.`value`?.asString()?.value?.value,
-          _valueString = this@with.`value`?.asString()?.value?.toElement(),
-          valueInteger = this@with.`value`?.asInteger()?.value?.value,
-          _valueInteger = this@with.`value`?.asInteger()?.value?.toElement(),
-          valueDecimal = this@with.`value`?.asDecimal()?.value?.value,
-          _valueDecimal = this@with.`value`?.asDecimal()?.value?.toElement(),
-          valueBoolean = this@with.`value`?.asBoolean()?.value?.value,
-          _valueBoolean = this@with.`value`?.asBoolean()?.value?.toElement(),
-          valueUrl = this@with.`value`?.asUrl()?.value?.value,
-          _valueUrl = this@with.`value`?.asUrl()?.value?.toElement(),
-          valueDateTime = this@with.`value`?.asDateTime()?.value?.value?.toString(),
-          _valueDateTime = this@with.`value`?.asDateTime()?.value?.toElement(),
-          valueQuantity = this@with.`value`?.asQuantity()?.value,
-          valueRange = this@with.`value`?.asRange()?.value,
-          valueRatio = this@with.`value`?.asRatio()?.value,
-          valueAnnotation = this@with.`value`?.asAnnotation()?.value,
-          valueAddress = this@with.`value`?.asAddress()?.value,
-          valueDuration = this@with.`value`?.asDuration()?.value,
-          valueCodeableConcept = this@with.`value`?.asCodeableConcept()?.value,
+          `value` = this@with.`value`,
         )
       }
   }

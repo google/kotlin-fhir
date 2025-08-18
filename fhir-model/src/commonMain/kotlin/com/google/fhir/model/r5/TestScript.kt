@@ -26,6 +26,7 @@ import com.google.fhir.model.r5.serializers.TestScriptMetadataSerializer
 import com.google.fhir.model.r5.serializers.TestScriptOriginSerializer
 import com.google.fhir.model.r5.serializers.TestScriptScopeSerializer
 import com.google.fhir.model.r5.serializers.TestScriptSerializer
+import com.google.fhir.model.r5.serializers.TestScriptSetupActionAssertRequirementLinkSerializer
 import com.google.fhir.model.r5.serializers.TestScriptSetupActionAssertRequirementSerializer
 import com.google.fhir.model.r5.serializers.TestScriptSetupActionAssertSerializer
 import com.google.fhir.model.r5.serializers.TestScriptSetupActionOperationRequestHeaderSerializer
@@ -37,6 +38,7 @@ import com.google.fhir.model.r5.serializers.TestScriptTeardownSerializer
 import com.google.fhir.model.r5.serializers.TestScriptTestActionSerializer
 import com.google.fhir.model.r5.serializers.TestScriptTestSerializer
 import com.google.fhir.model.r5.serializers.TestScriptVariableSerializer
+import com.google.fhir.model.r5.serializers.TestScriptVersionAlgorithmSerializer
 import kotlin.Suppress
 import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
@@ -1608,6 +1610,7 @@ public data class TestScript(
           /** Link or reference providing traceability to the testing requirement for this test. */
           public var link: Link? = null,
         ) : BackboneElement() {
+          @Serializable(with = TestScriptSetupActionAssertRequirementLinkSerializer::class)
           public sealed interface Link {
             public fun asUri(): Uri? = this as? Uri
 
@@ -1835,6 +1838,7 @@ public data class TestScript(
     ) : BackboneElement()
   }
 
+  @Serializable(with = TestScriptVersionAlgorithmSerializer::class)
   public sealed interface VersionAlgorithm {
     public fun asString(): String? = this as? String
 

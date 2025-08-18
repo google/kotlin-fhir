@@ -19,11 +19,17 @@
 package com.google.fhir.model.r5
 
 import com.google.fhir.model.r5.serializers.EvidenceVariableCategorySerializer
+import com.google.fhir.model.r5.serializers.EvidenceVariableCategoryValueSerializer
 import com.google.fhir.model.r5.serializers.EvidenceVariableCharacteristicDefinitionByCombinationSerializer
 import com.google.fhir.model.r5.serializers.EvidenceVariableCharacteristicDefinitionByTypeAndValueSerializer
+import com.google.fhir.model.r5.serializers.EvidenceVariableCharacteristicDefinitionByTypeAndValueValueSerializer
+import com.google.fhir.model.r5.serializers.EvidenceVariableCharacteristicDurationSerializer
+import com.google.fhir.model.r5.serializers.EvidenceVariableCharacteristicInstancesSerializer
 import com.google.fhir.model.r5.serializers.EvidenceVariableCharacteristicSerializer
+import com.google.fhir.model.r5.serializers.EvidenceVariableCharacteristicTimeFromEventEventSerializer
 import com.google.fhir.model.r5.serializers.EvidenceVariableCharacteristicTimeFromEventSerializer
 import com.google.fhir.model.r5.serializers.EvidenceVariableSerializer
+import com.google.fhir.model.r5.serializers.EvidenceVariableVersionAlgorithmSerializer
 import kotlin.Suppress
 import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
@@ -528,6 +534,9 @@ public data class EvidenceVariable(
        */
       public var offset: CodeableConcept? = null,
     ) : BackboneElement() {
+      @Serializable(
+        with = EvidenceVariableCharacteristicDefinitionByTypeAndValueValueSerializer::class
+      )
       public sealed interface Value {
         public fun asCodeableConcept(): CodeableConcept? = this as? CodeableConcept
 
@@ -675,6 +684,7 @@ public data class EvidenceVariable(
       /** Used to express the observation within a period before and/or after the event. */
       public var range: Range? = null,
     ) : BackboneElement() {
+      @Serializable(with = EvidenceVariableCharacteristicTimeFromEventEventSerializer::class)
       public sealed interface Event {
         public fun asCodeableConcept(): CodeableConcept? = this as? CodeableConcept
 
@@ -711,6 +721,7 @@ public data class EvidenceVariable(
       }
     }
 
+    @Serializable(with = EvidenceVariableCharacteristicInstancesSerializer::class)
     public sealed interface Instances {
       public fun asQuantity(): Quantity? = this as? Quantity
 
@@ -732,6 +743,7 @@ public data class EvidenceVariable(
       }
     }
 
+    @Serializable(with = EvidenceVariableCharacteristicDurationSerializer::class)
     public sealed interface Duration {
       public fun asQuantity(): Quantity? = this as? Quantity
 
@@ -799,6 +811,7 @@ public data class EvidenceVariable(
     /** Definition of the grouping. */
     public var `value`: Value? = null,
   ) : BackboneElement() {
+    @Serializable(with = EvidenceVariableCategoryValueSerializer::class)
     public sealed interface Value {
       public fun asCodeableConcept(): CodeableConcept? = this as? CodeableConcept
 
@@ -829,6 +842,7 @@ public data class EvidenceVariable(
     }
   }
 
+  @Serializable(with = EvidenceVariableVersionAlgorithmSerializer::class)
   public sealed interface VersionAlgorithm {
     public fun asString(): String? = this as? String
 

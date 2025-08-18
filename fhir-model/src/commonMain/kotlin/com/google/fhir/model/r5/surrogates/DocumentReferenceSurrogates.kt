@@ -123,15 +123,48 @@ internal data class DocumentReferenceRelatesToSurrogate(
 }
 
 @Serializable
-internal data class DocumentReferenceContentProfileSurrogate(
-  public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+internal data class DocumentReferenceContentProfileValueSurrogate(
   public var valueCoding: Coding? = null,
   public var valueUri: KotlinString? = null,
   public var _valueUri: Element? = null,
   public var valueCanonical: KotlinString? = null,
   public var _valueCanonical: Element? = null,
+) {
+  public fun toModel(): DocumentReference.Content.Profile.Value =
+    DocumentReference.Content.Profile.Value.from(
+      this@DocumentReferenceContentProfileValueSurrogate.valueCoding,
+      Uri.of(
+        this@DocumentReferenceContentProfileValueSurrogate.valueUri,
+        this@DocumentReferenceContentProfileValueSurrogate._valueUri,
+      ),
+      Canonical.of(
+        this@DocumentReferenceContentProfileValueSurrogate.valueCanonical,
+        this@DocumentReferenceContentProfileValueSurrogate._valueCanonical,
+      ),
+    )!! !!
+
+  public companion object {
+    public fun fromModel(
+      model: DocumentReference.Content.Profile.Value
+    ): DocumentReferenceContentProfileValueSurrogate =
+      with(model) {
+        DocumentReferenceContentProfileValueSurrogate(
+          valueCoding = this@with.asCoding()?.value,
+          valueUri = this@with.asUri()?.value?.value,
+          _valueUri = this@with.asUri()?.value?.toElement(),
+          valueCanonical = this@with.asCanonical()?.value?.value,
+          _valueCanonical = this@with.asCanonical()?.value?.toElement(),
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class DocumentReferenceContentProfileSurrogate(
+  public var id: KotlinString? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var `value`: DocumentReference.Content.Profile.Value,
 ) {
   public fun toModel(): DocumentReference.Content.Profile =
     DocumentReference.Content.Profile(
@@ -139,18 +172,7 @@ internal data class DocumentReferenceContentProfileSurrogate(
       extension = this@DocumentReferenceContentProfileSurrogate.extension ?: mutableListOf(),
       modifierExtension =
         this@DocumentReferenceContentProfileSurrogate.modifierExtension ?: mutableListOf(),
-      `value` =
-        DocumentReference.Content.Profile.Value.from(
-          this@DocumentReferenceContentProfileSurrogate.valueCoding,
-          Uri.of(
-            this@DocumentReferenceContentProfileSurrogate.valueUri,
-            this@DocumentReferenceContentProfileSurrogate._valueUri,
-          ),
-          Canonical.of(
-            this@DocumentReferenceContentProfileSurrogate.valueCanonical,
-            this@DocumentReferenceContentProfileSurrogate._valueCanonical,
-          ),
-        )!!,
+      `value` = this@DocumentReferenceContentProfileSurrogate.`value`,
     )
 
   public companion object {
@@ -162,11 +184,7 @@ internal data class DocumentReferenceContentProfileSurrogate(
           id = this@with.id,
           extension = this@with.extension.takeUnless { it.all { it == null } },
           modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          valueCoding = this@with.`value`?.asCoding()?.value,
-          valueUri = this@with.`value`?.asUri()?.value?.value,
-          _valueUri = this@with.`value`?.asUri()?.value?.toElement(),
-          valueCanonical = this@with.`value`?.asCanonical()?.value?.value,
-          _valueCanonical = this@with.`value`?.asCanonical()?.value?.toElement(),
+          `value` = this@with.`value`,
         )
       }
   }

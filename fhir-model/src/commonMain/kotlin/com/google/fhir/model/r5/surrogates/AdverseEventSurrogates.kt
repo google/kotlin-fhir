@@ -116,12 +116,35 @@ internal data class AdverseEventSuspectEntityCausalitySurrogate(
 }
 
 @Serializable
+internal data class AdverseEventSuspectEntityInstanceSurrogate(
+  public var instanceCodeableConcept: CodeableConcept? = null,
+  public var instanceReference: Reference? = null,
+) {
+  public fun toModel(): AdverseEvent.SuspectEntity.Instance =
+    AdverseEvent.SuspectEntity.Instance.from(
+      this@AdverseEventSuspectEntityInstanceSurrogate.instanceCodeableConcept,
+      this@AdverseEventSuspectEntityInstanceSurrogate.instanceReference,
+    )!! !!
+
+  public companion object {
+    public fun fromModel(
+      model: AdverseEvent.SuspectEntity.Instance
+    ): AdverseEventSuspectEntityInstanceSurrogate =
+      with(model) {
+        AdverseEventSuspectEntityInstanceSurrogate(
+          instanceCodeableConcept = this@with.asCodeableConcept()?.value,
+          instanceReference = this@with.asReference()?.value,
+        )
+      }
+  }
+}
+
+@Serializable
 internal data class AdverseEventSuspectEntitySurrogate(
   public var id: String? = null,
   public var extension: MutableList<Extension>? = null,
   public var modifierExtension: MutableList<Extension>? = null,
-  public var instanceCodeableConcept: CodeableConcept? = null,
-  public var instanceReference: Reference? = null,
+  public var instance: AdverseEvent.SuspectEntity.Instance,
   public var causality: AdverseEvent.SuspectEntity.Causality? = null,
 ) {
   public fun toModel(): AdverseEvent.SuspectEntity =
@@ -130,11 +153,7 @@ internal data class AdverseEventSuspectEntitySurrogate(
       extension = this@AdverseEventSuspectEntitySurrogate.extension ?: mutableListOf(),
       modifierExtension =
         this@AdverseEventSuspectEntitySurrogate.modifierExtension ?: mutableListOf(),
-      instance =
-        AdverseEvent.SuspectEntity.Instance.from(
-          this@AdverseEventSuspectEntitySurrogate.instanceCodeableConcept,
-          this@AdverseEventSuspectEntitySurrogate.instanceReference,
-        )!!,
+      instance = this@AdverseEventSuspectEntitySurrogate.instance,
       causality = this@AdverseEventSuspectEntitySurrogate.causality,
     )
 
@@ -145,9 +164,32 @@ internal data class AdverseEventSuspectEntitySurrogate(
           id = this@with.id,
           extension = this@with.extension.takeUnless { it.all { it == null } },
           modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          instanceCodeableConcept = this@with.instance?.asCodeableConcept()?.value,
-          instanceReference = this@with.instance?.asReference()?.value,
+          instance = this@with.instance,
           causality = this@with.causality,
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class AdverseEventContributingFactorItemSurrogate(
+  public var itemReference: Reference? = null,
+  public var itemCodeableConcept: CodeableConcept? = null,
+) {
+  public fun toModel(): AdverseEvent.ContributingFactor.Item =
+    AdverseEvent.ContributingFactor.Item.from(
+      this@AdverseEventContributingFactorItemSurrogate.itemReference,
+      this@AdverseEventContributingFactorItemSurrogate.itemCodeableConcept,
+    )!! !!
+
+  public companion object {
+    public fun fromModel(
+      model: AdverseEvent.ContributingFactor.Item
+    ): AdverseEventContributingFactorItemSurrogate =
+      with(model) {
+        AdverseEventContributingFactorItemSurrogate(
+          itemReference = this@with.asReference()?.value,
+          itemCodeableConcept = this@with.asCodeableConcept()?.value,
         )
       }
   }
@@ -158,8 +200,7 @@ internal data class AdverseEventContributingFactorSurrogate(
   public var id: String? = null,
   public var extension: MutableList<Extension>? = null,
   public var modifierExtension: MutableList<Extension>? = null,
-  public var itemReference: Reference? = null,
-  public var itemCodeableConcept: CodeableConcept? = null,
+  public var item: AdverseEvent.ContributingFactor.Item,
 ) {
   public fun toModel(): AdverseEvent.ContributingFactor =
     AdverseEvent.ContributingFactor(
@@ -167,11 +208,7 @@ internal data class AdverseEventContributingFactorSurrogate(
       extension = this@AdverseEventContributingFactorSurrogate.extension ?: mutableListOf(),
       modifierExtension =
         this@AdverseEventContributingFactorSurrogate.modifierExtension ?: mutableListOf(),
-      item =
-        AdverseEvent.ContributingFactor.Item.from(
-          this@AdverseEventContributingFactorSurrogate.itemReference,
-          this@AdverseEventContributingFactorSurrogate.itemCodeableConcept,
-        )!!,
+      item = this@AdverseEventContributingFactorSurrogate.item,
     )
 
   public companion object {
@@ -183,8 +220,31 @@ internal data class AdverseEventContributingFactorSurrogate(
           id = this@with.id,
           extension = this@with.extension.takeUnless { it.all { it == null } },
           modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          itemReference = this@with.item?.asReference()?.value,
-          itemCodeableConcept = this@with.item?.asCodeableConcept()?.value,
+          item = this@with.item,
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class AdverseEventPreventiveActionItemSurrogate(
+  public var itemReference: Reference? = null,
+  public var itemCodeableConcept: CodeableConcept? = null,
+) {
+  public fun toModel(): AdverseEvent.PreventiveAction.Item =
+    AdverseEvent.PreventiveAction.Item.from(
+      this@AdverseEventPreventiveActionItemSurrogate.itemReference,
+      this@AdverseEventPreventiveActionItemSurrogate.itemCodeableConcept,
+    )!! !!
+
+  public companion object {
+    public fun fromModel(
+      model: AdverseEvent.PreventiveAction.Item
+    ): AdverseEventPreventiveActionItemSurrogate =
+      with(model) {
+        AdverseEventPreventiveActionItemSurrogate(
+          itemReference = this@with.asReference()?.value,
+          itemCodeableConcept = this@with.asCodeableConcept()?.value,
         )
       }
   }
@@ -195,8 +255,7 @@ internal data class AdverseEventPreventiveActionSurrogate(
   public var id: String? = null,
   public var extension: MutableList<Extension>? = null,
   public var modifierExtension: MutableList<Extension>? = null,
-  public var itemReference: Reference? = null,
-  public var itemCodeableConcept: CodeableConcept? = null,
+  public var item: AdverseEvent.PreventiveAction.Item,
 ) {
   public fun toModel(): AdverseEvent.PreventiveAction =
     AdverseEvent.PreventiveAction(
@@ -204,11 +263,7 @@ internal data class AdverseEventPreventiveActionSurrogate(
       extension = this@AdverseEventPreventiveActionSurrogate.extension ?: mutableListOf(),
       modifierExtension =
         this@AdverseEventPreventiveActionSurrogate.modifierExtension ?: mutableListOf(),
-      item =
-        AdverseEvent.PreventiveAction.Item.from(
-          this@AdverseEventPreventiveActionSurrogate.itemReference,
-          this@AdverseEventPreventiveActionSurrogate.itemCodeableConcept,
-        )!!,
+      item = this@AdverseEventPreventiveActionSurrogate.item,
     )
 
   public companion object {
@@ -220,8 +275,31 @@ internal data class AdverseEventPreventiveActionSurrogate(
           id = this@with.id,
           extension = this@with.extension.takeUnless { it.all { it == null } },
           modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          itemReference = this@with.item?.asReference()?.value,
-          itemCodeableConcept = this@with.item?.asCodeableConcept()?.value,
+          item = this@with.item,
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class AdverseEventMitigatingActionItemSurrogate(
+  public var itemReference: Reference? = null,
+  public var itemCodeableConcept: CodeableConcept? = null,
+) {
+  public fun toModel(): AdverseEvent.MitigatingAction.Item =
+    AdverseEvent.MitigatingAction.Item.from(
+      this@AdverseEventMitigatingActionItemSurrogate.itemReference,
+      this@AdverseEventMitigatingActionItemSurrogate.itemCodeableConcept,
+    )!! !!
+
+  public companion object {
+    public fun fromModel(
+      model: AdverseEvent.MitigatingAction.Item
+    ): AdverseEventMitigatingActionItemSurrogate =
+      with(model) {
+        AdverseEventMitigatingActionItemSurrogate(
+          itemReference = this@with.asReference()?.value,
+          itemCodeableConcept = this@with.asCodeableConcept()?.value,
         )
       }
   }
@@ -232,8 +310,7 @@ internal data class AdverseEventMitigatingActionSurrogate(
   public var id: String? = null,
   public var extension: MutableList<Extension>? = null,
   public var modifierExtension: MutableList<Extension>? = null,
-  public var itemReference: Reference? = null,
-  public var itemCodeableConcept: CodeableConcept? = null,
+  public var item: AdverseEvent.MitigatingAction.Item,
 ) {
   public fun toModel(): AdverseEvent.MitigatingAction =
     AdverseEvent.MitigatingAction(
@@ -241,11 +318,7 @@ internal data class AdverseEventMitigatingActionSurrogate(
       extension = this@AdverseEventMitigatingActionSurrogate.extension ?: mutableListOf(),
       modifierExtension =
         this@AdverseEventMitigatingActionSurrogate.modifierExtension ?: mutableListOf(),
-      item =
-        AdverseEvent.MitigatingAction.Item.from(
-          this@AdverseEventMitigatingActionSurrogate.itemReference,
-          this@AdverseEventMitigatingActionSurrogate.itemCodeableConcept,
-        )!!,
+      item = this@AdverseEventMitigatingActionSurrogate.item,
     )
 
   public companion object {
@@ -257,8 +330,31 @@ internal data class AdverseEventMitigatingActionSurrogate(
           id = this@with.id,
           extension = this@with.extension.takeUnless { it.all { it == null } },
           modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          itemReference = this@with.item?.asReference()?.value,
-          itemCodeableConcept = this@with.item?.asCodeableConcept()?.value,
+          item = this@with.item,
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class AdverseEventSupportingInfoItemSurrogate(
+  public var itemReference: Reference? = null,
+  public var itemCodeableConcept: CodeableConcept? = null,
+) {
+  public fun toModel(): AdverseEvent.SupportingInfo.Item =
+    AdverseEvent.SupportingInfo.Item.from(
+      this@AdverseEventSupportingInfoItemSurrogate.itemReference,
+      this@AdverseEventSupportingInfoItemSurrogate.itemCodeableConcept,
+    )!! !!
+
+  public companion object {
+    public fun fromModel(
+      model: AdverseEvent.SupportingInfo.Item
+    ): AdverseEventSupportingInfoItemSurrogate =
+      with(model) {
+        AdverseEventSupportingInfoItemSurrogate(
+          itemReference = this@with.asReference()?.value,
+          itemCodeableConcept = this@with.asCodeableConcept()?.value,
         )
       }
   }
@@ -269,8 +365,7 @@ internal data class AdverseEventSupportingInfoSurrogate(
   public var id: String? = null,
   public var extension: MutableList<Extension>? = null,
   public var modifierExtension: MutableList<Extension>? = null,
-  public var itemReference: Reference? = null,
-  public var itemCodeableConcept: CodeableConcept? = null,
+  public var item: AdverseEvent.SupportingInfo.Item,
 ) {
   public fun toModel(): AdverseEvent.SupportingInfo =
     AdverseEvent.SupportingInfo(
@@ -278,11 +373,7 @@ internal data class AdverseEventSupportingInfoSurrogate(
       extension = this@AdverseEventSupportingInfoSurrogate.extension ?: mutableListOf(),
       modifierExtension =
         this@AdverseEventSupportingInfoSurrogate.modifierExtension ?: mutableListOf(),
-      item =
-        AdverseEvent.SupportingInfo.Item.from(
-          this@AdverseEventSupportingInfoSurrogate.itemReference,
-          this@AdverseEventSupportingInfoSurrogate.itemCodeableConcept,
-        )!!,
+      item = this@AdverseEventSupportingInfoSurrogate.item,
     )
 
   public companion object {
@@ -292,8 +383,37 @@ internal data class AdverseEventSupportingInfoSurrogate(
           id = this@with.id,
           extension = this@with.extension.takeUnless { it.all { it == null } },
           modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          itemReference = this@with.item?.asReference()?.value,
-          itemCodeableConcept = this@with.item?.asCodeableConcept()?.value,
+          item = this@with.item,
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class AdverseEventOccurrenceSurrogate(
+  public var occurrenceDateTime: String? = null,
+  public var _occurrenceDateTime: Element? = null,
+  public var occurrencePeriod: Period? = null,
+  public var occurrenceTiming: Timing? = null,
+) {
+  public fun toModel(): AdverseEvent.Occurrence =
+    AdverseEvent.Occurrence?.from(
+      DateTime.of(
+        FhirDateTime.fromString(this@AdverseEventOccurrenceSurrogate.occurrenceDateTime),
+        this@AdverseEventOccurrenceSurrogate._occurrenceDateTime,
+      ),
+      this@AdverseEventOccurrenceSurrogate.occurrencePeriod,
+      this@AdverseEventOccurrenceSurrogate.occurrenceTiming,
+    )!!
+
+  public companion object {
+    public fun fromModel(model: AdverseEvent.Occurrence): AdverseEventOccurrenceSurrogate =
+      with(model) {
+        AdverseEventOccurrenceSurrogate(
+          occurrenceDateTime = this@with.asDateTime()?.value?.value?.toString(),
+          _occurrenceDateTime = this@with.asDateTime()?.value?.toElement(),
+          occurrencePeriod = this@with.asPeriod()?.value,
+          occurrenceTiming = this@with.asTiming()?.value,
         )
       }
   }
@@ -320,10 +440,7 @@ internal data class AdverseEventSurrogate(
   public var code: CodeableConcept? = null,
   public var subject: Reference,
   public var encounter: Reference? = null,
-  public var occurrenceDateTime: String? = null,
-  public var _occurrenceDateTime: Element? = null,
-  public var occurrencePeriod: Period? = null,
-  public var occurrenceTiming: Timing? = null,
+  public var occurrence: AdverseEvent.Occurrence? = null,
   public var detected: String? = null,
   public var _detected: Element? = null,
   public var recordedDate: String? = null,
@@ -374,15 +491,7 @@ internal data class AdverseEventSurrogate(
       code = this@AdverseEventSurrogate.code,
       subject = this@AdverseEventSurrogate.subject,
       encounter = this@AdverseEventSurrogate.encounter,
-      occurrence =
-        AdverseEvent.Occurrence?.from(
-          DateTime.of(
-            FhirDateTime.fromString(this@AdverseEventSurrogate.occurrenceDateTime),
-            this@AdverseEventSurrogate._occurrenceDateTime,
-          ),
-          this@AdverseEventSurrogate.occurrencePeriod,
-          this@AdverseEventSurrogate.occurrenceTiming,
-        ),
+      occurrence = this@AdverseEventSurrogate.occurrence,
       detected =
         DateTime.of(
           FhirDateTime.fromString(this@AdverseEventSurrogate.detected),
@@ -436,10 +545,7 @@ internal data class AdverseEventSurrogate(
           code = this@with.code,
           subject = this@with.subject,
           encounter = this@with.encounter,
-          occurrenceDateTime = this@with.occurrence?.asDateTime()?.value?.value?.toString(),
-          _occurrenceDateTime = this@with.occurrence?.asDateTime()?.value?.toElement(),
-          occurrencePeriod = this@with.occurrence?.asPeriod()?.value,
-          occurrenceTiming = this@with.occurrence?.asTiming()?.value,
+          occurrence = this@with.occurrence,
           detected = this@with.detected?.value?.toString(),
           _detected = this@with.detected?.toElement(),
           recordedDate = this@with.recordedDate?.value?.toString(),

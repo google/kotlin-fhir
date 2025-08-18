@@ -51,14 +51,41 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
+internal data class CoverageEligibilityResponseEventWhenSurrogate(
+  public var whenDateTime: KotlinString? = null,
+  public var _whenDateTime: Element? = null,
+  public var whenPeriod: Period? = null,
+) {
+  public fun toModel(): CoverageEligibilityResponse.Event.When =
+    CoverageEligibilityResponse.Event.When.from(
+      DateTime.of(
+        FhirDateTime.fromString(this@CoverageEligibilityResponseEventWhenSurrogate.whenDateTime),
+        this@CoverageEligibilityResponseEventWhenSurrogate._whenDateTime,
+      ),
+      this@CoverageEligibilityResponseEventWhenSurrogate.whenPeriod,
+    )!! !!
+
+  public companion object {
+    public fun fromModel(
+      model: CoverageEligibilityResponse.Event.When
+    ): CoverageEligibilityResponseEventWhenSurrogate =
+      with(model) {
+        CoverageEligibilityResponseEventWhenSurrogate(
+          whenDateTime = this@with.asDateTime()?.value?.value?.toString(),
+          _whenDateTime = this@with.asDateTime()?.value?.toElement(),
+          whenPeriod = this@with.asPeriod()?.value,
+        )
+      }
+  }
+}
+
+@Serializable
 internal data class CoverageEligibilityResponseEventSurrogate(
   public var id: KotlinString? = null,
   public var extension: MutableList<Extension>? = null,
   public var modifierExtension: MutableList<Extension>? = null,
   public var type: CodeableConcept,
-  public var whenDateTime: KotlinString? = null,
-  public var _whenDateTime: Element? = null,
-  public var whenPeriod: Period? = null,
+  public var `when`: CoverageEligibilityResponse.Event.When,
 ) {
   public fun toModel(): CoverageEligibilityResponse.Event =
     CoverageEligibilityResponse.Event(
@@ -67,14 +94,7 @@ internal data class CoverageEligibilityResponseEventSurrogate(
       modifierExtension =
         this@CoverageEligibilityResponseEventSurrogate.modifierExtension ?: mutableListOf(),
       type = this@CoverageEligibilityResponseEventSurrogate.type,
-      `when` =
-        CoverageEligibilityResponse.Event.When.from(
-          DateTime.of(
-            FhirDateTime.fromString(this@CoverageEligibilityResponseEventSurrogate.whenDateTime),
-            this@CoverageEligibilityResponseEventSurrogate._whenDateTime,
-          ),
-          this@CoverageEligibilityResponseEventSurrogate.whenPeriod,
-        )!!,
+      `when` = this@CoverageEligibilityResponseEventSurrogate.`when`,
     )
 
   public companion object {
@@ -87,9 +107,81 @@ internal data class CoverageEligibilityResponseEventSurrogate(
           extension = this@with.extension.takeUnless { it.all { it == null } },
           modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
           type = this@with.type,
-          whenDateTime = this@with.`when`?.asDateTime()?.value?.value?.toString(),
-          _whenDateTime = this@with.`when`?.asDateTime()?.value?.toElement(),
-          whenPeriod = this@with.`when`?.asPeriod()?.value,
+          `when` = this@with.`when`,
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class CoverageEligibilityResponseInsuranceItemBenefitAllowedSurrogate(
+  public var allowedUnsignedInt: Int? = null,
+  public var _allowedUnsignedInt: Element? = null,
+  public var allowedString: KotlinString? = null,
+  public var _allowedString: Element? = null,
+  public var allowedMoney: Money? = null,
+) {
+  public fun toModel(): CoverageEligibilityResponse.Insurance.Item.Benefit.Allowed =
+    CoverageEligibilityResponse.Insurance.Item.Benefit.Allowed?.from(
+      UnsignedInt.of(
+        this@CoverageEligibilityResponseInsuranceItemBenefitAllowedSurrogate.allowedUnsignedInt,
+        this@CoverageEligibilityResponseInsuranceItemBenefitAllowedSurrogate._allowedUnsignedInt,
+      ),
+      R5String.of(
+        this@CoverageEligibilityResponseInsuranceItemBenefitAllowedSurrogate.allowedString,
+        this@CoverageEligibilityResponseInsuranceItemBenefitAllowedSurrogate._allowedString,
+      ),
+      this@CoverageEligibilityResponseInsuranceItemBenefitAllowedSurrogate.allowedMoney,
+    )!!
+
+  public companion object {
+    public fun fromModel(
+      model: CoverageEligibilityResponse.Insurance.Item.Benefit.Allowed
+    ): CoverageEligibilityResponseInsuranceItemBenefitAllowedSurrogate =
+      with(model) {
+        CoverageEligibilityResponseInsuranceItemBenefitAllowedSurrogate(
+          allowedUnsignedInt = this@with.asUnsignedInt()?.value?.value,
+          _allowedUnsignedInt = this@with.asUnsignedInt()?.value?.toElement(),
+          allowedString = this@with.asString()?.value?.value,
+          _allowedString = this@with.asString()?.value?.toElement(),
+          allowedMoney = this@with.asMoney()?.value,
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class CoverageEligibilityResponseInsuranceItemBenefitUsedSurrogate(
+  public var usedUnsignedInt: Int? = null,
+  public var _usedUnsignedInt: Element? = null,
+  public var usedString: KotlinString? = null,
+  public var _usedString: Element? = null,
+  public var usedMoney: Money? = null,
+) {
+  public fun toModel(): CoverageEligibilityResponse.Insurance.Item.Benefit.Used =
+    CoverageEligibilityResponse.Insurance.Item.Benefit.Used?.from(
+      UnsignedInt.of(
+        this@CoverageEligibilityResponseInsuranceItemBenefitUsedSurrogate.usedUnsignedInt,
+        this@CoverageEligibilityResponseInsuranceItemBenefitUsedSurrogate._usedUnsignedInt,
+      ),
+      R5String.of(
+        this@CoverageEligibilityResponseInsuranceItemBenefitUsedSurrogate.usedString,
+        this@CoverageEligibilityResponseInsuranceItemBenefitUsedSurrogate._usedString,
+      ),
+      this@CoverageEligibilityResponseInsuranceItemBenefitUsedSurrogate.usedMoney,
+    )!!
+
+  public companion object {
+    public fun fromModel(
+      model: CoverageEligibilityResponse.Insurance.Item.Benefit.Used
+    ): CoverageEligibilityResponseInsuranceItemBenefitUsedSurrogate =
+      with(model) {
+        CoverageEligibilityResponseInsuranceItemBenefitUsedSurrogate(
+          usedUnsignedInt = this@with.asUnsignedInt()?.value?.value,
+          _usedUnsignedInt = this@with.asUnsignedInt()?.value?.toElement(),
+          usedString = this@with.asString()?.value?.value,
+          _usedString = this@with.asString()?.value?.toElement(),
+          usedMoney = this@with.asMoney()?.value,
         )
       }
   }
@@ -101,16 +193,8 @@ internal data class CoverageEligibilityResponseInsuranceItemBenefitSurrogate(
   public var extension: MutableList<Extension>? = null,
   public var modifierExtension: MutableList<Extension>? = null,
   public var type: CodeableConcept,
-  public var allowedUnsignedInt: Int? = null,
-  public var _allowedUnsignedInt: Element? = null,
-  public var allowedString: KotlinString? = null,
-  public var _allowedString: Element? = null,
-  public var allowedMoney: Money? = null,
-  public var usedUnsignedInt: Int? = null,
-  public var _usedUnsignedInt: Element? = null,
-  public var usedString: KotlinString? = null,
-  public var _usedString: Element? = null,
-  public var usedMoney: Money? = null,
+  public var allowed: CoverageEligibilityResponse.Insurance.Item.Benefit.Allowed? = null,
+  public var used: CoverageEligibilityResponse.Insurance.Item.Benefit.Used? = null,
 ) {
   public fun toModel(): CoverageEligibilityResponse.Insurance.Item.Benefit =
     CoverageEligibilityResponse.Insurance.Item.Benefit(
@@ -121,30 +205,8 @@ internal data class CoverageEligibilityResponseInsuranceItemBenefitSurrogate(
         this@CoverageEligibilityResponseInsuranceItemBenefitSurrogate.modifierExtension
           ?: mutableListOf(),
       type = this@CoverageEligibilityResponseInsuranceItemBenefitSurrogate.type,
-      allowed =
-        CoverageEligibilityResponse.Insurance.Item.Benefit.Allowed?.from(
-          UnsignedInt.of(
-            this@CoverageEligibilityResponseInsuranceItemBenefitSurrogate.allowedUnsignedInt,
-            this@CoverageEligibilityResponseInsuranceItemBenefitSurrogate._allowedUnsignedInt,
-          ),
-          R5String.of(
-            this@CoverageEligibilityResponseInsuranceItemBenefitSurrogate.allowedString,
-            this@CoverageEligibilityResponseInsuranceItemBenefitSurrogate._allowedString,
-          ),
-          this@CoverageEligibilityResponseInsuranceItemBenefitSurrogate.allowedMoney,
-        ),
-      used =
-        CoverageEligibilityResponse.Insurance.Item.Benefit.Used?.from(
-          UnsignedInt.of(
-            this@CoverageEligibilityResponseInsuranceItemBenefitSurrogate.usedUnsignedInt,
-            this@CoverageEligibilityResponseInsuranceItemBenefitSurrogate._usedUnsignedInt,
-          ),
-          R5String.of(
-            this@CoverageEligibilityResponseInsuranceItemBenefitSurrogate.usedString,
-            this@CoverageEligibilityResponseInsuranceItemBenefitSurrogate._usedString,
-          ),
-          this@CoverageEligibilityResponseInsuranceItemBenefitSurrogate.usedMoney,
-        ),
+      allowed = this@CoverageEligibilityResponseInsuranceItemBenefitSurrogate.allowed,
+      used = this@CoverageEligibilityResponseInsuranceItemBenefitSurrogate.used,
     )
 
   public companion object {
@@ -157,16 +219,8 @@ internal data class CoverageEligibilityResponseInsuranceItemBenefitSurrogate(
           extension = this@with.extension.takeUnless { it.all { it == null } },
           modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
           type = this@with.type,
-          allowedUnsignedInt = this@with.allowed?.asUnsignedInt()?.value?.value,
-          _allowedUnsignedInt = this@with.allowed?.asUnsignedInt()?.value?.toElement(),
-          allowedString = this@with.allowed?.asString()?.value?.value,
-          _allowedString = this@with.allowed?.asString()?.value?.toElement(),
-          allowedMoney = this@with.allowed?.asMoney()?.value,
-          usedUnsignedInt = this@with.used?.asUnsignedInt()?.value?.value,
-          _usedUnsignedInt = this@with.used?.asUnsignedInt()?.value?.toElement(),
-          usedString = this@with.used?.asString()?.value?.value,
-          _usedString = this@with.used?.asString()?.value?.toElement(),
-          usedMoney = this@with.used?.asMoney()?.value,
+          allowed = this@with.allowed,
+          used = this@with.used,
         )
       }
   }
@@ -383,6 +437,35 @@ internal data class CoverageEligibilityResponseErrorSurrogate(
 }
 
 @Serializable
+internal data class CoverageEligibilityResponseServicedSurrogate(
+  public var servicedDate: KotlinString? = null,
+  public var _servicedDate: Element? = null,
+  public var servicedPeriod: Period? = null,
+) {
+  public fun toModel(): CoverageEligibilityResponse.Serviced =
+    CoverageEligibilityResponse.Serviced?.from(
+      Date.of(
+        FhirDate.fromString(this@CoverageEligibilityResponseServicedSurrogate.servicedDate),
+        this@CoverageEligibilityResponseServicedSurrogate._servicedDate,
+      ),
+      this@CoverageEligibilityResponseServicedSurrogate.servicedPeriod,
+    )!!
+
+  public companion object {
+    public fun fromModel(
+      model: CoverageEligibilityResponse.Serviced
+    ): CoverageEligibilityResponseServicedSurrogate =
+      with(model) {
+        CoverageEligibilityResponseServicedSurrogate(
+          servicedDate = this@with.asDate()?.value?.value?.toString(),
+          _servicedDate = this@with.asDate()?.value?.toElement(),
+          servicedPeriod = this@with.asPeriod()?.value,
+        )
+      }
+  }
+}
+
+@Serializable
 internal data class CoverageEligibilityResponseSurrogate(
   public var id: KotlinString? = null,
   public var meta: Meta? = null,
@@ -401,9 +484,7 @@ internal data class CoverageEligibilityResponseSurrogate(
   public var _purpose: MutableList<Element?>? = null,
   public var patient: Reference,
   public var event: MutableList<CoverageEligibilityResponse.Event>? = null,
-  public var servicedDate: KotlinString? = null,
-  public var _servicedDate: Element? = null,
-  public var servicedPeriod: Period? = null,
+  public var serviced: CoverageEligibilityResponse.Serviced? = null,
   public var created: KotlinString? = null,
   public var _created: Element? = null,
   public var requestor: Reference? = null,
@@ -472,14 +553,7 @@ internal data class CoverageEligibilityResponseSurrogate(
         },
       patient = this@CoverageEligibilityResponseSurrogate.patient,
       event = this@CoverageEligibilityResponseSurrogate.event ?: mutableListOf(),
-      serviced =
-        CoverageEligibilityResponse.Serviced?.from(
-          Date.of(
-            FhirDate.fromString(this@CoverageEligibilityResponseSurrogate.servicedDate),
-            this@CoverageEligibilityResponseSurrogate._servicedDate,
-          ),
-          this@CoverageEligibilityResponseSurrogate.servicedPeriod,
-        ),
+      serviced = this@CoverageEligibilityResponseSurrogate.serviced,
       created =
         DateTime.of(
           FhirDateTime.fromString(this@CoverageEligibilityResponseSurrogate.created),
@@ -540,9 +614,7 @@ internal data class CoverageEligibilityResponseSurrogate(
               ?.toMutableList(),
           patient = this@with.patient,
           event = this@with.event.takeUnless { it.all { it == null } },
-          servicedDate = this@with.serviced?.asDate()?.value?.value?.toString(),
-          _servicedDate = this@with.serviced?.asDate()?.value?.toElement(),
-          servicedPeriod = this@with.serviced?.asPeriod()?.value,
+          serviced = this@with.serviced,
           created = this@with.created.value?.toString(),
           _created = this@with.created.toElement(),
           requestor = this@with.requestor,

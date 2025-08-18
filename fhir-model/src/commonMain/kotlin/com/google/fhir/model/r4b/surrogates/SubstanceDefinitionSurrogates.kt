@@ -51,6 +51,35 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
+internal data class SubstanceDefinitionMoietyAmountSurrogate(
+  public var amountQuantity: Quantity? = null,
+  public var amountString: KotlinString? = null,
+  public var _amountString: Element? = null,
+) {
+  public fun toModel(): SubstanceDefinition.Moiety.Amount =
+    SubstanceDefinition.Moiety.Amount?.from(
+      this@SubstanceDefinitionMoietyAmountSurrogate.amountQuantity,
+      R4bString.of(
+        this@SubstanceDefinitionMoietyAmountSurrogate.amountString,
+        this@SubstanceDefinitionMoietyAmountSurrogate._amountString,
+      ),
+    )!!
+
+  public companion object {
+    public fun fromModel(
+      model: SubstanceDefinition.Moiety.Amount
+    ): SubstanceDefinitionMoietyAmountSurrogate =
+      with(model) {
+        SubstanceDefinitionMoietyAmountSurrogate(
+          amountQuantity = this@with.asQuantity()?.value,
+          amountString = this@with.asString()?.value?.value,
+          _amountString = this@with.asString()?.value?.toElement(),
+        )
+      }
+  }
+}
+
+@Serializable
 internal data class SubstanceDefinitionMoietySurrogate(
   public var id: KotlinString? = null,
   public var extension: MutableList<Extension>? = null,
@@ -63,9 +92,7 @@ internal data class SubstanceDefinitionMoietySurrogate(
   public var opticalActivity: CodeableConcept? = null,
   public var molecularFormula: KotlinString? = null,
   public var _molecularFormula: Element? = null,
-  public var amountQuantity: Quantity? = null,
-  public var amountString: KotlinString? = null,
-  public var _amountString: Element? = null,
+  public var amount: SubstanceDefinition.Moiety.Amount? = null,
   public var measurementType: CodeableConcept? = null,
 ) {
   public fun toModel(): SubstanceDefinition.Moiety =
@@ -88,14 +115,7 @@ internal data class SubstanceDefinitionMoietySurrogate(
           this@SubstanceDefinitionMoietySurrogate.molecularFormula,
           this@SubstanceDefinitionMoietySurrogate._molecularFormula,
         ),
-      amount =
-        SubstanceDefinition.Moiety.Amount?.from(
-          this@SubstanceDefinitionMoietySurrogate.amountQuantity,
-          R4bString.of(
-            this@SubstanceDefinitionMoietySurrogate.amountString,
-            this@SubstanceDefinitionMoietySurrogate._amountString,
-          ),
-        ),
+      amount = this@SubstanceDefinitionMoietySurrogate.amount,
       measurementType = this@SubstanceDefinitionMoietySurrogate.measurementType,
     )
 
@@ -114,10 +134,51 @@ internal data class SubstanceDefinitionMoietySurrogate(
           opticalActivity = this@with.opticalActivity,
           molecularFormula = this@with.molecularFormula?.value,
           _molecularFormula = this@with.molecularFormula?.toElement(),
-          amountQuantity = this@with.amount?.asQuantity()?.value,
-          amountString = this@with.amount?.asString()?.value?.value,
-          _amountString = this@with.amount?.asString()?.value?.toElement(),
+          amount = this@with.amount,
           measurementType = this@with.measurementType,
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class SubstanceDefinitionPropertyValueSurrogate(
+  public var valueCodeableConcept: CodeableConcept? = null,
+  public var valueQuantity: Quantity? = null,
+  public var valueDate: KotlinString? = null,
+  public var _valueDate: Element? = null,
+  public var valueBoolean: KotlinBoolean? = null,
+  public var _valueBoolean: Element? = null,
+  public var valueAttachment: Attachment? = null,
+) {
+  public fun toModel(): SubstanceDefinition.Property.Value =
+    SubstanceDefinition.Property.Value?.from(
+      this@SubstanceDefinitionPropertyValueSurrogate.valueCodeableConcept,
+      this@SubstanceDefinitionPropertyValueSurrogate.valueQuantity,
+      Date.of(
+        FhirDate.fromString(this@SubstanceDefinitionPropertyValueSurrogate.valueDate),
+        this@SubstanceDefinitionPropertyValueSurrogate._valueDate,
+      ),
+      R4bBoolean.of(
+        this@SubstanceDefinitionPropertyValueSurrogate.valueBoolean,
+        this@SubstanceDefinitionPropertyValueSurrogate._valueBoolean,
+      ),
+      this@SubstanceDefinitionPropertyValueSurrogate.valueAttachment,
+    )!!
+
+  public companion object {
+    public fun fromModel(
+      model: SubstanceDefinition.Property.Value
+    ): SubstanceDefinitionPropertyValueSurrogate =
+      with(model) {
+        SubstanceDefinitionPropertyValueSurrogate(
+          valueCodeableConcept = this@with.asCodeableConcept()?.value,
+          valueQuantity = this@with.asQuantity()?.value,
+          valueDate = this@with.asDate()?.value?.value?.toString(),
+          _valueDate = this@with.asDate()?.value?.toElement(),
+          valueBoolean = this@with.asBoolean()?.value?.value,
+          _valueBoolean = this@with.asBoolean()?.value?.toElement(),
+          valueAttachment = this@with.asAttachment()?.value,
         )
       }
   }
@@ -129,13 +190,7 @@ internal data class SubstanceDefinitionPropertySurrogate(
   public var extension: MutableList<Extension>? = null,
   public var modifierExtension: MutableList<Extension>? = null,
   public var type: CodeableConcept,
-  public var valueCodeableConcept: CodeableConcept? = null,
-  public var valueQuantity: Quantity? = null,
-  public var valueDate: KotlinString? = null,
-  public var _valueDate: Element? = null,
-  public var valueBoolean: KotlinBoolean? = null,
-  public var _valueBoolean: Element? = null,
-  public var valueAttachment: Attachment? = null,
+  public var `value`: SubstanceDefinition.Property.Value? = null,
 ) {
   public fun toModel(): SubstanceDefinition.Property =
     SubstanceDefinition.Property(
@@ -144,20 +199,7 @@ internal data class SubstanceDefinitionPropertySurrogate(
       modifierExtension =
         this@SubstanceDefinitionPropertySurrogate.modifierExtension ?: mutableListOf(),
       type = this@SubstanceDefinitionPropertySurrogate.type,
-      `value` =
-        SubstanceDefinition.Property.Value?.from(
-          this@SubstanceDefinitionPropertySurrogate.valueCodeableConcept,
-          this@SubstanceDefinitionPropertySurrogate.valueQuantity,
-          Date.of(
-            FhirDate.fromString(this@SubstanceDefinitionPropertySurrogate.valueDate),
-            this@SubstanceDefinitionPropertySurrogate._valueDate,
-          ),
-          R4bBoolean.of(
-            this@SubstanceDefinitionPropertySurrogate.valueBoolean,
-            this@SubstanceDefinitionPropertySurrogate._valueBoolean,
-          ),
-          this@SubstanceDefinitionPropertySurrogate.valueAttachment,
-        ),
+      `value` = this@SubstanceDefinitionPropertySurrogate.`value`,
     )
 
   public companion object {
@@ -170,13 +212,7 @@ internal data class SubstanceDefinitionPropertySurrogate(
           extension = this@with.extension.takeUnless { it.all { it == null } },
           modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
           type = this@with.type,
-          valueCodeableConcept = this@with.`value`?.asCodeableConcept()?.value,
-          valueQuantity = this@with.`value`?.asQuantity()?.value,
-          valueDate = this@with.`value`?.asDate()?.value?.value?.toString(),
-          _valueDate = this@with.`value`?.asDate()?.value?.toElement(),
-          valueBoolean = this@with.`value`?.asBoolean()?.value?.value,
-          _valueBoolean = this@with.`value`?.asBoolean()?.value?.toElement(),
-          valueAttachment = this@with.`value`?.asAttachment()?.value,
+          `value` = this@with.`value`,
         )
       }
   }
@@ -493,19 +529,72 @@ internal data class SubstanceDefinitionNameSurrogate(
 }
 
 @Serializable
-internal data class SubstanceDefinitionRelationshipSurrogate(
-  public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+internal data class SubstanceDefinitionRelationshipSubstanceDefinitionSurrogate(
   public var substanceDefinitionReference: Reference? = null,
   public var substanceDefinitionCodeableConcept: CodeableConcept? = null,
-  public var type: CodeableConcept,
-  public var isDefining: KotlinBoolean? = null,
-  public var _isDefining: Element? = null,
+) {
+  public fun toModel(): SubstanceDefinition.Relationship.SubstanceDefinition =
+    SubstanceDefinition.Relationship.SubstanceDefinition?.from(
+      this@SubstanceDefinitionRelationshipSubstanceDefinitionSurrogate.substanceDefinitionReference,
+      this@SubstanceDefinitionRelationshipSubstanceDefinitionSurrogate
+        .substanceDefinitionCodeableConcept,
+    )!!
+
+  public companion object {
+    public fun fromModel(
+      model: SubstanceDefinition.Relationship.SubstanceDefinition
+    ): SubstanceDefinitionRelationshipSubstanceDefinitionSurrogate =
+      with(model) {
+        SubstanceDefinitionRelationshipSubstanceDefinitionSurrogate(
+          substanceDefinitionReference = this@with.asReference()?.value,
+          substanceDefinitionCodeableConcept = this@with.asCodeableConcept()?.value,
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class SubstanceDefinitionRelationshipAmountSurrogate(
   public var amountQuantity: Quantity? = null,
   public var amountRatio: Ratio? = null,
   public var amountString: KotlinString? = null,
   public var _amountString: Element? = null,
+) {
+  public fun toModel(): SubstanceDefinition.Relationship.Amount =
+    SubstanceDefinition.Relationship.Amount?.from(
+      this@SubstanceDefinitionRelationshipAmountSurrogate.amountQuantity,
+      this@SubstanceDefinitionRelationshipAmountSurrogate.amountRatio,
+      R4bString.of(
+        this@SubstanceDefinitionRelationshipAmountSurrogate.amountString,
+        this@SubstanceDefinitionRelationshipAmountSurrogate._amountString,
+      ),
+    )!!
+
+  public companion object {
+    public fun fromModel(
+      model: SubstanceDefinition.Relationship.Amount
+    ): SubstanceDefinitionRelationshipAmountSurrogate =
+      with(model) {
+        SubstanceDefinitionRelationshipAmountSurrogate(
+          amountQuantity = this@with.asQuantity()?.value,
+          amountRatio = this@with.asRatio()?.value,
+          amountString = this@with.asString()?.value?.value,
+          _amountString = this@with.asString()?.value?.toElement(),
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class SubstanceDefinitionRelationshipSurrogate(
+  public var id: KotlinString? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var substanceDefinition: SubstanceDefinition.Relationship.SubstanceDefinition? = null,
+  public var type: CodeableConcept,
+  public var isDefining: KotlinBoolean? = null,
+  public var _isDefining: Element? = null,
+  public var amount: SubstanceDefinition.Relationship.Amount? = null,
   public var ratioHighLimitAmount: Ratio? = null,
   public var comparator: CodeableConcept? = null,
   public var source: MutableList<Reference>? = null,
@@ -516,26 +605,14 @@ internal data class SubstanceDefinitionRelationshipSurrogate(
       extension = this@SubstanceDefinitionRelationshipSurrogate.extension ?: mutableListOf(),
       modifierExtension =
         this@SubstanceDefinitionRelationshipSurrogate.modifierExtension ?: mutableListOf(),
-      substanceDefinition =
-        SubstanceDefinition.Relationship.SubstanceDefinition?.from(
-          this@SubstanceDefinitionRelationshipSurrogate.substanceDefinitionReference,
-          this@SubstanceDefinitionRelationshipSurrogate.substanceDefinitionCodeableConcept,
-        ),
+      substanceDefinition = this@SubstanceDefinitionRelationshipSurrogate.substanceDefinition,
       type = this@SubstanceDefinitionRelationshipSurrogate.type,
       isDefining =
         R4bBoolean.of(
           this@SubstanceDefinitionRelationshipSurrogate.isDefining,
           this@SubstanceDefinitionRelationshipSurrogate._isDefining,
         ),
-      amount =
-        SubstanceDefinition.Relationship.Amount?.from(
-          this@SubstanceDefinitionRelationshipSurrogate.amountQuantity,
-          this@SubstanceDefinitionRelationshipSurrogate.amountRatio,
-          R4bString.of(
-            this@SubstanceDefinitionRelationshipSurrogate.amountString,
-            this@SubstanceDefinitionRelationshipSurrogate._amountString,
-          ),
-        ),
+      amount = this@SubstanceDefinitionRelationshipSurrogate.amount,
       ratioHighLimitAmount = this@SubstanceDefinitionRelationshipSurrogate.ratioHighLimitAmount,
       comparator = this@SubstanceDefinitionRelationshipSurrogate.comparator,
       source = this@SubstanceDefinitionRelationshipSurrogate.source ?: mutableListOf(),
@@ -550,16 +627,11 @@ internal data class SubstanceDefinitionRelationshipSurrogate(
           id = this@with.id,
           extension = this@with.extension.takeUnless { it.all { it == null } },
           modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          substanceDefinitionReference = this@with.substanceDefinition?.asReference()?.value,
-          substanceDefinitionCodeableConcept =
-            this@with.substanceDefinition?.asCodeableConcept()?.value,
+          substanceDefinition = this@with.substanceDefinition,
           type = this@with.type,
           isDefining = this@with.isDefining?.value,
           _isDefining = this@with.isDefining?.toElement(),
-          amountQuantity = this@with.amount?.asQuantity()?.value,
-          amountRatio = this@with.amount?.asRatio()?.value,
-          amountString = this@with.amount?.asString()?.value?.value,
-          _amountString = this@with.amount?.asString()?.value?.toElement(),
+          amount = this@with.amount,
           ratioHighLimitAmount = this@with.ratioHighLimitAmount,
           comparator = this@with.comparator,
           source = this@with.source.takeUnless { it.all { it == null } },

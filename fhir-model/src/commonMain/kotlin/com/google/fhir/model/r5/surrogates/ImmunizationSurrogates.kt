@@ -222,6 +222,38 @@ internal data class ImmunizationProtocolAppliedSurrogate(
 }
 
 @Serializable
+internal data class ImmunizationOccurrenceSurrogate(
+  public var occurrenceDateTime: KotlinString? = null,
+  public var _occurrenceDateTime: Element? = null,
+  public var occurrenceString: KotlinString? = null,
+  public var _occurrenceString: Element? = null,
+) {
+  public fun toModel(): Immunization.Occurrence =
+    Immunization.Occurrence.from(
+      DateTime.of(
+        FhirDateTime.fromString(this@ImmunizationOccurrenceSurrogate.occurrenceDateTime),
+        this@ImmunizationOccurrenceSurrogate._occurrenceDateTime,
+      ),
+      R5String.of(
+        this@ImmunizationOccurrenceSurrogate.occurrenceString,
+        this@ImmunizationOccurrenceSurrogate._occurrenceString,
+      ),
+    )!! !!
+
+  public companion object {
+    public fun fromModel(model: Immunization.Occurrence): ImmunizationOccurrenceSurrogate =
+      with(model) {
+        ImmunizationOccurrenceSurrogate(
+          occurrenceDateTime = this@with.asDateTime()?.value?.value?.toString(),
+          _occurrenceDateTime = this@with.asDateTime()?.value?.toElement(),
+          occurrenceString = this@with.asString()?.value?.value,
+          _occurrenceString = this@with.asString()?.value?.toElement(),
+        )
+      }
+  }
+}
+
+@Serializable
 internal data class ImmunizationSurrogate(
   public var id: KotlinString? = null,
   public var meta: Meta? = null,
@@ -248,10 +280,7 @@ internal data class ImmunizationSurrogate(
   public var patient: Reference,
   public var encounter: Reference? = null,
   public var supportingInformation: MutableList<Reference>? = null,
-  public var occurrenceDateTime: KotlinString? = null,
-  public var _occurrenceDateTime: Element? = null,
-  public var occurrenceString: KotlinString? = null,
-  public var _occurrenceString: Element? = null,
+  public var occurrence: Immunization.Occurrence,
   public var primarySource: KotlinBoolean? = null,
   public var _primarySource: Element? = null,
   public var informationSource: CodeableReference? = null,
@@ -304,17 +333,7 @@ internal data class ImmunizationSurrogate(
       patient = this@ImmunizationSurrogate.patient,
       encounter = this@ImmunizationSurrogate.encounter,
       supportingInformation = this@ImmunizationSurrogate.supportingInformation ?: mutableListOf(),
-      occurrence =
-        Immunization.Occurrence.from(
-          DateTime.of(
-            FhirDateTime.fromString(this@ImmunizationSurrogate.occurrenceDateTime),
-            this@ImmunizationSurrogate._occurrenceDateTime,
-          ),
-          R5String.of(
-            this@ImmunizationSurrogate.occurrenceString,
-            this@ImmunizationSurrogate._occurrenceString,
-          ),
-        )!!,
+      occurrence = this@ImmunizationSurrogate.occurrence,
       primarySource =
         R5Boolean.of(
           this@ImmunizationSurrogate.primarySource,
@@ -370,10 +389,7 @@ internal data class ImmunizationSurrogate(
           encounter = this@with.encounter,
           supportingInformation =
             this@with.supportingInformation.takeUnless { it.all { it == null } },
-          occurrenceDateTime = this@with.occurrence?.asDateTime()?.value?.value?.toString(),
-          _occurrenceDateTime = this@with.occurrence?.asDateTime()?.value?.toElement(),
-          occurrenceString = this@with.occurrence?.asString()?.value?.value,
-          _occurrenceString = this@with.occurrence?.asString()?.value?.toElement(),
+          occurrence = this@with.occurrence,
           primarySource = this@with.primarySource?.value,
           _primarySource = this@with.primarySource?.toElement(),
           informationSource = this@with.informationSource,

@@ -18,8 +18,10 @@
 
 package com.google.fhir.model.r4
 
+import com.google.fhir.model.r4.serializers.MedicationDispenseMedicationSerializer
 import com.google.fhir.model.r4.serializers.MedicationDispensePerformerSerializer
 import com.google.fhir.model.r4.serializers.MedicationDispenseSerializer
+import com.google.fhir.model.r4.serializers.MedicationDispenseStatusReasonSerializer
 import com.google.fhir.model.r4.serializers.MedicationDispenseSubstitutionSerializer
 import kotlin.String
 import kotlin.Suppress
@@ -363,6 +365,7 @@ public data class MedicationDispense(
     public var responsibleParty: MutableList<Reference> = mutableListOf(),
   ) : BackboneElement()
 
+  @Serializable(with = MedicationDispenseStatusReasonSerializer::class)
   public sealed interface StatusReason {
     public fun asCodeableConcept(): CodeableConcept? = this as? CodeableConcept
 
@@ -387,6 +390,7 @@ public data class MedicationDispense(
     }
   }
 
+  @Serializable(with = MedicationDispenseMedicationSerializer::class)
   public sealed interface Medication {
     public fun asCodeableConcept(): CodeableConcept? = this as? CodeableConcept
 

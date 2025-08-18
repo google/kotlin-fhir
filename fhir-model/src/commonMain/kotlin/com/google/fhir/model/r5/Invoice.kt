@@ -18,8 +18,11 @@
 
 package com.google.fhir.model.r5
 
+import com.google.fhir.model.r5.serializers.InvoiceLineItemChargeItemSerializer
 import com.google.fhir.model.r5.serializers.InvoiceLineItemSerializer
+import com.google.fhir.model.r5.serializers.InvoiceLineItemServicedSerializer
 import com.google.fhir.model.r5.serializers.InvoiceParticipantSerializer
+import com.google.fhir.model.r5.serializers.InvoicePeriodSerializer
 import com.google.fhir.model.r5.serializers.InvoiceSerializer
 import kotlin.Suppress
 import kotlin.collections.MutableList
@@ -336,6 +339,7 @@ public data class Invoice(
      */
     public var priceComponent: MutableList<MonetaryComponent> = mutableListOf(),
   ) : BackboneElement() {
+    @Serializable(with = InvoiceLineItemServicedSerializer::class)
     public sealed interface Serviced {
       public fun asDate(): Date? = this as? Date
 
@@ -357,6 +361,7 @@ public data class Invoice(
       }
     }
 
+    @Serializable(with = InvoiceLineItemChargeItemSerializer::class)
     public sealed interface ChargeItem {
       public fun asReference(): Reference? = this as? Reference
 
@@ -382,6 +387,7 @@ public data class Invoice(
     }
   }
 
+  @Serializable(with = InvoicePeriodSerializer::class)
   public sealed interface Period {
     public fun asDate(): Date? = this as? Date
 

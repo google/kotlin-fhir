@@ -20,6 +20,7 @@ package com.google.fhir.model.r5
 
 import com.google.fhir.model.r5.serializers.ImplementationGuideDefinitionGroupingSerializer
 import com.google.fhir.model.r5.serializers.ImplementationGuideDefinitionPageSerializer
+import com.google.fhir.model.r5.serializers.ImplementationGuideDefinitionPageSourceSerializer
 import com.google.fhir.model.r5.serializers.ImplementationGuideDefinitionParameterSerializer
 import com.google.fhir.model.r5.serializers.ImplementationGuideDefinitionResourceSerializer
 import com.google.fhir.model.r5.serializers.ImplementationGuideDefinitionSerializer
@@ -30,6 +31,7 @@ import com.google.fhir.model.r5.serializers.ImplementationGuideManifestPageSeria
 import com.google.fhir.model.r5.serializers.ImplementationGuideManifestResourceSerializer
 import com.google.fhir.model.r5.serializers.ImplementationGuideManifestSerializer
 import com.google.fhir.model.r5.serializers.ImplementationGuideSerializer
+import com.google.fhir.model.r5.serializers.ImplementationGuideVersionAlgorithmSerializer
 import kotlin.Suppress
 import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
@@ -780,6 +782,7 @@ public data class ImplementationGuide(
        */
       public var page: MutableList<Page> = mutableListOf(),
     ) : BackboneElement() {
+      @Serializable(with = ImplementationGuideDefinitionPageSourceSerializer::class)
       public sealed interface Source {
         public fun asUrl(): Url? = this as? Url
 
@@ -1094,6 +1097,7 @@ public data class ImplementationGuide(
     ) : BackboneElement()
   }
 
+  @Serializable(with = ImplementationGuideVersionAlgorithmSerializer::class)
   public sealed interface VersionAlgorithm {
     public fun asString(): String? = this as? String
 

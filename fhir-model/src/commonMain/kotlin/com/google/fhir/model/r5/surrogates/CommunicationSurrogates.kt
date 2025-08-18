@@ -46,25 +46,45 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
+internal data class CommunicationPayloadContentSurrogate(
+  public var contentAttachment: Attachment? = null,
+  public var contentReference: Reference? = null,
+  public var contentCodeableConcept: CodeableConcept? = null,
+) {
+  public fun toModel(): Communication.Payload.Content =
+    Communication.Payload.Content.from(
+      this@CommunicationPayloadContentSurrogate.contentAttachment,
+      this@CommunicationPayloadContentSurrogate.contentReference,
+      this@CommunicationPayloadContentSurrogate.contentCodeableConcept,
+    )!! !!
+
+  public companion object {
+    public fun fromModel(
+      model: Communication.Payload.Content
+    ): CommunicationPayloadContentSurrogate =
+      with(model) {
+        CommunicationPayloadContentSurrogate(
+          contentAttachment = this@with.asAttachment()?.value,
+          contentReference = this@with.asReference()?.value,
+          contentCodeableConcept = this@with.asCodeableConcept()?.value,
+        )
+      }
+  }
+}
+
+@Serializable
 internal data class CommunicationPayloadSurrogate(
   public var id: String? = null,
   public var extension: MutableList<Extension>? = null,
   public var modifierExtension: MutableList<Extension>? = null,
-  public var contentAttachment: Attachment? = null,
-  public var contentReference: Reference? = null,
-  public var contentCodeableConcept: CodeableConcept? = null,
+  public var content: Communication.Payload.Content,
 ) {
   public fun toModel(): Communication.Payload =
     Communication.Payload(
       id = this@CommunicationPayloadSurrogate.id,
       extension = this@CommunicationPayloadSurrogate.extension ?: mutableListOf(),
       modifierExtension = this@CommunicationPayloadSurrogate.modifierExtension ?: mutableListOf(),
-      content =
-        Communication.Payload.Content.from(
-          this@CommunicationPayloadSurrogate.contentAttachment,
-          this@CommunicationPayloadSurrogate.contentReference,
-          this@CommunicationPayloadSurrogate.contentCodeableConcept,
-        )!!,
+      content = this@CommunicationPayloadSurrogate.content,
     )
 
   public companion object {
@@ -74,9 +94,7 @@ internal data class CommunicationPayloadSurrogate(
           id = this@with.id,
           extension = this@with.extension.takeUnless { it.all { it == null } },
           modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          contentAttachment = this@with.content?.asAttachment()?.value,
-          contentReference = this@with.content?.asReference()?.value,
-          contentCodeableConcept = this@with.content?.asCodeableConcept()?.value,
+          content = this@with.content,
         )
       }
   }

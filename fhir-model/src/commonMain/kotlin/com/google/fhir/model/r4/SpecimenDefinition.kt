@@ -19,7 +19,9 @@
 package com.google.fhir.model.r4
 
 import com.google.fhir.model.r4.serializers.SpecimenDefinitionSerializer
+import com.google.fhir.model.r4.serializers.SpecimenDefinitionTypeTestedContainerAdditiveAdditiveSerializer
 import com.google.fhir.model.r4.serializers.SpecimenDefinitionTypeTestedContainerAdditiveSerializer
+import com.google.fhir.model.r4.serializers.SpecimenDefinitionTypeTestedContainerMinimumVolumeSerializer
 import com.google.fhir.model.r4.serializers.SpecimenDefinitionTypeTestedContainerSerializer
 import com.google.fhir.model.r4.serializers.SpecimenDefinitionTypeTestedHandlingSerializer
 import com.google.fhir.model.r4.serializers.SpecimenDefinitionTypeTestedSerializer
@@ -313,6 +315,7 @@ public data class SpecimenDefinition(
          */
         public var additive: Additive,
       ) : BackboneElement() {
+        @Serializable(with = SpecimenDefinitionTypeTestedContainerAdditiveAdditiveSerializer::class)
         public sealed interface Additive {
           public fun asCodeableConcept(): CodeableConcept? = this as? CodeableConcept
 
@@ -338,6 +341,7 @@ public data class SpecimenDefinition(
         }
       }
 
+      @Serializable(with = SpecimenDefinitionTypeTestedContainerMinimumVolumeSerializer::class)
       public sealed interface MinimumVolume {
         public fun asQuantity(): Quantity? = this as? Quantity
 

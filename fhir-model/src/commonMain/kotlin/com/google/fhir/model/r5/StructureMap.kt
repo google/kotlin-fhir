@@ -24,10 +24,12 @@ import com.google.fhir.model.r5.serializers.StructureMapGroupRuleDependentSerial
 import com.google.fhir.model.r5.serializers.StructureMapGroupRuleSerializer
 import com.google.fhir.model.r5.serializers.StructureMapGroupRuleSourceSerializer
 import com.google.fhir.model.r5.serializers.StructureMapGroupRuleTargetParameterSerializer
+import com.google.fhir.model.r5.serializers.StructureMapGroupRuleTargetParameterValueSerializer
 import com.google.fhir.model.r5.serializers.StructureMapGroupRuleTargetSerializer
 import com.google.fhir.model.r5.serializers.StructureMapGroupSerializer
 import com.google.fhir.model.r5.serializers.StructureMapSerializer
 import com.google.fhir.model.r5.serializers.StructureMapStructureSerializer
+import com.google.fhir.model.r5.serializers.StructureMapVersionAlgorithmSerializer
 import kotlin.Suppress
 import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
@@ -786,6 +788,7 @@ public data class StructureMap(
           /** Parameter value - variable or literal. */
           public var `value`: Value,
         ) : BackboneElement() {
+          @Serializable(with = StructureMapGroupRuleTargetParameterValueSerializer::class)
           public sealed interface Value {
             public fun asId(): Id? = this as? Id
 
@@ -894,6 +897,7 @@ public data class StructureMap(
     }
   }
 
+  @Serializable(with = StructureMapVersionAlgorithmSerializer::class)
   public sealed interface VersionAlgorithm {
     public fun asString(): String? = this as? String
 

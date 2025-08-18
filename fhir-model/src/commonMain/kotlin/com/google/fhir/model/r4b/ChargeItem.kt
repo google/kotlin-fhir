@@ -18,7 +18,9 @@
 
 package com.google.fhir.model.r4b
 
+import com.google.fhir.model.r4b.serializers.ChargeItemOccurrenceSerializer
 import com.google.fhir.model.r4b.serializers.ChargeItemPerformerSerializer
+import com.google.fhir.model.r4b.serializers.ChargeItemProductSerializer
 import com.google.fhir.model.r4b.serializers.ChargeItemSerializer
 import kotlin.Suppress
 import kotlin.collections.MutableList
@@ -323,6 +325,7 @@ public data class ChargeItem(
     public var actor: Reference,
   ) : BackboneElement()
 
+  @Serializable(with = ChargeItemOccurrenceSerializer::class)
   public sealed interface Occurrence {
     public fun asDateTime(): DateTime? = this as? DateTime
 
@@ -350,6 +353,7 @@ public data class ChargeItem(
     }
   }
 
+  @Serializable(with = ChargeItemProductSerializer::class)
   public sealed interface Product {
     public fun asReference(): Reference? = this as? Reference
 
