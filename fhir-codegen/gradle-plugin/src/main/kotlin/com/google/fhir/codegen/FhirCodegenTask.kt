@@ -101,6 +101,7 @@ abstract class FhirCodegenTask : DefaultTask() {
               "http://hl7.org/fhir/ValueSet/all-languages",
               "http://hl7.org/fhir/ValueSet/specimen-combined",
               "http://hl7.org/fhir/ValueSet/use-context",
+              "http://hl7.org/fhir/ValueSet/security-label-examples",
             )
         }
         .groupBy { it.urlPart }
