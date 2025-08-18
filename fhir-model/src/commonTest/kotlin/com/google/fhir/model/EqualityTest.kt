@@ -90,7 +90,7 @@ class EqualityTest {
     private val exclusionListR5 =
       listOf(
         // Unknown code 'text/CQL' for enum ExpressionLanguage; codes are case-sensitive
-        "ChargeItemDefinition-ebm.json",
+        "ChargeItemDefinition-ebm.json"
       )
   }
 }
