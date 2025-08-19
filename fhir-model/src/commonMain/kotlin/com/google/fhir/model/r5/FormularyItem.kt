@@ -148,10 +148,10 @@ public data class FormularyItem(
    * changed to "inactive" that means that it is no longer valid in the formulary. But the product
    * itself might still be in active use and might be included in other formularies.
    */
-  public var status: Enumeration<FormularyItemStatus>? = null,
+  public var status: Enumeration<FormularyItemStatusCodes>? = null,
 ) : DomainResource() {
   /** FormularyItem Status Codes */
-  public enum class FormularyItemStatus(
+  public enum class FormularyItemStatusCodes(
     private val code: String,
     private val system: String,
     private val display: String?,
@@ -173,12 +173,13 @@ public data class FormularyItem(
     public fun getDisplay(): String? = display
 
     public companion object {
-      public fun fromCode(code: String): FormularyItemStatus =
+      public fun fromCode(code: String): FormularyItemStatusCodes =
         when (code) {
           "active" -> Active
           "entered-in-error" -> Entered_In_Error
           "inactive" -> Inactive
-          else -> throw IllegalArgumentException("Unknown code $code for enum FormularyItemStatus")
+          else ->
+            throw IllegalArgumentException("Unknown code $code for enum FormularyItemStatusCodes")
         }
     }
   }

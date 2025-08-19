@@ -50,7 +50,7 @@ internal data class MoneySurrogate(
       currency =
         this@MoneySurrogate.currency?.let {
           Enumeration.of(
-            com.google.fhir.model.r5.CurrencyCode.fromCode(it!!),
+            com.google.fhir.model.r5.Currencies.fromCode(it!!),
             this@MoneySurrogate._currency,
           )
         },

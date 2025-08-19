@@ -153,7 +153,7 @@ public data class ClinicalImpression(
    * This element is labeled as a modifier because the status contains the code entered-in-error
    * that marks the clinical impression as not currently valid.
    */
-  public var status: Enumeration<ClinicalImpressionStatus>,
+  public var status: Enumeration<EventStatus>,
   /**
    * Captures the reason for the current state of the ClinicalImpression.
    *
@@ -309,7 +309,7 @@ public data class ClinicalImpression(
   }
 
   /** Codes identifying the lifecycle stage of an event. */
-  public enum class ClinicalImpressionStatus(
+  public enum class EventStatus(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
@@ -332,7 +332,7 @@ public data class ClinicalImpression(
     public fun getDisplay(): kotlin.String? = display
 
     public companion object {
-      public fun fromCode(code: kotlin.String): ClinicalImpressionStatus =
+      public fun fromCode(code: kotlin.String): EventStatus =
         when (code) {
           "preparation" -> Preparation
           "in-progress" -> In_Progress
@@ -342,8 +342,7 @@ public data class ClinicalImpression(
           "completed" -> Completed
           "entered-in-error" -> Entered_In_Error
           "unknown" -> Unknown
-          else ->
-            throw IllegalArgumentException("Unknown code $code for enum ClinicalImpressionStatus")
+          else -> throw IllegalArgumentException("Unknown code $code for enum EventStatus")
         }
     }
   }

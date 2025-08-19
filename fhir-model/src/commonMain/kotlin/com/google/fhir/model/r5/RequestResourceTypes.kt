@@ -19,7 +19,7 @@ package com.google.fhir.model.r5
 import kotlin.String
 
 /** All Resource Types that represent request resources */
-public enum class ActivityDefinitionKind(
+public enum class RequestResourceTypes(
   private val code: String,
   private val system: String,
   private val display: String?,
@@ -71,7 +71,7 @@ public enum class ActivityDefinitionKind(
   public fun getDisplay(): String? = display
 
   public companion object {
-    public fun fromCode(code: String): ActivityDefinitionKind =
+    public fun fromCode(code: String): RequestResourceTypes =
       when (code) {
         "Appointment" -> Appointment
         "AppointmentResponse" -> AppointmentResponse
@@ -90,7 +90,7 @@ public enum class ActivityDefinitionKind(
         "Task" -> Task
         "Transport" -> Transport
         "VisionPrescription" -> VisionPrescription
-        else -> throw IllegalArgumentException("Unknown code $code for enum ActivityDefinitionKind")
+        else -> throw IllegalArgumentException("Unknown code $code for enum RequestResourceTypes")
       }
   }
 }

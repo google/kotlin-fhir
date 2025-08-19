@@ -88,7 +88,7 @@ internal data class ConceptMapPropertySurrogate(
         ),
       type =
         Enumeration.of(
-          com.google.fhir.model.r5.ConceptMap.PropertyType.fromCode(
+          com.google.fhir.model.r5.ConceptMap.ConceptMapPropertyType.fromCode(
             this@ConceptMapPropertySurrogate.type!!
           ),
           this@ConceptMapPropertySurrogate._type,
@@ -159,7 +159,7 @@ internal data class ConceptMapAdditionalAttributeSurrogate(
         ),
       type =
         Enumeration.of(
-          com.google.fhir.model.r5.ConceptMap.ConceptMapmapAttributeType.fromCode(
+          com.google.fhir.model.r5.ConceptMap.ConceptMapAttributeType.fromCode(
             this@ConceptMapAdditionalAttributeSurrogate.type!!
           ),
           this@ConceptMapAdditionalAttributeSurrogate._type,
@@ -593,7 +593,7 @@ internal data class ConceptMapGroupUnmappedSurrogate(
       relationship =
         this@ConceptMapGroupUnmappedSurrogate.relationship?.let {
           Enumeration.of(
-            com.google.fhir.model.r5.UnmappedConceptMapRelationship.fromCode(it!!),
+            com.google.fhir.model.r5.ConceptMapRelationship.fromCode(it!!),
             this@ConceptMapGroupUnmappedSurrogate._relationship,
           )
         },

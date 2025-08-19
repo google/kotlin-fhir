@@ -96,9 +96,8 @@ internal data class ImmunizationEvaluationSurrogate(
       identifier = this@ImmunizationEvaluationSurrogate.identifier ?: mutableListOf(),
       status =
         Enumeration.of(
-          com.google.fhir.model.r5.ImmunizationEvaluation.ImmunizationEvaluationStatus.fromCode(
-            this@ImmunizationEvaluationSurrogate.status!!
-          ),
+          com.google.fhir.model.r5.ImmunizationEvaluation.ImmunizationEvaluationStatusCodes
+            .fromCode(this@ImmunizationEvaluationSurrogate.status!!),
           this@ImmunizationEvaluationSurrogate._status,
         ),
       patient = this@ImmunizationEvaluationSurrogate.patient,

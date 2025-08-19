@@ -182,14 +182,14 @@ public data class ServiceRequest(
    * event (see [Event Pattern](event.html) for general discussion) or using the [Task](task.html)
    * resource.
    */
-  public var status: Enumeration<ServiceRequestStatus>,
+  public var status: Enumeration<RequestStatus>,
   /**
    * Whether the request is a proposal, plan, an original order or a reflex order.
    *
    * This element is labeled as a modifier because the intent alters when and how the resource is
    * actually applicable.
    */
-  public var intent: Enumeration<ServiceRequestIntent>,
+  public var intent: Enumeration<RequestIntent>,
   /**
    * A code that classifies the service for searching, sorting and display purposes (e.g. "Surgical
    * Procedure").
@@ -202,7 +202,7 @@ public data class ServiceRequest(
   /**
    * Indicates how quickly the ServiceRequest should be addressed with respect to other requests.
    */
-  public var priority: Enumeration<ServiceRequestPriority>? = null,
+  public var priority: Enumeration<RequestPriority>? = null,
   /**
    * Set this to true if the record is saying that the service/procedure should NOT be performed.
    *
@@ -457,7 +457,7 @@ public data class ServiceRequest(
   }
 
   /** Codes identifying the lifecycle stage of a request. */
-  public enum class ServiceRequestStatus(
+  public enum class RequestStatus(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
@@ -479,7 +479,7 @@ public data class ServiceRequest(
     public fun getDisplay(): kotlin.String? = display
 
     public companion object {
-      public fun fromCode(code: kotlin.String): ServiceRequestStatus =
+      public fun fromCode(code: kotlin.String): RequestStatus =
         when (code) {
           "draft" -> Draft
           "active" -> Active
@@ -488,13 +488,13 @@ public data class ServiceRequest(
           "completed" -> Completed
           "entered-in-error" -> Entered_In_Error
           "unknown" -> Unknown
-          else -> throw IllegalArgumentException("Unknown code $code for enum ServiceRequestStatus")
+          else -> throw IllegalArgumentException("Unknown code $code for enum RequestStatus")
         }
     }
   }
 
   /** Codes indicating the degree of authority/intentionality associated with a request. */
-  public enum class ServiceRequestIntent(
+  public enum class RequestIntent(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
@@ -518,7 +518,7 @@ public data class ServiceRequest(
     public fun getDisplay(): kotlin.String? = display
 
     public companion object {
-      public fun fromCode(code: kotlin.String): ServiceRequestIntent =
+      public fun fromCode(code: kotlin.String): RequestIntent =
         when (code) {
           "proposal" -> Proposal
           "plan" -> Plan
@@ -529,13 +529,13 @@ public data class ServiceRequest(
           "filler-order" -> Filler_Order
           "instance-order" -> Instance_Order
           "option" -> Option
-          else -> throw IllegalArgumentException("Unknown code $code for enum ServiceRequestIntent")
+          else -> throw IllegalArgumentException("Unknown code $code for enum RequestIntent")
         }
     }
   }
 
   /** The clinical priority of a diagnostic order. */
-  public enum class ServiceRequestPriority(
+  public enum class RequestPriority(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
@@ -554,14 +554,13 @@ public data class ServiceRequest(
     public fun getDisplay(): kotlin.String? = display
 
     public companion object {
-      public fun fromCode(code: kotlin.String): ServiceRequestPriority =
+      public fun fromCode(code: kotlin.String): RequestPriority =
         when (code) {
           "routine" -> Routine
           "urgent" -> Urgent
           "asap" -> Asap
           "stat" -> Stat
-          else ->
-            throw IllegalArgumentException("Unknown code $code for enum ServiceRequestPriority")
+          else -> throw IllegalArgumentException("Unknown code $code for enum RequestPriority")
         }
     }
   }

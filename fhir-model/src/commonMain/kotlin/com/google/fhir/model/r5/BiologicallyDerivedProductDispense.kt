@@ -140,7 +140,7 @@ public data class BiologicallyDerivedProductDispense(
   /** A larger event of which this particular event is a component. */
   public var partOf: MutableList<Reference> = mutableListOf(),
   /** A code specifying the state of the dispense event. */
-  public var status: Enumeration<BiologicallyDerivedProductDispenseStatus>,
+  public var status: Enumeration<BiologicallyDerivedProductDispenseCodes>,
   /**
    * Indicates the relationship between the donor of the biologically derived product and the
    * intended recipient.
@@ -219,7 +219,7 @@ public data class BiologicallyDerivedProductDispense(
   ) : BackboneElement()
 
   /** BiologicallyDerivedProductDispense Status Codes */
-  public enum class BiologicallyDerivedProductDispenseStatus(
+  public enum class BiologicallyDerivedProductDispenseCodes(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
@@ -266,7 +266,7 @@ public data class BiologicallyDerivedProductDispense(
     public fun getDisplay(): kotlin.String? = display
 
     public companion object {
-      public fun fromCode(code: kotlin.String): BiologicallyDerivedProductDispenseStatus =
+      public fun fromCode(code: kotlin.String): BiologicallyDerivedProductDispenseCodes =
         when (code) {
           "preparation" -> Preparation
           "in-progress" -> In_Progress
@@ -278,7 +278,7 @@ public data class BiologicallyDerivedProductDispense(
           "unknown" -> Unknown
           else ->
             throw IllegalArgumentException(
-              "Unknown code $code for enum BiologicallyDerivedProductDispenseStatus"
+              "Unknown code $code for enum BiologicallyDerivedProductDispenseCodes"
             )
         }
     }

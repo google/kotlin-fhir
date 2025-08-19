@@ -617,7 +617,7 @@ public data class ValueSet(
            *
            * In the absence of a language, the resource language applies.
            */
-          public var language: Code? = null,
+          public var language: Enumeration<CommonLanguages>? = null,
           /**
            * A code that represents types of uses of designations.
            *

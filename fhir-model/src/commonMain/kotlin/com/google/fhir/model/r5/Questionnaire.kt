@@ -517,7 +517,7 @@ public data class Questionnaire(
      * If not specified, rendering behavior is up to the client. This element is only meaningful if
      * enableWhen or an equivalent extension is present
      */
-    public var disabledDisplay: Enumeration<DisabledDisplay>? = null,
+    public var disabledDisplay: Enumeration<QuestionnaireItemDisabledDisplay>? = null,
     /**
      * An indication, if true, that the item must be present in a "completed" QuestionnaireResponse.
      * If false, the item may be skipped when answering the questionnaire.
@@ -1095,7 +1095,7 @@ public data class Questionnaire(
   }
 
   /** Codes that guide the display of disabled questionnaire items */
-  public enum class DisabledDisplay(
+  public enum class QuestionnaireItemDisabledDisplay(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
@@ -1112,11 +1112,14 @@ public data class Questionnaire(
     public fun getDisplay(): kotlin.String? = display
 
     public companion object {
-      public fun fromCode(code: kotlin.String): DisabledDisplay =
+      public fun fromCode(code: kotlin.String): QuestionnaireItemDisabledDisplay =
         when (code) {
           "hidden" -> Hidden
           "protected" -> Protected
-          else -> throw IllegalArgumentException("Unknown code $code for enum DisabledDisplay")
+          else ->
+            throw IllegalArgumentException(
+              "Unknown code $code for enum QuestionnaireItemDisabledDisplay"
+            )
         }
     }
   }

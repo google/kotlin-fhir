@@ -181,7 +181,7 @@ public data class Timing(
      * If no days are specified, the action is assumed to happen every day as otherwise specified.
      * The elements frequency and period cannot be used as well as dayOfWeek.
      */
-    public var dayOfWeek: MutableList<Enumeration<DayOfWeek>> = mutableListOf(),
+    public var dayOfWeek: MutableList<Enumeration<DaysOfWeek>> = mutableListOf(),
     /**
      * Specified time of day for action to take place.
      *
@@ -270,7 +270,7 @@ public data class Timing(
   }
 
   /** The days of the week. */
-  public enum class DayOfWeek(
+  public enum class DaysOfWeek(
     private val code: String,
     private val system: String,
     private val display: String?,
@@ -292,7 +292,7 @@ public data class Timing(
     public fun getDisplay(): String? = display
 
     public companion object {
-      public fun fromCode(code: String): DayOfWeek =
+      public fun fromCode(code: String): DaysOfWeek =
         when (code) {
           "mon" -> Mon
           "tue" -> Tue
@@ -301,7 +301,7 @@ public data class Timing(
           "fri" -> Fri
           "sat" -> Sat
           "sun" -> Sun
-          else -> throw IllegalArgumentException("Unknown code $code for enum DayOfWeek")
+          else -> throw IllegalArgumentException("Unknown code $code for enum DaysOfWeek")
         }
     }
   }

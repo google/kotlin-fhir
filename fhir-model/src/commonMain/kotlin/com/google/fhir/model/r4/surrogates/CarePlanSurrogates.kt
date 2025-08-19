@@ -395,9 +395,7 @@ internal data class CarePlanSurrogate(
       partOf = this@CarePlanSurrogate.partOf ?: mutableListOf(),
       status =
         Enumeration.of(
-          com.google.fhir.model.r4.CarePlan.CarePlanStatus.fromCode(
-            this@CarePlanSurrogate.status!!
-          ),
+          com.google.fhir.model.r4.CarePlan.RequestStatus.fromCode(this@CarePlanSurrogate.status!!),
           this@CarePlanSurrogate._status,
         ),
       intent =

@@ -370,7 +370,7 @@ public data class ExampleScenario(
     /** The id of the resource for referencing. */
     public var resourceId: String,
     /** The type of the resource. */
-    public var resourceType: Enumeration<FHIRResourceType>,
+    public var resourceType: Enumeration<ResourceType>,
     /** A short name for the resource instance. */
     public var name: String? = null,
     /** Human-friendly description of the resource instance. */
@@ -726,7 +726,7 @@ public data class ExampleScenario(
   }
 
   /** One of the resource types defined as part of this version of FHIR. */
-  public enum class FHIRResourceType(
+  public enum class ResourceType(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
@@ -1109,7 +1109,7 @@ public data class ExampleScenario(
     public fun getDisplay(): kotlin.String? = display
 
     public companion object {
-      public fun fromCode(code: kotlin.String): FHIRResourceType =
+      public fun fromCode(code: kotlin.String): ResourceType =
         when (code) {
           "Account" -> Account
           "ActivityDefinition" -> ActivityDefinition
@@ -1259,7 +1259,7 @@ public data class ExampleScenario(
           "ValueSet" -> ValueSet
           "VerificationResult" -> VerificationResult
           "VisionPrescription" -> VisionPrescription
-          else -> throw IllegalArgumentException("Unknown code $code for enum FHIRResourceType")
+          else -> throw IllegalArgumentException("Unknown code $code for enum ResourceType")
         }
     }
   }

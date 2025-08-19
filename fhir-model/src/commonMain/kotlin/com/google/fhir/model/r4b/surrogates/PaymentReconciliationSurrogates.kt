@@ -212,7 +212,7 @@ internal data class PaymentReconciliationSurrogate(
       identifier = this@PaymentReconciliationSurrogate.identifier ?: mutableListOf(),
       status =
         Enumeration.of(
-          com.google.fhir.model.r4b.PaymentReconciliation.PaymentReconciliationStatus.fromCode(
+          com.google.fhir.model.r4b.PaymentReconciliation.FinancialResourceStatusCodes.fromCode(
             this@PaymentReconciliationSurrogate.status!!
           ),
           this@PaymentReconciliationSurrogate._status,

@@ -457,14 +457,14 @@ internal data class NutritionOrderSurrogate(
         },
       status =
         Enumeration.of(
-          com.google.fhir.model.r4.NutritionOrder.NutritionOrderStatus.fromCode(
+          com.google.fhir.model.r4.NutritionOrder.RequestStatus.fromCode(
             this@NutritionOrderSurrogate.status!!
           ),
           this@NutritionOrderSurrogate._status,
         ),
       intent =
         Enumeration.of(
-          com.google.fhir.model.r4.NutritionOrder.NutritiionOrderIntent.fromCode(
+          com.google.fhir.model.r4.NutritionOrder.RequestIntent.fromCode(
             this@NutritionOrderSurrogate.intent!!
           ),
           this@NutritionOrderSurrogate._intent,

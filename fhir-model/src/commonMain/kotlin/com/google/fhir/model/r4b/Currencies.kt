@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-package com.google.fhir.model.r5
+package com.google.fhir.model.r4b
 
 import kotlin.String
 
 /** Currency codes from ISO 4217 (see https://www.iso.org/iso-4217-currency-codes.html) */
-public enum class CurrencyCode(
+public enum class Currencies(
   private val code: String,
   private val system: String,
   private val display: String?,
@@ -95,7 +95,7 @@ public enum class CurrencyCode(
   Inr("INR", "urn:iso:std:iso:4217", "Indian rupee"),
   Iqd("IQD", "urn:iso:std:iso:4217", "Iraqi dinar"),
   Irr("IRR", "urn:iso:std:iso:4217", "Iranian rial"),
-  Isk("ISK", "urn:iso:std:iso:4217", "Icelandic króna"),
+  Isk("ISK", "urn:iso:std:iso:4217", "Icelandic krC3na"),
   Jep("JEP", "urn:iso:std:iso:4217", "Jersey Pound"),
   Jmd("JMD", "urn:iso:std:iso:4217", "Jamaican dollar"),
   Jod("JOD", "urn:iso:std:iso:4217", "Jordanian dinar"),
@@ -120,7 +120,7 @@ public enum class CurrencyCode(
   Mga("MGA", "urn:iso:std:iso:4217", "Malagasy ariary"),
   Mkd("MKD", "urn:iso:std:iso:4217", "Macedonian denar"),
   Mmk("MMK", "urn:iso:std:iso:4217", "Myanmar kyat"),
-  Mnt("MNT", "urn:iso:std:iso:4217", "Mongolian tögrög"),
+  Mnt("MNT", "urn:iso:std:iso:4217", "Mongolian tC6grC6g"),
   Mop("MOP", "urn:iso:std:iso:4217", "Macanese pataca"),
   Mru("MRU", "urn:iso:std:iso:4217", "Mauritanian ouguiya"),
   Mur("MUR", "urn:iso:std:iso:4217", "Mauritian rupee"),
@@ -132,7 +132,7 @@ public enum class CurrencyCode(
   Mzn("MZN", "urn:iso:std:iso:4217", "Mozambican metical"),
   Nad("NAD", "urn:iso:std:iso:4217", "Namibian dollar"),
   Ngn("NGN", "urn:iso:std:iso:4217", "Nigerian naira"),
-  Nio("NIO", "urn:iso:std:iso:4217", "Nicaraguan córdoba"),
+  Nio("NIO", "urn:iso:std:iso:4217", "Nicaraguan cC3rdoba"),
   Nok("NOK", "urn:iso:std:iso:4217", "Norwegian krone"),
   Npr("NPR", "urn:iso:std:iso:4217", "Nepalese rupee"),
   Nzd("NZD", "urn:iso:std:iso:4217", "New Zealand dollar"),
@@ -142,8 +142,8 @@ public enum class CurrencyCode(
   Pgk("PGK", "urn:iso:std:iso:4217", "Papua New Guinean kina"),
   Php("PHP", "urn:iso:std:iso:4217", "Philippine piso[13]"),
   Pkr("PKR", "urn:iso:std:iso:4217", "Pakistani rupee"),
-  Pln("PLN", "urn:iso:std:iso:4217", "Polish złoty"),
-  Pyg("PYG", "urn:iso:std:iso:4217", "Paraguayan guaraní"),
+  Pln("PLN", "urn:iso:std:iso:4217", "Polish zE\u0002oty"),
+  Pyg("PYG", "urn:iso:std:iso:4217", "Paraguayan guaranC-"),
   Qar("QAR", "urn:iso:std:iso:4217", "Qatari riyal"),
   Ron("RON", "urn:iso:std:iso:4217", "Romanian leu"),
   Rsd("RSD", "urn:iso:std:iso:4217", "Serbian dinar"),
@@ -160,15 +160,15 @@ public enum class CurrencyCode(
   Sos("SOS", "urn:iso:std:iso:4217", "Somali shilling"),
   Srd("SRD", "urn:iso:std:iso:4217", "Surinamese dollar"),
   Ssp("SSP", "urn:iso:std:iso:4217", "South Sudanese pound"),
-  Stn("STN", "urn:iso:std:iso:4217", "São Tomé and Príncipe dobra"),
-  Svc("SVC", "urn:iso:std:iso:4217", "Salvadoran colón"),
+  Stn("STN", "urn:iso:std:iso:4217", "SC#o TomC) and PrC-ncipe dobra"),
+  Svc("SVC", "urn:iso:std:iso:4217", "Salvadoran colC3n"),
   Syp("SYP", "urn:iso:std:iso:4217", "Syrian pound"),
   Szl("SZL", "urn:iso:std:iso:4217", "Swazi lilangeni"),
   Thb("THB", "urn:iso:std:iso:4217", "Thai baht"),
   Tjs("TJS", "urn:iso:std:iso:4217", "Tajikistani somoni"),
   Tmt("TMT", "urn:iso:std:iso:4217", "Turkmenistan manat"),
   Tnd("TND", "urn:iso:std:iso:4217", "Tunisian dinar"),
-  Top("TOP", "urn:iso:std:iso:4217", "Tongan paʻanga"),
+  Top("TOP", "urn:iso:std:iso:4217", "Tongan paJ;anga"),
   Try("TRY", "urn:iso:std:iso:4217", "Turkish lira"),
   Ttd("TTD", "urn:iso:std:iso:4217", "Trinidad and Tobago dollar"),
   Tvd("TVD", "urn:iso:std:iso:4217", "Tuvalu Dollar"),
@@ -181,8 +181,8 @@ public enum class CurrencyCode(
   Uyi("UYI", "urn:iso:std:iso:4217", "Uruguay Peso en Unidades Indexadas (URUIURUI) (funds code)"),
   Uyu("UYU", "urn:iso:std:iso:4217", "Uruguayan peso"),
   Uzs("UZS", "urn:iso:std:iso:4217", "Uzbekistan som"),
-  Vef("VEF", "urn:iso:std:iso:4217", "Venezuelan bolívar"),
-  Vnd("VND", "urn:iso:std:iso:4217", "Vietnamese đồng"),
+  Vef("VEF", "urn:iso:std:iso:4217", "Venezuelan bolC-var"),
+  Vnd("VND", "urn:iso:std:iso:4217", "Vietnamese D#a;%ng"),
   Vuv("VUV", "urn:iso:std:iso:4217", "Vanuatu vatu"),
   Wst("WST", "urn:iso:std:iso:4217", "Samoan tala"),
   Xaf("XAF", "urn:iso:std:iso:4217", "CFA franc BEAC"),
@@ -216,7 +216,7 @@ public enum class CurrencyCode(
   public fun getDisplay(): String? = display
 
   public companion object {
-    public fun fromCode(code: String): CurrencyCode =
+    public fun fromCode(code: String): Currencies =
       when (code) {
         "AED" -> Aed
         "AFN" -> Afn
@@ -400,7 +400,7 @@ public enum class CurrencyCode(
         "ZAR" -> Zar
         "ZMW" -> Zmw
         "ZWL" -> Zwl
-        else -> throw IllegalArgumentException("Unknown code $code for enum CurrencyCode")
+        else -> throw IllegalArgumentException("Unknown code $code for enum Currencies")
       }
   }
 }

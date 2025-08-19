@@ -145,7 +145,7 @@ public data class Coverage(
    * This element is labeled as a modifier because the status contains the code entered-in-error
    * that marks the coverage as not currently valid.
    */
-  public var status: Enumeration<CoverageStatus>,
+  public var status: Enumeration<FinancialResourceStatusCodes>,
   /**
    * The type of coverage: social program, medical plan, accident coverage (workers compensation,
    * auto), group health or payment by an individual or organization.
@@ -425,7 +425,7 @@ public data class Coverage(
   }
 
   /** This value set includes Status codes. */
-  public enum class CoverageStatus(
+  public enum class FinancialResourceStatusCodes(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
@@ -444,13 +444,16 @@ public data class Coverage(
     public fun getDisplay(): kotlin.String? = display
 
     public companion object {
-      public fun fromCode(code: kotlin.String): CoverageStatus =
+      public fun fromCode(code: kotlin.String): FinancialResourceStatusCodes =
         when (code) {
           "active" -> Active
           "cancelled" -> Cancelled
           "draft" -> Draft
           "entered-in-error" -> Entered_In_Error
-          else -> throw IllegalArgumentException("Unknown code $code for enum CoverageStatus")
+          else ->
+            throw IllegalArgumentException(
+              "Unknown code $code for enum FinancialResourceStatusCodes"
+            )
         }
     }
   }

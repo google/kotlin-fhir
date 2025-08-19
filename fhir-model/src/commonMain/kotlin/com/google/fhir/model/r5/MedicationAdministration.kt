@@ -161,7 +161,7 @@ public data class MedicationAdministration(
    * This element is labeled as a modifier because the status contains codes that mark the resource
    * as not currently valid.
    */
-  public var status: Enumeration<MedicationAdministrationStatus>,
+  public var status: Enumeration<MedicationAdministrationStatusCodes>,
   /** A code indicating why the administration was not performed. */
   public var statusReason: MutableList<CodeableConcept> = mutableListOf(),
   /**
@@ -452,7 +452,7 @@ public data class MedicationAdministration(
   }
 
   /** MedicationAdministration Status Codes */
-  public enum class MedicationAdministrationStatus(
+  public enum class MedicationAdministrationStatusCodes(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
@@ -482,7 +482,7 @@ public data class MedicationAdministration(
     public fun getDisplay(): kotlin.String? = display
 
     public companion object {
-      public fun fromCode(code: kotlin.String): MedicationAdministrationStatus =
+      public fun fromCode(code: kotlin.String): MedicationAdministrationStatusCodes =
         when (code) {
           "in-progress" -> In_Progress
           "not-done" -> Not_Done
@@ -493,7 +493,7 @@ public data class MedicationAdministration(
           "unknown" -> Unknown
           else ->
             throw IllegalArgumentException(
-              "Unknown code $code for enum MedicationAdministrationStatus"
+              "Unknown code $code for enum MedicationAdministrationStatusCodes"
             )
         }
     }

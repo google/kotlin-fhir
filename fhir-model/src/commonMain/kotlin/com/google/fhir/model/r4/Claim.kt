@@ -153,7 +153,7 @@ public data class Claim(
    * This element is labeled as a modifier because the status contains codes that mark the resource
    * as not currently valid.
    */
-  public var status: Enumeration<ClaimStatus>,
+  public var status: Enumeration<FinancialResourceStatusCodes>,
   /**
    * The category of claim, e.g. oral, pharmacy, vision, institutional, professional.
    *
@@ -1379,7 +1379,7 @@ public data class Claim(
   }
 
   /** This value set includes Status codes. */
-  public enum class ClaimStatus(
+  public enum class FinancialResourceStatusCodes(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
@@ -1398,13 +1398,16 @@ public data class Claim(
     public fun getDisplay(): kotlin.String? = display
 
     public companion object {
-      public fun fromCode(code: kotlin.String): ClaimStatus =
+      public fun fromCode(code: kotlin.String): FinancialResourceStatusCodes =
         when (code) {
           "active" -> Active
           "cancelled" -> Cancelled
           "draft" -> Draft
           "entered-in-error" -> Entered_In_Error
-          else -> throw IllegalArgumentException("Unknown code $code for enum ClaimStatus")
+          else ->
+            throw IllegalArgumentException(
+              "Unknown code $code for enum FinancialResourceStatusCodes"
+            )
         }
     }
   }

@@ -168,7 +168,7 @@ public data class Group(
    * * 'enumerated': The Group.characteristics are necessary but not sufficient to determine
    *   membership. Membership is determined by being listed as one of the Group.member.
    */
-  public var membership: Code,
+  public var membership: Enumeration<GroupMembershipBasis>,
   /**
    * Provides a specific type of resource the group includes; e.g. "cow", "syringe", etc.
    *
@@ -402,6 +402,33 @@ public data class Group(
           "relatedperson" -> Relatedperson
           "specimen" -> Specimen
           else -> throw IllegalArgumentException("Unknown code $code for enum GroupType")
+        }
+    }
+  }
+
+  /** Basis for membership in a group */
+  public enum class GroupMembershipBasis(
+    private val code: kotlin.String,
+    private val system: kotlin.String,
+    private val display: kotlin.String?,
+  ) {
+    Definitional("definitional", "http://hl7.org/fhir/group-membership-basis", "Definitional"),
+    Enumerated("enumerated", "http://hl7.org/fhir/group-membership-basis", "Enumerated");
+
+    override fun toString(): kotlin.String = code
+
+    public fun getCode(): kotlin.String = code
+
+    public fun getSystem(): kotlin.String = system
+
+    public fun getDisplay(): kotlin.String? = display
+
+    public companion object {
+      public fun fromCode(code: kotlin.String): GroupMembershipBasis =
+        when (code) {
+          "definitional" -> Definitional
+          "enumerated" -> Enumerated
+          else -> throw IllegalArgumentException("Unknown code $code for enum GroupMembershipBasis")
         }
     }
   }

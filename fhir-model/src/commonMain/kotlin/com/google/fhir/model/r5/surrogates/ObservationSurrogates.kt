@@ -78,7 +78,7 @@ internal data class ObservationTriggeredBySurrogate(
       observation = this@ObservationTriggeredBySurrogate.observation,
       type =
         Enumeration.of(
-          com.google.fhir.model.r5.Observation.TriggeredByType.fromCode(
+          com.google.fhir.model.r5.Observation.TriggeredBytype.fromCode(
             this@ObservationTriggeredBySurrogate.type!!
           ),
           this@ObservationTriggeredBySurrogate._type,

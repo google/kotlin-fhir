@@ -19,7 +19,7 @@ package com.google.fhir.model.r4
 import kotlin.String
 
 /** This value set includes Claim Processing Outcome codes. */
-public enum class RemittanceOutcome(
+public enum class ClaimProcessingCodes(
   private val code: String,
   private val system: String,
   private val display: String?,
@@ -38,13 +38,13 @@ public enum class RemittanceOutcome(
   public fun getDisplay(): String? = display
 
   public companion object {
-    public fun fromCode(code: String): RemittanceOutcome =
+    public fun fromCode(code: String): ClaimProcessingCodes =
       when (code) {
         "queued" -> Queued
         "complete" -> Complete
         "error" -> Error
         "partial" -> Partial
-        else -> throw IllegalArgumentException("Unknown code $code for enum RemittanceOutcome")
+        else -> throw IllegalArgumentException("Unknown code $code for enum ClaimProcessingCodes")
       }
   }
 }

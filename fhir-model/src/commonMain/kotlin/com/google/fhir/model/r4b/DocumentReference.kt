@@ -157,7 +157,7 @@ public data class DocumentReference(
    *
    * The document that is pointed to might be in various lifecycle states.
    */
-  public var docStatus: Enumeration<ReferredDocumentStatus>? = null,
+  public var docStatus: Enumeration<CompositionStatus>? = null,
   /**
    * Specifies the particular kind of document referenced (e.g. History and Physical, Discharge
    * Summary, Progress Note). This usually equates to the purpose of making the document referenced.
@@ -481,7 +481,7 @@ public data class DocumentReference(
   }
 
   /** The workflow/clinical status of the composition. */
-  public enum class ReferredDocumentStatus(
+  public enum class CompositionStatus(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
@@ -504,14 +504,13 @@ public data class DocumentReference(
     public fun getDisplay(): kotlin.String? = display
 
     public companion object {
-      public fun fromCode(code: kotlin.String): ReferredDocumentStatus =
+      public fun fromCode(code: kotlin.String): CompositionStatus =
         when (code) {
           "preliminary" -> Preliminary
           "final" -> Final
           "amended" -> Amended
           "entered-in-error" -> Entered_In_Error
-          else ->
-            throw IllegalArgumentException("Unknown code $code for enum ReferredDocumentStatus")
+          else -> throw IllegalArgumentException("Unknown code $code for enum CompositionStatus")
         }
     }
   }

@@ -140,7 +140,7 @@ public data class RiskAssessment(
   /** A reference to a resource that this risk assessment is part of, such as a Procedure. */
   public var parent: Reference? = null,
   /** The status of the RiskAssessment, using the same statuses as an Observation. */
-  public var status: Enumeration<RiskAssessmentStatus>,
+  public var status: Enumeration<ObservationStatus>,
   /** The algorithm, process or mechanism used to evaluate the risk. */
   public var method: CodeableConcept? = null,
   /** The type of the risk assessment performed. */
@@ -320,7 +320,7 @@ public data class RiskAssessment(
   }
 
   /** Codes providing the status of an observation. */
-  public enum class RiskAssessmentStatus(
+  public enum class ObservationStatus(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
@@ -347,7 +347,7 @@ public data class RiskAssessment(
     public fun getDisplay(): kotlin.String? = display
 
     public companion object {
-      public fun fromCode(code: kotlin.String): RiskAssessmentStatus =
+      public fun fromCode(code: kotlin.String): ObservationStatus =
         when (code) {
           "registered" -> Registered
           "preliminary" -> Preliminary
@@ -357,7 +357,7 @@ public data class RiskAssessment(
           "cancelled" -> Cancelled
           "entered-in-error" -> Entered_In_Error
           "unknown" -> Unknown
-          else -> throw IllegalArgumentException("Unknown code $code for enum RiskAssessmentStatus")
+          else -> throw IllegalArgumentException("Unknown code $code for enum ObservationStatus")
         }
     }
   }

@@ -53,7 +53,7 @@ public data class Attachment(
    */
   public var contentType: Code? = null,
   /** The human language of the content. The value can be any valid value according to BCP 47. */
-  public var language: Code? = null,
+  public var language: Enumeration<CommonLanguages>? = null,
   /**
    * The actual data of the attachment - a sequence of bytes, base64 encoded.
    *

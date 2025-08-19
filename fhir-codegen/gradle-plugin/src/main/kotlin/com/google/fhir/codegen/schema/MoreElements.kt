@@ -32,9 +32,6 @@ const val ELEMENT_DEFINITION_BINDING_NAME_EXTENSION_URL =
 val Element.isCommonBinding
   get() = getExtension(ELEMENT_IS_COMMON_BINDING_EXTENSION_URL)?.valueBoolean == true
 
-val Element.bidingName
-  get() = getExtension(ELEMENT_DEFINITION_BINDING_NAME_EXTENSION_URL)?.valueString
-
 /**
  * Determines if an [Element] is a BackboneElement.
  *
@@ -78,11 +75,7 @@ internal fun Element.typeIsEnumeratedCode(valueSetMap: Map<String, ValueSet>): B
   return valueSetMap.containsKey(getValueSetUrl()) &&
     base?.path?.startsWith("Resource.") != true &&
     base?.path?.startsWith("CanonicalResource.") != true &&
-    this.type?.count { it.code.equals("code", ignoreCase = true) } == 1 &&
-    !this.getExtension(ELEMENT_DEFINITION_BINDING_NAME_EXTENSION_URL)
-      ?.valueString
-      ?.normalizeEnumName()
-      .isNullOrBlank()
+    this.type?.count { it.code.equals("code", ignoreCase = true) } == 1
 }
 
 internal fun Element.getElementName() = path.substringAfterLast('.').removeSuffix("[x]")
@@ -91,17 +84,21 @@ internal fun Element.getElementName() = path.substringAfterLast('.').removeSuffi
  * Substitutes the primitive type of code with an `Enumeration` type if the values for the code are
  * constrained to a set of values.
  */
-internal fun Element.getEnumerationTypeName(modelClassName: ClassName): TypeName {
+internal fun Element.getEnumerationTypeName(
+  modelClassName: ClassName,
+  valueSetMap: Map<String, ValueSet>,
+): TypeName {
   val elementBasePath = base?.path
-  // Use bindingName for the enum class, subclasses re-use enums from the parent
-  val bindingNameString = this.bidingName!!.normalizeEnumName()
+  // Use name for the enum class, subclasses re-use enums from the parent
+  val valueSetUrl = this.getValueSetUrl()
 
+  val name = valueSetMap.getValue(valueSetUrl!!).name.normalizeEnumName()
   val enumClassName =
     if (path == elementBasePath) {
-      bindingNameString
+      name
     } else {
       // In rare cases, refer to the base enum, e.g., Distance.comparator and Quantity.comparator
-      "${elementBasePath?.substringBefore(".") ?: ""}.$bindingNameString"
+      "${elementBasePath?.substringBefore(".") ?: ""}.$name"
     }
 
   val enumClassPackageName =

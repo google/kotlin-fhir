@@ -349,7 +349,7 @@ public data class ActivityDefinition(
    *
    * May determine what types of extensions are permitted.
    */
-  public var kind: Enumeration<ActivityDefinitionKind>? = null,
+  public var kind: Enumeration<RequestResourceType>? = null,
   /** A profile to which the target of the activity definition is expected to conform. */
   public var profile: Canonical? = null,
   /**
@@ -479,7 +479,7 @@ public data class ActivityDefinition(
      */
     override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** The type of participant in the action. */
-    public var type: Enumeration<ActivityParticipantType>,
+    public var type: Enumeration<ActionParticipantType>,
     /** The role the participant should play in performing the described action. */
     public var role: CodeableConcept? = null,
   ) : BackboneElement()
@@ -652,7 +652,7 @@ public data class ActivityDefinition(
   }
 
   /** The type of participant for the action. */
-  public enum class ActivityParticipantType(
+  public enum class ActionParticipantType(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
@@ -675,20 +675,20 @@ public data class ActivityDefinition(
     public fun getDisplay(): kotlin.String? = display
 
     public companion object {
-      public fun fromCode(code: kotlin.String): ActivityParticipantType =
+      public fun fromCode(code: kotlin.String): ActionParticipantType =
         when (code) {
           "patient" -> Patient
           "practitioner" -> Practitioner
           "related-person" -> Related_Person
           "device" -> Device
           else ->
-            throw IllegalArgumentException("Unknown code $code for enum ActivityParticipantType")
+            throw IllegalArgumentException("Unknown code $code for enum ActionParticipantType")
         }
     }
   }
 
   /** A list of all the request resource types defined in this version of the FHIR specification. */
-  public enum class ActivityDefinitionKind(
+  public enum class RequestResourceType(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
@@ -750,7 +750,7 @@ public data class ActivityDefinition(
     public fun getDisplay(): kotlin.String? = display
 
     public companion object {
-      public fun fromCode(code: kotlin.String): ActivityDefinitionKind =
+      public fun fromCode(code: kotlin.String): RequestResourceType =
         when (code) {
           "Appointment" -> Appointment
           "AppointmentResponse" -> AppointmentResponse
@@ -767,8 +767,7 @@ public data class ActivityDefinition(
           "SupplyRequest" -> SupplyRequest
           "Task" -> Task
           "VisionPrescription" -> VisionPrescription
-          else ->
-            throw IllegalArgumentException("Unknown code $code for enum ActivityDefinitionKind")
+          else -> throw IllegalArgumentException("Unknown code $code for enum RequestResourceType")
         }
     }
   }

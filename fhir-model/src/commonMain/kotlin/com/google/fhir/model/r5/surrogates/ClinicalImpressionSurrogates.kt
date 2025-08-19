@@ -170,7 +170,7 @@ internal data class ClinicalImpressionSurrogate(
       identifier = this@ClinicalImpressionSurrogate.identifier ?: mutableListOf(),
       status =
         Enumeration.of(
-          com.google.fhir.model.r5.ClinicalImpression.ClinicalImpressionStatus.fromCode(
+          com.google.fhir.model.r5.ClinicalImpression.EventStatus.fromCode(
             this@ClinicalImpressionSurrogate.status!!
           ),
           this@ClinicalImpressionSurrogate._status,

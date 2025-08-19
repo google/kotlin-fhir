@@ -54,7 +54,7 @@ public data class ParameterDefinition(
    */
   public var name: Code? = null,
   /** Whether the parameter is input or output for the module. */
-  public var use: Enumeration<ParameterUse>,
+  public var use: Enumeration<OperationParameterUse>,
   /** The minimum number of times this parameter SHALL appear in the request or response. */
   public var min: Integer? = null,
   /** The maximum number of times this element is permitted to appear in the request or response. */
@@ -70,7 +70,7 @@ public data class ParameterDefinition(
   public var profile: Canonical? = null,
 ) : DataType() {
   /** Whether an operation parameter is an input or an output parameter. */
-  public enum class ParameterUse(
+  public enum class OperationParameterUse(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
@@ -87,11 +87,12 @@ public data class ParameterDefinition(
     public fun getDisplay(): kotlin.String? = display
 
     public companion object {
-      public fun fromCode(code: kotlin.String): ParameterUse =
+      public fun fromCode(code: kotlin.String): OperationParameterUse =
         when (code) {
           "in" -> In
           "out" -> Out
-          else -> throw IllegalArgumentException("Unknown code $code for enum ParameterUse")
+          else ->
+            throw IllegalArgumentException("Unknown code $code for enum OperationParameterUse")
         }
     }
   }

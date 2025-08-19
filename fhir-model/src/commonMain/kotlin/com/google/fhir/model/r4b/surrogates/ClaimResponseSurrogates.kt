@@ -1043,7 +1043,7 @@ internal data class ClaimResponseSurrogate(
       identifier = this@ClaimResponseSurrogate.identifier ?: mutableListOf(),
       status =
         Enumeration.of(
-          com.google.fhir.model.r4b.ClaimResponse.ClaimResponseStatus.fromCode(
+          com.google.fhir.model.r4b.ClaimResponse.FinancialResourceStatusCodes.fromCode(
             this@ClaimResponseSurrogate.status!!
           ),
           this@ClaimResponseSurrogate._status,

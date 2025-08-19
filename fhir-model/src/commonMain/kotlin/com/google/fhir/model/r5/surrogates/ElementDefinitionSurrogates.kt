@@ -796,7 +796,7 @@ internal data class ElementDefinitionBindingAdditionalSurrogate(
       extension = this@ElementDefinitionBindingAdditionalSurrogate.extension ?: mutableListOf(),
       purpose =
         Enumeration.of(
-          com.google.fhir.model.r5.ElementDefinition.AdditionalBindingPurpose.fromCode(
+          com.google.fhir.model.r5.ElementDefinition.AdditionalBindingPurposeVS.fromCode(
             this@ElementDefinitionBindingAdditionalSurrogate.purpose!!
           ),
           this@ElementDefinitionBindingAdditionalSurrogate._purpose,

@@ -92,7 +92,7 @@ internal data class RelatedArtifactSurrogate(
       publicationStatus =
         this@RelatedArtifactSurrogate.publicationStatus?.let {
           Enumeration.of(
-            com.google.fhir.model.r5.RelatedArtifactPublicationStatus.fromCode(it!!),
+            com.google.fhir.model.r5.PublicationStatus.fromCode(it!!),
             this@RelatedArtifactSurrogate._publicationStatus,
           )
         },

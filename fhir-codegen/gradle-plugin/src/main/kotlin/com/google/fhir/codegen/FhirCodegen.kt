@@ -109,6 +109,9 @@ object FhirCodegen {
           )
           .addSuppressAnnotation()
           .build()
+
+      fileSpecs +=
+        modelTypeSpecGenerator.generateSharedEnums(structureDefinition, modelClassName.packageName)
     }
     return fileSpecs
   }

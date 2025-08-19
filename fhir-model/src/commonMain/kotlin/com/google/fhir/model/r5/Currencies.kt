@@ -19,7 +19,7 @@ package com.google.fhir.model.r5
 import kotlin.String
 
 /** Currency codes from ISO 4217 (see https://www.iso.org/iso-4217-currency-codes.html) */
-public enum class AccountCurrency(
+public enum class Currencies(
   private val code: String,
   private val system: String,
   private val display: String?,
@@ -216,7 +216,7 @@ public enum class AccountCurrency(
   public fun getDisplay(): String? = display
 
   public companion object {
-    public fun fromCode(code: String): AccountCurrency =
+    public fun fromCode(code: String): Currencies =
       when (code) {
         "AED" -> Aed
         "AFN" -> Afn
@@ -400,7 +400,7 @@ public enum class AccountCurrency(
         "ZAR" -> Zar
         "ZMW" -> Zmw
         "ZWL" -> Zwl
-        else -> throw IllegalArgumentException("Unknown code $code for enum AccountCurrency")
+        else -> throw IllegalArgumentException("Unknown code $code for enum Currencies")
       }
   }
 }

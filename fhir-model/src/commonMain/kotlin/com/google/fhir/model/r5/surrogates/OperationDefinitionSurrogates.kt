@@ -236,7 +236,7 @@ internal data class OperationDefinitionParameterSurrogate(
       type =
         this@OperationDefinitionParameterSurrogate.type?.let {
           Enumeration.of(
-            com.google.fhir.model.r5.FHIRAllTypes.fromCode(it!!),
+            com.google.fhir.model.r5.FHIRTypes.fromCode(it!!),
             this@OperationDefinitionParameterSurrogate._type,
           )
         },
@@ -255,7 +255,7 @@ internal data class OperationDefinitionParameterSurrogate(
             )
             .map { (value, element) ->
               Enumeration.of(
-                value.let { com.google.fhir.model.r5.FHIRAllTypes.fromCode(it!!)!! },
+                value.let { com.google.fhir.model.r5.FHIRTypes.fromCode(it!!)!! },
                 element,
               )
             }
@@ -635,7 +635,8 @@ internal data class OperationDefinitionSurrogate(
             .map { (value, element) ->
               Enumeration.of(
                 value.let {
-                  com.google.fhir.model.r5.OperationDefinition.FHIRTypes.fromCode(it!!)!!
+                  com.google.fhir.model.r5.OperationDefinition.VersionIndependentResourceTypesAll
+                    .fromCode(it!!)!!
                 },
                 element,
               )

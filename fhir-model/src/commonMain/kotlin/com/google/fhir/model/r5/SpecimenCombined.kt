@@ -18,14 +18,14 @@ package com.google.fhir.model.r5
 
 import kotlin.String
 
-/** This value set includes a sample set of Forms codes. */
-public enum class Forms(
+/** Codes providing the combined status of a specimen. */
+public enum class SpecimenCombined(
   private val code: String,
   private val system: String,
   private val display: String?,
 ) {
-  _1("1", "http://terminology.hl7.org/CodeSystem/forms-codes", "Form #1"),
-  _2("2", "http://terminology.hl7.org/CodeSystem/forms-codes", "Form #1");
+  Grouped("grouped", "http://hl7.org/fhir/specimen-combined", "Grouped"),
+  Pooled("pooled", "http://hl7.org/fhir/specimen-combined", "Pooled");
 
   override fun toString(): String = code
 
@@ -36,11 +36,11 @@ public enum class Forms(
   public fun getDisplay(): String? = display
 
   public companion object {
-    public fun fromCode(code: String): Forms =
+    public fun fromCode(code: String): SpecimenCombined =
       when (code) {
-        "1" -> _1
-        "2" -> _2
-        else -> throw IllegalArgumentException("Unknown code $code for enum Forms")
+        "grouped" -> Grouped
+        "pooled" -> Pooled
+        else -> throw IllegalArgumentException("Unknown code $code for enum SpecimenCombined")
       }
   }
 }

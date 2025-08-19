@@ -264,7 +264,7 @@ internal data class DeviceRequestSurrogate(
       status =
         this@DeviceRequestSurrogate.status?.let {
           Enumeration.of(
-            com.google.fhir.model.r4b.DeviceRequest.DeviceRequestStatus.fromCode(it!!),
+            com.google.fhir.model.r4b.DeviceRequest.RequestStatus.fromCode(it!!),
             this@DeviceRequestSurrogate._status,
           )
         },

@@ -139,7 +139,7 @@ public data class VerificationResult(
    * The validation status of the target (attested; validated; in process; requires revalidation;
    * validation failed; revalidation failed).
    */
-  public var status: Enumeration<Status>,
+  public var status: Enumeration<VerificationResultStatus>,
   /** When the validation status was updated. */
   public var statusDate: DateTime? = null,
   /** What the target is validated against (nothing; primary source; multiple sources). */
@@ -343,7 +343,7 @@ public data class VerificationResult(
   ) : BackboneElement()
 
   /** The validation status of the target */
-  public enum class Status(
+  public enum class VerificationResultStatus(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
@@ -385,7 +385,7 @@ public data class VerificationResult(
     public fun getDisplay(): kotlin.String? = display
 
     public companion object {
-      public fun fromCode(code: kotlin.String): Status =
+      public fun fromCode(code: kotlin.String): VerificationResultStatus =
         when (code) {
           "attested" -> Attested
           "validated" -> Validated
@@ -394,7 +394,8 @@ public data class VerificationResult(
           "val-fail" -> Val_Fail
           "reval-fail" -> Reval_Fail
           "entered-in-error" -> Entered_In_Error
-          else -> throw IllegalArgumentException("Unknown code $code for enum Status")
+          else ->
+            throw IllegalArgumentException("Unknown code $code for enum VerificationResultStatus")
         }
     }
   }

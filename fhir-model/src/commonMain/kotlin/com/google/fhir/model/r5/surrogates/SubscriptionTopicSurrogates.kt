@@ -183,7 +183,7 @@ internal data class SubscriptionTopicResourceTriggerSurrogate(
             .map { (value, element) ->
               Enumeration.of(
                 value.let {
-                  com.google.fhir.model.r5.SubscriptionTopic.MethodCode.fromCode(it!!)!!
+                  com.google.fhir.model.r5.SubscriptionTopic.InteractionTrigger.fromCode(it!!)!!
                 },
                 element,
               )

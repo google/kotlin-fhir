@@ -673,7 +673,7 @@ public data class RequestOrchestration(
        */
       override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /** The type of participant in the action. */
-      public var type: Enumeration<ActivityParticipantType>? = null,
+      public var type: Enumeration<ActionParticipantType>? = null,
       /** The type of participant in the action. */
       public var typeCanonical: Canonical? = null,
       /**
@@ -1128,7 +1128,7 @@ public data class RequestOrchestration(
   }
 
   /** The type of participant for the action. */
-  public enum class ActivityParticipantType(
+  public enum class ActionParticipantType(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
@@ -1161,7 +1161,7 @@ public data class RequestOrchestration(
     public fun getDisplay(): kotlin.String? = display
 
     public companion object {
-      public fun fromCode(code: kotlin.String): ActivityParticipantType =
+      public fun fromCode(code: kotlin.String): ActionParticipantType =
         when (code) {
           "careteam" -> Careteam
           "device" -> Device
@@ -1174,7 +1174,7 @@ public data class RequestOrchestration(
           "practitionerrole" -> Practitionerrole
           "relatedperson" -> Relatedperson
           else ->
-            throw IllegalArgumentException("Unknown code $code for enum ActivityParticipantType")
+            throw IllegalArgumentException("Unknown code $code for enum ActionParticipantType")
         }
     }
   }

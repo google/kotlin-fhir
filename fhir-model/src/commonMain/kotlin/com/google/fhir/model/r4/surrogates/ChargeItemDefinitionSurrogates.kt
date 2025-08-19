@@ -131,8 +131,9 @@ internal data class ChargeItemDefinitionPropertyGroupPriceComponentSurrogate(
           ?: mutableListOf(),
       type =
         Enumeration.of(
-          com.google.fhir.model.r4.ChargeItemDefinition.ChargeItemDefinitionPriceComponentType
-            .fromCode(this@ChargeItemDefinitionPropertyGroupPriceComponentSurrogate.type!!),
+          com.google.fhir.model.r4.ChargeItemDefinition.InvoicePriceComponentType.fromCode(
+            this@ChargeItemDefinitionPropertyGroupPriceComponentSurrogate.type!!
+          ),
           this@ChargeItemDefinitionPropertyGroupPriceComponentSurrogate._type,
         ),
       code = this@ChargeItemDefinitionPropertyGroupPriceComponentSurrogate.code,

@@ -294,7 +294,7 @@ internal data class EvidenceReportSectionSurrogate(
       mode =
         this@EvidenceReportSectionSurrogate.mode?.let {
           Enumeration.of(
-            com.google.fhir.model.r5.EvidenceReport.SectionMode.fromCode(it!!),
+            com.google.fhir.model.r5.EvidenceReport.ListMode.fromCode(it!!),
             this@EvidenceReportSectionSurrogate._mode,
           )
         },

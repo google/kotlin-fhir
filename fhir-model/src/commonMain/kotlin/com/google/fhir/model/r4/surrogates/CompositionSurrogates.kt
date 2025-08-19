@@ -221,7 +221,7 @@ internal data class CompositionSectionSurrogate(
       mode =
         this@CompositionSectionSurrogate.mode?.let {
           Enumeration.of(
-            com.google.fhir.model.r4.Composition.SectionMode.fromCode(it!!),
+            com.google.fhir.model.r4.Composition.ListMode.fromCode(it!!),
             this@CompositionSectionSurrogate._mode,
           )
         },
@@ -320,7 +320,7 @@ internal data class CompositionSurrogate(
       confidentiality =
         this@CompositionSurrogate.confidentiality?.let {
           Enumeration.of(
-            com.google.fhir.model.r4.Composition.DocumentConfidentiality.fromCode(it!!),
+            com.google.fhir.model.r4.Composition.V3ConfidentialityClassification.fromCode(it!!),
             this@CompositionSurrogate._confidentiality,
           )
         },

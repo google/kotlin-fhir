@@ -19,7 +19,7 @@ package com.google.fhir.model.r4b
 import kotlin.String
 
 /** A list of all the request resource types defined in this version of the FHIR specification. */
-public enum class ActivityDefinitionKind(
+public enum class RequestResourceType(
   private val code: String,
   private val system: String,
   private val display: String?,
@@ -73,7 +73,7 @@ public enum class ActivityDefinitionKind(
   public fun getDisplay(): String? = display
 
   public companion object {
-    public fun fromCode(code: String): ActivityDefinitionKind =
+    public fun fromCode(code: String): RequestResourceType =
       when (code) {
         "Appointment" -> Appointment
         "AppointmentResponse" -> AppointmentResponse
@@ -90,7 +90,7 @@ public enum class ActivityDefinitionKind(
         "SupplyRequest" -> SupplyRequest
         "Task" -> Task
         "VisionPrescription" -> VisionPrescription
-        else -> throw IllegalArgumentException("Unknown code $code for enum ActivityDefinitionKind")
+        else -> throw IllegalArgumentException("Unknown code $code for enum RequestResourceType")
       }
   }
 }
