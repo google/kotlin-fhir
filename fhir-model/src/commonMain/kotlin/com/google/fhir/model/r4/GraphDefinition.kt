@@ -22,6 +22,8 @@ import com.google.fhir.model.r4.serializers.GraphDefinitionLinkSerializer
 import com.google.fhir.model.r4.serializers.GraphDefinitionLinkTargetCompartmentSerializer
 import com.google.fhir.model.r4.serializers.GraphDefinitionLinkTargetSerializer
 import com.google.fhir.model.r4.serializers.GraphDefinitionSerializer
+import com.google.fhir.model.r4.terminologies.PublicationStatus
+import com.google.fhir.model.r4.terminologies.ResourceType
 import kotlin.Suppress
 import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
@@ -422,7 +424,7 @@ public data class GraphDefinition(
          */
         public var use: Enumeration<GraphCompartmentUse>,
         /** Identifies the compartment. */
-        public var code: Enumeration<CompartmentCode>,
+        public var code: Enumeration<CompartmentType>,
         /** identical | matching | different | no-rule | custom. */
         public var rule: Enumeration<GraphCompartmentRule>,
         /** Custom rule, as a FHIRPath expression. */
@@ -461,7 +463,7 @@ public data class GraphDefinition(
   }
 
   /** Which type a compartment definition describes. */
-  public enum class CompartmentCode(
+  public enum class CompartmentType(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
@@ -481,14 +483,14 @@ public data class GraphDefinition(
     public fun getDisplay(): kotlin.String? = display
 
     public companion object {
-      public fun fromCode(code: kotlin.String): CompartmentCode =
+      public fun fromCode(code: kotlin.String): CompartmentType =
         when (code) {
           "Patient" -> Patient
           "Encounter" -> Encounter
           "RelatedPerson" -> RelatedPerson
           "Practitioner" -> Practitioner
           "Device" -> Device
-          else -> throw IllegalArgumentException("Unknown code $code for enum CompartmentCode")
+          else -> throw IllegalArgumentException("Unknown code $code for enum CompartmentType")
         }
     }
   }

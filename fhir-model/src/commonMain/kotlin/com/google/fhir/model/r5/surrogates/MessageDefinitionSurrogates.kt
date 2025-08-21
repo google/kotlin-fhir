@@ -71,7 +71,7 @@ internal data class MessageDefinitionFocusSurrogate(
       modifierExtension = this@MessageDefinitionFocusSurrogate.modifierExtension ?: mutableListOf(),
       code =
         Enumeration.of(
-          com.google.fhir.model.r5.ResourceType.fromCode(
+          com.google.fhir.model.r5.terminologies.ResourceType.fromCode(
             this@MessageDefinitionFocusSurrogate.code!!
           ),
           this@MessageDefinitionFocusSurrogate._code,
@@ -320,7 +320,7 @@ internal data class MessageDefinitionSurrogate(
         },
       status =
         Enumeration.of(
-          com.google.fhir.model.r5.PublicationStatus.fromCode(
+          com.google.fhir.model.r5.terminologies.PublicationStatus.fromCode(
             this@MessageDefinitionSurrogate.status!!
           ),
           this@MessageDefinitionSurrogate._status,

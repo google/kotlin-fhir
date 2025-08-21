@@ -24,6 +24,7 @@ import com.google.fhir.model.r4.serializers.RiskEvidenceSynthesisRiskEstimatePre
 import com.google.fhir.model.r4.serializers.RiskEvidenceSynthesisRiskEstimateSerializer
 import com.google.fhir.model.r4.serializers.RiskEvidenceSynthesisSampleSizeSerializer
 import com.google.fhir.model.r4.serializers.RiskEvidenceSynthesisSerializer
+import com.google.fhir.model.r4.terminologies.PublicationStatus
 import kotlin.Suppress
 import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName

@@ -774,7 +774,7 @@ internal data class ElementDefinitionBindingSurrogate(
       extension = this@ElementDefinitionBindingSurrogate.extension ?: mutableListOf(),
       strength =
         Enumeration.of(
-          com.google.fhir.model.r4b.BindingStrength.fromCode(
+          com.google.fhir.model.r4b.terminologies.BindingStrength.fromCode(
             this@ElementDefinitionBindingSurrogate.strength!!
           ),
           this@ElementDefinitionBindingSurrogate._strength,

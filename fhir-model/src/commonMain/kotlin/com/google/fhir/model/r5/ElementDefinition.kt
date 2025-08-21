@@ -34,6 +34,7 @@ import com.google.fhir.model.r5.serializers.ElementDefinitionSerializer
 import com.google.fhir.model.r5.serializers.ElementDefinitionSlicingDiscriminatorSerializer
 import com.google.fhir.model.r5.serializers.ElementDefinitionSlicingSerializer
 import com.google.fhir.model.r5.serializers.ElementDefinitionTypeSerializer
+import com.google.fhir.model.r5.terminologies.BindingStrength
 import kotlin.Suppress
 import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
@@ -1226,7 +1227,7 @@ public data class ElementDefinition(
        *
        * Conformance bindings are in addition to the base binding, not instead of it.
        */
-      public var purpose: Enumeration<AdditionalBindingPurpose>,
+      public var purpose: Enumeration<AdditionalBindingPurposeVS>,
       /** The valueSet that is being bound for the purpose. */
       public var valueSet: Canonical,
       /**
@@ -2689,7 +2690,7 @@ public data class ElementDefinition(
   }
 
   /** Additional Binding Purpose */
-  public enum class AdditionalBindingPurpose(
+  public enum class AdditionalBindingPurposeVS(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
@@ -2750,7 +2751,7 @@ public data class ElementDefinition(
     public fun getDisplay(): kotlin.String? = display
 
     public companion object {
-      public fun fromCode(code: kotlin.String): AdditionalBindingPurpose =
+      public fun fromCode(code: kotlin.String): AdditionalBindingPurposeVS =
         when (code) {
           "maximum" -> Maximum
           "minimum" -> Minimum
@@ -2763,7 +2764,7 @@ public data class ElementDefinition(
           "starter" -> Starter
           "component" -> Component
           else ->
-            throw IllegalArgumentException("Unknown code $code for enum AdditionalBindingPurpose")
+            throw IllegalArgumentException("Unknown code $code for enum AdditionalBindingPurposeVS")
         }
     }
   }

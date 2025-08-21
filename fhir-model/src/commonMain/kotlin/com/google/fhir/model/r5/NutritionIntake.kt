@@ -170,7 +170,7 @@ public data class NutritionIntake(
    * This element is labeled as a modifier because the status contains codes that mark the resource
    * as not currently valid.
    */
-  public var status: Enumeration<NutritionIntakeStatus>,
+  public var status: Enumeration<EventStatus>,
   /**
    * Captures the reason for the current state of the NutritionIntake.
    *
@@ -440,7 +440,7 @@ public data class NutritionIntake(
   }
 
   /** Codes identifying the lifecycle stage of an event. */
-  public enum class NutritionIntakeStatus(
+  public enum class EventStatus(
     private val code: String,
     private val system: String,
     private val display: String?,
@@ -463,7 +463,7 @@ public data class NutritionIntake(
     public fun getDisplay(): String? = display
 
     public companion object {
-      public fun fromCode(code: String): NutritionIntakeStatus =
+      public fun fromCode(code: String): EventStatus =
         when (code) {
           "preparation" -> Preparation
           "in-progress" -> In_Progress
@@ -473,8 +473,7 @@ public data class NutritionIntake(
           "completed" -> Completed
           "entered-in-error" -> Entered_In_Error
           "unknown" -> Unknown
-          else ->
-            throw IllegalArgumentException("Unknown code $code for enum NutritionIntakeStatus")
+          else -> throw IllegalArgumentException("Unknown code $code for enum EventStatus")
         }
     }
   }

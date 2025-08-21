@@ -20,7 +20,6 @@ import com.google.fhir.codegen.schema.Element
 import com.google.fhir.codegen.schema.StructureDefinition
 import com.google.fhir.codegen.schema.Type
 import com.google.fhir.codegen.schema.backboneElements
-import com.google.fhir.codegen.schema.bidingName
 import com.google.fhir.codegen.schema.capitalized
 import com.google.fhir.codegen.schema.getElementName
 import com.google.fhir.codegen.schema.getElements
@@ -50,10 +49,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 /** Generates a [TypeSpec] for a model class. */
-class ModelTypeSpecGenerator(
-  private val valueSetMap: Map<String, ValueSet>,
-  private val commonBindingValueSetUrlsMap: MutableMap<String, HashSet<String>>,
-) {
+class ModelTypeSpecGenerator(private val valueSetMap: Map<String, ValueSet>) {
 
   fun generate(
     modelClassName: ClassName,
@@ -161,8 +157,8 @@ class ModelTypeSpecGenerator(
             surrogateTypeSpecGenerator = surrogateTypeSpecGenerator,
             surrogateFileSpec = surrogateFileSpec,
             serializerFileSpec = serializerFileSpec,
-            createBindingToEnumTypeSpecEntry = { bindingName, typeSpec ->
-              enumClassesMap.putIfAbsent(bindingName, typeSpec)
+            createEnumNameToTypeSpecEntry = { enumClassName, typeSpec ->
+              enumClassesMap.putIfAbsent(enumClassName, typeSpec)
             },
           )
 
@@ -170,9 +166,8 @@ class ModelTypeSpecGenerator(
 
           addEnumClassTypeSpec(
             elements = structureDefinition.rootElements,
-            createValueSetUrlToBindingEntry = ::createValueSetUrlToBindingEntry,
-            createBindingToEnumTypeSpecEntry = { bindingName, typeSpec ->
-              enumClassesMap.putIfAbsent(bindingName, typeSpec)
+            createEnumNameToTypeSpecEntry = { enumClassName, typeSpec ->
+              enumClassesMap.putIfAbsent(enumClassName, typeSpec)
             },
           )
 
@@ -260,10 +255,6 @@ class ModelTypeSpecGenerator(
     this.addFunction(hashCodeFunSpec)
   }
 
-  private fun createValueSetUrlToBindingEntry(valueSetUrl: String, bindingName: String) {
-    commonBindingValueSetUrlsMap.getOrPut(valueSetUrl) { hashSetOf() }.apply { add(bindingName) }
-  }
-
   /** Adds a nested class for each BackboneElement in the [StructureDefinition]. */
   private fun TypeSpec.Builder.addBackboneElement(
     path: String,
@@ -273,7 +264,7 @@ class ModelTypeSpecGenerator(
     surrogateTypeSpecGenerator: SurrogateTypeSpecGenerator,
     surrogateFileSpec: FileSpec.Builder,
     serializerFileSpec: FileSpec.Builder,
-    createBindingToEnumTypeSpecEntry: (String, TypeSpec) -> Unit,
+    createEnumNameToTypeSpecEntry: (String, TypeSpec) -> Unit,
   ): TypeSpec.Builder {
     backboneElements
       .filter { (backboneElement, _) ->
@@ -304,7 +295,7 @@ class ModelTypeSpecGenerator(
               surrogateTypeSpecGenerator,
               surrogateFileSpec,
               serializerFileSpec,
-              createBindingToEnumTypeSpecEntry,
+              createEnumNameToTypeSpecEntry,
             )
             .addSealedInterfaces(
               backboneElementClassName,
@@ -332,8 +323,7 @@ class ModelTypeSpecGenerator(
 
     addEnumClassTypeSpec(
       elements = backboneElements.values.flatten(),
-      createBindingToEnumTypeSpecEntry = createBindingToEnumTypeSpecEntry,
-      createValueSetUrlToBindingEntry = ::createValueSetUrlToBindingEntry,
+      createEnumNameToTypeSpecEntry = createEnumNameToTypeSpecEntry,
     )
     return this
   }
@@ -344,25 +334,18 @@ class ModelTypeSpecGenerator(
    */
   private fun addEnumClassTypeSpec(
     elements: List<Element>,
-    createBindingToEnumTypeSpecEntry: (String, TypeSpec) -> Unit,
-    createValueSetUrlToBindingEntry: (String, String) -> Unit,
+    createEnumNameToTypeSpecEntry: (String, TypeSpec) -> Unit,
   ) {
-    for (element in elements) {
-      val bindingName = element.bidingName?.normalizeEnumName()
-      val isCommonBinding = element.isCommonBinding
-      val valueSetUrl = element.getValueSetUrl()
-      if (valueSetUrl.isNullOrBlank()) continue
-      if (element.typeIsEnumeratedCode(valueSetMap) && !isCommonBinding) {
-        val valueSet = valueSetMap[valueSetUrl]
-        if (valueSet != null) {
-          val typeSpec = EnumTypeSpecGenerator.generate(bindingName!!, valueSet)
-          if (typeSpec != null) {
-            createBindingToEnumTypeSpecEntry(bindingName, typeSpec)
-          }
+    elements
+      .filter { it.typeIsEnumeratedCode(valueSetMap) && !it.isCommonBinding }
+      .mapNotNull { element ->
+        val valueSet = valueSetMap.getValue(element.getValueSetUrl()!!)
+        val valueSetName = valueSet.name.normalizeEnumName()
+        EnumTypeSpecGenerator.generate(valueSetName, valueSet)?.let { typeSpec ->
+          valueSetName to typeSpec
         }
       }
-      if (isCommonBinding) createValueSetUrlToBindingEntry(valueSetUrl, bindingName!!)
-    }
+      .forEach { createEnumNameToTypeSpecEntry(it.first, it.second) }
   }
 }
 
@@ -378,7 +361,7 @@ private fun TypeSpec.Builder.buildProperties(
       val name = element.getElementName()
       val type =
         if (element.typeIsEnumeratedCode(valueSetMap)) {
-          element.getEnumerationTypeName(modelClassName)
+          element.getEnumerationTypeName(modelClassName, valueSetMap)
         } else {
           element.getTypeName(modelClassName)
         }

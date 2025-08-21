@@ -298,7 +298,7 @@ internal data class EvidenceVariableSurrogate(
         ),
       status =
         Enumeration.of(
-          com.google.fhir.model.r4.PublicationStatus.fromCode(
+          com.google.fhir.model.r4.terminologies.PublicationStatus.fromCode(
             this@EvidenceVariableSurrogate.status!!
           ),
           this@EvidenceVariableSurrogate._status,

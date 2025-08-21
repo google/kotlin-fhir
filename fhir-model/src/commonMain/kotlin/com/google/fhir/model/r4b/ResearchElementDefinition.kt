@@ -24,6 +24,7 @@ import com.google.fhir.model.r4b.serializers.ResearchElementDefinitionCharacteri
 import com.google.fhir.model.r4b.serializers.ResearchElementDefinitionCharacteristicStudyEffectiveSerializer
 import com.google.fhir.model.r4b.serializers.ResearchElementDefinitionSerializer
 import com.google.fhir.model.r4b.serializers.ResearchElementDefinitionSubjectSerializer
+import com.google.fhir.model.r4b.terminologies.PublicationStatus
 import kotlin.Suppress
 import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName

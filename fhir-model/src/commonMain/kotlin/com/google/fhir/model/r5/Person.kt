@@ -22,6 +22,7 @@ import com.google.fhir.model.r5.serializers.PersonCommunicationSerializer
 import com.google.fhir.model.r5.serializers.PersonDeceasedSerializer
 import com.google.fhir.model.r5.serializers.PersonLinkSerializer
 import com.google.fhir.model.r5.serializers.PersonSerializer
+import com.google.fhir.model.r5.terminologies.AdministrativeGender
 import kotlin.String
 import kotlin.Suppress
 import kotlin.collections.MutableList

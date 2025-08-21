@@ -420,7 +420,7 @@ internal data class ResearchElementDefinitionSurrogate(
         ),
       status =
         Enumeration.of(
-          com.google.fhir.model.r4.PublicationStatus.fromCode(
+          com.google.fhir.model.r4.terminologies.PublicationStatus.fromCode(
             this@ResearchElementDefinitionSurrogate.status!!
           ),
           this@ResearchElementDefinitionSurrogate._status,
@@ -523,7 +523,7 @@ internal data class ResearchElementDefinitionSurrogate(
       variableType =
         this@ResearchElementDefinitionSurrogate.variableType?.let {
           Enumeration.of(
-            com.google.fhir.model.r4.ResearchElementDefinition.VariableType.fromCode(it!!),
+            com.google.fhir.model.r4.ResearchElementDefinition.EvidenceVariableType.fromCode(it!!),
             this@ResearchElementDefinitionSurrogate._variableType,
           )
         },

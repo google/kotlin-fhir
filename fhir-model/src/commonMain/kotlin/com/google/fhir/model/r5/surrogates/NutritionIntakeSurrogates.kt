@@ -313,7 +313,7 @@ internal data class NutritionIntakeSurrogate(
       partOf = this@NutritionIntakeSurrogate.partOf ?: mutableListOf(),
       status =
         Enumeration.of(
-          com.google.fhir.model.r5.NutritionIntake.NutritionIntakeStatus.fromCode(
+          com.google.fhir.model.r5.NutritionIntake.EventStatus.fromCode(
             this@NutritionIntakeSurrogate.status!!
           ),
           this@NutritionIntakeSurrogate._status,

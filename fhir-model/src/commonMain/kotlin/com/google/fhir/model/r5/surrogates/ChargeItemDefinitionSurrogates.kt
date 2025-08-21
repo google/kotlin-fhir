@@ -299,7 +299,7 @@ internal data class ChargeItemDefinitionSurrogate(
         },
       status =
         Enumeration.of(
-          com.google.fhir.model.r5.PublicationStatus.fromCode(
+          com.google.fhir.model.r5.terminologies.PublicationStatus.fromCode(
             this@ChargeItemDefinitionSurrogate.status!!
           ),
           this@ChargeItemDefinitionSurrogate._status,

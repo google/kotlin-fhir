@@ -526,7 +526,9 @@ internal data class CodeSystemSurrogate(
       title = R5String.of(this@CodeSystemSurrogate.title, this@CodeSystemSurrogate._title),
       status =
         Enumeration.of(
-          com.google.fhir.model.r5.PublicationStatus.fromCode(this@CodeSystemSurrogate.status!!),
+          com.google.fhir.model.r5.terminologies.PublicationStatus.fromCode(
+            this@CodeSystemSurrogate.status!!
+          ),
           this@CodeSystemSurrogate._status,
         ),
       experimental =

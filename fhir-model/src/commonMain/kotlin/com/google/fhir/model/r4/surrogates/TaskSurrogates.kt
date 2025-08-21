@@ -759,7 +759,7 @@ internal data class TaskSurrogate(
       priority =
         this@TaskSurrogate.priority?.let {
           Enumeration.of(
-            com.google.fhir.model.r4.Task.TaskPriority.fromCode(it!!),
+            com.google.fhir.model.r4.Task.RequestPriority.fromCode(it!!),
             this@TaskSurrogate._priority,
           )
         },

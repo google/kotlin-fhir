@@ -175,7 +175,7 @@ public data class Contract(
    * This element is labeled as a modifier because the status contains codes that mark the contract
    * as not currently valid or active.
    */
-  public var status: Enumeration<ContractStatus>? = null,
+  public var status: Enumeration<ContractResourceStatusCodes>? = null,
   /**
    * Legal states of the formation of a legal instrument, which is a formally executed written
    * document that can be formally attributed to its author, records and formally expresses a
@@ -404,7 +404,7 @@ public data class Contract(
      * amended | appended | cancelled | disputed | entered-in-error | executable | executed |
      * negotiable | offered | policy | rejected | renewed | revoked | resolved | terminated.
      */
-    public var publicationStatus: Enumeration<ContractPublicationStatus>,
+    public var publicationStatus: Enumeration<ContractResourcePublicationStatusCodes>,
     /**
      * A copyright statement relating to Contract precursor content. Copyright statements are
      * generally legal restrictions on the use and publishing of the Contract precursor content.
@@ -1612,7 +1612,7 @@ public data class Contract(
   }
 
   /** This value set contract specific codes for status. */
-  public enum class ContractPublicationStatus(
+  public enum class ContractResourcePublicationStatusCodes(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
@@ -1646,7 +1646,7 @@ public data class Contract(
     public fun getDisplay(): kotlin.String? = display
 
     public companion object {
-      public fun fromCode(code: kotlin.String): ContractPublicationStatus =
+      public fun fromCode(code: kotlin.String): ContractResourcePublicationStatusCodes =
         when (code) {
           "amended" -> Amended
           "appended" -> Appended
@@ -1664,13 +1664,15 @@ public data class Contract(
           "resolved" -> Resolved
           "terminated" -> Terminated
           else ->
-            throw IllegalArgumentException("Unknown code $code for enum ContractPublicationStatus")
+            throw IllegalArgumentException(
+              "Unknown code $code for enum ContractResourcePublicationStatusCodes"
+            )
         }
     }
   }
 
   /** This value set contract specific codes for status. */
-  public enum class ContractStatus(
+  public enum class ContractResourceStatusCodes(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
@@ -1700,7 +1702,7 @@ public data class Contract(
     public fun getDisplay(): kotlin.String? = display
 
     public companion object {
-      public fun fromCode(code: kotlin.String): ContractStatus =
+      public fun fromCode(code: kotlin.String): ContractResourceStatusCodes =
         when (code) {
           "amended" -> Amended
           "appended" -> Appended
@@ -1717,7 +1719,10 @@ public data class Contract(
           "revoked" -> Revoked
           "resolved" -> Resolved
           "terminated" -> Terminated
-          else -> throw IllegalArgumentException("Unknown code $code for enum ContractStatus")
+          else ->
+            throw IllegalArgumentException(
+              "Unknown code $code for enum ContractResourceStatusCodes"
+            )
         }
     }
   }

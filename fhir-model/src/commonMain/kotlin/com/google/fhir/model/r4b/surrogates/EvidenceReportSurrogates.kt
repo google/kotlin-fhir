@@ -266,7 +266,7 @@ internal data class EvidenceReportSectionSurrogate(
       mode =
         this@EvidenceReportSectionSurrogate.mode?.let {
           Enumeration.of(
-            com.google.fhir.model.r4b.EvidenceReport.SectionMode.fromCode(it!!),
+            com.google.fhir.model.r4b.EvidenceReport.ListMode.fromCode(it!!),
             this@EvidenceReportSectionSurrogate._mode,
           )
         },
@@ -383,7 +383,7 @@ internal data class EvidenceReportSurrogate(
       url = Uri.of(this@EvidenceReportSurrogate.url, this@EvidenceReportSurrogate._url),
       status =
         Enumeration.of(
-          com.google.fhir.model.r4b.PublicationStatus.fromCode(
+          com.google.fhir.model.r4b.terminologies.PublicationStatus.fromCode(
             this@EvidenceReportSurrogate.status!!
           ),
           this@EvidenceReportSurrogate._status,

@@ -23,6 +23,8 @@ import com.google.fhir.model.r5.serializers.MessageDefinitionEventSerializer
 import com.google.fhir.model.r5.serializers.MessageDefinitionFocusSerializer
 import com.google.fhir.model.r5.serializers.MessageDefinitionSerializer
 import com.google.fhir.model.r5.serializers.MessageDefinitionVersionAlgorithmSerializer
+import com.google.fhir.model.r5.terminologies.PublicationStatus
+import com.google.fhir.model.r5.terminologies.ResourceType
 import kotlin.Suppress
 import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName

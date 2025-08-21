@@ -196,7 +196,7 @@ internal data class MedicationSurrogate(
       status =
         this@MedicationSurrogate.status?.let {
           Enumeration.of(
-            com.google.fhir.model.r5.Medication.MedicationStatus.fromCode(it!!),
+            com.google.fhir.model.r5.Medication.MedicationStatusCodes.fromCode(it!!),
             this@MedicationSurrogate._status,
           )
         },

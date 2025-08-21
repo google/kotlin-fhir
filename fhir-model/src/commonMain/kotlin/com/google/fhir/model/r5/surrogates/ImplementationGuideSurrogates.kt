@@ -133,7 +133,7 @@ internal data class ImplementationGuideGlobalSurrogate(
         this@ImplementationGuideGlobalSurrogate.modifierExtension ?: mutableListOf(),
       type =
         Enumeration.of(
-          com.google.fhir.model.r5.ResourceType.fromCode(
+          com.google.fhir.model.r5.terminologies.ResourceType.fromCode(
             this@ImplementationGuideGlobalSurrogate.type!!
           ),
           this@ImplementationGuideGlobalSurrogate._type,
@@ -252,7 +252,7 @@ internal data class ImplementationGuideDefinitionResourceSurrogate(
             )
             .map { (value, element) ->
               Enumeration.of(
-                value.let { com.google.fhir.model.r5.FHIRVersion.fromCode(it!!)!! },
+                value.let { com.google.fhir.model.r5.terminologies.FHIRVersion.fromCode(it!!)!! },
                 element,
               )
             }
@@ -942,7 +942,7 @@ internal data class ImplementationGuideSurrogate(
         ),
       status =
         Enumeration.of(
-          com.google.fhir.model.r5.PublicationStatus.fromCode(
+          com.google.fhir.model.r5.terminologies.PublicationStatus.fromCode(
             this@ImplementationGuideSurrogate.status!!
           ),
           this@ImplementationGuideSurrogate._status,
@@ -1012,7 +1012,7 @@ internal data class ImplementationGuideSurrogate(
             )
             .map { (value, element) ->
               Enumeration.of(
-                value.let { com.google.fhir.model.r5.FHIRVersion.fromCode(it!!)!! },
+                value.let { com.google.fhir.model.r5.terminologies.FHIRVersion.fromCode(it!!)!! },
                 element,
               )
             }

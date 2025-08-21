@@ -21,6 +21,7 @@ package com.google.fhir.model.r5
 import com.google.fhir.model.r5.serializers.EventDefinitionSerializer
 import com.google.fhir.model.r5.serializers.EventDefinitionSubjectSerializer
 import com.google.fhir.model.r5.serializers.EventDefinitionVersionAlgorithmSerializer
+import com.google.fhir.model.r5.terminologies.PublicationStatus
 import kotlin.Suppress
 import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName

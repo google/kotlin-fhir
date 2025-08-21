@@ -20,6 +20,7 @@ package com.google.fhir.model.r4b
 
 import com.google.fhir.model.r4b.serializers.ResearchDefinitionSerializer
 import com.google.fhir.model.r4b.serializers.ResearchDefinitionSubjectSerializer
+import com.google.fhir.model.r4b.terminologies.PublicationStatus
 import kotlin.Suppress
 import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName

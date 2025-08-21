@@ -26,6 +26,7 @@ import com.google.fhir.model.r4b.serializers.IngredientSubstanceStrengthPresenta
 import com.google.fhir.model.r4b.serializers.IngredientSubstanceStrengthReferenceStrengthSerializer
 import com.google.fhir.model.r4b.serializers.IngredientSubstanceStrengthReferenceStrengthStrengthSerializer
 import com.google.fhir.model.r4b.serializers.IngredientSubstanceStrengthSerializer
+import com.google.fhir.model.r4b.terminologies.PublicationStatus
 import kotlin.Suppress
 import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName

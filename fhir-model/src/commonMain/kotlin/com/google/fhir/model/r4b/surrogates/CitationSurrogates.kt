@@ -1405,7 +1405,9 @@ internal data class CitationSurrogate(
       title = R4bString.of(this@CitationSurrogate.title, this@CitationSurrogate._title),
       status =
         Enumeration.of(
-          com.google.fhir.model.r4b.PublicationStatus.fromCode(this@CitationSurrogate.status!!),
+          com.google.fhir.model.r4b.terminologies.PublicationStatus.fromCode(
+            this@CitationSurrogate.status!!
+          ),
           this@CitationSurrogate._status,
         ),
       experimental =

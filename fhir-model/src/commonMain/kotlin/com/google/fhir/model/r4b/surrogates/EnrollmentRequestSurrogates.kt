@@ -84,7 +84,7 @@ internal data class EnrollmentRequestSurrogate(
       status =
         this@EnrollmentRequestSurrogate.status?.let {
           Enumeration.of(
-            com.google.fhir.model.r4b.EnrollmentRequest.EnrollmentRequestStatus.fromCode(it!!),
+            com.google.fhir.model.r4b.EnrollmentRequest.FinancialResourceStatusCodes.fromCode(it!!),
             this@EnrollmentRequestSurrogate._status,
           )
         },

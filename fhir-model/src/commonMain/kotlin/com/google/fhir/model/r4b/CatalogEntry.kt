@@ -20,6 +20,7 @@ package com.google.fhir.model.r4b
 
 import com.google.fhir.model.r4b.serializers.CatalogEntryRelatedEntrySerializer
 import com.google.fhir.model.r4b.serializers.CatalogEntrySerializer
+import com.google.fhir.model.r4b.terminologies.PublicationStatus
 import kotlin.String
 import kotlin.Suppress
 import kotlin.collections.MutableList

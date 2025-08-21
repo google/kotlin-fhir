@@ -202,7 +202,7 @@ internal data class CommunicationRequestSurrogate(
       groupIdentifier = this@CommunicationRequestSurrogate.groupIdentifier,
       status =
         Enumeration.of(
-          com.google.fhir.model.r4b.CommunicationRequest.CommunicationRequestStatus.fromCode(
+          com.google.fhir.model.r4b.CommunicationRequest.RequestStatus.fromCode(
             this@CommunicationRequestSurrogate.status!!
           ),
           this@CommunicationRequestSurrogate._status,
@@ -212,7 +212,7 @@ internal data class CommunicationRequestSurrogate(
       priority =
         this@CommunicationRequestSurrogate.priority?.let {
           Enumeration.of(
-            com.google.fhir.model.r4b.CommunicationRequest.CommunicationPriority.fromCode(it!!),
+            com.google.fhir.model.r4b.CommunicationRequest.RequestPriority.fromCode(it!!),
             this@CommunicationRequestSurrogate._priority,
           )
         },

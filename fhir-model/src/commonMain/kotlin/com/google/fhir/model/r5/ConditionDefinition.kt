@@ -26,6 +26,7 @@ import com.google.fhir.model.r5.serializers.ConditionDefinitionPreconditionValue
 import com.google.fhir.model.r5.serializers.ConditionDefinitionQuestionnaireSerializer
 import com.google.fhir.model.r5.serializers.ConditionDefinitionSerializer
 import com.google.fhir.model.r5.serializers.ConditionDefinitionVersionAlgorithmSerializer
+import com.google.fhir.model.r5.terminologies.PublicationStatus
 import kotlin.Suppress
 import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName

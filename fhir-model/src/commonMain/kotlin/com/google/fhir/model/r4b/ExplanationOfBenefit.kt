@@ -50,6 +50,8 @@ import com.google.fhir.model.r4b.serializers.ExplanationOfBenefitSupportingInfoS
 import com.google.fhir.model.r4b.serializers.ExplanationOfBenefitSupportingInfoTimingSerializer
 import com.google.fhir.model.r4b.serializers.ExplanationOfBenefitSupportingInfoValueSerializer
 import com.google.fhir.model.r4b.serializers.ExplanationOfBenefitTotalSerializer
+import com.google.fhir.model.r4b.terminologies.NoteType
+import com.google.fhir.model.r4b.terminologies.RemittanceOutcome
 import kotlin.Suppress
 import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName

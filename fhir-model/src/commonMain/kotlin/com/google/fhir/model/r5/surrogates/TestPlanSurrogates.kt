@@ -471,7 +471,9 @@ internal data class TestPlanSurrogate(
       title = R5String.of(this@TestPlanSurrogate.title, this@TestPlanSurrogate._title),
       status =
         Enumeration.of(
-          com.google.fhir.model.r5.PublicationStatus.fromCode(this@TestPlanSurrogate.status!!),
+          com.google.fhir.model.r5.terminologies.PublicationStatus.fromCode(
+            this@TestPlanSurrogate.status!!
+          ),
           this@TestPlanSurrogate._status,
         ),
       experimental =

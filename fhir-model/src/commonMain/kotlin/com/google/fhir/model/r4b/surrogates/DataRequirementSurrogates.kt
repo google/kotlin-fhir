@@ -256,7 +256,9 @@ internal data class DataRequirementSurrogate(
       extension = this@DataRequirementSurrogate.extension ?: mutableListOf(),
       type =
         Enumeration.of(
-          com.google.fhir.model.r4b.FHIRAllTypes.fromCode(this@DataRequirementSurrogate.type!!),
+          com.google.fhir.model.r4b.terminologies.FHIRAllTypes.fromCode(
+            this@DataRequirementSurrogate.type!!
+          ),
           this@DataRequirementSurrogate._type,
         ),
       profile =

@@ -207,7 +207,7 @@ internal data class PermissionRuleSurrogate(
       type =
         this@PermissionRuleSurrogate.type?.let {
           Enumeration.of(
-            com.google.fhir.model.r5.Permission.PermissionProvisionType.fromCode(it!!),
+            com.google.fhir.model.r5.Permission.ConsentProvisionType.fromCode(it!!),
             this@PermissionRuleSurrogate._type,
           )
         },
@@ -290,7 +290,7 @@ internal data class PermissionSurrogate(
       justification = this@PermissionSurrogate.justification,
       combining =
         Enumeration.of(
-          com.google.fhir.model.r5.Permission.PermissionCombining.fromCode(
+          com.google.fhir.model.r5.Permission.PermissionRuleCombining.fromCode(
             this@PermissionSurrogate.combining!!
           ),
           this@PermissionSurrogate._combining,

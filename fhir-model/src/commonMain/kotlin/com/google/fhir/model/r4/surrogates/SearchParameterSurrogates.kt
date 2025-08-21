@@ -177,7 +177,7 @@ internal data class SearchParameterSurrogate(
         ),
       status =
         Enumeration.of(
-          com.google.fhir.model.r4.PublicationStatus.fromCode(
+          com.google.fhir.model.r4.terminologies.PublicationStatus.fromCode(
             this@SearchParameterSurrogate.status!!
           ),
           this@SearchParameterSurrogate._status,
@@ -222,7 +222,7 @@ internal data class SearchParameterSurrogate(
             )
             .map { (value, element) ->
               Enumeration.of(
-                value.let { com.google.fhir.model.r4.ResourceType.fromCode(it!!)!! },
+                value.let { com.google.fhir.model.r4.terminologies.ResourceType.fromCode(it!!)!! },
                 element,
               )
             }
@@ -230,7 +230,9 @@ internal data class SearchParameterSurrogate(
         },
       type =
         Enumeration.of(
-          com.google.fhir.model.r4.SearchParamType.fromCode(this@SearchParameterSurrogate.type!!),
+          com.google.fhir.model.r4.terminologies.SearchParamType.fromCode(
+            this@SearchParameterSurrogate.type!!
+          ),
           this@SearchParameterSurrogate._type,
         ),
       expression =
@@ -262,7 +264,7 @@ internal data class SearchParameterSurrogate(
             )
             .map { (value, element) ->
               Enumeration.of(
-                value.let { com.google.fhir.model.r4.ResourceType.fromCode(it!!)!! },
+                value.let { com.google.fhir.model.r4.terminologies.ResourceType.fromCode(it!!)!! },
                 element,
               )
             }

@@ -593,7 +593,9 @@ internal data class EvidenceSurrogate(
       citeAs = this@EvidenceSurrogate.citeAs,
       status =
         Enumeration.of(
-          com.google.fhir.model.r5.PublicationStatus.fromCode(this@EvidenceSurrogate.status!!),
+          com.google.fhir.model.r5.terminologies.PublicationStatus.fromCode(
+            this@EvidenceSurrogate.status!!
+          ),
           this@EvidenceSurrogate._status,
         ),
       experimental =

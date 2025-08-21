@@ -314,7 +314,7 @@ internal data class ImmunizationSurrogate(
       basedOn = this@ImmunizationSurrogate.basedOn ?: mutableListOf(),
       status =
         Enumeration.of(
-          com.google.fhir.model.r5.Immunization.ImmunizationStatus.fromCode(
+          com.google.fhir.model.r5.Immunization.ImmunizationStatusCodes.fromCode(
             this@ImmunizationSurrogate.status!!
           ),
           this@ImmunizationSurrogate._status,

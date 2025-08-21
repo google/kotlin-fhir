@@ -146,7 +146,7 @@ public data class CoverageEligibilityResponse(
    * This element is labeled as a modifier because the status contains codes that mark the resource
    * as not currently valid.
    */
-  public var status: Enumeration<EligibilityResponseStatus>,
+  public var status: Enumeration<FinancialResourceStatusCodes>,
   /**
    * Code to specify whether requesting: prior authorization requirements for some service
    * categories or billing codes; benefits for coverages specified or discovered; discovery and
@@ -648,7 +648,7 @@ public data class CoverageEligibilityResponse(
   }
 
   /** This value set includes Status codes. */
-  public enum class EligibilityResponseStatus(
+  public enum class FinancialResourceStatusCodes(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
@@ -667,14 +667,16 @@ public data class CoverageEligibilityResponse(
     public fun getDisplay(): kotlin.String? = display
 
     public companion object {
-      public fun fromCode(code: kotlin.String): EligibilityResponseStatus =
+      public fun fromCode(code: kotlin.String): FinancialResourceStatusCodes =
         when (code) {
           "active" -> Active
           "cancelled" -> Cancelled
           "draft" -> Draft
           "entered-in-error" -> Entered_In_Error
           else ->
-            throw IllegalArgumentException("Unknown code $code for enum EligibilityResponseStatus")
+            throw IllegalArgumentException(
+              "Unknown code $code for enum FinancialResourceStatusCodes"
+            )
         }
     }
   }

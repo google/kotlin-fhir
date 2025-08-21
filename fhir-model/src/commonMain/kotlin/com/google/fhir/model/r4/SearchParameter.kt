@@ -20,6 +20,9 @@ package com.google.fhir.model.r4
 
 import com.google.fhir.model.r4.serializers.SearchParameterComponentSerializer
 import com.google.fhir.model.r4.serializers.SearchParameterSerializer
+import com.google.fhir.model.r4.terminologies.PublicationStatus
+import com.google.fhir.model.r4.terminologies.ResourceType
+import com.google.fhir.model.r4.terminologies.SearchParamType
 import kotlin.Suppress
 import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName

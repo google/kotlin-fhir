@@ -25,6 +25,7 @@ import com.google.fhir.model.r4b.serializers.MeasureGroupStratifierSerializer
 import com.google.fhir.model.r4b.serializers.MeasureSerializer
 import com.google.fhir.model.r4b.serializers.MeasureSubjectSerializer
 import com.google.fhir.model.r4b.serializers.MeasureSupplementalDataSerializer
+import com.google.fhir.model.r4b.terminologies.PublicationStatus
 import kotlin.Suppress
 import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName

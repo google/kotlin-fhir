@@ -184,7 +184,7 @@ public data class CarePlan(
    * This element is labeled as a modifier because the status contains the code entered-in-error
    * that marks the plan as not currently valid.
    */
-  public var status: Enumeration<CarePlanStatus>,
+  public var status: Enumeration<RequestStatus>,
   /**
    * Indicates the level of authority/intentionality associated with the care plan and where the
    * care plan fits into the workflow chain.
@@ -672,7 +672,7 @@ public data class CarePlan(
   }
 
   /** Codes identifying the lifecycle stage of a request. */
-  public enum class CarePlanStatus(
+  public enum class RequestStatus(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
@@ -694,7 +694,7 @@ public data class CarePlan(
     public fun getDisplay(): kotlin.String? = display
 
     public companion object {
-      public fun fromCode(code: kotlin.String): CarePlanStatus =
+      public fun fromCode(code: kotlin.String): RequestStatus =
         when (code) {
           "draft" -> Draft
           "active" -> Active
@@ -703,7 +703,7 @@ public data class CarePlan(
           "completed" -> Completed
           "entered-in-error" -> Entered_In_Error
           "unknown" -> Unknown
-          else -> throw IllegalArgumentException("Unknown code $code for enum CarePlanStatus")
+          else -> throw IllegalArgumentException("Unknown code $code for enum RequestStatus")
         }
     }
   }

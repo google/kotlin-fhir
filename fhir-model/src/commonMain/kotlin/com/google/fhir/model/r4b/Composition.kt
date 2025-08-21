@@ -215,7 +215,7 @@ public data class Composition(
    * security section). This element is labeled as a modifier because highly confidential documents
    * must not be treated as if they are not.
    */
-  public var confidentiality: Enumeration<DocumentConfidentiality>? = null,
+  public var confidentiality: Enumeration<Confidentiality>? = null,
   /**
    * A participant who has attested to the accuracy of the composition/document.
    *
@@ -544,7 +544,7 @@ public data class Composition(
      * This element is labeled as a modifier because a change list must not be misunderstood as a
      * complete list.
      */
-    public var mode: Enumeration<SectionMode>? = null,
+    public var mode: Enumeration<ListMode>? = null,
     /**
      * Specifies the order applied to the items in the section entries.
      *
@@ -647,7 +647,7 @@ public data class Composition(
   }
 
   /** The processing mode that applies to this list. */
-  public enum class SectionMode(
+  public enum class ListMode(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
@@ -665,12 +665,12 @@ public data class Composition(
     public fun getDisplay(): kotlin.String? = display
 
     public companion object {
-      public fun fromCode(code: kotlin.String): SectionMode =
+      public fun fromCode(code: kotlin.String): ListMode =
         when (code) {
           "working" -> Working
           "snapshot" -> Snapshot
           "changes" -> Changes
-          else -> throw IllegalArgumentException("Unknown code $code for enum SectionMode")
+          else -> throw IllegalArgumentException("Unknown code $code for enum ListMode")
         }
     }
   }
@@ -714,7 +714,7 @@ public data class Composition(
    * Set of codes used to value Act.Confidentiality and Role.Confidentiality attribute in accordance
    * with the definition for concept domain "Confidentiality".
    */
-  public enum class DocumentConfidentiality(
+  public enum class Confidentiality(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
@@ -735,7 +735,7 @@ public data class Composition(
     public fun getDisplay(): kotlin.String? = display
 
     public companion object {
-      public fun fromCode(code: kotlin.String): DocumentConfidentiality =
+      public fun fromCode(code: kotlin.String): Confidentiality =
         when (code) {
           "L" -> L
           "M" -> M
@@ -743,8 +743,7 @@ public data class Composition(
           "R" -> R
           "U" -> U
           "V" -> V
-          else ->
-            throw IllegalArgumentException("Unknown code $code for enum DocumentConfidentiality")
+          else -> throw IllegalArgumentException("Unknown code $code for enum Confidentiality")
         }
     }
   }

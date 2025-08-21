@@ -140,7 +140,7 @@ public data class Subscription(
    * This element is labeled as a modifier because the status contains codes that mark the resource
    * as not currently valid.
    */
-  public var status: Enumeration<SubscriptionStatus>,
+  public var status: Enumeration<SubscriptionStatusCodes>,
   /**
    * Contact details for a human to contact about the subscription. The primary use of this for
    * system administrator troubleshooting.
@@ -273,7 +273,7 @@ public data class Subscription(
   }
 
   /** The status of a subscription. */
-  public enum class SubscriptionStatus(
+  public enum class SubscriptionStatusCodes(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
@@ -292,13 +292,14 @@ public data class Subscription(
     public fun getDisplay(): kotlin.String? = display
 
     public companion object {
-      public fun fromCode(code: kotlin.String): SubscriptionStatus =
+      public fun fromCode(code: kotlin.String): SubscriptionStatusCodes =
         when (code) {
           "requested" -> Requested
           "active" -> Active
           "error" -> Error
           "off" -> Off
-          else -> throw IllegalArgumentException("Unknown code $code for enum SubscriptionStatus")
+          else ->
+            throw IllegalArgumentException("Unknown code $code for enum SubscriptionStatusCodes")
         }
     }
   }

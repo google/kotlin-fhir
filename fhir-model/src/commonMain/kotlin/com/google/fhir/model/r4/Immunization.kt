@@ -143,7 +143,7 @@ public data class Immunization(
    * element is labeled as a modifier because the status contains codes that mark the resource as
    * not currently valid.
    */
-  public var status: Enumeration<ImmunizationStatus>,
+  public var status: Enumeration<ImmunizationStatusCodes>,
   /**
    * Indicates the reason the immunization event was not performed.
    *
@@ -550,7 +550,7 @@ public data class Immunization(
    * system that consists of or contains concepts to support describing the current status of the
    * administered dose of vaccine.
    */
-  public enum class ImmunizationStatus(
+  public enum class ImmunizationStatusCodes(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
@@ -568,12 +568,13 @@ public data class Immunization(
     public fun getDisplay(): kotlin.String? = display
 
     public companion object {
-      public fun fromCode(code: kotlin.String): ImmunizationStatus =
+      public fun fromCode(code: kotlin.String): ImmunizationStatusCodes =
         when (code) {
           "completed" -> Completed
           "entered-in-error" -> Entered_In_Error
           "not-done" -> Not_Done
-          else -> throw IllegalArgumentException("Unknown code $code for enum ImmunizationStatus")
+          else ->
+            throw IllegalArgumentException("Unknown code $code for enum ImmunizationStatusCodes")
         }
     }
   }

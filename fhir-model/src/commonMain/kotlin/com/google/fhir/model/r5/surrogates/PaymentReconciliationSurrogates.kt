@@ -177,7 +177,7 @@ internal data class PaymentReconciliationProcessNoteSurrogate(
       type =
         this@PaymentReconciliationProcessNoteSurrogate.type?.let {
           Enumeration.of(
-            com.google.fhir.model.r5.NoteType.fromCode(it!!),
+            com.google.fhir.model.r5.terminologies.NoteType.fromCode(it!!),
             this@PaymentReconciliationProcessNoteSurrogate._type,
           )
         },
@@ -281,7 +281,7 @@ internal data class PaymentReconciliationSurrogate(
       type = this@PaymentReconciliationSurrogate.type,
       status =
         Enumeration.of(
-          com.google.fhir.model.r5.PaymentReconciliation.PaymentReconciliationStatus.fromCode(
+          com.google.fhir.model.r5.PaymentReconciliation.FinancialResourceStatusCodes.fromCode(
             this@PaymentReconciliationSurrogate.status!!
           ),
           this@PaymentReconciliationSurrogate._status,

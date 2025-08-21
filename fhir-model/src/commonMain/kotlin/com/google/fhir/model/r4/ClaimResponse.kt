@@ -33,6 +33,7 @@ import com.google.fhir.model.r4.serializers.ClaimResponsePaymentSerializer
 import com.google.fhir.model.r4.serializers.ClaimResponseProcessNoteSerializer
 import com.google.fhir.model.r4.serializers.ClaimResponseSerializer
 import com.google.fhir.model.r4.serializers.ClaimResponseTotalSerializer
+import com.google.fhir.model.r4.terminologies.NoteType
 import kotlin.Suppress
 import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
@@ -146,7 +147,7 @@ public data class ClaimResponse(
    * This element is labeled as a modifier because the status contains codes that mark the resource
    * as not currently valid.
    */
-  public var status: Enumeration<ClaimResponseStatus>,
+  public var status: Enumeration<FinancialResourceStatusCodes>,
   /**
    * A finer grained suite of claim type codes which may convey additional information such as
    * Inpatient vs Outpatient and/or a specialty service.
@@ -197,7 +198,7 @@ public data class ClaimResponse(
    * the adjudication has been undertaken (partial) or that all of the adjudication has been
    * undertaken (complete).
    */
-  public var outcome: Enumeration<RemittanceOutcome>,
+  public var outcome: Enumeration<ClaimProcessingCodes>,
   /** A human readable description of the status of the adjudication. */
   public var disposition: String? = null,
   /**
@@ -1179,7 +1180,7 @@ public data class ClaimResponse(
   ) : BackboneElement()
 
   /** This value set includes Status codes. */
-  public enum class ClaimResponseStatus(
+  public enum class FinancialResourceStatusCodes(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
@@ -1198,13 +1199,16 @@ public data class ClaimResponse(
     public fun getDisplay(): kotlin.String? = display
 
     public companion object {
-      public fun fromCode(code: kotlin.String): ClaimResponseStatus =
+      public fun fromCode(code: kotlin.String): FinancialResourceStatusCodes =
         when (code) {
           "active" -> Active
           "cancelled" -> Cancelled
           "draft" -> Draft
           "entered-in-error" -> Entered_In_Error
-          else -> throw IllegalArgumentException("Unknown code $code for enum ClaimResponseStatus")
+          else ->
+            throw IllegalArgumentException(
+              "Unknown code $code for enum FinancialResourceStatusCodes"
+            )
         }
     }
   }
@@ -1239,7 +1243,7 @@ public data class ClaimResponse(
   }
 
   /** This value set includes Claim Processing Outcome codes. */
-  public enum class RemittanceOutcome(
+  public enum class ClaimProcessingCodes(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
@@ -1258,13 +1262,13 @@ public data class ClaimResponse(
     public fun getDisplay(): kotlin.String? = display
 
     public companion object {
-      public fun fromCode(code: kotlin.String): RemittanceOutcome =
+      public fun fromCode(code: kotlin.String): ClaimProcessingCodes =
         when (code) {
           "queued" -> Queued
           "complete" -> Complete
           "error" -> Error
           "partial" -> Partial
-          else -> throw IllegalArgumentException("Unknown code $code for enum RemittanceOutcome")
+          else -> throw IllegalArgumentException("Unknown code $code for enum ClaimProcessingCodes")
         }
     }
   }

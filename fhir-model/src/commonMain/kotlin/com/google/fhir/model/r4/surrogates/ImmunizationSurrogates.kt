@@ -398,7 +398,7 @@ internal data class ImmunizationSurrogate(
       identifier = this@ImmunizationSurrogate.identifier ?: mutableListOf(),
       status =
         Enumeration.of(
-          com.google.fhir.model.r4.Immunization.ImmunizationStatus.fromCode(
+          com.google.fhir.model.r4.Immunization.ImmunizationStatusCodes.fromCode(
             this@ImmunizationSurrogate.status!!
           ),
           this@ImmunizationSurrogate._status,

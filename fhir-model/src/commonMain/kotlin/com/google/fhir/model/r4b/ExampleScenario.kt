@@ -27,6 +27,8 @@ import com.google.fhir.model.r4b.serializers.ExampleScenarioProcessStepAlternati
 import com.google.fhir.model.r4b.serializers.ExampleScenarioProcessStepOperationSerializer
 import com.google.fhir.model.r4b.serializers.ExampleScenarioProcessStepSerializer
 import com.google.fhir.model.r4b.serializers.ExampleScenarioSerializer
+import com.google.fhir.model.r4b.terminologies.PublicationStatus
+import com.google.fhir.model.r4b.terminologies.ResourceType
 import kotlin.Suppress
 import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
@@ -370,7 +372,7 @@ public data class ExampleScenario(
     /** The id of the resource for referencing. */
     public var resourceId: String,
     /** The type of the resource. */
-    public var resourceType: Enumeration<FHIRResourceType>,
+    public var resourceType: Enumeration<ResourceType>,
     /** A short name for the resource instance. */
     public var name: String? = null,
     /** Human-friendly description of the resource instance. */

@@ -19,6 +19,7 @@
 package com.google.fhir.model.r4
 
 import com.google.fhir.model.r4.serializers.AttachmentSerializer
+import com.google.fhir.model.r4.terminologies.CommonLanguages
 import kotlin.Suppress
 import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
@@ -53,7 +54,7 @@ public data class Attachment(
    */
   public var contentType: Code? = null,
   /** The human language of the content. The value can be any valid value according to BCP 47. */
-  public var language: Code? = null,
+  public var language: Enumeration<CommonLanguages>? = null,
   /**
    * The actual data of the attachment - a sequence of bytes, base64 encoded.
    *

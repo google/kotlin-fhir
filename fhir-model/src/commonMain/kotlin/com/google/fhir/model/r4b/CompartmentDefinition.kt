@@ -20,6 +20,8 @@ package com.google.fhir.model.r4b
 
 import com.google.fhir.model.r4b.serializers.CompartmentDefinitionResourceSerializer
 import com.google.fhir.model.r4b.serializers.CompartmentDefinitionSerializer
+import com.google.fhir.model.r4b.terminologies.PublicationStatus
+import com.google.fhir.model.r4b.terminologies.ResourceType
 import kotlin.Suppress
 import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName

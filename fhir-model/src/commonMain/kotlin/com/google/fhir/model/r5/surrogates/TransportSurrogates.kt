@@ -842,7 +842,7 @@ internal data class TransportSurrogate(
       priority =
         this@TransportSurrogate.priority?.let {
           Enumeration.of(
-            com.google.fhir.model.r5.Transport.TransportPriority.fromCode(it!!),
+            com.google.fhir.model.r5.Transport.RequestPriority.fromCode(it!!),
             this@TransportSurrogate._priority,
           )
         },

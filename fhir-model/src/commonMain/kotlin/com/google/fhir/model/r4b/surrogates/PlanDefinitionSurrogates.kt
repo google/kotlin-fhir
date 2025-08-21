@@ -796,7 +796,7 @@ internal data class PlanDefinitionSurrogate(
       type = this@PlanDefinitionSurrogate.type,
       status =
         Enumeration.of(
-          com.google.fhir.model.r4b.PublicationStatus.fromCode(
+          com.google.fhir.model.r4b.terminologies.PublicationStatus.fromCode(
             this@PlanDefinitionSurrogate.status!!
           ),
           this@PlanDefinitionSurrogate._status,

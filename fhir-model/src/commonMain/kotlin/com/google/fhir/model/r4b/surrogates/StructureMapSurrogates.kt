@@ -1064,7 +1064,9 @@ internal data class StructureMapSurrogate(
       title = R4bString.of(this@StructureMapSurrogate.title, this@StructureMapSurrogate._title),
       status =
         Enumeration.of(
-          com.google.fhir.model.r4b.PublicationStatus.fromCode(this@StructureMapSurrogate.status!!),
+          com.google.fhir.model.r4b.terminologies.PublicationStatus.fromCode(
+            this@StructureMapSurrogate.status!!
+          ),
           this@StructureMapSurrogate._status,
         ),
       experimental =

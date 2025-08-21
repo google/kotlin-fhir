@@ -19,13 +19,13 @@ package com.google.fhir.codegen
 import com.google.fhir.codegen.primitives.FhirPathType
 import com.google.fhir.codegen.schema.Element
 import com.google.fhir.codegen.schema.Type
-import com.google.fhir.codegen.schema.bidingName
 import com.google.fhir.codegen.schema.capitalized
 import com.google.fhir.codegen.schema.getElementName
 import com.google.fhir.codegen.schema.getPathSimpleNames
 import com.google.fhir.codegen.schema.getPolymorphicTypeSurrogateClassSimpleName
 import com.google.fhir.codegen.schema.getSurrogatePropertyNameTypeDefaultValueList
 import com.google.fhir.codegen.schema.getTypeName
+import com.google.fhir.codegen.schema.getValueSetUrl
 import com.google.fhir.codegen.schema.isCommonBinding
 import com.google.fhir.codegen.schema.normalizeEnumName
 import com.google.fhir.codegen.schema.typeIsEnumeratedCode
@@ -378,7 +378,7 @@ class SurrogateTypeSpecGenerator(private val valueSetMap: Map<String, ValueSet>)
         // A list of primitive type
         val fhirPathType = FhirPathType.getFromFhirTypeCode(element.type?.singleOrNull()?.code!!)!!
         if (element.typeIsEnumeratedCode(valueSetMap)) {
-          val enumClass = element.getEnumClass(modelClassName)
+          val enumClass = element.getEnumClass(modelClassName, valueSetMap)
           add(
             "if(this@%T.%N == null && this@%T.%N == null) { mutableListOf() } else { (this@%T.%N ?: List(this@%T.%N!!.size) { null }).zip(this@%T.%N ?: List(this@%T.%N!!.size) { null }).map{ (value, element) -> %T.of(value.let { %L.fromCode(it!!)!! }, element) }.toMutableList() }",
             surrogateClassName,
@@ -472,7 +472,7 @@ class SurrogateTypeSpecGenerator(private val valueSetMap: Map<String, ValueSet>)
     element: Element,
   ) {
     if (element.typeIsEnumeratedCode(valueSetMap)) {
-      val enumClass = element.getEnumClass(modelClassName)
+      val enumClass = element.getEnumClass(modelClassName, valueSetMap)
       if (element.min == 0) {
         add(
           "this@%T.%N?.let { %T.of(%L.fromCode(it!!), this@%T.%N) }",
@@ -527,21 +527,26 @@ class SurrogateTypeSpecGenerator(private val valueSetMap: Map<String, ValueSet>)
     }
   }
 
-  private fun Element.getEnumClass(modelClassName: ClassName): ClassName {
+  private fun Element.getEnumClass(
+    modelClassName: ClassName,
+    valueSetMap: Map<String, ValueSet>,
+  ): ClassName {
     val elementBasePath: String? = base?.path
-    val bindingNameString = this.bidingName?.normalizeEnumName()
+    val valueSetName = valueSetMap.getValue(getValueSetUrl()!!).name.normalizeEnumName()
     val enumClassName =
       if (path != elementBasePath && !elementBasePath.isNullOrBlank())
-        "${elementBasePath.substringBefore(".")}.$bindingNameString"
-      else bindingNameString
+        "${elementBasePath.substringBefore(".")}.$valueSetName"
+      else valueSetName
     val enumClassPackageName =
-      if (this.isCommonBinding || enumClassName?.contains(".") == true) {
-        modelClassName.packageName
-      } else {
-        // Use qualified import e.g. com.google.fhir.model.AdministrativeGender
-        modelClassName.packageName + "." + modelClassName.simpleNames.first()
+      when {
+        this.isCommonBinding -> "${modelClassName.packageName}.terminologies"
+        enumClassName.contains(".") -> modelClassName.packageName
+        else -> {
+          // Use qualified import e.g. com.google.fhir.model.AdministrativeGender
+          modelClassName.packageName + "." + modelClassName.simpleNames.first()
+        }
       }
-    val enumClass = ClassName(enumClassPackageName, enumClassName!!)
+    val enumClass = ClassName(enumClassPackageName, enumClassName)
     return enumClass
   }
 

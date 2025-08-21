@@ -222,7 +222,7 @@ internal data class PlanDefinitionActorOptionSurrogate(
       type =
         this@PlanDefinitionActorOptionSurrogate.type?.let {
           Enumeration.of(
-            com.google.fhir.model.r5.PlanDefinition.ActivityParticipantType.fromCode(it!!),
+            com.google.fhir.model.r5.PlanDefinition.ActionParticipantType.fromCode(it!!),
             this@PlanDefinitionActorOptionSurrogate._type,
           )
         },
@@ -550,7 +550,7 @@ internal data class PlanDefinitionActionParticipantSurrogate(
       type =
         this@PlanDefinitionActionParticipantSurrogate.type?.let {
           Enumeration.of(
-            com.google.fhir.model.r5.PlanDefinition.ActivityParticipantType.fromCode(it!!),
+            com.google.fhir.model.r5.PlanDefinition.ActionParticipantType.fromCode(it!!),
             this@PlanDefinitionActionParticipantSurrogate._type,
           )
         },
@@ -1118,7 +1118,7 @@ internal data class PlanDefinitionSurrogate(
       type = this@PlanDefinitionSurrogate.type,
       status =
         Enumeration.of(
-          com.google.fhir.model.r5.PublicationStatus.fromCode(
+          com.google.fhir.model.r5.terminologies.PublicationStatus.fromCode(
             this@PlanDefinitionSurrogate.status!!
           ),
           this@PlanDefinitionSurrogate._status,

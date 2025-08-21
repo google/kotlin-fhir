@@ -283,9 +283,7 @@ internal data class ProcedureSurrogate(
       partOf = this@ProcedureSurrogate.partOf ?: mutableListOf(),
       status =
         Enumeration.of(
-          com.google.fhir.model.r5.Procedure.ProcedureStatus.fromCode(
-            this@ProcedureSurrogate.status!!
-          ),
+          com.google.fhir.model.r5.Procedure.EventStatus.fromCode(this@ProcedureSurrogate.status!!),
           this@ProcedureSurrogate._status,
         ),
       statusReason = this@ProcedureSurrogate.statusReason,

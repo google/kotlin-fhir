@@ -159,7 +159,7 @@ internal data class EventDefinitionSurrogate(
         ),
       status =
         Enumeration.of(
-          com.google.fhir.model.r4b.PublicationStatus.fromCode(
+          com.google.fhir.model.r4b.terminologies.PublicationStatus.fromCode(
             this@EventDefinitionSurrogate.status!!
           ),
           this@EventDefinitionSurrogate._status,

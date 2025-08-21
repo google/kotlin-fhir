@@ -165,7 +165,7 @@ public data class DeviceRequest(
    * This element is labeled as a modifier because the status contains the codes cancelled and
    * entered-in-error that mark the request as not currently valid.
    */
-  public var status: Enumeration<DeviceRequestStatus>? = null,
+  public var status: Enumeration<RequestStatus>? = null,
   /** Whether the request is a proposal, plan, an original order or a reflex order. */
   public var intent: Enumeration<RequestIntent>,
   /** Indicates how quickly the {{title}} should be addressed with respect to other requests. */
@@ -364,7 +364,7 @@ public data class DeviceRequest(
   }
 
   /** Codes identifying the lifecycle stage of a request. */
-  public enum class DeviceRequestStatus(
+  public enum class RequestStatus(
     private val code: String,
     private val system: String,
     private val display: String?,
@@ -386,7 +386,7 @@ public data class DeviceRequest(
     public fun getDisplay(): String? = display
 
     public companion object {
-      public fun fromCode(code: String): DeviceRequestStatus =
+      public fun fromCode(code: String): RequestStatus =
         when (code) {
           "draft" -> Draft
           "active" -> Active
@@ -395,7 +395,7 @@ public data class DeviceRequest(
           "completed" -> Completed
           "entered-in-error" -> Entered_In_Error
           "unknown" -> Unknown
-          else -> throw IllegalArgumentException("Unknown code $code for enum DeviceRequestStatus")
+          else -> throw IllegalArgumentException("Unknown code $code for enum RequestStatus")
         }
     }
   }

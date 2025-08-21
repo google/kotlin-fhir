@@ -160,7 +160,9 @@ internal data class NamingSystemSurrogate(
       name = R4bString.of(this@NamingSystemSurrogate.name, this@NamingSystemSurrogate._name)!!,
       status =
         Enumeration.of(
-          com.google.fhir.model.r4b.PublicationStatus.fromCode(this@NamingSystemSurrogate.status!!),
+          com.google.fhir.model.r4b.terminologies.PublicationStatus.fromCode(
+            this@NamingSystemSurrogate.status!!
+          ),
           this@NamingSystemSurrogate._status,
         ),
       kind =

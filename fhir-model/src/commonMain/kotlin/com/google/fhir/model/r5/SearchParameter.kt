@@ -21,6 +21,8 @@ package com.google.fhir.model.r5
 import com.google.fhir.model.r5.serializers.SearchParameterComponentSerializer
 import com.google.fhir.model.r5.serializers.SearchParameterSerializer
 import com.google.fhir.model.r5.serializers.SearchParameterVersionAlgorithmSerializer
+import com.google.fhir.model.r5.terminologies.PublicationStatus
+import com.google.fhir.model.r5.terminologies.SearchParamType
 import kotlin.Suppress
 import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
@@ -333,7 +335,7 @@ public data class SearchParameter(
    * apply to more than one resource type, they can be used against any of the listed resource
    * types, or in a cross-type search (see [Cross Resource Search](http.html#xres-search)).
    */
-  public var base: MutableList<Enumeration<FHIRTypes>> = mutableListOf(),
+  public var base: MutableList<Enumeration<VersionIndependentResourceTypesAll>> = mutableListOf(),
   /** The type of value that a search parameter may contain, and how the content is interpreted. */
   public var type: Enumeration<SearchParamType>,
   /**
@@ -367,7 +369,7 @@ public data class SearchParameter(
    * However, the list of targets SHOULD cover all targets that might appear that are permitted by
    * the specified FHIRPath.
    */
-  public var target: MutableList<Enumeration<FHIRTypes>> = mutableListOf(),
+  public var target: MutableList<Enumeration<VersionIndependentResourceTypesAll>> = mutableListOf(),
   /**
    * Whether multiple values are allowed for each time the parameter exists. Values are separated by
    * commas, and the parameter matches if any of the values match.
@@ -487,7 +489,7 @@ public data class SearchParameter(
   }
 
   /** Current and past FHIR resource types (deleted or renamed), including abstract types */
-  public enum class FHIRTypes(
+  public enum class VersionIndependentResourceTypesAll(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
@@ -965,7 +967,7 @@ public data class SearchParameter(
     public fun getDisplay(): kotlin.String? = display
 
     public companion object {
-      public fun fromCode(code: kotlin.String): FHIRTypes =
+      public fun fromCode(code: kotlin.String): VersionIndependentResourceTypesAll =
         when (code) {
           "Account" -> Account
           "ActivityDefinition" -> ActivityDefinition
@@ -1170,7 +1172,10 @@ public data class SearchParameter(
           "Sequence" -> Sequence
           "ServiceDefinition" -> ServiceDefinition
           "SubstanceSpecification" -> SubstanceSpecification
-          else -> throw IllegalArgumentException("Unknown code $code for enum FHIRTypes")
+          else ->
+            throw IllegalArgumentException(
+              "Unknown code $code for enum VersionIndependentResourceTypesAll"
+            )
         }
     }
   }

@@ -38,6 +38,7 @@ import com.google.fhir.model.r5.serializers.PlanDefinitionGoalTargetSerializer
 import com.google.fhir.model.r5.serializers.PlanDefinitionSerializer
 import com.google.fhir.model.r5.serializers.PlanDefinitionSubjectSerializer
 import com.google.fhir.model.r5.serializers.PlanDefinitionVersionAlgorithmSerializer
+import com.google.fhir.model.r5.terminologies.PublicationStatus
 import kotlin.Suppress
 import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
@@ -740,7 +741,7 @@ public data class PlanDefinition(
        */
       override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /** The type of participant in the action. */
-      public var type: Enumeration<ActivityParticipantType>? = null,
+      public var type: Enumeration<ActionParticipantType>? = null,
       /** The type of participant in the action. */
       public var typeCanonical: Canonical? = null,
       /**
@@ -1261,7 +1262,7 @@ public data class PlanDefinition(
       /** A reference to the id element of the actor who will participate in this action. */
       public var actorId: String? = null,
       /** The type of participant in the action. */
-      public var type: Enumeration<ActivityParticipantType>? = null,
+      public var type: Enumeration<ActionParticipantType>? = null,
       /** The type of participant in the action. */
       public var typeCanonical: Canonical? = null,
       /**
@@ -1517,7 +1518,7 @@ public data class PlanDefinition(
   }
 
   /** The type of participant for the action. */
-  public enum class ActivityParticipantType(
+  public enum class ActionParticipantType(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
@@ -1550,7 +1551,7 @@ public data class PlanDefinition(
     public fun getDisplay(): kotlin.String? = display
 
     public companion object {
-      public fun fromCode(code: kotlin.String): ActivityParticipantType =
+      public fun fromCode(code: kotlin.String): ActionParticipantType =
         when (code) {
           "careteam" -> Careteam
           "device" -> Device
@@ -1563,7 +1564,7 @@ public data class PlanDefinition(
           "practitionerrole" -> Practitionerrole
           "relatedperson" -> Relatedperson
           else ->
-            throw IllegalArgumentException("Unknown code $code for enum ActivityParticipantType")
+            throw IllegalArgumentException("Unknown code $code for enum ActionParticipantType")
         }
     }
   }

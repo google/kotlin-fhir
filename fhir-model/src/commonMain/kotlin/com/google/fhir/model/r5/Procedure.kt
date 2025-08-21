@@ -184,7 +184,7 @@ public data class Procedure(
    * This element is labeled as a modifier because the status contains codes that mark the resource
    * as not currently valid.
    */
-  public var status: Enumeration<ProcedureStatus>,
+  public var status: Enumeration<EventStatus>,
   /**
    * Captures the reason for the current state of the procedure.
    *
@@ -515,7 +515,7 @@ public data class Procedure(
   }
 
   /** Codes identifying the lifecycle stage of an event. */
-  public enum class ProcedureStatus(
+  public enum class EventStatus(
     private val code: String,
     private val system: String,
     private val display: String?,
@@ -538,7 +538,7 @@ public data class Procedure(
     public fun getDisplay(): String? = display
 
     public companion object {
-      public fun fromCode(code: String): ProcedureStatus =
+      public fun fromCode(code: String): EventStatus =
         when (code) {
           "preparation" -> Preparation
           "in-progress" -> In_Progress
@@ -548,7 +548,7 @@ public data class Procedure(
           "completed" -> Completed
           "entered-in-error" -> Entered_In_Error
           "unknown" -> Unknown
-          else -> throw IllegalArgumentException("Unknown code $code for enum ProcedureStatus")
+          else -> throw IllegalArgumentException("Unknown code $code for enum EventStatus")
         }
     }
   }

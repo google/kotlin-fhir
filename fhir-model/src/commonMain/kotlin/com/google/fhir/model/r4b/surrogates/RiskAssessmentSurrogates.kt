@@ -235,7 +235,7 @@ internal data class RiskAssessmentSurrogate(
       parent = this@RiskAssessmentSurrogate.parent,
       status =
         Enumeration.of(
-          com.google.fhir.model.r4b.RiskAssessment.RiskAssessmentStatus.fromCode(
+          com.google.fhir.model.r4b.RiskAssessment.ObservationStatus.fromCode(
             this@RiskAssessmentSurrogate.status!!
           ),
           this@RiskAssessmentSurrogate._status,

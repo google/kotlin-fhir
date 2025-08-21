@@ -82,7 +82,7 @@ internal data class GraphDefinitionNodeSurrogate(
         ),
       type =
         Enumeration.of(
-          com.google.fhir.model.r5.GraphDefinition.FHIRTypes.fromCode(
+          com.google.fhir.model.r5.GraphDefinition.VersionIndependentResourceTypesAll.fromCode(
             this@GraphDefinitionNodeSurrogate.type!!
           ),
           this@GraphDefinitionNodeSurrogate._type,
@@ -152,7 +152,7 @@ internal data class GraphDefinitionLinkCompartmentSurrogate(
         ),
       code =
         Enumeration.of(
-          com.google.fhir.model.r5.GraphDefinition.CompartmentCode.fromCode(
+          com.google.fhir.model.r5.GraphDefinition.CompartmentType.fromCode(
             this@GraphDefinitionLinkCompartmentSurrogate.code!!
           ),
           this@GraphDefinitionLinkCompartmentSurrogate._code,
@@ -387,7 +387,7 @@ internal data class GraphDefinitionSurrogate(
         R5String.of(this@GraphDefinitionSurrogate.title, this@GraphDefinitionSurrogate._title),
       status =
         Enumeration.of(
-          com.google.fhir.model.r5.PublicationStatus.fromCode(
+          com.google.fhir.model.r5.terminologies.PublicationStatus.fromCode(
             this@GraphDefinitionSurrogate.status!!
           ),
           this@GraphDefinitionSurrogate._status,

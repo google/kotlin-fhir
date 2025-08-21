@@ -154,7 +154,7 @@ internal data class TimingRepeatSurrogate(
             )
             .map { (value, element) ->
               Enumeration.of(
-                value.let { com.google.fhir.model.r4b.Timing.DayOfWeek.fromCode(it!!)!! },
+                value.let { com.google.fhir.model.r4b.Timing.DaysOfWeek.fromCode(it!!)!! },
                 element,
               )
             }

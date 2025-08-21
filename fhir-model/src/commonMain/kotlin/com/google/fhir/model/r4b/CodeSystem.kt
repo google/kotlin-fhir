@@ -25,6 +25,8 @@ import com.google.fhir.model.r4b.serializers.CodeSystemConceptSerializer
 import com.google.fhir.model.r4b.serializers.CodeSystemFilterSerializer
 import com.google.fhir.model.r4b.serializers.CodeSystemPropertySerializer
 import com.google.fhir.model.r4b.serializers.CodeSystemSerializer
+import com.google.fhir.model.r4b.terminologies.CommonLanguages
+import com.google.fhir.model.r4b.terminologies.PublicationStatus
 import kotlin.Suppress
 import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
@@ -602,7 +604,7 @@ public data class CodeSystem(
        *
        * In the absence of a language, the resource language applies.
        */
-      public var language: Code? = null,
+      public var language: Enumeration<CommonLanguages>? = null,
       /**
        * A code that details how this designation would be used.
        *

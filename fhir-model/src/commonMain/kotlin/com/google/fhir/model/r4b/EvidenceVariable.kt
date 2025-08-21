@@ -24,6 +24,7 @@ import com.google.fhir.model.r4b.serializers.EvidenceVariableCharacteristicDefin
 import com.google.fhir.model.r4b.serializers.EvidenceVariableCharacteristicSerializer
 import com.google.fhir.model.r4b.serializers.EvidenceVariableCharacteristicTimeFromStartSerializer
 import com.google.fhir.model.r4b.serializers.EvidenceVariableSerializer
+import com.google.fhir.model.r4b.terminologies.PublicationStatus
 import kotlin.Suppress
 import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName

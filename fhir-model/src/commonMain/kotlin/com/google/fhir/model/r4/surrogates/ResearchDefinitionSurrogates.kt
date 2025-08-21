@@ -183,7 +183,7 @@ internal data class ResearchDefinitionSurrogate(
         ),
       status =
         Enumeration.of(
-          com.google.fhir.model.r4.PublicationStatus.fromCode(
+          com.google.fhir.model.r4.terminologies.PublicationStatus.fromCode(
             this@ResearchDefinitionSurrogate.status!!
           ),
           this@ResearchDefinitionSurrogate._status,

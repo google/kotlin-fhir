@@ -22,6 +22,8 @@ import com.google.fhir.model.r4.serializers.MessageDefinitionAllowedResponseSeri
 import com.google.fhir.model.r4.serializers.MessageDefinitionEventSerializer
 import com.google.fhir.model.r4.serializers.MessageDefinitionFocusSerializer
 import com.google.fhir.model.r4.serializers.MessageDefinitionSerializer
+import com.google.fhir.model.r4.terminologies.PublicationStatus
+import com.google.fhir.model.r4.terminologies.ResourceType
 import kotlin.Suppress
 import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName

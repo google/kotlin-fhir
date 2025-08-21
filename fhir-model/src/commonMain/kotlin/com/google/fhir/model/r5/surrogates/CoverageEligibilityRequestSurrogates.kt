@@ -441,7 +441,7 @@ internal data class CoverageEligibilityRequestSurrogate(
       identifier = this@CoverageEligibilityRequestSurrogate.identifier ?: mutableListOf(),
       status =
         Enumeration.of(
-          com.google.fhir.model.r5.CoverageEligibilityRequest.EligibilityRequestStatus.fromCode(
+          com.google.fhir.model.r5.CoverageEligibilityRequest.FinancialResourceStatusCodes.fromCode(
             this@CoverageEligibilityRequestSurrogate.status!!
           ),
           this@CoverageEligibilityRequestSurrogate._status,
