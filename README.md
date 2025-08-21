@@ -673,7 +673,7 @@ For each JSON example of a FHIR resource in the referenced packages, two categor
 2. Equality test:
    - First instance: Deserialize the JSON into a Kotlin resource object.
    - Second instance: Deserialize the same JSON into a separate Kotlin resource object.
-   - Verification: The two objects are compared property by property to ensure they are identical.
+   - Verification: The two objects are structurally equal (using `==` operator).
 
 [^7]: There are several exceptions. The FHIR specification allows for some variability in data
 representation, which may lead to differences between the original and newly serialized JSON. For
