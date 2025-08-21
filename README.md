@@ -156,12 +156,13 @@ inherits from `DomainResource`, which inherits from `Resource`.
 
 ### Mapping FHIR ValueSets to Kotlin Enums
 
-`Enums` are generated for `code` elements that are [bound](https://hl7.org/fhir/R5/terminologies.html#binding) to a `ValueSet`.
-The constants in the generated Kotlin `enum` classes are derived from the `code` property of concepts defined in FHIR `CodeSystem` and `ValueSet` resources.
+Kotlin enums classes are generated for `code` elements that are [bound](https://hl7.org/fhir/R5/terminologies.html#binding) to a `ValueSet`.
+The constants in the generated enum classes are derived from the `code` property of the expanded `CodeSystem` concepts. The
+value sets that are not bound to elements are excluded from code generation.
 
 #### Shared vs. Local Enums
 
-- If the `StructureDefinition` defines an element with a [**common binding**](https://build.fhir.org/ig/HL7/fhir-extensions/StructureDefinition-elementdefinition-isCommonBinding.html), a **shared enum** is generated and placed in the `com.google.fhir.model.<r4|r4b|r5>` package.  
+- If the `StructureDefinition` defines an element with a [**common binding**](https://build.fhir.org/ig/HL7/fhir-extensions/StructureDefinition-elementdefinition-isCommonBinding.html), a **shared enum** is generated and placed in the `com.google.fhir.model.<r4|r4b|r5>.terminologies` package.  
   **Example:** `AdministrativeGender`
 - If the element uses a **non-common binding**, a **local enum** is created inside the associated parent class.  
   **Example:** `NameUse` inside the `HumanName` class
