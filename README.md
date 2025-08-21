@@ -156,7 +156,7 @@ inherits from `DomainResource`, which inherits from `Resource`.
 
 ### Mapping FHIR ValueSets to Kotlin Enums
 
-Kotlin enums classes are generated for `code` elements that are [bound](https://hl7.org/fhir/R5/terminologies.html#binding) to a `ValueSet`.
+Kotlin enums classes are generated for value sets referenced by elements via [binding](https://hl7.org/fhir/R5/terminologies.html#binding).
 The constants in the generated enum classes are derived from the `code` property of the expanded `CodeSystem` concepts. The
 value sets that are not bound to elements are excluded from code generation.
 
