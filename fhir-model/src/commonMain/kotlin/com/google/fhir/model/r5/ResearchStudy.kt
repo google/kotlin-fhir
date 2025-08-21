@@ -26,6 +26,7 @@ import com.google.fhir.model.r5.serializers.ResearchStudyOutcomeMeasureSerialize
 import com.google.fhir.model.r5.serializers.ResearchStudyProgressStatusSerializer
 import com.google.fhir.model.r5.serializers.ResearchStudyRecruitmentSerializer
 import com.google.fhir.model.r5.serializers.ResearchStudySerializer
+import com.google.fhir.model.r5.terminologies.PublicationStatus
 import kotlin.Suppress
 import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName

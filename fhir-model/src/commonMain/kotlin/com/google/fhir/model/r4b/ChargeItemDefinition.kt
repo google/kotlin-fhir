@@ -22,6 +22,7 @@ import com.google.fhir.model.r4b.serializers.ChargeItemDefinitionApplicabilitySe
 import com.google.fhir.model.r4b.serializers.ChargeItemDefinitionPropertyGroupPriceComponentSerializer
 import com.google.fhir.model.r4b.serializers.ChargeItemDefinitionPropertyGroupSerializer
 import com.google.fhir.model.r4b.serializers.ChargeItemDefinitionSerializer
+import com.google.fhir.model.r4b.terminologies.PublicationStatus
 import kotlin.Suppress
 import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName

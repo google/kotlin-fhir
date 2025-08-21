@@ -35,6 +35,8 @@ import com.google.fhir.model.r4b.serializers.TestScriptTeardownSerializer
 import com.google.fhir.model.r4b.serializers.TestScriptTestActionSerializer
 import com.google.fhir.model.r4b.serializers.TestScriptTestSerializer
 import com.google.fhir.model.r4b.serializers.TestScriptVariableSerializer
+import com.google.fhir.model.r4b.terminologies.FHIRDefinedType
+import com.google.fhir.model.r4b.terminologies.PublicationStatus
 import kotlin.Suppress
 import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName

@@ -693,7 +693,7 @@ internal data class ExampleScenarioSurrogate(
         R5String.of(this@ExampleScenarioSurrogate.title, this@ExampleScenarioSurrogate._title),
       status =
         Enumeration.of(
-          com.google.fhir.model.r5.PublicationStatus.fromCode(
+          com.google.fhir.model.r5.terminologies.PublicationStatus.fromCode(
             this@ExampleScenarioSurrogate.status!!
           ),
           this@ExampleScenarioSurrogate._status,

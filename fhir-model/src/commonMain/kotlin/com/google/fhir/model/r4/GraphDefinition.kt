@@ -22,6 +22,8 @@ import com.google.fhir.model.r4.serializers.GraphDefinitionLinkSerializer
 import com.google.fhir.model.r4.serializers.GraphDefinitionLinkTargetCompartmentSerializer
 import com.google.fhir.model.r4.serializers.GraphDefinitionLinkTargetSerializer
 import com.google.fhir.model.r4.serializers.GraphDefinitionSerializer
+import com.google.fhir.model.r4.terminologies.PublicationStatus
+import com.google.fhir.model.r4.terminologies.ResourceType
 import kotlin.Suppress
 import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName

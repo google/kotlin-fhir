@@ -122,7 +122,7 @@ internal data class DocumentManifestSurrogate(
       identifier = this@DocumentManifestSurrogate.identifier ?: mutableListOf(),
       status =
         Enumeration.of(
-          com.google.fhir.model.r4.DocumentReferenceStatus.fromCode(
+          com.google.fhir.model.r4.terminologies.DocumentReferenceStatus.fromCode(
             this@DocumentManifestSurrogate.status!!
           ),
           this@DocumentManifestSurrogate._status,

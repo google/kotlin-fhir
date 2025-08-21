@@ -24,6 +24,8 @@ import com.google.fhir.model.r5.serializers.StructureDefinitionMappingSerializer
 import com.google.fhir.model.r5.serializers.StructureDefinitionSerializer
 import com.google.fhir.model.r5.serializers.StructureDefinitionSnapshotSerializer
 import com.google.fhir.model.r5.serializers.StructureDefinitionVersionAlgorithmSerializer
+import com.google.fhir.model.r5.terminologies.FHIRVersion
+import com.google.fhir.model.r5.terminologies.PublicationStatus
 import kotlin.Suppress
 import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName

@@ -835,7 +835,7 @@ internal data class ClaimResponseProcessNoteSurrogate(
       type =
         this@ClaimResponseProcessNoteSurrogate.type?.let {
           Enumeration.of(
-            com.google.fhir.model.r4.NoteType.fromCode(it!!),
+            com.google.fhir.model.r4.terminologies.NoteType.fromCode(it!!),
             this@ClaimResponseProcessNoteSurrogate._type,
           )
         },

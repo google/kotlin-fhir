@@ -96,7 +96,7 @@ internal data class EnrollmentResponseSurrogate(
       outcome =
         this@EnrollmentResponseSurrogate.outcome?.let {
           Enumeration.of(
-            com.google.fhir.model.r4.ClaimProcessingCodes.fromCode(it!!),
+            com.google.fhir.model.r4.terminologies.ClaimProcessingCodes.fromCode(it!!),
             this@EnrollmentResponseSurrogate._outcome,
           )
         },

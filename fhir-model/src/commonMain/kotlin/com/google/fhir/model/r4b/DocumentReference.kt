@@ -22,6 +22,7 @@ import com.google.fhir.model.r4b.serializers.DocumentReferenceContentSerializer
 import com.google.fhir.model.r4b.serializers.DocumentReferenceContextSerializer
 import com.google.fhir.model.r4b.serializers.DocumentReferenceRelatesToSerializer
 import com.google.fhir.model.r4b.serializers.DocumentReferenceSerializer
+import com.google.fhir.model.r4b.terminologies.DocumentReferenceStatus
 import kotlin.Suppress
 import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName

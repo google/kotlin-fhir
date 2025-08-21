@@ -27,6 +27,8 @@ import com.google.fhir.model.r5.serializers.QuestionnaireItemInitialValueSeriali
 import com.google.fhir.model.r5.serializers.QuestionnaireItemSerializer
 import com.google.fhir.model.r5.serializers.QuestionnaireSerializer
 import com.google.fhir.model.r5.serializers.QuestionnaireVersionAlgorithmSerializer
+import com.google.fhir.model.r5.terminologies.PublicationStatus
+import com.google.fhir.model.r5.terminologies.ResourceType
 import kotlin.Suppress
 import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName

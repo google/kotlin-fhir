@@ -19,6 +19,7 @@
 package com.google.fhir.model.r4b
 
 import com.google.fhir.model.r4b.serializers.AttachmentSerializer
+import com.google.fhir.model.r4b.terminologies.CommonLanguages
 import kotlin.Suppress
 import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable

@@ -28,6 +28,8 @@ import com.google.fhir.model.r5.serializers.MeasureSubjectSerializer
 import com.google.fhir.model.r5.serializers.MeasureSupplementalDataSerializer
 import com.google.fhir.model.r5.serializers.MeasureTermSerializer
 import com.google.fhir.model.r5.serializers.MeasureVersionAlgorithmSerializer
+import com.google.fhir.model.r5.terminologies.FHIRTypes
+import com.google.fhir.model.r5.terminologies.PublicationStatus
 import kotlin.Suppress
 import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName

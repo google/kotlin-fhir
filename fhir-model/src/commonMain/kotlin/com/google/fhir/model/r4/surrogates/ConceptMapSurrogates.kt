@@ -145,7 +145,7 @@ internal data class ConceptMapGroupElementTargetSurrogate(
         ),
       equivalence =
         Enumeration.of(
-          com.google.fhir.model.r4.ConceptMapEquivalence.fromCode(
+          com.google.fhir.model.r4.terminologies.ConceptMapEquivalence.fromCode(
             this@ConceptMapGroupElementTargetSurrogate.equivalence!!
           ),
           this@ConceptMapGroupElementTargetSurrogate._equivalence,
@@ -470,7 +470,9 @@ internal data class ConceptMapSurrogate(
       title = R4String.of(this@ConceptMapSurrogate.title, this@ConceptMapSurrogate._title),
       status =
         Enumeration.of(
-          com.google.fhir.model.r4.PublicationStatus.fromCode(this@ConceptMapSurrogate.status!!),
+          com.google.fhir.model.r4.terminologies.PublicationStatus.fromCode(
+            this@ConceptMapSurrogate.status!!
+          ),
           this@ConceptMapSurrogate._status,
         ),
       experimental =

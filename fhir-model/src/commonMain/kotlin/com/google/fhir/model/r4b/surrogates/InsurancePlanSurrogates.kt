@@ -450,7 +450,7 @@ internal data class InsurancePlanSurrogate(
       status =
         this@InsurancePlanSurrogate.status?.let {
           Enumeration.of(
-            com.google.fhir.model.r4b.PublicationStatus.fromCode(it!!),
+            com.google.fhir.model.r4b.terminologies.PublicationStatus.fromCode(it!!),
             this@InsurancePlanSurrogate._status,
           )
         },

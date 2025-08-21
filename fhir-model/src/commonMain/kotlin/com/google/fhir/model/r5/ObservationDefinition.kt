@@ -22,6 +22,8 @@ import com.google.fhir.model.r5.serializers.ObservationDefinitionComponentSerial
 import com.google.fhir.model.r5.serializers.ObservationDefinitionQualifiedValueSerializer
 import com.google.fhir.model.r5.serializers.ObservationDefinitionSerializer
 import com.google.fhir.model.r5.serializers.ObservationDefinitionVersionAlgorithmSerializer
+import com.google.fhir.model.r5.terminologies.AdministrativeGender
+import com.google.fhir.model.r5.terminologies.PublicationStatus
 import kotlin.Suppress
 import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName

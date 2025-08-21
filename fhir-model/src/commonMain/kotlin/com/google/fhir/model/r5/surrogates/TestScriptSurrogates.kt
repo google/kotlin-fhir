@@ -1337,7 +1337,9 @@ internal data class TestScriptSurrogate(
       title = R5String.of(this@TestScriptSurrogate.title, this@TestScriptSurrogate._title),
       status =
         Enumeration.of(
-          com.google.fhir.model.r5.PublicationStatus.fromCode(this@TestScriptSurrogate.status!!),
+          com.google.fhir.model.r5.terminologies.PublicationStatus.fromCode(
+            this@TestScriptSurrogate.status!!
+          ),
           this@TestScriptSurrogate._status,
         ),
       experimental =

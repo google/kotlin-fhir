@@ -26,6 +26,8 @@ import com.google.fhir.model.r4b.serializers.QuestionnaireItemInitialSerializer
 import com.google.fhir.model.r4b.serializers.QuestionnaireItemInitialValueSerializer
 import com.google.fhir.model.r4b.serializers.QuestionnaireItemSerializer
 import com.google.fhir.model.r4b.serializers.QuestionnaireSerializer
+import com.google.fhir.model.r4b.terminologies.PublicationStatus
+import com.google.fhir.model.r4b.terminologies.ResourceType
 import kotlin.Suppress
 import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName

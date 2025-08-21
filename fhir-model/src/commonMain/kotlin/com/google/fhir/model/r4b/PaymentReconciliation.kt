@@ -21,6 +21,8 @@ package com.google.fhir.model.r4b
 import com.google.fhir.model.r4b.serializers.PaymentReconciliationDetailSerializer
 import com.google.fhir.model.r4b.serializers.PaymentReconciliationProcessNoteSerializer
 import com.google.fhir.model.r4b.serializers.PaymentReconciliationSerializer
+import com.google.fhir.model.r4b.terminologies.NoteType
+import com.google.fhir.model.r4b.terminologies.RemittanceOutcome
 import kotlin.Suppress
 import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName

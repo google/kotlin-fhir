@@ -165,7 +165,7 @@ internal data class ManufacturedItemDefinitionSurrogate(
       identifier = this@ManufacturedItemDefinitionSurrogate.identifier ?: mutableListOf(),
       status =
         Enumeration.of(
-          com.google.fhir.model.r4b.PublicationStatus.fromCode(
+          com.google.fhir.model.r4b.terminologies.PublicationStatus.fromCode(
             this@ManufacturedItemDefinitionSurrogate.status!!
           ),
           this@ManufacturedItemDefinitionSurrogate._status,

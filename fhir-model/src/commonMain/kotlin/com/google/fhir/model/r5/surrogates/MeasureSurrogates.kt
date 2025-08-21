@@ -325,7 +325,7 @@ internal data class MeasureGroupSurrogate(
       basis =
         this@MeasureGroupSurrogate.basis?.let {
           Enumeration.of(
-            com.google.fhir.model.r5.FHIRTypes.fromCode(it!!),
+            com.google.fhir.model.r5.terminologies.FHIRTypes.fromCode(it!!),
             this@MeasureGroupSurrogate._basis,
           )
         },
@@ -596,7 +596,9 @@ internal data class MeasureSurrogate(
       subtitle = R5String.of(this@MeasureSurrogate.subtitle, this@MeasureSurrogate._subtitle),
       status =
         Enumeration.of(
-          com.google.fhir.model.r5.PublicationStatus.fromCode(this@MeasureSurrogate.status!!),
+          com.google.fhir.model.r5.terminologies.PublicationStatus.fromCode(
+            this@MeasureSurrogate.status!!
+          ),
           this@MeasureSurrogate._status,
         ),
       experimental =
@@ -605,7 +607,7 @@ internal data class MeasureSurrogate(
       basis =
         this@MeasureSurrogate.basis?.let {
           Enumeration.of(
-            com.google.fhir.model.r5.FHIRTypes.fromCode(it!!),
+            com.google.fhir.model.r5.terminologies.FHIRTypes.fromCode(it!!),
             this@MeasureSurrogate._basis,
           )
         },

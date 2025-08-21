@@ -35,6 +35,7 @@ import com.google.fhir.model.r5.serializers.ValueSetExpansionSerializer
 import com.google.fhir.model.r5.serializers.ValueSetScopeSerializer
 import com.google.fhir.model.r5.serializers.ValueSetSerializer
 import com.google.fhir.model.r5.serializers.ValueSetVersionAlgorithmSerializer
+import com.google.fhir.model.r5.terminologies.PublicationStatus
 import kotlin.Suppress
 import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName

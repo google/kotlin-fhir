@@ -27,6 +27,8 @@ import com.google.fhir.model.r4b.serializers.ExampleScenarioProcessStepAlternati
 import com.google.fhir.model.r4b.serializers.ExampleScenarioProcessStepOperationSerializer
 import com.google.fhir.model.r4b.serializers.ExampleScenarioProcessStepSerializer
 import com.google.fhir.model.r4b.serializers.ExampleScenarioSerializer
+import com.google.fhir.model.r4b.terminologies.PublicationStatus
+import com.google.fhir.model.r4b.terminologies.ResourceType
 import kotlin.Suppress
 import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName

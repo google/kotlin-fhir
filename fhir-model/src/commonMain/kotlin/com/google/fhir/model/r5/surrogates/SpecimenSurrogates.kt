@@ -357,7 +357,7 @@ internal data class SpecimenSurrogate(
       combined =
         this@SpecimenSurrogate.combined?.let {
           Enumeration.of(
-            com.google.fhir.model.r5.SpecimenCombined.fromCode(it!!),
+            com.google.fhir.model.r5.terminologies.SpecimenCombined.fromCode(it!!),
             this@SpecimenSurrogate._combined,
           )
         },

@@ -31,8 +31,9 @@ class EnumFileSpecGenerator(val valueSetMap: Map<String, ValueSet>) {
   /**
    * Generates a list of [FileSpec]s for enum classes from the elements within a
    * [StructureDefinition]. Processes both root and backbone elements, generating enums for bound
-   * ValueSets. Enums from common bindings are placed in the core package, while others are stored
-   * in a terminologies' subpackage.
+   * ValueSets. Enums are created inside the terminologies' subpackage of the core models package.
+   *
+   * E.g. `com.google.fhir.model.r4.terminologies`
    */
   fun generate(structureDefinition: StructureDefinition, packageName: String): List<FileSpec> {
     return createEnumFileSpec(structureDefinition.rootElements, packageName)
@@ -54,17 +55,11 @@ class EnumFileSpecGenerator(val valueSetMap: Map<String, ValueSet>) {
       .filter { it.getValueSetUrl() != null && valueSetMap.containsKey(it.getValueSetUrl()) }
       .filterNot { !it.isCommonBinding }
       .mapNotNull { element ->
-        val valueSetUrl = element.getValueSetUrl()
-        val valueSet = valueSetMap.getValue(valueSetUrl!!)
+        val valueSet = valueSetMap.getValue(element.getValueSetUrl()!!)
         val valueSetName = valueSet.name.normalizeEnumName()
         val enumTypeSpec = EnumTypeSpecGenerator.generate(valueSetName, valueSet)
         enumTypeSpec?.let {
-          FileSpec.builder(
-              packageName =
-                if (element.typeIsEnumeratedCode(valueSetMap)) packageName
-                else "$packageName.terminologies",
-              fileName = valueSetName,
-            )
+          FileSpec.builder(packageName = "$packageName.terminologies", fileName = valueSetName)
             .addType(it)
             .build()
         }

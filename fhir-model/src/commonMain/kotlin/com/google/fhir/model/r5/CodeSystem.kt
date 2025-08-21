@@ -26,6 +26,7 @@ import com.google.fhir.model.r5.serializers.CodeSystemFilterSerializer
 import com.google.fhir.model.r5.serializers.CodeSystemPropertySerializer
 import com.google.fhir.model.r5.serializers.CodeSystemSerializer
 import com.google.fhir.model.r5.serializers.CodeSystemVersionAlgorithmSerializer
+import com.google.fhir.model.r5.terminologies.PublicationStatus
 import kotlin.Suppress
 import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName

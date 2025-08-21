@@ -208,7 +208,7 @@ internal data class CodeSystemConceptDesignationSurrogate(
       language =
         this@CodeSystemConceptDesignationSurrogate.language?.let {
           Enumeration.of(
-            com.google.fhir.model.r4.CommonLanguages.fromCode(it!!),
+            com.google.fhir.model.r4.terminologies.CommonLanguages.fromCode(it!!),
             this@CodeSystemConceptDesignationSurrogate._language,
           )
         },
@@ -479,7 +479,9 @@ internal data class CodeSystemSurrogate(
       title = R4String.of(this@CodeSystemSurrogate.title, this@CodeSystemSurrogate._title),
       status =
         Enumeration.of(
-          com.google.fhir.model.r4.PublicationStatus.fromCode(this@CodeSystemSurrogate.status!!),
+          com.google.fhir.model.r4.terminologies.PublicationStatus.fromCode(
+            this@CodeSystemSurrogate.status!!
+          ),
           this@CodeSystemSurrogate._status,
         ),
       experimental =

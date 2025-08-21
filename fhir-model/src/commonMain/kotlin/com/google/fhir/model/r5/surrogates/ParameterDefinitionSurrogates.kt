@@ -79,7 +79,9 @@ internal data class ParameterDefinitionSurrogate(
         ),
       type =
         Enumeration.of(
-          com.google.fhir.model.r5.FHIRTypes.fromCode(this@ParameterDefinitionSurrogate.type!!),
+          com.google.fhir.model.r5.terminologies.FHIRTypes.fromCode(
+            this@ParameterDefinitionSurrogate.type!!
+          ),
           this@ParameterDefinitionSurrogate._type,
         ),
       profile =

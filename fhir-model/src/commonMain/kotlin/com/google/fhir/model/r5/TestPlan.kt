@@ -29,6 +29,7 @@ import com.google.fhir.model.r5.serializers.TestPlanTestCaseTestRunScriptSeriali
 import com.google.fhir.model.r5.serializers.TestPlanTestCaseTestRunScriptSourceSerializer
 import com.google.fhir.model.r5.serializers.TestPlanTestCaseTestRunSerializer
 import com.google.fhir.model.r5.serializers.TestPlanVersionAlgorithmSerializer
+import com.google.fhir.model.r5.terminologies.PublicationStatus
 import kotlin.Suppress
 import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName

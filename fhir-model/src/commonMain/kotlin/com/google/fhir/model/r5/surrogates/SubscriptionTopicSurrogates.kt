@@ -637,7 +637,7 @@ internal data class SubscriptionTopicSurrogate(
         },
       status =
         Enumeration.of(
-          com.google.fhir.model.r5.PublicationStatus.fromCode(
+          com.google.fhir.model.r5.terminologies.PublicationStatus.fromCode(
             this@SubscriptionTopicSurrogate.status!!
           ),
           this@SubscriptionTopicSurrogate._status,

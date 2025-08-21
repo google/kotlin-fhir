@@ -20,6 +20,7 @@ package com.google.fhir.model.r4
 
 import com.google.fhir.model.r4.serializers.EventDefinitionSerializer
 import com.google.fhir.model.r4.serializers.EventDefinitionSubjectSerializer
+import com.google.fhir.model.r4.terminologies.PublicationStatus
 import kotlin.Suppress
 import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName

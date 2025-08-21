@@ -315,7 +315,7 @@ internal data class StructureDefinitionSurrogate(
         ),
       status =
         Enumeration.of(
-          com.google.fhir.model.r4.PublicationStatus.fromCode(
+          com.google.fhir.model.r4.terminologies.PublicationStatus.fromCode(
             this@StructureDefinitionSurrogate.status!!
           ),
           this@StructureDefinitionSurrogate._status,
@@ -357,7 +357,7 @@ internal data class StructureDefinitionSurrogate(
       fhirVersion =
         this@StructureDefinitionSurrogate.fhirVersion?.let {
           Enumeration.of(
-            com.google.fhir.model.r4.FHIRVersion.fromCode(it!!),
+            com.google.fhir.model.r4.terminologies.FHIRVersion.fromCode(it!!),
             this@StructureDefinitionSurrogate._fhirVersion,
           )
         },

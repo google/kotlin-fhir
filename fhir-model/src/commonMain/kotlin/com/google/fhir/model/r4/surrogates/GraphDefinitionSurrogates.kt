@@ -149,7 +149,7 @@ internal data class GraphDefinitionLinkTargetSurrogate(
         this@GraphDefinitionLinkTargetSurrogate.modifierExtension ?: mutableListOf(),
       type =
         Enumeration.of(
-          com.google.fhir.model.r4.ResourceType.fromCode(
+          com.google.fhir.model.r4.terminologies.ResourceType.fromCode(
             this@GraphDefinitionLinkTargetSurrogate.type!!
           ),
           this@GraphDefinitionLinkTargetSurrogate._type,
@@ -315,7 +315,7 @@ internal data class GraphDefinitionSurrogate(
       name = R4String.of(this@GraphDefinitionSurrogate.name, this@GraphDefinitionSurrogate._name)!!,
       status =
         Enumeration.of(
-          com.google.fhir.model.r4.PublicationStatus.fromCode(
+          com.google.fhir.model.r4.terminologies.PublicationStatus.fromCode(
             this@GraphDefinitionSurrogate.status!!
           ),
           this@GraphDefinitionSurrogate._status,
@@ -347,7 +347,9 @@ internal data class GraphDefinitionSurrogate(
         Markdown.of(this@GraphDefinitionSurrogate.purpose, this@GraphDefinitionSurrogate._purpose),
       start =
         Enumeration.of(
-          com.google.fhir.model.r4.ResourceType.fromCode(this@GraphDefinitionSurrogate.start!!),
+          com.google.fhir.model.r4.terminologies.ResourceType.fromCode(
+            this@GraphDefinitionSurrogate.start!!
+          ),
           this@GraphDefinitionSurrogate._start,
         ),
       profile =

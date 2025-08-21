@@ -23,6 +23,7 @@ import com.google.fhir.model.r5.serializers.GraphDefinitionLinkSerializer
 import com.google.fhir.model.r5.serializers.GraphDefinitionNodeSerializer
 import com.google.fhir.model.r5.serializers.GraphDefinitionSerializer
 import com.google.fhir.model.r5.serializers.GraphDefinitionVersionAlgorithmSerializer
+import com.google.fhir.model.r5.terminologies.PublicationStatus
 import kotlin.Suppress
 import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName

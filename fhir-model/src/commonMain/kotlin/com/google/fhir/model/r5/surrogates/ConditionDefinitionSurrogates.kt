@@ -388,7 +388,7 @@ internal data class ConditionDefinitionSurrogate(
         ),
       status =
         Enumeration.of(
-          com.google.fhir.model.r5.PublicationStatus.fromCode(
+          com.google.fhir.model.r5.terminologies.PublicationStatus.fromCode(
             this@ConditionDefinitionSurrogate.status!!
           ),
           this@ConditionDefinitionSurrogate._status,

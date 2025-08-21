@@ -125,7 +125,9 @@ internal data class EvidenceSurrogate(
       subtitle = R4String.of(this@EvidenceSurrogate.subtitle, this@EvidenceSurrogate._subtitle),
       status =
         Enumeration.of(
-          com.google.fhir.model.r4.PublicationStatus.fromCode(this@EvidenceSurrogate.status!!),
+          com.google.fhir.model.r4.terminologies.PublicationStatus.fromCode(
+            this@EvidenceSurrogate.status!!
+          ),
           this@EvidenceSurrogate._status,
         ),
       date =

@@ -411,7 +411,7 @@ internal data class EvidenceReportSurrogate(
       url = Uri.of(this@EvidenceReportSurrogate.url, this@EvidenceReportSurrogate._url),
       status =
         Enumeration.of(
-          com.google.fhir.model.r5.PublicationStatus.fromCode(
+          com.google.fhir.model.r5.terminologies.PublicationStatus.fromCode(
             this@EvidenceReportSurrogate.status!!
           ),
           this@EvidenceReportSurrogate._status,

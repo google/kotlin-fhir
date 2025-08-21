@@ -22,6 +22,7 @@ import com.google.fhir.model.r5.serializers.PaymentReconciliationAllocationSeria
 import com.google.fhir.model.r5.serializers.PaymentReconciliationAllocationTargetItemSerializer
 import com.google.fhir.model.r5.serializers.PaymentReconciliationProcessNoteSerializer
 import com.google.fhir.model.r5.serializers.PaymentReconciliationSerializer
+import com.google.fhir.model.r5.terminologies.NoteType
 import kotlin.Suppress
 import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName

@@ -1140,7 +1140,9 @@ internal data class CitationSurrogate(
       title = R5String.of(this@CitationSurrogate.title, this@CitationSurrogate._title),
       status =
         Enumeration.of(
-          com.google.fhir.model.r5.PublicationStatus.fromCode(this@CitationSurrogate.status!!),
+          com.google.fhir.model.r5.terminologies.PublicationStatus.fromCode(
+            this@CitationSurrogate.status!!
+          ),
           this@CitationSurrogate._status,
         ),
       experimental =

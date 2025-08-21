@@ -26,6 +26,7 @@ import com.google.fhir.model.r4b.serializers.EvidenceReportSerializer
 import com.google.fhir.model.r4b.serializers.EvidenceReportSubjectCharacteristicSerializer
 import com.google.fhir.model.r4b.serializers.EvidenceReportSubjectCharacteristicValueSerializer
 import com.google.fhir.model.r4b.serializers.EvidenceReportSubjectSerializer
+import com.google.fhir.model.r4b.terminologies.PublicationStatus
 import kotlin.Suppress
 import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName

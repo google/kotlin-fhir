@@ -30,6 +30,7 @@ import com.google.fhir.model.r5.serializers.TerminologyCapabilitiesSoftwareSeria
 import com.google.fhir.model.r5.serializers.TerminologyCapabilitiesTranslationSerializer
 import com.google.fhir.model.r5.serializers.TerminologyCapabilitiesValidateCodeSerializer
 import com.google.fhir.model.r5.serializers.TerminologyCapabilitiesVersionAlgorithmSerializer
+import com.google.fhir.model.r5.terminologies.PublicationStatus
 import kotlin.Suppress
 import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName

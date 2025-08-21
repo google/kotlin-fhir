@@ -33,6 +33,8 @@ import com.google.fhir.model.r4b.serializers.ClaimResponsePaymentSerializer
 import com.google.fhir.model.r4b.serializers.ClaimResponseProcessNoteSerializer
 import com.google.fhir.model.r4b.serializers.ClaimResponseSerializer
 import com.google.fhir.model.r4b.serializers.ClaimResponseTotalSerializer
+import com.google.fhir.model.r4b.terminologies.NoteType
+import com.google.fhir.model.r4b.terminologies.RemittanceOutcome
 import kotlin.Suppress
 import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName

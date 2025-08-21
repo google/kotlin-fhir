@@ -75,7 +75,7 @@ internal data class ValueSetComposeIncludeConceptDesignationSurrogate(
       language =
         this@ValueSetComposeIncludeConceptDesignationSurrogate.language?.let {
           Enumeration.of(
-            com.google.fhir.model.r4b.CommonLanguages.fromCode(it!!),
+            com.google.fhir.model.r4b.terminologies.CommonLanguages.fromCode(it!!),
             this@ValueSetComposeIncludeConceptDesignationSurrogate._language,
           )
         },
@@ -659,7 +659,9 @@ internal data class ValueSetSurrogate(
       title = R4bString.of(this@ValueSetSurrogate.title, this@ValueSetSurrogate._title),
       status =
         Enumeration.of(
-          com.google.fhir.model.r4b.PublicationStatus.fromCode(this@ValueSetSurrogate.status!!),
+          com.google.fhir.model.r4b.terminologies.PublicationStatus.fromCode(
+            this@ValueSetSurrogate.status!!
+          ),
           this@ValueSetSurrogate._status,
         ),
       experimental =

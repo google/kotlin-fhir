@@ -44,6 +44,7 @@ import com.google.fhir.model.r4b.serializers.CitationRelatesToTargetSerializer
 import com.google.fhir.model.r4b.serializers.CitationSerializer
 import com.google.fhir.model.r4b.serializers.CitationStatusDateSerializer
 import com.google.fhir.model.r4b.serializers.CitationSummarySerializer
+import com.google.fhir.model.r4b.terminologies.PublicationStatus
 import kotlin.Suppress
 import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName

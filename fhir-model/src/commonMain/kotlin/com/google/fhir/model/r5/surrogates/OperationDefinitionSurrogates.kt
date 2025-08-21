@@ -68,7 +68,7 @@ internal data class OperationDefinitionParameterBindingSurrogate(
         this@OperationDefinitionParameterBindingSurrogate.modifierExtension ?: mutableListOf(),
       strength =
         Enumeration.of(
-          com.google.fhir.model.r5.BindingStrength.fromCode(
+          com.google.fhir.model.r5.terminologies.BindingStrength.fromCode(
             this@OperationDefinitionParameterBindingSurrogate.strength!!
           ),
           this@OperationDefinitionParameterBindingSurrogate._strength,
@@ -236,7 +236,7 @@ internal data class OperationDefinitionParameterSurrogate(
       type =
         this@OperationDefinitionParameterSurrogate.type?.let {
           Enumeration.of(
-            com.google.fhir.model.r5.FHIRTypes.fromCode(it!!),
+            com.google.fhir.model.r5.terminologies.FHIRTypes.fromCode(it!!),
             this@OperationDefinitionParameterSurrogate._type,
           )
         },
@@ -255,7 +255,7 @@ internal data class OperationDefinitionParameterSurrogate(
             )
             .map { (value, element) ->
               Enumeration.of(
-                value.let { com.google.fhir.model.r5.FHIRTypes.fromCode(it!!)!! },
+                value.let { com.google.fhir.model.r5.terminologies.FHIRTypes.fromCode(it!!)!! },
                 element,
               )
             }
@@ -280,7 +280,7 @@ internal data class OperationDefinitionParameterSurrogate(
       searchType =
         this@OperationDefinitionParameterSurrogate.searchType?.let {
           Enumeration.of(
-            com.google.fhir.model.r5.SearchParamType.fromCode(it!!),
+            com.google.fhir.model.r5.terminologies.SearchParamType.fromCode(it!!),
             this@OperationDefinitionParameterSurrogate._searchType,
           )
         },
@@ -552,7 +552,7 @@ internal data class OperationDefinitionSurrogate(
         ),
       status =
         Enumeration.of(
-          com.google.fhir.model.r5.PublicationStatus.fromCode(
+          com.google.fhir.model.r5.terminologies.PublicationStatus.fromCode(
             this@OperationDefinitionSurrogate.status!!
           ),
           this@OperationDefinitionSurrogate._status,

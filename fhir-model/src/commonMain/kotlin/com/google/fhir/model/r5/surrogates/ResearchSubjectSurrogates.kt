@@ -142,7 +142,7 @@ internal data class ResearchSubjectSurrogate(
       identifier = this@ResearchSubjectSurrogate.identifier ?: mutableListOf(),
       status =
         Enumeration.of(
-          com.google.fhir.model.r5.PublicationStatus.fromCode(
+          com.google.fhir.model.r5.terminologies.PublicationStatus.fromCode(
             this@ResearchSubjectSurrogate.status!!
           ),
           this@ResearchSubjectSurrogate._status,

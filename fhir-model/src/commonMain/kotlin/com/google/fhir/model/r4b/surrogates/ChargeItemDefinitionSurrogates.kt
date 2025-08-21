@@ -332,7 +332,7 @@ internal data class ChargeItemDefinitionSurrogate(
         },
       status =
         Enumeration.of(
-          com.google.fhir.model.r4b.PublicationStatus.fromCode(
+          com.google.fhir.model.r4b.terminologies.PublicationStatus.fromCode(
             this@ChargeItemDefinitionSurrogate.status!!
           ),
           this@ChargeItemDefinitionSurrogate._status,

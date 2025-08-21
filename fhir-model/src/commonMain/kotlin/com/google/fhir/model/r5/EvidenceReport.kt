@@ -26,6 +26,7 @@ import com.google.fhir.model.r5.serializers.EvidenceReportSerializer
 import com.google.fhir.model.r5.serializers.EvidenceReportSubjectCharacteristicSerializer
 import com.google.fhir.model.r5.serializers.EvidenceReportSubjectCharacteristicValueSerializer
 import com.google.fhir.model.r5.serializers.EvidenceReportSubjectSerializer
+import com.google.fhir.model.r5.terminologies.PublicationStatus
 import kotlin.Suppress
 import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName

@@ -19,6 +19,7 @@
 package com.google.fhir.model.r4b
 
 import com.google.fhir.model.r4b.serializers.ParameterDefinitionSerializer
+import com.google.fhir.model.r4b.terminologies.FHIRAllTypes
 import kotlin.Suppress
 import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable

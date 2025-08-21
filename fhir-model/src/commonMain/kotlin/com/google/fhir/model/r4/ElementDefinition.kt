@@ -33,6 +33,7 @@ import com.google.fhir.model.r4.serializers.ElementDefinitionSerializer
 import com.google.fhir.model.r4.serializers.ElementDefinitionSlicingDiscriminatorSerializer
 import com.google.fhir.model.r4.serializers.ElementDefinitionSlicingSerializer
 import com.google.fhir.model.r4.serializers.ElementDefinitionTypeSerializer
+import com.google.fhir.model.r4.terminologies.BindingStrength
 import kotlin.Suppress
 import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable

@@ -89,7 +89,7 @@ internal data class ObservationDefinitionQualifiedValueSurrogate(
       gender =
         this@ObservationDefinitionQualifiedValueSurrogate.gender?.let {
           Enumeration.of(
-            com.google.fhir.model.r5.AdministrativeGender.fromCode(it!!),
+            com.google.fhir.model.r5.terminologies.AdministrativeGender.fromCode(it!!),
             this@ObservationDefinitionQualifiedValueSurrogate._gender,
           )
         },
@@ -380,7 +380,7 @@ internal data class ObservationDefinitionSurrogate(
         ),
       status =
         Enumeration.of(
-          com.google.fhir.model.r5.PublicationStatus.fromCode(
+          com.google.fhir.model.r5.terminologies.PublicationStatus.fromCode(
             this@ObservationDefinitionSurrogate.status!!
           ),
           this@ObservationDefinitionSurrogate._status,

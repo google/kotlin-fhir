@@ -754,7 +754,7 @@ internal data class TerminologyCapabilitiesSurrogate(
         ),
       status =
         Enumeration.of(
-          com.google.fhir.model.r5.PublicationStatus.fromCode(
+          com.google.fhir.model.r5.terminologies.PublicationStatus.fromCode(
             this@TerminologyCapabilitiesSurrogate.status!!
           ),
           this@TerminologyCapabilitiesSurrogate._status,

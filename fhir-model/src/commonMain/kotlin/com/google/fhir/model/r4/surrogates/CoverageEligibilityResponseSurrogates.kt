@@ -468,7 +468,7 @@ internal data class CoverageEligibilityResponseSurrogate(
       request = this@CoverageEligibilityResponseSurrogate.request,
       outcome =
         Enumeration.of(
-          com.google.fhir.model.r4.ClaimProcessingCodes.fromCode(
+          com.google.fhir.model.r4.terminologies.ClaimProcessingCodes.fromCode(
             this@CoverageEligibilityResponseSurrogate.outcome!!
           ),
           this@CoverageEligibilityResponseSurrogate._outcome,

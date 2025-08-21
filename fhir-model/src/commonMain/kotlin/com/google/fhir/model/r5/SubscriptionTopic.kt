@@ -25,6 +25,7 @@ import com.google.fhir.model.r5.serializers.SubscriptionTopicResourceTriggerQuer
 import com.google.fhir.model.r5.serializers.SubscriptionTopicResourceTriggerSerializer
 import com.google.fhir.model.r5.serializers.SubscriptionTopicSerializer
 import com.google.fhir.model.r5.serializers.SubscriptionTopicVersionAlgorithmSerializer
+import com.google.fhir.model.r5.terminologies.PublicationStatus
 import kotlin.Suppress
 import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName

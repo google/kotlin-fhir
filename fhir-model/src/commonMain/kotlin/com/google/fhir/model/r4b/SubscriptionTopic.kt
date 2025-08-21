@@ -24,6 +24,7 @@ import com.google.fhir.model.r4b.serializers.SubscriptionTopicNotificationShapeS
 import com.google.fhir.model.r4b.serializers.SubscriptionTopicResourceTriggerQueryCriteriaSerializer
 import com.google.fhir.model.r4b.serializers.SubscriptionTopicResourceTriggerSerializer
 import com.google.fhir.model.r4b.serializers.SubscriptionTopicSerializer
+import com.google.fhir.model.r4b.terminologies.PublicationStatus
 import kotlin.Suppress
 import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName

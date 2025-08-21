@@ -33,6 +33,9 @@ import com.google.fhir.model.r4.serializers.ImplementationGuideManifestResourceE
 import com.google.fhir.model.r4.serializers.ImplementationGuideManifestResourceSerializer
 import com.google.fhir.model.r4.serializers.ImplementationGuideManifestSerializer
 import com.google.fhir.model.r4.serializers.ImplementationGuideSerializer
+import com.google.fhir.model.r4.terminologies.FHIRVersion
+import com.google.fhir.model.r4.terminologies.PublicationStatus
+import com.google.fhir.model.r4.terminologies.ResourceType
 import kotlin.Suppress
 import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName

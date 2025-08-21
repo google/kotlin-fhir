@@ -19,6 +19,7 @@
 package com.google.fhir.model.r4b
 
 import com.google.fhir.model.r4b.serializers.MoneySerializer
+import com.google.fhir.model.r4b.terminologies.Currencies
 import kotlin.String
 import kotlin.Suppress
 import kotlin.collections.MutableList

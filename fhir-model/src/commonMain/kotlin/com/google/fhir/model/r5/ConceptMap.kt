@@ -32,6 +32,8 @@ import com.google.fhir.model.r5.serializers.ConceptMapSerializer
 import com.google.fhir.model.r5.serializers.ConceptMapSourceScopeSerializer
 import com.google.fhir.model.r5.serializers.ConceptMapTargetScopeSerializer
 import com.google.fhir.model.r5.serializers.ConceptMapVersionAlgorithmSerializer
+import com.google.fhir.model.r5.terminologies.ConceptMapRelationship
+import com.google.fhir.model.r5.terminologies.PublicationStatus
 import kotlin.Suppress
 import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName

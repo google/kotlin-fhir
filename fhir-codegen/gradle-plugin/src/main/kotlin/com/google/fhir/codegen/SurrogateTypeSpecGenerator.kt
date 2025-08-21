@@ -538,11 +538,13 @@ class SurrogateTypeSpecGenerator(private val valueSetMap: Map<String, ValueSet>)
         "${elementBasePath.substringBefore(".")}.$valueSetName"
       else valueSetName
     val enumClassPackageName =
-      if (this.isCommonBinding || enumClassName.contains(".")) {
-        modelClassName.packageName
-      } else {
-        // Use qualified import e.g. com.google.fhir.model.AdministrativeGender
-        modelClassName.packageName + "." + modelClassName.simpleNames.first()
+      when {
+        this.isCommonBinding -> "${modelClassName.packageName}.terminologies"
+        enumClassName.contains(".") -> modelClassName.packageName
+        else -> {
+          // Use qualified import e.g. com.google.fhir.model.AdministrativeGender
+          modelClassName.packageName + "." + modelClassName.simpleNames.first()
+        }
       }
     val enumClass = ClassName(enumClassPackageName, enumClassName)
     return enumClass

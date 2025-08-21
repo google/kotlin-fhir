@@ -69,7 +69,7 @@ internal data class AttachmentSurrogate(
       language =
         this@AttachmentSurrogate.language?.let {
           Enumeration.of(
-            com.google.fhir.model.r4.CommonLanguages.fromCode(it!!),
+            com.google.fhir.model.r4.terminologies.CommonLanguages.fromCode(it!!),
             this@AttachmentSurrogate._language,
           )
         },

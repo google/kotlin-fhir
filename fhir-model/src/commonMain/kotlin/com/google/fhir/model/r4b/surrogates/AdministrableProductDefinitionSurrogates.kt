@@ -334,7 +334,7 @@ internal data class AdministrableProductDefinitionSurrogate(
       identifier = this@AdministrableProductDefinitionSurrogate.identifier ?: mutableListOf(),
       status =
         Enumeration.of(
-          com.google.fhir.model.r4b.PublicationStatus.fromCode(
+          com.google.fhir.model.r4b.terminologies.PublicationStatus.fromCode(
             this@AdministrableProductDefinitionSurrogate.status!!
           ),
           this@AdministrableProductDefinitionSurrogate._status,

@@ -20,6 +20,7 @@ package com.google.fhir.model.r4
 
 import com.google.fhir.model.r4.serializers.PractitionerQualificationSerializer
 import com.google.fhir.model.r4.serializers.PractitionerSerializer
+import com.google.fhir.model.r4.terminologies.AdministrativeGender
 import kotlin.String
 import kotlin.Suppress
 import kotlin.collections.MutableList

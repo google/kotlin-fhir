@@ -28,6 +28,8 @@ import com.google.fhir.model.r4.serializers.ValueSetExpansionParameterSerializer
 import com.google.fhir.model.r4.serializers.ValueSetExpansionParameterValueSerializer
 import com.google.fhir.model.r4.serializers.ValueSetExpansionSerializer
 import com.google.fhir.model.r4.serializers.ValueSetSerializer
+import com.google.fhir.model.r4.terminologies.CommonLanguages
+import com.google.fhir.model.r4.terminologies.PublicationStatus
 import kotlin.Suppress
 import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName

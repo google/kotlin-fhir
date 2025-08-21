@@ -26,6 +26,7 @@ import com.google.fhir.model.r5.serializers.SpecimenFeatureSerializer
 import com.google.fhir.model.r5.serializers.SpecimenProcessingSerializer
 import com.google.fhir.model.r5.serializers.SpecimenProcessingTimeSerializer
 import com.google.fhir.model.r5.serializers.SpecimenSerializer
+import com.google.fhir.model.r5.terminologies.SpecimenCombined
 import kotlin.Suppress
 import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName

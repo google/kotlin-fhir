@@ -26,6 +26,7 @@ import com.google.fhir.model.r4.serializers.CoverageEligibilityResponseInsurance
 import com.google.fhir.model.r4.serializers.CoverageEligibilityResponseInsuranceSerializer
 import com.google.fhir.model.r4.serializers.CoverageEligibilityResponseSerializer
 import com.google.fhir.model.r4.serializers.CoverageEligibilityResponseServicedSerializer
+import com.google.fhir.model.r4.terminologies.ClaimProcessingCodes
 import kotlin.Suppress
 import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName

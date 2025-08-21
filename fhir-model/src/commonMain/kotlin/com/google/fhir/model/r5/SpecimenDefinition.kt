@@ -27,6 +27,7 @@ import com.google.fhir.model.r5.serializers.SpecimenDefinitionTypeTestedContaine
 import com.google.fhir.model.r5.serializers.SpecimenDefinitionTypeTestedHandlingSerializer
 import com.google.fhir.model.r5.serializers.SpecimenDefinitionTypeTestedSerializer
 import com.google.fhir.model.r5.serializers.SpecimenDefinitionVersionAlgorithmSerializer
+import com.google.fhir.model.r5.terminologies.PublicationStatus
 import kotlin.Suppress
 import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName

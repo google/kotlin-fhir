@@ -26,6 +26,8 @@ import com.google.fhir.model.r5.serializers.ActivityDefinitionSerializer
 import com.google.fhir.model.r5.serializers.ActivityDefinitionSubjectSerializer
 import com.google.fhir.model.r5.serializers.ActivityDefinitionTimingSerializer
 import com.google.fhir.model.r5.serializers.ActivityDefinitionVersionAlgorithmSerializer
+import com.google.fhir.model.r5.terminologies.PublicationStatus
+import com.google.fhir.model.r5.terminologies.RequestResourceTypes
 import kotlin.Suppress
 import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName

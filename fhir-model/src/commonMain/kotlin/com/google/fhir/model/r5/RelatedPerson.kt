@@ -20,6 +20,7 @@ package com.google.fhir.model.r5
 
 import com.google.fhir.model.r5.serializers.RelatedPersonCommunicationSerializer
 import com.google.fhir.model.r5.serializers.RelatedPersonSerializer
+import com.google.fhir.model.r5.terminologies.AdministrativeGender
 import kotlin.String
 import kotlin.Suppress
 import kotlin.collections.MutableList

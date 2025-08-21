@@ -97,7 +97,11 @@ internal fun Element.getEnumerationTypeName(
     }
 
   val enumClassPackageName =
-    if (this.isCommonBinding || enumClassName.contains(".")) modelClassName.packageName else ""
+    when {
+      this.isCommonBinding -> modelClassName.packageName + ".terminologies"
+      enumClassName.contains(".") -> modelClassName.packageName
+      else -> ""
+    }
 
   val enumClass = ClassName(enumClassPackageName, enumClassName)
   return ClassName(modelClassName.packageName, "Enumeration")

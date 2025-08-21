@@ -98,7 +98,7 @@ internal data class EnrollmentResponseSurrogate(
       outcome =
         this@EnrollmentResponseSurrogate.outcome?.let {
           Enumeration.of(
-            com.google.fhir.model.r4b.RemittanceOutcome.fromCode(it!!),
+            com.google.fhir.model.r4b.terminologies.RemittanceOutcome.fromCode(it!!),
             this@EnrollmentResponseSurrogate._outcome,
           )
         },

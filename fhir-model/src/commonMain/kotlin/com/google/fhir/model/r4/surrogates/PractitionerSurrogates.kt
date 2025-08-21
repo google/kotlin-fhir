@@ -131,7 +131,7 @@ internal data class PractitionerSurrogate(
       gender =
         this@PractitionerSurrogate.gender?.let {
           Enumeration.of(
-            com.google.fhir.model.r4.AdministrativeGender.fromCode(it!!),
+            com.google.fhir.model.r4.terminologies.AdministrativeGender.fromCode(it!!),
             this@PractitionerSurrogate._gender,
           )
         },

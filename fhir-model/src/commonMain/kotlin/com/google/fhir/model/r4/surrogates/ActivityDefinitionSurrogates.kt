@@ -344,7 +344,7 @@ internal data class ActivityDefinitionSurrogate(
         ),
       status =
         Enumeration.of(
-          com.google.fhir.model.r4.PublicationStatus.fromCode(
+          com.google.fhir.model.r4.terminologies.PublicationStatus.fromCode(
             this@ActivityDefinitionSurrogate.status!!
           ),
           this@ActivityDefinitionSurrogate._status,
