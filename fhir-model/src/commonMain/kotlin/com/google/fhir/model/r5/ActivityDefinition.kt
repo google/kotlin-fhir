@@ -426,7 +426,7 @@ public data class ActivityDefinition(
    * Task resource with the focus of the task set to the event resource to be created. Note that the
    * kind of resource to be created may determine what types of extensions are permitted.
    */
-  public var kind: Enumeration<ActivityDefinitionKind>? = null,
+  public var kind: Enumeration<RequestResourceTypes>? = null,
   /** A profile to which the target of the activity definition is expected to conform. */
   public var profile: Canonical? = null,
   /**
@@ -574,7 +574,7 @@ public data class ActivityDefinition(
      */
     override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** The type of participant in the action. */
-    public var type: Enumeration<ActivityParticipantType>? = null,
+    public var type: Enumeration<ActionParticipantType>? = null,
     /** The type of participant in the action. */
     public var typeCanonical: Canonical? = null,
     /**
@@ -798,7 +798,7 @@ public data class ActivityDefinition(
   }
 
   /** The type of participant for the action. */
-  public enum class ActivityParticipantType(
+  public enum class ActionParticipantType(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
@@ -831,7 +831,7 @@ public data class ActivityDefinition(
     public fun getDisplay(): kotlin.String? = display
 
     public companion object {
-      public fun fromCode(code: kotlin.String): ActivityParticipantType =
+      public fun fromCode(code: kotlin.String): ActionParticipantType =
         when (code) {
           "careteam" -> Careteam
           "device" -> Device
@@ -844,7 +844,7 @@ public data class ActivityDefinition(
           "practitionerrole" -> Practitionerrole
           "relatedperson" -> Relatedperson
           else ->
-            throw IllegalArgumentException("Unknown code $code for enum ActivityParticipantType")
+            throw IllegalArgumentException("Unknown code $code for enum ActionParticipantType")
         }
     }
   }

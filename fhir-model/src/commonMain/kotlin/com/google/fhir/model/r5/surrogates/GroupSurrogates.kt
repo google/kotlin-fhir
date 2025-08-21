@@ -211,7 +211,13 @@ internal data class GroupSurrogate(
           com.google.fhir.model.r5.Group.GroupType.fromCode(this@GroupSurrogate.type!!),
           this@GroupSurrogate._type,
         ),
-      membership = Code.of(this@GroupSurrogate.membership, this@GroupSurrogate._membership)!!,
+      membership =
+        Enumeration.of(
+          com.google.fhir.model.r5.Group.GroupMembershipBasis.fromCode(
+            this@GroupSurrogate.membership!!
+          ),
+          this@GroupSurrogate._membership,
+        ),
       code = this@GroupSurrogate.code,
       name = R5String.of(this@GroupSurrogate.name, this@GroupSurrogate._name),
       description = Markdown.of(this@GroupSurrogate.description, this@GroupSurrogate._description),
@@ -240,7 +246,7 @@ internal data class GroupSurrogate(
           _active = this@with.active?.toElement(),
           type = this@with.type.value?.getCode(),
           _type = this@with.type.toElement(),
-          membership = this@with.membership.value,
+          membership = this@with.membership.value?.getCode(),
           _membership = this@with.membership.toElement(),
           code = this@with.code,
           name = this@with.name?.value,

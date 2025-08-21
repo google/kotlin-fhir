@@ -298,7 +298,7 @@ internal data class DocumentReferenceSurrogate(
       docStatus =
         this@DocumentReferenceSurrogate.docStatus?.let {
           Enumeration.of(
-            com.google.fhir.model.r5.DocumentReference.ReferredDocumentStatus.fromCode(it!!),
+            com.google.fhir.model.r5.DocumentReference.CompositionStatus.fromCode(it!!),
             this@DocumentReferenceSurrogate._docStatus,
           )
         },

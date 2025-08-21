@@ -293,7 +293,7 @@ internal data class MedicationRequestSurrogate(
       groupIdentifier = this@MedicationRequestSurrogate.groupIdentifier,
       status =
         Enumeration.of(
-          com.google.fhir.model.r5.MedicationRequest.MedicationRequestStatus.fromCode(
+          com.google.fhir.model.r5.MedicationRequest.MedicationrequestStatus.fromCode(
             this@MedicationRequestSurrogate.status!!
           ),
           this@MedicationRequestSurrogate._status,
@@ -315,7 +315,7 @@ internal data class MedicationRequestSurrogate(
       priority =
         this@MedicationRequestSurrogate.priority?.let {
           Enumeration.of(
-            com.google.fhir.model.r5.MedicationRequest.MedicationRequestPriority.fromCode(it!!),
+            com.google.fhir.model.r5.MedicationRequest.RequestPriority.fromCode(it!!),
             this@MedicationRequestSurrogate._priority,
           )
         },

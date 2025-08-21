@@ -428,7 +428,7 @@ public data class Observation(
     /** Reference to the triggering observation. */
     public var observation: Reference,
     /** The type of trigger. Reflex | Repeat | Re-run. */
-    public var type: Enumeration<TriggeredByType>,
+    public var type: Enumeration<TriggeredBytype>,
     /**
      * Provides the reason why this observation was performed as a result of the observation(s)
      * referenced.
@@ -880,7 +880,7 @@ public data class Observation(
   }
 
   /** Codes providing the type of triggeredBy observation. */
-  public enum class TriggeredByType(
+  public enum class TriggeredBytype(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
@@ -898,12 +898,12 @@ public data class Observation(
     public fun getDisplay(): kotlin.String? = display
 
     public companion object {
-      public fun fromCode(code: kotlin.String): TriggeredByType =
+      public fun fromCode(code: kotlin.String): TriggeredBytype =
         when (code) {
           "reflex" -> Reflex
           "repeat" -> Repeat
           "re-run" -> Re_Run
-          else -> throw IllegalArgumentException("Unknown code $code for enum TriggeredByType")
+          else -> throw IllegalArgumentException("Unknown code $code for enum TriggeredBytype")
         }
     }
   }

@@ -2296,7 +2296,7 @@ internal data class ExplanationOfBenefitSurrogate(
       claimResponse = this@ExplanationOfBenefitSurrogate.claimResponse,
       outcome =
         Enumeration.of(
-          com.google.fhir.model.r5.ExplanationOfBenefit.ClaimOutcome.fromCode(
+          com.google.fhir.model.r5.ExplanationOfBenefit.ClaimProcessingCodes.fromCode(
             this@ExplanationOfBenefitSurrogate.outcome!!
           ),
           this@ExplanationOfBenefitSurrogate._outcome,

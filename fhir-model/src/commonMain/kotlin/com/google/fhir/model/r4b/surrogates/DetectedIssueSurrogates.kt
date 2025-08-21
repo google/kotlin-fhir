@@ -189,7 +189,7 @@ internal data class DetectedIssueSurrogate(
       identifier = this@DetectedIssueSurrogate.identifier ?: mutableListOf(),
       status =
         Enumeration.of(
-          com.google.fhir.model.r4b.DetectedIssue.DetectedIssueStatus.fromCode(
+          com.google.fhir.model.r4b.DetectedIssue.ObservationStatus.fromCode(
             this@DetectedIssueSurrogate.status!!
           ),
           this@DetectedIssueSurrogate._status,

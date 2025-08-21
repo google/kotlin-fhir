@@ -174,7 +174,7 @@ public data class DocumentReference(
    *
    * The document that is pointed to might be in various lifecycle states.
    */
-  public var docStatus: Enumeration<ReferredDocumentStatus>? = null,
+  public var docStatus: Enumeration<CompositionStatus>? = null,
   /** Imaging modality used. This may include both acquisition and non-acquisition modalities. */
   public var modality: MutableList<CodeableConcept> = mutableListOf(),
   /**
@@ -540,7 +540,7 @@ public data class DocumentReference(
   }
 
   /** The workflow/clinical status of the composition. */
-  public enum class ReferredDocumentStatus(
+  public enum class CompositionStatus(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
@@ -570,7 +570,7 @@ public data class DocumentReference(
     public fun getDisplay(): kotlin.String? = display
 
     public companion object {
-      public fun fromCode(code: kotlin.String): ReferredDocumentStatus =
+      public fun fromCode(code: kotlin.String): CompositionStatus =
         when (code) {
           "registered" -> Registered
           "partial" -> Partial
@@ -583,8 +583,7 @@ public data class DocumentReference(
           "entered-in-error" -> Entered_In_Error
           "deprecated" -> Deprecated
           "unknown" -> Unknown
-          else ->
-            throw IllegalArgumentException("Unknown code $code for enum ReferredDocumentStatus")
+          else -> throw IllegalArgumentException("Unknown code $code for enum CompositionStatus")
         }
     }
   }

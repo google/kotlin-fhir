@@ -59,7 +59,13 @@ internal data class BundleLinkSurrogate(
       id = this@BundleLinkSurrogate.id,
       extension = this@BundleLinkSurrogate.extension ?: mutableListOf(),
       modifierExtension = this@BundleLinkSurrogate.modifierExtension ?: mutableListOf(),
-      relation = Code.of(this@BundleLinkSurrogate.relation, this@BundleLinkSurrogate._relation)!!,
+      relation =
+        Enumeration.of(
+          com.google.fhir.model.r5.Bundle.LinkRelationTypes.fromCode(
+            this@BundleLinkSurrogate.relation!!
+          ),
+          this@BundleLinkSurrogate._relation,
+        ),
       url = Uri.of(this@BundleLinkSurrogate.url, this@BundleLinkSurrogate._url)!!,
     )
 
@@ -70,7 +76,7 @@ internal data class BundleLinkSurrogate(
           id = this@with.id,
           extension = this@with.extension.takeUnless { it.all { it == null } },
           modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          relation = this@with.relation.value,
+          relation = this@with.relation.value?.getCode(),
           _relation = this@with.relation.toElement(),
           url = this@with.url.value,
           _url = this@with.url.toElement(),

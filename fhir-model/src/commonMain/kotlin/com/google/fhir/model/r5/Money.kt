@@ -53,5 +53,5 @@ public data class Money(
    */
   public var `value`: Decimal? = null,
   /** ISO 4217 Currency Code. */
-  public var currency: Enumeration<CurrencyCode>? = null,
+  public var currency: Enumeration<Currencies>? = null,
 ) : DataType()

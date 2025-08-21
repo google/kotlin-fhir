@@ -229,7 +229,7 @@ internal data class CoverageSurrogate(
       identifier = this@CoverageSurrogate.identifier ?: mutableListOf(),
       status =
         Enumeration.of(
-          com.google.fhir.model.r4b.Coverage.CoverageStatus.fromCode(
+          com.google.fhir.model.r4b.Coverage.FinancialResourceStatusCodes.fromCode(
             this@CoverageSurrogate.status!!
           ),
           this@CoverageSurrogate._status,

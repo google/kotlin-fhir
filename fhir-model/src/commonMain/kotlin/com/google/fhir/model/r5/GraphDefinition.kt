@@ -362,7 +362,7 @@ public data class GraphDefinition(
     /** Information about why this node is of interest in this graph definition. */
     public var description: String? = null,
     /** Type of resource this link refers to. */
-    public var type: Enumeration<FHIRTypes>,
+    public var type: Enumeration<VersionIndependentResourceTypesAll>,
     /** Profile for the target resource. */
     public var profile: Canonical? = null,
   ) : BackboneElement()
@@ -486,7 +486,7 @@ public data class GraphDefinition(
       /** identical | matching | different | no-rule | custom. */
       public var rule: Enumeration<GraphCompartmentRule>,
       /** Identifies the compartment. */
-      public var code: Enumeration<CompartmentCode>,
+      public var code: Enumeration<CompartmentType>,
       /** Custom rule, as a FHIRPath expression. */
       public var expression: String? = null,
       /** Documentation for FHIRPath expression. */
@@ -519,7 +519,7 @@ public data class GraphDefinition(
   }
 
   /** Current and past FHIR resource types (deleted or renamed), including abstract types */
-  public enum class FHIRTypes(
+  public enum class VersionIndependentResourceTypesAll(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
@@ -997,7 +997,7 @@ public data class GraphDefinition(
     public fun getDisplay(): kotlin.String? = display
 
     public companion object {
-      public fun fromCode(code: kotlin.String): FHIRTypes =
+      public fun fromCode(code: kotlin.String): VersionIndependentResourceTypesAll =
         when (code) {
           "Account" -> Account
           "ActivityDefinition" -> ActivityDefinition
@@ -1202,7 +1202,10 @@ public data class GraphDefinition(
           "Sequence" -> Sequence
           "ServiceDefinition" -> ServiceDefinition
           "SubstanceSpecification" -> SubstanceSpecification
-          else -> throw IllegalArgumentException("Unknown code $code for enum FHIRTypes")
+          else ->
+            throw IllegalArgumentException(
+              "Unknown code $code for enum VersionIndependentResourceTypesAll"
+            )
         }
     }
   }
@@ -1266,7 +1269,7 @@ public data class GraphDefinition(
   }
 
   /** Which type a compartment definition describes. */
-  public enum class CompartmentCode(
+  public enum class CompartmentType(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
@@ -1287,7 +1290,7 @@ public data class GraphDefinition(
     public fun getDisplay(): kotlin.String? = display
 
     public companion object {
-      public fun fromCode(code: kotlin.String): CompartmentCode =
+      public fun fromCode(code: kotlin.String): CompartmentType =
         when (code) {
           "Patient" -> Patient
           "Encounter" -> Encounter
@@ -1295,7 +1298,7 @@ public data class GraphDefinition(
           "Practitioner" -> Practitioner
           "Device" -> Device
           "EpisodeOfCare" -> EpisodeOfCare
-          else -> throw IllegalArgumentException("Unknown code $code for enum CompartmentCode")
+          else -> throw IllegalArgumentException("Unknown code $code for enum CompartmentType")
         }
     }
   }

@@ -135,7 +135,7 @@ internal data class DeviceDispenseSurrogate(
       partOf = this@DeviceDispenseSurrogate.partOf ?: mutableListOf(),
       status =
         Enumeration.of(
-          com.google.fhir.model.r5.DeviceDispense.DeviceDispenseStatus.fromCode(
+          com.google.fhir.model.r5.DeviceDispense.DeviceDispenseStatusCodes.fromCode(
             this@DeviceDispenseSurrogate.status!!
           ),
           this@DeviceDispenseSurrogate._status,

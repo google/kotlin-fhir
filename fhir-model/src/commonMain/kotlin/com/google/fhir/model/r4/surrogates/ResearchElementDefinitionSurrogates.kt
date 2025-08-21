@@ -523,7 +523,7 @@ internal data class ResearchElementDefinitionSurrogate(
       variableType =
         this@ResearchElementDefinitionSurrogate.variableType?.let {
           Enumeration.of(
-            com.google.fhir.model.r4.ResearchElementDefinition.VariableType.fromCode(it!!),
+            com.google.fhir.model.r4.ResearchElementDefinition.EvidenceVariableType.fromCode(it!!),
             this@ResearchElementDefinitionSurrogate._variableType,
           )
         },

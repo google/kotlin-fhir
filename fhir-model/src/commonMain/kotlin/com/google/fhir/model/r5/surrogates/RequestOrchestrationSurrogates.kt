@@ -334,7 +334,7 @@ internal data class RequestOrchestrationActionParticipantSurrogate(
       type =
         this@RequestOrchestrationActionParticipantSurrogate.type?.let {
           Enumeration.of(
-            com.google.fhir.model.r5.RequestOrchestration.ActivityParticipantType.fromCode(it!!),
+            com.google.fhir.model.r5.RequestOrchestration.ActionParticipantType.fromCode(it!!),
             this@RequestOrchestrationActionParticipantSurrogate._type,
           )
         },

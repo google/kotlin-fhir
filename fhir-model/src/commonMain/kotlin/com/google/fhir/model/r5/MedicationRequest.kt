@@ -167,7 +167,7 @@ public data class MedicationRequest(
    * Clinical decision support systems should take the status into account when determining which
    * medications to include in their algorithms.
    */
-  public var status: Enumeration<MedicationRequestStatus>,
+  public var status: Enumeration<MedicationrequestStatus>,
   /**
    * Captures the reason for the current state of the MedicationRequest.
    *
@@ -206,7 +206,7 @@ public data class MedicationRequest(
    * Indicates how quickly the Medication Request should be addressed with respect to other
    * requests.
    */
-  public var priority: Enumeration<MedicationRequestPriority>? = null,
+  public var priority: Enumeration<RequestPriority>? = null,
   /**
    * If true, indicates that the provider is asking for the patient to either stop taking or to not
    * start taking the specified medication. For example, the patient is taking an existing
@@ -624,7 +624,7 @@ public data class MedicationRequest(
   }
 
   /** MedicationRequest Status Codes */
-  public enum class MedicationRequestStatus(
+  public enum class MedicationrequestStatus(
     private val code: String,
     private val system: String,
     private val display: String?,
@@ -652,7 +652,7 @@ public data class MedicationRequest(
     public fun getDisplay(): String? = display
 
     public companion object {
-      public fun fromCode(code: String): MedicationRequestStatus =
+      public fun fromCode(code: String): MedicationrequestStatus =
         when (code) {
           "active" -> Active
           "on-hold" -> On_Hold
@@ -664,7 +664,7 @@ public data class MedicationRequest(
           "draft" -> Draft
           "unknown" -> Unknown
           else ->
-            throw IllegalArgumentException("Unknown code $code for enum MedicationRequestStatus")
+            throw IllegalArgumentException("Unknown code $code for enum MedicationrequestStatus")
         }
     }
   }
@@ -726,7 +726,7 @@ public data class MedicationRequest(
   }
 
   /** Identifies the level of importance to be assigned to actioning the request. */
-  public enum class MedicationRequestPriority(
+  public enum class RequestPriority(
     private val code: String,
     private val system: String,
     private val display: String?,
@@ -745,14 +745,13 @@ public data class MedicationRequest(
     public fun getDisplay(): String? = display
 
     public companion object {
-      public fun fromCode(code: String): MedicationRequestPriority =
+      public fun fromCode(code: String): RequestPriority =
         when (code) {
           "routine" -> Routine
           "urgent" -> Urgent
           "asap" -> Asap
           "stat" -> Stat
-          else ->
-            throw IllegalArgumentException("Unknown code $code for enum MedicationRequestPriority")
+          else -> throw IllegalArgumentException("Unknown code $code for enum RequestPriority")
         }
     }
   }

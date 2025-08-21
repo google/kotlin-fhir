@@ -377,7 +377,7 @@ public data class Requirements(
      * The requirement needs to express the conformance verbs directly in the markdown content. It's
      * not unusual to mix verbs in a single sentence (e.g. System SHALL do X and SHOULD do Y)
      */
-    public var conformance: MutableList<Code> = mutableListOf(),
+    public var conformance: MutableList<Enumeration<ConformanceExpectation>> = mutableListOf(),
     /**
      * This boolean flag is set to true of the text of the requirement is conditional on something
      * e.g. it includes lanauage like 'if x then y'. This conditionality flag is introduced for
@@ -445,6 +445,38 @@ public data class Requirements(
         if (codingValue != null) return Coding(codingValue)
         return null
       }
+    }
+  }
+
+  /** Description Needed Here */
+  public enum class ConformanceExpectation(
+    private val code: kotlin.String,
+    private val system: kotlin.String,
+    private val display: kotlin.String?,
+  ) {
+    Shall("SHALL", "http://hl7.org/fhir/conformance-expectation", "SHALL"),
+    Should("SHOULD", "http://hl7.org/fhir/conformance-expectation", "SHOULD"),
+    May("MAY", "http://hl7.org/fhir/conformance-expectation", "MAY"),
+    Should_Not("SHOULD-NOT", "http://hl7.org/fhir/conformance-expectation", "SHOULD-NOT");
+
+    override fun toString(): kotlin.String = code
+
+    public fun getCode(): kotlin.String = code
+
+    public fun getSystem(): kotlin.String = system
+
+    public fun getDisplay(): kotlin.String? = display
+
+    public companion object {
+      public fun fromCode(code: kotlin.String): ConformanceExpectation =
+        when (code) {
+          "SHALL" -> Shall
+          "SHOULD" -> Should
+          "MAY" -> May
+          "SHOULD-NOT" -> Should_Not
+          else ->
+            throw IllegalArgumentException("Unknown code $code for enum ConformanceExpectation")
+        }
     }
   }
 }

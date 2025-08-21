@@ -51,6 +51,7 @@ object FhirCodegen {
     isBaseClass: Boolean,
     modelTypeSpecGenerator: ModelTypeSpecGenerator,
     surrogateTypeSpecGenerator: SurrogateTypeSpecGenerator,
+    enumFileSpecGenerator: EnumFileSpecGenerator,
   ): List<FileSpec> {
     val modelClassName = ClassName(packageName, structureDefinition.name.capitalized())
     val modelFileSpec = FileSpec.builder(modelClassName)
@@ -109,6 +110,8 @@ object FhirCodegen {
           )
           .addSuppressAnnotation()
           .build()
+
+      fileSpecs += enumFileSpecGenerator.generate(structureDefinition, packageName)
     }
     return fileSpecs
   }

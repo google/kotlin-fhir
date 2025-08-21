@@ -135,7 +135,7 @@ public data class EnrollmentResponse(
    * This element is labeled as a modifier because the status contains codes that mark the response
    * as not currently valid.
    */
-  public var status: Enumeration<EnrollmentResponseStatus>? = null,
+  public var status: Enumeration<FinancialResourceStatusCodes>? = null,
   /** Original request resource reference. */
   public var request: Reference? = null,
   /** Processing status: error, complete. */
@@ -150,7 +150,7 @@ public data class EnrollmentResponse(
   public var requestProvider: Reference? = null,
 ) : DomainResource() {
   /** This value set includes Status codes. */
-  public enum class EnrollmentResponseStatus(
+  public enum class FinancialResourceStatusCodes(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
@@ -169,14 +169,16 @@ public data class EnrollmentResponse(
     public fun getDisplay(): kotlin.String? = display
 
     public companion object {
-      public fun fromCode(code: kotlin.String): EnrollmentResponseStatus =
+      public fun fromCode(code: kotlin.String): FinancialResourceStatusCodes =
         when (code) {
           "active" -> Active
           "cancelled" -> Cancelled
           "draft" -> Draft
           "entered-in-error" -> Entered_In_Error
           else ->
-            throw IllegalArgumentException("Unknown code $code for enum EnrollmentResponseStatus")
+            throw IllegalArgumentException(
+              "Unknown code $code for enum FinancialResourceStatusCodes"
+            )
         }
     }
   }

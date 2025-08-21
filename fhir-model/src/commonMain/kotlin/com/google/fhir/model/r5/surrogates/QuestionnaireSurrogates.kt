@@ -491,7 +491,7 @@ internal data class QuestionnaireItemSurrogate(
       disabledDisplay =
         this@QuestionnaireItemSurrogate.disabledDisplay?.let {
           Enumeration.of(
-            com.google.fhir.model.r5.Questionnaire.DisabledDisplay.fromCode(it!!),
+            com.google.fhir.model.r5.Questionnaire.QuestionnaireItemDisabledDisplay.fromCode(it!!),
             this@QuestionnaireItemSurrogate._disabledDisplay,
           )
         },

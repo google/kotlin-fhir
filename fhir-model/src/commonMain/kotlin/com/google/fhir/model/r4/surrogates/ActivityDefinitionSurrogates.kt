@@ -76,7 +76,7 @@ internal data class ActivityDefinitionParticipantSurrogate(
         this@ActivityDefinitionParticipantSurrogate.modifierExtension ?: mutableListOf(),
       type =
         Enumeration.of(
-          com.google.fhir.model.r4.ActivityDefinition.ActivityParticipantType.fromCode(
+          com.google.fhir.model.r4.ActivityDefinition.ActionParticipantType.fromCode(
             this@ActivityDefinitionParticipantSurrogate.type!!
           ),
           this@ActivityDefinitionParticipantSurrogate._type,
@@ -424,7 +424,7 @@ internal data class ActivityDefinitionSurrogate(
       kind =
         this@ActivityDefinitionSurrogate.kind?.let {
           Enumeration.of(
-            com.google.fhir.model.r4.ActivityDefinition.ActivityDefinitionKind.fromCode(it!!),
+            com.google.fhir.model.r4.ActivityDefinition.RequestResourceType.fromCode(it!!),
             this@ActivityDefinitionSurrogate._kind,
           )
         },

@@ -126,7 +126,7 @@ public data class SubscriptionStatus(
    */
   override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /** The status of the subscription, which marks the server state for managing the subscription. */
-  public var status: Enumeration<SubscriptionStatus>? = null,
+  public var status: Enumeration<SubscriptionStatusCodes>? = null,
   /** The type of event being conveyed with this notificaiton. */
   public var type: Enumeration<SubscriptionNotificationType>,
   /**
@@ -214,7 +214,7 @@ public data class SubscriptionStatus(
   ) : BackboneElement()
 
   /** The status of a subscription. */
-  public enum class SubscriptionStatus(
+  public enum class SubscriptionStatusCodes(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
@@ -233,13 +233,14 @@ public data class SubscriptionStatus(
     public fun getDisplay(): kotlin.String? = display
 
     public companion object {
-      public fun fromCode(code: kotlin.String): SubscriptionStatus =
+      public fun fromCode(code: kotlin.String): SubscriptionStatusCodes =
         when (code) {
           "requested" -> Requested
           "active" -> Active
           "error" -> Error
           "off" -> Off
-          else -> throw IllegalArgumentException("Unknown code $code for enum SubscriptionStatus")
+          else ->
+            throw IllegalArgumentException("Unknown code $code for enum SubscriptionStatusCodes")
         }
     }
   }

@@ -63,7 +63,7 @@ internal data class ParameterDefinitionSurrogate(
         Code.of(this@ParameterDefinitionSurrogate.name, this@ParameterDefinitionSurrogate._name),
       use =
         Enumeration.of(
-          com.google.fhir.model.r4b.ParameterDefinition.ParameterUse.fromCode(
+          com.google.fhir.model.r4b.ParameterDefinition.OperationParameterUse.fromCode(
             this@ParameterDefinitionSurrogate.use!!
           ),
           this@ParameterDefinitionSurrogate._use,

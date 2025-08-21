@@ -417,7 +417,7 @@ public data class DeviceDefinition(
      */
     override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** The type of identifier itself. */
-    public var type: Enumeration<DeviceRegulatoryIdentifierType>,
+    public var type: Enumeration<DeviceDefinitionRegulatoryIdentifierType>,
     /** The identifier itself. */
     public var deviceIdentifier: String,
     /** The organization that issued this identifier. */
@@ -1177,7 +1177,7 @@ public data class DeviceDefinition(
   ) : BackboneElement()
 
   /** Regulatory Identifier type */
-  public enum class DeviceRegulatoryIdentifierType(
+  public enum class DeviceDefinitionRegulatoryIdentifierType(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
@@ -1199,14 +1199,14 @@ public data class DeviceDefinition(
     public fun getDisplay(): kotlin.String? = display
 
     public companion object {
-      public fun fromCode(code: kotlin.String): DeviceRegulatoryIdentifierType =
+      public fun fromCode(code: kotlin.String): DeviceDefinitionRegulatoryIdentifierType =
         when (code) {
           "basic" -> Basic
           "master" -> Master
           "license" -> License
           else ->
             throw IllegalArgumentException(
-              "Unknown code $code for enum DeviceRegulatoryIdentifierType"
+              "Unknown code $code for enum DeviceDefinitionRegulatoryIdentifierType"
             )
         }
     }

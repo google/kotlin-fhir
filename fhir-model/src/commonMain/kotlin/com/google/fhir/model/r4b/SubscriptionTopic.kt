@@ -359,7 +359,7 @@ public data class SubscriptionTopic(
      * The FHIR RESTful interaction which can be used to trigger a notification for the
      * SubscriptionTopic. Multiple values are considered OR joined (e.g., CREATE or UPDATE).
      */
-    public var supportedInteraction: MutableList<Enumeration<MethodCode>> = mutableListOf(),
+    public var supportedInteraction: MutableList<Enumeration<InteractionTrigger>> = mutableListOf(),
     /**
      * The FHIR query based rules that the server should use to determine when to trigger a
      * notification for this subscription topic.
@@ -594,8 +594,7 @@ public data class SubscriptionTopic(
      * filterParameter is a SearchParameter, this list of modifiers SHALL be a strict subset of the
      * modifiers defined on that SearchParameter.
      */
-    public var modifier: MutableList<Enumeration<SubscriptionTopicFilterBySearchModifier>> =
-      mutableListOf(),
+    public var modifier: MutableList<Enumeration<SubscriptionSearchModifier>> = mutableListOf(),
   ) : BackboneElement()
 
   /**
@@ -672,7 +671,7 @@ public data class SubscriptionTopic(
   ) : BackboneElement()
 
   /** FHIR RESTful interaction codes used for SubscriptionTopic trigger. */
-  public enum class MethodCode(
+  public enum class InteractionTrigger(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
@@ -690,12 +689,12 @@ public data class SubscriptionTopic(
     public fun getDisplay(): kotlin.String? = display
 
     public companion object {
-      public fun fromCode(code: kotlin.String): MethodCode =
+      public fun fromCode(code: kotlin.String): InteractionTrigger =
         when (code) {
           "create" -> Create
           "update" -> Update
           "delete" -> Delete
-          else -> throw IllegalArgumentException("Unknown code $code for enum MethodCode")
+          else -> throw IllegalArgumentException("Unknown code $code for enum InteractionTrigger")
         }
     }
   }
@@ -732,7 +731,7 @@ public data class SubscriptionTopic(
   }
 
   /** FHIR search modifiers allowed for use in Subscriptions and SubscriptionTopics. */
-  public enum class SubscriptionTopicFilterBySearchModifier(
+  public enum class SubscriptionSearchModifier(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
@@ -778,7 +777,7 @@ public data class SubscriptionTopic(
     public fun getDisplay(): kotlin.String? = display
 
     public companion object {
-      public fun fromCode(code: kotlin.String): SubscriptionTopicFilterBySearchModifier =
+      public fun fromCode(code: kotlin.String): SubscriptionSearchModifier =
         when (code) {
           "=" -> EqualTo
           "eq" -> Eq
@@ -796,9 +795,7 @@ public data class SubscriptionTopic(
           "not-in" -> Not_In
           "of-type" -> Of_Type
           else ->
-            throw IllegalArgumentException(
-              "Unknown code $code for enum SubscriptionTopicFilterBySearchModifier"
-            )
+            throw IllegalArgumentException("Unknown code $code for enum SubscriptionSearchModifier")
         }
     }
   }

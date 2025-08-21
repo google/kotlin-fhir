@@ -79,7 +79,9 @@ internal data class ArtifactAssessmentContentSurrogate(
       informationType =
         this@ArtifactAssessmentContentSurrogate.informationType?.let {
           Enumeration.of(
-            com.google.fhir.model.r5.ArtifactAssessment.InformationType.fromCode(it!!),
+            com.google.fhir.model.r5.ArtifactAssessment.ArtifactAssessmentInformationType.fromCode(
+              it!!
+            ),
             this@ArtifactAssessmentContentSurrogate._informationType,
           )
         },
@@ -292,14 +294,18 @@ internal data class ArtifactAssessmentSurrogate(
       workflowStatus =
         this@ArtifactAssessmentSurrogate.workflowStatus?.let {
           Enumeration.of(
-            com.google.fhir.model.r5.ArtifactAssessment.WorkflowStatus.fromCode(it!!),
+            com.google.fhir.model.r5.ArtifactAssessment.ArtifactAssessmentWorkflowStatus.fromCode(
+              it!!
+            ),
             this@ArtifactAssessmentSurrogate._workflowStatus,
           )
         },
       disposition =
         this@ArtifactAssessmentSurrogate.disposition?.let {
           Enumeration.of(
-            com.google.fhir.model.r5.ArtifactAssessment.Disposition.fromCode(it!!),
+            com.google.fhir.model.r5.ArtifactAssessment.ArtifactAssessmentDisposition.fromCode(
+              it!!
+            ),
             this@ArtifactAssessmentSurrogate._disposition,
           )
         },

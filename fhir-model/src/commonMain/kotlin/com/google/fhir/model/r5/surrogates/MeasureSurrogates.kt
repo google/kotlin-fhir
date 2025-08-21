@@ -325,7 +325,7 @@ internal data class MeasureGroupSurrogate(
       basis =
         this@MeasureGroupSurrogate.basis?.let {
           Enumeration.of(
-            com.google.fhir.model.r5.BasisType.fromCode(it!!),
+            com.google.fhir.model.r5.FHIRTypes.fromCode(it!!),
             this@MeasureGroupSurrogate._basis,
           )
         },
@@ -605,7 +605,7 @@ internal data class MeasureSurrogate(
       basis =
         this@MeasureSurrogate.basis?.let {
           Enumeration.of(
-            com.google.fhir.model.r5.BasisType.fromCode(it!!),
+            com.google.fhir.model.r5.FHIRTypes.fromCode(it!!),
             this@MeasureSurrogate._basis,
           )
         },

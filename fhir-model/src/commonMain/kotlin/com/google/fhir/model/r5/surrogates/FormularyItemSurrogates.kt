@@ -75,7 +75,7 @@ internal data class FormularyItemSurrogate(
       status =
         this@FormularyItemSurrogate.status?.let {
           Enumeration.of(
-            com.google.fhir.model.r5.FormularyItem.FormularyItemStatus.fromCode(it!!),
+            com.google.fhir.model.r5.FormularyItem.FormularyItemStatusCodes.fromCode(it!!),
             this@FormularyItemSurrogate._status,
           )
         },

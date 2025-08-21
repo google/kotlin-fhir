@@ -274,7 +274,7 @@ internal data class VisionPrescriptionSurrogate(
       identifier = this@VisionPrescriptionSurrogate.identifier ?: mutableListOf(),
       status =
         Enumeration.of(
-          com.google.fhir.model.r4.VisionPrescription.VisionStatus.fromCode(
+          com.google.fhir.model.r4.VisionPrescription.FinancialResourceStatusCodes.fromCode(
             this@VisionPrescriptionSurrogate.status!!
           ),
           this@VisionPrescriptionSurrogate._status,

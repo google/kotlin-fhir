@@ -370,7 +370,7 @@ public data class ResearchElementDefinition(
   /** The type of research element, a population, an exposure, or an outcome. */
   public var type: Enumeration<ResearchElementType>,
   /** The type of the outcome (e.g. Dichotomous, Continuous, or Descriptive). */
-  public var variableType: Enumeration<VariableType>? = null,
+  public var variableType: Enumeration<EvidenceVariableType>? = null,
   /**
    * A characteristic that defines the members of the research element. Multiple characteristics are
    * applied with "and" semantics.
@@ -671,7 +671,7 @@ public data class ResearchElementDefinition(
    * The possible types of variables for exposures or outcomes (E.g. Dichotomous, Continuous,
    * Descriptive).
    */
-  public enum class VariableType(
+  public enum class EvidenceVariableType(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
@@ -689,12 +689,12 @@ public data class ResearchElementDefinition(
     public fun getDisplay(): kotlin.String? = display
 
     public companion object {
-      public fun fromCode(code: kotlin.String): VariableType =
+      public fun fromCode(code: kotlin.String): EvidenceVariableType =
         when (code) {
           "dichotomous" -> Dichotomous
           "continuous" -> Continuous
           "descriptive" -> Descriptive
-          else -> throw IllegalArgumentException("Unknown code $code for enum VariableType")
+          else -> throw IllegalArgumentException("Unknown code $code for enum EvidenceVariableType")
         }
     }
   }

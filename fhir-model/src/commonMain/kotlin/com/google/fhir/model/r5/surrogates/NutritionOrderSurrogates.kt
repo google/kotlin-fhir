@@ -641,14 +641,14 @@ internal data class NutritionOrderSurrogate(
       groupIdentifier = this@NutritionOrderSurrogate.groupIdentifier,
       status =
         Enumeration.of(
-          com.google.fhir.model.r5.NutritionOrder.NutritionOrderStatus.fromCode(
+          com.google.fhir.model.r5.NutritionOrder.RequestStatus.fromCode(
             this@NutritionOrderSurrogate.status!!
           ),
           this@NutritionOrderSurrogate._status,
         ),
       intent =
         Enumeration.of(
-          com.google.fhir.model.r5.NutritionOrder.NutritiionOrderIntent.fromCode(
+          com.google.fhir.model.r5.NutritionOrder.RequestIntent.fromCode(
             this@NutritionOrderSurrogate.intent!!
           ),
           this@NutritionOrderSurrogate._intent,
@@ -656,7 +656,7 @@ internal data class NutritionOrderSurrogate(
       priority =
         this@NutritionOrderSurrogate.priority?.let {
           Enumeration.of(
-            com.google.fhir.model.r5.NutritionOrder.NutritionOrderPriority.fromCode(it!!),
+            com.google.fhir.model.r5.NutritionOrder.RequestPriority.fromCode(it!!),
             this@NutritionOrderSurrogate._priority,
           )
         },

@@ -147,7 +147,7 @@ public data class DeviceDispense(
    * This element is labeled as a modifier because the status contains codes that mark the resource
    * as not currently valid.
    */
-  public var status: Enumeration<DeviceDispenseStatus>,
+  public var status: Enumeration<DeviceDispenseStatusCodes>,
   /** Indicates the reason why a dispense was or was not performed. */
   public var statusReason: CodeableReference? = null,
   /**
@@ -270,7 +270,7 @@ public data class DeviceDispense(
   ) : BackboneElement()
 
   /** DeviceDispense Status Codes */
-  public enum class DeviceDispenseStatus(
+  public enum class DeviceDispenseStatusCodes(
     private val code: String,
     private val system: String,
     private val display: String?,
@@ -298,7 +298,7 @@ public data class DeviceDispense(
     public fun getDisplay(): String? = display
 
     public companion object {
-      public fun fromCode(code: String): DeviceDispenseStatus =
+      public fun fromCode(code: String): DeviceDispenseStatusCodes =
         when (code) {
           "preparation" -> Preparation
           "in-progress" -> In_Progress
@@ -309,7 +309,8 @@ public data class DeviceDispense(
           "stopped" -> Stopped
           "declined" -> Declined
           "unknown" -> Unknown
-          else -> throw IllegalArgumentException("Unknown code $code for enum DeviceDispenseStatus")
+          else ->
+            throw IllegalArgumentException("Unknown code $code for enum DeviceDispenseStatusCodes")
         }
     }
   }

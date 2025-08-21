@@ -370,7 +370,7 @@ public data class ExampleScenario(
     /** The id of the resource for referencing. */
     public var resourceId: String,
     /** The type of the resource. */
-    public var resourceType: Enumeration<FHIRResourceType>,
+    public var resourceType: Enumeration<ResourceType>,
     /** A short name for the resource instance. */
     public var name: String? = null,
     /** Human-friendly description of the resource instance. */

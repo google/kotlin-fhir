@@ -232,7 +232,7 @@ internal data class ExampleScenarioInstanceSurrogate(
         )!!,
       resourceType =
         Enumeration.of(
-          com.google.fhir.model.r4b.FHIRResourceType.fromCode(
+          com.google.fhir.model.r4b.ResourceType.fromCode(
             this@ExampleScenarioInstanceSurrogate.resourceType!!
           ),
           this@ExampleScenarioInstanceSurrogate._resourceType,

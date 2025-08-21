@@ -140,7 +140,7 @@ internal data class SubscriptionStatusSurrogate(
       status =
         this@SubscriptionStatusSurrogate.status?.let {
           Enumeration.of(
-            com.google.fhir.model.r4b.SubscriptionStatus.SubscriptionStatus.fromCode(it!!),
+            com.google.fhir.model.r4b.SubscriptionStatus.SubscriptionStatusCodes.fromCode(it!!),
             this@SubscriptionStatusSurrogate._status,
           )
         },

@@ -79,7 +79,7 @@ internal data class GraphDefinitionLinkTargetCompartmentSurrogate(
         ),
       code =
         Enumeration.of(
-          com.google.fhir.model.r4.GraphDefinition.CompartmentCode.fromCode(
+          com.google.fhir.model.r4.GraphDefinition.CompartmentType.fromCode(
             this@GraphDefinitionLinkTargetCompartmentSurrogate.code!!
           ),
           this@GraphDefinitionLinkTargetCompartmentSurrogate._code,

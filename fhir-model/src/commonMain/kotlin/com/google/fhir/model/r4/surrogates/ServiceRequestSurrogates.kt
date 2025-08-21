@@ -240,14 +240,14 @@ internal data class ServiceRequestSurrogate(
       requisition = this@ServiceRequestSurrogate.requisition,
       status =
         Enumeration.of(
-          com.google.fhir.model.r4.ServiceRequest.ServiceRequestStatus.fromCode(
+          com.google.fhir.model.r4.ServiceRequest.RequestStatus.fromCode(
             this@ServiceRequestSurrogate.status!!
           ),
           this@ServiceRequestSurrogate._status,
         ),
       intent =
         Enumeration.of(
-          com.google.fhir.model.r4.ServiceRequest.ServiceRequestIntent.fromCode(
+          com.google.fhir.model.r4.ServiceRequest.RequestIntent.fromCode(
             this@ServiceRequestSurrogate.intent!!
           ),
           this@ServiceRequestSurrogate._intent,
@@ -256,7 +256,7 @@ internal data class ServiceRequestSurrogate(
       priority =
         this@ServiceRequestSurrogate.priority?.let {
           Enumeration.of(
-            com.google.fhir.model.r4.ServiceRequest.ServiceRequestPriority.fromCode(it!!),
+            com.google.fhir.model.r4.ServiceRequest.RequestPriority.fromCode(it!!),
             this@ServiceRequestSurrogate._priority,
           )
         },

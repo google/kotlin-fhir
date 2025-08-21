@@ -325,7 +325,7 @@ public data class ExplanationOfBenefit(
    * processing has been performed (partial); or all of the adjudication processing has completed
    * without errors (complete).
    */
-  public var outcome: Enumeration<ClaimOutcome>,
+  public var outcome: Enumeration<ClaimProcessingCodes>,
   /**
    * The result of the claim, predetermination, or preauthorization adjudication.
    *
@@ -2721,7 +2721,7 @@ public data class ExplanationOfBenefit(
   }
 
   /** This value set includes Claim Processing Outcome codes. */
-  public enum class ClaimOutcome(
+  public enum class ClaimProcessingCodes(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
@@ -2740,13 +2740,13 @@ public data class ExplanationOfBenefit(
     public fun getDisplay(): kotlin.String? = display
 
     public companion object {
-      public fun fromCode(code: kotlin.String): ClaimOutcome =
+      public fun fromCode(code: kotlin.String): ClaimProcessingCodes =
         when (code) {
           "queued" -> Queued
           "complete" -> Complete
           "error" -> Error
           "partial" -> Partial
-          else -> throw IllegalArgumentException("Unknown code $code for enum ClaimOutcome")
+          else -> throw IllegalArgumentException("Unknown code $code for enum ClaimProcessingCodes")
         }
     }
   }

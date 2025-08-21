@@ -136,7 +136,7 @@ public data class EnrollmentRequest(
    * This element is labeled as a modifier because the status contains codes that mark the request
    * as not currently valid.
    */
-  public var status: Enumeration<EnrollmentRequestStatus>? = null,
+  public var status: Enumeration<FinancialResourceStatusCodes>? = null,
   /** The date when this resource was created. */
   public var created: DateTime? = null,
   /** The Insurer who is target of the request. */
@@ -149,7 +149,7 @@ public data class EnrollmentRequest(
   public var coverage: Reference? = null,
 ) : DomainResource() {
   /** This value set includes Status codes. */
-  public enum class EnrollmentRequestStatus(
+  public enum class FinancialResourceStatusCodes(
     private val code: String,
     private val system: String,
     private val display: String?,
@@ -168,14 +168,16 @@ public data class EnrollmentRequest(
     public fun getDisplay(): String? = display
 
     public companion object {
-      public fun fromCode(code: String): EnrollmentRequestStatus =
+      public fun fromCode(code: String): FinancialResourceStatusCodes =
         when (code) {
           "active" -> Active
           "cancelled" -> Cancelled
           "draft" -> Draft
           "entered-in-error" -> Entered_In_Error
           else ->
-            throw IllegalArgumentException("Unknown code $code for enum EnrollmentRequestStatus")
+            throw IllegalArgumentException(
+              "Unknown code $code for enum FinancialResourceStatusCodes"
+            )
         }
     }
   }

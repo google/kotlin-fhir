@@ -162,7 +162,7 @@ internal data class SubscriptionSurrogate(
       modifierExtension = this@SubscriptionSurrogate.modifierExtension ?: mutableListOf(),
       status =
         Enumeration.of(
-          com.google.fhir.model.r4b.Subscription.SubscriptionStatus.fromCode(
+          com.google.fhir.model.r4b.Subscription.SubscriptionStatusCodes.fromCode(
             this@SubscriptionSurrogate.status!!
           ),
           this@SubscriptionSurrogate._status,

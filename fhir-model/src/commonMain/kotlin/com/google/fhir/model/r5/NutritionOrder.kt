@@ -186,7 +186,7 @@ public data class NutritionOrder(
    * labeled as a modifier because the status contains codes that mark the resource as not currently
    * valid.
    */
-  public var status: Enumeration<NutritionOrderStatus>,
+  public var status: Enumeration<RequestStatus>,
   /**
    * Indicates the level of authority/intentionality associated with the NutrionOrder and where the
    * request fits into the workflow chain.
@@ -197,11 +197,11 @@ public data class NutritionOrder(
    * Expectation is that the set of codes is mutually exclusive or a strict all-encompassing
    * hierarchy.
    */
-  public var intent: Enumeration<NutritiionOrderIntent>,
+  public var intent: Enumeration<RequestIntent>,
   /**
    * Indicates how quickly the Nutrition Order should be addressed with respect to other requests.
    */
-  public var priority: Enumeration<NutritionOrderPriority>? = null,
+  public var priority: Enumeration<RequestPriority>? = null,
   /**
    * The person or set of individuals who needs the nutrition order for an oral diet, nutritional
    * supplement and/or enteral or formula feeding.
@@ -926,7 +926,7 @@ public data class NutritionOrder(
   }
 
   /** Codes identifying the lifecycle stage of a request. */
-  public enum class NutritionOrderStatus(
+  public enum class RequestStatus(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
@@ -948,7 +948,7 @@ public data class NutritionOrder(
     public fun getDisplay(): kotlin.String? = display
 
     public companion object {
-      public fun fromCode(code: kotlin.String): NutritionOrderStatus =
+      public fun fromCode(code: kotlin.String): RequestStatus =
         when (code) {
           "draft" -> Draft
           "active" -> Active
@@ -957,13 +957,13 @@ public data class NutritionOrder(
           "completed" -> Completed
           "entered-in-error" -> Entered_In_Error
           "unknown" -> Unknown
-          else -> throw IllegalArgumentException("Unknown code $code for enum NutritionOrderStatus")
+          else -> throw IllegalArgumentException("Unknown code $code for enum RequestStatus")
         }
     }
   }
 
   /** Codes indicating the degree of authority/intentionality associated with a request. */
-  public enum class NutritiionOrderIntent(
+  public enum class RequestIntent(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
@@ -987,7 +987,7 @@ public data class NutritionOrder(
     public fun getDisplay(): kotlin.String? = display
 
     public companion object {
-      public fun fromCode(code: kotlin.String): NutritiionOrderIntent =
+      public fun fromCode(code: kotlin.String): RequestIntent =
         when (code) {
           "proposal" -> Proposal
           "plan" -> Plan
@@ -998,14 +998,13 @@ public data class NutritionOrder(
           "filler-order" -> Filler_Order
           "instance-order" -> Instance_Order
           "option" -> Option
-          else ->
-            throw IllegalArgumentException("Unknown code $code for enum NutritiionOrderIntent")
+          else -> throw IllegalArgumentException("Unknown code $code for enum RequestIntent")
         }
     }
   }
 
   /** Identifies the level of importance to be assigned to actioning the request. */
-  public enum class NutritionOrderPriority(
+  public enum class RequestPriority(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
@@ -1024,14 +1023,13 @@ public data class NutritionOrder(
     public fun getDisplay(): kotlin.String? = display
 
     public companion object {
-      public fun fromCode(code: kotlin.String): NutritionOrderPriority =
+      public fun fromCode(code: kotlin.String): RequestPriority =
         when (code) {
           "routine" -> Routine
           "urgent" -> Urgent
           "asap" -> Asap
           "stat" -> Stat
-          else ->
-            throw IllegalArgumentException("Unknown code $code for enum NutritionOrderPriority")
+          else -> throw IllegalArgumentException("Unknown code $code for enum RequestPriority")
         }
     }
   }

@@ -101,7 +101,14 @@ internal data class RequirementsStatementSurrogate(
               this@RequirementsStatementSurrogate._conformance
                 ?: List(this@RequirementsStatementSurrogate.conformance!!.size) { null }
             )
-            .map { (value, element) -> Code.of(value, element)!! }
+            .map { (value, element) ->
+              Enumeration.of(
+                value.let {
+                  com.google.fhir.model.r5.Requirements.ConformanceExpectation.fromCode(it!!)!!
+                },
+                element,
+              )
+            }
             .toMutableList()
         },
       conditionality =
@@ -172,7 +179,7 @@ internal data class RequirementsStatementSurrogate(
           _label = this@with.label?.toElement(),
           conformance =
             this@with.conformance
-              .map { it.value }
+              .map { it.value?.getCode() }
               .toMutableList()
               .takeUnless { it.all { it == null } },
           _conformance =

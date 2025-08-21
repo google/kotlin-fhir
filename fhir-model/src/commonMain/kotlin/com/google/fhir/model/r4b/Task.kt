@@ -182,7 +182,7 @@ public data class Task(
    */
   public var intent: Enumeration<TaskIntent>,
   /** Indicates how quickly the Task should be addressed with respect to other requests. */
-  public var priority: Enumeration<TaskPriority>? = null,
+  public var priority: Enumeration<RequestPriority>? = null,
   /**
    * A name or code (or both) briefly describing what the task involves.
    *
@@ -1183,7 +1183,7 @@ public data class Task(
   }
 
   /** Identifies the level of importance to be assigned to actioning the request. */
-  public enum class TaskPriority(
+  public enum class RequestPriority(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
@@ -1202,13 +1202,13 @@ public data class Task(
     public fun getDisplay(): kotlin.String? = display
 
     public companion object {
-      public fun fromCode(code: kotlin.String): TaskPriority =
+      public fun fromCode(code: kotlin.String): RequestPriority =
         when (code) {
           "routine" -> Routine
           "urgent" -> Urgent
           "asap" -> Asap
           "stat" -> Stat
-          else -> throw IllegalArgumentException("Unknown code $code for enum TaskPriority")
+          else -> throw IllegalArgumentException("Unknown code $code for enum RequestPriority")
         }
     }
   }

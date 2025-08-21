@@ -168,9 +168,8 @@ The constants in the generated Kotlin `enum` classes are derived from the `code`
 
 #### Enum Naming and Content
 
-- The **enum class name** is based on the value of the [binding name](http://hl7.org/fhir/extensions/StructureDefinition-elementdefinition-bindingName.html) extension
-- The **enum constants** are sourced from the [concepts](https://hl7.org/fhir/valueset-definitions.html#ValueSet.compose.include.concept) in the binding's `ValueSet`, which are a subset of the concepts in the referenced [code system](https://hl7.org/fhir/valueset-definitions.html#ValueSet.compose.include.system).
-- If the value set's `concept` element is empty, the entire set of the code system's concepts is used.
+The enum constants are derived from `ValueSet` definitions in the expansion packages for [R4](https://github.com/google/kotlin-fhir/tree/main/third_party/hl7.fhir.r4.expansions/package), [R4B](https://github.com/google/kotlin-fhir/tree/main/third_party/hl7.fhir.r4b.expansions/package), and [R5](https://github.com/google/kotlin-fhir/tree/main/third_party/hl7.fhir.r5.expansions/package).
+Each `ValueSet` includes codes from one or more `CodeSystem` resources it references.
 
 | FHIR concept <img src="images/fhir.png" alt="kotlin" style="height: 1em"/> | Kotlin concept <img src="images/kotlin.png" alt="kotlin" style="height: 1em"/> |
 |----------------------------------------------------------------------------|--------------------------------------------------------------------------------|
@@ -200,15 +199,13 @@ This includes handling numeric codes,special characters, and FHIR URLs. After al
 
 ### Excluded ValueSets from Enum Generation
 
-The following FHIR value sets are excluded from Kotlin enum generation due to size, frequent changes, or naming conflicts:
+The following FHIR value sets are excluded from Kotlin enum generation.
 
-|                                            ValueSet URL                                            |                                                                                                                                  Reason for Exclusion                                                                                                                                  | Affected Version(s) |
-|----------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------|
-| [`http://hl7.org/fhir/ValueSet/mimetypes`](http://hl7.org/fhir/ValueSet/mimetypes)                 | MIME types are numerous and maintained externally; better handled as strings.                                                                                                                                                                                                          | `R4`,`R4B`,`R5`     |
-| [`http://hl7.org/fhir/ValueSet/languages`](http://hl7.org/fhir/ValueSet/languages)                 | Contains many human languages and changes often, making enums impractical.                                                                                                                                                                                                             | `R4`,`R4B`,`R5`     |
-| [`http://hl7.org/fhir/ValueSet/all-languages`](http://hl7.org/fhir/ValueSet/all-languages)         | Similar to the above; includes all languages, not suited for static enums.                                                                                                                                                                                                             | `R5`                |
-| [`http://hl7.org/fhir/ValueSet/specimen-combined`](http://hl7.org/fhir/ValueSet/specimen-combined) | In R5, this system is excluded to prevent enum conflicts, as "PublicationStatus" is used by multiple value sets. We default to the value set with system [`http://hl7.org/fhir/publication-status`](http://hl7.org/fhir/publication-status), matching the R4 and R4B enum definitions. | `R5`                |
-| [`http://hl7.org/fhir/ValueSet/use-context`](http://hl7.org/fhir/ValueSet/use-context)             | Describes several flexible context usage; not suitable for enum generation.                                                                                                                                                                                                            | `R4`,`R4B`,`R5`     |
+|                                        ValueSet URL                                        |                                           Reason for Exclusion                                            | Affected Version(s) |
+|--------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------|---------------------|
+| [`http://hl7.org/fhir/ValueSet/mimetypes`](http://hl7.org/fhir/ValueSet/mimetypes)         | This value set cannot be expanded because of the way it is defined - it has an infinite number of members | `R4`, `R4B`, `R5`   |
+| [`http://hl7.org/fhir/ValueSet/all-languages`](http://hl7.org/fhir/ValueSet/all-languages) | This value set cannot be expanded because of the way it is defined - it has an infinite number of members | `R4`, `R4B`, `R5`   |
+| [`http://hl7.org/fhir/ValueSet/use-context`](http://hl7.org/fhir/ValueSet/use-context)     | This value set has >3800 codes when expanded; generated enum class code cannot compile.                   | `R4`, `R4B`, `R5`   |
 
 ## Serialization and deserialization
 

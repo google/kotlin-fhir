@@ -137,7 +137,7 @@ public data class PaymentReconciliation(
    * This element is labeled as a modifier because the status contains codes that mark the resource
    * as not currently valid.
    */
-  public var status: Enumeration<PaymentReconciliationStatus>,
+  public var status: Enumeration<FinancialResourceStatusCodes>,
   /**
    * The period of time for which payments have been gathered into this bulk payment for settlement.
    */
@@ -162,7 +162,7 @@ public data class PaymentReconciliation(
    * the adjudication has been undertaken (partial) or that all of the adjudication has been
    * undertaken (complete).
    */
-  public var outcome: Enumeration<RemittanceOutcome>? = null,
+  public var outcome: Enumeration<ClaimProcessingCodes>? = null,
   /** A human readable description of the status of the request for the reconciliation. */
   public var disposition: String? = null,
   /** The date of payment as indicated on the financial instrument. */
@@ -302,7 +302,7 @@ public data class PaymentReconciliation(
   ) : BackboneElement()
 
   /** This value set includes Status codes. */
-  public enum class PaymentReconciliationStatus(
+  public enum class FinancialResourceStatusCodes(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
@@ -321,7 +321,7 @@ public data class PaymentReconciliation(
     public fun getDisplay(): kotlin.String? = display
 
     public companion object {
-      public fun fromCode(code: kotlin.String): PaymentReconciliationStatus =
+      public fun fromCode(code: kotlin.String): FinancialResourceStatusCodes =
         when (code) {
           "active" -> Active
           "cancelled" -> Cancelled
@@ -329,7 +329,7 @@ public data class PaymentReconciliation(
           "entered-in-error" -> Entered_In_Error
           else ->
             throw IllegalArgumentException(
-              "Unknown code $code for enum PaymentReconciliationStatus"
+              "Unknown code $code for enum FinancialResourceStatusCodes"
             )
         }
     }

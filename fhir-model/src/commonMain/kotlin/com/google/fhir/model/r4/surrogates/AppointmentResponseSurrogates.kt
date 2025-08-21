@@ -101,7 +101,7 @@ internal data class AppointmentResponseSurrogate(
       actor = this@AppointmentResponseSurrogate.actor,
       participantStatus =
         Enumeration.of(
-          com.google.fhir.model.r4.AppointmentResponse.ParticipantStatus.fromCode(
+          com.google.fhir.model.r4.AppointmentResponse.ParticipationStatus.fromCode(
             this@AppointmentResponseSurrogate.participantStatus!!
           ),
           this@AppointmentResponseSurrogate._participantStatus,

@@ -152,7 +152,7 @@ internal data class MedicationStatementSurrogate(
       partOf = this@MedicationStatementSurrogate.partOf ?: mutableListOf(),
       status =
         Enumeration.of(
-          com.google.fhir.model.r4b.MedicationStatement.MedicationStatementStatus.fromCode(
+          com.google.fhir.model.r4b.MedicationStatement.MedicationStatementStatusCodes.fromCode(
             this@MedicationStatementSurrogate.status!!
           ),
           this@MedicationStatementSurrogate._status,

@@ -194,7 +194,7 @@ internal data class CommunicationSurrogate(
       inResponseTo = this@CommunicationSurrogate.inResponseTo ?: mutableListOf(),
       status =
         Enumeration.of(
-          com.google.fhir.model.r5.Communication.CommunicationStatus.fromCode(
+          com.google.fhir.model.r5.Communication.EventStatus.fromCode(
             this@CommunicationSurrogate.status!!
           ),
           this@CommunicationSurrogate._status,
@@ -204,7 +204,7 @@ internal data class CommunicationSurrogate(
       priority =
         this@CommunicationSurrogate.priority?.let {
           Enumeration.of(
-            com.google.fhir.model.r5.Communication.CommunicationPriority.fromCode(it!!),
+            com.google.fhir.model.r5.Communication.RequestPriority.fromCode(it!!),
             this@CommunicationSurrogate._priority,
           )
         },

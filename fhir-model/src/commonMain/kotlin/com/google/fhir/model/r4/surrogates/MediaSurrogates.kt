@@ -134,7 +134,7 @@ internal data class MediaSurrogate(
       partOf = this@MediaSurrogate.partOf ?: mutableListOf(),
       status =
         Enumeration.of(
-          com.google.fhir.model.r4.Media.MediaStatus.fromCode(this@MediaSurrogate.status!!),
+          com.google.fhir.model.r4.Media.EventStatus.fromCode(this@MediaSurrogate.status!!),
           this@MediaSurrogate._status,
         ),
       type = this@MediaSurrogate.type,

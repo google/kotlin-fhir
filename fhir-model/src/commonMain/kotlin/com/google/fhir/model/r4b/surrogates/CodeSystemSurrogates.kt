@@ -209,10 +209,12 @@ internal data class CodeSystemConceptDesignationSurrogate(
       modifierExtension =
         this@CodeSystemConceptDesignationSurrogate.modifierExtension ?: mutableListOf(),
       language =
-        Code.of(
-          this@CodeSystemConceptDesignationSurrogate.language,
-          this@CodeSystemConceptDesignationSurrogate._language,
-        ),
+        this@CodeSystemConceptDesignationSurrogate.language?.let {
+          Enumeration.of(
+            com.google.fhir.model.r4b.CommonLanguages.fromCode(it!!),
+            this@CodeSystemConceptDesignationSurrogate._language,
+          )
+        },
       use = this@CodeSystemConceptDesignationSurrogate.use,
       `value` =
         R4bString.of(
@@ -230,7 +232,7 @@ internal data class CodeSystemConceptDesignationSurrogate(
           id = this@with.id,
           extension = this@with.extension.takeUnless { it.all { it == null } },
           modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          language = this@with.language?.value,
+          language = this@with.language?.value?.getCode(),
           _language = this@with.language?.toElement(),
           use = this@with.use,
           `value` = this@with.`value`.value,

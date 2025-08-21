@@ -179,7 +179,7 @@ public data class Specimen(
    */
   public var request: MutableList<Reference> = mutableListOf(),
   /** This element signifies if the specimen is part of a group or pooled. */
-  public var combined: Code? = null,
+  public var combined: Enumeration<SpecimenCombined>? = null,
   /** The role or reason for the specimen in the testing workflow. */
   public var role: MutableList<CodeableConcept> = mutableListOf(),
   /**

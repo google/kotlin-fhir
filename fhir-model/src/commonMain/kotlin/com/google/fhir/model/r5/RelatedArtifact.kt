@@ -101,7 +101,7 @@ public data class RelatedArtifact(
    */
   public var resourceReference: Reference? = null,
   /** The publication status of the artifact being referred to. */
-  public var publicationStatus: Enumeration<RelatedArtifactPublicationStatus>? = null,
+  public var publicationStatus: Enumeration<PublicationStatus>? = null,
   /** The date of publication of the artifact being referred to. */
   public var publicationDate: Date? = null,
 ) : DataType() {
