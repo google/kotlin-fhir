@@ -24,6 +24,7 @@ import com.google.fhir.model.r5.serializers.PatientDeceasedSerializer
 import com.google.fhir.model.r5.serializers.PatientLinkSerializer
 import com.google.fhir.model.r5.serializers.PatientMultipleBirthSerializer
 import com.google.fhir.model.r5.serializers.PatientSerializer
+import com.google.fhir.model.r5.terminologies.AdministrativeGender
 import kotlin.String
 import kotlin.Suppress
 import kotlin.collections.MutableList

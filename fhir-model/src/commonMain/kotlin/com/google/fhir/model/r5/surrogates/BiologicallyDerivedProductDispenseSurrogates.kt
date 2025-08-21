@@ -138,7 +138,7 @@ internal data class BiologicallyDerivedProductDispenseSurrogate(
       status =
         Enumeration.of(
           com.google.fhir.model.r5.BiologicallyDerivedProductDispense
-            .BiologicallyDerivedProductDispenseStatus
+            .BiologicallyDerivedProductDispenseCodes
             .fromCode(this@BiologicallyDerivedProductDispenseSurrogate.status!!),
           this@BiologicallyDerivedProductDispenseSurrogate._status,
         ),

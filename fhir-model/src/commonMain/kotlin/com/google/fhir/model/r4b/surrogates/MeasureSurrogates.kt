@@ -384,7 +384,9 @@ internal data class MeasureSurrogate(
       subtitle = R4bString.of(this@MeasureSurrogate.subtitle, this@MeasureSurrogate._subtitle),
       status =
         Enumeration.of(
-          com.google.fhir.model.r4b.PublicationStatus.fromCode(this@MeasureSurrogate.status!!),
+          com.google.fhir.model.r4b.terminologies.PublicationStatus.fromCode(
+            this@MeasureSurrogate.status!!
+          ),
           this@MeasureSurrogate._status,
         ),
       experimental =

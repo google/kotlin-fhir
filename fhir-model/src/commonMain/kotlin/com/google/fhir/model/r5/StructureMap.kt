@@ -30,6 +30,7 @@ import com.google.fhir.model.r5.serializers.StructureMapGroupSerializer
 import com.google.fhir.model.r5.serializers.StructureMapSerializer
 import com.google.fhir.model.r5.serializers.StructureMapStructureSerializer
 import com.google.fhir.model.r5.serializers.StructureMapVersionAlgorithmSerializer
+import com.google.fhir.model.r5.terminologies.PublicationStatus
 import kotlin.Suppress
 import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName

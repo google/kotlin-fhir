@@ -132,7 +132,7 @@ public data class ImmunizationEvaluation(
   /** A unique identifier assigned to this immunization evaluation record. */
   public var identifier: MutableList<Identifier> = mutableListOf(),
   /** Indicates the current status of the evaluation of the vaccination administration event. */
-  public var status: Enumeration<ImmunizationEvaluationStatus>,
+  public var status: Enumeration<ImmunizationEvaluationStatusCodes>,
   /** The individual for whom the evaluation is being done. */
   public var patient: Reference,
   /** The date the evaluation of the vaccine administration event was performed. */
@@ -223,7 +223,7 @@ public data class ImmunizationEvaluation(
    * system that consists of or contains concepts to support describing the current status of the
    * evaluation for vaccine administration event.
    */
-  public enum class ImmunizationEvaluationStatus(
+  public enum class ImmunizationEvaluationStatusCodes(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
@@ -248,13 +248,13 @@ public data class ImmunizationEvaluation(
     public fun getDisplay(): kotlin.String? = display
 
     public companion object {
-      public fun fromCode(code: kotlin.String): ImmunizationEvaluationStatus =
+      public fun fromCode(code: kotlin.String): ImmunizationEvaluationStatusCodes =
         when (code) {
           "completed" -> Completed
           "entered-in-error" -> Entered_In_Error
           else ->
             throw IllegalArgumentException(
-              "Unknown code $code for enum ImmunizationEvaluationStatus"
+              "Unknown code $code for enum ImmunizationEvaluationStatusCodes"
             )
         }
     }

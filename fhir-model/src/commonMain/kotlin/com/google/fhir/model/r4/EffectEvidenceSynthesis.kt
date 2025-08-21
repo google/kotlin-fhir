@@ -25,6 +25,7 @@ import com.google.fhir.model.r4.serializers.EffectEvidenceSynthesisEffectEstimat
 import com.google.fhir.model.r4.serializers.EffectEvidenceSynthesisResultsByExposureSerializer
 import com.google.fhir.model.r4.serializers.EffectEvidenceSynthesisSampleSizeSerializer
 import com.google.fhir.model.r4.serializers.EffectEvidenceSynthesisSerializer
+import com.google.fhir.model.r4.terminologies.PublicationStatus
 import kotlin.Suppress
 import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName

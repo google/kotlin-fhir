@@ -19,6 +19,7 @@
 package com.google.fhir.model.r5
 
 import com.google.fhir.model.r5.serializers.RelatedArtifactSerializer
+import com.google.fhir.model.r5.terminologies.PublicationStatus
 import kotlin.Suppress
 import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
@@ -101,7 +102,7 @@ public data class RelatedArtifact(
    */
   public var resourceReference: Reference? = null,
   /** The publication status of the artifact being referred to. */
-  public var publicationStatus: Enumeration<RelatedArtifactPublicationStatus>? = null,
+  public var publicationStatus: Enumeration<PublicationStatus>? = null,
   /** The date of publication of the artifact being referred to. */
   public var publicationDate: Date? = null,
 ) : DataType() {

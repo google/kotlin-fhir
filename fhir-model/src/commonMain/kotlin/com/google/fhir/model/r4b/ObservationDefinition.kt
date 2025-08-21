@@ -21,6 +21,7 @@ package com.google.fhir.model.r4b
 import com.google.fhir.model.r4b.serializers.ObservationDefinitionQualifiedIntervalSerializer
 import com.google.fhir.model.r4b.serializers.ObservationDefinitionQuantitativeDetailsSerializer
 import com.google.fhir.model.r4b.serializers.ObservationDefinitionSerializer
+import com.google.fhir.model.r4b.terminologies.AdministrativeGender
 import kotlin.Suppress
 import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName

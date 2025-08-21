@@ -183,9 +183,8 @@ internal data class DeviceDefinitionRegulatoryIdentifierSurrogate(
         this@DeviceDefinitionRegulatoryIdentifierSurrogate.modifierExtension ?: mutableListOf(),
       type =
         Enumeration.of(
-          com.google.fhir.model.r5.DeviceDefinition.DeviceRegulatoryIdentifierType.fromCode(
-            this@DeviceDefinitionRegulatoryIdentifierSurrogate.type!!
-          ),
+          com.google.fhir.model.r5.DeviceDefinition.DeviceDefinitionRegulatoryIdentifierType
+            .fromCode(this@DeviceDefinitionRegulatoryIdentifierSurrogate.type!!),
           this@DeviceDefinitionRegulatoryIdentifierSurrogate._type,
         ),
       deviceIdentifier =

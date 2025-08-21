@@ -165,7 +165,7 @@ public data class Medication(
    * part of a particular formulary. It is possible that the drug record may be referenced by
    * multiple formularies or catalogues and each of those entries would have a separate status.
    */
-  public var status: Enumeration<MedicationStatus>? = null,
+  public var status: Enumeration<MedicationStatusCodes>? = null,
   /**
    * The company or other legal entity that has authorization, from the appropriate drug regulatory
    * authority, to market a medicine in one or more jurisdictions. Typically abbreviated MAH.Note:
@@ -336,7 +336,7 @@ public data class Medication(
   ) : BackboneElement()
 
   /** Medication Status Codes */
-  public enum class MedicationStatus(
+  public enum class MedicationStatusCodes(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
@@ -358,12 +358,13 @@ public data class Medication(
     public fun getDisplay(): kotlin.String? = display
 
     public companion object {
-      public fun fromCode(code: kotlin.String): MedicationStatus =
+      public fun fromCode(code: kotlin.String): MedicationStatusCodes =
         when (code) {
           "active" -> Active
           "inactive" -> Inactive
           "entered-in-error" -> Entered_In_Error
-          else -> throw IllegalArgumentException("Unknown code $code for enum MedicationStatus")
+          else ->
+            throw IllegalArgumentException("Unknown code $code for enum MedicationStatusCodes")
         }
     }
   }

@@ -24,6 +24,7 @@ import com.google.fhir.model.r5.serializers.AdministrableProductDefinitionRouteO
 import com.google.fhir.model.r5.serializers.AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesSerializer
 import com.google.fhir.model.r5.serializers.AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesWithdrawalPeriodSerializer
 import com.google.fhir.model.r5.serializers.AdministrableProductDefinitionSerializer
+import com.google.fhir.model.r5.terminologies.PublicationStatus
 import kotlin.Suppress
 import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName

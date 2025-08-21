@@ -265,7 +265,14 @@ internal data class TerminologyCapabilitiesCodeSystemVersionSurrogate(
                   null
                 }
             )
-            .map { (value, element) -> Code.of(value, element)!! }
+            .map { (value, element) ->
+              Enumeration.of(
+                value.let {
+                  com.google.fhir.model.r5.TerminologyCapabilities.CommonLanguages.fromCode(it!!)!!
+                },
+                element,
+              )
+            }
             .toMutableList()
         },
       filter = this@TerminologyCapabilitiesCodeSystemVersionSurrogate.filter ?: mutableListOf(),
@@ -308,7 +315,7 @@ internal data class TerminologyCapabilitiesCodeSystemVersionSurrogate(
           _compositional = this@with.compositional?.toElement(),
           language =
             this@with.language
-              .map { it.value }
+              .map { it.value?.getCode() }
               .toMutableList()
               .takeUnless { it.all { it == null } },
           _language =
@@ -747,7 +754,7 @@ internal data class TerminologyCapabilitiesSurrogate(
         ),
       status =
         Enumeration.of(
-          com.google.fhir.model.r5.PublicationStatus.fromCode(
+          com.google.fhir.model.r5.terminologies.PublicationStatus.fromCode(
             this@TerminologyCapabilitiesSurrogate.status!!
           ),
           this@TerminologyCapabilitiesSurrogate._status,

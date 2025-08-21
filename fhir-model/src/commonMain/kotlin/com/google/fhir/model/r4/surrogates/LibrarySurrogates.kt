@@ -154,7 +154,9 @@ internal data class LibrarySurrogate(
       subtitle = R4String.of(this@LibrarySurrogate.subtitle, this@LibrarySurrogate._subtitle),
       status =
         Enumeration.of(
-          com.google.fhir.model.r4.PublicationStatus.fromCode(this@LibrarySurrogate.status!!),
+          com.google.fhir.model.r4.terminologies.PublicationStatus.fromCode(
+            this@LibrarySurrogate.status!!
+          ),
           this@LibrarySurrogate._status,
         ),
       experimental =

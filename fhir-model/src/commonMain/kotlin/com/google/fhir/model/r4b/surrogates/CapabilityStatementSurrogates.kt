@@ -288,7 +288,7 @@ internal data class CapabilityStatementRestResourceSearchParamSurrogate(
         ),
       type =
         Enumeration.of(
-          com.google.fhir.model.r4b.SearchParamType.fromCode(
+          com.google.fhir.model.r4b.terminologies.SearchParamType.fromCode(
             this@CapabilityStatementRestResourceSearchParamSurrogate.type!!
           ),
           this@CapabilityStatementRestResourceSearchParamSurrogate._type,
@@ -423,7 +423,7 @@ internal data class CapabilityStatementRestResourceSurrogate(
         this@CapabilityStatementRestResourceSurrogate.modifierExtension ?: mutableListOf(),
       type =
         Enumeration.of(
-          com.google.fhir.model.r4b.ResourceType.fromCode(
+          com.google.fhir.model.r4b.terminologies.ResourceType.fromCode(
             this@CapabilityStatementRestResourceSurrogate.type!!
           ),
           this@CapabilityStatementRestResourceSurrogate._type,
@@ -1081,7 +1081,7 @@ internal data class CapabilityStatementSurrogate(
         ),
       status =
         Enumeration.of(
-          com.google.fhir.model.r4b.PublicationStatus.fromCode(
+          com.google.fhir.model.r4b.terminologies.PublicationStatus.fromCode(
             this@CapabilityStatementSurrogate.status!!
           ),
           this@CapabilityStatementSurrogate._status,
@@ -1162,7 +1162,7 @@ internal data class CapabilityStatementSurrogate(
       implementation = this@CapabilityStatementSurrogate.implementation,
       fhirVersion =
         Enumeration.of(
-          com.google.fhir.model.r4b.FHIRVersion.fromCode(
+          com.google.fhir.model.r4b.terminologies.FHIRVersion.fromCode(
             this@CapabilityStatementSurrogate.fhirVersion!!
           ),
           this@CapabilityStatementSurrogate._fhirVersion,

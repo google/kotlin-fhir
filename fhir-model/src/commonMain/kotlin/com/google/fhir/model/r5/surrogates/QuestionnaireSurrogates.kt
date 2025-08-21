@@ -491,7 +491,7 @@ internal data class QuestionnaireItemSurrogate(
       disabledDisplay =
         this@QuestionnaireItemSurrogate.disabledDisplay?.let {
           Enumeration.of(
-            com.google.fhir.model.r5.Questionnaire.DisabledDisplay.fromCode(it!!),
+            com.google.fhir.model.r5.Questionnaire.QuestionnaireItemDisabledDisplay.fromCode(it!!),
             this@QuestionnaireItemSurrogate._disabledDisplay,
           )
         },
@@ -697,7 +697,9 @@ internal data class QuestionnaireSurrogate(
         },
       status =
         Enumeration.of(
-          com.google.fhir.model.r5.PublicationStatus.fromCode(this@QuestionnaireSurrogate.status!!),
+          com.google.fhir.model.r5.terminologies.PublicationStatus.fromCode(
+            this@QuestionnaireSurrogate.status!!
+          ),
           this@QuestionnaireSurrogate._status,
         ),
       experimental =
@@ -720,7 +722,7 @@ internal data class QuestionnaireSurrogate(
             )
             .map { (value, element) ->
               Enumeration.of(
-                value.let { com.google.fhir.model.r5.ResourceType.fromCode(it!!)!! },
+                value.let { com.google.fhir.model.r5.terminologies.ResourceType.fromCode(it!!)!! },
                 element,
               )
             }

@@ -23,6 +23,7 @@ import com.google.fhir.model.r5.serializers.ManufacturedItemDefinitionComponentS
 import com.google.fhir.model.r5.serializers.ManufacturedItemDefinitionPropertySerializer
 import com.google.fhir.model.r5.serializers.ManufacturedItemDefinitionPropertyValueSerializer
 import com.google.fhir.model.r5.serializers.ManufacturedItemDefinitionSerializer
+import com.google.fhir.model.r5.terminologies.PublicationStatus
 import kotlin.Suppress
 import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName

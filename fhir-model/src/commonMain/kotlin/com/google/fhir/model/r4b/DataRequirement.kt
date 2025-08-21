@@ -24,6 +24,7 @@ import com.google.fhir.model.r4b.serializers.DataRequirementDateFilterValueSeria
 import com.google.fhir.model.r4b.serializers.DataRequirementSerializer
 import com.google.fhir.model.r4b.serializers.DataRequirementSortSerializer
 import com.google.fhir.model.r4b.serializers.DataRequirementSubjectSerializer
+import com.google.fhir.model.r4b.terminologies.FHIRAllTypes
 import kotlin.Suppress
 import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable

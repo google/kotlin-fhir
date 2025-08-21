@@ -290,7 +290,7 @@ internal data class DocumentReferenceSurrogate(
       basedOn = this@DocumentReferenceSurrogate.basedOn ?: mutableListOf(),
       status =
         Enumeration.of(
-          com.google.fhir.model.r5.DocumentReferenceStatus.fromCode(
+          com.google.fhir.model.r5.terminologies.DocumentReferenceStatus.fromCode(
             this@DocumentReferenceSurrogate.status!!
           ),
           this@DocumentReferenceSurrogate._status,
@@ -298,7 +298,7 @@ internal data class DocumentReferenceSurrogate(
       docStatus =
         this@DocumentReferenceSurrogate.docStatus?.let {
           Enumeration.of(
-            com.google.fhir.model.r5.DocumentReference.ReferredDocumentStatus.fromCode(it!!),
+            com.google.fhir.model.r5.DocumentReference.CompositionStatus.fromCode(it!!),
             this@DocumentReferenceSurrogate._docStatus,
           )
         },

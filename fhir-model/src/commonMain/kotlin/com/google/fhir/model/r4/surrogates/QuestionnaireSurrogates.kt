@@ -642,7 +642,9 @@ internal data class QuestionnaireSurrogate(
         },
       status =
         Enumeration.of(
-          com.google.fhir.model.r4.PublicationStatus.fromCode(this@QuestionnaireSurrogate.status!!),
+          com.google.fhir.model.r4.terminologies.PublicationStatus.fromCode(
+            this@QuestionnaireSurrogate.status!!
+          ),
           this@QuestionnaireSurrogate._status,
         ),
       experimental =
@@ -665,7 +667,7 @@ internal data class QuestionnaireSurrogate(
             )
             .map { (value, element) ->
               Enumeration.of(
-                value.let { com.google.fhir.model.r4.ResourceType.fromCode(it!!)!! },
+                value.let { com.google.fhir.model.r4.terminologies.ResourceType.fromCode(it!!)!! },
                 element,
               )
             }

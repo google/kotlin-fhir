@@ -33,6 +33,10 @@ import com.google.fhir.model.r5.serializers.CapabilityStatementRestSerializer
 import com.google.fhir.model.r5.serializers.CapabilityStatementSerializer
 import com.google.fhir.model.r5.serializers.CapabilityStatementSoftwareSerializer
 import com.google.fhir.model.r5.serializers.CapabilityStatementVersionAlgorithmSerializer
+import com.google.fhir.model.r5.terminologies.FHIRVersion
+import com.google.fhir.model.r5.terminologies.PublicationStatus
+import com.google.fhir.model.r5.terminologies.ResourceType
+import com.google.fhir.model.r5.terminologies.SearchParamType
 import kotlin.Suppress
 import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName

@@ -24,6 +24,7 @@ import com.google.fhir.model.r4.Base64Binary
 import com.google.fhir.model.r4.Code
 import com.google.fhir.model.r4.DateTime
 import com.google.fhir.model.r4.Element
+import com.google.fhir.model.r4.Enumeration
 import com.google.fhir.model.r4.Extension
 import com.google.fhir.model.r4.FhirDateTime
 import com.google.fhir.model.r4.String as R4String
@@ -65,7 +66,13 @@ internal data class AttachmentSurrogate(
       extension = this@AttachmentSurrogate.extension ?: mutableListOf(),
       contentType =
         Code.of(this@AttachmentSurrogate.contentType, this@AttachmentSurrogate._contentType),
-      language = Code.of(this@AttachmentSurrogate.language, this@AttachmentSurrogate._language),
+      language =
+        this@AttachmentSurrogate.language?.let {
+          Enumeration.of(
+            com.google.fhir.model.r4.terminologies.CommonLanguages.fromCode(it!!),
+            this@AttachmentSurrogate._language,
+          )
+        },
       `data` = Base64Binary.of(this@AttachmentSurrogate.`data`, this@AttachmentSurrogate._data),
       url = Url.of(this@AttachmentSurrogate.url, this@AttachmentSurrogate._url),
       size = UnsignedInt.of(this@AttachmentSurrogate.size, this@AttachmentSurrogate._size),
@@ -86,7 +93,7 @@ internal data class AttachmentSurrogate(
           extension = this@with.extension.takeUnless { it.all { it == null } },
           contentType = this@with.contentType?.value,
           _contentType = this@with.contentType?.toElement(),
-          language = this@with.language?.value,
+          language = this@with.language?.value?.getCode(),
           _language = this@with.language?.toElement(),
           `data` = this@with.`data`?.value,
           _data = this@with.`data`?.toElement(),

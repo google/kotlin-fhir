@@ -50,6 +50,7 @@ import com.google.fhir.model.r4.serializers.ExplanationOfBenefitSupportingInfoSe
 import com.google.fhir.model.r4.serializers.ExplanationOfBenefitSupportingInfoTimingSerializer
 import com.google.fhir.model.r4.serializers.ExplanationOfBenefitSupportingInfoValueSerializer
 import com.google.fhir.model.r4.serializers.ExplanationOfBenefitTotalSerializer
+import com.google.fhir.model.r4.terminologies.NoteType
 import kotlin.Suppress
 import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
@@ -301,7 +302,7 @@ public data class ExplanationOfBenefit(
    * the adjudication has been undertaken (partial) or that all of the adjudication has been
    * undertaken (complete).
    */
-  public var outcome: Enumeration<RemittanceOutcome>,
+  public var outcome: Enumeration<ClaimProcessingCodes>,
   /** A human readable description of the status of the adjudication. */
   public var disposition: String? = null,
   /**
@@ -2294,7 +2295,7 @@ public data class ExplanationOfBenefit(
   }
 
   /** This value set includes Claim Processing Outcome codes. */
-  public enum class RemittanceOutcome(
+  public enum class ClaimProcessingCodes(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
@@ -2313,13 +2314,13 @@ public data class ExplanationOfBenefit(
     public fun getDisplay(): kotlin.String? = display
 
     public companion object {
-      public fun fromCode(code: kotlin.String): RemittanceOutcome =
+      public fun fromCode(code: kotlin.String): ClaimProcessingCodes =
         when (code) {
           "queued" -> Queued
           "complete" -> Complete
           "error" -> Error
           "partial" -> Partial
-          else -> throw IllegalArgumentException("Unknown code $code for enum RemittanceOutcome")
+          else -> throw IllegalArgumentException("Unknown code $code for enum ClaimProcessingCodes")
         }
     }
   }

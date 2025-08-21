@@ -78,7 +78,7 @@ internal data class PatientContactSurrogate(
       gender =
         this@PatientContactSurrogate.gender?.let {
           Enumeration.of(
-            com.google.fhir.model.r5.AdministrativeGender.fromCode(it!!),
+            com.google.fhir.model.r5.terminologies.AdministrativeGender.fromCode(it!!),
             this@PatientContactSurrogate._gender,
           )
         },
@@ -294,7 +294,7 @@ internal data class PatientSurrogate(
       gender =
         this@PatientSurrogate.gender?.let {
           Enumeration.of(
-            com.google.fhir.model.r5.AdministrativeGender.fromCode(it!!),
+            com.google.fhir.model.r5.terminologies.AdministrativeGender.fromCode(it!!),
             this@PatientSurrogate._gender,
           )
         },

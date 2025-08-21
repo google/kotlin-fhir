@@ -93,7 +93,7 @@ internal data class ContractContentDefinitionSurrogate(
         ),
       publicationStatus =
         Enumeration.of(
-          com.google.fhir.model.r4b.Contract.ContractPublicationStatus.fromCode(
+          com.google.fhir.model.r4b.Contract.ContractResourcePublicationStatusCodes.fromCode(
             this@ContractContentDefinitionSurrogate.publicationStatus!!
           ),
           this@ContractContentDefinitionSurrogate._publicationStatus,
@@ -1519,7 +1519,7 @@ internal data class ContractSurrogate(
       status =
         this@ContractSurrogate.status?.let {
           Enumeration.of(
-            com.google.fhir.model.r4b.Contract.ContractStatus.fromCode(it!!),
+            com.google.fhir.model.r4b.Contract.ContractResourceStatusCodes.fromCode(it!!),
             this@ContractSurrogate._status,
           )
         },

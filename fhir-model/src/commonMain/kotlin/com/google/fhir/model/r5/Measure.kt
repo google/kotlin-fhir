@@ -28,6 +28,8 @@ import com.google.fhir.model.r5.serializers.MeasureSubjectSerializer
 import com.google.fhir.model.r5.serializers.MeasureSupplementalDataSerializer
 import com.google.fhir.model.r5.serializers.MeasureTermSerializer
 import com.google.fhir.model.r5.serializers.MeasureVersionAlgorithmSerializer
+import com.google.fhir.model.r5.terminologies.FHIRTypes
+import com.google.fhir.model.r5.terminologies.PublicationStatus
 import kotlin.Suppress
 import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
@@ -250,7 +252,7 @@ public data class Measure(
    * that resource type. For example, for a procedure-based measure, the population criteria would
    * return lists of procedures that should be included in each population.
    */
-  public var basis: Enumeration<BasisType>? = null,
+  public var basis: Enumeration<FHIRTypes>? = null,
   /**
    * The date (and optionally time) when the measure was last significantly changed. The date must
    * change when the business version changes and it must change if the status code changes. In
@@ -654,7 +656,7 @@ public data class Measure(
      * When specified at the group level, defines the population basis for this specific group. If
      * not specified, the basis for the group is determined by the root basis element
      */
-    public var basis: Enumeration<BasisType>? = null,
+    public var basis: Enumeration<FHIRTypes>? = null,
     /**
      * Indicates how the calculation is performed for the measure, including proportion, ratio,
      * continuous-variable, and cohort. The value set is extensible, allowing additional measure

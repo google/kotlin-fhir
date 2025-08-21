@@ -479,7 +479,9 @@ internal data class ResearchStudySurrogate(
         ),
       status =
         Enumeration.of(
-          com.google.fhir.model.r5.PublicationStatus.fromCode(this@ResearchStudySurrogate.status!!),
+          com.google.fhir.model.r5.terminologies.PublicationStatus.fromCode(
+            this@ResearchStudySurrogate.status!!
+          ),
           this@ResearchStudySurrogate._status,
         ),
       primaryPurposeType = this@ResearchStudySurrogate.primaryPurposeType,

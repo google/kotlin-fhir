@@ -26,6 +26,7 @@ import com.google.fhir.model.r5.serializers.SpecimenFeatureSerializer
 import com.google.fhir.model.r5.serializers.SpecimenProcessingSerializer
 import com.google.fhir.model.r5.serializers.SpecimenProcessingTimeSerializer
 import com.google.fhir.model.r5.serializers.SpecimenSerializer
+import com.google.fhir.model.r5.terminologies.SpecimenCombined
 import kotlin.Suppress
 import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
@@ -179,7 +180,7 @@ public data class Specimen(
    */
   public var request: MutableList<Reference> = mutableListOf(),
   /** This element signifies if the specimen is part of a group or pooled. */
-  public var combined: Code? = null,
+  public var combined: Enumeration<SpecimenCombined>? = null,
   /** The role or reason for the specimen in the testing workflow. */
   public var role: MutableList<CodeableConcept> = mutableListOf(),
   /**

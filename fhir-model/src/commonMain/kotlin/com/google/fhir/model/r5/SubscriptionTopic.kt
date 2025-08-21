@@ -25,6 +25,7 @@ import com.google.fhir.model.r5.serializers.SubscriptionTopicResourceTriggerQuer
 import com.google.fhir.model.r5.serializers.SubscriptionTopicResourceTriggerSerializer
 import com.google.fhir.model.r5.serializers.SubscriptionTopicSerializer
 import com.google.fhir.model.r5.serializers.SubscriptionTopicVersionAlgorithmSerializer
+import com.google.fhir.model.r5.terminologies.PublicationStatus
 import kotlin.Suppress
 import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
@@ -424,7 +425,7 @@ public data class SubscriptionTopic(
      * SubscriptionTopic. Multiple values are considered OR joined (e.g., CREATE or UPDATE). If not
      * present, all supported interactions are assumed.
      */
-    public var supportedInteraction: MutableList<Enumeration<MethodCode>> = mutableListOf(),
+    public var supportedInteraction: MutableList<Enumeration<InteractionTrigger>> = mutableListOf(),
     /**
      * The FHIR query based rules that the server should use to determine when to trigger a
      * notification for this subscription topic.
@@ -778,7 +779,7 @@ public data class SubscriptionTopic(
   }
 
   /** FHIR RESTful interaction codes used for SubscriptionTopic trigger. */
-  public enum class MethodCode(
+  public enum class InteractionTrigger(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
@@ -796,12 +797,12 @@ public data class SubscriptionTopic(
     public fun getDisplay(): kotlin.String? = display
 
     public companion object {
-      public fun fromCode(code: kotlin.String): MethodCode =
+      public fun fromCode(code: kotlin.String): InteractionTrigger =
         when (code) {
           "create" -> Create
           "update" -> Update
           "delete" -> Delete
-          else -> throw IllegalArgumentException("Unknown code $code for enum MethodCode")
+          else -> throw IllegalArgumentException("Unknown code $code for enum InteractionTrigger")
         }
     }
   }

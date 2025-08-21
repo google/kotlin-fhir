@@ -139,7 +139,7 @@ internal data class RelatedPersonSurrogate(
       gender =
         this@RelatedPersonSurrogate.gender?.let {
           Enumeration.of(
-            com.google.fhir.model.r5.AdministrativeGender.fromCode(it!!),
+            com.google.fhir.model.r5.terminologies.AdministrativeGender.fromCode(it!!),
             this@RelatedPersonSurrogate._gender,
           )
         },

@@ -138,7 +138,7 @@ internal data class CatalogEntrySurrogate(
       status =
         this@CatalogEntrySurrogate.status?.let {
           Enumeration.of(
-            com.google.fhir.model.r4b.PublicationStatus.fromCode(it!!),
+            com.google.fhir.model.r4b.terminologies.PublicationStatus.fromCode(it!!),
             this@CatalogEntrySurrogate._status,
           )
         },

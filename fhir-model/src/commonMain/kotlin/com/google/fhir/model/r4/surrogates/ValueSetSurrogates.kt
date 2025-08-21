@@ -73,10 +73,12 @@ internal data class ValueSetComposeIncludeConceptDesignationSurrogate(
       modifierExtension =
         this@ValueSetComposeIncludeConceptDesignationSurrogate.modifierExtension ?: mutableListOf(),
       language =
-        Code.of(
-          this@ValueSetComposeIncludeConceptDesignationSurrogate.language,
-          this@ValueSetComposeIncludeConceptDesignationSurrogate._language,
-        ),
+        this@ValueSetComposeIncludeConceptDesignationSurrogate.language?.let {
+          Enumeration.of(
+            com.google.fhir.model.r4.terminologies.CommonLanguages.fromCode(it!!),
+            this@ValueSetComposeIncludeConceptDesignationSurrogate._language,
+          )
+        },
       use = this@ValueSetComposeIncludeConceptDesignationSurrogate.use,
       `value` =
         R4String.of(
@@ -94,7 +96,7 @@ internal data class ValueSetComposeIncludeConceptDesignationSurrogate(
           id = this@with.id,
           extension = this@with.extension.takeUnless { it.all { it == null } },
           modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          language = this@with.language?.value,
+          language = this@with.language?.value?.getCode(),
           _language = this@with.language?.toElement(),
           use = this@with.use,
           `value` = this@with.`value`.value,
@@ -657,7 +659,9 @@ internal data class ValueSetSurrogate(
       title = R4String.of(this@ValueSetSurrogate.title, this@ValueSetSurrogate._title),
       status =
         Enumeration.of(
-          com.google.fhir.model.r4.PublicationStatus.fromCode(this@ValueSetSurrogate.status!!),
+          com.google.fhir.model.r4.terminologies.PublicationStatus.fromCode(
+            this@ValueSetSurrogate.status!!
+          ),
           this@ValueSetSurrogate._status,
         ),
       experimental =

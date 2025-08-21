@@ -278,14 +278,14 @@ internal data class CoverageSurrogate(
       identifier = this@CoverageSurrogate.identifier ?: mutableListOf(),
       status =
         Enumeration.of(
-          com.google.fhir.model.r5.Coverage.CoverageStatus.fromCode(
+          com.google.fhir.model.r5.Coverage.FinancialResourceStatusCodes.fromCode(
             this@CoverageSurrogate.status!!
           ),
           this@CoverageSurrogate._status,
         ),
       kind =
         Enumeration.of(
-          com.google.fhir.model.r5.Coverage.CoverageKind.fromCode(this@CoverageSurrogate.kind!!),
+          com.google.fhir.model.r5.Coverage.Kind.fromCode(this@CoverageSurrogate.kind!!),
           this@CoverageSurrogate._kind,
         ),
       paymentBy = this@CoverageSurrogate.paymentBy ?: mutableListOf(),

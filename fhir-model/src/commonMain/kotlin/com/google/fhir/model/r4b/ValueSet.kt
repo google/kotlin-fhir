@@ -28,6 +28,8 @@ import com.google.fhir.model.r4b.serializers.ValueSetExpansionParameterSerialize
 import com.google.fhir.model.r4b.serializers.ValueSetExpansionParameterValueSerializer
 import com.google.fhir.model.r4b.serializers.ValueSetExpansionSerializer
 import com.google.fhir.model.r4b.serializers.ValueSetSerializer
+import com.google.fhir.model.r4b.terminologies.CommonLanguages
+import com.google.fhir.model.r4b.terminologies.PublicationStatus
 import kotlin.Suppress
 import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
@@ -617,7 +619,7 @@ public data class ValueSet(
            *
            * In the absence of a language, the resource language applies.
            */
-          public var language: Code? = null,
+          public var language: Enumeration<CommonLanguages>? = null,
           /**
            * A code that represents types of uses of designations.
            *

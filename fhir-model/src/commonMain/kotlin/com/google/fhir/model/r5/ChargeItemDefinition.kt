@@ -22,6 +22,7 @@ import com.google.fhir.model.r5.serializers.ChargeItemDefinitionApplicabilitySer
 import com.google.fhir.model.r5.serializers.ChargeItemDefinitionPropertyGroupSerializer
 import com.google.fhir.model.r5.serializers.ChargeItemDefinitionSerializer
 import com.google.fhir.model.r5.serializers.ChargeItemDefinitionVersionAlgorithmSerializer
+import com.google.fhir.model.r5.terminologies.PublicationStatus
 import kotlin.Suppress
 import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName

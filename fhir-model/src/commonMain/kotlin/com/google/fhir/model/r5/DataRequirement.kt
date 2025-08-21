@@ -26,6 +26,7 @@ import com.google.fhir.model.r5.serializers.DataRequirementSortSerializer
 import com.google.fhir.model.r5.serializers.DataRequirementSubjectSerializer
 import com.google.fhir.model.r5.serializers.DataRequirementValueFilterSerializer
 import com.google.fhir.model.r5.serializers.DataRequirementValueFilterValueSerializer
+import com.google.fhir.model.r5.terminologies.FHIRTypes
 import kotlin.Suppress
 import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable

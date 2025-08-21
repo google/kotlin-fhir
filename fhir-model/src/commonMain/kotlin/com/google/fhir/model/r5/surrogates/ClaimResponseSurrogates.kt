@@ -1267,7 +1267,7 @@ internal data class ClaimResponseSurrogate(
       traceNumber = this@ClaimResponseSurrogate.traceNumber ?: mutableListOf(),
       status =
         Enumeration.of(
-          com.google.fhir.model.r5.ClaimResponse.ClaimResponseStatus.fromCode(
+          com.google.fhir.model.r5.ClaimResponse.FinancialResourceStatusCodes.fromCode(
             this@ClaimResponseSurrogate.status!!
           ),
           this@ClaimResponseSurrogate._status,
@@ -1290,7 +1290,7 @@ internal data class ClaimResponseSurrogate(
       request = this@ClaimResponseSurrogate.request,
       outcome =
         Enumeration.of(
-          com.google.fhir.model.r5.ClaimResponse.RemittanceOutcome.fromCode(
+          com.google.fhir.model.r5.ClaimResponse.ClaimProcessingCodes.fromCode(
             this@ClaimResponseSurrogate.outcome!!
           ),
           this@ClaimResponseSurrogate._outcome,

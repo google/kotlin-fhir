@@ -24,6 +24,10 @@ import com.google.fhir.model.r5.serializers.OperationDefinitionParameterReferenc
 import com.google.fhir.model.r5.serializers.OperationDefinitionParameterSerializer
 import com.google.fhir.model.r5.serializers.OperationDefinitionSerializer
 import com.google.fhir.model.r5.serializers.OperationDefinitionVersionAlgorithmSerializer
+import com.google.fhir.model.r5.terminologies.BindingStrength
+import com.google.fhir.model.r5.terminologies.FHIRTypes
+import com.google.fhir.model.r5.terminologies.PublicationStatus
+import com.google.fhir.model.r5.terminologies.SearchParamType
 import kotlin.Suppress
 import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
@@ -352,7 +356,8 @@ public data class OperationDefinition(
    * If the type is an abstract resource ("Resource" or "DomainResource") then the operation can be
    * invoked on any concrete specialization.
    */
-  public var resource: MutableList<Enumeration<FHIRTypes>> = mutableListOf(),
+  public var resource: MutableList<Enumeration<VersionIndependentResourceTypesAll>> =
+    mutableListOf(),
   /**
    * Indicates whether this operation or named query can be invoked at the system level (e.g.
    * without needing to choose a resource type for the context).
@@ -479,7 +484,7 @@ public data class OperationDefinition(
      * if there is no stated parameter, then the parameter is a multi-part parameter type and must
      * have at least one part defined.
      */
-    public var type: Enumeration<FHIRAllTypes>? = null,
+    public var type: Enumeration<FHIRTypes>? = null,
     /**
      * Support for polymorphic types. If the parameter type is abstract, this element lists allowed
      * sub-types for the parameter.
@@ -487,7 +492,7 @@ public data class OperationDefinition(
      * In previous versions of FHIR, there was an extension for this:
      * http://hl7.org/fhir/StructureDefinition/operationdefinition-allowed-type
      */
-    public var allowedType: MutableList<Enumeration<FHIRAllTypes>> = mutableListOf(),
+    public var allowedType: MutableList<Enumeration<FHIRTypes>> = mutableListOf(),
     /**
      * Used when the type is "Reference" or "canonical", and identifies a profile structure or
      * implementation Guide that applies to the target of the reference this parameter refers to. If
@@ -803,7 +808,7 @@ public data class OperationDefinition(
   }
 
   /** Current and past FHIR resource types (deleted or renamed), including abstract types */
-  public enum class FHIRTypes(
+  public enum class VersionIndependentResourceTypesAll(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
@@ -1281,7 +1286,7 @@ public data class OperationDefinition(
     public fun getDisplay(): kotlin.String? = display
 
     public companion object {
-      public fun fromCode(code: kotlin.String): FHIRTypes =
+      public fun fromCode(code: kotlin.String): VersionIndependentResourceTypesAll =
         when (code) {
           "Account" -> Account
           "ActivityDefinition" -> ActivityDefinition
@@ -1486,7 +1491,10 @@ public data class OperationDefinition(
           "Sequence" -> Sequence
           "ServiceDefinition" -> ServiceDefinition
           "SubstanceSpecification" -> SubstanceSpecification
-          else -> throw IllegalArgumentException("Unknown code $code for enum FHIRTypes")
+          else ->
+            throw IllegalArgumentException(
+              "Unknown code $code for enum VersionIndependentResourceTypesAll"
+            )
         }
     }
   }

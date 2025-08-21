@@ -139,7 +139,7 @@ public data class DetectedIssue(
    * This element is labeled as a modifier because the status contains the codes cancelled and
    * entered-in-error that mark the issue as not currently valid.
    */
-  public var status: Enumeration<DetectedIssueStatus>,
+  public var status: Enumeration<ObservationStatus>,
   /** Identifies the general type of issue identified. */
   public var code: CodeableConcept? = null,
   /**
@@ -328,7 +328,7 @@ public data class DetectedIssue(
   }
 
   /** Codes providing the status of an observation. */
-  public enum class DetectedIssueStatus(
+  public enum class ObservationStatus(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
@@ -355,7 +355,7 @@ public data class DetectedIssue(
     public fun getDisplay(): kotlin.String? = display
 
     public companion object {
-      public fun fromCode(code: kotlin.String): DetectedIssueStatus =
+      public fun fromCode(code: kotlin.String): ObservationStatus =
         when (code) {
           "registered" -> Registered
           "preliminary" -> Preliminary
@@ -365,7 +365,7 @@ public data class DetectedIssue(
           "cancelled" -> Cancelled
           "entered-in-error" -> Entered_In_Error
           "unknown" -> Unknown
-          else -> throw IllegalArgumentException("Unknown code $code for enum DetectedIssueStatus")
+          else -> throw IllegalArgumentException("Unknown code $code for enum ObservationStatus")
         }
     }
   }

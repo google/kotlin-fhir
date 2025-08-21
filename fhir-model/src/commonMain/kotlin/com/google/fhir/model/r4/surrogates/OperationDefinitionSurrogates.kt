@@ -66,7 +66,7 @@ internal data class OperationDefinitionParameterBindingSurrogate(
         this@OperationDefinitionParameterBindingSurrogate.modifierExtension ?: mutableListOf(),
       strength =
         Enumeration.of(
-          com.google.fhir.model.r4.BindingStrength.fromCode(
+          com.google.fhir.model.r4.terminologies.BindingStrength.fromCode(
             this@OperationDefinitionParameterBindingSurrogate.strength!!
           ),
           this@OperationDefinitionParameterBindingSurrogate._strength,
@@ -205,7 +205,7 @@ internal data class OperationDefinitionParameterSurrogate(
       type =
         this@OperationDefinitionParameterSurrogate.type?.let {
           Enumeration.of(
-            com.google.fhir.model.r4.FHIRAllTypes.fromCode(it!!),
+            com.google.fhir.model.r4.terminologies.FHIRAllTypes.fromCode(it!!),
             this@OperationDefinitionParameterSurrogate._type,
           )
         },
@@ -228,7 +228,7 @@ internal data class OperationDefinitionParameterSurrogate(
       searchType =
         this@OperationDefinitionParameterSurrogate.searchType?.let {
           Enumeration.of(
-            com.google.fhir.model.r4.SearchParamType.fromCode(it!!),
+            com.google.fhir.model.r4.terminologies.SearchParamType.fromCode(it!!),
             this@OperationDefinitionParameterSurrogate._searchType,
           )
         },
@@ -441,7 +441,7 @@ internal data class OperationDefinitionSurrogate(
         ),
       status =
         Enumeration.of(
-          com.google.fhir.model.r4.PublicationStatus.fromCode(
+          com.google.fhir.model.r4.terminologies.PublicationStatus.fromCode(
             this@OperationDefinitionSurrogate.status!!
           ),
           this@OperationDefinitionSurrogate._status,
@@ -513,7 +513,7 @@ internal data class OperationDefinitionSurrogate(
             )
             .map { (value, element) ->
               Enumeration.of(
-                value.let { com.google.fhir.model.r4.ResourceType.fromCode(it!!)!! },
+                value.let { com.google.fhir.model.r4.terminologies.ResourceType.fromCode(it!!)!! },
                 element,
               )
             }

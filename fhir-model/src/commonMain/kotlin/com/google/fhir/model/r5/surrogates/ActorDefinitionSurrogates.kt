@@ -155,7 +155,7 @@ internal data class ActorDefinitionSurrogate(
         R5String.of(this@ActorDefinitionSurrogate.title, this@ActorDefinitionSurrogate._title),
       status =
         Enumeration.of(
-          com.google.fhir.model.r5.PublicationStatus.fromCode(
+          com.google.fhir.model.r5.terminologies.PublicationStatus.fromCode(
             this@ActorDefinitionSurrogate.status!!
           ),
           this@ActorDefinitionSurrogate._status,

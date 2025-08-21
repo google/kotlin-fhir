@@ -136,7 +136,7 @@ internal data class ObservationDefinitionQualifiedIntervalSurrogate(
       gender =
         this@ObservationDefinitionQualifiedIntervalSurrogate.gender?.let {
           Enumeration.of(
-            com.google.fhir.model.r4b.AdministrativeGender.fromCode(it!!),
+            com.google.fhir.model.r4b.terminologies.AdministrativeGender.fromCode(it!!),
             this@ObservationDefinitionQualifiedIntervalSurrogate._gender,
           )
         },

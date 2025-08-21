@@ -552,7 +552,7 @@ internal data class TestScriptSetupActionOperationSurrogate(
       resource =
         this@TestScriptSetupActionOperationSurrogate.resource?.let {
           Enumeration.of(
-            com.google.fhir.model.r4.FHIRDefinedType.fromCode(it!!),
+            com.google.fhir.model.r4.terminologies.FHIRDefinedType.fromCode(it!!),
             this@TestScriptSetupActionOperationSurrogate._resource,
           )
         },
@@ -817,7 +817,7 @@ internal data class TestScriptSetupActionAssertSurrogate(
       resource =
         this@TestScriptSetupActionAssertSurrogate.resource?.let {
           Enumeration.of(
-            com.google.fhir.model.r4.FHIRDefinedType.fromCode(it!!),
+            com.google.fhir.model.r4.terminologies.FHIRDefinedType.fromCode(it!!),
             this@TestScriptSetupActionAssertSurrogate._resource,
           )
         },
@@ -1168,7 +1168,9 @@ internal data class TestScriptSurrogate(
       title = R4String.of(this@TestScriptSurrogate.title, this@TestScriptSurrogate._title),
       status =
         Enumeration.of(
-          com.google.fhir.model.r4.PublicationStatus.fromCode(this@TestScriptSurrogate.status!!),
+          com.google.fhir.model.r4.terminologies.PublicationStatus.fromCode(
+            this@TestScriptSurrogate.status!!
+          ),
           this@TestScriptSurrogate._status,
         ),
       experimental =

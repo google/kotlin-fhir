@@ -171,7 +171,7 @@ public data class Communication(
    * This element is labeled as a modifier because the status contains the codes aborted and
    * entered-in-error that mark the communication as not currently valid.
    */
-  public var status: Enumeration<CommunicationStatus>,
+  public var status: Enumeration<EventStatus>,
   /**
    * Captures the reason for the current state of the Communication.
    *
@@ -192,7 +192,7 @@ public data class Communication(
    * Used to prioritize workflow (such as which communication to read first) when the communication
    * is planned or in progress.
    */
-  public var priority: Enumeration<CommunicationPriority>? = null,
+  public var priority: Enumeration<RequestPriority>? = null,
   /** A channel that was used for this communication (e.g. email, fax). */
   public var medium: MutableList<CodeableConcept> = mutableListOf(),
   /** The patient or group that was the focus of this communication. */
@@ -330,7 +330,7 @@ public data class Communication(
   }
 
   /** Codes identifying the lifecycle stage of an event. */
-  public enum class CommunicationStatus(
+  public enum class EventStatus(
     private val code: String,
     private val system: String,
     private val display: String?,
@@ -353,7 +353,7 @@ public data class Communication(
     public fun getDisplay(): String? = display
 
     public companion object {
-      public fun fromCode(code: String): CommunicationStatus =
+      public fun fromCode(code: String): EventStatus =
         when (code) {
           "preparation" -> Preparation
           "in-progress" -> In_Progress
@@ -363,13 +363,13 @@ public data class Communication(
           "completed" -> Completed
           "entered-in-error" -> Entered_In_Error
           "unknown" -> Unknown
-          else -> throw IllegalArgumentException("Unknown code $code for enum CommunicationStatus")
+          else -> throw IllegalArgumentException("Unknown code $code for enum EventStatus")
         }
     }
   }
 
   /** Identifies the level of importance to be assigned to actioning the request. */
-  public enum class CommunicationPriority(
+  public enum class RequestPriority(
     private val code: String,
     private val system: String,
     private val display: String?,
@@ -388,14 +388,13 @@ public data class Communication(
     public fun getDisplay(): String? = display
 
     public companion object {
-      public fun fromCode(code: String): CommunicationPriority =
+      public fun fromCode(code: String): RequestPriority =
         when (code) {
           "routine" -> Routine
           "urgent" -> Urgent
           "asap" -> Asap
           "stat" -> Stat
-          else ->
-            throw IllegalArgumentException("Unknown code $code for enum CommunicationPriority")
+          else -> throw IllegalArgumentException("Unknown code $code for enum RequestPriority")
         }
     }
   }

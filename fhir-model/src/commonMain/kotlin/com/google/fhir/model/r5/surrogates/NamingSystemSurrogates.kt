@@ -236,7 +236,9 @@ internal data class NamingSystemSurrogate(
       title = R5String.of(this@NamingSystemSurrogate.title, this@NamingSystemSurrogate._title),
       status =
         Enumeration.of(
-          com.google.fhir.model.r5.PublicationStatus.fromCode(this@NamingSystemSurrogate.status!!),
+          com.google.fhir.model.r5.terminologies.PublicationStatus.fromCode(
+            this@NamingSystemSurrogate.status!!
+          ),
           this@NamingSystemSurrogate._status,
         ),
       kind =

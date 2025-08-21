@@ -1067,7 +1067,9 @@ internal data class ValueSetSurrogate(
       title = R5String.of(this@ValueSetSurrogate.title, this@ValueSetSurrogate._title),
       status =
         Enumeration.of(
-          com.google.fhir.model.r5.PublicationStatus.fromCode(this@ValueSetSurrogate.status!!),
+          com.google.fhir.model.r5.terminologies.PublicationStatus.fromCode(
+            this@ValueSetSurrogate.status!!
+          ),
           this@ValueSetSurrogate._status,
         ),
       experimental =

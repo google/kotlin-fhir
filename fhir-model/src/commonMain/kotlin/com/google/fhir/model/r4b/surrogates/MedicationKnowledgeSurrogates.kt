@@ -871,7 +871,9 @@ internal data class MedicationKnowledgeSurrogate(
       status =
         this@MedicationKnowledgeSurrogate.status?.let {
           Enumeration.of(
-            com.google.fhir.model.r4b.MedicationKnowledge.MedicationKnowledgeStatus.fromCode(it!!),
+            com.google.fhir.model.r4b.MedicationKnowledge.MedicationKnowledgeStatusCodes.fromCode(
+              it!!
+            ),
             this@MedicationKnowledgeSurrogate._status,
           )
         },

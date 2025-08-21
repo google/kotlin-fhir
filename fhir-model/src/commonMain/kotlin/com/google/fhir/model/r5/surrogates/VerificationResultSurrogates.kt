@@ -285,7 +285,7 @@ internal data class VerificationResultSurrogate(
       need = this@VerificationResultSurrogate.need,
       status =
         Enumeration.of(
-          com.google.fhir.model.r5.VerificationResult.Status.fromCode(
+          com.google.fhir.model.r5.VerificationResult.VerificationResultStatus.fromCode(
             this@VerificationResultSurrogate.status!!
           ),
           this@VerificationResultSurrogate._status,

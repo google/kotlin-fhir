@@ -159,7 +159,7 @@ public data class MedicationDispense(
    * This element is labeled as a modifier because the status contains codes that mark the resource
    * as not currently valid.
    */
-  public var status: Enumeration<MedicationDispenseStatus>,
+  public var status: Enumeration<MedicationDispenseStatusCodes>,
   /** Indicates the reason why a dispense was not performed. */
   public var notPerformedReason: CodeableReference? = null,
   /** The date (and maybe time) when the status of the dispense record changed. */
@@ -385,7 +385,7 @@ public data class MedicationDispense(
   ) : BackboneElement()
 
   /** MedicationDispense Status Codes */
-  public enum class MedicationDispenseStatus(
+  public enum class MedicationDispenseStatusCodes(
     private val code: String,
     private val system: String,
     private val display: String?,
@@ -421,7 +421,7 @@ public data class MedicationDispense(
     public fun getDisplay(): String? = display
 
     public companion object {
-      public fun fromCode(code: String): MedicationDispenseStatus =
+      public fun fromCode(code: String): MedicationDispenseStatusCodes =
         when (code) {
           "preparation" -> Preparation
           "in-progress" -> In_Progress
@@ -433,7 +433,9 @@ public data class MedicationDispense(
           "declined" -> Declined
           "unknown" -> Unknown
           else ->
-            throw IllegalArgumentException("Unknown code $code for enum MedicationDispenseStatus")
+            throw IllegalArgumentException(
+              "Unknown code $code for enum MedicationDispenseStatusCodes"
+            )
         }
     }
   }

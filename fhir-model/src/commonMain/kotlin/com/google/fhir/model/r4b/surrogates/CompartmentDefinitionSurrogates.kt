@@ -64,7 +64,7 @@ internal data class CompartmentDefinitionResourceSurrogate(
         this@CompartmentDefinitionResourceSurrogate.modifierExtension ?: mutableListOf(),
       code =
         Enumeration.of(
-          com.google.fhir.model.r4b.ResourceType.fromCode(
+          com.google.fhir.model.r4b.terminologies.ResourceType.fromCode(
             this@CompartmentDefinitionResourceSurrogate.code!!
           ),
           this@CompartmentDefinitionResourceSurrogate._code,
@@ -188,7 +188,7 @@ internal data class CompartmentDefinitionSurrogate(
         )!!,
       status =
         Enumeration.of(
-          com.google.fhir.model.r4b.PublicationStatus.fromCode(
+          com.google.fhir.model.r4b.terminologies.PublicationStatus.fromCode(
             this@CompartmentDefinitionSurrogate.status!!
           ),
           this@CompartmentDefinitionSurrogate._status,

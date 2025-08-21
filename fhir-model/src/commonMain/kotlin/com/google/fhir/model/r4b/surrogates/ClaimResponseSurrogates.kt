@@ -835,7 +835,7 @@ internal data class ClaimResponseProcessNoteSurrogate(
       type =
         this@ClaimResponseProcessNoteSurrogate.type?.let {
           Enumeration.of(
-            com.google.fhir.model.r4b.NoteType.fromCode(it!!),
+            com.google.fhir.model.r4b.terminologies.NoteType.fromCode(it!!),
             this@ClaimResponseProcessNoteSurrogate._type,
           )
         },
@@ -1043,7 +1043,7 @@ internal data class ClaimResponseSurrogate(
       identifier = this@ClaimResponseSurrogate.identifier ?: mutableListOf(),
       status =
         Enumeration.of(
-          com.google.fhir.model.r4b.ClaimResponse.ClaimResponseStatus.fromCode(
+          com.google.fhir.model.r4b.ClaimResponse.FinancialResourceStatusCodes.fromCode(
             this@ClaimResponseSurrogate.status!!
           ),
           this@ClaimResponseSurrogate._status,
@@ -1066,7 +1066,7 @@ internal data class ClaimResponseSurrogate(
       request = this@ClaimResponseSurrogate.request,
       outcome =
         Enumeration.of(
-          com.google.fhir.model.r4b.RemittanceOutcome.fromCode(
+          com.google.fhir.model.r4b.terminologies.RemittanceOutcome.fromCode(
             this@ClaimResponseSurrogate.outcome!!
           ),
           this@ClaimResponseSurrogate._outcome,

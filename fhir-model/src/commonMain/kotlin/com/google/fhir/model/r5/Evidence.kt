@@ -28,6 +28,7 @@ import com.google.fhir.model.r5.serializers.EvidenceStatisticSampleSizeSerialize
 import com.google.fhir.model.r5.serializers.EvidenceStatisticSerializer
 import com.google.fhir.model.r5.serializers.EvidenceVariableDefinitionSerializer
 import com.google.fhir.model.r5.serializers.EvidenceVersionAlgorithmSerializer
+import com.google.fhir.model.r5.terminologies.PublicationStatus
 import kotlin.Suppress
 import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName

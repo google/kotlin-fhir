@@ -23,12 +23,9 @@ import com.google.fhir.codegen.primitives.FhirDateTimeFileSpecGenerator
 import com.google.fhir.codegen.primitives.LocalTimeSerializerFileSpecGenerator
 import com.google.fhir.codegen.schema.StructureDefinition
 import com.google.fhir.codegen.schema.capitalized
-import com.google.fhir.codegen.schema.normalizeEnumName
 import com.google.fhir.codegen.schema.urlPart
 import com.google.fhir.codegen.schema.valueset.ValueSet
 import com.squareup.kotlinpoet.ClassName
-import com.squareup.kotlinpoet.FileSpec
-import java.io.File
 import kotlinx.serialization.json.Json
 import org.gradle.api.DefaultTask
 import org.gradle.api.file.ConfigurableFileCollection
@@ -63,8 +60,6 @@ abstract class FhirCodegenTask : DefaultTask() {
     prettyPrint = true
   }
 
-  private val commonBindingValueSetUrls = mutableMapOf<String, HashSet<String>>()
-
   @TaskAction
   fun generateCode() {
     // Prepare the output folder
@@ -94,14 +89,9 @@ abstract class FhirCodegenTask : DefaultTask() {
         .filter {
           // Refer to the section "Excluded ValueSets from Enum Generation" on the README file for
           // the reasons for exclusion
-          it.urlPart !in
-            setOf(
-              "http://hl7.org/fhir/ValueSet/mimetypes",
-              "http://hl7.org/fhir/ValueSet/languages",
-              "http://hl7.org/fhir/ValueSet/all-languages",
-              "http://hl7.org/fhir/ValueSet/specimen-combined",
-              "http://hl7.org/fhir/ValueSet/use-context",
-            )
+          it.urlPart != "http://hl7.org/fhir/ValueSet/mimetypes" &&
+            it.urlPart != "http://hl7.org/fhir/ValueSet/all-languages" &&
+            it.urlPart != "http://hl7.org/fhir/ValueSet/use-context"
         }
         .groupBy { it.urlPart }
         .mapValues { it.value.first() }
@@ -139,8 +129,9 @@ abstract class FhirCodegenTask : DefaultTask() {
 
     val packageName = this.packageName.get()
 
-    val modelTypeSpecGenerator = ModelTypeSpecGenerator(valueSetMap, commonBindingValueSetUrls)
+    val modelTypeSpecGenerator = ModelTypeSpecGenerator(valueSetMap)
     val surrogateTypeSpecGenerator = SurrogateTypeSpecGenerator(valueSetMap)
+    val enumFileSpecGenerator = EnumFileSpecGenerator(valueSetMap)
     structureDefinitions
       .flatMap { structureDefinition ->
         FhirCodegen.generateFileSpecs(
@@ -149,6 +140,7 @@ abstract class FhirCodegenTask : DefaultTask() {
           isBaseClass = baseClasses.contains(structureDefinition.name.capitalized()),
           modelTypeSpecGenerator = modelTypeSpecGenerator,
           surrogateTypeSpecGenerator = surrogateTypeSpecGenerator,
+          enumFileSpecGenerator = enumFileSpecGenerator,
         )
       }
       .forEach { it.writeTo(outputDir) }
@@ -172,51 +164,11 @@ abstract class FhirCodegenTask : DefaultTask() {
     // Generates a wrapper for enum types
     EnumerationFileSpecGenerator.generate(packageName).writeTo(outputDir)
 
-    generateSharedEnums(valueSetMap, packageName, outputDir)
-
     // Generate custom serializers
     val serializersPackageName = "$packageName.serializers"
     DoubleSerializerFileSpecGenerator.generate(serializersPackageName).writeTo(outputDir)
     LocalTimeSerializerFileSpecGenerator.generate(serializersPackageName).writeTo(outputDir)
 
     FhirJsonTransformerFileSpecGenerator.generate(packageName).writeTo(outputDir)
-  }
-
-  /**
-   * Generate shared enums. These enum classes are created from [StructureDefinition.snapshot]
-   * Elements that have common binding extensions.
-   */
-  private fun generateSharedEnums(
-    valueSetMap: Map<String, ValueSet>,
-    packageName: String,
-    outputDir: File,
-  ) {
-    valueSetMap.values
-      .filter { commonBindingValueSetUrls.containsKey(it.urlPart) }
-      .forEach { valueSet ->
-        val valueSetName = valueSet.name.normalizeEnumName()
-        val commonBindingNames = commonBindingValueSetUrls[valueSet.urlPart]
-
-        // Create enums for a ValueSet that's used by several common binding names
-        if (commonBindingNames != null) {
-          commonBindingNames.forEach { name ->
-            val enumTypeSpec = EnumTypeSpecGenerator.generate(name, valueSet)
-            if (enumTypeSpec != null) {
-              FileSpec.builder(packageName = packageName, fileName = name)
-                .addType(enumTypeSpec)
-                .build()
-                .writeTo(outputDir)
-            }
-          }
-        } else {
-          val enumTypeSpec = EnumTypeSpecGenerator.generate(valueSetName, valueSet)
-          if (enumTypeSpec != null) {
-            FileSpec.builder(packageName = packageName, fileName = valueSetName)
-              .addType(enumTypeSpec)
-              .build()
-              .writeTo(outputDir)
-          }
-        }
-      }
   }
 }

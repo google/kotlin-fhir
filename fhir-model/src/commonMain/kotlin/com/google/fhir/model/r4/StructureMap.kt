@@ -29,6 +29,7 @@ import com.google.fhir.model.r4.serializers.StructureMapGroupRuleTargetSerialize
 import com.google.fhir.model.r4.serializers.StructureMapGroupSerializer
 import com.google.fhir.model.r4.serializers.StructureMapSerializer
 import com.google.fhir.model.r4.serializers.StructureMapStructureSerializer
+import com.google.fhir.model.r4.terminologies.PublicationStatus
 import kotlin.Suppress
 import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName

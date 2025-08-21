@@ -32,6 +32,7 @@ import com.google.fhir.model.r4.serializers.PlanDefinitionGoalTargetDetailSerial
 import com.google.fhir.model.r4.serializers.PlanDefinitionGoalTargetSerializer
 import com.google.fhir.model.r4.serializers.PlanDefinitionSerializer
 import com.google.fhir.model.r4.serializers.PlanDefinitionSubjectSerializer
+import com.google.fhir.model.r4.terminologies.PublicationStatus
 import kotlin.Suppress
 import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName

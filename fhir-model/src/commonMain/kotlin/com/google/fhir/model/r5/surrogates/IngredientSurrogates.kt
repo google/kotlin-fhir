@@ -64,7 +64,7 @@ internal data class IngredientManufacturerSurrogate(
       role =
         this@IngredientManufacturerSurrogate.role?.let {
           Enumeration.of(
-            com.google.fhir.model.r5.IngredientManufacturerRole.fromCode(it!!),
+            com.google.fhir.model.r5.terminologies.IngredientManufacturerRole.fromCode(it!!),
             this@IngredientManufacturerSurrogate._role,
           )
         },
@@ -364,7 +364,9 @@ internal data class IngredientSurrogate(
       identifier = this@IngredientSurrogate.identifier,
       status =
         Enumeration.of(
-          com.google.fhir.model.r5.PublicationStatus.fromCode(this@IngredientSurrogate.status!!),
+          com.google.fhir.model.r5.terminologies.PublicationStatus.fromCode(
+            this@IngredientSurrogate.status!!
+          ),
           this@IngredientSurrogate._status,
         ),
       `for` = this@IngredientSurrogate.`for` ?: mutableListOf(),

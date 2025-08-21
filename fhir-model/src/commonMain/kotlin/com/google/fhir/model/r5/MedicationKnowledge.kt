@@ -184,7 +184,7 @@ public data class MedicationKnowledge(
    * part of a particular formulary. It is possible that the drug record may be referenced by
    * multiple formularies or catalogues and each of those entries would have a separate status.
    */
-  public var status: Enumeration<MedicationKnowledgeStatus>? = null,
+  public var status: Enumeration<MedicationKnowledgeStatusCodes>? = null,
   /** The creator or owner of the knowledge or information about the medication. */
   public var author: Reference? = null,
   /**
@@ -1380,7 +1380,7 @@ public data class MedicationKnowledge(
   }
 
   /** MedicationKnowledge Status Codes */
-  public enum class MedicationKnowledgeStatus(
+  public enum class MedicationKnowledgeStatusCodes(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
@@ -1402,13 +1402,15 @@ public data class MedicationKnowledge(
     public fun getDisplay(): kotlin.String? = display
 
     public companion object {
-      public fun fromCode(code: kotlin.String): MedicationKnowledgeStatus =
+      public fun fromCode(code: kotlin.String): MedicationKnowledgeStatusCodes =
         when (code) {
           "active" -> Active
           "entered-in-error" -> Entered_In_Error
           "inactive" -> Inactive
           else ->
-            throw IllegalArgumentException("Unknown code $code for enum MedicationKnowledgeStatus")
+            throw IllegalArgumentException(
+              "Unknown code $code for enum MedicationKnowledgeStatusCodes"
+            )
         }
     }
   }

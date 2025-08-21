@@ -38,6 +38,7 @@ import com.google.fhir.model.r5.serializers.CitationSerializer
 import com.google.fhir.model.r5.serializers.CitationStatusDateSerializer
 import com.google.fhir.model.r5.serializers.CitationSummarySerializer
 import com.google.fhir.model.r5.serializers.CitationVersionAlgorithmSerializer
+import com.google.fhir.model.r5.terminologies.PublicationStatus
 import kotlin.Suppress
 import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName

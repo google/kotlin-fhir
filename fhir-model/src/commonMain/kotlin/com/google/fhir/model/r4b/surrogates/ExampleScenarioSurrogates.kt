@@ -232,7 +232,7 @@ internal data class ExampleScenarioInstanceSurrogate(
         )!!,
       resourceType =
         Enumeration.of(
-          com.google.fhir.model.r4b.FHIRResourceType.fromCode(
+          com.google.fhir.model.r4b.terminologies.ResourceType.fromCode(
             this@ExampleScenarioInstanceSurrogate.resourceType!!
           ),
           this@ExampleScenarioInstanceSurrogate._resourceType,
@@ -598,7 +598,7 @@ internal data class ExampleScenarioSurrogate(
       name = R4bString.of(this@ExampleScenarioSurrogate.name, this@ExampleScenarioSurrogate._name),
       status =
         Enumeration.of(
-          com.google.fhir.model.r4b.PublicationStatus.fromCode(
+          com.google.fhir.model.r4b.terminologies.PublicationStatus.fromCode(
             this@ExampleScenarioSurrogate.status!!
           ),
           this@ExampleScenarioSurrogate._status,

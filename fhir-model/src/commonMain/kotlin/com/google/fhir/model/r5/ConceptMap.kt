@@ -32,6 +32,8 @@ import com.google.fhir.model.r5.serializers.ConceptMapSerializer
 import com.google.fhir.model.r5.serializers.ConceptMapSourceScopeSerializer
 import com.google.fhir.model.r5.serializers.ConceptMapTargetScopeSerializer
 import com.google.fhir.model.r5.serializers.ConceptMapVersionAlgorithmSerializer
+import com.google.fhir.model.r5.terminologies.ConceptMapRelationship
+import com.google.fhir.model.r5.terminologies.PublicationStatus
 import kotlin.Suppress
 import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
@@ -490,7 +492,7 @@ public data class ConceptMap(
     /** A description of the property - why it is defined, and how its value might be used. */
     public var description: String? = null,
     /** The type of the property value. */
-    public var type: Enumeration<PropertyType>,
+    public var type: Enumeration<ConceptMapPropertyType>,
     /**
      * The CodeSystem that defines the codes from which values of type ```code``` in property
      * values.
@@ -567,7 +569,7 @@ public data class ConceptMap(
      * When the source or target is not content defined by FHIR, some additional application logic
      * might be required to map from the FHIR Datatype to the externally defined content
      */
-    public var type: Enumeration<ConceptMapmapAttributeType>,
+    public var type: Enumeration<ConceptMapAttributeType>,
   ) : BackboneElement()
 
   /** A group of mappings that all have the same source and target system. */
@@ -1081,7 +1083,7 @@ public data class ConceptMap(
        *
        * This element is labeled as a modifier because it may indicate that there is no mapping.
        */
-      public var relationship: Enumeration<UnmappedConceptMapRelationship>? = null,
+      public var relationship: Enumeration<ConceptMapRelationship>? = null,
       /**
        * The canonical reference to an additional ConceptMap resource instance to use for mapping if
        * this ConceptMap resource contains no matching mapping for the source concept.
@@ -1161,7 +1163,7 @@ public data class ConceptMap(
   }
 
   /** The type of a ConceptMap mapping property value. */
-  public enum class PropertyType(
+  public enum class ConceptMapPropertyType(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
@@ -1183,7 +1185,7 @@ public data class ConceptMap(
     public fun getDisplay(): kotlin.String? = display
 
     public companion object {
-      public fun fromCode(code: kotlin.String): PropertyType =
+      public fun fromCode(code: kotlin.String): ConceptMapPropertyType =
         when (code) {
           "Coding" -> Coding
           "string" -> String
@@ -1192,13 +1194,14 @@ public data class ConceptMap(
           "dateTime" -> DateTime
           "decimal" -> Decimal
           "code" -> Code
-          else -> throw IllegalArgumentException("Unknown code $code for enum PropertyType")
+          else ->
+            throw IllegalArgumentException("Unknown code $code for enum ConceptMapPropertyType")
         }
     }
   }
 
   /** The type of a ConceptMap mapping attribute value. */
-  public enum class ConceptMapmapAttributeType(
+  public enum class ConceptMapAttributeType(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
@@ -1218,7 +1221,7 @@ public data class ConceptMap(
     public fun getDisplay(): kotlin.String? = display
 
     public companion object {
-      public fun fromCode(code: kotlin.String): ConceptMapmapAttributeType =
+      public fun fromCode(code: kotlin.String): ConceptMapAttributeType =
         when (code) {
           "code" -> Code
           "Coding" -> Coding
@@ -1226,7 +1229,7 @@ public data class ConceptMap(
           "boolean" -> Boolean
           "Quantity" -> Quantity
           else ->
-            throw IllegalArgumentException("Unknown code $code for enum ConceptMapmapAttributeType")
+            throw IllegalArgumentException("Unknown code $code for enum ConceptMapAttributeType")
         }
     }
   }

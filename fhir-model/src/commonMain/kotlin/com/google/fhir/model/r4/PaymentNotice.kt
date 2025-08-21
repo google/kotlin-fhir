@@ -136,7 +136,7 @@ public data class PaymentNotice(
    * This element is labeled as a modifier because the status contains codes that mark the resource
    * as not currently valid.
    */
-  public var status: Enumeration<PaymentNoticeStatus>,
+  public var status: Enumeration<FinancialResourceStatusCodes>,
   /** Reference of resource for which payment is being made. */
   public var request: Reference? = null,
   /** Reference of response to resource for which payment is being made. */
@@ -165,7 +165,7 @@ public data class PaymentNotice(
   public var paymentStatus: CodeableConcept? = null,
 ) : DomainResource() {
   /** This value set includes Status codes. */
-  public enum class PaymentNoticeStatus(
+  public enum class FinancialResourceStatusCodes(
     private val code: String,
     private val system: String,
     private val display: String?,
@@ -184,13 +184,16 @@ public data class PaymentNotice(
     public fun getDisplay(): String? = display
 
     public companion object {
-      public fun fromCode(code: String): PaymentNoticeStatus =
+      public fun fromCode(code: String): FinancialResourceStatusCodes =
         when (code) {
           "active" -> Active
           "cancelled" -> Cancelled
           "draft" -> Draft
           "entered-in-error" -> Entered_In_Error
-          else -> throw IllegalArgumentException("Unknown code $code for enum PaymentNoticeStatus")
+          else ->
+            throw IllegalArgumentException(
+              "Unknown code $code for enum FinancialResourceStatusCodes"
+            )
         }
     }
   }

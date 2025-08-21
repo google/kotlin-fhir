@@ -1693,7 +1693,7 @@ internal data class ExplanationOfBenefitProcessNoteSurrogate(
       type =
         this@ExplanationOfBenefitProcessNoteSurrogate.type?.let {
           Enumeration.of(
-            com.google.fhir.model.r4b.NoteType.fromCode(it!!),
+            com.google.fhir.model.r4b.terminologies.NoteType.fromCode(it!!),
             this@ExplanationOfBenefitProcessNoteSurrogate._type,
           )
         },
@@ -2022,7 +2022,7 @@ internal data class ExplanationOfBenefitSurrogate(
       claimResponse = this@ExplanationOfBenefitSurrogate.claimResponse,
       outcome =
         Enumeration.of(
-          com.google.fhir.model.r4b.RemittanceOutcome.fromCode(
+          com.google.fhir.model.r4b.terminologies.RemittanceOutcome.fromCode(
             this@ExplanationOfBenefitSurrogate.outcome!!
           ),
           this@ExplanationOfBenefitSurrogate._outcome,

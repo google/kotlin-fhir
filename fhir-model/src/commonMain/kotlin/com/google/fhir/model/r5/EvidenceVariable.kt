@@ -30,6 +30,7 @@ import com.google.fhir.model.r5.serializers.EvidenceVariableCharacteristicTimeFr
 import com.google.fhir.model.r5.serializers.EvidenceVariableCharacteristicTimeFromEventSerializer
 import com.google.fhir.model.r5.serializers.EvidenceVariableSerializer
 import com.google.fhir.model.r5.serializers.EvidenceVariableVersionAlgorithmSerializer
+import com.google.fhir.model.r5.terminologies.PublicationStatus
 import kotlin.Suppress
 import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName

@@ -26,14 +26,8 @@ import com.squareup.kotlinpoet.asTypeName
 const val ELEMENT_IS_COMMON_BINDING_EXTENSION_URL =
   "http://hl7.org/fhir/StructureDefinition/elementdefinition-isCommonBinding"
 
-const val ELEMENT_DEFINITION_BINDING_NAME_EXTENSION_URL =
-  "http://hl7.org/fhir/StructureDefinition/elementdefinition-bindingName"
-
 val Element.isCommonBinding
   get() = getExtension(ELEMENT_IS_COMMON_BINDING_EXTENSION_URL)?.valueBoolean == true
-
-val Element.bidingName
-  get() = getExtension(ELEMENT_DEFINITION_BINDING_NAME_EXTENSION_URL)?.valueString
 
 /**
  * Determines if an [Element] is a BackboneElement.
@@ -78,11 +72,7 @@ internal fun Element.typeIsEnumeratedCode(valueSetMap: Map<String, ValueSet>): B
   return valueSetMap.containsKey(getValueSetUrl()) &&
     base?.path?.startsWith("Resource.") != true &&
     base?.path?.startsWith("CanonicalResource.") != true &&
-    this.type?.count { it.code.equals("code", ignoreCase = true) } == 1 &&
-    !this.getExtension(ELEMENT_DEFINITION_BINDING_NAME_EXTENSION_URL)
-      ?.valueString
-      ?.normalizeEnumName()
-      .isNullOrBlank()
+    this.type?.count { it.code.equals("code", ignoreCase = true) } == 1
 }
 
 internal fun Element.getElementName() = path.substringAfterLast('.').removeSuffix("[x]")
@@ -91,21 +81,27 @@ internal fun Element.getElementName() = path.substringAfterLast('.').removeSuffi
  * Substitutes the primitive type of code with an `Enumeration` type if the values for the code are
  * constrained to a set of values.
  */
-internal fun Element.getEnumerationTypeName(modelClassName: ClassName): TypeName {
+internal fun Element.getEnumerationTypeName(
+  modelClassName: ClassName,
+  valueSetMap: Map<String, ValueSet>,
+): TypeName {
   val elementBasePath = base?.path
-  // Use bindingName for the enum class, subclasses re-use enums from the parent
-  val bindingNameString = this.bidingName!!.normalizeEnumName()
-
+  // Use the ValueSet.name for the enum class, subclasses re-use enums from the parent
+  val valueSetName = valueSetMap.getValue(this.getValueSetUrl()!!).name.normalizeEnumName()
   val enumClassName =
     if (path == elementBasePath) {
-      bindingNameString
+      valueSetName
     } else {
       // In rare cases, refer to the base enum, e.g., Distance.comparator and Quantity.comparator
-      "${elementBasePath?.substringBefore(".") ?: ""}.$bindingNameString"
+      "${elementBasePath?.substringBefore(".") ?: ""}.$valueSetName"
     }
 
   val enumClassPackageName =
-    if (this.isCommonBinding || enumClassName.contains(".")) modelClassName.packageName else ""
+    when {
+      this.isCommonBinding -> modelClassName.packageName + ".terminologies"
+      enumClassName.contains(".") -> modelClassName.packageName
+      else -> ""
+    }
 
   val enumClass = ClassName(enumClassPackageName, enumClassName)
   return ClassName(modelClassName.packageName, "Enumeration")

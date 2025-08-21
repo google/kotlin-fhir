@@ -1026,7 +1026,9 @@ internal data class ClaimSurrogate(
       identifier = this@ClaimSurrogate.identifier ?: mutableListOf(),
       status =
         Enumeration.of(
-          com.google.fhir.model.r4.Claim.ClaimStatus.fromCode(this@ClaimSurrogate.status!!),
+          com.google.fhir.model.r4.Claim.FinancialResourceStatusCodes.fromCode(
+            this@ClaimSurrogate.status!!
+          ),
           this@ClaimSurrogate._status,
         ),
       type = this@ClaimSurrogate.type,

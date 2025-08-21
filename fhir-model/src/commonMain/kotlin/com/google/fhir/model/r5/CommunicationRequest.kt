@@ -170,7 +170,7 @@ public data class CommunicationRequest(
    */
   public var groupIdentifier: Identifier? = null,
   /** The status of the proposal or order. */
-  public var status: Enumeration<CommunicationRequestStatus>,
+  public var status: Enumeration<RequestStatus>,
   /**
    * Captures the reason for the current state of the CommunicationRequest.
    *
@@ -191,7 +191,7 @@ public data class CommunicationRequest(
    * "filler-order". Or, in rarer cases (to meet recipient constraints), the reverse might also
    * occur.
    */
-  public var intent: Enumeration<CommunicationRequestIntent>,
+  public var intent: Enumeration<RequestIntent>,
   /**
    * The type of message to be sent such as alert, notification, reminder, instruction, etc.
    *
@@ -203,7 +203,7 @@ public data class CommunicationRequest(
    * Characterizes how quickly the proposed act must be initiated. Includes concepts such as stat,
    * urgent, routine.
    */
-  public var priority: Enumeration<CommunicationPriority>? = null,
+  public var priority: Enumeration<RequestPriority>? = null,
   /**
    * If true indicates that the CommunicationRequest is asking for the specified action to *not*
    * occur.
@@ -376,7 +376,7 @@ public data class CommunicationRequest(
   }
 
   /** Codes identifying the lifecycle stage of a request. */
-  public enum class CommunicationRequestStatus(
+  public enum class RequestStatus(
     private val code: String,
     private val system: String,
     private val display: String?,
@@ -398,7 +398,7 @@ public data class CommunicationRequest(
     public fun getDisplay(): String? = display
 
     public companion object {
-      public fun fromCode(code: String): CommunicationRequestStatus =
+      public fun fromCode(code: String): RequestStatus =
         when (code) {
           "draft" -> Draft
           "active" -> Active
@@ -407,14 +407,13 @@ public data class CommunicationRequest(
           "completed" -> Completed
           "entered-in-error" -> Entered_In_Error
           "unknown" -> Unknown
-          else ->
-            throw IllegalArgumentException("Unknown code $code for enum CommunicationRequestStatus")
+          else -> throw IllegalArgumentException("Unknown code $code for enum RequestStatus")
         }
     }
   }
 
   /** Codes indicating the degree of authority/intentionality associated with a request. */
-  public enum class CommunicationRequestIntent(
+  public enum class RequestIntent(
     private val code: String,
     private val system: String,
     private val display: String?,
@@ -438,7 +437,7 @@ public data class CommunicationRequest(
     public fun getDisplay(): String? = display
 
     public companion object {
-      public fun fromCode(code: String): CommunicationRequestIntent =
+      public fun fromCode(code: String): RequestIntent =
         when (code) {
           "proposal" -> Proposal
           "plan" -> Plan
@@ -449,14 +448,13 @@ public data class CommunicationRequest(
           "filler-order" -> Filler_Order
           "instance-order" -> Instance_Order
           "option" -> Option
-          else ->
-            throw IllegalArgumentException("Unknown code $code for enum CommunicationRequestIntent")
+          else -> throw IllegalArgumentException("Unknown code $code for enum RequestIntent")
         }
     }
   }
 
   /** Identifies the level of importance to be assigned to actioning the request. */
-  public enum class CommunicationPriority(
+  public enum class RequestPriority(
     private val code: String,
     private val system: String,
     private val display: String?,
@@ -475,14 +473,13 @@ public data class CommunicationRequest(
     public fun getDisplay(): String? = display
 
     public companion object {
-      public fun fromCode(code: String): CommunicationPriority =
+      public fun fromCode(code: String): RequestPriority =
         when (code) {
           "routine" -> Routine
           "urgent" -> Urgent
           "asap" -> Asap
           "stat" -> Stat
-          else ->
-            throw IllegalArgumentException("Unknown code $code for enum CommunicationPriority")
+          else -> throw IllegalArgumentException("Unknown code $code for enum RequestPriority")
         }
     }
   }

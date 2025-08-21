@@ -148,7 +148,7 @@ public data class Permission(
    * see
    * [XACML Combining Rules](http://docs.oasis-open.org/xacml/3.0/xacml-3.0-core-spec-cos01-en.html#_Toc325047267)
    */
-  public var combining: Enumeration<PermissionCombining>,
+  public var combining: Enumeration<PermissionRuleCombining>,
   /** A set of rules. */
   public var rule: MutableList<Rule> = mutableListOf(),
 ) : DomainResource() {
@@ -247,7 +247,7 @@ public data class Permission(
      */
     override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** deny | permit. */
-    public var type: Enumeration<PermissionProvisionType>? = null,
+    public var type: Enumeration<ConsentProvisionType>? = null,
     /** A description or definition of which activities are allowed to be done on the data. */
     public var `data`: MutableList<Data> = mutableListOf(),
     /** A description or definition of which activities are allowed to be done on the data. */
@@ -424,7 +424,7 @@ public data class Permission(
   }
 
   /** How a rule statement is applied, such as adding additional consent or removing consent. */
-  public enum class PermissionProvisionType(
+  public enum class ConsentProvisionType(
     private val code: String,
     private val system: String,
     private val display: String?,
@@ -441,12 +441,11 @@ public data class Permission(
     public fun getDisplay(): String? = display
 
     public companion object {
-      public fun fromCode(code: String): PermissionProvisionType =
+      public fun fromCode(code: String): ConsentProvisionType =
         when (code) {
           "deny" -> Deny
           "permit" -> Permit
-          else ->
-            throw IllegalArgumentException("Unknown code $code for enum PermissionProvisionType")
+          else -> throw IllegalArgumentException("Unknown code $code for enum ConsentProvisionType")
         }
     }
   }
@@ -518,7 +517,7 @@ public data class Permission(
   }
 
   /** Codes identifying rule combining algorithm. */
-  public enum class PermissionCombining(
+  public enum class PermissionRuleCombining(
     private val code: String,
     private val system: String,
     private val display: String?,
@@ -563,7 +562,7 @@ public data class Permission(
     public fun getDisplay(): String? = display
 
     public companion object {
-      public fun fromCode(code: String): PermissionCombining =
+      public fun fromCode(code: String): PermissionRuleCombining =
         when (code) {
           "deny-overrides" -> Deny_Overrides
           "permit-overrides" -> Permit_Overrides
@@ -571,7 +570,8 @@ public data class Permission(
           "ordered-permit-overrides" -> Ordered_Permit_Overrides
           "deny-unless-permit" -> Deny_Unless_Permit
           "permit-unless-deny" -> Permit_Unless_Deny
-          else -> throw IllegalArgumentException("Unknown code $code for enum PermissionCombining")
+          else ->
+            throw IllegalArgumentException("Unknown code $code for enum PermissionRuleCombining")
         }
     }
   }

@@ -88,7 +88,7 @@ internal data class ConceptMapPropertySurrogate(
         ),
       type =
         Enumeration.of(
-          com.google.fhir.model.r5.ConceptMap.PropertyType.fromCode(
+          com.google.fhir.model.r5.ConceptMap.ConceptMapPropertyType.fromCode(
             this@ConceptMapPropertySurrogate.type!!
           ),
           this@ConceptMapPropertySurrogate._type,
@@ -159,7 +159,7 @@ internal data class ConceptMapAdditionalAttributeSurrogate(
         ),
       type =
         Enumeration.of(
-          com.google.fhir.model.r5.ConceptMap.ConceptMapmapAttributeType.fromCode(
+          com.google.fhir.model.r5.ConceptMap.ConceptMapAttributeType.fromCode(
             this@ConceptMapAdditionalAttributeSurrogate.type!!
           ),
           this@ConceptMapAdditionalAttributeSurrogate._type,
@@ -438,7 +438,7 @@ internal data class ConceptMapGroupElementTargetSurrogate(
         ),
       relationship =
         Enumeration.of(
-          com.google.fhir.model.r5.ConceptMapRelationship.fromCode(
+          com.google.fhir.model.r5.terminologies.ConceptMapRelationship.fromCode(
             this@ConceptMapGroupElementTargetSurrogate.relationship!!
           ),
           this@ConceptMapGroupElementTargetSurrogate._relationship,
@@ -593,7 +593,7 @@ internal data class ConceptMapGroupUnmappedSurrogate(
       relationship =
         this@ConceptMapGroupUnmappedSurrogate.relationship?.let {
           Enumeration.of(
-            com.google.fhir.model.r5.UnmappedConceptMapRelationship.fromCode(it!!),
+            com.google.fhir.model.r5.terminologies.ConceptMapRelationship.fromCode(it!!),
             this@ConceptMapGroupUnmappedSurrogate._relationship,
           )
         },
@@ -839,7 +839,9 @@ internal data class ConceptMapSurrogate(
       title = R5String.of(this@ConceptMapSurrogate.title, this@ConceptMapSurrogate._title),
       status =
         Enumeration.of(
-          com.google.fhir.model.r5.PublicationStatus.fromCode(this@ConceptMapSurrogate.status!!),
+          com.google.fhir.model.r5.terminologies.PublicationStatus.fromCode(
+            this@ConceptMapSurrogate.status!!
+          ),
           this@ConceptMapSurrogate._status,
         ),
       experimental =

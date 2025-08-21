@@ -132,7 +132,7 @@ public data class SubscriptionStatus(
    */
   override var modifierExtension: MutableList<Extension> = mutableListOf(),
   /** The status of the subscription, which marks the server state for managing the subscription. */
-  public var status: Enumeration<SubscriptionStatus>? = null,
+  public var status: Enumeration<SubscriptionStatusCodes>? = null,
   /** The type of event being conveyed with this notification. */
   public var type: Enumeration<SubscriptionNotificationType>,
   /**
@@ -225,7 +225,7 @@ public data class SubscriptionStatus(
   ) : BackboneElement()
 
   /** State values for FHIR Subscriptions. */
-  public enum class SubscriptionStatus(
+  public enum class SubscriptionStatusCodes(
     private val code: String,
     private val system: String,
     private val display: String?,
@@ -249,14 +249,15 @@ public data class SubscriptionStatus(
     public fun getDisplay(): String? = display
 
     public companion object {
-      public fun fromCode(code: String): SubscriptionStatus =
+      public fun fromCode(code: String): SubscriptionStatusCodes =
         when (code) {
           "requested" -> Requested
           "active" -> Active
           "error" -> Error
           "off" -> Off
           "entered-in-error" -> Entered_In_Error
-          else -> throw IllegalArgumentException("Unknown code $code for enum SubscriptionStatus")
+          else ->
+            throw IllegalArgumentException("Unknown code $code for enum SubscriptionStatusCodes")
         }
     }
   }

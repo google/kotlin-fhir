@@ -23,6 +23,11 @@ import com.google.fhir.model.r4.serializers.OperationDefinitionParameterBindingS
 import com.google.fhir.model.r4.serializers.OperationDefinitionParameterReferencedFromSerializer
 import com.google.fhir.model.r4.serializers.OperationDefinitionParameterSerializer
 import com.google.fhir.model.r4.serializers.OperationDefinitionSerializer
+import com.google.fhir.model.r4.terminologies.BindingStrength
+import com.google.fhir.model.r4.terminologies.FHIRAllTypes
+import com.google.fhir.model.r4.terminologies.PublicationStatus
+import com.google.fhir.model.r4.terminologies.ResourceType
+import com.google.fhir.model.r4.terminologies.SearchParamType
 import kotlin.Suppress
 import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName

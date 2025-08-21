@@ -79,7 +79,7 @@ internal data class GraphDefinitionLinkTargetCompartmentSurrogate(
         ),
       code =
         Enumeration.of(
-          com.google.fhir.model.r4b.GraphDefinition.CompartmentCode.fromCode(
+          com.google.fhir.model.r4b.GraphDefinition.CompartmentType.fromCode(
             this@GraphDefinitionLinkTargetCompartmentSurrogate.code!!
           ),
           this@GraphDefinitionLinkTargetCompartmentSurrogate._code,
@@ -149,7 +149,7 @@ internal data class GraphDefinitionLinkTargetSurrogate(
         this@GraphDefinitionLinkTargetSurrogate.modifierExtension ?: mutableListOf(),
       type =
         Enumeration.of(
-          com.google.fhir.model.r4b.ResourceType.fromCode(
+          com.google.fhir.model.r4b.terminologies.ResourceType.fromCode(
             this@GraphDefinitionLinkTargetSurrogate.type!!
           ),
           this@GraphDefinitionLinkTargetSurrogate._type,
@@ -316,7 +316,7 @@ internal data class GraphDefinitionSurrogate(
         R4bString.of(this@GraphDefinitionSurrogate.name, this@GraphDefinitionSurrogate._name)!!,
       status =
         Enumeration.of(
-          com.google.fhir.model.r4b.PublicationStatus.fromCode(
+          com.google.fhir.model.r4b.terminologies.PublicationStatus.fromCode(
             this@GraphDefinitionSurrogate.status!!
           ),
           this@GraphDefinitionSurrogate._status,
@@ -348,7 +348,9 @@ internal data class GraphDefinitionSurrogate(
         Markdown.of(this@GraphDefinitionSurrogate.purpose, this@GraphDefinitionSurrogate._purpose),
       start =
         Enumeration.of(
-          com.google.fhir.model.r4b.ResourceType.fromCode(this@GraphDefinitionSurrogate.start!!),
+          com.google.fhir.model.r4b.terminologies.ResourceType.fromCode(
+            this@GraphDefinitionSurrogate.start!!
+          ),
           this@GraphDefinitionSurrogate._start,
         ),
       profile =

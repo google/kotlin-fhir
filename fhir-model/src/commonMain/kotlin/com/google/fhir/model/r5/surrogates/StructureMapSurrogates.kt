@@ -827,7 +827,9 @@ internal data class StructureMapSurrogate(
       title = R5String.of(this@StructureMapSurrogate.title, this@StructureMapSurrogate._title),
       status =
         Enumeration.of(
-          com.google.fhir.model.r5.PublicationStatus.fromCode(this@StructureMapSurrogate.status!!),
+          com.google.fhir.model.r5.terminologies.PublicationStatus.fromCode(
+            this@StructureMapSurrogate.status!!
+          ),
           this@StructureMapSurrogate._status,
         ),
       experimental =

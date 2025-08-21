@@ -21,6 +21,7 @@ package com.google.fhir.model.r5
 import com.google.fhir.model.r5.serializers.LibrarySerializer
 import com.google.fhir.model.r5.serializers.LibrarySubjectSerializer
 import com.google.fhir.model.r5.serializers.LibraryVersionAlgorithmSerializer
+import com.google.fhir.model.r5.terminologies.PublicationStatus
 import kotlin.Suppress
 import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName

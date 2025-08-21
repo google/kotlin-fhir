@@ -796,7 +796,7 @@ internal data class ElementDefinitionBindingAdditionalSurrogate(
       extension = this@ElementDefinitionBindingAdditionalSurrogate.extension ?: mutableListOf(),
       purpose =
         Enumeration.of(
-          com.google.fhir.model.r5.ElementDefinition.AdditionalBindingPurpose.fromCode(
+          com.google.fhir.model.r5.ElementDefinition.AdditionalBindingPurposeVS.fromCode(
             this@ElementDefinitionBindingAdditionalSurrogate.purpose!!
           ),
           this@ElementDefinitionBindingAdditionalSurrogate._purpose,
@@ -866,7 +866,7 @@ internal data class ElementDefinitionBindingSurrogate(
       extension = this@ElementDefinitionBindingSurrogate.extension ?: mutableListOf(),
       strength =
         Enumeration.of(
-          com.google.fhir.model.r5.BindingStrength.fromCode(
+          com.google.fhir.model.r5.terminologies.BindingStrength.fromCode(
             this@ElementDefinitionBindingSurrogate.strength!!
           ),
           this@ElementDefinitionBindingSurrogate._strength,

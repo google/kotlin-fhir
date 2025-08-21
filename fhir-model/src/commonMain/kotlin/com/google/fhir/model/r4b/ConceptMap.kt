@@ -26,6 +26,8 @@ import com.google.fhir.model.r4b.serializers.ConceptMapGroupUnmappedSerializer
 import com.google.fhir.model.r4b.serializers.ConceptMapSerializer
 import com.google.fhir.model.r4b.serializers.ConceptMapSourceSerializer
 import com.google.fhir.model.r4b.serializers.ConceptMapTargetSerializer
+import com.google.fhir.model.r4b.terminologies.ConceptMapEquivalence
+import com.google.fhir.model.r4b.terminologies.PublicationStatus
 import kotlin.Suppress
 import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName

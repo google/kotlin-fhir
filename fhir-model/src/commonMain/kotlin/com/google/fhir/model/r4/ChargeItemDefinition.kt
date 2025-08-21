@@ -22,6 +22,7 @@ import com.google.fhir.model.r4.serializers.ChargeItemDefinitionApplicabilitySer
 import com.google.fhir.model.r4.serializers.ChargeItemDefinitionPropertyGroupPriceComponentSerializer
 import com.google.fhir.model.r4.serializers.ChargeItemDefinitionPropertyGroupSerializer
 import com.google.fhir.model.r4.serializers.ChargeItemDefinitionSerializer
+import com.google.fhir.model.r4.terminologies.PublicationStatus
 import kotlin.Suppress
 import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
@@ -492,7 +493,7 @@ public data class ChargeItemDefinition(
        */
       override var modifierExtension: MutableList<Extension> = mutableListOf(),
       /** This code identifies the type of the component. */
-      public var type: Enumeration<ChargeItemDefinitionPriceComponentType>,
+      public var type: Enumeration<InvoicePriceComponentType>,
       /**
        * A code that identifies the component. Codes may be used to differentiate between kinds of
        * taxes, surcharges, discounts etc.
@@ -506,7 +507,7 @@ public data class ChargeItemDefinition(
   }
 
   /** Codes indicating the kind of the price component. */
-  public enum class ChargeItemDefinitionPriceComponentType(
+  public enum class InvoicePriceComponentType(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
@@ -531,7 +532,7 @@ public data class ChargeItemDefinition(
     public fun getDisplay(): kotlin.String? = display
 
     public companion object {
-      public fun fromCode(code: kotlin.String): ChargeItemDefinitionPriceComponentType =
+      public fun fromCode(code: kotlin.String): InvoicePriceComponentType =
         when (code) {
           "base" -> Base
           "surcharge" -> Surcharge
@@ -540,9 +541,7 @@ public data class ChargeItemDefinition(
           "tax" -> Tax
           "informational" -> Informational
           else ->
-            throw IllegalArgumentException(
-              "Unknown code $code for enum ChargeItemDefinitionPriceComponentType"
-            )
+            throw IllegalArgumentException("Unknown code $code for enum InvoicePriceComponentType")
         }
     }
   }

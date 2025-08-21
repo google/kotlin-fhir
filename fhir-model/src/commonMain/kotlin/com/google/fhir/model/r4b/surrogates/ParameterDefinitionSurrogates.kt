@@ -63,7 +63,7 @@ internal data class ParameterDefinitionSurrogate(
         Code.of(this@ParameterDefinitionSurrogate.name, this@ParameterDefinitionSurrogate._name),
       use =
         Enumeration.of(
-          com.google.fhir.model.r4b.ParameterDefinition.ParameterUse.fromCode(
+          com.google.fhir.model.r4b.ParameterDefinition.OperationParameterUse.fromCode(
             this@ParameterDefinitionSurrogate.use!!
           ),
           this@ParameterDefinitionSurrogate._use,
@@ -79,7 +79,9 @@ internal data class ParameterDefinitionSurrogate(
         ),
       type =
         Enumeration.of(
-          com.google.fhir.model.r4b.FHIRAllTypes.fromCode(this@ParameterDefinitionSurrogate.type!!),
+          com.google.fhir.model.r4b.terminologies.FHIRAllTypes.fromCode(
+            this@ParameterDefinitionSurrogate.type!!
+          ),
           this@ParameterDefinitionSurrogate._type,
         ),
       profile =

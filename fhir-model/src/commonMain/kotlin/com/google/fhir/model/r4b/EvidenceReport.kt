@@ -26,6 +26,7 @@ import com.google.fhir.model.r4b.serializers.EvidenceReportSerializer
 import com.google.fhir.model.r4b.serializers.EvidenceReportSubjectCharacteristicSerializer
 import com.google.fhir.model.r4b.serializers.EvidenceReportSubjectCharacteristicValueSerializer
 import com.google.fhir.model.r4b.serializers.EvidenceReportSubjectSerializer
+import com.google.fhir.model.r4b.terminologies.PublicationStatus
 import kotlin.Suppress
 import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
@@ -575,7 +576,7 @@ public data class EvidenceReport(
      * This element is labeled as a modifier because a change list must not be misunderstood as a
      * complete list.
      */
-    public var mode: Enumeration<SectionMode>? = null,
+    public var mode: Enumeration<ListMode>? = null,
     /**
      * Specifies the order applied to the items in the section entries.
      *
@@ -680,7 +681,7 @@ public data class EvidenceReport(
   }
 
   /** The processing mode that applies to this list. */
-  public enum class SectionMode(
+  public enum class ListMode(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
@@ -698,12 +699,12 @@ public data class EvidenceReport(
     public fun getDisplay(): kotlin.String? = display
 
     public companion object {
-      public fun fromCode(code: kotlin.String): SectionMode =
+      public fun fromCode(code: kotlin.String): ListMode =
         when (code) {
           "working" -> Working
           "snapshot" -> Snapshot
           "changes" -> Changes
-          else -> throw IllegalArgumentException("Unknown code $code for enum SectionMode")
+          else -> throw IllegalArgumentException("Unknown code $code for enum ListMode")
         }
     }
   }

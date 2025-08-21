@@ -341,7 +341,9 @@ internal data class IngredientSurrogate(
       identifier = this@IngredientSurrogate.identifier,
       status =
         Enumeration.of(
-          com.google.fhir.model.r4b.PublicationStatus.fromCode(this@IngredientSurrogate.status!!),
+          com.google.fhir.model.r4b.terminologies.PublicationStatus.fromCode(
+            this@IngredientSurrogate.status!!
+          ),
           this@IngredientSurrogate._status,
         ),
       `for` = this@IngredientSurrogate.`for` ?: mutableListOf(),

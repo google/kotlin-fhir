@@ -354,7 +354,13 @@ internal data class SpecimenSurrogate(
         ),
       parent = this@SpecimenSurrogate.parent ?: mutableListOf(),
       request = this@SpecimenSurrogate.request ?: mutableListOf(),
-      combined = Code.of(this@SpecimenSurrogate.combined, this@SpecimenSurrogate._combined),
+      combined =
+        this@SpecimenSurrogate.combined?.let {
+          Enumeration.of(
+            com.google.fhir.model.r5.terminologies.SpecimenCombined.fromCode(it!!),
+            this@SpecimenSurrogate._combined,
+          )
+        },
       role = this@SpecimenSurrogate.role ?: mutableListOf(),
       feature = this@SpecimenSurrogate.feature ?: mutableListOf(),
       collection = this@SpecimenSurrogate.collection,
@@ -388,7 +394,7 @@ internal data class SpecimenSurrogate(
           _receivedTime = this@with.receivedTime?.toElement(),
           parent = this@with.parent.takeUnless { it.all { it == null } },
           request = this@with.request.takeUnless { it.all { it == null } },
-          combined = this@with.combined?.value,
+          combined = this@with.combined?.value?.getCode(),
           _combined = this@with.combined?.toElement(),
           role = this@with.role.takeUnless { it.all { it == null } },
           feature = this@with.feature.takeUnless { it.all { it == null } },

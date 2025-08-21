@@ -171,7 +171,7 @@ public data class AppointmentResponse(
    * This element is labeled as a modifier because the status contains the code entered-in-error
    * that marks the participant as not currently valid.
    */
-  public var participantStatus: Enumeration<ParticipantStatus>,
+  public var participantStatus: Enumeration<ParticipationStatus>,
   /**
    * Additional comments about the appointment.
    *
@@ -181,7 +181,7 @@ public data class AppointmentResponse(
   public var comment: String? = null,
 ) : DomainResource() {
   /** The Participation status of an appointment. */
-  public enum class ParticipantStatus(
+  public enum class ParticipationStatus(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
@@ -200,13 +200,13 @@ public data class AppointmentResponse(
     public fun getDisplay(): kotlin.String? = display
 
     public companion object {
-      public fun fromCode(code: kotlin.String): ParticipantStatus =
+      public fun fromCode(code: kotlin.String): ParticipationStatus =
         when (code) {
           "accepted" -> Accepted
           "declined" -> Declined
           "tentative" -> Tentative
           "needs-action" -> Needs_Action
-          else -> throw IllegalArgumentException("Unknown code $code for enum ParticipantStatus")
+          else -> throw IllegalArgumentException("Unknown code $code for enum ParticipationStatus")
         }
     }
   }

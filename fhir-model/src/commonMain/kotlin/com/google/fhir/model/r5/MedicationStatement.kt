@@ -171,7 +171,7 @@ public data class MedicationStatement(
    * This element is labeled as a modifier because the status contains codes that mark the resource
    * as not currently valid.
    */
-  public var status: Enumeration<MedicationStatementStatus>,
+  public var status: Enumeration<MedicationStatementStatusCodes>,
   /**
    * Type of medication statement (for example, drug classification like ATC, where meds would be
    * administered, legal category of the medication.).
@@ -346,7 +346,7 @@ public data class MedicationStatement(
   }
 
   /** MedicationStatement Status Codes */
-  public enum class MedicationStatementStatus(
+  public enum class MedicationStatementStatusCodes(
     private val code: String,
     private val system: String,
     private val display: String?,
@@ -368,13 +368,15 @@ public data class MedicationStatement(
     public fun getDisplay(): String? = display
 
     public companion object {
-      public fun fromCode(code: String): MedicationStatementStatus =
+      public fun fromCode(code: String): MedicationStatementStatusCodes =
         when (code) {
           "recorded" -> Recorded
           "entered-in-error" -> Entered_In_Error
           "draft" -> Draft
           else ->
-            throw IllegalArgumentException("Unknown code $code for enum MedicationStatementStatus")
+            throw IllegalArgumentException(
+              "Unknown code $code for enum MedicationStatementStatusCodes"
+            )
         }
     }
   }

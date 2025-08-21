@@ -188,9 +188,9 @@ public data class ArtifactAssessment(
   /** A component comment, classifier, or rating of the artifact. */
   public var content: MutableList<Content> = mutableListOf(),
   /** Indicates the workflow status of the comment or change request. */
-  public var workflowStatus: Enumeration<WorkflowStatus>? = null,
+  public var workflowStatus: Enumeration<ArtifactAssessmentWorkflowStatus>? = null,
   /** Indicates the disposition of the responsible party to the comment or change request. */
-  public var disposition: Enumeration<Disposition>? = null,
+  public var disposition: Enumeration<ArtifactAssessmentDisposition>? = null,
 ) : DomainResource() {
   /** A component comment, classifier, or rating of the artifact. */
   @Serializable(with = ArtifactAssessmentContentSerializer::class)
@@ -233,7 +233,7 @@ public data class ArtifactAssessment(
      */
     override var modifierExtension: MutableList<Extension> = mutableListOf(),
     /** The type of information this component of the content represents. */
-    public var informationType: Enumeration<InformationType>? = null,
+    public var informationType: Enumeration<ArtifactAssessmentInformationType>? = null,
     /** A brief summary of the content of this component. */
     public var summary: Markdown? = null,
     /** Indicates what type of content this component represents. */
@@ -314,7 +314,7 @@ public data class ArtifactAssessment(
   }
 
   /** The type of information contained in a component of an artifact assessment. */
-  public enum class InformationType(
+  public enum class ArtifactAssessmentInformationType(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
@@ -343,7 +343,7 @@ public data class ArtifactAssessment(
     public fun getDisplay(): kotlin.String? = display
 
     public companion object {
-      public fun fromCode(code: kotlin.String): InformationType =
+      public fun fromCode(code: kotlin.String): ArtifactAssessmentInformationType =
         when (code) {
           "comment" -> Comment
           "classifier" -> Classifier
@@ -351,7 +351,10 @@ public data class ArtifactAssessment(
           "container" -> Container
           "response" -> Response
           "change-request" -> Change_Request
-          else -> throw IllegalArgumentException("Unknown code $code for enum InformationType")
+          else ->
+            throw IllegalArgumentException(
+              "Unknown code $code for enum ArtifactAssessmentInformationType"
+            )
         }
     }
   }
@@ -361,7 +364,7 @@ public data class ArtifactAssessment(
    * coordinate workflow around the process of accepting and rejecting changes and comments on the
    * artifact.
    */
-  public enum class WorkflowStatus(
+  public enum class ArtifactAssessmentWorkflowStatus(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
@@ -402,7 +405,7 @@ public data class ArtifactAssessment(
     public fun getDisplay(): kotlin.String? = display
 
     public companion object {
-      public fun fromCode(code: kotlin.String): WorkflowStatus =
+      public fun fromCode(code: kotlin.String): ArtifactAssessmentWorkflowStatus =
         when (code) {
           "submitted" -> Submitted
           "triaged" -> Triaged
@@ -414,7 +417,10 @@ public data class ArtifactAssessment(
           "applied" -> Applied
           "published" -> Published
           "entered-in-error" -> Entered_In_Error
-          else -> throw IllegalArgumentException("Unknown code $code for enum WorkflowStatus")
+          else ->
+            throw IllegalArgumentException(
+              "Unknown code $code for enum ArtifactAssessmentWorkflowStatus"
+            )
         }
     }
   }
@@ -424,7 +430,7 @@ public data class ArtifactAssessment(
    * and change requests, to indicate the disposition of the responsible party towards the changes
    * suggested by the comment or change request.
    */
-  public enum class Disposition(
+  public enum class ArtifactAssessmentDisposition(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
@@ -456,14 +462,17 @@ public data class ArtifactAssessment(
     public fun getDisplay(): kotlin.String? = display
 
     public companion object {
-      public fun fromCode(code: kotlin.String): Disposition =
+      public fun fromCode(code: kotlin.String): ArtifactAssessmentDisposition =
         when (code) {
           "unresolved" -> Unresolved
           "not-persuasive" -> Not_Persuasive
           "persuasive" -> Persuasive
           "persuasive-with-modification" -> Persuasive_With_Modification
           "not-persuasive-with-modification" -> Not_Persuasive_With_Modification
-          else -> throw IllegalArgumentException("Unknown code $code for enum Disposition")
+          else ->
+            throw IllegalArgumentException(
+              "Unknown code $code for enum ArtifactAssessmentDisposition"
+            )
         }
     }
   }

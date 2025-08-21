@@ -149,9 +149,9 @@ public data class Coverage(
    * This element is labeled as a modifier because the status contains the code entered-in-error
    * that marks the coverage as not currently valid.
    */
-  public var status: Enumeration<CoverageStatus>,
+  public var status: Enumeration<FinancialResourceStatusCodes>,
   /** The nature of the coverage be it insurance, or cash payment such as self-pay. */
-  public var kind: Enumeration<CoverageKind>,
+  public var kind: Enumeration<Kind>,
   /** Link to the paying party and optionally what specifically they will be responsible to pay. */
   public var paymentBy: MutableList<PaymentBy> = mutableListOf(),
   /**
@@ -505,7 +505,7 @@ public data class Coverage(
   }
 
   /** This value set includes Status codes. */
-  public enum class CoverageStatus(
+  public enum class FinancialResourceStatusCodes(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
@@ -524,19 +524,22 @@ public data class Coverage(
     public fun getDisplay(): kotlin.String? = display
 
     public companion object {
-      public fun fromCode(code: kotlin.String): CoverageStatus =
+      public fun fromCode(code: kotlin.String): FinancialResourceStatusCodes =
         when (code) {
           "active" -> Active
           "cancelled" -> Cancelled
           "draft" -> Draft
           "entered-in-error" -> Entered_In_Error
-          else -> throw IllegalArgumentException("Unknown code $code for enum CoverageStatus")
+          else ->
+            throw IllegalArgumentException(
+              "Unknown code $code for enum FinancialResourceStatusCodes"
+            )
         }
     }
   }
 
   /** The kind of coverage: insurance, selfpay or other. */
-  public enum class CoverageKind(
+  public enum class Kind(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
@@ -554,12 +557,12 @@ public data class Coverage(
     public fun getDisplay(): kotlin.String? = display
 
     public companion object {
-      public fun fromCode(code: kotlin.String): CoverageKind =
+      public fun fromCode(code: kotlin.String): Kind =
         when (code) {
           "insurance" -> Insurance
           "self-pay" -> Self_Pay
           "other" -> Other
-          else -> throw IllegalArgumentException("Unknown code $code for enum CoverageKind")
+          else -> throw IllegalArgumentException("Unknown code $code for enum Kind")
         }
     }
   }

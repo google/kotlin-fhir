@@ -90,7 +90,7 @@ internal data class PaymentNoticeSurrogate(
       identifier = this@PaymentNoticeSurrogate.identifier ?: mutableListOf(),
       status =
         Enumeration.of(
-          com.google.fhir.model.r4b.PaymentNotice.PaymentNoticeStatus.fromCode(
+          com.google.fhir.model.r4b.PaymentNotice.FinancialResourceStatusCodes.fromCode(
             this@PaymentNoticeSurrogate.status!!
           ),
           this@PaymentNoticeSurrogate._status,

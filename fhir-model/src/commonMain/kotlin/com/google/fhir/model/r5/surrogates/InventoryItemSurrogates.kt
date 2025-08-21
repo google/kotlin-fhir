@@ -74,10 +74,12 @@ internal data class InventoryItemNameSurrogate(
       modifierExtension = this@InventoryItemNameSurrogate.modifierExtension ?: mutableListOf(),
       nameType = this@InventoryItemNameSurrogate.nameType,
       language =
-        Code.of(
-          this@InventoryItemNameSurrogate.language,
+        Enumeration.of(
+          com.google.fhir.model.r5.InventoryItem.CommonLanguages.fromCode(
+            this@InventoryItemNameSurrogate.language!!
+          ),
           this@InventoryItemNameSurrogate._language,
-        )!!,
+        ),
       name =
         R5String.of(this@InventoryItemNameSurrogate.name, this@InventoryItemNameSurrogate._name)!!,
     )
@@ -90,7 +92,7 @@ internal data class InventoryItemNameSurrogate(
           extension = this@with.extension.takeUnless { it.all { it == null } },
           modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
           nameType = this@with.nameType,
-          language = this@with.language.value,
+          language = this@with.language.value?.getCode(),
           _language = this@with.language.toElement(),
           name = this@with.name.value,
           _name = this@with.name.toElement(),
@@ -150,10 +152,12 @@ internal data class InventoryItemDescriptionSurrogate(
       modifierExtension =
         this@InventoryItemDescriptionSurrogate.modifierExtension ?: mutableListOf(),
       language =
-        Code.of(
-          this@InventoryItemDescriptionSurrogate.language,
-          this@InventoryItemDescriptionSurrogate._language,
-        ),
+        this@InventoryItemDescriptionSurrogate.language?.let {
+          Enumeration.of(
+            com.google.fhir.model.r5.InventoryItem.CommonLanguages.fromCode(it!!),
+            this@InventoryItemDescriptionSurrogate._language,
+          )
+        },
       description =
         R5String.of(
           this@InventoryItemDescriptionSurrogate.description,
@@ -168,7 +172,7 @@ internal data class InventoryItemDescriptionSurrogate(
           id = this@with.id,
           extension = this@with.extension.takeUnless { it.all { it == null } },
           modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          language = this@with.language?.value,
+          language = this@with.language?.value?.getCode(),
           _language = this@with.language?.toElement(),
           description = this@with.description?.value,
           _description = this@with.description?.toElement(),
@@ -431,7 +435,7 @@ internal data class InventoryItemSurrogate(
       identifier = this@InventoryItemSurrogate.identifier ?: mutableListOf(),
       status =
         Enumeration.of(
-          com.google.fhir.model.r5.InventoryItem.InventoryItemStatus.fromCode(
+          com.google.fhir.model.r5.InventoryItem.InventoryItemStatusCodes.fromCode(
             this@InventoryItemSurrogate.status!!
           ),
           this@InventoryItemSurrogate._status,

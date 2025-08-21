@@ -429,9 +429,8 @@ internal data class CoverageEligibilityResponseSurrogate(
       identifier = this@CoverageEligibilityResponseSurrogate.identifier ?: mutableListOf(),
       status =
         Enumeration.of(
-          com.google.fhir.model.r4b.CoverageEligibilityResponse.EligibilityResponseStatus.fromCode(
-            this@CoverageEligibilityResponseSurrogate.status!!
-          ),
+          com.google.fhir.model.r4b.CoverageEligibilityResponse.FinancialResourceStatusCodes
+            .fromCode(this@CoverageEligibilityResponseSurrogate.status!!),
           this@CoverageEligibilityResponseSurrogate._status,
         ),
       purpose =
@@ -469,7 +468,7 @@ internal data class CoverageEligibilityResponseSurrogate(
       request = this@CoverageEligibilityResponseSurrogate.request,
       outcome =
         Enumeration.of(
-          com.google.fhir.model.r4b.RemittanceOutcome.fromCode(
+          com.google.fhir.model.r4b.terminologies.RemittanceOutcome.fromCode(
             this@CoverageEligibilityResponseSurrogate.outcome!!
           ),
           this@CoverageEligibilityResponseSurrogate._outcome,

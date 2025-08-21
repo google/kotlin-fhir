@@ -22,6 +22,7 @@ import com.google.fhir.model.r5.serializers.PractitionerCommunicationSerializer
 import com.google.fhir.model.r5.serializers.PractitionerDeceasedSerializer
 import com.google.fhir.model.r5.serializers.PractitionerQualificationSerializer
 import com.google.fhir.model.r5.serializers.PractitionerSerializer
+import com.google.fhir.model.r5.terminologies.AdministrativeGender
 import kotlin.String
 import kotlin.Suppress
 import kotlin.collections.MutableList

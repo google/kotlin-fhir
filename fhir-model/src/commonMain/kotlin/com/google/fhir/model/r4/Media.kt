@@ -155,7 +155,7 @@ public data class Media(
    * Unknown does not represent "other" - one of the defined statuses must apply. Unknown is used
    * when the authoring system is not sure what the current status is.
    */
-  public var status: Enumeration<MediaStatus>,
+  public var status: Enumeration<EventStatus>,
   /**
    * A code that classifies whether the media is an image, video or audio recording or some other
    * media category.
@@ -277,7 +277,7 @@ public data class Media(
   }
 
   /** Codes identifying the lifecycle stage of an event. */
-  public enum class MediaStatus(
+  public enum class EventStatus(
     private val code: kotlin.String,
     private val system: kotlin.String,
     private val display: kotlin.String?,
@@ -300,7 +300,7 @@ public data class Media(
     public fun getDisplay(): kotlin.String? = display
 
     public companion object {
-      public fun fromCode(code: kotlin.String): MediaStatus =
+      public fun fromCode(code: kotlin.String): EventStatus =
         when (code) {
           "preparation" -> Preparation
           "in-progress" -> In_Progress
@@ -310,7 +310,7 @@ public data class Media(
           "completed" -> Completed
           "entered-in-error" -> Entered_In_Error
           "unknown" -> Unknown
-          else -> throw IllegalArgumentException("Unknown code $code for enum MediaStatus")
+          else -> throw IllegalArgumentException("Unknown code $code for enum EventStatus")
         }
     }
   }
