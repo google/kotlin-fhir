@@ -16,80 +16,10 @@
 
 package com.google.fhir.model
 
-import com.google.fhir.model.r4.configureR4
-import com.google.fhir.model.r4b.configureR4b
-import com.google.fhir.model.r5.configureR5
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.jsonObject
-
-const val r4ExamplePackage = "hl7.fhir.r4.examples/package/"
-const val r4bExamplePackage = "hl7.fhir.r4b.examples/package/"
-const val r5ExamplePackage = "hl7.fhir.r5.examples/package/"
-
-val trailingZeroRegex = "\\.0+".toRegex()
-
-val exclusionListR4 =
-  listOf(
-    // Hanging for no reason
-    "Bundle-terminologies.json",
-    "CodeSystem-v2-0003.json",
-    "Bundle-valueset-expansions.json",
-
-    // Java heap space
-    "Bundle-resources.json",
-    "Bundle-dataelements.json",
-    "CodeSystem-v3-ManagedParticipationStatus.json",
-
-    // Instant with trailing 0s
-    "ValueSet-v3-hl7PublishingSubSection.json",
-
-    // Scientific notation
-    "Observation-decimal.json",
-
-    // Invalid resources
-    "ActivityDefinition-administer-zika-virus-exposure-assessment.json",
-    "ImplementationGuide-fhir.json",
-    "Questionnaire-qs1.json",
-    "ig-r4.json",
-  )
-
-val exclusionListR4B =
-  listOf(
-    // Java heap space
-    "Bundle-resources.json",
-
-    // Scientific notation
-    "Observation-decimal.json",
-
-    // Invalid resource
-    "Bundle-valuesets.json",
-    "CodeSystem-catalogType.json",
-    "ValueSet-catalogType.json",
-
-    // Invalid resources
-    "ActivityDefinition-administer-zika-virus-exposure-assessment.json",
-  )
-
-val exclusionListR5 =
-  listOf(
-    // Hanging
-    "Bundle-searchParams.json",
-
-    // Java heap space
-    "Bundle-resources.json",
-
-    // Trailing 0 in milliseconds
-    "ArtifactAssessment-example-certainty-rating.json",
-    "Citation-citation-example-research-doi.json",
-
-    // Scientific notation
-    "Observation-decimal.json",
-
-    // Unknown code 'text/CQL' for enum ExpressionLanguage; codes are case-sensitive
-    "ChargeItemDefinition-ebm.json",
-  )
 
 /**
  * This test verifies the generated code can be used to deserialize published FHIR examples and
@@ -105,8 +35,7 @@ class SerializationRoundTripTest {
       )
       .forEach {
         val exampleJson = prettyPrintJson(it)
-        val domainResource: com.google.fhir.model.r4.Resource =
-          jsonR4.decodeFromString<com.google.fhir.model.r4.Resource>(exampleJson)
+        val domainResource = jsonR4.decodeFromString<com.google.fhir.model.r4.Resource>(exampleJson)
         val reserializedString = jsonR4.encodeToString(domainResource)
         assertEqualsIgnoringZeros(exampleJson, reserializedString)
       }
@@ -145,35 +74,70 @@ class SerializationRoundTripTest {
   }
 
   companion object {
-    private val jsonR4 = Json {
-      prettyPrint = true
-      configureR4()
-    }
-
-    private val jsonR4B = Json {
-      prettyPrint = true
-      configureR4b()
-    }
-
-    private val jsonR5 = Json {
-      prettyPrint = true
-      configureR5()
-    }
-
     private val prettyPrintJson = Json { prettyPrint = true }
 
-    fun filterFileName(name: String): Boolean {
-      return name.endsWith(".json") &&
-        !name.startsWith('.') // filter out `.index.json` file
-        &&
-        name != "package.json"
-    }
+    private val trailingZeroRegex = "\\.0+".toRegex()
 
-    private fun prettyPrintJson(jsonString: String): String {
-      val jsonElement =
-        prettyPrintJson.parseToJsonElement(jsonString) // Parse the string to a JsonElement
-      return prettyPrintJson.encodeToString(jsonElement) // Re-encode with pretty printing
-    }
+    private val exclusionListR4 =
+      listOf(
+        // Hanging for no reason
+        "Bundle-terminologies.json",
+        "CodeSystem-v2-0003.json",
+        "Bundle-valueset-expansions.json",
+
+        // Java heap space
+        "Bundle-resources.json",
+        "Bundle-dataelements.json",
+        "CodeSystem-v3-ManagedParticipationStatus.json",
+
+        // Instant with trailing 0s
+        "ValueSet-v3-hl7PublishingSubSection.json",
+
+        // Scientific notation
+        "Observation-decimal.json",
+
+        // Invalid resources
+        "ActivityDefinition-administer-zika-virus-exposure-assessment.json",
+        "ImplementationGuide-fhir.json",
+        "Questionnaire-qs1.json",
+        "ig-r4.json",
+      )
+
+    private val exclusionListR4B =
+      listOf(
+        // Java heap space
+        "Bundle-resources.json",
+
+        // Scientific notation
+        "Observation-decimal.json",
+
+        // Invalid resource
+        "Bundle-valuesets.json",
+        "CodeSystem-catalogType.json",
+        "ValueSet-catalogType.json",
+
+        // Invalid resources
+        "ActivityDefinition-administer-zika-virus-exposure-assessment.json",
+      )
+
+    private val exclusionListR5 =
+      listOf(
+        // Hanging
+        "Bundle-searchParams.json",
+
+        // Java heap space
+        "Bundle-resources.json",
+
+        // Trailing 0 in milliseconds
+        "ArtifactAssessment-example-certainty-rating.json",
+        "Citation-citation-example-research-doi.json",
+
+        // Scientific notation
+        "Observation-decimal.json",
+
+        // Unknown code 'text/CQL' for enum ExpressionLanguage; codes are case-sensitive
+        "ChargeItemDefinition-ebm.json",
+      )
 
     private fun assertEqualsIgnoringZeros(exampleJson: String, reserializedString: String) {
       val expected =
@@ -191,11 +155,11 @@ class SerializationRoundTripTest {
     }
 
     private fun String.removeZerosAfterDecimalPoint(): String = replace(trailingZeroRegex, "")
+
+    private fun prettyPrintJson(jsonString: String): String {
+      val jsonElement =
+        prettyPrintJson.parseToJsonElement(jsonString) // Parse the string to a JsonElement
+      return prettyPrintJson.encodeToString(jsonElement) // Re-encode with pretty printing
+    }
   }
 }
-
-expect fun loadR4Examples(fileNameFilter: (String) -> Boolean): Sequence<String>
-
-expect fun loadR4BExamples(fileNameFilter: (String) -> Boolean): Sequence<String>
-
-expect fun loadR5Examples(fileNameFilter: (String) -> Boolean): Sequence<String>

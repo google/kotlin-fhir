@@ -653,20 +653,23 @@ consistent formatting using the [`spotless`](https://github.com/diffplug/spotles
 
 ### Testing
 
-The library includes comprehensive **serialization round-trip tests** for examples published in the
+The library includes comprehensive **serialization round-trip and equality tests** for the example resources published in the
 following packages:
 
 - [hl7.fhir.r4.examples](https://simplifier.net/packages/hl7.fhir.r4.examples) (5309 examples)
 - [hl7.fhir.r4b.examples](https://simplifier.net/packages/hl7.fhir.r4b.examples) (2840 examples)
 - [hl7.fhir.r5.examples](https://simplifier.net/packages/hl7.fhir.r5.examples) (2822 examples)
 
-For each JSON example of a FHIR resource in the packages above, a test is performed with the
-following steps:
+For each JSON example of a FHIR resource in the referenced packages, two categories of tests are executed:
 
-1. Deserialization: The JSON is deserialized into the corresponding generated Kotlin resource class.
-2. Serialization: The Kotlin object is then serialized back into JSON format.
-3. Verification: The newly generated JSON is compared, character by character[^7], to the original
-   JSON to ensure complete fidelity.
+1. Serialization round-trip test:
+   - Deserialization: The JSON is parsed into its corresponding generated Kotlin resource class.
+   - Serialization: That Kotlin object is then converted back into JSON.
+   - Verification: The regenerated JSON is compared character by character[^7] with the original to confirm exact fidelity.
+2. Equality test:
+   - First instance: Deserialize the JSON into a Kotlin resource object.
+   - Second instance: Deserialize the same JSON into a separate Kotlin resource object.
+   - Verification: The two objects are structurally equal (using `==` operator).
 
 [^7]: There are several exceptions. The FHIR specification allows for some variability in data
 representation, which may lead to differences between the original and newly serialized JSON. For

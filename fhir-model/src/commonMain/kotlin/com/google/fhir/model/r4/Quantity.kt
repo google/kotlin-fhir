@@ -19,6 +19,9 @@
 package com.google.fhir.model.r4
 
 import com.google.fhir.model.r4.serializers.QuantitySerializer
+import kotlin.Any
+import kotlin.Boolean
+import kotlin.Int
 import kotlin.Suppress
 import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
@@ -74,6 +77,31 @@ public open class Quantity(
    */
   public open var code: Code? = null,
 ) : Element() {
+  override fun equals(other: Any?): Boolean {
+    if (this === other) return true
+    if (other !is Quantity) return false
+    if (id != other.id) return false
+    if (extension != other.extension) return false
+    if (value != other.value) return false
+    if (comparator != other.comparator) return false
+    if (unit != other.unit) return false
+    if (system != other.system) return false
+    if (code != other.code) return false
+    return true
+  }
+
+  override fun hashCode(): Int {
+    // Using 31 improves hash distribution and reduces collisions in hash-based collections
+    var result = id?.hashCode() ?: 0
+    result = 31 * result + (extension?.hashCode() ?: 0)
+    result = 31 * result + (value?.hashCode() ?: 0)
+    result = 31 * result + (comparator?.hashCode() ?: 0)
+    result = 31 * result + (unit?.hashCode() ?: 0)
+    result = 31 * result + (system?.hashCode() ?: 0)
+    result = 31 * result + (code?.hashCode() ?: 0)
+    return result
+  }
+
   /** How the Quantity should be understood and represented. */
   public enum class QuantityComparator(
     private val code: kotlin.String,
