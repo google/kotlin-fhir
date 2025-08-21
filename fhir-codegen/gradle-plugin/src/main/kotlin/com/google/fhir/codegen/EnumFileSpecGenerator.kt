@@ -27,15 +27,15 @@ class EnumFileSpecGenerator(val valueSetMap: Map<String, ValueSet>) {
    * Elements that have common binding extensions.
    */
   fun generate(structureDefinition: StructureDefinition, packageName: String): List<FileSpec> {
-    return generateSharedEnumTypeSpec(structureDefinition.rootElements, packageName)
+    return createEnumFileSpec(structureDefinition.rootElements, packageName)
       .plus(
         structureDefinition.backboneElements.flatMap { elements ->
-          generateSharedEnumTypeSpec(elements.value, packageName)
+          createEnumFileSpec(elements.value, packageName)
         }
       )
   }
 
-  private fun generateSharedEnumTypeSpec(
+  private fun createEnumFileSpec(
     elements: List<Element>,
     packageName: String,
   ): List<FileSpec> =
