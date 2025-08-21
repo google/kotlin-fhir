@@ -20,11 +20,19 @@ import com.google.fhir.codegen.schema.*
 import com.google.fhir.codegen.schema.valueset.ValueSet
 import com.squareup.kotlinpoet.FileSpec
 
+/**
+ * Generates [FileSpec]s for Kotlin enum classes based on a provided map of [ValueSet]s.
+ *
+ * @property valueSetMap A map where the key is the canonical URL of a ValueSet and the value is the
+ *   [ValueSet] resource itself.
+ */
 class EnumFileSpecGenerator(val valueSetMap: Map<String, ValueSet>) {
 
   /**
-   * Generates shared enums. These enum classes are created from [StructureDefinition.snapshot]
-   * Elements that have common binding extensions.
+   * Generates a list of [FileSpec]s for enum classes from the elements within a
+   * [StructureDefinition]. Processes both root and backbone elements, generating enums for bound
+   * ValueSets. Enums from common bindings are placed in the core package, while others are stored
+   * in a terminologies' subpackage.
    */
   fun generate(structureDefinition: StructureDefinition, packageName: String): List<FileSpec> {
     return createEnumFileSpec(structureDefinition.rootElements, packageName)
@@ -35,11 +43,14 @@ class EnumFileSpecGenerator(val valueSetMap: Map<String, ValueSet>) {
       )
   }
 
-  private fun createEnumFileSpec(
-    elements: List<Element>,
-    packageName: String,
-  ): List<FileSpec> =
+  /**
+   * Filters elements with valid ValueSet bindings and generates [FileSpec] for each. Enums for
+   * common bindings are placed in the provided package; others go into a `.terminologies`
+   * subpackage.
+   */
+  private fun createEnumFileSpec(elements: List<Element>, packageName: String): List<FileSpec> =
     elements
+      .asSequence()
       .filter { it.getValueSetUrl() != null && valueSetMap.containsKey(it.getValueSetUrl()) }
       .filterNot { !it.isCommonBinding }
       .mapNotNull { element ->
@@ -48,9 +59,6 @@ class EnumFileSpecGenerator(val valueSetMap: Map<String, ValueSet>) {
         val valueSetName = valueSet.name.normalizeEnumName()
         val enumTypeSpec = EnumTypeSpecGenerator.generate(valueSetName, valueSet)
         enumTypeSpec?.let {
-          // Enum classes generated from common binding elements are stored in the
-          // "com.google.fhir.<r4|r4b|r5>.model" package, and the rest are stored in the
-          // "com.google.fhir.<r4|r4b|r5>.terminology" package
           FileSpec.builder(
               packageName =
                 if (element.typeIsEnumeratedCode(valueSetMap)) packageName
@@ -61,4 +69,5 @@ class EnumFileSpecGenerator(val valueSetMap: Map<String, ValueSet>) {
             .build()
         }
       }
+      .toList()
 }
