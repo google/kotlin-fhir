@@ -134,11 +134,7 @@ kotlin {
             }
         }
         val jvmMain by getting
-        val jvmTest by getting {
-            dependencies {
-                implementation("org.jetbrains.kotlin:kotlin-reflect")
-            }
-        }
+        val jvmTest by getting
         val jsMain by getting
         val jsTest by getting
     }
