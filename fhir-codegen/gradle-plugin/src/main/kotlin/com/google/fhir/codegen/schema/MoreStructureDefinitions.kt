@@ -52,16 +52,18 @@ fun StructureDefinition.getElements(className: ClassName) =
   } ?: emptyList()
 
 val StructureDefinition.backboneElements
-  get() =
-    snapshot?.element?.let { elements ->
-      elements
-        .filter { it.isBackboneElement() }
-        .associateWith { backboneElement ->
-          elements.filter {
-            it.path.matches("${backboneElement.path}\\.[A-Za-z0-9]+(\\[x])?".toRegex())
-          }
+  get() = snapshot?.element?.getBackboneElementsMap() ?: emptyMap()
+
+fun List<Element>?.getBackboneElementsMap(): Map<Element, List<Element>> =
+  this?.let { elements ->
+    elements
+      .filter { it.isBackboneElement() }
+      .associateWith { backboneElement ->
+        elements.filter {
+          it.path.matches("${backboneElement.path}\\.[A-Za-z0-9]+(\\[x])?".toRegex())
         }
-    } ?: emptyMap()
+      }
+  } ?: emptyMap()
 
 /** Concrete complex types and resources should be serializable with a custom serializer. */
 val StructureDefinition.serializableWithCustomSerializer

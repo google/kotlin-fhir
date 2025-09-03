@@ -18,9 +18,13 @@ package com.google.fhir.codegen
 
 import com.google.fhir.codegen.primitives.FhirPathType
 import com.google.fhir.codegen.schema.Element
+import com.google.fhir.codegen.schema.StructureDefinition
 import com.google.fhir.codegen.schema.Type
+import com.google.fhir.codegen.schema.backboneElements
 import com.google.fhir.codegen.schema.capitalized
+import com.google.fhir.codegen.schema.getBackboneElementsMap
 import com.google.fhir.codegen.schema.getElementName
+import com.google.fhir.codegen.schema.getElements
 import com.google.fhir.codegen.schema.getPathSimpleNames
 import com.google.fhir.codegen.schema.getPolymorphicTypeSurrogateClassSimpleName
 import com.google.fhir.codegen.schema.getSurrogatePropertyNameTypeDefaultValueList
@@ -28,10 +32,12 @@ import com.google.fhir.codegen.schema.getTypeName
 import com.google.fhir.codegen.schema.getValueSetUrl
 import com.google.fhir.codegen.schema.isCommonBinding
 import com.google.fhir.codegen.schema.normalizeEnumName
+import com.google.fhir.codegen.schema.rootElements
 import com.google.fhir.codegen.schema.typeIsEnumeratedCode
 import com.google.fhir.codegen.schema.valueset.ValueSet
 import com.squareup.kotlinpoet.ClassName
 import com.squareup.kotlinpoet.CodeBlock
+import com.squareup.kotlinpoet.FileSpec
 import com.squareup.kotlinpoet.FunSpec
 import com.squareup.kotlinpoet.KModifier
 import com.squareup.kotlinpoet.ParameterSpec
@@ -49,14 +55,88 @@ import kotlinx.serialization.Serializable
  * See
  * [surrogate](https://github.com/Kotlin/kotlinx.serialization/blob/master/docs/serializers.md#composite-serializer-via-surrogate).
  */
-class SurrogateTypeSpecGenerator(private val valueSetMap: Map<String, ValueSet>) {
+class SurrogateFileSpecGenerator(val codegenContext: CodegenContext) {
   /**
    * Generates a [TypeSpec] for the model's Surrogate (including backbone elements).
    *
    * Example: PatientSurrogate for the Patient resource.
    */
-  fun generateModelSurrogate(modelClassName: ClassName, elements: List<Element>): TypeSpec =
-    TypeSpec.classBuilder(modelClassName.toSurrogateClassName())
+  fun generate(structureDefinition: StructureDefinition): FileSpec {
+    val modelClassName = codegenContext.getModelClassName(structureDefinition)
+    return codegenContext
+      .getSurrogateFileSpecBuilder(structureDefinition)
+      .apply {
+        // Add surrogate type specs for backbone elements recursively e.g. PatientContactSurrogate
+        // , PatientCommunicationSurrogate and PatientLinkSerializeSurrogate
+        addBackboneElementSurrogates(
+          structureDefinition,
+          structureDefinition.backboneElements,
+          structureDefinition.name,
+          modelClassName,
+        )
+
+        // Add surrogate type specs for sealed interfaces  e.g. PatientDeceasedSurrogate and
+        // PatientMultipleBirthSurrogate
+        addTypes(
+          structureDefinition.rootElements
+            .filter { it.path.endsWith("[x]") }
+            .map { element: Element ->
+              createSealedInterfaceSurrogateTypeSpec(modelClassName, element)
+            }
+        )
+
+        // Add type spec for model class surrogate e.g. PatientSurrogate
+        addType(createSurrogateClassTypeSpec(modelClassName, structureDefinition.rootElements))
+      }
+      .build()
+  }
+
+  private fun FileSpec.Builder.addBackboneElementSurrogates(
+    structureDefinition: StructureDefinition,
+    backboneElements: Map<Element, List<Element>>,
+    path: String,
+    className: ClassName,
+  ): FileSpec.Builder = apply {
+    backboneElements
+      .filter { (backboneElement, _) ->
+        backboneElement.path.matches("${path}\\.[A-Za-z0-9]+".toRegex())
+      }
+      .forEach { (backboneElement, _) ->
+        val name = backboneElement.path.substringAfterLast('.').capitalized()
+        val backboneElementClassName = className.nestedClass(name)
+        val elements = structureDefinition.getElements(backboneElementClassName)
+
+        val nestedBackboneElementMap = elements.getBackboneElementsMap()
+        if (nestedBackboneElementMap.isNotEmpty()) {
+          addBackboneElementSurrogates(
+            structureDefinition,
+            nestedBackboneElementMap,
+            backboneElement.path,
+            backboneElementClassName,
+          )
+        }
+
+        // Add type specs for backbone element's sealed interface Surrogate
+        addTypes(
+          elements
+            .filter { it.path.endsWith("[x]") }
+            .map { element ->
+              createSealedInterfaceSurrogateTypeSpec(backboneElementClassName, element)
+            }
+        )
+
+        // Add backbone element Surrogate
+        addType(
+          this@SurrogateFileSpecGenerator.createSurrogateClassTypeSpec(
+            className = backboneElementClassName,
+            elements = elements,
+          )
+        )
+      }
+  }
+
+  fun createSurrogateClassTypeSpec(className: ClassName, elements: List<Element>): TypeSpec =
+    TypeSpec.classBuilder(className.toSurrogateClassName())
       .apply {
         addAnnotation(Serializable::class)
         addModifiers(KModifier.INTERNAL)
@@ -71,7 +151,7 @@ class SurrogateTypeSpecGenerator(private val valueSetMap: Map<String, ValueSet>)
                 val property =
                   PropertySpec.builder(
                       propertyName,
-                      ClassName(modelClassName.packageName, element.getPathSimpleNames())
+                      ClassName(className.packageName, element.getPathSimpleNames())
                         .copy(nullable = nullable),
                     )
                     .initializer(propertyName)
@@ -83,7 +163,7 @@ class SurrogateTypeSpecGenerator(private val valueSetMap: Map<String, ValueSet>)
                     .build()
                 listOf(Pair(property, parameter))
               } else {
-                element.getSurrogatePropertyNameTypeDefaultValueList(modelClassName).map {
+                element.getSurrogatePropertyNameTypeDefaultValueList(className).map {
                   val property =
                     PropertySpec.builder(it.first, it.second)
                       .initializer(it.first)
@@ -104,66 +184,61 @@ class SurrogateTypeSpecGenerator(private val valueSetMap: Map<String, ValueSet>)
               .build()
           )
         }
-        addConverterToModelClass(modelClassName, elements)
-        addConverterFromModelClass(modelClassName, elements)
+        addConverterToModelClass(className, elements)
+        addConverterFromModelClass(className, elements)
       }
       .build()
 
   /**
-   * Generates a list of [TypeSpec] for sealed interface Surrogate classes.
+   * Creates a [TypeSpec] for sealed interface Surrogate class.
    *
    * Example: PatientDeceasedSurrogate and PatientMultipleBirthSurrogate for the Patient.Deceased
-   * and Patient.MultipleBirth sealed interfaces.
+   * and Patient.MultipleBirth sealed interfaces respectively.
    */
-  fun generateSealedInterfaceSurrogates(
+  private fun createSealedInterfaceSurrogateTypeSpec(
     className: ClassName,
-    elements: List<Element>,
-  ): List<TypeSpec> =
-    elements
-      .filter { it.path.endsWith("[x]") }
-      .map { element: Element ->
-        val sealedInterfaceSurrogateClassName =
-          ClassName(
-            className.toSurrogateClassName().packageName,
-            element.getPolymorphicTypeSurrogateClassSimpleName(),
-          )
-        TypeSpec.classBuilder(sealedInterfaceSurrogateClassName)
-          .addAnnotation(Serializable::class)
-          .addModifiers(KModifier.INTERNAL)
-          .addModifiers(KModifier.DATA)
-          .apply {
-            val sealedInterfaceSurrogatePropertyParamPair =
-              element.getSurrogatePropertyNameTypeDefaultValueList(className).map {
-                val property =
-                  PropertySpec.builder(it.first, it.second).initializer(it.first).mutable().build()
-                val parameter =
-                  ParameterSpec.builder(it.first, it.second)
-                    .apply { it.third?.let { defaultValue -> defaultValue(defaultValue) } }
-                    .build()
-                Pair(property, parameter)
-              }
-
-            addProperties(sealedInterfaceSurrogatePropertyParamPair.map { it.first })
-            primaryConstructor(
-              FunSpec.constructorBuilder()
-                .apply {
-                  sealedInterfaceSurrogatePropertyParamPair.forEach { addParameter(it.second) }
-                }
+    element: Element,
+  ): TypeSpec {
+    val sealedInterfaceSurrogateClassName =
+      ClassName(
+        className.toSurrogateClassName().packageName,
+        element.getPolymorphicTypeSurrogateClassSimpleName(),
+      )
+    return TypeSpec.classBuilder(sealedInterfaceSurrogateClassName)
+      .addAnnotation(Serializable::class)
+      .addModifiers(KModifier.INTERNAL)
+      .addModifiers(KModifier.DATA)
+      .apply {
+        val sealedInterfaceSurrogatePropertyParamPair =
+          element.getSurrogatePropertyNameTypeDefaultValueList(className).map {
+            val property =
+              PropertySpec.builder(it.first, it.second).initializer(it.first).mutable().build()
+            val parameter =
+              ParameterSpec.builder(it.first, it.second)
+                .apply { it.third?.let { defaultValue -> defaultValue(defaultValue) } }
                 .build()
-            )
-            addSealedClassSurrogateConverterToModelClass(
-              className,
-              sealedInterfaceSurrogateClassName,
-              element,
-            )
-            addSealedClassSurrogateConverterFromModelClass(
-              className,
-              sealedInterfaceSurrogateClassName,
-              element,
-            )
+            Pair(property, parameter)
           }
-          .build()
+
+        addProperties(sealedInterfaceSurrogatePropertyParamPair.map { it.first })
+        primaryConstructor(
+          FunSpec.constructorBuilder()
+            .apply { sealedInterfaceSurrogatePropertyParamPair.forEach { addParameter(it.second) } }
+            .build()
+        )
+        addSealedClassSurrogateConverterToModelClass(
+          className,
+          sealedInterfaceSurrogateClassName,
+          element,
+        )
+        addSealedClassSurrogateConverterFromModelClass(
+          className,
+          sealedInterfaceSurrogateClassName,
+          element,
+        )
       }
+      .build()
+  }
 
   /** Adds a [FunSpec] to convert surrogate class to a sealed interface */
   private fun TypeSpec.Builder.addSealedClassSurrogateConverterToModelClass(
@@ -226,7 +301,7 @@ class SurrogateTypeSpecGenerator(private val valueSetMap: Map<String, ValueSet>)
                 .add("%T(\n", surrogateClassName)
                 .apply {
                   indent()
-                  addParamToSurrogateClassConstructor(element, true)
+                  addParamToSurrogateClassConstructor(element, codegenContext.valueSetMap, true)
                   unindent()
                 }
                 .add(")\n")
@@ -297,7 +372,7 @@ class SurrogateTypeSpecGenerator(private val valueSetMap: Map<String, ValueSet>)
                 .apply {
                   indent()
                   elements.forEach { element ->
-                    addParamToSurrogateClassConstructor(element, false)
+                    addParamToSurrogateClassConstructor(element, codegenContext.valueSetMap, false)
                   }
                   unindent()
                 }
@@ -377,8 +452,8 @@ class SurrogateTypeSpecGenerator(private val valueSetMap: Map<String, ValueSet>)
       if (FhirPathType.containsFhirTypeCode(element.type?.singleOrNull()?.code ?: "")) {
         // A list of primitive type
         val fhirPathType = FhirPathType.getFromFhirTypeCode(element.type?.singleOrNull()?.code!!)!!
-        if (element.typeIsEnumeratedCode(valueSetMap)) {
-          val enumClass = element.getEnumClass(modelClassName, valueSetMap)
+        if (element.typeIsEnumeratedCode(codegenContext.valueSetMap)) {
+          val enumClass = element.getEnumClass(modelClassName, codegenContext.valueSetMap)
           add(
             "if(this@%T.%N == null && this@%T.%N == null) { mutableListOf() } else { (this@%T.%N ?: List(this@%T.%N!!.size) { null }).zip(this@%T.%N ?: List(this@%T.%N!!.size) { null }).map{ (value, element) -> %T.of(value.let { %L.fromCode(it!!)!! }, element) }.toMutableList() }",
             surrogateClassName,
@@ -429,6 +504,7 @@ class SurrogateTypeSpecGenerator(private val valueSetMap: Map<String, ValueSet>)
       addParamToModelClassConstructor(
         modelClassName,
         surrogateClassName,
+        codegenContext.valueSetMap,
         propertyName,
         element.type?.singleOrNull(),
         element,
@@ -467,6 +543,7 @@ class SurrogateTypeSpecGenerator(private val valueSetMap: Map<String, ValueSet>)
   private fun CodeBlock.Builder.addParamToModelClassConstructor(
     modelClassName: ClassName,
     surrogateClassName: ClassName,
+    valueSetMap: Map<String, ValueSet>,
     propertyName: String,
     type: Type?,
     element: Element,
@@ -631,6 +708,7 @@ class SurrogateTypeSpecGenerator(private val valueSetMap: Map<String, ValueSet>)
    */
   private fun CodeBlock.Builder.addParamToSurrogateClassConstructor(
     element: Element,
+    valueSetMap: Map<String, ValueSet>,
     expandPolymorphicProperties: Boolean,
   ) {
     val propertyName = element.getElementName()
