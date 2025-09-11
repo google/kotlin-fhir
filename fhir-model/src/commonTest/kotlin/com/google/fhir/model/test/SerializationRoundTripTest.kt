@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.fhir.model
+package com.google.fhir.model.test
 
 import kotlin.test.Test
 import kotlin.test.assertEquals
@@ -27,7 +27,7 @@ import kotlinx.serialization.json.jsonObject
  */
 class SerializationRoundTripTest {
   @Test
-  fun shouldMatchOriginalJsonAfterDeserializationAndSerializationInR4() {
+  fun deserializingAndSerializingR4Json_shouldProduceEquivalentJson() {
     loadR4Examples(
         fileNameFilter = {
           return@loadR4Examples (filterFileName(it) && !exclusionListR4.contains(it))
@@ -42,7 +42,7 @@ class SerializationRoundTripTest {
   }
 
   @Test
-  fun shouldMatchOriginalJsonAfterDeserializationAndSerializationInR4B() {
+  fun deserializingAndSerializingR4BJson_shouldProduceEquivalentJson() {
     loadR4BExamples(
         fileNameFilter = {
           return@loadR4BExamples (filterFileName(it) && !exclusionListR4B.contains(it))
@@ -50,7 +50,7 @@ class SerializationRoundTripTest {
       )
       .forEach {
         val exampleJson = prettyPrintJson(it)
-        val domainResource: com.google.fhir.model.r4b.Resource =
+        val domainResource =
           jsonR4B.decodeFromString<com.google.fhir.model.r4b.Resource>(exampleJson)
         val reserializedString = jsonR4B.encodeToString(domainResource)
         assertEqualsIgnoringZeros(exampleJson, reserializedString)
@@ -58,7 +58,7 @@ class SerializationRoundTripTest {
   }
 
   @Test
-  fun shouldMatchOriginalJsonAfterDeserializationAndSerializationInR5() {
+  fun deserializingAndSerializingR5Json_shouldProduceEquivalentJson() {
     loadR5Examples(
         fileNameFilter = {
           return@loadR5Examples (filterFileName(it) && !exclusionListR5.contains(it))
@@ -66,8 +66,7 @@ class SerializationRoundTripTest {
       )
       .forEach {
         val exampleJson = prettyPrintJson(it)
-        val domainResource: com.google.fhir.model.r5.Resource =
-          jsonR5.decodeFromString<com.google.fhir.model.r5.Resource>(exampleJson)
+        val domainResource = jsonR5.decodeFromString<com.google.fhir.model.r5.Resource>(exampleJson)
         val reserializedString = jsonR5.encodeToString(domainResource)
         assertEqualsIgnoringZeros(exampleJson, reserializedString)
       }

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.fhir.model
+package com.google.fhir.model.test
 
 import kotlin.test.Test
 import kotlin.test.assertEquals
@@ -22,7 +22,7 @@ import kotlin.test.assertEquals
 class EqualityTest {
 
   @Test
-  fun shouldMatchResourcesWithSimilarPropertiesOnComparisonInR4() {
+  fun deserializingSameR4Json_shouldProduceEqualObjects() {
     loadR4Examples(
         fileNameFilter = {
           return@loadR4Examples (filterFileName(it) && !exclusionListR4.contains(it))
@@ -36,33 +36,31 @@ class EqualityTest {
   }
 
   @Test
-  fun shouldMatchResourcesWithSimilarPropertiesOnComparisonInR4B() {
+  fun deserializingSameR4BJson_shouldProduceEqualObjects() {
     loadR4BExamples(
         fileNameFilter = {
           return@loadR4BExamples (filterFileName(it) && !exclusionListR4B.contains(it))
         }
       )
       .forEach { exampleJson ->
-        val firstResource: com.google.fhir.model.r4b.Resource =
+        val firstResource =
           jsonR4B.decodeFromString<com.google.fhir.model.r4b.Resource>(exampleJson)
-        val secondResource: com.google.fhir.model.r4b.Resource =
+        val secondResource =
           jsonR4B.decodeFromString<com.google.fhir.model.r4b.Resource>(exampleJson)
         assertEquals(firstResource, secondResource)
       }
   }
 
   @Test
-  fun shouldMatchResourcesWithSimilarPropertiesOnComparisonInR5() {
+  fun deserializingSameR5Json_shouldProduceEqualObjects() {
     loadR5Examples(
         fileNameFilter = {
           return@loadR5Examples (filterFileName(it) && !exclusionListR5.contains(it))
         }
       )
       .forEach { exampleJson ->
-        val firstResource: com.google.fhir.model.r5.Resource =
-          jsonR5.decodeFromString<com.google.fhir.model.r5.Resource>(exampleJson)
-        val secondResource: com.google.fhir.model.r5.Resource =
-          jsonR5.decodeFromString<com.google.fhir.model.r5.Resource>(exampleJson)
+        val firstResource = jsonR5.decodeFromString<com.google.fhir.model.r5.Resource>(exampleJson)
+        val secondResource = jsonR5.decodeFromString<com.google.fhir.model.r5.Resource>(exampleJson)
         assertEquals(firstResource, secondResource)
       }
   }

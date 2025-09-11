@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.fhir.model
+package com.google.fhir.model.test
 
 const val r4ExamplePackage = "hl7.fhir.r4.examples/package/"
 const val r4bExamplePackage = "hl7.fhir.r4b.examples/package/"
