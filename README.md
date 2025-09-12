@@ -225,7 +225,7 @@ classes (e.g. `PatientSurrogate`) to map each primitive data type to two JSON pr
 `gender` and `_gender`) . It also generates custom serializers (e.g. `PatientSerializer`) that
 delegate the serialization/deserialization process to the corresponding surrogate classes and
 translate between the data classes and surrogate classes (via the `toModel` and `fromModel`
-functions). This process is the repeated for backbone elements.
+functions). This process is repeated for backbone elements.
 
 Serialization and deserialization for choice types (e.g. `Patient.multipleBirth`) follow a similar
 surrogate-based approach. For example, for `Patient.multipleBirth`, the library generates a custom
@@ -233,7 +233,7 @@ serializer `PatientMultipleBirthSerializer` that delegates serialization / deser
 `PatientMultipleBirthSurrogate`.
 
 This process has an additional step to flatten and unflatten the JSON properties for the choice type
-using the FhirJsonTransformer (in
+elements using the FhirJsonTransformer (in
 [R4](https://github.com/google/kotlin-fhir/blob/main/fhir-model/src/commonMain/kotlin/com/google/fhir/model/r4/FhirJsonTransformer.kt),
 [R4B](https://github.com/google/kotlin-fhir/blob/main/fhir-model/src/commonMain/kotlin/com/google/fhir/model/r4b/FhirJsonTransformer.kt),
 [R5](https://github.com/google/kotlin-fhir/blob/main/fhir-model/src/commonMain/kotlin/com/google/fhir/model/r5/FhirJsonTransformer.kt)),
