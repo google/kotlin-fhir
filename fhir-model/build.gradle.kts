@@ -59,6 +59,8 @@ val codegen = tasks.register<Sync>("codegen") {
 }
 
 kotlin {
+    jvmToolchain(21)
+
     jvm()
     @OptIn(ExperimentalWasmDsl::class) wasmJs {
         browser {
