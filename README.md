@@ -198,7 +198,7 @@ This includes handling numeric codes,special characters, and FHIR URLs. After al
 | 3.2    | Prefix codes starting with a digit with an underscore                                         | `4.0.1` from [CodeSystem-FHIR-version](http://hl7.org/fhir/R5/codesystem-FHIR-version.html)                                       | `_4_0_1`               |
 | 3.3    | Apply PascalCase to each segment between underscores while preserving the underscores         | `entered-in-error` from [CodeSystem-document-reference-status](http://hl7.org/fhir/R5/codesystem-document-reference-status.html)  | `Entered_In_Error`     |
 
-### Excluded ValueSets from Enum Generation
+#### Excluded ValueSets from Enum Generation
 
 The following FHIR value sets are excluded from Kotlin enum generation.
 
@@ -211,7 +211,8 @@ The following FHIR value sets are excluded from Kotlin enum generation.
 ## Serialization and deserialization
 
 The [Kotlin serialization](https://github.com/Kotlin/kotlinx.serialization) library is used for JSON
-serialization/deserialization. All generated classes are marked with annotation `@Serializable`.
+serialization/deserialization. All generated FHIR resource classes are marked with annotation
+`@Serializable`.
 
 A particular challenge in the serialization/deserialization process is that FHIR primitive data
 types are represented by two JSON properties (e.g.
@@ -220,24 +221,31 @@ FHIR resource or element containing primitive data types cannot be directly mapp
 
 To address this issue, the library generates
 [surrogate](https://github.com/Kotlin/kotlinx.serialization/blob/master/docs/serializers.md#composite-serializer-via-surrogate)
-classes (e.g. `PatientSurrogate`) for data classes containing primitive data types, mapping each
-primitive data type to two JSON properties (e.g. `gender` and `_gender`) . It also generates custom
-serializers (e.g. `PatientSerializer`) that delegate the serialization/deserialization process to the
-corresponding surrogate classes and translate between the data classes and surrogate classes.
+classes (e.g. `PatientSurrogate`) to map each primitive data type to two JSON properties (e.g.
+`gender` and `_gender`) . It also generates custom serializers (e.g. `PatientSerializer`) that
+delegate the serialization/deserialization process to the corresponding surrogate classes and
+translate between the data classes and surrogate classes (via the `toModel` and `fromModel`
+functions). This process is repeated for backbone elements.
 
-Serialization and deserialization for **sealed interfaces** follow a similar surrogate-based approach,
-with an **additional step to flatten and unflatten JSON**. For polymorphic properties—for example,
-`Patient.MultipleBirth`—the library generates a custom serializer (e.g., `PatientMultipleBirthSerializer`)
-used in the resource’s surrogate class (e.g., `PatientSurrogate`).
+Serialization and deserialization for choice types (e.g. `Patient.multipleBirth`) follow a similar
+surrogate-based approach. For example, for `Patient.multipleBirth`, the library generates a custom
+serializer `PatientMultipleBirthSerializer` that delegates serialization / deserialization to
+`PatientMultipleBirthSurrogate`.
 
-This uses the FhirJsonTransformer (in [R4](https://github.com/google/kotlin-fhir/blob/main/fhir-model/src/commonMain/kotlin/com/google/fhir/model/r4/FhirJsonTransformer.kt), [R4B](https://github.com/google/kotlin-fhir/blob/main/fhir-model/src/commonMain/kotlin/com/google/fhir/model/r4b/FhirJsonTransformer.kt), [R5](https://github.com/google/kotlin-fhir/blob/main/fhir-model/src/commonMain/kotlin/com/google/fhir/model/r5/FhirJsonTransformer.kt)),
-to flatten JSON during serialization and restore it during deserialization. This avoids hitting the [JVM constructor argument limit](https://docs.oracle.com/javase/specs/jvms/se19/html/jvms-4.html#jvms-4.3.3) caused by
-FHIR fields with many possible types (e.g., [ElementDefinition.pattern](https://www.hl7.org/fhir/R4B/elementdefinition-definitions.html#ElementDefinition.pattern_x_)).
-Instead of expanding all types in the surrogate class—which would exceed the limit— polymorphic fields are handled by
-custom serializers.
+This process has an additional step to flatten and unflatten the JSON properties for the choice type
+elements using the FhirJsonTransformer (in
+[R4](https://github.com/google/kotlin-fhir/blob/main/fhir-model/src/commonMain/kotlin/com/google/fhir/model/r4/FhirJsonTransformer.kt),
+[R4B](https://github.com/google/kotlin-fhir/blob/main/fhir-model/src/commonMain/kotlin/com/google/fhir/model/r4b/FhirJsonTransformer.kt),
+[R5](https://github.com/google/kotlin-fhir/blob/main/fhir-model/src/commonMain/kotlin/com/google/fhir/model/r5/FhirJsonTransformer.kt)),
+so the choice type can be handled independently by a surrogate. This also avoids hitting the
+[JVM constructor argument limit](https://docs.oracle.com/javase/specs/jvms/se19/html/jvms-4.html#jvms-4.3.3)
+caused by FHIR fields with many possible types (e.g.,
+[ElementDefinition.pattern](https://www.hl7.org/fhir/R4B/elementdefinition-definitions.html#ElementDefinition.pattern_x_)).
+Instead of expanding all types in the model's surrogate class — which would exceed the limit —
+choice type fields are handled by their own serializers and surrogate classes.
 
-The `toModel` function in each surrogate class merges primitive type values with their extension fields into a single
-object, and consolidates related fields for sealed interfaces into their proper model representation.
+The following diagram illustrates the deserialization of a Patient JSON. The serialization process
+is simply the reverse.
 
 ```mermaid
 graph LR
@@ -339,22 +347,11 @@ graph LR
     style S3 stroke-dasharray: 5 5
 ```
 
-> Note: The reverse process can be applied for serialization.
+*Figure 1: Deserialization of a Patient JSON*
 
 ## Implementation
 
 ### Overview
-
-```mermaid
-graph LR
-    subgraph Gradle binary plugin
-        A(FHIR spec<br>in JSON) -- kotlinx.serialization --> B(instances of<br>StructureDefinition<br>Kotlin data class<br>)
-        B -- KotlinPoet --> C[generated FHIR Resource classes]
-    end
-    C -- compiler --> D[jvm target]
-    C -- compiler --> E[native target]
-    C -- compiler --> F[js target]
-```
 
 The Kotlin FHIR library uses a Gradle binary plugin to automate the generation of Kotlin code
 directly
@@ -363,7 +360,22 @@ from FHIR specification. This plugin uses [
 FHIR resource `StructureDefinition`s into an in-memory representation, and then
 uses [KotlinPoet](https://square.github.io/kotlinpoet/) to generate corresponding class definitions
 for each FHIR resource type. Finally, these generated Kotlin classes are compiled into JVM,
-JavaScript and native targets, enabling their use across various platforms.
+Wasm, JS, Native, and Android targets, enabling their use across various platforms.
+
+```mermaid
+graph LR
+    subgraph Gradle binary plugin
+        A(FHIR spec<br>in JSON) -- kotlinx.serialization --> B(instances of<br>StructureDefinition<br>Kotlin data class<br>)
+        B -- KotlinPoet --> C[generated FHIR Resource classes]
+    end
+    C -- compiler --> D[Kotlin/JVM]
+    C -- compiler --> E[Kotlin/Wasm]
+    C -- compiler --> F[KotlinJS]
+    C -- compiler --> G[Kotlin/Native]
+    C -- compiler --> H[Android]
+```
+
+*Figure 2: Architecture diagram*
 
 ### Definitions
 
@@ -416,10 +428,6 @@ mentioned [earlier](#mapping-fhir-primitive-data-types-to-kotlin).
 
 ## User Guide
 
-### Using the Gradle plugin
-
-> **TODO:** add instructions on how to use the gradle plugin once it is published
-
 ### Adding the library dependency to your project
 
 To use the Kotlin FHIR model in your project, you need to add the Kotlin FHIR library dependency to
@@ -468,17 +476,17 @@ dependencies {
 ### Working with FHIR resources
 
 The generated Kotlin classes for FHIR resources are organized in version-specific packages:
-`com.google.fhir.<FHIR_VERSION>` where `<FHIR_VERSION>`∈ {`r4`, `r4b`, `r5`}.
+`com.google.fhir.model.<FHIR_VERSION>` where `<FHIR_VERSION>`∈ {`r4`, `r4b`, `r5`}.
 
 For example:
 
-- `com.google.fhir.r4`
-- `com.google.fhir.r4b`
-- `com.google.fhir.r5`
+- `com.google.fhir.model.r4`
+- `com.google.fhir.model.r4b`
+- `com.google.fhir.model.r5`
 
 Within each package, you'll find the corresponding Kotlin classes for all FHIR resources of that
 version. For example, the `Patient` class generated for FHIR R4 can be found in the
-`com.google.fhir.r4` package.
+`com.google.fhir.model.r4` package.
 
 To create a new instance of a FHIR resource, use the Kotlin class's primary constructor. Since the
 primary constructor includes all properties of the class as arguments, **always use

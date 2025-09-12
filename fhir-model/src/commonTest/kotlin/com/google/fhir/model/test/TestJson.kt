@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.fhir.model
+package com.google.fhir.model.test
 
 import com.google.fhir.model.r4.configureR4
 import com.google.fhir.model.r4b.configureR4b

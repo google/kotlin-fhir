@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.fhir.model
+package com.google.fhir.model.test
 
 import android.content.res.AssetManager
 import androidx.test.platform.app.InstrumentationRegistry
