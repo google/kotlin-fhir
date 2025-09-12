@@ -4,6 +4,10 @@ plugins {
     `java-gradle-plugin`
 }
 
+kotlin {
+    jvmToolchain(21)
+}
+
 dependencies {
     implementation(gradleApi())
     implementation(gradleKotlinDsl())
