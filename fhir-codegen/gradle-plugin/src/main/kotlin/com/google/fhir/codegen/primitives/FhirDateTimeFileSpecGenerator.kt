@@ -27,6 +27,7 @@ import com.squareup.kotlinpoet.asClassName
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.UtcOffset
+import kotlinx.datetime.YearMonth
 
 /**
  * Generates a [FileSpec] for `FhirDateTime.kt` containing a sealed interface `FhirDateTime` which
@@ -72,18 +73,16 @@ object FhirDateTimeFileSpecGenerator {
                 .addModifiers(KModifier.DATA)
                 .addSuperinterface(sealedInterfaceClassName)
                 .primaryConstructor(
-                  FunSpec.constructorBuilder()
-                    .addParameter("year", Int::class)
-                    .addParameter("month", Int::class)
-                    .build()
+                  FunSpec.constructorBuilder().addParameter("value", YearMonth::class).build()
                 )
-                .addProperty(PropertySpec.builder("year", Int::class).initializer("year").build())
-                .addProperty(PropertySpec.builder("month", Int::class).initializer("month").build())
+                .addProperty(
+                  PropertySpec.builder("value", YearMonth::class).initializer("value").build()
+                )
                 .addFunction(
                   FunSpec.builder("toString")
                     .addModifiers(KModifier.OVERRIDE)
                     .returns(String::class)
-                    .addStatement("return \"\$year-\${month.toString().padStart(2,'0')}\"")
+                    .addStatement("return value.toString()")
                     .build()
                 )
                 .build()
@@ -131,8 +130,7 @@ object FhirDateTimeFileSpecGenerator {
                   FunSpec.builder("toString")
                     .addModifiers(KModifier.OVERRIDE)
                     .returns(String::class)
-                    // Use
-                    // [ISO
+                    // Use [ISO
                     // format](https://kotlinlang.org/api/kotlinx-datetime/kotlinx-datetime/kotlinx.datetime/-local-date-time/-formats/-i-s-o.html)
                     // to make sure seconds are always included.
                     .addCode(
@@ -159,20 +157,19 @@ object FhirDateTimeFileSpecGenerator {
                     .returns(sealedInterfaceClassName.copy(nullable = true))
                     .addCode(
                       """
-                                if (string == null) return null
-                                if (string.matches(Regex("\\d{4}"))) {
-                                    return Year(string.toInt())
-                                } else if (string.matches(Regex("\\d{4}-\\d{2}"))) {
-                                    val parts = string.split("-")
-                                    return YearMonth(parts[0].toInt(), parts[1].toInt())
-                                } else if (string.matches(Regex("\\d{4}-\\d{2}-\\d{2}"))) {
-                                    return Date(LocalDate.parse(string))
-                                } else if (string.matches(Regex("\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(\\.\\d+)?(Z|([+\\-])\\d{2}:\\d{2})"))) {
-                                    val groups = Regex("(?<datetime>\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(\\.\\d+)?)(?<utcoffset>Z|([+\\-])\\d{2}:\\d{2})").find(string)!!.groups
-                                    return DateTime(LocalDateTime.parse(groups["datetime"]!!.value), UtcOffset.parse(groups["utcoffset"]!!.value))
-                                }
-                                error("Invalid string value: ${'$'}string")
-                                """
+                      if (string == null) return null
+                      if (string.matches(Regex("\\d{4}"))) {
+                          return Year(string.toInt())
+                      } else if (string.matches(Regex("\\d{4}-\\d{2}"))) {
+                          return YearMonth(kotlinx.datetime.YearMonth.parse(string))
+                      } else if (string.matches(Regex("\\d{4}-\\d{2}-\\d{2}"))) {
+                          return Date(LocalDate.parse(string))
+                      } else if (string.matches(Regex("\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(\\.\\d+)?(Z|([+\\-])\\d{2}:\\d{2})"))) {
+                          val groups = Regex("(?<datetime>\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(\\.\\d+)?)(?<utcoffset>Z|([+\\-])\\d{2}:\\d{2})").find(string)!!.groups
+                          return DateTime(LocalDateTime.parse(groups["datetime"]!!.value), UtcOffset.parse(groups["utcoffset"]!!.value))
+                      }
+                      error("Invalid string value: ${'$'}string")
+                      """
                         .trimIndent()
                     )
                     .build()

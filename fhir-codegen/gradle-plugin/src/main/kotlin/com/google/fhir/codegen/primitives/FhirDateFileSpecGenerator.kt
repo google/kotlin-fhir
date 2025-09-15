@@ -25,6 +25,7 @@ import com.squareup.kotlinpoet.PropertySpec
 import com.squareup.kotlinpoet.TypeSpec
 import com.squareup.kotlinpoet.asClassName
 import kotlinx.datetime.LocalDate
+import kotlinx.datetime.YearMonth
 
 /**
  * Generates a [FileSpec] for `FhirDate.kt` containing a sealed interface `FhirDate` which is the
@@ -67,18 +68,16 @@ object FhirDateFileSpecGenerator {
                 .addModifiers(KModifier.DATA)
                 .addSuperinterface(sealedInterfaceClassName)
                 .primaryConstructor(
-                  FunSpec.constructorBuilder()
-                    .addParameter("year", Int::class)
-                    .addParameter("month", Int::class)
-                    .build()
+                  FunSpec.constructorBuilder().addParameter("value", YearMonth::class).build()
                 )
-                .addProperty(PropertySpec.builder("year", Int::class).initializer("year").build())
-                .addProperty(PropertySpec.builder("month", Int::class).initializer("month").build())
+                .addProperty(
+                  PropertySpec.builder("value", YearMonth::class).initializer("value").build()
+                )
                 .addFunction(
                   FunSpec.builder("toString")
                     .addModifiers(KModifier.OVERRIDE)
                     .returns(String::class)
-                    .addStatement("return \"\$year-\${month.toString().padStart(2,'0')}\"")
+                    .addStatement("return value.toString()")
                     .build()
                 )
                 .build()
@@ -117,17 +116,16 @@ object FhirDateFileSpecGenerator {
                     .returns(sealedInterfaceClassName.copy(nullable = true))
                     .addCode(
                       """
-                                if (string == null) return null
-                                if (string.matches(Regex("\\d{4}"))) {
-                                    return Year(string.toInt())
-                                } else if (string.matches(Regex("\\d{4}-\\d{2}"))) {
-                                    val parts = string.split("-")
-                                    return YearMonth(parts[0].toInt(), parts[1].toInt())
-                                } else if (string.matches(Regex("\\d{4}-\\d{2}-\\d{2}"))) {
-                                    return Date(LocalDate.parse(string))
-                                }
-                                error("Invalid string value: ${'$'}string")
-                                """
+                      if (string == null) return null
+                      if (string.matches(Regex("\\d{4}"))) {
+                          return Year(string.toInt())
+                      } else if (string.matches(Regex("\\d{4}-\\d{2}"))) {
+                          return YearMonth(kotlinx.datetime.YearMonth.parse(string))
+                      } else if (string.matches(Regex("\\d{4}-\\d{2}-\\d{2}"))) {
+                          return Date(LocalDate.parse(string))
+                      }
+                      error("Invalid string value: ${'$'}string")
+                      """
                         .trimIndent()
                     )
                     .build()

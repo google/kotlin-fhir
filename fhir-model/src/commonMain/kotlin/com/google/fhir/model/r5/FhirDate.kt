@@ -30,8 +30,8 @@ public sealed interface FhirDate {
     override fun toString(): String = value.toString()
   }
 
-  public data class YearMonth(public val year: Int, public val month: Int) : FhirDate {
-    override fun toString(): String = "$year-${month.toString().padStart(2,'0')}"
+  public data class YearMonth(public val `value`: kotlinx.datetime.YearMonth) : FhirDate {
+    override fun toString(): String = value.toString()
   }
 
   public data class Date(public val date: LocalDate) : FhirDate {
@@ -44,8 +44,7 @@ public sealed interface FhirDate {
       if (string.matches(Regex("\\d{4}"))) {
         return Year(string.toInt())
       } else if (string.matches(Regex("\\d{4}-\\d{2}"))) {
-        val parts = string.split("-")
-        return YearMonth(parts[0].toInt(), parts[1].toInt())
+        return YearMonth(kotlinx.datetime.YearMonth.parse(string))
       } else if (string.matches(Regex("\\d{4}-\\d{2}-\\d{2}"))) {
         return Date(LocalDate.parse(string))
       }

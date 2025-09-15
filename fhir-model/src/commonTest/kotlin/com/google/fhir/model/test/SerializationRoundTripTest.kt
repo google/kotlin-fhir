@@ -110,12 +110,10 @@ class SerializationRoundTripTest {
         // Scientific notation
         "Observation-decimal.json",
 
-        // Invalid resource
+        // Invalid resources
         "Bundle-valuesets.json",
         "CodeSystem-catalogType.json",
         "ValueSet-catalogType.json",
-
-        // Invalid resources
         "ActivityDefinition-administer-zika-virus-exposure-assessment.json",
       )
 
