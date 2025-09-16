@@ -25,47 +25,31 @@ class EnumFileSpecGenerator(val codegenContext: CodegenContext) {
 
   /**
    * Generates a list of [FileSpec]s for enum classes from the elements within a
-   * [StructureDefinition]. Processes both root and backbone elements, generating enums for bound
-   * ValueSets. Enums are created inside the terminologies' subpackage of the core models package.
+   * [StructureDefinition]. The enum classes are created inside the terminologies' subpackage of the
+   * core model's package.
    *
    * E.g. `com.google.fhir.model.r4.terminologies`
    */
-  fun generate(structureDefinition: StructureDefinition): List<FileSpec> {
-    return createEnumFileSpec(
-        codegenContext.valueSetMap,
-        structureDefinition.rootElements,
-        codegenContext.packageName,
-      )
-      .plus(
-        structureDefinition.backboneElements.flatMap { elements ->
-          createEnumFileSpec(codegenContext.valueSetMap, elements.value, codegenContext.packageName)
-        }
-      )
-  }
-
-  /**
-   * Filters elements with valid ValueSet bindings and generates [FileSpec] for each. Enums for
-   * common bindings are placed in the provided package; others go into a `.terminologies`
-   * subpackage.
-   */
-  private fun createEnumFileSpec(
-    valueSetMap: Map<String, ValueSet>,
-    elements: List<Element>,
-    packageName: String,
-  ): List<FileSpec> =
-    elements
-      .asSequence()
-      .filter { it.getValueSetUrl() != null && valueSetMap.containsKey(it.getValueSetUrl()) }
-      .filterNot { !it.isCommonBinding }
-      .mapNotNull { element ->
-        val valueSet = valueSetMap.getValue(element.getValueSetUrl()!!)
+  fun generate(structureDefinition: StructureDefinition): List<FileSpec> =
+    structureDefinition.snapshot
+      ?.element
+      ?.asSequence()
+      ?.filter {
+        it.getValueSetUrl() != null && codegenContext.valueSetMap.containsKey(it.getValueSetUrl())
+      }
+      ?.filterNot { !it.isCommonBinding }
+      ?.mapNotNull { element ->
+        val valueSet = codegenContext.valueSetMap.getValue(element.getValueSetUrl()!!)
         val valueSetName = valueSet.name.normalizeEnumName()
         val enumTypeSpec = EnumTypeSpecGenerator.generate(valueSetName, valueSet)
         enumTypeSpec?.let {
-          FileSpec.builder(packageName = "$packageName.terminologies", fileName = valueSetName)
+          FileSpec.builder(
+              packageName = "${codegenContext.packageName}.terminologies",
+              fileName = valueSetName,
+            )
             .addType(it)
             .build()
         }
       }
-      .toList()
+      ?.toList() ?: emptyList()
 }
