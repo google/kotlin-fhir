@@ -83,55 +83,6 @@ internal data class InvoiceParticipantSurrogate(
 }
 
 @Serializable
-internal data class InvoiceLineItemServicedSurrogate(
-  public var servicedDate: KotlinString? = null,
-  public var _servicedDate: Element? = null,
-  public var servicedPeriod: Period? = null,
-) {
-  public fun toModel(): Invoice.LineItem.Serviced =
-    Invoice.LineItem.Serviced?.from(
-      Date.of(
-        FhirDate.fromString(this@InvoiceLineItemServicedSurrogate.servicedDate),
-        this@InvoiceLineItemServicedSurrogate._servicedDate,
-      ),
-      this@InvoiceLineItemServicedSurrogate.servicedPeriod,
-    )!!
-
-  public companion object {
-    public fun fromModel(model: Invoice.LineItem.Serviced): InvoiceLineItemServicedSurrogate =
-      with(model) {
-        InvoiceLineItemServicedSurrogate(
-          servicedDate = this@with.asDate()?.value?.value?.toString(),
-          _servicedDate = this@with.asDate()?.value?.toElement(),
-          servicedPeriod = this@with.asPeriod()?.value,
-        )
-      }
-  }
-}
-
-@Serializable
-internal data class InvoiceLineItemChargeItemSurrogate(
-  public var chargeItemReference: Reference? = null,
-  public var chargeItemCodeableConcept: CodeableConcept? = null,
-) {
-  public fun toModel(): Invoice.LineItem.ChargeItem =
-    Invoice.LineItem.ChargeItem.from(
-      this@InvoiceLineItemChargeItemSurrogate.chargeItemReference,
-      this@InvoiceLineItemChargeItemSurrogate.chargeItemCodeableConcept,
-    )!! !!
-
-  public companion object {
-    public fun fromModel(model: Invoice.LineItem.ChargeItem): InvoiceLineItemChargeItemSurrogate =
-      with(model) {
-        InvoiceLineItemChargeItemSurrogate(
-          chargeItemReference = this@with.asReference()?.value,
-          chargeItemCodeableConcept = this@with.asCodeableConcept()?.value,
-        )
-      }
-  }
-}
-
-@Serializable
 internal data class InvoiceLineItemSurrogate(
   public var id: KotlinString? = null,
   public var extension: MutableList<Extension>? = null,
@@ -181,7 +132,7 @@ internal data class InvoicePeriodSurrogate(
   public var periodPeriod: Period? = null,
 ) {
   public fun toModel(): Invoice.Period =
-    Invoice.Period?.from(
+    Invoice.Period.from(
       Date.of(
         FhirDate.fromString(this@InvoicePeriodSurrogate.periodDate),
         this@InvoicePeriodSurrogate._periodDate,
@@ -196,6 +147,55 @@ internal data class InvoicePeriodSurrogate(
           periodDate = this@with.asDate()?.value?.value?.toString(),
           _periodDate = this@with.asDate()?.value?.toElement(),
           periodPeriod = this@with.asPeriod()?.value,
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class InvoiceLineItemServicedSurrogate(
+  public var servicedDate: KotlinString? = null,
+  public var _servicedDate: Element? = null,
+  public var servicedPeriod: Period? = null,
+) {
+  public fun toModel(): Invoice.LineItem.Serviced =
+    Invoice.LineItem.Serviced.from(
+      Date.of(
+        FhirDate.fromString(this@InvoiceLineItemServicedSurrogate.servicedDate),
+        this@InvoiceLineItemServicedSurrogate._servicedDate,
+      ),
+      this@InvoiceLineItemServicedSurrogate.servicedPeriod,
+    )!!
+
+  public companion object {
+    public fun fromModel(model: Invoice.LineItem.Serviced): InvoiceLineItemServicedSurrogate =
+      with(model) {
+        InvoiceLineItemServicedSurrogate(
+          servicedDate = this@with.asDate()?.value?.value?.toString(),
+          _servicedDate = this@with.asDate()?.value?.toElement(),
+          servicedPeriod = this@with.asPeriod()?.value,
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class InvoiceLineItemChargeItemSurrogate(
+  public var chargeItemReference: Reference? = null,
+  public var chargeItemCodeableConcept: CodeableConcept? = null,
+) {
+  public fun toModel(): Invoice.LineItem.ChargeItem =
+    Invoice.LineItem.ChargeItem.from(
+      this@InvoiceLineItemChargeItemSurrogate.chargeItemReference,
+      this@InvoiceLineItemChargeItemSurrogate.chargeItemCodeableConcept,
+    )!! !!
+
+  public companion object {
+    public fun fromModel(model: Invoice.LineItem.ChargeItem): InvoiceLineItemChargeItemSurrogate =
+      with(model) {
+        InvoiceLineItemChargeItemSurrogate(
+          chargeItemReference = this@with.asReference()?.value,
+          chargeItemCodeableConcept = this@with.asCodeableConcept()?.value,
         )
       }
   }

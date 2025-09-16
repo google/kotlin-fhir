@@ -73,25 +73,20 @@ public object DocumentReferenceRelatesToSerializer : KSerializer<DocumentReferen
   }
 }
 
-public object DocumentReferenceContentProfileValueSerializer :
-  KSerializer<DocumentReference.Content.Profile.Value> {
-  internal val surrogateSerializer:
-    KSerializer<DocumentReferenceContentProfileValueSurrogate> by lazy {
-    DocumentReferenceContentProfileValueSurrogate.serializer()
+public object DocumentReferenceContentSerializer : KSerializer<DocumentReference.Content> {
+  internal val surrogateSerializer: KSerializer<DocumentReferenceContentSurrogate> by lazy {
+    DocumentReferenceContentSurrogate.serializer()
   }
 
   override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Value", surrogateSerializer.descriptor)
+    SerialDescriptor("Content", surrogateSerializer.descriptor)
   }
 
-  override fun deserialize(decoder: Decoder): DocumentReference.Content.Profile.Value =
+  override fun deserialize(decoder: Decoder): DocumentReference.Content =
     surrogateSerializer.deserialize(decoder).toModel()
 
-  override fun serialize(encoder: Encoder, `value`: DocumentReference.Content.Profile.Value) {
-    surrogateSerializer.serialize(
-      encoder,
-      DocumentReferenceContentProfileValueSurrogate.fromModel(value),
-    )
+  override fun serialize(encoder: Encoder, `value`: DocumentReference.Content) {
+    surrogateSerializer.serialize(encoder, DocumentReferenceContentSurrogate.fromModel(value))
   }
 }
 
@@ -143,20 +138,25 @@ public object DocumentReferenceContentProfileSerializer :
   }
 }
 
-public object DocumentReferenceContentSerializer : KSerializer<DocumentReference.Content> {
-  internal val surrogateSerializer: KSerializer<DocumentReferenceContentSurrogate> by lazy {
-    DocumentReferenceContentSurrogate.serializer()
+public object DocumentReferenceContentProfileValueSerializer :
+  KSerializer<DocumentReference.Content.Profile.Value> {
+  internal val surrogateSerializer:
+    KSerializer<DocumentReferenceContentProfileValueSurrogate> by lazy {
+    DocumentReferenceContentProfileValueSurrogate.serializer()
   }
 
   override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Content", surrogateSerializer.descriptor)
+    SerialDescriptor("Value", surrogateSerializer.descriptor)
   }
 
-  override fun deserialize(decoder: Decoder): DocumentReference.Content =
+  override fun deserialize(decoder: Decoder): DocumentReference.Content.Profile.Value =
     surrogateSerializer.deserialize(decoder).toModel()
 
-  override fun serialize(encoder: Encoder, `value`: DocumentReference.Content) {
-    surrogateSerializer.serialize(encoder, DocumentReferenceContentSurrogate.fromModel(value))
+  override fun serialize(encoder: Encoder, `value`: DocumentReference.Content.Profile.Value) {
+    surrogateSerializer.serialize(
+      encoder,
+      DocumentReferenceContentProfileValueSurrogate.fromModel(value),
+    )
   }
 }
 

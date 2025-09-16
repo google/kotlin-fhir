@@ -105,28 +105,6 @@ public object SubstanceReferenceInformationClassificationSerializer :
   }
 }
 
-public object SubstanceReferenceInformationTargetAmountSerializer :
-  KSerializer<SubstanceReferenceInformation.Target.Amount> {
-  internal val surrogateSerializer:
-    KSerializer<SubstanceReferenceInformationTargetAmountSurrogate> by lazy {
-    SubstanceReferenceInformationTargetAmountSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Amount", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): SubstanceReferenceInformation.Target.Amount =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: SubstanceReferenceInformation.Target.Amount) {
-    surrogateSerializer.serialize(
-      encoder,
-      SubstanceReferenceInformationTargetAmountSurrogate.fromModel(value),
-    )
-  }
-}
-
 public object SubstanceReferenceInformationTargetSerializer :
   KSerializer<SubstanceReferenceInformation.Target> {
   internal val surrogateSerializer:
@@ -173,6 +151,28 @@ public object SubstanceReferenceInformationTargetSerializer :
       }
     val flattenedJsonObject = FhirJsonTransformer.flatten(oldJsonObject, multiChoiceProperties)
     jsonEncoder.encodeJsonElement(flattenedJsonObject)
+  }
+}
+
+public object SubstanceReferenceInformationTargetAmountSerializer :
+  KSerializer<SubstanceReferenceInformation.Target.Amount> {
+  internal val surrogateSerializer:
+    KSerializer<SubstanceReferenceInformationTargetAmountSurrogate> by lazy {
+    SubstanceReferenceInformationTargetAmountSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Amount", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): SubstanceReferenceInformation.Target.Amount =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: SubstanceReferenceInformation.Target.Amount) {
+    surrogateSerializer.serialize(
+      encoder,
+      SubstanceReferenceInformationTargetAmountSurrogate.fromModel(value),
+    )
   }
 }
 

@@ -22,13 +22,9 @@ import com.google.fhir.codegen.schema.StructureDefinition
 import com.google.fhir.codegen.schema.Type
 import com.google.fhir.codegen.schema.backboneElements
 import com.google.fhir.codegen.schema.capitalized
-import com.google.fhir.codegen.schema.getBackboneElementsMap
 import com.google.fhir.codegen.schema.getElementName
-import com.google.fhir.codegen.schema.getElements
 import com.google.fhir.codegen.schema.getPathSimpleNames
-import com.google.fhir.codegen.schema.getPolymorphicTypeSurrogateClassSimpleName
 import com.google.fhir.codegen.schema.getSurrogatePropertyNameTypeDefaultValueList
-import com.google.fhir.codegen.schema.getTypeName
 import com.google.fhir.codegen.schema.getValueSetUrl
 import com.google.fhir.codegen.schema.isCommonBinding
 import com.google.fhir.codegen.schema.normalizeEnumName
@@ -48,7 +44,7 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 /**
- * Generates a [TypeSpec] for a surrogate classes.
+ * Generates a [FileSpec] for a surrogate classes.
  *
  * The surrogate class represents the structure of the JSON object accurately for ease of
  * serialization/deserialization. The custom serializer delegates the serialization/deserialization
@@ -59,82 +55,66 @@ import kotlinx.serialization.UseSerializers
  */
 class SurrogateFileSpecGenerator(val codegenContext: CodegenContext) {
   /**
-   * Generates a [TypeSpec] for the model's Surrogate (including backbone elements).
-   *
-   * Example: PatientSurrogate for the Patient resource.
+   * Generates a [FileSpec] for the model's surrogate. The generated file will include surrogates
+   * for the backbone elements and possible sealed interfaces.
    */
   fun generate(structureDefinition: StructureDefinition): FileSpec {
     val modelClassName = codegenContext.getModelClassName(structureDefinition)
     return modelClassName
       .toSurrogateFileSpecBuilder()
       .apply {
-        // Add surrogate type specs for backbone elements recursively e.g. PatientContactSurrogate
-        // , PatientCommunicationSurrogate and PatientLinkSerializeSurrogate
-        addBackboneElementSurrogates(
-          structureDefinition,
-          structureDefinition.backboneElements,
-          structureDefinition.name,
-          modelClassName,
-        )
+        addBackboneElementSurrogates(structureDefinition, modelClassName)
 
-        // Add surrogate type specs for sealed interfaces  e.g. PatientDeceasedSurrogate and
-        // PatientMultipleBirthSurrogate
-        addTypes(
-          structureDefinition.rootElements
-            .filter { it.path.endsWith("[x]") }
-            .map { element: Element ->
-              createSealedInterfaceSurrogateTypeSpec(modelClassName, element)
-            }
-        )
+        addSealedInterfaceSurrogates(structureDefinition, modelClassName)
 
-        // Add type spec for model class surrogate e.g. PatientSurrogate
+        // Add type spec for the model class surrogate e.g. PatientSurrogate
         addType(createSurrogateClassTypeSpec(modelClassName, structureDefinition.rootElements))
       }
       .build()
   }
 
+  /**
+   * Adds [TypeSpec] for backbone element surrogate classes
+   *
+   * Examples: PatientContactSurrogate, PatientCommunicationSurrogate and
+   * PatientLinkSerializeSurrogate
+   */
   private fun FileSpec.Builder.addBackboneElementSurrogates(
     structureDefinition: StructureDefinition,
-    backboneElements: Map<Element, List<Element>>,
-    path: String,
-    className: ClassName,
+    modelClassName: ClassName,
   ): FileSpec.Builder = apply {
-    backboneElements
-      .filter { (backboneElement, _) ->
-        backboneElement.path.matches("${path}\\.[A-Za-z0-9]+".toRegex())
-      }
-      .forEach { (backboneElement, _) ->
-        val name = backboneElement.path.substringAfterLast('.').capitalized()
-        val backboneElementClassName = className.nestedClass(name)
-        val elements = structureDefinition.getElements(backboneElementClassName)
-
-        val nestedBackboneElementMap = elements.getBackboneElementsMap()
-        if (nestedBackboneElementMap.isNotEmpty()) {
-          addBackboneElementSurrogates(
-            structureDefinition,
-            nestedBackboneElementMap,
-            backboneElement.path,
-            backboneElementClassName,
-          )
-        }
-
-        // Add type specs for backbone element's sealed interface Surrogate
-        addTypes(
-          elements
-            .filter { it.path.endsWith("[x]") }
-            .map { element ->
-              createSealedInterfaceSurrogateTypeSpec(backboneElementClassName, element)
-            }
+    structureDefinition.backboneElements.forEach { (backboneElement, elements) ->
+      val simpleNames = backboneElement.path.split('.').map { it.capitalized() }
+      val backboneElementClassName = ClassName(modelClassName.packageName, simpleNames)
+      addType(
+        this@SurrogateFileSpecGenerator.createSurrogateClassTypeSpec(
+          className = backboneElementClassName,
+          elements = elements,
         )
+      )
+    }
+  }
 
-        // Add backbone element Surrogate
-        addType(
-          this@SurrogateFileSpecGenerator.createSurrogateClassTypeSpec(
-            className = backboneElementClassName,
-            elements = elements,
-          )
-        )
-      }
+  /**
+   * Adds types [TypeSpec] for sealed interface surrogate classes
+   *
+   * Examples: PatientMultipleBirthSurrogate and PatientDeceasedSurrogate
+   */
+  private fun FileSpec.Builder.addSealedInterfaceSurrogates(
+    structureDefinition: StructureDefinition,
+    modelClassName: ClassName,
+  ) = apply {
+    val sealedInterfaceSurrogateTypes =
+      structureDefinition.snapshot
+        ?.element
+        ?.filter { it.path.endsWith("[x]") }
+        ?.map { element: Element ->
+          val simpleNames = element.path.replace("[x]", "").split('.').map { it.capitalized() }
+          val sealedInterfaceClassName = ClassName(modelClassName.packageName, simpleNames)
+          createSealedInterfaceSurrogateTypeSpec(sealedInterfaceClassName, element)
+        } ?: emptyList()
+
+    addTypes(sealedInterfaceSurrogateTypes)
   }
 
   fun createSurrogateClassTypeSpec(className: ClassName, elements: List<Element>): TypeSpec =
@@ -201,11 +181,7 @@ class SurrogateFileSpecGenerator(val codegenContext: CodegenContext) {
     className: ClassName,
     element: Element,
   ): TypeSpec {
-    val sealedInterfaceSurrogateClassName =
-      ClassName(
-        className.toSurrogateClassName().packageName,
-        element.getPolymorphicTypeSurrogateClassSimpleName(),
-      )
+    val sealedInterfaceSurrogateClassName = className.toSurrogateClassName()
     return TypeSpec.classBuilder(sealedInterfaceSurrogateClassName)
       .addAnnotation(Serializable::class)
       .addModifiers(KModifier.INTERNAL)
@@ -248,13 +224,9 @@ class SurrogateFileSpecGenerator(val codegenContext: CodegenContext) {
     surrogateClassName: ClassName,
     element: Element,
   ) {
-    // Name of sealed class derived from path e.g. Patient.deceased sealed class would be Deceased
-    val pathSimpleNames = element.getPathSimpleNames()
-    val sealedClassSimpleName = modelClassName.nestedClass(pathSimpleNames.last().capitalized())
-
     addFunction(
       FunSpec.builder("toModel")
-        .returns(sealedClassSimpleName.copy(false))
+        .returns(modelClassName.copy(false))
         .addCode(
           CodeBlock.builder()
             .add("return ")
@@ -289,12 +261,7 @@ class SurrogateFileSpecGenerator(val codegenContext: CodegenContext) {
       TypeSpec.companionObjectBuilder()
         .addFunction(
           FunSpec.builder("fromModel")
-            .addParameter(
-              ParameterSpec(
-                "model",
-                ClassName(modelClassName.packageName, element.getPathSimpleNames()),
-              )
-            )
+            .addParameter(ParameterSpec("model", modelClassName))
             .returns(surrogateClassName)
             .addCode(
               CodeBlock.builder()
@@ -436,7 +403,7 @@ class SurrogateFileSpecGenerator(val codegenContext: CodegenContext) {
           } else {
             ""
           }
-        add("%T.from(", element.getTypeName(modelClassName))
+        add("%T.from(", modelClassName)
         for (type in element.type) {
           addChoiceTypeParamToModelClassConstructor(
             modelClassName,

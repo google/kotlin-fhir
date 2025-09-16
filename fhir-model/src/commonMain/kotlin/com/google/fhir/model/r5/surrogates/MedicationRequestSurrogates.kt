@@ -53,42 +53,6 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
-internal data class MedicationRequestDispenseRequestInitialFillSurrogate(
-  public var id: String? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var quantity: Quantity? = null,
-  public var duration: Duration? = null,
-) {
-  public fun toModel(): MedicationRequest.DispenseRequest.InitialFill =
-    MedicationRequest.DispenseRequest.InitialFill(
-      id = this@MedicationRequestDispenseRequestInitialFillSurrogate.id,
-      extension =
-        this@MedicationRequestDispenseRequestInitialFillSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@MedicationRequestDispenseRequestInitialFillSurrogate.modifierExtension
-          ?: mutableListOf(),
-      quantity = this@MedicationRequestDispenseRequestInitialFillSurrogate.quantity,
-      duration = this@MedicationRequestDispenseRequestInitialFillSurrogate.duration,
-    )
-
-  public companion object {
-    public fun fromModel(
-      model: MedicationRequest.DispenseRequest.InitialFill
-    ): MedicationRequestDispenseRequestInitialFillSurrogate =
-      with(model) {
-        MedicationRequestDispenseRequestInitialFillSurrogate(
-          id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          quantity = this@with.quantity,
-          duration = this@with.duration,
-        )
-      }
-  }
-}
-
-@Serializable
 internal data class MedicationRequestDispenseRequestSurrogate(
   public var id: String? = null,
   public var extension: MutableList<Extension>? = null,
@@ -153,29 +117,36 @@ internal data class MedicationRequestDispenseRequestSurrogate(
 }
 
 @Serializable
-internal data class MedicationRequestSubstitutionAllowedSurrogate(
-  public var allowedBoolean: KotlinBoolean? = null,
-  public var _allowedBoolean: Element? = null,
-  public var allowedCodeableConcept: CodeableConcept? = null,
+internal data class MedicationRequestDispenseRequestInitialFillSurrogate(
+  public var id: String? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var quantity: Quantity? = null,
+  public var duration: Duration? = null,
 ) {
-  public fun toModel(): MedicationRequest.Substitution.Allowed =
-    MedicationRequest.Substitution.Allowed.from(
-      R5Boolean.of(
-        this@MedicationRequestSubstitutionAllowedSurrogate.allowedBoolean,
-        this@MedicationRequestSubstitutionAllowedSurrogate._allowedBoolean,
-      ),
-      this@MedicationRequestSubstitutionAllowedSurrogate.allowedCodeableConcept,
-    )!! !!
+  public fun toModel(): MedicationRequest.DispenseRequest.InitialFill =
+    MedicationRequest.DispenseRequest.InitialFill(
+      id = this@MedicationRequestDispenseRequestInitialFillSurrogate.id,
+      extension =
+        this@MedicationRequestDispenseRequestInitialFillSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@MedicationRequestDispenseRequestInitialFillSurrogate.modifierExtension
+          ?: mutableListOf(),
+      quantity = this@MedicationRequestDispenseRequestInitialFillSurrogate.quantity,
+      duration = this@MedicationRequestDispenseRequestInitialFillSurrogate.duration,
+    )
 
   public companion object {
     public fun fromModel(
-      model: MedicationRequest.Substitution.Allowed
-    ): MedicationRequestSubstitutionAllowedSurrogate =
+      model: MedicationRequest.DispenseRequest.InitialFill
+    ): MedicationRequestDispenseRequestInitialFillSurrogate =
       with(model) {
-        MedicationRequestSubstitutionAllowedSurrogate(
-          allowedBoolean = this@with.asBoolean()?.value?.value,
-          _allowedBoolean = this@with.asBoolean()?.value?.toElement(),
-          allowedCodeableConcept = this@with.asCodeableConcept()?.value,
+        MedicationRequestDispenseRequestInitialFillSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          quantity = this@with.quantity,
+          duration = this@with.duration,
         )
       }
   }
@@ -210,6 +181,35 @@ internal data class MedicationRequestSubstitutionSurrogate(
           modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
           allowed = this@with.allowed,
           reason = this@with.reason,
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class MedicationRequestSubstitutionAllowedSurrogate(
+  public var allowedBoolean: KotlinBoolean? = null,
+  public var _allowedBoolean: Element? = null,
+  public var allowedCodeableConcept: CodeableConcept? = null,
+) {
+  public fun toModel(): MedicationRequest.Substitution.Allowed =
+    MedicationRequest.Substitution.Allowed.from(
+      R5Boolean.of(
+        this@MedicationRequestSubstitutionAllowedSurrogate.allowedBoolean,
+        this@MedicationRequestSubstitutionAllowedSurrogate._allowedBoolean,
+      ),
+      this@MedicationRequestSubstitutionAllowedSurrogate.allowedCodeableConcept,
+    )!! !!
+
+  public companion object {
+    public fun fromModel(
+      model: MedicationRequest.Substitution.Allowed
+    ): MedicationRequestSubstitutionAllowedSurrogate =
+      with(model) {
+        MedicationRequestSubstitutionAllowedSurrogate(
+          allowedBoolean = this@with.asBoolean()?.value?.value,
+          _allowedBoolean = this@with.asBoolean()?.value?.toElement(),
+          allowedCodeableConcept = this@with.asCodeableConcept()?.value,
         )
       }
   }

@@ -77,28 +77,6 @@ public object ConditionDefinitionMedicationSerializer :
   }
 }
 
-public object ConditionDefinitionPreconditionValueSerializer :
-  KSerializer<ConditionDefinition.Precondition.Value> {
-  internal val surrogateSerializer:
-    KSerializer<ConditionDefinitionPreconditionValueSurrogate> by lazy {
-    ConditionDefinitionPreconditionValueSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Value", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): ConditionDefinition.Precondition.Value =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: ConditionDefinition.Precondition.Value) {
-    surrogateSerializer.serialize(
-      encoder,
-      ConditionDefinitionPreconditionValueSurrogate.fromModel(value),
-    )
-  }
-}
-
 public object ConditionDefinitionPreconditionSerializer :
   KSerializer<ConditionDefinition.Precondition> {
   internal val surrogateSerializer: KSerializer<ConditionDefinitionPreconditionSurrogate> by lazy {
@@ -203,6 +181,28 @@ public object ConditionDefinitionVersionAlgorithmSerializer :
     surrogateSerializer.serialize(
       encoder,
       ConditionDefinitionVersionAlgorithmSurrogate.fromModel(value),
+    )
+  }
+}
+
+public object ConditionDefinitionPreconditionValueSerializer :
+  KSerializer<ConditionDefinition.Precondition.Value> {
+  internal val surrogateSerializer:
+    KSerializer<ConditionDefinitionPreconditionValueSurrogate> by lazy {
+    ConditionDefinitionPreconditionValueSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Value", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): ConditionDefinition.Precondition.Value =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: ConditionDefinition.Precondition.Value) {
+    surrogateSerializer.serialize(
+      encoder,
+      ConditionDefinitionPreconditionValueSurrogate.fromModel(value),
     )
   }
 }

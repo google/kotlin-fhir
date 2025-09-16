@@ -59,86 +59,6 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
-internal data class EvidenceVariableCharacteristicDefinitionSurrogate(
-  public var definitionReference: Reference? = null,
-  public var definitionCanonical: KotlinString? = null,
-  public var _definitionCanonical: Element? = null,
-  public var definitionCodeableConcept: CodeableConcept? = null,
-  public var definitionExpression: Expression? = null,
-  public var definitionDataRequirement: DataRequirement? = null,
-  public var definitionTriggerDefinition: TriggerDefinition? = null,
-) {
-  public fun toModel(): EvidenceVariable.Characteristic.Definition =
-    EvidenceVariable.Characteristic.Definition.from(
-      this@EvidenceVariableCharacteristicDefinitionSurrogate.definitionReference,
-      Canonical.of(
-        this@EvidenceVariableCharacteristicDefinitionSurrogate.definitionCanonical,
-        this@EvidenceVariableCharacteristicDefinitionSurrogate._definitionCanonical,
-      ),
-      this@EvidenceVariableCharacteristicDefinitionSurrogate.definitionCodeableConcept,
-      this@EvidenceVariableCharacteristicDefinitionSurrogate.definitionExpression,
-      this@EvidenceVariableCharacteristicDefinitionSurrogate.definitionDataRequirement,
-      this@EvidenceVariableCharacteristicDefinitionSurrogate.definitionTriggerDefinition,
-    )!! !!
-
-  public companion object {
-    public fun fromModel(
-      model: EvidenceVariable.Characteristic.Definition
-    ): EvidenceVariableCharacteristicDefinitionSurrogate =
-      with(model) {
-        EvidenceVariableCharacteristicDefinitionSurrogate(
-          definitionReference = this@with.asReference()?.value,
-          definitionCanonical = this@with.asCanonical()?.value?.value,
-          _definitionCanonical = this@with.asCanonical()?.value?.toElement(),
-          definitionCodeableConcept = this@with.asCodeableConcept()?.value,
-          definitionExpression = this@with.asExpression()?.value,
-          definitionDataRequirement = this@with.asDataRequirement()?.value,
-          definitionTriggerDefinition = this@with.asTriggerDefinition()?.value,
-        )
-      }
-  }
-}
-
-@Serializable
-internal data class EvidenceVariableCharacteristicParticipantEffectiveSurrogate(
-  public var participantEffectiveDateTime: KotlinString? = null,
-  public var _participantEffectiveDateTime: Element? = null,
-  public var participantEffectivePeriod: Period? = null,
-  public var participantEffectiveDuration: Duration? = null,
-  public var participantEffectiveTiming: Timing? = null,
-) {
-  public fun toModel(): EvidenceVariable.Characteristic.ParticipantEffective =
-    EvidenceVariable.Characteristic.ParticipantEffective?.from(
-      DateTime.of(
-        FhirDateTime.fromString(
-          this@EvidenceVariableCharacteristicParticipantEffectiveSurrogate
-            .participantEffectiveDateTime
-        ),
-        this@EvidenceVariableCharacteristicParticipantEffectiveSurrogate
-          ._participantEffectiveDateTime,
-      ),
-      this@EvidenceVariableCharacteristicParticipantEffectiveSurrogate.participantEffectivePeriod,
-      this@EvidenceVariableCharacteristicParticipantEffectiveSurrogate.participantEffectiveDuration,
-      this@EvidenceVariableCharacteristicParticipantEffectiveSurrogate.participantEffectiveTiming,
-    )!!
-
-  public companion object {
-    public fun fromModel(
-      model: EvidenceVariable.Characteristic.ParticipantEffective
-    ): EvidenceVariableCharacteristicParticipantEffectiveSurrogate =
-      with(model) {
-        EvidenceVariableCharacteristicParticipantEffectiveSurrogate(
-          participantEffectiveDateTime = this@with.asDateTime()?.value?.value?.toString(),
-          _participantEffectiveDateTime = this@with.asDateTime()?.value?.toElement(),
-          participantEffectivePeriod = this@with.asPeriod()?.value,
-          participantEffectiveDuration = this@with.asDuration()?.value,
-          participantEffectiveTiming = this@with.asTiming()?.value,
-        )
-      }
-  }
-}
-
-@Serializable
 internal data class EvidenceVariableCharacteristicSurrogate(
   public var id: KotlinString? = null,
   public var extension: MutableList<Extension>? = null,
@@ -202,6 +122,86 @@ internal data class EvidenceVariableCharacteristicSurrogate(
           timeFromStart = this@with.timeFromStart,
           groupMeasure = this@with.groupMeasure?.value?.getCode(),
           _groupMeasure = this@with.groupMeasure?.toElement(),
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class EvidenceVariableCharacteristicDefinitionSurrogate(
+  public var definitionReference: Reference? = null,
+  public var definitionCanonical: KotlinString? = null,
+  public var _definitionCanonical: Element? = null,
+  public var definitionCodeableConcept: CodeableConcept? = null,
+  public var definitionExpression: Expression? = null,
+  public var definitionDataRequirement: DataRequirement? = null,
+  public var definitionTriggerDefinition: TriggerDefinition? = null,
+) {
+  public fun toModel(): EvidenceVariable.Characteristic.Definition =
+    EvidenceVariable.Characteristic.Definition.from(
+      this@EvidenceVariableCharacteristicDefinitionSurrogate.definitionReference,
+      Canonical.of(
+        this@EvidenceVariableCharacteristicDefinitionSurrogate.definitionCanonical,
+        this@EvidenceVariableCharacteristicDefinitionSurrogate._definitionCanonical,
+      ),
+      this@EvidenceVariableCharacteristicDefinitionSurrogate.definitionCodeableConcept,
+      this@EvidenceVariableCharacteristicDefinitionSurrogate.definitionExpression,
+      this@EvidenceVariableCharacteristicDefinitionSurrogate.definitionDataRequirement,
+      this@EvidenceVariableCharacteristicDefinitionSurrogate.definitionTriggerDefinition,
+    )!! !!
+
+  public companion object {
+    public fun fromModel(
+      model: EvidenceVariable.Characteristic.Definition
+    ): EvidenceVariableCharacteristicDefinitionSurrogate =
+      with(model) {
+        EvidenceVariableCharacteristicDefinitionSurrogate(
+          definitionReference = this@with.asReference()?.value,
+          definitionCanonical = this@with.asCanonical()?.value?.value,
+          _definitionCanonical = this@with.asCanonical()?.value?.toElement(),
+          definitionCodeableConcept = this@with.asCodeableConcept()?.value,
+          definitionExpression = this@with.asExpression()?.value,
+          definitionDataRequirement = this@with.asDataRequirement()?.value,
+          definitionTriggerDefinition = this@with.asTriggerDefinition()?.value,
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class EvidenceVariableCharacteristicParticipantEffectiveSurrogate(
+  public var participantEffectiveDateTime: KotlinString? = null,
+  public var _participantEffectiveDateTime: Element? = null,
+  public var participantEffectivePeriod: Period? = null,
+  public var participantEffectiveDuration: Duration? = null,
+  public var participantEffectiveTiming: Timing? = null,
+) {
+  public fun toModel(): EvidenceVariable.Characteristic.ParticipantEffective =
+    EvidenceVariable.Characteristic.ParticipantEffective.from(
+      DateTime.of(
+        FhirDateTime.fromString(
+          this@EvidenceVariableCharacteristicParticipantEffectiveSurrogate
+            .participantEffectiveDateTime
+        ),
+        this@EvidenceVariableCharacteristicParticipantEffectiveSurrogate
+          ._participantEffectiveDateTime,
+      ),
+      this@EvidenceVariableCharacteristicParticipantEffectiveSurrogate.participantEffectivePeriod,
+      this@EvidenceVariableCharacteristicParticipantEffectiveSurrogate.participantEffectiveDuration,
+      this@EvidenceVariableCharacteristicParticipantEffectiveSurrogate.participantEffectiveTiming,
+    )!!
+
+  public companion object {
+    public fun fromModel(
+      model: EvidenceVariable.Characteristic.ParticipantEffective
+    ): EvidenceVariableCharacteristicParticipantEffectiveSurrogate =
+      with(model) {
+        EvidenceVariableCharacteristicParticipantEffectiveSurrogate(
+          participantEffectiveDateTime = this@with.asDateTime()?.value?.value?.toString(),
+          _participantEffectiveDateTime = this@with.asDateTime()?.value?.toElement(),
+          participantEffectivePeriod = this@with.asPeriod()?.value,
+          participantEffectiveDuration = this@with.asDuration()?.value,
+          participantEffectiveTiming = this@with.asTiming()?.value,
         )
       }
   }

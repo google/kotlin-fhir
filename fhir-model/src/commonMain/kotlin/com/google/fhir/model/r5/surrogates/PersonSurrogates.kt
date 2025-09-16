@@ -133,7 +133,7 @@ internal data class PersonDeceasedSurrogate(
   public var _deceasedDateTime: Element? = null,
 ) {
   public fun toModel(): Person.Deceased =
-    Person.Deceased?.from(
+    Person.Deceased.from(
       R5Boolean.of(
         this@PersonDeceasedSurrogate.deceasedBoolean,
         this@PersonDeceasedSurrogate._deceasedBoolean,

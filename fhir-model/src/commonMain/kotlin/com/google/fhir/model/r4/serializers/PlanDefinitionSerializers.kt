@@ -47,21 +47,20 @@ import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.JsonPrimitive
 import kotlinx.serialization.json.jsonObject
 
-public object PlanDefinitionGoalTargetDetailSerializer :
-  KSerializer<PlanDefinition.Goal.Target.Detail> {
-  internal val surrogateSerializer: KSerializer<PlanDefinitionGoalTargetDetailSurrogate> by lazy {
-    PlanDefinitionGoalTargetDetailSurrogate.serializer()
+public object PlanDefinitionGoalSerializer : KSerializer<PlanDefinition.Goal> {
+  internal val surrogateSerializer: KSerializer<PlanDefinitionGoalSurrogate> by lazy {
+    PlanDefinitionGoalSurrogate.serializer()
   }
 
   override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Detail", surrogateSerializer.descriptor)
+    SerialDescriptor("Goal", surrogateSerializer.descriptor)
   }
 
-  override fun deserialize(decoder: Decoder): PlanDefinition.Goal.Target.Detail =
+  override fun deserialize(decoder: Decoder): PlanDefinition.Goal =
     surrogateSerializer.deserialize(decoder).toModel()
 
-  override fun serialize(encoder: Encoder, `value`: PlanDefinition.Goal.Target.Detail) {
-    surrogateSerializer.serialize(encoder, PlanDefinitionGoalTargetDetailSurrogate.fromModel(value))
+  override fun serialize(encoder: Encoder, `value`: PlanDefinition.Goal) {
+    surrogateSerializer.serialize(encoder, PlanDefinitionGoalSurrogate.fromModel(value))
   }
 }
 
@@ -112,20 +111,50 @@ public object PlanDefinitionGoalTargetSerializer : KSerializer<PlanDefinition.Go
   }
 }
 
-public object PlanDefinitionGoalSerializer : KSerializer<PlanDefinition.Goal> {
-  internal val surrogateSerializer: KSerializer<PlanDefinitionGoalSurrogate> by lazy {
-    PlanDefinitionGoalSurrogate.serializer()
+public object PlanDefinitionActionSerializer : KSerializer<PlanDefinition.Action> {
+  internal val surrogateSerializer: KSerializer<PlanDefinitionActionSurrogate> by lazy {
+    PlanDefinitionActionSurrogate.serializer()
   }
+
+  private val resourceType: String? = null
+
+  private val multiChoiceProperties: List<String> = listOf("subject", "timing", "definition")
 
   override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Goal", surrogateSerializer.descriptor)
+    SerialDescriptor("Action", surrogateSerializer.descriptor)
   }
 
-  override fun deserialize(decoder: Decoder): PlanDefinition.Goal =
-    surrogateSerializer.deserialize(decoder).toModel()
+  override fun deserialize(decoder: Decoder): PlanDefinition.Action {
+    val jsonDecoder =
+      decoder as? JsonDecoder ?: error("This serializer only supports JSON decoding")
+    val oldJsonObject =
+      if (resourceType.isNullOrBlank()) {
+        jsonDecoder.decodeJsonElement().jsonObject
+      } else
+        JsonObject(
+          jsonDecoder.decodeJsonElement().jsonObject.toMutableMap().apply { remove("resourceType") }
+        )
+    val unflattenedJsonObject = FhirJsonTransformer.unflatten(oldJsonObject, multiChoiceProperties)
+    val surrogate =
+      jsonDecoder.json.decodeFromJsonElement(surrogateSerializer, unflattenedJsonObject)
+    return surrogate.toModel()
+  }
 
-  override fun serialize(encoder: Encoder, `value`: PlanDefinition.Goal) {
-    surrogateSerializer.serialize(encoder, PlanDefinitionGoalSurrogate.fromModel(value))
+  override fun serialize(encoder: Encoder, `value`: PlanDefinition.Action) {
+    val jsonEncoder =
+      encoder as? JsonEncoder ?: error("This serializer only supports JSON encoding")
+    val surrogate = PlanDefinitionActionSurrogate.fromModel(value)
+    val oldJsonObject =
+      if (resourceType.isNullOrBlank()) {
+        jsonEncoder.json.encodeToJsonElement(surrogateSerializer, surrogate).jsonObject
+      } else {
+        JsonObject(
+          mutableMapOf("resourceType" to JsonPrimitive(resourceType))
+            .plus(jsonEncoder.json.encodeToJsonElement(surrogateSerializer, surrogate).jsonObject)
+        )
+      }
+    val flattenedJsonObject = FhirJsonTransformer.flatten(oldJsonObject, multiChoiceProperties)
+    jsonEncoder.encodeJsonElement(flattenedJsonObject)
   }
 }
 
@@ -144,28 +173,6 @@ public object PlanDefinitionActionConditionSerializer :
 
   override fun serialize(encoder: Encoder, `value`: PlanDefinition.Action.Condition) {
     surrogateSerializer.serialize(encoder, PlanDefinitionActionConditionSurrogate.fromModel(value))
-  }
-}
-
-public object PlanDefinitionActionRelatedActionOffsetSerializer :
-  KSerializer<PlanDefinition.Action.RelatedAction.Offset> {
-  internal val surrogateSerializer:
-    KSerializer<PlanDefinitionActionRelatedActionOffsetSurrogate> by lazy {
-    PlanDefinitionActionRelatedActionOffsetSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Offset", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): PlanDefinition.Action.RelatedAction.Offset =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: PlanDefinition.Action.RelatedAction.Offset) {
-    surrogateSerializer.serialize(
-      encoder,
-      PlanDefinitionActionRelatedActionOffsetSurrogate.fromModel(value),
-    )
   }
 }
 
@@ -260,6 +267,41 @@ public object PlanDefinitionActionDynamicValueSerializer :
   }
 }
 
+public object PlanDefinitionSubjectSerializer : KSerializer<PlanDefinition.Subject> {
+  internal val surrogateSerializer: KSerializer<PlanDefinitionSubjectSurrogate> by lazy {
+    PlanDefinitionSubjectSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Subject", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): PlanDefinition.Subject =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: PlanDefinition.Subject) {
+    surrogateSerializer.serialize(encoder, PlanDefinitionSubjectSurrogate.fromModel(value))
+  }
+}
+
+public object PlanDefinitionGoalTargetDetailSerializer :
+  KSerializer<PlanDefinition.Goal.Target.Detail> {
+  internal val surrogateSerializer: KSerializer<PlanDefinitionGoalTargetDetailSurrogate> by lazy {
+    PlanDefinitionGoalTargetDetailSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Detail", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): PlanDefinition.Goal.Target.Detail =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: PlanDefinition.Goal.Target.Detail) {
+    surrogateSerializer.serialize(encoder, PlanDefinitionGoalTargetDetailSurrogate.fromModel(value))
+  }
+}
+
 public object PlanDefinitionActionSubjectSerializer : KSerializer<PlanDefinition.Action.Subject> {
   internal val surrogateSerializer: KSerializer<PlanDefinitionActionSubjectSurrogate> by lazy {
     PlanDefinitionActionSubjectSurrogate.serializer()
@@ -274,6 +316,28 @@ public object PlanDefinitionActionSubjectSerializer : KSerializer<PlanDefinition
 
   override fun serialize(encoder: Encoder, `value`: PlanDefinition.Action.Subject) {
     surrogateSerializer.serialize(encoder, PlanDefinitionActionSubjectSurrogate.fromModel(value))
+  }
+}
+
+public object PlanDefinitionActionRelatedActionOffsetSerializer :
+  KSerializer<PlanDefinition.Action.RelatedAction.Offset> {
+  internal val surrogateSerializer:
+    KSerializer<PlanDefinitionActionRelatedActionOffsetSurrogate> by lazy {
+    PlanDefinitionActionRelatedActionOffsetSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Offset", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): PlanDefinition.Action.RelatedAction.Offset =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: PlanDefinition.Action.RelatedAction.Offset) {
+    surrogateSerializer.serialize(
+      encoder,
+      PlanDefinitionActionRelatedActionOffsetSurrogate.fromModel(value),
+    )
   }
 }
 
@@ -309,70 +373,6 @@ public object PlanDefinitionActionDefinitionSerializer :
 
   override fun serialize(encoder: Encoder, `value`: PlanDefinition.Action.Definition) {
     surrogateSerializer.serialize(encoder, PlanDefinitionActionDefinitionSurrogate.fromModel(value))
-  }
-}
-
-public object PlanDefinitionActionSerializer : KSerializer<PlanDefinition.Action> {
-  internal val surrogateSerializer: KSerializer<PlanDefinitionActionSurrogate> by lazy {
-    PlanDefinitionActionSurrogate.serializer()
-  }
-
-  private val resourceType: String? = null
-
-  private val multiChoiceProperties: List<String> = listOf("subject", "timing", "definition")
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Action", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): PlanDefinition.Action {
-    val jsonDecoder =
-      decoder as? JsonDecoder ?: error("This serializer only supports JSON decoding")
-    val oldJsonObject =
-      if (resourceType.isNullOrBlank()) {
-        jsonDecoder.decodeJsonElement().jsonObject
-      } else
-        JsonObject(
-          jsonDecoder.decodeJsonElement().jsonObject.toMutableMap().apply { remove("resourceType") }
-        )
-    val unflattenedJsonObject = FhirJsonTransformer.unflatten(oldJsonObject, multiChoiceProperties)
-    val surrogate =
-      jsonDecoder.json.decodeFromJsonElement(surrogateSerializer, unflattenedJsonObject)
-    return surrogate.toModel()
-  }
-
-  override fun serialize(encoder: Encoder, `value`: PlanDefinition.Action) {
-    val jsonEncoder =
-      encoder as? JsonEncoder ?: error("This serializer only supports JSON encoding")
-    val surrogate = PlanDefinitionActionSurrogate.fromModel(value)
-    val oldJsonObject =
-      if (resourceType.isNullOrBlank()) {
-        jsonEncoder.json.encodeToJsonElement(surrogateSerializer, surrogate).jsonObject
-      } else {
-        JsonObject(
-          mutableMapOf("resourceType" to JsonPrimitive(resourceType))
-            .plus(jsonEncoder.json.encodeToJsonElement(surrogateSerializer, surrogate).jsonObject)
-        )
-      }
-    val flattenedJsonObject = FhirJsonTransformer.flatten(oldJsonObject, multiChoiceProperties)
-    jsonEncoder.encodeJsonElement(flattenedJsonObject)
-  }
-}
-
-public object PlanDefinitionSubjectSerializer : KSerializer<PlanDefinition.Subject> {
-  internal val surrogateSerializer: KSerializer<PlanDefinitionSubjectSurrogate> by lazy {
-    PlanDefinitionSubjectSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Subject", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): PlanDefinition.Subject =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: PlanDefinition.Subject) {
-    surrogateSerializer.serialize(encoder, PlanDefinitionSubjectSurrogate.fromModel(value))
   }
 }
 

@@ -56,23 +56,6 @@ public object TaskRestrictionSerializer : KSerializer<Task.Restriction> {
   }
 }
 
-public object TaskInputValueSerializer : KSerializer<Task.Input.Value> {
-  internal val surrogateSerializer: KSerializer<TaskInputValueSurrogate> by lazy {
-    TaskInputValueSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Value", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): Task.Input.Value =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: Task.Input.Value) {
-    surrogateSerializer.serialize(encoder, TaskInputValueSurrogate.fromModel(value))
-  }
-}
-
 public object TaskInputSerializer : KSerializer<Task.Input> {
   internal val surrogateSerializer: KSerializer<TaskInputSurrogate> by lazy {
     TaskInputSurrogate.serializer()
@@ -120,23 +103,6 @@ public object TaskInputSerializer : KSerializer<Task.Input> {
   }
 }
 
-public object TaskOutputValueSerializer : KSerializer<Task.Output.Value> {
-  internal val surrogateSerializer: KSerializer<TaskOutputValueSurrogate> by lazy {
-    TaskOutputValueSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Value", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): Task.Output.Value =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: Task.Output.Value) {
-    surrogateSerializer.serialize(encoder, TaskOutputValueSurrogate.fromModel(value))
-  }
-}
-
 public object TaskOutputSerializer : KSerializer<Task.Output> {
   internal val surrogateSerializer: KSerializer<TaskOutputSurrogate> by lazy {
     TaskOutputSurrogate.serializer()
@@ -181,6 +147,40 @@ public object TaskOutputSerializer : KSerializer<Task.Output> {
       }
     val flattenedJsonObject = FhirJsonTransformer.flatten(oldJsonObject, multiChoiceProperties)
     jsonEncoder.encodeJsonElement(flattenedJsonObject)
+  }
+}
+
+public object TaskInputValueSerializer : KSerializer<Task.Input.Value> {
+  internal val surrogateSerializer: KSerializer<TaskInputValueSurrogate> by lazy {
+    TaskInputValueSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Value", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): Task.Input.Value =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: Task.Input.Value) {
+    surrogateSerializer.serialize(encoder, TaskInputValueSurrogate.fromModel(value))
+  }
+}
+
+public object TaskOutputValueSerializer : KSerializer<Task.Output.Value> {
+  internal val surrogateSerializer: KSerializer<TaskOutputValueSurrogate> by lazy {
+    TaskOutputValueSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Value", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): Task.Output.Value =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: Task.Output.Value) {
+    surrogateSerializer.serialize(encoder, TaskOutputValueSurrogate.fromModel(value))
   }
 }
 

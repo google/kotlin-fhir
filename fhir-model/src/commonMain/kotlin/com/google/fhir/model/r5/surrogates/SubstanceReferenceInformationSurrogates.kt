@@ -117,38 +117,6 @@ internal data class SubstanceReferenceInformationGeneElementSurrogate(
 }
 
 @Serializable
-internal data class SubstanceReferenceInformationTargetAmountSurrogate(
-  public var amountQuantity: Quantity? = null,
-  public var amountRange: Range? = null,
-  public var amountString: KotlinString? = null,
-  public var _amountString: Element? = null,
-) {
-  public fun toModel(): SubstanceReferenceInformation.Target.Amount =
-    SubstanceReferenceInformation.Target.Amount?.from(
-      this@SubstanceReferenceInformationTargetAmountSurrogate.amountQuantity,
-      this@SubstanceReferenceInformationTargetAmountSurrogate.amountRange,
-      R5String.of(
-        this@SubstanceReferenceInformationTargetAmountSurrogate.amountString,
-        this@SubstanceReferenceInformationTargetAmountSurrogate._amountString,
-      ),
-    )!!
-
-  public companion object {
-    public fun fromModel(
-      model: SubstanceReferenceInformation.Target.Amount
-    ): SubstanceReferenceInformationTargetAmountSurrogate =
-      with(model) {
-        SubstanceReferenceInformationTargetAmountSurrogate(
-          amountQuantity = this@with.asQuantity()?.value,
-          amountRange = this@with.asRange()?.value,
-          amountString = this@with.asString()?.value?.value,
-          _amountString = this@with.asString()?.value?.toElement(),
-        )
-      }
-  }
-}
-
-@Serializable
 internal data class SubstanceReferenceInformationTargetSurrogate(
   public var id: KotlinString? = null,
   public var extension: MutableList<Extension>? = null,
@@ -195,6 +163,38 @@ internal data class SubstanceReferenceInformationTargetSurrogate(
           amount = this@with.amount,
           amountType = this@with.amountType,
           source = this@with.source.takeUnless { it.all { it == null } },
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class SubstanceReferenceInformationTargetAmountSurrogate(
+  public var amountQuantity: Quantity? = null,
+  public var amountRange: Range? = null,
+  public var amountString: KotlinString? = null,
+  public var _amountString: Element? = null,
+) {
+  public fun toModel(): SubstanceReferenceInformation.Target.Amount =
+    SubstanceReferenceInformation.Target.Amount.from(
+      this@SubstanceReferenceInformationTargetAmountSurrogate.amountQuantity,
+      this@SubstanceReferenceInformationTargetAmountSurrogate.amountRange,
+      R5String.of(
+        this@SubstanceReferenceInformationTargetAmountSurrogate.amountString,
+        this@SubstanceReferenceInformationTargetAmountSurrogate._amountString,
+      ),
+    )!!
+
+  public companion object {
+    public fun fromModel(
+      model: SubstanceReferenceInformation.Target.Amount
+    ): SubstanceReferenceInformationTargetAmountSurrogate =
+      with(model) {
+        SubstanceReferenceInformationTargetAmountSurrogate(
+          amountQuantity = this@with.asQuantity()?.value,
+          amountRange = this@with.asRange()?.value,
+          amountString = this@with.asString()?.value?.value,
+          _amountString = this@with.asString()?.value?.toElement(),
         )
       }
   }

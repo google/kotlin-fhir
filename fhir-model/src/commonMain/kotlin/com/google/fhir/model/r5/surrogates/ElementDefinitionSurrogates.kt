@@ -92,50 +92,6 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
-internal data class ElementDefinitionSlicingDiscriminatorSurrogate(
-  public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var type: KotlinString? = null,
-  public var _type: Element? = null,
-  public var path: KotlinString? = null,
-  public var _path: Element? = null,
-) {
-  public fun toModel(): ElementDefinition.Slicing.Discriminator =
-    ElementDefinition.Slicing.Discriminator(
-      id = this@ElementDefinitionSlicingDiscriminatorSurrogate.id,
-      extension = this@ElementDefinitionSlicingDiscriminatorSurrogate.extension ?: mutableListOf(),
-      type =
-        Enumeration.of(
-          com.google.fhir.model.r5.ElementDefinition.DiscriminatorType.fromCode(
-            this@ElementDefinitionSlicingDiscriminatorSurrogate.type!!
-          ),
-          this@ElementDefinitionSlicingDiscriminatorSurrogate._type,
-        ),
-      path =
-        R5String.of(
-          this@ElementDefinitionSlicingDiscriminatorSurrogate.path,
-          this@ElementDefinitionSlicingDiscriminatorSurrogate._path,
-        )!!,
-    )
-
-  public companion object {
-    public fun fromModel(
-      model: ElementDefinition.Slicing.Discriminator
-    ): ElementDefinitionSlicingDiscriminatorSurrogate =
-      with(model) {
-        ElementDefinitionSlicingDiscriminatorSurrogate(
-          id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          type = this@with.type.value?.getCode(),
-          _type = this@with.type.toElement(),
-          path = this@with.path.value,
-          _path = this@with.path.toElement(),
-        )
-      }
-  }
-}
-
-@Serializable
 internal data class ElementDefinitionSlicingSurrogate(
   public var id: KotlinString? = null,
   public var extension: MutableList<Extension>? = null,
@@ -184,6 +140,50 @@ internal data class ElementDefinitionSlicingSurrogate(
           _ordered = this@with.ordered?.toElement(),
           rules = this@with.rules.value?.getCode(),
           _rules = this@with.rules.toElement(),
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class ElementDefinitionSlicingDiscriminatorSurrogate(
+  public var id: KotlinString? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var type: KotlinString? = null,
+  public var _type: Element? = null,
+  public var path: KotlinString? = null,
+  public var _path: Element? = null,
+) {
+  public fun toModel(): ElementDefinition.Slicing.Discriminator =
+    ElementDefinition.Slicing.Discriminator(
+      id = this@ElementDefinitionSlicingDiscriminatorSurrogate.id,
+      extension = this@ElementDefinitionSlicingDiscriminatorSurrogate.extension ?: mutableListOf(),
+      type =
+        Enumeration.of(
+          com.google.fhir.model.r5.ElementDefinition.DiscriminatorType.fromCode(
+            this@ElementDefinitionSlicingDiscriminatorSurrogate.type!!
+          ),
+          this@ElementDefinitionSlicingDiscriminatorSurrogate._type,
+        ),
+      path =
+        R5String.of(
+          this@ElementDefinitionSlicingDiscriminatorSurrogate.path,
+          this@ElementDefinitionSlicingDiscriminatorSurrogate._path,
+        )!!,
+    )
+
+  public companion object {
+    public fun fromModel(
+      model: ElementDefinition.Slicing.Discriminator
+    ): ElementDefinitionSlicingDiscriminatorSurrogate =
+      with(model) {
+        ElementDefinitionSlicingDiscriminatorSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          type = this@with.type.value?.getCode(),
+          _type = this@with.type.toElement(),
+          path = this@with.path.value,
+          _path = this@with.path.toElement(),
         )
       }
   }
@@ -366,6 +366,1151 @@ internal data class ElementDefinitionTypeSurrogate(
               ?.toMutableList(),
           versioning = this@with.versioning?.value?.getCode(),
           _versioning = this@with.versioning?.toElement(),
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class ElementDefinitionExampleSurrogate(
+  public var id: KotlinString? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var label: KotlinString? = null,
+  public var _label: Element? = null,
+  public var `value`: ElementDefinition.Example.Value,
+) {
+  public fun toModel(): ElementDefinition.Example =
+    ElementDefinition.Example(
+      id = this@ElementDefinitionExampleSurrogate.id,
+      extension = this@ElementDefinitionExampleSurrogate.extension ?: mutableListOf(),
+      label =
+        R5String.of(
+          this@ElementDefinitionExampleSurrogate.label,
+          this@ElementDefinitionExampleSurrogate._label,
+        )!!,
+      `value` = this@ElementDefinitionExampleSurrogate.`value`,
+    )
+
+  public companion object {
+    public fun fromModel(model: ElementDefinition.Example): ElementDefinitionExampleSurrogate =
+      with(model) {
+        ElementDefinitionExampleSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          label = this@with.label.value,
+          _label = this@with.label.toElement(),
+          `value` = this@with.`value`,
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class ElementDefinitionConstraintSurrogate(
+  public var id: KotlinString? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var key: KotlinString? = null,
+  public var _key: Element? = null,
+  public var requirements: KotlinString? = null,
+  public var _requirements: Element? = null,
+  public var severity: KotlinString? = null,
+  public var _severity: Element? = null,
+  public var suppress: KotlinBoolean? = null,
+  public var _suppress: Element? = null,
+  public var human: KotlinString? = null,
+  public var _human: Element? = null,
+  public var expression: KotlinString? = null,
+  public var _expression: Element? = null,
+  public var source: KotlinString? = null,
+  public var _source: Element? = null,
+) {
+  public fun toModel(): ElementDefinition.Constraint =
+    ElementDefinition.Constraint(
+      id = this@ElementDefinitionConstraintSurrogate.id,
+      extension = this@ElementDefinitionConstraintSurrogate.extension ?: mutableListOf(),
+      key =
+        Id.of(
+          this@ElementDefinitionConstraintSurrogate.key,
+          this@ElementDefinitionConstraintSurrogate._key,
+        )!!,
+      requirements =
+        Markdown.of(
+          this@ElementDefinitionConstraintSurrogate.requirements,
+          this@ElementDefinitionConstraintSurrogate._requirements,
+        ),
+      severity =
+        Enumeration.of(
+          com.google.fhir.model.r5.ElementDefinition.ConstraintSeverity.fromCode(
+            this@ElementDefinitionConstraintSurrogate.severity!!
+          ),
+          this@ElementDefinitionConstraintSurrogate._severity,
+        ),
+      suppress =
+        R5Boolean.of(
+          this@ElementDefinitionConstraintSurrogate.suppress,
+          this@ElementDefinitionConstraintSurrogate._suppress,
+        ),
+      human =
+        R5String.of(
+          this@ElementDefinitionConstraintSurrogate.human,
+          this@ElementDefinitionConstraintSurrogate._human,
+        )!!,
+      expression =
+        R5String.of(
+          this@ElementDefinitionConstraintSurrogate.expression,
+          this@ElementDefinitionConstraintSurrogate._expression,
+        ),
+      source =
+        Canonical.of(
+          this@ElementDefinitionConstraintSurrogate.source,
+          this@ElementDefinitionConstraintSurrogate._source,
+        ),
+    )
+
+  public companion object {
+    public fun fromModel(
+      model: ElementDefinition.Constraint
+    ): ElementDefinitionConstraintSurrogate =
+      with(model) {
+        ElementDefinitionConstraintSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          key = this@with.key.value,
+          _key = this@with.key.toElement(),
+          requirements = this@with.requirements?.value,
+          _requirements = this@with.requirements?.toElement(),
+          severity = this@with.severity.value?.getCode(),
+          _severity = this@with.severity.toElement(),
+          suppress = this@with.suppress?.value,
+          _suppress = this@with.suppress?.toElement(),
+          human = this@with.human.value,
+          _human = this@with.human.toElement(),
+          expression = this@with.expression?.value,
+          _expression = this@with.expression?.toElement(),
+          source = this@with.source?.value,
+          _source = this@with.source?.toElement(),
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class ElementDefinitionBindingSurrogate(
+  public var id: KotlinString? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var strength: KotlinString? = null,
+  public var _strength: Element? = null,
+  public var description: KotlinString? = null,
+  public var _description: Element? = null,
+  public var valueSet: KotlinString? = null,
+  public var _valueSet: Element? = null,
+  public var additional: MutableList<ElementDefinition.Binding.Additional>? = null,
+) {
+  public fun toModel(): ElementDefinition.Binding =
+    ElementDefinition.Binding(
+      id = this@ElementDefinitionBindingSurrogate.id,
+      extension = this@ElementDefinitionBindingSurrogate.extension ?: mutableListOf(),
+      strength =
+        Enumeration.of(
+          com.google.fhir.model.r5.terminologies.BindingStrength.fromCode(
+            this@ElementDefinitionBindingSurrogate.strength!!
+          ),
+          this@ElementDefinitionBindingSurrogate._strength,
+        ),
+      description =
+        Markdown.of(
+          this@ElementDefinitionBindingSurrogate.description,
+          this@ElementDefinitionBindingSurrogate._description,
+        ),
+      valueSet =
+        Canonical.of(
+          this@ElementDefinitionBindingSurrogate.valueSet,
+          this@ElementDefinitionBindingSurrogate._valueSet,
+        ),
+      additional = this@ElementDefinitionBindingSurrogate.additional ?: mutableListOf(),
+    )
+
+  public companion object {
+    public fun fromModel(model: ElementDefinition.Binding): ElementDefinitionBindingSurrogate =
+      with(model) {
+        ElementDefinitionBindingSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          strength = this@with.strength.value?.getCode(),
+          _strength = this@with.strength.toElement(),
+          description = this@with.description?.value,
+          _description = this@with.description?.toElement(),
+          valueSet = this@with.valueSet?.value,
+          _valueSet = this@with.valueSet?.toElement(),
+          additional = this@with.additional.takeUnless { it.all { it == null } },
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class ElementDefinitionBindingAdditionalSurrogate(
+  public var id: KotlinString? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var purpose: KotlinString? = null,
+  public var _purpose: Element? = null,
+  public var valueSet: KotlinString? = null,
+  public var _valueSet: Element? = null,
+  public var documentation: KotlinString? = null,
+  public var _documentation: Element? = null,
+  public var shortDoco: KotlinString? = null,
+  public var _shortDoco: Element? = null,
+  public var usage: MutableList<UsageContext>? = null,
+  public var any: KotlinBoolean? = null,
+  public var _any: Element? = null,
+) {
+  public fun toModel(): ElementDefinition.Binding.Additional =
+    ElementDefinition.Binding.Additional(
+      id = this@ElementDefinitionBindingAdditionalSurrogate.id,
+      extension = this@ElementDefinitionBindingAdditionalSurrogate.extension ?: mutableListOf(),
+      purpose =
+        Enumeration.of(
+          com.google.fhir.model.r5.ElementDefinition.AdditionalBindingPurposeVS.fromCode(
+            this@ElementDefinitionBindingAdditionalSurrogate.purpose!!
+          ),
+          this@ElementDefinitionBindingAdditionalSurrogate._purpose,
+        ),
+      valueSet =
+        Canonical.of(
+          this@ElementDefinitionBindingAdditionalSurrogate.valueSet,
+          this@ElementDefinitionBindingAdditionalSurrogate._valueSet,
+        )!!,
+      documentation =
+        Markdown.of(
+          this@ElementDefinitionBindingAdditionalSurrogate.documentation,
+          this@ElementDefinitionBindingAdditionalSurrogate._documentation,
+        ),
+      shortDoco =
+        R5String.of(
+          this@ElementDefinitionBindingAdditionalSurrogate.shortDoco,
+          this@ElementDefinitionBindingAdditionalSurrogate._shortDoco,
+        ),
+      usage = this@ElementDefinitionBindingAdditionalSurrogate.usage ?: mutableListOf(),
+      any =
+        R5Boolean.of(
+          this@ElementDefinitionBindingAdditionalSurrogate.any,
+          this@ElementDefinitionBindingAdditionalSurrogate._any,
+        ),
+    )
+
+  public companion object {
+    public fun fromModel(
+      model: ElementDefinition.Binding.Additional
+    ): ElementDefinitionBindingAdditionalSurrogate =
+      with(model) {
+        ElementDefinitionBindingAdditionalSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          purpose = this@with.purpose.value?.getCode(),
+          _purpose = this@with.purpose.toElement(),
+          valueSet = this@with.valueSet.value,
+          _valueSet = this@with.valueSet.toElement(),
+          documentation = this@with.documentation?.value,
+          _documentation = this@with.documentation?.toElement(),
+          shortDoco = this@with.shortDoco?.value,
+          _shortDoco = this@with.shortDoco?.toElement(),
+          usage = this@with.usage.takeUnless { it.all { it == null } },
+          any = this@with.any?.value,
+          _any = this@with.any?.toElement(),
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class ElementDefinitionMappingSurrogate(
+  public var id: KotlinString? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var identity: KotlinString? = null,
+  public var _identity: Element? = null,
+  public var language: KotlinString? = null,
+  public var _language: Element? = null,
+  public var map: KotlinString? = null,
+  public var _map: Element? = null,
+  public var comment: KotlinString? = null,
+  public var _comment: Element? = null,
+) {
+  public fun toModel(): ElementDefinition.Mapping =
+    ElementDefinition.Mapping(
+      id = this@ElementDefinitionMappingSurrogate.id,
+      extension = this@ElementDefinitionMappingSurrogate.extension ?: mutableListOf(),
+      identity =
+        Id.of(
+          this@ElementDefinitionMappingSurrogate.identity,
+          this@ElementDefinitionMappingSurrogate._identity,
+        )!!,
+      language =
+        Code.of(
+          this@ElementDefinitionMappingSurrogate.language,
+          this@ElementDefinitionMappingSurrogate._language,
+        ),
+      map =
+        R5String.of(
+          this@ElementDefinitionMappingSurrogate.map,
+          this@ElementDefinitionMappingSurrogate._map,
+        )!!,
+      comment =
+        Markdown.of(
+          this@ElementDefinitionMappingSurrogate.comment,
+          this@ElementDefinitionMappingSurrogate._comment,
+        ),
+    )
+
+  public companion object {
+    public fun fromModel(model: ElementDefinition.Mapping): ElementDefinitionMappingSurrogate =
+      with(model) {
+        ElementDefinitionMappingSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          identity = this@with.identity.value,
+          _identity = this@with.identity.toElement(),
+          language = this@with.language?.value,
+          _language = this@with.language?.toElement(),
+          map = this@with.map.value,
+          _map = this@with.map.toElement(),
+          comment = this@with.comment?.value,
+          _comment = this@with.comment?.toElement(),
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class ElementDefinitionDefaultValueSurrogate(
+  public var defaultValueBase64Binary: KotlinString? = null,
+  public var _defaultValueBase64Binary: Element? = null,
+  public var defaultValueBoolean: KotlinBoolean? = null,
+  public var _defaultValueBoolean: Element? = null,
+  public var defaultValueCanonical: KotlinString? = null,
+  public var _defaultValueCanonical: Element? = null,
+  public var defaultValueCode: KotlinString? = null,
+  public var _defaultValueCode: Element? = null,
+  public var defaultValueDate: KotlinString? = null,
+  public var _defaultValueDate: Element? = null,
+  public var defaultValueDateTime: KotlinString? = null,
+  public var _defaultValueDateTime: Element? = null,
+  public var defaultValueDecimal: Double? = null,
+  public var _defaultValueDecimal: Element? = null,
+  public var defaultValueId: KotlinString? = null,
+  public var _defaultValueId: Element? = null,
+  public var defaultValueInstant: KotlinString? = null,
+  public var _defaultValueInstant: Element? = null,
+  public var defaultValueInteger: Int? = null,
+  public var _defaultValueInteger: Element? = null,
+  public var defaultValueInteger64: KotlinString? = null,
+  public var _defaultValueInteger64: Element? = null,
+  public var defaultValueMarkdown: KotlinString? = null,
+  public var _defaultValueMarkdown: Element? = null,
+  public var defaultValueOid: KotlinString? = null,
+  public var _defaultValueOid: Element? = null,
+  public var defaultValuePositiveInt: Int? = null,
+  public var _defaultValuePositiveInt: Element? = null,
+  public var defaultValueString: KotlinString? = null,
+  public var _defaultValueString: Element? = null,
+  public var defaultValueTime: LocalTime? = null,
+  public var _defaultValueTime: Element? = null,
+  public var defaultValueUnsignedInt: Int? = null,
+  public var _defaultValueUnsignedInt: Element? = null,
+  public var defaultValueUri: KotlinString? = null,
+  public var _defaultValueUri: Element? = null,
+  public var defaultValueUrl: KotlinString? = null,
+  public var _defaultValueUrl: Element? = null,
+  public var defaultValueUuid: KotlinString? = null,
+  public var _defaultValueUuid: Element? = null,
+  public var defaultValueAddress: Address? = null,
+  public var defaultValueAge: Age? = null,
+  public var defaultValueAnnotation: Annotation? = null,
+  public var defaultValueAttachment: Attachment? = null,
+  public var defaultValueCodeableConcept: CodeableConcept? = null,
+  public var defaultValueCodeableReference: CodeableReference? = null,
+  public var defaultValueCoding: Coding? = null,
+  public var defaultValueContactPoint: ContactPoint? = null,
+  public var defaultValueCount: Count? = null,
+  public var defaultValueDistance: Distance? = null,
+  public var defaultValueDuration: Duration? = null,
+  public var defaultValueHumanName: HumanName? = null,
+  public var defaultValueIdentifier: Identifier? = null,
+  public var defaultValueMoney: Money? = null,
+  public var defaultValuePeriod: Period? = null,
+  public var defaultValueQuantity: Quantity? = null,
+  public var defaultValueRange: Range? = null,
+  public var defaultValueRatio: Ratio? = null,
+  public var defaultValueRatioRange: RatioRange? = null,
+  public var defaultValueReference: Reference? = null,
+  public var defaultValueSampledData: SampledData? = null,
+  public var defaultValueSignature: Signature? = null,
+  public var defaultValueTiming: Timing? = null,
+  public var defaultValueContactDetail: ContactDetail? = null,
+  public var defaultValueDataRequirement: DataRequirement? = null,
+  public var defaultValueExpression: Expression? = null,
+  public var defaultValueParameterDefinition: ParameterDefinition? = null,
+  public var defaultValueRelatedArtifact: RelatedArtifact? = null,
+  public var defaultValueTriggerDefinition: TriggerDefinition? = null,
+  public var defaultValueUsageContext: UsageContext? = null,
+  public var defaultValueAvailability: Availability? = null,
+  public var defaultValueExtendedContactDetail: ExtendedContactDetail? = null,
+  public var defaultValueDosage: Dosage? = null,
+  public var defaultValueMeta: Meta? = null,
+) {
+  public fun toModel(): ElementDefinition.DefaultValue =
+    ElementDefinition.DefaultValue.from(
+      Base64Binary.of(
+        this@ElementDefinitionDefaultValueSurrogate.defaultValueBase64Binary,
+        this@ElementDefinitionDefaultValueSurrogate._defaultValueBase64Binary,
+      ),
+      R5Boolean.of(
+        this@ElementDefinitionDefaultValueSurrogate.defaultValueBoolean,
+        this@ElementDefinitionDefaultValueSurrogate._defaultValueBoolean,
+      ),
+      Canonical.of(
+        this@ElementDefinitionDefaultValueSurrogate.defaultValueCanonical,
+        this@ElementDefinitionDefaultValueSurrogate._defaultValueCanonical,
+      ),
+      Code.of(
+        this@ElementDefinitionDefaultValueSurrogate.defaultValueCode,
+        this@ElementDefinitionDefaultValueSurrogate._defaultValueCode,
+      ),
+      Date.of(
+        FhirDate.fromString(this@ElementDefinitionDefaultValueSurrogate.defaultValueDate),
+        this@ElementDefinitionDefaultValueSurrogate._defaultValueDate,
+      ),
+      DateTime.of(
+        FhirDateTime.fromString(this@ElementDefinitionDefaultValueSurrogate.defaultValueDateTime),
+        this@ElementDefinitionDefaultValueSurrogate._defaultValueDateTime,
+      ),
+      Decimal.of(
+        this@ElementDefinitionDefaultValueSurrogate.defaultValueDecimal,
+        this@ElementDefinitionDefaultValueSurrogate._defaultValueDecimal,
+      ),
+      Id.of(
+        this@ElementDefinitionDefaultValueSurrogate.defaultValueId,
+        this@ElementDefinitionDefaultValueSurrogate._defaultValueId,
+      ),
+      Instant.of(
+        FhirDateTime.fromString(this@ElementDefinitionDefaultValueSurrogate.defaultValueInstant),
+        this@ElementDefinitionDefaultValueSurrogate._defaultValueInstant,
+      ),
+      Integer.of(
+        this@ElementDefinitionDefaultValueSurrogate.defaultValueInteger,
+        this@ElementDefinitionDefaultValueSurrogate._defaultValueInteger,
+      ),
+      Integer64.of(
+        this@ElementDefinitionDefaultValueSurrogate.defaultValueInteger64?.toLong(),
+        this@ElementDefinitionDefaultValueSurrogate._defaultValueInteger64,
+      ),
+      Markdown.of(
+        this@ElementDefinitionDefaultValueSurrogate.defaultValueMarkdown,
+        this@ElementDefinitionDefaultValueSurrogate._defaultValueMarkdown,
+      ),
+      Oid.of(
+        this@ElementDefinitionDefaultValueSurrogate.defaultValueOid,
+        this@ElementDefinitionDefaultValueSurrogate._defaultValueOid,
+      ),
+      PositiveInt.of(
+        this@ElementDefinitionDefaultValueSurrogate.defaultValuePositiveInt,
+        this@ElementDefinitionDefaultValueSurrogate._defaultValuePositiveInt,
+      ),
+      R5String.of(
+        this@ElementDefinitionDefaultValueSurrogate.defaultValueString,
+        this@ElementDefinitionDefaultValueSurrogate._defaultValueString,
+      ),
+      Time.of(
+        this@ElementDefinitionDefaultValueSurrogate.defaultValueTime,
+        this@ElementDefinitionDefaultValueSurrogate._defaultValueTime,
+      ),
+      UnsignedInt.of(
+        this@ElementDefinitionDefaultValueSurrogate.defaultValueUnsignedInt,
+        this@ElementDefinitionDefaultValueSurrogate._defaultValueUnsignedInt,
+      ),
+      Uri.of(
+        this@ElementDefinitionDefaultValueSurrogate.defaultValueUri,
+        this@ElementDefinitionDefaultValueSurrogate._defaultValueUri,
+      ),
+      Url.of(
+        this@ElementDefinitionDefaultValueSurrogate.defaultValueUrl,
+        this@ElementDefinitionDefaultValueSurrogate._defaultValueUrl,
+      ),
+      Uuid.of(
+        this@ElementDefinitionDefaultValueSurrogate.defaultValueUuid,
+        this@ElementDefinitionDefaultValueSurrogate._defaultValueUuid,
+      ),
+      this@ElementDefinitionDefaultValueSurrogate.defaultValueAddress,
+      this@ElementDefinitionDefaultValueSurrogate.defaultValueAge,
+      this@ElementDefinitionDefaultValueSurrogate.defaultValueAnnotation,
+      this@ElementDefinitionDefaultValueSurrogate.defaultValueAttachment,
+      this@ElementDefinitionDefaultValueSurrogate.defaultValueCodeableConcept,
+      this@ElementDefinitionDefaultValueSurrogate.defaultValueCodeableReference,
+      this@ElementDefinitionDefaultValueSurrogate.defaultValueCoding,
+      this@ElementDefinitionDefaultValueSurrogate.defaultValueContactPoint,
+      this@ElementDefinitionDefaultValueSurrogate.defaultValueCount,
+      this@ElementDefinitionDefaultValueSurrogate.defaultValueDistance,
+      this@ElementDefinitionDefaultValueSurrogate.defaultValueDuration,
+      this@ElementDefinitionDefaultValueSurrogate.defaultValueHumanName,
+      this@ElementDefinitionDefaultValueSurrogate.defaultValueIdentifier,
+      this@ElementDefinitionDefaultValueSurrogate.defaultValueMoney,
+      this@ElementDefinitionDefaultValueSurrogate.defaultValuePeriod,
+      this@ElementDefinitionDefaultValueSurrogate.defaultValueQuantity,
+      this@ElementDefinitionDefaultValueSurrogate.defaultValueRange,
+      this@ElementDefinitionDefaultValueSurrogate.defaultValueRatio,
+      this@ElementDefinitionDefaultValueSurrogate.defaultValueRatioRange,
+      this@ElementDefinitionDefaultValueSurrogate.defaultValueReference,
+      this@ElementDefinitionDefaultValueSurrogate.defaultValueSampledData,
+      this@ElementDefinitionDefaultValueSurrogate.defaultValueSignature,
+      this@ElementDefinitionDefaultValueSurrogate.defaultValueTiming,
+      this@ElementDefinitionDefaultValueSurrogate.defaultValueContactDetail,
+      this@ElementDefinitionDefaultValueSurrogate.defaultValueDataRequirement,
+      this@ElementDefinitionDefaultValueSurrogate.defaultValueExpression,
+      this@ElementDefinitionDefaultValueSurrogate.defaultValueParameterDefinition,
+      this@ElementDefinitionDefaultValueSurrogate.defaultValueRelatedArtifact,
+      this@ElementDefinitionDefaultValueSurrogate.defaultValueTriggerDefinition,
+      this@ElementDefinitionDefaultValueSurrogate.defaultValueUsageContext,
+      this@ElementDefinitionDefaultValueSurrogate.defaultValueAvailability,
+      this@ElementDefinitionDefaultValueSurrogate.defaultValueExtendedContactDetail,
+      this@ElementDefinitionDefaultValueSurrogate.defaultValueDosage,
+      this@ElementDefinitionDefaultValueSurrogate.defaultValueMeta,
+    )!!
+
+  public companion object {
+    public fun fromModel(
+      model: ElementDefinition.DefaultValue
+    ): ElementDefinitionDefaultValueSurrogate =
+      with(model) {
+        ElementDefinitionDefaultValueSurrogate(
+          defaultValueBase64Binary = this@with.asBase64Binary()?.value?.value,
+          _defaultValueBase64Binary = this@with.asBase64Binary()?.value?.toElement(),
+          defaultValueBoolean = this@with.asBoolean()?.value?.value,
+          _defaultValueBoolean = this@with.asBoolean()?.value?.toElement(),
+          defaultValueCanonical = this@with.asCanonical()?.value?.value,
+          _defaultValueCanonical = this@with.asCanonical()?.value?.toElement(),
+          defaultValueCode = this@with.asCode()?.value?.value,
+          _defaultValueCode = this@with.asCode()?.value?.toElement(),
+          defaultValueDate = this@with.asDate()?.value?.value?.toString(),
+          _defaultValueDate = this@with.asDate()?.value?.toElement(),
+          defaultValueDateTime = this@with.asDateTime()?.value?.value?.toString(),
+          _defaultValueDateTime = this@with.asDateTime()?.value?.toElement(),
+          defaultValueDecimal = this@with.asDecimal()?.value?.value,
+          _defaultValueDecimal = this@with.asDecimal()?.value?.toElement(),
+          defaultValueId = this@with.asId()?.value?.value,
+          _defaultValueId = this@with.asId()?.value?.toElement(),
+          defaultValueInstant = this@with.asInstant()?.value?.value?.toString(),
+          _defaultValueInstant = this@with.asInstant()?.value?.toElement(),
+          defaultValueInteger = this@with.asInteger()?.value?.value,
+          _defaultValueInteger = this@with.asInteger()?.value?.toElement(),
+          defaultValueInteger64 = this@with.asInteger64()?.value?.value?.toString(),
+          _defaultValueInteger64 = this@with.asInteger64()?.value?.toElement(),
+          defaultValueMarkdown = this@with.asMarkdown()?.value?.value,
+          _defaultValueMarkdown = this@with.asMarkdown()?.value?.toElement(),
+          defaultValueOid = this@with.asOid()?.value?.value,
+          _defaultValueOid = this@with.asOid()?.value?.toElement(),
+          defaultValuePositiveInt = this@with.asPositiveInt()?.value?.value,
+          _defaultValuePositiveInt = this@with.asPositiveInt()?.value?.toElement(),
+          defaultValueString = this@with.asString()?.value?.value,
+          _defaultValueString = this@with.asString()?.value?.toElement(),
+          defaultValueTime = this@with.asTime()?.value?.value,
+          _defaultValueTime = this@with.asTime()?.value?.toElement(),
+          defaultValueUnsignedInt = this@with.asUnsignedInt()?.value?.value,
+          _defaultValueUnsignedInt = this@with.asUnsignedInt()?.value?.toElement(),
+          defaultValueUri = this@with.asUri()?.value?.value,
+          _defaultValueUri = this@with.asUri()?.value?.toElement(),
+          defaultValueUrl = this@with.asUrl()?.value?.value,
+          _defaultValueUrl = this@with.asUrl()?.value?.toElement(),
+          defaultValueUuid = this@with.asUuid()?.value?.value,
+          _defaultValueUuid = this@with.asUuid()?.value?.toElement(),
+          defaultValueAddress = this@with.asAddress()?.value,
+          defaultValueAge = this@with.asAge()?.value,
+          defaultValueAnnotation = this@with.asAnnotation()?.value,
+          defaultValueAttachment = this@with.asAttachment()?.value,
+          defaultValueCodeableConcept = this@with.asCodeableConcept()?.value,
+          defaultValueCodeableReference = this@with.asCodeableReference()?.value,
+          defaultValueCoding = this@with.asCoding()?.value,
+          defaultValueContactPoint = this@with.asContactPoint()?.value,
+          defaultValueCount = this@with.asCount()?.value,
+          defaultValueDistance = this@with.asDistance()?.value,
+          defaultValueDuration = this@with.asDuration()?.value,
+          defaultValueHumanName = this@with.asHumanName()?.value,
+          defaultValueIdentifier = this@with.asIdentifier()?.value,
+          defaultValueMoney = this@with.asMoney()?.value,
+          defaultValuePeriod = this@with.asPeriod()?.value,
+          defaultValueQuantity = this@with.asQuantity()?.value,
+          defaultValueRange = this@with.asRange()?.value,
+          defaultValueRatio = this@with.asRatio()?.value,
+          defaultValueRatioRange = this@with.asRatioRange()?.value,
+          defaultValueReference = this@with.asReference()?.value,
+          defaultValueSampledData = this@with.asSampledData()?.value,
+          defaultValueSignature = this@with.asSignature()?.value,
+          defaultValueTiming = this@with.asTiming()?.value,
+          defaultValueContactDetail = this@with.asContactDetail()?.value,
+          defaultValueDataRequirement = this@with.asDataRequirement()?.value,
+          defaultValueExpression = this@with.asExpression()?.value,
+          defaultValueParameterDefinition = this@with.asParameterDefinition()?.value,
+          defaultValueRelatedArtifact = this@with.asRelatedArtifact()?.value,
+          defaultValueTriggerDefinition = this@with.asTriggerDefinition()?.value,
+          defaultValueUsageContext = this@with.asUsageContext()?.value,
+          defaultValueAvailability = this@with.asAvailability()?.value,
+          defaultValueExtendedContactDetail = this@with.asExtendedContactDetail()?.value,
+          defaultValueDosage = this@with.asDosage()?.value,
+          defaultValueMeta = this@with.asMeta()?.value,
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class ElementDefinitionFixedSurrogate(
+  public var fixedBase64Binary: KotlinString? = null,
+  public var _fixedBase64Binary: Element? = null,
+  public var fixedBoolean: KotlinBoolean? = null,
+  public var _fixedBoolean: Element? = null,
+  public var fixedCanonical: KotlinString? = null,
+  public var _fixedCanonical: Element? = null,
+  public var fixedCode: KotlinString? = null,
+  public var _fixedCode: Element? = null,
+  public var fixedDate: KotlinString? = null,
+  public var _fixedDate: Element? = null,
+  public var fixedDateTime: KotlinString? = null,
+  public var _fixedDateTime: Element? = null,
+  public var fixedDecimal: Double? = null,
+  public var _fixedDecimal: Element? = null,
+  public var fixedId: KotlinString? = null,
+  public var _fixedId: Element? = null,
+  public var fixedInstant: KotlinString? = null,
+  public var _fixedInstant: Element? = null,
+  public var fixedInteger: Int? = null,
+  public var _fixedInteger: Element? = null,
+  public var fixedInteger64: KotlinString? = null,
+  public var _fixedInteger64: Element? = null,
+  public var fixedMarkdown: KotlinString? = null,
+  public var _fixedMarkdown: Element? = null,
+  public var fixedOid: KotlinString? = null,
+  public var _fixedOid: Element? = null,
+  public var fixedPositiveInt: Int? = null,
+  public var _fixedPositiveInt: Element? = null,
+  public var fixedString: KotlinString? = null,
+  public var _fixedString: Element? = null,
+  public var fixedTime: LocalTime? = null,
+  public var _fixedTime: Element? = null,
+  public var fixedUnsignedInt: Int? = null,
+  public var _fixedUnsignedInt: Element? = null,
+  public var fixedUri: KotlinString? = null,
+  public var _fixedUri: Element? = null,
+  public var fixedUrl: KotlinString? = null,
+  public var _fixedUrl: Element? = null,
+  public var fixedUuid: KotlinString? = null,
+  public var _fixedUuid: Element? = null,
+  public var fixedAddress: Address? = null,
+  public var fixedAge: Age? = null,
+  public var fixedAnnotation: Annotation? = null,
+  public var fixedAttachment: Attachment? = null,
+  public var fixedCodeableConcept: CodeableConcept? = null,
+  public var fixedCodeableReference: CodeableReference? = null,
+  public var fixedCoding: Coding? = null,
+  public var fixedContactPoint: ContactPoint? = null,
+  public var fixedCount: Count? = null,
+  public var fixedDistance: Distance? = null,
+  public var fixedDuration: Duration? = null,
+  public var fixedHumanName: HumanName? = null,
+  public var fixedIdentifier: Identifier? = null,
+  public var fixedMoney: Money? = null,
+  public var fixedPeriod: Period? = null,
+  public var fixedQuantity: Quantity? = null,
+  public var fixedRange: Range? = null,
+  public var fixedRatio: Ratio? = null,
+  public var fixedRatioRange: RatioRange? = null,
+  public var fixedReference: Reference? = null,
+  public var fixedSampledData: SampledData? = null,
+  public var fixedSignature: Signature? = null,
+  public var fixedTiming: Timing? = null,
+  public var fixedContactDetail: ContactDetail? = null,
+  public var fixedDataRequirement: DataRequirement? = null,
+  public var fixedExpression: Expression? = null,
+  public var fixedParameterDefinition: ParameterDefinition? = null,
+  public var fixedRelatedArtifact: RelatedArtifact? = null,
+  public var fixedTriggerDefinition: TriggerDefinition? = null,
+  public var fixedUsageContext: UsageContext? = null,
+  public var fixedAvailability: Availability? = null,
+  public var fixedExtendedContactDetail: ExtendedContactDetail? = null,
+  public var fixedDosage: Dosage? = null,
+  public var fixedMeta: Meta? = null,
+) {
+  public fun toModel(): ElementDefinition.Fixed =
+    ElementDefinition.Fixed.from(
+      Base64Binary.of(
+        this@ElementDefinitionFixedSurrogate.fixedBase64Binary,
+        this@ElementDefinitionFixedSurrogate._fixedBase64Binary,
+      ),
+      R5Boolean.of(
+        this@ElementDefinitionFixedSurrogate.fixedBoolean,
+        this@ElementDefinitionFixedSurrogate._fixedBoolean,
+      ),
+      Canonical.of(
+        this@ElementDefinitionFixedSurrogate.fixedCanonical,
+        this@ElementDefinitionFixedSurrogate._fixedCanonical,
+      ),
+      Code.of(
+        this@ElementDefinitionFixedSurrogate.fixedCode,
+        this@ElementDefinitionFixedSurrogate._fixedCode,
+      ),
+      Date.of(
+        FhirDate.fromString(this@ElementDefinitionFixedSurrogate.fixedDate),
+        this@ElementDefinitionFixedSurrogate._fixedDate,
+      ),
+      DateTime.of(
+        FhirDateTime.fromString(this@ElementDefinitionFixedSurrogate.fixedDateTime),
+        this@ElementDefinitionFixedSurrogate._fixedDateTime,
+      ),
+      Decimal.of(
+        this@ElementDefinitionFixedSurrogate.fixedDecimal,
+        this@ElementDefinitionFixedSurrogate._fixedDecimal,
+      ),
+      Id.of(
+        this@ElementDefinitionFixedSurrogate.fixedId,
+        this@ElementDefinitionFixedSurrogate._fixedId,
+      ),
+      Instant.of(
+        FhirDateTime.fromString(this@ElementDefinitionFixedSurrogate.fixedInstant),
+        this@ElementDefinitionFixedSurrogate._fixedInstant,
+      ),
+      Integer.of(
+        this@ElementDefinitionFixedSurrogate.fixedInteger,
+        this@ElementDefinitionFixedSurrogate._fixedInteger,
+      ),
+      Integer64.of(
+        this@ElementDefinitionFixedSurrogate.fixedInteger64?.toLong(),
+        this@ElementDefinitionFixedSurrogate._fixedInteger64,
+      ),
+      Markdown.of(
+        this@ElementDefinitionFixedSurrogate.fixedMarkdown,
+        this@ElementDefinitionFixedSurrogate._fixedMarkdown,
+      ),
+      Oid.of(
+        this@ElementDefinitionFixedSurrogate.fixedOid,
+        this@ElementDefinitionFixedSurrogate._fixedOid,
+      ),
+      PositiveInt.of(
+        this@ElementDefinitionFixedSurrogate.fixedPositiveInt,
+        this@ElementDefinitionFixedSurrogate._fixedPositiveInt,
+      ),
+      R5String.of(
+        this@ElementDefinitionFixedSurrogate.fixedString,
+        this@ElementDefinitionFixedSurrogate._fixedString,
+      ),
+      Time.of(
+        this@ElementDefinitionFixedSurrogate.fixedTime,
+        this@ElementDefinitionFixedSurrogate._fixedTime,
+      ),
+      UnsignedInt.of(
+        this@ElementDefinitionFixedSurrogate.fixedUnsignedInt,
+        this@ElementDefinitionFixedSurrogate._fixedUnsignedInt,
+      ),
+      Uri.of(
+        this@ElementDefinitionFixedSurrogate.fixedUri,
+        this@ElementDefinitionFixedSurrogate._fixedUri,
+      ),
+      Url.of(
+        this@ElementDefinitionFixedSurrogate.fixedUrl,
+        this@ElementDefinitionFixedSurrogate._fixedUrl,
+      ),
+      Uuid.of(
+        this@ElementDefinitionFixedSurrogate.fixedUuid,
+        this@ElementDefinitionFixedSurrogate._fixedUuid,
+      ),
+      this@ElementDefinitionFixedSurrogate.fixedAddress,
+      this@ElementDefinitionFixedSurrogate.fixedAge,
+      this@ElementDefinitionFixedSurrogate.fixedAnnotation,
+      this@ElementDefinitionFixedSurrogate.fixedAttachment,
+      this@ElementDefinitionFixedSurrogate.fixedCodeableConcept,
+      this@ElementDefinitionFixedSurrogate.fixedCodeableReference,
+      this@ElementDefinitionFixedSurrogate.fixedCoding,
+      this@ElementDefinitionFixedSurrogate.fixedContactPoint,
+      this@ElementDefinitionFixedSurrogate.fixedCount,
+      this@ElementDefinitionFixedSurrogate.fixedDistance,
+      this@ElementDefinitionFixedSurrogate.fixedDuration,
+      this@ElementDefinitionFixedSurrogate.fixedHumanName,
+      this@ElementDefinitionFixedSurrogate.fixedIdentifier,
+      this@ElementDefinitionFixedSurrogate.fixedMoney,
+      this@ElementDefinitionFixedSurrogate.fixedPeriod,
+      this@ElementDefinitionFixedSurrogate.fixedQuantity,
+      this@ElementDefinitionFixedSurrogate.fixedRange,
+      this@ElementDefinitionFixedSurrogate.fixedRatio,
+      this@ElementDefinitionFixedSurrogate.fixedRatioRange,
+      this@ElementDefinitionFixedSurrogate.fixedReference,
+      this@ElementDefinitionFixedSurrogate.fixedSampledData,
+      this@ElementDefinitionFixedSurrogate.fixedSignature,
+      this@ElementDefinitionFixedSurrogate.fixedTiming,
+      this@ElementDefinitionFixedSurrogate.fixedContactDetail,
+      this@ElementDefinitionFixedSurrogate.fixedDataRequirement,
+      this@ElementDefinitionFixedSurrogate.fixedExpression,
+      this@ElementDefinitionFixedSurrogate.fixedParameterDefinition,
+      this@ElementDefinitionFixedSurrogate.fixedRelatedArtifact,
+      this@ElementDefinitionFixedSurrogate.fixedTriggerDefinition,
+      this@ElementDefinitionFixedSurrogate.fixedUsageContext,
+      this@ElementDefinitionFixedSurrogate.fixedAvailability,
+      this@ElementDefinitionFixedSurrogate.fixedExtendedContactDetail,
+      this@ElementDefinitionFixedSurrogate.fixedDosage,
+      this@ElementDefinitionFixedSurrogate.fixedMeta,
+    )!!
+
+  public companion object {
+    public fun fromModel(model: ElementDefinition.Fixed): ElementDefinitionFixedSurrogate =
+      with(model) {
+        ElementDefinitionFixedSurrogate(
+          fixedBase64Binary = this@with.asBase64Binary()?.value?.value,
+          _fixedBase64Binary = this@with.asBase64Binary()?.value?.toElement(),
+          fixedBoolean = this@with.asBoolean()?.value?.value,
+          _fixedBoolean = this@with.asBoolean()?.value?.toElement(),
+          fixedCanonical = this@with.asCanonical()?.value?.value,
+          _fixedCanonical = this@with.asCanonical()?.value?.toElement(),
+          fixedCode = this@with.asCode()?.value?.value,
+          _fixedCode = this@with.asCode()?.value?.toElement(),
+          fixedDate = this@with.asDate()?.value?.value?.toString(),
+          _fixedDate = this@with.asDate()?.value?.toElement(),
+          fixedDateTime = this@with.asDateTime()?.value?.value?.toString(),
+          _fixedDateTime = this@with.asDateTime()?.value?.toElement(),
+          fixedDecimal = this@with.asDecimal()?.value?.value,
+          _fixedDecimal = this@with.asDecimal()?.value?.toElement(),
+          fixedId = this@with.asId()?.value?.value,
+          _fixedId = this@with.asId()?.value?.toElement(),
+          fixedInstant = this@with.asInstant()?.value?.value?.toString(),
+          _fixedInstant = this@with.asInstant()?.value?.toElement(),
+          fixedInteger = this@with.asInteger()?.value?.value,
+          _fixedInteger = this@with.asInteger()?.value?.toElement(),
+          fixedInteger64 = this@with.asInteger64()?.value?.value?.toString(),
+          _fixedInteger64 = this@with.asInteger64()?.value?.toElement(),
+          fixedMarkdown = this@with.asMarkdown()?.value?.value,
+          _fixedMarkdown = this@with.asMarkdown()?.value?.toElement(),
+          fixedOid = this@with.asOid()?.value?.value,
+          _fixedOid = this@with.asOid()?.value?.toElement(),
+          fixedPositiveInt = this@with.asPositiveInt()?.value?.value,
+          _fixedPositiveInt = this@with.asPositiveInt()?.value?.toElement(),
+          fixedString = this@with.asString()?.value?.value,
+          _fixedString = this@with.asString()?.value?.toElement(),
+          fixedTime = this@with.asTime()?.value?.value,
+          _fixedTime = this@with.asTime()?.value?.toElement(),
+          fixedUnsignedInt = this@with.asUnsignedInt()?.value?.value,
+          _fixedUnsignedInt = this@with.asUnsignedInt()?.value?.toElement(),
+          fixedUri = this@with.asUri()?.value?.value,
+          _fixedUri = this@with.asUri()?.value?.toElement(),
+          fixedUrl = this@with.asUrl()?.value?.value,
+          _fixedUrl = this@with.asUrl()?.value?.toElement(),
+          fixedUuid = this@with.asUuid()?.value?.value,
+          _fixedUuid = this@with.asUuid()?.value?.toElement(),
+          fixedAddress = this@with.asAddress()?.value,
+          fixedAge = this@with.asAge()?.value,
+          fixedAnnotation = this@with.asAnnotation()?.value,
+          fixedAttachment = this@with.asAttachment()?.value,
+          fixedCodeableConcept = this@with.asCodeableConcept()?.value,
+          fixedCodeableReference = this@with.asCodeableReference()?.value,
+          fixedCoding = this@with.asCoding()?.value,
+          fixedContactPoint = this@with.asContactPoint()?.value,
+          fixedCount = this@with.asCount()?.value,
+          fixedDistance = this@with.asDistance()?.value,
+          fixedDuration = this@with.asDuration()?.value,
+          fixedHumanName = this@with.asHumanName()?.value,
+          fixedIdentifier = this@with.asIdentifier()?.value,
+          fixedMoney = this@with.asMoney()?.value,
+          fixedPeriod = this@with.asPeriod()?.value,
+          fixedQuantity = this@with.asQuantity()?.value,
+          fixedRange = this@with.asRange()?.value,
+          fixedRatio = this@with.asRatio()?.value,
+          fixedRatioRange = this@with.asRatioRange()?.value,
+          fixedReference = this@with.asReference()?.value,
+          fixedSampledData = this@with.asSampledData()?.value,
+          fixedSignature = this@with.asSignature()?.value,
+          fixedTiming = this@with.asTiming()?.value,
+          fixedContactDetail = this@with.asContactDetail()?.value,
+          fixedDataRequirement = this@with.asDataRequirement()?.value,
+          fixedExpression = this@with.asExpression()?.value,
+          fixedParameterDefinition = this@with.asParameterDefinition()?.value,
+          fixedRelatedArtifact = this@with.asRelatedArtifact()?.value,
+          fixedTriggerDefinition = this@with.asTriggerDefinition()?.value,
+          fixedUsageContext = this@with.asUsageContext()?.value,
+          fixedAvailability = this@with.asAvailability()?.value,
+          fixedExtendedContactDetail = this@with.asExtendedContactDetail()?.value,
+          fixedDosage = this@with.asDosage()?.value,
+          fixedMeta = this@with.asMeta()?.value,
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class ElementDefinitionPatternSurrogate(
+  public var patternBase64Binary: KotlinString? = null,
+  public var _patternBase64Binary: Element? = null,
+  public var patternBoolean: KotlinBoolean? = null,
+  public var _patternBoolean: Element? = null,
+  public var patternCanonical: KotlinString? = null,
+  public var _patternCanonical: Element? = null,
+  public var patternCode: KotlinString? = null,
+  public var _patternCode: Element? = null,
+  public var patternDate: KotlinString? = null,
+  public var _patternDate: Element? = null,
+  public var patternDateTime: KotlinString? = null,
+  public var _patternDateTime: Element? = null,
+  public var patternDecimal: Double? = null,
+  public var _patternDecimal: Element? = null,
+  public var patternId: KotlinString? = null,
+  public var _patternId: Element? = null,
+  public var patternInstant: KotlinString? = null,
+  public var _patternInstant: Element? = null,
+  public var patternInteger: Int? = null,
+  public var _patternInteger: Element? = null,
+  public var patternInteger64: KotlinString? = null,
+  public var _patternInteger64: Element? = null,
+  public var patternMarkdown: KotlinString? = null,
+  public var _patternMarkdown: Element? = null,
+  public var patternOid: KotlinString? = null,
+  public var _patternOid: Element? = null,
+  public var patternPositiveInt: Int? = null,
+  public var _patternPositiveInt: Element? = null,
+  public var patternString: KotlinString? = null,
+  public var _patternString: Element? = null,
+  public var patternTime: LocalTime? = null,
+  public var _patternTime: Element? = null,
+  public var patternUnsignedInt: Int? = null,
+  public var _patternUnsignedInt: Element? = null,
+  public var patternUri: KotlinString? = null,
+  public var _patternUri: Element? = null,
+  public var patternUrl: KotlinString? = null,
+  public var _patternUrl: Element? = null,
+  public var patternUuid: KotlinString? = null,
+  public var _patternUuid: Element? = null,
+  public var patternAddress: Address? = null,
+  public var patternAge: Age? = null,
+  public var patternAnnotation: Annotation? = null,
+  public var patternAttachment: Attachment? = null,
+  public var patternCodeableConcept: CodeableConcept? = null,
+  public var patternCodeableReference: CodeableReference? = null,
+  public var patternCoding: Coding? = null,
+  public var patternContactPoint: ContactPoint? = null,
+  public var patternCount: Count? = null,
+  public var patternDistance: Distance? = null,
+  public var patternDuration: Duration? = null,
+  public var patternHumanName: HumanName? = null,
+  public var patternIdentifier: Identifier? = null,
+  public var patternMoney: Money? = null,
+  public var patternPeriod: Period? = null,
+  public var patternQuantity: Quantity? = null,
+  public var patternRange: Range? = null,
+  public var patternRatio: Ratio? = null,
+  public var patternRatioRange: RatioRange? = null,
+  public var patternReference: Reference? = null,
+  public var patternSampledData: SampledData? = null,
+  public var patternSignature: Signature? = null,
+  public var patternTiming: Timing? = null,
+  public var patternContactDetail: ContactDetail? = null,
+  public var patternDataRequirement: DataRequirement? = null,
+  public var patternExpression: Expression? = null,
+  public var patternParameterDefinition: ParameterDefinition? = null,
+  public var patternRelatedArtifact: RelatedArtifact? = null,
+  public var patternTriggerDefinition: TriggerDefinition? = null,
+  public var patternUsageContext: UsageContext? = null,
+  public var patternAvailability: Availability? = null,
+  public var patternExtendedContactDetail: ExtendedContactDetail? = null,
+  public var patternDosage: Dosage? = null,
+  public var patternMeta: Meta? = null,
+) {
+  public fun toModel(): ElementDefinition.Pattern =
+    ElementDefinition.Pattern.from(
+      Base64Binary.of(
+        this@ElementDefinitionPatternSurrogate.patternBase64Binary,
+        this@ElementDefinitionPatternSurrogate._patternBase64Binary,
+      ),
+      R5Boolean.of(
+        this@ElementDefinitionPatternSurrogate.patternBoolean,
+        this@ElementDefinitionPatternSurrogate._patternBoolean,
+      ),
+      Canonical.of(
+        this@ElementDefinitionPatternSurrogate.patternCanonical,
+        this@ElementDefinitionPatternSurrogate._patternCanonical,
+      ),
+      Code.of(
+        this@ElementDefinitionPatternSurrogate.patternCode,
+        this@ElementDefinitionPatternSurrogate._patternCode,
+      ),
+      Date.of(
+        FhirDate.fromString(this@ElementDefinitionPatternSurrogate.patternDate),
+        this@ElementDefinitionPatternSurrogate._patternDate,
+      ),
+      DateTime.of(
+        FhirDateTime.fromString(this@ElementDefinitionPatternSurrogate.patternDateTime),
+        this@ElementDefinitionPatternSurrogate._patternDateTime,
+      ),
+      Decimal.of(
+        this@ElementDefinitionPatternSurrogate.patternDecimal,
+        this@ElementDefinitionPatternSurrogate._patternDecimal,
+      ),
+      Id.of(
+        this@ElementDefinitionPatternSurrogate.patternId,
+        this@ElementDefinitionPatternSurrogate._patternId,
+      ),
+      Instant.of(
+        FhirDateTime.fromString(this@ElementDefinitionPatternSurrogate.patternInstant),
+        this@ElementDefinitionPatternSurrogate._patternInstant,
+      ),
+      Integer.of(
+        this@ElementDefinitionPatternSurrogate.patternInteger,
+        this@ElementDefinitionPatternSurrogate._patternInteger,
+      ),
+      Integer64.of(
+        this@ElementDefinitionPatternSurrogate.patternInteger64?.toLong(),
+        this@ElementDefinitionPatternSurrogate._patternInteger64,
+      ),
+      Markdown.of(
+        this@ElementDefinitionPatternSurrogate.patternMarkdown,
+        this@ElementDefinitionPatternSurrogate._patternMarkdown,
+      ),
+      Oid.of(
+        this@ElementDefinitionPatternSurrogate.patternOid,
+        this@ElementDefinitionPatternSurrogate._patternOid,
+      ),
+      PositiveInt.of(
+        this@ElementDefinitionPatternSurrogate.patternPositiveInt,
+        this@ElementDefinitionPatternSurrogate._patternPositiveInt,
+      ),
+      R5String.of(
+        this@ElementDefinitionPatternSurrogate.patternString,
+        this@ElementDefinitionPatternSurrogate._patternString,
+      ),
+      Time.of(
+        this@ElementDefinitionPatternSurrogate.patternTime,
+        this@ElementDefinitionPatternSurrogate._patternTime,
+      ),
+      UnsignedInt.of(
+        this@ElementDefinitionPatternSurrogate.patternUnsignedInt,
+        this@ElementDefinitionPatternSurrogate._patternUnsignedInt,
+      ),
+      Uri.of(
+        this@ElementDefinitionPatternSurrogate.patternUri,
+        this@ElementDefinitionPatternSurrogate._patternUri,
+      ),
+      Url.of(
+        this@ElementDefinitionPatternSurrogate.patternUrl,
+        this@ElementDefinitionPatternSurrogate._patternUrl,
+      ),
+      Uuid.of(
+        this@ElementDefinitionPatternSurrogate.patternUuid,
+        this@ElementDefinitionPatternSurrogate._patternUuid,
+      ),
+      this@ElementDefinitionPatternSurrogate.patternAddress,
+      this@ElementDefinitionPatternSurrogate.patternAge,
+      this@ElementDefinitionPatternSurrogate.patternAnnotation,
+      this@ElementDefinitionPatternSurrogate.patternAttachment,
+      this@ElementDefinitionPatternSurrogate.patternCodeableConcept,
+      this@ElementDefinitionPatternSurrogate.patternCodeableReference,
+      this@ElementDefinitionPatternSurrogate.patternCoding,
+      this@ElementDefinitionPatternSurrogate.patternContactPoint,
+      this@ElementDefinitionPatternSurrogate.patternCount,
+      this@ElementDefinitionPatternSurrogate.patternDistance,
+      this@ElementDefinitionPatternSurrogate.patternDuration,
+      this@ElementDefinitionPatternSurrogate.patternHumanName,
+      this@ElementDefinitionPatternSurrogate.patternIdentifier,
+      this@ElementDefinitionPatternSurrogate.patternMoney,
+      this@ElementDefinitionPatternSurrogate.patternPeriod,
+      this@ElementDefinitionPatternSurrogate.patternQuantity,
+      this@ElementDefinitionPatternSurrogate.patternRange,
+      this@ElementDefinitionPatternSurrogate.patternRatio,
+      this@ElementDefinitionPatternSurrogate.patternRatioRange,
+      this@ElementDefinitionPatternSurrogate.patternReference,
+      this@ElementDefinitionPatternSurrogate.patternSampledData,
+      this@ElementDefinitionPatternSurrogate.patternSignature,
+      this@ElementDefinitionPatternSurrogate.patternTiming,
+      this@ElementDefinitionPatternSurrogate.patternContactDetail,
+      this@ElementDefinitionPatternSurrogate.patternDataRequirement,
+      this@ElementDefinitionPatternSurrogate.patternExpression,
+      this@ElementDefinitionPatternSurrogate.patternParameterDefinition,
+      this@ElementDefinitionPatternSurrogate.patternRelatedArtifact,
+      this@ElementDefinitionPatternSurrogate.patternTriggerDefinition,
+      this@ElementDefinitionPatternSurrogate.patternUsageContext,
+      this@ElementDefinitionPatternSurrogate.patternAvailability,
+      this@ElementDefinitionPatternSurrogate.patternExtendedContactDetail,
+      this@ElementDefinitionPatternSurrogate.patternDosage,
+      this@ElementDefinitionPatternSurrogate.patternMeta,
+    )!!
+
+  public companion object {
+    public fun fromModel(model: ElementDefinition.Pattern): ElementDefinitionPatternSurrogate =
+      with(model) {
+        ElementDefinitionPatternSurrogate(
+          patternBase64Binary = this@with.asBase64Binary()?.value?.value,
+          _patternBase64Binary = this@with.asBase64Binary()?.value?.toElement(),
+          patternBoolean = this@with.asBoolean()?.value?.value,
+          _patternBoolean = this@with.asBoolean()?.value?.toElement(),
+          patternCanonical = this@with.asCanonical()?.value?.value,
+          _patternCanonical = this@with.asCanonical()?.value?.toElement(),
+          patternCode = this@with.asCode()?.value?.value,
+          _patternCode = this@with.asCode()?.value?.toElement(),
+          patternDate = this@with.asDate()?.value?.value?.toString(),
+          _patternDate = this@with.asDate()?.value?.toElement(),
+          patternDateTime = this@with.asDateTime()?.value?.value?.toString(),
+          _patternDateTime = this@with.asDateTime()?.value?.toElement(),
+          patternDecimal = this@with.asDecimal()?.value?.value,
+          _patternDecimal = this@with.asDecimal()?.value?.toElement(),
+          patternId = this@with.asId()?.value?.value,
+          _patternId = this@with.asId()?.value?.toElement(),
+          patternInstant = this@with.asInstant()?.value?.value?.toString(),
+          _patternInstant = this@with.asInstant()?.value?.toElement(),
+          patternInteger = this@with.asInteger()?.value?.value,
+          _patternInteger = this@with.asInteger()?.value?.toElement(),
+          patternInteger64 = this@with.asInteger64()?.value?.value?.toString(),
+          _patternInteger64 = this@with.asInteger64()?.value?.toElement(),
+          patternMarkdown = this@with.asMarkdown()?.value?.value,
+          _patternMarkdown = this@with.asMarkdown()?.value?.toElement(),
+          patternOid = this@with.asOid()?.value?.value,
+          _patternOid = this@with.asOid()?.value?.toElement(),
+          patternPositiveInt = this@with.asPositiveInt()?.value?.value,
+          _patternPositiveInt = this@with.asPositiveInt()?.value?.toElement(),
+          patternString = this@with.asString()?.value?.value,
+          _patternString = this@with.asString()?.value?.toElement(),
+          patternTime = this@with.asTime()?.value?.value,
+          _patternTime = this@with.asTime()?.value?.toElement(),
+          patternUnsignedInt = this@with.asUnsignedInt()?.value?.value,
+          _patternUnsignedInt = this@with.asUnsignedInt()?.value?.toElement(),
+          patternUri = this@with.asUri()?.value?.value,
+          _patternUri = this@with.asUri()?.value?.toElement(),
+          patternUrl = this@with.asUrl()?.value?.value,
+          _patternUrl = this@with.asUrl()?.value?.toElement(),
+          patternUuid = this@with.asUuid()?.value?.value,
+          _patternUuid = this@with.asUuid()?.value?.toElement(),
+          patternAddress = this@with.asAddress()?.value,
+          patternAge = this@with.asAge()?.value,
+          patternAnnotation = this@with.asAnnotation()?.value,
+          patternAttachment = this@with.asAttachment()?.value,
+          patternCodeableConcept = this@with.asCodeableConcept()?.value,
+          patternCodeableReference = this@with.asCodeableReference()?.value,
+          patternCoding = this@with.asCoding()?.value,
+          patternContactPoint = this@with.asContactPoint()?.value,
+          patternCount = this@with.asCount()?.value,
+          patternDistance = this@with.asDistance()?.value,
+          patternDuration = this@with.asDuration()?.value,
+          patternHumanName = this@with.asHumanName()?.value,
+          patternIdentifier = this@with.asIdentifier()?.value,
+          patternMoney = this@with.asMoney()?.value,
+          patternPeriod = this@with.asPeriod()?.value,
+          patternQuantity = this@with.asQuantity()?.value,
+          patternRange = this@with.asRange()?.value,
+          patternRatio = this@with.asRatio()?.value,
+          patternRatioRange = this@with.asRatioRange()?.value,
+          patternReference = this@with.asReference()?.value,
+          patternSampledData = this@with.asSampledData()?.value,
+          patternSignature = this@with.asSignature()?.value,
+          patternTiming = this@with.asTiming()?.value,
+          patternContactDetail = this@with.asContactDetail()?.value,
+          patternDataRequirement = this@with.asDataRequirement()?.value,
+          patternExpression = this@with.asExpression()?.value,
+          patternParameterDefinition = this@with.asParameterDefinition()?.value,
+          patternRelatedArtifact = this@with.asRelatedArtifact()?.value,
+          patternTriggerDefinition = this@with.asTriggerDefinition()?.value,
+          patternUsageContext = this@with.asUsageContext()?.value,
+          patternAvailability = this@with.asAvailability()?.value,
+          patternExtendedContactDetail = this@with.asExtendedContactDetail()?.value,
+          patternDosage = this@with.asDosage()?.value,
+          patternMeta = this@with.asMeta()?.value,
         )
       }
   }
@@ -652,1151 +1797,6 @@ internal data class ElementDefinitionExampleValueSurrogate(
 }
 
 @Serializable
-internal data class ElementDefinitionExampleSurrogate(
-  public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var label: KotlinString? = null,
-  public var _label: Element? = null,
-  public var `value`: ElementDefinition.Example.Value,
-) {
-  public fun toModel(): ElementDefinition.Example =
-    ElementDefinition.Example(
-      id = this@ElementDefinitionExampleSurrogate.id,
-      extension = this@ElementDefinitionExampleSurrogate.extension ?: mutableListOf(),
-      label =
-        R5String.of(
-          this@ElementDefinitionExampleSurrogate.label,
-          this@ElementDefinitionExampleSurrogate._label,
-        )!!,
-      `value` = this@ElementDefinitionExampleSurrogate.`value`,
-    )
-
-  public companion object {
-    public fun fromModel(model: ElementDefinition.Example): ElementDefinitionExampleSurrogate =
-      with(model) {
-        ElementDefinitionExampleSurrogate(
-          id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          label = this@with.label.value,
-          _label = this@with.label.toElement(),
-          `value` = this@with.`value`,
-        )
-      }
-  }
-}
-
-@Serializable
-internal data class ElementDefinitionConstraintSurrogate(
-  public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var key: KotlinString? = null,
-  public var _key: Element? = null,
-  public var requirements: KotlinString? = null,
-  public var _requirements: Element? = null,
-  public var severity: KotlinString? = null,
-  public var _severity: Element? = null,
-  public var suppress: KotlinBoolean? = null,
-  public var _suppress: Element? = null,
-  public var human: KotlinString? = null,
-  public var _human: Element? = null,
-  public var expression: KotlinString? = null,
-  public var _expression: Element? = null,
-  public var source: KotlinString? = null,
-  public var _source: Element? = null,
-) {
-  public fun toModel(): ElementDefinition.Constraint =
-    ElementDefinition.Constraint(
-      id = this@ElementDefinitionConstraintSurrogate.id,
-      extension = this@ElementDefinitionConstraintSurrogate.extension ?: mutableListOf(),
-      key =
-        Id.of(
-          this@ElementDefinitionConstraintSurrogate.key,
-          this@ElementDefinitionConstraintSurrogate._key,
-        )!!,
-      requirements =
-        Markdown.of(
-          this@ElementDefinitionConstraintSurrogate.requirements,
-          this@ElementDefinitionConstraintSurrogate._requirements,
-        ),
-      severity =
-        Enumeration.of(
-          com.google.fhir.model.r5.ElementDefinition.ConstraintSeverity.fromCode(
-            this@ElementDefinitionConstraintSurrogate.severity!!
-          ),
-          this@ElementDefinitionConstraintSurrogate._severity,
-        ),
-      suppress =
-        R5Boolean.of(
-          this@ElementDefinitionConstraintSurrogate.suppress,
-          this@ElementDefinitionConstraintSurrogate._suppress,
-        ),
-      human =
-        R5String.of(
-          this@ElementDefinitionConstraintSurrogate.human,
-          this@ElementDefinitionConstraintSurrogate._human,
-        )!!,
-      expression =
-        R5String.of(
-          this@ElementDefinitionConstraintSurrogate.expression,
-          this@ElementDefinitionConstraintSurrogate._expression,
-        ),
-      source =
-        Canonical.of(
-          this@ElementDefinitionConstraintSurrogate.source,
-          this@ElementDefinitionConstraintSurrogate._source,
-        ),
-    )
-
-  public companion object {
-    public fun fromModel(
-      model: ElementDefinition.Constraint
-    ): ElementDefinitionConstraintSurrogate =
-      with(model) {
-        ElementDefinitionConstraintSurrogate(
-          id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          key = this@with.key.value,
-          _key = this@with.key.toElement(),
-          requirements = this@with.requirements?.value,
-          _requirements = this@with.requirements?.toElement(),
-          severity = this@with.severity.value?.getCode(),
-          _severity = this@with.severity.toElement(),
-          suppress = this@with.suppress?.value,
-          _suppress = this@with.suppress?.toElement(),
-          human = this@with.human.value,
-          _human = this@with.human.toElement(),
-          expression = this@with.expression?.value,
-          _expression = this@with.expression?.toElement(),
-          source = this@with.source?.value,
-          _source = this@with.source?.toElement(),
-        )
-      }
-  }
-}
-
-@Serializable
-internal data class ElementDefinitionBindingAdditionalSurrogate(
-  public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var purpose: KotlinString? = null,
-  public var _purpose: Element? = null,
-  public var valueSet: KotlinString? = null,
-  public var _valueSet: Element? = null,
-  public var documentation: KotlinString? = null,
-  public var _documentation: Element? = null,
-  public var shortDoco: KotlinString? = null,
-  public var _shortDoco: Element? = null,
-  public var usage: MutableList<UsageContext>? = null,
-  public var any: KotlinBoolean? = null,
-  public var _any: Element? = null,
-) {
-  public fun toModel(): ElementDefinition.Binding.Additional =
-    ElementDefinition.Binding.Additional(
-      id = this@ElementDefinitionBindingAdditionalSurrogate.id,
-      extension = this@ElementDefinitionBindingAdditionalSurrogate.extension ?: mutableListOf(),
-      purpose =
-        Enumeration.of(
-          com.google.fhir.model.r5.ElementDefinition.AdditionalBindingPurposeVS.fromCode(
-            this@ElementDefinitionBindingAdditionalSurrogate.purpose!!
-          ),
-          this@ElementDefinitionBindingAdditionalSurrogate._purpose,
-        ),
-      valueSet =
-        Canonical.of(
-          this@ElementDefinitionBindingAdditionalSurrogate.valueSet,
-          this@ElementDefinitionBindingAdditionalSurrogate._valueSet,
-        )!!,
-      documentation =
-        Markdown.of(
-          this@ElementDefinitionBindingAdditionalSurrogate.documentation,
-          this@ElementDefinitionBindingAdditionalSurrogate._documentation,
-        ),
-      shortDoco =
-        R5String.of(
-          this@ElementDefinitionBindingAdditionalSurrogate.shortDoco,
-          this@ElementDefinitionBindingAdditionalSurrogate._shortDoco,
-        ),
-      usage = this@ElementDefinitionBindingAdditionalSurrogate.usage ?: mutableListOf(),
-      any =
-        R5Boolean.of(
-          this@ElementDefinitionBindingAdditionalSurrogate.any,
-          this@ElementDefinitionBindingAdditionalSurrogate._any,
-        ),
-    )
-
-  public companion object {
-    public fun fromModel(
-      model: ElementDefinition.Binding.Additional
-    ): ElementDefinitionBindingAdditionalSurrogate =
-      with(model) {
-        ElementDefinitionBindingAdditionalSurrogate(
-          id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          purpose = this@with.purpose.value?.getCode(),
-          _purpose = this@with.purpose.toElement(),
-          valueSet = this@with.valueSet.value,
-          _valueSet = this@with.valueSet.toElement(),
-          documentation = this@with.documentation?.value,
-          _documentation = this@with.documentation?.toElement(),
-          shortDoco = this@with.shortDoco?.value,
-          _shortDoco = this@with.shortDoco?.toElement(),
-          usage = this@with.usage.takeUnless { it.all { it == null } },
-          any = this@with.any?.value,
-          _any = this@with.any?.toElement(),
-        )
-      }
-  }
-}
-
-@Serializable
-internal data class ElementDefinitionBindingSurrogate(
-  public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var strength: KotlinString? = null,
-  public var _strength: Element? = null,
-  public var description: KotlinString? = null,
-  public var _description: Element? = null,
-  public var valueSet: KotlinString? = null,
-  public var _valueSet: Element? = null,
-  public var additional: MutableList<ElementDefinition.Binding.Additional>? = null,
-) {
-  public fun toModel(): ElementDefinition.Binding =
-    ElementDefinition.Binding(
-      id = this@ElementDefinitionBindingSurrogate.id,
-      extension = this@ElementDefinitionBindingSurrogate.extension ?: mutableListOf(),
-      strength =
-        Enumeration.of(
-          com.google.fhir.model.r5.terminologies.BindingStrength.fromCode(
-            this@ElementDefinitionBindingSurrogate.strength!!
-          ),
-          this@ElementDefinitionBindingSurrogate._strength,
-        ),
-      description =
-        Markdown.of(
-          this@ElementDefinitionBindingSurrogate.description,
-          this@ElementDefinitionBindingSurrogate._description,
-        ),
-      valueSet =
-        Canonical.of(
-          this@ElementDefinitionBindingSurrogate.valueSet,
-          this@ElementDefinitionBindingSurrogate._valueSet,
-        ),
-      additional = this@ElementDefinitionBindingSurrogate.additional ?: mutableListOf(),
-    )
-
-  public companion object {
-    public fun fromModel(model: ElementDefinition.Binding): ElementDefinitionBindingSurrogate =
-      with(model) {
-        ElementDefinitionBindingSurrogate(
-          id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          strength = this@with.strength.value?.getCode(),
-          _strength = this@with.strength.toElement(),
-          description = this@with.description?.value,
-          _description = this@with.description?.toElement(),
-          valueSet = this@with.valueSet?.value,
-          _valueSet = this@with.valueSet?.toElement(),
-          additional = this@with.additional.takeUnless { it.all { it == null } },
-        )
-      }
-  }
-}
-
-@Serializable
-internal data class ElementDefinitionMappingSurrogate(
-  public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var identity: KotlinString? = null,
-  public var _identity: Element? = null,
-  public var language: KotlinString? = null,
-  public var _language: Element? = null,
-  public var map: KotlinString? = null,
-  public var _map: Element? = null,
-  public var comment: KotlinString? = null,
-  public var _comment: Element? = null,
-) {
-  public fun toModel(): ElementDefinition.Mapping =
-    ElementDefinition.Mapping(
-      id = this@ElementDefinitionMappingSurrogate.id,
-      extension = this@ElementDefinitionMappingSurrogate.extension ?: mutableListOf(),
-      identity =
-        Id.of(
-          this@ElementDefinitionMappingSurrogate.identity,
-          this@ElementDefinitionMappingSurrogate._identity,
-        )!!,
-      language =
-        Code.of(
-          this@ElementDefinitionMappingSurrogate.language,
-          this@ElementDefinitionMappingSurrogate._language,
-        ),
-      map =
-        R5String.of(
-          this@ElementDefinitionMappingSurrogate.map,
-          this@ElementDefinitionMappingSurrogate._map,
-        )!!,
-      comment =
-        Markdown.of(
-          this@ElementDefinitionMappingSurrogate.comment,
-          this@ElementDefinitionMappingSurrogate._comment,
-        ),
-    )
-
-  public companion object {
-    public fun fromModel(model: ElementDefinition.Mapping): ElementDefinitionMappingSurrogate =
-      with(model) {
-        ElementDefinitionMappingSurrogate(
-          id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          identity = this@with.identity.value,
-          _identity = this@with.identity.toElement(),
-          language = this@with.language?.value,
-          _language = this@with.language?.toElement(),
-          map = this@with.map.value,
-          _map = this@with.map.toElement(),
-          comment = this@with.comment?.value,
-          _comment = this@with.comment?.toElement(),
-        )
-      }
-  }
-}
-
-@Serializable
-internal data class ElementDefinitionDefaultValueSurrogate(
-  public var defaultValueBase64Binary: KotlinString? = null,
-  public var _defaultValueBase64Binary: Element? = null,
-  public var defaultValueBoolean: KotlinBoolean? = null,
-  public var _defaultValueBoolean: Element? = null,
-  public var defaultValueCanonical: KotlinString? = null,
-  public var _defaultValueCanonical: Element? = null,
-  public var defaultValueCode: KotlinString? = null,
-  public var _defaultValueCode: Element? = null,
-  public var defaultValueDate: KotlinString? = null,
-  public var _defaultValueDate: Element? = null,
-  public var defaultValueDateTime: KotlinString? = null,
-  public var _defaultValueDateTime: Element? = null,
-  public var defaultValueDecimal: Double? = null,
-  public var _defaultValueDecimal: Element? = null,
-  public var defaultValueId: KotlinString? = null,
-  public var _defaultValueId: Element? = null,
-  public var defaultValueInstant: KotlinString? = null,
-  public var _defaultValueInstant: Element? = null,
-  public var defaultValueInteger: Int? = null,
-  public var _defaultValueInteger: Element? = null,
-  public var defaultValueInteger64: KotlinString? = null,
-  public var _defaultValueInteger64: Element? = null,
-  public var defaultValueMarkdown: KotlinString? = null,
-  public var _defaultValueMarkdown: Element? = null,
-  public var defaultValueOid: KotlinString? = null,
-  public var _defaultValueOid: Element? = null,
-  public var defaultValuePositiveInt: Int? = null,
-  public var _defaultValuePositiveInt: Element? = null,
-  public var defaultValueString: KotlinString? = null,
-  public var _defaultValueString: Element? = null,
-  public var defaultValueTime: LocalTime? = null,
-  public var _defaultValueTime: Element? = null,
-  public var defaultValueUnsignedInt: Int? = null,
-  public var _defaultValueUnsignedInt: Element? = null,
-  public var defaultValueUri: KotlinString? = null,
-  public var _defaultValueUri: Element? = null,
-  public var defaultValueUrl: KotlinString? = null,
-  public var _defaultValueUrl: Element? = null,
-  public var defaultValueUuid: KotlinString? = null,
-  public var _defaultValueUuid: Element? = null,
-  public var defaultValueAddress: Address? = null,
-  public var defaultValueAge: Age? = null,
-  public var defaultValueAnnotation: Annotation? = null,
-  public var defaultValueAttachment: Attachment? = null,
-  public var defaultValueCodeableConcept: CodeableConcept? = null,
-  public var defaultValueCodeableReference: CodeableReference? = null,
-  public var defaultValueCoding: Coding? = null,
-  public var defaultValueContactPoint: ContactPoint? = null,
-  public var defaultValueCount: Count? = null,
-  public var defaultValueDistance: Distance? = null,
-  public var defaultValueDuration: Duration? = null,
-  public var defaultValueHumanName: HumanName? = null,
-  public var defaultValueIdentifier: Identifier? = null,
-  public var defaultValueMoney: Money? = null,
-  public var defaultValuePeriod: Period? = null,
-  public var defaultValueQuantity: Quantity? = null,
-  public var defaultValueRange: Range? = null,
-  public var defaultValueRatio: Ratio? = null,
-  public var defaultValueRatioRange: RatioRange? = null,
-  public var defaultValueReference: Reference? = null,
-  public var defaultValueSampledData: SampledData? = null,
-  public var defaultValueSignature: Signature? = null,
-  public var defaultValueTiming: Timing? = null,
-  public var defaultValueContactDetail: ContactDetail? = null,
-  public var defaultValueDataRequirement: DataRequirement? = null,
-  public var defaultValueExpression: Expression? = null,
-  public var defaultValueParameterDefinition: ParameterDefinition? = null,
-  public var defaultValueRelatedArtifact: RelatedArtifact? = null,
-  public var defaultValueTriggerDefinition: TriggerDefinition? = null,
-  public var defaultValueUsageContext: UsageContext? = null,
-  public var defaultValueAvailability: Availability? = null,
-  public var defaultValueExtendedContactDetail: ExtendedContactDetail? = null,
-  public var defaultValueDosage: Dosage? = null,
-  public var defaultValueMeta: Meta? = null,
-) {
-  public fun toModel(): ElementDefinition.DefaultValue =
-    ElementDefinition.DefaultValue?.from(
-      Base64Binary.of(
-        this@ElementDefinitionDefaultValueSurrogate.defaultValueBase64Binary,
-        this@ElementDefinitionDefaultValueSurrogate._defaultValueBase64Binary,
-      ),
-      R5Boolean.of(
-        this@ElementDefinitionDefaultValueSurrogate.defaultValueBoolean,
-        this@ElementDefinitionDefaultValueSurrogate._defaultValueBoolean,
-      ),
-      Canonical.of(
-        this@ElementDefinitionDefaultValueSurrogate.defaultValueCanonical,
-        this@ElementDefinitionDefaultValueSurrogate._defaultValueCanonical,
-      ),
-      Code.of(
-        this@ElementDefinitionDefaultValueSurrogate.defaultValueCode,
-        this@ElementDefinitionDefaultValueSurrogate._defaultValueCode,
-      ),
-      Date.of(
-        FhirDate.fromString(this@ElementDefinitionDefaultValueSurrogate.defaultValueDate),
-        this@ElementDefinitionDefaultValueSurrogate._defaultValueDate,
-      ),
-      DateTime.of(
-        FhirDateTime.fromString(this@ElementDefinitionDefaultValueSurrogate.defaultValueDateTime),
-        this@ElementDefinitionDefaultValueSurrogate._defaultValueDateTime,
-      ),
-      Decimal.of(
-        this@ElementDefinitionDefaultValueSurrogate.defaultValueDecimal,
-        this@ElementDefinitionDefaultValueSurrogate._defaultValueDecimal,
-      ),
-      Id.of(
-        this@ElementDefinitionDefaultValueSurrogate.defaultValueId,
-        this@ElementDefinitionDefaultValueSurrogate._defaultValueId,
-      ),
-      Instant.of(
-        FhirDateTime.fromString(this@ElementDefinitionDefaultValueSurrogate.defaultValueInstant),
-        this@ElementDefinitionDefaultValueSurrogate._defaultValueInstant,
-      ),
-      Integer.of(
-        this@ElementDefinitionDefaultValueSurrogate.defaultValueInteger,
-        this@ElementDefinitionDefaultValueSurrogate._defaultValueInteger,
-      ),
-      Integer64.of(
-        this@ElementDefinitionDefaultValueSurrogate.defaultValueInteger64?.toLong(),
-        this@ElementDefinitionDefaultValueSurrogate._defaultValueInteger64,
-      ),
-      Markdown.of(
-        this@ElementDefinitionDefaultValueSurrogate.defaultValueMarkdown,
-        this@ElementDefinitionDefaultValueSurrogate._defaultValueMarkdown,
-      ),
-      Oid.of(
-        this@ElementDefinitionDefaultValueSurrogate.defaultValueOid,
-        this@ElementDefinitionDefaultValueSurrogate._defaultValueOid,
-      ),
-      PositiveInt.of(
-        this@ElementDefinitionDefaultValueSurrogate.defaultValuePositiveInt,
-        this@ElementDefinitionDefaultValueSurrogate._defaultValuePositiveInt,
-      ),
-      R5String.of(
-        this@ElementDefinitionDefaultValueSurrogate.defaultValueString,
-        this@ElementDefinitionDefaultValueSurrogate._defaultValueString,
-      ),
-      Time.of(
-        this@ElementDefinitionDefaultValueSurrogate.defaultValueTime,
-        this@ElementDefinitionDefaultValueSurrogate._defaultValueTime,
-      ),
-      UnsignedInt.of(
-        this@ElementDefinitionDefaultValueSurrogate.defaultValueUnsignedInt,
-        this@ElementDefinitionDefaultValueSurrogate._defaultValueUnsignedInt,
-      ),
-      Uri.of(
-        this@ElementDefinitionDefaultValueSurrogate.defaultValueUri,
-        this@ElementDefinitionDefaultValueSurrogate._defaultValueUri,
-      ),
-      Url.of(
-        this@ElementDefinitionDefaultValueSurrogate.defaultValueUrl,
-        this@ElementDefinitionDefaultValueSurrogate._defaultValueUrl,
-      ),
-      Uuid.of(
-        this@ElementDefinitionDefaultValueSurrogate.defaultValueUuid,
-        this@ElementDefinitionDefaultValueSurrogate._defaultValueUuid,
-      ),
-      this@ElementDefinitionDefaultValueSurrogate.defaultValueAddress,
-      this@ElementDefinitionDefaultValueSurrogate.defaultValueAge,
-      this@ElementDefinitionDefaultValueSurrogate.defaultValueAnnotation,
-      this@ElementDefinitionDefaultValueSurrogate.defaultValueAttachment,
-      this@ElementDefinitionDefaultValueSurrogate.defaultValueCodeableConcept,
-      this@ElementDefinitionDefaultValueSurrogate.defaultValueCodeableReference,
-      this@ElementDefinitionDefaultValueSurrogate.defaultValueCoding,
-      this@ElementDefinitionDefaultValueSurrogate.defaultValueContactPoint,
-      this@ElementDefinitionDefaultValueSurrogate.defaultValueCount,
-      this@ElementDefinitionDefaultValueSurrogate.defaultValueDistance,
-      this@ElementDefinitionDefaultValueSurrogate.defaultValueDuration,
-      this@ElementDefinitionDefaultValueSurrogate.defaultValueHumanName,
-      this@ElementDefinitionDefaultValueSurrogate.defaultValueIdentifier,
-      this@ElementDefinitionDefaultValueSurrogate.defaultValueMoney,
-      this@ElementDefinitionDefaultValueSurrogate.defaultValuePeriod,
-      this@ElementDefinitionDefaultValueSurrogate.defaultValueQuantity,
-      this@ElementDefinitionDefaultValueSurrogate.defaultValueRange,
-      this@ElementDefinitionDefaultValueSurrogate.defaultValueRatio,
-      this@ElementDefinitionDefaultValueSurrogate.defaultValueRatioRange,
-      this@ElementDefinitionDefaultValueSurrogate.defaultValueReference,
-      this@ElementDefinitionDefaultValueSurrogate.defaultValueSampledData,
-      this@ElementDefinitionDefaultValueSurrogate.defaultValueSignature,
-      this@ElementDefinitionDefaultValueSurrogate.defaultValueTiming,
-      this@ElementDefinitionDefaultValueSurrogate.defaultValueContactDetail,
-      this@ElementDefinitionDefaultValueSurrogate.defaultValueDataRequirement,
-      this@ElementDefinitionDefaultValueSurrogate.defaultValueExpression,
-      this@ElementDefinitionDefaultValueSurrogate.defaultValueParameterDefinition,
-      this@ElementDefinitionDefaultValueSurrogate.defaultValueRelatedArtifact,
-      this@ElementDefinitionDefaultValueSurrogate.defaultValueTriggerDefinition,
-      this@ElementDefinitionDefaultValueSurrogate.defaultValueUsageContext,
-      this@ElementDefinitionDefaultValueSurrogate.defaultValueAvailability,
-      this@ElementDefinitionDefaultValueSurrogate.defaultValueExtendedContactDetail,
-      this@ElementDefinitionDefaultValueSurrogate.defaultValueDosage,
-      this@ElementDefinitionDefaultValueSurrogate.defaultValueMeta,
-    )!!
-
-  public companion object {
-    public fun fromModel(
-      model: ElementDefinition.DefaultValue
-    ): ElementDefinitionDefaultValueSurrogate =
-      with(model) {
-        ElementDefinitionDefaultValueSurrogate(
-          defaultValueBase64Binary = this@with.asBase64Binary()?.value?.value,
-          _defaultValueBase64Binary = this@with.asBase64Binary()?.value?.toElement(),
-          defaultValueBoolean = this@with.asBoolean()?.value?.value,
-          _defaultValueBoolean = this@with.asBoolean()?.value?.toElement(),
-          defaultValueCanonical = this@with.asCanonical()?.value?.value,
-          _defaultValueCanonical = this@with.asCanonical()?.value?.toElement(),
-          defaultValueCode = this@with.asCode()?.value?.value,
-          _defaultValueCode = this@with.asCode()?.value?.toElement(),
-          defaultValueDate = this@with.asDate()?.value?.value?.toString(),
-          _defaultValueDate = this@with.asDate()?.value?.toElement(),
-          defaultValueDateTime = this@with.asDateTime()?.value?.value?.toString(),
-          _defaultValueDateTime = this@with.asDateTime()?.value?.toElement(),
-          defaultValueDecimal = this@with.asDecimal()?.value?.value,
-          _defaultValueDecimal = this@with.asDecimal()?.value?.toElement(),
-          defaultValueId = this@with.asId()?.value?.value,
-          _defaultValueId = this@with.asId()?.value?.toElement(),
-          defaultValueInstant = this@with.asInstant()?.value?.value?.toString(),
-          _defaultValueInstant = this@with.asInstant()?.value?.toElement(),
-          defaultValueInteger = this@with.asInteger()?.value?.value,
-          _defaultValueInteger = this@with.asInteger()?.value?.toElement(),
-          defaultValueInteger64 = this@with.asInteger64()?.value?.value?.toString(),
-          _defaultValueInteger64 = this@with.asInteger64()?.value?.toElement(),
-          defaultValueMarkdown = this@with.asMarkdown()?.value?.value,
-          _defaultValueMarkdown = this@with.asMarkdown()?.value?.toElement(),
-          defaultValueOid = this@with.asOid()?.value?.value,
-          _defaultValueOid = this@with.asOid()?.value?.toElement(),
-          defaultValuePositiveInt = this@with.asPositiveInt()?.value?.value,
-          _defaultValuePositiveInt = this@with.asPositiveInt()?.value?.toElement(),
-          defaultValueString = this@with.asString()?.value?.value,
-          _defaultValueString = this@with.asString()?.value?.toElement(),
-          defaultValueTime = this@with.asTime()?.value?.value,
-          _defaultValueTime = this@with.asTime()?.value?.toElement(),
-          defaultValueUnsignedInt = this@with.asUnsignedInt()?.value?.value,
-          _defaultValueUnsignedInt = this@with.asUnsignedInt()?.value?.toElement(),
-          defaultValueUri = this@with.asUri()?.value?.value,
-          _defaultValueUri = this@with.asUri()?.value?.toElement(),
-          defaultValueUrl = this@with.asUrl()?.value?.value,
-          _defaultValueUrl = this@with.asUrl()?.value?.toElement(),
-          defaultValueUuid = this@with.asUuid()?.value?.value,
-          _defaultValueUuid = this@with.asUuid()?.value?.toElement(),
-          defaultValueAddress = this@with.asAddress()?.value,
-          defaultValueAge = this@with.asAge()?.value,
-          defaultValueAnnotation = this@with.asAnnotation()?.value,
-          defaultValueAttachment = this@with.asAttachment()?.value,
-          defaultValueCodeableConcept = this@with.asCodeableConcept()?.value,
-          defaultValueCodeableReference = this@with.asCodeableReference()?.value,
-          defaultValueCoding = this@with.asCoding()?.value,
-          defaultValueContactPoint = this@with.asContactPoint()?.value,
-          defaultValueCount = this@with.asCount()?.value,
-          defaultValueDistance = this@with.asDistance()?.value,
-          defaultValueDuration = this@with.asDuration()?.value,
-          defaultValueHumanName = this@with.asHumanName()?.value,
-          defaultValueIdentifier = this@with.asIdentifier()?.value,
-          defaultValueMoney = this@with.asMoney()?.value,
-          defaultValuePeriod = this@with.asPeriod()?.value,
-          defaultValueQuantity = this@with.asQuantity()?.value,
-          defaultValueRange = this@with.asRange()?.value,
-          defaultValueRatio = this@with.asRatio()?.value,
-          defaultValueRatioRange = this@with.asRatioRange()?.value,
-          defaultValueReference = this@with.asReference()?.value,
-          defaultValueSampledData = this@with.asSampledData()?.value,
-          defaultValueSignature = this@with.asSignature()?.value,
-          defaultValueTiming = this@with.asTiming()?.value,
-          defaultValueContactDetail = this@with.asContactDetail()?.value,
-          defaultValueDataRequirement = this@with.asDataRequirement()?.value,
-          defaultValueExpression = this@with.asExpression()?.value,
-          defaultValueParameterDefinition = this@with.asParameterDefinition()?.value,
-          defaultValueRelatedArtifact = this@with.asRelatedArtifact()?.value,
-          defaultValueTriggerDefinition = this@with.asTriggerDefinition()?.value,
-          defaultValueUsageContext = this@with.asUsageContext()?.value,
-          defaultValueAvailability = this@with.asAvailability()?.value,
-          defaultValueExtendedContactDetail = this@with.asExtendedContactDetail()?.value,
-          defaultValueDosage = this@with.asDosage()?.value,
-          defaultValueMeta = this@with.asMeta()?.value,
-        )
-      }
-  }
-}
-
-@Serializable
-internal data class ElementDefinitionFixedSurrogate(
-  public var fixedBase64Binary: KotlinString? = null,
-  public var _fixedBase64Binary: Element? = null,
-  public var fixedBoolean: KotlinBoolean? = null,
-  public var _fixedBoolean: Element? = null,
-  public var fixedCanonical: KotlinString? = null,
-  public var _fixedCanonical: Element? = null,
-  public var fixedCode: KotlinString? = null,
-  public var _fixedCode: Element? = null,
-  public var fixedDate: KotlinString? = null,
-  public var _fixedDate: Element? = null,
-  public var fixedDateTime: KotlinString? = null,
-  public var _fixedDateTime: Element? = null,
-  public var fixedDecimal: Double? = null,
-  public var _fixedDecimal: Element? = null,
-  public var fixedId: KotlinString? = null,
-  public var _fixedId: Element? = null,
-  public var fixedInstant: KotlinString? = null,
-  public var _fixedInstant: Element? = null,
-  public var fixedInteger: Int? = null,
-  public var _fixedInteger: Element? = null,
-  public var fixedInteger64: KotlinString? = null,
-  public var _fixedInteger64: Element? = null,
-  public var fixedMarkdown: KotlinString? = null,
-  public var _fixedMarkdown: Element? = null,
-  public var fixedOid: KotlinString? = null,
-  public var _fixedOid: Element? = null,
-  public var fixedPositiveInt: Int? = null,
-  public var _fixedPositiveInt: Element? = null,
-  public var fixedString: KotlinString? = null,
-  public var _fixedString: Element? = null,
-  public var fixedTime: LocalTime? = null,
-  public var _fixedTime: Element? = null,
-  public var fixedUnsignedInt: Int? = null,
-  public var _fixedUnsignedInt: Element? = null,
-  public var fixedUri: KotlinString? = null,
-  public var _fixedUri: Element? = null,
-  public var fixedUrl: KotlinString? = null,
-  public var _fixedUrl: Element? = null,
-  public var fixedUuid: KotlinString? = null,
-  public var _fixedUuid: Element? = null,
-  public var fixedAddress: Address? = null,
-  public var fixedAge: Age? = null,
-  public var fixedAnnotation: Annotation? = null,
-  public var fixedAttachment: Attachment? = null,
-  public var fixedCodeableConcept: CodeableConcept? = null,
-  public var fixedCodeableReference: CodeableReference? = null,
-  public var fixedCoding: Coding? = null,
-  public var fixedContactPoint: ContactPoint? = null,
-  public var fixedCount: Count? = null,
-  public var fixedDistance: Distance? = null,
-  public var fixedDuration: Duration? = null,
-  public var fixedHumanName: HumanName? = null,
-  public var fixedIdentifier: Identifier? = null,
-  public var fixedMoney: Money? = null,
-  public var fixedPeriod: Period? = null,
-  public var fixedQuantity: Quantity? = null,
-  public var fixedRange: Range? = null,
-  public var fixedRatio: Ratio? = null,
-  public var fixedRatioRange: RatioRange? = null,
-  public var fixedReference: Reference? = null,
-  public var fixedSampledData: SampledData? = null,
-  public var fixedSignature: Signature? = null,
-  public var fixedTiming: Timing? = null,
-  public var fixedContactDetail: ContactDetail? = null,
-  public var fixedDataRequirement: DataRequirement? = null,
-  public var fixedExpression: Expression? = null,
-  public var fixedParameterDefinition: ParameterDefinition? = null,
-  public var fixedRelatedArtifact: RelatedArtifact? = null,
-  public var fixedTriggerDefinition: TriggerDefinition? = null,
-  public var fixedUsageContext: UsageContext? = null,
-  public var fixedAvailability: Availability? = null,
-  public var fixedExtendedContactDetail: ExtendedContactDetail? = null,
-  public var fixedDosage: Dosage? = null,
-  public var fixedMeta: Meta? = null,
-) {
-  public fun toModel(): ElementDefinition.Fixed =
-    ElementDefinition.Fixed?.from(
-      Base64Binary.of(
-        this@ElementDefinitionFixedSurrogate.fixedBase64Binary,
-        this@ElementDefinitionFixedSurrogate._fixedBase64Binary,
-      ),
-      R5Boolean.of(
-        this@ElementDefinitionFixedSurrogate.fixedBoolean,
-        this@ElementDefinitionFixedSurrogate._fixedBoolean,
-      ),
-      Canonical.of(
-        this@ElementDefinitionFixedSurrogate.fixedCanonical,
-        this@ElementDefinitionFixedSurrogate._fixedCanonical,
-      ),
-      Code.of(
-        this@ElementDefinitionFixedSurrogate.fixedCode,
-        this@ElementDefinitionFixedSurrogate._fixedCode,
-      ),
-      Date.of(
-        FhirDate.fromString(this@ElementDefinitionFixedSurrogate.fixedDate),
-        this@ElementDefinitionFixedSurrogate._fixedDate,
-      ),
-      DateTime.of(
-        FhirDateTime.fromString(this@ElementDefinitionFixedSurrogate.fixedDateTime),
-        this@ElementDefinitionFixedSurrogate._fixedDateTime,
-      ),
-      Decimal.of(
-        this@ElementDefinitionFixedSurrogate.fixedDecimal,
-        this@ElementDefinitionFixedSurrogate._fixedDecimal,
-      ),
-      Id.of(
-        this@ElementDefinitionFixedSurrogate.fixedId,
-        this@ElementDefinitionFixedSurrogate._fixedId,
-      ),
-      Instant.of(
-        FhirDateTime.fromString(this@ElementDefinitionFixedSurrogate.fixedInstant),
-        this@ElementDefinitionFixedSurrogate._fixedInstant,
-      ),
-      Integer.of(
-        this@ElementDefinitionFixedSurrogate.fixedInteger,
-        this@ElementDefinitionFixedSurrogate._fixedInteger,
-      ),
-      Integer64.of(
-        this@ElementDefinitionFixedSurrogate.fixedInteger64?.toLong(),
-        this@ElementDefinitionFixedSurrogate._fixedInteger64,
-      ),
-      Markdown.of(
-        this@ElementDefinitionFixedSurrogate.fixedMarkdown,
-        this@ElementDefinitionFixedSurrogate._fixedMarkdown,
-      ),
-      Oid.of(
-        this@ElementDefinitionFixedSurrogate.fixedOid,
-        this@ElementDefinitionFixedSurrogate._fixedOid,
-      ),
-      PositiveInt.of(
-        this@ElementDefinitionFixedSurrogate.fixedPositiveInt,
-        this@ElementDefinitionFixedSurrogate._fixedPositiveInt,
-      ),
-      R5String.of(
-        this@ElementDefinitionFixedSurrogate.fixedString,
-        this@ElementDefinitionFixedSurrogate._fixedString,
-      ),
-      Time.of(
-        this@ElementDefinitionFixedSurrogate.fixedTime,
-        this@ElementDefinitionFixedSurrogate._fixedTime,
-      ),
-      UnsignedInt.of(
-        this@ElementDefinitionFixedSurrogate.fixedUnsignedInt,
-        this@ElementDefinitionFixedSurrogate._fixedUnsignedInt,
-      ),
-      Uri.of(
-        this@ElementDefinitionFixedSurrogate.fixedUri,
-        this@ElementDefinitionFixedSurrogate._fixedUri,
-      ),
-      Url.of(
-        this@ElementDefinitionFixedSurrogate.fixedUrl,
-        this@ElementDefinitionFixedSurrogate._fixedUrl,
-      ),
-      Uuid.of(
-        this@ElementDefinitionFixedSurrogate.fixedUuid,
-        this@ElementDefinitionFixedSurrogate._fixedUuid,
-      ),
-      this@ElementDefinitionFixedSurrogate.fixedAddress,
-      this@ElementDefinitionFixedSurrogate.fixedAge,
-      this@ElementDefinitionFixedSurrogate.fixedAnnotation,
-      this@ElementDefinitionFixedSurrogate.fixedAttachment,
-      this@ElementDefinitionFixedSurrogate.fixedCodeableConcept,
-      this@ElementDefinitionFixedSurrogate.fixedCodeableReference,
-      this@ElementDefinitionFixedSurrogate.fixedCoding,
-      this@ElementDefinitionFixedSurrogate.fixedContactPoint,
-      this@ElementDefinitionFixedSurrogate.fixedCount,
-      this@ElementDefinitionFixedSurrogate.fixedDistance,
-      this@ElementDefinitionFixedSurrogate.fixedDuration,
-      this@ElementDefinitionFixedSurrogate.fixedHumanName,
-      this@ElementDefinitionFixedSurrogate.fixedIdentifier,
-      this@ElementDefinitionFixedSurrogate.fixedMoney,
-      this@ElementDefinitionFixedSurrogate.fixedPeriod,
-      this@ElementDefinitionFixedSurrogate.fixedQuantity,
-      this@ElementDefinitionFixedSurrogate.fixedRange,
-      this@ElementDefinitionFixedSurrogate.fixedRatio,
-      this@ElementDefinitionFixedSurrogate.fixedRatioRange,
-      this@ElementDefinitionFixedSurrogate.fixedReference,
-      this@ElementDefinitionFixedSurrogate.fixedSampledData,
-      this@ElementDefinitionFixedSurrogate.fixedSignature,
-      this@ElementDefinitionFixedSurrogate.fixedTiming,
-      this@ElementDefinitionFixedSurrogate.fixedContactDetail,
-      this@ElementDefinitionFixedSurrogate.fixedDataRequirement,
-      this@ElementDefinitionFixedSurrogate.fixedExpression,
-      this@ElementDefinitionFixedSurrogate.fixedParameterDefinition,
-      this@ElementDefinitionFixedSurrogate.fixedRelatedArtifact,
-      this@ElementDefinitionFixedSurrogate.fixedTriggerDefinition,
-      this@ElementDefinitionFixedSurrogate.fixedUsageContext,
-      this@ElementDefinitionFixedSurrogate.fixedAvailability,
-      this@ElementDefinitionFixedSurrogate.fixedExtendedContactDetail,
-      this@ElementDefinitionFixedSurrogate.fixedDosage,
-      this@ElementDefinitionFixedSurrogate.fixedMeta,
-    )!!
-
-  public companion object {
-    public fun fromModel(model: ElementDefinition.Fixed): ElementDefinitionFixedSurrogate =
-      with(model) {
-        ElementDefinitionFixedSurrogate(
-          fixedBase64Binary = this@with.asBase64Binary()?.value?.value,
-          _fixedBase64Binary = this@with.asBase64Binary()?.value?.toElement(),
-          fixedBoolean = this@with.asBoolean()?.value?.value,
-          _fixedBoolean = this@with.asBoolean()?.value?.toElement(),
-          fixedCanonical = this@with.asCanonical()?.value?.value,
-          _fixedCanonical = this@with.asCanonical()?.value?.toElement(),
-          fixedCode = this@with.asCode()?.value?.value,
-          _fixedCode = this@with.asCode()?.value?.toElement(),
-          fixedDate = this@with.asDate()?.value?.value?.toString(),
-          _fixedDate = this@with.asDate()?.value?.toElement(),
-          fixedDateTime = this@with.asDateTime()?.value?.value?.toString(),
-          _fixedDateTime = this@with.asDateTime()?.value?.toElement(),
-          fixedDecimal = this@with.asDecimal()?.value?.value,
-          _fixedDecimal = this@with.asDecimal()?.value?.toElement(),
-          fixedId = this@with.asId()?.value?.value,
-          _fixedId = this@with.asId()?.value?.toElement(),
-          fixedInstant = this@with.asInstant()?.value?.value?.toString(),
-          _fixedInstant = this@with.asInstant()?.value?.toElement(),
-          fixedInteger = this@with.asInteger()?.value?.value,
-          _fixedInteger = this@with.asInteger()?.value?.toElement(),
-          fixedInteger64 = this@with.asInteger64()?.value?.value?.toString(),
-          _fixedInteger64 = this@with.asInteger64()?.value?.toElement(),
-          fixedMarkdown = this@with.asMarkdown()?.value?.value,
-          _fixedMarkdown = this@with.asMarkdown()?.value?.toElement(),
-          fixedOid = this@with.asOid()?.value?.value,
-          _fixedOid = this@with.asOid()?.value?.toElement(),
-          fixedPositiveInt = this@with.asPositiveInt()?.value?.value,
-          _fixedPositiveInt = this@with.asPositiveInt()?.value?.toElement(),
-          fixedString = this@with.asString()?.value?.value,
-          _fixedString = this@with.asString()?.value?.toElement(),
-          fixedTime = this@with.asTime()?.value?.value,
-          _fixedTime = this@with.asTime()?.value?.toElement(),
-          fixedUnsignedInt = this@with.asUnsignedInt()?.value?.value,
-          _fixedUnsignedInt = this@with.asUnsignedInt()?.value?.toElement(),
-          fixedUri = this@with.asUri()?.value?.value,
-          _fixedUri = this@with.asUri()?.value?.toElement(),
-          fixedUrl = this@with.asUrl()?.value?.value,
-          _fixedUrl = this@with.asUrl()?.value?.toElement(),
-          fixedUuid = this@with.asUuid()?.value?.value,
-          _fixedUuid = this@with.asUuid()?.value?.toElement(),
-          fixedAddress = this@with.asAddress()?.value,
-          fixedAge = this@with.asAge()?.value,
-          fixedAnnotation = this@with.asAnnotation()?.value,
-          fixedAttachment = this@with.asAttachment()?.value,
-          fixedCodeableConcept = this@with.asCodeableConcept()?.value,
-          fixedCodeableReference = this@with.asCodeableReference()?.value,
-          fixedCoding = this@with.asCoding()?.value,
-          fixedContactPoint = this@with.asContactPoint()?.value,
-          fixedCount = this@with.asCount()?.value,
-          fixedDistance = this@with.asDistance()?.value,
-          fixedDuration = this@with.asDuration()?.value,
-          fixedHumanName = this@with.asHumanName()?.value,
-          fixedIdentifier = this@with.asIdentifier()?.value,
-          fixedMoney = this@with.asMoney()?.value,
-          fixedPeriod = this@with.asPeriod()?.value,
-          fixedQuantity = this@with.asQuantity()?.value,
-          fixedRange = this@with.asRange()?.value,
-          fixedRatio = this@with.asRatio()?.value,
-          fixedRatioRange = this@with.asRatioRange()?.value,
-          fixedReference = this@with.asReference()?.value,
-          fixedSampledData = this@with.asSampledData()?.value,
-          fixedSignature = this@with.asSignature()?.value,
-          fixedTiming = this@with.asTiming()?.value,
-          fixedContactDetail = this@with.asContactDetail()?.value,
-          fixedDataRequirement = this@with.asDataRequirement()?.value,
-          fixedExpression = this@with.asExpression()?.value,
-          fixedParameterDefinition = this@with.asParameterDefinition()?.value,
-          fixedRelatedArtifact = this@with.asRelatedArtifact()?.value,
-          fixedTriggerDefinition = this@with.asTriggerDefinition()?.value,
-          fixedUsageContext = this@with.asUsageContext()?.value,
-          fixedAvailability = this@with.asAvailability()?.value,
-          fixedExtendedContactDetail = this@with.asExtendedContactDetail()?.value,
-          fixedDosage = this@with.asDosage()?.value,
-          fixedMeta = this@with.asMeta()?.value,
-        )
-      }
-  }
-}
-
-@Serializable
-internal data class ElementDefinitionPatternSurrogate(
-  public var patternBase64Binary: KotlinString? = null,
-  public var _patternBase64Binary: Element? = null,
-  public var patternBoolean: KotlinBoolean? = null,
-  public var _patternBoolean: Element? = null,
-  public var patternCanonical: KotlinString? = null,
-  public var _patternCanonical: Element? = null,
-  public var patternCode: KotlinString? = null,
-  public var _patternCode: Element? = null,
-  public var patternDate: KotlinString? = null,
-  public var _patternDate: Element? = null,
-  public var patternDateTime: KotlinString? = null,
-  public var _patternDateTime: Element? = null,
-  public var patternDecimal: Double? = null,
-  public var _patternDecimal: Element? = null,
-  public var patternId: KotlinString? = null,
-  public var _patternId: Element? = null,
-  public var patternInstant: KotlinString? = null,
-  public var _patternInstant: Element? = null,
-  public var patternInteger: Int? = null,
-  public var _patternInteger: Element? = null,
-  public var patternInteger64: KotlinString? = null,
-  public var _patternInteger64: Element? = null,
-  public var patternMarkdown: KotlinString? = null,
-  public var _patternMarkdown: Element? = null,
-  public var patternOid: KotlinString? = null,
-  public var _patternOid: Element? = null,
-  public var patternPositiveInt: Int? = null,
-  public var _patternPositiveInt: Element? = null,
-  public var patternString: KotlinString? = null,
-  public var _patternString: Element? = null,
-  public var patternTime: LocalTime? = null,
-  public var _patternTime: Element? = null,
-  public var patternUnsignedInt: Int? = null,
-  public var _patternUnsignedInt: Element? = null,
-  public var patternUri: KotlinString? = null,
-  public var _patternUri: Element? = null,
-  public var patternUrl: KotlinString? = null,
-  public var _patternUrl: Element? = null,
-  public var patternUuid: KotlinString? = null,
-  public var _patternUuid: Element? = null,
-  public var patternAddress: Address? = null,
-  public var patternAge: Age? = null,
-  public var patternAnnotation: Annotation? = null,
-  public var patternAttachment: Attachment? = null,
-  public var patternCodeableConcept: CodeableConcept? = null,
-  public var patternCodeableReference: CodeableReference? = null,
-  public var patternCoding: Coding? = null,
-  public var patternContactPoint: ContactPoint? = null,
-  public var patternCount: Count? = null,
-  public var patternDistance: Distance? = null,
-  public var patternDuration: Duration? = null,
-  public var patternHumanName: HumanName? = null,
-  public var patternIdentifier: Identifier? = null,
-  public var patternMoney: Money? = null,
-  public var patternPeriod: Period? = null,
-  public var patternQuantity: Quantity? = null,
-  public var patternRange: Range? = null,
-  public var patternRatio: Ratio? = null,
-  public var patternRatioRange: RatioRange? = null,
-  public var patternReference: Reference? = null,
-  public var patternSampledData: SampledData? = null,
-  public var patternSignature: Signature? = null,
-  public var patternTiming: Timing? = null,
-  public var patternContactDetail: ContactDetail? = null,
-  public var patternDataRequirement: DataRequirement? = null,
-  public var patternExpression: Expression? = null,
-  public var patternParameterDefinition: ParameterDefinition? = null,
-  public var patternRelatedArtifact: RelatedArtifact? = null,
-  public var patternTriggerDefinition: TriggerDefinition? = null,
-  public var patternUsageContext: UsageContext? = null,
-  public var patternAvailability: Availability? = null,
-  public var patternExtendedContactDetail: ExtendedContactDetail? = null,
-  public var patternDosage: Dosage? = null,
-  public var patternMeta: Meta? = null,
-) {
-  public fun toModel(): ElementDefinition.Pattern =
-    ElementDefinition.Pattern?.from(
-      Base64Binary.of(
-        this@ElementDefinitionPatternSurrogate.patternBase64Binary,
-        this@ElementDefinitionPatternSurrogate._patternBase64Binary,
-      ),
-      R5Boolean.of(
-        this@ElementDefinitionPatternSurrogate.patternBoolean,
-        this@ElementDefinitionPatternSurrogate._patternBoolean,
-      ),
-      Canonical.of(
-        this@ElementDefinitionPatternSurrogate.patternCanonical,
-        this@ElementDefinitionPatternSurrogate._patternCanonical,
-      ),
-      Code.of(
-        this@ElementDefinitionPatternSurrogate.patternCode,
-        this@ElementDefinitionPatternSurrogate._patternCode,
-      ),
-      Date.of(
-        FhirDate.fromString(this@ElementDefinitionPatternSurrogate.patternDate),
-        this@ElementDefinitionPatternSurrogate._patternDate,
-      ),
-      DateTime.of(
-        FhirDateTime.fromString(this@ElementDefinitionPatternSurrogate.patternDateTime),
-        this@ElementDefinitionPatternSurrogate._patternDateTime,
-      ),
-      Decimal.of(
-        this@ElementDefinitionPatternSurrogate.patternDecimal,
-        this@ElementDefinitionPatternSurrogate._patternDecimal,
-      ),
-      Id.of(
-        this@ElementDefinitionPatternSurrogate.patternId,
-        this@ElementDefinitionPatternSurrogate._patternId,
-      ),
-      Instant.of(
-        FhirDateTime.fromString(this@ElementDefinitionPatternSurrogate.patternInstant),
-        this@ElementDefinitionPatternSurrogate._patternInstant,
-      ),
-      Integer.of(
-        this@ElementDefinitionPatternSurrogate.patternInteger,
-        this@ElementDefinitionPatternSurrogate._patternInteger,
-      ),
-      Integer64.of(
-        this@ElementDefinitionPatternSurrogate.patternInteger64?.toLong(),
-        this@ElementDefinitionPatternSurrogate._patternInteger64,
-      ),
-      Markdown.of(
-        this@ElementDefinitionPatternSurrogate.patternMarkdown,
-        this@ElementDefinitionPatternSurrogate._patternMarkdown,
-      ),
-      Oid.of(
-        this@ElementDefinitionPatternSurrogate.patternOid,
-        this@ElementDefinitionPatternSurrogate._patternOid,
-      ),
-      PositiveInt.of(
-        this@ElementDefinitionPatternSurrogate.patternPositiveInt,
-        this@ElementDefinitionPatternSurrogate._patternPositiveInt,
-      ),
-      R5String.of(
-        this@ElementDefinitionPatternSurrogate.patternString,
-        this@ElementDefinitionPatternSurrogate._patternString,
-      ),
-      Time.of(
-        this@ElementDefinitionPatternSurrogate.patternTime,
-        this@ElementDefinitionPatternSurrogate._patternTime,
-      ),
-      UnsignedInt.of(
-        this@ElementDefinitionPatternSurrogate.patternUnsignedInt,
-        this@ElementDefinitionPatternSurrogate._patternUnsignedInt,
-      ),
-      Uri.of(
-        this@ElementDefinitionPatternSurrogate.patternUri,
-        this@ElementDefinitionPatternSurrogate._patternUri,
-      ),
-      Url.of(
-        this@ElementDefinitionPatternSurrogate.patternUrl,
-        this@ElementDefinitionPatternSurrogate._patternUrl,
-      ),
-      Uuid.of(
-        this@ElementDefinitionPatternSurrogate.patternUuid,
-        this@ElementDefinitionPatternSurrogate._patternUuid,
-      ),
-      this@ElementDefinitionPatternSurrogate.patternAddress,
-      this@ElementDefinitionPatternSurrogate.patternAge,
-      this@ElementDefinitionPatternSurrogate.patternAnnotation,
-      this@ElementDefinitionPatternSurrogate.patternAttachment,
-      this@ElementDefinitionPatternSurrogate.patternCodeableConcept,
-      this@ElementDefinitionPatternSurrogate.patternCodeableReference,
-      this@ElementDefinitionPatternSurrogate.patternCoding,
-      this@ElementDefinitionPatternSurrogate.patternContactPoint,
-      this@ElementDefinitionPatternSurrogate.patternCount,
-      this@ElementDefinitionPatternSurrogate.patternDistance,
-      this@ElementDefinitionPatternSurrogate.patternDuration,
-      this@ElementDefinitionPatternSurrogate.patternHumanName,
-      this@ElementDefinitionPatternSurrogate.patternIdentifier,
-      this@ElementDefinitionPatternSurrogate.patternMoney,
-      this@ElementDefinitionPatternSurrogate.patternPeriod,
-      this@ElementDefinitionPatternSurrogate.patternQuantity,
-      this@ElementDefinitionPatternSurrogate.patternRange,
-      this@ElementDefinitionPatternSurrogate.patternRatio,
-      this@ElementDefinitionPatternSurrogate.patternRatioRange,
-      this@ElementDefinitionPatternSurrogate.patternReference,
-      this@ElementDefinitionPatternSurrogate.patternSampledData,
-      this@ElementDefinitionPatternSurrogate.patternSignature,
-      this@ElementDefinitionPatternSurrogate.patternTiming,
-      this@ElementDefinitionPatternSurrogate.patternContactDetail,
-      this@ElementDefinitionPatternSurrogate.patternDataRequirement,
-      this@ElementDefinitionPatternSurrogate.patternExpression,
-      this@ElementDefinitionPatternSurrogate.patternParameterDefinition,
-      this@ElementDefinitionPatternSurrogate.patternRelatedArtifact,
-      this@ElementDefinitionPatternSurrogate.patternTriggerDefinition,
-      this@ElementDefinitionPatternSurrogate.patternUsageContext,
-      this@ElementDefinitionPatternSurrogate.patternAvailability,
-      this@ElementDefinitionPatternSurrogate.patternExtendedContactDetail,
-      this@ElementDefinitionPatternSurrogate.patternDosage,
-      this@ElementDefinitionPatternSurrogate.patternMeta,
-    )!!
-
-  public companion object {
-    public fun fromModel(model: ElementDefinition.Pattern): ElementDefinitionPatternSurrogate =
-      with(model) {
-        ElementDefinitionPatternSurrogate(
-          patternBase64Binary = this@with.asBase64Binary()?.value?.value,
-          _patternBase64Binary = this@with.asBase64Binary()?.value?.toElement(),
-          patternBoolean = this@with.asBoolean()?.value?.value,
-          _patternBoolean = this@with.asBoolean()?.value?.toElement(),
-          patternCanonical = this@with.asCanonical()?.value?.value,
-          _patternCanonical = this@with.asCanonical()?.value?.toElement(),
-          patternCode = this@with.asCode()?.value?.value,
-          _patternCode = this@with.asCode()?.value?.toElement(),
-          patternDate = this@with.asDate()?.value?.value?.toString(),
-          _patternDate = this@with.asDate()?.value?.toElement(),
-          patternDateTime = this@with.asDateTime()?.value?.value?.toString(),
-          _patternDateTime = this@with.asDateTime()?.value?.toElement(),
-          patternDecimal = this@with.asDecimal()?.value?.value,
-          _patternDecimal = this@with.asDecimal()?.value?.toElement(),
-          patternId = this@with.asId()?.value?.value,
-          _patternId = this@with.asId()?.value?.toElement(),
-          patternInstant = this@with.asInstant()?.value?.value?.toString(),
-          _patternInstant = this@with.asInstant()?.value?.toElement(),
-          patternInteger = this@with.asInteger()?.value?.value,
-          _patternInteger = this@with.asInteger()?.value?.toElement(),
-          patternInteger64 = this@with.asInteger64()?.value?.value?.toString(),
-          _patternInteger64 = this@with.asInteger64()?.value?.toElement(),
-          patternMarkdown = this@with.asMarkdown()?.value?.value,
-          _patternMarkdown = this@with.asMarkdown()?.value?.toElement(),
-          patternOid = this@with.asOid()?.value?.value,
-          _patternOid = this@with.asOid()?.value?.toElement(),
-          patternPositiveInt = this@with.asPositiveInt()?.value?.value,
-          _patternPositiveInt = this@with.asPositiveInt()?.value?.toElement(),
-          patternString = this@with.asString()?.value?.value,
-          _patternString = this@with.asString()?.value?.toElement(),
-          patternTime = this@with.asTime()?.value?.value,
-          _patternTime = this@with.asTime()?.value?.toElement(),
-          patternUnsignedInt = this@with.asUnsignedInt()?.value?.value,
-          _patternUnsignedInt = this@with.asUnsignedInt()?.value?.toElement(),
-          patternUri = this@with.asUri()?.value?.value,
-          _patternUri = this@with.asUri()?.value?.toElement(),
-          patternUrl = this@with.asUrl()?.value?.value,
-          _patternUrl = this@with.asUrl()?.value?.toElement(),
-          patternUuid = this@with.asUuid()?.value?.value,
-          _patternUuid = this@with.asUuid()?.value?.toElement(),
-          patternAddress = this@with.asAddress()?.value,
-          patternAge = this@with.asAge()?.value,
-          patternAnnotation = this@with.asAnnotation()?.value,
-          patternAttachment = this@with.asAttachment()?.value,
-          patternCodeableConcept = this@with.asCodeableConcept()?.value,
-          patternCodeableReference = this@with.asCodeableReference()?.value,
-          patternCoding = this@with.asCoding()?.value,
-          patternContactPoint = this@with.asContactPoint()?.value,
-          patternCount = this@with.asCount()?.value,
-          patternDistance = this@with.asDistance()?.value,
-          patternDuration = this@with.asDuration()?.value,
-          patternHumanName = this@with.asHumanName()?.value,
-          patternIdentifier = this@with.asIdentifier()?.value,
-          patternMoney = this@with.asMoney()?.value,
-          patternPeriod = this@with.asPeriod()?.value,
-          patternQuantity = this@with.asQuantity()?.value,
-          patternRange = this@with.asRange()?.value,
-          patternRatio = this@with.asRatio()?.value,
-          patternRatioRange = this@with.asRatioRange()?.value,
-          patternReference = this@with.asReference()?.value,
-          patternSampledData = this@with.asSampledData()?.value,
-          patternSignature = this@with.asSignature()?.value,
-          patternTiming = this@with.asTiming()?.value,
-          patternContactDetail = this@with.asContactDetail()?.value,
-          patternDataRequirement = this@with.asDataRequirement()?.value,
-          patternExpression = this@with.asExpression()?.value,
-          patternParameterDefinition = this@with.asParameterDefinition()?.value,
-          patternRelatedArtifact = this@with.asRelatedArtifact()?.value,
-          patternTriggerDefinition = this@with.asTriggerDefinition()?.value,
-          patternUsageContext = this@with.asUsageContext()?.value,
-          patternAvailability = this@with.asAvailability()?.value,
-          patternExtendedContactDetail = this@with.asExtendedContactDetail()?.value,
-          patternDosage = this@with.asDosage()?.value,
-          patternMeta = this@with.asMeta()?.value,
-        )
-      }
-  }
-}
-
-@Serializable
 internal data class ElementDefinitionMinValueSurrogate(
   public var minValueDate: KotlinString? = null,
   public var _minValueDate: Element? = null,
@@ -1819,7 +1819,7 @@ internal data class ElementDefinitionMinValueSurrogate(
   public var minValueQuantity: Quantity? = null,
 ) {
   public fun toModel(): ElementDefinition.MinValue =
-    ElementDefinition.MinValue?.from(
+    ElementDefinition.MinValue.from(
       Date.of(
         FhirDate.fromString(this@ElementDefinitionMinValueSurrogate.minValueDate),
         this@ElementDefinitionMinValueSurrogate._minValueDate,
@@ -1910,7 +1910,7 @@ internal data class ElementDefinitionMaxValueSurrogate(
   public var maxValueQuantity: Quantity? = null,
 ) {
   public fun toModel(): ElementDefinition.MaxValue =
-    ElementDefinition.MaxValue?.from(
+    ElementDefinition.MaxValue.from(
       Date.of(
         FhirDate.fromString(this@ElementDefinitionMaxValueSurrogate.maxValueDate),
         this@ElementDefinitionMaxValueSurrogate._maxValueDate,

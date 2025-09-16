@@ -51,38 +51,31 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
-internal data class EvidenceReportSubjectCharacteristicValueSurrogate(
-  public var valueReference: Reference? = null,
-  public var valueCodeableConcept: CodeableConcept? = null,
-  public var valueBoolean: KotlinBoolean? = null,
-  public var _valueBoolean: Element? = null,
-  public var valueQuantity: Quantity? = null,
-  public var valueRange: Range? = null,
+internal data class EvidenceReportSubjectSurrogate(
+  public var id: KotlinString? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var characteristic: MutableList<EvidenceReport.Subject.Characteristic>? = null,
+  public var note: MutableList<Annotation>? = null,
 ) {
-  public fun toModel(): EvidenceReport.Subject.Characteristic.Value =
-    EvidenceReport.Subject.Characteristic.Value.from(
-      this@EvidenceReportSubjectCharacteristicValueSurrogate.valueReference,
-      this@EvidenceReportSubjectCharacteristicValueSurrogate.valueCodeableConcept,
-      R5Boolean.of(
-        this@EvidenceReportSubjectCharacteristicValueSurrogate.valueBoolean,
-        this@EvidenceReportSubjectCharacteristicValueSurrogate._valueBoolean,
-      ),
-      this@EvidenceReportSubjectCharacteristicValueSurrogate.valueQuantity,
-      this@EvidenceReportSubjectCharacteristicValueSurrogate.valueRange,
-    )!! !!
+  public fun toModel(): EvidenceReport.Subject =
+    EvidenceReport.Subject(
+      id = this@EvidenceReportSubjectSurrogate.id,
+      extension = this@EvidenceReportSubjectSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@EvidenceReportSubjectSurrogate.modifierExtension ?: mutableListOf(),
+      characteristic = this@EvidenceReportSubjectSurrogate.characteristic ?: mutableListOf(),
+      note = this@EvidenceReportSubjectSurrogate.note ?: mutableListOf(),
+    )
 
   public companion object {
-    public fun fromModel(
-      model: EvidenceReport.Subject.Characteristic.Value
-    ): EvidenceReportSubjectCharacteristicValueSurrogate =
+    public fun fromModel(model: EvidenceReport.Subject): EvidenceReportSubjectSurrogate =
       with(model) {
-        EvidenceReportSubjectCharacteristicValueSurrogate(
-          valueReference = this@with.asReference()?.value,
-          valueCodeableConcept = this@with.asCodeableConcept()?.value,
-          valueBoolean = this@with.asBoolean()?.value?.value,
-          _valueBoolean = this@with.asBoolean()?.value?.toElement(),
-          valueQuantity = this@with.asQuantity()?.value,
-          valueRange = this@with.asRange()?.value,
+        EvidenceReportSubjectSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          characteristic = this@with.characteristic.takeUnless { it.all { it == null } },
+          note = this@with.note.takeUnless { it.all { it == null } },
         )
       }
   }
@@ -135,31 +128,40 @@ internal data class EvidenceReportSubjectCharacteristicSurrogate(
 }
 
 @Serializable
-internal data class EvidenceReportSubjectSurrogate(
+internal data class EvidenceReportRelatesToSurrogate(
   public var id: KotlinString? = null,
   public var extension: MutableList<Extension>? = null,
   public var modifierExtension: MutableList<Extension>? = null,
-  public var characteristic: MutableList<EvidenceReport.Subject.Characteristic>? = null,
-  public var note: MutableList<Annotation>? = null,
+  public var code: KotlinString? = null,
+  public var _code: Element? = null,
+  public var target: EvidenceReport.RelatesTo.Target,
 ) {
-  public fun toModel(): EvidenceReport.Subject =
-    EvidenceReport.Subject(
-      id = this@EvidenceReportSubjectSurrogate.id,
-      extension = this@EvidenceReportSubjectSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@EvidenceReportSubjectSurrogate.modifierExtension ?: mutableListOf(),
-      characteristic = this@EvidenceReportSubjectSurrogate.characteristic ?: mutableListOf(),
-      note = this@EvidenceReportSubjectSurrogate.note ?: mutableListOf(),
+  public fun toModel(): EvidenceReport.RelatesTo =
+    EvidenceReport.RelatesTo(
+      id = this@EvidenceReportRelatesToSurrogate.id,
+      extension = this@EvidenceReportRelatesToSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@EvidenceReportRelatesToSurrogate.modifierExtension ?: mutableListOf(),
+      code =
+        Enumeration.of(
+          com.google.fhir.model.r5.EvidenceReport.ReportRelationshipType.fromCode(
+            this@EvidenceReportRelatesToSurrogate.code!!
+          ),
+          this@EvidenceReportRelatesToSurrogate._code,
+        ),
+      target = this@EvidenceReportRelatesToSurrogate.target,
     )
 
   public companion object {
-    public fun fromModel(model: EvidenceReport.Subject): EvidenceReportSubjectSurrogate =
+    public fun fromModel(model: EvidenceReport.RelatesTo): EvidenceReportRelatesToSurrogate =
       with(model) {
-        EvidenceReportSubjectSurrogate(
+        EvidenceReportRelatesToSurrogate(
           id = this@with.id,
           extension = this@with.extension.takeUnless { it.all { it == null } },
           modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          characteristic = this@with.characteristic.takeUnless { it.all { it == null } },
-          note = this@with.note.takeUnless { it.all { it == null } },
+          code = this@with.code.value?.getCode(),
+          _code = this@with.code.toElement(),
+          target = this@with.target,
         )
       }
   }
@@ -212,46 +214,6 @@ internal data class EvidenceReportRelatesToTargetSurrogate(
           display = this@with.display?.value,
           _display = this@with.display?.toElement(),
           resource = this@with.resource,
-        )
-      }
-  }
-}
-
-@Serializable
-internal data class EvidenceReportRelatesToSurrogate(
-  public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var code: KotlinString? = null,
-  public var _code: Element? = null,
-  public var target: EvidenceReport.RelatesTo.Target,
-) {
-  public fun toModel(): EvidenceReport.RelatesTo =
-    EvidenceReport.RelatesTo(
-      id = this@EvidenceReportRelatesToSurrogate.id,
-      extension = this@EvidenceReportRelatesToSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@EvidenceReportRelatesToSurrogate.modifierExtension ?: mutableListOf(),
-      code =
-        Enumeration.of(
-          com.google.fhir.model.r5.EvidenceReport.ReportRelationshipType.fromCode(
-            this@EvidenceReportRelatesToSurrogate.code!!
-          ),
-          this@EvidenceReportRelatesToSurrogate._code,
-        ),
-      target = this@EvidenceReportRelatesToSurrogate.target,
-    )
-
-  public companion object {
-    public fun fromModel(model: EvidenceReport.RelatesTo): EvidenceReportRelatesToSurrogate =
-      with(model) {
-        EvidenceReportRelatesToSurrogate(
-          id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          code = this@with.code.value?.getCode(),
-          _code = this@with.code.toElement(),
-          target = this@with.target,
         )
       }
   }
@@ -339,7 +301,7 @@ internal data class EvidenceReportCiteAsSurrogate(
   public var _citeAsMarkdown: Element? = null,
 ) {
   public fun toModel(): EvidenceReport.CiteAs =
-    EvidenceReport.CiteAs?.from(
+    EvidenceReport.CiteAs.from(
       this@EvidenceReportCiteAsSurrogate.citeAsReference,
       Markdown.of(
         this@EvidenceReportCiteAsSurrogate.citeAsMarkdown,
@@ -354,6 +316,44 @@ internal data class EvidenceReportCiteAsSurrogate(
           citeAsReference = this@with.asReference()?.value,
           citeAsMarkdown = this@with.asMarkdown()?.value?.value,
           _citeAsMarkdown = this@with.asMarkdown()?.value?.toElement(),
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class EvidenceReportSubjectCharacteristicValueSurrogate(
+  public var valueReference: Reference? = null,
+  public var valueCodeableConcept: CodeableConcept? = null,
+  public var valueBoolean: KotlinBoolean? = null,
+  public var _valueBoolean: Element? = null,
+  public var valueQuantity: Quantity? = null,
+  public var valueRange: Range? = null,
+) {
+  public fun toModel(): EvidenceReport.Subject.Characteristic.Value =
+    EvidenceReport.Subject.Characteristic.Value.from(
+      this@EvidenceReportSubjectCharacteristicValueSurrogate.valueReference,
+      this@EvidenceReportSubjectCharacteristicValueSurrogate.valueCodeableConcept,
+      R5Boolean.of(
+        this@EvidenceReportSubjectCharacteristicValueSurrogate.valueBoolean,
+        this@EvidenceReportSubjectCharacteristicValueSurrogate._valueBoolean,
+      ),
+      this@EvidenceReportSubjectCharacteristicValueSurrogate.valueQuantity,
+      this@EvidenceReportSubjectCharacteristicValueSurrogate.valueRange,
+    )!! !!
+
+  public companion object {
+    public fun fromModel(
+      model: EvidenceReport.Subject.Characteristic.Value
+    ): EvidenceReportSubjectCharacteristicValueSurrogate =
+      with(model) {
+        EvidenceReportSubjectCharacteristicValueSurrogate(
+          valueReference = this@with.asReference()?.value,
+          valueCodeableConcept = this@with.asCodeableConcept()?.value,
+          valueBoolean = this@with.asBoolean()?.value?.value,
+          _valueBoolean = this@with.asBoolean()?.value?.toElement(),
+          valueQuantity = this@with.asQuantity()?.value,
+          valueRange = this@with.asRange()?.value,
         )
       }
   }

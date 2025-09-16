@@ -110,6 +110,42 @@ internal data class ChargeItemDefinitionApplicabilitySurrogate(
 }
 
 @Serializable
+internal data class ChargeItemDefinitionPropertyGroupSurrogate(
+  public var id: KotlinString? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var applicability: MutableList<ChargeItemDefinition.Applicability>? = null,
+  public var priceComponent: MutableList<ChargeItemDefinition.PropertyGroup.PriceComponent>? = null,
+) {
+  public fun toModel(): ChargeItemDefinition.PropertyGroup =
+    ChargeItemDefinition.PropertyGroup(
+      id = this@ChargeItemDefinitionPropertyGroupSurrogate.id,
+      extension = this@ChargeItemDefinitionPropertyGroupSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@ChargeItemDefinitionPropertyGroupSurrogate.modifierExtension ?: mutableListOf(),
+      applicability =
+        this@ChargeItemDefinitionPropertyGroupSurrogate.applicability ?: mutableListOf(),
+      priceComponent =
+        this@ChargeItemDefinitionPropertyGroupSurrogate.priceComponent ?: mutableListOf(),
+    )
+
+  public companion object {
+    public fun fromModel(
+      model: ChargeItemDefinition.PropertyGroup
+    ): ChargeItemDefinitionPropertyGroupSurrogate =
+      with(model) {
+        ChargeItemDefinitionPropertyGroupSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          applicability = this@with.applicability.takeUnless { it.all { it == null } },
+          priceComponent = this@with.priceComponent.takeUnless { it.all { it == null } },
+        )
+      }
+  }
+}
+
+@Serializable
 internal data class ChargeItemDefinitionPropertyGroupPriceComponentSurrogate(
   public var id: KotlinString? = null,
   public var extension: MutableList<Extension>? = null,
@@ -160,42 +196,6 @@ internal data class ChargeItemDefinitionPropertyGroupPriceComponentSurrogate(
           factor = this@with.factor?.value,
           _factor = this@with.factor?.toElement(),
           amount = this@with.amount,
-        )
-      }
-  }
-}
-
-@Serializable
-internal data class ChargeItemDefinitionPropertyGroupSurrogate(
-  public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var applicability: MutableList<ChargeItemDefinition.Applicability>? = null,
-  public var priceComponent: MutableList<ChargeItemDefinition.PropertyGroup.PriceComponent>? = null,
-) {
-  public fun toModel(): ChargeItemDefinition.PropertyGroup =
-    ChargeItemDefinition.PropertyGroup(
-      id = this@ChargeItemDefinitionPropertyGroupSurrogate.id,
-      extension = this@ChargeItemDefinitionPropertyGroupSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@ChargeItemDefinitionPropertyGroupSurrogate.modifierExtension ?: mutableListOf(),
-      applicability =
-        this@ChargeItemDefinitionPropertyGroupSurrogate.applicability ?: mutableListOf(),
-      priceComponent =
-        this@ChargeItemDefinitionPropertyGroupSurrogate.priceComponent ?: mutableListOf(),
-    )
-
-  public companion object {
-    public fun fromModel(
-      model: ChargeItemDefinition.PropertyGroup
-    ): ChargeItemDefinitionPropertyGroupSurrogate =
-      with(model) {
-        ChargeItemDefinitionPropertyGroupSurrogate(
-          id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          applicability = this@with.applicability.takeUnless { it.all { it == null } },
-          priceComponent = this@with.priceComponent.takeUnless { it.all { it == null } },
         )
       }
   }

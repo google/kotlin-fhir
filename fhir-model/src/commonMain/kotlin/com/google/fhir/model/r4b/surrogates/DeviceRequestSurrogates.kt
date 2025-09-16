@@ -50,41 +50,6 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
-internal data class DeviceRequestParameterValueSurrogate(
-  public var valueCodeableConcept: CodeableConcept? = null,
-  public var valueQuantity: Quantity? = null,
-  public var valueRange: Range? = null,
-  public var valueBoolean: KotlinBoolean? = null,
-  public var _valueBoolean: Element? = null,
-) {
-  public fun toModel(): DeviceRequest.Parameter.Value =
-    DeviceRequest.Parameter.Value?.from(
-      this@DeviceRequestParameterValueSurrogate.valueCodeableConcept,
-      this@DeviceRequestParameterValueSurrogate.valueQuantity,
-      this@DeviceRequestParameterValueSurrogate.valueRange,
-      R4bBoolean.of(
-        this@DeviceRequestParameterValueSurrogate.valueBoolean,
-        this@DeviceRequestParameterValueSurrogate._valueBoolean,
-      ),
-    )!!
-
-  public companion object {
-    public fun fromModel(
-      model: DeviceRequest.Parameter.Value
-    ): DeviceRequestParameterValueSurrogate =
-      with(model) {
-        DeviceRequestParameterValueSurrogate(
-          valueCodeableConcept = this@with.asCodeableConcept()?.value,
-          valueQuantity = this@with.asQuantity()?.value,
-          valueRange = this@with.asRange()?.value,
-          valueBoolean = this@with.asBoolean()?.value?.value,
-          _valueBoolean = this@with.asBoolean()?.value?.toElement(),
-        )
-      }
-  }
-}
-
-@Serializable
 internal data class DeviceRequestParameterSurrogate(
   public var id: String? = null,
   public var extension: MutableList<Extension>? = null,
@@ -138,6 +103,41 @@ internal data class DeviceRequestCodeSurrogate(
 }
 
 @Serializable
+internal data class DeviceRequestParameterValueSurrogate(
+  public var valueCodeableConcept: CodeableConcept? = null,
+  public var valueQuantity: Quantity? = null,
+  public var valueRange: Range? = null,
+  public var valueBoolean: KotlinBoolean? = null,
+  public var _valueBoolean: Element? = null,
+) {
+  public fun toModel(): DeviceRequest.Parameter.Value =
+    DeviceRequest.Parameter.Value.from(
+      this@DeviceRequestParameterValueSurrogate.valueCodeableConcept,
+      this@DeviceRequestParameterValueSurrogate.valueQuantity,
+      this@DeviceRequestParameterValueSurrogate.valueRange,
+      R4bBoolean.of(
+        this@DeviceRequestParameterValueSurrogate.valueBoolean,
+        this@DeviceRequestParameterValueSurrogate._valueBoolean,
+      ),
+    )!!
+
+  public companion object {
+    public fun fromModel(
+      model: DeviceRequest.Parameter.Value
+    ): DeviceRequestParameterValueSurrogate =
+      with(model) {
+        DeviceRequestParameterValueSurrogate(
+          valueCodeableConcept = this@with.asCodeableConcept()?.value,
+          valueQuantity = this@with.asQuantity()?.value,
+          valueRange = this@with.asRange()?.value,
+          valueBoolean = this@with.asBoolean()?.value?.value,
+          _valueBoolean = this@with.asBoolean()?.value?.toElement(),
+        )
+      }
+  }
+}
+
+@Serializable
 internal data class DeviceRequestOccurrenceSurrogate(
   public var occurrenceDateTime: String? = null,
   public var _occurrenceDateTime: Element? = null,
@@ -145,7 +145,7 @@ internal data class DeviceRequestOccurrenceSurrogate(
   public var occurrenceTiming: Timing? = null,
 ) {
   public fun toModel(): DeviceRequest.Occurrence =
-    DeviceRequest.Occurrence?.from(
+    DeviceRequest.Occurrence.from(
       DateTime.of(
         FhirDateTime.fromString(this@DeviceRequestOccurrenceSurrogate.occurrenceDateTime),
         this@DeviceRequestOccurrenceSurrogate._occurrenceDateTime,

@@ -57,160 +57,78 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
-internal data class ValueSetComposeIncludeConceptDesignationSurrogate(
+internal data class ValueSetComposeSurrogate(
   public var id: KotlinString? = null,
   public var extension: MutableList<Extension>? = null,
   public var modifierExtension: MutableList<Extension>? = null,
-  public var language: KotlinString? = null,
-  public var _language: Element? = null,
-  public var use: Coding? = null,
-  public var additionalUse: MutableList<Coding>? = null,
-  public var `value`: KotlinString? = null,
-  public var _value: Element? = null,
+  public var lockedDate: KotlinString? = null,
+  public var _lockedDate: Element? = null,
+  public var inactive: KotlinBoolean? = null,
+  public var _inactive: Element? = null,
+  public var include: MutableList<ValueSet.Compose.Include>? = null,
+  public var exclude: MutableList<ValueSet.Compose.Include>? = null,
+  public var `property`: MutableList<KotlinString?>? = null,
+  public var _property: MutableList<Element?>? = null,
 ) {
-  public fun toModel(): ValueSet.Compose.Include.Concept.Designation =
-    ValueSet.Compose.Include.Concept.Designation(
-      id = this@ValueSetComposeIncludeConceptDesignationSurrogate.id,
-      extension =
-        this@ValueSetComposeIncludeConceptDesignationSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@ValueSetComposeIncludeConceptDesignationSurrogate.modifierExtension ?: mutableListOf(),
-      language =
-        Code.of(
-          this@ValueSetComposeIncludeConceptDesignationSurrogate.language,
-          this@ValueSetComposeIncludeConceptDesignationSurrogate._language,
+  public fun toModel(): ValueSet.Compose =
+    ValueSet.Compose(
+      id = this@ValueSetComposeSurrogate.id,
+      extension = this@ValueSetComposeSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@ValueSetComposeSurrogate.modifierExtension ?: mutableListOf(),
+      lockedDate =
+        Date.of(
+          FhirDate.fromString(this@ValueSetComposeSurrogate.lockedDate),
+          this@ValueSetComposeSurrogate._lockedDate,
         ),
-      use = this@ValueSetComposeIncludeConceptDesignationSurrogate.use,
-      additionalUse =
-        this@ValueSetComposeIncludeConceptDesignationSurrogate.additionalUse ?: mutableListOf(),
-      `value` =
-        R5String.of(
-          this@ValueSetComposeIncludeConceptDesignationSurrogate.`value`,
-          this@ValueSetComposeIncludeConceptDesignationSurrogate._value,
-        )!!,
-    )
-
-  public companion object {
-    public fun fromModel(
-      model: ValueSet.Compose.Include.Concept.Designation
-    ): ValueSetComposeIncludeConceptDesignationSurrogate =
-      with(model) {
-        ValueSetComposeIncludeConceptDesignationSurrogate(
-          id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          language = this@with.language?.value,
-          _language = this@with.language?.toElement(),
-          use = this@with.use,
-          additionalUse = this@with.additionalUse.takeUnless { it.all { it == null } },
-          `value` = this@with.`value`.value,
-          _value = this@with.`value`.toElement(),
-        )
-      }
-  }
-}
-
-@Serializable
-internal data class ValueSetComposeIncludeConceptSurrogate(
-  public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var code: KotlinString? = null,
-  public var _code: Element? = null,
-  public var display: KotlinString? = null,
-  public var _display: Element? = null,
-  public var designation: MutableList<ValueSet.Compose.Include.Concept.Designation>? = null,
-) {
-  public fun toModel(): ValueSet.Compose.Include.Concept =
-    ValueSet.Compose.Include.Concept(
-      id = this@ValueSetComposeIncludeConceptSurrogate.id,
-      extension = this@ValueSetComposeIncludeConceptSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@ValueSetComposeIncludeConceptSurrogate.modifierExtension ?: mutableListOf(),
-      code =
-        Code.of(
-          this@ValueSetComposeIncludeConceptSurrogate.code,
-          this@ValueSetComposeIncludeConceptSurrogate._code,
-        )!!,
-      display =
-        R5String.of(
-          this@ValueSetComposeIncludeConceptSurrogate.display,
-          this@ValueSetComposeIncludeConceptSurrogate._display,
+      inactive =
+        R5Boolean.of(
+          this@ValueSetComposeSurrogate.inactive,
+          this@ValueSetComposeSurrogate._inactive,
         ),
-      designation = this@ValueSetComposeIncludeConceptSurrogate.designation ?: mutableListOf(),
-    )
-
-  public companion object {
-    public fun fromModel(
-      model: ValueSet.Compose.Include.Concept
-    ): ValueSetComposeIncludeConceptSurrogate =
-      with(model) {
-        ValueSetComposeIncludeConceptSurrogate(
-          id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          code = this@with.code.value,
-          _code = this@with.code.toElement(),
-          display = this@with.display?.value,
-          _display = this@with.display?.toElement(),
-          designation = this@with.designation.takeUnless { it.all { it == null } },
-        )
-      }
-  }
-}
-
-@Serializable
-internal data class ValueSetComposeIncludeFilterSurrogate(
-  public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var `property`: KotlinString? = null,
-  public var _property: Element? = null,
-  public var op: KotlinString? = null,
-  public var _op: Element? = null,
-  public var `value`: KotlinString? = null,
-  public var _value: Element? = null,
-) {
-  public fun toModel(): ValueSet.Compose.Include.Filter =
-    ValueSet.Compose.Include.Filter(
-      id = this@ValueSetComposeIncludeFilterSurrogate.id,
-      extension = this@ValueSetComposeIncludeFilterSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@ValueSetComposeIncludeFilterSurrogate.modifierExtension ?: mutableListOf(),
+      include = this@ValueSetComposeSurrogate.include ?: mutableListOf(),
+      exclude = this@ValueSetComposeSurrogate.exclude ?: mutableListOf(),
       `property` =
-        Code.of(
-          this@ValueSetComposeIncludeFilterSurrogate.`property`,
-          this@ValueSetComposeIncludeFilterSurrogate._property,
-        )!!,
-      op =
-        Enumeration.of(
-          com.google.fhir.model.r5.ValueSet.FilterOperator.fromCode(
-            this@ValueSetComposeIncludeFilterSurrogate.op!!
-          ),
-          this@ValueSetComposeIncludeFilterSurrogate._op,
-        ),
-      `value` =
-        R5String.of(
-          this@ValueSetComposeIncludeFilterSurrogate.`value`,
-          this@ValueSetComposeIncludeFilterSurrogate._value,
-        )!!,
+        if (
+          this@ValueSetComposeSurrogate.`property` == null &&
+            this@ValueSetComposeSurrogate._property == null
+        ) {
+          mutableListOf()
+        } else {
+          (this@ValueSetComposeSurrogate.`property`
+              ?: List(this@ValueSetComposeSurrogate._property!!.size) { null })
+            .zip(
+              this@ValueSetComposeSurrogate._property
+                ?: List(this@ValueSetComposeSurrogate.`property`!!.size) { null }
+            )
+            .map { (value, element) -> R5String.of(value, element)!! }
+            .toMutableList()
+        },
     )
 
   public companion object {
-    public fun fromModel(
-      model: ValueSet.Compose.Include.Filter
-    ): ValueSetComposeIncludeFilterSurrogate =
+    public fun fromModel(model: ValueSet.Compose): ValueSetComposeSurrogate =
       with(model) {
-        ValueSetComposeIncludeFilterSurrogate(
+        ValueSetComposeSurrogate(
           id = this@with.id,
           extension = this@with.extension.takeUnless { it.all { it == null } },
           modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          `property` = this@with.`property`.value,
-          _property = this@with.`property`.toElement(),
-          op = this@with.op.value?.getCode(),
-          _op = this@with.op.toElement(),
-          `value` = this@with.`value`.value,
-          _value = this@with.`value`.toElement(),
+          lockedDate = this@with.lockedDate?.value?.toString(),
+          _lockedDate = this@with.lockedDate?.toElement(),
+          inactive = this@with.inactive?.value,
+          _inactive = this@with.inactive?.toElement(),
+          include = this@with.include.takeUnless { it.all { it == null } },
+          exclude = this@with.exclude.takeUnless { it.all { it == null } },
+          `property` =
+            this@with.`property`
+              .map { it.value }
+              .toMutableList()
+              .takeUnless { it.all { it == null } },
+          _property =
+            this@with.`property`
+              .map { it.toElement() }
+              .takeUnless { it.all { it == null } }
+              ?.map { it ?: Element() }
+              ?.toMutableList(),
         )
       }
   }
@@ -304,152 +222,229 @@ internal data class ValueSetComposeIncludeSurrogate(
 }
 
 @Serializable
-internal data class ValueSetComposeSurrogate(
+internal data class ValueSetComposeIncludeConceptSurrogate(
   public var id: KotlinString? = null,
   public var extension: MutableList<Extension>? = null,
   public var modifierExtension: MutableList<Extension>? = null,
-  public var lockedDate: KotlinString? = null,
-  public var _lockedDate: Element? = null,
-  public var inactive: KotlinBoolean? = null,
-  public var _inactive: Element? = null,
-  public var include: MutableList<ValueSet.Compose.Include>? = null,
-  public var exclude: MutableList<ValueSet.Compose.Include>? = null,
-  public var `property`: MutableList<KotlinString?>? = null,
-  public var _property: MutableList<Element?>? = null,
+  public var code: KotlinString? = null,
+  public var _code: Element? = null,
+  public var display: KotlinString? = null,
+  public var _display: Element? = null,
+  public var designation: MutableList<ValueSet.Compose.Include.Concept.Designation>? = null,
 ) {
-  public fun toModel(): ValueSet.Compose =
-    ValueSet.Compose(
-      id = this@ValueSetComposeSurrogate.id,
-      extension = this@ValueSetComposeSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@ValueSetComposeSurrogate.modifierExtension ?: mutableListOf(),
-      lockedDate =
-        Date.of(
-          FhirDate.fromString(this@ValueSetComposeSurrogate.lockedDate),
-          this@ValueSetComposeSurrogate._lockedDate,
+  public fun toModel(): ValueSet.Compose.Include.Concept =
+    ValueSet.Compose.Include.Concept(
+      id = this@ValueSetComposeIncludeConceptSurrogate.id,
+      extension = this@ValueSetComposeIncludeConceptSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@ValueSetComposeIncludeConceptSurrogate.modifierExtension ?: mutableListOf(),
+      code =
+        Code.of(
+          this@ValueSetComposeIncludeConceptSurrogate.code,
+          this@ValueSetComposeIncludeConceptSurrogate._code,
+        )!!,
+      display =
+        R5String.of(
+          this@ValueSetComposeIncludeConceptSurrogate.display,
+          this@ValueSetComposeIncludeConceptSurrogate._display,
         ),
-      inactive =
-        R5Boolean.of(
-          this@ValueSetComposeSurrogate.inactive,
-          this@ValueSetComposeSurrogate._inactive,
-        ),
-      include = this@ValueSetComposeSurrogate.include ?: mutableListOf(),
-      exclude = this@ValueSetComposeSurrogate.exclude ?: mutableListOf(),
-      `property` =
-        if (
-          this@ValueSetComposeSurrogate.`property` == null &&
-            this@ValueSetComposeSurrogate._property == null
-        ) {
-          mutableListOf()
-        } else {
-          (this@ValueSetComposeSurrogate.`property`
-              ?: List(this@ValueSetComposeSurrogate._property!!.size) { null })
-            .zip(
-              this@ValueSetComposeSurrogate._property
-                ?: List(this@ValueSetComposeSurrogate.`property`!!.size) { null }
-            )
-            .map { (value, element) -> R5String.of(value, element)!! }
-            .toMutableList()
-        },
+      designation = this@ValueSetComposeIncludeConceptSurrogate.designation ?: mutableListOf(),
     )
 
   public companion object {
-    public fun fromModel(model: ValueSet.Compose): ValueSetComposeSurrogate =
+    public fun fromModel(
+      model: ValueSet.Compose.Include.Concept
+    ): ValueSetComposeIncludeConceptSurrogate =
       with(model) {
-        ValueSetComposeSurrogate(
+        ValueSetComposeIncludeConceptSurrogate(
           id = this@with.id,
           extension = this@with.extension.takeUnless { it.all { it == null } },
           modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          lockedDate = this@with.lockedDate?.value?.toString(),
-          _lockedDate = this@with.lockedDate?.toElement(),
-          inactive = this@with.inactive?.value,
-          _inactive = this@with.inactive?.toElement(),
-          include = this@with.include.takeUnless { it.all { it == null } },
-          exclude = this@with.exclude.takeUnless { it.all { it == null } },
-          `property` =
-            this@with.`property`
-              .map { it.value }
-              .toMutableList()
-              .takeUnless { it.all { it == null } },
-          _property =
-            this@with.`property`
-              .map { it.toElement() }
-              .takeUnless { it.all { it == null } }
-              ?.map { it ?: Element() }
-              ?.toMutableList(),
+          code = this@with.code.value,
+          _code = this@with.code.toElement(),
+          display = this@with.display?.value,
+          _display = this@with.display?.toElement(),
+          designation = this@with.designation.takeUnless { it.all { it == null } },
         )
       }
   }
 }
 
 @Serializable
-internal data class ValueSetExpansionParameterValueSurrogate(
-  public var valueString: KotlinString? = null,
-  public var _valueString: Element? = null,
-  public var valueBoolean: KotlinBoolean? = null,
-  public var _valueBoolean: Element? = null,
-  public var valueInteger: Int? = null,
-  public var _valueInteger: Element? = null,
-  public var valueDecimal: Double? = null,
-  public var _valueDecimal: Element? = null,
-  public var valueUri: KotlinString? = null,
-  public var _valueUri: Element? = null,
-  public var valueCode: KotlinString? = null,
-  public var _valueCode: Element? = null,
-  public var valueDateTime: KotlinString? = null,
-  public var _valueDateTime: Element? = null,
+internal data class ValueSetComposeIncludeConceptDesignationSurrogate(
+  public var id: KotlinString? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var language: KotlinString? = null,
+  public var _language: Element? = null,
+  public var use: Coding? = null,
+  public var additionalUse: MutableList<Coding>? = null,
+  public var `value`: KotlinString? = null,
+  public var _value: Element? = null,
 ) {
-  public fun toModel(): ValueSet.Expansion.Parameter.Value =
-    ValueSet.Expansion.Parameter.Value?.from(
-      R5String.of(
-        this@ValueSetExpansionParameterValueSurrogate.valueString,
-        this@ValueSetExpansionParameterValueSurrogate._valueString,
-      ),
-      R5Boolean.of(
-        this@ValueSetExpansionParameterValueSurrogate.valueBoolean,
-        this@ValueSetExpansionParameterValueSurrogate._valueBoolean,
-      ),
-      Integer.of(
-        this@ValueSetExpansionParameterValueSurrogate.valueInteger,
-        this@ValueSetExpansionParameterValueSurrogate._valueInteger,
-      ),
-      Decimal.of(
-        this@ValueSetExpansionParameterValueSurrogate.valueDecimal,
-        this@ValueSetExpansionParameterValueSurrogate._valueDecimal,
-      ),
-      Uri.of(
-        this@ValueSetExpansionParameterValueSurrogate.valueUri,
-        this@ValueSetExpansionParameterValueSurrogate._valueUri,
-      ),
-      Code.of(
-        this@ValueSetExpansionParameterValueSurrogate.valueCode,
-        this@ValueSetExpansionParameterValueSurrogate._valueCode,
-      ),
-      DateTime.of(
-        FhirDateTime.fromString(this@ValueSetExpansionParameterValueSurrogate.valueDateTime),
-        this@ValueSetExpansionParameterValueSurrogate._valueDateTime,
-      ),
-    )!!
+  public fun toModel(): ValueSet.Compose.Include.Concept.Designation =
+    ValueSet.Compose.Include.Concept.Designation(
+      id = this@ValueSetComposeIncludeConceptDesignationSurrogate.id,
+      extension =
+        this@ValueSetComposeIncludeConceptDesignationSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@ValueSetComposeIncludeConceptDesignationSurrogate.modifierExtension ?: mutableListOf(),
+      language =
+        Code.of(
+          this@ValueSetComposeIncludeConceptDesignationSurrogate.language,
+          this@ValueSetComposeIncludeConceptDesignationSurrogate._language,
+        ),
+      use = this@ValueSetComposeIncludeConceptDesignationSurrogate.use,
+      additionalUse =
+        this@ValueSetComposeIncludeConceptDesignationSurrogate.additionalUse ?: mutableListOf(),
+      `value` =
+        R5String.of(
+          this@ValueSetComposeIncludeConceptDesignationSurrogate.`value`,
+          this@ValueSetComposeIncludeConceptDesignationSurrogate._value,
+        )!!,
+    )
 
   public companion object {
     public fun fromModel(
-      model: ValueSet.Expansion.Parameter.Value
-    ): ValueSetExpansionParameterValueSurrogate =
+      model: ValueSet.Compose.Include.Concept.Designation
+    ): ValueSetComposeIncludeConceptDesignationSurrogate =
       with(model) {
-        ValueSetExpansionParameterValueSurrogate(
-          valueString = this@with.asString()?.value?.value,
-          _valueString = this@with.asString()?.value?.toElement(),
-          valueBoolean = this@with.asBoolean()?.value?.value,
-          _valueBoolean = this@with.asBoolean()?.value?.toElement(),
-          valueInteger = this@with.asInteger()?.value?.value,
-          _valueInteger = this@with.asInteger()?.value?.toElement(),
-          valueDecimal = this@with.asDecimal()?.value?.value,
-          _valueDecimal = this@with.asDecimal()?.value?.toElement(),
-          valueUri = this@with.asUri()?.value?.value,
-          _valueUri = this@with.asUri()?.value?.toElement(),
-          valueCode = this@with.asCode()?.value?.value,
-          _valueCode = this@with.asCode()?.value?.toElement(),
-          valueDateTime = this@with.asDateTime()?.value?.value?.toString(),
-          _valueDateTime = this@with.asDateTime()?.value?.toElement(),
+        ValueSetComposeIncludeConceptDesignationSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          language = this@with.language?.value,
+          _language = this@with.language?.toElement(),
+          use = this@with.use,
+          additionalUse = this@with.additionalUse.takeUnless { it.all { it == null } },
+          `value` = this@with.`value`.value,
+          _value = this@with.`value`.toElement(),
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class ValueSetComposeIncludeFilterSurrogate(
+  public var id: KotlinString? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var `property`: KotlinString? = null,
+  public var _property: Element? = null,
+  public var op: KotlinString? = null,
+  public var _op: Element? = null,
+  public var `value`: KotlinString? = null,
+  public var _value: Element? = null,
+) {
+  public fun toModel(): ValueSet.Compose.Include.Filter =
+    ValueSet.Compose.Include.Filter(
+      id = this@ValueSetComposeIncludeFilterSurrogate.id,
+      extension = this@ValueSetComposeIncludeFilterSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@ValueSetComposeIncludeFilterSurrogate.modifierExtension ?: mutableListOf(),
+      `property` =
+        Code.of(
+          this@ValueSetComposeIncludeFilterSurrogate.`property`,
+          this@ValueSetComposeIncludeFilterSurrogate._property,
+        )!!,
+      op =
+        Enumeration.of(
+          com.google.fhir.model.r5.ValueSet.FilterOperator.fromCode(
+            this@ValueSetComposeIncludeFilterSurrogate.op!!
+          ),
+          this@ValueSetComposeIncludeFilterSurrogate._op,
+        ),
+      `value` =
+        R5String.of(
+          this@ValueSetComposeIncludeFilterSurrogate.`value`,
+          this@ValueSetComposeIncludeFilterSurrogate._value,
+        )!!,
+    )
+
+  public companion object {
+    public fun fromModel(
+      model: ValueSet.Compose.Include.Filter
+    ): ValueSetComposeIncludeFilterSurrogate =
+      with(model) {
+        ValueSetComposeIncludeFilterSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          `property` = this@with.`property`.value,
+          _property = this@with.`property`.toElement(),
+          op = this@with.op.value?.getCode(),
+          _op = this@with.op.toElement(),
+          `value` = this@with.`value`.value,
+          _value = this@with.`value`.toElement(),
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class ValueSetExpansionSurrogate(
+  public var id: KotlinString? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var identifier: KotlinString? = null,
+  public var _identifier: Element? = null,
+  public var next: KotlinString? = null,
+  public var _next: Element? = null,
+  public var timestamp: KotlinString? = null,
+  public var _timestamp: Element? = null,
+  public var total: Int? = null,
+  public var _total: Element? = null,
+  public var offset: Int? = null,
+  public var _offset: Element? = null,
+  public var parameter: MutableList<ValueSet.Expansion.Parameter>? = null,
+  public var `property`: MutableList<ValueSet.Expansion.Property>? = null,
+  public var contains: MutableList<ValueSet.Expansion.Contains>? = null,
+) {
+  public fun toModel(): ValueSet.Expansion =
+    ValueSet.Expansion(
+      id = this@ValueSetExpansionSurrogate.id,
+      extension = this@ValueSetExpansionSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@ValueSetExpansionSurrogate.modifierExtension ?: mutableListOf(),
+      identifier =
+        Uri.of(
+          this@ValueSetExpansionSurrogate.identifier,
+          this@ValueSetExpansionSurrogate._identifier,
+        ),
+      next = Uri.of(this@ValueSetExpansionSurrogate.next, this@ValueSetExpansionSurrogate._next),
+      timestamp =
+        DateTime.of(
+          FhirDateTime.fromString(this@ValueSetExpansionSurrogate.timestamp),
+          this@ValueSetExpansionSurrogate._timestamp,
+        )!!,
+      total =
+        Integer.of(this@ValueSetExpansionSurrogate.total, this@ValueSetExpansionSurrogate._total),
+      offset =
+        Integer.of(this@ValueSetExpansionSurrogate.offset, this@ValueSetExpansionSurrogate._offset),
+      parameter = this@ValueSetExpansionSurrogate.parameter ?: mutableListOf(),
+      `property` = this@ValueSetExpansionSurrogate.`property` ?: mutableListOf(),
+      contains = this@ValueSetExpansionSurrogate.contains ?: mutableListOf(),
+    )
+
+  public companion object {
+    public fun fromModel(model: ValueSet.Expansion): ValueSetExpansionSurrogate =
+      with(model) {
+        ValueSetExpansionSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          identifier = this@with.identifier?.value,
+          _identifier = this@with.identifier?.toElement(),
+          next = this@with.next?.value,
+          _next = this@with.next?.toElement(),
+          timestamp = this@with.timestamp.value?.toString(),
+          _timestamp = this@with.timestamp.toElement(),
+          total = this@with.total?.value,
+          _total = this@with.total?.toElement(),
+          offset = this@with.offset?.value,
+          _offset = this@with.offset?.toElement(),
+          parameter = this@with.parameter.takeUnless { it.all { it == null } },
+          `property` = this@with.`property`.takeUnless { it.all { it == null } },
+          contains = this@with.contains.takeUnless { it.all { it == null } },
         )
       }
   }
@@ -532,231 +527,6 @@ internal data class ValueSetExpansionPropertySurrogate(
           _code = this@with.code.toElement(),
           uri = this@with.uri?.value,
           _uri = this@with.uri?.toElement(),
-        )
-      }
-  }
-}
-
-@Serializable
-internal data class ValueSetExpansionContainsPropertySubPropertyValueSurrogate(
-  public var valueCode: KotlinString? = null,
-  public var _valueCode: Element? = null,
-  public var valueCoding: Coding? = null,
-  public var valueString: KotlinString? = null,
-  public var _valueString: Element? = null,
-  public var valueInteger: Int? = null,
-  public var _valueInteger: Element? = null,
-  public var valueBoolean: KotlinBoolean? = null,
-  public var _valueBoolean: Element? = null,
-  public var valueDateTime: KotlinString? = null,
-  public var _valueDateTime: Element? = null,
-  public var valueDecimal: Double? = null,
-  public var _valueDecimal: Element? = null,
-) {
-  public fun toModel(): ValueSet.Expansion.Contains.Property.SubProperty.Value =
-    ValueSet.Expansion.Contains.Property.SubProperty.Value.from(
-      Code.of(
-        this@ValueSetExpansionContainsPropertySubPropertyValueSurrogate.valueCode,
-        this@ValueSetExpansionContainsPropertySubPropertyValueSurrogate._valueCode,
-      ),
-      this@ValueSetExpansionContainsPropertySubPropertyValueSurrogate.valueCoding,
-      R5String.of(
-        this@ValueSetExpansionContainsPropertySubPropertyValueSurrogate.valueString,
-        this@ValueSetExpansionContainsPropertySubPropertyValueSurrogate._valueString,
-      ),
-      Integer.of(
-        this@ValueSetExpansionContainsPropertySubPropertyValueSurrogate.valueInteger,
-        this@ValueSetExpansionContainsPropertySubPropertyValueSurrogate._valueInteger,
-      ),
-      R5Boolean.of(
-        this@ValueSetExpansionContainsPropertySubPropertyValueSurrogate.valueBoolean,
-        this@ValueSetExpansionContainsPropertySubPropertyValueSurrogate._valueBoolean,
-      ),
-      DateTime.of(
-        FhirDateTime.fromString(
-          this@ValueSetExpansionContainsPropertySubPropertyValueSurrogate.valueDateTime
-        ),
-        this@ValueSetExpansionContainsPropertySubPropertyValueSurrogate._valueDateTime,
-      ),
-      Decimal.of(
-        this@ValueSetExpansionContainsPropertySubPropertyValueSurrogate.valueDecimal,
-        this@ValueSetExpansionContainsPropertySubPropertyValueSurrogate._valueDecimal,
-      ),
-    )!! !!
-
-  public companion object {
-    public fun fromModel(
-      model: ValueSet.Expansion.Contains.Property.SubProperty.Value
-    ): ValueSetExpansionContainsPropertySubPropertyValueSurrogate =
-      with(model) {
-        ValueSetExpansionContainsPropertySubPropertyValueSurrogate(
-          valueCode = this@with.asCode()?.value?.value,
-          _valueCode = this@with.asCode()?.value?.toElement(),
-          valueCoding = this@with.asCoding()?.value,
-          valueString = this@with.asString()?.value?.value,
-          _valueString = this@with.asString()?.value?.toElement(),
-          valueInteger = this@with.asInteger()?.value?.value,
-          _valueInteger = this@with.asInteger()?.value?.toElement(),
-          valueBoolean = this@with.asBoolean()?.value?.value,
-          _valueBoolean = this@with.asBoolean()?.value?.toElement(),
-          valueDateTime = this@with.asDateTime()?.value?.value?.toString(),
-          _valueDateTime = this@with.asDateTime()?.value?.toElement(),
-          valueDecimal = this@with.asDecimal()?.value?.value,
-          _valueDecimal = this@with.asDecimal()?.value?.toElement(),
-        )
-      }
-  }
-}
-
-@Serializable
-internal data class ValueSetExpansionContainsPropertySubPropertySurrogate(
-  public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var code: KotlinString? = null,
-  public var _code: Element? = null,
-  public var `value`: ValueSet.Expansion.Contains.Property.SubProperty.Value,
-) {
-  public fun toModel(): ValueSet.Expansion.Contains.Property.SubProperty =
-    ValueSet.Expansion.Contains.Property.SubProperty(
-      id = this@ValueSetExpansionContainsPropertySubPropertySurrogate.id,
-      extension =
-        this@ValueSetExpansionContainsPropertySubPropertySurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@ValueSetExpansionContainsPropertySubPropertySurrogate.modifierExtension
-          ?: mutableListOf(),
-      code =
-        Code.of(
-          this@ValueSetExpansionContainsPropertySubPropertySurrogate.code,
-          this@ValueSetExpansionContainsPropertySubPropertySurrogate._code,
-        )!!,
-      `value` = this@ValueSetExpansionContainsPropertySubPropertySurrogate.`value`,
-    )
-
-  public companion object {
-    public fun fromModel(
-      model: ValueSet.Expansion.Contains.Property.SubProperty
-    ): ValueSetExpansionContainsPropertySubPropertySurrogate =
-      with(model) {
-        ValueSetExpansionContainsPropertySubPropertySurrogate(
-          id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          code = this@with.code.value,
-          _code = this@with.code.toElement(),
-          `value` = this@with.`value`,
-        )
-      }
-  }
-}
-
-@Serializable
-internal data class ValueSetExpansionContainsPropertyValueSurrogate(
-  public var valueCode: KotlinString? = null,
-  public var _valueCode: Element? = null,
-  public var valueCoding: Coding? = null,
-  public var valueString: KotlinString? = null,
-  public var _valueString: Element? = null,
-  public var valueInteger: Int? = null,
-  public var _valueInteger: Element? = null,
-  public var valueBoolean: KotlinBoolean? = null,
-  public var _valueBoolean: Element? = null,
-  public var valueDateTime: KotlinString? = null,
-  public var _valueDateTime: Element? = null,
-  public var valueDecimal: Double? = null,
-  public var _valueDecimal: Element? = null,
-) {
-  public fun toModel(): ValueSet.Expansion.Contains.Property.Value =
-    ValueSet.Expansion.Contains.Property.Value.from(
-      Code.of(
-        this@ValueSetExpansionContainsPropertyValueSurrogate.valueCode,
-        this@ValueSetExpansionContainsPropertyValueSurrogate._valueCode,
-      ),
-      this@ValueSetExpansionContainsPropertyValueSurrogate.valueCoding,
-      R5String.of(
-        this@ValueSetExpansionContainsPropertyValueSurrogate.valueString,
-        this@ValueSetExpansionContainsPropertyValueSurrogate._valueString,
-      ),
-      Integer.of(
-        this@ValueSetExpansionContainsPropertyValueSurrogate.valueInteger,
-        this@ValueSetExpansionContainsPropertyValueSurrogate._valueInteger,
-      ),
-      R5Boolean.of(
-        this@ValueSetExpansionContainsPropertyValueSurrogate.valueBoolean,
-        this@ValueSetExpansionContainsPropertyValueSurrogate._valueBoolean,
-      ),
-      DateTime.of(
-        FhirDateTime.fromString(this@ValueSetExpansionContainsPropertyValueSurrogate.valueDateTime),
-        this@ValueSetExpansionContainsPropertyValueSurrogate._valueDateTime,
-      ),
-      Decimal.of(
-        this@ValueSetExpansionContainsPropertyValueSurrogate.valueDecimal,
-        this@ValueSetExpansionContainsPropertyValueSurrogate._valueDecimal,
-      ),
-    )!! !!
-
-  public companion object {
-    public fun fromModel(
-      model: ValueSet.Expansion.Contains.Property.Value
-    ): ValueSetExpansionContainsPropertyValueSurrogate =
-      with(model) {
-        ValueSetExpansionContainsPropertyValueSurrogate(
-          valueCode = this@with.asCode()?.value?.value,
-          _valueCode = this@with.asCode()?.value?.toElement(),
-          valueCoding = this@with.asCoding()?.value,
-          valueString = this@with.asString()?.value?.value,
-          _valueString = this@with.asString()?.value?.toElement(),
-          valueInteger = this@with.asInteger()?.value?.value,
-          _valueInteger = this@with.asInteger()?.value?.toElement(),
-          valueBoolean = this@with.asBoolean()?.value?.value,
-          _valueBoolean = this@with.asBoolean()?.value?.toElement(),
-          valueDateTime = this@with.asDateTime()?.value?.value?.toString(),
-          _valueDateTime = this@with.asDateTime()?.value?.toElement(),
-          valueDecimal = this@with.asDecimal()?.value?.value,
-          _valueDecimal = this@with.asDecimal()?.value?.toElement(),
-        )
-      }
-  }
-}
-
-@Serializable
-internal data class ValueSetExpansionContainsPropertySurrogate(
-  public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var code: KotlinString? = null,
-  public var _code: Element? = null,
-  public var `value`: ValueSet.Expansion.Contains.Property.Value,
-  public var subProperty: MutableList<ValueSet.Expansion.Contains.Property.SubProperty>? = null,
-) {
-  public fun toModel(): ValueSet.Expansion.Contains.Property =
-    ValueSet.Expansion.Contains.Property(
-      id = this@ValueSetExpansionContainsPropertySurrogate.id,
-      extension = this@ValueSetExpansionContainsPropertySurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@ValueSetExpansionContainsPropertySurrogate.modifierExtension ?: mutableListOf(),
-      code =
-        Code.of(
-          this@ValueSetExpansionContainsPropertySurrogate.code,
-          this@ValueSetExpansionContainsPropertySurrogate._code,
-        )!!,
-      `value` = this@ValueSetExpansionContainsPropertySurrogate.`value`,
-      subProperty = this@ValueSetExpansionContainsPropertySurrogate.subProperty ?: mutableListOf(),
-    )
-
-  public companion object {
-    public fun fromModel(
-      model: ValueSet.Expansion.Contains.Property
-    ): ValueSetExpansionContainsPropertySurrogate =
-      with(model) {
-        ValueSetExpansionContainsPropertySurrogate(
-          id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          code = this@with.code.value,
-          _code = this@with.code.toElement(),
-          `value` = this@with.`value`,
-          subProperty = this@with.subProperty.takeUnless { it.all { it == null } },
         )
       }
   }
@@ -852,69 +622,85 @@ internal data class ValueSetExpansionContainsSurrogate(
 }
 
 @Serializable
-internal data class ValueSetExpansionSurrogate(
+internal data class ValueSetExpansionContainsPropertySurrogate(
   public var id: KotlinString? = null,
   public var extension: MutableList<Extension>? = null,
   public var modifierExtension: MutableList<Extension>? = null,
-  public var identifier: KotlinString? = null,
-  public var _identifier: Element? = null,
-  public var next: KotlinString? = null,
-  public var _next: Element? = null,
-  public var timestamp: KotlinString? = null,
-  public var _timestamp: Element? = null,
-  public var total: Int? = null,
-  public var _total: Element? = null,
-  public var offset: Int? = null,
-  public var _offset: Element? = null,
-  public var parameter: MutableList<ValueSet.Expansion.Parameter>? = null,
-  public var `property`: MutableList<ValueSet.Expansion.Property>? = null,
-  public var contains: MutableList<ValueSet.Expansion.Contains>? = null,
+  public var code: KotlinString? = null,
+  public var _code: Element? = null,
+  public var `value`: ValueSet.Expansion.Contains.Property.Value,
+  public var subProperty: MutableList<ValueSet.Expansion.Contains.Property.SubProperty>? = null,
 ) {
-  public fun toModel(): ValueSet.Expansion =
-    ValueSet.Expansion(
-      id = this@ValueSetExpansionSurrogate.id,
-      extension = this@ValueSetExpansionSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@ValueSetExpansionSurrogate.modifierExtension ?: mutableListOf(),
-      identifier =
-        Uri.of(
-          this@ValueSetExpansionSurrogate.identifier,
-          this@ValueSetExpansionSurrogate._identifier,
-        ),
-      next = Uri.of(this@ValueSetExpansionSurrogate.next, this@ValueSetExpansionSurrogate._next),
-      timestamp =
-        DateTime.of(
-          FhirDateTime.fromString(this@ValueSetExpansionSurrogate.timestamp),
-          this@ValueSetExpansionSurrogate._timestamp,
+  public fun toModel(): ValueSet.Expansion.Contains.Property =
+    ValueSet.Expansion.Contains.Property(
+      id = this@ValueSetExpansionContainsPropertySurrogate.id,
+      extension = this@ValueSetExpansionContainsPropertySurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@ValueSetExpansionContainsPropertySurrogate.modifierExtension ?: mutableListOf(),
+      code =
+        Code.of(
+          this@ValueSetExpansionContainsPropertySurrogate.code,
+          this@ValueSetExpansionContainsPropertySurrogate._code,
         )!!,
-      total =
-        Integer.of(this@ValueSetExpansionSurrogate.total, this@ValueSetExpansionSurrogate._total),
-      offset =
-        Integer.of(this@ValueSetExpansionSurrogate.offset, this@ValueSetExpansionSurrogate._offset),
-      parameter = this@ValueSetExpansionSurrogate.parameter ?: mutableListOf(),
-      `property` = this@ValueSetExpansionSurrogate.`property` ?: mutableListOf(),
-      contains = this@ValueSetExpansionSurrogate.contains ?: mutableListOf(),
+      `value` = this@ValueSetExpansionContainsPropertySurrogate.`value`,
+      subProperty = this@ValueSetExpansionContainsPropertySurrogate.subProperty ?: mutableListOf(),
     )
 
   public companion object {
-    public fun fromModel(model: ValueSet.Expansion): ValueSetExpansionSurrogate =
+    public fun fromModel(
+      model: ValueSet.Expansion.Contains.Property
+    ): ValueSetExpansionContainsPropertySurrogate =
       with(model) {
-        ValueSetExpansionSurrogate(
+        ValueSetExpansionContainsPropertySurrogate(
           id = this@with.id,
           extension = this@with.extension.takeUnless { it.all { it == null } },
           modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          identifier = this@with.identifier?.value,
-          _identifier = this@with.identifier?.toElement(),
-          next = this@with.next?.value,
-          _next = this@with.next?.toElement(),
-          timestamp = this@with.timestamp.value?.toString(),
-          _timestamp = this@with.timestamp.toElement(),
-          total = this@with.total?.value,
-          _total = this@with.total?.toElement(),
-          offset = this@with.offset?.value,
-          _offset = this@with.offset?.toElement(),
-          parameter = this@with.parameter.takeUnless { it.all { it == null } },
-          `property` = this@with.`property`.takeUnless { it.all { it == null } },
-          contains = this@with.contains.takeUnless { it.all { it == null } },
+          code = this@with.code.value,
+          _code = this@with.code.toElement(),
+          `value` = this@with.`value`,
+          subProperty = this@with.subProperty.takeUnless { it.all { it == null } },
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class ValueSetExpansionContainsPropertySubPropertySurrogate(
+  public var id: KotlinString? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var code: KotlinString? = null,
+  public var _code: Element? = null,
+  public var `value`: ValueSet.Expansion.Contains.Property.SubProperty.Value,
+) {
+  public fun toModel(): ValueSet.Expansion.Contains.Property.SubProperty =
+    ValueSet.Expansion.Contains.Property.SubProperty(
+      id = this@ValueSetExpansionContainsPropertySubPropertySurrogate.id,
+      extension =
+        this@ValueSetExpansionContainsPropertySubPropertySurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@ValueSetExpansionContainsPropertySubPropertySurrogate.modifierExtension
+          ?: mutableListOf(),
+      code =
+        Code.of(
+          this@ValueSetExpansionContainsPropertySubPropertySurrogate.code,
+          this@ValueSetExpansionContainsPropertySubPropertySurrogate._code,
+        )!!,
+      `value` = this@ValueSetExpansionContainsPropertySubPropertySurrogate.`value`,
+    )
+
+  public companion object {
+    public fun fromModel(
+      model: ValueSet.Expansion.Contains.Property.SubProperty
+    ): ValueSetExpansionContainsPropertySubPropertySurrogate =
+      with(model) {
+        ValueSetExpansionContainsPropertySubPropertySurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          code = this@with.code.value,
+          _code = this@with.code.toElement(),
+          `value` = this@with.`value`,
         )
       }
   }
@@ -970,7 +756,7 @@ internal data class ValueSetVersionAlgorithmSurrogate(
   public var versionAlgorithmCoding: Coding? = null,
 ) {
   public fun toModel(): ValueSet.VersionAlgorithm =
-    ValueSet.VersionAlgorithm?.from(
+    ValueSet.VersionAlgorithm.from(
       R5String.of(
         this@ValueSetVersionAlgorithmSurrogate.versionAlgorithmString,
         this@ValueSetVersionAlgorithmSurrogate._versionAlgorithmString,
@@ -985,6 +771,220 @@ internal data class ValueSetVersionAlgorithmSurrogate(
           versionAlgorithmString = this@with.asString()?.value?.value,
           _versionAlgorithmString = this@with.asString()?.value?.toElement(),
           versionAlgorithmCoding = this@with.asCoding()?.value,
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class ValueSetExpansionParameterValueSurrogate(
+  public var valueString: KotlinString? = null,
+  public var _valueString: Element? = null,
+  public var valueBoolean: KotlinBoolean? = null,
+  public var _valueBoolean: Element? = null,
+  public var valueInteger: Int? = null,
+  public var _valueInteger: Element? = null,
+  public var valueDecimal: Double? = null,
+  public var _valueDecimal: Element? = null,
+  public var valueUri: KotlinString? = null,
+  public var _valueUri: Element? = null,
+  public var valueCode: KotlinString? = null,
+  public var _valueCode: Element? = null,
+  public var valueDateTime: KotlinString? = null,
+  public var _valueDateTime: Element? = null,
+) {
+  public fun toModel(): ValueSet.Expansion.Parameter.Value =
+    ValueSet.Expansion.Parameter.Value.from(
+      R5String.of(
+        this@ValueSetExpansionParameterValueSurrogate.valueString,
+        this@ValueSetExpansionParameterValueSurrogate._valueString,
+      ),
+      R5Boolean.of(
+        this@ValueSetExpansionParameterValueSurrogate.valueBoolean,
+        this@ValueSetExpansionParameterValueSurrogate._valueBoolean,
+      ),
+      Integer.of(
+        this@ValueSetExpansionParameterValueSurrogate.valueInteger,
+        this@ValueSetExpansionParameterValueSurrogate._valueInteger,
+      ),
+      Decimal.of(
+        this@ValueSetExpansionParameterValueSurrogate.valueDecimal,
+        this@ValueSetExpansionParameterValueSurrogate._valueDecimal,
+      ),
+      Uri.of(
+        this@ValueSetExpansionParameterValueSurrogate.valueUri,
+        this@ValueSetExpansionParameterValueSurrogate._valueUri,
+      ),
+      Code.of(
+        this@ValueSetExpansionParameterValueSurrogate.valueCode,
+        this@ValueSetExpansionParameterValueSurrogate._valueCode,
+      ),
+      DateTime.of(
+        FhirDateTime.fromString(this@ValueSetExpansionParameterValueSurrogate.valueDateTime),
+        this@ValueSetExpansionParameterValueSurrogate._valueDateTime,
+      ),
+    )!!
+
+  public companion object {
+    public fun fromModel(
+      model: ValueSet.Expansion.Parameter.Value
+    ): ValueSetExpansionParameterValueSurrogate =
+      with(model) {
+        ValueSetExpansionParameterValueSurrogate(
+          valueString = this@with.asString()?.value?.value,
+          _valueString = this@with.asString()?.value?.toElement(),
+          valueBoolean = this@with.asBoolean()?.value?.value,
+          _valueBoolean = this@with.asBoolean()?.value?.toElement(),
+          valueInteger = this@with.asInteger()?.value?.value,
+          _valueInteger = this@with.asInteger()?.value?.toElement(),
+          valueDecimal = this@with.asDecimal()?.value?.value,
+          _valueDecimal = this@with.asDecimal()?.value?.toElement(),
+          valueUri = this@with.asUri()?.value?.value,
+          _valueUri = this@with.asUri()?.value?.toElement(),
+          valueCode = this@with.asCode()?.value?.value,
+          _valueCode = this@with.asCode()?.value?.toElement(),
+          valueDateTime = this@with.asDateTime()?.value?.value?.toString(),
+          _valueDateTime = this@with.asDateTime()?.value?.toElement(),
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class ValueSetExpansionContainsPropertyValueSurrogate(
+  public var valueCode: KotlinString? = null,
+  public var _valueCode: Element? = null,
+  public var valueCoding: Coding? = null,
+  public var valueString: KotlinString? = null,
+  public var _valueString: Element? = null,
+  public var valueInteger: Int? = null,
+  public var _valueInteger: Element? = null,
+  public var valueBoolean: KotlinBoolean? = null,
+  public var _valueBoolean: Element? = null,
+  public var valueDateTime: KotlinString? = null,
+  public var _valueDateTime: Element? = null,
+  public var valueDecimal: Double? = null,
+  public var _valueDecimal: Element? = null,
+) {
+  public fun toModel(): ValueSet.Expansion.Contains.Property.Value =
+    ValueSet.Expansion.Contains.Property.Value.from(
+      Code.of(
+        this@ValueSetExpansionContainsPropertyValueSurrogate.valueCode,
+        this@ValueSetExpansionContainsPropertyValueSurrogate._valueCode,
+      ),
+      this@ValueSetExpansionContainsPropertyValueSurrogate.valueCoding,
+      R5String.of(
+        this@ValueSetExpansionContainsPropertyValueSurrogate.valueString,
+        this@ValueSetExpansionContainsPropertyValueSurrogate._valueString,
+      ),
+      Integer.of(
+        this@ValueSetExpansionContainsPropertyValueSurrogate.valueInteger,
+        this@ValueSetExpansionContainsPropertyValueSurrogate._valueInteger,
+      ),
+      R5Boolean.of(
+        this@ValueSetExpansionContainsPropertyValueSurrogate.valueBoolean,
+        this@ValueSetExpansionContainsPropertyValueSurrogate._valueBoolean,
+      ),
+      DateTime.of(
+        FhirDateTime.fromString(this@ValueSetExpansionContainsPropertyValueSurrogate.valueDateTime),
+        this@ValueSetExpansionContainsPropertyValueSurrogate._valueDateTime,
+      ),
+      Decimal.of(
+        this@ValueSetExpansionContainsPropertyValueSurrogate.valueDecimal,
+        this@ValueSetExpansionContainsPropertyValueSurrogate._valueDecimal,
+      ),
+    )!! !!
+
+  public companion object {
+    public fun fromModel(
+      model: ValueSet.Expansion.Contains.Property.Value
+    ): ValueSetExpansionContainsPropertyValueSurrogate =
+      with(model) {
+        ValueSetExpansionContainsPropertyValueSurrogate(
+          valueCode = this@with.asCode()?.value?.value,
+          _valueCode = this@with.asCode()?.value?.toElement(),
+          valueCoding = this@with.asCoding()?.value,
+          valueString = this@with.asString()?.value?.value,
+          _valueString = this@with.asString()?.value?.toElement(),
+          valueInteger = this@with.asInteger()?.value?.value,
+          _valueInteger = this@with.asInteger()?.value?.toElement(),
+          valueBoolean = this@with.asBoolean()?.value?.value,
+          _valueBoolean = this@with.asBoolean()?.value?.toElement(),
+          valueDateTime = this@with.asDateTime()?.value?.value?.toString(),
+          _valueDateTime = this@with.asDateTime()?.value?.toElement(),
+          valueDecimal = this@with.asDecimal()?.value?.value,
+          _valueDecimal = this@with.asDecimal()?.value?.toElement(),
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class ValueSetExpansionContainsPropertySubPropertyValueSurrogate(
+  public var valueCode: KotlinString? = null,
+  public var _valueCode: Element? = null,
+  public var valueCoding: Coding? = null,
+  public var valueString: KotlinString? = null,
+  public var _valueString: Element? = null,
+  public var valueInteger: Int? = null,
+  public var _valueInteger: Element? = null,
+  public var valueBoolean: KotlinBoolean? = null,
+  public var _valueBoolean: Element? = null,
+  public var valueDateTime: KotlinString? = null,
+  public var _valueDateTime: Element? = null,
+  public var valueDecimal: Double? = null,
+  public var _valueDecimal: Element? = null,
+) {
+  public fun toModel(): ValueSet.Expansion.Contains.Property.SubProperty.Value =
+    ValueSet.Expansion.Contains.Property.SubProperty.Value.from(
+      Code.of(
+        this@ValueSetExpansionContainsPropertySubPropertyValueSurrogate.valueCode,
+        this@ValueSetExpansionContainsPropertySubPropertyValueSurrogate._valueCode,
+      ),
+      this@ValueSetExpansionContainsPropertySubPropertyValueSurrogate.valueCoding,
+      R5String.of(
+        this@ValueSetExpansionContainsPropertySubPropertyValueSurrogate.valueString,
+        this@ValueSetExpansionContainsPropertySubPropertyValueSurrogate._valueString,
+      ),
+      Integer.of(
+        this@ValueSetExpansionContainsPropertySubPropertyValueSurrogate.valueInteger,
+        this@ValueSetExpansionContainsPropertySubPropertyValueSurrogate._valueInteger,
+      ),
+      R5Boolean.of(
+        this@ValueSetExpansionContainsPropertySubPropertyValueSurrogate.valueBoolean,
+        this@ValueSetExpansionContainsPropertySubPropertyValueSurrogate._valueBoolean,
+      ),
+      DateTime.of(
+        FhirDateTime.fromString(
+          this@ValueSetExpansionContainsPropertySubPropertyValueSurrogate.valueDateTime
+        ),
+        this@ValueSetExpansionContainsPropertySubPropertyValueSurrogate._valueDateTime,
+      ),
+      Decimal.of(
+        this@ValueSetExpansionContainsPropertySubPropertyValueSurrogate.valueDecimal,
+        this@ValueSetExpansionContainsPropertySubPropertyValueSurrogate._valueDecimal,
+      ),
+    )!! !!
+
+  public companion object {
+    public fun fromModel(
+      model: ValueSet.Expansion.Contains.Property.SubProperty.Value
+    ): ValueSetExpansionContainsPropertySubPropertyValueSurrogate =
+      with(model) {
+        ValueSetExpansionContainsPropertySubPropertyValueSurrogate(
+          valueCode = this@with.asCode()?.value?.value,
+          _valueCode = this@with.asCode()?.value?.toElement(),
+          valueCoding = this@with.asCoding()?.value,
+          valueString = this@with.asString()?.value?.value,
+          _valueString = this@with.asString()?.value?.toElement(),
+          valueInteger = this@with.asInteger()?.value?.value,
+          _valueInteger = this@with.asInteger()?.value?.toElement(),
+          valueBoolean = this@with.asBoolean()?.value?.value,
+          _valueBoolean = this@with.asBoolean()?.value?.toElement(),
+          valueDateTime = this@with.asDateTime()?.value?.value?.toString(),
+          _valueDateTime = this@with.asDateTime()?.value?.toElement(),
+          valueDecimal = this@with.asDecimal()?.value?.value,
+          _valueDecimal = this@with.asDecimal()?.value?.toElement(),
         )
       }
   }

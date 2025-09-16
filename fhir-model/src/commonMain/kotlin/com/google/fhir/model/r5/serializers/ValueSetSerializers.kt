@@ -50,6 +50,58 @@ import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.JsonPrimitive
 import kotlinx.serialization.json.jsonObject
 
+public object ValueSetComposeSerializer : KSerializer<ValueSet.Compose> {
+  internal val surrogateSerializer: KSerializer<ValueSetComposeSurrogate> by lazy {
+    ValueSetComposeSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Compose", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): ValueSet.Compose =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: ValueSet.Compose) {
+    surrogateSerializer.serialize(encoder, ValueSetComposeSurrogate.fromModel(value))
+  }
+}
+
+public object ValueSetComposeIncludeSerializer : KSerializer<ValueSet.Compose.Include> {
+  internal val surrogateSerializer: KSerializer<ValueSetComposeIncludeSurrogate> by lazy {
+    ValueSetComposeIncludeSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Include", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): ValueSet.Compose.Include =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: ValueSet.Compose.Include) {
+    surrogateSerializer.serialize(encoder, ValueSetComposeIncludeSurrogate.fromModel(value))
+  }
+}
+
+public object ValueSetComposeIncludeConceptSerializer :
+  KSerializer<ValueSet.Compose.Include.Concept> {
+  internal val surrogateSerializer: KSerializer<ValueSetComposeIncludeConceptSurrogate> by lazy {
+    ValueSetComposeIncludeConceptSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Concept", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): ValueSet.Compose.Include.Concept =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: ValueSet.Compose.Include.Concept) {
+    surrogateSerializer.serialize(encoder, ValueSetComposeIncludeConceptSurrogate.fromModel(value))
+  }
+}
+
 public object ValueSetComposeIncludeConceptDesignationSerializer :
   KSerializer<ValueSet.Compose.Include.Concept.Designation> {
   internal val surrogateSerializer:
@@ -72,24 +124,6 @@ public object ValueSetComposeIncludeConceptDesignationSerializer :
   }
 }
 
-public object ValueSetComposeIncludeConceptSerializer :
-  KSerializer<ValueSet.Compose.Include.Concept> {
-  internal val surrogateSerializer: KSerializer<ValueSetComposeIncludeConceptSurrogate> by lazy {
-    ValueSetComposeIncludeConceptSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Concept", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): ValueSet.Compose.Include.Concept =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: ValueSet.Compose.Include.Concept) {
-    surrogateSerializer.serialize(encoder, ValueSetComposeIncludeConceptSurrogate.fromModel(value))
-  }
-}
-
 public object ValueSetComposeIncludeFilterSerializer :
   KSerializer<ValueSet.Compose.Include.Filter> {
   internal val surrogateSerializer: KSerializer<ValueSetComposeIncludeFilterSurrogate> by lazy {
@@ -108,58 +142,20 @@ public object ValueSetComposeIncludeFilterSerializer :
   }
 }
 
-public object ValueSetComposeIncludeSerializer : KSerializer<ValueSet.Compose.Include> {
-  internal val surrogateSerializer: KSerializer<ValueSetComposeIncludeSurrogate> by lazy {
-    ValueSetComposeIncludeSurrogate.serializer()
+public object ValueSetExpansionSerializer : KSerializer<ValueSet.Expansion> {
+  internal val surrogateSerializer: KSerializer<ValueSetExpansionSurrogate> by lazy {
+    ValueSetExpansionSurrogate.serializer()
   }
 
   override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Include", surrogateSerializer.descriptor)
+    SerialDescriptor("Expansion", surrogateSerializer.descriptor)
   }
 
-  override fun deserialize(decoder: Decoder): ValueSet.Compose.Include =
+  override fun deserialize(decoder: Decoder): ValueSet.Expansion =
     surrogateSerializer.deserialize(decoder).toModel()
 
-  override fun serialize(encoder: Encoder, `value`: ValueSet.Compose.Include) {
-    surrogateSerializer.serialize(encoder, ValueSetComposeIncludeSurrogate.fromModel(value))
-  }
-}
-
-public object ValueSetComposeSerializer : KSerializer<ValueSet.Compose> {
-  internal val surrogateSerializer: KSerializer<ValueSetComposeSurrogate> by lazy {
-    ValueSetComposeSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Compose", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): ValueSet.Compose =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: ValueSet.Compose) {
-    surrogateSerializer.serialize(encoder, ValueSetComposeSurrogate.fromModel(value))
-  }
-}
-
-public object ValueSetExpansionParameterValueSerializer :
-  KSerializer<ValueSet.Expansion.Parameter.Value> {
-  internal val surrogateSerializer: KSerializer<ValueSetExpansionParameterValueSurrogate> by lazy {
-    ValueSetExpansionParameterValueSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Value", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): ValueSet.Expansion.Parameter.Value =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: ValueSet.Expansion.Parameter.Value) {
-    surrogateSerializer.serialize(
-      encoder,
-      ValueSetExpansionParameterValueSurrogate.fromModel(value),
-    )
+  override fun serialize(encoder: Encoder, `value`: ValueSet.Expansion) {
+    surrogateSerializer.serialize(encoder, ValueSetExpansionSurrogate.fromModel(value))
   }
 }
 
@@ -227,30 +223,69 @@ public object ValueSetExpansionPropertySerializer : KSerializer<ValueSet.Expansi
   }
 }
 
-public object ValueSetExpansionContainsPropertySubPropertyValueSerializer :
-  KSerializer<ValueSet.Expansion.Contains.Property.SubProperty.Value> {
-  internal val surrogateSerializer:
-    KSerializer<ValueSetExpansionContainsPropertySubPropertyValueSurrogate> by lazy {
-    ValueSetExpansionContainsPropertySubPropertyValueSurrogate.serializer()
+public object ValueSetExpansionContainsSerializer : KSerializer<ValueSet.Expansion.Contains> {
+  internal val surrogateSerializer: KSerializer<ValueSetExpansionContainsSurrogate> by lazy {
+    ValueSetExpansionContainsSurrogate.serializer()
   }
 
   override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Value", surrogateSerializer.descriptor)
+    SerialDescriptor("Contains", surrogateSerializer.descriptor)
   }
 
-  override fun deserialize(
-    decoder: Decoder
-  ): ValueSet.Expansion.Contains.Property.SubProperty.Value =
+  override fun deserialize(decoder: Decoder): ValueSet.Expansion.Contains =
     surrogateSerializer.deserialize(decoder).toModel()
 
-  override fun serialize(
-    encoder: Encoder,
-    `value`: ValueSet.Expansion.Contains.Property.SubProperty.Value,
-  ) {
-    surrogateSerializer.serialize(
-      encoder,
-      ValueSetExpansionContainsPropertySubPropertyValueSurrogate.fromModel(value),
-    )
+  override fun serialize(encoder: Encoder, `value`: ValueSet.Expansion.Contains) {
+    surrogateSerializer.serialize(encoder, ValueSetExpansionContainsSurrogate.fromModel(value))
+  }
+}
+
+public object ValueSetExpansionContainsPropertySerializer :
+  KSerializer<ValueSet.Expansion.Contains.Property> {
+  internal val surrogateSerializer:
+    KSerializer<ValueSetExpansionContainsPropertySurrogate> by lazy {
+    ValueSetExpansionContainsPropertySurrogate.serializer()
+  }
+
+  private val resourceType: String? = null
+
+  private val multiChoiceProperties: List<String> = listOf("value")
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Property", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): ValueSet.Expansion.Contains.Property {
+    val jsonDecoder =
+      decoder as? JsonDecoder ?: error("This serializer only supports JSON decoding")
+    val oldJsonObject =
+      if (resourceType.isNullOrBlank()) {
+        jsonDecoder.decodeJsonElement().jsonObject
+      } else
+        JsonObject(
+          jsonDecoder.decodeJsonElement().jsonObject.toMutableMap().apply { remove("resourceType") }
+        )
+    val unflattenedJsonObject = FhirJsonTransformer.unflatten(oldJsonObject, multiChoiceProperties)
+    val surrogate =
+      jsonDecoder.json.decodeFromJsonElement(surrogateSerializer, unflattenedJsonObject)
+    return surrogate.toModel()
+  }
+
+  override fun serialize(encoder: Encoder, `value`: ValueSet.Expansion.Contains.Property) {
+    val jsonEncoder =
+      encoder as? JsonEncoder ?: error("This serializer only supports JSON encoding")
+    val surrogate = ValueSetExpansionContainsPropertySurrogate.fromModel(value)
+    val oldJsonObject =
+      if (resourceType.isNullOrBlank()) {
+        jsonEncoder.json.encodeToJsonElement(surrogateSerializer, surrogate).jsonObject
+      } else {
+        JsonObject(
+          mutableMapOf("resourceType" to JsonPrimitive(resourceType))
+            .plus(jsonEncoder.json.encodeToJsonElement(surrogateSerializer, surrogate).jsonObject)
+        )
+      }
+    val flattenedJsonObject = FhirJsonTransformer.flatten(oldJsonObject, multiChoiceProperties)
+    jsonEncoder.encodeJsonElement(flattenedJsonObject)
   }
 }
 
@@ -306,111 +341,6 @@ public object ValueSetExpansionContainsPropertySubPropertySerializer :
   }
 }
 
-public object ValueSetExpansionContainsPropertyValueSerializer :
-  KSerializer<ValueSet.Expansion.Contains.Property.Value> {
-  internal val surrogateSerializer:
-    KSerializer<ValueSetExpansionContainsPropertyValueSurrogate> by lazy {
-    ValueSetExpansionContainsPropertyValueSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Value", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): ValueSet.Expansion.Contains.Property.Value =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: ValueSet.Expansion.Contains.Property.Value) {
-    surrogateSerializer.serialize(
-      encoder,
-      ValueSetExpansionContainsPropertyValueSurrogate.fromModel(value),
-    )
-  }
-}
-
-public object ValueSetExpansionContainsPropertySerializer :
-  KSerializer<ValueSet.Expansion.Contains.Property> {
-  internal val surrogateSerializer:
-    KSerializer<ValueSetExpansionContainsPropertySurrogate> by lazy {
-    ValueSetExpansionContainsPropertySurrogate.serializer()
-  }
-
-  private val resourceType: String? = null
-
-  private val multiChoiceProperties: List<String> = listOf("value")
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Property", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): ValueSet.Expansion.Contains.Property {
-    val jsonDecoder =
-      decoder as? JsonDecoder ?: error("This serializer only supports JSON decoding")
-    val oldJsonObject =
-      if (resourceType.isNullOrBlank()) {
-        jsonDecoder.decodeJsonElement().jsonObject
-      } else
-        JsonObject(
-          jsonDecoder.decodeJsonElement().jsonObject.toMutableMap().apply { remove("resourceType") }
-        )
-    val unflattenedJsonObject = FhirJsonTransformer.unflatten(oldJsonObject, multiChoiceProperties)
-    val surrogate =
-      jsonDecoder.json.decodeFromJsonElement(surrogateSerializer, unflattenedJsonObject)
-    return surrogate.toModel()
-  }
-
-  override fun serialize(encoder: Encoder, `value`: ValueSet.Expansion.Contains.Property) {
-    val jsonEncoder =
-      encoder as? JsonEncoder ?: error("This serializer only supports JSON encoding")
-    val surrogate = ValueSetExpansionContainsPropertySurrogate.fromModel(value)
-    val oldJsonObject =
-      if (resourceType.isNullOrBlank()) {
-        jsonEncoder.json.encodeToJsonElement(surrogateSerializer, surrogate).jsonObject
-      } else {
-        JsonObject(
-          mutableMapOf("resourceType" to JsonPrimitive(resourceType))
-            .plus(jsonEncoder.json.encodeToJsonElement(surrogateSerializer, surrogate).jsonObject)
-        )
-      }
-    val flattenedJsonObject = FhirJsonTransformer.flatten(oldJsonObject, multiChoiceProperties)
-    jsonEncoder.encodeJsonElement(flattenedJsonObject)
-  }
-}
-
-public object ValueSetExpansionContainsSerializer : KSerializer<ValueSet.Expansion.Contains> {
-  internal val surrogateSerializer: KSerializer<ValueSetExpansionContainsSurrogate> by lazy {
-    ValueSetExpansionContainsSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Contains", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): ValueSet.Expansion.Contains =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: ValueSet.Expansion.Contains) {
-    surrogateSerializer.serialize(encoder, ValueSetExpansionContainsSurrogate.fromModel(value))
-  }
-}
-
-public object ValueSetExpansionSerializer : KSerializer<ValueSet.Expansion> {
-  internal val surrogateSerializer: KSerializer<ValueSetExpansionSurrogate> by lazy {
-    ValueSetExpansionSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Expansion", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): ValueSet.Expansion =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: ValueSet.Expansion) {
-    surrogateSerializer.serialize(encoder, ValueSetExpansionSurrogate.fromModel(value))
-  }
-}
-
 public object ValueSetScopeSerializer : KSerializer<ValueSet.Scope> {
   internal val surrogateSerializer: KSerializer<ValueSetScopeSurrogate> by lazy {
     ValueSetScopeSurrogate.serializer()
@@ -442,6 +372,76 @@ public object ValueSetVersionAlgorithmSerializer : KSerializer<ValueSet.VersionA
 
   override fun serialize(encoder: Encoder, `value`: ValueSet.VersionAlgorithm) {
     surrogateSerializer.serialize(encoder, ValueSetVersionAlgorithmSurrogate.fromModel(value))
+  }
+}
+
+public object ValueSetExpansionParameterValueSerializer :
+  KSerializer<ValueSet.Expansion.Parameter.Value> {
+  internal val surrogateSerializer: KSerializer<ValueSetExpansionParameterValueSurrogate> by lazy {
+    ValueSetExpansionParameterValueSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Value", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): ValueSet.Expansion.Parameter.Value =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: ValueSet.Expansion.Parameter.Value) {
+    surrogateSerializer.serialize(
+      encoder,
+      ValueSetExpansionParameterValueSurrogate.fromModel(value),
+    )
+  }
+}
+
+public object ValueSetExpansionContainsPropertyValueSerializer :
+  KSerializer<ValueSet.Expansion.Contains.Property.Value> {
+  internal val surrogateSerializer:
+    KSerializer<ValueSetExpansionContainsPropertyValueSurrogate> by lazy {
+    ValueSetExpansionContainsPropertyValueSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Value", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): ValueSet.Expansion.Contains.Property.Value =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: ValueSet.Expansion.Contains.Property.Value) {
+    surrogateSerializer.serialize(
+      encoder,
+      ValueSetExpansionContainsPropertyValueSurrogate.fromModel(value),
+    )
+  }
+}
+
+public object ValueSetExpansionContainsPropertySubPropertyValueSerializer :
+  KSerializer<ValueSet.Expansion.Contains.Property.SubProperty.Value> {
+  internal val surrogateSerializer:
+    KSerializer<ValueSetExpansionContainsPropertySubPropertyValueSurrogate> by lazy {
+    ValueSetExpansionContainsPropertySubPropertyValueSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Value", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(
+    decoder: Decoder
+  ): ValueSet.Expansion.Contains.Property.SubProperty.Value =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(
+    encoder: Encoder,
+    `value`: ValueSet.Expansion.Contains.Property.SubProperty.Value,
+  ) {
+    surrogateSerializer.serialize(
+      encoder,
+      ValueSetExpansionContainsPropertySubPropertyValueSurrogate.fromModel(value),
+    )
   }
 }
 

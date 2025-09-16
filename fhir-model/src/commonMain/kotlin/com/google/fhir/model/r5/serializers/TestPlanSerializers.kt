@@ -61,6 +61,23 @@ public object TestPlanDependencySerializer : KSerializer<TestPlan.Dependency> {
   }
 }
 
+public object TestPlanTestCaseSerializer : KSerializer<TestPlan.TestCase> {
+  internal val surrogateSerializer: KSerializer<TestPlanTestCaseSurrogate> by lazy {
+    TestPlanTestCaseSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("TestCase", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): TestPlan.TestCase =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: TestPlan.TestCase) {
+    surrogateSerializer.serialize(encoder, TestPlanTestCaseSurrogate.fromModel(value))
+  }
+}
+
 public object TestPlanTestCaseDependencySerializer : KSerializer<TestPlan.TestCase.Dependency> {
   internal val surrogateSerializer: KSerializer<TestPlanTestCaseDependencySurrogate> by lazy {
     TestPlanTestCaseDependencySurrogate.serializer()
@@ -78,25 +95,20 @@ public object TestPlanTestCaseDependencySerializer : KSerializer<TestPlan.TestCa
   }
 }
 
-public object TestPlanTestCaseTestRunScriptSourceSerializer :
-  KSerializer<TestPlan.TestCase.TestRun.Script.Source> {
-  internal val surrogateSerializer:
-    KSerializer<TestPlanTestCaseTestRunScriptSourceSurrogate> by lazy {
-    TestPlanTestCaseTestRunScriptSourceSurrogate.serializer()
+public object TestPlanTestCaseTestRunSerializer : KSerializer<TestPlan.TestCase.TestRun> {
+  internal val surrogateSerializer: KSerializer<TestPlanTestCaseTestRunSurrogate> by lazy {
+    TestPlanTestCaseTestRunSurrogate.serializer()
   }
 
   override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Source", surrogateSerializer.descriptor)
+    SerialDescriptor("TestRun", surrogateSerializer.descriptor)
   }
 
-  override fun deserialize(decoder: Decoder): TestPlan.TestCase.TestRun.Script.Source =
+  override fun deserialize(decoder: Decoder): TestPlan.TestCase.TestRun =
     surrogateSerializer.deserialize(decoder).toModel()
 
-  override fun serialize(encoder: Encoder, `value`: TestPlan.TestCase.TestRun.Script.Source) {
-    surrogateSerializer.serialize(
-      encoder,
-      TestPlanTestCaseTestRunScriptSourceSurrogate.fromModel(value),
-    )
+  override fun serialize(encoder: Encoder, `value`: TestPlan.TestCase.TestRun) {
+    surrogateSerializer.serialize(encoder, TestPlanTestCaseTestRunSurrogate.fromModel(value))
   }
 }
 
@@ -145,41 +157,6 @@ public object TestPlanTestCaseTestRunScriptSerializer :
       }
     val flattenedJsonObject = FhirJsonTransformer.flatten(oldJsonObject, multiChoiceProperties)
     jsonEncoder.encodeJsonElement(flattenedJsonObject)
-  }
-}
-
-public object TestPlanTestCaseTestRunSerializer : KSerializer<TestPlan.TestCase.TestRun> {
-  internal val surrogateSerializer: KSerializer<TestPlanTestCaseTestRunSurrogate> by lazy {
-    TestPlanTestCaseTestRunSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("TestRun", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): TestPlan.TestCase.TestRun =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: TestPlan.TestCase.TestRun) {
-    surrogateSerializer.serialize(encoder, TestPlanTestCaseTestRunSurrogate.fromModel(value))
-  }
-}
-
-public object TestPlanTestCaseTestDataSourceSerializer :
-  KSerializer<TestPlan.TestCase.TestData.Source> {
-  internal val surrogateSerializer: KSerializer<TestPlanTestCaseTestDataSourceSurrogate> by lazy {
-    TestPlanTestCaseTestDataSourceSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Source", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): TestPlan.TestCase.TestData.Source =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: TestPlan.TestCase.TestData.Source) {
-    surrogateSerializer.serialize(encoder, TestPlanTestCaseTestDataSourceSurrogate.fromModel(value))
   }
 }
 
@@ -247,23 +224,6 @@ public object TestPlanTestCaseAssertionSerializer : KSerializer<TestPlan.TestCas
   }
 }
 
-public object TestPlanTestCaseSerializer : KSerializer<TestPlan.TestCase> {
-  internal val surrogateSerializer: KSerializer<TestPlanTestCaseSurrogate> by lazy {
-    TestPlanTestCaseSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("TestCase", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): TestPlan.TestCase =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: TestPlan.TestCase) {
-    surrogateSerializer.serialize(encoder, TestPlanTestCaseSurrogate.fromModel(value))
-  }
-}
-
 public object TestPlanVersionAlgorithmSerializer : KSerializer<TestPlan.VersionAlgorithm> {
   internal val surrogateSerializer: KSerializer<TestPlanVersionAlgorithmSurrogate> by lazy {
     TestPlanVersionAlgorithmSurrogate.serializer()
@@ -278,6 +238,46 @@ public object TestPlanVersionAlgorithmSerializer : KSerializer<TestPlan.VersionA
 
   override fun serialize(encoder: Encoder, `value`: TestPlan.VersionAlgorithm) {
     surrogateSerializer.serialize(encoder, TestPlanVersionAlgorithmSurrogate.fromModel(value))
+  }
+}
+
+public object TestPlanTestCaseTestRunScriptSourceSerializer :
+  KSerializer<TestPlan.TestCase.TestRun.Script.Source> {
+  internal val surrogateSerializer:
+    KSerializer<TestPlanTestCaseTestRunScriptSourceSurrogate> by lazy {
+    TestPlanTestCaseTestRunScriptSourceSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Source", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): TestPlan.TestCase.TestRun.Script.Source =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: TestPlan.TestCase.TestRun.Script.Source) {
+    surrogateSerializer.serialize(
+      encoder,
+      TestPlanTestCaseTestRunScriptSourceSurrogate.fromModel(value),
+    )
+  }
+}
+
+public object TestPlanTestCaseTestDataSourceSerializer :
+  KSerializer<TestPlan.TestCase.TestData.Source> {
+  internal val surrogateSerializer: KSerializer<TestPlanTestCaseTestDataSourceSurrogate> by lazy {
+    TestPlanTestCaseTestDataSourceSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Source", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): TestPlan.TestCase.TestData.Source =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: TestPlan.TestCase.TestData.Source) {
+    surrogateSerializer.serialize(encoder, TestPlanTestCaseTestDataSourceSurrogate.fromModel(value))
   }
 }
 

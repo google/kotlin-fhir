@@ -81,6 +81,46 @@ internal data class InvoiceParticipantSurrogate(
 }
 
 @Serializable
+internal data class InvoiceLineItemSurrogate(
+  public var id: KotlinString? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var sequence: Int? = null,
+  public var _sequence: Element? = null,
+  public var chargeItem: Invoice.LineItem.ChargeItem,
+  public var priceComponent: MutableList<Invoice.LineItem.PriceComponent>? = null,
+) {
+  public fun toModel(): Invoice.LineItem =
+    Invoice.LineItem(
+      id = this@InvoiceLineItemSurrogate.id,
+      extension = this@InvoiceLineItemSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@InvoiceLineItemSurrogate.modifierExtension ?: mutableListOf(),
+      sequence =
+        PositiveInt.of(
+          this@InvoiceLineItemSurrogate.sequence,
+          this@InvoiceLineItemSurrogate._sequence,
+        ),
+      chargeItem = this@InvoiceLineItemSurrogate.chargeItem,
+      priceComponent = this@InvoiceLineItemSurrogate.priceComponent ?: mutableListOf(),
+    )
+
+  public companion object {
+    public fun fromModel(model: Invoice.LineItem): InvoiceLineItemSurrogate =
+      with(model) {
+        InvoiceLineItemSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          sequence = this@with.sequence?.value,
+          _sequence = this@with.sequence?.toElement(),
+          chargeItem = this@with.chargeItem,
+          priceComponent = this@with.priceComponent.takeUnless { it.all { it == null } },
+        )
+      }
+  }
+}
+
+@Serializable
 internal data class InvoiceLineItemPriceComponentSurrogate(
   public var id: KotlinString? = null,
   public var extension: MutableList<Extension>? = null,
@@ -151,46 +191,6 @@ internal data class InvoiceLineItemChargeItemSurrogate(
         InvoiceLineItemChargeItemSurrogate(
           chargeItemReference = this@with.asReference()?.value,
           chargeItemCodeableConcept = this@with.asCodeableConcept()?.value,
-        )
-      }
-  }
-}
-
-@Serializable
-internal data class InvoiceLineItemSurrogate(
-  public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var sequence: Int? = null,
-  public var _sequence: Element? = null,
-  public var chargeItem: Invoice.LineItem.ChargeItem,
-  public var priceComponent: MutableList<Invoice.LineItem.PriceComponent>? = null,
-) {
-  public fun toModel(): Invoice.LineItem =
-    Invoice.LineItem(
-      id = this@InvoiceLineItemSurrogate.id,
-      extension = this@InvoiceLineItemSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@InvoiceLineItemSurrogate.modifierExtension ?: mutableListOf(),
-      sequence =
-        PositiveInt.of(
-          this@InvoiceLineItemSurrogate.sequence,
-          this@InvoiceLineItemSurrogate._sequence,
-        ),
-      chargeItem = this@InvoiceLineItemSurrogate.chargeItem,
-      priceComponent = this@InvoiceLineItemSurrogate.priceComponent ?: mutableListOf(),
-    )
-
-  public companion object {
-    public fun fromModel(model: Invoice.LineItem): InvoiceLineItemSurrogate =
-      with(model) {
-        InvoiceLineItemSurrogate(
-          id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          sequence = this@with.sequence?.value,
-          _sequence = this@with.sequence?.toElement(),
-          chargeItem = this@with.chargeItem,
-          priceComponent = this@with.priceComponent.takeUnless { it.all { it == null } },
         )
       }
   }

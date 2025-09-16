@@ -37,53 +37,6 @@ import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.JsonPrimitive
 import kotlinx.serialization.json.jsonObject
 
-public object EvidenceVariableCharacteristicDefinitionSerializer :
-  KSerializer<EvidenceVariable.Characteristic.Definition> {
-  internal val surrogateSerializer:
-    KSerializer<EvidenceVariableCharacteristicDefinitionSurrogate> by lazy {
-    EvidenceVariableCharacteristicDefinitionSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Definition", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): EvidenceVariable.Characteristic.Definition =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: EvidenceVariable.Characteristic.Definition) {
-    surrogateSerializer.serialize(
-      encoder,
-      EvidenceVariableCharacteristicDefinitionSurrogate.fromModel(value),
-    )
-  }
-}
-
-public object EvidenceVariableCharacteristicParticipantEffectiveSerializer :
-  KSerializer<EvidenceVariable.Characteristic.ParticipantEffective> {
-  internal val surrogateSerializer:
-    KSerializer<EvidenceVariableCharacteristicParticipantEffectiveSurrogate> by lazy {
-    EvidenceVariableCharacteristicParticipantEffectiveSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("ParticipantEffective", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): EvidenceVariable.Characteristic.ParticipantEffective =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(
-    encoder: Encoder,
-    `value`: EvidenceVariable.Characteristic.ParticipantEffective,
-  ) {
-    surrogateSerializer.serialize(
-      encoder,
-      EvidenceVariableCharacteristicParticipantEffectiveSurrogate.fromModel(value),
-    )
-  }
-}
-
 public object EvidenceVariableCharacteristicSerializer :
   KSerializer<EvidenceVariable.Characteristic> {
   internal val surrogateSerializer: KSerializer<EvidenceVariableCharacteristicSurrogate> by lazy {
@@ -129,6 +82,53 @@ public object EvidenceVariableCharacteristicSerializer :
       }
     val flattenedJsonObject = FhirJsonTransformer.flatten(oldJsonObject, multiChoiceProperties)
     jsonEncoder.encodeJsonElement(flattenedJsonObject)
+  }
+}
+
+public object EvidenceVariableCharacteristicDefinitionSerializer :
+  KSerializer<EvidenceVariable.Characteristic.Definition> {
+  internal val surrogateSerializer:
+    KSerializer<EvidenceVariableCharacteristicDefinitionSurrogate> by lazy {
+    EvidenceVariableCharacteristicDefinitionSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Definition", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): EvidenceVariable.Characteristic.Definition =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: EvidenceVariable.Characteristic.Definition) {
+    surrogateSerializer.serialize(
+      encoder,
+      EvidenceVariableCharacteristicDefinitionSurrogate.fromModel(value),
+    )
+  }
+}
+
+public object EvidenceVariableCharacteristicParticipantEffectiveSerializer :
+  KSerializer<EvidenceVariable.Characteristic.ParticipantEffective> {
+  internal val surrogateSerializer:
+    KSerializer<EvidenceVariableCharacteristicParticipantEffectiveSurrogate> by lazy {
+    EvidenceVariableCharacteristicParticipantEffectiveSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("ParticipantEffective", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): EvidenceVariable.Characteristic.ParticipantEffective =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(
+    encoder: Encoder,
+    `value`: EvidenceVariable.Characteristic.ParticipantEffective,
+  ) {
+    surrogateSerializer.serialize(
+      encoder,
+      EvidenceVariableCharacteristicParticipantEffectiveSurrogate.fromModel(value),
+    )
   }
 }
 

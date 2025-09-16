@@ -48,41 +48,6 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
-internal data class SupplyRequestParameterValueSurrogate(
-  public var valueCodeableConcept: CodeableConcept? = null,
-  public var valueQuantity: Quantity? = null,
-  public var valueRange: Range? = null,
-  public var valueBoolean: KotlinBoolean? = null,
-  public var _valueBoolean: Element? = null,
-) {
-  public fun toModel(): SupplyRequest.Parameter.Value =
-    SupplyRequest.Parameter.Value?.from(
-      this@SupplyRequestParameterValueSurrogate.valueCodeableConcept,
-      this@SupplyRequestParameterValueSurrogate.valueQuantity,
-      this@SupplyRequestParameterValueSurrogate.valueRange,
-      R4Boolean.of(
-        this@SupplyRequestParameterValueSurrogate.valueBoolean,
-        this@SupplyRequestParameterValueSurrogate._valueBoolean,
-      ),
-    )!!
-
-  public companion object {
-    public fun fromModel(
-      model: SupplyRequest.Parameter.Value
-    ): SupplyRequestParameterValueSurrogate =
-      with(model) {
-        SupplyRequestParameterValueSurrogate(
-          valueCodeableConcept = this@with.asCodeableConcept()?.value,
-          valueQuantity = this@with.asQuantity()?.value,
-          valueRange = this@with.asRange()?.value,
-          valueBoolean = this@with.asBoolean()?.value?.value,
-          _valueBoolean = this@with.asBoolean()?.value?.toElement(),
-        )
-      }
-  }
-}
-
-@Serializable
 internal data class SupplyRequestParameterSurrogate(
   public var id: String? = null,
   public var extension: MutableList<Extension>? = null,
@@ -136,6 +101,41 @@ internal data class SupplyRequestItemSurrogate(
 }
 
 @Serializable
+internal data class SupplyRequestParameterValueSurrogate(
+  public var valueCodeableConcept: CodeableConcept? = null,
+  public var valueQuantity: Quantity? = null,
+  public var valueRange: Range? = null,
+  public var valueBoolean: KotlinBoolean? = null,
+  public var _valueBoolean: Element? = null,
+) {
+  public fun toModel(): SupplyRequest.Parameter.Value =
+    SupplyRequest.Parameter.Value.from(
+      this@SupplyRequestParameterValueSurrogate.valueCodeableConcept,
+      this@SupplyRequestParameterValueSurrogate.valueQuantity,
+      this@SupplyRequestParameterValueSurrogate.valueRange,
+      R4Boolean.of(
+        this@SupplyRequestParameterValueSurrogate.valueBoolean,
+        this@SupplyRequestParameterValueSurrogate._valueBoolean,
+      ),
+    )!!
+
+  public companion object {
+    public fun fromModel(
+      model: SupplyRequest.Parameter.Value
+    ): SupplyRequestParameterValueSurrogate =
+      with(model) {
+        SupplyRequestParameterValueSurrogate(
+          valueCodeableConcept = this@with.asCodeableConcept()?.value,
+          valueQuantity = this@with.asQuantity()?.value,
+          valueRange = this@with.asRange()?.value,
+          valueBoolean = this@with.asBoolean()?.value?.value,
+          _valueBoolean = this@with.asBoolean()?.value?.toElement(),
+        )
+      }
+  }
+}
+
+@Serializable
 internal data class SupplyRequestOccurrenceSurrogate(
   public var occurrenceDateTime: String? = null,
   public var _occurrenceDateTime: Element? = null,
@@ -143,7 +143,7 @@ internal data class SupplyRequestOccurrenceSurrogate(
   public var occurrenceTiming: Timing? = null,
 ) {
   public fun toModel(): SupplyRequest.Occurrence =
-    SupplyRequest.Occurrence?.from(
+    SupplyRequest.Occurrence.from(
       DateTime.of(
         FhirDateTime.fromString(this@SupplyRequestOccurrenceSurrogate.occurrenceDateTime),
         this@SupplyRequestOccurrenceSurrogate._occurrenceDateTime,

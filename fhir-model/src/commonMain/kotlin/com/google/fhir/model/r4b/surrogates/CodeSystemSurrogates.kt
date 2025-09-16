@@ -192,6 +192,63 @@ internal data class CodeSystemPropertySurrogate(
 }
 
 @Serializable
+internal data class CodeSystemConceptSurrogate(
+  public var id: KotlinString? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var code: KotlinString? = null,
+  public var _code: Element? = null,
+  public var display: KotlinString? = null,
+  public var _display: Element? = null,
+  public var definition: KotlinString? = null,
+  public var _definition: Element? = null,
+  public var designation: MutableList<CodeSystem.Concept.Designation>? = null,
+  public var `property`: MutableList<CodeSystem.Concept.Property>? = null,
+  public var concept: MutableList<CodeSystem.Concept>? = null,
+) {
+  public fun toModel(): CodeSystem.Concept =
+    CodeSystem.Concept(
+      id = this@CodeSystemConceptSurrogate.id,
+      extension = this@CodeSystemConceptSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@CodeSystemConceptSurrogate.modifierExtension ?: mutableListOf(),
+      code = Code.of(this@CodeSystemConceptSurrogate.code, this@CodeSystemConceptSurrogate._code)!!,
+      display =
+        R4bString.of(
+          this@CodeSystemConceptSurrogate.display,
+          this@CodeSystemConceptSurrogate._display,
+        ),
+      definition =
+        R4bString.of(
+          this@CodeSystemConceptSurrogate.definition,
+          this@CodeSystemConceptSurrogate._definition,
+        ),
+      designation = this@CodeSystemConceptSurrogate.designation ?: mutableListOf(),
+      `property` = this@CodeSystemConceptSurrogate.`property` ?: mutableListOf(),
+      concept = this@CodeSystemConceptSurrogate.concept ?: mutableListOf(),
+    )
+
+  public companion object {
+    public fun fromModel(model: CodeSystem.Concept): CodeSystemConceptSurrogate =
+      with(model) {
+        CodeSystemConceptSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          code = this@with.code.value,
+          _code = this@with.code.toElement(),
+          display = this@with.display?.value,
+          _display = this@with.display?.toElement(),
+          definition = this@with.definition?.value,
+          _definition = this@with.definition?.toElement(),
+          designation = this@with.designation.takeUnless { it.all { it == null } },
+          `property` = this@with.`property`.takeUnless { it.all { it == null } },
+          concept = this@with.concept.takeUnless { it.all { it == null } },
+        )
+      }
+  }
+}
+
+@Serializable
 internal data class CodeSystemConceptDesignationSurrogate(
   public var id: KotlinString? = null,
   public var extension: MutableList<Extension>? = null,
@@ -237,6 +294,44 @@ internal data class CodeSystemConceptDesignationSurrogate(
           use = this@with.use,
           `value` = this@with.`value`.value,
           _value = this@with.`value`.toElement(),
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class CodeSystemConceptPropertySurrogate(
+  public var id: KotlinString? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var code: KotlinString? = null,
+  public var _code: Element? = null,
+  public var `value`: CodeSystem.Concept.Property.Value,
+) {
+  public fun toModel(): CodeSystem.Concept.Property =
+    CodeSystem.Concept.Property(
+      id = this@CodeSystemConceptPropertySurrogate.id,
+      extension = this@CodeSystemConceptPropertySurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@CodeSystemConceptPropertySurrogate.modifierExtension ?: mutableListOf(),
+      code =
+        Code.of(
+          this@CodeSystemConceptPropertySurrogate.code,
+          this@CodeSystemConceptPropertySurrogate._code,
+        )!!,
+      `value` = this@CodeSystemConceptPropertySurrogate.`value`,
+    )
+
+  public companion object {
+    public fun fromModel(model: CodeSystem.Concept.Property): CodeSystemConceptPropertySurrogate =
+      with(model) {
+        CodeSystemConceptPropertySurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          code = this@with.code.value,
+          _code = this@with.code.toElement(),
+          `value` = this@with.`value`,
         )
       }
   }
@@ -306,101 +401,6 @@ internal data class CodeSystemConceptPropertyValueSurrogate(
           _valueDateTime = this@with.asDateTime()?.value?.toElement(),
           valueDecimal = this@with.asDecimal()?.value?.value,
           _valueDecimal = this@with.asDecimal()?.value?.toElement(),
-        )
-      }
-  }
-}
-
-@Serializable
-internal data class CodeSystemConceptPropertySurrogate(
-  public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var code: KotlinString? = null,
-  public var _code: Element? = null,
-  public var `value`: CodeSystem.Concept.Property.Value,
-) {
-  public fun toModel(): CodeSystem.Concept.Property =
-    CodeSystem.Concept.Property(
-      id = this@CodeSystemConceptPropertySurrogate.id,
-      extension = this@CodeSystemConceptPropertySurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@CodeSystemConceptPropertySurrogate.modifierExtension ?: mutableListOf(),
-      code =
-        Code.of(
-          this@CodeSystemConceptPropertySurrogate.code,
-          this@CodeSystemConceptPropertySurrogate._code,
-        )!!,
-      `value` = this@CodeSystemConceptPropertySurrogate.`value`,
-    )
-
-  public companion object {
-    public fun fromModel(model: CodeSystem.Concept.Property): CodeSystemConceptPropertySurrogate =
-      with(model) {
-        CodeSystemConceptPropertySurrogate(
-          id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          code = this@with.code.value,
-          _code = this@with.code.toElement(),
-          `value` = this@with.`value`,
-        )
-      }
-  }
-}
-
-@Serializable
-internal data class CodeSystemConceptSurrogate(
-  public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var code: KotlinString? = null,
-  public var _code: Element? = null,
-  public var display: KotlinString? = null,
-  public var _display: Element? = null,
-  public var definition: KotlinString? = null,
-  public var _definition: Element? = null,
-  public var designation: MutableList<CodeSystem.Concept.Designation>? = null,
-  public var `property`: MutableList<CodeSystem.Concept.Property>? = null,
-  public var concept: MutableList<CodeSystem.Concept>? = null,
-) {
-  public fun toModel(): CodeSystem.Concept =
-    CodeSystem.Concept(
-      id = this@CodeSystemConceptSurrogate.id,
-      extension = this@CodeSystemConceptSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@CodeSystemConceptSurrogate.modifierExtension ?: mutableListOf(),
-      code = Code.of(this@CodeSystemConceptSurrogate.code, this@CodeSystemConceptSurrogate._code)!!,
-      display =
-        R4bString.of(
-          this@CodeSystemConceptSurrogate.display,
-          this@CodeSystemConceptSurrogate._display,
-        ),
-      definition =
-        R4bString.of(
-          this@CodeSystemConceptSurrogate.definition,
-          this@CodeSystemConceptSurrogate._definition,
-        ),
-      designation = this@CodeSystemConceptSurrogate.designation ?: mutableListOf(),
-      `property` = this@CodeSystemConceptSurrogate.`property` ?: mutableListOf(),
-      concept = this@CodeSystemConceptSurrogate.concept ?: mutableListOf(),
-    )
-
-  public companion object {
-    public fun fromModel(model: CodeSystem.Concept): CodeSystemConceptSurrogate =
-      with(model) {
-        CodeSystemConceptSurrogate(
-          id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          code = this@with.code.value,
-          _code = this@with.code.toElement(),
-          display = this@with.display?.value,
-          _display = this@with.display?.toElement(),
-          definition = this@with.definition?.value,
-          _definition = this@with.definition?.toElement(),
-          designation = this@with.designation.takeUnless { it.all { it == null } },
-          `property` = this@with.`property`.takeUnless { it.all { it == null } },
-          concept = this@with.concept.takeUnless { it.all { it == null } },
         )
       }
   }

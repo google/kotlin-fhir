@@ -43,6 +43,38 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
+internal data class AdverseEventSuspectEntitySurrogate(
+  public var id: KotlinString? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var instance: Reference,
+  public var causality: MutableList<AdverseEvent.SuspectEntity.Causality>? = null,
+) {
+  public fun toModel(): AdverseEvent.SuspectEntity =
+    AdverseEvent.SuspectEntity(
+      id = this@AdverseEventSuspectEntitySurrogate.id,
+      extension = this@AdverseEventSuspectEntitySurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@AdverseEventSuspectEntitySurrogate.modifierExtension ?: mutableListOf(),
+      instance = this@AdverseEventSuspectEntitySurrogate.instance,
+      causality = this@AdverseEventSuspectEntitySurrogate.causality ?: mutableListOf(),
+    )
+
+  public companion object {
+    public fun fromModel(model: AdverseEvent.SuspectEntity): AdverseEventSuspectEntitySurrogate =
+      with(model) {
+        AdverseEventSuspectEntitySurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          instance = this@with.instance,
+          causality = this@with.causality.takeUnless { it.all { it == null } },
+        )
+      }
+  }
+}
+
+@Serializable
 internal data class AdverseEventSuspectEntityCausalitySurrogate(
   public var id: KotlinString? = null,
   public var extension: MutableList<Extension>? = null,
@@ -83,38 +115,6 @@ internal data class AdverseEventSuspectEntityCausalitySurrogate(
           _productRelatedness = this@with.productRelatedness?.toElement(),
           author = this@with.author,
           method = this@with.method,
-        )
-      }
-  }
-}
-
-@Serializable
-internal data class AdverseEventSuspectEntitySurrogate(
-  public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var instance: Reference,
-  public var causality: MutableList<AdverseEvent.SuspectEntity.Causality>? = null,
-) {
-  public fun toModel(): AdverseEvent.SuspectEntity =
-    AdverseEvent.SuspectEntity(
-      id = this@AdverseEventSuspectEntitySurrogate.id,
-      extension = this@AdverseEventSuspectEntitySurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@AdverseEventSuspectEntitySurrogate.modifierExtension ?: mutableListOf(),
-      instance = this@AdverseEventSuspectEntitySurrogate.instance,
-      causality = this@AdverseEventSuspectEntitySurrogate.causality ?: mutableListOf(),
-    )
-
-  public companion object {
-    public fun fromModel(model: AdverseEvent.SuspectEntity): AdverseEventSuspectEntitySurrogate =
-      with(model) {
-        AdverseEventSuspectEntitySurrogate(
-          id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          instance = this@with.instance,
-          causality = this@with.causality.takeUnless { it.all { it == null } },
         )
       }
   }

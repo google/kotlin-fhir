@@ -56,437 +56,6 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
-internal data class RequestOrchestrationActionConditionSurrogate(
-  public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var kind: KotlinString? = null,
-  public var _kind: Element? = null,
-  public var expression: Expression? = null,
-) {
-  public fun toModel(): RequestOrchestration.Action.Condition =
-    RequestOrchestration.Action.Condition(
-      id = this@RequestOrchestrationActionConditionSurrogate.id,
-      extension = this@RequestOrchestrationActionConditionSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@RequestOrchestrationActionConditionSurrogate.modifierExtension ?: mutableListOf(),
-      kind =
-        Enumeration.of(
-          com.google.fhir.model.r5.RequestOrchestration.ActionConditionKind.fromCode(
-            this@RequestOrchestrationActionConditionSurrogate.kind!!
-          ),
-          this@RequestOrchestrationActionConditionSurrogate._kind,
-        ),
-      expression = this@RequestOrchestrationActionConditionSurrogate.expression,
-    )
-
-  public companion object {
-    public fun fromModel(
-      model: RequestOrchestration.Action.Condition
-    ): RequestOrchestrationActionConditionSurrogate =
-      with(model) {
-        RequestOrchestrationActionConditionSurrogate(
-          id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          kind = this@with.kind.value?.getCode(),
-          _kind = this@with.kind.toElement(),
-          expression = this@with.expression,
-        )
-      }
-  }
-}
-
-@Serializable
-internal data class RequestOrchestrationActionInputSurrogate(
-  public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var title: KotlinString? = null,
-  public var _title: Element? = null,
-  public var requirement: DataRequirement? = null,
-  public var relatedData: KotlinString? = null,
-  public var _relatedData: Element? = null,
-) {
-  public fun toModel(): RequestOrchestration.Action.Input =
-    RequestOrchestration.Action.Input(
-      id = this@RequestOrchestrationActionInputSurrogate.id,
-      extension = this@RequestOrchestrationActionInputSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@RequestOrchestrationActionInputSurrogate.modifierExtension ?: mutableListOf(),
-      title =
-        R5String.of(
-          this@RequestOrchestrationActionInputSurrogate.title,
-          this@RequestOrchestrationActionInputSurrogate._title,
-        ),
-      requirement = this@RequestOrchestrationActionInputSurrogate.requirement,
-      relatedData =
-        Id.of(
-          this@RequestOrchestrationActionInputSurrogate.relatedData,
-          this@RequestOrchestrationActionInputSurrogate._relatedData,
-        ),
-    )
-
-  public companion object {
-    public fun fromModel(
-      model: RequestOrchestration.Action.Input
-    ): RequestOrchestrationActionInputSurrogate =
-      with(model) {
-        RequestOrchestrationActionInputSurrogate(
-          id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          title = this@with.title?.value,
-          _title = this@with.title?.toElement(),
-          requirement = this@with.requirement,
-          relatedData = this@with.relatedData?.value,
-          _relatedData = this@with.relatedData?.toElement(),
-        )
-      }
-  }
-}
-
-@Serializable
-internal data class RequestOrchestrationActionOutputSurrogate(
-  public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var title: KotlinString? = null,
-  public var _title: Element? = null,
-  public var requirement: DataRequirement? = null,
-  public var relatedData: KotlinString? = null,
-  public var _relatedData: Element? = null,
-) {
-  public fun toModel(): RequestOrchestration.Action.Output =
-    RequestOrchestration.Action.Output(
-      id = this@RequestOrchestrationActionOutputSurrogate.id,
-      extension = this@RequestOrchestrationActionOutputSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@RequestOrchestrationActionOutputSurrogate.modifierExtension ?: mutableListOf(),
-      title =
-        R5String.of(
-          this@RequestOrchestrationActionOutputSurrogate.title,
-          this@RequestOrchestrationActionOutputSurrogate._title,
-        ),
-      requirement = this@RequestOrchestrationActionOutputSurrogate.requirement,
-      relatedData =
-        R5String.of(
-          this@RequestOrchestrationActionOutputSurrogate.relatedData,
-          this@RequestOrchestrationActionOutputSurrogate._relatedData,
-        ),
-    )
-
-  public companion object {
-    public fun fromModel(
-      model: RequestOrchestration.Action.Output
-    ): RequestOrchestrationActionOutputSurrogate =
-      with(model) {
-        RequestOrchestrationActionOutputSurrogate(
-          id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          title = this@with.title?.value,
-          _title = this@with.title?.toElement(),
-          requirement = this@with.requirement,
-          relatedData = this@with.relatedData?.value,
-          _relatedData = this@with.relatedData?.toElement(),
-        )
-      }
-  }
-}
-
-@Serializable
-internal data class RequestOrchestrationActionRelatedActionOffsetSurrogate(
-  public var offsetDuration: Duration? = null,
-  public var offsetRange: Range? = null,
-) {
-  public fun toModel(): RequestOrchestration.Action.RelatedAction.Offset =
-    RequestOrchestration.Action.RelatedAction.Offset?.from(
-      this@RequestOrchestrationActionRelatedActionOffsetSurrogate.offsetDuration,
-      this@RequestOrchestrationActionRelatedActionOffsetSurrogate.offsetRange,
-    )!!
-
-  public companion object {
-    public fun fromModel(
-      model: RequestOrchestration.Action.RelatedAction.Offset
-    ): RequestOrchestrationActionRelatedActionOffsetSurrogate =
-      with(model) {
-        RequestOrchestrationActionRelatedActionOffsetSurrogate(
-          offsetDuration = this@with.asDuration()?.value,
-          offsetRange = this@with.asRange()?.value,
-        )
-      }
-  }
-}
-
-@Serializable
-internal data class RequestOrchestrationActionRelatedActionSurrogate(
-  public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var targetId: KotlinString? = null,
-  public var _targetId: Element? = null,
-  public var relationship: KotlinString? = null,
-  public var _relationship: Element? = null,
-  public var endRelationship: KotlinString? = null,
-  public var _endRelationship: Element? = null,
-  public var offset: RequestOrchestration.Action.RelatedAction.Offset? = null,
-) {
-  public fun toModel(): RequestOrchestration.Action.RelatedAction =
-    RequestOrchestration.Action.RelatedAction(
-      id = this@RequestOrchestrationActionRelatedActionSurrogate.id,
-      extension =
-        this@RequestOrchestrationActionRelatedActionSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@RequestOrchestrationActionRelatedActionSurrogate.modifierExtension ?: mutableListOf(),
-      targetId =
-        Id.of(
-          this@RequestOrchestrationActionRelatedActionSurrogate.targetId,
-          this@RequestOrchestrationActionRelatedActionSurrogate._targetId,
-        )!!,
-      relationship =
-        Enumeration.of(
-          com.google.fhir.model.r5.RequestOrchestration.ActionRelationshipType.fromCode(
-            this@RequestOrchestrationActionRelatedActionSurrogate.relationship!!
-          ),
-          this@RequestOrchestrationActionRelatedActionSurrogate._relationship,
-        ),
-      endRelationship =
-        this@RequestOrchestrationActionRelatedActionSurrogate.endRelationship?.let {
-          Enumeration.of(
-            com.google.fhir.model.r5.RequestOrchestration.ActionRelationshipType.fromCode(it!!),
-            this@RequestOrchestrationActionRelatedActionSurrogate._endRelationship,
-          )
-        },
-      offset = this@RequestOrchestrationActionRelatedActionSurrogate.offset,
-    )
-
-  public companion object {
-    public fun fromModel(
-      model: RequestOrchestration.Action.RelatedAction
-    ): RequestOrchestrationActionRelatedActionSurrogate =
-      with(model) {
-        RequestOrchestrationActionRelatedActionSurrogate(
-          id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          targetId = this@with.targetId.value,
-          _targetId = this@with.targetId.toElement(),
-          relationship = this@with.relationship.value?.getCode(),
-          _relationship = this@with.relationship.toElement(),
-          endRelationship = this@with.endRelationship?.value?.getCode(),
-          _endRelationship = this@with.endRelationship?.toElement(),
-          offset = this@with.offset,
-        )
-      }
-  }
-}
-
-@Serializable
-internal data class RequestOrchestrationActionParticipantActorSurrogate(
-  public var actorCanonical: KotlinString? = null,
-  public var _actorCanonical: Element? = null,
-  public var actorReference: Reference? = null,
-) {
-  public fun toModel(): RequestOrchestration.Action.Participant.Actor =
-    RequestOrchestration.Action.Participant.Actor?.from(
-      Canonical.of(
-        this@RequestOrchestrationActionParticipantActorSurrogate.actorCanonical,
-        this@RequestOrchestrationActionParticipantActorSurrogate._actorCanonical,
-      ),
-      this@RequestOrchestrationActionParticipantActorSurrogate.actorReference,
-    )!!
-
-  public companion object {
-    public fun fromModel(
-      model: RequestOrchestration.Action.Participant.Actor
-    ): RequestOrchestrationActionParticipantActorSurrogate =
-      with(model) {
-        RequestOrchestrationActionParticipantActorSurrogate(
-          actorCanonical = this@with.asCanonical()?.value?.value,
-          _actorCanonical = this@with.asCanonical()?.value?.toElement(),
-          actorReference = this@with.asReference()?.value,
-        )
-      }
-  }
-}
-
-@Serializable
-internal data class RequestOrchestrationActionParticipantSurrogate(
-  public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var type: KotlinString? = null,
-  public var _type: Element? = null,
-  public var typeCanonical: KotlinString? = null,
-  public var _typeCanonical: Element? = null,
-  public var typeReference: Reference? = null,
-  public var role: CodeableConcept? = null,
-  public var function: CodeableConcept? = null,
-  public var actor: RequestOrchestration.Action.Participant.Actor? = null,
-) {
-  public fun toModel(): RequestOrchestration.Action.Participant =
-    RequestOrchestration.Action.Participant(
-      id = this@RequestOrchestrationActionParticipantSurrogate.id,
-      extension = this@RequestOrchestrationActionParticipantSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@RequestOrchestrationActionParticipantSurrogate.modifierExtension ?: mutableListOf(),
-      type =
-        this@RequestOrchestrationActionParticipantSurrogate.type?.let {
-          Enumeration.of(
-            com.google.fhir.model.r5.RequestOrchestration.ActionParticipantType.fromCode(it!!),
-            this@RequestOrchestrationActionParticipantSurrogate._type,
-          )
-        },
-      typeCanonical =
-        Canonical.of(
-          this@RequestOrchestrationActionParticipantSurrogate.typeCanonical,
-          this@RequestOrchestrationActionParticipantSurrogate._typeCanonical,
-        ),
-      typeReference = this@RequestOrchestrationActionParticipantSurrogate.typeReference,
-      role = this@RequestOrchestrationActionParticipantSurrogate.role,
-      function = this@RequestOrchestrationActionParticipantSurrogate.function,
-      actor = this@RequestOrchestrationActionParticipantSurrogate.actor,
-    )
-
-  public companion object {
-    public fun fromModel(
-      model: RequestOrchestration.Action.Participant
-    ): RequestOrchestrationActionParticipantSurrogate =
-      with(model) {
-        RequestOrchestrationActionParticipantSurrogate(
-          id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          type = this@with.type?.value?.getCode(),
-          _type = this@with.type?.toElement(),
-          typeCanonical = this@with.typeCanonical?.value,
-          _typeCanonical = this@with.typeCanonical?.toElement(),
-          typeReference = this@with.typeReference,
-          role = this@with.role,
-          function = this@with.function,
-          actor = this@with.actor,
-        )
-      }
-  }
-}
-
-@Serializable
-internal data class RequestOrchestrationActionDynamicValueSurrogate(
-  public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var path: KotlinString? = null,
-  public var _path: Element? = null,
-  public var expression: Expression? = null,
-) {
-  public fun toModel(): RequestOrchestration.Action.DynamicValue =
-    RequestOrchestration.Action.DynamicValue(
-      id = this@RequestOrchestrationActionDynamicValueSurrogate.id,
-      extension = this@RequestOrchestrationActionDynamicValueSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@RequestOrchestrationActionDynamicValueSurrogate.modifierExtension ?: mutableListOf(),
-      path =
-        R5String.of(
-          this@RequestOrchestrationActionDynamicValueSurrogate.path,
-          this@RequestOrchestrationActionDynamicValueSurrogate._path,
-        ),
-      expression = this@RequestOrchestrationActionDynamicValueSurrogate.expression,
-    )
-
-  public companion object {
-    public fun fromModel(
-      model: RequestOrchestration.Action.DynamicValue
-    ): RequestOrchestrationActionDynamicValueSurrogate =
-      with(model) {
-        RequestOrchestrationActionDynamicValueSurrogate(
-          id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          path = this@with.path?.value,
-          _path = this@with.path?.toElement(),
-          expression = this@with.expression,
-        )
-      }
-  }
-}
-
-@Serializable
-internal data class RequestOrchestrationActionTimingSurrogate(
-  public var timingDateTime: KotlinString? = null,
-  public var _timingDateTime: Element? = null,
-  public var timingAge: Age? = null,
-  public var timingPeriod: Period? = null,
-  public var timingDuration: Duration? = null,
-  public var timingRange: Range? = null,
-  public var timingTiming: Timing? = null,
-) {
-  public fun toModel(): RequestOrchestration.Action.Timing =
-    RequestOrchestration.Action.Timing?.from(
-      DateTime.of(
-        FhirDateTime.fromString(this@RequestOrchestrationActionTimingSurrogate.timingDateTime),
-        this@RequestOrchestrationActionTimingSurrogate._timingDateTime,
-      ),
-      this@RequestOrchestrationActionTimingSurrogate.timingAge,
-      this@RequestOrchestrationActionTimingSurrogate.timingPeriod,
-      this@RequestOrchestrationActionTimingSurrogate.timingDuration,
-      this@RequestOrchestrationActionTimingSurrogate.timingRange,
-      this@RequestOrchestrationActionTimingSurrogate.timingTiming,
-    )!!
-
-  public companion object {
-    public fun fromModel(
-      model: RequestOrchestration.Action.Timing
-    ): RequestOrchestrationActionTimingSurrogate =
-      with(model) {
-        RequestOrchestrationActionTimingSurrogate(
-          timingDateTime = this@with.asDateTime()?.value?.value?.toString(),
-          _timingDateTime = this@with.asDateTime()?.value?.toElement(),
-          timingAge = this@with.asAge()?.value,
-          timingPeriod = this@with.asPeriod()?.value,
-          timingDuration = this@with.asDuration()?.value,
-          timingRange = this@with.asRange()?.value,
-          timingTiming = this@with.asTiming()?.value,
-        )
-      }
-  }
-}
-
-@Serializable
-internal data class RequestOrchestrationActionDefinitionSurrogate(
-  public var definitionCanonical: KotlinString? = null,
-  public var _definitionCanonical: Element? = null,
-  public var definitionUri: KotlinString? = null,
-  public var _definitionUri: Element? = null,
-) {
-  public fun toModel(): RequestOrchestration.Action.Definition =
-    RequestOrchestration.Action.Definition?.from(
-      Canonical.of(
-        this@RequestOrchestrationActionDefinitionSurrogate.definitionCanonical,
-        this@RequestOrchestrationActionDefinitionSurrogate._definitionCanonical,
-      ),
-      Uri.of(
-        this@RequestOrchestrationActionDefinitionSurrogate.definitionUri,
-        this@RequestOrchestrationActionDefinitionSurrogate._definitionUri,
-      ),
-    )!!
-
-  public companion object {
-    public fun fromModel(
-      model: RequestOrchestration.Action.Definition
-    ): RequestOrchestrationActionDefinitionSurrogate =
-      with(model) {
-        RequestOrchestrationActionDefinitionSurrogate(
-          definitionCanonical = this@with.asCanonical()?.value?.value,
-          _definitionCanonical = this@with.asCanonical()?.value?.toElement(),
-          definitionUri = this@with.asUri()?.value?.value,
-          _definitionUri = this@with.asUri()?.value?.toElement(),
-        )
-      }
-  }
-}
-
-@Serializable
 internal data class RequestOrchestrationActionSurrogate(
   public var id: KotlinString? = null,
   public var extension: MutableList<Extension>? = null,
@@ -672,6 +241,437 @@ internal data class RequestOrchestrationActionSurrogate(
           _transform = this@with.transform?.toElement(),
           dynamicValue = this@with.dynamicValue.takeUnless { it.all { it == null } },
           action = this@with.action.takeUnless { it.all { it == null } },
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class RequestOrchestrationActionConditionSurrogate(
+  public var id: KotlinString? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var kind: KotlinString? = null,
+  public var _kind: Element? = null,
+  public var expression: Expression? = null,
+) {
+  public fun toModel(): RequestOrchestration.Action.Condition =
+    RequestOrchestration.Action.Condition(
+      id = this@RequestOrchestrationActionConditionSurrogate.id,
+      extension = this@RequestOrchestrationActionConditionSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@RequestOrchestrationActionConditionSurrogate.modifierExtension ?: mutableListOf(),
+      kind =
+        Enumeration.of(
+          com.google.fhir.model.r5.RequestOrchestration.ActionConditionKind.fromCode(
+            this@RequestOrchestrationActionConditionSurrogate.kind!!
+          ),
+          this@RequestOrchestrationActionConditionSurrogate._kind,
+        ),
+      expression = this@RequestOrchestrationActionConditionSurrogate.expression,
+    )
+
+  public companion object {
+    public fun fromModel(
+      model: RequestOrchestration.Action.Condition
+    ): RequestOrchestrationActionConditionSurrogate =
+      with(model) {
+        RequestOrchestrationActionConditionSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          kind = this@with.kind.value?.getCode(),
+          _kind = this@with.kind.toElement(),
+          expression = this@with.expression,
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class RequestOrchestrationActionInputSurrogate(
+  public var id: KotlinString? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var title: KotlinString? = null,
+  public var _title: Element? = null,
+  public var requirement: DataRequirement? = null,
+  public var relatedData: KotlinString? = null,
+  public var _relatedData: Element? = null,
+) {
+  public fun toModel(): RequestOrchestration.Action.Input =
+    RequestOrchestration.Action.Input(
+      id = this@RequestOrchestrationActionInputSurrogate.id,
+      extension = this@RequestOrchestrationActionInputSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@RequestOrchestrationActionInputSurrogate.modifierExtension ?: mutableListOf(),
+      title =
+        R5String.of(
+          this@RequestOrchestrationActionInputSurrogate.title,
+          this@RequestOrchestrationActionInputSurrogate._title,
+        ),
+      requirement = this@RequestOrchestrationActionInputSurrogate.requirement,
+      relatedData =
+        Id.of(
+          this@RequestOrchestrationActionInputSurrogate.relatedData,
+          this@RequestOrchestrationActionInputSurrogate._relatedData,
+        ),
+    )
+
+  public companion object {
+    public fun fromModel(
+      model: RequestOrchestration.Action.Input
+    ): RequestOrchestrationActionInputSurrogate =
+      with(model) {
+        RequestOrchestrationActionInputSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          title = this@with.title?.value,
+          _title = this@with.title?.toElement(),
+          requirement = this@with.requirement,
+          relatedData = this@with.relatedData?.value,
+          _relatedData = this@with.relatedData?.toElement(),
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class RequestOrchestrationActionOutputSurrogate(
+  public var id: KotlinString? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var title: KotlinString? = null,
+  public var _title: Element? = null,
+  public var requirement: DataRequirement? = null,
+  public var relatedData: KotlinString? = null,
+  public var _relatedData: Element? = null,
+) {
+  public fun toModel(): RequestOrchestration.Action.Output =
+    RequestOrchestration.Action.Output(
+      id = this@RequestOrchestrationActionOutputSurrogate.id,
+      extension = this@RequestOrchestrationActionOutputSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@RequestOrchestrationActionOutputSurrogate.modifierExtension ?: mutableListOf(),
+      title =
+        R5String.of(
+          this@RequestOrchestrationActionOutputSurrogate.title,
+          this@RequestOrchestrationActionOutputSurrogate._title,
+        ),
+      requirement = this@RequestOrchestrationActionOutputSurrogate.requirement,
+      relatedData =
+        R5String.of(
+          this@RequestOrchestrationActionOutputSurrogate.relatedData,
+          this@RequestOrchestrationActionOutputSurrogate._relatedData,
+        ),
+    )
+
+  public companion object {
+    public fun fromModel(
+      model: RequestOrchestration.Action.Output
+    ): RequestOrchestrationActionOutputSurrogate =
+      with(model) {
+        RequestOrchestrationActionOutputSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          title = this@with.title?.value,
+          _title = this@with.title?.toElement(),
+          requirement = this@with.requirement,
+          relatedData = this@with.relatedData?.value,
+          _relatedData = this@with.relatedData?.toElement(),
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class RequestOrchestrationActionRelatedActionSurrogate(
+  public var id: KotlinString? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var targetId: KotlinString? = null,
+  public var _targetId: Element? = null,
+  public var relationship: KotlinString? = null,
+  public var _relationship: Element? = null,
+  public var endRelationship: KotlinString? = null,
+  public var _endRelationship: Element? = null,
+  public var offset: RequestOrchestration.Action.RelatedAction.Offset? = null,
+) {
+  public fun toModel(): RequestOrchestration.Action.RelatedAction =
+    RequestOrchestration.Action.RelatedAction(
+      id = this@RequestOrchestrationActionRelatedActionSurrogate.id,
+      extension =
+        this@RequestOrchestrationActionRelatedActionSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@RequestOrchestrationActionRelatedActionSurrogate.modifierExtension ?: mutableListOf(),
+      targetId =
+        Id.of(
+          this@RequestOrchestrationActionRelatedActionSurrogate.targetId,
+          this@RequestOrchestrationActionRelatedActionSurrogate._targetId,
+        )!!,
+      relationship =
+        Enumeration.of(
+          com.google.fhir.model.r5.RequestOrchestration.ActionRelationshipType.fromCode(
+            this@RequestOrchestrationActionRelatedActionSurrogate.relationship!!
+          ),
+          this@RequestOrchestrationActionRelatedActionSurrogate._relationship,
+        ),
+      endRelationship =
+        this@RequestOrchestrationActionRelatedActionSurrogate.endRelationship?.let {
+          Enumeration.of(
+            com.google.fhir.model.r5.RequestOrchestration.ActionRelationshipType.fromCode(it!!),
+            this@RequestOrchestrationActionRelatedActionSurrogate._endRelationship,
+          )
+        },
+      offset = this@RequestOrchestrationActionRelatedActionSurrogate.offset,
+    )
+
+  public companion object {
+    public fun fromModel(
+      model: RequestOrchestration.Action.RelatedAction
+    ): RequestOrchestrationActionRelatedActionSurrogate =
+      with(model) {
+        RequestOrchestrationActionRelatedActionSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          targetId = this@with.targetId.value,
+          _targetId = this@with.targetId.toElement(),
+          relationship = this@with.relationship.value?.getCode(),
+          _relationship = this@with.relationship.toElement(),
+          endRelationship = this@with.endRelationship?.value?.getCode(),
+          _endRelationship = this@with.endRelationship?.toElement(),
+          offset = this@with.offset,
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class RequestOrchestrationActionParticipantSurrogate(
+  public var id: KotlinString? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var type: KotlinString? = null,
+  public var _type: Element? = null,
+  public var typeCanonical: KotlinString? = null,
+  public var _typeCanonical: Element? = null,
+  public var typeReference: Reference? = null,
+  public var role: CodeableConcept? = null,
+  public var function: CodeableConcept? = null,
+  public var actor: RequestOrchestration.Action.Participant.Actor? = null,
+) {
+  public fun toModel(): RequestOrchestration.Action.Participant =
+    RequestOrchestration.Action.Participant(
+      id = this@RequestOrchestrationActionParticipantSurrogate.id,
+      extension = this@RequestOrchestrationActionParticipantSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@RequestOrchestrationActionParticipantSurrogate.modifierExtension ?: mutableListOf(),
+      type =
+        this@RequestOrchestrationActionParticipantSurrogate.type?.let {
+          Enumeration.of(
+            com.google.fhir.model.r5.RequestOrchestration.ActionParticipantType.fromCode(it!!),
+            this@RequestOrchestrationActionParticipantSurrogate._type,
+          )
+        },
+      typeCanonical =
+        Canonical.of(
+          this@RequestOrchestrationActionParticipantSurrogate.typeCanonical,
+          this@RequestOrchestrationActionParticipantSurrogate._typeCanonical,
+        ),
+      typeReference = this@RequestOrchestrationActionParticipantSurrogate.typeReference,
+      role = this@RequestOrchestrationActionParticipantSurrogate.role,
+      function = this@RequestOrchestrationActionParticipantSurrogate.function,
+      actor = this@RequestOrchestrationActionParticipantSurrogate.actor,
+    )
+
+  public companion object {
+    public fun fromModel(
+      model: RequestOrchestration.Action.Participant
+    ): RequestOrchestrationActionParticipantSurrogate =
+      with(model) {
+        RequestOrchestrationActionParticipantSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          type = this@with.type?.value?.getCode(),
+          _type = this@with.type?.toElement(),
+          typeCanonical = this@with.typeCanonical?.value,
+          _typeCanonical = this@with.typeCanonical?.toElement(),
+          typeReference = this@with.typeReference,
+          role = this@with.role,
+          function = this@with.function,
+          actor = this@with.actor,
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class RequestOrchestrationActionDynamicValueSurrogate(
+  public var id: KotlinString? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var path: KotlinString? = null,
+  public var _path: Element? = null,
+  public var expression: Expression? = null,
+) {
+  public fun toModel(): RequestOrchestration.Action.DynamicValue =
+    RequestOrchestration.Action.DynamicValue(
+      id = this@RequestOrchestrationActionDynamicValueSurrogate.id,
+      extension = this@RequestOrchestrationActionDynamicValueSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@RequestOrchestrationActionDynamicValueSurrogate.modifierExtension ?: mutableListOf(),
+      path =
+        R5String.of(
+          this@RequestOrchestrationActionDynamicValueSurrogate.path,
+          this@RequestOrchestrationActionDynamicValueSurrogate._path,
+        ),
+      expression = this@RequestOrchestrationActionDynamicValueSurrogate.expression,
+    )
+
+  public companion object {
+    public fun fromModel(
+      model: RequestOrchestration.Action.DynamicValue
+    ): RequestOrchestrationActionDynamicValueSurrogate =
+      with(model) {
+        RequestOrchestrationActionDynamicValueSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          path = this@with.path?.value,
+          _path = this@with.path?.toElement(),
+          expression = this@with.expression,
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class RequestOrchestrationActionRelatedActionOffsetSurrogate(
+  public var offsetDuration: Duration? = null,
+  public var offsetRange: Range? = null,
+) {
+  public fun toModel(): RequestOrchestration.Action.RelatedAction.Offset =
+    RequestOrchestration.Action.RelatedAction.Offset.from(
+      this@RequestOrchestrationActionRelatedActionOffsetSurrogate.offsetDuration,
+      this@RequestOrchestrationActionRelatedActionOffsetSurrogate.offsetRange,
+    )!!
+
+  public companion object {
+    public fun fromModel(
+      model: RequestOrchestration.Action.RelatedAction.Offset
+    ): RequestOrchestrationActionRelatedActionOffsetSurrogate =
+      with(model) {
+        RequestOrchestrationActionRelatedActionOffsetSurrogate(
+          offsetDuration = this@with.asDuration()?.value,
+          offsetRange = this@with.asRange()?.value,
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class RequestOrchestrationActionTimingSurrogate(
+  public var timingDateTime: KotlinString? = null,
+  public var _timingDateTime: Element? = null,
+  public var timingAge: Age? = null,
+  public var timingPeriod: Period? = null,
+  public var timingDuration: Duration? = null,
+  public var timingRange: Range? = null,
+  public var timingTiming: Timing? = null,
+) {
+  public fun toModel(): RequestOrchestration.Action.Timing =
+    RequestOrchestration.Action.Timing.from(
+      DateTime.of(
+        FhirDateTime.fromString(this@RequestOrchestrationActionTimingSurrogate.timingDateTime),
+        this@RequestOrchestrationActionTimingSurrogate._timingDateTime,
+      ),
+      this@RequestOrchestrationActionTimingSurrogate.timingAge,
+      this@RequestOrchestrationActionTimingSurrogate.timingPeriod,
+      this@RequestOrchestrationActionTimingSurrogate.timingDuration,
+      this@RequestOrchestrationActionTimingSurrogate.timingRange,
+      this@RequestOrchestrationActionTimingSurrogate.timingTiming,
+    )!!
+
+  public companion object {
+    public fun fromModel(
+      model: RequestOrchestration.Action.Timing
+    ): RequestOrchestrationActionTimingSurrogate =
+      with(model) {
+        RequestOrchestrationActionTimingSurrogate(
+          timingDateTime = this@with.asDateTime()?.value?.value?.toString(),
+          _timingDateTime = this@with.asDateTime()?.value?.toElement(),
+          timingAge = this@with.asAge()?.value,
+          timingPeriod = this@with.asPeriod()?.value,
+          timingDuration = this@with.asDuration()?.value,
+          timingRange = this@with.asRange()?.value,
+          timingTiming = this@with.asTiming()?.value,
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class RequestOrchestrationActionParticipantActorSurrogate(
+  public var actorCanonical: KotlinString? = null,
+  public var _actorCanonical: Element? = null,
+  public var actorReference: Reference? = null,
+) {
+  public fun toModel(): RequestOrchestration.Action.Participant.Actor =
+    RequestOrchestration.Action.Participant.Actor.from(
+      Canonical.of(
+        this@RequestOrchestrationActionParticipantActorSurrogate.actorCanonical,
+        this@RequestOrchestrationActionParticipantActorSurrogate._actorCanonical,
+      ),
+      this@RequestOrchestrationActionParticipantActorSurrogate.actorReference,
+    )!!
+
+  public companion object {
+    public fun fromModel(
+      model: RequestOrchestration.Action.Participant.Actor
+    ): RequestOrchestrationActionParticipantActorSurrogate =
+      with(model) {
+        RequestOrchestrationActionParticipantActorSurrogate(
+          actorCanonical = this@with.asCanonical()?.value?.value,
+          _actorCanonical = this@with.asCanonical()?.value?.toElement(),
+          actorReference = this@with.asReference()?.value,
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class RequestOrchestrationActionDefinitionSurrogate(
+  public var definitionCanonical: KotlinString? = null,
+  public var _definitionCanonical: Element? = null,
+  public var definitionUri: KotlinString? = null,
+  public var _definitionUri: Element? = null,
+) {
+  public fun toModel(): RequestOrchestration.Action.Definition =
+    RequestOrchestration.Action.Definition.from(
+      Canonical.of(
+        this@RequestOrchestrationActionDefinitionSurrogate.definitionCanonical,
+        this@RequestOrchestrationActionDefinitionSurrogate._definitionCanonical,
+      ),
+      Uri.of(
+        this@RequestOrchestrationActionDefinitionSurrogate.definitionUri,
+        this@RequestOrchestrationActionDefinitionSurrogate._definitionUri,
+      ),
+    )!!
+
+  public companion object {
+    public fun fromModel(
+      model: RequestOrchestration.Action.Definition
+    ): RequestOrchestrationActionDefinitionSurrogate =
+      with(model) {
+        RequestOrchestrationActionDefinitionSurrogate(
+          definitionCanonical = this@with.asCanonical()?.value?.value,
+          _definitionCanonical = this@with.asCanonical()?.value?.toElement(),
+          definitionUri = this@with.asUri()?.value?.value,
+          _definitionUri = this@with.asUri()?.value?.toElement(),
         )
       }
   }

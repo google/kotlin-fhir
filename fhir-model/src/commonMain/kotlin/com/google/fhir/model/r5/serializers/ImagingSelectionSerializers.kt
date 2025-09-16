@@ -47,6 +47,23 @@ public object ImagingSelectionPerformerSerializer : KSerializer<ImagingSelection
   }
 }
 
+public object ImagingSelectionInstanceSerializer : KSerializer<ImagingSelection.Instance> {
+  internal val surrogateSerializer: KSerializer<ImagingSelectionInstanceSurrogate> by lazy {
+    ImagingSelectionInstanceSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Instance", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): ImagingSelection.Instance =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: ImagingSelection.Instance) {
+    surrogateSerializer.serialize(encoder, ImagingSelectionInstanceSurrogate.fromModel(value))
+  }
+}
+
 public object ImagingSelectionInstanceImageRegion2DSerializer :
   KSerializer<ImagingSelection.Instance.ImageRegion2D> {
   internal val surrogateSerializer:
@@ -88,23 +105,6 @@ public object ImagingSelectionInstanceImageRegion3DSerializer :
       encoder,
       ImagingSelectionInstanceImageRegion3DSurrogate.fromModel(value),
     )
-  }
-}
-
-public object ImagingSelectionInstanceSerializer : KSerializer<ImagingSelection.Instance> {
-  internal val surrogateSerializer: KSerializer<ImagingSelectionInstanceSurrogate> by lazy {
-    ImagingSelectionInstanceSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Instance", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): ImagingSelection.Instance =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: ImagingSelection.Instance) {
-    surrogateSerializer.serialize(encoder, ImagingSelectionInstanceSurrogate.fromModel(value))
   }
 }
 

@@ -92,28 +92,6 @@ internal data class CompositionAttesterSurrogate(
 }
 
 @Serializable
-internal data class CompositionRelatesToTargetSurrogate(
-  public var targetIdentifier: Identifier? = null,
-  public var targetReference: Reference? = null,
-) {
-  public fun toModel(): Composition.RelatesTo.Target =
-    Composition.RelatesTo.Target.from(
-      this@CompositionRelatesToTargetSurrogate.targetIdentifier,
-      this@CompositionRelatesToTargetSurrogate.targetReference,
-    )!! !!
-
-  public companion object {
-    public fun fromModel(model: Composition.RelatesTo.Target): CompositionRelatesToTargetSurrogate =
-      with(model) {
-        CompositionRelatesToTargetSurrogate(
-          targetIdentifier = this@with.asIdentifier()?.value,
-          targetReference = this@with.asReference()?.value,
-        )
-      }
-  }
-}
-
-@Serializable
 internal data class CompositionRelatesToSurrogate(
   public var id: KotlinString? = null,
   public var extension: MutableList<Extension>? = null,
@@ -250,6 +228,28 @@ internal data class CompositionSectionSurrogate(
           entry = this@with.entry.takeUnless { it.all { it == null } },
           emptyReason = this@with.emptyReason,
           section = this@with.section.takeUnless { it.all { it == null } },
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class CompositionRelatesToTargetSurrogate(
+  public var targetIdentifier: Identifier? = null,
+  public var targetReference: Reference? = null,
+) {
+  public fun toModel(): Composition.RelatesTo.Target =
+    Composition.RelatesTo.Target.from(
+      this@CompositionRelatesToTargetSurrogate.targetIdentifier,
+      this@CompositionRelatesToTargetSurrogate.targetReference,
+    )!! !!
+
+  public companion object {
+    public fun fromModel(model: Composition.RelatesTo.Target): CompositionRelatesToTargetSurrogate =
+      with(model) {
+        CompositionRelatesToTargetSurrogate(
+          targetIdentifier = this@with.asIdentifier()?.value,
+          targetReference = this@with.asReference()?.value,
         )
       }
   }

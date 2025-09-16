@@ -54,6 +54,103 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
+internal data class ServiceRequestOrderDetailSurrogate(
+  public var id: KotlinString? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var parameterFocus: CodeableReference? = null,
+  public var parameter: MutableList<ServiceRequest.OrderDetail.Parameter>? = null,
+) {
+  public fun toModel(): ServiceRequest.OrderDetail =
+    ServiceRequest.OrderDetail(
+      id = this@ServiceRequestOrderDetailSurrogate.id,
+      extension = this@ServiceRequestOrderDetailSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@ServiceRequestOrderDetailSurrogate.modifierExtension ?: mutableListOf(),
+      parameterFocus = this@ServiceRequestOrderDetailSurrogate.parameterFocus,
+      parameter = this@ServiceRequestOrderDetailSurrogate.parameter ?: mutableListOf(),
+    )
+
+  public companion object {
+    public fun fromModel(model: ServiceRequest.OrderDetail): ServiceRequestOrderDetailSurrogate =
+      with(model) {
+        ServiceRequestOrderDetailSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          parameterFocus = this@with.parameterFocus,
+          parameter = this@with.parameter.takeUnless { it.all { it == null } },
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class ServiceRequestOrderDetailParameterSurrogate(
+  public var id: KotlinString? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var code: CodeableConcept,
+  public var `value`: ServiceRequest.OrderDetail.Parameter.Value,
+) {
+  public fun toModel(): ServiceRequest.OrderDetail.Parameter =
+    ServiceRequest.OrderDetail.Parameter(
+      id = this@ServiceRequestOrderDetailParameterSurrogate.id,
+      extension = this@ServiceRequestOrderDetailParameterSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@ServiceRequestOrderDetailParameterSurrogate.modifierExtension ?: mutableListOf(),
+      code = this@ServiceRequestOrderDetailParameterSurrogate.code,
+      `value` = this@ServiceRequestOrderDetailParameterSurrogate.`value`,
+    )
+
+  public companion object {
+    public fun fromModel(
+      model: ServiceRequest.OrderDetail.Parameter
+    ): ServiceRequestOrderDetailParameterSurrogate =
+      with(model) {
+        ServiceRequestOrderDetailParameterSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          code = this@with.code,
+          `value` = this@with.`value`,
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class ServiceRequestPatientInstructionSurrogate(
+  public var id: KotlinString? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var instruction: ServiceRequest.PatientInstruction.Instruction? = null,
+) {
+  public fun toModel(): ServiceRequest.PatientInstruction =
+    ServiceRequest.PatientInstruction(
+      id = this@ServiceRequestPatientInstructionSurrogate.id,
+      extension = this@ServiceRequestPatientInstructionSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@ServiceRequestPatientInstructionSurrogate.modifierExtension ?: mutableListOf(),
+      instruction = this@ServiceRequestPatientInstructionSurrogate.instruction,
+    )
+
+  public companion object {
+    public fun fromModel(
+      model: ServiceRequest.PatientInstruction
+    ): ServiceRequestPatientInstructionSurrogate =
+      with(model) {
+        ServiceRequestPatientInstructionSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          instruction = this@with.instruction,
+        )
+      }
+  }
+}
+
+@Serializable
 internal data class ServiceRequestOrderDetailParameterValueSurrogate(
   public var valueQuantity: Quantity? = null,
   public var valueRatio: Ratio? = null,
@@ -103,139 +200,13 @@ internal data class ServiceRequestOrderDetailParameterValueSurrogate(
 }
 
 @Serializable
-internal data class ServiceRequestOrderDetailParameterSurrogate(
-  public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var code: CodeableConcept,
-  public var `value`: ServiceRequest.OrderDetail.Parameter.Value,
-) {
-  public fun toModel(): ServiceRequest.OrderDetail.Parameter =
-    ServiceRequest.OrderDetail.Parameter(
-      id = this@ServiceRequestOrderDetailParameterSurrogate.id,
-      extension = this@ServiceRequestOrderDetailParameterSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@ServiceRequestOrderDetailParameterSurrogate.modifierExtension ?: mutableListOf(),
-      code = this@ServiceRequestOrderDetailParameterSurrogate.code,
-      `value` = this@ServiceRequestOrderDetailParameterSurrogate.`value`,
-    )
-
-  public companion object {
-    public fun fromModel(
-      model: ServiceRequest.OrderDetail.Parameter
-    ): ServiceRequestOrderDetailParameterSurrogate =
-      with(model) {
-        ServiceRequestOrderDetailParameterSurrogate(
-          id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          code = this@with.code,
-          `value` = this@with.`value`,
-        )
-      }
-  }
-}
-
-@Serializable
-internal data class ServiceRequestOrderDetailSurrogate(
-  public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var parameterFocus: CodeableReference? = null,
-  public var parameter: MutableList<ServiceRequest.OrderDetail.Parameter>? = null,
-) {
-  public fun toModel(): ServiceRequest.OrderDetail =
-    ServiceRequest.OrderDetail(
-      id = this@ServiceRequestOrderDetailSurrogate.id,
-      extension = this@ServiceRequestOrderDetailSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@ServiceRequestOrderDetailSurrogate.modifierExtension ?: mutableListOf(),
-      parameterFocus = this@ServiceRequestOrderDetailSurrogate.parameterFocus,
-      parameter = this@ServiceRequestOrderDetailSurrogate.parameter ?: mutableListOf(),
-    )
-
-  public companion object {
-    public fun fromModel(model: ServiceRequest.OrderDetail): ServiceRequestOrderDetailSurrogate =
-      with(model) {
-        ServiceRequestOrderDetailSurrogate(
-          id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          parameterFocus = this@with.parameterFocus,
-          parameter = this@with.parameter.takeUnless { it.all { it == null } },
-        )
-      }
-  }
-}
-
-@Serializable
-internal data class ServiceRequestPatientInstructionInstructionSurrogate(
-  public var instructionMarkdown: KotlinString? = null,
-  public var _instructionMarkdown: Element? = null,
-  public var instructionReference: Reference? = null,
-) {
-  public fun toModel(): ServiceRequest.PatientInstruction.Instruction =
-    ServiceRequest.PatientInstruction.Instruction?.from(
-      Markdown.of(
-        this@ServiceRequestPatientInstructionInstructionSurrogate.instructionMarkdown,
-        this@ServiceRequestPatientInstructionInstructionSurrogate._instructionMarkdown,
-      ),
-      this@ServiceRequestPatientInstructionInstructionSurrogate.instructionReference,
-    )!!
-
-  public companion object {
-    public fun fromModel(
-      model: ServiceRequest.PatientInstruction.Instruction
-    ): ServiceRequestPatientInstructionInstructionSurrogate =
-      with(model) {
-        ServiceRequestPatientInstructionInstructionSurrogate(
-          instructionMarkdown = this@with.asMarkdown()?.value?.value,
-          _instructionMarkdown = this@with.asMarkdown()?.value?.toElement(),
-          instructionReference = this@with.asReference()?.value,
-        )
-      }
-  }
-}
-
-@Serializable
-internal data class ServiceRequestPatientInstructionSurrogate(
-  public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var instruction: ServiceRequest.PatientInstruction.Instruction? = null,
-) {
-  public fun toModel(): ServiceRequest.PatientInstruction =
-    ServiceRequest.PatientInstruction(
-      id = this@ServiceRequestPatientInstructionSurrogate.id,
-      extension = this@ServiceRequestPatientInstructionSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@ServiceRequestPatientInstructionSurrogate.modifierExtension ?: mutableListOf(),
-      instruction = this@ServiceRequestPatientInstructionSurrogate.instruction,
-    )
-
-  public companion object {
-    public fun fromModel(
-      model: ServiceRequest.PatientInstruction
-    ): ServiceRequestPatientInstructionSurrogate =
-      with(model) {
-        ServiceRequestPatientInstructionSurrogate(
-          id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          instruction = this@with.instruction,
-        )
-      }
-  }
-}
-
-@Serializable
 internal data class ServiceRequestQuantitySurrogate(
   public var quantityQuantity: Quantity? = null,
   public var quantityRatio: Ratio? = null,
   public var quantityRange: Range? = null,
 ) {
   public fun toModel(): ServiceRequest.Quantity =
-    ServiceRequest.Quantity?.from(
+    ServiceRequest.Quantity.from(
       this@ServiceRequestQuantitySurrogate.quantityQuantity,
       this@ServiceRequestQuantitySurrogate.quantityRatio,
       this@ServiceRequestQuantitySurrogate.quantityRange,
@@ -261,7 +232,7 @@ internal data class ServiceRequestOccurrenceSurrogate(
   public var occurrenceTiming: Timing? = null,
 ) {
   public fun toModel(): ServiceRequest.Occurrence =
-    ServiceRequest.Occurrence?.from(
+    ServiceRequest.Occurrence.from(
       DateTime.of(
         FhirDateTime.fromString(this@ServiceRequestOccurrenceSurrogate.occurrenceDateTime),
         this@ServiceRequestOccurrenceSurrogate._occurrenceDateTime,
@@ -290,7 +261,7 @@ internal data class ServiceRequestAsNeededSurrogate(
   public var asNeededCodeableConcept: CodeableConcept? = null,
 ) {
   public fun toModel(): ServiceRequest.AsNeeded =
-    ServiceRequest.AsNeeded?.from(
+    ServiceRequest.AsNeeded.from(
       R5Boolean.of(
         this@ServiceRequestAsNeededSurrogate.asNeededBoolean,
         this@ServiceRequestAsNeededSurrogate._asNeededBoolean,
@@ -305,6 +276,35 @@ internal data class ServiceRequestAsNeededSurrogate(
           asNeededBoolean = this@with.asBoolean()?.value?.value,
           _asNeededBoolean = this@with.asBoolean()?.value?.toElement(),
           asNeededCodeableConcept = this@with.asCodeableConcept()?.value,
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class ServiceRequestPatientInstructionInstructionSurrogate(
+  public var instructionMarkdown: KotlinString? = null,
+  public var _instructionMarkdown: Element? = null,
+  public var instructionReference: Reference? = null,
+) {
+  public fun toModel(): ServiceRequest.PatientInstruction.Instruction =
+    ServiceRequest.PatientInstruction.Instruction.from(
+      Markdown.of(
+        this@ServiceRequestPatientInstructionInstructionSurrogate.instructionMarkdown,
+        this@ServiceRequestPatientInstructionInstructionSurrogate._instructionMarkdown,
+      ),
+      this@ServiceRequestPatientInstructionInstructionSurrogate.instructionReference,
+    )!!
+
+  public companion object {
+    public fun fromModel(
+      model: ServiceRequest.PatientInstruction.Instruction
+    ): ServiceRequestPatientInstructionInstructionSurrogate =
+      with(model) {
+        ServiceRequestPatientInstructionInstructionSurrogate(
+          instructionMarkdown = this@with.asMarkdown()?.value?.value,
+          _instructionMarkdown = this@with.asMarkdown()?.value?.toElement(),
+          instructionReference = this@with.asReference()?.value,
         )
       }
   }

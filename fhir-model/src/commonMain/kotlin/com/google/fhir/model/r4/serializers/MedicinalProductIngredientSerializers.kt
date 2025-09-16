@@ -30,33 +30,24 @@ import kotlinx.serialization.descriptors.SerialDescriptor
 import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
 
-public object MedicinalProductIngredientSpecifiedSubstanceStrengthReferenceStrengthSerializer :
-  KSerializer<MedicinalProductIngredient.SpecifiedSubstance.Strength.ReferenceStrength> {
+public object MedicinalProductIngredientSpecifiedSubstanceSerializer :
+  KSerializer<MedicinalProductIngredient.SpecifiedSubstance> {
   internal val surrogateSerializer:
-    KSerializer<
-      MedicinalProductIngredientSpecifiedSubstanceStrengthReferenceStrengthSurrogate
-    > by lazy {
-    MedicinalProductIngredientSpecifiedSubstanceStrengthReferenceStrengthSurrogate.serializer()
+    KSerializer<MedicinalProductIngredientSpecifiedSubstanceSurrogate> by lazy {
+    MedicinalProductIngredientSpecifiedSubstanceSurrogate.serializer()
   }
 
   override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("ReferenceStrength", surrogateSerializer.descriptor)
+    SerialDescriptor("SpecifiedSubstance", surrogateSerializer.descriptor)
   }
 
-  override fun deserialize(
-    decoder: Decoder
-  ): MedicinalProductIngredient.SpecifiedSubstance.Strength.ReferenceStrength =
+  override fun deserialize(decoder: Decoder): MedicinalProductIngredient.SpecifiedSubstance =
     surrogateSerializer.deserialize(decoder).toModel()
 
-  override fun serialize(
-    encoder: Encoder,
-    `value`: MedicinalProductIngredient.SpecifiedSubstance.Strength.ReferenceStrength,
-  ) {
+  override fun serialize(encoder: Encoder, `value`: MedicinalProductIngredient.SpecifiedSubstance) {
     surrogateSerializer.serialize(
       encoder,
-      MedicinalProductIngredientSpecifiedSubstanceStrengthReferenceStrengthSurrogate.fromModel(
-        value
-      ),
+      MedicinalProductIngredientSpecifiedSubstanceSurrogate.fromModel(value),
     )
   }
 }
@@ -88,24 +79,33 @@ public object MedicinalProductIngredientSpecifiedSubstanceStrengthSerializer :
   }
 }
 
-public object MedicinalProductIngredientSpecifiedSubstanceSerializer :
-  KSerializer<MedicinalProductIngredient.SpecifiedSubstance> {
+public object MedicinalProductIngredientSpecifiedSubstanceStrengthReferenceStrengthSerializer :
+  KSerializer<MedicinalProductIngredient.SpecifiedSubstance.Strength.ReferenceStrength> {
   internal val surrogateSerializer:
-    KSerializer<MedicinalProductIngredientSpecifiedSubstanceSurrogate> by lazy {
-    MedicinalProductIngredientSpecifiedSubstanceSurrogate.serializer()
+    KSerializer<
+      MedicinalProductIngredientSpecifiedSubstanceStrengthReferenceStrengthSurrogate
+    > by lazy {
+    MedicinalProductIngredientSpecifiedSubstanceStrengthReferenceStrengthSurrogate.serializer()
   }
 
   override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("SpecifiedSubstance", surrogateSerializer.descriptor)
+    SerialDescriptor("ReferenceStrength", surrogateSerializer.descriptor)
   }
 
-  override fun deserialize(decoder: Decoder): MedicinalProductIngredient.SpecifiedSubstance =
+  override fun deserialize(
+    decoder: Decoder
+  ): MedicinalProductIngredient.SpecifiedSubstance.Strength.ReferenceStrength =
     surrogateSerializer.deserialize(decoder).toModel()
 
-  override fun serialize(encoder: Encoder, `value`: MedicinalProductIngredient.SpecifiedSubstance) {
+  override fun serialize(
+    encoder: Encoder,
+    `value`: MedicinalProductIngredient.SpecifiedSubstance.Strength.ReferenceStrength,
+  ) {
     surrogateSerializer.serialize(
       encoder,
-      MedicinalProductIngredientSpecifiedSubstanceSurrogate.fromModel(value),
+      MedicinalProductIngredientSpecifiedSubstanceStrengthReferenceStrengthSurrogate.fromModel(
+        value
+      ),
     )
   }
 }

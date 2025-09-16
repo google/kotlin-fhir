@@ -38,6 +38,55 @@ import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.JsonPrimitive
 import kotlinx.serialization.json.jsonObject
 
+public object ImmunizationRecommendationRecommendationSerializer :
+  KSerializer<ImmunizationRecommendation.Recommendation> {
+  internal val surrogateSerializer:
+    KSerializer<ImmunizationRecommendationRecommendationSurrogate> by lazy {
+    ImmunizationRecommendationRecommendationSurrogate.serializer()
+  }
+
+  private val resourceType: String? = null
+
+  private val multiChoiceProperties: List<String> = listOf("doseNumber", "seriesDoses")
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Recommendation", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): ImmunizationRecommendation.Recommendation {
+    val jsonDecoder =
+      decoder as? JsonDecoder ?: error("This serializer only supports JSON decoding")
+    val oldJsonObject =
+      if (resourceType.isNullOrBlank()) {
+        jsonDecoder.decodeJsonElement().jsonObject
+      } else
+        JsonObject(
+          jsonDecoder.decodeJsonElement().jsonObject.toMutableMap().apply { remove("resourceType") }
+        )
+    val unflattenedJsonObject = FhirJsonTransformer.unflatten(oldJsonObject, multiChoiceProperties)
+    val surrogate =
+      jsonDecoder.json.decodeFromJsonElement(surrogateSerializer, unflattenedJsonObject)
+    return surrogate.toModel()
+  }
+
+  override fun serialize(encoder: Encoder, `value`: ImmunizationRecommendation.Recommendation) {
+    val jsonEncoder =
+      encoder as? JsonEncoder ?: error("This serializer only supports JSON encoding")
+    val surrogate = ImmunizationRecommendationRecommendationSurrogate.fromModel(value)
+    val oldJsonObject =
+      if (resourceType.isNullOrBlank()) {
+        jsonEncoder.json.encodeToJsonElement(surrogateSerializer, surrogate).jsonObject
+      } else {
+        JsonObject(
+          mutableMapOf("resourceType" to JsonPrimitive(resourceType))
+            .plus(jsonEncoder.json.encodeToJsonElement(surrogateSerializer, surrogate).jsonObject)
+        )
+      }
+    val flattenedJsonObject = FhirJsonTransformer.flatten(oldJsonObject, multiChoiceProperties)
+    jsonEncoder.encodeJsonElement(flattenedJsonObject)
+  }
+}
+
 public object ImmunizationRecommendationRecommendationDateCriterionSerializer :
   KSerializer<ImmunizationRecommendation.Recommendation.DateCriterion> {
   internal val surrogateSerializer:
@@ -114,55 +163,6 @@ public object ImmunizationRecommendationRecommendationSeriesDosesSerializer :
       encoder,
       ImmunizationRecommendationRecommendationSeriesDosesSurrogate.fromModel(value),
     )
-  }
-}
-
-public object ImmunizationRecommendationRecommendationSerializer :
-  KSerializer<ImmunizationRecommendation.Recommendation> {
-  internal val surrogateSerializer:
-    KSerializer<ImmunizationRecommendationRecommendationSurrogate> by lazy {
-    ImmunizationRecommendationRecommendationSurrogate.serializer()
-  }
-
-  private val resourceType: String? = null
-
-  private val multiChoiceProperties: List<String> = listOf("doseNumber", "seriesDoses")
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Recommendation", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): ImmunizationRecommendation.Recommendation {
-    val jsonDecoder =
-      decoder as? JsonDecoder ?: error("This serializer only supports JSON decoding")
-    val oldJsonObject =
-      if (resourceType.isNullOrBlank()) {
-        jsonDecoder.decodeJsonElement().jsonObject
-      } else
-        JsonObject(
-          jsonDecoder.decodeJsonElement().jsonObject.toMutableMap().apply { remove("resourceType") }
-        )
-    val unflattenedJsonObject = FhirJsonTransformer.unflatten(oldJsonObject, multiChoiceProperties)
-    val surrogate =
-      jsonDecoder.json.decodeFromJsonElement(surrogateSerializer, unflattenedJsonObject)
-    return surrogate.toModel()
-  }
-
-  override fun serialize(encoder: Encoder, `value`: ImmunizationRecommendation.Recommendation) {
-    val jsonEncoder =
-      encoder as? JsonEncoder ?: error("This serializer only supports JSON encoding")
-    val surrogate = ImmunizationRecommendationRecommendationSurrogate.fromModel(value)
-    val oldJsonObject =
-      if (resourceType.isNullOrBlank()) {
-        jsonEncoder.json.encodeToJsonElement(surrogateSerializer, surrogate).jsonObject
-      } else {
-        JsonObject(
-          mutableMapOf("resourceType" to JsonPrimitive(resourceType))
-            .plus(jsonEncoder.json.encodeToJsonElement(surrogateSerializer, surrogate).jsonObject)
-        )
-      }
-    val flattenedJsonObject = FhirJsonTransformer.flatten(oldJsonObject, multiChoiceProperties)
-    jsonEncoder.encodeJsonElement(flattenedJsonObject)
   }
 }
 

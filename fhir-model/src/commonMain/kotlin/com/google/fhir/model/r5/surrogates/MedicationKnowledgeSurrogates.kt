@@ -126,30 +126,6 @@ internal data class MedicationKnowledgeMonographSurrogate(
 }
 
 @Serializable
-internal data class MedicationKnowledgeCostCostSurrogate(
-  public var costMoney: Money? = null,
-  public var costCodeableConcept: CodeableConcept? = null,
-) {
-  public fun toModel(): MedicationKnowledge.Cost.Cost =
-    MedicationKnowledge.Cost.Cost.from(
-      this@MedicationKnowledgeCostCostSurrogate.costMoney,
-      this@MedicationKnowledgeCostCostSurrogate.costCodeableConcept,
-    )!! !!
-
-  public companion object {
-    public fun fromModel(
-      model: MedicationKnowledge.Cost.Cost
-    ): MedicationKnowledgeCostCostSurrogate =
-      with(model) {
-        MedicationKnowledgeCostCostSurrogate(
-          costMoney = this@with.asMoney()?.value,
-          costCodeableConcept = this@with.asCodeableConcept()?.value,
-        )
-      }
-  }
-}
-
-@Serializable
 internal data class MedicationKnowledgeCostSurrogate(
   public var id: KotlinString? = null,
   public var extension: MutableList<Extension>? = null,
@@ -234,115 +210,38 @@ internal data class MedicationKnowledgeMonitoringProgramSurrogate(
 }
 
 @Serializable
-internal data class MedicationKnowledgeIndicationGuidelineDosingGuidelineDosageSurrogate(
+internal data class MedicationKnowledgeIndicationGuidelineSurrogate(
   public var id: KotlinString? = null,
   public var extension: MutableList<Extension>? = null,
   public var modifierExtension: MutableList<Extension>? = null,
-  public var type: CodeableConcept,
-  public var dosage: MutableList<Dosage>? = null,
-) {
-  public fun toModel(): MedicationKnowledge.IndicationGuideline.DosingGuideline.Dosage =
-    MedicationKnowledge.IndicationGuideline.DosingGuideline.Dosage(
-      id = this@MedicationKnowledgeIndicationGuidelineDosingGuidelineDosageSurrogate.id,
-      extension =
-        this@MedicationKnowledgeIndicationGuidelineDosingGuidelineDosageSurrogate.extension
-          ?: mutableListOf(),
-      modifierExtension =
-        this@MedicationKnowledgeIndicationGuidelineDosingGuidelineDosageSurrogate.modifierExtension
-          ?: mutableListOf(),
-      type = this@MedicationKnowledgeIndicationGuidelineDosingGuidelineDosageSurrogate.type,
-      dosage =
-        this@MedicationKnowledgeIndicationGuidelineDosingGuidelineDosageSurrogate.dosage
-          ?: mutableListOf(),
-    )
-
-  public companion object {
-    public fun fromModel(
-      model: MedicationKnowledge.IndicationGuideline.DosingGuideline.Dosage
-    ): MedicationKnowledgeIndicationGuidelineDosingGuidelineDosageSurrogate =
-      with(model) {
-        MedicationKnowledgeIndicationGuidelineDosingGuidelineDosageSurrogate(
-          id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          type = this@with.type,
-          dosage = this@with.dosage.takeUnless { it.all { it == null } },
-        )
-      }
-  }
-}
-
-@Serializable
-internal data class MedicationKnowledgeIndicationGuidelineDosingGuidelinePatientCharacteristicValueSurrogate(
-  public var valueCodeableConcept: CodeableConcept? = null,
-  public var valueQuantity: Quantity? = null,
-  public var valueRange: Range? = null,
-) {
-  public fun toModel():
-    MedicationKnowledge.IndicationGuideline.DosingGuideline.PatientCharacteristic.Value =
-    MedicationKnowledge.IndicationGuideline.DosingGuideline.PatientCharacteristic.Value?.from(
-      this@MedicationKnowledgeIndicationGuidelineDosingGuidelinePatientCharacteristicValueSurrogate
-        .valueCodeableConcept,
-      this@MedicationKnowledgeIndicationGuidelineDosingGuidelinePatientCharacteristicValueSurrogate
-        .valueQuantity,
-      this@MedicationKnowledgeIndicationGuidelineDosingGuidelinePatientCharacteristicValueSurrogate
-        .valueRange,
-    )!!
-
-  public companion object {
-    public fun fromModel(
-      model: MedicationKnowledge.IndicationGuideline.DosingGuideline.PatientCharacteristic.Value
-    ): MedicationKnowledgeIndicationGuidelineDosingGuidelinePatientCharacteristicValueSurrogate =
-      with(model) {
-        MedicationKnowledgeIndicationGuidelineDosingGuidelinePatientCharacteristicValueSurrogate(
-          valueCodeableConcept = this@with.asCodeableConcept()?.value,
-          valueQuantity = this@with.asQuantity()?.value,
-          valueRange = this@with.asRange()?.value,
-        )
-      }
-  }
-}
-
-@Serializable
-internal data class MedicationKnowledgeIndicationGuidelineDosingGuidelinePatientCharacteristicSurrogate(
-  public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var type: CodeableConcept,
-  public var `value`:
-    MedicationKnowledge.IndicationGuideline.DosingGuideline.PatientCharacteristic.Value? =
+  public var indication: MutableList<CodeableReference>? = null,
+  public var dosingGuideline:
+    MutableList<MedicationKnowledge.IndicationGuideline.DosingGuideline>? =
     null,
 ) {
-  public fun toModel():
-    MedicationKnowledge.IndicationGuideline.DosingGuideline.PatientCharacteristic =
-    MedicationKnowledge.IndicationGuideline.DosingGuideline.PatientCharacteristic(
-      id =
-        this@MedicationKnowledgeIndicationGuidelineDosingGuidelinePatientCharacteristicSurrogate.id,
-      extension =
-        this@MedicationKnowledgeIndicationGuidelineDosingGuidelinePatientCharacteristicSurrogate
-          .extension ?: mutableListOf(),
+  public fun toModel(): MedicationKnowledge.IndicationGuideline =
+    MedicationKnowledge.IndicationGuideline(
+      id = this@MedicationKnowledgeIndicationGuidelineSurrogate.id,
+      extension = this@MedicationKnowledgeIndicationGuidelineSurrogate.extension ?: mutableListOf(),
       modifierExtension =
-        this@MedicationKnowledgeIndicationGuidelineDosingGuidelinePatientCharacteristicSurrogate
-          .modifierExtension ?: mutableListOf(),
-      type =
-        this@MedicationKnowledgeIndicationGuidelineDosingGuidelinePatientCharacteristicSurrogate
-          .type,
-      `value` =
-        this@MedicationKnowledgeIndicationGuidelineDosingGuidelinePatientCharacteristicSurrogate
-          .`value`,
+        this@MedicationKnowledgeIndicationGuidelineSurrogate.modifierExtension ?: mutableListOf(),
+      indication =
+        this@MedicationKnowledgeIndicationGuidelineSurrogate.indication ?: mutableListOf(),
+      dosingGuideline =
+        this@MedicationKnowledgeIndicationGuidelineSurrogate.dosingGuideline ?: mutableListOf(),
     )
 
   public companion object {
     public fun fromModel(
-      model: MedicationKnowledge.IndicationGuideline.DosingGuideline.PatientCharacteristic
-    ): MedicationKnowledgeIndicationGuidelineDosingGuidelinePatientCharacteristicSurrogate =
+      model: MedicationKnowledge.IndicationGuideline
+    ): MedicationKnowledgeIndicationGuidelineSurrogate =
       with(model) {
-        MedicationKnowledgeIndicationGuidelineDosingGuidelinePatientCharacteristicSurrogate(
+        MedicationKnowledgeIndicationGuidelineSurrogate(
           id = this@with.id,
           extension = this@with.extension.takeUnless { it.all { it == null } },
           modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          type = this@with.type,
-          `value` = this@with.`value`,
+          indication = this@with.indication.takeUnless { it.all { it == null } },
+          dosingGuideline = this@with.dosingGuideline.takeUnless { it.all { it == null } },
         )
       }
   }
@@ -402,72 +301,84 @@ internal data class MedicationKnowledgeIndicationGuidelineDosingGuidelineSurroga
 }
 
 @Serializable
-internal data class MedicationKnowledgeIndicationGuidelineSurrogate(
+internal data class MedicationKnowledgeIndicationGuidelineDosingGuidelineDosageSurrogate(
   public var id: KotlinString? = null,
   public var extension: MutableList<Extension>? = null,
   public var modifierExtension: MutableList<Extension>? = null,
-  public var indication: MutableList<CodeableReference>? = null,
-  public var dosingGuideline:
-    MutableList<MedicationKnowledge.IndicationGuideline.DosingGuideline>? =
-    null,
+  public var type: CodeableConcept,
+  public var dosage: MutableList<Dosage>? = null,
 ) {
-  public fun toModel(): MedicationKnowledge.IndicationGuideline =
-    MedicationKnowledge.IndicationGuideline(
-      id = this@MedicationKnowledgeIndicationGuidelineSurrogate.id,
-      extension = this@MedicationKnowledgeIndicationGuidelineSurrogate.extension ?: mutableListOf(),
+  public fun toModel(): MedicationKnowledge.IndicationGuideline.DosingGuideline.Dosage =
+    MedicationKnowledge.IndicationGuideline.DosingGuideline.Dosage(
+      id = this@MedicationKnowledgeIndicationGuidelineDosingGuidelineDosageSurrogate.id,
+      extension =
+        this@MedicationKnowledgeIndicationGuidelineDosingGuidelineDosageSurrogate.extension
+          ?: mutableListOf(),
       modifierExtension =
-        this@MedicationKnowledgeIndicationGuidelineSurrogate.modifierExtension ?: mutableListOf(),
-      indication =
-        this@MedicationKnowledgeIndicationGuidelineSurrogate.indication ?: mutableListOf(),
-      dosingGuideline =
-        this@MedicationKnowledgeIndicationGuidelineSurrogate.dosingGuideline ?: mutableListOf(),
+        this@MedicationKnowledgeIndicationGuidelineDosingGuidelineDosageSurrogate.modifierExtension
+          ?: mutableListOf(),
+      type = this@MedicationKnowledgeIndicationGuidelineDosingGuidelineDosageSurrogate.type,
+      dosage =
+        this@MedicationKnowledgeIndicationGuidelineDosingGuidelineDosageSurrogate.dosage
+          ?: mutableListOf(),
     )
 
   public companion object {
     public fun fromModel(
-      model: MedicationKnowledge.IndicationGuideline
-    ): MedicationKnowledgeIndicationGuidelineSurrogate =
+      model: MedicationKnowledge.IndicationGuideline.DosingGuideline.Dosage
+    ): MedicationKnowledgeIndicationGuidelineDosingGuidelineDosageSurrogate =
       with(model) {
-        MedicationKnowledgeIndicationGuidelineSurrogate(
+        MedicationKnowledgeIndicationGuidelineDosingGuidelineDosageSurrogate(
           id = this@with.id,
           extension = this@with.extension.takeUnless { it.all { it == null } },
           modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          indication = this@with.indication.takeUnless { it.all { it == null } },
-          dosingGuideline = this@with.dosingGuideline.takeUnless { it.all { it == null } },
+          type = this@with.type,
+          dosage = this@with.dosage.takeUnless { it.all { it == null } },
         )
       }
   }
 }
 
 @Serializable
-internal data class MedicationKnowledgeMedicineClassificationSourceSurrogate(
-  public var sourceString: KotlinString? = null,
-  public var _sourceString: Element? = null,
-  public var sourceUri: KotlinString? = null,
-  public var _sourceUri: Element? = null,
+internal data class MedicationKnowledgeIndicationGuidelineDosingGuidelinePatientCharacteristicSurrogate(
+  public var id: KotlinString? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var type: CodeableConcept,
+  public var `value`:
+    MedicationKnowledge.IndicationGuideline.DosingGuideline.PatientCharacteristic.Value? =
+    null,
 ) {
-  public fun toModel(): MedicationKnowledge.MedicineClassification.Source =
-    MedicationKnowledge.MedicineClassification.Source?.from(
-      R5String.of(
-        this@MedicationKnowledgeMedicineClassificationSourceSurrogate.sourceString,
-        this@MedicationKnowledgeMedicineClassificationSourceSurrogate._sourceString,
-      ),
-      Uri.of(
-        this@MedicationKnowledgeMedicineClassificationSourceSurrogate.sourceUri,
-        this@MedicationKnowledgeMedicineClassificationSourceSurrogate._sourceUri,
-      ),
-    )!!
+  public fun toModel():
+    MedicationKnowledge.IndicationGuideline.DosingGuideline.PatientCharacteristic =
+    MedicationKnowledge.IndicationGuideline.DosingGuideline.PatientCharacteristic(
+      id =
+        this@MedicationKnowledgeIndicationGuidelineDosingGuidelinePatientCharacteristicSurrogate.id,
+      extension =
+        this@MedicationKnowledgeIndicationGuidelineDosingGuidelinePatientCharacteristicSurrogate
+          .extension ?: mutableListOf(),
+      modifierExtension =
+        this@MedicationKnowledgeIndicationGuidelineDosingGuidelinePatientCharacteristicSurrogate
+          .modifierExtension ?: mutableListOf(),
+      type =
+        this@MedicationKnowledgeIndicationGuidelineDosingGuidelinePatientCharacteristicSurrogate
+          .type,
+      `value` =
+        this@MedicationKnowledgeIndicationGuidelineDosingGuidelinePatientCharacteristicSurrogate
+          .`value`,
+    )
 
   public companion object {
     public fun fromModel(
-      model: MedicationKnowledge.MedicineClassification.Source
-    ): MedicationKnowledgeMedicineClassificationSourceSurrogate =
+      model: MedicationKnowledge.IndicationGuideline.DosingGuideline.PatientCharacteristic
+    ): MedicationKnowledgeIndicationGuidelineDosingGuidelinePatientCharacteristicSurrogate =
       with(model) {
-        MedicationKnowledgeMedicineClassificationSourceSurrogate(
-          sourceString = this@with.asString()?.value?.value,
-          _sourceString = this@with.asString()?.value?.toElement(),
-          sourceUri = this@with.asUri()?.value?.value,
-          _sourceUri = this@with.asUri()?.value?.toElement(),
+        MedicationKnowledgeIndicationGuidelineDosingGuidelinePatientCharacteristicSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          type = this@with.type,
+          `value` = this@with.`value`,
         )
       }
   }
@@ -548,71 +459,6 @@ internal data class MedicationKnowledgePackagingSurrogate(
 }
 
 @Serializable
-internal data class MedicationKnowledgeStorageGuidelineEnvironmentalSettingValueSurrogate(
-  public var valueQuantity: Quantity? = null,
-  public var valueRange: Range? = null,
-  public var valueCodeableConcept: CodeableConcept? = null,
-) {
-  public fun toModel(): MedicationKnowledge.StorageGuideline.EnvironmentalSetting.Value =
-    MedicationKnowledge.StorageGuideline.EnvironmentalSetting.Value.from(
-      this@MedicationKnowledgeStorageGuidelineEnvironmentalSettingValueSurrogate.valueQuantity,
-      this@MedicationKnowledgeStorageGuidelineEnvironmentalSettingValueSurrogate.valueRange,
-      this@MedicationKnowledgeStorageGuidelineEnvironmentalSettingValueSurrogate
-        .valueCodeableConcept,
-    )!! !!
-
-  public companion object {
-    public fun fromModel(
-      model: MedicationKnowledge.StorageGuideline.EnvironmentalSetting.Value
-    ): MedicationKnowledgeStorageGuidelineEnvironmentalSettingValueSurrogate =
-      with(model) {
-        MedicationKnowledgeStorageGuidelineEnvironmentalSettingValueSurrogate(
-          valueQuantity = this@with.asQuantity()?.value,
-          valueRange = this@with.asRange()?.value,
-          valueCodeableConcept = this@with.asCodeableConcept()?.value,
-        )
-      }
-  }
-}
-
-@Serializable
-internal data class MedicationKnowledgeStorageGuidelineEnvironmentalSettingSurrogate(
-  public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var type: CodeableConcept,
-  public var `value`: MedicationKnowledge.StorageGuideline.EnvironmentalSetting.Value,
-) {
-  public fun toModel(): MedicationKnowledge.StorageGuideline.EnvironmentalSetting =
-    MedicationKnowledge.StorageGuideline.EnvironmentalSetting(
-      id = this@MedicationKnowledgeStorageGuidelineEnvironmentalSettingSurrogate.id,
-      extension =
-        this@MedicationKnowledgeStorageGuidelineEnvironmentalSettingSurrogate.extension
-          ?: mutableListOf(),
-      modifierExtension =
-        this@MedicationKnowledgeStorageGuidelineEnvironmentalSettingSurrogate.modifierExtension
-          ?: mutableListOf(),
-      type = this@MedicationKnowledgeStorageGuidelineEnvironmentalSettingSurrogate.type,
-      `value` = this@MedicationKnowledgeStorageGuidelineEnvironmentalSettingSurrogate.`value`,
-    )
-
-  public companion object {
-    public fun fromModel(
-      model: MedicationKnowledge.StorageGuideline.EnvironmentalSetting
-    ): MedicationKnowledgeStorageGuidelineEnvironmentalSettingSurrogate =
-      with(model) {
-        MedicationKnowledgeStorageGuidelineEnvironmentalSettingSurrogate(
-          id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          type = this@with.type,
-          `value` = this@with.`value`,
-        )
-      }
-  }
-}
-
-@Serializable
 internal data class MedicationKnowledgeStorageGuidelineSurrogate(
   public var id: KotlinString? = null,
   public var extension: MutableList<Extension>? = null,
@@ -656,6 +502,83 @@ internal data class MedicationKnowledgeStorageGuidelineSurrogate(
           note = this@with.note.takeUnless { it.all { it == null } },
           stabilityDuration = this@with.stabilityDuration,
           environmentalSetting = this@with.environmentalSetting.takeUnless { it.all { it == null } },
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class MedicationKnowledgeStorageGuidelineEnvironmentalSettingSurrogate(
+  public var id: KotlinString? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var type: CodeableConcept,
+  public var `value`: MedicationKnowledge.StorageGuideline.EnvironmentalSetting.Value,
+) {
+  public fun toModel(): MedicationKnowledge.StorageGuideline.EnvironmentalSetting =
+    MedicationKnowledge.StorageGuideline.EnvironmentalSetting(
+      id = this@MedicationKnowledgeStorageGuidelineEnvironmentalSettingSurrogate.id,
+      extension =
+        this@MedicationKnowledgeStorageGuidelineEnvironmentalSettingSurrogate.extension
+          ?: mutableListOf(),
+      modifierExtension =
+        this@MedicationKnowledgeStorageGuidelineEnvironmentalSettingSurrogate.modifierExtension
+          ?: mutableListOf(),
+      type = this@MedicationKnowledgeStorageGuidelineEnvironmentalSettingSurrogate.type,
+      `value` = this@MedicationKnowledgeStorageGuidelineEnvironmentalSettingSurrogate.`value`,
+    )
+
+  public companion object {
+    public fun fromModel(
+      model: MedicationKnowledge.StorageGuideline.EnvironmentalSetting
+    ): MedicationKnowledgeStorageGuidelineEnvironmentalSettingSurrogate =
+      with(model) {
+        MedicationKnowledgeStorageGuidelineEnvironmentalSettingSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          type = this@with.type,
+          `value` = this@with.`value`,
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class MedicationKnowledgeRegulatorySurrogate(
+  public var id: KotlinString? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var regulatoryAuthority: Reference,
+  public var substitution: MutableList<MedicationKnowledge.Regulatory.Substitution>? = null,
+  public var schedule: MutableList<CodeableConcept>? = null,
+  public var maxDispense: MedicationKnowledge.Regulatory.MaxDispense? = null,
+) {
+  public fun toModel(): MedicationKnowledge.Regulatory =
+    MedicationKnowledge.Regulatory(
+      id = this@MedicationKnowledgeRegulatorySurrogate.id,
+      extension = this@MedicationKnowledgeRegulatorySurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@MedicationKnowledgeRegulatorySurrogate.modifierExtension ?: mutableListOf(),
+      regulatoryAuthority = this@MedicationKnowledgeRegulatorySurrogate.regulatoryAuthority,
+      substitution = this@MedicationKnowledgeRegulatorySurrogate.substitution ?: mutableListOf(),
+      schedule = this@MedicationKnowledgeRegulatorySurrogate.schedule ?: mutableListOf(),
+      maxDispense = this@MedicationKnowledgeRegulatorySurrogate.maxDispense,
+    )
+
+  public companion object {
+    public fun fromModel(
+      model: MedicationKnowledge.Regulatory
+    ): MedicationKnowledgeRegulatorySurrogate =
+      with(model) {
+        MedicationKnowledgeRegulatorySurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          regulatoryAuthority = this@with.regulatoryAuthority,
+          substitution = this@with.substitution.takeUnless { it.all { it == null } },
+          schedule = this@with.schedule.takeUnless { it.all { it == null } },
+          maxDispense = this@with.maxDispense,
         )
       }
   }
@@ -739,67 +662,46 @@ internal data class MedicationKnowledgeRegulatoryMaxDispenseSurrogate(
 }
 
 @Serializable
-internal data class MedicationKnowledgeRegulatorySurrogate(
+internal data class MedicationKnowledgeDefinitionalSurrogate(
   public var id: KotlinString? = null,
   public var extension: MutableList<Extension>? = null,
   public var modifierExtension: MutableList<Extension>? = null,
-  public var regulatoryAuthority: Reference,
-  public var substitution: MutableList<MedicationKnowledge.Regulatory.Substitution>? = null,
-  public var schedule: MutableList<CodeableConcept>? = null,
-  public var maxDispense: MedicationKnowledge.Regulatory.MaxDispense? = null,
+  public var definition: MutableList<Reference>? = null,
+  public var doseForm: CodeableConcept? = null,
+  public var intendedRoute: MutableList<CodeableConcept>? = null,
+  public var ingredient: MutableList<MedicationKnowledge.Definitional.Ingredient>? = null,
+  public var drugCharacteristic: MutableList<MedicationKnowledge.Definitional.DrugCharacteristic>? =
+    null,
 ) {
-  public fun toModel(): MedicationKnowledge.Regulatory =
-    MedicationKnowledge.Regulatory(
-      id = this@MedicationKnowledgeRegulatorySurrogate.id,
-      extension = this@MedicationKnowledgeRegulatorySurrogate.extension ?: mutableListOf(),
+  public fun toModel(): MedicationKnowledge.Definitional =
+    MedicationKnowledge.Definitional(
+      id = this@MedicationKnowledgeDefinitionalSurrogate.id,
+      extension = this@MedicationKnowledgeDefinitionalSurrogate.extension ?: mutableListOf(),
       modifierExtension =
-        this@MedicationKnowledgeRegulatorySurrogate.modifierExtension ?: mutableListOf(),
-      regulatoryAuthority = this@MedicationKnowledgeRegulatorySurrogate.regulatoryAuthority,
-      substitution = this@MedicationKnowledgeRegulatorySurrogate.substitution ?: mutableListOf(),
-      schedule = this@MedicationKnowledgeRegulatorySurrogate.schedule ?: mutableListOf(),
-      maxDispense = this@MedicationKnowledgeRegulatorySurrogate.maxDispense,
+        this@MedicationKnowledgeDefinitionalSurrogate.modifierExtension ?: mutableListOf(),
+      definition = this@MedicationKnowledgeDefinitionalSurrogate.definition ?: mutableListOf(),
+      doseForm = this@MedicationKnowledgeDefinitionalSurrogate.doseForm,
+      intendedRoute =
+        this@MedicationKnowledgeDefinitionalSurrogate.intendedRoute ?: mutableListOf(),
+      ingredient = this@MedicationKnowledgeDefinitionalSurrogate.ingredient ?: mutableListOf(),
+      drugCharacteristic =
+        this@MedicationKnowledgeDefinitionalSurrogate.drugCharacteristic ?: mutableListOf(),
     )
 
   public companion object {
     public fun fromModel(
-      model: MedicationKnowledge.Regulatory
-    ): MedicationKnowledgeRegulatorySurrogate =
+      model: MedicationKnowledge.Definitional
+    ): MedicationKnowledgeDefinitionalSurrogate =
       with(model) {
-        MedicationKnowledgeRegulatorySurrogate(
+        MedicationKnowledgeDefinitionalSurrogate(
           id = this@with.id,
           extension = this@with.extension.takeUnless { it.all { it == null } },
           modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          regulatoryAuthority = this@with.regulatoryAuthority,
-          substitution = this@with.substitution.takeUnless { it.all { it == null } },
-          schedule = this@with.schedule.takeUnless { it.all { it == null } },
-          maxDispense = this@with.maxDispense,
-        )
-      }
-  }
-}
-
-@Serializable
-internal data class MedicationKnowledgeDefinitionalIngredientStrengthSurrogate(
-  public var strengthRatio: Ratio? = null,
-  public var strengthCodeableConcept: CodeableConcept? = null,
-  public var strengthQuantity: Quantity? = null,
-) {
-  public fun toModel(): MedicationKnowledge.Definitional.Ingredient.Strength =
-    MedicationKnowledge.Definitional.Ingredient.Strength?.from(
-      this@MedicationKnowledgeDefinitionalIngredientStrengthSurrogate.strengthRatio,
-      this@MedicationKnowledgeDefinitionalIngredientStrengthSurrogate.strengthCodeableConcept,
-      this@MedicationKnowledgeDefinitionalIngredientStrengthSurrogate.strengthQuantity,
-    )!!
-
-  public companion object {
-    public fun fromModel(
-      model: MedicationKnowledge.Definitional.Ingredient.Strength
-    ): MedicationKnowledgeDefinitionalIngredientStrengthSurrogate =
-      with(model) {
-        MedicationKnowledgeDefinitionalIngredientStrengthSurrogate(
-          strengthRatio = this@with.asRatio()?.value,
-          strengthCodeableConcept = this@with.asCodeableConcept()?.value,
-          strengthQuantity = this@with.asQuantity()?.value,
+          definition = this@with.definition.takeUnless { it.all { it == null } },
+          doseForm = this@with.doseForm,
+          intendedRoute = this@with.intendedRoute.takeUnless { it.all { it == null } },
+          ingredient = this@with.ingredient.takeUnless { it.all { it == null } },
+          drugCharacteristic = this@with.drugCharacteristic.takeUnless { it.all { it == null } },
         )
       }
   }
@@ -845,49 +747,6 @@ internal data class MedicationKnowledgeDefinitionalIngredientSurrogate(
 }
 
 @Serializable
-internal data class MedicationKnowledgeDefinitionalDrugCharacteristicValueSurrogate(
-  public var valueCodeableConcept: CodeableConcept? = null,
-  public var valueString: KotlinString? = null,
-  public var _valueString: Element? = null,
-  public var valueQuantity: Quantity? = null,
-  public var valueBase64Binary: KotlinString? = null,
-  public var _valueBase64Binary: Element? = null,
-  public var valueAttachment: Attachment? = null,
-) {
-  public fun toModel(): MedicationKnowledge.Definitional.DrugCharacteristic.Value =
-    MedicationKnowledge.Definitional.DrugCharacteristic.Value?.from(
-      this@MedicationKnowledgeDefinitionalDrugCharacteristicValueSurrogate.valueCodeableConcept,
-      R5String.of(
-        this@MedicationKnowledgeDefinitionalDrugCharacteristicValueSurrogate.valueString,
-        this@MedicationKnowledgeDefinitionalDrugCharacteristicValueSurrogate._valueString,
-      ),
-      this@MedicationKnowledgeDefinitionalDrugCharacteristicValueSurrogate.valueQuantity,
-      Base64Binary.of(
-        this@MedicationKnowledgeDefinitionalDrugCharacteristicValueSurrogate.valueBase64Binary,
-        this@MedicationKnowledgeDefinitionalDrugCharacteristicValueSurrogate._valueBase64Binary,
-      ),
-      this@MedicationKnowledgeDefinitionalDrugCharacteristicValueSurrogate.valueAttachment,
-    )!!
-
-  public companion object {
-    public fun fromModel(
-      model: MedicationKnowledge.Definitional.DrugCharacteristic.Value
-    ): MedicationKnowledgeDefinitionalDrugCharacteristicValueSurrogate =
-      with(model) {
-        MedicationKnowledgeDefinitionalDrugCharacteristicValueSurrogate(
-          valueCodeableConcept = this@with.asCodeableConcept()?.value,
-          valueString = this@with.asString()?.value?.value,
-          _valueString = this@with.asString()?.value?.toElement(),
-          valueQuantity = this@with.asQuantity()?.value,
-          valueBase64Binary = this@with.asBase64Binary()?.value?.value,
-          _valueBase64Binary = this@with.asBase64Binary()?.value?.toElement(),
-          valueAttachment = this@with.asAttachment()?.value,
-        )
-      }
-  }
-}
-
-@Serializable
 internal data class MedicationKnowledgeDefinitionalDrugCharacteristicSurrogate(
   public var id: KotlinString? = null,
   public var extension: MutableList<Extension>? = null,
@@ -925,46 +784,187 @@ internal data class MedicationKnowledgeDefinitionalDrugCharacteristicSurrogate(
 }
 
 @Serializable
-internal data class MedicationKnowledgeDefinitionalSurrogate(
-  public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var definition: MutableList<Reference>? = null,
-  public var doseForm: CodeableConcept? = null,
-  public var intendedRoute: MutableList<CodeableConcept>? = null,
-  public var ingredient: MutableList<MedicationKnowledge.Definitional.Ingredient>? = null,
-  public var drugCharacteristic: MutableList<MedicationKnowledge.Definitional.DrugCharacteristic>? =
-    null,
+internal data class MedicationKnowledgeCostCostSurrogate(
+  public var costMoney: Money? = null,
+  public var costCodeableConcept: CodeableConcept? = null,
 ) {
-  public fun toModel(): MedicationKnowledge.Definitional =
-    MedicationKnowledge.Definitional(
-      id = this@MedicationKnowledgeDefinitionalSurrogate.id,
-      extension = this@MedicationKnowledgeDefinitionalSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@MedicationKnowledgeDefinitionalSurrogate.modifierExtension ?: mutableListOf(),
-      definition = this@MedicationKnowledgeDefinitionalSurrogate.definition ?: mutableListOf(),
-      doseForm = this@MedicationKnowledgeDefinitionalSurrogate.doseForm,
-      intendedRoute =
-        this@MedicationKnowledgeDefinitionalSurrogate.intendedRoute ?: mutableListOf(),
-      ingredient = this@MedicationKnowledgeDefinitionalSurrogate.ingredient ?: mutableListOf(),
-      drugCharacteristic =
-        this@MedicationKnowledgeDefinitionalSurrogate.drugCharacteristic ?: mutableListOf(),
-    )
+  public fun toModel(): MedicationKnowledge.Cost.Cost =
+    MedicationKnowledge.Cost.Cost.from(
+      this@MedicationKnowledgeCostCostSurrogate.costMoney,
+      this@MedicationKnowledgeCostCostSurrogate.costCodeableConcept,
+    )!! !!
 
   public companion object {
     public fun fromModel(
-      model: MedicationKnowledge.Definitional
-    ): MedicationKnowledgeDefinitionalSurrogate =
+      model: MedicationKnowledge.Cost.Cost
+    ): MedicationKnowledgeCostCostSurrogate =
       with(model) {
-        MedicationKnowledgeDefinitionalSurrogate(
-          id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          definition = this@with.definition.takeUnless { it.all { it == null } },
-          doseForm = this@with.doseForm,
-          intendedRoute = this@with.intendedRoute.takeUnless { it.all { it == null } },
-          ingredient = this@with.ingredient.takeUnless { it.all { it == null } },
-          drugCharacteristic = this@with.drugCharacteristic.takeUnless { it.all { it == null } },
+        MedicationKnowledgeCostCostSurrogate(
+          costMoney = this@with.asMoney()?.value,
+          costCodeableConcept = this@with.asCodeableConcept()?.value,
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class MedicationKnowledgeIndicationGuidelineDosingGuidelinePatientCharacteristicValueSurrogate(
+  public var valueCodeableConcept: CodeableConcept? = null,
+  public var valueQuantity: Quantity? = null,
+  public var valueRange: Range? = null,
+) {
+  public fun toModel():
+    MedicationKnowledge.IndicationGuideline.DosingGuideline.PatientCharacteristic.Value =
+    MedicationKnowledge.IndicationGuideline.DosingGuideline.PatientCharacteristic.Value.from(
+      this@MedicationKnowledgeIndicationGuidelineDosingGuidelinePatientCharacteristicValueSurrogate
+        .valueCodeableConcept,
+      this@MedicationKnowledgeIndicationGuidelineDosingGuidelinePatientCharacteristicValueSurrogate
+        .valueQuantity,
+      this@MedicationKnowledgeIndicationGuidelineDosingGuidelinePatientCharacteristicValueSurrogate
+        .valueRange,
+    )!!
+
+  public companion object {
+    public fun fromModel(
+      model: MedicationKnowledge.IndicationGuideline.DosingGuideline.PatientCharacteristic.Value
+    ): MedicationKnowledgeIndicationGuidelineDosingGuidelinePatientCharacteristicValueSurrogate =
+      with(model) {
+        MedicationKnowledgeIndicationGuidelineDosingGuidelinePatientCharacteristicValueSurrogate(
+          valueCodeableConcept = this@with.asCodeableConcept()?.value,
+          valueQuantity = this@with.asQuantity()?.value,
+          valueRange = this@with.asRange()?.value,
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class MedicationKnowledgeMedicineClassificationSourceSurrogate(
+  public var sourceString: KotlinString? = null,
+  public var _sourceString: Element? = null,
+  public var sourceUri: KotlinString? = null,
+  public var _sourceUri: Element? = null,
+) {
+  public fun toModel(): MedicationKnowledge.MedicineClassification.Source =
+    MedicationKnowledge.MedicineClassification.Source.from(
+      R5String.of(
+        this@MedicationKnowledgeMedicineClassificationSourceSurrogate.sourceString,
+        this@MedicationKnowledgeMedicineClassificationSourceSurrogate._sourceString,
+      ),
+      Uri.of(
+        this@MedicationKnowledgeMedicineClassificationSourceSurrogate.sourceUri,
+        this@MedicationKnowledgeMedicineClassificationSourceSurrogate._sourceUri,
+      ),
+    )!!
+
+  public companion object {
+    public fun fromModel(
+      model: MedicationKnowledge.MedicineClassification.Source
+    ): MedicationKnowledgeMedicineClassificationSourceSurrogate =
+      with(model) {
+        MedicationKnowledgeMedicineClassificationSourceSurrogate(
+          sourceString = this@with.asString()?.value?.value,
+          _sourceString = this@with.asString()?.value?.toElement(),
+          sourceUri = this@with.asUri()?.value?.value,
+          _sourceUri = this@with.asUri()?.value?.toElement(),
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class MedicationKnowledgeStorageGuidelineEnvironmentalSettingValueSurrogate(
+  public var valueQuantity: Quantity? = null,
+  public var valueRange: Range? = null,
+  public var valueCodeableConcept: CodeableConcept? = null,
+) {
+  public fun toModel(): MedicationKnowledge.StorageGuideline.EnvironmentalSetting.Value =
+    MedicationKnowledge.StorageGuideline.EnvironmentalSetting.Value.from(
+      this@MedicationKnowledgeStorageGuidelineEnvironmentalSettingValueSurrogate.valueQuantity,
+      this@MedicationKnowledgeStorageGuidelineEnvironmentalSettingValueSurrogate.valueRange,
+      this@MedicationKnowledgeStorageGuidelineEnvironmentalSettingValueSurrogate
+        .valueCodeableConcept,
+    )!! !!
+
+  public companion object {
+    public fun fromModel(
+      model: MedicationKnowledge.StorageGuideline.EnvironmentalSetting.Value
+    ): MedicationKnowledgeStorageGuidelineEnvironmentalSettingValueSurrogate =
+      with(model) {
+        MedicationKnowledgeStorageGuidelineEnvironmentalSettingValueSurrogate(
+          valueQuantity = this@with.asQuantity()?.value,
+          valueRange = this@with.asRange()?.value,
+          valueCodeableConcept = this@with.asCodeableConcept()?.value,
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class MedicationKnowledgeDefinitionalIngredientStrengthSurrogate(
+  public var strengthRatio: Ratio? = null,
+  public var strengthCodeableConcept: CodeableConcept? = null,
+  public var strengthQuantity: Quantity? = null,
+) {
+  public fun toModel(): MedicationKnowledge.Definitional.Ingredient.Strength =
+    MedicationKnowledge.Definitional.Ingredient.Strength.from(
+      this@MedicationKnowledgeDefinitionalIngredientStrengthSurrogate.strengthRatio,
+      this@MedicationKnowledgeDefinitionalIngredientStrengthSurrogate.strengthCodeableConcept,
+      this@MedicationKnowledgeDefinitionalIngredientStrengthSurrogate.strengthQuantity,
+    )!!
+
+  public companion object {
+    public fun fromModel(
+      model: MedicationKnowledge.Definitional.Ingredient.Strength
+    ): MedicationKnowledgeDefinitionalIngredientStrengthSurrogate =
+      with(model) {
+        MedicationKnowledgeDefinitionalIngredientStrengthSurrogate(
+          strengthRatio = this@with.asRatio()?.value,
+          strengthCodeableConcept = this@with.asCodeableConcept()?.value,
+          strengthQuantity = this@with.asQuantity()?.value,
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class MedicationKnowledgeDefinitionalDrugCharacteristicValueSurrogate(
+  public var valueCodeableConcept: CodeableConcept? = null,
+  public var valueString: KotlinString? = null,
+  public var _valueString: Element? = null,
+  public var valueQuantity: Quantity? = null,
+  public var valueBase64Binary: KotlinString? = null,
+  public var _valueBase64Binary: Element? = null,
+  public var valueAttachment: Attachment? = null,
+) {
+  public fun toModel(): MedicationKnowledge.Definitional.DrugCharacteristic.Value =
+    MedicationKnowledge.Definitional.DrugCharacteristic.Value.from(
+      this@MedicationKnowledgeDefinitionalDrugCharacteristicValueSurrogate.valueCodeableConcept,
+      R5String.of(
+        this@MedicationKnowledgeDefinitionalDrugCharacteristicValueSurrogate.valueString,
+        this@MedicationKnowledgeDefinitionalDrugCharacteristicValueSurrogate._valueString,
+      ),
+      this@MedicationKnowledgeDefinitionalDrugCharacteristicValueSurrogate.valueQuantity,
+      Base64Binary.of(
+        this@MedicationKnowledgeDefinitionalDrugCharacteristicValueSurrogate.valueBase64Binary,
+        this@MedicationKnowledgeDefinitionalDrugCharacteristicValueSurrogate._valueBase64Binary,
+      ),
+      this@MedicationKnowledgeDefinitionalDrugCharacteristicValueSurrogate.valueAttachment,
+    )!!
+
+  public companion object {
+    public fun fromModel(
+      model: MedicationKnowledge.Definitional.DrugCharacteristic.Value
+    ): MedicationKnowledgeDefinitionalDrugCharacteristicValueSurrogate =
+      with(model) {
+        MedicationKnowledgeDefinitionalDrugCharacteristicValueSurrogate(
+          valueCodeableConcept = this@with.asCodeableConcept()?.value,
+          valueString = this@with.asString()?.value?.value,
+          _valueString = this@with.asString()?.value?.toElement(),
+          valueQuantity = this@with.asQuantity()?.value,
+          valueBase64Binary = this@with.asBase64Binary()?.value?.value,
+          _valueBase64Binary = this@with.asBase64Binary()?.value?.toElement(),
+          valueAttachment = this@with.asAttachment()?.value,
         )
       }
   }

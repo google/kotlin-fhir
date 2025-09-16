@@ -43,31 +43,6 @@ import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.JsonPrimitive
 import kotlinx.serialization.json.jsonObject
 
-public object ClinicalUseDefinitionContraindicationOtherTherapySerializer :
-  KSerializer<ClinicalUseDefinition.Contraindication.OtherTherapy> {
-  internal val surrogateSerializer:
-    KSerializer<ClinicalUseDefinitionContraindicationOtherTherapySurrogate> by lazy {
-    ClinicalUseDefinitionContraindicationOtherTherapySurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("OtherTherapy", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): ClinicalUseDefinition.Contraindication.OtherTherapy =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(
-    encoder: Encoder,
-    `value`: ClinicalUseDefinition.Contraindication.OtherTherapy,
-  ) {
-    surrogateSerializer.serialize(
-      encoder,
-      ClinicalUseDefinitionContraindicationOtherTherapySurrogate.fromModel(value),
-    )
-  }
-}
-
 public object ClinicalUseDefinitionContraindicationSerializer :
   KSerializer<ClinicalUseDefinition.Contraindication> {
   internal val surrogateSerializer:
@@ -90,24 +65,27 @@ public object ClinicalUseDefinitionContraindicationSerializer :
   }
 }
 
-public object ClinicalUseDefinitionIndicationDurationSerializer :
-  KSerializer<ClinicalUseDefinition.Indication.Duration> {
+public object ClinicalUseDefinitionContraindicationOtherTherapySerializer :
+  KSerializer<ClinicalUseDefinition.Contraindication.OtherTherapy> {
   internal val surrogateSerializer:
-    KSerializer<ClinicalUseDefinitionIndicationDurationSurrogate> by lazy {
-    ClinicalUseDefinitionIndicationDurationSurrogate.serializer()
+    KSerializer<ClinicalUseDefinitionContraindicationOtherTherapySurrogate> by lazy {
+    ClinicalUseDefinitionContraindicationOtherTherapySurrogate.serializer()
   }
 
   override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Duration", surrogateSerializer.descriptor)
+    SerialDescriptor("OtherTherapy", surrogateSerializer.descriptor)
   }
 
-  override fun deserialize(decoder: Decoder): ClinicalUseDefinition.Indication.Duration =
+  override fun deserialize(decoder: Decoder): ClinicalUseDefinition.Contraindication.OtherTherapy =
     surrogateSerializer.deserialize(decoder).toModel()
 
-  override fun serialize(encoder: Encoder, `value`: ClinicalUseDefinition.Indication.Duration) {
+  override fun serialize(
+    encoder: Encoder,
+    `value`: ClinicalUseDefinition.Contraindication.OtherTherapy,
+  ) {
     surrogateSerializer.serialize(
       encoder,
-      ClinicalUseDefinitionIndicationDurationSurrogate.fromModel(value),
+      ClinicalUseDefinitionContraindicationOtherTherapySurrogate.fromModel(value),
     )
   }
 }
@@ -160,27 +138,23 @@ public object ClinicalUseDefinitionIndicationSerializer :
   }
 }
 
-public object ClinicalUseDefinitionInteractionInteractantItemSerializer :
-  KSerializer<ClinicalUseDefinition.Interaction.Interactant.Item> {
-  internal val surrogateSerializer:
-    KSerializer<ClinicalUseDefinitionInteractionInteractantItemSurrogate> by lazy {
-    ClinicalUseDefinitionInteractionInteractantItemSurrogate.serializer()
+public object ClinicalUseDefinitionInteractionSerializer :
+  KSerializer<ClinicalUseDefinition.Interaction> {
+  internal val surrogateSerializer: KSerializer<ClinicalUseDefinitionInteractionSurrogate> by lazy {
+    ClinicalUseDefinitionInteractionSurrogate.serializer()
   }
 
   override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Item", surrogateSerializer.descriptor)
+    SerialDescriptor("Interaction", surrogateSerializer.descriptor)
   }
 
-  override fun deserialize(decoder: Decoder): ClinicalUseDefinition.Interaction.Interactant.Item =
+  override fun deserialize(decoder: Decoder): ClinicalUseDefinition.Interaction =
     surrogateSerializer.deserialize(decoder).toModel()
 
-  override fun serialize(
-    encoder: Encoder,
-    `value`: ClinicalUseDefinition.Interaction.Interactant.Item,
-  ) {
+  override fun serialize(encoder: Encoder, `value`: ClinicalUseDefinition.Interaction) {
     surrogateSerializer.serialize(
       encoder,
-      ClinicalUseDefinitionInteractionInteractantItemSurrogate.fromModel(value),
+      ClinicalUseDefinitionInteractionSurrogate.fromModel(value),
     )
   }
 }
@@ -234,27 +208,6 @@ public object ClinicalUseDefinitionInteractionInteractantSerializer :
   }
 }
 
-public object ClinicalUseDefinitionInteractionSerializer :
-  KSerializer<ClinicalUseDefinition.Interaction> {
-  internal val surrogateSerializer: KSerializer<ClinicalUseDefinitionInteractionSurrogate> by lazy {
-    ClinicalUseDefinitionInteractionSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Interaction", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): ClinicalUseDefinition.Interaction =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: ClinicalUseDefinition.Interaction) {
-    surrogateSerializer.serialize(
-      encoder,
-      ClinicalUseDefinitionInteractionSurrogate.fromModel(value),
-    )
-  }
-}
-
 public object ClinicalUseDefinitionUndesirableEffectSerializer :
   KSerializer<ClinicalUseDefinition.UndesirableEffect> {
   internal val surrogateSerializer:
@@ -291,6 +244,53 @@ public object ClinicalUseDefinitionWarningSerializer : KSerializer<ClinicalUseDe
 
   override fun serialize(encoder: Encoder, `value`: ClinicalUseDefinition.Warning) {
     surrogateSerializer.serialize(encoder, ClinicalUseDefinitionWarningSurrogate.fromModel(value))
+  }
+}
+
+public object ClinicalUseDefinitionIndicationDurationSerializer :
+  KSerializer<ClinicalUseDefinition.Indication.Duration> {
+  internal val surrogateSerializer:
+    KSerializer<ClinicalUseDefinitionIndicationDurationSurrogate> by lazy {
+    ClinicalUseDefinitionIndicationDurationSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Duration", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): ClinicalUseDefinition.Indication.Duration =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: ClinicalUseDefinition.Indication.Duration) {
+    surrogateSerializer.serialize(
+      encoder,
+      ClinicalUseDefinitionIndicationDurationSurrogate.fromModel(value),
+    )
+  }
+}
+
+public object ClinicalUseDefinitionInteractionInteractantItemSerializer :
+  KSerializer<ClinicalUseDefinition.Interaction.Interactant.Item> {
+  internal val surrogateSerializer:
+    KSerializer<ClinicalUseDefinitionInteractionInteractantItemSurrogate> by lazy {
+    ClinicalUseDefinitionInteractionInteractantItemSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Item", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): ClinicalUseDefinition.Interaction.Interactant.Item =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(
+    encoder: Encoder,
+    `value`: ClinicalUseDefinition.Interaction.Interactant.Item,
+  ) {
+    surrogateSerializer.serialize(
+      encoder,
+      ClinicalUseDefinitionInteractionInteractantItemSurrogate.fromModel(value),
+    )
   }
 }
 

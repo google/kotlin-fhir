@@ -217,6 +217,145 @@ internal data class MolecularSequenceVariantSurrogate(
 }
 
 @Serializable
+internal data class MolecularSequenceQualitySurrogate(
+  public var id: KotlinString? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var type: KotlinString? = null,
+  public var _type: Element? = null,
+  public var standardSequence: CodeableConcept? = null,
+  public var start: Int? = null,
+  public var _start: Element? = null,
+  public var end: Int? = null,
+  public var _end: Element? = null,
+  public var score: Quantity? = null,
+  public var method: CodeableConcept? = null,
+  public var truthTP: Double? = null,
+  public var _truthTP: Element? = null,
+  public var queryTP: Double? = null,
+  public var _queryTP: Element? = null,
+  public var truthFN: Double? = null,
+  public var _truthFN: Element? = null,
+  public var queryFP: Double? = null,
+  public var _queryFP: Element? = null,
+  public var gtFP: Double? = null,
+  public var _gtFP: Element? = null,
+  public var precision: Double? = null,
+  public var _precision: Element? = null,
+  public var recall: Double? = null,
+  public var _recall: Element? = null,
+  public var fScore: Double? = null,
+  public var _fScore: Element? = null,
+  public var roc: MolecularSequence.Quality.Roc? = null,
+) {
+  public fun toModel(): MolecularSequence.Quality =
+    MolecularSequence.Quality(
+      id = this@MolecularSequenceQualitySurrogate.id,
+      extension = this@MolecularSequenceQualitySurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@MolecularSequenceQualitySurrogate.modifierExtension ?: mutableListOf(),
+      type =
+        Enumeration.of(
+          com.google.fhir.model.r4.MolecularSequence.QualityType.fromCode(
+            this@MolecularSequenceQualitySurrogate.type!!
+          ),
+          this@MolecularSequenceQualitySurrogate._type,
+        ),
+      standardSequence = this@MolecularSequenceQualitySurrogate.standardSequence,
+      start =
+        Integer.of(
+          this@MolecularSequenceQualitySurrogate.start,
+          this@MolecularSequenceQualitySurrogate._start,
+        ),
+      end =
+        Integer.of(
+          this@MolecularSequenceQualitySurrogate.end,
+          this@MolecularSequenceQualitySurrogate._end,
+        ),
+      score = this@MolecularSequenceQualitySurrogate.score,
+      method = this@MolecularSequenceQualitySurrogate.method,
+      truthTP =
+        Decimal.of(
+          this@MolecularSequenceQualitySurrogate.truthTP,
+          this@MolecularSequenceQualitySurrogate._truthTP,
+        ),
+      queryTP =
+        Decimal.of(
+          this@MolecularSequenceQualitySurrogate.queryTP,
+          this@MolecularSequenceQualitySurrogate._queryTP,
+        ),
+      truthFN =
+        Decimal.of(
+          this@MolecularSequenceQualitySurrogate.truthFN,
+          this@MolecularSequenceQualitySurrogate._truthFN,
+        ),
+      queryFP =
+        Decimal.of(
+          this@MolecularSequenceQualitySurrogate.queryFP,
+          this@MolecularSequenceQualitySurrogate._queryFP,
+        ),
+      gtFP =
+        Decimal.of(
+          this@MolecularSequenceQualitySurrogate.gtFP,
+          this@MolecularSequenceQualitySurrogate._gtFP,
+        ),
+      precision =
+        Decimal.of(
+          this@MolecularSequenceQualitySurrogate.precision,
+          this@MolecularSequenceQualitySurrogate._precision,
+        ),
+      recall =
+        Decimal.of(
+          this@MolecularSequenceQualitySurrogate.recall,
+          this@MolecularSequenceQualitySurrogate._recall,
+        ),
+      fScore =
+        Decimal.of(
+          this@MolecularSequenceQualitySurrogate.fScore,
+          this@MolecularSequenceQualitySurrogate._fScore,
+        ),
+      roc = this@MolecularSequenceQualitySurrogate.roc,
+    )
+
+  public companion object {
+    public fun fromModel(model: MolecularSequence.Quality): MolecularSequenceQualitySurrogate =
+      with(model) {
+        MolecularSequenceQualitySurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          type = this@with.type.value?.getCode(),
+          _type = this@with.type.toElement(),
+          standardSequence = this@with.standardSequence,
+          start = this@with.start?.value,
+          _start = this@with.start?.toElement(),
+          end = this@with.end?.value,
+          _end = this@with.end?.toElement(),
+          score = this@with.score,
+          method = this@with.method,
+          truthTP = this@with.truthTP?.value,
+          _truthTP = this@with.truthTP?.toElement(),
+          queryTP = this@with.queryTP?.value,
+          _queryTP = this@with.queryTP?.toElement(),
+          truthFN = this@with.truthFN?.value,
+          _truthFN = this@with.truthFN?.toElement(),
+          queryFP = this@with.queryFP?.value,
+          _queryFP = this@with.queryFP?.toElement(),
+          gtFP = this@with.gtFP?.value,
+          _gtFP = this@with.gtFP?.toElement(),
+          precision = this@with.precision?.value,
+          _precision = this@with.precision?.toElement(),
+          recall = this@with.recall?.value,
+          _recall = this@with.recall?.toElement(),
+          fScore = this@with.fScore?.value,
+          _fScore = this@with.fScore?.toElement(),
+          roc = this@with.roc,
+        )
+      }
+  }
+}
+
+@Serializable
 internal data class MolecularSequenceQualityRocSurrogate(
   public var id: KotlinString? = null,
   public var extension: MutableList<Extension>? = null,
@@ -436,145 +575,6 @@ internal data class MolecularSequenceQualityRocSurrogate(
 }
 
 @Serializable
-internal data class MolecularSequenceQualitySurrogate(
-  public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var type: KotlinString? = null,
-  public var _type: Element? = null,
-  public var standardSequence: CodeableConcept? = null,
-  public var start: Int? = null,
-  public var _start: Element? = null,
-  public var end: Int? = null,
-  public var _end: Element? = null,
-  public var score: Quantity? = null,
-  public var method: CodeableConcept? = null,
-  public var truthTP: Double? = null,
-  public var _truthTP: Element? = null,
-  public var queryTP: Double? = null,
-  public var _queryTP: Element? = null,
-  public var truthFN: Double? = null,
-  public var _truthFN: Element? = null,
-  public var queryFP: Double? = null,
-  public var _queryFP: Element? = null,
-  public var gtFP: Double? = null,
-  public var _gtFP: Element? = null,
-  public var precision: Double? = null,
-  public var _precision: Element? = null,
-  public var recall: Double? = null,
-  public var _recall: Element? = null,
-  public var fScore: Double? = null,
-  public var _fScore: Element? = null,
-  public var roc: MolecularSequence.Quality.Roc? = null,
-) {
-  public fun toModel(): MolecularSequence.Quality =
-    MolecularSequence.Quality(
-      id = this@MolecularSequenceQualitySurrogate.id,
-      extension = this@MolecularSequenceQualitySurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@MolecularSequenceQualitySurrogate.modifierExtension ?: mutableListOf(),
-      type =
-        Enumeration.of(
-          com.google.fhir.model.r4.MolecularSequence.QualityType.fromCode(
-            this@MolecularSequenceQualitySurrogate.type!!
-          ),
-          this@MolecularSequenceQualitySurrogate._type,
-        ),
-      standardSequence = this@MolecularSequenceQualitySurrogate.standardSequence,
-      start =
-        Integer.of(
-          this@MolecularSequenceQualitySurrogate.start,
-          this@MolecularSequenceQualitySurrogate._start,
-        ),
-      end =
-        Integer.of(
-          this@MolecularSequenceQualitySurrogate.end,
-          this@MolecularSequenceQualitySurrogate._end,
-        ),
-      score = this@MolecularSequenceQualitySurrogate.score,
-      method = this@MolecularSequenceQualitySurrogate.method,
-      truthTP =
-        Decimal.of(
-          this@MolecularSequenceQualitySurrogate.truthTP,
-          this@MolecularSequenceQualitySurrogate._truthTP,
-        ),
-      queryTP =
-        Decimal.of(
-          this@MolecularSequenceQualitySurrogate.queryTP,
-          this@MolecularSequenceQualitySurrogate._queryTP,
-        ),
-      truthFN =
-        Decimal.of(
-          this@MolecularSequenceQualitySurrogate.truthFN,
-          this@MolecularSequenceQualitySurrogate._truthFN,
-        ),
-      queryFP =
-        Decimal.of(
-          this@MolecularSequenceQualitySurrogate.queryFP,
-          this@MolecularSequenceQualitySurrogate._queryFP,
-        ),
-      gtFP =
-        Decimal.of(
-          this@MolecularSequenceQualitySurrogate.gtFP,
-          this@MolecularSequenceQualitySurrogate._gtFP,
-        ),
-      precision =
-        Decimal.of(
-          this@MolecularSequenceQualitySurrogate.precision,
-          this@MolecularSequenceQualitySurrogate._precision,
-        ),
-      recall =
-        Decimal.of(
-          this@MolecularSequenceQualitySurrogate.recall,
-          this@MolecularSequenceQualitySurrogate._recall,
-        ),
-      fScore =
-        Decimal.of(
-          this@MolecularSequenceQualitySurrogate.fScore,
-          this@MolecularSequenceQualitySurrogate._fScore,
-        ),
-      roc = this@MolecularSequenceQualitySurrogate.roc,
-    )
-
-  public companion object {
-    public fun fromModel(model: MolecularSequence.Quality): MolecularSequenceQualitySurrogate =
-      with(model) {
-        MolecularSequenceQualitySurrogate(
-          id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          type = this@with.type.value?.getCode(),
-          _type = this@with.type.toElement(),
-          standardSequence = this@with.standardSequence,
-          start = this@with.start?.value,
-          _start = this@with.start?.toElement(),
-          end = this@with.end?.value,
-          _end = this@with.end?.toElement(),
-          score = this@with.score,
-          method = this@with.method,
-          truthTP = this@with.truthTP?.value,
-          _truthTP = this@with.truthTP?.toElement(),
-          queryTP = this@with.queryTP?.value,
-          _queryTP = this@with.queryTP?.toElement(),
-          truthFN = this@with.truthFN?.value,
-          _truthFN = this@with.truthFN?.toElement(),
-          queryFP = this@with.queryFP?.value,
-          _queryFP = this@with.queryFP?.toElement(),
-          gtFP = this@with.gtFP?.value,
-          _gtFP = this@with.gtFP?.toElement(),
-          precision = this@with.precision?.value,
-          _precision = this@with.precision?.toElement(),
-          recall = this@with.recall?.value,
-          _recall = this@with.recall?.toElement(),
-          fScore = this@with.fScore?.value,
-          _fScore = this@with.fScore?.toElement(),
-          roc = this@with.roc,
-        )
-      }
-  }
-}
-
-@Serializable
 internal data class MolecularSequenceRepositorySurrogate(
   public var id: KotlinString? = null,
   public var extension: MutableList<Extension>? = null,
@@ -653,6 +653,61 @@ internal data class MolecularSequenceRepositorySurrogate(
           _variantsetId = this@with.variantsetId?.toElement(),
           readsetId = this@with.readsetId?.value,
           _readsetId = this@with.readsetId?.toElement(),
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class MolecularSequenceStructureVariantSurrogate(
+  public var id: KotlinString? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var variantType: CodeableConcept? = null,
+  public var exact: KotlinBoolean? = null,
+  public var _exact: Element? = null,
+  public var length: Int? = null,
+  public var _length: Element? = null,
+  public var outer: MolecularSequence.StructureVariant.Outer? = null,
+  public var `inner`: MolecularSequence.StructureVariant.Inner? = null,
+) {
+  public fun toModel(): MolecularSequence.StructureVariant =
+    MolecularSequence.StructureVariant(
+      id = this@MolecularSequenceStructureVariantSurrogate.id,
+      extension = this@MolecularSequenceStructureVariantSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@MolecularSequenceStructureVariantSurrogate.modifierExtension ?: mutableListOf(),
+      variantType = this@MolecularSequenceStructureVariantSurrogate.variantType,
+      exact =
+        R4Boolean.of(
+          this@MolecularSequenceStructureVariantSurrogate.exact,
+          this@MolecularSequenceStructureVariantSurrogate._exact,
+        ),
+      length =
+        Integer.of(
+          this@MolecularSequenceStructureVariantSurrogate.length,
+          this@MolecularSequenceStructureVariantSurrogate._length,
+        ),
+      outer = this@MolecularSequenceStructureVariantSurrogate.outer,
+      `inner` = this@MolecularSequenceStructureVariantSurrogate.`inner`,
+    )
+
+  public companion object {
+    public fun fromModel(
+      model: MolecularSequence.StructureVariant
+    ): MolecularSequenceStructureVariantSurrogate =
+      with(model) {
+        MolecularSequenceStructureVariantSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          variantType = this@with.variantType,
+          exact = this@with.exact?.value,
+          _exact = this@with.exact?.toElement(),
+          length = this@with.length?.value,
+          _length = this@with.length?.toElement(),
+          outer = this@with.outer,
+          `inner` = this@with.`inner`,
         )
       }
   }
@@ -745,61 +800,6 @@ internal data class MolecularSequenceStructureVariantInnerSurrogate(
           _start = this@with.start?.toElement(),
           end = this@with.end?.value,
           _end = this@with.end?.toElement(),
-        )
-      }
-  }
-}
-
-@Serializable
-internal data class MolecularSequenceStructureVariantSurrogate(
-  public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var variantType: CodeableConcept? = null,
-  public var exact: KotlinBoolean? = null,
-  public var _exact: Element? = null,
-  public var length: Int? = null,
-  public var _length: Element? = null,
-  public var outer: MolecularSequence.StructureVariant.Outer? = null,
-  public var `inner`: MolecularSequence.StructureVariant.Inner? = null,
-) {
-  public fun toModel(): MolecularSequence.StructureVariant =
-    MolecularSequence.StructureVariant(
-      id = this@MolecularSequenceStructureVariantSurrogate.id,
-      extension = this@MolecularSequenceStructureVariantSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@MolecularSequenceStructureVariantSurrogate.modifierExtension ?: mutableListOf(),
-      variantType = this@MolecularSequenceStructureVariantSurrogate.variantType,
-      exact =
-        R4Boolean.of(
-          this@MolecularSequenceStructureVariantSurrogate.exact,
-          this@MolecularSequenceStructureVariantSurrogate._exact,
-        ),
-      length =
-        Integer.of(
-          this@MolecularSequenceStructureVariantSurrogate.length,
-          this@MolecularSequenceStructureVariantSurrogate._length,
-        ),
-      outer = this@MolecularSequenceStructureVariantSurrogate.outer,
-      `inner` = this@MolecularSequenceStructureVariantSurrogate.`inner`,
-    )
-
-  public companion object {
-    public fun fromModel(
-      model: MolecularSequence.StructureVariant
-    ): MolecularSequenceStructureVariantSurrogate =
-      with(model) {
-        MolecularSequenceStructureVariantSurrogate(
-          id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          variantType = this@with.variantType,
-          exact = this@with.exact?.value,
-          _exact = this@with.exact?.toElement(),
-          length = this@with.length?.value,
-          _length = this@with.length?.toElement(),
-          outer = this@with.outer,
-          `inner` = this@with.`inner`,
         )
       }
   }

@@ -51,6 +51,28 @@ import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.JsonPrimitive
 import kotlinx.serialization.json.jsonObject
 
+public object DeviceDefinitionUdiDeviceIdentifierSerializer :
+  KSerializer<DeviceDefinition.UdiDeviceIdentifier> {
+  internal val surrogateSerializer:
+    KSerializer<DeviceDefinitionUdiDeviceIdentifierSurrogate> by lazy {
+    DeviceDefinitionUdiDeviceIdentifierSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("UdiDeviceIdentifier", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): DeviceDefinition.UdiDeviceIdentifier =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: DeviceDefinition.UdiDeviceIdentifier) {
+    surrogateSerializer.serialize(
+      encoder,
+      DeviceDefinitionUdiDeviceIdentifierSurrogate.fromModel(value),
+    )
+  }
+}
+
 public object DeviceDefinitionUdiDeviceIdentifierMarketDistributionSerializer :
   KSerializer<DeviceDefinition.UdiDeviceIdentifier.MarketDistribution> {
   internal val surrogateSerializer:
@@ -74,28 +96,6 @@ public object DeviceDefinitionUdiDeviceIdentifierMarketDistributionSerializer :
     surrogateSerializer.serialize(
       encoder,
       DeviceDefinitionUdiDeviceIdentifierMarketDistributionSurrogate.fromModel(value),
-    )
-  }
-}
-
-public object DeviceDefinitionUdiDeviceIdentifierSerializer :
-  KSerializer<DeviceDefinition.UdiDeviceIdentifier> {
-  internal val surrogateSerializer:
-    KSerializer<DeviceDefinitionUdiDeviceIdentifierSurrogate> by lazy {
-    DeviceDefinitionUdiDeviceIdentifierSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("UdiDeviceIdentifier", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): DeviceDefinition.UdiDeviceIdentifier =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: DeviceDefinition.UdiDeviceIdentifier) {
-    surrogateSerializer.serialize(
-      encoder,
-      DeviceDefinitionUdiDeviceIdentifierSurrogate.fromModel(value),
     )
   }
 }
@@ -191,6 +191,23 @@ public object DeviceDefinitionHasPartSerializer : KSerializer<DeviceDefinition.H
   }
 }
 
+public object DeviceDefinitionPackagingSerializer : KSerializer<DeviceDefinition.Packaging> {
+  internal val surrogateSerializer: KSerializer<DeviceDefinitionPackagingSurrogate> by lazy {
+    DeviceDefinitionPackagingSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Packaging", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): DeviceDefinition.Packaging =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: DeviceDefinition.Packaging) {
+    surrogateSerializer.serialize(encoder, DeviceDefinitionPackagingSurrogate.fromModel(value))
+  }
+}
+
 public object DeviceDefinitionPackagingDistributorSerializer :
   KSerializer<DeviceDefinition.Packaging.Distributor> {
   internal val surrogateSerializer:
@@ -213,23 +230,6 @@ public object DeviceDefinitionPackagingDistributorSerializer :
   }
 }
 
-public object DeviceDefinitionPackagingSerializer : KSerializer<DeviceDefinition.Packaging> {
-  internal val surrogateSerializer: KSerializer<DeviceDefinitionPackagingSurrogate> by lazy {
-    DeviceDefinitionPackagingSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Packaging", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): DeviceDefinition.Packaging =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: DeviceDefinition.Packaging) {
-    surrogateSerializer.serialize(encoder, DeviceDefinitionPackagingSurrogate.fromModel(value))
-  }
-}
-
 public object DeviceDefinitionVersionSerializer : KSerializer<DeviceDefinition.Version> {
   internal val surrogateSerializer: KSerializer<DeviceDefinitionVersionSurrogate> by lazy {
     DeviceDefinitionVersionSurrogate.serializer()
@@ -244,24 +244,6 @@ public object DeviceDefinitionVersionSerializer : KSerializer<DeviceDefinition.V
 
   override fun serialize(encoder: Encoder, `value`: DeviceDefinition.Version) {
     surrogateSerializer.serialize(encoder, DeviceDefinitionVersionSurrogate.fromModel(value))
-  }
-}
-
-public object DeviceDefinitionPropertyValueSerializer :
-  KSerializer<DeviceDefinition.Property.Value> {
-  internal val surrogateSerializer: KSerializer<DeviceDefinitionPropertyValueSurrogate> by lazy {
-    DeviceDefinitionPropertyValueSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Value", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): DeviceDefinition.Property.Value =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: DeviceDefinition.Property.Value) {
-    surrogateSerializer.serialize(encoder, DeviceDefinitionPropertyValueSurrogate.fromModel(value))
   }
 }
 
@@ -398,6 +380,24 @@ public object DeviceDefinitionChargeItemSerializer : KSerializer<DeviceDefinitio
 
   override fun serialize(encoder: Encoder, `value`: DeviceDefinition.ChargeItem) {
     surrogateSerializer.serialize(encoder, DeviceDefinitionChargeItemSurrogate.fromModel(value))
+  }
+}
+
+public object DeviceDefinitionPropertyValueSerializer :
+  KSerializer<DeviceDefinition.Property.Value> {
+  internal val surrogateSerializer: KSerializer<DeviceDefinitionPropertyValueSurrogate> by lazy {
+    DeviceDefinitionPropertyValueSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Value", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): DeviceDefinition.Property.Value =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: DeviceDefinition.Property.Value) {
+    surrogateSerializer.serialize(encoder, DeviceDefinitionPropertyValueSurrogate.fromModel(value))
   }
 }
 

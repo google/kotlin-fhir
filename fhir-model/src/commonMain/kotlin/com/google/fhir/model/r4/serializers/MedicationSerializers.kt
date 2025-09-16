@@ -37,23 +37,6 @@ import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.JsonPrimitive
 import kotlinx.serialization.json.jsonObject
 
-public object MedicationIngredientItemSerializer : KSerializer<Medication.Ingredient.Item> {
-  internal val surrogateSerializer: KSerializer<MedicationIngredientItemSurrogate> by lazy {
-    MedicationIngredientItemSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Item", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): Medication.Ingredient.Item =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: Medication.Ingredient.Item) {
-    surrogateSerializer.serialize(encoder, MedicationIngredientItemSurrogate.fromModel(value))
-  }
-}
-
 public object MedicationIngredientSerializer : KSerializer<Medication.Ingredient> {
   internal val surrogateSerializer: KSerializer<MedicationIngredientSurrogate> by lazy {
     MedicationIngredientSurrogate.serializer()
@@ -115,6 +98,23 @@ public object MedicationBatchSerializer : KSerializer<Medication.Batch> {
 
   override fun serialize(encoder: Encoder, `value`: Medication.Batch) {
     surrogateSerializer.serialize(encoder, MedicationBatchSurrogate.fromModel(value))
+  }
+}
+
+public object MedicationIngredientItemSerializer : KSerializer<Medication.Ingredient.Item> {
+  internal val surrogateSerializer: KSerializer<MedicationIngredientItemSurrogate> by lazy {
+    MedicationIngredientItemSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Item", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): Medication.Ingredient.Item =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: Medication.Ingredient.Item) {
+    surrogateSerializer.serialize(encoder, MedicationIngredientItemSurrogate.fromModel(value))
   }
 }
 

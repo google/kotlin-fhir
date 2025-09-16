@@ -82,28 +82,55 @@ public object ConceptMapAdditionalAttributeSerializer :
   }
 }
 
-public object ConceptMapGroupElementTargetPropertyValueSerializer :
-  KSerializer<ConceptMap.Group.Element.Target.Property.Value> {
-  internal val surrogateSerializer:
-    KSerializer<ConceptMapGroupElementTargetPropertyValueSurrogate> by lazy {
-    ConceptMapGroupElementTargetPropertyValueSurrogate.serializer()
+public object ConceptMapGroupSerializer : KSerializer<ConceptMap.Group> {
+  internal val surrogateSerializer: KSerializer<ConceptMapGroupSurrogate> by lazy {
+    ConceptMapGroupSurrogate.serializer()
   }
 
   override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Value", surrogateSerializer.descriptor)
+    SerialDescriptor("Group", surrogateSerializer.descriptor)
   }
 
-  override fun deserialize(decoder: Decoder): ConceptMap.Group.Element.Target.Property.Value =
+  override fun deserialize(decoder: Decoder): ConceptMap.Group =
     surrogateSerializer.deserialize(decoder).toModel()
 
-  override fun serialize(
-    encoder: Encoder,
-    `value`: ConceptMap.Group.Element.Target.Property.Value,
-  ) {
-    surrogateSerializer.serialize(
-      encoder,
-      ConceptMapGroupElementTargetPropertyValueSurrogate.fromModel(value),
-    )
+  override fun serialize(encoder: Encoder, `value`: ConceptMap.Group) {
+    surrogateSerializer.serialize(encoder, ConceptMapGroupSurrogate.fromModel(value))
+  }
+}
+
+public object ConceptMapGroupElementSerializer : KSerializer<ConceptMap.Group.Element> {
+  internal val surrogateSerializer: KSerializer<ConceptMapGroupElementSurrogate> by lazy {
+    ConceptMapGroupElementSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Element", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): ConceptMap.Group.Element =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: ConceptMap.Group.Element) {
+    surrogateSerializer.serialize(encoder, ConceptMapGroupElementSurrogate.fromModel(value))
+  }
+}
+
+public object ConceptMapGroupElementTargetSerializer :
+  KSerializer<ConceptMap.Group.Element.Target> {
+  internal val surrogateSerializer: KSerializer<ConceptMapGroupElementTargetSurrogate> by lazy {
+    ConceptMapGroupElementTargetSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Target", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): ConceptMap.Group.Element.Target =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: ConceptMap.Group.Element.Target) {
+    surrogateSerializer.serialize(encoder, ConceptMapGroupElementTargetSurrogate.fromModel(value))
   }
 }
 
@@ -156,31 +183,6 @@ public object ConceptMapGroupElementTargetPropertySerializer :
   }
 }
 
-public object ConceptMapGroupElementTargetDependsOnValueSerializer :
-  KSerializer<ConceptMap.Group.Element.Target.DependsOn.Value> {
-  internal val surrogateSerializer:
-    KSerializer<ConceptMapGroupElementTargetDependsOnValueSurrogate> by lazy {
-    ConceptMapGroupElementTargetDependsOnValueSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Value", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): ConceptMap.Group.Element.Target.DependsOn.Value =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(
-    encoder: Encoder,
-    `value`: ConceptMap.Group.Element.Target.DependsOn.Value,
-  ) {
-    surrogateSerializer.serialize(
-      encoder,
-      ConceptMapGroupElementTargetDependsOnValueSurrogate.fromModel(value),
-    )
-  }
-}
-
 public object ConceptMapGroupElementTargetDependsOnSerializer :
   KSerializer<ConceptMap.Group.Element.Target.DependsOn> {
   internal val surrogateSerializer:
@@ -230,41 +232,6 @@ public object ConceptMapGroupElementTargetDependsOnSerializer :
   }
 }
 
-public object ConceptMapGroupElementTargetSerializer :
-  KSerializer<ConceptMap.Group.Element.Target> {
-  internal val surrogateSerializer: KSerializer<ConceptMapGroupElementTargetSurrogate> by lazy {
-    ConceptMapGroupElementTargetSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Target", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): ConceptMap.Group.Element.Target =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: ConceptMap.Group.Element.Target) {
-    surrogateSerializer.serialize(encoder, ConceptMapGroupElementTargetSurrogate.fromModel(value))
-  }
-}
-
-public object ConceptMapGroupElementSerializer : KSerializer<ConceptMap.Group.Element> {
-  internal val surrogateSerializer: KSerializer<ConceptMapGroupElementSurrogate> by lazy {
-    ConceptMapGroupElementSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Element", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): ConceptMap.Group.Element =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: ConceptMap.Group.Element) {
-    surrogateSerializer.serialize(encoder, ConceptMapGroupElementSurrogate.fromModel(value))
-  }
-}
-
 public object ConceptMapGroupUnmappedSerializer : KSerializer<ConceptMap.Group.Unmapped> {
   internal val surrogateSerializer: KSerializer<ConceptMapGroupUnmappedSurrogate> by lazy {
     ConceptMapGroupUnmappedSurrogate.serializer()
@@ -279,23 +246,6 @@ public object ConceptMapGroupUnmappedSerializer : KSerializer<ConceptMap.Group.U
 
   override fun serialize(encoder: Encoder, `value`: ConceptMap.Group.Unmapped) {
     surrogateSerializer.serialize(encoder, ConceptMapGroupUnmappedSurrogate.fromModel(value))
-  }
-}
-
-public object ConceptMapGroupSerializer : KSerializer<ConceptMap.Group> {
-  internal val surrogateSerializer: KSerializer<ConceptMapGroupSurrogate> by lazy {
-    ConceptMapGroupSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Group", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): ConceptMap.Group =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: ConceptMap.Group) {
-    surrogateSerializer.serialize(encoder, ConceptMapGroupSurrogate.fromModel(value))
   }
 }
 
@@ -347,6 +297,56 @@ public object ConceptMapTargetScopeSerializer : KSerializer<ConceptMap.TargetSco
 
   override fun serialize(encoder: Encoder, `value`: ConceptMap.TargetScope) {
     surrogateSerializer.serialize(encoder, ConceptMapTargetScopeSurrogate.fromModel(value))
+  }
+}
+
+public object ConceptMapGroupElementTargetPropertyValueSerializer :
+  KSerializer<ConceptMap.Group.Element.Target.Property.Value> {
+  internal val surrogateSerializer:
+    KSerializer<ConceptMapGroupElementTargetPropertyValueSurrogate> by lazy {
+    ConceptMapGroupElementTargetPropertyValueSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Value", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): ConceptMap.Group.Element.Target.Property.Value =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(
+    encoder: Encoder,
+    `value`: ConceptMap.Group.Element.Target.Property.Value,
+  ) {
+    surrogateSerializer.serialize(
+      encoder,
+      ConceptMapGroupElementTargetPropertyValueSurrogate.fromModel(value),
+    )
+  }
+}
+
+public object ConceptMapGroupElementTargetDependsOnValueSerializer :
+  KSerializer<ConceptMap.Group.Element.Target.DependsOn.Value> {
+  internal val surrogateSerializer:
+    KSerializer<ConceptMapGroupElementTargetDependsOnValueSurrogate> by lazy {
+    ConceptMapGroupElementTargetDependsOnValueSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Value", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): ConceptMap.Group.Element.Target.DependsOn.Value =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(
+    encoder: Encoder,
+    `value`: ConceptMap.Group.Element.Target.DependsOn.Value,
+  ) {
+    surrogateSerializer.serialize(
+      encoder,
+      ConceptMapGroupElementTargetDependsOnValueSurrogate.fromModel(value),
+    )
   }
 }
 

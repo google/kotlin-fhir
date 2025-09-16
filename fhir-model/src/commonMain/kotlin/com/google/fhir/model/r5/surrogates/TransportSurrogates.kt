@@ -134,6 +134,68 @@ internal data class TransportRestrictionSurrogate(
 }
 
 @Serializable
+internal data class TransportInputSurrogate(
+  public var id: KotlinString? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var type: CodeableConcept,
+  public var `value`: Transport.Input.Value,
+) {
+  public fun toModel(): Transport.Input =
+    Transport.Input(
+      id = this@TransportInputSurrogate.id,
+      extension = this@TransportInputSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@TransportInputSurrogate.modifierExtension ?: mutableListOf(),
+      type = this@TransportInputSurrogate.type,
+      `value` = this@TransportInputSurrogate.`value`,
+    )
+
+  public companion object {
+    public fun fromModel(model: Transport.Input): TransportInputSurrogate =
+      with(model) {
+        TransportInputSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          type = this@with.type,
+          `value` = this@with.`value`,
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class TransportOutputSurrogate(
+  public var id: KotlinString? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var type: CodeableConcept,
+  public var `value`: Transport.Output.Value,
+) {
+  public fun toModel(): Transport.Output =
+    Transport.Output(
+      id = this@TransportOutputSurrogate.id,
+      extension = this@TransportOutputSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@TransportOutputSurrogate.modifierExtension ?: mutableListOf(),
+      type = this@TransportOutputSurrogate.type,
+      `value` = this@TransportOutputSurrogate.`value`,
+    )
+
+  public companion object {
+    public fun fromModel(model: Transport.Output): TransportOutputSurrogate =
+      with(model) {
+        TransportOutputSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          type = this@with.type,
+          `value` = this@with.`value`,
+        )
+      }
+  }
+}
+
+@Serializable
 internal data class TransportInputValueSurrogate(
   public var valueBase64Binary: KotlinString? = null,
   public var _valueBase64Binary: Element? = null,
@@ -403,37 +465,6 @@ internal data class TransportInputValueSurrogate(
           valueExtendedContactDetail = this@with.asExtendedContactDetail()?.value,
           valueDosage = this@with.asDosage()?.value,
           valueMeta = this@with.asMeta()?.value,
-        )
-      }
-  }
-}
-
-@Serializable
-internal data class TransportInputSurrogate(
-  public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var type: CodeableConcept,
-  public var `value`: Transport.Input.Value,
-) {
-  public fun toModel(): Transport.Input =
-    Transport.Input(
-      id = this@TransportInputSurrogate.id,
-      extension = this@TransportInputSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@TransportInputSurrogate.modifierExtension ?: mutableListOf(),
-      type = this@TransportInputSurrogate.type,
-      `value` = this@TransportInputSurrogate.`value`,
-    )
-
-  public companion object {
-    public fun fromModel(model: Transport.Input): TransportInputSurrogate =
-      with(model) {
-        TransportInputSurrogate(
-          id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          type = this@with.type,
-          `value` = this@with.`value`,
         )
       }
   }
@@ -712,37 +743,6 @@ internal data class TransportOutputValueSurrogate(
           valueExtendedContactDetail = this@with.asExtendedContactDetail()?.value,
           valueDosage = this@with.asDosage()?.value,
           valueMeta = this@with.asMeta()?.value,
-        )
-      }
-  }
-}
-
-@Serializable
-internal data class TransportOutputSurrogate(
-  public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var type: CodeableConcept,
-  public var `value`: Transport.Output.Value,
-) {
-  public fun toModel(): Transport.Output =
-    Transport.Output(
-      id = this@TransportOutputSurrogate.id,
-      extension = this@TransportOutputSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@TransportOutputSurrogate.modifierExtension ?: mutableListOf(),
-      type = this@TransportOutputSurrogate.type,
-      `value` = this@TransportOutputSurrogate.`value`,
-    )
-
-  public companion object {
-    public fun fromModel(model: Transport.Output): TransportOutputSurrogate =
-      with(model) {
-        TransportOutputSurrogate(
-          id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          type = this@with.type,
-          `value` = this@with.`value`,
         )
       }
   }

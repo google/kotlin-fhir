@@ -74,6 +74,23 @@ public object CodeSystemPropertySerializer : KSerializer<CodeSystem.Property> {
   }
 }
 
+public object CodeSystemConceptSerializer : KSerializer<CodeSystem.Concept> {
+  internal val surrogateSerializer: KSerializer<CodeSystemConceptSurrogate> by lazy {
+    CodeSystemConceptSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Concept", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): CodeSystem.Concept =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: CodeSystem.Concept) {
+    surrogateSerializer.serialize(encoder, CodeSystemConceptSurrogate.fromModel(value))
+  }
+}
+
 public object CodeSystemConceptDesignationSerializer : KSerializer<CodeSystem.Concept.Designation> {
   internal val surrogateSerializer: KSerializer<CodeSystemConceptDesignationSurrogate> by lazy {
     CodeSystemConceptDesignationSurrogate.serializer()
@@ -88,24 +105,6 @@ public object CodeSystemConceptDesignationSerializer : KSerializer<CodeSystem.Co
 
   override fun serialize(encoder: Encoder, `value`: CodeSystem.Concept.Designation) {
     surrogateSerializer.serialize(encoder, CodeSystemConceptDesignationSurrogate.fromModel(value))
-  }
-}
-
-public object CodeSystemConceptPropertyValueSerializer :
-  KSerializer<CodeSystem.Concept.Property.Value> {
-  internal val surrogateSerializer: KSerializer<CodeSystemConceptPropertyValueSurrogate> by lazy {
-    CodeSystemConceptPropertyValueSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Value", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): CodeSystem.Concept.Property.Value =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: CodeSystem.Concept.Property.Value) {
-    surrogateSerializer.serialize(encoder, CodeSystemConceptPropertyValueSurrogate.fromModel(value))
   }
 }
 
@@ -156,20 +155,21 @@ public object CodeSystemConceptPropertySerializer : KSerializer<CodeSystem.Conce
   }
 }
 
-public object CodeSystemConceptSerializer : KSerializer<CodeSystem.Concept> {
-  internal val surrogateSerializer: KSerializer<CodeSystemConceptSurrogate> by lazy {
-    CodeSystemConceptSurrogate.serializer()
+public object CodeSystemConceptPropertyValueSerializer :
+  KSerializer<CodeSystem.Concept.Property.Value> {
+  internal val surrogateSerializer: KSerializer<CodeSystemConceptPropertyValueSurrogate> by lazy {
+    CodeSystemConceptPropertyValueSurrogate.serializer()
   }
 
   override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Concept", surrogateSerializer.descriptor)
+    SerialDescriptor("Value", surrogateSerializer.descriptor)
   }
 
-  override fun deserialize(decoder: Decoder): CodeSystem.Concept =
+  override fun deserialize(decoder: Decoder): CodeSystem.Concept.Property.Value =
     surrogateSerializer.deserialize(decoder).toModel()
 
-  override fun serialize(encoder: Encoder, `value`: CodeSystem.Concept) {
-    surrogateSerializer.serialize(encoder, CodeSystemConceptSurrogate.fromModel(value))
+  override fun serialize(encoder: Encoder, `value`: CodeSystem.Concept.Property.Value) {
+    surrogateSerializer.serialize(encoder, CodeSystemConceptPropertyValueSurrogate.fromModel(value))
   }
 }
 

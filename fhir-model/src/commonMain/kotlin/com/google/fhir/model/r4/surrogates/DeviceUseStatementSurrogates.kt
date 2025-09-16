@@ -52,7 +52,7 @@ internal data class DeviceUseStatementTimingSurrogate(
   public var _timingDateTime: Element? = null,
 ) {
   public fun toModel(): DeviceUseStatement.Timing =
-    DeviceUseStatement.Timing?.from(
+    DeviceUseStatement.Timing.from(
       this@DeviceUseStatementTimingSurrogate.timingTiming,
       this@DeviceUseStatementTimingSurrogate.timingPeriod,
       DateTime.of(

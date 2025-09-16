@@ -114,27 +114,6 @@ public object InventoryItemAssociationSerializer : KSerializer<InventoryItem.Ass
   }
 }
 
-public object InventoryItemCharacteristicValueSerializer :
-  KSerializer<InventoryItem.Characteristic.Value> {
-  internal val surrogateSerializer: KSerializer<InventoryItemCharacteristicValueSurrogate> by lazy {
-    InventoryItemCharacteristicValueSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Value", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): InventoryItem.Characteristic.Value =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: InventoryItem.Characteristic.Value) {
-    surrogateSerializer.serialize(
-      encoder,
-      InventoryItemCharacteristicValueSurrogate.fromModel(value),
-    )
-  }
-}
-
 public object InventoryItemCharacteristicSerializer : KSerializer<InventoryItem.Characteristic> {
   internal val surrogateSerializer: KSerializer<InventoryItemCharacteristicSurrogate> by lazy {
     InventoryItemCharacteristicSurrogate.serializer()
@@ -196,6 +175,27 @@ public object InventoryItemInstanceSerializer : KSerializer<InventoryItem.Instan
 
   override fun serialize(encoder: Encoder, `value`: InventoryItem.Instance) {
     surrogateSerializer.serialize(encoder, InventoryItemInstanceSurrogate.fromModel(value))
+  }
+}
+
+public object InventoryItemCharacteristicValueSerializer :
+  KSerializer<InventoryItem.Characteristic.Value> {
+  internal val surrogateSerializer: KSerializer<InventoryItemCharacteristicValueSurrogate> by lazy {
+    InventoryItemCharacteristicValueSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Value", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): InventoryItem.Characteristic.Value =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: InventoryItem.Characteristic.Value) {
+    surrogateSerializer.serialize(
+      encoder,
+      InventoryItemCharacteristicValueSurrogate.fromModel(value),
+    )
   }
 }
 

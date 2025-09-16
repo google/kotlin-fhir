@@ -57,7 +57,7 @@ internal data class MediaCreatedSurrogate(
   public var createdPeriod: Period? = null,
 ) {
   public fun toModel(): Media.Created =
-    Media.Created?.from(
+    Media.Created.from(
       DateTime.of(
         FhirDateTime.fromString(this@MediaCreatedSurrogate.createdDateTime),
         this@MediaCreatedSurrogate._createdDateTime,

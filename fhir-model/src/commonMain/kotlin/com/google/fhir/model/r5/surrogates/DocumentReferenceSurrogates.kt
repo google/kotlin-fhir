@@ -123,37 +123,32 @@ internal data class DocumentReferenceRelatesToSurrogate(
 }
 
 @Serializable
-internal data class DocumentReferenceContentProfileValueSurrogate(
-  public var valueCoding: Coding? = null,
-  public var valueUri: KotlinString? = null,
-  public var _valueUri: Element? = null,
-  public var valueCanonical: KotlinString? = null,
-  public var _valueCanonical: Element? = null,
+internal data class DocumentReferenceContentSurrogate(
+  public var id: KotlinString? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var attachment: Attachment,
+  public var profile: MutableList<DocumentReference.Content.Profile>? = null,
 ) {
-  public fun toModel(): DocumentReference.Content.Profile.Value =
-    DocumentReference.Content.Profile.Value.from(
-      this@DocumentReferenceContentProfileValueSurrogate.valueCoding,
-      Uri.of(
-        this@DocumentReferenceContentProfileValueSurrogate.valueUri,
-        this@DocumentReferenceContentProfileValueSurrogate._valueUri,
-      ),
-      Canonical.of(
-        this@DocumentReferenceContentProfileValueSurrogate.valueCanonical,
-        this@DocumentReferenceContentProfileValueSurrogate._valueCanonical,
-      ),
-    )!! !!
+  public fun toModel(): DocumentReference.Content =
+    DocumentReference.Content(
+      id = this@DocumentReferenceContentSurrogate.id,
+      extension = this@DocumentReferenceContentSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@DocumentReferenceContentSurrogate.modifierExtension ?: mutableListOf(),
+      attachment = this@DocumentReferenceContentSurrogate.attachment,
+      profile = this@DocumentReferenceContentSurrogate.profile ?: mutableListOf(),
+    )
 
   public companion object {
-    public fun fromModel(
-      model: DocumentReference.Content.Profile.Value
-    ): DocumentReferenceContentProfileValueSurrogate =
+    public fun fromModel(model: DocumentReference.Content): DocumentReferenceContentSurrogate =
       with(model) {
-        DocumentReferenceContentProfileValueSurrogate(
-          valueCoding = this@with.asCoding()?.value,
-          valueUri = this@with.asUri()?.value?.value,
-          _valueUri = this@with.asUri()?.value?.toElement(),
-          valueCanonical = this@with.asCanonical()?.value?.value,
-          _valueCanonical = this@with.asCanonical()?.value?.toElement(),
+        DocumentReferenceContentSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          attachment = this@with.attachment,
+          profile = this@with.profile.takeUnless { it.all { it == null } },
         )
       }
   }
@@ -191,32 +186,37 @@ internal data class DocumentReferenceContentProfileSurrogate(
 }
 
 @Serializable
-internal data class DocumentReferenceContentSurrogate(
-  public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var attachment: Attachment,
-  public var profile: MutableList<DocumentReference.Content.Profile>? = null,
+internal data class DocumentReferenceContentProfileValueSurrogate(
+  public var valueCoding: Coding? = null,
+  public var valueUri: KotlinString? = null,
+  public var _valueUri: Element? = null,
+  public var valueCanonical: KotlinString? = null,
+  public var _valueCanonical: Element? = null,
 ) {
-  public fun toModel(): DocumentReference.Content =
-    DocumentReference.Content(
-      id = this@DocumentReferenceContentSurrogate.id,
-      extension = this@DocumentReferenceContentSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@DocumentReferenceContentSurrogate.modifierExtension ?: mutableListOf(),
-      attachment = this@DocumentReferenceContentSurrogate.attachment,
-      profile = this@DocumentReferenceContentSurrogate.profile ?: mutableListOf(),
-    )
+  public fun toModel(): DocumentReference.Content.Profile.Value =
+    DocumentReference.Content.Profile.Value.from(
+      this@DocumentReferenceContentProfileValueSurrogate.valueCoding,
+      Uri.of(
+        this@DocumentReferenceContentProfileValueSurrogate.valueUri,
+        this@DocumentReferenceContentProfileValueSurrogate._valueUri,
+      ),
+      Canonical.of(
+        this@DocumentReferenceContentProfileValueSurrogate.valueCanonical,
+        this@DocumentReferenceContentProfileValueSurrogate._valueCanonical,
+      ),
+    )!! !!
 
   public companion object {
-    public fun fromModel(model: DocumentReference.Content): DocumentReferenceContentSurrogate =
+    public fun fromModel(
+      model: DocumentReference.Content.Profile.Value
+    ): DocumentReferenceContentProfileValueSurrogate =
       with(model) {
-        DocumentReferenceContentSurrogate(
-          id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          attachment = this@with.attachment,
-          profile = this@with.profile.takeUnless { it.all { it == null } },
+        DocumentReferenceContentProfileValueSurrogate(
+          valueCoding = this@with.asCoding()?.value,
+          valueUri = this@with.asUri()?.value?.value,
+          _valueUri = this@with.asUri()?.value?.toElement(),
+          valueCanonical = this@with.asCanonical()?.value?.value,
+          _valueCanonical = this@with.asCanonical()?.value?.toElement(),
         )
       }
   }

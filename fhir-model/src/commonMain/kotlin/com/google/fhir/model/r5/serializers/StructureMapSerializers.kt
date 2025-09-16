@@ -79,6 +79,23 @@ public object StructureMapConstSerializer : KSerializer<StructureMap.Const> {
   }
 }
 
+public object StructureMapGroupSerializer : KSerializer<StructureMap.Group> {
+  internal val surrogateSerializer: KSerializer<StructureMapGroupSurrogate> by lazy {
+    StructureMapGroupSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Group", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): StructureMap.Group =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: StructureMap.Group) {
+    surrogateSerializer.serialize(encoder, StructureMapGroupSurrogate.fromModel(value))
+  }
+}
+
 public object StructureMapGroupInputSerializer : KSerializer<StructureMap.Group.Input> {
   internal val surrogateSerializer: KSerializer<StructureMapGroupInputSurrogate> by lazy {
     StructureMapGroupInputSurrogate.serializer()
@@ -93,6 +110,23 @@ public object StructureMapGroupInputSerializer : KSerializer<StructureMap.Group.
 
   override fun serialize(encoder: Encoder, `value`: StructureMap.Group.Input) {
     surrogateSerializer.serialize(encoder, StructureMapGroupInputSurrogate.fromModel(value))
+  }
+}
+
+public object StructureMapGroupRuleSerializer : KSerializer<StructureMap.Group.Rule> {
+  internal val surrogateSerializer: KSerializer<StructureMapGroupRuleSurrogate> by lazy {
+    StructureMapGroupRuleSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Rule", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): StructureMap.Group.Rule =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: StructureMap.Group.Rule) {
+    surrogateSerializer.serialize(encoder, StructureMapGroupRuleSurrogate.fromModel(value))
   }
 }
 
@@ -113,28 +147,20 @@ public object StructureMapGroupRuleSourceSerializer : KSerializer<StructureMap.G
   }
 }
 
-public object StructureMapGroupRuleTargetParameterValueSerializer :
-  KSerializer<StructureMap.Group.Rule.Target.Parameter.Value> {
-  internal val surrogateSerializer:
-    KSerializer<StructureMapGroupRuleTargetParameterValueSurrogate> by lazy {
-    StructureMapGroupRuleTargetParameterValueSurrogate.serializer()
+public object StructureMapGroupRuleTargetSerializer : KSerializer<StructureMap.Group.Rule.Target> {
+  internal val surrogateSerializer: KSerializer<StructureMapGroupRuleTargetSurrogate> by lazy {
+    StructureMapGroupRuleTargetSurrogate.serializer()
   }
 
   override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Value", surrogateSerializer.descriptor)
+    SerialDescriptor("Target", surrogateSerializer.descriptor)
   }
 
-  override fun deserialize(decoder: Decoder): StructureMap.Group.Rule.Target.Parameter.Value =
+  override fun deserialize(decoder: Decoder): StructureMap.Group.Rule.Target =
     surrogateSerializer.deserialize(decoder).toModel()
 
-  override fun serialize(
-    encoder: Encoder,
-    `value`: StructureMap.Group.Rule.Target.Parameter.Value,
-  ) {
-    surrogateSerializer.serialize(
-      encoder,
-      StructureMapGroupRuleTargetParameterValueSurrogate.fromModel(value),
-    )
+  override fun serialize(encoder: Encoder, `value`: StructureMap.Group.Rule.Target) {
+    surrogateSerializer.serialize(encoder, StructureMapGroupRuleTargetSurrogate.fromModel(value))
   }
 }
 
@@ -187,23 +213,6 @@ public object StructureMapGroupRuleTargetParameterSerializer :
   }
 }
 
-public object StructureMapGroupRuleTargetSerializer : KSerializer<StructureMap.Group.Rule.Target> {
-  internal val surrogateSerializer: KSerializer<StructureMapGroupRuleTargetSurrogate> by lazy {
-    StructureMapGroupRuleTargetSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Target", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): StructureMap.Group.Rule.Target =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: StructureMap.Group.Rule.Target) {
-    surrogateSerializer.serialize(encoder, StructureMapGroupRuleTargetSurrogate.fromModel(value))
-  }
-}
-
 public object StructureMapGroupRuleDependentSerializer :
   KSerializer<StructureMap.Group.Rule.Dependent> {
   internal val surrogateSerializer: KSerializer<StructureMapGroupRuleDependentSurrogate> by lazy {
@@ -222,40 +231,6 @@ public object StructureMapGroupRuleDependentSerializer :
   }
 }
 
-public object StructureMapGroupRuleSerializer : KSerializer<StructureMap.Group.Rule> {
-  internal val surrogateSerializer: KSerializer<StructureMapGroupRuleSurrogate> by lazy {
-    StructureMapGroupRuleSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Rule", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): StructureMap.Group.Rule =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: StructureMap.Group.Rule) {
-    surrogateSerializer.serialize(encoder, StructureMapGroupRuleSurrogate.fromModel(value))
-  }
-}
-
-public object StructureMapGroupSerializer : KSerializer<StructureMap.Group> {
-  internal val surrogateSerializer: KSerializer<StructureMapGroupSurrogate> by lazy {
-    StructureMapGroupSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Group", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): StructureMap.Group =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: StructureMap.Group) {
-    surrogateSerializer.serialize(encoder, StructureMapGroupSurrogate.fromModel(value))
-  }
-}
-
 public object StructureMapVersionAlgorithmSerializer : KSerializer<StructureMap.VersionAlgorithm> {
   internal val surrogateSerializer: KSerializer<StructureMapVersionAlgorithmSurrogate> by lazy {
     StructureMapVersionAlgorithmSurrogate.serializer()
@@ -270,6 +245,31 @@ public object StructureMapVersionAlgorithmSerializer : KSerializer<StructureMap.
 
   override fun serialize(encoder: Encoder, `value`: StructureMap.VersionAlgorithm) {
     surrogateSerializer.serialize(encoder, StructureMapVersionAlgorithmSurrogate.fromModel(value))
+  }
+}
+
+public object StructureMapGroupRuleTargetParameterValueSerializer :
+  KSerializer<StructureMap.Group.Rule.Target.Parameter.Value> {
+  internal val surrogateSerializer:
+    KSerializer<StructureMapGroupRuleTargetParameterValueSurrogate> by lazy {
+    StructureMapGroupRuleTargetParameterValueSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Value", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): StructureMap.Group.Rule.Target.Parameter.Value =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(
+    encoder: Encoder,
+    `value`: StructureMap.Group.Rule.Target.Parameter.Value,
+  ) {
+    surrogateSerializer.serialize(
+      encoder,
+      StructureMapGroupRuleTargetParameterValueSurrogate.fromModel(value),
+    )
   }
 }
 

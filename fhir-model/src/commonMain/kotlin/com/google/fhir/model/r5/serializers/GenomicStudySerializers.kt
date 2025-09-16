@@ -40,25 +40,20 @@ import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.JsonPrimitive
 import kotlinx.serialization.json.jsonObject
 
-public object GenomicStudyAnalysisInputGeneratedBySerializer :
-  KSerializer<GenomicStudy.Analysis.Input.GeneratedBy> {
-  internal val surrogateSerializer:
-    KSerializer<GenomicStudyAnalysisInputGeneratedBySurrogate> by lazy {
-    GenomicStudyAnalysisInputGeneratedBySurrogate.serializer()
+public object GenomicStudyAnalysisSerializer : KSerializer<GenomicStudy.Analysis> {
+  internal val surrogateSerializer: KSerializer<GenomicStudyAnalysisSurrogate> by lazy {
+    GenomicStudyAnalysisSurrogate.serializer()
   }
 
   override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("GeneratedBy", surrogateSerializer.descriptor)
+    SerialDescriptor("Analysis", surrogateSerializer.descriptor)
   }
 
-  override fun deserialize(decoder: Decoder): GenomicStudy.Analysis.Input.GeneratedBy =
+  override fun deserialize(decoder: Decoder): GenomicStudy.Analysis =
     surrogateSerializer.deserialize(decoder).toModel()
 
-  override fun serialize(encoder: Encoder, `value`: GenomicStudy.Analysis.Input.GeneratedBy) {
-    surrogateSerializer.serialize(
-      encoder,
-      GenomicStudyAnalysisInputGeneratedBySurrogate.fromModel(value),
-    )
+  override fun serialize(encoder: Encoder, `value`: GenomicStudy.Analysis) {
+    surrogateSerializer.serialize(encoder, GenomicStudyAnalysisSurrogate.fromModel(value))
   }
 }
 
@@ -161,20 +156,25 @@ public object GenomicStudyAnalysisDeviceSerializer : KSerializer<GenomicStudy.An
   }
 }
 
-public object GenomicStudyAnalysisSerializer : KSerializer<GenomicStudy.Analysis> {
-  internal val surrogateSerializer: KSerializer<GenomicStudyAnalysisSurrogate> by lazy {
-    GenomicStudyAnalysisSurrogate.serializer()
+public object GenomicStudyAnalysisInputGeneratedBySerializer :
+  KSerializer<GenomicStudy.Analysis.Input.GeneratedBy> {
+  internal val surrogateSerializer:
+    KSerializer<GenomicStudyAnalysisInputGeneratedBySurrogate> by lazy {
+    GenomicStudyAnalysisInputGeneratedBySurrogate.serializer()
   }
 
   override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Analysis", surrogateSerializer.descriptor)
+    SerialDescriptor("GeneratedBy", surrogateSerializer.descriptor)
   }
 
-  override fun deserialize(decoder: Decoder): GenomicStudy.Analysis =
+  override fun deserialize(decoder: Decoder): GenomicStudy.Analysis.Input.GeneratedBy =
     surrogateSerializer.deserialize(decoder).toModel()
 
-  override fun serialize(encoder: Encoder, `value`: GenomicStudy.Analysis) {
-    surrogateSerializer.serialize(encoder, GenomicStudyAnalysisSurrogate.fromModel(value))
+  override fun serialize(encoder: Encoder, `value`: GenomicStudy.Analysis.Input.GeneratedBy) {
+    surrogateSerializer.serialize(
+      encoder,
+      GenomicStudyAnalysisInputGeneratedBySurrogate.fromModel(value),
+    )
   }
 }
 

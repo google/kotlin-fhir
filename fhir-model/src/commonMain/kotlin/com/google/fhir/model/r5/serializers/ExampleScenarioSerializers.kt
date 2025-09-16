@@ -61,68 +61,6 @@ public object ExampleScenarioActorSerializer : KSerializer<ExampleScenario.Actor
   }
 }
 
-public object ExampleScenarioInstanceVersionSerializer :
-  KSerializer<ExampleScenario.Instance.Version> {
-  internal val surrogateSerializer: KSerializer<ExampleScenarioInstanceVersionSurrogate> by lazy {
-    ExampleScenarioInstanceVersionSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Version", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): ExampleScenario.Instance.Version =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: ExampleScenario.Instance.Version) {
-    surrogateSerializer.serialize(encoder, ExampleScenarioInstanceVersionSurrogate.fromModel(value))
-  }
-}
-
-public object ExampleScenarioInstanceContainedInstanceSerializer :
-  KSerializer<ExampleScenario.Instance.ContainedInstance> {
-  internal val surrogateSerializer:
-    KSerializer<ExampleScenarioInstanceContainedInstanceSurrogate> by lazy {
-    ExampleScenarioInstanceContainedInstanceSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("ContainedInstance", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): ExampleScenario.Instance.ContainedInstance =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: ExampleScenario.Instance.ContainedInstance) {
-    surrogateSerializer.serialize(
-      encoder,
-      ExampleScenarioInstanceContainedInstanceSurrogate.fromModel(value),
-    )
-  }
-}
-
-public object ExampleScenarioInstanceStructureProfileSerializer :
-  KSerializer<ExampleScenario.Instance.StructureProfile> {
-  internal val surrogateSerializer:
-    KSerializer<ExampleScenarioInstanceStructureProfileSurrogate> by lazy {
-    ExampleScenarioInstanceStructureProfileSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("StructureProfile", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): ExampleScenario.Instance.StructureProfile =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: ExampleScenario.Instance.StructureProfile) {
-    surrogateSerializer.serialize(
-      encoder,
-      ExampleScenarioInstanceStructureProfileSurrogate.fromModel(value),
-    )
-  }
-}
-
 public object ExampleScenarioInstanceSerializer : KSerializer<ExampleScenario.Instance> {
   internal val surrogateSerializer: KSerializer<ExampleScenarioInstanceSurrogate> by lazy {
     ExampleScenarioInstanceSurrogate.serializer()
@@ -170,6 +108,80 @@ public object ExampleScenarioInstanceSerializer : KSerializer<ExampleScenario.In
   }
 }
 
+public object ExampleScenarioInstanceVersionSerializer :
+  KSerializer<ExampleScenario.Instance.Version> {
+  internal val surrogateSerializer: KSerializer<ExampleScenarioInstanceVersionSurrogate> by lazy {
+    ExampleScenarioInstanceVersionSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Version", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): ExampleScenario.Instance.Version =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: ExampleScenario.Instance.Version) {
+    surrogateSerializer.serialize(encoder, ExampleScenarioInstanceVersionSurrogate.fromModel(value))
+  }
+}
+
+public object ExampleScenarioInstanceContainedInstanceSerializer :
+  KSerializer<ExampleScenario.Instance.ContainedInstance> {
+  internal val surrogateSerializer:
+    KSerializer<ExampleScenarioInstanceContainedInstanceSurrogate> by lazy {
+    ExampleScenarioInstanceContainedInstanceSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("ContainedInstance", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): ExampleScenario.Instance.ContainedInstance =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: ExampleScenario.Instance.ContainedInstance) {
+    surrogateSerializer.serialize(
+      encoder,
+      ExampleScenarioInstanceContainedInstanceSurrogate.fromModel(value),
+    )
+  }
+}
+
+public object ExampleScenarioProcessSerializer : KSerializer<ExampleScenario.Process> {
+  internal val surrogateSerializer: KSerializer<ExampleScenarioProcessSurrogate> by lazy {
+    ExampleScenarioProcessSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Process", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): ExampleScenario.Process =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: ExampleScenario.Process) {
+    surrogateSerializer.serialize(encoder, ExampleScenarioProcessSurrogate.fromModel(value))
+  }
+}
+
+public object ExampleScenarioProcessStepSerializer : KSerializer<ExampleScenario.Process.Step> {
+  internal val surrogateSerializer: KSerializer<ExampleScenarioProcessStepSurrogate> by lazy {
+    ExampleScenarioProcessStepSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Step", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): ExampleScenario.Process.Step =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: ExampleScenario.Process.Step) {
+    surrogateSerializer.serialize(encoder, ExampleScenarioProcessStepSurrogate.fromModel(value))
+  }
+}
+
 public object ExampleScenarioProcessStepOperationSerializer :
   KSerializer<ExampleScenario.Process.Step.Operation> {
   internal val surrogateSerializer:
@@ -214,40 +226,6 @@ public object ExampleScenarioProcessStepAlternativeSerializer :
   }
 }
 
-public object ExampleScenarioProcessStepSerializer : KSerializer<ExampleScenario.Process.Step> {
-  internal val surrogateSerializer: KSerializer<ExampleScenarioProcessStepSurrogate> by lazy {
-    ExampleScenarioProcessStepSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Step", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): ExampleScenario.Process.Step =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: ExampleScenario.Process.Step) {
-    surrogateSerializer.serialize(encoder, ExampleScenarioProcessStepSurrogate.fromModel(value))
-  }
-}
-
-public object ExampleScenarioProcessSerializer : KSerializer<ExampleScenario.Process> {
-  internal val surrogateSerializer: KSerializer<ExampleScenarioProcessSurrogate> by lazy {
-    ExampleScenarioProcessSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Process", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): ExampleScenario.Process =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: ExampleScenario.Process) {
-    surrogateSerializer.serialize(encoder, ExampleScenarioProcessSurrogate.fromModel(value))
-  }
-}
-
 public object ExampleScenarioVersionAlgorithmSerializer :
   KSerializer<ExampleScenario.VersionAlgorithm> {
   internal val surrogateSerializer: KSerializer<ExampleScenarioVersionAlgorithmSurrogate> by lazy {
@@ -265,6 +243,28 @@ public object ExampleScenarioVersionAlgorithmSerializer :
     surrogateSerializer.serialize(
       encoder,
       ExampleScenarioVersionAlgorithmSurrogate.fromModel(value),
+    )
+  }
+}
+
+public object ExampleScenarioInstanceStructureProfileSerializer :
+  KSerializer<ExampleScenario.Instance.StructureProfile> {
+  internal val surrogateSerializer:
+    KSerializer<ExampleScenarioInstanceStructureProfileSurrogate> by lazy {
+    ExampleScenarioInstanceStructureProfileSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("StructureProfile", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): ExampleScenario.Instance.StructureProfile =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: ExampleScenario.Instance.StructureProfile) {
+    surrogateSerializer.serialize(
+      encoder,
+      ExampleScenarioInstanceStructureProfileSurrogate.fromModel(value),
     )
   }
 }

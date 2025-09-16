@@ -133,7 +133,7 @@ internal data class MedicationDispenseStatusReasonSurrogate(
   public var statusReasonReference: Reference? = null,
 ) {
   public fun toModel(): MedicationDispense.StatusReason =
-    MedicationDispense.StatusReason?.from(
+    MedicationDispense.StatusReason.from(
       this@MedicationDispenseStatusReasonSurrogate.statusReasonCodeableConcept,
       this@MedicationDispenseStatusReasonSurrogate.statusReasonReference,
     )!!

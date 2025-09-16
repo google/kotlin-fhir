@@ -36,23 +36,6 @@ import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.JsonPrimitive
 import kotlinx.serialization.json.jsonObject
 
-public object TimingRepeatBoundsSerializer : KSerializer<Timing.Repeat.Bounds> {
-  internal val surrogateSerializer: KSerializer<TimingRepeatBoundsSurrogate> by lazy {
-    TimingRepeatBoundsSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Bounds", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): Timing.Repeat.Bounds =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: Timing.Repeat.Bounds) {
-    surrogateSerializer.serialize(encoder, TimingRepeatBoundsSurrogate.fromModel(value))
-  }
-}
-
 public object TimingRepeatSerializer : KSerializer<Timing.Repeat> {
   internal val surrogateSerializer: KSerializer<TimingRepeatSurrogate> by lazy {
     TimingRepeatSurrogate.serializer()
@@ -97,6 +80,23 @@ public object TimingRepeatSerializer : KSerializer<Timing.Repeat> {
       }
     val flattenedJsonObject = FhirJsonTransformer.flatten(oldJsonObject, multiChoiceProperties)
     jsonEncoder.encodeJsonElement(flattenedJsonObject)
+  }
+}
+
+public object TimingRepeatBoundsSerializer : KSerializer<Timing.Repeat.Bounds> {
+  internal val surrogateSerializer: KSerializer<TimingRepeatBoundsSurrogate> by lazy {
+    TimingRepeatBoundsSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Bounds", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): Timing.Repeat.Bounds =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: Timing.Repeat.Bounds) {
+    surrogateSerializer.serialize(encoder, TimingRepeatBoundsSurrogate.fromModel(value))
   }
 }
 

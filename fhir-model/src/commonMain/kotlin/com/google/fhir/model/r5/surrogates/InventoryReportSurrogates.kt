@@ -46,43 +46,6 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
-internal data class InventoryReportInventoryListingItemSurrogate(
-  public var id: String? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var category: CodeableConcept? = null,
-  public var quantity: Quantity,
-  public var item: CodeableReference,
-) {
-  public fun toModel(): InventoryReport.InventoryListing.Item =
-    InventoryReport.InventoryListing.Item(
-      id = this@InventoryReportInventoryListingItemSurrogate.id,
-      extension = this@InventoryReportInventoryListingItemSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@InventoryReportInventoryListingItemSurrogate.modifierExtension ?: mutableListOf(),
-      category = this@InventoryReportInventoryListingItemSurrogate.category,
-      quantity = this@InventoryReportInventoryListingItemSurrogate.quantity,
-      item = this@InventoryReportInventoryListingItemSurrogate.item,
-    )
-
-  public companion object {
-    public fun fromModel(
-      model: InventoryReport.InventoryListing.Item
-    ): InventoryReportInventoryListingItemSurrogate =
-      with(model) {
-        InventoryReportInventoryListingItemSurrogate(
-          id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          category = this@with.category,
-          quantity = this@with.quantity,
-          item = this@with.item,
-        )
-      }
-  }
-}
-
-@Serializable
 internal data class InventoryReportInventoryListingSurrogate(
   public var id: String? = null,
   public var extension: MutableList<Extension>? = null,
@@ -123,6 +86,43 @@ internal data class InventoryReportInventoryListingSurrogate(
           countingDateTime = this@with.countingDateTime?.value?.toString(),
           _countingDateTime = this@with.countingDateTime?.toElement(),
           item = this@with.item.takeUnless { it.all { it == null } },
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class InventoryReportInventoryListingItemSurrogate(
+  public var id: String? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var category: CodeableConcept? = null,
+  public var quantity: Quantity,
+  public var item: CodeableReference,
+) {
+  public fun toModel(): InventoryReport.InventoryListing.Item =
+    InventoryReport.InventoryListing.Item(
+      id = this@InventoryReportInventoryListingItemSurrogate.id,
+      extension = this@InventoryReportInventoryListingItemSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@InventoryReportInventoryListingItemSurrogate.modifierExtension ?: mutableListOf(),
+      category = this@InventoryReportInventoryListingItemSurrogate.category,
+      quantity = this@InventoryReportInventoryListingItemSurrogate.quantity,
+      item = this@InventoryReportInventoryListingItemSurrogate.item,
+    )
+
+  public companion object {
+    public fun fromModel(
+      model: InventoryReport.InventoryListing.Item
+    ): InventoryReportInventoryListingItemSurrogate =
+      with(model) {
+        InventoryReportInventoryListingItemSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          category = this@with.category,
+          quantity = this@with.quantity,
+          item = this@with.item,
         )
       }
   }

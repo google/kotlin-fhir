@@ -36,23 +36,6 @@ import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.JsonPrimitive
 import kotlinx.serialization.json.jsonObject
 
-public object SubstanceIngredientSubstanceSerializer : KSerializer<Substance.Ingredient.Substance> {
-  internal val surrogateSerializer: KSerializer<SubstanceIngredientSubstanceSurrogate> by lazy {
-    SubstanceIngredientSubstanceSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Substance", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): Substance.Ingredient.Substance =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: Substance.Ingredient.Substance) {
-    surrogateSerializer.serialize(encoder, SubstanceIngredientSubstanceSurrogate.fromModel(value))
-  }
-}
-
 public object SubstanceIngredientSerializer : KSerializer<Substance.Ingredient> {
   internal val surrogateSerializer: KSerializer<SubstanceIngredientSurrogate> by lazy {
     SubstanceIngredientSurrogate.serializer()
@@ -97,6 +80,23 @@ public object SubstanceIngredientSerializer : KSerializer<Substance.Ingredient> 
       }
     val flattenedJsonObject = FhirJsonTransformer.flatten(oldJsonObject, multiChoiceProperties)
     jsonEncoder.encodeJsonElement(flattenedJsonObject)
+  }
+}
+
+public object SubstanceIngredientSubstanceSerializer : KSerializer<Substance.Ingredient.Substance> {
+  internal val surrogateSerializer: KSerializer<SubstanceIngredientSubstanceSurrogate> by lazy {
+    SubstanceIngredientSubstanceSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Substance", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): Substance.Ingredient.Substance =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: Substance.Ingredient.Substance) {
+    surrogateSerializer.serialize(encoder, SubstanceIngredientSubstanceSurrogate.fromModel(value))
   }
 }
 

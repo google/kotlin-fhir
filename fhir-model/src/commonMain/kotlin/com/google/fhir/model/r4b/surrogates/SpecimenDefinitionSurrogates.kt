@@ -46,86 +46,73 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
-internal data class SpecimenDefinitionTypeTestedContainerAdditiveAdditiveSurrogate(
-  public var additiveCodeableConcept: CodeableConcept? = null,
-  public var additiveReference: Reference? = null,
-) {
-  public fun toModel(): SpecimenDefinition.TypeTested.Container.Additive.Additive =
-    SpecimenDefinition.TypeTested.Container.Additive.Additive.from(
-      this@SpecimenDefinitionTypeTestedContainerAdditiveAdditiveSurrogate.additiveCodeableConcept,
-      this@SpecimenDefinitionTypeTestedContainerAdditiveAdditiveSurrogate.additiveReference,
-    )!! !!
-
-  public companion object {
-    public fun fromModel(
-      model: SpecimenDefinition.TypeTested.Container.Additive.Additive
-    ): SpecimenDefinitionTypeTestedContainerAdditiveAdditiveSurrogate =
-      with(model) {
-        SpecimenDefinitionTypeTestedContainerAdditiveAdditiveSurrogate(
-          additiveCodeableConcept = this@with.asCodeableConcept()?.value,
-          additiveReference = this@with.asReference()?.value,
-        )
-      }
-  }
-}
-
-@Serializable
-internal data class SpecimenDefinitionTypeTestedContainerAdditiveSurrogate(
+internal data class SpecimenDefinitionTypeTestedSurrogate(
   public var id: KotlinString? = null,
   public var extension: MutableList<Extension>? = null,
   public var modifierExtension: MutableList<Extension>? = null,
-  public var additive: SpecimenDefinition.TypeTested.Container.Additive.Additive,
+  public var isDerived: KotlinBoolean? = null,
+  public var _isDerived: Element? = null,
+  public var type: CodeableConcept? = null,
+  public var preference: KotlinString? = null,
+  public var _preference: Element? = null,
+  public var container: SpecimenDefinition.TypeTested.Container? = null,
+  public var requirement: KotlinString? = null,
+  public var _requirement: Element? = null,
+  public var retentionTime: Duration? = null,
+  public var rejectionCriterion: MutableList<CodeableConcept>? = null,
+  public var handling: MutableList<SpecimenDefinition.TypeTested.Handling>? = null,
 ) {
-  public fun toModel(): SpecimenDefinition.TypeTested.Container.Additive =
-    SpecimenDefinition.TypeTested.Container.Additive(
-      id = this@SpecimenDefinitionTypeTestedContainerAdditiveSurrogate.id,
-      extension =
-        this@SpecimenDefinitionTypeTestedContainerAdditiveSurrogate.extension ?: mutableListOf(),
+  public fun toModel(): SpecimenDefinition.TypeTested =
+    SpecimenDefinition.TypeTested(
+      id = this@SpecimenDefinitionTypeTestedSurrogate.id,
+      extension = this@SpecimenDefinitionTypeTestedSurrogate.extension ?: mutableListOf(),
       modifierExtension =
-        this@SpecimenDefinitionTypeTestedContainerAdditiveSurrogate.modifierExtension
-          ?: mutableListOf(),
-      additive = this@SpecimenDefinitionTypeTestedContainerAdditiveSurrogate.additive,
+        this@SpecimenDefinitionTypeTestedSurrogate.modifierExtension ?: mutableListOf(),
+      isDerived =
+        R4bBoolean.of(
+          this@SpecimenDefinitionTypeTestedSurrogate.isDerived,
+          this@SpecimenDefinitionTypeTestedSurrogate._isDerived,
+        ),
+      type = this@SpecimenDefinitionTypeTestedSurrogate.type,
+      preference =
+        Enumeration.of(
+          com.google.fhir.model.r4b.SpecimenDefinition.SpecimenContainedPreference.fromCode(
+            this@SpecimenDefinitionTypeTestedSurrogate.preference!!
+          ),
+          this@SpecimenDefinitionTypeTestedSurrogate._preference,
+        ),
+      container = this@SpecimenDefinitionTypeTestedSurrogate.container,
+      requirement =
+        R4bString.of(
+          this@SpecimenDefinitionTypeTestedSurrogate.requirement,
+          this@SpecimenDefinitionTypeTestedSurrogate._requirement,
+        ),
+      retentionTime = this@SpecimenDefinitionTypeTestedSurrogate.retentionTime,
+      rejectionCriterion =
+        this@SpecimenDefinitionTypeTestedSurrogate.rejectionCriterion ?: mutableListOf(),
+      handling = this@SpecimenDefinitionTypeTestedSurrogate.handling ?: mutableListOf(),
     )
 
   public companion object {
     public fun fromModel(
-      model: SpecimenDefinition.TypeTested.Container.Additive
-    ): SpecimenDefinitionTypeTestedContainerAdditiveSurrogate =
+      model: SpecimenDefinition.TypeTested
+    ): SpecimenDefinitionTypeTestedSurrogate =
       with(model) {
-        SpecimenDefinitionTypeTestedContainerAdditiveSurrogate(
+        SpecimenDefinitionTypeTestedSurrogate(
           id = this@with.id,
           extension = this@with.extension.takeUnless { it.all { it == null } },
           modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          additive = this@with.additive,
-        )
-      }
-  }
-}
-
-@Serializable
-internal data class SpecimenDefinitionTypeTestedContainerMinimumVolumeSurrogate(
-  public var minimumVolumeQuantity: Quantity? = null,
-  public var minimumVolumeString: KotlinString? = null,
-  public var _minimumVolumeString: Element? = null,
-) {
-  public fun toModel(): SpecimenDefinition.TypeTested.Container.MinimumVolume =
-    SpecimenDefinition.TypeTested.Container.MinimumVolume?.from(
-      this@SpecimenDefinitionTypeTestedContainerMinimumVolumeSurrogate.minimumVolumeQuantity,
-      R4bString.of(
-        this@SpecimenDefinitionTypeTestedContainerMinimumVolumeSurrogate.minimumVolumeString,
-        this@SpecimenDefinitionTypeTestedContainerMinimumVolumeSurrogate._minimumVolumeString,
-      ),
-    )!!
-
-  public companion object {
-    public fun fromModel(
-      model: SpecimenDefinition.TypeTested.Container.MinimumVolume
-    ): SpecimenDefinitionTypeTestedContainerMinimumVolumeSurrogate =
-      with(model) {
-        SpecimenDefinitionTypeTestedContainerMinimumVolumeSurrogate(
-          minimumVolumeQuantity = this@with.asQuantity()?.value,
-          minimumVolumeString = this@with.asString()?.value?.value,
-          _minimumVolumeString = this@with.asString()?.value?.toElement(),
+          isDerived = this@with.isDerived?.value,
+          _isDerived = this@with.isDerived?.toElement(),
+          type = this@with.type,
+          preference = this@with.preference.value?.getCode(),
+          _preference = this@with.preference.toElement(),
+          container = this@with.container,
+          requirement = this@with.requirement?.value,
+          _requirement = this@with.requirement?.toElement(),
+          retentionTime = this@with.retentionTime,
+          rejectionCriterion = this@with.rejectionCriterion.takeUnless { it.all { it == null } },
+          handling = this@with.handling.takeUnless { it.all { it == null } },
         )
       }
   }
@@ -196,6 +183,39 @@ internal data class SpecimenDefinitionTypeTestedContainerSurrogate(
 }
 
 @Serializable
+internal data class SpecimenDefinitionTypeTestedContainerAdditiveSurrogate(
+  public var id: KotlinString? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var additive: SpecimenDefinition.TypeTested.Container.Additive.Additive,
+) {
+  public fun toModel(): SpecimenDefinition.TypeTested.Container.Additive =
+    SpecimenDefinition.TypeTested.Container.Additive(
+      id = this@SpecimenDefinitionTypeTestedContainerAdditiveSurrogate.id,
+      extension =
+        this@SpecimenDefinitionTypeTestedContainerAdditiveSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@SpecimenDefinitionTypeTestedContainerAdditiveSurrogate.modifierExtension
+          ?: mutableListOf(),
+      additive = this@SpecimenDefinitionTypeTestedContainerAdditiveSurrogate.additive,
+    )
+
+  public companion object {
+    public fun fromModel(
+      model: SpecimenDefinition.TypeTested.Container.Additive
+    ): SpecimenDefinitionTypeTestedContainerAdditiveSurrogate =
+      with(model) {
+        SpecimenDefinitionTypeTestedContainerAdditiveSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          additive = this@with.additive,
+        )
+      }
+  }
+}
+
+@Serializable
 internal data class SpecimenDefinitionTypeTestedHandlingSurrogate(
   public var id: KotlinString? = null,
   public var extension: MutableList<Extension>? = null,
@@ -243,73 +263,53 @@ internal data class SpecimenDefinitionTypeTestedHandlingSurrogate(
 }
 
 @Serializable
-internal data class SpecimenDefinitionTypeTestedSurrogate(
-  public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var isDerived: KotlinBoolean? = null,
-  public var _isDerived: Element? = null,
-  public var type: CodeableConcept? = null,
-  public var preference: KotlinString? = null,
-  public var _preference: Element? = null,
-  public var container: SpecimenDefinition.TypeTested.Container? = null,
-  public var requirement: KotlinString? = null,
-  public var _requirement: Element? = null,
-  public var retentionTime: Duration? = null,
-  public var rejectionCriterion: MutableList<CodeableConcept>? = null,
-  public var handling: MutableList<SpecimenDefinition.TypeTested.Handling>? = null,
+internal data class SpecimenDefinitionTypeTestedContainerMinimumVolumeSurrogate(
+  public var minimumVolumeQuantity: Quantity? = null,
+  public var minimumVolumeString: KotlinString? = null,
+  public var _minimumVolumeString: Element? = null,
 ) {
-  public fun toModel(): SpecimenDefinition.TypeTested =
-    SpecimenDefinition.TypeTested(
-      id = this@SpecimenDefinitionTypeTestedSurrogate.id,
-      extension = this@SpecimenDefinitionTypeTestedSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@SpecimenDefinitionTypeTestedSurrogate.modifierExtension ?: mutableListOf(),
-      isDerived =
-        R4bBoolean.of(
-          this@SpecimenDefinitionTypeTestedSurrogate.isDerived,
-          this@SpecimenDefinitionTypeTestedSurrogate._isDerived,
-        ),
-      type = this@SpecimenDefinitionTypeTestedSurrogate.type,
-      preference =
-        Enumeration.of(
-          com.google.fhir.model.r4b.SpecimenDefinition.SpecimenContainedPreference.fromCode(
-            this@SpecimenDefinitionTypeTestedSurrogate.preference!!
-          ),
-          this@SpecimenDefinitionTypeTestedSurrogate._preference,
-        ),
-      container = this@SpecimenDefinitionTypeTestedSurrogate.container,
-      requirement =
-        R4bString.of(
-          this@SpecimenDefinitionTypeTestedSurrogate.requirement,
-          this@SpecimenDefinitionTypeTestedSurrogate._requirement,
-        ),
-      retentionTime = this@SpecimenDefinitionTypeTestedSurrogate.retentionTime,
-      rejectionCriterion =
-        this@SpecimenDefinitionTypeTestedSurrogate.rejectionCriterion ?: mutableListOf(),
-      handling = this@SpecimenDefinitionTypeTestedSurrogate.handling ?: mutableListOf(),
-    )
+  public fun toModel(): SpecimenDefinition.TypeTested.Container.MinimumVolume =
+    SpecimenDefinition.TypeTested.Container.MinimumVolume.from(
+      this@SpecimenDefinitionTypeTestedContainerMinimumVolumeSurrogate.minimumVolumeQuantity,
+      R4bString.of(
+        this@SpecimenDefinitionTypeTestedContainerMinimumVolumeSurrogate.minimumVolumeString,
+        this@SpecimenDefinitionTypeTestedContainerMinimumVolumeSurrogate._minimumVolumeString,
+      ),
+    )!!
 
   public companion object {
     public fun fromModel(
-      model: SpecimenDefinition.TypeTested
-    ): SpecimenDefinitionTypeTestedSurrogate =
+      model: SpecimenDefinition.TypeTested.Container.MinimumVolume
+    ): SpecimenDefinitionTypeTestedContainerMinimumVolumeSurrogate =
       with(model) {
-        SpecimenDefinitionTypeTestedSurrogate(
-          id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          isDerived = this@with.isDerived?.value,
-          _isDerived = this@with.isDerived?.toElement(),
-          type = this@with.type,
-          preference = this@with.preference.value?.getCode(),
-          _preference = this@with.preference.toElement(),
-          container = this@with.container,
-          requirement = this@with.requirement?.value,
-          _requirement = this@with.requirement?.toElement(),
-          retentionTime = this@with.retentionTime,
-          rejectionCriterion = this@with.rejectionCriterion.takeUnless { it.all { it == null } },
-          handling = this@with.handling.takeUnless { it.all { it == null } },
+        SpecimenDefinitionTypeTestedContainerMinimumVolumeSurrogate(
+          minimumVolumeQuantity = this@with.asQuantity()?.value,
+          minimumVolumeString = this@with.asString()?.value?.value,
+          _minimumVolumeString = this@with.asString()?.value?.toElement(),
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class SpecimenDefinitionTypeTestedContainerAdditiveAdditiveSurrogate(
+  public var additiveCodeableConcept: CodeableConcept? = null,
+  public var additiveReference: Reference? = null,
+) {
+  public fun toModel(): SpecimenDefinition.TypeTested.Container.Additive.Additive =
+    SpecimenDefinition.TypeTested.Container.Additive.Additive.from(
+      this@SpecimenDefinitionTypeTestedContainerAdditiveAdditiveSurrogate.additiveCodeableConcept,
+      this@SpecimenDefinitionTypeTestedContainerAdditiveAdditiveSurrogate.additiveReference,
+    )!! !!
+
+  public companion object {
+    public fun fromModel(
+      model: SpecimenDefinition.TypeTested.Container.Additive.Additive
+    ): SpecimenDefinitionTypeTestedContainerAdditiveAdditiveSurrogate =
+      with(model) {
+        SpecimenDefinitionTypeTestedContainerAdditiveAdditiveSurrogate(
+          additiveCodeableConcept = this@with.asCodeableConcept()?.value,
+          additiveReference = this@with.asReference()?.value,
         )
       }
   }

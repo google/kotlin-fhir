@@ -48,6 +48,93 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
+internal data class ImagingStudySeriesSurrogate(
+  public var id: KotlinString? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var uid: KotlinString? = null,
+  public var _uid: Element? = null,
+  public var number: Int? = null,
+  public var _number: Element? = null,
+  public var modality: Coding,
+  public var description: KotlinString? = null,
+  public var _description: Element? = null,
+  public var numberOfInstances: Int? = null,
+  public var _numberOfInstances: Element? = null,
+  public var endpoint: MutableList<Reference>? = null,
+  public var bodySite: Coding? = null,
+  public var laterality: Coding? = null,
+  public var specimen: MutableList<Reference>? = null,
+  public var started: KotlinString? = null,
+  public var _started: Element? = null,
+  public var performer: MutableList<ImagingStudy.Series.Performer>? = null,
+  public var instance: MutableList<ImagingStudy.Series.Instance>? = null,
+) {
+  public fun toModel(): ImagingStudy.Series =
+    ImagingStudy.Series(
+      id = this@ImagingStudySeriesSurrogate.id,
+      extension = this@ImagingStudySeriesSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@ImagingStudySeriesSurrogate.modifierExtension ?: mutableListOf(),
+      uid = Id.of(this@ImagingStudySeriesSurrogate.uid, this@ImagingStudySeriesSurrogate._uid)!!,
+      number =
+        UnsignedInt.of(
+          this@ImagingStudySeriesSurrogate.number,
+          this@ImagingStudySeriesSurrogate._number,
+        ),
+      modality = this@ImagingStudySeriesSurrogate.modality,
+      description =
+        R4bString.of(
+          this@ImagingStudySeriesSurrogate.description,
+          this@ImagingStudySeriesSurrogate._description,
+        ),
+      numberOfInstances =
+        UnsignedInt.of(
+          this@ImagingStudySeriesSurrogate.numberOfInstances,
+          this@ImagingStudySeriesSurrogate._numberOfInstances,
+        ),
+      endpoint = this@ImagingStudySeriesSurrogate.endpoint ?: mutableListOf(),
+      bodySite = this@ImagingStudySeriesSurrogate.bodySite,
+      laterality = this@ImagingStudySeriesSurrogate.laterality,
+      specimen = this@ImagingStudySeriesSurrogate.specimen ?: mutableListOf(),
+      started =
+        DateTime.of(
+          FhirDateTime.fromString(this@ImagingStudySeriesSurrogate.started),
+          this@ImagingStudySeriesSurrogate._started,
+        ),
+      performer = this@ImagingStudySeriesSurrogate.performer ?: mutableListOf(),
+      instance = this@ImagingStudySeriesSurrogate.instance ?: mutableListOf(),
+    )
+
+  public companion object {
+    public fun fromModel(model: ImagingStudy.Series): ImagingStudySeriesSurrogate =
+      with(model) {
+        ImagingStudySeriesSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          uid = this@with.uid.value,
+          _uid = this@with.uid.toElement(),
+          number = this@with.number?.value,
+          _number = this@with.number?.toElement(),
+          modality = this@with.modality,
+          description = this@with.description?.value,
+          _description = this@with.description?.toElement(),
+          numberOfInstances = this@with.numberOfInstances?.value,
+          _numberOfInstances = this@with.numberOfInstances?.toElement(),
+          endpoint = this@with.endpoint.takeUnless { it.all { it == null } },
+          bodySite = this@with.bodySite,
+          laterality = this@with.laterality,
+          specimen = this@with.specimen.takeUnless { it.all { it == null } },
+          started = this@with.started?.value?.toString(),
+          _started = this@with.started?.toElement(),
+          performer = this@with.performer.takeUnless { it.all { it == null } },
+          instance = this@with.instance.takeUnless { it.all { it == null } },
+        )
+      }
+  }
+}
+
+@Serializable
 internal data class ImagingStudySeriesPerformerSurrogate(
   public var id: KotlinString? = null,
   public var extension: MutableList<Extension>? = null,
@@ -132,93 +219,6 @@ internal data class ImagingStudySeriesInstanceSurrogate(
           _number = this@with.number?.toElement(),
           title = this@with.title?.value,
           _title = this@with.title?.toElement(),
-        )
-      }
-  }
-}
-
-@Serializable
-internal data class ImagingStudySeriesSurrogate(
-  public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var uid: KotlinString? = null,
-  public var _uid: Element? = null,
-  public var number: Int? = null,
-  public var _number: Element? = null,
-  public var modality: Coding,
-  public var description: KotlinString? = null,
-  public var _description: Element? = null,
-  public var numberOfInstances: Int? = null,
-  public var _numberOfInstances: Element? = null,
-  public var endpoint: MutableList<Reference>? = null,
-  public var bodySite: Coding? = null,
-  public var laterality: Coding? = null,
-  public var specimen: MutableList<Reference>? = null,
-  public var started: KotlinString? = null,
-  public var _started: Element? = null,
-  public var performer: MutableList<ImagingStudy.Series.Performer>? = null,
-  public var instance: MutableList<ImagingStudy.Series.Instance>? = null,
-) {
-  public fun toModel(): ImagingStudy.Series =
-    ImagingStudy.Series(
-      id = this@ImagingStudySeriesSurrogate.id,
-      extension = this@ImagingStudySeriesSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@ImagingStudySeriesSurrogate.modifierExtension ?: mutableListOf(),
-      uid = Id.of(this@ImagingStudySeriesSurrogate.uid, this@ImagingStudySeriesSurrogate._uid)!!,
-      number =
-        UnsignedInt.of(
-          this@ImagingStudySeriesSurrogate.number,
-          this@ImagingStudySeriesSurrogate._number,
-        ),
-      modality = this@ImagingStudySeriesSurrogate.modality,
-      description =
-        R4bString.of(
-          this@ImagingStudySeriesSurrogate.description,
-          this@ImagingStudySeriesSurrogate._description,
-        ),
-      numberOfInstances =
-        UnsignedInt.of(
-          this@ImagingStudySeriesSurrogate.numberOfInstances,
-          this@ImagingStudySeriesSurrogate._numberOfInstances,
-        ),
-      endpoint = this@ImagingStudySeriesSurrogate.endpoint ?: mutableListOf(),
-      bodySite = this@ImagingStudySeriesSurrogate.bodySite,
-      laterality = this@ImagingStudySeriesSurrogate.laterality,
-      specimen = this@ImagingStudySeriesSurrogate.specimen ?: mutableListOf(),
-      started =
-        DateTime.of(
-          FhirDateTime.fromString(this@ImagingStudySeriesSurrogate.started),
-          this@ImagingStudySeriesSurrogate._started,
-        ),
-      performer = this@ImagingStudySeriesSurrogate.performer ?: mutableListOf(),
-      instance = this@ImagingStudySeriesSurrogate.instance ?: mutableListOf(),
-    )
-
-  public companion object {
-    public fun fromModel(model: ImagingStudy.Series): ImagingStudySeriesSurrogate =
-      with(model) {
-        ImagingStudySeriesSurrogate(
-          id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          uid = this@with.uid.value,
-          _uid = this@with.uid.toElement(),
-          number = this@with.number?.value,
-          _number = this@with.number?.toElement(),
-          modality = this@with.modality,
-          description = this@with.description?.value,
-          _description = this@with.description?.toElement(),
-          numberOfInstances = this@with.numberOfInstances?.value,
-          _numberOfInstances = this@with.numberOfInstances?.toElement(),
-          endpoint = this@with.endpoint.takeUnless { it.all { it == null } },
-          bodySite = this@with.bodySite,
-          laterality = this@with.laterality,
-          specimen = this@with.specimen.takeUnless { it.all { it == null } },
-          started = this@with.started?.value?.toString(),
-          _started = this@with.started?.toElement(),
-          performer = this@with.performer.takeUnless { it.all { it == null } },
-          instance = this@with.instance.takeUnless { it.all { it == null } },
         )
       }
   }

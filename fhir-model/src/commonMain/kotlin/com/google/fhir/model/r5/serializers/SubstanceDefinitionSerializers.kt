@@ -49,27 +49,6 @@ import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.JsonPrimitive
 import kotlinx.serialization.json.jsonObject
 
-public object SubstanceDefinitionMoietyAmountSerializer :
-  KSerializer<SubstanceDefinition.Moiety.Amount> {
-  internal val surrogateSerializer: KSerializer<SubstanceDefinitionMoietyAmountSurrogate> by lazy {
-    SubstanceDefinitionMoietyAmountSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Amount", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): SubstanceDefinition.Moiety.Amount =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: SubstanceDefinition.Moiety.Amount) {
-    surrogateSerializer.serialize(
-      encoder,
-      SubstanceDefinitionMoietyAmountSurrogate.fromModel(value),
-    )
-  }
-}
-
 public object SubstanceDefinitionMoietySerializer : KSerializer<SubstanceDefinition.Moiety> {
   internal val surrogateSerializer: KSerializer<SubstanceDefinitionMoietySurrogate> by lazy {
     SubstanceDefinitionMoietySurrogate.serializer()
@@ -135,27 +114,6 @@ public object SubstanceDefinitionCharacterizationSerializer :
     surrogateSerializer.serialize(
       encoder,
       SubstanceDefinitionCharacterizationSurrogate.fromModel(value),
-    )
-  }
-}
-
-public object SubstanceDefinitionPropertyValueSerializer :
-  KSerializer<SubstanceDefinition.Property.Value> {
-  internal val surrogateSerializer: KSerializer<SubstanceDefinitionPropertyValueSurrogate> by lazy {
-    SubstanceDefinitionPropertyValueSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Value", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): SubstanceDefinition.Property.Value =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: SubstanceDefinition.Property.Value) {
-    surrogateSerializer.serialize(
-      encoder,
-      SubstanceDefinitionPropertyValueSurrogate.fromModel(value),
     )
   }
 }
@@ -229,6 +187,23 @@ public object SubstanceDefinitionMolecularWeightSerializer :
   }
 }
 
+public object SubstanceDefinitionStructureSerializer : KSerializer<SubstanceDefinition.Structure> {
+  internal val surrogateSerializer: KSerializer<SubstanceDefinitionStructureSurrogate> by lazy {
+    SubstanceDefinitionStructureSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Structure", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): SubstanceDefinition.Structure =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: SubstanceDefinition.Structure) {
+    surrogateSerializer.serialize(encoder, SubstanceDefinitionStructureSurrogate.fromModel(value))
+  }
+}
+
 public object SubstanceDefinitionStructureRepresentationSerializer :
   KSerializer<SubstanceDefinition.Structure.Representation> {
   internal val surrogateSerializer:
@@ -251,23 +226,6 @@ public object SubstanceDefinitionStructureRepresentationSerializer :
   }
 }
 
-public object SubstanceDefinitionStructureSerializer : KSerializer<SubstanceDefinition.Structure> {
-  internal val surrogateSerializer: KSerializer<SubstanceDefinitionStructureSurrogate> by lazy {
-    SubstanceDefinitionStructureSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Structure", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): SubstanceDefinition.Structure =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: SubstanceDefinition.Structure) {
-    surrogateSerializer.serialize(encoder, SubstanceDefinitionStructureSurrogate.fromModel(value))
-  }
-}
-
 public object SubstanceDefinitionCodeSerializer : KSerializer<SubstanceDefinition.Code> {
   internal val surrogateSerializer: KSerializer<SubstanceDefinitionCodeSurrogate> by lazy {
     SubstanceDefinitionCodeSurrogate.serializer()
@@ -282,27 +240,6 @@ public object SubstanceDefinitionCodeSerializer : KSerializer<SubstanceDefinitio
 
   override fun serialize(encoder: Encoder, `value`: SubstanceDefinition.Code) {
     surrogateSerializer.serialize(encoder, SubstanceDefinitionCodeSurrogate.fromModel(value))
-  }
-}
-
-public object SubstanceDefinitionNameOfficialSerializer :
-  KSerializer<SubstanceDefinition.Name.Official> {
-  internal val surrogateSerializer: KSerializer<SubstanceDefinitionNameOfficialSurrogate> by lazy {
-    SubstanceDefinitionNameOfficialSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Official", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): SubstanceDefinition.Name.Official =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: SubstanceDefinition.Name.Official) {
-    surrogateSerializer.serialize(
-      encoder,
-      SubstanceDefinitionNameOfficialSurrogate.fromModel(value),
-    )
   }
 }
 
@@ -323,49 +260,23 @@ public object SubstanceDefinitionNameSerializer : KSerializer<SubstanceDefinitio
   }
 }
 
-public object SubstanceDefinitionRelationshipSubstanceDefinitionSerializer :
-  KSerializer<SubstanceDefinition.Relationship.SubstanceDefinition> {
-  internal val surrogateSerializer:
-    KSerializer<SubstanceDefinitionRelationshipSubstanceDefinitionSurrogate> by lazy {
-    SubstanceDefinitionRelationshipSubstanceDefinitionSurrogate.serializer()
+public object SubstanceDefinitionNameOfficialSerializer :
+  KSerializer<SubstanceDefinition.Name.Official> {
+  internal val surrogateSerializer: KSerializer<SubstanceDefinitionNameOfficialSurrogate> by lazy {
+    SubstanceDefinitionNameOfficialSurrogate.serializer()
   }
 
   override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("SubstanceDefinition", surrogateSerializer.descriptor)
+    SerialDescriptor("Official", surrogateSerializer.descriptor)
   }
 
-  override fun deserialize(decoder: Decoder): SubstanceDefinition.Relationship.SubstanceDefinition =
+  override fun deserialize(decoder: Decoder): SubstanceDefinition.Name.Official =
     surrogateSerializer.deserialize(decoder).toModel()
 
-  override fun serialize(
-    encoder: Encoder,
-    `value`: SubstanceDefinition.Relationship.SubstanceDefinition,
-  ) {
+  override fun serialize(encoder: Encoder, `value`: SubstanceDefinition.Name.Official) {
     surrogateSerializer.serialize(
       encoder,
-      SubstanceDefinitionRelationshipSubstanceDefinitionSurrogate.fromModel(value),
-    )
-  }
-}
-
-public object SubstanceDefinitionRelationshipAmountSerializer :
-  KSerializer<SubstanceDefinition.Relationship.Amount> {
-  internal val surrogateSerializer:
-    KSerializer<SubstanceDefinitionRelationshipAmountSurrogate> by lazy {
-    SubstanceDefinitionRelationshipAmountSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Amount", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): SubstanceDefinition.Relationship.Amount =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: SubstanceDefinition.Relationship.Amount) {
-    surrogateSerializer.serialize(
-      encoder,
-      SubstanceDefinitionRelationshipAmountSurrogate.fromModel(value),
+      SubstanceDefinitionNameOfficialSurrogate.fromModel(value),
     )
   }
 }
@@ -436,6 +347,95 @@ public object SubstanceDefinitionSourceMaterialSerializer :
     surrogateSerializer.serialize(
       encoder,
       SubstanceDefinitionSourceMaterialSurrogate.fromModel(value),
+    )
+  }
+}
+
+public object SubstanceDefinitionMoietyAmountSerializer :
+  KSerializer<SubstanceDefinition.Moiety.Amount> {
+  internal val surrogateSerializer: KSerializer<SubstanceDefinitionMoietyAmountSurrogate> by lazy {
+    SubstanceDefinitionMoietyAmountSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Amount", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): SubstanceDefinition.Moiety.Amount =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: SubstanceDefinition.Moiety.Amount) {
+    surrogateSerializer.serialize(
+      encoder,
+      SubstanceDefinitionMoietyAmountSurrogate.fromModel(value),
+    )
+  }
+}
+
+public object SubstanceDefinitionPropertyValueSerializer :
+  KSerializer<SubstanceDefinition.Property.Value> {
+  internal val surrogateSerializer: KSerializer<SubstanceDefinitionPropertyValueSurrogate> by lazy {
+    SubstanceDefinitionPropertyValueSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Value", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): SubstanceDefinition.Property.Value =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: SubstanceDefinition.Property.Value) {
+    surrogateSerializer.serialize(
+      encoder,
+      SubstanceDefinitionPropertyValueSurrogate.fromModel(value),
+    )
+  }
+}
+
+public object SubstanceDefinitionRelationshipSubstanceDefinitionSerializer :
+  KSerializer<SubstanceDefinition.Relationship.SubstanceDefinition> {
+  internal val surrogateSerializer:
+    KSerializer<SubstanceDefinitionRelationshipSubstanceDefinitionSurrogate> by lazy {
+    SubstanceDefinitionRelationshipSubstanceDefinitionSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("SubstanceDefinition", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): SubstanceDefinition.Relationship.SubstanceDefinition =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(
+    encoder: Encoder,
+    `value`: SubstanceDefinition.Relationship.SubstanceDefinition,
+  ) {
+    surrogateSerializer.serialize(
+      encoder,
+      SubstanceDefinitionRelationshipSubstanceDefinitionSurrogate.fromModel(value),
+    )
+  }
+}
+
+public object SubstanceDefinitionRelationshipAmountSerializer :
+  KSerializer<SubstanceDefinition.Relationship.Amount> {
+  internal val surrogateSerializer:
+    KSerializer<SubstanceDefinitionRelationshipAmountSurrogate> by lazy {
+    SubstanceDefinitionRelationshipAmountSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Amount", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): SubstanceDefinition.Relationship.Amount =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: SubstanceDefinition.Relationship.Amount) {
+    surrogateSerializer.serialize(
+      encoder,
+      SubstanceDefinitionRelationshipAmountSurrogate.fromModel(value),
     )
   }
 }

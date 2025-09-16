@@ -38,42 +38,20 @@ import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.JsonPrimitive
 import kotlinx.serialization.json.jsonObject
 
-public object CarePlanActivityDetailScheduledSerializer :
-  KSerializer<CarePlan.Activity.Detail.Scheduled> {
-  internal val surrogateSerializer: KSerializer<CarePlanActivityDetailScheduledSurrogate> by lazy {
-    CarePlanActivityDetailScheduledSurrogate.serializer()
+public object CarePlanActivitySerializer : KSerializer<CarePlan.Activity> {
+  internal val surrogateSerializer: KSerializer<CarePlanActivitySurrogate> by lazy {
+    CarePlanActivitySurrogate.serializer()
   }
 
   override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Scheduled", surrogateSerializer.descriptor)
+    SerialDescriptor("Activity", surrogateSerializer.descriptor)
   }
 
-  override fun deserialize(decoder: Decoder): CarePlan.Activity.Detail.Scheduled =
+  override fun deserialize(decoder: Decoder): CarePlan.Activity =
     surrogateSerializer.deserialize(decoder).toModel()
 
-  override fun serialize(encoder: Encoder, `value`: CarePlan.Activity.Detail.Scheduled) {
-    surrogateSerializer.serialize(
-      encoder,
-      CarePlanActivityDetailScheduledSurrogate.fromModel(value),
-    )
-  }
-}
-
-public object CarePlanActivityDetailProductSerializer :
-  KSerializer<CarePlan.Activity.Detail.Product> {
-  internal val surrogateSerializer: KSerializer<CarePlanActivityDetailProductSurrogate> by lazy {
-    CarePlanActivityDetailProductSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Product", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): CarePlan.Activity.Detail.Product =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: CarePlan.Activity.Detail.Product) {
-    surrogateSerializer.serialize(encoder, CarePlanActivityDetailProductSurrogate.fromModel(value))
+  override fun serialize(encoder: Encoder, `value`: CarePlan.Activity) {
+    surrogateSerializer.serialize(encoder, CarePlanActivitySurrogate.fromModel(value))
   }
 }
 
@@ -124,20 +102,42 @@ public object CarePlanActivityDetailSerializer : KSerializer<CarePlan.Activity.D
   }
 }
 
-public object CarePlanActivitySerializer : KSerializer<CarePlan.Activity> {
-  internal val surrogateSerializer: KSerializer<CarePlanActivitySurrogate> by lazy {
-    CarePlanActivitySurrogate.serializer()
+public object CarePlanActivityDetailScheduledSerializer :
+  KSerializer<CarePlan.Activity.Detail.Scheduled> {
+  internal val surrogateSerializer: KSerializer<CarePlanActivityDetailScheduledSurrogate> by lazy {
+    CarePlanActivityDetailScheduledSurrogate.serializer()
   }
 
   override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Activity", surrogateSerializer.descriptor)
+    SerialDescriptor("Scheduled", surrogateSerializer.descriptor)
   }
 
-  override fun deserialize(decoder: Decoder): CarePlan.Activity =
+  override fun deserialize(decoder: Decoder): CarePlan.Activity.Detail.Scheduled =
     surrogateSerializer.deserialize(decoder).toModel()
 
-  override fun serialize(encoder: Encoder, `value`: CarePlan.Activity) {
-    surrogateSerializer.serialize(encoder, CarePlanActivitySurrogate.fromModel(value))
+  override fun serialize(encoder: Encoder, `value`: CarePlan.Activity.Detail.Scheduled) {
+    surrogateSerializer.serialize(
+      encoder,
+      CarePlanActivityDetailScheduledSurrogate.fromModel(value),
+    )
+  }
+}
+
+public object CarePlanActivityDetailProductSerializer :
+  KSerializer<CarePlan.Activity.Detail.Product> {
+  internal val surrogateSerializer: KSerializer<CarePlanActivityDetailProductSurrogate> by lazy {
+    CarePlanActivityDetailProductSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Product", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): CarePlan.Activity.Detail.Product =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: CarePlan.Activity.Detail.Product) {
+    surrogateSerializer.serialize(encoder, CarePlanActivityDetailProductSurrogate.fromModel(value))
   }
 }
 

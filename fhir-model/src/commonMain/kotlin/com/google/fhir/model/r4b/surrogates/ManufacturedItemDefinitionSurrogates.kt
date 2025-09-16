@@ -46,49 +46,6 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
-internal data class ManufacturedItemDefinitionPropertyValueSurrogate(
-  public var valueCodeableConcept: CodeableConcept? = null,
-  public var valueQuantity: Quantity? = null,
-  public var valueDate: String? = null,
-  public var _valueDate: Element? = null,
-  public var valueBoolean: KotlinBoolean? = null,
-  public var _valueBoolean: Element? = null,
-  public var valueAttachment: Attachment? = null,
-) {
-  public fun toModel(): ManufacturedItemDefinition.Property.Value =
-    ManufacturedItemDefinition.Property.Value?.from(
-      this@ManufacturedItemDefinitionPropertyValueSurrogate.valueCodeableConcept,
-      this@ManufacturedItemDefinitionPropertyValueSurrogate.valueQuantity,
-      Date.of(
-        FhirDate.fromString(this@ManufacturedItemDefinitionPropertyValueSurrogate.valueDate),
-        this@ManufacturedItemDefinitionPropertyValueSurrogate._valueDate,
-      ),
-      R4bBoolean.of(
-        this@ManufacturedItemDefinitionPropertyValueSurrogate.valueBoolean,
-        this@ManufacturedItemDefinitionPropertyValueSurrogate._valueBoolean,
-      ),
-      this@ManufacturedItemDefinitionPropertyValueSurrogate.valueAttachment,
-    )!!
-
-  public companion object {
-    public fun fromModel(
-      model: ManufacturedItemDefinition.Property.Value
-    ): ManufacturedItemDefinitionPropertyValueSurrogate =
-      with(model) {
-        ManufacturedItemDefinitionPropertyValueSurrogate(
-          valueCodeableConcept = this@with.asCodeableConcept()?.value,
-          valueQuantity = this@with.asQuantity()?.value,
-          valueDate = this@with.asDate()?.value?.value?.toString(),
-          _valueDate = this@with.asDate()?.value?.toElement(),
-          valueBoolean = this@with.asBoolean()?.value?.value,
-          _valueBoolean = this@with.asBoolean()?.value?.toElement(),
-          valueAttachment = this@with.asAttachment()?.value,
-        )
-      }
-  }
-}
-
-@Serializable
 internal data class ManufacturedItemDefinitionPropertySurrogate(
   public var id: String? = null,
   public var extension: MutableList<Extension>? = null,
@@ -117,6 +74,49 @@ internal data class ManufacturedItemDefinitionPropertySurrogate(
           modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
           type = this@with.type,
           `value` = this@with.`value`,
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class ManufacturedItemDefinitionPropertyValueSurrogate(
+  public var valueCodeableConcept: CodeableConcept? = null,
+  public var valueQuantity: Quantity? = null,
+  public var valueDate: String? = null,
+  public var _valueDate: Element? = null,
+  public var valueBoolean: KotlinBoolean? = null,
+  public var _valueBoolean: Element? = null,
+  public var valueAttachment: Attachment? = null,
+) {
+  public fun toModel(): ManufacturedItemDefinition.Property.Value =
+    ManufacturedItemDefinition.Property.Value.from(
+      this@ManufacturedItemDefinitionPropertyValueSurrogate.valueCodeableConcept,
+      this@ManufacturedItemDefinitionPropertyValueSurrogate.valueQuantity,
+      Date.of(
+        FhirDate.fromString(this@ManufacturedItemDefinitionPropertyValueSurrogate.valueDate),
+        this@ManufacturedItemDefinitionPropertyValueSurrogate._valueDate,
+      ),
+      R4bBoolean.of(
+        this@ManufacturedItemDefinitionPropertyValueSurrogate.valueBoolean,
+        this@ManufacturedItemDefinitionPropertyValueSurrogate._valueBoolean,
+      ),
+      this@ManufacturedItemDefinitionPropertyValueSurrogate.valueAttachment,
+    )!!
+
+  public companion object {
+    public fun fromModel(
+      model: ManufacturedItemDefinition.Property.Value
+    ): ManufacturedItemDefinitionPropertyValueSurrogate =
+      with(model) {
+        ManufacturedItemDefinitionPropertyValueSurrogate(
+          valueCodeableConcept = this@with.asCodeableConcept()?.value,
+          valueQuantity = this@with.asQuantity()?.value,
+          valueDate = this@with.asDate()?.value?.value?.toString(),
+          _valueDate = this@with.asDate()?.value?.toElement(),
+          valueBoolean = this@with.asBoolean()?.value?.value,
+          _valueBoolean = this@with.asBoolean()?.value?.toElement(),
+          valueAttachment = this@with.asAttachment()?.value,
         )
       }
   }

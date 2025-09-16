@@ -315,7 +315,7 @@ internal data class DeviceDefinitionManufacturerSurrogate(
   public var manufacturerReference: Reference? = null,
 ) {
   public fun toModel(): DeviceDefinition.Manufacturer =
-    DeviceDefinition.Manufacturer?.from(
+    DeviceDefinition.Manufacturer.from(
       R4bString.of(
         this@DeviceDefinitionManufacturerSurrogate.manufacturerString,
         this@DeviceDefinitionManufacturerSurrogate._manufacturerString,

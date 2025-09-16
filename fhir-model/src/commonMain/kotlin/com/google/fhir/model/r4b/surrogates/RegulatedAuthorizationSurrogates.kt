@@ -44,35 +44,6 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
-internal data class RegulatedAuthorizationCaseDateSurrogate(
-  public var datePeriod: Period? = null,
-  public var dateDateTime: String? = null,
-  public var _dateDateTime: Element? = null,
-) {
-  public fun toModel(): RegulatedAuthorization.Case.Date =
-    RegulatedAuthorization.Case.Date?.from(
-      this@RegulatedAuthorizationCaseDateSurrogate.datePeriod,
-      DateTime.of(
-        FhirDateTime.fromString(this@RegulatedAuthorizationCaseDateSurrogate.dateDateTime),
-        this@RegulatedAuthorizationCaseDateSurrogate._dateDateTime,
-      ),
-    )!!
-
-  public companion object {
-    public fun fromModel(
-      model: RegulatedAuthorization.Case.Date
-    ): RegulatedAuthorizationCaseDateSurrogate =
-      with(model) {
-        RegulatedAuthorizationCaseDateSurrogate(
-          datePeriod = this@with.asPeriod()?.value,
-          dateDateTime = this@with.asDateTime()?.value?.value?.toString(),
-          _dateDateTime = this@with.asDateTime()?.value?.toElement(),
-        )
-      }
-  }
-}
-
-@Serializable
 internal data class RegulatedAuthorizationCaseSurrogate(
   public var id: String? = null,
   public var extension: MutableList<Extension>? = null,
@@ -108,6 +79,35 @@ internal data class RegulatedAuthorizationCaseSurrogate(
           status = this@with.status,
           date = this@with.date,
           application = this@with.application.takeUnless { it.all { it == null } },
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class RegulatedAuthorizationCaseDateSurrogate(
+  public var datePeriod: Period? = null,
+  public var dateDateTime: String? = null,
+  public var _dateDateTime: Element? = null,
+) {
+  public fun toModel(): RegulatedAuthorization.Case.Date =
+    RegulatedAuthorization.Case.Date.from(
+      this@RegulatedAuthorizationCaseDateSurrogate.datePeriod,
+      DateTime.of(
+        FhirDateTime.fromString(this@RegulatedAuthorizationCaseDateSurrogate.dateDateTime),
+        this@RegulatedAuthorizationCaseDateSurrogate._dateDateTime,
+      ),
+    )!!
+
+  public companion object {
+    public fun fromModel(
+      model: RegulatedAuthorization.Case.Date
+    ): RegulatedAuthorizationCaseDateSurrogate =
+      with(model) {
+        RegulatedAuthorizationCaseDateSurrogate(
+          datePeriod = this@with.asPeriod()?.value,
+          dateDateTime = this@with.asDateTime()?.value?.value?.toString(),
+          _dateDateTime = this@with.asDateTime()?.value?.toElement(),
         )
       }
   }

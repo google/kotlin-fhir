@@ -48,35 +48,6 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
-internal data class SubstanceSpecificationMoietyAmountSurrogate(
-  public var amountQuantity: Quantity? = null,
-  public var amountString: KotlinString? = null,
-  public var _amountString: Element? = null,
-) {
-  public fun toModel(): SubstanceSpecification.Moiety.Amount =
-    SubstanceSpecification.Moiety.Amount?.from(
-      this@SubstanceSpecificationMoietyAmountSurrogate.amountQuantity,
-      R4String.of(
-        this@SubstanceSpecificationMoietyAmountSurrogate.amountString,
-        this@SubstanceSpecificationMoietyAmountSurrogate._amountString,
-      ),
-    )!!
-
-  public companion object {
-    public fun fromModel(
-      model: SubstanceSpecification.Moiety.Amount
-    ): SubstanceSpecificationMoietyAmountSurrogate =
-      with(model) {
-        SubstanceSpecificationMoietyAmountSurrogate(
-          amountQuantity = this@with.asQuantity()?.value,
-          amountString = this@with.asString()?.value?.value,
-          _amountString = this@with.asString()?.value?.toElement(),
-        )
-      }
-  }
-}
-
-@Serializable
 internal data class SubstanceSpecificationMoietySurrogate(
   public var id: KotlinString? = null,
   public var extension: MutableList<Extension>? = null,
@@ -138,59 +109,6 @@ internal data class SubstanceSpecificationMoietySurrogate(
 }
 
 @Serializable
-internal data class SubstanceSpecificationPropertyDefiningSubstanceSurrogate(
-  public var definingSubstanceReference: Reference? = null,
-  public var definingSubstanceCodeableConcept: CodeableConcept? = null,
-) {
-  public fun toModel(): SubstanceSpecification.Property.DefiningSubstance =
-    SubstanceSpecification.Property.DefiningSubstance?.from(
-      this@SubstanceSpecificationPropertyDefiningSubstanceSurrogate.definingSubstanceReference,
-      this@SubstanceSpecificationPropertyDefiningSubstanceSurrogate.definingSubstanceCodeableConcept,
-    )!!
-
-  public companion object {
-    public fun fromModel(
-      model: SubstanceSpecification.Property.DefiningSubstance
-    ): SubstanceSpecificationPropertyDefiningSubstanceSurrogate =
-      with(model) {
-        SubstanceSpecificationPropertyDefiningSubstanceSurrogate(
-          definingSubstanceReference = this@with.asReference()?.value,
-          definingSubstanceCodeableConcept = this@with.asCodeableConcept()?.value,
-        )
-      }
-  }
-}
-
-@Serializable
-internal data class SubstanceSpecificationPropertyAmountSurrogate(
-  public var amountQuantity: Quantity? = null,
-  public var amountString: KotlinString? = null,
-  public var _amountString: Element? = null,
-) {
-  public fun toModel(): SubstanceSpecification.Property.Amount =
-    SubstanceSpecification.Property.Amount?.from(
-      this@SubstanceSpecificationPropertyAmountSurrogate.amountQuantity,
-      R4String.of(
-        this@SubstanceSpecificationPropertyAmountSurrogate.amountString,
-        this@SubstanceSpecificationPropertyAmountSurrogate._amountString,
-      ),
-    )!!
-
-  public companion object {
-    public fun fromModel(
-      model: SubstanceSpecification.Property.Amount
-    ): SubstanceSpecificationPropertyAmountSurrogate =
-      with(model) {
-        SubstanceSpecificationPropertyAmountSurrogate(
-          amountQuantity = this@with.asQuantity()?.value,
-          amountString = this@with.asString()?.value?.value,
-          _amountString = this@with.asString()?.value?.toElement(),
-        )
-      }
-  }
-}
-
-@Serializable
 internal data class SubstanceSpecificationPropertySurrogate(
   public var id: KotlinString? = null,
   public var extension: MutableList<Extension>? = null,
@@ -234,134 +152,6 @@ internal data class SubstanceSpecificationPropertySurrogate(
           _parameters = this@with.parameters?.toElement(),
           definingSubstance = this@with.definingSubstance,
           amount = this@with.amount,
-        )
-      }
-  }
-}
-
-@Serializable
-internal data class SubstanceSpecificationStructureIsotopeMolecularWeightSurrogate(
-  public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var method: CodeableConcept? = null,
-  public var type: CodeableConcept? = null,
-  public var amount: Quantity? = null,
-) {
-  public fun toModel(): SubstanceSpecification.Structure.Isotope.MolecularWeight =
-    SubstanceSpecification.Structure.Isotope.MolecularWeight(
-      id = this@SubstanceSpecificationStructureIsotopeMolecularWeightSurrogate.id,
-      extension =
-        this@SubstanceSpecificationStructureIsotopeMolecularWeightSurrogate.extension
-          ?: mutableListOf(),
-      modifierExtension =
-        this@SubstanceSpecificationStructureIsotopeMolecularWeightSurrogate.modifierExtension
-          ?: mutableListOf(),
-      method = this@SubstanceSpecificationStructureIsotopeMolecularWeightSurrogate.method,
-      type = this@SubstanceSpecificationStructureIsotopeMolecularWeightSurrogate.type,
-      amount = this@SubstanceSpecificationStructureIsotopeMolecularWeightSurrogate.amount,
-    )
-
-  public companion object {
-    public fun fromModel(
-      model: SubstanceSpecification.Structure.Isotope.MolecularWeight
-    ): SubstanceSpecificationStructureIsotopeMolecularWeightSurrogate =
-      with(model) {
-        SubstanceSpecificationStructureIsotopeMolecularWeightSurrogate(
-          id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          method = this@with.method,
-          type = this@with.type,
-          amount = this@with.amount,
-        )
-      }
-  }
-}
-
-@Serializable
-internal data class SubstanceSpecificationStructureIsotopeSurrogate(
-  public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var identifier: Identifier? = null,
-  public var name: CodeableConcept? = null,
-  public var substitution: CodeableConcept? = null,
-  public var halfLife: Quantity? = null,
-  public var molecularWeight: SubstanceSpecification.Structure.Isotope.MolecularWeight? = null,
-) {
-  public fun toModel(): SubstanceSpecification.Structure.Isotope =
-    SubstanceSpecification.Structure.Isotope(
-      id = this@SubstanceSpecificationStructureIsotopeSurrogate.id,
-      extension = this@SubstanceSpecificationStructureIsotopeSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@SubstanceSpecificationStructureIsotopeSurrogate.modifierExtension ?: mutableListOf(),
-      identifier = this@SubstanceSpecificationStructureIsotopeSurrogate.identifier,
-      name = this@SubstanceSpecificationStructureIsotopeSurrogate.name,
-      substitution = this@SubstanceSpecificationStructureIsotopeSurrogate.substitution,
-      halfLife = this@SubstanceSpecificationStructureIsotopeSurrogate.halfLife,
-      molecularWeight = this@SubstanceSpecificationStructureIsotopeSurrogate.molecularWeight,
-    )
-
-  public companion object {
-    public fun fromModel(
-      model: SubstanceSpecification.Structure.Isotope
-    ): SubstanceSpecificationStructureIsotopeSurrogate =
-      with(model) {
-        SubstanceSpecificationStructureIsotopeSurrogate(
-          id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          identifier = this@with.identifier,
-          name = this@with.name,
-          substitution = this@with.substitution,
-          halfLife = this@with.halfLife,
-          molecularWeight = this@with.molecularWeight,
-        )
-      }
-  }
-}
-
-@Serializable
-internal data class SubstanceSpecificationStructureRepresentationSurrogate(
-  public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var type: CodeableConcept? = null,
-  public var representation: KotlinString? = null,
-  public var _representation: Element? = null,
-  public var attachment: Attachment? = null,
-) {
-  public fun toModel(): SubstanceSpecification.Structure.Representation =
-    SubstanceSpecification.Structure.Representation(
-      id = this@SubstanceSpecificationStructureRepresentationSurrogate.id,
-      extension =
-        this@SubstanceSpecificationStructureRepresentationSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@SubstanceSpecificationStructureRepresentationSurrogate.modifierExtension
-          ?: mutableListOf(),
-      type = this@SubstanceSpecificationStructureRepresentationSurrogate.type,
-      representation =
-        R4String.of(
-          this@SubstanceSpecificationStructureRepresentationSurrogate.representation,
-          this@SubstanceSpecificationStructureRepresentationSurrogate._representation,
-        ),
-      attachment = this@SubstanceSpecificationStructureRepresentationSurrogate.attachment,
-    )
-
-  public companion object {
-    public fun fromModel(
-      model: SubstanceSpecification.Structure.Representation
-    ): SubstanceSpecificationStructureRepresentationSurrogate =
-      with(model) {
-        SubstanceSpecificationStructureRepresentationSurrogate(
-          id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          type = this@with.type,
-          representation = this@with.representation?.value,
-          _representation = this@with.representation?.toElement(),
-          attachment = this@with.attachment,
         )
       }
   }
@@ -433,6 +223,134 @@ internal data class SubstanceSpecificationStructureSurrogate(
 }
 
 @Serializable
+internal data class SubstanceSpecificationStructureIsotopeSurrogate(
+  public var id: KotlinString? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var identifier: Identifier? = null,
+  public var name: CodeableConcept? = null,
+  public var substitution: CodeableConcept? = null,
+  public var halfLife: Quantity? = null,
+  public var molecularWeight: SubstanceSpecification.Structure.Isotope.MolecularWeight? = null,
+) {
+  public fun toModel(): SubstanceSpecification.Structure.Isotope =
+    SubstanceSpecification.Structure.Isotope(
+      id = this@SubstanceSpecificationStructureIsotopeSurrogate.id,
+      extension = this@SubstanceSpecificationStructureIsotopeSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@SubstanceSpecificationStructureIsotopeSurrogate.modifierExtension ?: mutableListOf(),
+      identifier = this@SubstanceSpecificationStructureIsotopeSurrogate.identifier,
+      name = this@SubstanceSpecificationStructureIsotopeSurrogate.name,
+      substitution = this@SubstanceSpecificationStructureIsotopeSurrogate.substitution,
+      halfLife = this@SubstanceSpecificationStructureIsotopeSurrogate.halfLife,
+      molecularWeight = this@SubstanceSpecificationStructureIsotopeSurrogate.molecularWeight,
+    )
+
+  public companion object {
+    public fun fromModel(
+      model: SubstanceSpecification.Structure.Isotope
+    ): SubstanceSpecificationStructureIsotopeSurrogate =
+      with(model) {
+        SubstanceSpecificationStructureIsotopeSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          identifier = this@with.identifier,
+          name = this@with.name,
+          substitution = this@with.substitution,
+          halfLife = this@with.halfLife,
+          molecularWeight = this@with.molecularWeight,
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class SubstanceSpecificationStructureIsotopeMolecularWeightSurrogate(
+  public var id: KotlinString? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var method: CodeableConcept? = null,
+  public var type: CodeableConcept? = null,
+  public var amount: Quantity? = null,
+) {
+  public fun toModel(): SubstanceSpecification.Structure.Isotope.MolecularWeight =
+    SubstanceSpecification.Structure.Isotope.MolecularWeight(
+      id = this@SubstanceSpecificationStructureIsotopeMolecularWeightSurrogate.id,
+      extension =
+        this@SubstanceSpecificationStructureIsotopeMolecularWeightSurrogate.extension
+          ?: mutableListOf(),
+      modifierExtension =
+        this@SubstanceSpecificationStructureIsotopeMolecularWeightSurrogate.modifierExtension
+          ?: mutableListOf(),
+      method = this@SubstanceSpecificationStructureIsotopeMolecularWeightSurrogate.method,
+      type = this@SubstanceSpecificationStructureIsotopeMolecularWeightSurrogate.type,
+      amount = this@SubstanceSpecificationStructureIsotopeMolecularWeightSurrogate.amount,
+    )
+
+  public companion object {
+    public fun fromModel(
+      model: SubstanceSpecification.Structure.Isotope.MolecularWeight
+    ): SubstanceSpecificationStructureIsotopeMolecularWeightSurrogate =
+      with(model) {
+        SubstanceSpecificationStructureIsotopeMolecularWeightSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          method = this@with.method,
+          type = this@with.type,
+          amount = this@with.amount,
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class SubstanceSpecificationStructureRepresentationSurrogate(
+  public var id: KotlinString? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var type: CodeableConcept? = null,
+  public var representation: KotlinString? = null,
+  public var _representation: Element? = null,
+  public var attachment: Attachment? = null,
+) {
+  public fun toModel(): SubstanceSpecification.Structure.Representation =
+    SubstanceSpecification.Structure.Representation(
+      id = this@SubstanceSpecificationStructureRepresentationSurrogate.id,
+      extension =
+        this@SubstanceSpecificationStructureRepresentationSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@SubstanceSpecificationStructureRepresentationSurrogate.modifierExtension
+          ?: mutableListOf(),
+      type = this@SubstanceSpecificationStructureRepresentationSurrogate.type,
+      representation =
+        R4String.of(
+          this@SubstanceSpecificationStructureRepresentationSurrogate.representation,
+          this@SubstanceSpecificationStructureRepresentationSurrogate._representation,
+        ),
+      attachment = this@SubstanceSpecificationStructureRepresentationSurrogate.attachment,
+    )
+
+  public companion object {
+    public fun fromModel(
+      model: SubstanceSpecification.Structure.Representation
+    ): SubstanceSpecificationStructureRepresentationSurrogate =
+      with(model) {
+        SubstanceSpecificationStructureRepresentationSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          type = this@with.type,
+          representation = this@with.representation?.value,
+          _representation = this@with.representation?.toElement(),
+          attachment = this@with.attachment,
+        )
+      }
+  }
+}
+
+@Serializable
 internal data class SubstanceSpecificationCodeSurrogate(
   public var id: KotlinString? = null,
   public var extension: MutableList<Extension>? = null,
@@ -480,49 +398,6 @@ internal data class SubstanceSpecificationCodeSurrogate(
           comment = this@with.comment?.value,
           _comment = this@with.comment?.toElement(),
           source = this@with.source.takeUnless { it.all { it == null } },
-        )
-      }
-  }
-}
-
-@Serializable
-internal data class SubstanceSpecificationNameOfficialSurrogate(
-  public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var authority: CodeableConcept? = null,
-  public var status: CodeableConcept? = null,
-  public var date: KotlinString? = null,
-  public var _date: Element? = null,
-) {
-  public fun toModel(): SubstanceSpecification.Name.Official =
-    SubstanceSpecification.Name.Official(
-      id = this@SubstanceSpecificationNameOfficialSurrogate.id,
-      extension = this@SubstanceSpecificationNameOfficialSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@SubstanceSpecificationNameOfficialSurrogate.modifierExtension ?: mutableListOf(),
-      authority = this@SubstanceSpecificationNameOfficialSurrogate.authority,
-      status = this@SubstanceSpecificationNameOfficialSurrogate.status,
-      date =
-        DateTime.of(
-          FhirDateTime.fromString(this@SubstanceSpecificationNameOfficialSurrogate.date),
-          this@SubstanceSpecificationNameOfficialSurrogate._date,
-        ),
-    )
-
-  public companion object {
-    public fun fromModel(
-      model: SubstanceSpecification.Name.Official
-    ): SubstanceSpecificationNameOfficialSurrogate =
-      with(model) {
-        SubstanceSpecificationNameOfficialSurrogate(
-          id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          authority = this@with.authority,
-          status = this@with.status,
-          date = this@with.date?.value?.toString(),
-          _date = this@with.date?.toElement(),
         )
       }
   }
@@ -600,59 +475,43 @@ internal data class SubstanceSpecificationNameSurrogate(
 }
 
 @Serializable
-internal data class SubstanceSpecificationRelationshipSubstanceSurrogate(
-  public var substanceReference: Reference? = null,
-  public var substanceCodeableConcept: CodeableConcept? = null,
+internal data class SubstanceSpecificationNameOfficialSurrogate(
+  public var id: KotlinString? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var authority: CodeableConcept? = null,
+  public var status: CodeableConcept? = null,
+  public var date: KotlinString? = null,
+  public var _date: Element? = null,
 ) {
-  public fun toModel(): SubstanceSpecification.Relationship.Substance =
-    SubstanceSpecification.Relationship.Substance?.from(
-      this@SubstanceSpecificationRelationshipSubstanceSurrogate.substanceReference,
-      this@SubstanceSpecificationRelationshipSubstanceSurrogate.substanceCodeableConcept,
-    )!!
+  public fun toModel(): SubstanceSpecification.Name.Official =
+    SubstanceSpecification.Name.Official(
+      id = this@SubstanceSpecificationNameOfficialSurrogate.id,
+      extension = this@SubstanceSpecificationNameOfficialSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@SubstanceSpecificationNameOfficialSurrogate.modifierExtension ?: mutableListOf(),
+      authority = this@SubstanceSpecificationNameOfficialSurrogate.authority,
+      status = this@SubstanceSpecificationNameOfficialSurrogate.status,
+      date =
+        DateTime.of(
+          FhirDateTime.fromString(this@SubstanceSpecificationNameOfficialSurrogate.date),
+          this@SubstanceSpecificationNameOfficialSurrogate._date,
+        ),
+    )
 
   public companion object {
     public fun fromModel(
-      model: SubstanceSpecification.Relationship.Substance
-    ): SubstanceSpecificationRelationshipSubstanceSurrogate =
+      model: SubstanceSpecification.Name.Official
+    ): SubstanceSpecificationNameOfficialSurrogate =
       with(model) {
-        SubstanceSpecificationRelationshipSubstanceSurrogate(
-          substanceReference = this@with.asReference()?.value,
-          substanceCodeableConcept = this@with.asCodeableConcept()?.value,
-        )
-      }
-  }
-}
-
-@Serializable
-internal data class SubstanceSpecificationRelationshipAmountSurrogate(
-  public var amountQuantity: Quantity? = null,
-  public var amountRange: Range? = null,
-  public var amountRatio: Ratio? = null,
-  public var amountString: KotlinString? = null,
-  public var _amountString: Element? = null,
-) {
-  public fun toModel(): SubstanceSpecification.Relationship.Amount =
-    SubstanceSpecification.Relationship.Amount?.from(
-      this@SubstanceSpecificationRelationshipAmountSurrogate.amountQuantity,
-      this@SubstanceSpecificationRelationshipAmountSurrogate.amountRange,
-      this@SubstanceSpecificationRelationshipAmountSurrogate.amountRatio,
-      R4String.of(
-        this@SubstanceSpecificationRelationshipAmountSurrogate.amountString,
-        this@SubstanceSpecificationRelationshipAmountSurrogate._amountString,
-      ),
-    )!!
-
-  public companion object {
-    public fun fromModel(
-      model: SubstanceSpecification.Relationship.Amount
-    ): SubstanceSpecificationRelationshipAmountSurrogate =
-      with(model) {
-        SubstanceSpecificationRelationshipAmountSurrogate(
-          amountQuantity = this@with.asQuantity()?.value,
-          amountRange = this@with.asRange()?.value,
-          amountRatio = this@with.asRatio()?.value,
-          amountString = this@with.asString()?.value?.value,
-          _amountString = this@with.asString()?.value?.toElement(),
+        SubstanceSpecificationNameOfficialSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          authority = this@with.authority,
+          status = this@with.status,
+          date = this@with.date?.value?.toString(),
+          _date = this@with.date?.toElement(),
         )
       }
   }
@@ -708,6 +567,147 @@ internal data class SubstanceSpecificationRelationshipSurrogate(
           amountRatioLowLimit = this@with.amountRatioLowLimit,
           amountType = this@with.amountType,
           source = this@with.source.takeUnless { it.all { it == null } },
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class SubstanceSpecificationMoietyAmountSurrogate(
+  public var amountQuantity: Quantity? = null,
+  public var amountString: KotlinString? = null,
+  public var _amountString: Element? = null,
+) {
+  public fun toModel(): SubstanceSpecification.Moiety.Amount =
+    SubstanceSpecification.Moiety.Amount.from(
+      this@SubstanceSpecificationMoietyAmountSurrogate.amountQuantity,
+      R4String.of(
+        this@SubstanceSpecificationMoietyAmountSurrogate.amountString,
+        this@SubstanceSpecificationMoietyAmountSurrogate._amountString,
+      ),
+    )!!
+
+  public companion object {
+    public fun fromModel(
+      model: SubstanceSpecification.Moiety.Amount
+    ): SubstanceSpecificationMoietyAmountSurrogate =
+      with(model) {
+        SubstanceSpecificationMoietyAmountSurrogate(
+          amountQuantity = this@with.asQuantity()?.value,
+          amountString = this@with.asString()?.value?.value,
+          _amountString = this@with.asString()?.value?.toElement(),
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class SubstanceSpecificationPropertyDefiningSubstanceSurrogate(
+  public var definingSubstanceReference: Reference? = null,
+  public var definingSubstanceCodeableConcept: CodeableConcept? = null,
+) {
+  public fun toModel(): SubstanceSpecification.Property.DefiningSubstance =
+    SubstanceSpecification.Property.DefiningSubstance.from(
+      this@SubstanceSpecificationPropertyDefiningSubstanceSurrogate.definingSubstanceReference,
+      this@SubstanceSpecificationPropertyDefiningSubstanceSurrogate.definingSubstanceCodeableConcept,
+    )!!
+
+  public companion object {
+    public fun fromModel(
+      model: SubstanceSpecification.Property.DefiningSubstance
+    ): SubstanceSpecificationPropertyDefiningSubstanceSurrogate =
+      with(model) {
+        SubstanceSpecificationPropertyDefiningSubstanceSurrogate(
+          definingSubstanceReference = this@with.asReference()?.value,
+          definingSubstanceCodeableConcept = this@with.asCodeableConcept()?.value,
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class SubstanceSpecificationPropertyAmountSurrogate(
+  public var amountQuantity: Quantity? = null,
+  public var amountString: KotlinString? = null,
+  public var _amountString: Element? = null,
+) {
+  public fun toModel(): SubstanceSpecification.Property.Amount =
+    SubstanceSpecification.Property.Amount.from(
+      this@SubstanceSpecificationPropertyAmountSurrogate.amountQuantity,
+      R4String.of(
+        this@SubstanceSpecificationPropertyAmountSurrogate.amountString,
+        this@SubstanceSpecificationPropertyAmountSurrogate._amountString,
+      ),
+    )!!
+
+  public companion object {
+    public fun fromModel(
+      model: SubstanceSpecification.Property.Amount
+    ): SubstanceSpecificationPropertyAmountSurrogate =
+      with(model) {
+        SubstanceSpecificationPropertyAmountSurrogate(
+          amountQuantity = this@with.asQuantity()?.value,
+          amountString = this@with.asString()?.value?.value,
+          _amountString = this@with.asString()?.value?.toElement(),
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class SubstanceSpecificationRelationshipSubstanceSurrogate(
+  public var substanceReference: Reference? = null,
+  public var substanceCodeableConcept: CodeableConcept? = null,
+) {
+  public fun toModel(): SubstanceSpecification.Relationship.Substance =
+    SubstanceSpecification.Relationship.Substance.from(
+      this@SubstanceSpecificationRelationshipSubstanceSurrogate.substanceReference,
+      this@SubstanceSpecificationRelationshipSubstanceSurrogate.substanceCodeableConcept,
+    )!!
+
+  public companion object {
+    public fun fromModel(
+      model: SubstanceSpecification.Relationship.Substance
+    ): SubstanceSpecificationRelationshipSubstanceSurrogate =
+      with(model) {
+        SubstanceSpecificationRelationshipSubstanceSurrogate(
+          substanceReference = this@with.asReference()?.value,
+          substanceCodeableConcept = this@with.asCodeableConcept()?.value,
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class SubstanceSpecificationRelationshipAmountSurrogate(
+  public var amountQuantity: Quantity? = null,
+  public var amountRange: Range? = null,
+  public var amountRatio: Ratio? = null,
+  public var amountString: KotlinString? = null,
+  public var _amountString: Element? = null,
+) {
+  public fun toModel(): SubstanceSpecification.Relationship.Amount =
+    SubstanceSpecification.Relationship.Amount.from(
+      this@SubstanceSpecificationRelationshipAmountSurrogate.amountQuantity,
+      this@SubstanceSpecificationRelationshipAmountSurrogate.amountRange,
+      this@SubstanceSpecificationRelationshipAmountSurrogate.amountRatio,
+      R4String.of(
+        this@SubstanceSpecificationRelationshipAmountSurrogate.amountString,
+        this@SubstanceSpecificationRelationshipAmountSurrogate._amountString,
+      ),
+    )!!
+
+  public companion object {
+    public fun fromModel(
+      model: SubstanceSpecification.Relationship.Amount
+    ): SubstanceSpecificationRelationshipAmountSurrogate =
+      with(model) {
+        SubstanceSpecificationRelationshipAmountSurrogate(
+          amountQuantity = this@with.asQuantity()?.value,
+          amountRange = this@with.asRange()?.value,
+          amountRatio = this@with.asRatio()?.value,
+          amountString = this@with.asString()?.value?.value,
+          _amountString = this@with.asString()?.value?.toElement(),
         )
       }
   }

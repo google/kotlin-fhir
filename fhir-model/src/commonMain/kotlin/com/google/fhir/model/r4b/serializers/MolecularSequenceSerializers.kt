@@ -69,23 +69,6 @@ public object MolecularSequenceVariantSerializer : KSerializer<MolecularSequence
   }
 }
 
-public object MolecularSequenceQualityRocSerializer : KSerializer<MolecularSequence.Quality.Roc> {
-  internal val surrogateSerializer: KSerializer<MolecularSequenceQualityRocSurrogate> by lazy {
-    MolecularSequenceQualityRocSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Roc", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): MolecularSequence.Quality.Roc =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: MolecularSequence.Quality.Roc) {
-    surrogateSerializer.serialize(encoder, MolecularSequenceQualityRocSurrogate.fromModel(value))
-  }
-}
-
 public object MolecularSequenceQualitySerializer : KSerializer<MolecularSequence.Quality> {
   internal val surrogateSerializer: KSerializer<MolecularSequenceQualitySurrogate> by lazy {
     MolecularSequenceQualitySurrogate.serializer()
@@ -103,6 +86,23 @@ public object MolecularSequenceQualitySerializer : KSerializer<MolecularSequence
   }
 }
 
+public object MolecularSequenceQualityRocSerializer : KSerializer<MolecularSequence.Quality.Roc> {
+  internal val surrogateSerializer: KSerializer<MolecularSequenceQualityRocSurrogate> by lazy {
+    MolecularSequenceQualityRocSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Roc", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): MolecularSequence.Quality.Roc =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: MolecularSequence.Quality.Roc) {
+    surrogateSerializer.serialize(encoder, MolecularSequenceQualityRocSurrogate.fromModel(value))
+  }
+}
+
 public object MolecularSequenceRepositorySerializer : KSerializer<MolecularSequence.Repository> {
   internal val surrogateSerializer: KSerializer<MolecularSequenceRepositorySurrogate> by lazy {
     MolecularSequenceRepositorySurrogate.serializer()
@@ -117,6 +117,28 @@ public object MolecularSequenceRepositorySerializer : KSerializer<MolecularSeque
 
   override fun serialize(encoder: Encoder, `value`: MolecularSequence.Repository) {
     surrogateSerializer.serialize(encoder, MolecularSequenceRepositorySurrogate.fromModel(value))
+  }
+}
+
+public object MolecularSequenceStructureVariantSerializer :
+  KSerializer<MolecularSequence.StructureVariant> {
+  internal val surrogateSerializer:
+    KSerializer<MolecularSequenceStructureVariantSurrogate> by lazy {
+    MolecularSequenceStructureVariantSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("StructureVariant", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): MolecularSequence.StructureVariant =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: MolecularSequence.StructureVariant) {
+    surrogateSerializer.serialize(
+      encoder,
+      MolecularSequenceStructureVariantSurrogate.fromModel(value),
+    )
   }
 }
 
@@ -160,28 +182,6 @@ public object MolecularSequenceStructureVariantInnerSerializer :
     surrogateSerializer.serialize(
       encoder,
       MolecularSequenceStructureVariantInnerSurrogate.fromModel(value),
-    )
-  }
-}
-
-public object MolecularSequenceStructureVariantSerializer :
-  KSerializer<MolecularSequence.StructureVariant> {
-  internal val surrogateSerializer:
-    KSerializer<MolecularSequenceStructureVariantSurrogate> by lazy {
-    MolecularSequenceStructureVariantSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("StructureVariant", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): MolecularSequence.StructureVariant =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: MolecularSequence.StructureVariant) {
-    surrogateSerializer.serialize(
-      encoder,
-      MolecularSequenceStructureVariantSurrogate.fromModel(value),
     )
   }
 }

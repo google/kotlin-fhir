@@ -73,28 +73,6 @@ public object NutritionProductIngredientSerializer : KSerializer<NutritionProduc
   }
 }
 
-public object NutritionProductProductCharacteristicValueSerializer :
-  KSerializer<NutritionProduct.ProductCharacteristic.Value> {
-  internal val surrogateSerializer:
-    KSerializer<NutritionProductProductCharacteristicValueSurrogate> by lazy {
-    NutritionProductProductCharacteristicValueSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Value", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): NutritionProduct.ProductCharacteristic.Value =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: NutritionProduct.ProductCharacteristic.Value) {
-    surrogateSerializer.serialize(
-      encoder,
-      NutritionProductProductCharacteristicValueSurrogate.fromModel(value),
-    )
-  }
-}
-
 public object NutritionProductProductCharacteristicSerializer :
   KSerializer<NutritionProduct.ProductCharacteristic> {
   internal val surrogateSerializer:
@@ -158,6 +136,28 @@ public object NutritionProductInstanceSerializer : KSerializer<NutritionProduct.
 
   override fun serialize(encoder: Encoder, `value`: NutritionProduct.Instance) {
     surrogateSerializer.serialize(encoder, NutritionProductInstanceSurrogate.fromModel(value))
+  }
+}
+
+public object NutritionProductProductCharacteristicValueSerializer :
+  KSerializer<NutritionProduct.ProductCharacteristic.Value> {
+  internal val surrogateSerializer:
+    KSerializer<NutritionProductProductCharacteristicValueSurrogate> by lazy {
+    NutritionProductProductCharacteristicValueSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Value", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): NutritionProduct.ProductCharacteristic.Value =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: NutritionProduct.ProductCharacteristic.Value) {
+    surrogateSerializer.serialize(
+      encoder,
+      NutritionProductProductCharacteristicValueSurrogate.fromModel(value),
+    )
   }
 }
 

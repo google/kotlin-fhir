@@ -75,6 +75,53 @@ public object ContractContentDefinitionSerializer : KSerializer<Contract.Content
   }
 }
 
+public object ContractTermSerializer : KSerializer<Contract.Term> {
+  internal val surrogateSerializer: KSerializer<ContractTermSurrogate> by lazy {
+    ContractTermSurrogate.serializer()
+  }
+
+  private val resourceType: String? = null
+
+  private val multiChoiceProperties: List<String> = listOf("topic")
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Term", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): Contract.Term {
+    val jsonDecoder =
+      decoder as? JsonDecoder ?: error("This serializer only supports JSON decoding")
+    val oldJsonObject =
+      if (resourceType.isNullOrBlank()) {
+        jsonDecoder.decodeJsonElement().jsonObject
+      } else
+        JsonObject(
+          jsonDecoder.decodeJsonElement().jsonObject.toMutableMap().apply { remove("resourceType") }
+        )
+    val unflattenedJsonObject = FhirJsonTransformer.unflatten(oldJsonObject, multiChoiceProperties)
+    val surrogate =
+      jsonDecoder.json.decodeFromJsonElement(surrogateSerializer, unflattenedJsonObject)
+    return surrogate.toModel()
+  }
+
+  override fun serialize(encoder: Encoder, `value`: Contract.Term) {
+    val jsonEncoder =
+      encoder as? JsonEncoder ?: error("This serializer only supports JSON encoding")
+    val surrogate = ContractTermSurrogate.fromModel(value)
+    val oldJsonObject =
+      if (resourceType.isNullOrBlank()) {
+        jsonEncoder.json.encodeToJsonElement(surrogateSerializer, surrogate).jsonObject
+      } else {
+        JsonObject(
+          mutableMapOf("resourceType" to JsonPrimitive(resourceType))
+            .plus(jsonEncoder.json.encodeToJsonElement(surrogateSerializer, surrogate).jsonObject)
+        )
+      }
+    val flattenedJsonObject = FhirJsonTransformer.flatten(oldJsonObject, multiChoiceProperties)
+    jsonEncoder.encodeJsonElement(flattenedJsonObject)
+  }
+}
+
 public object ContractTermSecurityLabelSerializer : KSerializer<Contract.Term.SecurityLabel> {
   internal val surrogateSerializer: KSerializer<ContractTermSecurityLabelSurrogate> by lazy {
     ContractTermSecurityLabelSurrogate.serializer()
@@ -92,6 +139,23 @@ public object ContractTermSecurityLabelSerializer : KSerializer<Contract.Term.Se
   }
 }
 
+public object ContractTermOfferSerializer : KSerializer<Contract.Term.Offer> {
+  internal val surrogateSerializer: KSerializer<ContractTermOfferSurrogate> by lazy {
+    ContractTermOfferSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Offer", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): Contract.Term.Offer =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: Contract.Term.Offer) {
+    surrogateSerializer.serialize(encoder, ContractTermOfferSurrogate.fromModel(value))
+  }
+}
+
 public object ContractTermOfferPartySerializer : KSerializer<Contract.Term.Offer.Party> {
   internal val surrogateSerializer: KSerializer<ContractTermOfferPartySurrogate> by lazy {
     ContractTermOfferPartySurrogate.serializer()
@@ -106,24 +170,6 @@ public object ContractTermOfferPartySerializer : KSerializer<Contract.Term.Offer
 
   override fun serialize(encoder: Encoder, `value`: Contract.Term.Offer.Party) {
     surrogateSerializer.serialize(encoder, ContractTermOfferPartySurrogate.fromModel(value))
-  }
-}
-
-public object ContractTermOfferAnswerValueSerializer :
-  KSerializer<Contract.Term.Offer.Answer.Value> {
-  internal val surrogateSerializer: KSerializer<ContractTermOfferAnswerValueSurrogate> by lazy {
-    ContractTermOfferAnswerValueSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Value", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): Contract.Term.Offer.Answer.Value =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: Contract.Term.Offer.Answer.Value) {
-    surrogateSerializer.serialize(encoder, ContractTermOfferAnswerValueSurrogate.fromModel(value))
   }
 }
 
@@ -174,20 +220,20 @@ public object ContractTermOfferAnswerSerializer : KSerializer<Contract.Term.Offe
   }
 }
 
-public object ContractTermOfferSerializer : KSerializer<Contract.Term.Offer> {
-  internal val surrogateSerializer: KSerializer<ContractTermOfferSurrogate> by lazy {
-    ContractTermOfferSurrogate.serializer()
+public object ContractTermAssetSerializer : KSerializer<Contract.Term.Asset> {
+  internal val surrogateSerializer: KSerializer<ContractTermAssetSurrogate> by lazy {
+    ContractTermAssetSurrogate.serializer()
   }
 
   override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Offer", surrogateSerializer.descriptor)
+    SerialDescriptor("Asset", surrogateSerializer.descriptor)
   }
 
-  override fun deserialize(decoder: Decoder): Contract.Term.Offer =
+  override fun deserialize(decoder: Decoder): Contract.Term.Asset =
     surrogateSerializer.deserialize(decoder).toModel()
 
-  override fun serialize(encoder: Encoder, `value`: Contract.Term.Offer) {
-    surrogateSerializer.serialize(encoder, ContractTermOfferSurrogate.fromModel(value))
+  override fun serialize(encoder: Encoder, `value`: Contract.Term.Asset) {
+    surrogateSerializer.serialize(encoder, ContractTermAssetSurrogate.fromModel(value))
   }
 }
 
@@ -205,28 +251,6 @@ public object ContractTermAssetContextSerializer : KSerializer<Contract.Term.Ass
 
   override fun serialize(encoder: Encoder, `value`: Contract.Term.Asset.Context) {
     surrogateSerializer.serialize(encoder, ContractTermAssetContextSurrogate.fromModel(value))
-  }
-}
-
-public object ContractTermAssetValuedItemEntitySerializer :
-  KSerializer<Contract.Term.Asset.ValuedItem.Entity> {
-  internal val surrogateSerializer:
-    KSerializer<ContractTermAssetValuedItemEntitySurrogate> by lazy {
-    ContractTermAssetValuedItemEntitySurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Entity", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): Contract.Term.Asset.ValuedItem.Entity =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: Contract.Term.Asset.ValuedItem.Entity) {
-    surrogateSerializer.serialize(
-      encoder,
-      ContractTermAssetValuedItemEntitySurrogate.fromModel(value),
-    )
   }
 }
 
@@ -277,58 +301,6 @@ public object ContractTermAssetValuedItemSerializer : KSerializer<Contract.Term.
   }
 }
 
-public object ContractTermAssetSerializer : KSerializer<Contract.Term.Asset> {
-  internal val surrogateSerializer: KSerializer<ContractTermAssetSurrogate> by lazy {
-    ContractTermAssetSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Asset", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): Contract.Term.Asset =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: Contract.Term.Asset) {
-    surrogateSerializer.serialize(encoder, ContractTermAssetSurrogate.fromModel(value))
-  }
-}
-
-public object ContractTermActionSubjectSerializer : KSerializer<Contract.Term.Action.Subject> {
-  internal val surrogateSerializer: KSerializer<ContractTermActionSubjectSurrogate> by lazy {
-    ContractTermActionSubjectSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Subject", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): Contract.Term.Action.Subject =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: Contract.Term.Action.Subject) {
-    surrogateSerializer.serialize(encoder, ContractTermActionSubjectSurrogate.fromModel(value))
-  }
-}
-
-public object ContractTermActionOccurrenceSerializer :
-  KSerializer<Contract.Term.Action.Occurrence> {
-  internal val surrogateSerializer: KSerializer<ContractTermActionOccurrenceSurrogate> by lazy {
-    ContractTermActionOccurrenceSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Occurrence", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): Contract.Term.Action.Occurrence =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: Contract.Term.Action.Occurrence) {
-    surrogateSerializer.serialize(encoder, ContractTermActionOccurrenceSurrogate.fromModel(value))
-  }
-}
-
 public object ContractTermActionSerializer : KSerializer<Contract.Term.Action> {
   internal val surrogateSerializer: KSerializer<ContractTermActionSurrogate> by lazy {
     ContractTermActionSurrogate.serializer()
@@ -376,67 +348,20 @@ public object ContractTermActionSerializer : KSerializer<Contract.Term.Action> {
   }
 }
 
-public object ContractTermTopicSerializer : KSerializer<Contract.Term.Topic> {
-  internal val surrogateSerializer: KSerializer<ContractTermTopicSurrogate> by lazy {
-    ContractTermTopicSurrogate.serializer()
+public object ContractTermActionSubjectSerializer : KSerializer<Contract.Term.Action.Subject> {
+  internal val surrogateSerializer: KSerializer<ContractTermActionSubjectSurrogate> by lazy {
+    ContractTermActionSubjectSurrogate.serializer()
   }
 
   override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Topic", surrogateSerializer.descriptor)
+    SerialDescriptor("Subject", surrogateSerializer.descriptor)
   }
 
-  override fun deserialize(decoder: Decoder): Contract.Term.Topic =
+  override fun deserialize(decoder: Decoder): Contract.Term.Action.Subject =
     surrogateSerializer.deserialize(decoder).toModel()
 
-  override fun serialize(encoder: Encoder, `value`: Contract.Term.Topic) {
-    surrogateSerializer.serialize(encoder, ContractTermTopicSurrogate.fromModel(value))
-  }
-}
-
-public object ContractTermSerializer : KSerializer<Contract.Term> {
-  internal val surrogateSerializer: KSerializer<ContractTermSurrogate> by lazy {
-    ContractTermSurrogate.serializer()
-  }
-
-  private val resourceType: String? = null
-
-  private val multiChoiceProperties: List<String> = listOf("topic")
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Term", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): Contract.Term {
-    val jsonDecoder =
-      decoder as? JsonDecoder ?: error("This serializer only supports JSON decoding")
-    val oldJsonObject =
-      if (resourceType.isNullOrBlank()) {
-        jsonDecoder.decodeJsonElement().jsonObject
-      } else
-        JsonObject(
-          jsonDecoder.decodeJsonElement().jsonObject.toMutableMap().apply { remove("resourceType") }
-        )
-    val unflattenedJsonObject = FhirJsonTransformer.unflatten(oldJsonObject, multiChoiceProperties)
-    val surrogate =
-      jsonDecoder.json.decodeFromJsonElement(surrogateSerializer, unflattenedJsonObject)
-    return surrogate.toModel()
-  }
-
-  override fun serialize(encoder: Encoder, `value`: Contract.Term) {
-    val jsonEncoder =
-      encoder as? JsonEncoder ?: error("This serializer only supports JSON encoding")
-    val surrogate = ContractTermSurrogate.fromModel(value)
-    val oldJsonObject =
-      if (resourceType.isNullOrBlank()) {
-        jsonEncoder.json.encodeToJsonElement(surrogateSerializer, surrogate).jsonObject
-      } else {
-        JsonObject(
-          mutableMapOf("resourceType" to JsonPrimitive(resourceType))
-            .plus(jsonEncoder.json.encodeToJsonElement(surrogateSerializer, surrogate).jsonObject)
-        )
-      }
-    val flattenedJsonObject = FhirJsonTransformer.flatten(oldJsonObject, multiChoiceProperties)
-    jsonEncoder.encodeJsonElement(flattenedJsonObject)
+  override fun serialize(encoder: Encoder, `value`: Contract.Term.Action.Subject) {
+    surrogateSerializer.serialize(encoder, ContractTermActionSubjectSurrogate.fromModel(value))
   }
 }
 
@@ -454,23 +379,6 @@ public object ContractSignerSerializer : KSerializer<Contract.Signer> {
 
   override fun serialize(encoder: Encoder, `value`: Contract.Signer) {
     surrogateSerializer.serialize(encoder, ContractSignerSurrogate.fromModel(value))
-  }
-}
-
-public object ContractFriendlyContentSerializer : KSerializer<Contract.Friendly.Content> {
-  internal val surrogateSerializer: KSerializer<ContractFriendlyContentSurrogate> by lazy {
-    ContractFriendlyContentSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Content", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): Contract.Friendly.Content =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: Contract.Friendly.Content) {
-    surrogateSerializer.serialize(encoder, ContractFriendlyContentSurrogate.fromModel(value))
   }
 }
 
@@ -521,23 +429,6 @@ public object ContractFriendlySerializer : KSerializer<Contract.Friendly> {
   }
 }
 
-public object ContractLegalContentSerializer : KSerializer<Contract.Legal.Content> {
-  internal val surrogateSerializer: KSerializer<ContractLegalContentSurrogate> by lazy {
-    ContractLegalContentSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Content", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): Contract.Legal.Content =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: Contract.Legal.Content) {
-    surrogateSerializer.serialize(encoder, ContractLegalContentSurrogate.fromModel(value))
-  }
-}
-
 public object ContractLegalSerializer : KSerializer<Contract.Legal> {
   internal val surrogateSerializer: KSerializer<ContractLegalSurrogate> by lazy {
     ContractLegalSurrogate.serializer()
@@ -582,23 +473,6 @@ public object ContractLegalSerializer : KSerializer<Contract.Legal> {
       }
     val flattenedJsonObject = FhirJsonTransformer.flatten(oldJsonObject, multiChoiceProperties)
     jsonEncoder.encodeJsonElement(flattenedJsonObject)
-  }
-}
-
-public object ContractRuleContentSerializer : KSerializer<Contract.Rule.Content> {
-  internal val surrogateSerializer: KSerializer<ContractRuleContentSurrogate> by lazy {
-    ContractRuleContentSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Content", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): Contract.Rule.Content =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: Contract.Rule.Content) {
-    surrogateSerializer.serialize(encoder, ContractRuleContentSurrogate.fromModel(value))
   }
 }
 
@@ -663,6 +537,132 @@ public object ContractTopicSerializer : KSerializer<Contract.Topic> {
 
   override fun serialize(encoder: Encoder, `value`: Contract.Topic) {
     surrogateSerializer.serialize(encoder, ContractTopicSurrogate.fromModel(value))
+  }
+}
+
+public object ContractTermTopicSerializer : KSerializer<Contract.Term.Topic> {
+  internal val surrogateSerializer: KSerializer<ContractTermTopicSurrogate> by lazy {
+    ContractTermTopicSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Topic", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): Contract.Term.Topic =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: Contract.Term.Topic) {
+    surrogateSerializer.serialize(encoder, ContractTermTopicSurrogate.fromModel(value))
+  }
+}
+
+public object ContractTermOfferAnswerValueSerializer :
+  KSerializer<Contract.Term.Offer.Answer.Value> {
+  internal val surrogateSerializer: KSerializer<ContractTermOfferAnswerValueSurrogate> by lazy {
+    ContractTermOfferAnswerValueSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Value", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): Contract.Term.Offer.Answer.Value =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: Contract.Term.Offer.Answer.Value) {
+    surrogateSerializer.serialize(encoder, ContractTermOfferAnswerValueSurrogate.fromModel(value))
+  }
+}
+
+public object ContractTermAssetValuedItemEntitySerializer :
+  KSerializer<Contract.Term.Asset.ValuedItem.Entity> {
+  internal val surrogateSerializer:
+    KSerializer<ContractTermAssetValuedItemEntitySurrogate> by lazy {
+    ContractTermAssetValuedItemEntitySurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Entity", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): Contract.Term.Asset.ValuedItem.Entity =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: Contract.Term.Asset.ValuedItem.Entity) {
+    surrogateSerializer.serialize(
+      encoder,
+      ContractTermAssetValuedItemEntitySurrogate.fromModel(value),
+    )
+  }
+}
+
+public object ContractTermActionOccurrenceSerializer :
+  KSerializer<Contract.Term.Action.Occurrence> {
+  internal val surrogateSerializer: KSerializer<ContractTermActionOccurrenceSurrogate> by lazy {
+    ContractTermActionOccurrenceSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Occurrence", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): Contract.Term.Action.Occurrence =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: Contract.Term.Action.Occurrence) {
+    surrogateSerializer.serialize(encoder, ContractTermActionOccurrenceSurrogate.fromModel(value))
+  }
+}
+
+public object ContractFriendlyContentSerializer : KSerializer<Contract.Friendly.Content> {
+  internal val surrogateSerializer: KSerializer<ContractFriendlyContentSurrogate> by lazy {
+    ContractFriendlyContentSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Content", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): Contract.Friendly.Content =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: Contract.Friendly.Content) {
+    surrogateSerializer.serialize(encoder, ContractFriendlyContentSurrogate.fromModel(value))
+  }
+}
+
+public object ContractLegalContentSerializer : KSerializer<Contract.Legal.Content> {
+  internal val surrogateSerializer: KSerializer<ContractLegalContentSurrogate> by lazy {
+    ContractLegalContentSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Content", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): Contract.Legal.Content =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: Contract.Legal.Content) {
+    surrogateSerializer.serialize(encoder, ContractLegalContentSurrogate.fromModel(value))
+  }
+}
+
+public object ContractRuleContentSerializer : KSerializer<Contract.Rule.Content> {
+  internal val surrogateSerializer: KSerializer<ContractRuleContentSurrogate> by lazy {
+    ContractRuleContentSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Content", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): Contract.Rule.Content =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: Contract.Rule.Content) {
+    surrogateSerializer.serialize(encoder, ContractRuleContentSurrogate.fromModel(value))
   }
 }
 

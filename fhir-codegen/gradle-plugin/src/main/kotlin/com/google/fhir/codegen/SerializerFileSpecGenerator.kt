@@ -20,9 +20,7 @@ import com.google.fhir.codegen.schema.Element
 import com.google.fhir.codegen.schema.StructureDefinition
 import com.google.fhir.codegen.schema.backboneElements
 import com.google.fhir.codegen.schema.capitalized
-import com.google.fhir.codegen.schema.getBackboneElementsMap
 import com.google.fhir.codegen.schema.getElementName
-import com.google.fhir.codegen.schema.getElements
 import com.google.fhir.codegen.schema.rootElements
 import com.squareup.kotlinpoet.ClassName
 import com.squareup.kotlinpoet.CodeBlock
@@ -52,7 +50,7 @@ private val encoderClassName = ClassName(KOTLINX_SERIALIZATION_ENCODING, "Encode
 private val decoderClassName = ClassName(KOTLINX_SERIALIZATION_ENCODING, "Decoder")
 
 /**
- * Generates a [TypeSpec] for a custom serializer object that delegates
+ * Generates a [FileSpec] for a custom serializer object that delegates
  * serialization/deserialization to a surrogate class.
  *
  * See
@@ -65,28 +63,11 @@ class SerializerFileSpecGenerator(val codegenContext: CodegenContext) {
     return modelClassName
       .toSerializerFileSpecBuilder()
       .apply {
-        // Add serializer type specs for backbone elements recursively e.g.
-        // PatientContactSerializer, PatientCommunicationSerializer and PatientLinkSerializer
-        addBackboneElementSerializers(
-          structureDefinition,
-          structureDefinition.backboneElements,
-          structureDefinition.name,
-          modelClassName,
-        )
+        addBackboneElementSerializers(structureDefinition, modelClassName)
 
-        // Add serializer type specs for sealed interfaces e.g. PatientDeceasedSerializer
-        // and PatientMultipleBirthSerializer
-        addTypes(
-          structureDefinition.rootElements
-            .filter { it.path.endsWith("[x]") }
-            .map {
-              val sealedInterfaceClassName =
-                modelClassName.nestedClass(it.getElementName().capitalized())
-              createSerializerObjectTypeSpec(sealedInterfaceClassName)
-            }
-        )
+        addSealedInterfaceSerializers(structureDefinition, modelClassName)
 
-        // Add model class serializer type spec e.g. PatientSerializer
+        // Add type spec for the model class serializer e.g. PatientSerializer
         addType(
           createSerializerObjectTypeSpec(
             modelClassName,
@@ -98,52 +79,46 @@ class SerializerFileSpecGenerator(val codegenContext: CodegenContext) {
       .build()
   }
 
+  /**
+   * Adds [TypeSpec] for backbone element serializer classes
+   *
+   * Examples: PatientContactSerializer, PatientCommunicationSerializer and PatientLinkSerializer
+   */
   private fun FileSpec.Builder.addBackboneElementSerializers(
     structureDefinition: StructureDefinition,
-    backboneElements: Map<Element, List<Element>>,
-    path: String,
-    className: ClassName,
+    modelClassName: ClassName,
   ): FileSpec.Builder = apply {
-    backboneElements
-      .filter { (backboneElement, _) ->
-        backboneElement.path.matches("${path}\\.[A-Za-z0-9]+".toRegex())
-      }
-      .forEach { (backboneElement, _) ->
-        val name = backboneElement.path.substringAfterLast('.').capitalized()
-        val backboneElementClassName = className.nestedClass(name)
-        val elements = structureDefinition.getElements(backboneElementClassName)
-
-        val nestedBackboneElementMap = elements.getBackboneElementsMap()
-        if (nestedBackboneElementMap.isNotEmpty()) {
-          addBackboneElementSerializers(
-            structureDefinition,
-            nestedBackboneElementMap,
-            backboneElement.path,
-            backboneElementClassName,
-          )
-        }
-
-        // Add type specs for backbone element's sealed interface serializer
-        addTypes(
-          elements
-            .filter { it.path.endsWith("[x]") }
-            .map {
-              val sealedInterfaceClassName =
-                backboneElementClassName.nestedClass(it.getElementName().capitalized())
-              this@SerializerFileSpecGenerator.createSerializerObjectTypeSpec(
-                sealedInterfaceClassName
-              )
-            }
+    structureDefinition.backboneElements.forEach { (backboneElement, elements) ->
+      val simpleNames = backboneElement.path.split('.').map { it.capitalized() }
+      val backboneElementClassName = ClassName(modelClassName.packageName, simpleNames)
+      addType(
+        this@SerializerFileSpecGenerator.createSerializerObjectTypeSpec(
+          className = backboneElementClassName,
+          elements = elements,
         )
+      )
+    }
+  }
 
-        // Add backbone element serializer
-        addType(
-          this@SerializerFileSpecGenerator.createSerializerObjectTypeSpec(
-            className = backboneElementClassName,
-            elements = elements,
-          )
-        )
-      }
+  /**
+   * Adds [TypeSpec] for sealed interfaces serializer classes
+   *
+   * Examples: PatientDeceasedSerializer and PatientMultipleBirthSerializer
+   */
+  private fun FileSpec.Builder.addSealedInterfaceSerializers(
+    structureDefinition: StructureDefinition,
+    modelClassName: ClassName,
+  ) = apply {
+    addTypes(
+      structureDefinition.snapshot
+        ?.element
+        ?.filter { it.path.endsWith("[x]") }
+        ?.map { element ->
+          val simpleNames = element.path.replace("[x]", "").split('.').map { it.capitalized() }
+          val sealedInterfaceClassName = ClassName(modelClassName.packageName, simpleNames)
+          createSerializerObjectTypeSpec(sealedInterfaceClassName)
+        } ?: emptyList()
+    )
   }
 
   private fun createSerializerObjectTypeSpec(

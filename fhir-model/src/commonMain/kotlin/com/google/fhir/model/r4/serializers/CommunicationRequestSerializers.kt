@@ -37,28 +37,6 @@ import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.JsonPrimitive
 import kotlinx.serialization.json.jsonObject
 
-public object CommunicationRequestPayloadContentSerializer :
-  KSerializer<CommunicationRequest.Payload.Content> {
-  internal val surrogateSerializer:
-    KSerializer<CommunicationRequestPayloadContentSurrogate> by lazy {
-    CommunicationRequestPayloadContentSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Content", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): CommunicationRequest.Payload.Content =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: CommunicationRequest.Payload.Content) {
-    surrogateSerializer.serialize(
-      encoder,
-      CommunicationRequestPayloadContentSurrogate.fromModel(value),
-    )
-  }
-}
-
 public object CommunicationRequestPayloadSerializer : KSerializer<CommunicationRequest.Payload> {
   internal val surrogateSerializer: KSerializer<CommunicationRequestPayloadSurrogate> by lazy {
     CommunicationRequestPayloadSurrogate.serializer()
@@ -103,6 +81,28 @@ public object CommunicationRequestPayloadSerializer : KSerializer<CommunicationR
       }
     val flattenedJsonObject = FhirJsonTransformer.flatten(oldJsonObject, multiChoiceProperties)
     jsonEncoder.encodeJsonElement(flattenedJsonObject)
+  }
+}
+
+public object CommunicationRequestPayloadContentSerializer :
+  KSerializer<CommunicationRequest.Payload.Content> {
+  internal val surrogateSerializer:
+    KSerializer<CommunicationRequestPayloadContentSurrogate> by lazy {
+    CommunicationRequestPayloadContentSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Content", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): CommunicationRequest.Payload.Content =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: CommunicationRequest.Payload.Content) {
+    surrogateSerializer.serialize(
+      encoder,
+      CommunicationRequestPayloadContentSurrogate.fromModel(value),
+    )
   }
 }
 

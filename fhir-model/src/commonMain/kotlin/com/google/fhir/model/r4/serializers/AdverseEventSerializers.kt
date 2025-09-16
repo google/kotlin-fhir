@@ -28,6 +28,23 @@ import kotlinx.serialization.descriptors.SerialDescriptor
 import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
 
+public object AdverseEventSuspectEntitySerializer : KSerializer<AdverseEvent.SuspectEntity> {
+  internal val surrogateSerializer: KSerializer<AdverseEventSuspectEntitySurrogate> by lazy {
+    AdverseEventSuspectEntitySurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("SuspectEntity", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): AdverseEvent.SuspectEntity =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: AdverseEvent.SuspectEntity) {
+    surrogateSerializer.serialize(encoder, AdverseEventSuspectEntitySurrogate.fromModel(value))
+  }
+}
+
 public object AdverseEventSuspectEntityCausalitySerializer :
   KSerializer<AdverseEvent.SuspectEntity.Causality> {
   internal val surrogateSerializer:
@@ -47,23 +64,6 @@ public object AdverseEventSuspectEntityCausalitySerializer :
       encoder,
       AdverseEventSuspectEntityCausalitySurrogate.fromModel(value),
     )
-  }
-}
-
-public object AdverseEventSuspectEntitySerializer : KSerializer<AdverseEvent.SuspectEntity> {
-  internal val surrogateSerializer: KSerializer<AdverseEventSuspectEntitySurrogate> by lazy {
-    AdverseEventSuspectEntitySurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("SuspectEntity", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): AdverseEvent.SuspectEntity =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: AdverseEvent.SuspectEntity) {
-    surrogateSerializer.serialize(encoder, AdverseEventSuspectEntitySurrogate.fromModel(value))
   }
 }
 

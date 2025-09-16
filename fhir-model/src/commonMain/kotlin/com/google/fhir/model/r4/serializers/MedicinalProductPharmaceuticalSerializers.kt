@@ -55,33 +55,27 @@ public object MedicinalProductPharmaceuticalCharacteristicsSerializer :
   }
 }
 
-public object MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpeciesWithdrawalPeriodSerializer :
-  KSerializer<MedicinalProductPharmaceutical.RouteOfAdministration.TargetSpecies.WithdrawalPeriod> {
+public object MedicinalProductPharmaceuticalRouteOfAdministrationSerializer :
+  KSerializer<MedicinalProductPharmaceutical.RouteOfAdministration> {
   internal val surrogateSerializer:
-    KSerializer<
-      MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpeciesWithdrawalPeriodSurrogate
-    > by lazy {
-    MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpeciesWithdrawalPeriodSurrogate
-      .serializer()
+    KSerializer<MedicinalProductPharmaceuticalRouteOfAdministrationSurrogate> by lazy {
+    MedicinalProductPharmaceuticalRouteOfAdministrationSurrogate.serializer()
   }
 
   override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("WithdrawalPeriod", surrogateSerializer.descriptor)
+    SerialDescriptor("RouteOfAdministration", surrogateSerializer.descriptor)
   }
 
-  override fun deserialize(
-    decoder: Decoder
-  ): MedicinalProductPharmaceutical.RouteOfAdministration.TargetSpecies.WithdrawalPeriod =
+  override fun deserialize(decoder: Decoder): MedicinalProductPharmaceutical.RouteOfAdministration =
     surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(
     encoder: Encoder,
-    `value`: MedicinalProductPharmaceutical.RouteOfAdministration.TargetSpecies.WithdrawalPeriod,
+    `value`: MedicinalProductPharmaceutical.RouteOfAdministration,
   ) {
     surrogateSerializer.serialize(
       encoder,
-      MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpeciesWithdrawalPeriodSurrogate
-        .fromModel(value),
+      MedicinalProductPharmaceuticalRouteOfAdministrationSurrogate.fromModel(value),
     )
   }
 }
@@ -113,27 +107,33 @@ public object MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpeciesSe
   }
 }
 
-public object MedicinalProductPharmaceuticalRouteOfAdministrationSerializer :
-  KSerializer<MedicinalProductPharmaceutical.RouteOfAdministration> {
+public object MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpeciesWithdrawalPeriodSerializer :
+  KSerializer<MedicinalProductPharmaceutical.RouteOfAdministration.TargetSpecies.WithdrawalPeriod> {
   internal val surrogateSerializer:
-    KSerializer<MedicinalProductPharmaceuticalRouteOfAdministrationSurrogate> by lazy {
-    MedicinalProductPharmaceuticalRouteOfAdministrationSurrogate.serializer()
+    KSerializer<
+      MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpeciesWithdrawalPeriodSurrogate
+    > by lazy {
+    MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpeciesWithdrawalPeriodSurrogate
+      .serializer()
   }
 
   override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("RouteOfAdministration", surrogateSerializer.descriptor)
+    SerialDescriptor("WithdrawalPeriod", surrogateSerializer.descriptor)
   }
 
-  override fun deserialize(decoder: Decoder): MedicinalProductPharmaceutical.RouteOfAdministration =
+  override fun deserialize(
+    decoder: Decoder
+  ): MedicinalProductPharmaceutical.RouteOfAdministration.TargetSpecies.WithdrawalPeriod =
     surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(
     encoder: Encoder,
-    `value`: MedicinalProductPharmaceutical.RouteOfAdministration,
+    `value`: MedicinalProductPharmaceutical.RouteOfAdministration.TargetSpecies.WithdrawalPeriod,
   ) {
     surrogateSerializer.serialize(
       encoder,
-      MedicinalProductPharmaceuticalRouteOfAdministrationSurrogate.fromModel(value),
+      MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpeciesWithdrawalPeriodSurrogate
+        .fromModel(value),
     )
   }
 }

@@ -63,29 +63,23 @@ public object PackagedProductDefinitionLegalStatusOfSupplySerializer :
   }
 }
 
-public object PackagedProductDefinitionPackageShelfLifeStoragePeriodSerializer :
-  KSerializer<PackagedProductDefinition.Package.ShelfLifeStorage.Period> {
-  internal val surrogateSerializer:
-    KSerializer<PackagedProductDefinitionPackageShelfLifeStoragePeriodSurrogate> by lazy {
-    PackagedProductDefinitionPackageShelfLifeStoragePeriodSurrogate.serializer()
+public object PackagedProductDefinitionPackageSerializer :
+  KSerializer<PackagedProductDefinition.Package> {
+  internal val surrogateSerializer: KSerializer<PackagedProductDefinitionPackageSurrogate> by lazy {
+    PackagedProductDefinitionPackageSurrogate.serializer()
   }
 
   override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Period", surrogateSerializer.descriptor)
+    SerialDescriptor("Package", surrogateSerializer.descriptor)
   }
 
-  override fun deserialize(
-    decoder: Decoder
-  ): PackagedProductDefinition.Package.ShelfLifeStorage.Period =
+  override fun deserialize(decoder: Decoder): PackagedProductDefinition.Package =
     surrogateSerializer.deserialize(decoder).toModel()
 
-  override fun serialize(
-    encoder: Encoder,
-    `value`: PackagedProductDefinition.Package.ShelfLifeStorage.Period,
-  ) {
+  override fun serialize(encoder: Encoder, `value`: PackagedProductDefinition.Package) {
     surrogateSerializer.serialize(
       encoder,
-      PackagedProductDefinitionPackageShelfLifeStoragePeriodSurrogate.fromModel(value),
+      PackagedProductDefinitionPackageSurrogate.fromModel(value),
     )
   }
 }
@@ -139,31 +133,6 @@ public object PackagedProductDefinitionPackageShelfLifeStorageSerializer :
       }
     val flattenedJsonObject = FhirJsonTransformer.flatten(oldJsonObject, multiChoiceProperties)
     jsonEncoder.encodeJsonElement(flattenedJsonObject)
-  }
-}
-
-public object PackagedProductDefinitionPackagePropertyValueSerializer :
-  KSerializer<PackagedProductDefinition.Package.Property.Value> {
-  internal val surrogateSerializer:
-    KSerializer<PackagedProductDefinitionPackagePropertyValueSurrogate> by lazy {
-    PackagedProductDefinitionPackagePropertyValueSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Value", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): PackagedProductDefinition.Package.Property.Value =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(
-    encoder: Encoder,
-    `value`: PackagedProductDefinition.Package.Property.Value,
-  ) {
-    surrogateSerializer.serialize(
-      encoder,
-      PackagedProductDefinitionPackagePropertyValueSurrogate.fromModel(value),
-    )
   }
 }
 
@@ -241,23 +210,54 @@ public object PackagedProductDefinitionPackageContainedItemSerializer :
   }
 }
 
-public object PackagedProductDefinitionPackageSerializer :
-  KSerializer<PackagedProductDefinition.Package> {
-  internal val surrogateSerializer: KSerializer<PackagedProductDefinitionPackageSurrogate> by lazy {
-    PackagedProductDefinitionPackageSurrogate.serializer()
+public object PackagedProductDefinitionPackageShelfLifeStoragePeriodSerializer :
+  KSerializer<PackagedProductDefinition.Package.ShelfLifeStorage.Period> {
+  internal val surrogateSerializer:
+    KSerializer<PackagedProductDefinitionPackageShelfLifeStoragePeriodSurrogate> by lazy {
+    PackagedProductDefinitionPackageShelfLifeStoragePeriodSurrogate.serializer()
   }
 
   override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Package", surrogateSerializer.descriptor)
+    SerialDescriptor("Period", surrogateSerializer.descriptor)
   }
 
-  override fun deserialize(decoder: Decoder): PackagedProductDefinition.Package =
+  override fun deserialize(
+    decoder: Decoder
+  ): PackagedProductDefinition.Package.ShelfLifeStorage.Period =
     surrogateSerializer.deserialize(decoder).toModel()
 
-  override fun serialize(encoder: Encoder, `value`: PackagedProductDefinition.Package) {
+  override fun serialize(
+    encoder: Encoder,
+    `value`: PackagedProductDefinition.Package.ShelfLifeStorage.Period,
+  ) {
     surrogateSerializer.serialize(
       encoder,
-      PackagedProductDefinitionPackageSurrogate.fromModel(value),
+      PackagedProductDefinitionPackageShelfLifeStoragePeriodSurrogate.fromModel(value),
+    )
+  }
+}
+
+public object PackagedProductDefinitionPackagePropertyValueSerializer :
+  KSerializer<PackagedProductDefinition.Package.Property.Value> {
+  internal val surrogateSerializer:
+    KSerializer<PackagedProductDefinitionPackagePropertyValueSurrogate> by lazy {
+    PackagedProductDefinitionPackagePropertyValueSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Value", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): PackagedProductDefinition.Package.Property.Value =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(
+    encoder: Encoder,
+    `value`: PackagedProductDefinition.Package.Property.Value,
+  ) {
+    surrogateSerializer.serialize(
+      encoder,
+      PackagedProductDefinitionPackagePropertyValueSurrogate.fromModel(value),
     )
   }
 }

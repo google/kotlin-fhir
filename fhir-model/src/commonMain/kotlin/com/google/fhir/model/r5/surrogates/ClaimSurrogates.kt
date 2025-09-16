@@ -122,33 +122,6 @@ internal data class ClaimPayeeSurrogate(
 }
 
 @Serializable
-internal data class ClaimEventWhenSurrogate(
-  public var whenDateTime: KotlinString? = null,
-  public var _whenDateTime: Element? = null,
-  public var whenPeriod: Period? = null,
-) {
-  public fun toModel(): Claim.Event.When =
-    Claim.Event.When.from(
-      DateTime.of(
-        FhirDateTime.fromString(this@ClaimEventWhenSurrogate.whenDateTime),
-        this@ClaimEventWhenSurrogate._whenDateTime,
-      ),
-      this@ClaimEventWhenSurrogate.whenPeriod,
-    )!! !!
-
-  public companion object {
-    public fun fromModel(model: Claim.Event.When): ClaimEventWhenSurrogate =
-      with(model) {
-        ClaimEventWhenSurrogate(
-          whenDateTime = this@with.asDateTime()?.value?.value?.toString(),
-          _whenDateTime = this@with.asDateTime()?.value?.toElement(),
-          whenPeriod = this@with.asPeriod()?.value,
-        )
-      }
-  }
-}
-
-@Serializable
 internal data class ClaimEventSurrogate(
   public var id: KotlinString? = null,
   public var extension: MutableList<Extension>? = null,
@@ -232,77 +205,6 @@ internal data class ClaimCareTeamSurrogate(
 }
 
 @Serializable
-internal data class ClaimSupportingInfoTimingSurrogate(
-  public var timingDate: KotlinString? = null,
-  public var _timingDate: Element? = null,
-  public var timingPeriod: Period? = null,
-) {
-  public fun toModel(): Claim.SupportingInfo.Timing =
-    Claim.SupportingInfo.Timing?.from(
-      Date.of(
-        FhirDate.fromString(this@ClaimSupportingInfoTimingSurrogate.timingDate),
-        this@ClaimSupportingInfoTimingSurrogate._timingDate,
-      ),
-      this@ClaimSupportingInfoTimingSurrogate.timingPeriod,
-    )!!
-
-  public companion object {
-    public fun fromModel(model: Claim.SupportingInfo.Timing): ClaimSupportingInfoTimingSurrogate =
-      with(model) {
-        ClaimSupportingInfoTimingSurrogate(
-          timingDate = this@with.asDate()?.value?.value?.toString(),
-          _timingDate = this@with.asDate()?.value?.toElement(),
-          timingPeriod = this@with.asPeriod()?.value,
-        )
-      }
-  }
-}
-
-@Serializable
-internal data class ClaimSupportingInfoValueSurrogate(
-  public var valueBoolean: KotlinBoolean? = null,
-  public var _valueBoolean: Element? = null,
-  public var valueString: KotlinString? = null,
-  public var _valueString: Element? = null,
-  public var valueQuantity: Quantity? = null,
-  public var valueAttachment: Attachment? = null,
-  public var valueReference: Reference? = null,
-  public var valueIdentifier: Identifier? = null,
-) {
-  public fun toModel(): Claim.SupportingInfo.Value =
-    Claim.SupportingInfo.Value?.from(
-      R5Boolean.of(
-        this@ClaimSupportingInfoValueSurrogate.valueBoolean,
-        this@ClaimSupportingInfoValueSurrogate._valueBoolean,
-      ),
-      R5String.of(
-        this@ClaimSupportingInfoValueSurrogate.valueString,
-        this@ClaimSupportingInfoValueSurrogate._valueString,
-      ),
-      this@ClaimSupportingInfoValueSurrogate.valueQuantity,
-      this@ClaimSupportingInfoValueSurrogate.valueAttachment,
-      this@ClaimSupportingInfoValueSurrogate.valueReference,
-      this@ClaimSupportingInfoValueSurrogate.valueIdentifier,
-    )!!
-
-  public companion object {
-    public fun fromModel(model: Claim.SupportingInfo.Value): ClaimSupportingInfoValueSurrogate =
-      with(model) {
-        ClaimSupportingInfoValueSurrogate(
-          valueBoolean = this@with.asBoolean()?.value?.value,
-          _valueBoolean = this@with.asBoolean()?.value?.toElement(),
-          valueString = this@with.asString()?.value?.value,
-          _valueString = this@with.asString()?.value?.toElement(),
-          valueQuantity = this@with.asQuantity()?.value,
-          valueAttachment = this@with.asAttachment()?.value,
-          valueReference = this@with.asReference()?.value,
-          valueIdentifier = this@with.asIdentifier()?.value,
-        )
-      }
-  }
-}
-
-@Serializable
 internal data class ClaimSupportingInfoSurrogate(
   public var id: KotlinString? = null,
   public var extension: MutableList<Extension>? = null,
@@ -352,28 +254,6 @@ internal data class ClaimSupportingInfoSurrogate(
 }
 
 @Serializable
-internal data class ClaimDiagnosisDiagnosisSurrogate(
-  public var diagnosisCodeableConcept: CodeableConcept? = null,
-  public var diagnosisReference: Reference? = null,
-) {
-  public fun toModel(): Claim.Diagnosis.Diagnosis =
-    Claim.Diagnosis.Diagnosis.from(
-      this@ClaimDiagnosisDiagnosisSurrogate.diagnosisCodeableConcept,
-      this@ClaimDiagnosisDiagnosisSurrogate.diagnosisReference,
-    )!! !!
-
-  public companion object {
-    public fun fromModel(model: Claim.Diagnosis.Diagnosis): ClaimDiagnosisDiagnosisSurrogate =
-      with(model) {
-        ClaimDiagnosisDiagnosisSurrogate(
-          diagnosisCodeableConcept = this@with.asCodeableConcept()?.value,
-          diagnosisReference = this@with.asReference()?.value,
-        )
-      }
-  }
-}
-
-@Serializable
 internal data class ClaimDiagnosisSurrogate(
   public var id: KotlinString? = null,
   public var extension: MutableList<Extension>? = null,
@@ -411,28 +291,6 @@ internal data class ClaimDiagnosisSurrogate(
           diagnosis = this@with.diagnosis,
           type = this@with.type.takeUnless { it.all { it == null } },
           onAdmission = this@with.onAdmission,
-        )
-      }
-  }
-}
-
-@Serializable
-internal data class ClaimProcedureProcedureSurrogate(
-  public var procedureCodeableConcept: CodeableConcept? = null,
-  public var procedureReference: Reference? = null,
-) {
-  public fun toModel(): Claim.Procedure.Procedure =
-    Claim.Procedure.Procedure.from(
-      this@ClaimProcedureProcedureSurrogate.procedureCodeableConcept,
-      this@ClaimProcedureProcedureSurrogate.procedureReference,
-    )!! !!
-
-  public companion object {
-    public fun fromModel(model: Claim.Procedure.Procedure): ClaimProcedureProcedureSurrogate =
-      with(model) {
-        ClaimProcedureProcedureSurrogate(
-          procedureCodeableConcept = this@with.asCodeableConcept()?.value,
-          procedureReference = this@with.asReference()?.value,
         )
       }
   }
@@ -578,28 +436,6 @@ internal data class ClaimInsuranceSurrogate(
 }
 
 @Serializable
-internal data class ClaimAccidentLocationSurrogate(
-  public var locationAddress: Address? = null,
-  public var locationReference: Reference? = null,
-) {
-  public fun toModel(): Claim.Accident.Location =
-    Claim.Accident.Location?.from(
-      this@ClaimAccidentLocationSurrogate.locationAddress,
-      this@ClaimAccidentLocationSurrogate.locationReference,
-    )!!
-
-  public companion object {
-    public fun fromModel(model: Claim.Accident.Location): ClaimAccidentLocationSurrogate =
-      with(model) {
-        ClaimAccidentLocationSurrogate(
-          locationAddress = this@with.asAddress()?.value,
-          locationReference = this@with.asReference()?.value,
-        )
-      }
-  }
-}
-
-@Serializable
 internal data class ClaimAccidentSurrogate(
   public var id: KotlinString? = null,
   public var extension: MutableList<Extension>? = null,
@@ -634,254 +470,6 @@ internal data class ClaimAccidentSurrogate(
           _date = this@with.date.toElement(),
           type = this@with.type,
           location = this@with.location,
-        )
-      }
-  }
-}
-
-@Serializable
-internal data class ClaimItemBodySiteSurrogate(
-  public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var site: MutableList<CodeableReference>? = null,
-  public var subSite: MutableList<CodeableConcept>? = null,
-) {
-  public fun toModel(): Claim.Item.BodySite =
-    Claim.Item.BodySite(
-      id = this@ClaimItemBodySiteSurrogate.id,
-      extension = this@ClaimItemBodySiteSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@ClaimItemBodySiteSurrogate.modifierExtension ?: mutableListOf(),
-      site = this@ClaimItemBodySiteSurrogate.site ?: mutableListOf(),
-      subSite = this@ClaimItemBodySiteSurrogate.subSite ?: mutableListOf(),
-    )
-
-  public companion object {
-    public fun fromModel(model: Claim.Item.BodySite): ClaimItemBodySiteSurrogate =
-      with(model) {
-        ClaimItemBodySiteSurrogate(
-          id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          site = this@with.site.takeUnless { it.all { it == null } },
-          subSite = this@with.subSite.takeUnless { it.all { it == null } },
-        )
-      }
-  }
-}
-
-@Serializable
-internal data class ClaimItemDetailSubDetailSurrogate(
-  public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var sequence: Int? = null,
-  public var _sequence: Element? = null,
-  public var traceNumber: MutableList<Identifier>? = null,
-  public var revenue: CodeableConcept? = null,
-  public var category: CodeableConcept? = null,
-  public var productOrService: CodeableConcept? = null,
-  public var productOrServiceEnd: CodeableConcept? = null,
-  public var modifier: MutableList<CodeableConcept>? = null,
-  public var programCode: MutableList<CodeableConcept>? = null,
-  public var patientPaid: Money? = null,
-  public var quantity: Quantity? = null,
-  public var unitPrice: Money? = null,
-  public var factor: Double? = null,
-  public var _factor: Element? = null,
-  public var tax: Money? = null,
-  public var net: Money? = null,
-  public var udi: MutableList<Reference>? = null,
-) {
-  public fun toModel(): Claim.Item.Detail.SubDetail =
-    Claim.Item.Detail.SubDetail(
-      id = this@ClaimItemDetailSubDetailSurrogate.id,
-      extension = this@ClaimItemDetailSubDetailSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@ClaimItemDetailSubDetailSurrogate.modifierExtension ?: mutableListOf(),
-      sequence =
-        PositiveInt.of(
-          this@ClaimItemDetailSubDetailSurrogate.sequence,
-          this@ClaimItemDetailSubDetailSurrogate._sequence,
-        )!!,
-      traceNumber = this@ClaimItemDetailSubDetailSurrogate.traceNumber ?: mutableListOf(),
-      revenue = this@ClaimItemDetailSubDetailSurrogate.revenue,
-      category = this@ClaimItemDetailSubDetailSurrogate.category,
-      productOrService = this@ClaimItemDetailSubDetailSurrogate.productOrService,
-      productOrServiceEnd = this@ClaimItemDetailSubDetailSurrogate.productOrServiceEnd,
-      modifier = this@ClaimItemDetailSubDetailSurrogate.modifier ?: mutableListOf(),
-      programCode = this@ClaimItemDetailSubDetailSurrogate.programCode ?: mutableListOf(),
-      patientPaid = this@ClaimItemDetailSubDetailSurrogate.patientPaid,
-      quantity = this@ClaimItemDetailSubDetailSurrogate.quantity,
-      unitPrice = this@ClaimItemDetailSubDetailSurrogate.unitPrice,
-      factor =
-        Decimal.of(
-          this@ClaimItemDetailSubDetailSurrogate.factor,
-          this@ClaimItemDetailSubDetailSurrogate._factor,
-        ),
-      tax = this@ClaimItemDetailSubDetailSurrogate.tax,
-      net = this@ClaimItemDetailSubDetailSurrogate.net,
-      udi = this@ClaimItemDetailSubDetailSurrogate.udi ?: mutableListOf(),
-    )
-
-  public companion object {
-    public fun fromModel(model: Claim.Item.Detail.SubDetail): ClaimItemDetailSubDetailSurrogate =
-      with(model) {
-        ClaimItemDetailSubDetailSurrogate(
-          id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          sequence = this@with.sequence.value,
-          _sequence = this@with.sequence.toElement(),
-          traceNumber = this@with.traceNumber.takeUnless { it.all { it == null } },
-          revenue = this@with.revenue,
-          category = this@with.category,
-          productOrService = this@with.productOrService,
-          productOrServiceEnd = this@with.productOrServiceEnd,
-          modifier = this@with.modifier.takeUnless { it.all { it == null } },
-          programCode = this@with.programCode.takeUnless { it.all { it == null } },
-          patientPaid = this@with.patientPaid,
-          quantity = this@with.quantity,
-          unitPrice = this@with.unitPrice,
-          factor = this@with.factor?.value,
-          _factor = this@with.factor?.toElement(),
-          tax = this@with.tax,
-          net = this@with.net,
-          udi = this@with.udi.takeUnless { it.all { it == null } },
-        )
-      }
-  }
-}
-
-@Serializable
-internal data class ClaimItemDetailSurrogate(
-  public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var sequence: Int? = null,
-  public var _sequence: Element? = null,
-  public var traceNumber: MutableList<Identifier>? = null,
-  public var revenue: CodeableConcept? = null,
-  public var category: CodeableConcept? = null,
-  public var productOrService: CodeableConcept? = null,
-  public var productOrServiceEnd: CodeableConcept? = null,
-  public var modifier: MutableList<CodeableConcept>? = null,
-  public var programCode: MutableList<CodeableConcept>? = null,
-  public var patientPaid: Money? = null,
-  public var quantity: Quantity? = null,
-  public var unitPrice: Money? = null,
-  public var factor: Double? = null,
-  public var _factor: Element? = null,
-  public var tax: Money? = null,
-  public var net: Money? = null,
-  public var udi: MutableList<Reference>? = null,
-  public var subDetail: MutableList<Claim.Item.Detail.SubDetail>? = null,
-) {
-  public fun toModel(): Claim.Item.Detail =
-    Claim.Item.Detail(
-      id = this@ClaimItemDetailSurrogate.id,
-      extension = this@ClaimItemDetailSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@ClaimItemDetailSurrogate.modifierExtension ?: mutableListOf(),
-      sequence =
-        PositiveInt.of(
-          this@ClaimItemDetailSurrogate.sequence,
-          this@ClaimItemDetailSurrogate._sequence,
-        )!!,
-      traceNumber = this@ClaimItemDetailSurrogate.traceNumber ?: mutableListOf(),
-      revenue = this@ClaimItemDetailSurrogate.revenue,
-      category = this@ClaimItemDetailSurrogate.category,
-      productOrService = this@ClaimItemDetailSurrogate.productOrService,
-      productOrServiceEnd = this@ClaimItemDetailSurrogate.productOrServiceEnd,
-      modifier = this@ClaimItemDetailSurrogate.modifier ?: mutableListOf(),
-      programCode = this@ClaimItemDetailSurrogate.programCode ?: mutableListOf(),
-      patientPaid = this@ClaimItemDetailSurrogate.patientPaid,
-      quantity = this@ClaimItemDetailSurrogate.quantity,
-      unitPrice = this@ClaimItemDetailSurrogate.unitPrice,
-      factor =
-        Decimal.of(this@ClaimItemDetailSurrogate.factor, this@ClaimItemDetailSurrogate._factor),
-      tax = this@ClaimItemDetailSurrogate.tax,
-      net = this@ClaimItemDetailSurrogate.net,
-      udi = this@ClaimItemDetailSurrogate.udi ?: mutableListOf(),
-      subDetail = this@ClaimItemDetailSurrogate.subDetail ?: mutableListOf(),
-    )
-
-  public companion object {
-    public fun fromModel(model: Claim.Item.Detail): ClaimItemDetailSurrogate =
-      with(model) {
-        ClaimItemDetailSurrogate(
-          id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          sequence = this@with.sequence.value,
-          _sequence = this@with.sequence.toElement(),
-          traceNumber = this@with.traceNumber.takeUnless { it.all { it == null } },
-          revenue = this@with.revenue,
-          category = this@with.category,
-          productOrService = this@with.productOrService,
-          productOrServiceEnd = this@with.productOrServiceEnd,
-          modifier = this@with.modifier.takeUnless { it.all { it == null } },
-          programCode = this@with.programCode.takeUnless { it.all { it == null } },
-          patientPaid = this@with.patientPaid,
-          quantity = this@with.quantity,
-          unitPrice = this@with.unitPrice,
-          factor = this@with.factor?.value,
-          _factor = this@with.factor?.toElement(),
-          tax = this@with.tax,
-          net = this@with.net,
-          udi = this@with.udi.takeUnless { it.all { it == null } },
-          subDetail = this@with.subDetail.takeUnless { it.all { it == null } },
-        )
-      }
-  }
-}
-
-@Serializable
-internal data class ClaimItemServicedSurrogate(
-  public var servicedDate: KotlinString? = null,
-  public var _servicedDate: Element? = null,
-  public var servicedPeriod: Period? = null,
-) {
-  public fun toModel(): Claim.Item.Serviced =
-    Claim.Item.Serviced?.from(
-      Date.of(
-        FhirDate.fromString(this@ClaimItemServicedSurrogate.servicedDate),
-        this@ClaimItemServicedSurrogate._servicedDate,
-      ),
-      this@ClaimItemServicedSurrogate.servicedPeriod,
-    )!!
-
-  public companion object {
-    public fun fromModel(model: Claim.Item.Serviced): ClaimItemServicedSurrogate =
-      with(model) {
-        ClaimItemServicedSurrogate(
-          servicedDate = this@with.asDate()?.value?.value?.toString(),
-          _servicedDate = this@with.asDate()?.value?.toElement(),
-          servicedPeriod = this@with.asPeriod()?.value,
-        )
-      }
-  }
-}
-
-@Serializable
-internal data class ClaimItemLocationSurrogate(
-  public var locationCodeableConcept: CodeableConcept? = null,
-  public var locationAddress: Address? = null,
-  public var locationReference: Reference? = null,
-) {
-  public fun toModel(): Claim.Item.Location =
-    Claim.Item.Location?.from(
-      this@ClaimItemLocationSurrogate.locationCodeableConcept,
-      this@ClaimItemLocationSurrogate.locationAddress,
-      this@ClaimItemLocationSurrogate.locationReference,
-    )!!
-
-  public companion object {
-    public fun fromModel(model: Claim.Item.Location): ClaimItemLocationSurrogate =
-      with(model) {
-        ClaimItemLocationSurrogate(
-          locationCodeableConcept = this@with.asCodeableConcept()?.value,
-          locationAddress = this@with.asAddress()?.value,
-          locationReference = this@with.asReference()?.value,
         )
       }
   }
@@ -1091,6 +679,418 @@ internal data class ClaimItemSurrogate(
           bodySite = this@with.bodySite.takeUnless { it.all { it == null } },
           encounter = this@with.encounter.takeUnless { it.all { it == null } },
           detail = this@with.detail.takeUnless { it.all { it == null } },
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class ClaimItemBodySiteSurrogate(
+  public var id: KotlinString? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var site: MutableList<CodeableReference>? = null,
+  public var subSite: MutableList<CodeableConcept>? = null,
+) {
+  public fun toModel(): Claim.Item.BodySite =
+    Claim.Item.BodySite(
+      id = this@ClaimItemBodySiteSurrogate.id,
+      extension = this@ClaimItemBodySiteSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@ClaimItemBodySiteSurrogate.modifierExtension ?: mutableListOf(),
+      site = this@ClaimItemBodySiteSurrogate.site ?: mutableListOf(),
+      subSite = this@ClaimItemBodySiteSurrogate.subSite ?: mutableListOf(),
+    )
+
+  public companion object {
+    public fun fromModel(model: Claim.Item.BodySite): ClaimItemBodySiteSurrogate =
+      with(model) {
+        ClaimItemBodySiteSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          site = this@with.site.takeUnless { it.all { it == null } },
+          subSite = this@with.subSite.takeUnless { it.all { it == null } },
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class ClaimItemDetailSurrogate(
+  public var id: KotlinString? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var sequence: Int? = null,
+  public var _sequence: Element? = null,
+  public var traceNumber: MutableList<Identifier>? = null,
+  public var revenue: CodeableConcept? = null,
+  public var category: CodeableConcept? = null,
+  public var productOrService: CodeableConcept? = null,
+  public var productOrServiceEnd: CodeableConcept? = null,
+  public var modifier: MutableList<CodeableConcept>? = null,
+  public var programCode: MutableList<CodeableConcept>? = null,
+  public var patientPaid: Money? = null,
+  public var quantity: Quantity? = null,
+  public var unitPrice: Money? = null,
+  public var factor: Double? = null,
+  public var _factor: Element? = null,
+  public var tax: Money? = null,
+  public var net: Money? = null,
+  public var udi: MutableList<Reference>? = null,
+  public var subDetail: MutableList<Claim.Item.Detail.SubDetail>? = null,
+) {
+  public fun toModel(): Claim.Item.Detail =
+    Claim.Item.Detail(
+      id = this@ClaimItemDetailSurrogate.id,
+      extension = this@ClaimItemDetailSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@ClaimItemDetailSurrogate.modifierExtension ?: mutableListOf(),
+      sequence =
+        PositiveInt.of(
+          this@ClaimItemDetailSurrogate.sequence,
+          this@ClaimItemDetailSurrogate._sequence,
+        )!!,
+      traceNumber = this@ClaimItemDetailSurrogate.traceNumber ?: mutableListOf(),
+      revenue = this@ClaimItemDetailSurrogate.revenue,
+      category = this@ClaimItemDetailSurrogate.category,
+      productOrService = this@ClaimItemDetailSurrogate.productOrService,
+      productOrServiceEnd = this@ClaimItemDetailSurrogate.productOrServiceEnd,
+      modifier = this@ClaimItemDetailSurrogate.modifier ?: mutableListOf(),
+      programCode = this@ClaimItemDetailSurrogate.programCode ?: mutableListOf(),
+      patientPaid = this@ClaimItemDetailSurrogate.patientPaid,
+      quantity = this@ClaimItemDetailSurrogate.quantity,
+      unitPrice = this@ClaimItemDetailSurrogate.unitPrice,
+      factor =
+        Decimal.of(this@ClaimItemDetailSurrogate.factor, this@ClaimItemDetailSurrogate._factor),
+      tax = this@ClaimItemDetailSurrogate.tax,
+      net = this@ClaimItemDetailSurrogate.net,
+      udi = this@ClaimItemDetailSurrogate.udi ?: mutableListOf(),
+      subDetail = this@ClaimItemDetailSurrogate.subDetail ?: mutableListOf(),
+    )
+
+  public companion object {
+    public fun fromModel(model: Claim.Item.Detail): ClaimItemDetailSurrogate =
+      with(model) {
+        ClaimItemDetailSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          sequence = this@with.sequence.value,
+          _sequence = this@with.sequence.toElement(),
+          traceNumber = this@with.traceNumber.takeUnless { it.all { it == null } },
+          revenue = this@with.revenue,
+          category = this@with.category,
+          productOrService = this@with.productOrService,
+          productOrServiceEnd = this@with.productOrServiceEnd,
+          modifier = this@with.modifier.takeUnless { it.all { it == null } },
+          programCode = this@with.programCode.takeUnless { it.all { it == null } },
+          patientPaid = this@with.patientPaid,
+          quantity = this@with.quantity,
+          unitPrice = this@with.unitPrice,
+          factor = this@with.factor?.value,
+          _factor = this@with.factor?.toElement(),
+          tax = this@with.tax,
+          net = this@with.net,
+          udi = this@with.udi.takeUnless { it.all { it == null } },
+          subDetail = this@with.subDetail.takeUnless { it.all { it == null } },
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class ClaimItemDetailSubDetailSurrogate(
+  public var id: KotlinString? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var sequence: Int? = null,
+  public var _sequence: Element? = null,
+  public var traceNumber: MutableList<Identifier>? = null,
+  public var revenue: CodeableConcept? = null,
+  public var category: CodeableConcept? = null,
+  public var productOrService: CodeableConcept? = null,
+  public var productOrServiceEnd: CodeableConcept? = null,
+  public var modifier: MutableList<CodeableConcept>? = null,
+  public var programCode: MutableList<CodeableConcept>? = null,
+  public var patientPaid: Money? = null,
+  public var quantity: Quantity? = null,
+  public var unitPrice: Money? = null,
+  public var factor: Double? = null,
+  public var _factor: Element? = null,
+  public var tax: Money? = null,
+  public var net: Money? = null,
+  public var udi: MutableList<Reference>? = null,
+) {
+  public fun toModel(): Claim.Item.Detail.SubDetail =
+    Claim.Item.Detail.SubDetail(
+      id = this@ClaimItemDetailSubDetailSurrogate.id,
+      extension = this@ClaimItemDetailSubDetailSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@ClaimItemDetailSubDetailSurrogate.modifierExtension ?: mutableListOf(),
+      sequence =
+        PositiveInt.of(
+          this@ClaimItemDetailSubDetailSurrogate.sequence,
+          this@ClaimItemDetailSubDetailSurrogate._sequence,
+        )!!,
+      traceNumber = this@ClaimItemDetailSubDetailSurrogate.traceNumber ?: mutableListOf(),
+      revenue = this@ClaimItemDetailSubDetailSurrogate.revenue,
+      category = this@ClaimItemDetailSubDetailSurrogate.category,
+      productOrService = this@ClaimItemDetailSubDetailSurrogate.productOrService,
+      productOrServiceEnd = this@ClaimItemDetailSubDetailSurrogate.productOrServiceEnd,
+      modifier = this@ClaimItemDetailSubDetailSurrogate.modifier ?: mutableListOf(),
+      programCode = this@ClaimItemDetailSubDetailSurrogate.programCode ?: mutableListOf(),
+      patientPaid = this@ClaimItemDetailSubDetailSurrogate.patientPaid,
+      quantity = this@ClaimItemDetailSubDetailSurrogate.quantity,
+      unitPrice = this@ClaimItemDetailSubDetailSurrogate.unitPrice,
+      factor =
+        Decimal.of(
+          this@ClaimItemDetailSubDetailSurrogate.factor,
+          this@ClaimItemDetailSubDetailSurrogate._factor,
+        ),
+      tax = this@ClaimItemDetailSubDetailSurrogate.tax,
+      net = this@ClaimItemDetailSubDetailSurrogate.net,
+      udi = this@ClaimItemDetailSubDetailSurrogate.udi ?: mutableListOf(),
+    )
+
+  public companion object {
+    public fun fromModel(model: Claim.Item.Detail.SubDetail): ClaimItemDetailSubDetailSurrogate =
+      with(model) {
+        ClaimItemDetailSubDetailSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          sequence = this@with.sequence.value,
+          _sequence = this@with.sequence.toElement(),
+          traceNumber = this@with.traceNumber.takeUnless { it.all { it == null } },
+          revenue = this@with.revenue,
+          category = this@with.category,
+          productOrService = this@with.productOrService,
+          productOrServiceEnd = this@with.productOrServiceEnd,
+          modifier = this@with.modifier.takeUnless { it.all { it == null } },
+          programCode = this@with.programCode.takeUnless { it.all { it == null } },
+          patientPaid = this@with.patientPaid,
+          quantity = this@with.quantity,
+          unitPrice = this@with.unitPrice,
+          factor = this@with.factor?.value,
+          _factor = this@with.factor?.toElement(),
+          tax = this@with.tax,
+          net = this@with.net,
+          udi = this@with.udi.takeUnless { it.all { it == null } },
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class ClaimEventWhenSurrogate(
+  public var whenDateTime: KotlinString? = null,
+  public var _whenDateTime: Element? = null,
+  public var whenPeriod: Period? = null,
+) {
+  public fun toModel(): Claim.Event.When =
+    Claim.Event.When.from(
+      DateTime.of(
+        FhirDateTime.fromString(this@ClaimEventWhenSurrogate.whenDateTime),
+        this@ClaimEventWhenSurrogate._whenDateTime,
+      ),
+      this@ClaimEventWhenSurrogate.whenPeriod,
+    )!! !!
+
+  public companion object {
+    public fun fromModel(model: Claim.Event.When): ClaimEventWhenSurrogate =
+      with(model) {
+        ClaimEventWhenSurrogate(
+          whenDateTime = this@with.asDateTime()?.value?.value?.toString(),
+          _whenDateTime = this@with.asDateTime()?.value?.toElement(),
+          whenPeriod = this@with.asPeriod()?.value,
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class ClaimSupportingInfoTimingSurrogate(
+  public var timingDate: KotlinString? = null,
+  public var _timingDate: Element? = null,
+  public var timingPeriod: Period? = null,
+) {
+  public fun toModel(): Claim.SupportingInfo.Timing =
+    Claim.SupportingInfo.Timing.from(
+      Date.of(
+        FhirDate.fromString(this@ClaimSupportingInfoTimingSurrogate.timingDate),
+        this@ClaimSupportingInfoTimingSurrogate._timingDate,
+      ),
+      this@ClaimSupportingInfoTimingSurrogate.timingPeriod,
+    )!!
+
+  public companion object {
+    public fun fromModel(model: Claim.SupportingInfo.Timing): ClaimSupportingInfoTimingSurrogate =
+      with(model) {
+        ClaimSupportingInfoTimingSurrogate(
+          timingDate = this@with.asDate()?.value?.value?.toString(),
+          _timingDate = this@with.asDate()?.value?.toElement(),
+          timingPeriod = this@with.asPeriod()?.value,
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class ClaimSupportingInfoValueSurrogate(
+  public var valueBoolean: KotlinBoolean? = null,
+  public var _valueBoolean: Element? = null,
+  public var valueString: KotlinString? = null,
+  public var _valueString: Element? = null,
+  public var valueQuantity: Quantity? = null,
+  public var valueAttachment: Attachment? = null,
+  public var valueReference: Reference? = null,
+  public var valueIdentifier: Identifier? = null,
+) {
+  public fun toModel(): Claim.SupportingInfo.Value =
+    Claim.SupportingInfo.Value.from(
+      R5Boolean.of(
+        this@ClaimSupportingInfoValueSurrogate.valueBoolean,
+        this@ClaimSupportingInfoValueSurrogate._valueBoolean,
+      ),
+      R5String.of(
+        this@ClaimSupportingInfoValueSurrogate.valueString,
+        this@ClaimSupportingInfoValueSurrogate._valueString,
+      ),
+      this@ClaimSupportingInfoValueSurrogate.valueQuantity,
+      this@ClaimSupportingInfoValueSurrogate.valueAttachment,
+      this@ClaimSupportingInfoValueSurrogate.valueReference,
+      this@ClaimSupportingInfoValueSurrogate.valueIdentifier,
+    )!!
+
+  public companion object {
+    public fun fromModel(model: Claim.SupportingInfo.Value): ClaimSupportingInfoValueSurrogate =
+      with(model) {
+        ClaimSupportingInfoValueSurrogate(
+          valueBoolean = this@with.asBoolean()?.value?.value,
+          _valueBoolean = this@with.asBoolean()?.value?.toElement(),
+          valueString = this@with.asString()?.value?.value,
+          _valueString = this@with.asString()?.value?.toElement(),
+          valueQuantity = this@with.asQuantity()?.value,
+          valueAttachment = this@with.asAttachment()?.value,
+          valueReference = this@with.asReference()?.value,
+          valueIdentifier = this@with.asIdentifier()?.value,
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class ClaimDiagnosisDiagnosisSurrogate(
+  public var diagnosisCodeableConcept: CodeableConcept? = null,
+  public var diagnosisReference: Reference? = null,
+) {
+  public fun toModel(): Claim.Diagnosis.Diagnosis =
+    Claim.Diagnosis.Diagnosis.from(
+      this@ClaimDiagnosisDiagnosisSurrogate.diagnosisCodeableConcept,
+      this@ClaimDiagnosisDiagnosisSurrogate.diagnosisReference,
+    )!! !!
+
+  public companion object {
+    public fun fromModel(model: Claim.Diagnosis.Diagnosis): ClaimDiagnosisDiagnosisSurrogate =
+      with(model) {
+        ClaimDiagnosisDiagnosisSurrogate(
+          diagnosisCodeableConcept = this@with.asCodeableConcept()?.value,
+          diagnosisReference = this@with.asReference()?.value,
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class ClaimProcedureProcedureSurrogate(
+  public var procedureCodeableConcept: CodeableConcept? = null,
+  public var procedureReference: Reference? = null,
+) {
+  public fun toModel(): Claim.Procedure.Procedure =
+    Claim.Procedure.Procedure.from(
+      this@ClaimProcedureProcedureSurrogate.procedureCodeableConcept,
+      this@ClaimProcedureProcedureSurrogate.procedureReference,
+    )!! !!
+
+  public companion object {
+    public fun fromModel(model: Claim.Procedure.Procedure): ClaimProcedureProcedureSurrogate =
+      with(model) {
+        ClaimProcedureProcedureSurrogate(
+          procedureCodeableConcept = this@with.asCodeableConcept()?.value,
+          procedureReference = this@with.asReference()?.value,
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class ClaimAccidentLocationSurrogate(
+  public var locationAddress: Address? = null,
+  public var locationReference: Reference? = null,
+) {
+  public fun toModel(): Claim.Accident.Location =
+    Claim.Accident.Location.from(
+      this@ClaimAccidentLocationSurrogate.locationAddress,
+      this@ClaimAccidentLocationSurrogate.locationReference,
+    )!!
+
+  public companion object {
+    public fun fromModel(model: Claim.Accident.Location): ClaimAccidentLocationSurrogate =
+      with(model) {
+        ClaimAccidentLocationSurrogate(
+          locationAddress = this@with.asAddress()?.value,
+          locationReference = this@with.asReference()?.value,
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class ClaimItemServicedSurrogate(
+  public var servicedDate: KotlinString? = null,
+  public var _servicedDate: Element? = null,
+  public var servicedPeriod: Period? = null,
+) {
+  public fun toModel(): Claim.Item.Serviced =
+    Claim.Item.Serviced.from(
+      Date.of(
+        FhirDate.fromString(this@ClaimItemServicedSurrogate.servicedDate),
+        this@ClaimItemServicedSurrogate._servicedDate,
+      ),
+      this@ClaimItemServicedSurrogate.servicedPeriod,
+    )!!
+
+  public companion object {
+    public fun fromModel(model: Claim.Item.Serviced): ClaimItemServicedSurrogate =
+      with(model) {
+        ClaimItemServicedSurrogate(
+          servicedDate = this@with.asDate()?.value?.value?.toString(),
+          _servicedDate = this@with.asDate()?.value?.toElement(),
+          servicedPeriod = this@with.asPeriod()?.value,
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class ClaimItemLocationSurrogate(
+  public var locationCodeableConcept: CodeableConcept? = null,
+  public var locationAddress: Address? = null,
+  public var locationReference: Reference? = null,
+) {
+  public fun toModel(): Claim.Item.Location =
+    Claim.Item.Location.from(
+      this@ClaimItemLocationSurrogate.locationCodeableConcept,
+      this@ClaimItemLocationSurrogate.locationAddress,
+      this@ClaimItemLocationSurrogate.locationReference,
+    )!!
+
+  public companion object {
+    public fun fromModel(model: Claim.Item.Location): ClaimItemLocationSurrogate =
+      with(model) {
+        ClaimItemLocationSurrogate(
+          locationCodeableConcept = this@with.asCodeableConcept()?.value,
+          locationAddress = this@with.asAddress()?.value,
+          locationReference = this@with.asReference()?.value,
         )
       }
   }

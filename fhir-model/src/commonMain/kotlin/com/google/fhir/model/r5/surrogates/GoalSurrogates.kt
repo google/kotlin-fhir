@@ -53,6 +53,67 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
+internal data class GoalTargetSurrogate(
+  public var id: KotlinString? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var measure: CodeableConcept? = null,
+  public var detail: Goal.Target.Detail? = null,
+  public var due: Goal.Target.Due? = null,
+) {
+  public fun toModel(): Goal.Target =
+    Goal.Target(
+      id = this@GoalTargetSurrogate.id,
+      extension = this@GoalTargetSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@GoalTargetSurrogate.modifierExtension ?: mutableListOf(),
+      measure = this@GoalTargetSurrogate.measure,
+      detail = this@GoalTargetSurrogate.detail,
+      due = this@GoalTargetSurrogate.due,
+    )
+
+  public companion object {
+    public fun fromModel(model: Goal.Target): GoalTargetSurrogate =
+      with(model) {
+        GoalTargetSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          measure = this@with.measure,
+          detail = this@with.detail,
+          due = this@with.due,
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class GoalStartSurrogate(
+  public var startDate: KotlinString? = null,
+  public var _startDate: Element? = null,
+  public var startCodeableConcept: CodeableConcept? = null,
+) {
+  public fun toModel(): Goal.Start =
+    Goal.Start.from(
+      Date.of(
+        FhirDate.fromString(this@GoalStartSurrogate.startDate),
+        this@GoalStartSurrogate._startDate,
+      ),
+      this@GoalStartSurrogate.startCodeableConcept,
+    )!!
+
+  public companion object {
+    public fun fromModel(model: Goal.Start): GoalStartSurrogate =
+      with(model) {
+        GoalStartSurrogate(
+          startDate = this@with.asDate()?.value?.value?.toString(),
+          _startDate = this@with.asDate()?.value?.toElement(),
+          startCodeableConcept = this@with.asCodeableConcept()?.value,
+        )
+      }
+  }
+}
+
+@Serializable
 internal data class GoalTargetDetailSurrogate(
   public var detailQuantity: Quantity? = null,
   public var detailRange: Range? = null,
@@ -66,7 +127,7 @@ internal data class GoalTargetDetailSurrogate(
   public var detailRatio: Ratio? = null,
 ) {
   public fun toModel(): Goal.Target.Detail =
-    Goal.Target.Detail?.from(
+    Goal.Target.Detail.from(
       this@GoalTargetDetailSurrogate.detailQuantity,
       this@GoalTargetDetailSurrogate.detailRange,
       this@GoalTargetDetailSurrogate.detailCodeableConcept,
@@ -111,7 +172,7 @@ internal data class GoalTargetDueSurrogate(
   public var dueDuration: Duration? = null,
 ) {
   public fun toModel(): Goal.Target.Due =
-    Goal.Target.Due?.from(
+    Goal.Target.Due.from(
       Date.of(
         FhirDate.fromString(this@GoalTargetDueSurrogate.dueDate),
         this@GoalTargetDueSurrogate._dueDate,
@@ -126,67 +187,6 @@ internal data class GoalTargetDueSurrogate(
           dueDate = this@with.asDate()?.value?.value?.toString(),
           _dueDate = this@with.asDate()?.value?.toElement(),
           dueDuration = this@with.asDuration()?.value,
-        )
-      }
-  }
-}
-
-@Serializable
-internal data class GoalTargetSurrogate(
-  public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var measure: CodeableConcept? = null,
-  public var detail: Goal.Target.Detail? = null,
-  public var due: Goal.Target.Due? = null,
-) {
-  public fun toModel(): Goal.Target =
-    Goal.Target(
-      id = this@GoalTargetSurrogate.id,
-      extension = this@GoalTargetSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@GoalTargetSurrogate.modifierExtension ?: mutableListOf(),
-      measure = this@GoalTargetSurrogate.measure,
-      detail = this@GoalTargetSurrogate.detail,
-      due = this@GoalTargetSurrogate.due,
-    )
-
-  public companion object {
-    public fun fromModel(model: Goal.Target): GoalTargetSurrogate =
-      with(model) {
-        GoalTargetSurrogate(
-          id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          measure = this@with.measure,
-          detail = this@with.detail,
-          due = this@with.due,
-        )
-      }
-  }
-}
-
-@Serializable
-internal data class GoalStartSurrogate(
-  public var startDate: KotlinString? = null,
-  public var _startDate: Element? = null,
-  public var startCodeableConcept: CodeableConcept? = null,
-) {
-  public fun toModel(): Goal.Start =
-    Goal.Start?.from(
-      Date.of(
-        FhirDate.fromString(this@GoalStartSurrogate.startDate),
-        this@GoalStartSurrogate._startDate,
-      ),
-      this@GoalStartSurrogate.startCodeableConcept,
-    )!!
-
-  public companion object {
-    public fun fromModel(model: Goal.Start): GoalStartSurrogate =
-      with(model) {
-        GoalStartSurrogate(
-          startDate = this@with.asDate()?.value?.value?.toString(),
-          _startDate = this@with.asDate()?.value?.toElement(),
-          startCodeableConcept = this@with.asCodeableConcept()?.value,
         )
       }
   }

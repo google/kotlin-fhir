@@ -50,56 +50,42 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
-internal data class CarePlanActivityDetailScheduledSurrogate(
-  public var scheduledTiming: Timing? = null,
-  public var scheduledPeriod: Period? = null,
-  public var scheduledString: KotlinString? = null,
-  public var _scheduledString: Element? = null,
+internal data class CarePlanActivitySurrogate(
+  public var id: KotlinString? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var outcomeCodeableConcept: MutableList<CodeableConcept>? = null,
+  public var outcomeReference: MutableList<Reference>? = null,
+  public var progress: MutableList<Annotation>? = null,
+  public var reference: Reference? = null,
+  public var detail: CarePlan.Activity.Detail? = null,
 ) {
-  public fun toModel(): CarePlan.Activity.Detail.Scheduled =
-    CarePlan.Activity.Detail.Scheduled?.from(
-      this@CarePlanActivityDetailScheduledSurrogate.scheduledTiming,
-      this@CarePlanActivityDetailScheduledSurrogate.scheduledPeriod,
-      R4bString.of(
-        this@CarePlanActivityDetailScheduledSurrogate.scheduledString,
-        this@CarePlanActivityDetailScheduledSurrogate._scheduledString,
-      ),
-    )!!
+  public fun toModel(): CarePlan.Activity =
+    CarePlan.Activity(
+      id = this@CarePlanActivitySurrogate.id,
+      extension = this@CarePlanActivitySurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@CarePlanActivitySurrogate.modifierExtension ?: mutableListOf(),
+      outcomeCodeableConcept =
+        this@CarePlanActivitySurrogate.outcomeCodeableConcept ?: mutableListOf(),
+      outcomeReference = this@CarePlanActivitySurrogate.outcomeReference ?: mutableListOf(),
+      progress = this@CarePlanActivitySurrogate.progress ?: mutableListOf(),
+      reference = this@CarePlanActivitySurrogate.reference,
+      detail = this@CarePlanActivitySurrogate.detail,
+    )
 
   public companion object {
-    public fun fromModel(
-      model: CarePlan.Activity.Detail.Scheduled
-    ): CarePlanActivityDetailScheduledSurrogate =
+    public fun fromModel(model: CarePlan.Activity): CarePlanActivitySurrogate =
       with(model) {
-        CarePlanActivityDetailScheduledSurrogate(
-          scheduledTiming = this@with.asTiming()?.value,
-          scheduledPeriod = this@with.asPeriod()?.value,
-          scheduledString = this@with.asString()?.value?.value,
-          _scheduledString = this@with.asString()?.value?.toElement(),
-        )
-      }
-  }
-}
-
-@Serializable
-internal data class CarePlanActivityDetailProductSurrogate(
-  public var productCodeableConcept: CodeableConcept? = null,
-  public var productReference: Reference? = null,
-) {
-  public fun toModel(): CarePlan.Activity.Detail.Product =
-    CarePlan.Activity.Detail.Product?.from(
-      this@CarePlanActivityDetailProductSurrogate.productCodeableConcept,
-      this@CarePlanActivityDetailProductSurrogate.productReference,
-    )!!
-
-  public companion object {
-    public fun fromModel(
-      model: CarePlan.Activity.Detail.Product
-    ): CarePlanActivityDetailProductSurrogate =
-      with(model) {
-        CarePlanActivityDetailProductSurrogate(
-          productCodeableConcept = this@with.asCodeableConcept()?.value,
-          productReference = this@with.asReference()?.value,
+        CarePlanActivitySurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          outcomeCodeableConcept =
+            this@with.outcomeCodeableConcept.takeUnless { it.all { it == null } },
+          outcomeReference = this@with.outcomeReference.takeUnless { it.all { it == null } },
+          progress = this@with.progress.takeUnless { it.all { it == null } },
+          reference = this@with.reference,
+          detail = this@with.detail,
         )
       }
   }
@@ -262,42 +248,56 @@ internal data class CarePlanActivityDetailSurrogate(
 }
 
 @Serializable
-internal data class CarePlanActivitySurrogate(
-  public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var outcomeCodeableConcept: MutableList<CodeableConcept>? = null,
-  public var outcomeReference: MutableList<Reference>? = null,
-  public var progress: MutableList<Annotation>? = null,
-  public var reference: Reference? = null,
-  public var detail: CarePlan.Activity.Detail? = null,
+internal data class CarePlanActivityDetailScheduledSurrogate(
+  public var scheduledTiming: Timing? = null,
+  public var scheduledPeriod: Period? = null,
+  public var scheduledString: KotlinString? = null,
+  public var _scheduledString: Element? = null,
 ) {
-  public fun toModel(): CarePlan.Activity =
-    CarePlan.Activity(
-      id = this@CarePlanActivitySurrogate.id,
-      extension = this@CarePlanActivitySurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@CarePlanActivitySurrogate.modifierExtension ?: mutableListOf(),
-      outcomeCodeableConcept =
-        this@CarePlanActivitySurrogate.outcomeCodeableConcept ?: mutableListOf(),
-      outcomeReference = this@CarePlanActivitySurrogate.outcomeReference ?: mutableListOf(),
-      progress = this@CarePlanActivitySurrogate.progress ?: mutableListOf(),
-      reference = this@CarePlanActivitySurrogate.reference,
-      detail = this@CarePlanActivitySurrogate.detail,
-    )
+  public fun toModel(): CarePlan.Activity.Detail.Scheduled =
+    CarePlan.Activity.Detail.Scheduled.from(
+      this@CarePlanActivityDetailScheduledSurrogate.scheduledTiming,
+      this@CarePlanActivityDetailScheduledSurrogate.scheduledPeriod,
+      R4bString.of(
+        this@CarePlanActivityDetailScheduledSurrogate.scheduledString,
+        this@CarePlanActivityDetailScheduledSurrogate._scheduledString,
+      ),
+    )!!
 
   public companion object {
-    public fun fromModel(model: CarePlan.Activity): CarePlanActivitySurrogate =
+    public fun fromModel(
+      model: CarePlan.Activity.Detail.Scheduled
+    ): CarePlanActivityDetailScheduledSurrogate =
       with(model) {
-        CarePlanActivitySurrogate(
-          id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          outcomeCodeableConcept =
-            this@with.outcomeCodeableConcept.takeUnless { it.all { it == null } },
-          outcomeReference = this@with.outcomeReference.takeUnless { it.all { it == null } },
-          progress = this@with.progress.takeUnless { it.all { it == null } },
-          reference = this@with.reference,
-          detail = this@with.detail,
+        CarePlanActivityDetailScheduledSurrogate(
+          scheduledTiming = this@with.asTiming()?.value,
+          scheduledPeriod = this@with.asPeriod()?.value,
+          scheduledString = this@with.asString()?.value?.value,
+          _scheduledString = this@with.asString()?.value?.toElement(),
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class CarePlanActivityDetailProductSurrogate(
+  public var productCodeableConcept: CodeableConcept? = null,
+  public var productReference: Reference? = null,
+) {
+  public fun toModel(): CarePlan.Activity.Detail.Product =
+    CarePlan.Activity.Detail.Product.from(
+      this@CarePlanActivityDetailProductSurrogate.productCodeableConcept,
+      this@CarePlanActivityDetailProductSurrogate.productReference,
+    )!!
+
+  public companion object {
+    public fun fromModel(
+      model: CarePlan.Activity.Detail.Product
+    ): CarePlanActivityDetailProductSurrogate =
+      with(model) {
+        CarePlanActivityDetailProductSurrogate(
+          productCodeableConcept = this@with.asCodeableConcept()?.value,
+          productReference = this@with.asReference()?.value,
         )
       }
   }

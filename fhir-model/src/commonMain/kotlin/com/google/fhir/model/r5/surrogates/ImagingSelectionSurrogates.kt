@@ -82,6 +82,85 @@ internal data class ImagingSelectionPerformerSurrogate(
 }
 
 @Serializable
+internal data class ImagingSelectionInstanceSurrogate(
+  public var id: KotlinString? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var uid: KotlinString? = null,
+  public var _uid: Element? = null,
+  public var number: Int? = null,
+  public var _number: Element? = null,
+  public var sopClass: Coding? = null,
+  public var subset: MutableList<KotlinString?>? = null,
+  public var _subset: MutableList<Element?>? = null,
+  public var imageRegion2D: MutableList<ImagingSelection.Instance.ImageRegion2D>? = null,
+  public var imageRegion3D: MutableList<ImagingSelection.Instance.ImageRegion3D>? = null,
+) {
+  public fun toModel(): ImagingSelection.Instance =
+    ImagingSelection.Instance(
+      id = this@ImagingSelectionInstanceSurrogate.id,
+      extension = this@ImagingSelectionInstanceSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@ImagingSelectionInstanceSurrogate.modifierExtension ?: mutableListOf(),
+      uid =
+        Id.of(
+          this@ImagingSelectionInstanceSurrogate.uid,
+          this@ImagingSelectionInstanceSurrogate._uid,
+        )!!,
+      number =
+        UnsignedInt.of(
+          this@ImagingSelectionInstanceSurrogate.number,
+          this@ImagingSelectionInstanceSurrogate._number,
+        ),
+      sopClass = this@ImagingSelectionInstanceSurrogate.sopClass,
+      subset =
+        if (
+          this@ImagingSelectionInstanceSurrogate.subset == null &&
+            this@ImagingSelectionInstanceSurrogate._subset == null
+        ) {
+          mutableListOf()
+        } else {
+          (this@ImagingSelectionInstanceSurrogate.subset
+              ?: List(this@ImagingSelectionInstanceSurrogate._subset!!.size) { null })
+            .zip(
+              this@ImagingSelectionInstanceSurrogate._subset
+                ?: List(this@ImagingSelectionInstanceSurrogate.subset!!.size) { null }
+            )
+            .map { (value, element) -> R5String.of(value, element)!! }
+            .toMutableList()
+        },
+      imageRegion2D = this@ImagingSelectionInstanceSurrogate.imageRegion2D ?: mutableListOf(),
+      imageRegion3D = this@ImagingSelectionInstanceSurrogate.imageRegion3D ?: mutableListOf(),
+    )
+
+  public companion object {
+    public fun fromModel(model: ImagingSelection.Instance): ImagingSelectionInstanceSurrogate =
+      with(model) {
+        ImagingSelectionInstanceSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          uid = this@with.uid.value,
+          _uid = this@with.uid.toElement(),
+          number = this@with.number?.value,
+          _number = this@with.number?.toElement(),
+          sopClass = this@with.sopClass,
+          subset =
+            this@with.subset.map { it.value }.toMutableList().takeUnless { it.all { it == null } },
+          _subset =
+            this@with.subset
+              .map { it.toElement() }
+              .takeUnless { it.all { it == null } }
+              ?.map { it ?: Element() }
+              ?.toMutableList(),
+          imageRegion2D = this@with.imageRegion2D.takeUnless { it.all { it == null } },
+          imageRegion3D = this@with.imageRegion3D.takeUnless { it.all { it == null } },
+        )
+      }
+  }
+}
+
+@Serializable
 internal data class ImagingSelectionInstanceImageRegion2DSurrogate(
   public var id: KotlinString? = null,
   public var extension: MutableList<Extension>? = null,
@@ -220,85 +299,6 @@ internal data class ImagingSelectionInstanceImageRegion3DSurrogate(
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
               ?.toMutableList(),
-        )
-      }
-  }
-}
-
-@Serializable
-internal data class ImagingSelectionInstanceSurrogate(
-  public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var uid: KotlinString? = null,
-  public var _uid: Element? = null,
-  public var number: Int? = null,
-  public var _number: Element? = null,
-  public var sopClass: Coding? = null,
-  public var subset: MutableList<KotlinString?>? = null,
-  public var _subset: MutableList<Element?>? = null,
-  public var imageRegion2D: MutableList<ImagingSelection.Instance.ImageRegion2D>? = null,
-  public var imageRegion3D: MutableList<ImagingSelection.Instance.ImageRegion3D>? = null,
-) {
-  public fun toModel(): ImagingSelection.Instance =
-    ImagingSelection.Instance(
-      id = this@ImagingSelectionInstanceSurrogate.id,
-      extension = this@ImagingSelectionInstanceSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@ImagingSelectionInstanceSurrogate.modifierExtension ?: mutableListOf(),
-      uid =
-        Id.of(
-          this@ImagingSelectionInstanceSurrogate.uid,
-          this@ImagingSelectionInstanceSurrogate._uid,
-        )!!,
-      number =
-        UnsignedInt.of(
-          this@ImagingSelectionInstanceSurrogate.number,
-          this@ImagingSelectionInstanceSurrogate._number,
-        ),
-      sopClass = this@ImagingSelectionInstanceSurrogate.sopClass,
-      subset =
-        if (
-          this@ImagingSelectionInstanceSurrogate.subset == null &&
-            this@ImagingSelectionInstanceSurrogate._subset == null
-        ) {
-          mutableListOf()
-        } else {
-          (this@ImagingSelectionInstanceSurrogate.subset
-              ?: List(this@ImagingSelectionInstanceSurrogate._subset!!.size) { null })
-            .zip(
-              this@ImagingSelectionInstanceSurrogate._subset
-                ?: List(this@ImagingSelectionInstanceSurrogate.subset!!.size) { null }
-            )
-            .map { (value, element) -> R5String.of(value, element)!! }
-            .toMutableList()
-        },
-      imageRegion2D = this@ImagingSelectionInstanceSurrogate.imageRegion2D ?: mutableListOf(),
-      imageRegion3D = this@ImagingSelectionInstanceSurrogate.imageRegion3D ?: mutableListOf(),
-    )
-
-  public companion object {
-    public fun fromModel(model: ImagingSelection.Instance): ImagingSelectionInstanceSurrogate =
-      with(model) {
-        ImagingSelectionInstanceSurrogate(
-          id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          uid = this@with.uid.value,
-          _uid = this@with.uid.toElement(),
-          number = this@with.number?.value,
-          _number = this@with.number?.toElement(),
-          sopClass = this@with.sopClass,
-          subset =
-            this@with.subset.map { it.value }.toMutableList().takeUnless { it.all { it == null } },
-          _subset =
-            this@with.subset
-              .map { it.toElement() }
-              .takeUnless { it.all { it == null } }
-              ?.map { it ?: Element() }
-              ?.toMutableList(),
-          imageRegion2D = this@with.imageRegion2D.takeUnless { it.all { it == null } },
-          imageRegion3D = this@with.imageRegion3D.takeUnless { it.all { it == null } },
         )
       }
   }

@@ -231,7 +231,7 @@ internal data class RequirementsVersionAlgorithmSurrogate(
   public var versionAlgorithmCoding: Coding? = null,
 ) {
   public fun toModel(): Requirements.VersionAlgorithm =
-    Requirements.VersionAlgorithm?.from(
+    Requirements.VersionAlgorithm.from(
       R5String.of(
         this@RequirementsVersionAlgorithmSurrogate.versionAlgorithmString,
         this@RequirementsVersionAlgorithmSurrogate._versionAlgorithmString,

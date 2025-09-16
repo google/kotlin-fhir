@@ -79,104 +79,6 @@ internal data class MedicinalProductPharmaceuticalCharacteristicsSurrogate(
 }
 
 @Serializable
-internal data class MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpeciesWithdrawalPeriodSurrogate(
-  public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var tissue: CodeableConcept,
-  public var `value`: Quantity,
-  public var supportingInformation: KotlinString? = null,
-  public var _supportingInformation: Element? = null,
-) {
-  public fun toModel():
-    MedicinalProductPharmaceutical.RouteOfAdministration.TargetSpecies.WithdrawalPeriod =
-    MedicinalProductPharmaceutical.RouteOfAdministration.TargetSpecies.WithdrawalPeriod(
-      id =
-        this@MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpeciesWithdrawalPeriodSurrogate
-          .id,
-      extension =
-        this@MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpeciesWithdrawalPeriodSurrogate
-          .extension ?: mutableListOf(),
-      modifierExtension =
-        this@MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpeciesWithdrawalPeriodSurrogate
-          .modifierExtension ?: mutableListOf(),
-      tissue =
-        this@MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpeciesWithdrawalPeriodSurrogate
-          .tissue,
-      `value` =
-        this@MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpeciesWithdrawalPeriodSurrogate
-          .`value`,
-      supportingInformation =
-        R4String.of(
-          this@MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpeciesWithdrawalPeriodSurrogate
-            .supportingInformation,
-          this@MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpeciesWithdrawalPeriodSurrogate
-            ._supportingInformation,
-        ),
-    )
-
-  public companion object {
-    public fun fromModel(
-      model: MedicinalProductPharmaceutical.RouteOfAdministration.TargetSpecies.WithdrawalPeriod
-    ): MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpeciesWithdrawalPeriodSurrogate =
-      with(model) {
-        MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpeciesWithdrawalPeriodSurrogate(
-          id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          tissue = this@with.tissue,
-          `value` = this@with.`value`,
-          supportingInformation = this@with.supportingInformation?.value,
-          _supportingInformation = this@with.supportingInformation?.toElement(),
-        )
-      }
-  }
-}
-
-@Serializable
-internal data class MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpeciesSurrogate(
-  public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var code: CodeableConcept,
-  public var withdrawalPeriod:
-    MutableList<
-      MedicinalProductPharmaceutical.RouteOfAdministration.TargetSpecies.WithdrawalPeriod
-    >? =
-    null,
-) {
-  public fun toModel(): MedicinalProductPharmaceutical.RouteOfAdministration.TargetSpecies =
-    MedicinalProductPharmaceutical.RouteOfAdministration.TargetSpecies(
-      id = this@MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpeciesSurrogate.id,
-      extension =
-        this@MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpeciesSurrogate.extension
-          ?: mutableListOf(),
-      modifierExtension =
-        this@MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpeciesSurrogate
-          .modifierExtension ?: mutableListOf(),
-      code = this@MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpeciesSurrogate.code,
-      withdrawalPeriod =
-        this@MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpeciesSurrogate
-          .withdrawalPeriod ?: mutableListOf(),
-    )
-
-  public companion object {
-    public fun fromModel(
-      model: MedicinalProductPharmaceutical.RouteOfAdministration.TargetSpecies
-    ): MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpeciesSurrogate =
-      with(model) {
-        MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpeciesSurrogate(
-          id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          code = this@with.code,
-          withdrawalPeriod = this@with.withdrawalPeriod.takeUnless { it.all { it == null } },
-        )
-      }
-  }
-}
-
-@Serializable
 internal data class MedicinalProductPharmaceuticalRouteOfAdministrationSurrogate(
   public var id: KotlinString? = null,
   public var extension: MutableList<Extension>? = null,
@@ -231,6 +133,104 @@ internal data class MedicinalProductPharmaceuticalRouteOfAdministrationSurrogate
           maxDosePerTreatmentPeriod = this@with.maxDosePerTreatmentPeriod,
           maxTreatmentPeriod = this@with.maxTreatmentPeriod,
           targetSpecies = this@with.targetSpecies.takeUnless { it.all { it == null } },
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpeciesSurrogate(
+  public var id: KotlinString? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var code: CodeableConcept,
+  public var withdrawalPeriod:
+    MutableList<
+      MedicinalProductPharmaceutical.RouteOfAdministration.TargetSpecies.WithdrawalPeriod
+    >? =
+    null,
+) {
+  public fun toModel(): MedicinalProductPharmaceutical.RouteOfAdministration.TargetSpecies =
+    MedicinalProductPharmaceutical.RouteOfAdministration.TargetSpecies(
+      id = this@MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpeciesSurrogate.id,
+      extension =
+        this@MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpeciesSurrogate.extension
+          ?: mutableListOf(),
+      modifierExtension =
+        this@MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpeciesSurrogate
+          .modifierExtension ?: mutableListOf(),
+      code = this@MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpeciesSurrogate.code,
+      withdrawalPeriod =
+        this@MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpeciesSurrogate
+          .withdrawalPeriod ?: mutableListOf(),
+    )
+
+  public companion object {
+    public fun fromModel(
+      model: MedicinalProductPharmaceutical.RouteOfAdministration.TargetSpecies
+    ): MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpeciesSurrogate =
+      with(model) {
+        MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpeciesSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          code = this@with.code,
+          withdrawalPeriod = this@with.withdrawalPeriod.takeUnless { it.all { it == null } },
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpeciesWithdrawalPeriodSurrogate(
+  public var id: KotlinString? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var tissue: CodeableConcept,
+  public var `value`: Quantity,
+  public var supportingInformation: KotlinString? = null,
+  public var _supportingInformation: Element? = null,
+) {
+  public fun toModel():
+    MedicinalProductPharmaceutical.RouteOfAdministration.TargetSpecies.WithdrawalPeriod =
+    MedicinalProductPharmaceutical.RouteOfAdministration.TargetSpecies.WithdrawalPeriod(
+      id =
+        this@MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpeciesWithdrawalPeriodSurrogate
+          .id,
+      extension =
+        this@MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpeciesWithdrawalPeriodSurrogate
+          .extension ?: mutableListOf(),
+      modifierExtension =
+        this@MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpeciesWithdrawalPeriodSurrogate
+          .modifierExtension ?: mutableListOf(),
+      tissue =
+        this@MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpeciesWithdrawalPeriodSurrogate
+          .tissue,
+      `value` =
+        this@MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpeciesWithdrawalPeriodSurrogate
+          .`value`,
+      supportingInformation =
+        R4String.of(
+          this@MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpeciesWithdrawalPeriodSurrogate
+            .supportingInformation,
+          this@MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpeciesWithdrawalPeriodSurrogate
+            ._supportingInformation,
+        ),
+    )
+
+  public companion object {
+    public fun fromModel(
+      model: MedicinalProductPharmaceutical.RouteOfAdministration.TargetSpecies.WithdrawalPeriod
+    ): MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpeciesWithdrawalPeriodSurrogate =
+      with(model) {
+        MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpeciesWithdrawalPeriodSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          tissue = this@with.tissue,
+          `value` = this@with.`value`,
+          supportingInformation = this@with.supportingInformation?.value,
+          _supportingInformation = this@with.supportingInformation?.toElement(),
         )
       }
   }

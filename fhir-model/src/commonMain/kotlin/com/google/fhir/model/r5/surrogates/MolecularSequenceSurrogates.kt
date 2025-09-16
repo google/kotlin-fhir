@@ -45,32 +45,47 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
-internal data class MolecularSequenceRelativeStartingSequenceSequenceSurrogate(
-  public var sequenceCodeableConcept: CodeableConcept? = null,
-  public var sequenceString: KotlinString? = null,
-  public var _sequenceString: Element? = null,
-  public var sequenceReference: Reference? = null,
+internal data class MolecularSequenceRelativeSurrogate(
+  public var id: KotlinString? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var coordinateSystem: CodeableConcept,
+  public var ordinalPosition: Int? = null,
+  public var _ordinalPosition: Element? = null,
+  public var sequenceRange: Range? = null,
+  public var startingSequence: MolecularSequence.Relative.StartingSequence? = null,
+  public var edit: MutableList<MolecularSequence.Relative.Edit>? = null,
 ) {
-  public fun toModel(): MolecularSequence.Relative.StartingSequence.Sequence =
-    MolecularSequence.Relative.StartingSequence.Sequence?.from(
-      this@MolecularSequenceRelativeStartingSequenceSequenceSurrogate.sequenceCodeableConcept,
-      R5String.of(
-        this@MolecularSequenceRelativeStartingSequenceSequenceSurrogate.sequenceString,
-        this@MolecularSequenceRelativeStartingSequenceSequenceSurrogate._sequenceString,
-      ),
-      this@MolecularSequenceRelativeStartingSequenceSequenceSurrogate.sequenceReference,
-    )!!
+  public fun toModel(): MolecularSequence.Relative =
+    MolecularSequence.Relative(
+      id = this@MolecularSequenceRelativeSurrogate.id,
+      extension = this@MolecularSequenceRelativeSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@MolecularSequenceRelativeSurrogate.modifierExtension ?: mutableListOf(),
+      coordinateSystem = this@MolecularSequenceRelativeSurrogate.coordinateSystem,
+      ordinalPosition =
+        Integer.of(
+          this@MolecularSequenceRelativeSurrogate.ordinalPosition,
+          this@MolecularSequenceRelativeSurrogate._ordinalPosition,
+        ),
+      sequenceRange = this@MolecularSequenceRelativeSurrogate.sequenceRange,
+      startingSequence = this@MolecularSequenceRelativeSurrogate.startingSequence,
+      edit = this@MolecularSequenceRelativeSurrogate.edit ?: mutableListOf(),
+    )
 
   public companion object {
-    public fun fromModel(
-      model: MolecularSequence.Relative.StartingSequence.Sequence
-    ): MolecularSequenceRelativeStartingSequenceSequenceSurrogate =
+    public fun fromModel(model: MolecularSequence.Relative): MolecularSequenceRelativeSurrogate =
       with(model) {
-        MolecularSequenceRelativeStartingSequenceSequenceSurrogate(
-          sequenceCodeableConcept = this@with.asCodeableConcept()?.value,
-          sequenceString = this@with.asString()?.value?.value,
-          _sequenceString = this@with.asString()?.value?.toElement(),
-          sequenceReference = this@with.asReference()?.value,
+        MolecularSequenceRelativeSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          coordinateSystem = this@with.coordinateSystem,
+          ordinalPosition = this@with.ordinalPosition?.value,
+          _ordinalPosition = this@with.ordinalPosition?.toElement(),
+          sequenceRange = this@with.sequenceRange,
+          startingSequence = this@with.startingSequence,
+          edit = this@with.edit.takeUnless { it.all { it == null } },
         )
       }
   }
@@ -220,47 +235,32 @@ internal data class MolecularSequenceRelativeEditSurrogate(
 }
 
 @Serializable
-internal data class MolecularSequenceRelativeSurrogate(
-  public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var coordinateSystem: CodeableConcept,
-  public var ordinalPosition: Int? = null,
-  public var _ordinalPosition: Element? = null,
-  public var sequenceRange: Range? = null,
-  public var startingSequence: MolecularSequence.Relative.StartingSequence? = null,
-  public var edit: MutableList<MolecularSequence.Relative.Edit>? = null,
+internal data class MolecularSequenceRelativeStartingSequenceSequenceSurrogate(
+  public var sequenceCodeableConcept: CodeableConcept? = null,
+  public var sequenceString: KotlinString? = null,
+  public var _sequenceString: Element? = null,
+  public var sequenceReference: Reference? = null,
 ) {
-  public fun toModel(): MolecularSequence.Relative =
-    MolecularSequence.Relative(
-      id = this@MolecularSequenceRelativeSurrogate.id,
-      extension = this@MolecularSequenceRelativeSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@MolecularSequenceRelativeSurrogate.modifierExtension ?: mutableListOf(),
-      coordinateSystem = this@MolecularSequenceRelativeSurrogate.coordinateSystem,
-      ordinalPosition =
-        Integer.of(
-          this@MolecularSequenceRelativeSurrogate.ordinalPosition,
-          this@MolecularSequenceRelativeSurrogate._ordinalPosition,
-        ),
-      sequenceRange = this@MolecularSequenceRelativeSurrogate.sequenceRange,
-      startingSequence = this@MolecularSequenceRelativeSurrogate.startingSequence,
-      edit = this@MolecularSequenceRelativeSurrogate.edit ?: mutableListOf(),
-    )
+  public fun toModel(): MolecularSequence.Relative.StartingSequence.Sequence =
+    MolecularSequence.Relative.StartingSequence.Sequence.from(
+      this@MolecularSequenceRelativeStartingSequenceSequenceSurrogate.sequenceCodeableConcept,
+      R5String.of(
+        this@MolecularSequenceRelativeStartingSequenceSequenceSurrogate.sequenceString,
+        this@MolecularSequenceRelativeStartingSequenceSequenceSurrogate._sequenceString,
+      ),
+      this@MolecularSequenceRelativeStartingSequenceSequenceSurrogate.sequenceReference,
+    )!!
 
   public companion object {
-    public fun fromModel(model: MolecularSequence.Relative): MolecularSequenceRelativeSurrogate =
+    public fun fromModel(
+      model: MolecularSequence.Relative.StartingSequence.Sequence
+    ): MolecularSequenceRelativeStartingSequenceSequenceSurrogate =
       with(model) {
-        MolecularSequenceRelativeSurrogate(
-          id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          coordinateSystem = this@with.coordinateSystem,
-          ordinalPosition = this@with.ordinalPosition?.value,
-          _ordinalPosition = this@with.ordinalPosition?.toElement(),
-          sequenceRange = this@with.sequenceRange,
-          startingSequence = this@with.startingSequence,
-          edit = this@with.edit.takeUnless { it.all { it == null } },
+        MolecularSequenceRelativeStartingSequenceSequenceSurrogate(
+          sequenceCodeableConcept = this@with.asCodeableConcept()?.value,
+          sequenceString = this@with.asString()?.value?.value,
+          _sequenceString = this@with.asString()?.value?.toElement(),
+          sequenceReference = this@with.asReference()?.value,
         )
       }
   }

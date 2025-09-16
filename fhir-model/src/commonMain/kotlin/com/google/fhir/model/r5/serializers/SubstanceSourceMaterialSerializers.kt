@@ -54,6 +54,27 @@ public object SubstanceSourceMaterialFractionDescriptionSerializer :
   }
 }
 
+public object SubstanceSourceMaterialOrganismSerializer :
+  KSerializer<SubstanceSourceMaterial.Organism> {
+  internal val surrogateSerializer: KSerializer<SubstanceSourceMaterialOrganismSurrogate> by lazy {
+    SubstanceSourceMaterialOrganismSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Organism", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): SubstanceSourceMaterial.Organism =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: SubstanceSourceMaterial.Organism) {
+    surrogateSerializer.serialize(
+      encoder,
+      SubstanceSourceMaterialOrganismSurrogate.fromModel(value),
+    )
+  }
+}
+
 public object SubstanceSourceMaterialOrganismAuthorSerializer :
   KSerializer<SubstanceSourceMaterial.Organism.Author> {
   internal val surrogateSerializer:
@@ -119,27 +140,6 @@ public object SubstanceSourceMaterialOrganismOrganismGeneralSerializer :
     surrogateSerializer.serialize(
       encoder,
       SubstanceSourceMaterialOrganismOrganismGeneralSurrogate.fromModel(value),
-    )
-  }
-}
-
-public object SubstanceSourceMaterialOrganismSerializer :
-  KSerializer<SubstanceSourceMaterial.Organism> {
-  internal val surrogateSerializer: KSerializer<SubstanceSourceMaterialOrganismSurrogate> by lazy {
-    SubstanceSourceMaterialOrganismSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Organism", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): SubstanceSourceMaterial.Organism =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: SubstanceSourceMaterial.Organism) {
-    surrogateSerializer.serialize(
-      encoder,
-      SubstanceSourceMaterialOrganismSurrogate.fromModel(value),
     )
   }
 }

@@ -118,30 +118,6 @@ internal data class ConditionDefinitionMedicationSurrogate(
 }
 
 @Serializable
-internal data class ConditionDefinitionPreconditionValueSurrogate(
-  public var valueCodeableConcept: CodeableConcept? = null,
-  public var valueQuantity: Quantity? = null,
-) {
-  public fun toModel(): ConditionDefinition.Precondition.Value =
-    ConditionDefinition.Precondition.Value?.from(
-      this@ConditionDefinitionPreconditionValueSurrogate.valueCodeableConcept,
-      this@ConditionDefinitionPreconditionValueSurrogate.valueQuantity,
-    )!!
-
-  public companion object {
-    public fun fromModel(
-      model: ConditionDefinition.Precondition.Value
-    ): ConditionDefinitionPreconditionValueSurrogate =
-      with(model) {
-        ConditionDefinitionPreconditionValueSurrogate(
-          valueCodeableConcept = this@with.asCodeableConcept()?.value,
-          valueQuantity = this@with.asQuantity()?.value,
-        )
-      }
-  }
-}
-
-@Serializable
 internal data class ConditionDefinitionPreconditionSurrogate(
   public var id: KotlinString? = null,
   public var extension: MutableList<Extension>? = null,
@@ -267,7 +243,7 @@ internal data class ConditionDefinitionVersionAlgorithmSurrogate(
   public var versionAlgorithmCoding: Coding? = null,
 ) {
   public fun toModel(): ConditionDefinition.VersionAlgorithm =
-    ConditionDefinition.VersionAlgorithm?.from(
+    ConditionDefinition.VersionAlgorithm.from(
       R5String.of(
         this@ConditionDefinitionVersionAlgorithmSurrogate.versionAlgorithmString,
         this@ConditionDefinitionVersionAlgorithmSurrogate._versionAlgorithmString,
@@ -284,6 +260,30 @@ internal data class ConditionDefinitionVersionAlgorithmSurrogate(
           versionAlgorithmString = this@with.asString()?.value?.value,
           _versionAlgorithmString = this@with.asString()?.value?.toElement(),
           versionAlgorithmCoding = this@with.asCoding()?.value,
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class ConditionDefinitionPreconditionValueSurrogate(
+  public var valueCodeableConcept: CodeableConcept? = null,
+  public var valueQuantity: Quantity? = null,
+) {
+  public fun toModel(): ConditionDefinition.Precondition.Value =
+    ConditionDefinition.Precondition.Value.from(
+      this@ConditionDefinitionPreconditionValueSurrogate.valueCodeableConcept,
+      this@ConditionDefinitionPreconditionValueSurrogate.valueQuantity,
+    )!!
+
+  public companion object {
+    public fun fromModel(
+      model: ConditionDefinition.Precondition.Value
+    ): ConditionDefinitionPreconditionValueSurrogate =
+      with(model) {
+        ConditionDefinitionPreconditionValueSurrogate(
+          valueCodeableConcept = this@with.asCodeableConcept()?.value,
+          valueQuantity = this@with.asQuantity()?.value,
         )
       }
   }

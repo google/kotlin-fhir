@@ -41,53 +41,6 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
-internal data class DosageDoseAndRateDoseSurrogate(
-  public var doseRange: Range? = null,
-  public var doseQuantity: Quantity? = null,
-) {
-  public fun toModel(): Dosage.DoseAndRate.Dose =
-    Dosage.DoseAndRate.Dose?.from(
-      this@DosageDoseAndRateDoseSurrogate.doseRange,
-      this@DosageDoseAndRateDoseSurrogate.doseQuantity,
-    )!!
-
-  public companion object {
-    public fun fromModel(model: Dosage.DoseAndRate.Dose): DosageDoseAndRateDoseSurrogate =
-      with(model) {
-        DosageDoseAndRateDoseSurrogate(
-          doseRange = this@with.asRange()?.value,
-          doseQuantity = this@with.asQuantity()?.value,
-        )
-      }
-  }
-}
-
-@Serializable
-internal data class DosageDoseAndRateRateSurrogate(
-  public var rateRatio: Ratio? = null,
-  public var rateRange: Range? = null,
-  public var rateQuantity: Quantity? = null,
-) {
-  public fun toModel(): Dosage.DoseAndRate.Rate =
-    Dosage.DoseAndRate.Rate?.from(
-      this@DosageDoseAndRateRateSurrogate.rateRatio,
-      this@DosageDoseAndRateRateSurrogate.rateRange,
-      this@DosageDoseAndRateRateSurrogate.rateQuantity,
-    )!!
-
-  public companion object {
-    public fun fromModel(model: Dosage.DoseAndRate.Rate): DosageDoseAndRateRateSurrogate =
-      with(model) {
-        DosageDoseAndRateRateSurrogate(
-          rateRatio = this@with.asRatio()?.value,
-          rateRange = this@with.asRange()?.value,
-          rateQuantity = this@with.asQuantity()?.value,
-        )
-      }
-  }
-}
-
-@Serializable
 internal data class DosageDoseAndRateSurrogate(
   public var id: KotlinString? = null,
   public var extension: MutableList<Extension>? = null,
@@ -113,6 +66,53 @@ internal data class DosageDoseAndRateSurrogate(
           type = this@with.type,
           dose = this@with.dose,
           rate = this@with.rate,
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class DosageDoseAndRateDoseSurrogate(
+  public var doseRange: Range? = null,
+  public var doseQuantity: Quantity? = null,
+) {
+  public fun toModel(): Dosage.DoseAndRate.Dose =
+    Dosage.DoseAndRate.Dose.from(
+      this@DosageDoseAndRateDoseSurrogate.doseRange,
+      this@DosageDoseAndRateDoseSurrogate.doseQuantity,
+    )!!
+
+  public companion object {
+    public fun fromModel(model: Dosage.DoseAndRate.Dose): DosageDoseAndRateDoseSurrogate =
+      with(model) {
+        DosageDoseAndRateDoseSurrogate(
+          doseRange = this@with.asRange()?.value,
+          doseQuantity = this@with.asQuantity()?.value,
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class DosageDoseAndRateRateSurrogate(
+  public var rateRatio: Ratio? = null,
+  public var rateRange: Range? = null,
+  public var rateQuantity: Quantity? = null,
+) {
+  public fun toModel(): Dosage.DoseAndRate.Rate =
+    Dosage.DoseAndRate.Rate.from(
+      this@DosageDoseAndRateRateSurrogate.rateRatio,
+      this@DosageDoseAndRateRateSurrogate.rateRange,
+      this@DosageDoseAndRateRateSurrogate.rateQuantity,
+    )!!
+
+  public companion object {
+    public fun fromModel(model: Dosage.DoseAndRate.Rate): DosageDoseAndRateRateSurrogate =
+      with(model) {
+        DosageDoseAndRateRateSurrogate(
+          rateRatio = this@with.asRatio()?.value,
+          rateRange = this@with.asRange()?.value,
+          rateQuantity = this@with.asQuantity()?.value,
         )
       }
   }

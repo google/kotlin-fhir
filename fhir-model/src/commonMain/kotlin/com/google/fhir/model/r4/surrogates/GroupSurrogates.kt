@@ -48,42 +48,6 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
-internal data class GroupCharacteristicValueSurrogate(
-  public var valueCodeableConcept: CodeableConcept? = null,
-  public var valueBoolean: KotlinBoolean? = null,
-  public var _valueBoolean: Element? = null,
-  public var valueQuantity: Quantity? = null,
-  public var valueRange: Range? = null,
-  public var valueReference: Reference? = null,
-) {
-  public fun toModel(): Group.Characteristic.Value =
-    Group.Characteristic.Value.from(
-      this@GroupCharacteristicValueSurrogate.valueCodeableConcept,
-      R4Boolean.of(
-        this@GroupCharacteristicValueSurrogate.valueBoolean,
-        this@GroupCharacteristicValueSurrogate._valueBoolean,
-      ),
-      this@GroupCharacteristicValueSurrogate.valueQuantity,
-      this@GroupCharacteristicValueSurrogate.valueRange,
-      this@GroupCharacteristicValueSurrogate.valueReference,
-    )!! !!
-
-  public companion object {
-    public fun fromModel(model: Group.Characteristic.Value): GroupCharacteristicValueSurrogate =
-      with(model) {
-        GroupCharacteristicValueSurrogate(
-          valueCodeableConcept = this@with.asCodeableConcept()?.value,
-          valueBoolean = this@with.asBoolean()?.value?.value,
-          _valueBoolean = this@with.asBoolean()?.value?.toElement(),
-          valueQuantity = this@with.asQuantity()?.value,
-          valueRange = this@with.asRange()?.value,
-          valueReference = this@with.asReference()?.value,
-        )
-      }
-  }
-}
-
-@Serializable
 internal data class GroupCharacteristicSurrogate(
   public var id: KotlinString? = null,
   public var extension: MutableList<Extension>? = null,
@@ -158,6 +122,42 @@ internal data class GroupMemberSurrogate(
           period = this@with.period,
           inactive = this@with.inactive?.value,
           _inactive = this@with.inactive?.toElement(),
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class GroupCharacteristicValueSurrogate(
+  public var valueCodeableConcept: CodeableConcept? = null,
+  public var valueBoolean: KotlinBoolean? = null,
+  public var _valueBoolean: Element? = null,
+  public var valueQuantity: Quantity? = null,
+  public var valueRange: Range? = null,
+  public var valueReference: Reference? = null,
+) {
+  public fun toModel(): Group.Characteristic.Value =
+    Group.Characteristic.Value.from(
+      this@GroupCharacteristicValueSurrogate.valueCodeableConcept,
+      R4Boolean.of(
+        this@GroupCharacteristicValueSurrogate.valueBoolean,
+        this@GroupCharacteristicValueSurrogate._valueBoolean,
+      ),
+      this@GroupCharacteristicValueSurrogate.valueQuantity,
+      this@GroupCharacteristicValueSurrogate.valueRange,
+      this@GroupCharacteristicValueSurrogate.valueReference,
+    )!! !!
+
+  public companion object {
+    public fun fromModel(model: Group.Characteristic.Value): GroupCharacteristicValueSurrogate =
+      with(model) {
+        GroupCharacteristicValueSurrogate(
+          valueCodeableConcept = this@with.asCodeableConcept()?.value,
+          valueBoolean = this@with.asBoolean()?.value?.value,
+          _valueBoolean = this@with.asBoolean()?.value?.toElement(),
+          valueQuantity = this@with.asQuantity()?.value,
+          valueRange = this@with.asRange()?.value,
+          valueReference = this@with.asReference()?.value,
         )
       }
   }

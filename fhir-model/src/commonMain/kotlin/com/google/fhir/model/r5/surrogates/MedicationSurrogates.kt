@@ -48,33 +48,6 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
-internal data class MedicationIngredientStrengthSurrogate(
-  public var strengthRatio: Ratio? = null,
-  public var strengthCodeableConcept: CodeableConcept? = null,
-  public var strengthQuantity: Quantity? = null,
-) {
-  public fun toModel(): Medication.Ingredient.Strength =
-    Medication.Ingredient.Strength?.from(
-      this@MedicationIngredientStrengthSurrogate.strengthRatio,
-      this@MedicationIngredientStrengthSurrogate.strengthCodeableConcept,
-      this@MedicationIngredientStrengthSurrogate.strengthQuantity,
-    )!!
-
-  public companion object {
-    public fun fromModel(
-      model: Medication.Ingredient.Strength
-    ): MedicationIngredientStrengthSurrogate =
-      with(model) {
-        MedicationIngredientStrengthSurrogate(
-          strengthRatio = this@with.asRatio()?.value,
-          strengthCodeableConcept = this@with.asCodeableConcept()?.value,
-          strengthQuantity = this@with.asQuantity()?.value,
-        )
-      }
-  }
-}
-
-@Serializable
 internal data class MedicationIngredientSurrogate(
   public var id: KotlinString? = null,
   public var extension: MutableList<Extension>? = null,
@@ -152,6 +125,33 @@ internal data class MedicationBatchSurrogate(
           _lotNumber = this@with.lotNumber?.toElement(),
           expirationDate = this@with.expirationDate?.value?.toString(),
           _expirationDate = this@with.expirationDate?.toElement(),
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class MedicationIngredientStrengthSurrogate(
+  public var strengthRatio: Ratio? = null,
+  public var strengthCodeableConcept: CodeableConcept? = null,
+  public var strengthQuantity: Quantity? = null,
+) {
+  public fun toModel(): Medication.Ingredient.Strength =
+    Medication.Ingredient.Strength.from(
+      this@MedicationIngredientStrengthSurrogate.strengthRatio,
+      this@MedicationIngredientStrengthSurrogate.strengthCodeableConcept,
+      this@MedicationIngredientStrengthSurrogate.strengthQuantity,
+    )!!
+
+  public companion object {
+    public fun fromModel(
+      model: Medication.Ingredient.Strength
+    ): MedicationIngredientStrengthSurrogate =
+      with(model) {
+        MedicationIngredientStrengthSurrogate(
+          strengthRatio = this@with.asRatio()?.value,
+          strengthCodeableConcept = this@with.asCodeableConcept()?.value,
+          strengthQuantity = this@with.asQuantity()?.value,
         )
       }
   }

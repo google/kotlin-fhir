@@ -88,27 +88,24 @@ public object TerminologyCapabilitiesImplementationSerializer :
   }
 }
 
-public object TerminologyCapabilitiesCodeSystemVersionFilterSerializer :
-  KSerializer<TerminologyCapabilities.CodeSystem.Version.Filter> {
+public object TerminologyCapabilitiesCodeSystemSerializer :
+  KSerializer<TerminologyCapabilities.CodeSystem> {
   internal val surrogateSerializer:
-    KSerializer<TerminologyCapabilitiesCodeSystemVersionFilterSurrogate> by lazy {
-    TerminologyCapabilitiesCodeSystemVersionFilterSurrogate.serializer()
+    KSerializer<TerminologyCapabilitiesCodeSystemSurrogate> by lazy {
+    TerminologyCapabilitiesCodeSystemSurrogate.serializer()
   }
 
   override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Filter", surrogateSerializer.descriptor)
+    SerialDescriptor("CodeSystem", surrogateSerializer.descriptor)
   }
 
-  override fun deserialize(decoder: Decoder): TerminologyCapabilities.CodeSystem.Version.Filter =
+  override fun deserialize(decoder: Decoder): TerminologyCapabilities.CodeSystem =
     surrogateSerializer.deserialize(decoder).toModel()
 
-  override fun serialize(
-    encoder: Encoder,
-    `value`: TerminologyCapabilities.CodeSystem.Version.Filter,
-  ) {
+  override fun serialize(encoder: Encoder, `value`: TerminologyCapabilities.CodeSystem) {
     surrogateSerializer.serialize(
       encoder,
-      TerminologyCapabilitiesCodeSystemVersionFilterSurrogate.fromModel(value),
+      TerminologyCapabilitiesCodeSystemSurrogate.fromModel(value),
     )
   }
 }
@@ -135,24 +132,48 @@ public object TerminologyCapabilitiesCodeSystemVersionSerializer :
   }
 }
 
-public object TerminologyCapabilitiesCodeSystemSerializer :
-  KSerializer<TerminologyCapabilities.CodeSystem> {
+public object TerminologyCapabilitiesCodeSystemVersionFilterSerializer :
+  KSerializer<TerminologyCapabilities.CodeSystem.Version.Filter> {
   internal val surrogateSerializer:
-    KSerializer<TerminologyCapabilitiesCodeSystemSurrogate> by lazy {
-    TerminologyCapabilitiesCodeSystemSurrogate.serializer()
+    KSerializer<TerminologyCapabilitiesCodeSystemVersionFilterSurrogate> by lazy {
+    TerminologyCapabilitiesCodeSystemVersionFilterSurrogate.serializer()
   }
 
   override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("CodeSystem", surrogateSerializer.descriptor)
+    SerialDescriptor("Filter", surrogateSerializer.descriptor)
   }
 
-  override fun deserialize(decoder: Decoder): TerminologyCapabilities.CodeSystem =
+  override fun deserialize(decoder: Decoder): TerminologyCapabilities.CodeSystem.Version.Filter =
     surrogateSerializer.deserialize(decoder).toModel()
 
-  override fun serialize(encoder: Encoder, `value`: TerminologyCapabilities.CodeSystem) {
+  override fun serialize(
+    encoder: Encoder,
+    `value`: TerminologyCapabilities.CodeSystem.Version.Filter,
+  ) {
     surrogateSerializer.serialize(
       encoder,
-      TerminologyCapabilitiesCodeSystemSurrogate.fromModel(value),
+      TerminologyCapabilitiesCodeSystemVersionFilterSurrogate.fromModel(value),
+    )
+  }
+}
+
+public object TerminologyCapabilitiesExpansionSerializer :
+  KSerializer<TerminologyCapabilities.Expansion> {
+  internal val surrogateSerializer: KSerializer<TerminologyCapabilitiesExpansionSurrogate> by lazy {
+    TerminologyCapabilitiesExpansionSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Expansion", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): TerminologyCapabilities.Expansion =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: TerminologyCapabilities.Expansion) {
+    surrogateSerializer.serialize(
+      encoder,
+      TerminologyCapabilitiesExpansionSurrogate.fromModel(value),
     )
   }
 }
@@ -175,27 +196,6 @@ public object TerminologyCapabilitiesExpansionParameterSerializer :
     surrogateSerializer.serialize(
       encoder,
       TerminologyCapabilitiesExpansionParameterSurrogate.fromModel(value),
-    )
-  }
-}
-
-public object TerminologyCapabilitiesExpansionSerializer :
-  KSerializer<TerminologyCapabilities.Expansion> {
-  internal val surrogateSerializer: KSerializer<TerminologyCapabilitiesExpansionSurrogate> by lazy {
-    TerminologyCapabilitiesExpansionSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Expansion", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): TerminologyCapabilities.Expansion =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: TerminologyCapabilities.Expansion) {
-    surrogateSerializer.serialize(
-      encoder,
-      TerminologyCapabilitiesExpansionSurrogate.fromModel(value),
     )
   }
 }

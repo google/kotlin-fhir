@@ -123,7 +123,7 @@ internal data class ProcedurePerformedSurrogate(
   public var performedRange: Range? = null,
 ) {
   public fun toModel(): Procedure.Performed =
-    Procedure.Performed?.from(
+    Procedure.Performed.from(
       DateTime.of(
         FhirDateTime.fromString(this@ProcedurePerformedSurrogate.performedDateTime),
         this@ProcedurePerformedSurrogate._performedDateTime,

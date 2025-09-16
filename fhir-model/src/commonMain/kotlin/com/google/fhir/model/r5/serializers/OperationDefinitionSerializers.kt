@@ -39,6 +39,23 @@ import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.JsonPrimitive
 import kotlinx.serialization.json.jsonObject
 
+public object OperationDefinitionParameterSerializer : KSerializer<OperationDefinition.Parameter> {
+  internal val surrogateSerializer: KSerializer<OperationDefinitionParameterSurrogate> by lazy {
+    OperationDefinitionParameterSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Parameter", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): OperationDefinition.Parameter =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: OperationDefinition.Parameter) {
+    surrogateSerializer.serialize(encoder, OperationDefinitionParameterSurrogate.fromModel(value))
+  }
+}
+
 public object OperationDefinitionParameterBindingSerializer :
   KSerializer<OperationDefinition.Parameter.Binding> {
   internal val surrogateSerializer:
@@ -80,23 +97,6 @@ public object OperationDefinitionParameterReferencedFromSerializer :
       encoder,
       OperationDefinitionParameterReferencedFromSurrogate.fromModel(value),
     )
-  }
-}
-
-public object OperationDefinitionParameterSerializer : KSerializer<OperationDefinition.Parameter> {
-  internal val surrogateSerializer: KSerializer<OperationDefinitionParameterSurrogate> by lazy {
-    OperationDefinitionParameterSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Parameter", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): OperationDefinition.Parameter =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: OperationDefinition.Parameter) {
-    surrogateSerializer.serialize(encoder, OperationDefinitionParameterSurrogate.fromModel(value))
   }
 }
 

@@ -89,202 +89,6 @@ internal data class MeasureTermSurrogate(
 }
 
 @Serializable
-internal data class MeasureGroupPopulationSurrogate(
-  public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var linkId: KotlinString? = null,
-  public var _linkId: Element? = null,
-  public var code: CodeableConcept? = null,
-  public var description: KotlinString? = null,
-  public var _description: Element? = null,
-  public var criteria: Expression? = null,
-  public var groupDefinition: Reference? = null,
-  public var inputPopulationId: KotlinString? = null,
-  public var _inputPopulationId: Element? = null,
-  public var aggregateMethod: CodeableConcept? = null,
-) {
-  public fun toModel(): Measure.Group.Population =
-    Measure.Group.Population(
-      id = this@MeasureGroupPopulationSurrogate.id,
-      extension = this@MeasureGroupPopulationSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@MeasureGroupPopulationSurrogate.modifierExtension ?: mutableListOf(),
-      linkId =
-        R5String.of(
-          this@MeasureGroupPopulationSurrogate.linkId,
-          this@MeasureGroupPopulationSurrogate._linkId,
-        ),
-      code = this@MeasureGroupPopulationSurrogate.code,
-      description =
-        Markdown.of(
-          this@MeasureGroupPopulationSurrogate.description,
-          this@MeasureGroupPopulationSurrogate._description,
-        ),
-      criteria = this@MeasureGroupPopulationSurrogate.criteria,
-      groupDefinition = this@MeasureGroupPopulationSurrogate.groupDefinition,
-      inputPopulationId =
-        R5String.of(
-          this@MeasureGroupPopulationSurrogate.inputPopulationId,
-          this@MeasureGroupPopulationSurrogate._inputPopulationId,
-        ),
-      aggregateMethod = this@MeasureGroupPopulationSurrogate.aggregateMethod,
-    )
-
-  public companion object {
-    public fun fromModel(model: Measure.Group.Population): MeasureGroupPopulationSurrogate =
-      with(model) {
-        MeasureGroupPopulationSurrogate(
-          id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          linkId = this@with.linkId?.value,
-          _linkId = this@with.linkId?.toElement(),
-          code = this@with.code,
-          description = this@with.description?.value,
-          _description = this@with.description?.toElement(),
-          criteria = this@with.criteria,
-          groupDefinition = this@with.groupDefinition,
-          inputPopulationId = this@with.inputPopulationId?.value,
-          _inputPopulationId = this@with.inputPopulationId?.toElement(),
-          aggregateMethod = this@with.aggregateMethod,
-        )
-      }
-  }
-}
-
-@Serializable
-internal data class MeasureGroupStratifierComponentSurrogate(
-  public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var linkId: KotlinString? = null,
-  public var _linkId: Element? = null,
-  public var code: CodeableConcept? = null,
-  public var description: KotlinString? = null,
-  public var _description: Element? = null,
-  public var criteria: Expression? = null,
-  public var groupDefinition: Reference? = null,
-) {
-  public fun toModel(): Measure.Group.Stratifier.Component =
-    Measure.Group.Stratifier.Component(
-      id = this@MeasureGroupStratifierComponentSurrogate.id,
-      extension = this@MeasureGroupStratifierComponentSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@MeasureGroupStratifierComponentSurrogate.modifierExtension ?: mutableListOf(),
-      linkId =
-        R5String.of(
-          this@MeasureGroupStratifierComponentSurrogate.linkId,
-          this@MeasureGroupStratifierComponentSurrogate._linkId,
-        ),
-      code = this@MeasureGroupStratifierComponentSurrogate.code,
-      description =
-        Markdown.of(
-          this@MeasureGroupStratifierComponentSurrogate.description,
-          this@MeasureGroupStratifierComponentSurrogate._description,
-        ),
-      criteria = this@MeasureGroupStratifierComponentSurrogate.criteria,
-      groupDefinition = this@MeasureGroupStratifierComponentSurrogate.groupDefinition,
-    )
-
-  public companion object {
-    public fun fromModel(
-      model: Measure.Group.Stratifier.Component
-    ): MeasureGroupStratifierComponentSurrogate =
-      with(model) {
-        MeasureGroupStratifierComponentSurrogate(
-          id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          linkId = this@with.linkId?.value,
-          _linkId = this@with.linkId?.toElement(),
-          code = this@with.code,
-          description = this@with.description?.value,
-          _description = this@with.description?.toElement(),
-          criteria = this@with.criteria,
-          groupDefinition = this@with.groupDefinition,
-        )
-      }
-  }
-}
-
-@Serializable
-internal data class MeasureGroupStratifierSurrogate(
-  public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var linkId: KotlinString? = null,
-  public var _linkId: Element? = null,
-  public var code: CodeableConcept? = null,
-  public var description: KotlinString? = null,
-  public var _description: Element? = null,
-  public var criteria: Expression? = null,
-  public var groupDefinition: Reference? = null,
-  public var component: MutableList<Measure.Group.Stratifier.Component>? = null,
-) {
-  public fun toModel(): Measure.Group.Stratifier =
-    Measure.Group.Stratifier(
-      id = this@MeasureGroupStratifierSurrogate.id,
-      extension = this@MeasureGroupStratifierSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@MeasureGroupStratifierSurrogate.modifierExtension ?: mutableListOf(),
-      linkId =
-        R5String.of(
-          this@MeasureGroupStratifierSurrogate.linkId,
-          this@MeasureGroupStratifierSurrogate._linkId,
-        ),
-      code = this@MeasureGroupStratifierSurrogate.code,
-      description =
-        Markdown.of(
-          this@MeasureGroupStratifierSurrogate.description,
-          this@MeasureGroupStratifierSurrogate._description,
-        ),
-      criteria = this@MeasureGroupStratifierSurrogate.criteria,
-      groupDefinition = this@MeasureGroupStratifierSurrogate.groupDefinition,
-      component = this@MeasureGroupStratifierSurrogate.component ?: mutableListOf(),
-    )
-
-  public companion object {
-    public fun fromModel(model: Measure.Group.Stratifier): MeasureGroupStratifierSurrogate =
-      with(model) {
-        MeasureGroupStratifierSurrogate(
-          id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          linkId = this@with.linkId?.value,
-          _linkId = this@with.linkId?.toElement(),
-          code = this@with.code,
-          description = this@with.description?.value,
-          _description = this@with.description?.toElement(),
-          criteria = this@with.criteria,
-          groupDefinition = this@with.groupDefinition,
-          component = this@with.component.takeUnless { it.all { it == null } },
-        )
-      }
-  }
-}
-
-@Serializable
-internal data class MeasureGroupSubjectSurrogate(
-  public var subjectCodeableConcept: CodeableConcept? = null,
-  public var subjectReference: Reference? = null,
-) {
-  public fun toModel(): Measure.Group.Subject =
-    Measure.Group.Subject?.from(
-      this@MeasureGroupSubjectSurrogate.subjectCodeableConcept,
-      this@MeasureGroupSubjectSurrogate.subjectReference,
-    )!!
-
-  public companion object {
-    public fun fromModel(model: Measure.Group.Subject): MeasureGroupSubjectSurrogate =
-      with(model) {
-        MeasureGroupSubjectSurrogate(
-          subjectCodeableConcept = this@with.asCodeableConcept()?.value,
-          subjectReference = this@with.asReference()?.value,
-        )
-      }
-  }
-}
-
-@Serializable
 internal data class MeasureGroupSurrogate(
   public var id: KotlinString? = null,
   public var extension: MutableList<Extension>? = null,
@@ -393,6 +197,180 @@ internal data class MeasureGroupSurrogate(
 }
 
 @Serializable
+internal data class MeasureGroupPopulationSurrogate(
+  public var id: KotlinString? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var linkId: KotlinString? = null,
+  public var _linkId: Element? = null,
+  public var code: CodeableConcept? = null,
+  public var description: KotlinString? = null,
+  public var _description: Element? = null,
+  public var criteria: Expression? = null,
+  public var groupDefinition: Reference? = null,
+  public var inputPopulationId: KotlinString? = null,
+  public var _inputPopulationId: Element? = null,
+  public var aggregateMethod: CodeableConcept? = null,
+) {
+  public fun toModel(): Measure.Group.Population =
+    Measure.Group.Population(
+      id = this@MeasureGroupPopulationSurrogate.id,
+      extension = this@MeasureGroupPopulationSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@MeasureGroupPopulationSurrogate.modifierExtension ?: mutableListOf(),
+      linkId =
+        R5String.of(
+          this@MeasureGroupPopulationSurrogate.linkId,
+          this@MeasureGroupPopulationSurrogate._linkId,
+        ),
+      code = this@MeasureGroupPopulationSurrogate.code,
+      description =
+        Markdown.of(
+          this@MeasureGroupPopulationSurrogate.description,
+          this@MeasureGroupPopulationSurrogate._description,
+        ),
+      criteria = this@MeasureGroupPopulationSurrogate.criteria,
+      groupDefinition = this@MeasureGroupPopulationSurrogate.groupDefinition,
+      inputPopulationId =
+        R5String.of(
+          this@MeasureGroupPopulationSurrogate.inputPopulationId,
+          this@MeasureGroupPopulationSurrogate._inputPopulationId,
+        ),
+      aggregateMethod = this@MeasureGroupPopulationSurrogate.aggregateMethod,
+    )
+
+  public companion object {
+    public fun fromModel(model: Measure.Group.Population): MeasureGroupPopulationSurrogate =
+      with(model) {
+        MeasureGroupPopulationSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          linkId = this@with.linkId?.value,
+          _linkId = this@with.linkId?.toElement(),
+          code = this@with.code,
+          description = this@with.description?.value,
+          _description = this@with.description?.toElement(),
+          criteria = this@with.criteria,
+          groupDefinition = this@with.groupDefinition,
+          inputPopulationId = this@with.inputPopulationId?.value,
+          _inputPopulationId = this@with.inputPopulationId?.toElement(),
+          aggregateMethod = this@with.aggregateMethod,
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class MeasureGroupStratifierSurrogate(
+  public var id: KotlinString? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var linkId: KotlinString? = null,
+  public var _linkId: Element? = null,
+  public var code: CodeableConcept? = null,
+  public var description: KotlinString? = null,
+  public var _description: Element? = null,
+  public var criteria: Expression? = null,
+  public var groupDefinition: Reference? = null,
+  public var component: MutableList<Measure.Group.Stratifier.Component>? = null,
+) {
+  public fun toModel(): Measure.Group.Stratifier =
+    Measure.Group.Stratifier(
+      id = this@MeasureGroupStratifierSurrogate.id,
+      extension = this@MeasureGroupStratifierSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@MeasureGroupStratifierSurrogate.modifierExtension ?: mutableListOf(),
+      linkId =
+        R5String.of(
+          this@MeasureGroupStratifierSurrogate.linkId,
+          this@MeasureGroupStratifierSurrogate._linkId,
+        ),
+      code = this@MeasureGroupStratifierSurrogate.code,
+      description =
+        Markdown.of(
+          this@MeasureGroupStratifierSurrogate.description,
+          this@MeasureGroupStratifierSurrogate._description,
+        ),
+      criteria = this@MeasureGroupStratifierSurrogate.criteria,
+      groupDefinition = this@MeasureGroupStratifierSurrogate.groupDefinition,
+      component = this@MeasureGroupStratifierSurrogate.component ?: mutableListOf(),
+    )
+
+  public companion object {
+    public fun fromModel(model: Measure.Group.Stratifier): MeasureGroupStratifierSurrogate =
+      with(model) {
+        MeasureGroupStratifierSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          linkId = this@with.linkId?.value,
+          _linkId = this@with.linkId?.toElement(),
+          code = this@with.code,
+          description = this@with.description?.value,
+          _description = this@with.description?.toElement(),
+          criteria = this@with.criteria,
+          groupDefinition = this@with.groupDefinition,
+          component = this@with.component.takeUnless { it.all { it == null } },
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class MeasureGroupStratifierComponentSurrogate(
+  public var id: KotlinString? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var linkId: KotlinString? = null,
+  public var _linkId: Element? = null,
+  public var code: CodeableConcept? = null,
+  public var description: KotlinString? = null,
+  public var _description: Element? = null,
+  public var criteria: Expression? = null,
+  public var groupDefinition: Reference? = null,
+) {
+  public fun toModel(): Measure.Group.Stratifier.Component =
+    Measure.Group.Stratifier.Component(
+      id = this@MeasureGroupStratifierComponentSurrogate.id,
+      extension = this@MeasureGroupStratifierComponentSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@MeasureGroupStratifierComponentSurrogate.modifierExtension ?: mutableListOf(),
+      linkId =
+        R5String.of(
+          this@MeasureGroupStratifierComponentSurrogate.linkId,
+          this@MeasureGroupStratifierComponentSurrogate._linkId,
+        ),
+      code = this@MeasureGroupStratifierComponentSurrogate.code,
+      description =
+        Markdown.of(
+          this@MeasureGroupStratifierComponentSurrogate.description,
+          this@MeasureGroupStratifierComponentSurrogate._description,
+        ),
+      criteria = this@MeasureGroupStratifierComponentSurrogate.criteria,
+      groupDefinition = this@MeasureGroupStratifierComponentSurrogate.groupDefinition,
+    )
+
+  public companion object {
+    public fun fromModel(
+      model: Measure.Group.Stratifier.Component
+    ): MeasureGroupStratifierComponentSurrogate =
+      with(model) {
+        MeasureGroupStratifierComponentSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          linkId = this@with.linkId?.value,
+          _linkId = this@with.linkId?.toElement(),
+          code = this@with.code,
+          description = this@with.description?.value,
+          _description = this@with.description?.toElement(),
+          criteria = this@with.criteria,
+          groupDefinition = this@with.groupDefinition,
+        )
+      }
+  }
+}
+
+@Serializable
 internal data class MeasureSupplementalDataSurrogate(
   public var id: KotlinString? = null,
   public var extension: MutableList<Extension>? = null,
@@ -452,7 +430,7 @@ internal data class MeasureVersionAlgorithmSurrogate(
   public var versionAlgorithmCoding: Coding? = null,
 ) {
   public fun toModel(): Measure.VersionAlgorithm =
-    Measure.VersionAlgorithm?.from(
+    Measure.VersionAlgorithm.from(
       R5String.of(
         this@MeasureVersionAlgorithmSurrogate.versionAlgorithmString,
         this@MeasureVersionAlgorithmSurrogate._versionAlgorithmString,
@@ -478,7 +456,7 @@ internal data class MeasureSubjectSurrogate(
   public var subjectReference: Reference? = null,
 ) {
   public fun toModel(): Measure.Subject =
-    Measure.Subject?.from(
+    Measure.Subject.from(
       this@MeasureSubjectSurrogate.subjectCodeableConcept,
       this@MeasureSubjectSurrogate.subjectReference,
     )!!
@@ -487,6 +465,28 @@ internal data class MeasureSubjectSurrogate(
     public fun fromModel(model: Measure.Subject): MeasureSubjectSurrogate =
       with(model) {
         MeasureSubjectSurrogate(
+          subjectCodeableConcept = this@with.asCodeableConcept()?.value,
+          subjectReference = this@with.asReference()?.value,
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class MeasureGroupSubjectSurrogate(
+  public var subjectCodeableConcept: CodeableConcept? = null,
+  public var subjectReference: Reference? = null,
+) {
+  public fun toModel(): Measure.Group.Subject =
+    Measure.Group.Subject.from(
+      this@MeasureGroupSubjectSurrogate.subjectCodeableConcept,
+      this@MeasureGroupSubjectSurrogate.subjectReference,
+    )!!
+
+  public companion object {
+    public fun fromModel(model: Measure.Group.Subject): MeasureGroupSubjectSurrogate =
+      with(model) {
+        MeasureGroupSubjectSurrogate(
           subjectCodeableConcept = this@with.asCodeableConcept()?.value,
           subjectReference = this@with.asReference()?.value,
         )

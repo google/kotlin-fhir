@@ -115,85 +115,6 @@ internal data class GraphDefinitionNodeSurrogate(
 }
 
 @Serializable
-internal data class GraphDefinitionLinkCompartmentSurrogate(
-  public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var use: KotlinString? = null,
-  public var _use: Element? = null,
-  public var rule: KotlinString? = null,
-  public var _rule: Element? = null,
-  public var code: KotlinString? = null,
-  public var _code: Element? = null,
-  public var expression: KotlinString? = null,
-  public var _expression: Element? = null,
-  public var description: KotlinString? = null,
-  public var _description: Element? = null,
-) {
-  public fun toModel(): GraphDefinition.Link.Compartment =
-    GraphDefinition.Link.Compartment(
-      id = this@GraphDefinitionLinkCompartmentSurrogate.id,
-      extension = this@GraphDefinitionLinkCompartmentSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@GraphDefinitionLinkCompartmentSurrogate.modifierExtension ?: mutableListOf(),
-      use =
-        Enumeration.of(
-          com.google.fhir.model.r5.GraphDefinition.GraphCompartmentUse.fromCode(
-            this@GraphDefinitionLinkCompartmentSurrogate.use!!
-          ),
-          this@GraphDefinitionLinkCompartmentSurrogate._use,
-        ),
-      rule =
-        Enumeration.of(
-          com.google.fhir.model.r5.GraphDefinition.GraphCompartmentRule.fromCode(
-            this@GraphDefinitionLinkCompartmentSurrogate.rule!!
-          ),
-          this@GraphDefinitionLinkCompartmentSurrogate._rule,
-        ),
-      code =
-        Enumeration.of(
-          com.google.fhir.model.r5.GraphDefinition.CompartmentType.fromCode(
-            this@GraphDefinitionLinkCompartmentSurrogate.code!!
-          ),
-          this@GraphDefinitionLinkCompartmentSurrogate._code,
-        ),
-      expression =
-        R5String.of(
-          this@GraphDefinitionLinkCompartmentSurrogate.expression,
-          this@GraphDefinitionLinkCompartmentSurrogate._expression,
-        ),
-      description =
-        R5String.of(
-          this@GraphDefinitionLinkCompartmentSurrogate.description,
-          this@GraphDefinitionLinkCompartmentSurrogate._description,
-        ),
-    )
-
-  public companion object {
-    public fun fromModel(
-      model: GraphDefinition.Link.Compartment
-    ): GraphDefinitionLinkCompartmentSurrogate =
-      with(model) {
-        GraphDefinitionLinkCompartmentSurrogate(
-          id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          use = this@with.use.value?.getCode(),
-          _use = this@with.use.toElement(),
-          rule = this@with.rule.value?.getCode(),
-          _rule = this@with.rule.toElement(),
-          code = this@with.code.value?.getCode(),
-          _code = this@with.code.toElement(),
-          expression = this@with.expression?.value,
-          _expression = this@with.expression?.toElement(),
-          description = this@with.description?.value,
-          _description = this@with.description?.toElement(),
-        )
-      }
-  }
-}
-
-@Serializable
 internal data class GraphDefinitionLinkSurrogate(
   public var id: KotlinString? = null,
   public var extension: MutableList<Extension>? = null,
@@ -288,13 +209,92 @@ internal data class GraphDefinitionLinkSurrogate(
 }
 
 @Serializable
+internal data class GraphDefinitionLinkCompartmentSurrogate(
+  public var id: KotlinString? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var use: KotlinString? = null,
+  public var _use: Element? = null,
+  public var rule: KotlinString? = null,
+  public var _rule: Element? = null,
+  public var code: KotlinString? = null,
+  public var _code: Element? = null,
+  public var expression: KotlinString? = null,
+  public var _expression: Element? = null,
+  public var description: KotlinString? = null,
+  public var _description: Element? = null,
+) {
+  public fun toModel(): GraphDefinition.Link.Compartment =
+    GraphDefinition.Link.Compartment(
+      id = this@GraphDefinitionLinkCompartmentSurrogate.id,
+      extension = this@GraphDefinitionLinkCompartmentSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@GraphDefinitionLinkCompartmentSurrogate.modifierExtension ?: mutableListOf(),
+      use =
+        Enumeration.of(
+          com.google.fhir.model.r5.GraphDefinition.GraphCompartmentUse.fromCode(
+            this@GraphDefinitionLinkCompartmentSurrogate.use!!
+          ),
+          this@GraphDefinitionLinkCompartmentSurrogate._use,
+        ),
+      rule =
+        Enumeration.of(
+          com.google.fhir.model.r5.GraphDefinition.GraphCompartmentRule.fromCode(
+            this@GraphDefinitionLinkCompartmentSurrogate.rule!!
+          ),
+          this@GraphDefinitionLinkCompartmentSurrogate._rule,
+        ),
+      code =
+        Enumeration.of(
+          com.google.fhir.model.r5.GraphDefinition.CompartmentType.fromCode(
+            this@GraphDefinitionLinkCompartmentSurrogate.code!!
+          ),
+          this@GraphDefinitionLinkCompartmentSurrogate._code,
+        ),
+      expression =
+        R5String.of(
+          this@GraphDefinitionLinkCompartmentSurrogate.expression,
+          this@GraphDefinitionLinkCompartmentSurrogate._expression,
+        ),
+      description =
+        R5String.of(
+          this@GraphDefinitionLinkCompartmentSurrogate.description,
+          this@GraphDefinitionLinkCompartmentSurrogate._description,
+        ),
+    )
+
+  public companion object {
+    public fun fromModel(
+      model: GraphDefinition.Link.Compartment
+    ): GraphDefinitionLinkCompartmentSurrogate =
+      with(model) {
+        GraphDefinitionLinkCompartmentSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          use = this@with.use.value?.getCode(),
+          _use = this@with.use.toElement(),
+          rule = this@with.rule.value?.getCode(),
+          _rule = this@with.rule.toElement(),
+          code = this@with.code.value?.getCode(),
+          _code = this@with.code.toElement(),
+          expression = this@with.expression?.value,
+          _expression = this@with.expression?.toElement(),
+          description = this@with.description?.value,
+          _description = this@with.description?.toElement(),
+        )
+      }
+  }
+}
+
+@Serializable
 internal data class GraphDefinitionVersionAlgorithmSurrogate(
   public var versionAlgorithmString: KotlinString? = null,
   public var _versionAlgorithmString: Element? = null,
   public var versionAlgorithmCoding: Coding? = null,
 ) {
   public fun toModel(): GraphDefinition.VersionAlgorithm =
-    GraphDefinition.VersionAlgorithm?.from(
+    GraphDefinition.VersionAlgorithm.from(
       R5String.of(
         this@GraphDefinitionVersionAlgorithmSurrogate.versionAlgorithmString,
         this@GraphDefinitionVersionAlgorithmSurrogate._versionAlgorithmString,

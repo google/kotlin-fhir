@@ -48,6 +48,24 @@ public object AppointmentParticipantSerializer : KSerializer<Appointment.Partici
   }
 }
 
+public object AppointmentRecurrenceTemplateSerializer :
+  KSerializer<Appointment.RecurrenceTemplate> {
+  internal val surrogateSerializer: KSerializer<AppointmentRecurrenceTemplateSurrogate> by lazy {
+    AppointmentRecurrenceTemplateSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("RecurrenceTemplate", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): Appointment.RecurrenceTemplate =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: Appointment.RecurrenceTemplate) {
+    surrogateSerializer.serialize(encoder, AppointmentRecurrenceTemplateSurrogate.fromModel(value))
+  }
+}
+
 public object AppointmentRecurrenceTemplateWeeklyTemplateSerializer :
   KSerializer<Appointment.RecurrenceTemplate.WeeklyTemplate> {
   internal val surrogateSerializer:
@@ -114,24 +132,6 @@ public object AppointmentRecurrenceTemplateYearlyTemplateSerializer :
       encoder,
       AppointmentRecurrenceTemplateYearlyTemplateSurrogate.fromModel(value),
     )
-  }
-}
-
-public object AppointmentRecurrenceTemplateSerializer :
-  KSerializer<Appointment.RecurrenceTemplate> {
-  internal val surrogateSerializer: KSerializer<AppointmentRecurrenceTemplateSurrogate> by lazy {
-    AppointmentRecurrenceTemplateSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("RecurrenceTemplate", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): Appointment.RecurrenceTemplate =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: Appointment.RecurrenceTemplate) {
-    surrogateSerializer.serialize(encoder, AppointmentRecurrenceTemplateSurrogate.fromModel(value))
   }
 }
 

@@ -38,40 +38,6 @@ import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.JsonPrimitive
 import kotlinx.serialization.json.jsonObject
 
-public object DosageDoseAndRateDoseSerializer : KSerializer<Dosage.DoseAndRate.Dose> {
-  internal val surrogateSerializer: KSerializer<DosageDoseAndRateDoseSurrogate> by lazy {
-    DosageDoseAndRateDoseSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Dose", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): Dosage.DoseAndRate.Dose =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: Dosage.DoseAndRate.Dose) {
-    surrogateSerializer.serialize(encoder, DosageDoseAndRateDoseSurrogate.fromModel(value))
-  }
-}
-
-public object DosageDoseAndRateRateSerializer : KSerializer<Dosage.DoseAndRate.Rate> {
-  internal val surrogateSerializer: KSerializer<DosageDoseAndRateRateSurrogate> by lazy {
-    DosageDoseAndRateRateSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Rate", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): Dosage.DoseAndRate.Rate =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: Dosage.DoseAndRate.Rate) {
-    surrogateSerializer.serialize(encoder, DosageDoseAndRateRateSurrogate.fromModel(value))
-  }
-}
-
 public object DosageDoseAndRateSerializer : KSerializer<Dosage.DoseAndRate> {
   internal val surrogateSerializer: KSerializer<DosageDoseAndRateSurrogate> by lazy {
     DosageDoseAndRateSurrogate.serializer()
@@ -133,6 +99,40 @@ public object DosageAsNeededSerializer : KSerializer<Dosage.AsNeeded> {
 
   override fun serialize(encoder: Encoder, `value`: Dosage.AsNeeded) {
     surrogateSerializer.serialize(encoder, DosageAsNeededSurrogate.fromModel(value))
+  }
+}
+
+public object DosageDoseAndRateDoseSerializer : KSerializer<Dosage.DoseAndRate.Dose> {
+  internal val surrogateSerializer: KSerializer<DosageDoseAndRateDoseSurrogate> by lazy {
+    DosageDoseAndRateDoseSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Dose", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): Dosage.DoseAndRate.Dose =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: Dosage.DoseAndRate.Dose) {
+    surrogateSerializer.serialize(encoder, DosageDoseAndRateDoseSurrogate.fromModel(value))
+  }
+}
+
+public object DosageDoseAndRateRateSerializer : KSerializer<Dosage.DoseAndRate.Rate> {
+  internal val surrogateSerializer: KSerializer<DosageDoseAndRateRateSurrogate> by lazy {
+    DosageDoseAndRateRateSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Rate", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): Dosage.DoseAndRate.Rate =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: Dosage.DoseAndRate.Rate) {
+    surrogateSerializer.serialize(encoder, DosageDoseAndRateRateSurrogate.fromModel(value))
   }
 }
 

@@ -38,40 +38,6 @@ import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.JsonPrimitive
 import kotlinx.serialization.json.jsonObject
 
-public object GoalTargetDetailSerializer : KSerializer<Goal.Target.Detail> {
-  internal val surrogateSerializer: KSerializer<GoalTargetDetailSurrogate> by lazy {
-    GoalTargetDetailSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Detail", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): Goal.Target.Detail =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: Goal.Target.Detail) {
-    surrogateSerializer.serialize(encoder, GoalTargetDetailSurrogate.fromModel(value))
-  }
-}
-
-public object GoalTargetDueSerializer : KSerializer<Goal.Target.Due> {
-  internal val surrogateSerializer: KSerializer<GoalTargetDueSurrogate> by lazy {
-    GoalTargetDueSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Due", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): Goal.Target.Due =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: Goal.Target.Due) {
-    surrogateSerializer.serialize(encoder, GoalTargetDueSurrogate.fromModel(value))
-  }
-}
-
 public object GoalTargetSerializer : KSerializer<Goal.Target> {
   internal val surrogateSerializer: KSerializer<GoalTargetSurrogate> by lazy {
     GoalTargetSurrogate.serializer()
@@ -133,6 +99,40 @@ public object GoalStartSerializer : KSerializer<Goal.Start> {
 
   override fun serialize(encoder: Encoder, `value`: Goal.Start) {
     surrogateSerializer.serialize(encoder, GoalStartSurrogate.fromModel(value))
+  }
+}
+
+public object GoalTargetDetailSerializer : KSerializer<Goal.Target.Detail> {
+  internal val surrogateSerializer: KSerializer<GoalTargetDetailSurrogate> by lazy {
+    GoalTargetDetailSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Detail", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): Goal.Target.Detail =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: Goal.Target.Detail) {
+    surrogateSerializer.serialize(encoder, GoalTargetDetailSurrogate.fromModel(value))
+  }
+}
+
+public object GoalTargetDueSerializer : KSerializer<Goal.Target.Due> {
+  internal val surrogateSerializer: KSerializer<GoalTargetDueSurrogate> by lazy {
+    GoalTargetDueSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Due", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): Goal.Target.Due =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: Goal.Target.Due) {
+    surrogateSerializer.serialize(encoder, GoalTargetDueSurrogate.fromModel(value))
   }
 }
 

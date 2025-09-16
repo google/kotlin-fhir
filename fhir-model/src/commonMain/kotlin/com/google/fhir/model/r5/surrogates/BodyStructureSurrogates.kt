@@ -45,43 +45,48 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
-internal data class BodyStructureIncludedStructureBodyLandmarkOrientationDistanceFromLandmarkSurrogate(
+internal data class BodyStructureIncludedStructureSurrogate(
   public var id: String? = null,
   public var extension: MutableList<Extension>? = null,
   public var modifierExtension: MutableList<Extension>? = null,
-  public var device: MutableList<CodeableReference>? = null,
-  public var `value`: MutableList<Quantity>? = null,
+  public var structure: CodeableConcept,
+  public var laterality: CodeableConcept? = null,
+  public var bodyLandmarkOrientation:
+    MutableList<BodyStructure.IncludedStructure.BodyLandmarkOrientation>? =
+    null,
+  public var spatialReference: MutableList<Reference>? = null,
+  public var qualifier: MutableList<CodeableConcept>? = null,
 ) {
-  public fun toModel():
-    BodyStructure.IncludedStructure.BodyLandmarkOrientation.DistanceFromLandmark =
-    BodyStructure.IncludedStructure.BodyLandmarkOrientation.DistanceFromLandmark(
-      id =
-        this@BodyStructureIncludedStructureBodyLandmarkOrientationDistanceFromLandmarkSurrogate.id,
-      extension =
-        this@BodyStructureIncludedStructureBodyLandmarkOrientationDistanceFromLandmarkSurrogate
-          .extension ?: mutableListOf(),
+  public fun toModel(): BodyStructure.IncludedStructure =
+    BodyStructure.IncludedStructure(
+      id = this@BodyStructureIncludedStructureSurrogate.id,
+      extension = this@BodyStructureIncludedStructureSurrogate.extension ?: mutableListOf(),
       modifierExtension =
-        this@BodyStructureIncludedStructureBodyLandmarkOrientationDistanceFromLandmarkSurrogate
-          .modifierExtension ?: mutableListOf(),
-      device =
-        this@BodyStructureIncludedStructureBodyLandmarkOrientationDistanceFromLandmarkSurrogate
-          .device ?: mutableListOf(),
-      `value` =
-        this@BodyStructureIncludedStructureBodyLandmarkOrientationDistanceFromLandmarkSurrogate
-          .`value` ?: mutableListOf(),
+        this@BodyStructureIncludedStructureSurrogate.modifierExtension ?: mutableListOf(),
+      structure = this@BodyStructureIncludedStructureSurrogate.structure,
+      laterality = this@BodyStructureIncludedStructureSurrogate.laterality,
+      bodyLandmarkOrientation =
+        this@BodyStructureIncludedStructureSurrogate.bodyLandmarkOrientation ?: mutableListOf(),
+      spatialReference =
+        this@BodyStructureIncludedStructureSurrogate.spatialReference ?: mutableListOf(),
+      qualifier = this@BodyStructureIncludedStructureSurrogate.qualifier ?: mutableListOf(),
     )
 
   public companion object {
     public fun fromModel(
-      model: BodyStructure.IncludedStructure.BodyLandmarkOrientation.DistanceFromLandmark
-    ): BodyStructureIncludedStructureBodyLandmarkOrientationDistanceFromLandmarkSurrogate =
+      model: BodyStructure.IncludedStructure
+    ): BodyStructureIncludedStructureSurrogate =
       with(model) {
-        BodyStructureIncludedStructureBodyLandmarkOrientationDistanceFromLandmarkSurrogate(
+        BodyStructureIncludedStructureSurrogate(
           id = this@with.id,
           extension = this@with.extension.takeUnless { it.all { it == null } },
           modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          device = this@with.device.takeUnless { it.all { it == null } },
-          `value` = this@with.`value`.takeUnless { it.all { it == null } },
+          structure = this@with.structure,
+          laterality = this@with.laterality,
+          bodyLandmarkOrientation =
+            this@with.bodyLandmarkOrientation.takeUnless { it.all { it == null } },
+          spatialReference = this@with.spatialReference.takeUnless { it.all { it == null } },
+          qualifier = this@with.qualifier.takeUnless { it.all { it == null } },
         )
       }
   }
@@ -142,48 +147,43 @@ internal data class BodyStructureIncludedStructureBodyLandmarkOrientationSurroga
 }
 
 @Serializable
-internal data class BodyStructureIncludedStructureSurrogate(
+internal data class BodyStructureIncludedStructureBodyLandmarkOrientationDistanceFromLandmarkSurrogate(
   public var id: String? = null,
   public var extension: MutableList<Extension>? = null,
   public var modifierExtension: MutableList<Extension>? = null,
-  public var structure: CodeableConcept,
-  public var laterality: CodeableConcept? = null,
-  public var bodyLandmarkOrientation:
-    MutableList<BodyStructure.IncludedStructure.BodyLandmarkOrientation>? =
-    null,
-  public var spatialReference: MutableList<Reference>? = null,
-  public var qualifier: MutableList<CodeableConcept>? = null,
+  public var device: MutableList<CodeableReference>? = null,
+  public var `value`: MutableList<Quantity>? = null,
 ) {
-  public fun toModel(): BodyStructure.IncludedStructure =
-    BodyStructure.IncludedStructure(
-      id = this@BodyStructureIncludedStructureSurrogate.id,
-      extension = this@BodyStructureIncludedStructureSurrogate.extension ?: mutableListOf(),
+  public fun toModel():
+    BodyStructure.IncludedStructure.BodyLandmarkOrientation.DistanceFromLandmark =
+    BodyStructure.IncludedStructure.BodyLandmarkOrientation.DistanceFromLandmark(
+      id =
+        this@BodyStructureIncludedStructureBodyLandmarkOrientationDistanceFromLandmarkSurrogate.id,
+      extension =
+        this@BodyStructureIncludedStructureBodyLandmarkOrientationDistanceFromLandmarkSurrogate
+          .extension ?: mutableListOf(),
       modifierExtension =
-        this@BodyStructureIncludedStructureSurrogate.modifierExtension ?: mutableListOf(),
-      structure = this@BodyStructureIncludedStructureSurrogate.structure,
-      laterality = this@BodyStructureIncludedStructureSurrogate.laterality,
-      bodyLandmarkOrientation =
-        this@BodyStructureIncludedStructureSurrogate.bodyLandmarkOrientation ?: mutableListOf(),
-      spatialReference =
-        this@BodyStructureIncludedStructureSurrogate.spatialReference ?: mutableListOf(),
-      qualifier = this@BodyStructureIncludedStructureSurrogate.qualifier ?: mutableListOf(),
+        this@BodyStructureIncludedStructureBodyLandmarkOrientationDistanceFromLandmarkSurrogate
+          .modifierExtension ?: mutableListOf(),
+      device =
+        this@BodyStructureIncludedStructureBodyLandmarkOrientationDistanceFromLandmarkSurrogate
+          .device ?: mutableListOf(),
+      `value` =
+        this@BodyStructureIncludedStructureBodyLandmarkOrientationDistanceFromLandmarkSurrogate
+          .`value` ?: mutableListOf(),
     )
 
   public companion object {
     public fun fromModel(
-      model: BodyStructure.IncludedStructure
-    ): BodyStructureIncludedStructureSurrogate =
+      model: BodyStructure.IncludedStructure.BodyLandmarkOrientation.DistanceFromLandmark
+    ): BodyStructureIncludedStructureBodyLandmarkOrientationDistanceFromLandmarkSurrogate =
       with(model) {
-        BodyStructureIncludedStructureSurrogate(
+        BodyStructureIncludedStructureBodyLandmarkOrientationDistanceFromLandmarkSurrogate(
           id = this@with.id,
           extension = this@with.extension.takeUnless { it.all { it == null } },
           modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          structure = this@with.structure,
-          laterality = this@with.laterality,
-          bodyLandmarkOrientation =
-            this@with.bodyLandmarkOrientation.takeUnless { it.all { it == null } },
-          spatialReference = this@with.spatialReference.takeUnless { it.all { it == null } },
-          qualifier = this@with.qualifier.takeUnless { it.all { it == null } },
+          device = this@with.device.takeUnless { it.all { it == null } },
+          `value` = this@with.`value`.takeUnless { it.all { it == null } },
         )
       }
   }

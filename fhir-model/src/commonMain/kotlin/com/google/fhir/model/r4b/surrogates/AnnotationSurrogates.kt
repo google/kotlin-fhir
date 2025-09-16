@@ -42,7 +42,7 @@ internal data class AnnotationAuthorSurrogate(
   public var _authorString: Element? = null,
 ) {
   public fun toModel(): Annotation.Author =
-    Annotation.Author?.from(
+    Annotation.Author.from(
       this@AnnotationAuthorSurrogate.authorReference,
       R4bString.of(
         this@AnnotationAuthorSurrogate.authorString,

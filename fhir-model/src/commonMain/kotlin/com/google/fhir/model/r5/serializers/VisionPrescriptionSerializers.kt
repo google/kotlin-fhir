@@ -28,28 +28,6 @@ import kotlinx.serialization.descriptors.SerialDescriptor
 import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
 
-public object VisionPrescriptionLensSpecificationPrismSerializer :
-  KSerializer<VisionPrescription.LensSpecification.Prism> {
-  internal val surrogateSerializer:
-    KSerializer<VisionPrescriptionLensSpecificationPrismSurrogate> by lazy {
-    VisionPrescriptionLensSpecificationPrismSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Prism", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): VisionPrescription.LensSpecification.Prism =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: VisionPrescription.LensSpecification.Prism) {
-    surrogateSerializer.serialize(
-      encoder,
-      VisionPrescriptionLensSpecificationPrismSurrogate.fromModel(value),
-    )
-  }
-}
-
 public object VisionPrescriptionLensSpecificationSerializer :
   KSerializer<VisionPrescription.LensSpecification> {
   internal val surrogateSerializer:
@@ -68,6 +46,28 @@ public object VisionPrescriptionLensSpecificationSerializer :
     surrogateSerializer.serialize(
       encoder,
       VisionPrescriptionLensSpecificationSurrogate.fromModel(value),
+    )
+  }
+}
+
+public object VisionPrescriptionLensSpecificationPrismSerializer :
+  KSerializer<VisionPrescription.LensSpecification.Prism> {
+  internal val surrogateSerializer:
+    KSerializer<VisionPrescriptionLensSpecificationPrismSurrogate> by lazy {
+    VisionPrescriptionLensSpecificationPrismSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Prism", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): VisionPrescription.LensSpecification.Prism =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: VisionPrescription.LensSpecification.Prism) {
+    surrogateSerializer.serialize(
+      encoder,
+      VisionPrescriptionLensSpecificationPrismSurrogate.fromModel(value),
     )
   }
 }

@@ -90,29 +90,68 @@ internal data class PackagedProductDefinitionLegalStatusOfSupplySurrogate(
 }
 
 @Serializable
-internal data class PackagedProductDefinitionPackageShelfLifeStoragePeriodSurrogate(
-  public var periodDuration: Duration? = null,
-  public var periodString: KotlinString? = null,
-  public var _periodString: Element? = null,
+internal data class PackagedProductDefinitionPackageSurrogate(
+  public var id: KotlinString? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var identifier: MutableList<Identifier>? = null,
+  public var type: CodeableConcept? = null,
+  public var quantity: Int? = null,
+  public var _quantity: Element? = null,
+  public var material: MutableList<CodeableConcept>? = null,
+  public var alternateMaterial: MutableList<CodeableConcept>? = null,
+  public var shelfLifeStorage: MutableList<PackagedProductDefinition.Package.ShelfLifeStorage>? =
+    null,
+  public var manufacturer: MutableList<Reference>? = null,
+  public var `property`: MutableList<PackagedProductDefinition.Package.Property>? = null,
+  public var containedItem: MutableList<PackagedProductDefinition.Package.ContainedItem>? = null,
+  public var `package`: MutableList<PackagedProductDefinition.Package>? = null,
 ) {
-  public fun toModel(): PackagedProductDefinition.Package.ShelfLifeStorage.Period =
-    PackagedProductDefinition.Package.ShelfLifeStorage.Period?.from(
-      this@PackagedProductDefinitionPackageShelfLifeStoragePeriodSurrogate.periodDuration,
-      R4bString.of(
-        this@PackagedProductDefinitionPackageShelfLifeStoragePeriodSurrogate.periodString,
-        this@PackagedProductDefinitionPackageShelfLifeStoragePeriodSurrogate._periodString,
-      ),
-    )!!
+  public fun toModel(): PackagedProductDefinition.Package =
+    PackagedProductDefinition.Package(
+      id = this@PackagedProductDefinitionPackageSurrogate.id,
+      extension = this@PackagedProductDefinitionPackageSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@PackagedProductDefinitionPackageSurrogate.modifierExtension ?: mutableListOf(),
+      identifier = this@PackagedProductDefinitionPackageSurrogate.identifier ?: mutableListOf(),
+      type = this@PackagedProductDefinitionPackageSurrogate.type,
+      quantity =
+        Integer.of(
+          this@PackagedProductDefinitionPackageSurrogate.quantity,
+          this@PackagedProductDefinitionPackageSurrogate._quantity,
+        ),
+      material = this@PackagedProductDefinitionPackageSurrogate.material ?: mutableListOf(),
+      alternateMaterial =
+        this@PackagedProductDefinitionPackageSurrogate.alternateMaterial ?: mutableListOf(),
+      shelfLifeStorage =
+        this@PackagedProductDefinitionPackageSurrogate.shelfLifeStorage ?: mutableListOf(),
+      manufacturer = this@PackagedProductDefinitionPackageSurrogate.manufacturer ?: mutableListOf(),
+      `property` = this@PackagedProductDefinitionPackageSurrogate.`property` ?: mutableListOf(),
+      containedItem =
+        this@PackagedProductDefinitionPackageSurrogate.containedItem ?: mutableListOf(),
+      `package` = this@PackagedProductDefinitionPackageSurrogate.`package` ?: mutableListOf(),
+    )
 
   public companion object {
     public fun fromModel(
-      model: PackagedProductDefinition.Package.ShelfLifeStorage.Period
-    ): PackagedProductDefinitionPackageShelfLifeStoragePeriodSurrogate =
+      model: PackagedProductDefinition.Package
+    ): PackagedProductDefinitionPackageSurrogate =
       with(model) {
-        PackagedProductDefinitionPackageShelfLifeStoragePeriodSurrogate(
-          periodDuration = this@with.asDuration()?.value,
-          periodString = this@with.asString()?.value?.value,
-          _periodString = this@with.asString()?.value?.toElement(),
+        PackagedProductDefinitionPackageSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          type = this@with.type,
+          quantity = this@with.quantity?.value,
+          _quantity = this@with.quantity?.toElement(),
+          material = this@with.material.takeUnless { it.all { it == null } },
+          alternateMaterial = this@with.alternateMaterial.takeUnless { it.all { it == null } },
+          shelfLifeStorage = this@with.shelfLifeStorage.takeUnless { it.all { it == null } },
+          manufacturer = this@with.manufacturer.takeUnless { it.all { it == null } },
+          `property` = this@with.`property`.takeUnless { it.all { it == null } },
+          containedItem = this@with.containedItem.takeUnless { it.all { it == null } },
+          `package` = this@with.`package`.takeUnless { it.all { it == null } },
         )
       }
   }
@@ -155,49 +194,6 @@ internal data class PackagedProductDefinitionPackageShelfLifeStorageSurrogate(
           period = this@with.period,
           specialPrecautionsForStorage =
             this@with.specialPrecautionsForStorage.takeUnless { it.all { it == null } },
-        )
-      }
-  }
-}
-
-@Serializable
-internal data class PackagedProductDefinitionPackagePropertyValueSurrogate(
-  public var valueCodeableConcept: CodeableConcept? = null,
-  public var valueQuantity: Quantity? = null,
-  public var valueDate: KotlinString? = null,
-  public var _valueDate: Element? = null,
-  public var valueBoolean: KotlinBoolean? = null,
-  public var _valueBoolean: Element? = null,
-  public var valueAttachment: Attachment? = null,
-) {
-  public fun toModel(): PackagedProductDefinition.Package.Property.Value =
-    PackagedProductDefinition.Package.Property.Value?.from(
-      this@PackagedProductDefinitionPackagePropertyValueSurrogate.valueCodeableConcept,
-      this@PackagedProductDefinitionPackagePropertyValueSurrogate.valueQuantity,
-      Date.of(
-        FhirDate.fromString(this@PackagedProductDefinitionPackagePropertyValueSurrogate.valueDate),
-        this@PackagedProductDefinitionPackagePropertyValueSurrogate._valueDate,
-      ),
-      R4bBoolean.of(
-        this@PackagedProductDefinitionPackagePropertyValueSurrogate.valueBoolean,
-        this@PackagedProductDefinitionPackagePropertyValueSurrogate._valueBoolean,
-      ),
-      this@PackagedProductDefinitionPackagePropertyValueSurrogate.valueAttachment,
-    )!!
-
-  public companion object {
-    public fun fromModel(
-      model: PackagedProductDefinition.Package.Property.Value
-    ): PackagedProductDefinitionPackagePropertyValueSurrogate =
-      with(model) {
-        PackagedProductDefinitionPackagePropertyValueSurrogate(
-          valueCodeableConcept = this@with.asCodeableConcept()?.value,
-          valueQuantity = this@with.asQuantity()?.value,
-          valueDate = this@with.asDate()?.value?.value?.toString(),
-          _valueDate = this@with.asDate()?.value?.toElement(),
-          valueBoolean = this@with.asBoolean()?.value?.value,
-          _valueBoolean = this@with.asBoolean()?.value?.toElement(),
-          valueAttachment = this@with.asAttachment()?.value,
         )
       }
   }
@@ -275,68 +271,72 @@ internal data class PackagedProductDefinitionPackageContainedItemSurrogate(
 }
 
 @Serializable
-internal data class PackagedProductDefinitionPackageSurrogate(
-  public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var identifier: MutableList<Identifier>? = null,
-  public var type: CodeableConcept? = null,
-  public var quantity: Int? = null,
-  public var _quantity: Element? = null,
-  public var material: MutableList<CodeableConcept>? = null,
-  public var alternateMaterial: MutableList<CodeableConcept>? = null,
-  public var shelfLifeStorage: MutableList<PackagedProductDefinition.Package.ShelfLifeStorage>? =
-    null,
-  public var manufacturer: MutableList<Reference>? = null,
-  public var `property`: MutableList<PackagedProductDefinition.Package.Property>? = null,
-  public var containedItem: MutableList<PackagedProductDefinition.Package.ContainedItem>? = null,
-  public var `package`: MutableList<PackagedProductDefinition.Package>? = null,
+internal data class PackagedProductDefinitionPackageShelfLifeStoragePeriodSurrogate(
+  public var periodDuration: Duration? = null,
+  public var periodString: KotlinString? = null,
+  public var _periodString: Element? = null,
 ) {
-  public fun toModel(): PackagedProductDefinition.Package =
-    PackagedProductDefinition.Package(
-      id = this@PackagedProductDefinitionPackageSurrogate.id,
-      extension = this@PackagedProductDefinitionPackageSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@PackagedProductDefinitionPackageSurrogate.modifierExtension ?: mutableListOf(),
-      identifier = this@PackagedProductDefinitionPackageSurrogate.identifier ?: mutableListOf(),
-      type = this@PackagedProductDefinitionPackageSurrogate.type,
-      quantity =
-        Integer.of(
-          this@PackagedProductDefinitionPackageSurrogate.quantity,
-          this@PackagedProductDefinitionPackageSurrogate._quantity,
-        ),
-      material = this@PackagedProductDefinitionPackageSurrogate.material ?: mutableListOf(),
-      alternateMaterial =
-        this@PackagedProductDefinitionPackageSurrogate.alternateMaterial ?: mutableListOf(),
-      shelfLifeStorage =
-        this@PackagedProductDefinitionPackageSurrogate.shelfLifeStorage ?: mutableListOf(),
-      manufacturer = this@PackagedProductDefinitionPackageSurrogate.manufacturer ?: mutableListOf(),
-      `property` = this@PackagedProductDefinitionPackageSurrogate.`property` ?: mutableListOf(),
-      containedItem =
-        this@PackagedProductDefinitionPackageSurrogate.containedItem ?: mutableListOf(),
-      `package` = this@PackagedProductDefinitionPackageSurrogate.`package` ?: mutableListOf(),
-    )
+  public fun toModel(): PackagedProductDefinition.Package.ShelfLifeStorage.Period =
+    PackagedProductDefinition.Package.ShelfLifeStorage.Period.from(
+      this@PackagedProductDefinitionPackageShelfLifeStoragePeriodSurrogate.periodDuration,
+      R4bString.of(
+        this@PackagedProductDefinitionPackageShelfLifeStoragePeriodSurrogate.periodString,
+        this@PackagedProductDefinitionPackageShelfLifeStoragePeriodSurrogate._periodString,
+      ),
+    )!!
 
   public companion object {
     public fun fromModel(
-      model: PackagedProductDefinition.Package
-    ): PackagedProductDefinitionPackageSurrogate =
+      model: PackagedProductDefinition.Package.ShelfLifeStorage.Period
+    ): PackagedProductDefinitionPackageShelfLifeStoragePeriodSurrogate =
       with(model) {
-        PackagedProductDefinitionPackageSurrogate(
-          id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          identifier = this@with.identifier.takeUnless { it.all { it == null } },
-          type = this@with.type,
-          quantity = this@with.quantity?.value,
-          _quantity = this@with.quantity?.toElement(),
-          material = this@with.material.takeUnless { it.all { it == null } },
-          alternateMaterial = this@with.alternateMaterial.takeUnless { it.all { it == null } },
-          shelfLifeStorage = this@with.shelfLifeStorage.takeUnless { it.all { it == null } },
-          manufacturer = this@with.manufacturer.takeUnless { it.all { it == null } },
-          `property` = this@with.`property`.takeUnless { it.all { it == null } },
-          containedItem = this@with.containedItem.takeUnless { it.all { it == null } },
-          `package` = this@with.`package`.takeUnless { it.all { it == null } },
+        PackagedProductDefinitionPackageShelfLifeStoragePeriodSurrogate(
+          periodDuration = this@with.asDuration()?.value,
+          periodString = this@with.asString()?.value?.value,
+          _periodString = this@with.asString()?.value?.toElement(),
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class PackagedProductDefinitionPackagePropertyValueSurrogate(
+  public var valueCodeableConcept: CodeableConcept? = null,
+  public var valueQuantity: Quantity? = null,
+  public var valueDate: KotlinString? = null,
+  public var _valueDate: Element? = null,
+  public var valueBoolean: KotlinBoolean? = null,
+  public var _valueBoolean: Element? = null,
+  public var valueAttachment: Attachment? = null,
+) {
+  public fun toModel(): PackagedProductDefinition.Package.Property.Value =
+    PackagedProductDefinition.Package.Property.Value.from(
+      this@PackagedProductDefinitionPackagePropertyValueSurrogate.valueCodeableConcept,
+      this@PackagedProductDefinitionPackagePropertyValueSurrogate.valueQuantity,
+      Date.of(
+        FhirDate.fromString(this@PackagedProductDefinitionPackagePropertyValueSurrogate.valueDate),
+        this@PackagedProductDefinitionPackagePropertyValueSurrogate._valueDate,
+      ),
+      R4bBoolean.of(
+        this@PackagedProductDefinitionPackagePropertyValueSurrogate.valueBoolean,
+        this@PackagedProductDefinitionPackagePropertyValueSurrogate._valueBoolean,
+      ),
+      this@PackagedProductDefinitionPackagePropertyValueSurrogate.valueAttachment,
+    )!!
+
+  public companion object {
+    public fun fromModel(
+      model: PackagedProductDefinition.Package.Property.Value
+    ): PackagedProductDefinitionPackagePropertyValueSurrogate =
+      with(model) {
+        PackagedProductDefinitionPackagePropertyValueSurrogate(
+          valueCodeableConcept = this@with.asCodeableConcept()?.value,
+          valueQuantity = this@with.asQuantity()?.value,
+          valueDate = this@with.asDate()?.value?.value?.toString(),
+          _valueDate = this@with.asDate()?.value?.toElement(),
+          valueBoolean = this@with.asBoolean()?.value?.value,
+          _valueBoolean = this@with.asBoolean()?.value?.toElement(),
+          valueAttachment = this@with.asAttachment()?.value,
         )
       }
   }

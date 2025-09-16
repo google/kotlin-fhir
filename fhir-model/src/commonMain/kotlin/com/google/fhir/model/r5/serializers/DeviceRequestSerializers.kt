@@ -37,23 +37,6 @@ import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.JsonPrimitive
 import kotlinx.serialization.json.jsonObject
 
-public object DeviceRequestParameterValueSerializer : KSerializer<DeviceRequest.Parameter.Value> {
-  internal val surrogateSerializer: KSerializer<DeviceRequestParameterValueSurrogate> by lazy {
-    DeviceRequestParameterValueSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Value", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): DeviceRequest.Parameter.Value =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: DeviceRequest.Parameter.Value) {
-    surrogateSerializer.serialize(encoder, DeviceRequestParameterValueSurrogate.fromModel(value))
-  }
-}
-
 public object DeviceRequestParameterSerializer : KSerializer<DeviceRequest.Parameter> {
   internal val surrogateSerializer: KSerializer<DeviceRequestParameterSurrogate> by lazy {
     DeviceRequestParameterSurrogate.serializer()
@@ -98,6 +81,23 @@ public object DeviceRequestParameterSerializer : KSerializer<DeviceRequest.Param
       }
     val flattenedJsonObject = FhirJsonTransformer.flatten(oldJsonObject, multiChoiceProperties)
     jsonEncoder.encodeJsonElement(flattenedJsonObject)
+  }
+}
+
+public object DeviceRequestParameterValueSerializer : KSerializer<DeviceRequest.Parameter.Value> {
+  internal val surrogateSerializer: KSerializer<DeviceRequestParameterValueSurrogate> by lazy {
+    DeviceRequestParameterValueSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Value", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): DeviceRequest.Parameter.Value =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: DeviceRequest.Parameter.Value) {
+    surrogateSerializer.serialize(encoder, DeviceRequestParameterValueSurrogate.fromModel(value))
   }
 }
 

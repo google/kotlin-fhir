@@ -159,7 +159,7 @@ internal data class AllergyIntoleranceOnsetSurrogate(
   public var _onsetString: Element? = null,
 ) {
   public fun toModel(): AllergyIntolerance.Onset =
-    AllergyIntolerance.Onset?.from(
+    AllergyIntolerance.Onset.from(
       DateTime.of(
         FhirDateTime.fromString(this@AllergyIntoleranceOnsetSurrogate.onsetDateTime),
         this@AllergyIntoleranceOnsetSurrogate._onsetDateTime,

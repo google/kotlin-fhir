@@ -44,44 +44,6 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
-internal data class ClinicalUseDefinitionContraindicationOtherTherapySurrogate(
-  public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var relationshipType: CodeableConcept,
-  public var therapy: CodeableReference,
-) {
-  public fun toModel(): ClinicalUseDefinition.Contraindication.OtherTherapy =
-    ClinicalUseDefinition.Contraindication.OtherTherapy(
-      id = this@ClinicalUseDefinitionContraindicationOtherTherapySurrogate.id,
-      extension =
-        this@ClinicalUseDefinitionContraindicationOtherTherapySurrogate.extension
-          ?: mutableListOf(),
-      modifierExtension =
-        this@ClinicalUseDefinitionContraindicationOtherTherapySurrogate.modifierExtension
-          ?: mutableListOf(),
-      relationshipType =
-        this@ClinicalUseDefinitionContraindicationOtherTherapySurrogate.relationshipType,
-      therapy = this@ClinicalUseDefinitionContraindicationOtherTherapySurrogate.therapy,
-    )
-
-  public companion object {
-    public fun fromModel(
-      model: ClinicalUseDefinition.Contraindication.OtherTherapy
-    ): ClinicalUseDefinitionContraindicationOtherTherapySurrogate =
-      with(model) {
-        ClinicalUseDefinitionContraindicationOtherTherapySurrogate(
-          id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          relationshipType = this@with.relationshipType,
-          therapy = this@with.therapy,
-        )
-      }
-  }
-}
-
-@Serializable
 internal data class ClinicalUseDefinitionContraindicationSurrogate(
   public var id: KotlinString? = null,
   public var extension: MutableList<Extension>? = null,
@@ -129,29 +91,38 @@ internal data class ClinicalUseDefinitionContraindicationSurrogate(
 }
 
 @Serializable
-internal data class ClinicalUseDefinitionIndicationDurationSurrogate(
-  public var durationRange: Range? = null,
-  public var durationString: KotlinString? = null,
-  public var _durationString: Element? = null,
+internal data class ClinicalUseDefinitionContraindicationOtherTherapySurrogate(
+  public var id: KotlinString? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var relationshipType: CodeableConcept,
+  public var therapy: CodeableReference,
 ) {
-  public fun toModel(): ClinicalUseDefinition.Indication.Duration =
-    ClinicalUseDefinition.Indication.Duration?.from(
-      this@ClinicalUseDefinitionIndicationDurationSurrogate.durationRange,
-      R4bString.of(
-        this@ClinicalUseDefinitionIndicationDurationSurrogate.durationString,
-        this@ClinicalUseDefinitionIndicationDurationSurrogate._durationString,
-      ),
-    )!!
+  public fun toModel(): ClinicalUseDefinition.Contraindication.OtherTherapy =
+    ClinicalUseDefinition.Contraindication.OtherTherapy(
+      id = this@ClinicalUseDefinitionContraindicationOtherTherapySurrogate.id,
+      extension =
+        this@ClinicalUseDefinitionContraindicationOtherTherapySurrogate.extension
+          ?: mutableListOf(),
+      modifierExtension =
+        this@ClinicalUseDefinitionContraindicationOtherTherapySurrogate.modifierExtension
+          ?: mutableListOf(),
+      relationshipType =
+        this@ClinicalUseDefinitionContraindicationOtherTherapySurrogate.relationshipType,
+      therapy = this@ClinicalUseDefinitionContraindicationOtherTherapySurrogate.therapy,
+    )
 
   public companion object {
     public fun fromModel(
-      model: ClinicalUseDefinition.Indication.Duration
-    ): ClinicalUseDefinitionIndicationDurationSurrogate =
+      model: ClinicalUseDefinition.Contraindication.OtherTherapy
+    ): ClinicalUseDefinitionContraindicationOtherTherapySurrogate =
       with(model) {
-        ClinicalUseDefinitionIndicationDurationSurrogate(
-          durationRange = this@with.asRange()?.value,
-          durationString = this@with.asString()?.value?.value,
-          _durationString = this@with.asString()?.value?.toElement(),
+        ClinicalUseDefinitionContraindicationOtherTherapySurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          relationshipType = this@with.relationshipType,
+          therapy = this@with.therapy,
         )
       }
   }
@@ -209,63 +180,6 @@ internal data class ClinicalUseDefinitionIndicationSurrogate(
 }
 
 @Serializable
-internal data class ClinicalUseDefinitionInteractionInteractantItemSurrogate(
-  public var itemReference: Reference? = null,
-  public var itemCodeableConcept: CodeableConcept? = null,
-) {
-  public fun toModel(): ClinicalUseDefinition.Interaction.Interactant.Item =
-    ClinicalUseDefinition.Interaction.Interactant.Item.from(
-      this@ClinicalUseDefinitionInteractionInteractantItemSurrogate.itemReference,
-      this@ClinicalUseDefinitionInteractionInteractantItemSurrogate.itemCodeableConcept,
-    )!! !!
-
-  public companion object {
-    public fun fromModel(
-      model: ClinicalUseDefinition.Interaction.Interactant.Item
-    ): ClinicalUseDefinitionInteractionInteractantItemSurrogate =
-      with(model) {
-        ClinicalUseDefinitionInteractionInteractantItemSurrogate(
-          itemReference = this@with.asReference()?.value,
-          itemCodeableConcept = this@with.asCodeableConcept()?.value,
-        )
-      }
-  }
-}
-
-@Serializable
-internal data class ClinicalUseDefinitionInteractionInteractantSurrogate(
-  public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var item: ClinicalUseDefinition.Interaction.Interactant.Item,
-) {
-  public fun toModel(): ClinicalUseDefinition.Interaction.Interactant =
-    ClinicalUseDefinition.Interaction.Interactant(
-      id = this@ClinicalUseDefinitionInteractionInteractantSurrogate.id,
-      extension =
-        this@ClinicalUseDefinitionInteractionInteractantSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@ClinicalUseDefinitionInteractionInteractantSurrogate.modifierExtension
-          ?: mutableListOf(),
-      item = this@ClinicalUseDefinitionInteractionInteractantSurrogate.item,
-    )
-
-  public companion object {
-    public fun fromModel(
-      model: ClinicalUseDefinition.Interaction.Interactant
-    ): ClinicalUseDefinitionInteractionInteractantSurrogate =
-      with(model) {
-        ClinicalUseDefinitionInteractionInteractantSurrogate(
-          id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          item = this@with.item,
-        )
-      }
-  }
-}
-
-@Serializable
 internal data class ClinicalUseDefinitionInteractionSurrogate(
   public var id: KotlinString? = null,
   public var extension: MutableList<Extension>? = null,
@@ -303,6 +217,39 @@ internal data class ClinicalUseDefinitionInteractionSurrogate(
           effect = this@with.effect,
           incidence = this@with.incidence,
           management = this@with.management.takeUnless { it.all { it == null } },
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class ClinicalUseDefinitionInteractionInteractantSurrogate(
+  public var id: KotlinString? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var item: ClinicalUseDefinition.Interaction.Interactant.Item,
+) {
+  public fun toModel(): ClinicalUseDefinition.Interaction.Interactant =
+    ClinicalUseDefinition.Interaction.Interactant(
+      id = this@ClinicalUseDefinitionInteractionInteractantSurrogate.id,
+      extension =
+        this@ClinicalUseDefinitionInteractionInteractantSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@ClinicalUseDefinitionInteractionInteractantSurrogate.modifierExtension
+          ?: mutableListOf(),
+      item = this@ClinicalUseDefinitionInteractionInteractantSurrogate.item,
+    )
+
+  public companion object {
+    public fun fromModel(
+      model: ClinicalUseDefinition.Interaction.Interactant
+    ): ClinicalUseDefinitionInteractionInteractantSurrogate =
+      with(model) {
+        ClinicalUseDefinitionInteractionInteractantSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          item = this@with.item,
         )
       }
   }
@@ -382,6 +329,59 @@ internal data class ClinicalUseDefinitionWarningSurrogate(
           description = this@with.description?.value,
           _description = this@with.description?.toElement(),
           code = this@with.code,
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class ClinicalUseDefinitionIndicationDurationSurrogate(
+  public var durationRange: Range? = null,
+  public var durationString: KotlinString? = null,
+  public var _durationString: Element? = null,
+) {
+  public fun toModel(): ClinicalUseDefinition.Indication.Duration =
+    ClinicalUseDefinition.Indication.Duration.from(
+      this@ClinicalUseDefinitionIndicationDurationSurrogate.durationRange,
+      R4bString.of(
+        this@ClinicalUseDefinitionIndicationDurationSurrogate.durationString,
+        this@ClinicalUseDefinitionIndicationDurationSurrogate._durationString,
+      ),
+    )!!
+
+  public companion object {
+    public fun fromModel(
+      model: ClinicalUseDefinition.Indication.Duration
+    ): ClinicalUseDefinitionIndicationDurationSurrogate =
+      with(model) {
+        ClinicalUseDefinitionIndicationDurationSurrogate(
+          durationRange = this@with.asRange()?.value,
+          durationString = this@with.asString()?.value?.value,
+          _durationString = this@with.asString()?.value?.toElement(),
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class ClinicalUseDefinitionInteractionInteractantItemSurrogate(
+  public var itemReference: Reference? = null,
+  public var itemCodeableConcept: CodeableConcept? = null,
+) {
+  public fun toModel(): ClinicalUseDefinition.Interaction.Interactant.Item =
+    ClinicalUseDefinition.Interaction.Interactant.Item.from(
+      this@ClinicalUseDefinitionInteractionInteractantItemSurrogate.itemReference,
+      this@ClinicalUseDefinitionInteractionInteractantItemSurrogate.itemCodeableConcept,
+    )!! !!
+
+  public companion object {
+    public fun fromModel(
+      model: ClinicalUseDefinition.Interaction.Interactant.Item
+    ): ClinicalUseDefinitionInteractionInteractantItemSurrogate =
+      with(model) {
+        ClinicalUseDefinitionInteractionInteractantItemSurrogate(
+          itemReference = this@with.asReference()?.value,
+          itemCodeableConcept = this@with.asCodeableConcept()?.value,
         )
       }
   }

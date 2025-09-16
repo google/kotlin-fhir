@@ -22,7 +22,6 @@ import com.google.fhir.codegen.schema.Type
 import com.google.fhir.codegen.schema.backboneElements
 import com.google.fhir.codegen.schema.capitalized
 import com.google.fhir.codegen.schema.getElementName
-import com.google.fhir.codegen.schema.getElements
 import com.google.fhir.codegen.schema.getEnumerationTypeName
 import com.google.fhir.codegen.schema.getTypeName
 import com.google.fhir.codegen.schema.getValueSetUrl
@@ -286,10 +285,7 @@ class ModelFileSpecGenerator(val codegenContext: CodegenContext) {
               valueSetMap,
               createEnumNameToTypeSpecEntry,
             )
-            .addSealedInterfaces(
-              backboneElementClassName,
-              structureDefinition.getElements(backboneElementClassName),
-            )
+            .addSealedInterfaces(backboneElementClassName, elements)
             .build()
         )
       }

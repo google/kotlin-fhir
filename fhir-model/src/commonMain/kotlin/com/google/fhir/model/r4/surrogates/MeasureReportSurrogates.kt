@@ -47,6 +47,43 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
+internal data class MeasureReportGroupSurrogate(
+  public var id: String? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var code: CodeableConcept? = null,
+  public var population: MutableList<MeasureReport.Group.Population>? = null,
+  public var measureScore: Quantity? = null,
+  public var stratifier: MutableList<MeasureReport.Group.Stratifier>? = null,
+) {
+  public fun toModel(): MeasureReport.Group =
+    MeasureReport.Group(
+      id = this@MeasureReportGroupSurrogate.id,
+      extension = this@MeasureReportGroupSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@MeasureReportGroupSurrogate.modifierExtension ?: mutableListOf(),
+      code = this@MeasureReportGroupSurrogate.code,
+      population = this@MeasureReportGroupSurrogate.population ?: mutableListOf(),
+      measureScore = this@MeasureReportGroupSurrogate.measureScore,
+      stratifier = this@MeasureReportGroupSurrogate.stratifier ?: mutableListOf(),
+    )
+
+  public companion object {
+    public fun fromModel(model: MeasureReport.Group): MeasureReportGroupSurrogate =
+      with(model) {
+        MeasureReportGroupSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          code = this@with.code,
+          population = this@with.population.takeUnless { it.all { it == null } },
+          measureScore = this@with.measureScore,
+          stratifier = this@with.stratifier.takeUnless { it.all { it == null } },
+        )
+      }
+  }
+}
+
+@Serializable
 internal data class MeasureReportGroupPopulationSurrogate(
   public var id: String? = null,
   public var extension: MutableList<Extension>? = null,
@@ -84,6 +121,80 @@ internal data class MeasureReportGroupPopulationSurrogate(
           count = this@with.count?.value,
           _count = this@with.count?.toElement(),
           subjectResults = this@with.subjectResults,
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class MeasureReportGroupStratifierSurrogate(
+  public var id: String? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var code: MutableList<CodeableConcept>? = null,
+  public var stratum: MutableList<MeasureReport.Group.Stratifier.Stratum>? = null,
+) {
+  public fun toModel(): MeasureReport.Group.Stratifier =
+    MeasureReport.Group.Stratifier(
+      id = this@MeasureReportGroupStratifierSurrogate.id,
+      extension = this@MeasureReportGroupStratifierSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@MeasureReportGroupStratifierSurrogate.modifierExtension ?: mutableListOf(),
+      code = this@MeasureReportGroupStratifierSurrogate.code ?: mutableListOf(),
+      stratum = this@MeasureReportGroupStratifierSurrogate.stratum ?: mutableListOf(),
+    )
+
+  public companion object {
+    public fun fromModel(
+      model: MeasureReport.Group.Stratifier
+    ): MeasureReportGroupStratifierSurrogate =
+      with(model) {
+        MeasureReportGroupStratifierSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          code = this@with.code.takeUnless { it.all { it == null } },
+          stratum = this@with.stratum.takeUnless { it.all { it == null } },
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class MeasureReportGroupStratifierStratumSurrogate(
+  public var id: String? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var `value`: CodeableConcept? = null,
+  public var component: MutableList<MeasureReport.Group.Stratifier.Stratum.Component>? = null,
+  public var population: MutableList<MeasureReport.Group.Stratifier.Stratum.Population>? = null,
+  public var measureScore: Quantity? = null,
+) {
+  public fun toModel(): MeasureReport.Group.Stratifier.Stratum =
+    MeasureReport.Group.Stratifier.Stratum(
+      id = this@MeasureReportGroupStratifierStratumSurrogate.id,
+      extension = this@MeasureReportGroupStratifierStratumSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@MeasureReportGroupStratifierStratumSurrogate.modifierExtension ?: mutableListOf(),
+      `value` = this@MeasureReportGroupStratifierStratumSurrogate.`value`,
+      component = this@MeasureReportGroupStratifierStratumSurrogate.component ?: mutableListOf(),
+      population = this@MeasureReportGroupStratifierStratumSurrogate.population ?: mutableListOf(),
+      measureScore = this@MeasureReportGroupStratifierStratumSurrogate.measureScore,
+    )
+
+  public companion object {
+    public fun fromModel(
+      model: MeasureReport.Group.Stratifier.Stratum
+    ): MeasureReportGroupStratifierStratumSurrogate =
+      with(model) {
+        MeasureReportGroupStratifierStratumSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          `value` = this@with.`value`,
+          component = this@with.component.takeUnless { it.all { it == null } },
+          population = this@with.population.takeUnless { it.all { it == null } },
+          measureScore = this@with.measureScore,
         )
       }
   }
@@ -165,117 +276,6 @@ internal data class MeasureReportGroupStratifierStratumPopulationSurrogate(
           count = this@with.count?.value,
           _count = this@with.count?.toElement(),
           subjectResults = this@with.subjectResults,
-        )
-      }
-  }
-}
-
-@Serializable
-internal data class MeasureReportGroupStratifierStratumSurrogate(
-  public var id: String? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var `value`: CodeableConcept? = null,
-  public var component: MutableList<MeasureReport.Group.Stratifier.Stratum.Component>? = null,
-  public var population: MutableList<MeasureReport.Group.Stratifier.Stratum.Population>? = null,
-  public var measureScore: Quantity? = null,
-) {
-  public fun toModel(): MeasureReport.Group.Stratifier.Stratum =
-    MeasureReport.Group.Stratifier.Stratum(
-      id = this@MeasureReportGroupStratifierStratumSurrogate.id,
-      extension = this@MeasureReportGroupStratifierStratumSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@MeasureReportGroupStratifierStratumSurrogate.modifierExtension ?: mutableListOf(),
-      `value` = this@MeasureReportGroupStratifierStratumSurrogate.`value`,
-      component = this@MeasureReportGroupStratifierStratumSurrogate.component ?: mutableListOf(),
-      population = this@MeasureReportGroupStratifierStratumSurrogate.population ?: mutableListOf(),
-      measureScore = this@MeasureReportGroupStratifierStratumSurrogate.measureScore,
-    )
-
-  public companion object {
-    public fun fromModel(
-      model: MeasureReport.Group.Stratifier.Stratum
-    ): MeasureReportGroupStratifierStratumSurrogate =
-      with(model) {
-        MeasureReportGroupStratifierStratumSurrogate(
-          id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          `value` = this@with.`value`,
-          component = this@with.component.takeUnless { it.all { it == null } },
-          population = this@with.population.takeUnless { it.all { it == null } },
-          measureScore = this@with.measureScore,
-        )
-      }
-  }
-}
-
-@Serializable
-internal data class MeasureReportGroupStratifierSurrogate(
-  public var id: String? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var code: MutableList<CodeableConcept>? = null,
-  public var stratum: MutableList<MeasureReport.Group.Stratifier.Stratum>? = null,
-) {
-  public fun toModel(): MeasureReport.Group.Stratifier =
-    MeasureReport.Group.Stratifier(
-      id = this@MeasureReportGroupStratifierSurrogate.id,
-      extension = this@MeasureReportGroupStratifierSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@MeasureReportGroupStratifierSurrogate.modifierExtension ?: mutableListOf(),
-      code = this@MeasureReportGroupStratifierSurrogate.code ?: mutableListOf(),
-      stratum = this@MeasureReportGroupStratifierSurrogate.stratum ?: mutableListOf(),
-    )
-
-  public companion object {
-    public fun fromModel(
-      model: MeasureReport.Group.Stratifier
-    ): MeasureReportGroupStratifierSurrogate =
-      with(model) {
-        MeasureReportGroupStratifierSurrogate(
-          id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          code = this@with.code.takeUnless { it.all { it == null } },
-          stratum = this@with.stratum.takeUnless { it.all { it == null } },
-        )
-      }
-  }
-}
-
-@Serializable
-internal data class MeasureReportGroupSurrogate(
-  public var id: String? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var code: CodeableConcept? = null,
-  public var population: MutableList<MeasureReport.Group.Population>? = null,
-  public var measureScore: Quantity? = null,
-  public var stratifier: MutableList<MeasureReport.Group.Stratifier>? = null,
-) {
-  public fun toModel(): MeasureReport.Group =
-    MeasureReport.Group(
-      id = this@MeasureReportGroupSurrogate.id,
-      extension = this@MeasureReportGroupSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@MeasureReportGroupSurrogate.modifierExtension ?: mutableListOf(),
-      code = this@MeasureReportGroupSurrogate.code,
-      population = this@MeasureReportGroupSurrogate.population ?: mutableListOf(),
-      measureScore = this@MeasureReportGroupSurrogate.measureScore,
-      stratifier = this@MeasureReportGroupSurrogate.stratifier ?: mutableListOf(),
-    )
-
-  public companion object {
-    public fun fromModel(model: MeasureReport.Group): MeasureReportGroupSurrogate =
-      with(model) {
-        MeasureReportGroupSurrogate(
-          id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          code = this@with.code,
-          population = this@with.population.takeUnless { it.all { it == null } },
-          measureScore = this@with.measureScore,
-          stratifier = this@with.stratifier.takeUnless { it.all { it == null } },
         )
       }
   }

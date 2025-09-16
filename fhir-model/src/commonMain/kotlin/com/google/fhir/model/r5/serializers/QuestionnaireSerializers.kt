@@ -42,25 +42,20 @@ import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.JsonPrimitive
 import kotlinx.serialization.json.jsonObject
 
-public object QuestionnaireItemEnableWhenAnswerSerializer :
-  KSerializer<Questionnaire.Item.EnableWhen.Answer> {
-  internal val surrogateSerializer:
-    KSerializer<QuestionnaireItemEnableWhenAnswerSurrogate> by lazy {
-    QuestionnaireItemEnableWhenAnswerSurrogate.serializer()
+public object QuestionnaireItemSerializer : KSerializer<Questionnaire.Item> {
+  internal val surrogateSerializer: KSerializer<QuestionnaireItemSurrogate> by lazy {
+    QuestionnaireItemSurrogate.serializer()
   }
 
   override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Answer", surrogateSerializer.descriptor)
+    SerialDescriptor("Item", surrogateSerializer.descriptor)
   }
 
-  override fun deserialize(decoder: Decoder): Questionnaire.Item.EnableWhen.Answer =
+  override fun deserialize(decoder: Decoder): Questionnaire.Item =
     surrogateSerializer.deserialize(decoder).toModel()
 
-  override fun serialize(encoder: Encoder, `value`: Questionnaire.Item.EnableWhen.Answer) {
-    surrogateSerializer.serialize(
-      encoder,
-      QuestionnaireItemEnableWhenAnswerSurrogate.fromModel(value),
-    )
+  override fun serialize(encoder: Encoder, `value`: Questionnaire.Item) {
+    surrogateSerializer.serialize(encoder, QuestionnaireItemSurrogate.fromModel(value))
   }
 }
 
@@ -108,28 +103,6 @@ public object QuestionnaireItemEnableWhenSerializer : KSerializer<Questionnaire.
       }
     val flattenedJsonObject = FhirJsonTransformer.flatten(oldJsonObject, multiChoiceProperties)
     jsonEncoder.encodeJsonElement(flattenedJsonObject)
-  }
-}
-
-public object QuestionnaireItemAnswerOptionValueSerializer :
-  KSerializer<Questionnaire.Item.AnswerOption.Value> {
-  internal val surrogateSerializer:
-    KSerializer<QuestionnaireItemAnswerOptionValueSurrogate> by lazy {
-    QuestionnaireItemAnswerOptionValueSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Value", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): Questionnaire.Item.AnswerOption.Value =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: Questionnaire.Item.AnswerOption.Value) {
-    surrogateSerializer.serialize(
-      encoder,
-      QuestionnaireItemAnswerOptionValueSurrogate.fromModel(value),
-    )
   }
 }
 
@@ -181,24 +154,6 @@ public object QuestionnaireItemAnswerOptionSerializer :
   }
 }
 
-public object QuestionnaireItemInitialValueSerializer :
-  KSerializer<Questionnaire.Item.Initial.Value> {
-  internal val surrogateSerializer: KSerializer<QuestionnaireItemInitialValueSurrogate> by lazy {
-    QuestionnaireItemInitialValueSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Value", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): Questionnaire.Item.Initial.Value =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: Questionnaire.Item.Initial.Value) {
-    surrogateSerializer.serialize(encoder, QuestionnaireItemInitialValueSurrogate.fromModel(value))
-  }
-}
-
 public object QuestionnaireItemInitialSerializer : KSerializer<Questionnaire.Item.Initial> {
   internal val surrogateSerializer: KSerializer<QuestionnaireItemInitialSurrogate> by lazy {
     QuestionnaireItemInitialSurrogate.serializer()
@@ -246,23 +201,6 @@ public object QuestionnaireItemInitialSerializer : KSerializer<Questionnaire.Ite
   }
 }
 
-public object QuestionnaireItemSerializer : KSerializer<Questionnaire.Item> {
-  internal val surrogateSerializer: KSerializer<QuestionnaireItemSurrogate> by lazy {
-    QuestionnaireItemSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Item", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): Questionnaire.Item =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: Questionnaire.Item) {
-    surrogateSerializer.serialize(encoder, QuestionnaireItemSurrogate.fromModel(value))
-  }
-}
-
 public object QuestionnaireVersionAlgorithmSerializer :
   KSerializer<Questionnaire.VersionAlgorithm> {
   internal val surrogateSerializer: KSerializer<QuestionnaireVersionAlgorithmSurrogate> by lazy {
@@ -278,6 +216,68 @@ public object QuestionnaireVersionAlgorithmSerializer :
 
   override fun serialize(encoder: Encoder, `value`: Questionnaire.VersionAlgorithm) {
     surrogateSerializer.serialize(encoder, QuestionnaireVersionAlgorithmSurrogate.fromModel(value))
+  }
+}
+
+public object QuestionnaireItemEnableWhenAnswerSerializer :
+  KSerializer<Questionnaire.Item.EnableWhen.Answer> {
+  internal val surrogateSerializer:
+    KSerializer<QuestionnaireItemEnableWhenAnswerSurrogate> by lazy {
+    QuestionnaireItemEnableWhenAnswerSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Answer", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): Questionnaire.Item.EnableWhen.Answer =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: Questionnaire.Item.EnableWhen.Answer) {
+    surrogateSerializer.serialize(
+      encoder,
+      QuestionnaireItemEnableWhenAnswerSurrogate.fromModel(value),
+    )
+  }
+}
+
+public object QuestionnaireItemAnswerOptionValueSerializer :
+  KSerializer<Questionnaire.Item.AnswerOption.Value> {
+  internal val surrogateSerializer:
+    KSerializer<QuestionnaireItemAnswerOptionValueSurrogate> by lazy {
+    QuestionnaireItemAnswerOptionValueSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Value", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): Questionnaire.Item.AnswerOption.Value =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: Questionnaire.Item.AnswerOption.Value) {
+    surrogateSerializer.serialize(
+      encoder,
+      QuestionnaireItemAnswerOptionValueSurrogate.fromModel(value),
+    )
+  }
+}
+
+public object QuestionnaireItemInitialValueSerializer :
+  KSerializer<Questionnaire.Item.Initial.Value> {
+  internal val surrogateSerializer: KSerializer<QuestionnaireItemInitialValueSurrogate> by lazy {
+    QuestionnaireItemInitialValueSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Value", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): Questionnaire.Item.Initial.Value =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: Questionnaire.Item.Initial.Value) {
+    surrogateSerializer.serialize(encoder, QuestionnaireItemInitialValueSurrogate.fromModel(value))
   }
 }
 

@@ -92,50 +92,6 @@ public object ImmunizationReactionSerializer : KSerializer<Immunization.Reaction
   }
 }
 
-public object ImmunizationProtocolAppliedDoseNumberSerializer :
-  KSerializer<Immunization.ProtocolApplied.DoseNumber> {
-  internal val surrogateSerializer:
-    KSerializer<ImmunizationProtocolAppliedDoseNumberSurrogate> by lazy {
-    ImmunizationProtocolAppliedDoseNumberSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("DoseNumber", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): Immunization.ProtocolApplied.DoseNumber =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: Immunization.ProtocolApplied.DoseNumber) {
-    surrogateSerializer.serialize(
-      encoder,
-      ImmunizationProtocolAppliedDoseNumberSurrogate.fromModel(value),
-    )
-  }
-}
-
-public object ImmunizationProtocolAppliedSeriesDosesSerializer :
-  KSerializer<Immunization.ProtocolApplied.SeriesDoses> {
-  internal val surrogateSerializer:
-    KSerializer<ImmunizationProtocolAppliedSeriesDosesSurrogate> by lazy {
-    ImmunizationProtocolAppliedSeriesDosesSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("SeriesDoses", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): Immunization.ProtocolApplied.SeriesDoses =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: Immunization.ProtocolApplied.SeriesDoses) {
-    surrogateSerializer.serialize(
-      encoder,
-      ImmunizationProtocolAppliedSeriesDosesSurrogate.fromModel(value),
-    )
-  }
-}
-
 public object ImmunizationProtocolAppliedSerializer : KSerializer<Immunization.ProtocolApplied> {
   internal val surrogateSerializer: KSerializer<ImmunizationProtocolAppliedSurrogate> by lazy {
     ImmunizationProtocolAppliedSurrogate.serializer()
@@ -197,6 +153,50 @@ public object ImmunizationOccurrenceSerializer : KSerializer<Immunization.Occurr
 
   override fun serialize(encoder: Encoder, `value`: Immunization.Occurrence) {
     surrogateSerializer.serialize(encoder, ImmunizationOccurrenceSurrogate.fromModel(value))
+  }
+}
+
+public object ImmunizationProtocolAppliedDoseNumberSerializer :
+  KSerializer<Immunization.ProtocolApplied.DoseNumber> {
+  internal val surrogateSerializer:
+    KSerializer<ImmunizationProtocolAppliedDoseNumberSurrogate> by lazy {
+    ImmunizationProtocolAppliedDoseNumberSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("DoseNumber", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): Immunization.ProtocolApplied.DoseNumber =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: Immunization.ProtocolApplied.DoseNumber) {
+    surrogateSerializer.serialize(
+      encoder,
+      ImmunizationProtocolAppliedDoseNumberSurrogate.fromModel(value),
+    )
+  }
+}
+
+public object ImmunizationProtocolAppliedSeriesDosesSerializer :
+  KSerializer<Immunization.ProtocolApplied.SeriesDoses> {
+  internal val surrogateSerializer:
+    KSerializer<ImmunizationProtocolAppliedSeriesDosesSurrogate> by lazy {
+    ImmunizationProtocolAppliedSeriesDosesSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("SeriesDoses", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): Immunization.ProtocolApplied.SeriesDoses =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: Immunization.ProtocolApplied.SeriesDoses) {
+    surrogateSerializer.serialize(
+      encoder,
+      ImmunizationProtocolAppliedSeriesDosesSurrogate.fromModel(value),
+    )
   }
 }
 

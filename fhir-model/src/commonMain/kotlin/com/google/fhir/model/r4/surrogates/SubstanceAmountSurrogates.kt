@@ -72,7 +72,7 @@ internal data class SubstanceAmountAmountSurrogate(
   public var _amountString: Element? = null,
 ) {
   public fun toModel(): SubstanceAmount.Amount =
-    SubstanceAmount.Amount?.from(
+    SubstanceAmount.Amount.from(
       this@SubstanceAmountAmountSurrogate.amountQuantity,
       this@SubstanceAmountAmountSurrogate.amountRange,
       R4String.of(

@@ -56,23 +56,6 @@ public object ObservationReferenceRangeSerializer : KSerializer<Observation.Refe
   }
 }
 
-public object ObservationComponentValueSerializer : KSerializer<Observation.Component.Value> {
-  internal val surrogateSerializer: KSerializer<ObservationComponentValueSurrogate> by lazy {
-    ObservationComponentValueSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Value", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): Observation.Component.Value =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: Observation.Component.Value) {
-    surrogateSerializer.serialize(encoder, ObservationComponentValueSurrogate.fromModel(value))
-  }
-}
-
 public object ObservationComponentSerializer : KSerializer<Observation.Component> {
   internal val surrogateSerializer: KSerializer<ObservationComponentSurrogate> by lazy {
     ObservationComponentSurrogate.serializer()
@@ -151,6 +134,23 @@ public object ObservationValueSerializer : KSerializer<Observation.Value> {
 
   override fun serialize(encoder: Encoder, `value`: Observation.Value) {
     surrogateSerializer.serialize(encoder, ObservationValueSurrogate.fromModel(value))
+  }
+}
+
+public object ObservationComponentValueSerializer : KSerializer<Observation.Component.Value> {
+  internal val surrogateSerializer: KSerializer<ObservationComponentValueSurrogate> by lazy {
+    ObservationComponentValueSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Value", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): Observation.Component.Value =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: Observation.Component.Value) {
+    surrogateSerializer.serialize(encoder, ObservationComponentValueSurrogate.fromModel(value))
   }
 }
 

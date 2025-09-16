@@ -44,6 +44,46 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
+internal data class MedicinalProductNameSurrogate(
+  public var id: KotlinString? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var productName: KotlinString? = null,
+  public var _productName: Element? = null,
+  public var namePart: MutableList<MedicinalProduct.Name.NamePart>? = null,
+  public var countryLanguage: MutableList<MedicinalProduct.Name.CountryLanguage>? = null,
+) {
+  public fun toModel(): MedicinalProduct.Name =
+    MedicinalProduct.Name(
+      id = this@MedicinalProductNameSurrogate.id,
+      extension = this@MedicinalProductNameSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@MedicinalProductNameSurrogate.modifierExtension ?: mutableListOf(),
+      productName =
+        R4String.of(
+          this@MedicinalProductNameSurrogate.productName,
+          this@MedicinalProductNameSurrogate._productName,
+        )!!,
+      namePart = this@MedicinalProductNameSurrogate.namePart ?: mutableListOf(),
+      countryLanguage = this@MedicinalProductNameSurrogate.countryLanguage ?: mutableListOf(),
+    )
+
+  public companion object {
+    public fun fromModel(model: MedicinalProduct.Name): MedicinalProductNameSurrogate =
+      with(model) {
+        MedicinalProductNameSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          productName = this@with.productName.value,
+          _productName = this@with.productName.toElement(),
+          namePart = this@with.namePart.takeUnless { it.all { it == null } },
+          countryLanguage = this@with.countryLanguage.takeUnless { it.all { it == null } },
+        )
+      }
+  }
+}
+
+@Serializable
 internal data class MedicinalProductNameNamePartSurrogate(
   public var id: KotlinString? = null,
   public var extension: MutableList<Extension>? = null,
@@ -121,46 +161,6 @@ internal data class MedicinalProductNameCountryLanguageSurrogate(
 }
 
 @Serializable
-internal data class MedicinalProductNameSurrogate(
-  public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var productName: KotlinString? = null,
-  public var _productName: Element? = null,
-  public var namePart: MutableList<MedicinalProduct.Name.NamePart>? = null,
-  public var countryLanguage: MutableList<MedicinalProduct.Name.CountryLanguage>? = null,
-) {
-  public fun toModel(): MedicinalProduct.Name =
-    MedicinalProduct.Name(
-      id = this@MedicinalProductNameSurrogate.id,
-      extension = this@MedicinalProductNameSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@MedicinalProductNameSurrogate.modifierExtension ?: mutableListOf(),
-      productName =
-        R4String.of(
-          this@MedicinalProductNameSurrogate.productName,
-          this@MedicinalProductNameSurrogate._productName,
-        )!!,
-      namePart = this@MedicinalProductNameSurrogate.namePart ?: mutableListOf(),
-      countryLanguage = this@MedicinalProductNameSurrogate.countryLanguage ?: mutableListOf(),
-    )
-
-  public companion object {
-    public fun fromModel(model: MedicinalProduct.Name): MedicinalProductNameSurrogate =
-      with(model) {
-        MedicinalProductNameSurrogate(
-          id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          productName = this@with.productName.value,
-          _productName = this@with.productName.toElement(),
-          namePart = this@with.namePart.takeUnless { it.all { it == null } },
-          countryLanguage = this@with.countryLanguage.takeUnless { it.all { it == null } },
-        )
-      }
-  }
-}
-
-@Serializable
 internal data class MedicinalProductManufacturingBusinessOperationSurrogate(
   public var id: KotlinString? = null,
   public var extension: MutableList<Extension>? = null,
@@ -221,30 +221,6 @@ internal data class MedicinalProductManufacturingBusinessOperationSurrogate(
 }
 
 @Serializable
-internal data class MedicinalProductSpecialDesignationIndicationSurrogate(
-  public var indicationCodeableConcept: CodeableConcept? = null,
-  public var indicationReference: Reference? = null,
-) {
-  public fun toModel(): MedicinalProduct.SpecialDesignation.Indication =
-    MedicinalProduct.SpecialDesignation.Indication?.from(
-      this@MedicinalProductSpecialDesignationIndicationSurrogate.indicationCodeableConcept,
-      this@MedicinalProductSpecialDesignationIndicationSurrogate.indicationReference,
-    )!!
-
-  public companion object {
-    public fun fromModel(
-      model: MedicinalProduct.SpecialDesignation.Indication
-    ): MedicinalProductSpecialDesignationIndicationSurrogate =
-      with(model) {
-        MedicinalProductSpecialDesignationIndicationSurrogate(
-          indicationCodeableConcept = this@with.asCodeableConcept()?.value,
-          indicationReference = this@with.asReference()?.value,
-        )
-      }
-  }
-}
-
-@Serializable
 internal data class MedicinalProductSpecialDesignationSurrogate(
   public var id: KotlinString? = null,
   public var extension: MutableList<Extension>? = null,
@@ -294,6 +270,30 @@ internal data class MedicinalProductSpecialDesignationSurrogate(
           date = this@with.date?.value?.toString(),
           _date = this@with.date?.toElement(),
           species = this@with.species,
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class MedicinalProductSpecialDesignationIndicationSurrogate(
+  public var indicationCodeableConcept: CodeableConcept? = null,
+  public var indicationReference: Reference? = null,
+) {
+  public fun toModel(): MedicinalProduct.SpecialDesignation.Indication =
+    MedicinalProduct.SpecialDesignation.Indication.from(
+      this@MedicinalProductSpecialDesignationIndicationSurrogate.indicationCodeableConcept,
+      this@MedicinalProductSpecialDesignationIndicationSurrogate.indicationReference,
+    )!!
+
+  public companion object {
+    public fun fromModel(
+      model: MedicinalProduct.SpecialDesignation.Indication
+    ): MedicinalProductSpecialDesignationIndicationSurrogate =
+      with(model) {
+        MedicinalProductSpecialDesignationIndicationSurrogate(
+          indicationCodeableConcept = this@with.asCodeableConcept()?.value,
+          indicationReference = this@with.asReference()?.value,
         )
       }
   }

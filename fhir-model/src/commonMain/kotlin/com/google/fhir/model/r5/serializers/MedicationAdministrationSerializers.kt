@@ -60,28 +60,6 @@ public object MedicationAdministrationPerformerSerializer :
   }
 }
 
-public object MedicationAdministrationDosageRateSerializer :
-  KSerializer<MedicationAdministration.Dosage.Rate> {
-  internal val surrogateSerializer:
-    KSerializer<MedicationAdministrationDosageRateSurrogate> by lazy {
-    MedicationAdministrationDosageRateSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Rate", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): MedicationAdministration.Dosage.Rate =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: MedicationAdministration.Dosage.Rate) {
-    surrogateSerializer.serialize(
-      encoder,
-      MedicationAdministrationDosageRateSurrogate.fromModel(value),
-    )
-  }
-}
-
 public object MedicationAdministrationDosageSerializer :
   KSerializer<MedicationAdministration.Dosage> {
   internal val surrogateSerializer: KSerializer<MedicationAdministrationDosageSurrogate> by lazy {
@@ -148,6 +126,28 @@ public object MedicationAdministrationOccurenceSerializer :
     surrogateSerializer.serialize(
       encoder,
       MedicationAdministrationOccurenceSurrogate.fromModel(value),
+    )
+  }
+}
+
+public object MedicationAdministrationDosageRateSerializer :
+  KSerializer<MedicationAdministration.Dosage.Rate> {
+  internal val surrogateSerializer:
+    KSerializer<MedicationAdministrationDosageRateSurrogate> by lazy {
+    MedicationAdministrationDosageRateSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Rate", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): MedicationAdministration.Dosage.Rate =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: MedicationAdministration.Dosage.Rate) {
+    surrogateSerializer.serialize(
+      encoder,
+      MedicationAdministrationDosageRateSurrogate.fromModel(value),
     )
   }
 }

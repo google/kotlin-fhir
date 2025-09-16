@@ -96,6 +96,65 @@ internal data class TestReportParticipantSurrogate(
 }
 
 @Serializable
+internal data class TestReportSetupSurrogate(
+  public var id: KotlinString? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var action: MutableList<TestReport.Setup.Action>? = null,
+) {
+  public fun toModel(): TestReport.Setup =
+    TestReport.Setup(
+      id = this@TestReportSetupSurrogate.id,
+      extension = this@TestReportSetupSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@TestReportSetupSurrogate.modifierExtension ?: mutableListOf(),
+      action = this@TestReportSetupSurrogate.action ?: mutableListOf(),
+    )
+
+  public companion object {
+    public fun fromModel(model: TestReport.Setup): TestReportSetupSurrogate =
+      with(model) {
+        TestReportSetupSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          action = this@with.action.takeUnless { it.all { it == null } },
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class TestReportSetupActionSurrogate(
+  public var id: KotlinString? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var operation: TestReport.Setup.Action.Operation? = null,
+  public var assert: TestReport.Setup.Action.Assert? = null,
+) {
+  public fun toModel(): TestReport.Setup.Action =
+    TestReport.Setup.Action(
+      id = this@TestReportSetupActionSurrogate.id,
+      extension = this@TestReportSetupActionSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@TestReportSetupActionSurrogate.modifierExtension ?: mutableListOf(),
+      operation = this@TestReportSetupActionSurrogate.operation,
+      assert = this@TestReportSetupActionSurrogate.assert,
+    )
+
+  public companion object {
+    public fun fromModel(model: TestReport.Setup.Action): TestReportSetupActionSurrogate =
+      with(model) {
+        TestReportSetupActionSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          operation = this@with.operation,
+          assert = this@with.assert,
+        )
+      }
+  }
+}
+
+@Serializable
 internal data class TestReportSetupActionOperationSurrogate(
   public var id: KotlinString? = null,
   public var extension: MutableList<Extension>? = null,
@@ -147,71 +206,6 @@ internal data class TestReportSetupActionOperationSurrogate(
           _message = this@with.message?.toElement(),
           detail = this@with.detail?.value,
           _detail = this@with.detail?.toElement(),
-        )
-      }
-  }
-}
-
-@Serializable
-internal data class TestReportSetupActionAssertRequirementLinkSurrogate(
-  public var linkUri: KotlinString? = null,
-  public var _linkUri: Element? = null,
-  public var linkCanonical: KotlinString? = null,
-  public var _linkCanonical: Element? = null,
-) {
-  public fun toModel(): TestReport.Setup.Action.Assert.Requirement.Link =
-    TestReport.Setup.Action.Assert.Requirement.Link?.from(
-      Uri.of(
-        this@TestReportSetupActionAssertRequirementLinkSurrogate.linkUri,
-        this@TestReportSetupActionAssertRequirementLinkSurrogate._linkUri,
-      ),
-      Canonical.of(
-        this@TestReportSetupActionAssertRequirementLinkSurrogate.linkCanonical,
-        this@TestReportSetupActionAssertRequirementLinkSurrogate._linkCanonical,
-      ),
-    )!!
-
-  public companion object {
-    public fun fromModel(
-      model: TestReport.Setup.Action.Assert.Requirement.Link
-    ): TestReportSetupActionAssertRequirementLinkSurrogate =
-      with(model) {
-        TestReportSetupActionAssertRequirementLinkSurrogate(
-          linkUri = this@with.asUri()?.value?.value,
-          _linkUri = this@with.asUri()?.value?.toElement(),
-          linkCanonical = this@with.asCanonical()?.value?.value,
-          _linkCanonical = this@with.asCanonical()?.value?.toElement(),
-        )
-      }
-  }
-}
-
-@Serializable
-internal data class TestReportSetupActionAssertRequirementSurrogate(
-  public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var link: TestReport.Setup.Action.Assert.Requirement.Link? = null,
-) {
-  public fun toModel(): TestReport.Setup.Action.Assert.Requirement =
-    TestReport.Setup.Action.Assert.Requirement(
-      id = this@TestReportSetupActionAssertRequirementSurrogate.id,
-      extension = this@TestReportSetupActionAssertRequirementSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@TestReportSetupActionAssertRequirementSurrogate.modifierExtension ?: mutableListOf(),
-      link = this@TestReportSetupActionAssertRequirementSurrogate.link,
-    )
-
-  public companion object {
-    public fun fromModel(
-      model: TestReport.Setup.Action.Assert.Requirement
-    ): TestReportSetupActionAssertRequirementSurrogate =
-      with(model) {
-        TestReportSetupActionAssertRequirementSurrogate(
-          id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          link = this@with.link,
         )
       }
   }
@@ -278,90 +272,31 @@ internal data class TestReportSetupActionAssertSurrogate(
 }
 
 @Serializable
-internal data class TestReportSetupActionSurrogate(
+internal data class TestReportSetupActionAssertRequirementSurrogate(
   public var id: KotlinString? = null,
   public var extension: MutableList<Extension>? = null,
   public var modifierExtension: MutableList<Extension>? = null,
-  public var operation: TestReport.Setup.Action.Operation? = null,
-  public var assert: TestReport.Setup.Action.Assert? = null,
+  public var link: TestReport.Setup.Action.Assert.Requirement.Link? = null,
 ) {
-  public fun toModel(): TestReport.Setup.Action =
-    TestReport.Setup.Action(
-      id = this@TestReportSetupActionSurrogate.id,
-      extension = this@TestReportSetupActionSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@TestReportSetupActionSurrogate.modifierExtension ?: mutableListOf(),
-      operation = this@TestReportSetupActionSurrogate.operation,
-      assert = this@TestReportSetupActionSurrogate.assert,
+  public fun toModel(): TestReport.Setup.Action.Assert.Requirement =
+    TestReport.Setup.Action.Assert.Requirement(
+      id = this@TestReportSetupActionAssertRequirementSurrogate.id,
+      extension = this@TestReportSetupActionAssertRequirementSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@TestReportSetupActionAssertRequirementSurrogate.modifierExtension ?: mutableListOf(),
+      link = this@TestReportSetupActionAssertRequirementSurrogate.link,
     )
 
   public companion object {
-    public fun fromModel(model: TestReport.Setup.Action): TestReportSetupActionSurrogate =
+    public fun fromModel(
+      model: TestReport.Setup.Action.Assert.Requirement
+    ): TestReportSetupActionAssertRequirementSurrogate =
       with(model) {
-        TestReportSetupActionSurrogate(
+        TestReportSetupActionAssertRequirementSurrogate(
           id = this@with.id,
           extension = this@with.extension.takeUnless { it.all { it == null } },
           modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          operation = this@with.operation,
-          assert = this@with.assert,
-        )
-      }
-  }
-}
-
-@Serializable
-internal data class TestReportSetupSurrogate(
-  public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var action: MutableList<TestReport.Setup.Action>? = null,
-) {
-  public fun toModel(): TestReport.Setup =
-    TestReport.Setup(
-      id = this@TestReportSetupSurrogate.id,
-      extension = this@TestReportSetupSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@TestReportSetupSurrogate.modifierExtension ?: mutableListOf(),
-      action = this@TestReportSetupSurrogate.action ?: mutableListOf(),
-    )
-
-  public companion object {
-    public fun fromModel(model: TestReport.Setup): TestReportSetupSurrogate =
-      with(model) {
-        TestReportSetupSurrogate(
-          id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          action = this@with.action.takeUnless { it.all { it == null } },
-        )
-      }
-  }
-}
-
-@Serializable
-internal data class TestReportTestActionSurrogate(
-  public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var operation: TestReport.Setup.Action.Operation? = null,
-  public var assert: TestReport.Setup.Action.Assert? = null,
-) {
-  public fun toModel(): TestReport.Test.Action =
-    TestReport.Test.Action(
-      id = this@TestReportTestActionSurrogate.id,
-      extension = this@TestReportTestActionSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@TestReportTestActionSurrogate.modifierExtension ?: mutableListOf(),
-      operation = this@TestReportTestActionSurrogate.operation,
-      assert = this@TestReportTestActionSurrogate.assert,
-    )
-
-  public companion object {
-    public fun fromModel(model: TestReport.Test.Action): TestReportTestActionSurrogate =
-      with(model) {
-        TestReportTestActionSurrogate(
-          id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          operation = this@with.operation,
-          assert = this@with.assert,
+          link = this@with.link,
         )
       }
   }
@@ -410,6 +345,65 @@ internal data class TestReportTestSurrogate(
 }
 
 @Serializable
+internal data class TestReportTestActionSurrogate(
+  public var id: KotlinString? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var operation: TestReport.Setup.Action.Operation? = null,
+  public var assert: TestReport.Setup.Action.Assert? = null,
+) {
+  public fun toModel(): TestReport.Test.Action =
+    TestReport.Test.Action(
+      id = this@TestReportTestActionSurrogate.id,
+      extension = this@TestReportTestActionSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@TestReportTestActionSurrogate.modifierExtension ?: mutableListOf(),
+      operation = this@TestReportTestActionSurrogate.operation,
+      assert = this@TestReportTestActionSurrogate.assert,
+    )
+
+  public companion object {
+    public fun fromModel(model: TestReport.Test.Action): TestReportTestActionSurrogate =
+      with(model) {
+        TestReportTestActionSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          operation = this@with.operation,
+          assert = this@with.assert,
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class TestReportTeardownSurrogate(
+  public var id: KotlinString? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var action: MutableList<TestReport.Teardown.Action>? = null,
+) {
+  public fun toModel(): TestReport.Teardown =
+    TestReport.Teardown(
+      id = this@TestReportTeardownSurrogate.id,
+      extension = this@TestReportTeardownSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@TestReportTeardownSurrogate.modifierExtension ?: mutableListOf(),
+      action = this@TestReportTeardownSurrogate.action ?: mutableListOf(),
+    )
+
+  public companion object {
+    public fun fromModel(model: TestReport.Teardown): TestReportTeardownSurrogate =
+      with(model) {
+        TestReportTeardownSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          action = this@with.action.takeUnless { it.all { it == null } },
+        )
+      }
+  }
+}
+
+@Serializable
 internal data class TestReportTeardownActionSurrogate(
   public var id: KotlinString? = null,
   public var extension: MutableList<Extension>? = null,
@@ -439,28 +433,34 @@ internal data class TestReportTeardownActionSurrogate(
 }
 
 @Serializable
-internal data class TestReportTeardownSurrogate(
-  public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var action: MutableList<TestReport.Teardown.Action>? = null,
+internal data class TestReportSetupActionAssertRequirementLinkSurrogate(
+  public var linkUri: KotlinString? = null,
+  public var _linkUri: Element? = null,
+  public var linkCanonical: KotlinString? = null,
+  public var _linkCanonical: Element? = null,
 ) {
-  public fun toModel(): TestReport.Teardown =
-    TestReport.Teardown(
-      id = this@TestReportTeardownSurrogate.id,
-      extension = this@TestReportTeardownSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@TestReportTeardownSurrogate.modifierExtension ?: mutableListOf(),
-      action = this@TestReportTeardownSurrogate.action ?: mutableListOf(),
-    )
+  public fun toModel(): TestReport.Setup.Action.Assert.Requirement.Link =
+    TestReport.Setup.Action.Assert.Requirement.Link.from(
+      Uri.of(
+        this@TestReportSetupActionAssertRequirementLinkSurrogate.linkUri,
+        this@TestReportSetupActionAssertRequirementLinkSurrogate._linkUri,
+      ),
+      Canonical.of(
+        this@TestReportSetupActionAssertRequirementLinkSurrogate.linkCanonical,
+        this@TestReportSetupActionAssertRequirementLinkSurrogate._linkCanonical,
+      ),
+    )!!
 
   public companion object {
-    public fun fromModel(model: TestReport.Teardown): TestReportTeardownSurrogate =
+    public fun fromModel(
+      model: TestReport.Setup.Action.Assert.Requirement.Link
+    ): TestReportSetupActionAssertRequirementLinkSurrogate =
       with(model) {
-        TestReportTeardownSurrogate(
-          id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          action = this@with.action.takeUnless { it.all { it == null } },
+        TestReportSetupActionAssertRequirementLinkSurrogate(
+          linkUri = this@with.asUri()?.value?.value,
+          _linkUri = this@with.asUri()?.value?.toElement(),
+          linkCanonical = this@with.asCanonical()?.value?.value,
+          _linkCanonical = this@with.asCanonical()?.value?.toElement(),
         )
       }
   }

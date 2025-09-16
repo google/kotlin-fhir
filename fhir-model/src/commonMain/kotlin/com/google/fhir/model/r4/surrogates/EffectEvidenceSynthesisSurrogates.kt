@@ -166,67 +166,6 @@ internal data class EffectEvidenceSynthesisResultsByExposureSurrogate(
 }
 
 @Serializable
-internal data class EffectEvidenceSynthesisEffectEstimatePrecisionEstimateSurrogate(
-  public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var type: CodeableConcept? = null,
-  public var level: Double? = null,
-  public var _level: Element? = null,
-  public var from: Double? = null,
-  public var _from: Element? = null,
-  public var to: Double? = null,
-  public var _to: Element? = null,
-) {
-  public fun toModel(): EffectEvidenceSynthesis.EffectEstimate.PrecisionEstimate =
-    EffectEvidenceSynthesis.EffectEstimate.PrecisionEstimate(
-      id = this@EffectEvidenceSynthesisEffectEstimatePrecisionEstimateSurrogate.id,
-      extension =
-        this@EffectEvidenceSynthesisEffectEstimatePrecisionEstimateSurrogate.extension
-          ?: mutableListOf(),
-      modifierExtension =
-        this@EffectEvidenceSynthesisEffectEstimatePrecisionEstimateSurrogate.modifierExtension
-          ?: mutableListOf(),
-      type = this@EffectEvidenceSynthesisEffectEstimatePrecisionEstimateSurrogate.type,
-      level =
-        Decimal.of(
-          this@EffectEvidenceSynthesisEffectEstimatePrecisionEstimateSurrogate.level,
-          this@EffectEvidenceSynthesisEffectEstimatePrecisionEstimateSurrogate._level,
-        ),
-      from =
-        Decimal.of(
-          this@EffectEvidenceSynthesisEffectEstimatePrecisionEstimateSurrogate.from,
-          this@EffectEvidenceSynthesisEffectEstimatePrecisionEstimateSurrogate._from,
-        ),
-      to =
-        Decimal.of(
-          this@EffectEvidenceSynthesisEffectEstimatePrecisionEstimateSurrogate.to,
-          this@EffectEvidenceSynthesisEffectEstimatePrecisionEstimateSurrogate._to,
-        ),
-    )
-
-  public companion object {
-    public fun fromModel(
-      model: EffectEvidenceSynthesis.EffectEstimate.PrecisionEstimate
-    ): EffectEvidenceSynthesisEffectEstimatePrecisionEstimateSurrogate =
-      with(model) {
-        EffectEvidenceSynthesisEffectEstimatePrecisionEstimateSurrogate(
-          id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          type = this@with.type,
-          level = this@with.level?.value,
-          _level = this@with.level?.toElement(),
-          from = this@with.from?.value,
-          _from = this@with.from?.toElement(),
-          to = this@with.to?.value,
-          _to = this@with.to?.toElement(),
-        )
-      }
-  }
-}
-
-@Serializable
 internal data class EffectEvidenceSynthesisEffectEstimateSurrogate(
   public var id: KotlinString? = null,
   public var extension: MutableList<Extension>? = null,
@@ -288,43 +227,61 @@ internal data class EffectEvidenceSynthesisEffectEstimateSurrogate(
 }
 
 @Serializable
-internal data class EffectEvidenceSynthesisCertaintyCertaintySubcomponentSurrogate(
+internal data class EffectEvidenceSynthesisEffectEstimatePrecisionEstimateSurrogate(
   public var id: KotlinString? = null,
   public var extension: MutableList<Extension>? = null,
   public var modifierExtension: MutableList<Extension>? = null,
   public var type: CodeableConcept? = null,
-  public var rating: MutableList<CodeableConcept>? = null,
-  public var note: MutableList<Annotation>? = null,
+  public var level: Double? = null,
+  public var _level: Element? = null,
+  public var from: Double? = null,
+  public var _from: Element? = null,
+  public var to: Double? = null,
+  public var _to: Element? = null,
 ) {
-  public fun toModel(): EffectEvidenceSynthesis.Certainty.CertaintySubcomponent =
-    EffectEvidenceSynthesis.Certainty.CertaintySubcomponent(
-      id = this@EffectEvidenceSynthesisCertaintyCertaintySubcomponentSurrogate.id,
+  public fun toModel(): EffectEvidenceSynthesis.EffectEstimate.PrecisionEstimate =
+    EffectEvidenceSynthesis.EffectEstimate.PrecisionEstimate(
+      id = this@EffectEvidenceSynthesisEffectEstimatePrecisionEstimateSurrogate.id,
       extension =
-        this@EffectEvidenceSynthesisCertaintyCertaintySubcomponentSurrogate.extension
+        this@EffectEvidenceSynthesisEffectEstimatePrecisionEstimateSurrogate.extension
           ?: mutableListOf(),
       modifierExtension =
-        this@EffectEvidenceSynthesisCertaintyCertaintySubcomponentSurrogate.modifierExtension
+        this@EffectEvidenceSynthesisEffectEstimatePrecisionEstimateSurrogate.modifierExtension
           ?: mutableListOf(),
-      type = this@EffectEvidenceSynthesisCertaintyCertaintySubcomponentSurrogate.type,
-      rating =
-        this@EffectEvidenceSynthesisCertaintyCertaintySubcomponentSurrogate.rating
-          ?: mutableListOf(),
-      note =
-        this@EffectEvidenceSynthesisCertaintyCertaintySubcomponentSurrogate.note ?: mutableListOf(),
+      type = this@EffectEvidenceSynthesisEffectEstimatePrecisionEstimateSurrogate.type,
+      level =
+        Decimal.of(
+          this@EffectEvidenceSynthesisEffectEstimatePrecisionEstimateSurrogate.level,
+          this@EffectEvidenceSynthesisEffectEstimatePrecisionEstimateSurrogate._level,
+        ),
+      from =
+        Decimal.of(
+          this@EffectEvidenceSynthesisEffectEstimatePrecisionEstimateSurrogate.from,
+          this@EffectEvidenceSynthesisEffectEstimatePrecisionEstimateSurrogate._from,
+        ),
+      to =
+        Decimal.of(
+          this@EffectEvidenceSynthesisEffectEstimatePrecisionEstimateSurrogate.to,
+          this@EffectEvidenceSynthesisEffectEstimatePrecisionEstimateSurrogate._to,
+        ),
     )
 
   public companion object {
     public fun fromModel(
-      model: EffectEvidenceSynthesis.Certainty.CertaintySubcomponent
-    ): EffectEvidenceSynthesisCertaintyCertaintySubcomponentSurrogate =
+      model: EffectEvidenceSynthesis.EffectEstimate.PrecisionEstimate
+    ): EffectEvidenceSynthesisEffectEstimatePrecisionEstimateSurrogate =
       with(model) {
-        EffectEvidenceSynthesisCertaintyCertaintySubcomponentSurrogate(
+        EffectEvidenceSynthesisEffectEstimatePrecisionEstimateSurrogate(
           id = this@with.id,
           extension = this@with.extension.takeUnless { it.all { it == null } },
           modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
           type = this@with.type,
-          rating = this@with.rating.takeUnless { it.all { it == null } },
-          note = this@with.note.takeUnless { it.all { it == null } },
+          level = this@with.level?.value,
+          _level = this@with.level?.toElement(),
+          from = this@with.from?.value,
+          _from = this@with.from?.toElement(),
+          to = this@with.to?.value,
+          _to = this@with.to?.toElement(),
         )
       }
   }
@@ -366,6 +323,49 @@ internal data class EffectEvidenceSynthesisCertaintySurrogate(
           note = this@with.note.takeUnless { it.all { it == null } },
           certaintySubcomponent =
             this@with.certaintySubcomponent.takeUnless { it.all { it == null } },
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class EffectEvidenceSynthesisCertaintyCertaintySubcomponentSurrogate(
+  public var id: KotlinString? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var type: CodeableConcept? = null,
+  public var rating: MutableList<CodeableConcept>? = null,
+  public var note: MutableList<Annotation>? = null,
+) {
+  public fun toModel(): EffectEvidenceSynthesis.Certainty.CertaintySubcomponent =
+    EffectEvidenceSynthesis.Certainty.CertaintySubcomponent(
+      id = this@EffectEvidenceSynthesisCertaintyCertaintySubcomponentSurrogate.id,
+      extension =
+        this@EffectEvidenceSynthesisCertaintyCertaintySubcomponentSurrogate.extension
+          ?: mutableListOf(),
+      modifierExtension =
+        this@EffectEvidenceSynthesisCertaintyCertaintySubcomponentSurrogate.modifierExtension
+          ?: mutableListOf(),
+      type = this@EffectEvidenceSynthesisCertaintyCertaintySubcomponentSurrogate.type,
+      rating =
+        this@EffectEvidenceSynthesisCertaintyCertaintySubcomponentSurrogate.rating
+          ?: mutableListOf(),
+      note =
+        this@EffectEvidenceSynthesisCertaintyCertaintySubcomponentSurrogate.note ?: mutableListOf(),
+    )
+
+  public companion object {
+    public fun fromModel(
+      model: EffectEvidenceSynthesis.Certainty.CertaintySubcomponent
+    ): EffectEvidenceSynthesisCertaintyCertaintySubcomponentSurrogate =
+      with(model) {
+        EffectEvidenceSynthesisCertaintyCertaintySubcomponentSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          type = this@with.type,
+          rating = this@with.rating.takeUnless { it.all { it == null } },
+          note = this@with.note.takeUnless { it.all { it == null } },
         )
       }
   }

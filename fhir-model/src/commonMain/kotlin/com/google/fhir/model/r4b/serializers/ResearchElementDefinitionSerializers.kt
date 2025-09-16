@@ -39,6 +39,77 @@ import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.JsonPrimitive
 import kotlinx.serialization.json.jsonObject
 
+public object ResearchElementDefinitionCharacteristicSerializer :
+  KSerializer<ResearchElementDefinition.Characteristic> {
+  internal val surrogateSerializer:
+    KSerializer<ResearchElementDefinitionCharacteristicSurrogate> by lazy {
+    ResearchElementDefinitionCharacteristicSurrogate.serializer()
+  }
+
+  private val resourceType: String? = null
+
+  private val multiChoiceProperties: List<String> =
+    listOf("definition", "studyEffective", "participantEffective")
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Characteristic", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): ResearchElementDefinition.Characteristic {
+    val jsonDecoder =
+      decoder as? JsonDecoder ?: error("This serializer only supports JSON decoding")
+    val oldJsonObject =
+      if (resourceType.isNullOrBlank()) {
+        jsonDecoder.decodeJsonElement().jsonObject
+      } else
+        JsonObject(
+          jsonDecoder.decodeJsonElement().jsonObject.toMutableMap().apply { remove("resourceType") }
+        )
+    val unflattenedJsonObject = FhirJsonTransformer.unflatten(oldJsonObject, multiChoiceProperties)
+    val surrogate =
+      jsonDecoder.json.decodeFromJsonElement(surrogateSerializer, unflattenedJsonObject)
+    return surrogate.toModel()
+  }
+
+  override fun serialize(encoder: Encoder, `value`: ResearchElementDefinition.Characteristic) {
+    val jsonEncoder =
+      encoder as? JsonEncoder ?: error("This serializer only supports JSON encoding")
+    val surrogate = ResearchElementDefinitionCharacteristicSurrogate.fromModel(value)
+    val oldJsonObject =
+      if (resourceType.isNullOrBlank()) {
+        jsonEncoder.json.encodeToJsonElement(surrogateSerializer, surrogate).jsonObject
+      } else {
+        JsonObject(
+          mutableMapOf("resourceType" to JsonPrimitive(resourceType))
+            .plus(jsonEncoder.json.encodeToJsonElement(surrogateSerializer, surrogate).jsonObject)
+        )
+      }
+    val flattenedJsonObject = FhirJsonTransformer.flatten(oldJsonObject, multiChoiceProperties)
+    jsonEncoder.encodeJsonElement(flattenedJsonObject)
+  }
+}
+
+public object ResearchElementDefinitionSubjectSerializer :
+  KSerializer<ResearchElementDefinition.Subject> {
+  internal val surrogateSerializer: KSerializer<ResearchElementDefinitionSubjectSurrogate> by lazy {
+    ResearchElementDefinitionSubjectSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Subject", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): ResearchElementDefinition.Subject =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: ResearchElementDefinition.Subject) {
+    surrogateSerializer.serialize(
+      encoder,
+      ResearchElementDefinitionSubjectSurrogate.fromModel(value),
+    )
+  }
+}
+
 public object ResearchElementDefinitionCharacteristicDefinitionSerializer :
   KSerializer<ResearchElementDefinition.Characteristic.Definition> {
   internal val surrogateSerializer:
@@ -114,77 +185,6 @@ public object ResearchElementDefinitionCharacteristicParticipantEffectiveSeriali
     surrogateSerializer.serialize(
       encoder,
       ResearchElementDefinitionCharacteristicParticipantEffectiveSurrogate.fromModel(value),
-    )
-  }
-}
-
-public object ResearchElementDefinitionCharacteristicSerializer :
-  KSerializer<ResearchElementDefinition.Characteristic> {
-  internal val surrogateSerializer:
-    KSerializer<ResearchElementDefinitionCharacteristicSurrogate> by lazy {
-    ResearchElementDefinitionCharacteristicSurrogate.serializer()
-  }
-
-  private val resourceType: String? = null
-
-  private val multiChoiceProperties: List<String> =
-    listOf("definition", "studyEffective", "participantEffective")
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Characteristic", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): ResearchElementDefinition.Characteristic {
-    val jsonDecoder =
-      decoder as? JsonDecoder ?: error("This serializer only supports JSON decoding")
-    val oldJsonObject =
-      if (resourceType.isNullOrBlank()) {
-        jsonDecoder.decodeJsonElement().jsonObject
-      } else
-        JsonObject(
-          jsonDecoder.decodeJsonElement().jsonObject.toMutableMap().apply { remove("resourceType") }
-        )
-    val unflattenedJsonObject = FhirJsonTransformer.unflatten(oldJsonObject, multiChoiceProperties)
-    val surrogate =
-      jsonDecoder.json.decodeFromJsonElement(surrogateSerializer, unflattenedJsonObject)
-    return surrogate.toModel()
-  }
-
-  override fun serialize(encoder: Encoder, `value`: ResearchElementDefinition.Characteristic) {
-    val jsonEncoder =
-      encoder as? JsonEncoder ?: error("This serializer only supports JSON encoding")
-    val surrogate = ResearchElementDefinitionCharacteristicSurrogate.fromModel(value)
-    val oldJsonObject =
-      if (resourceType.isNullOrBlank()) {
-        jsonEncoder.json.encodeToJsonElement(surrogateSerializer, surrogate).jsonObject
-      } else {
-        JsonObject(
-          mutableMapOf("resourceType" to JsonPrimitive(resourceType))
-            .plus(jsonEncoder.json.encodeToJsonElement(surrogateSerializer, surrogate).jsonObject)
-        )
-      }
-    val flattenedJsonObject = FhirJsonTransformer.flatten(oldJsonObject, multiChoiceProperties)
-    jsonEncoder.encodeJsonElement(flattenedJsonObject)
-  }
-}
-
-public object ResearchElementDefinitionSubjectSerializer :
-  KSerializer<ResearchElementDefinition.Subject> {
-  internal val surrogateSerializer: KSerializer<ResearchElementDefinitionSubjectSurrogate> by lazy {
-    ResearchElementDefinitionSubjectSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Subject", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): ResearchElementDefinition.Subject =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: ResearchElementDefinition.Subject) {
-    surrogateSerializer.serialize(
-      encoder,
-      ResearchElementDefinitionSubjectSurrogate.fromModel(value),
     )
   }
 }

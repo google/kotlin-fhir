@@ -99,7 +99,7 @@ internal data class SearchParameterVersionAlgorithmSurrogate(
   public var versionAlgorithmCoding: Coding? = null,
 ) {
   public fun toModel(): SearchParameter.VersionAlgorithm =
-    SearchParameter.VersionAlgorithm?.from(
+    SearchParameter.VersionAlgorithm.from(
       R5String.of(
         this@SearchParameterVersionAlgorithmSurrogate.versionAlgorithmString,
         this@SearchParameterVersionAlgorithmSurrogate._versionAlgorithmString,

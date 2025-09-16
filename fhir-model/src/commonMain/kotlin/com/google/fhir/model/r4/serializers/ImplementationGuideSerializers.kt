@@ -82,6 +82,24 @@ public object ImplementationGuideGlobalSerializer : KSerializer<ImplementationGu
   }
 }
 
+public object ImplementationGuideDefinitionSerializer :
+  KSerializer<ImplementationGuide.Definition> {
+  internal val surrogateSerializer: KSerializer<ImplementationGuideDefinitionSurrogate> by lazy {
+    ImplementationGuideDefinitionSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Definition", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): ImplementationGuide.Definition =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: ImplementationGuide.Definition) {
+    surrogateSerializer.serialize(encoder, ImplementationGuideDefinitionSurrogate.fromModel(value))
+  }
+}
+
 public object ImplementationGuideDefinitionGroupingSerializer :
   KSerializer<ImplementationGuide.Definition.Grouping> {
   internal val surrogateSerializer:
@@ -100,31 +118,6 @@ public object ImplementationGuideDefinitionGroupingSerializer :
     surrogateSerializer.serialize(
       encoder,
       ImplementationGuideDefinitionGroupingSurrogate.fromModel(value),
-    )
-  }
-}
-
-public object ImplementationGuideDefinitionResourceExampleSerializer :
-  KSerializer<ImplementationGuide.Definition.Resource.Example> {
-  internal val surrogateSerializer:
-    KSerializer<ImplementationGuideDefinitionResourceExampleSurrogate> by lazy {
-    ImplementationGuideDefinitionResourceExampleSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Example", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): ImplementationGuide.Definition.Resource.Example =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(
-    encoder: Encoder,
-    `value`: ImplementationGuide.Definition.Resource.Example,
-  ) {
-    surrogateSerializer.serialize(
-      encoder,
-      ImplementationGuideDefinitionResourceExampleSurrogate.fromModel(value),
     )
   }
 }
@@ -175,28 +168,6 @@ public object ImplementationGuideDefinitionResourceSerializer :
       }
     val flattenedJsonObject = FhirJsonTransformer.flatten(oldJsonObject, multiChoiceProperties)
     jsonEncoder.encodeJsonElement(flattenedJsonObject)
-  }
-}
-
-public object ImplementationGuideDefinitionPageNameSerializer :
-  KSerializer<ImplementationGuide.Definition.Page.Name> {
-  internal val surrogateSerializer:
-    KSerializer<ImplementationGuideDefinitionPageNameSurrogate> by lazy {
-    ImplementationGuideDefinitionPageNameSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Name", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): ImplementationGuide.Definition.Page.Name =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: ImplementationGuide.Definition.Page.Name) {
-    surrogateSerializer.serialize(
-      encoder,
-      ImplementationGuideDefinitionPageNameSurrogate.fromModel(value),
-    )
   }
 }
 
@@ -293,43 +264,20 @@ public object ImplementationGuideDefinitionTemplateSerializer :
   }
 }
 
-public object ImplementationGuideDefinitionSerializer :
-  KSerializer<ImplementationGuide.Definition> {
-  internal val surrogateSerializer: KSerializer<ImplementationGuideDefinitionSurrogate> by lazy {
-    ImplementationGuideDefinitionSurrogate.serializer()
+public object ImplementationGuideManifestSerializer : KSerializer<ImplementationGuide.Manifest> {
+  internal val surrogateSerializer: KSerializer<ImplementationGuideManifestSurrogate> by lazy {
+    ImplementationGuideManifestSurrogate.serializer()
   }
 
   override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Definition", surrogateSerializer.descriptor)
+    SerialDescriptor("Manifest", surrogateSerializer.descriptor)
   }
 
-  override fun deserialize(decoder: Decoder): ImplementationGuide.Definition =
+  override fun deserialize(decoder: Decoder): ImplementationGuide.Manifest =
     surrogateSerializer.deserialize(decoder).toModel()
 
-  override fun serialize(encoder: Encoder, `value`: ImplementationGuide.Definition) {
-    surrogateSerializer.serialize(encoder, ImplementationGuideDefinitionSurrogate.fromModel(value))
-  }
-}
-
-public object ImplementationGuideManifestResourceExampleSerializer :
-  KSerializer<ImplementationGuide.Manifest.Resource.Example> {
-  internal val surrogateSerializer:
-    KSerializer<ImplementationGuideManifestResourceExampleSurrogate> by lazy {
-    ImplementationGuideManifestResourceExampleSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Example", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): ImplementationGuide.Manifest.Resource.Example =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: ImplementationGuide.Manifest.Resource.Example) {
-    surrogateSerializer.serialize(
-      encoder,
-      ImplementationGuideManifestResourceExampleSurrogate.fromModel(value),
-    )
+  override fun serialize(encoder: Encoder, `value`: ImplementationGuide.Manifest) {
+    surrogateSerializer.serialize(encoder, ImplementationGuideManifestSurrogate.fromModel(value))
   }
 }
 
@@ -403,20 +351,72 @@ public object ImplementationGuideManifestPageSerializer :
   }
 }
 
-public object ImplementationGuideManifestSerializer : KSerializer<ImplementationGuide.Manifest> {
-  internal val surrogateSerializer: KSerializer<ImplementationGuideManifestSurrogate> by lazy {
-    ImplementationGuideManifestSurrogate.serializer()
+public object ImplementationGuideDefinitionResourceExampleSerializer :
+  KSerializer<ImplementationGuide.Definition.Resource.Example> {
+  internal val surrogateSerializer:
+    KSerializer<ImplementationGuideDefinitionResourceExampleSurrogate> by lazy {
+    ImplementationGuideDefinitionResourceExampleSurrogate.serializer()
   }
 
   override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Manifest", surrogateSerializer.descriptor)
+    SerialDescriptor("Example", surrogateSerializer.descriptor)
   }
 
-  override fun deserialize(decoder: Decoder): ImplementationGuide.Manifest =
+  override fun deserialize(decoder: Decoder): ImplementationGuide.Definition.Resource.Example =
     surrogateSerializer.deserialize(decoder).toModel()
 
-  override fun serialize(encoder: Encoder, `value`: ImplementationGuide.Manifest) {
-    surrogateSerializer.serialize(encoder, ImplementationGuideManifestSurrogate.fromModel(value))
+  override fun serialize(
+    encoder: Encoder,
+    `value`: ImplementationGuide.Definition.Resource.Example,
+  ) {
+    surrogateSerializer.serialize(
+      encoder,
+      ImplementationGuideDefinitionResourceExampleSurrogate.fromModel(value),
+    )
+  }
+}
+
+public object ImplementationGuideDefinitionPageNameSerializer :
+  KSerializer<ImplementationGuide.Definition.Page.Name> {
+  internal val surrogateSerializer:
+    KSerializer<ImplementationGuideDefinitionPageNameSurrogate> by lazy {
+    ImplementationGuideDefinitionPageNameSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Name", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): ImplementationGuide.Definition.Page.Name =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: ImplementationGuide.Definition.Page.Name) {
+    surrogateSerializer.serialize(
+      encoder,
+      ImplementationGuideDefinitionPageNameSurrogate.fromModel(value),
+    )
+  }
+}
+
+public object ImplementationGuideManifestResourceExampleSerializer :
+  KSerializer<ImplementationGuide.Manifest.Resource.Example> {
+  internal val surrogateSerializer:
+    KSerializer<ImplementationGuideManifestResourceExampleSurrogate> by lazy {
+    ImplementationGuideManifestResourceExampleSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Example", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): ImplementationGuide.Manifest.Resource.Example =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: ImplementationGuide.Manifest.Resource.Example) {
+    surrogateSerializer.serialize(
+      encoder,
+      ImplementationGuideManifestResourceExampleSurrogate.fromModel(value),
+    )
   }
 }
 

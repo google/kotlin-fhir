@@ -110,67 +110,6 @@ internal data class RiskEvidenceSynthesisSampleSizeSurrogate(
 }
 
 @Serializable
-internal data class RiskEvidenceSynthesisRiskEstimatePrecisionEstimateSurrogate(
-  public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var type: CodeableConcept? = null,
-  public var level: Double? = null,
-  public var _level: Element? = null,
-  public var from: Double? = null,
-  public var _from: Element? = null,
-  public var to: Double? = null,
-  public var _to: Element? = null,
-) {
-  public fun toModel(): RiskEvidenceSynthesis.RiskEstimate.PrecisionEstimate =
-    RiskEvidenceSynthesis.RiskEstimate.PrecisionEstimate(
-      id = this@RiskEvidenceSynthesisRiskEstimatePrecisionEstimateSurrogate.id,
-      extension =
-        this@RiskEvidenceSynthesisRiskEstimatePrecisionEstimateSurrogate.extension
-          ?: mutableListOf(),
-      modifierExtension =
-        this@RiskEvidenceSynthesisRiskEstimatePrecisionEstimateSurrogate.modifierExtension
-          ?: mutableListOf(),
-      type = this@RiskEvidenceSynthesisRiskEstimatePrecisionEstimateSurrogate.type,
-      level =
-        Decimal.of(
-          this@RiskEvidenceSynthesisRiskEstimatePrecisionEstimateSurrogate.level,
-          this@RiskEvidenceSynthesisRiskEstimatePrecisionEstimateSurrogate._level,
-        ),
-      from =
-        Decimal.of(
-          this@RiskEvidenceSynthesisRiskEstimatePrecisionEstimateSurrogate.from,
-          this@RiskEvidenceSynthesisRiskEstimatePrecisionEstimateSurrogate._from,
-        ),
-      to =
-        Decimal.of(
-          this@RiskEvidenceSynthesisRiskEstimatePrecisionEstimateSurrogate.to,
-          this@RiskEvidenceSynthesisRiskEstimatePrecisionEstimateSurrogate._to,
-        ),
-    )
-
-  public companion object {
-    public fun fromModel(
-      model: RiskEvidenceSynthesis.RiskEstimate.PrecisionEstimate
-    ): RiskEvidenceSynthesisRiskEstimatePrecisionEstimateSurrogate =
-      with(model) {
-        RiskEvidenceSynthesisRiskEstimatePrecisionEstimateSurrogate(
-          id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          type = this@with.type,
-          level = this@with.level?.value,
-          _level = this@with.level?.toElement(),
-          from = this@with.from?.value,
-          _from = this@with.from?.toElement(),
-          to = this@with.to?.value,
-          _to = this@with.to?.toElement(),
-        )
-      }
-  }
-}
-
-@Serializable
 internal data class RiskEvidenceSynthesisRiskEstimateSurrogate(
   public var id: KotlinString? = null,
   public var extension: MutableList<Extension>? = null,
@@ -246,42 +185,61 @@ internal data class RiskEvidenceSynthesisRiskEstimateSurrogate(
 }
 
 @Serializable
-internal data class RiskEvidenceSynthesisCertaintyCertaintySubcomponentSurrogate(
+internal data class RiskEvidenceSynthesisRiskEstimatePrecisionEstimateSurrogate(
   public var id: KotlinString? = null,
   public var extension: MutableList<Extension>? = null,
   public var modifierExtension: MutableList<Extension>? = null,
   public var type: CodeableConcept? = null,
-  public var rating: MutableList<CodeableConcept>? = null,
-  public var note: MutableList<Annotation>? = null,
+  public var level: Double? = null,
+  public var _level: Element? = null,
+  public var from: Double? = null,
+  public var _from: Element? = null,
+  public var to: Double? = null,
+  public var _to: Element? = null,
 ) {
-  public fun toModel(): RiskEvidenceSynthesis.Certainty.CertaintySubcomponent =
-    RiskEvidenceSynthesis.Certainty.CertaintySubcomponent(
-      id = this@RiskEvidenceSynthesisCertaintyCertaintySubcomponentSurrogate.id,
+  public fun toModel(): RiskEvidenceSynthesis.RiskEstimate.PrecisionEstimate =
+    RiskEvidenceSynthesis.RiskEstimate.PrecisionEstimate(
+      id = this@RiskEvidenceSynthesisRiskEstimatePrecisionEstimateSurrogate.id,
       extension =
-        this@RiskEvidenceSynthesisCertaintyCertaintySubcomponentSurrogate.extension
+        this@RiskEvidenceSynthesisRiskEstimatePrecisionEstimateSurrogate.extension
           ?: mutableListOf(),
       modifierExtension =
-        this@RiskEvidenceSynthesisCertaintyCertaintySubcomponentSurrogate.modifierExtension
+        this@RiskEvidenceSynthesisRiskEstimatePrecisionEstimateSurrogate.modifierExtension
           ?: mutableListOf(),
-      type = this@RiskEvidenceSynthesisCertaintyCertaintySubcomponentSurrogate.type,
-      rating =
-        this@RiskEvidenceSynthesisCertaintyCertaintySubcomponentSurrogate.rating ?: mutableListOf(),
-      note =
-        this@RiskEvidenceSynthesisCertaintyCertaintySubcomponentSurrogate.note ?: mutableListOf(),
+      type = this@RiskEvidenceSynthesisRiskEstimatePrecisionEstimateSurrogate.type,
+      level =
+        Decimal.of(
+          this@RiskEvidenceSynthesisRiskEstimatePrecisionEstimateSurrogate.level,
+          this@RiskEvidenceSynthesisRiskEstimatePrecisionEstimateSurrogate._level,
+        ),
+      from =
+        Decimal.of(
+          this@RiskEvidenceSynthesisRiskEstimatePrecisionEstimateSurrogate.from,
+          this@RiskEvidenceSynthesisRiskEstimatePrecisionEstimateSurrogate._from,
+        ),
+      to =
+        Decimal.of(
+          this@RiskEvidenceSynthesisRiskEstimatePrecisionEstimateSurrogate.to,
+          this@RiskEvidenceSynthesisRiskEstimatePrecisionEstimateSurrogate._to,
+        ),
     )
 
   public companion object {
     public fun fromModel(
-      model: RiskEvidenceSynthesis.Certainty.CertaintySubcomponent
-    ): RiskEvidenceSynthesisCertaintyCertaintySubcomponentSurrogate =
+      model: RiskEvidenceSynthesis.RiskEstimate.PrecisionEstimate
+    ): RiskEvidenceSynthesisRiskEstimatePrecisionEstimateSurrogate =
       with(model) {
-        RiskEvidenceSynthesisCertaintyCertaintySubcomponentSurrogate(
+        RiskEvidenceSynthesisRiskEstimatePrecisionEstimateSurrogate(
           id = this@with.id,
           extension = this@with.extension.takeUnless { it.all { it == null } },
           modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
           type = this@with.type,
-          rating = this@with.rating.takeUnless { it.all { it == null } },
-          note = this@with.note.takeUnless { it.all { it == null } },
+          level = this@with.level?.value,
+          _level = this@with.level?.toElement(),
+          from = this@with.from?.value,
+          _from = this@with.from?.toElement(),
+          to = this@with.to?.value,
+          _to = this@with.to?.toElement(),
         )
       }
   }
@@ -323,6 +281,48 @@ internal data class RiskEvidenceSynthesisCertaintySurrogate(
           note = this@with.note.takeUnless { it.all { it == null } },
           certaintySubcomponent =
             this@with.certaintySubcomponent.takeUnless { it.all { it == null } },
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class RiskEvidenceSynthesisCertaintyCertaintySubcomponentSurrogate(
+  public var id: KotlinString? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var type: CodeableConcept? = null,
+  public var rating: MutableList<CodeableConcept>? = null,
+  public var note: MutableList<Annotation>? = null,
+) {
+  public fun toModel(): RiskEvidenceSynthesis.Certainty.CertaintySubcomponent =
+    RiskEvidenceSynthesis.Certainty.CertaintySubcomponent(
+      id = this@RiskEvidenceSynthesisCertaintyCertaintySubcomponentSurrogate.id,
+      extension =
+        this@RiskEvidenceSynthesisCertaintyCertaintySubcomponentSurrogate.extension
+          ?: mutableListOf(),
+      modifierExtension =
+        this@RiskEvidenceSynthesisCertaintyCertaintySubcomponentSurrogate.modifierExtension
+          ?: mutableListOf(),
+      type = this@RiskEvidenceSynthesisCertaintyCertaintySubcomponentSurrogate.type,
+      rating =
+        this@RiskEvidenceSynthesisCertaintyCertaintySubcomponentSurrogate.rating ?: mutableListOf(),
+      note =
+        this@RiskEvidenceSynthesisCertaintyCertaintySubcomponentSurrogate.note ?: mutableListOf(),
+    )
+
+  public companion object {
+    public fun fromModel(
+      model: RiskEvidenceSynthesis.Certainty.CertaintySubcomponent
+    ): RiskEvidenceSynthesisCertaintyCertaintySubcomponentSurrogate =
+      with(model) {
+        RiskEvidenceSynthesisCertaintyCertaintySubcomponentSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          type = this@with.type,
+          rating = this@with.rating.takeUnless { it.all { it == null } },
+          note = this@with.note.takeUnless { it.all { it == null } },
         )
       }
   }

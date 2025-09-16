@@ -29,34 +29,21 @@ import kotlinx.serialization.descriptors.SerialDescriptor
 import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
 
-public object BodyStructureIncludedStructureBodyLandmarkOrientationDistanceFromLandmarkSerializer :
-  KSerializer<BodyStructure.IncludedStructure.BodyLandmarkOrientation.DistanceFromLandmark> {
-  internal val surrogateSerializer:
-    KSerializer<
-      BodyStructureIncludedStructureBodyLandmarkOrientationDistanceFromLandmarkSurrogate
-    > by lazy {
-    BodyStructureIncludedStructureBodyLandmarkOrientationDistanceFromLandmarkSurrogate.serializer()
+public object BodyStructureIncludedStructureSerializer :
+  KSerializer<BodyStructure.IncludedStructure> {
+  internal val surrogateSerializer: KSerializer<BodyStructureIncludedStructureSurrogate> by lazy {
+    BodyStructureIncludedStructureSurrogate.serializer()
   }
 
   override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("DistanceFromLandmark", surrogateSerializer.descriptor)
+    SerialDescriptor("IncludedStructure", surrogateSerializer.descriptor)
   }
 
-  override fun deserialize(
-    decoder: Decoder
-  ): BodyStructure.IncludedStructure.BodyLandmarkOrientation.DistanceFromLandmark =
+  override fun deserialize(decoder: Decoder): BodyStructure.IncludedStructure =
     surrogateSerializer.deserialize(decoder).toModel()
 
-  override fun serialize(
-    encoder: Encoder,
-    `value`: BodyStructure.IncludedStructure.BodyLandmarkOrientation.DistanceFromLandmark,
-  ) {
-    surrogateSerializer.serialize(
-      encoder,
-      BodyStructureIncludedStructureBodyLandmarkOrientationDistanceFromLandmarkSurrogate.fromModel(
-        value
-      ),
-    )
+  override fun serialize(encoder: Encoder, `value`: BodyStructure.IncludedStructure) {
+    surrogateSerializer.serialize(encoder, BodyStructureIncludedStructureSurrogate.fromModel(value))
   }
 }
 
@@ -87,21 +74,34 @@ public object BodyStructureIncludedStructureBodyLandmarkOrientationSerializer :
   }
 }
 
-public object BodyStructureIncludedStructureSerializer :
-  KSerializer<BodyStructure.IncludedStructure> {
-  internal val surrogateSerializer: KSerializer<BodyStructureIncludedStructureSurrogate> by lazy {
-    BodyStructureIncludedStructureSurrogate.serializer()
+public object BodyStructureIncludedStructureBodyLandmarkOrientationDistanceFromLandmarkSerializer :
+  KSerializer<BodyStructure.IncludedStructure.BodyLandmarkOrientation.DistanceFromLandmark> {
+  internal val surrogateSerializer:
+    KSerializer<
+      BodyStructureIncludedStructureBodyLandmarkOrientationDistanceFromLandmarkSurrogate
+    > by lazy {
+    BodyStructureIncludedStructureBodyLandmarkOrientationDistanceFromLandmarkSurrogate.serializer()
   }
 
   override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("IncludedStructure", surrogateSerializer.descriptor)
+    SerialDescriptor("DistanceFromLandmark", surrogateSerializer.descriptor)
   }
 
-  override fun deserialize(decoder: Decoder): BodyStructure.IncludedStructure =
+  override fun deserialize(
+    decoder: Decoder
+  ): BodyStructure.IncludedStructure.BodyLandmarkOrientation.DistanceFromLandmark =
     surrogateSerializer.deserialize(decoder).toModel()
 
-  override fun serialize(encoder: Encoder, `value`: BodyStructure.IncludedStructure) {
-    surrogateSerializer.serialize(encoder, BodyStructureIncludedStructureSurrogate.fromModel(value))
+  override fun serialize(
+    encoder: Encoder,
+    `value`: BodyStructure.IncludedStructure.BodyLandmarkOrientation.DistanceFromLandmark,
+  ) {
+    surrogateSerializer.serialize(
+      encoder,
+      BodyStructureIncludedStructureBodyLandmarkOrientationDistanceFromLandmarkSurrogate.fromModel(
+        value
+      ),
+    )
   }
 }
 

@@ -50,60 +50,6 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
-internal data class AdministrableProductDefinitionPropertyValueSurrogate(
-  public var valueCodeableConcept: CodeableConcept? = null,
-  public var valueQuantity: Quantity? = null,
-  public var valueDate: KotlinString? = null,
-  public var _valueDate: Element? = null,
-  public var valueBoolean: KotlinBoolean? = null,
-  public var _valueBoolean: Element? = null,
-  public var valueMarkdown: KotlinString? = null,
-  public var _valueMarkdown: Element? = null,
-  public var valueAttachment: Attachment? = null,
-  public var valueReference: Reference? = null,
-) {
-  public fun toModel(): AdministrableProductDefinition.Property.Value =
-    AdministrableProductDefinition.Property.Value?.from(
-      this@AdministrableProductDefinitionPropertyValueSurrogate.valueCodeableConcept,
-      this@AdministrableProductDefinitionPropertyValueSurrogate.valueQuantity,
-      Date.of(
-        FhirDate.fromString(this@AdministrableProductDefinitionPropertyValueSurrogate.valueDate),
-        this@AdministrableProductDefinitionPropertyValueSurrogate._valueDate,
-      ),
-      R5Boolean.of(
-        this@AdministrableProductDefinitionPropertyValueSurrogate.valueBoolean,
-        this@AdministrableProductDefinitionPropertyValueSurrogate._valueBoolean,
-      ),
-      Markdown.of(
-        this@AdministrableProductDefinitionPropertyValueSurrogate.valueMarkdown,
-        this@AdministrableProductDefinitionPropertyValueSurrogate._valueMarkdown,
-      ),
-      this@AdministrableProductDefinitionPropertyValueSurrogate.valueAttachment,
-      this@AdministrableProductDefinitionPropertyValueSurrogate.valueReference,
-    )!!
-
-  public companion object {
-    public fun fromModel(
-      model: AdministrableProductDefinition.Property.Value
-    ): AdministrableProductDefinitionPropertyValueSurrogate =
-      with(model) {
-        AdministrableProductDefinitionPropertyValueSurrogate(
-          valueCodeableConcept = this@with.asCodeableConcept()?.value,
-          valueQuantity = this@with.asQuantity()?.value,
-          valueDate = this@with.asDate()?.value?.value?.toString(),
-          _valueDate = this@with.asDate()?.value?.toElement(),
-          valueBoolean = this@with.asBoolean()?.value?.value,
-          _valueBoolean = this@with.asBoolean()?.value?.toElement(),
-          valueMarkdown = this@with.asMarkdown()?.value?.value,
-          _valueMarkdown = this@with.asMarkdown()?.value?.toElement(),
-          valueAttachment = this@with.asAttachment()?.value,
-          valueReference = this@with.asReference()?.value,
-        )
-      }
-  }
-}
-
-@Serializable
 internal data class AdministrableProductDefinitionPropertySurrogate(
   public var id: KotlinString? = null,
   public var extension: MutableList<Extension>? = null,
@@ -135,6 +81,109 @@ internal data class AdministrableProductDefinitionPropertySurrogate(
           type = this@with.type,
           `value` = this@with.`value`,
           status = this@with.status,
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class AdministrableProductDefinitionRouteOfAdministrationSurrogate(
+  public var id: KotlinString? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var code: CodeableConcept,
+  public var firstDose: Quantity? = null,
+  public var maxSingleDose: Quantity? = null,
+  public var maxDosePerDay: Quantity? = null,
+  public var maxDosePerTreatmentPeriod: Ratio? = null,
+  public var maxTreatmentPeriod: Duration? = null,
+  public var targetSpecies:
+    MutableList<AdministrableProductDefinition.RouteOfAdministration.TargetSpecies>? =
+    null,
+) {
+  public fun toModel(): AdministrableProductDefinition.RouteOfAdministration =
+    AdministrableProductDefinition.RouteOfAdministration(
+      id = this@AdministrableProductDefinitionRouteOfAdministrationSurrogate.id,
+      extension =
+        this@AdministrableProductDefinitionRouteOfAdministrationSurrogate.extension
+          ?: mutableListOf(),
+      modifierExtension =
+        this@AdministrableProductDefinitionRouteOfAdministrationSurrogate.modifierExtension
+          ?: mutableListOf(),
+      code = this@AdministrableProductDefinitionRouteOfAdministrationSurrogate.code,
+      firstDose = this@AdministrableProductDefinitionRouteOfAdministrationSurrogate.firstDose,
+      maxSingleDose =
+        this@AdministrableProductDefinitionRouteOfAdministrationSurrogate.maxSingleDose,
+      maxDosePerDay =
+        this@AdministrableProductDefinitionRouteOfAdministrationSurrogate.maxDosePerDay,
+      maxDosePerTreatmentPeriod =
+        this@AdministrableProductDefinitionRouteOfAdministrationSurrogate.maxDosePerTreatmentPeriod,
+      maxTreatmentPeriod =
+        this@AdministrableProductDefinitionRouteOfAdministrationSurrogate.maxTreatmentPeriod,
+      targetSpecies =
+        this@AdministrableProductDefinitionRouteOfAdministrationSurrogate.targetSpecies
+          ?: mutableListOf(),
+    )
+
+  public companion object {
+    public fun fromModel(
+      model: AdministrableProductDefinition.RouteOfAdministration
+    ): AdministrableProductDefinitionRouteOfAdministrationSurrogate =
+      with(model) {
+        AdministrableProductDefinitionRouteOfAdministrationSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          code = this@with.code,
+          firstDose = this@with.firstDose,
+          maxSingleDose = this@with.maxSingleDose,
+          maxDosePerDay = this@with.maxDosePerDay,
+          maxDosePerTreatmentPeriod = this@with.maxDosePerTreatmentPeriod,
+          maxTreatmentPeriod = this@with.maxTreatmentPeriod,
+          targetSpecies = this@with.targetSpecies.takeUnless { it.all { it == null } },
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesSurrogate(
+  public var id: KotlinString? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var code: CodeableConcept,
+  public var withdrawalPeriod:
+    MutableList<
+      AdministrableProductDefinition.RouteOfAdministration.TargetSpecies.WithdrawalPeriod
+    >? =
+    null,
+) {
+  public fun toModel(): AdministrableProductDefinition.RouteOfAdministration.TargetSpecies =
+    AdministrableProductDefinition.RouteOfAdministration.TargetSpecies(
+      id = this@AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesSurrogate.id,
+      extension =
+        this@AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesSurrogate.extension
+          ?: mutableListOf(),
+      modifierExtension =
+        this@AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesSurrogate
+          .modifierExtension ?: mutableListOf(),
+      code = this@AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesSurrogate.code,
+      withdrawalPeriod =
+        this@AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesSurrogate
+          .withdrawalPeriod ?: mutableListOf(),
+    )
+
+  public companion object {
+    public fun fromModel(
+      model: AdministrableProductDefinition.RouteOfAdministration.TargetSpecies
+    ): AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesSurrogate =
+      with(model) {
+        AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          code = this@with.code,
+          withdrawalPeriod = this@with.withdrawalPeriod.takeUnless { it.all { it == null } },
         )
       }
   }
@@ -196,103 +245,54 @@ internal data class AdministrableProductDefinitionRouteOfAdministrationTargetSpe
 }
 
 @Serializable
-internal data class AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesSurrogate(
-  public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var code: CodeableConcept,
-  public var withdrawalPeriod:
-    MutableList<
-      AdministrableProductDefinition.RouteOfAdministration.TargetSpecies.WithdrawalPeriod
-    >? =
-    null,
+internal data class AdministrableProductDefinitionPropertyValueSurrogate(
+  public var valueCodeableConcept: CodeableConcept? = null,
+  public var valueQuantity: Quantity? = null,
+  public var valueDate: KotlinString? = null,
+  public var _valueDate: Element? = null,
+  public var valueBoolean: KotlinBoolean? = null,
+  public var _valueBoolean: Element? = null,
+  public var valueMarkdown: KotlinString? = null,
+  public var _valueMarkdown: Element? = null,
+  public var valueAttachment: Attachment? = null,
+  public var valueReference: Reference? = null,
 ) {
-  public fun toModel(): AdministrableProductDefinition.RouteOfAdministration.TargetSpecies =
-    AdministrableProductDefinition.RouteOfAdministration.TargetSpecies(
-      id = this@AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesSurrogate.id,
-      extension =
-        this@AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesSurrogate.extension
-          ?: mutableListOf(),
-      modifierExtension =
-        this@AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesSurrogate
-          .modifierExtension ?: mutableListOf(),
-      code = this@AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesSurrogate.code,
-      withdrawalPeriod =
-        this@AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesSurrogate
-          .withdrawalPeriod ?: mutableListOf(),
-    )
+  public fun toModel(): AdministrableProductDefinition.Property.Value =
+    AdministrableProductDefinition.Property.Value.from(
+      this@AdministrableProductDefinitionPropertyValueSurrogate.valueCodeableConcept,
+      this@AdministrableProductDefinitionPropertyValueSurrogate.valueQuantity,
+      Date.of(
+        FhirDate.fromString(this@AdministrableProductDefinitionPropertyValueSurrogate.valueDate),
+        this@AdministrableProductDefinitionPropertyValueSurrogate._valueDate,
+      ),
+      R5Boolean.of(
+        this@AdministrableProductDefinitionPropertyValueSurrogate.valueBoolean,
+        this@AdministrableProductDefinitionPropertyValueSurrogate._valueBoolean,
+      ),
+      Markdown.of(
+        this@AdministrableProductDefinitionPropertyValueSurrogate.valueMarkdown,
+        this@AdministrableProductDefinitionPropertyValueSurrogate._valueMarkdown,
+      ),
+      this@AdministrableProductDefinitionPropertyValueSurrogate.valueAttachment,
+      this@AdministrableProductDefinitionPropertyValueSurrogate.valueReference,
+    )!!
 
   public companion object {
     public fun fromModel(
-      model: AdministrableProductDefinition.RouteOfAdministration.TargetSpecies
-    ): AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesSurrogate =
+      model: AdministrableProductDefinition.Property.Value
+    ): AdministrableProductDefinitionPropertyValueSurrogate =
       with(model) {
-        AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesSurrogate(
-          id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          code = this@with.code,
-          withdrawalPeriod = this@with.withdrawalPeriod.takeUnless { it.all { it == null } },
-        )
-      }
-  }
-}
-
-@Serializable
-internal data class AdministrableProductDefinitionRouteOfAdministrationSurrogate(
-  public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var code: CodeableConcept,
-  public var firstDose: Quantity? = null,
-  public var maxSingleDose: Quantity? = null,
-  public var maxDosePerDay: Quantity? = null,
-  public var maxDosePerTreatmentPeriod: Ratio? = null,
-  public var maxTreatmentPeriod: Duration? = null,
-  public var targetSpecies:
-    MutableList<AdministrableProductDefinition.RouteOfAdministration.TargetSpecies>? =
-    null,
-) {
-  public fun toModel(): AdministrableProductDefinition.RouteOfAdministration =
-    AdministrableProductDefinition.RouteOfAdministration(
-      id = this@AdministrableProductDefinitionRouteOfAdministrationSurrogate.id,
-      extension =
-        this@AdministrableProductDefinitionRouteOfAdministrationSurrogate.extension
-          ?: mutableListOf(),
-      modifierExtension =
-        this@AdministrableProductDefinitionRouteOfAdministrationSurrogate.modifierExtension
-          ?: mutableListOf(),
-      code = this@AdministrableProductDefinitionRouteOfAdministrationSurrogate.code,
-      firstDose = this@AdministrableProductDefinitionRouteOfAdministrationSurrogate.firstDose,
-      maxSingleDose =
-        this@AdministrableProductDefinitionRouteOfAdministrationSurrogate.maxSingleDose,
-      maxDosePerDay =
-        this@AdministrableProductDefinitionRouteOfAdministrationSurrogate.maxDosePerDay,
-      maxDosePerTreatmentPeriod =
-        this@AdministrableProductDefinitionRouteOfAdministrationSurrogate.maxDosePerTreatmentPeriod,
-      maxTreatmentPeriod =
-        this@AdministrableProductDefinitionRouteOfAdministrationSurrogate.maxTreatmentPeriod,
-      targetSpecies =
-        this@AdministrableProductDefinitionRouteOfAdministrationSurrogate.targetSpecies
-          ?: mutableListOf(),
-    )
-
-  public companion object {
-    public fun fromModel(
-      model: AdministrableProductDefinition.RouteOfAdministration
-    ): AdministrableProductDefinitionRouteOfAdministrationSurrogate =
-      with(model) {
-        AdministrableProductDefinitionRouteOfAdministrationSurrogate(
-          id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          code = this@with.code,
-          firstDose = this@with.firstDose,
-          maxSingleDose = this@with.maxSingleDose,
-          maxDosePerDay = this@with.maxDosePerDay,
-          maxDosePerTreatmentPeriod = this@with.maxDosePerTreatmentPeriod,
-          maxTreatmentPeriod = this@with.maxTreatmentPeriod,
-          targetSpecies = this@with.targetSpecies.takeUnless { it.all { it == null } },
+        AdministrableProductDefinitionPropertyValueSurrogate(
+          valueCodeableConcept = this@with.asCodeableConcept()?.value,
+          valueQuantity = this@with.asQuantity()?.value,
+          valueDate = this@with.asDate()?.value?.value?.toString(),
+          _valueDate = this@with.asDate()?.value?.toElement(),
+          valueBoolean = this@with.asBoolean()?.value?.value,
+          _valueBoolean = this@with.asBoolean()?.value?.toElement(),
+          valueMarkdown = this@with.asMarkdown()?.value?.value,
+          _valueMarkdown = this@with.asMarkdown()?.value?.toElement(),
+          valueAttachment = this@with.asAttachment()?.value,
+          valueReference = this@with.asReference()?.value,
         )
       }
   }

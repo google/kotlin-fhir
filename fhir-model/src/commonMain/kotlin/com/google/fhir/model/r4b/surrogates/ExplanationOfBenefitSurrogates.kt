@@ -182,78 +182,6 @@ internal data class ExplanationOfBenefitCareTeamSurrogate(
 }
 
 @Serializable
-internal data class ExplanationOfBenefitSupportingInfoTimingSurrogate(
-  public var timingDate: KotlinString? = null,
-  public var _timingDate: Element? = null,
-  public var timingPeriod: Period? = null,
-) {
-  public fun toModel(): ExplanationOfBenefit.SupportingInfo.Timing =
-    ExplanationOfBenefit.SupportingInfo.Timing?.from(
-      Date.of(
-        FhirDate.fromString(this@ExplanationOfBenefitSupportingInfoTimingSurrogate.timingDate),
-        this@ExplanationOfBenefitSupportingInfoTimingSurrogate._timingDate,
-      ),
-      this@ExplanationOfBenefitSupportingInfoTimingSurrogate.timingPeriod,
-    )!!
-
-  public companion object {
-    public fun fromModel(
-      model: ExplanationOfBenefit.SupportingInfo.Timing
-    ): ExplanationOfBenefitSupportingInfoTimingSurrogate =
-      with(model) {
-        ExplanationOfBenefitSupportingInfoTimingSurrogate(
-          timingDate = this@with.asDate()?.value?.value?.toString(),
-          _timingDate = this@with.asDate()?.value?.toElement(),
-          timingPeriod = this@with.asPeriod()?.value,
-        )
-      }
-  }
-}
-
-@Serializable
-internal data class ExplanationOfBenefitSupportingInfoValueSurrogate(
-  public var valueBoolean: KotlinBoolean? = null,
-  public var _valueBoolean: Element? = null,
-  public var valueString: KotlinString? = null,
-  public var _valueString: Element? = null,
-  public var valueQuantity: Quantity? = null,
-  public var valueAttachment: Attachment? = null,
-  public var valueReference: Reference? = null,
-) {
-  public fun toModel(): ExplanationOfBenefit.SupportingInfo.Value =
-    ExplanationOfBenefit.SupportingInfo.Value?.from(
-      R4bBoolean.of(
-        this@ExplanationOfBenefitSupportingInfoValueSurrogate.valueBoolean,
-        this@ExplanationOfBenefitSupportingInfoValueSurrogate._valueBoolean,
-      ),
-      R4bString.of(
-        this@ExplanationOfBenefitSupportingInfoValueSurrogate.valueString,
-        this@ExplanationOfBenefitSupportingInfoValueSurrogate._valueString,
-      ),
-      this@ExplanationOfBenefitSupportingInfoValueSurrogate.valueQuantity,
-      this@ExplanationOfBenefitSupportingInfoValueSurrogate.valueAttachment,
-      this@ExplanationOfBenefitSupportingInfoValueSurrogate.valueReference,
-    )!!
-
-  public companion object {
-    public fun fromModel(
-      model: ExplanationOfBenefit.SupportingInfo.Value
-    ): ExplanationOfBenefitSupportingInfoValueSurrogate =
-      with(model) {
-        ExplanationOfBenefitSupportingInfoValueSurrogate(
-          valueBoolean = this@with.asBoolean()?.value?.value,
-          _valueBoolean = this@with.asBoolean()?.value?.toElement(),
-          valueString = this@with.asString()?.value?.value,
-          _valueString = this@with.asString()?.value?.toElement(),
-          valueQuantity = this@with.asQuantity()?.value,
-          valueAttachment = this@with.asAttachment()?.value,
-          valueReference = this@with.asReference()?.value,
-        )
-      }
-  }
-}
-
-@Serializable
 internal data class ExplanationOfBenefitSupportingInfoSurrogate(
   public var id: KotlinString? = null,
   public var extension: MutableList<Extension>? = null,
@@ -306,30 +234,6 @@ internal data class ExplanationOfBenefitSupportingInfoSurrogate(
 }
 
 @Serializable
-internal data class ExplanationOfBenefitDiagnosisDiagnosisSurrogate(
-  public var diagnosisCodeableConcept: CodeableConcept? = null,
-  public var diagnosisReference: Reference? = null,
-) {
-  public fun toModel(): ExplanationOfBenefit.Diagnosis.Diagnosis =
-    ExplanationOfBenefit.Diagnosis.Diagnosis.from(
-      this@ExplanationOfBenefitDiagnosisDiagnosisSurrogate.diagnosisCodeableConcept,
-      this@ExplanationOfBenefitDiagnosisDiagnosisSurrogate.diagnosisReference,
-    )!! !!
-
-  public companion object {
-    public fun fromModel(
-      model: ExplanationOfBenefit.Diagnosis.Diagnosis
-    ): ExplanationOfBenefitDiagnosisDiagnosisSurrogate =
-      with(model) {
-        ExplanationOfBenefitDiagnosisDiagnosisSurrogate(
-          diagnosisCodeableConcept = this@with.asCodeableConcept()?.value,
-          diagnosisReference = this@with.asReference()?.value,
-        )
-      }
-  }
-}
-
-@Serializable
 internal data class ExplanationOfBenefitDiagnosisSurrogate(
   public var id: KotlinString? = null,
   public var extension: MutableList<Extension>? = null,
@@ -373,30 +277,6 @@ internal data class ExplanationOfBenefitDiagnosisSurrogate(
           type = this@with.type.takeUnless { it.all { it == null } },
           onAdmission = this@with.onAdmission,
           packageCode = this@with.packageCode,
-        )
-      }
-  }
-}
-
-@Serializable
-internal data class ExplanationOfBenefitProcedureProcedureSurrogate(
-  public var procedureCodeableConcept: CodeableConcept? = null,
-  public var procedureReference: Reference? = null,
-) {
-  public fun toModel(): ExplanationOfBenefit.Procedure.Procedure =
-    ExplanationOfBenefit.Procedure.Procedure.from(
-      this@ExplanationOfBenefitProcedureProcedureSurrogate.procedureCodeableConcept,
-      this@ExplanationOfBenefitProcedureProcedureSurrogate.procedureReference,
-    )!! !!
-
-  public companion object {
-    public fun fromModel(
-      model: ExplanationOfBenefit.Procedure.Procedure
-    ): ExplanationOfBenefitProcedureProcedureSurrogate =
-      with(model) {
-        ExplanationOfBenefitProcedureProcedureSurrogate(
-          procedureCodeableConcept = this@with.asCodeableConcept()?.value,
-          procedureReference = this@with.asReference()?.value,
         )
       }
   }
@@ -527,30 +407,6 @@ internal data class ExplanationOfBenefitInsuranceSurrogate(
 }
 
 @Serializable
-internal data class ExplanationOfBenefitAccidentLocationSurrogate(
-  public var locationAddress: Address? = null,
-  public var locationReference: Reference? = null,
-) {
-  public fun toModel(): ExplanationOfBenefit.Accident.Location =
-    ExplanationOfBenefit.Accident.Location?.from(
-      this@ExplanationOfBenefitAccidentLocationSurrogate.locationAddress,
-      this@ExplanationOfBenefitAccidentLocationSurrogate.locationReference,
-    )!!
-
-  public companion object {
-    public fun fromModel(
-      model: ExplanationOfBenefit.Accident.Location
-    ): ExplanationOfBenefitAccidentLocationSurrogate =
-      with(model) {
-        ExplanationOfBenefitAccidentLocationSurrogate(
-          locationAddress = this@with.asAddress()?.value,
-          locationReference = this@with.asReference()?.value,
-        )
-      }
-  }
-}
-
-@Serializable
 internal data class ExplanationOfBenefitAccidentSurrogate(
   public var id: KotlinString? = null,
   public var extension: MutableList<Extension>? = null,
@@ -588,328 +444,6 @@ internal data class ExplanationOfBenefitAccidentSurrogate(
           _date = this@with.date?.toElement(),
           type = this@with.type,
           location = this@with.location,
-        )
-      }
-  }
-}
-
-@Serializable
-internal data class ExplanationOfBenefitItemAdjudicationSurrogate(
-  public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var category: CodeableConcept,
-  public var reason: CodeableConcept? = null,
-  public var amount: Money? = null,
-  public var `value`: Double? = null,
-  public var _value: Element? = null,
-) {
-  public fun toModel(): ExplanationOfBenefit.Item.Adjudication =
-    ExplanationOfBenefit.Item.Adjudication(
-      id = this@ExplanationOfBenefitItemAdjudicationSurrogate.id,
-      extension = this@ExplanationOfBenefitItemAdjudicationSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@ExplanationOfBenefitItemAdjudicationSurrogate.modifierExtension ?: mutableListOf(),
-      category = this@ExplanationOfBenefitItemAdjudicationSurrogate.category,
-      reason = this@ExplanationOfBenefitItemAdjudicationSurrogate.reason,
-      amount = this@ExplanationOfBenefitItemAdjudicationSurrogate.amount,
-      `value` =
-        Decimal.of(
-          this@ExplanationOfBenefitItemAdjudicationSurrogate.`value`,
-          this@ExplanationOfBenefitItemAdjudicationSurrogate._value,
-        ),
-    )
-
-  public companion object {
-    public fun fromModel(
-      model: ExplanationOfBenefit.Item.Adjudication
-    ): ExplanationOfBenefitItemAdjudicationSurrogate =
-      with(model) {
-        ExplanationOfBenefitItemAdjudicationSurrogate(
-          id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          category = this@with.category,
-          reason = this@with.reason,
-          amount = this@with.amount,
-          `value` = this@with.`value`?.value,
-          _value = this@with.`value`?.toElement(),
-        )
-      }
-  }
-}
-
-@Serializable
-internal data class ExplanationOfBenefitItemDetailSubDetailSurrogate(
-  public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var sequence: Int? = null,
-  public var _sequence: Element? = null,
-  public var revenue: CodeableConcept? = null,
-  public var category: CodeableConcept? = null,
-  public var productOrService: CodeableConcept,
-  public var modifier: MutableList<CodeableConcept>? = null,
-  public var programCode: MutableList<CodeableConcept>? = null,
-  public var quantity: Quantity? = null,
-  public var unitPrice: Money? = null,
-  public var factor: Double? = null,
-  public var _factor: Element? = null,
-  public var net: Money? = null,
-  public var udi: MutableList<Reference>? = null,
-  public var noteNumber: MutableList<Int?>? = null,
-  public var _noteNumber: MutableList<Element?>? = null,
-  public var adjudication: MutableList<ExplanationOfBenefit.Item.Adjudication>? = null,
-) {
-  public fun toModel(): ExplanationOfBenefit.Item.Detail.SubDetail =
-    ExplanationOfBenefit.Item.Detail.SubDetail(
-      id = this@ExplanationOfBenefitItemDetailSubDetailSurrogate.id,
-      extension =
-        this@ExplanationOfBenefitItemDetailSubDetailSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@ExplanationOfBenefitItemDetailSubDetailSurrogate.modifierExtension ?: mutableListOf(),
-      sequence =
-        PositiveInt.of(
-          this@ExplanationOfBenefitItemDetailSubDetailSurrogate.sequence,
-          this@ExplanationOfBenefitItemDetailSubDetailSurrogate._sequence,
-        )!!,
-      revenue = this@ExplanationOfBenefitItemDetailSubDetailSurrogate.revenue,
-      category = this@ExplanationOfBenefitItemDetailSubDetailSurrogate.category,
-      productOrService = this@ExplanationOfBenefitItemDetailSubDetailSurrogate.productOrService,
-      modifier = this@ExplanationOfBenefitItemDetailSubDetailSurrogate.modifier ?: mutableListOf(),
-      programCode =
-        this@ExplanationOfBenefitItemDetailSubDetailSurrogate.programCode ?: mutableListOf(),
-      quantity = this@ExplanationOfBenefitItemDetailSubDetailSurrogate.quantity,
-      unitPrice = this@ExplanationOfBenefitItemDetailSubDetailSurrogate.unitPrice,
-      factor =
-        Decimal.of(
-          this@ExplanationOfBenefitItemDetailSubDetailSurrogate.factor,
-          this@ExplanationOfBenefitItemDetailSubDetailSurrogate._factor,
-        ),
-      net = this@ExplanationOfBenefitItemDetailSubDetailSurrogate.net,
-      udi = this@ExplanationOfBenefitItemDetailSubDetailSurrogate.udi ?: mutableListOf(),
-      noteNumber =
-        if (
-          this@ExplanationOfBenefitItemDetailSubDetailSurrogate.noteNumber == null &&
-            this@ExplanationOfBenefitItemDetailSubDetailSurrogate._noteNumber == null
-        ) {
-          mutableListOf()
-        } else {
-          (this@ExplanationOfBenefitItemDetailSubDetailSurrogate.noteNumber
-              ?: List(this@ExplanationOfBenefitItemDetailSubDetailSurrogate._noteNumber!!.size) {
-                null
-              })
-            .zip(
-              this@ExplanationOfBenefitItemDetailSubDetailSurrogate._noteNumber
-                ?: List(this@ExplanationOfBenefitItemDetailSubDetailSurrogate.noteNumber!!.size) {
-                  null
-                }
-            )
-            .map { (value, element) -> PositiveInt.of(value, element)!! }
-            .toMutableList()
-        },
-      adjudication =
-        this@ExplanationOfBenefitItemDetailSubDetailSurrogate.adjudication ?: mutableListOf(),
-    )
-
-  public companion object {
-    public fun fromModel(
-      model: ExplanationOfBenefit.Item.Detail.SubDetail
-    ): ExplanationOfBenefitItemDetailSubDetailSurrogate =
-      with(model) {
-        ExplanationOfBenefitItemDetailSubDetailSurrogate(
-          id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          sequence = this@with.sequence.value,
-          _sequence = this@with.sequence.toElement(),
-          revenue = this@with.revenue,
-          category = this@with.category,
-          productOrService = this@with.productOrService,
-          modifier = this@with.modifier.takeUnless { it.all { it == null } },
-          programCode = this@with.programCode.takeUnless { it.all { it == null } },
-          quantity = this@with.quantity,
-          unitPrice = this@with.unitPrice,
-          factor = this@with.factor?.value,
-          _factor = this@with.factor?.toElement(),
-          net = this@with.net,
-          udi = this@with.udi.takeUnless { it.all { it == null } },
-          noteNumber =
-            this@with.noteNumber
-              .map { it.value }
-              .toMutableList()
-              .takeUnless { it.all { it == null } },
-          _noteNumber =
-            this@with.noteNumber
-              .map { it.toElement() }
-              .takeUnless { it.all { it == null } }
-              ?.map { it ?: Element() }
-              ?.toMutableList(),
-          adjudication = this@with.adjudication.takeUnless { it.all { it == null } },
-        )
-      }
-  }
-}
-
-@Serializable
-internal data class ExplanationOfBenefitItemDetailSurrogate(
-  public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var sequence: Int? = null,
-  public var _sequence: Element? = null,
-  public var revenue: CodeableConcept? = null,
-  public var category: CodeableConcept? = null,
-  public var productOrService: CodeableConcept,
-  public var modifier: MutableList<CodeableConcept>? = null,
-  public var programCode: MutableList<CodeableConcept>? = null,
-  public var quantity: Quantity? = null,
-  public var unitPrice: Money? = null,
-  public var factor: Double? = null,
-  public var _factor: Element? = null,
-  public var net: Money? = null,
-  public var udi: MutableList<Reference>? = null,
-  public var noteNumber: MutableList<Int?>? = null,
-  public var _noteNumber: MutableList<Element?>? = null,
-  public var adjudication: MutableList<ExplanationOfBenefit.Item.Adjudication>? = null,
-  public var subDetail: MutableList<ExplanationOfBenefit.Item.Detail.SubDetail>? = null,
-) {
-  public fun toModel(): ExplanationOfBenefit.Item.Detail =
-    ExplanationOfBenefit.Item.Detail(
-      id = this@ExplanationOfBenefitItemDetailSurrogate.id,
-      extension = this@ExplanationOfBenefitItemDetailSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@ExplanationOfBenefitItemDetailSurrogate.modifierExtension ?: mutableListOf(),
-      sequence =
-        PositiveInt.of(
-          this@ExplanationOfBenefitItemDetailSurrogate.sequence,
-          this@ExplanationOfBenefitItemDetailSurrogate._sequence,
-        )!!,
-      revenue = this@ExplanationOfBenefitItemDetailSurrogate.revenue,
-      category = this@ExplanationOfBenefitItemDetailSurrogate.category,
-      productOrService = this@ExplanationOfBenefitItemDetailSurrogate.productOrService,
-      modifier = this@ExplanationOfBenefitItemDetailSurrogate.modifier ?: mutableListOf(),
-      programCode = this@ExplanationOfBenefitItemDetailSurrogate.programCode ?: mutableListOf(),
-      quantity = this@ExplanationOfBenefitItemDetailSurrogate.quantity,
-      unitPrice = this@ExplanationOfBenefitItemDetailSurrogate.unitPrice,
-      factor =
-        Decimal.of(
-          this@ExplanationOfBenefitItemDetailSurrogate.factor,
-          this@ExplanationOfBenefitItemDetailSurrogate._factor,
-        ),
-      net = this@ExplanationOfBenefitItemDetailSurrogate.net,
-      udi = this@ExplanationOfBenefitItemDetailSurrogate.udi ?: mutableListOf(),
-      noteNumber =
-        if (
-          this@ExplanationOfBenefitItemDetailSurrogate.noteNumber == null &&
-            this@ExplanationOfBenefitItemDetailSurrogate._noteNumber == null
-        ) {
-          mutableListOf()
-        } else {
-          (this@ExplanationOfBenefitItemDetailSurrogate.noteNumber
-              ?: List(this@ExplanationOfBenefitItemDetailSurrogate._noteNumber!!.size) { null })
-            .zip(
-              this@ExplanationOfBenefitItemDetailSurrogate._noteNumber
-                ?: List(this@ExplanationOfBenefitItemDetailSurrogate.noteNumber!!.size) { null }
-            )
-            .map { (value, element) -> PositiveInt.of(value, element)!! }
-            .toMutableList()
-        },
-      adjudication = this@ExplanationOfBenefitItemDetailSurrogate.adjudication ?: mutableListOf(),
-      subDetail = this@ExplanationOfBenefitItemDetailSurrogate.subDetail ?: mutableListOf(),
-    )
-
-  public companion object {
-    public fun fromModel(
-      model: ExplanationOfBenefit.Item.Detail
-    ): ExplanationOfBenefitItemDetailSurrogate =
-      with(model) {
-        ExplanationOfBenefitItemDetailSurrogate(
-          id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          sequence = this@with.sequence.value,
-          _sequence = this@with.sequence.toElement(),
-          revenue = this@with.revenue,
-          category = this@with.category,
-          productOrService = this@with.productOrService,
-          modifier = this@with.modifier.takeUnless { it.all { it == null } },
-          programCode = this@with.programCode.takeUnless { it.all { it == null } },
-          quantity = this@with.quantity,
-          unitPrice = this@with.unitPrice,
-          factor = this@with.factor?.value,
-          _factor = this@with.factor?.toElement(),
-          net = this@with.net,
-          udi = this@with.udi.takeUnless { it.all { it == null } },
-          noteNumber =
-            this@with.noteNumber
-              .map { it.value }
-              .toMutableList()
-              .takeUnless { it.all { it == null } },
-          _noteNumber =
-            this@with.noteNumber
-              .map { it.toElement() }
-              .takeUnless { it.all { it == null } }
-              ?.map { it ?: Element() }
-              ?.toMutableList(),
-          adjudication = this@with.adjudication.takeUnless { it.all { it == null } },
-          subDetail = this@with.subDetail.takeUnless { it.all { it == null } },
-        )
-      }
-  }
-}
-
-@Serializable
-internal data class ExplanationOfBenefitItemServicedSurrogate(
-  public var servicedDate: KotlinString? = null,
-  public var _servicedDate: Element? = null,
-  public var servicedPeriod: Period? = null,
-) {
-  public fun toModel(): ExplanationOfBenefit.Item.Serviced =
-    ExplanationOfBenefit.Item.Serviced?.from(
-      Date.of(
-        FhirDate.fromString(this@ExplanationOfBenefitItemServicedSurrogate.servicedDate),
-        this@ExplanationOfBenefitItemServicedSurrogate._servicedDate,
-      ),
-      this@ExplanationOfBenefitItemServicedSurrogate.servicedPeriod,
-    )!!
-
-  public companion object {
-    public fun fromModel(
-      model: ExplanationOfBenefit.Item.Serviced
-    ): ExplanationOfBenefitItemServicedSurrogate =
-      with(model) {
-        ExplanationOfBenefitItemServicedSurrogate(
-          servicedDate = this@with.asDate()?.value?.value?.toString(),
-          _servicedDate = this@with.asDate()?.value?.toElement(),
-          servicedPeriod = this@with.asPeriod()?.value,
-        )
-      }
-  }
-}
-
-@Serializable
-internal data class ExplanationOfBenefitItemLocationSurrogate(
-  public var locationCodeableConcept: CodeableConcept? = null,
-  public var locationAddress: Address? = null,
-  public var locationReference: Reference? = null,
-) {
-  public fun toModel(): ExplanationOfBenefit.Item.Location =
-    ExplanationOfBenefit.Item.Location?.from(
-      this@ExplanationOfBenefitItemLocationSurrogate.locationCodeableConcept,
-      this@ExplanationOfBenefitItemLocationSurrogate.locationAddress,
-      this@ExplanationOfBenefitItemLocationSurrogate.locationReference,
-    )!!
-
-  public companion object {
-    public fun fromModel(
-      model: ExplanationOfBenefit.Item.Location
-    ): ExplanationOfBenefitItemLocationSurrogate =
-      with(model) {
-        ExplanationOfBenefitItemLocationSurrogate(
-          locationCodeableConcept = this@with.asCodeableConcept()?.value,
-          locationAddress = this@with.asAddress()?.value,
-          locationReference = this@with.asReference()?.value,
         )
       }
   }
@@ -1153,169 +687,141 @@ internal data class ExplanationOfBenefitItemSurrogate(
 }
 
 @Serializable
-internal data class ExplanationOfBenefitAddItemDetailSubDetailSurrogate(
+internal data class ExplanationOfBenefitItemAdjudicationSurrogate(
   public var id: KotlinString? = null,
   public var extension: MutableList<Extension>? = null,
   public var modifierExtension: MutableList<Extension>? = null,
-  public var productOrService: CodeableConcept,
-  public var modifier: MutableList<CodeableConcept>? = null,
-  public var quantity: Quantity? = null,
-  public var unitPrice: Money? = null,
-  public var factor: Double? = null,
-  public var _factor: Element? = null,
-  public var net: Money? = null,
-  public var noteNumber: MutableList<Int?>? = null,
-  public var _noteNumber: MutableList<Element?>? = null,
-  public var adjudication: MutableList<ExplanationOfBenefit.Item.Adjudication>? = null,
+  public var category: CodeableConcept,
+  public var reason: CodeableConcept? = null,
+  public var amount: Money? = null,
+  public var `value`: Double? = null,
+  public var _value: Element? = null,
 ) {
-  public fun toModel(): ExplanationOfBenefit.AddItem.Detail.SubDetail =
-    ExplanationOfBenefit.AddItem.Detail.SubDetail(
-      id = this@ExplanationOfBenefitAddItemDetailSubDetailSurrogate.id,
-      extension =
-        this@ExplanationOfBenefitAddItemDetailSubDetailSurrogate.extension ?: mutableListOf(),
+  public fun toModel(): ExplanationOfBenefit.Item.Adjudication =
+    ExplanationOfBenefit.Item.Adjudication(
+      id = this@ExplanationOfBenefitItemAdjudicationSurrogate.id,
+      extension = this@ExplanationOfBenefitItemAdjudicationSurrogate.extension ?: mutableListOf(),
       modifierExtension =
-        this@ExplanationOfBenefitAddItemDetailSubDetailSurrogate.modifierExtension
-          ?: mutableListOf(),
-      productOrService = this@ExplanationOfBenefitAddItemDetailSubDetailSurrogate.productOrService,
-      modifier =
-        this@ExplanationOfBenefitAddItemDetailSubDetailSurrogate.modifier ?: mutableListOf(),
-      quantity = this@ExplanationOfBenefitAddItemDetailSubDetailSurrogate.quantity,
-      unitPrice = this@ExplanationOfBenefitAddItemDetailSubDetailSurrogate.unitPrice,
-      factor =
+        this@ExplanationOfBenefitItemAdjudicationSurrogate.modifierExtension ?: mutableListOf(),
+      category = this@ExplanationOfBenefitItemAdjudicationSurrogate.category,
+      reason = this@ExplanationOfBenefitItemAdjudicationSurrogate.reason,
+      amount = this@ExplanationOfBenefitItemAdjudicationSurrogate.amount,
+      `value` =
         Decimal.of(
-          this@ExplanationOfBenefitAddItemDetailSubDetailSurrogate.factor,
-          this@ExplanationOfBenefitAddItemDetailSubDetailSurrogate._factor,
+          this@ExplanationOfBenefitItemAdjudicationSurrogate.`value`,
+          this@ExplanationOfBenefitItemAdjudicationSurrogate._value,
         ),
-      net = this@ExplanationOfBenefitAddItemDetailSubDetailSurrogate.net,
-      noteNumber =
-        if (
-          this@ExplanationOfBenefitAddItemDetailSubDetailSurrogate.noteNumber == null &&
-            this@ExplanationOfBenefitAddItemDetailSubDetailSurrogate._noteNumber == null
-        ) {
-          mutableListOf()
-        } else {
-          (this@ExplanationOfBenefitAddItemDetailSubDetailSurrogate.noteNumber
-              ?: List(this@ExplanationOfBenefitAddItemDetailSubDetailSurrogate._noteNumber!!.size) {
-                null
-              })
-            .zip(
-              this@ExplanationOfBenefitAddItemDetailSubDetailSurrogate._noteNumber
-                ?: List(
-                  this@ExplanationOfBenefitAddItemDetailSubDetailSurrogate.noteNumber!!.size
-                ) {
-                  null
-                }
-            )
-            .map { (value, element) -> PositiveInt.of(value, element)!! }
-            .toMutableList()
-        },
-      adjudication =
-        this@ExplanationOfBenefitAddItemDetailSubDetailSurrogate.adjudication ?: mutableListOf(),
     )
 
   public companion object {
     public fun fromModel(
-      model: ExplanationOfBenefit.AddItem.Detail.SubDetail
-    ): ExplanationOfBenefitAddItemDetailSubDetailSurrogate =
+      model: ExplanationOfBenefit.Item.Adjudication
+    ): ExplanationOfBenefitItemAdjudicationSurrogate =
       with(model) {
-        ExplanationOfBenefitAddItemDetailSubDetailSurrogate(
+        ExplanationOfBenefitItemAdjudicationSurrogate(
           id = this@with.id,
           extension = this@with.extension.takeUnless { it.all { it == null } },
           modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          productOrService = this@with.productOrService,
-          modifier = this@with.modifier.takeUnless { it.all { it == null } },
-          quantity = this@with.quantity,
-          unitPrice = this@with.unitPrice,
-          factor = this@with.factor?.value,
-          _factor = this@with.factor?.toElement(),
-          net = this@with.net,
-          noteNumber =
-            this@with.noteNumber
-              .map { it.value }
-              .toMutableList()
-              .takeUnless { it.all { it == null } },
-          _noteNumber =
-            this@with.noteNumber
-              .map { it.toElement() }
-              .takeUnless { it.all { it == null } }
-              ?.map { it ?: Element() }
-              ?.toMutableList(),
-          adjudication = this@with.adjudication.takeUnless { it.all { it == null } },
+          category = this@with.category,
+          reason = this@with.reason,
+          amount = this@with.amount,
+          `value` = this@with.`value`?.value,
+          _value = this@with.`value`?.toElement(),
         )
       }
   }
 }
 
 @Serializable
-internal data class ExplanationOfBenefitAddItemDetailSurrogate(
+internal data class ExplanationOfBenefitItemDetailSurrogate(
   public var id: KotlinString? = null,
   public var extension: MutableList<Extension>? = null,
   public var modifierExtension: MutableList<Extension>? = null,
+  public var sequence: Int? = null,
+  public var _sequence: Element? = null,
+  public var revenue: CodeableConcept? = null,
+  public var category: CodeableConcept? = null,
   public var productOrService: CodeableConcept,
   public var modifier: MutableList<CodeableConcept>? = null,
+  public var programCode: MutableList<CodeableConcept>? = null,
   public var quantity: Quantity? = null,
   public var unitPrice: Money? = null,
   public var factor: Double? = null,
   public var _factor: Element? = null,
   public var net: Money? = null,
+  public var udi: MutableList<Reference>? = null,
   public var noteNumber: MutableList<Int?>? = null,
   public var _noteNumber: MutableList<Element?>? = null,
   public var adjudication: MutableList<ExplanationOfBenefit.Item.Adjudication>? = null,
-  public var subDetail: MutableList<ExplanationOfBenefit.AddItem.Detail.SubDetail>? = null,
+  public var subDetail: MutableList<ExplanationOfBenefit.Item.Detail.SubDetail>? = null,
 ) {
-  public fun toModel(): ExplanationOfBenefit.AddItem.Detail =
-    ExplanationOfBenefit.AddItem.Detail(
-      id = this@ExplanationOfBenefitAddItemDetailSurrogate.id,
-      extension = this@ExplanationOfBenefitAddItemDetailSurrogate.extension ?: mutableListOf(),
+  public fun toModel(): ExplanationOfBenefit.Item.Detail =
+    ExplanationOfBenefit.Item.Detail(
+      id = this@ExplanationOfBenefitItemDetailSurrogate.id,
+      extension = this@ExplanationOfBenefitItemDetailSurrogate.extension ?: mutableListOf(),
       modifierExtension =
-        this@ExplanationOfBenefitAddItemDetailSurrogate.modifierExtension ?: mutableListOf(),
-      productOrService = this@ExplanationOfBenefitAddItemDetailSurrogate.productOrService,
-      modifier = this@ExplanationOfBenefitAddItemDetailSurrogate.modifier ?: mutableListOf(),
-      quantity = this@ExplanationOfBenefitAddItemDetailSurrogate.quantity,
-      unitPrice = this@ExplanationOfBenefitAddItemDetailSurrogate.unitPrice,
+        this@ExplanationOfBenefitItemDetailSurrogate.modifierExtension ?: mutableListOf(),
+      sequence =
+        PositiveInt.of(
+          this@ExplanationOfBenefitItemDetailSurrogate.sequence,
+          this@ExplanationOfBenefitItemDetailSurrogate._sequence,
+        )!!,
+      revenue = this@ExplanationOfBenefitItemDetailSurrogate.revenue,
+      category = this@ExplanationOfBenefitItemDetailSurrogate.category,
+      productOrService = this@ExplanationOfBenefitItemDetailSurrogate.productOrService,
+      modifier = this@ExplanationOfBenefitItemDetailSurrogate.modifier ?: mutableListOf(),
+      programCode = this@ExplanationOfBenefitItemDetailSurrogate.programCode ?: mutableListOf(),
+      quantity = this@ExplanationOfBenefitItemDetailSurrogate.quantity,
+      unitPrice = this@ExplanationOfBenefitItemDetailSurrogate.unitPrice,
       factor =
         Decimal.of(
-          this@ExplanationOfBenefitAddItemDetailSurrogate.factor,
-          this@ExplanationOfBenefitAddItemDetailSurrogate._factor,
+          this@ExplanationOfBenefitItemDetailSurrogate.factor,
+          this@ExplanationOfBenefitItemDetailSurrogate._factor,
         ),
-      net = this@ExplanationOfBenefitAddItemDetailSurrogate.net,
+      net = this@ExplanationOfBenefitItemDetailSurrogate.net,
+      udi = this@ExplanationOfBenefitItemDetailSurrogate.udi ?: mutableListOf(),
       noteNumber =
         if (
-          this@ExplanationOfBenefitAddItemDetailSurrogate.noteNumber == null &&
-            this@ExplanationOfBenefitAddItemDetailSurrogate._noteNumber == null
+          this@ExplanationOfBenefitItemDetailSurrogate.noteNumber == null &&
+            this@ExplanationOfBenefitItemDetailSurrogate._noteNumber == null
         ) {
           mutableListOf()
         } else {
-          (this@ExplanationOfBenefitAddItemDetailSurrogate.noteNumber
-              ?: List(this@ExplanationOfBenefitAddItemDetailSurrogate._noteNumber!!.size) { null })
+          (this@ExplanationOfBenefitItemDetailSurrogate.noteNumber
+              ?: List(this@ExplanationOfBenefitItemDetailSurrogate._noteNumber!!.size) { null })
             .zip(
-              this@ExplanationOfBenefitAddItemDetailSurrogate._noteNumber
-                ?: List(this@ExplanationOfBenefitAddItemDetailSurrogate.noteNumber!!.size) { null }
+              this@ExplanationOfBenefitItemDetailSurrogate._noteNumber
+                ?: List(this@ExplanationOfBenefitItemDetailSurrogate.noteNumber!!.size) { null }
             )
             .map { (value, element) -> PositiveInt.of(value, element)!! }
             .toMutableList()
         },
-      adjudication =
-        this@ExplanationOfBenefitAddItemDetailSurrogate.adjudication ?: mutableListOf(),
-      subDetail = this@ExplanationOfBenefitAddItemDetailSurrogate.subDetail ?: mutableListOf(),
+      adjudication = this@ExplanationOfBenefitItemDetailSurrogate.adjudication ?: mutableListOf(),
+      subDetail = this@ExplanationOfBenefitItemDetailSurrogate.subDetail ?: mutableListOf(),
     )
 
   public companion object {
     public fun fromModel(
-      model: ExplanationOfBenefit.AddItem.Detail
-    ): ExplanationOfBenefitAddItemDetailSurrogate =
+      model: ExplanationOfBenefit.Item.Detail
+    ): ExplanationOfBenefitItemDetailSurrogate =
       with(model) {
-        ExplanationOfBenefitAddItemDetailSurrogate(
+        ExplanationOfBenefitItemDetailSurrogate(
           id = this@with.id,
           extension = this@with.extension.takeUnless { it.all { it == null } },
           modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          sequence = this@with.sequence.value,
+          _sequence = this@with.sequence.toElement(),
+          revenue = this@with.revenue,
+          category = this@with.category,
           productOrService = this@with.productOrService,
           modifier = this@with.modifier.takeUnless { it.all { it == null } },
+          programCode = this@with.programCode.takeUnless { it.all { it == null } },
           quantity = this@with.quantity,
           unitPrice = this@with.unitPrice,
           factor = this@with.factor?.value,
           _factor = this@with.factor?.toElement(),
           net = this@with.net,
+          udi = this@with.udi.takeUnless { it.all { it == null } },
           noteNumber =
             this@with.noteNumber
               .map { it.value }
@@ -1335,56 +841,112 @@ internal data class ExplanationOfBenefitAddItemDetailSurrogate(
 }
 
 @Serializable
-internal data class ExplanationOfBenefitAddItemServicedSurrogate(
-  public var servicedDate: KotlinString? = null,
-  public var _servicedDate: Element? = null,
-  public var servicedPeriod: Period? = null,
+internal data class ExplanationOfBenefitItemDetailSubDetailSurrogate(
+  public var id: KotlinString? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var sequence: Int? = null,
+  public var _sequence: Element? = null,
+  public var revenue: CodeableConcept? = null,
+  public var category: CodeableConcept? = null,
+  public var productOrService: CodeableConcept,
+  public var modifier: MutableList<CodeableConcept>? = null,
+  public var programCode: MutableList<CodeableConcept>? = null,
+  public var quantity: Quantity? = null,
+  public var unitPrice: Money? = null,
+  public var factor: Double? = null,
+  public var _factor: Element? = null,
+  public var net: Money? = null,
+  public var udi: MutableList<Reference>? = null,
+  public var noteNumber: MutableList<Int?>? = null,
+  public var _noteNumber: MutableList<Element?>? = null,
+  public var adjudication: MutableList<ExplanationOfBenefit.Item.Adjudication>? = null,
 ) {
-  public fun toModel(): ExplanationOfBenefit.AddItem.Serviced =
-    ExplanationOfBenefit.AddItem.Serviced?.from(
-      Date.of(
-        FhirDate.fromString(this@ExplanationOfBenefitAddItemServicedSurrogate.servicedDate),
-        this@ExplanationOfBenefitAddItemServicedSurrogate._servicedDate,
-      ),
-      this@ExplanationOfBenefitAddItemServicedSurrogate.servicedPeriod,
-    )!!
+  public fun toModel(): ExplanationOfBenefit.Item.Detail.SubDetail =
+    ExplanationOfBenefit.Item.Detail.SubDetail(
+      id = this@ExplanationOfBenefitItemDetailSubDetailSurrogate.id,
+      extension =
+        this@ExplanationOfBenefitItemDetailSubDetailSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@ExplanationOfBenefitItemDetailSubDetailSurrogate.modifierExtension ?: mutableListOf(),
+      sequence =
+        PositiveInt.of(
+          this@ExplanationOfBenefitItemDetailSubDetailSurrogate.sequence,
+          this@ExplanationOfBenefitItemDetailSubDetailSurrogate._sequence,
+        )!!,
+      revenue = this@ExplanationOfBenefitItemDetailSubDetailSurrogate.revenue,
+      category = this@ExplanationOfBenefitItemDetailSubDetailSurrogate.category,
+      productOrService = this@ExplanationOfBenefitItemDetailSubDetailSurrogate.productOrService,
+      modifier = this@ExplanationOfBenefitItemDetailSubDetailSurrogate.modifier ?: mutableListOf(),
+      programCode =
+        this@ExplanationOfBenefitItemDetailSubDetailSurrogate.programCode ?: mutableListOf(),
+      quantity = this@ExplanationOfBenefitItemDetailSubDetailSurrogate.quantity,
+      unitPrice = this@ExplanationOfBenefitItemDetailSubDetailSurrogate.unitPrice,
+      factor =
+        Decimal.of(
+          this@ExplanationOfBenefitItemDetailSubDetailSurrogate.factor,
+          this@ExplanationOfBenefitItemDetailSubDetailSurrogate._factor,
+        ),
+      net = this@ExplanationOfBenefitItemDetailSubDetailSurrogate.net,
+      udi = this@ExplanationOfBenefitItemDetailSubDetailSurrogate.udi ?: mutableListOf(),
+      noteNumber =
+        if (
+          this@ExplanationOfBenefitItemDetailSubDetailSurrogate.noteNumber == null &&
+            this@ExplanationOfBenefitItemDetailSubDetailSurrogate._noteNumber == null
+        ) {
+          mutableListOf()
+        } else {
+          (this@ExplanationOfBenefitItemDetailSubDetailSurrogate.noteNumber
+              ?: List(this@ExplanationOfBenefitItemDetailSubDetailSurrogate._noteNumber!!.size) {
+                null
+              })
+            .zip(
+              this@ExplanationOfBenefitItemDetailSubDetailSurrogate._noteNumber
+                ?: List(this@ExplanationOfBenefitItemDetailSubDetailSurrogate.noteNumber!!.size) {
+                  null
+                }
+            )
+            .map { (value, element) -> PositiveInt.of(value, element)!! }
+            .toMutableList()
+        },
+      adjudication =
+        this@ExplanationOfBenefitItemDetailSubDetailSurrogate.adjudication ?: mutableListOf(),
+    )
 
   public companion object {
     public fun fromModel(
-      model: ExplanationOfBenefit.AddItem.Serviced
-    ): ExplanationOfBenefitAddItemServicedSurrogate =
+      model: ExplanationOfBenefit.Item.Detail.SubDetail
+    ): ExplanationOfBenefitItemDetailSubDetailSurrogate =
       with(model) {
-        ExplanationOfBenefitAddItemServicedSurrogate(
-          servicedDate = this@with.asDate()?.value?.value?.toString(),
-          _servicedDate = this@with.asDate()?.value?.toElement(),
-          servicedPeriod = this@with.asPeriod()?.value,
-        )
-      }
-  }
-}
-
-@Serializable
-internal data class ExplanationOfBenefitAddItemLocationSurrogate(
-  public var locationCodeableConcept: CodeableConcept? = null,
-  public var locationAddress: Address? = null,
-  public var locationReference: Reference? = null,
-) {
-  public fun toModel(): ExplanationOfBenefit.AddItem.Location =
-    ExplanationOfBenefit.AddItem.Location?.from(
-      this@ExplanationOfBenefitAddItemLocationSurrogate.locationCodeableConcept,
-      this@ExplanationOfBenefitAddItemLocationSurrogate.locationAddress,
-      this@ExplanationOfBenefitAddItemLocationSurrogate.locationReference,
-    )!!
-
-  public companion object {
-    public fun fromModel(
-      model: ExplanationOfBenefit.AddItem.Location
-    ): ExplanationOfBenefitAddItemLocationSurrogate =
-      with(model) {
-        ExplanationOfBenefitAddItemLocationSurrogate(
-          locationCodeableConcept = this@with.asCodeableConcept()?.value,
-          locationAddress = this@with.asAddress()?.value,
-          locationReference = this@with.asReference()?.value,
+        ExplanationOfBenefitItemDetailSubDetailSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          sequence = this@with.sequence.value,
+          _sequence = this@with.sequence.toElement(),
+          revenue = this@with.revenue,
+          category = this@with.category,
+          productOrService = this@with.productOrService,
+          modifier = this@with.modifier.takeUnless { it.all { it == null } },
+          programCode = this@with.programCode.takeUnless { it.all { it == null } },
+          quantity = this@with.quantity,
+          unitPrice = this@with.unitPrice,
+          factor = this@with.factor?.value,
+          _factor = this@with.factor?.toElement(),
+          net = this@with.net,
+          udi = this@with.udi.takeUnless { it.all { it == null } },
+          noteNumber =
+            this@with.noteNumber
+              .map { it.value }
+              .toMutableList()
+              .takeUnless { it.all { it == null } },
+          _noteNumber =
+            this@with.noteNumber
+              .map { it.toElement() }
+              .takeUnless { it.all { it == null } }
+              ?.map { it ?: Element() }
+              ?.toMutableList(),
+          adjudication = this@with.adjudication.takeUnless { it.all { it == null } },
         )
       }
   }
@@ -1583,6 +1145,188 @@ internal data class ExplanationOfBenefitAddItemSurrogate(
 }
 
 @Serializable
+internal data class ExplanationOfBenefitAddItemDetailSurrogate(
+  public var id: KotlinString? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var productOrService: CodeableConcept,
+  public var modifier: MutableList<CodeableConcept>? = null,
+  public var quantity: Quantity? = null,
+  public var unitPrice: Money? = null,
+  public var factor: Double? = null,
+  public var _factor: Element? = null,
+  public var net: Money? = null,
+  public var noteNumber: MutableList<Int?>? = null,
+  public var _noteNumber: MutableList<Element?>? = null,
+  public var adjudication: MutableList<ExplanationOfBenefit.Item.Adjudication>? = null,
+  public var subDetail: MutableList<ExplanationOfBenefit.AddItem.Detail.SubDetail>? = null,
+) {
+  public fun toModel(): ExplanationOfBenefit.AddItem.Detail =
+    ExplanationOfBenefit.AddItem.Detail(
+      id = this@ExplanationOfBenefitAddItemDetailSurrogate.id,
+      extension = this@ExplanationOfBenefitAddItemDetailSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@ExplanationOfBenefitAddItemDetailSurrogate.modifierExtension ?: mutableListOf(),
+      productOrService = this@ExplanationOfBenefitAddItemDetailSurrogate.productOrService,
+      modifier = this@ExplanationOfBenefitAddItemDetailSurrogate.modifier ?: mutableListOf(),
+      quantity = this@ExplanationOfBenefitAddItemDetailSurrogate.quantity,
+      unitPrice = this@ExplanationOfBenefitAddItemDetailSurrogate.unitPrice,
+      factor =
+        Decimal.of(
+          this@ExplanationOfBenefitAddItemDetailSurrogate.factor,
+          this@ExplanationOfBenefitAddItemDetailSurrogate._factor,
+        ),
+      net = this@ExplanationOfBenefitAddItemDetailSurrogate.net,
+      noteNumber =
+        if (
+          this@ExplanationOfBenefitAddItemDetailSurrogate.noteNumber == null &&
+            this@ExplanationOfBenefitAddItemDetailSurrogate._noteNumber == null
+        ) {
+          mutableListOf()
+        } else {
+          (this@ExplanationOfBenefitAddItemDetailSurrogate.noteNumber
+              ?: List(this@ExplanationOfBenefitAddItemDetailSurrogate._noteNumber!!.size) { null })
+            .zip(
+              this@ExplanationOfBenefitAddItemDetailSurrogate._noteNumber
+                ?: List(this@ExplanationOfBenefitAddItemDetailSurrogate.noteNumber!!.size) { null }
+            )
+            .map { (value, element) -> PositiveInt.of(value, element)!! }
+            .toMutableList()
+        },
+      adjudication =
+        this@ExplanationOfBenefitAddItemDetailSurrogate.adjudication ?: mutableListOf(),
+      subDetail = this@ExplanationOfBenefitAddItemDetailSurrogate.subDetail ?: mutableListOf(),
+    )
+
+  public companion object {
+    public fun fromModel(
+      model: ExplanationOfBenefit.AddItem.Detail
+    ): ExplanationOfBenefitAddItemDetailSurrogate =
+      with(model) {
+        ExplanationOfBenefitAddItemDetailSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          productOrService = this@with.productOrService,
+          modifier = this@with.modifier.takeUnless { it.all { it == null } },
+          quantity = this@with.quantity,
+          unitPrice = this@with.unitPrice,
+          factor = this@with.factor?.value,
+          _factor = this@with.factor?.toElement(),
+          net = this@with.net,
+          noteNumber =
+            this@with.noteNumber
+              .map { it.value }
+              .toMutableList()
+              .takeUnless { it.all { it == null } },
+          _noteNumber =
+            this@with.noteNumber
+              .map { it.toElement() }
+              .takeUnless { it.all { it == null } }
+              ?.map { it ?: Element() }
+              ?.toMutableList(),
+          adjudication = this@with.adjudication.takeUnless { it.all { it == null } },
+          subDetail = this@with.subDetail.takeUnless { it.all { it == null } },
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class ExplanationOfBenefitAddItemDetailSubDetailSurrogate(
+  public var id: KotlinString? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var productOrService: CodeableConcept,
+  public var modifier: MutableList<CodeableConcept>? = null,
+  public var quantity: Quantity? = null,
+  public var unitPrice: Money? = null,
+  public var factor: Double? = null,
+  public var _factor: Element? = null,
+  public var net: Money? = null,
+  public var noteNumber: MutableList<Int?>? = null,
+  public var _noteNumber: MutableList<Element?>? = null,
+  public var adjudication: MutableList<ExplanationOfBenefit.Item.Adjudication>? = null,
+) {
+  public fun toModel(): ExplanationOfBenefit.AddItem.Detail.SubDetail =
+    ExplanationOfBenefit.AddItem.Detail.SubDetail(
+      id = this@ExplanationOfBenefitAddItemDetailSubDetailSurrogate.id,
+      extension =
+        this@ExplanationOfBenefitAddItemDetailSubDetailSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@ExplanationOfBenefitAddItemDetailSubDetailSurrogate.modifierExtension
+          ?: mutableListOf(),
+      productOrService = this@ExplanationOfBenefitAddItemDetailSubDetailSurrogate.productOrService,
+      modifier =
+        this@ExplanationOfBenefitAddItemDetailSubDetailSurrogate.modifier ?: mutableListOf(),
+      quantity = this@ExplanationOfBenefitAddItemDetailSubDetailSurrogate.quantity,
+      unitPrice = this@ExplanationOfBenefitAddItemDetailSubDetailSurrogate.unitPrice,
+      factor =
+        Decimal.of(
+          this@ExplanationOfBenefitAddItemDetailSubDetailSurrogate.factor,
+          this@ExplanationOfBenefitAddItemDetailSubDetailSurrogate._factor,
+        ),
+      net = this@ExplanationOfBenefitAddItemDetailSubDetailSurrogate.net,
+      noteNumber =
+        if (
+          this@ExplanationOfBenefitAddItemDetailSubDetailSurrogate.noteNumber == null &&
+            this@ExplanationOfBenefitAddItemDetailSubDetailSurrogate._noteNumber == null
+        ) {
+          mutableListOf()
+        } else {
+          (this@ExplanationOfBenefitAddItemDetailSubDetailSurrogate.noteNumber
+              ?: List(this@ExplanationOfBenefitAddItemDetailSubDetailSurrogate._noteNumber!!.size) {
+                null
+              })
+            .zip(
+              this@ExplanationOfBenefitAddItemDetailSubDetailSurrogate._noteNumber
+                ?: List(
+                  this@ExplanationOfBenefitAddItemDetailSubDetailSurrogate.noteNumber!!.size
+                ) {
+                  null
+                }
+            )
+            .map { (value, element) -> PositiveInt.of(value, element)!! }
+            .toMutableList()
+        },
+      adjudication =
+        this@ExplanationOfBenefitAddItemDetailSubDetailSurrogate.adjudication ?: mutableListOf(),
+    )
+
+  public companion object {
+    public fun fromModel(
+      model: ExplanationOfBenefit.AddItem.Detail.SubDetail
+    ): ExplanationOfBenefitAddItemDetailSubDetailSurrogate =
+      with(model) {
+        ExplanationOfBenefitAddItemDetailSubDetailSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          productOrService = this@with.productOrService,
+          modifier = this@with.modifier.takeUnless { it.all { it == null } },
+          quantity = this@with.quantity,
+          unitPrice = this@with.unitPrice,
+          factor = this@with.factor?.value,
+          _factor = this@with.factor?.toElement(),
+          net = this@with.net,
+          noteNumber =
+            this@with.noteNumber
+              .map { it.value }
+              .toMutableList()
+              .takeUnless { it.all { it == null } },
+          _noteNumber =
+            this@with.noteNumber
+              .map { it.toElement() }
+              .takeUnless { it.all { it == null } }
+              ?.map { it ?: Element() }
+              ?.toMutableList(),
+          adjudication = this@with.adjudication.takeUnless { it.all { it == null } },
+        )
+      }
+  }
+}
+
+@Serializable
 internal data class ExplanationOfBenefitTotalSurrogate(
   public var id: KotlinString? = null,
   public var extension: MutableList<Extension>? = null,
@@ -1727,111 +1471,6 @@ internal data class ExplanationOfBenefitProcessNoteSurrogate(
 }
 
 @Serializable
-internal data class ExplanationOfBenefitBenefitBalanceFinancialAllowedSurrogate(
-  public var allowedUnsignedInt: Int? = null,
-  public var _allowedUnsignedInt: Element? = null,
-  public var allowedString: KotlinString? = null,
-  public var _allowedString: Element? = null,
-  public var allowedMoney: Money? = null,
-) {
-  public fun toModel(): ExplanationOfBenefit.BenefitBalance.Financial.Allowed =
-    ExplanationOfBenefit.BenefitBalance.Financial.Allowed?.from(
-      UnsignedInt.of(
-        this@ExplanationOfBenefitBenefitBalanceFinancialAllowedSurrogate.allowedUnsignedInt,
-        this@ExplanationOfBenefitBenefitBalanceFinancialAllowedSurrogate._allowedUnsignedInt,
-      ),
-      R4bString.of(
-        this@ExplanationOfBenefitBenefitBalanceFinancialAllowedSurrogate.allowedString,
-        this@ExplanationOfBenefitBenefitBalanceFinancialAllowedSurrogate._allowedString,
-      ),
-      this@ExplanationOfBenefitBenefitBalanceFinancialAllowedSurrogate.allowedMoney,
-    )!!
-
-  public companion object {
-    public fun fromModel(
-      model: ExplanationOfBenefit.BenefitBalance.Financial.Allowed
-    ): ExplanationOfBenefitBenefitBalanceFinancialAllowedSurrogate =
-      with(model) {
-        ExplanationOfBenefitBenefitBalanceFinancialAllowedSurrogate(
-          allowedUnsignedInt = this@with.asUnsignedInt()?.value?.value,
-          _allowedUnsignedInt = this@with.asUnsignedInt()?.value?.toElement(),
-          allowedString = this@with.asString()?.value?.value,
-          _allowedString = this@with.asString()?.value?.toElement(),
-          allowedMoney = this@with.asMoney()?.value,
-        )
-      }
-  }
-}
-
-@Serializable
-internal data class ExplanationOfBenefitBenefitBalanceFinancialUsedSurrogate(
-  public var usedUnsignedInt: Int? = null,
-  public var _usedUnsignedInt: Element? = null,
-  public var usedMoney: Money? = null,
-) {
-  public fun toModel(): ExplanationOfBenefit.BenefitBalance.Financial.Used =
-    ExplanationOfBenefit.BenefitBalance.Financial.Used?.from(
-      UnsignedInt.of(
-        this@ExplanationOfBenefitBenefitBalanceFinancialUsedSurrogate.usedUnsignedInt,
-        this@ExplanationOfBenefitBenefitBalanceFinancialUsedSurrogate._usedUnsignedInt,
-      ),
-      this@ExplanationOfBenefitBenefitBalanceFinancialUsedSurrogate.usedMoney,
-    )!!
-
-  public companion object {
-    public fun fromModel(
-      model: ExplanationOfBenefit.BenefitBalance.Financial.Used
-    ): ExplanationOfBenefitBenefitBalanceFinancialUsedSurrogate =
-      with(model) {
-        ExplanationOfBenefitBenefitBalanceFinancialUsedSurrogate(
-          usedUnsignedInt = this@with.asUnsignedInt()?.value?.value,
-          _usedUnsignedInt = this@with.asUnsignedInt()?.value?.toElement(),
-          usedMoney = this@with.asMoney()?.value,
-        )
-      }
-  }
-}
-
-@Serializable
-internal data class ExplanationOfBenefitBenefitBalanceFinancialSurrogate(
-  public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var type: CodeableConcept,
-  public var allowed: ExplanationOfBenefit.BenefitBalance.Financial.Allowed? = null,
-  public var used: ExplanationOfBenefit.BenefitBalance.Financial.Used? = null,
-) {
-  public fun toModel(): ExplanationOfBenefit.BenefitBalance.Financial =
-    ExplanationOfBenefit.BenefitBalance.Financial(
-      id = this@ExplanationOfBenefitBenefitBalanceFinancialSurrogate.id,
-      extension =
-        this@ExplanationOfBenefitBenefitBalanceFinancialSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@ExplanationOfBenefitBenefitBalanceFinancialSurrogate.modifierExtension
-          ?: mutableListOf(),
-      type = this@ExplanationOfBenefitBenefitBalanceFinancialSurrogate.type,
-      allowed = this@ExplanationOfBenefitBenefitBalanceFinancialSurrogate.allowed,
-      used = this@ExplanationOfBenefitBenefitBalanceFinancialSurrogate.used,
-    )
-
-  public companion object {
-    public fun fromModel(
-      model: ExplanationOfBenefit.BenefitBalance.Financial
-    ): ExplanationOfBenefitBenefitBalanceFinancialSurrogate =
-      with(model) {
-        ExplanationOfBenefitBenefitBalanceFinancialSurrogate(
-          id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          type = this@with.type,
-          allowed = this@with.allowed,
-          used = this@with.used,
-        )
-      }
-  }
-}
-
-@Serializable
 internal data class ExplanationOfBenefitBenefitBalanceSurrogate(
   public var id: KotlinString? = null,
   public var extension: MutableList<Extension>? = null,
@@ -1896,6 +1535,367 @@ internal data class ExplanationOfBenefitBenefitBalanceSurrogate(
           unit = this@with.unit,
           term = this@with.term,
           financial = this@with.financial.takeUnless { it.all { it == null } },
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class ExplanationOfBenefitBenefitBalanceFinancialSurrogate(
+  public var id: KotlinString? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var type: CodeableConcept,
+  public var allowed: ExplanationOfBenefit.BenefitBalance.Financial.Allowed? = null,
+  public var used: ExplanationOfBenefit.BenefitBalance.Financial.Used? = null,
+) {
+  public fun toModel(): ExplanationOfBenefit.BenefitBalance.Financial =
+    ExplanationOfBenefit.BenefitBalance.Financial(
+      id = this@ExplanationOfBenefitBenefitBalanceFinancialSurrogate.id,
+      extension =
+        this@ExplanationOfBenefitBenefitBalanceFinancialSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@ExplanationOfBenefitBenefitBalanceFinancialSurrogate.modifierExtension
+          ?: mutableListOf(),
+      type = this@ExplanationOfBenefitBenefitBalanceFinancialSurrogate.type,
+      allowed = this@ExplanationOfBenefitBenefitBalanceFinancialSurrogate.allowed,
+      used = this@ExplanationOfBenefitBenefitBalanceFinancialSurrogate.used,
+    )
+
+  public companion object {
+    public fun fromModel(
+      model: ExplanationOfBenefit.BenefitBalance.Financial
+    ): ExplanationOfBenefitBenefitBalanceFinancialSurrogate =
+      with(model) {
+        ExplanationOfBenefitBenefitBalanceFinancialSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          type = this@with.type,
+          allowed = this@with.allowed,
+          used = this@with.used,
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class ExplanationOfBenefitSupportingInfoTimingSurrogate(
+  public var timingDate: KotlinString? = null,
+  public var _timingDate: Element? = null,
+  public var timingPeriod: Period? = null,
+) {
+  public fun toModel(): ExplanationOfBenefit.SupportingInfo.Timing =
+    ExplanationOfBenefit.SupportingInfo.Timing.from(
+      Date.of(
+        FhirDate.fromString(this@ExplanationOfBenefitSupportingInfoTimingSurrogate.timingDate),
+        this@ExplanationOfBenefitSupportingInfoTimingSurrogate._timingDate,
+      ),
+      this@ExplanationOfBenefitSupportingInfoTimingSurrogate.timingPeriod,
+    )!!
+
+  public companion object {
+    public fun fromModel(
+      model: ExplanationOfBenefit.SupportingInfo.Timing
+    ): ExplanationOfBenefitSupportingInfoTimingSurrogate =
+      with(model) {
+        ExplanationOfBenefitSupportingInfoTimingSurrogate(
+          timingDate = this@with.asDate()?.value?.value?.toString(),
+          _timingDate = this@with.asDate()?.value?.toElement(),
+          timingPeriod = this@with.asPeriod()?.value,
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class ExplanationOfBenefitSupportingInfoValueSurrogate(
+  public var valueBoolean: KotlinBoolean? = null,
+  public var _valueBoolean: Element? = null,
+  public var valueString: KotlinString? = null,
+  public var _valueString: Element? = null,
+  public var valueQuantity: Quantity? = null,
+  public var valueAttachment: Attachment? = null,
+  public var valueReference: Reference? = null,
+) {
+  public fun toModel(): ExplanationOfBenefit.SupportingInfo.Value =
+    ExplanationOfBenefit.SupportingInfo.Value.from(
+      R4bBoolean.of(
+        this@ExplanationOfBenefitSupportingInfoValueSurrogate.valueBoolean,
+        this@ExplanationOfBenefitSupportingInfoValueSurrogate._valueBoolean,
+      ),
+      R4bString.of(
+        this@ExplanationOfBenefitSupportingInfoValueSurrogate.valueString,
+        this@ExplanationOfBenefitSupportingInfoValueSurrogate._valueString,
+      ),
+      this@ExplanationOfBenefitSupportingInfoValueSurrogate.valueQuantity,
+      this@ExplanationOfBenefitSupportingInfoValueSurrogate.valueAttachment,
+      this@ExplanationOfBenefitSupportingInfoValueSurrogate.valueReference,
+    )!!
+
+  public companion object {
+    public fun fromModel(
+      model: ExplanationOfBenefit.SupportingInfo.Value
+    ): ExplanationOfBenefitSupportingInfoValueSurrogate =
+      with(model) {
+        ExplanationOfBenefitSupportingInfoValueSurrogate(
+          valueBoolean = this@with.asBoolean()?.value?.value,
+          _valueBoolean = this@with.asBoolean()?.value?.toElement(),
+          valueString = this@with.asString()?.value?.value,
+          _valueString = this@with.asString()?.value?.toElement(),
+          valueQuantity = this@with.asQuantity()?.value,
+          valueAttachment = this@with.asAttachment()?.value,
+          valueReference = this@with.asReference()?.value,
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class ExplanationOfBenefitDiagnosisDiagnosisSurrogate(
+  public var diagnosisCodeableConcept: CodeableConcept? = null,
+  public var diagnosisReference: Reference? = null,
+) {
+  public fun toModel(): ExplanationOfBenefit.Diagnosis.Diagnosis =
+    ExplanationOfBenefit.Diagnosis.Diagnosis.from(
+      this@ExplanationOfBenefitDiagnosisDiagnosisSurrogate.diagnosisCodeableConcept,
+      this@ExplanationOfBenefitDiagnosisDiagnosisSurrogate.diagnosisReference,
+    )!! !!
+
+  public companion object {
+    public fun fromModel(
+      model: ExplanationOfBenefit.Diagnosis.Diagnosis
+    ): ExplanationOfBenefitDiagnosisDiagnosisSurrogate =
+      with(model) {
+        ExplanationOfBenefitDiagnosisDiagnosisSurrogate(
+          diagnosisCodeableConcept = this@with.asCodeableConcept()?.value,
+          diagnosisReference = this@with.asReference()?.value,
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class ExplanationOfBenefitProcedureProcedureSurrogate(
+  public var procedureCodeableConcept: CodeableConcept? = null,
+  public var procedureReference: Reference? = null,
+) {
+  public fun toModel(): ExplanationOfBenefit.Procedure.Procedure =
+    ExplanationOfBenefit.Procedure.Procedure.from(
+      this@ExplanationOfBenefitProcedureProcedureSurrogate.procedureCodeableConcept,
+      this@ExplanationOfBenefitProcedureProcedureSurrogate.procedureReference,
+    )!! !!
+
+  public companion object {
+    public fun fromModel(
+      model: ExplanationOfBenefit.Procedure.Procedure
+    ): ExplanationOfBenefitProcedureProcedureSurrogate =
+      with(model) {
+        ExplanationOfBenefitProcedureProcedureSurrogate(
+          procedureCodeableConcept = this@with.asCodeableConcept()?.value,
+          procedureReference = this@with.asReference()?.value,
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class ExplanationOfBenefitAccidentLocationSurrogate(
+  public var locationAddress: Address? = null,
+  public var locationReference: Reference? = null,
+) {
+  public fun toModel(): ExplanationOfBenefit.Accident.Location =
+    ExplanationOfBenefit.Accident.Location.from(
+      this@ExplanationOfBenefitAccidentLocationSurrogate.locationAddress,
+      this@ExplanationOfBenefitAccidentLocationSurrogate.locationReference,
+    )!!
+
+  public companion object {
+    public fun fromModel(
+      model: ExplanationOfBenefit.Accident.Location
+    ): ExplanationOfBenefitAccidentLocationSurrogate =
+      with(model) {
+        ExplanationOfBenefitAccidentLocationSurrogate(
+          locationAddress = this@with.asAddress()?.value,
+          locationReference = this@with.asReference()?.value,
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class ExplanationOfBenefitItemServicedSurrogate(
+  public var servicedDate: KotlinString? = null,
+  public var _servicedDate: Element? = null,
+  public var servicedPeriod: Period? = null,
+) {
+  public fun toModel(): ExplanationOfBenefit.Item.Serviced =
+    ExplanationOfBenefit.Item.Serviced.from(
+      Date.of(
+        FhirDate.fromString(this@ExplanationOfBenefitItemServicedSurrogate.servicedDate),
+        this@ExplanationOfBenefitItemServicedSurrogate._servicedDate,
+      ),
+      this@ExplanationOfBenefitItemServicedSurrogate.servicedPeriod,
+    )!!
+
+  public companion object {
+    public fun fromModel(
+      model: ExplanationOfBenefit.Item.Serviced
+    ): ExplanationOfBenefitItemServicedSurrogate =
+      with(model) {
+        ExplanationOfBenefitItemServicedSurrogate(
+          servicedDate = this@with.asDate()?.value?.value?.toString(),
+          _servicedDate = this@with.asDate()?.value?.toElement(),
+          servicedPeriod = this@with.asPeriod()?.value,
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class ExplanationOfBenefitItemLocationSurrogate(
+  public var locationCodeableConcept: CodeableConcept? = null,
+  public var locationAddress: Address? = null,
+  public var locationReference: Reference? = null,
+) {
+  public fun toModel(): ExplanationOfBenefit.Item.Location =
+    ExplanationOfBenefit.Item.Location.from(
+      this@ExplanationOfBenefitItemLocationSurrogate.locationCodeableConcept,
+      this@ExplanationOfBenefitItemLocationSurrogate.locationAddress,
+      this@ExplanationOfBenefitItemLocationSurrogate.locationReference,
+    )!!
+
+  public companion object {
+    public fun fromModel(
+      model: ExplanationOfBenefit.Item.Location
+    ): ExplanationOfBenefitItemLocationSurrogate =
+      with(model) {
+        ExplanationOfBenefitItemLocationSurrogate(
+          locationCodeableConcept = this@with.asCodeableConcept()?.value,
+          locationAddress = this@with.asAddress()?.value,
+          locationReference = this@with.asReference()?.value,
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class ExplanationOfBenefitAddItemServicedSurrogate(
+  public var servicedDate: KotlinString? = null,
+  public var _servicedDate: Element? = null,
+  public var servicedPeriod: Period? = null,
+) {
+  public fun toModel(): ExplanationOfBenefit.AddItem.Serviced =
+    ExplanationOfBenefit.AddItem.Serviced.from(
+      Date.of(
+        FhirDate.fromString(this@ExplanationOfBenefitAddItemServicedSurrogate.servicedDate),
+        this@ExplanationOfBenefitAddItemServicedSurrogate._servicedDate,
+      ),
+      this@ExplanationOfBenefitAddItemServicedSurrogate.servicedPeriod,
+    )!!
+
+  public companion object {
+    public fun fromModel(
+      model: ExplanationOfBenefit.AddItem.Serviced
+    ): ExplanationOfBenefitAddItemServicedSurrogate =
+      with(model) {
+        ExplanationOfBenefitAddItemServicedSurrogate(
+          servicedDate = this@with.asDate()?.value?.value?.toString(),
+          _servicedDate = this@with.asDate()?.value?.toElement(),
+          servicedPeriod = this@with.asPeriod()?.value,
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class ExplanationOfBenefitAddItemLocationSurrogate(
+  public var locationCodeableConcept: CodeableConcept? = null,
+  public var locationAddress: Address? = null,
+  public var locationReference: Reference? = null,
+) {
+  public fun toModel(): ExplanationOfBenefit.AddItem.Location =
+    ExplanationOfBenefit.AddItem.Location.from(
+      this@ExplanationOfBenefitAddItemLocationSurrogate.locationCodeableConcept,
+      this@ExplanationOfBenefitAddItemLocationSurrogate.locationAddress,
+      this@ExplanationOfBenefitAddItemLocationSurrogate.locationReference,
+    )!!
+
+  public companion object {
+    public fun fromModel(
+      model: ExplanationOfBenefit.AddItem.Location
+    ): ExplanationOfBenefitAddItemLocationSurrogate =
+      with(model) {
+        ExplanationOfBenefitAddItemLocationSurrogate(
+          locationCodeableConcept = this@with.asCodeableConcept()?.value,
+          locationAddress = this@with.asAddress()?.value,
+          locationReference = this@with.asReference()?.value,
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class ExplanationOfBenefitBenefitBalanceFinancialAllowedSurrogate(
+  public var allowedUnsignedInt: Int? = null,
+  public var _allowedUnsignedInt: Element? = null,
+  public var allowedString: KotlinString? = null,
+  public var _allowedString: Element? = null,
+  public var allowedMoney: Money? = null,
+) {
+  public fun toModel(): ExplanationOfBenefit.BenefitBalance.Financial.Allowed =
+    ExplanationOfBenefit.BenefitBalance.Financial.Allowed.from(
+      UnsignedInt.of(
+        this@ExplanationOfBenefitBenefitBalanceFinancialAllowedSurrogate.allowedUnsignedInt,
+        this@ExplanationOfBenefitBenefitBalanceFinancialAllowedSurrogate._allowedUnsignedInt,
+      ),
+      R4bString.of(
+        this@ExplanationOfBenefitBenefitBalanceFinancialAllowedSurrogate.allowedString,
+        this@ExplanationOfBenefitBenefitBalanceFinancialAllowedSurrogate._allowedString,
+      ),
+      this@ExplanationOfBenefitBenefitBalanceFinancialAllowedSurrogate.allowedMoney,
+    )!!
+
+  public companion object {
+    public fun fromModel(
+      model: ExplanationOfBenefit.BenefitBalance.Financial.Allowed
+    ): ExplanationOfBenefitBenefitBalanceFinancialAllowedSurrogate =
+      with(model) {
+        ExplanationOfBenefitBenefitBalanceFinancialAllowedSurrogate(
+          allowedUnsignedInt = this@with.asUnsignedInt()?.value?.value,
+          _allowedUnsignedInt = this@with.asUnsignedInt()?.value?.toElement(),
+          allowedString = this@with.asString()?.value?.value,
+          _allowedString = this@with.asString()?.value?.toElement(),
+          allowedMoney = this@with.asMoney()?.value,
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class ExplanationOfBenefitBenefitBalanceFinancialUsedSurrogate(
+  public var usedUnsignedInt: Int? = null,
+  public var _usedUnsignedInt: Element? = null,
+  public var usedMoney: Money? = null,
+) {
+  public fun toModel(): ExplanationOfBenefit.BenefitBalance.Financial.Used =
+    ExplanationOfBenefit.BenefitBalance.Financial.Used.from(
+      UnsignedInt.of(
+        this@ExplanationOfBenefitBenefitBalanceFinancialUsedSurrogate.usedUnsignedInt,
+        this@ExplanationOfBenefitBenefitBalanceFinancialUsedSurrogate._usedUnsignedInt,
+      ),
+      this@ExplanationOfBenefitBenefitBalanceFinancialUsedSurrogate.usedMoney,
+    )!!
+
+  public companion object {
+    public fun fromModel(
+      model: ExplanationOfBenefit.BenefitBalance.Financial.Used
+    ): ExplanationOfBenefitBenefitBalanceFinancialUsedSurrogate =
+      with(model) {
+        ExplanationOfBenefitBenefitBalanceFinancialUsedSurrogate(
+          usedUnsignedInt = this@with.asUnsignedInt()?.value?.value,
+          _usedUnsignedInt = this@with.asUnsignedInt()?.value?.toElement(),
+          usedMoney = this@with.asMoney()?.value,
         )
       }
   }

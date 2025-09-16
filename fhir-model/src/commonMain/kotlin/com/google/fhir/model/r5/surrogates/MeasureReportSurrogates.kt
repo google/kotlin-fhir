@@ -52,6 +52,55 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
+internal data class MeasureReportGroupSurrogate(
+  public var id: KotlinString? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var linkId: KotlinString? = null,
+  public var _linkId: Element? = null,
+  public var code: CodeableConcept? = null,
+  public var subject: Reference? = null,
+  public var population: MutableList<MeasureReport.Group.Population>? = null,
+  public var measureScore: MeasureReport.Group.MeasureScore? = null,
+  public var stratifier: MutableList<MeasureReport.Group.Stratifier>? = null,
+) {
+  public fun toModel(): MeasureReport.Group =
+    MeasureReport.Group(
+      id = this@MeasureReportGroupSurrogate.id,
+      extension = this@MeasureReportGroupSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@MeasureReportGroupSurrogate.modifierExtension ?: mutableListOf(),
+      linkId =
+        R5String.of(
+          this@MeasureReportGroupSurrogate.linkId,
+          this@MeasureReportGroupSurrogate._linkId,
+        ),
+      code = this@MeasureReportGroupSurrogate.code,
+      subject = this@MeasureReportGroupSurrogate.subject,
+      population = this@MeasureReportGroupSurrogate.population ?: mutableListOf(),
+      measureScore = this@MeasureReportGroupSurrogate.measureScore,
+      stratifier = this@MeasureReportGroupSurrogate.stratifier ?: mutableListOf(),
+    )
+
+  public companion object {
+    public fun fromModel(model: MeasureReport.Group): MeasureReportGroupSurrogate =
+      with(model) {
+        MeasureReportGroupSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          linkId = this@with.linkId?.value,
+          _linkId = this@with.linkId?.toElement(),
+          code = this@with.code,
+          subject = this@with.subject,
+          population = this@with.population.takeUnless { it.all { it == null } },
+          measureScore = this@with.measureScore,
+          stratifier = this@with.stratifier.takeUnless { it.all { it == null } },
+        )
+      }
+  }
+}
+
+@Serializable
 internal data class MeasureReportGroupPopulationSurrogate(
   public var id: KotlinString? = null,
   public var extension: MutableList<Extension>? = null,
@@ -110,38 +159,83 @@ internal data class MeasureReportGroupPopulationSurrogate(
 }
 
 @Serializable
-internal data class MeasureReportGroupStratifierStratumComponentValueSurrogate(
-  public var valueCodeableConcept: CodeableConcept? = null,
-  public var valueBoolean: KotlinBoolean? = null,
-  public var _valueBoolean: Element? = null,
-  public var valueQuantity: Quantity? = null,
-  public var valueRange: Range? = null,
-  public var valueReference: Reference? = null,
+internal data class MeasureReportGroupStratifierSurrogate(
+  public var id: KotlinString? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var linkId: KotlinString? = null,
+  public var _linkId: Element? = null,
+  public var code: CodeableConcept? = null,
+  public var stratum: MutableList<MeasureReport.Group.Stratifier.Stratum>? = null,
 ) {
-  public fun toModel(): MeasureReport.Group.Stratifier.Stratum.Component.Value =
-    MeasureReport.Group.Stratifier.Stratum.Component.Value.from(
-      this@MeasureReportGroupStratifierStratumComponentValueSurrogate.valueCodeableConcept,
-      R5Boolean.of(
-        this@MeasureReportGroupStratifierStratumComponentValueSurrogate.valueBoolean,
-        this@MeasureReportGroupStratifierStratumComponentValueSurrogate._valueBoolean,
-      ),
-      this@MeasureReportGroupStratifierStratumComponentValueSurrogate.valueQuantity,
-      this@MeasureReportGroupStratifierStratumComponentValueSurrogate.valueRange,
-      this@MeasureReportGroupStratifierStratumComponentValueSurrogate.valueReference,
-    )!! !!
+  public fun toModel(): MeasureReport.Group.Stratifier =
+    MeasureReport.Group.Stratifier(
+      id = this@MeasureReportGroupStratifierSurrogate.id,
+      extension = this@MeasureReportGroupStratifierSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@MeasureReportGroupStratifierSurrogate.modifierExtension ?: mutableListOf(),
+      linkId =
+        R5String.of(
+          this@MeasureReportGroupStratifierSurrogate.linkId,
+          this@MeasureReportGroupStratifierSurrogate._linkId,
+        ),
+      code = this@MeasureReportGroupStratifierSurrogate.code,
+      stratum = this@MeasureReportGroupStratifierSurrogate.stratum ?: mutableListOf(),
+    )
 
   public companion object {
     public fun fromModel(
-      model: MeasureReport.Group.Stratifier.Stratum.Component.Value
-    ): MeasureReportGroupStratifierStratumComponentValueSurrogate =
+      model: MeasureReport.Group.Stratifier
+    ): MeasureReportGroupStratifierSurrogate =
       with(model) {
-        MeasureReportGroupStratifierStratumComponentValueSurrogate(
-          valueCodeableConcept = this@with.asCodeableConcept()?.value,
-          valueBoolean = this@with.asBoolean()?.value?.value,
-          _valueBoolean = this@with.asBoolean()?.value?.toElement(),
-          valueQuantity = this@with.asQuantity()?.value,
-          valueRange = this@with.asRange()?.value,
-          valueReference = this@with.asReference()?.value,
+        MeasureReportGroupStratifierSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          linkId = this@with.linkId?.value,
+          _linkId = this@with.linkId?.toElement(),
+          code = this@with.code,
+          stratum = this@with.stratum.takeUnless { it.all { it == null } },
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class MeasureReportGroupStratifierStratumSurrogate(
+  public var id: KotlinString? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var `value`: MeasureReport.Group.Stratifier.Stratum.Value? = null,
+  public var component: MutableList<MeasureReport.Group.Stratifier.Stratum.Component>? = null,
+  public var population: MutableList<MeasureReport.Group.Stratifier.Stratum.Population>? = null,
+  public var measureScore: MeasureReport.Group.Stratifier.Stratum.MeasureScore? = null,
+) {
+  public fun toModel(): MeasureReport.Group.Stratifier.Stratum =
+    MeasureReport.Group.Stratifier.Stratum(
+      id = this@MeasureReportGroupStratifierStratumSurrogate.id,
+      extension = this@MeasureReportGroupStratifierStratumSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@MeasureReportGroupStratifierStratumSurrogate.modifierExtension ?: mutableListOf(),
+      `value` = this@MeasureReportGroupStratifierStratumSurrogate.`value`,
+      component = this@MeasureReportGroupStratifierStratumSurrogate.component ?: mutableListOf(),
+      population = this@MeasureReportGroupStratifierStratumSurrogate.population ?: mutableListOf(),
+      measureScore = this@MeasureReportGroupStratifierStratumSurrogate.measureScore,
+    )
+
+  public companion object {
+    public fun fromModel(
+      model: MeasureReport.Group.Stratifier.Stratum
+    ): MeasureReportGroupStratifierStratumSurrogate =
+      with(model) {
+        MeasureReportGroupStratifierStratumSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          `value` = this@with.`value`,
+          component = this@with.component.takeUnless { it.all { it == null } },
+          population = this@with.population.takeUnless { it.all { it == null } },
+          measureScore = this@with.measureScore,
         )
       }
   }
@@ -255,170 +349,6 @@ internal data class MeasureReportGroupStratifierStratumPopulationSurrogate(
 }
 
 @Serializable
-internal data class MeasureReportGroupStratifierStratumValueSurrogate(
-  public var valueCodeableConcept: CodeableConcept? = null,
-  public var valueBoolean: KotlinBoolean? = null,
-  public var _valueBoolean: Element? = null,
-  public var valueQuantity: Quantity? = null,
-  public var valueRange: Range? = null,
-  public var valueReference: Reference? = null,
-) {
-  public fun toModel(): MeasureReport.Group.Stratifier.Stratum.Value =
-    MeasureReport.Group.Stratifier.Stratum.Value?.from(
-      this@MeasureReportGroupStratifierStratumValueSurrogate.valueCodeableConcept,
-      R5Boolean.of(
-        this@MeasureReportGroupStratifierStratumValueSurrogate.valueBoolean,
-        this@MeasureReportGroupStratifierStratumValueSurrogate._valueBoolean,
-      ),
-      this@MeasureReportGroupStratifierStratumValueSurrogate.valueQuantity,
-      this@MeasureReportGroupStratifierStratumValueSurrogate.valueRange,
-      this@MeasureReportGroupStratifierStratumValueSurrogate.valueReference,
-    )!!
-
-  public companion object {
-    public fun fromModel(
-      model: MeasureReport.Group.Stratifier.Stratum.Value
-    ): MeasureReportGroupStratifierStratumValueSurrogate =
-      with(model) {
-        MeasureReportGroupStratifierStratumValueSurrogate(
-          valueCodeableConcept = this@with.asCodeableConcept()?.value,
-          valueBoolean = this@with.asBoolean()?.value?.value,
-          _valueBoolean = this@with.asBoolean()?.value?.toElement(),
-          valueQuantity = this@with.asQuantity()?.value,
-          valueRange = this@with.asRange()?.value,
-          valueReference = this@with.asReference()?.value,
-        )
-      }
-  }
-}
-
-@Serializable
-internal data class MeasureReportGroupStratifierStratumMeasureScoreSurrogate(
-  public var measureScoreQuantity: Quantity? = null,
-  public var measureScoreDateTime: KotlinString? = null,
-  public var _measureScoreDateTime: Element? = null,
-  public var measureScoreCodeableConcept: CodeableConcept? = null,
-  public var measureScorePeriod: Period? = null,
-  public var measureScoreRange: Range? = null,
-  public var measureScoreDuration: Duration? = null,
-) {
-  public fun toModel(): MeasureReport.Group.Stratifier.Stratum.MeasureScore =
-    MeasureReport.Group.Stratifier.Stratum.MeasureScore?.from(
-      this@MeasureReportGroupStratifierStratumMeasureScoreSurrogate.measureScoreQuantity,
-      DateTime.of(
-        FhirDateTime.fromString(
-          this@MeasureReportGroupStratifierStratumMeasureScoreSurrogate.measureScoreDateTime
-        ),
-        this@MeasureReportGroupStratifierStratumMeasureScoreSurrogate._measureScoreDateTime,
-      ),
-      this@MeasureReportGroupStratifierStratumMeasureScoreSurrogate.measureScoreCodeableConcept,
-      this@MeasureReportGroupStratifierStratumMeasureScoreSurrogate.measureScorePeriod,
-      this@MeasureReportGroupStratifierStratumMeasureScoreSurrogate.measureScoreRange,
-      this@MeasureReportGroupStratifierStratumMeasureScoreSurrogate.measureScoreDuration,
-    )!!
-
-  public companion object {
-    public fun fromModel(
-      model: MeasureReport.Group.Stratifier.Stratum.MeasureScore
-    ): MeasureReportGroupStratifierStratumMeasureScoreSurrogate =
-      with(model) {
-        MeasureReportGroupStratifierStratumMeasureScoreSurrogate(
-          measureScoreQuantity = this@with.asQuantity()?.value,
-          measureScoreDateTime = this@with.asDateTime()?.value?.value?.toString(),
-          _measureScoreDateTime = this@with.asDateTime()?.value?.toElement(),
-          measureScoreCodeableConcept = this@with.asCodeableConcept()?.value,
-          measureScorePeriod = this@with.asPeriod()?.value,
-          measureScoreRange = this@with.asRange()?.value,
-          measureScoreDuration = this@with.asDuration()?.value,
-        )
-      }
-  }
-}
-
-@Serializable
-internal data class MeasureReportGroupStratifierStratumSurrogate(
-  public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var `value`: MeasureReport.Group.Stratifier.Stratum.Value? = null,
-  public var component: MutableList<MeasureReport.Group.Stratifier.Stratum.Component>? = null,
-  public var population: MutableList<MeasureReport.Group.Stratifier.Stratum.Population>? = null,
-  public var measureScore: MeasureReport.Group.Stratifier.Stratum.MeasureScore? = null,
-) {
-  public fun toModel(): MeasureReport.Group.Stratifier.Stratum =
-    MeasureReport.Group.Stratifier.Stratum(
-      id = this@MeasureReportGroupStratifierStratumSurrogate.id,
-      extension = this@MeasureReportGroupStratifierStratumSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@MeasureReportGroupStratifierStratumSurrogate.modifierExtension ?: mutableListOf(),
-      `value` = this@MeasureReportGroupStratifierStratumSurrogate.`value`,
-      component = this@MeasureReportGroupStratifierStratumSurrogate.component ?: mutableListOf(),
-      population = this@MeasureReportGroupStratifierStratumSurrogate.population ?: mutableListOf(),
-      measureScore = this@MeasureReportGroupStratifierStratumSurrogate.measureScore,
-    )
-
-  public companion object {
-    public fun fromModel(
-      model: MeasureReport.Group.Stratifier.Stratum
-    ): MeasureReportGroupStratifierStratumSurrogate =
-      with(model) {
-        MeasureReportGroupStratifierStratumSurrogate(
-          id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          `value` = this@with.`value`,
-          component = this@with.component.takeUnless { it.all { it == null } },
-          population = this@with.population.takeUnless { it.all { it == null } },
-          measureScore = this@with.measureScore,
-        )
-      }
-  }
-}
-
-@Serializable
-internal data class MeasureReportGroupStratifierSurrogate(
-  public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var linkId: KotlinString? = null,
-  public var _linkId: Element? = null,
-  public var code: CodeableConcept? = null,
-  public var stratum: MutableList<MeasureReport.Group.Stratifier.Stratum>? = null,
-) {
-  public fun toModel(): MeasureReport.Group.Stratifier =
-    MeasureReport.Group.Stratifier(
-      id = this@MeasureReportGroupStratifierSurrogate.id,
-      extension = this@MeasureReportGroupStratifierSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@MeasureReportGroupStratifierSurrogate.modifierExtension ?: mutableListOf(),
-      linkId =
-        R5String.of(
-          this@MeasureReportGroupStratifierSurrogate.linkId,
-          this@MeasureReportGroupStratifierSurrogate._linkId,
-        ),
-      code = this@MeasureReportGroupStratifierSurrogate.code,
-      stratum = this@MeasureReportGroupStratifierSurrogate.stratum ?: mutableListOf(),
-    )
-
-  public companion object {
-    public fun fromModel(
-      model: MeasureReport.Group.Stratifier
-    ): MeasureReportGroupStratifierSurrogate =
-      with(model) {
-        MeasureReportGroupStratifierSurrogate(
-          id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          linkId = this@with.linkId?.value,
-          _linkId = this@with.linkId?.toElement(),
-          code = this@with.code,
-          stratum = this@with.stratum.takeUnless { it.all { it == null } },
-        )
-      }
-  }
-}
-
-@Serializable
 internal data class MeasureReportGroupMeasureScoreSurrogate(
   public var measureScoreQuantity: Quantity? = null,
   public var measureScoreDateTime: KotlinString? = null,
@@ -429,7 +359,7 @@ internal data class MeasureReportGroupMeasureScoreSurrogate(
   public var measureScoreDuration: Duration? = null,
 ) {
   public fun toModel(): MeasureReport.Group.MeasureScore =
-    MeasureReport.Group.MeasureScore?.from(
+    MeasureReport.Group.MeasureScore.from(
       this@MeasureReportGroupMeasureScoreSurrogate.measureScoreQuantity,
       DateTime.of(
         FhirDateTime.fromString(this@MeasureReportGroupMeasureScoreSurrogate.measureScoreDateTime),
@@ -460,49 +390,119 @@ internal data class MeasureReportGroupMeasureScoreSurrogate(
 }
 
 @Serializable
-internal data class MeasureReportGroupSurrogate(
-  public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var linkId: KotlinString? = null,
-  public var _linkId: Element? = null,
-  public var code: CodeableConcept? = null,
-  public var subject: Reference? = null,
-  public var population: MutableList<MeasureReport.Group.Population>? = null,
-  public var measureScore: MeasureReport.Group.MeasureScore? = null,
-  public var stratifier: MutableList<MeasureReport.Group.Stratifier>? = null,
+internal data class MeasureReportGroupStratifierStratumValueSurrogate(
+  public var valueCodeableConcept: CodeableConcept? = null,
+  public var valueBoolean: KotlinBoolean? = null,
+  public var _valueBoolean: Element? = null,
+  public var valueQuantity: Quantity? = null,
+  public var valueRange: Range? = null,
+  public var valueReference: Reference? = null,
 ) {
-  public fun toModel(): MeasureReport.Group =
-    MeasureReport.Group(
-      id = this@MeasureReportGroupSurrogate.id,
-      extension = this@MeasureReportGroupSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@MeasureReportGroupSurrogate.modifierExtension ?: mutableListOf(),
-      linkId =
-        R5String.of(
-          this@MeasureReportGroupSurrogate.linkId,
-          this@MeasureReportGroupSurrogate._linkId,
-        ),
-      code = this@MeasureReportGroupSurrogate.code,
-      subject = this@MeasureReportGroupSurrogate.subject,
-      population = this@MeasureReportGroupSurrogate.population ?: mutableListOf(),
-      measureScore = this@MeasureReportGroupSurrogate.measureScore,
-      stratifier = this@MeasureReportGroupSurrogate.stratifier ?: mutableListOf(),
-    )
+  public fun toModel(): MeasureReport.Group.Stratifier.Stratum.Value =
+    MeasureReport.Group.Stratifier.Stratum.Value.from(
+      this@MeasureReportGroupStratifierStratumValueSurrogate.valueCodeableConcept,
+      R5Boolean.of(
+        this@MeasureReportGroupStratifierStratumValueSurrogate.valueBoolean,
+        this@MeasureReportGroupStratifierStratumValueSurrogate._valueBoolean,
+      ),
+      this@MeasureReportGroupStratifierStratumValueSurrogate.valueQuantity,
+      this@MeasureReportGroupStratifierStratumValueSurrogate.valueRange,
+      this@MeasureReportGroupStratifierStratumValueSurrogate.valueReference,
+    )!!
 
   public companion object {
-    public fun fromModel(model: MeasureReport.Group): MeasureReportGroupSurrogate =
+    public fun fromModel(
+      model: MeasureReport.Group.Stratifier.Stratum.Value
+    ): MeasureReportGroupStratifierStratumValueSurrogate =
       with(model) {
-        MeasureReportGroupSurrogate(
-          id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          linkId = this@with.linkId?.value,
-          _linkId = this@with.linkId?.toElement(),
-          code = this@with.code,
-          subject = this@with.subject,
-          population = this@with.population.takeUnless { it.all { it == null } },
-          measureScore = this@with.measureScore,
-          stratifier = this@with.stratifier.takeUnless { it.all { it == null } },
+        MeasureReportGroupStratifierStratumValueSurrogate(
+          valueCodeableConcept = this@with.asCodeableConcept()?.value,
+          valueBoolean = this@with.asBoolean()?.value?.value,
+          _valueBoolean = this@with.asBoolean()?.value?.toElement(),
+          valueQuantity = this@with.asQuantity()?.value,
+          valueRange = this@with.asRange()?.value,
+          valueReference = this@with.asReference()?.value,
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class MeasureReportGroupStratifierStratumComponentValueSurrogate(
+  public var valueCodeableConcept: CodeableConcept? = null,
+  public var valueBoolean: KotlinBoolean? = null,
+  public var _valueBoolean: Element? = null,
+  public var valueQuantity: Quantity? = null,
+  public var valueRange: Range? = null,
+  public var valueReference: Reference? = null,
+) {
+  public fun toModel(): MeasureReport.Group.Stratifier.Stratum.Component.Value =
+    MeasureReport.Group.Stratifier.Stratum.Component.Value.from(
+      this@MeasureReportGroupStratifierStratumComponentValueSurrogate.valueCodeableConcept,
+      R5Boolean.of(
+        this@MeasureReportGroupStratifierStratumComponentValueSurrogate.valueBoolean,
+        this@MeasureReportGroupStratifierStratumComponentValueSurrogate._valueBoolean,
+      ),
+      this@MeasureReportGroupStratifierStratumComponentValueSurrogate.valueQuantity,
+      this@MeasureReportGroupStratifierStratumComponentValueSurrogate.valueRange,
+      this@MeasureReportGroupStratifierStratumComponentValueSurrogate.valueReference,
+    )!! !!
+
+  public companion object {
+    public fun fromModel(
+      model: MeasureReport.Group.Stratifier.Stratum.Component.Value
+    ): MeasureReportGroupStratifierStratumComponentValueSurrogate =
+      with(model) {
+        MeasureReportGroupStratifierStratumComponentValueSurrogate(
+          valueCodeableConcept = this@with.asCodeableConcept()?.value,
+          valueBoolean = this@with.asBoolean()?.value?.value,
+          _valueBoolean = this@with.asBoolean()?.value?.toElement(),
+          valueQuantity = this@with.asQuantity()?.value,
+          valueRange = this@with.asRange()?.value,
+          valueReference = this@with.asReference()?.value,
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class MeasureReportGroupStratifierStratumMeasureScoreSurrogate(
+  public var measureScoreQuantity: Quantity? = null,
+  public var measureScoreDateTime: KotlinString? = null,
+  public var _measureScoreDateTime: Element? = null,
+  public var measureScoreCodeableConcept: CodeableConcept? = null,
+  public var measureScorePeriod: Period? = null,
+  public var measureScoreRange: Range? = null,
+  public var measureScoreDuration: Duration? = null,
+) {
+  public fun toModel(): MeasureReport.Group.Stratifier.Stratum.MeasureScore =
+    MeasureReport.Group.Stratifier.Stratum.MeasureScore.from(
+      this@MeasureReportGroupStratifierStratumMeasureScoreSurrogate.measureScoreQuantity,
+      DateTime.of(
+        FhirDateTime.fromString(
+          this@MeasureReportGroupStratifierStratumMeasureScoreSurrogate.measureScoreDateTime
+        ),
+        this@MeasureReportGroupStratifierStratumMeasureScoreSurrogate._measureScoreDateTime,
+      ),
+      this@MeasureReportGroupStratifierStratumMeasureScoreSurrogate.measureScoreCodeableConcept,
+      this@MeasureReportGroupStratifierStratumMeasureScoreSurrogate.measureScorePeriod,
+      this@MeasureReportGroupStratifierStratumMeasureScoreSurrogate.measureScoreRange,
+      this@MeasureReportGroupStratifierStratumMeasureScoreSurrogate.measureScoreDuration,
+    )!!
+
+  public companion object {
+    public fun fromModel(
+      model: MeasureReport.Group.Stratifier.Stratum.MeasureScore
+    ): MeasureReportGroupStratifierStratumMeasureScoreSurrogate =
+      with(model) {
+        MeasureReportGroupStratifierStratumMeasureScoreSurrogate(
+          measureScoreQuantity = this@with.asQuantity()?.value,
+          measureScoreDateTime = this@with.asDateTime()?.value?.value?.toString(),
+          _measureScoreDateTime = this@with.asDateTime()?.value?.toElement(),
+          measureScoreCodeableConcept = this@with.asCodeableConcept()?.value,
+          measureScorePeriod = this@with.asPeriod()?.value,
+          measureScoreRange = this@with.asRange()?.value,
+          measureScoreDuration = this@with.asDuration()?.value,
         )
       }
   }

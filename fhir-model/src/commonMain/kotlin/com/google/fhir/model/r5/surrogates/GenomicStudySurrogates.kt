@@ -47,24 +47,103 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
-internal data class GenomicStudyAnalysisInputGeneratedBySurrogate(
-  public var generatedByIdentifier: Identifier? = null,
-  public var generatedByReference: Reference? = null,
+internal data class GenomicStudyAnalysisSurrogate(
+  public var id: KotlinString? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var identifier: MutableList<Identifier>? = null,
+  public var methodType: MutableList<CodeableConcept>? = null,
+  public var changeType: MutableList<CodeableConcept>? = null,
+  public var genomeBuild: CodeableConcept? = null,
+  public var instantiatesCanonical: KotlinString? = null,
+  public var _instantiatesCanonical: Element? = null,
+  public var instantiatesUri: KotlinString? = null,
+  public var _instantiatesUri: Element? = null,
+  public var title: KotlinString? = null,
+  public var _title: Element? = null,
+  public var focus: MutableList<Reference>? = null,
+  public var specimen: MutableList<Reference>? = null,
+  public var date: KotlinString? = null,
+  public var _date: Element? = null,
+  public var note: MutableList<Annotation>? = null,
+  public var protocolPerformed: Reference? = null,
+  public var regionsStudied: MutableList<Reference>? = null,
+  public var regionsCalled: MutableList<Reference>? = null,
+  public var input: MutableList<GenomicStudy.Analysis.Input>? = null,
+  public var output: MutableList<GenomicStudy.Analysis.Output>? = null,
+  public var performer: MutableList<GenomicStudy.Analysis.Performer>? = null,
+  public var device: MutableList<GenomicStudy.Analysis.Device>? = null,
 ) {
-  public fun toModel(): GenomicStudy.Analysis.Input.GeneratedBy =
-    GenomicStudy.Analysis.Input.GeneratedBy?.from(
-      this@GenomicStudyAnalysisInputGeneratedBySurrogate.generatedByIdentifier,
-      this@GenomicStudyAnalysisInputGeneratedBySurrogate.generatedByReference,
-    )!!
+  public fun toModel(): GenomicStudy.Analysis =
+    GenomicStudy.Analysis(
+      id = this@GenomicStudyAnalysisSurrogate.id,
+      extension = this@GenomicStudyAnalysisSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@GenomicStudyAnalysisSurrogate.modifierExtension ?: mutableListOf(),
+      identifier = this@GenomicStudyAnalysisSurrogate.identifier ?: mutableListOf(),
+      methodType = this@GenomicStudyAnalysisSurrogate.methodType ?: mutableListOf(),
+      changeType = this@GenomicStudyAnalysisSurrogate.changeType ?: mutableListOf(),
+      genomeBuild = this@GenomicStudyAnalysisSurrogate.genomeBuild,
+      instantiatesCanonical =
+        Canonical.of(
+          this@GenomicStudyAnalysisSurrogate.instantiatesCanonical,
+          this@GenomicStudyAnalysisSurrogate._instantiatesCanonical,
+        ),
+      instantiatesUri =
+        Uri.of(
+          this@GenomicStudyAnalysisSurrogate.instantiatesUri,
+          this@GenomicStudyAnalysisSurrogate._instantiatesUri,
+        ),
+      title =
+        R5String.of(
+          this@GenomicStudyAnalysisSurrogate.title,
+          this@GenomicStudyAnalysisSurrogate._title,
+        ),
+      focus = this@GenomicStudyAnalysisSurrogate.focus ?: mutableListOf(),
+      specimen = this@GenomicStudyAnalysisSurrogate.specimen ?: mutableListOf(),
+      date =
+        DateTime.of(
+          FhirDateTime.fromString(this@GenomicStudyAnalysisSurrogate.date),
+          this@GenomicStudyAnalysisSurrogate._date,
+        ),
+      note = this@GenomicStudyAnalysisSurrogate.note ?: mutableListOf(),
+      protocolPerformed = this@GenomicStudyAnalysisSurrogate.protocolPerformed,
+      regionsStudied = this@GenomicStudyAnalysisSurrogate.regionsStudied ?: mutableListOf(),
+      regionsCalled = this@GenomicStudyAnalysisSurrogate.regionsCalled ?: mutableListOf(),
+      input = this@GenomicStudyAnalysisSurrogate.input ?: mutableListOf(),
+      output = this@GenomicStudyAnalysisSurrogate.output ?: mutableListOf(),
+      performer = this@GenomicStudyAnalysisSurrogate.performer ?: mutableListOf(),
+      device = this@GenomicStudyAnalysisSurrogate.device ?: mutableListOf(),
+    )
 
   public companion object {
-    public fun fromModel(
-      model: GenomicStudy.Analysis.Input.GeneratedBy
-    ): GenomicStudyAnalysisInputGeneratedBySurrogate =
+    public fun fromModel(model: GenomicStudy.Analysis): GenomicStudyAnalysisSurrogate =
       with(model) {
-        GenomicStudyAnalysisInputGeneratedBySurrogate(
-          generatedByIdentifier = this@with.asIdentifier()?.value,
-          generatedByReference = this@with.asReference()?.value,
+        GenomicStudyAnalysisSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          methodType = this@with.methodType.takeUnless { it.all { it == null } },
+          changeType = this@with.changeType.takeUnless { it.all { it == null } },
+          genomeBuild = this@with.genomeBuild,
+          instantiatesCanonical = this@with.instantiatesCanonical?.value,
+          _instantiatesCanonical = this@with.instantiatesCanonical?.toElement(),
+          instantiatesUri = this@with.instantiatesUri?.value,
+          _instantiatesUri = this@with.instantiatesUri?.toElement(),
+          title = this@with.title?.value,
+          _title = this@with.title?.toElement(),
+          focus = this@with.focus.takeUnless { it.all { it == null } },
+          specimen = this@with.specimen.takeUnless { it.all { it == null } },
+          date = this@with.date?.value?.toString(),
+          _date = this@with.date?.toElement(),
+          note = this@with.note.takeUnless { it.all { it == null } },
+          protocolPerformed = this@with.protocolPerformed,
+          regionsStudied = this@with.regionsStudied.takeUnless { it.all { it == null } },
+          regionsCalled = this@with.regionsCalled.takeUnless { it.all { it == null } },
+          input = this@with.input.takeUnless { it.all { it == null } },
+          output = this@with.output.takeUnless { it.all { it == null } },
+          performer = this@with.performer.takeUnless { it.all { it == null } },
+          device = this@with.device.takeUnless { it.all { it == null } },
         )
       }
   }
@@ -204,103 +283,24 @@ internal data class GenomicStudyAnalysisDeviceSurrogate(
 }
 
 @Serializable
-internal data class GenomicStudyAnalysisSurrogate(
-  public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var identifier: MutableList<Identifier>? = null,
-  public var methodType: MutableList<CodeableConcept>? = null,
-  public var changeType: MutableList<CodeableConcept>? = null,
-  public var genomeBuild: CodeableConcept? = null,
-  public var instantiatesCanonical: KotlinString? = null,
-  public var _instantiatesCanonical: Element? = null,
-  public var instantiatesUri: KotlinString? = null,
-  public var _instantiatesUri: Element? = null,
-  public var title: KotlinString? = null,
-  public var _title: Element? = null,
-  public var focus: MutableList<Reference>? = null,
-  public var specimen: MutableList<Reference>? = null,
-  public var date: KotlinString? = null,
-  public var _date: Element? = null,
-  public var note: MutableList<Annotation>? = null,
-  public var protocolPerformed: Reference? = null,
-  public var regionsStudied: MutableList<Reference>? = null,
-  public var regionsCalled: MutableList<Reference>? = null,
-  public var input: MutableList<GenomicStudy.Analysis.Input>? = null,
-  public var output: MutableList<GenomicStudy.Analysis.Output>? = null,
-  public var performer: MutableList<GenomicStudy.Analysis.Performer>? = null,
-  public var device: MutableList<GenomicStudy.Analysis.Device>? = null,
+internal data class GenomicStudyAnalysisInputGeneratedBySurrogate(
+  public var generatedByIdentifier: Identifier? = null,
+  public var generatedByReference: Reference? = null,
 ) {
-  public fun toModel(): GenomicStudy.Analysis =
-    GenomicStudy.Analysis(
-      id = this@GenomicStudyAnalysisSurrogate.id,
-      extension = this@GenomicStudyAnalysisSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@GenomicStudyAnalysisSurrogate.modifierExtension ?: mutableListOf(),
-      identifier = this@GenomicStudyAnalysisSurrogate.identifier ?: mutableListOf(),
-      methodType = this@GenomicStudyAnalysisSurrogate.methodType ?: mutableListOf(),
-      changeType = this@GenomicStudyAnalysisSurrogate.changeType ?: mutableListOf(),
-      genomeBuild = this@GenomicStudyAnalysisSurrogate.genomeBuild,
-      instantiatesCanonical =
-        Canonical.of(
-          this@GenomicStudyAnalysisSurrogate.instantiatesCanonical,
-          this@GenomicStudyAnalysisSurrogate._instantiatesCanonical,
-        ),
-      instantiatesUri =
-        Uri.of(
-          this@GenomicStudyAnalysisSurrogate.instantiatesUri,
-          this@GenomicStudyAnalysisSurrogate._instantiatesUri,
-        ),
-      title =
-        R5String.of(
-          this@GenomicStudyAnalysisSurrogate.title,
-          this@GenomicStudyAnalysisSurrogate._title,
-        ),
-      focus = this@GenomicStudyAnalysisSurrogate.focus ?: mutableListOf(),
-      specimen = this@GenomicStudyAnalysisSurrogate.specimen ?: mutableListOf(),
-      date =
-        DateTime.of(
-          FhirDateTime.fromString(this@GenomicStudyAnalysisSurrogate.date),
-          this@GenomicStudyAnalysisSurrogate._date,
-        ),
-      note = this@GenomicStudyAnalysisSurrogate.note ?: mutableListOf(),
-      protocolPerformed = this@GenomicStudyAnalysisSurrogate.protocolPerformed,
-      regionsStudied = this@GenomicStudyAnalysisSurrogate.regionsStudied ?: mutableListOf(),
-      regionsCalled = this@GenomicStudyAnalysisSurrogate.regionsCalled ?: mutableListOf(),
-      input = this@GenomicStudyAnalysisSurrogate.input ?: mutableListOf(),
-      output = this@GenomicStudyAnalysisSurrogate.output ?: mutableListOf(),
-      performer = this@GenomicStudyAnalysisSurrogate.performer ?: mutableListOf(),
-      device = this@GenomicStudyAnalysisSurrogate.device ?: mutableListOf(),
-    )
+  public fun toModel(): GenomicStudy.Analysis.Input.GeneratedBy =
+    GenomicStudy.Analysis.Input.GeneratedBy.from(
+      this@GenomicStudyAnalysisInputGeneratedBySurrogate.generatedByIdentifier,
+      this@GenomicStudyAnalysisInputGeneratedBySurrogate.generatedByReference,
+    )!!
 
   public companion object {
-    public fun fromModel(model: GenomicStudy.Analysis): GenomicStudyAnalysisSurrogate =
+    public fun fromModel(
+      model: GenomicStudy.Analysis.Input.GeneratedBy
+    ): GenomicStudyAnalysisInputGeneratedBySurrogate =
       with(model) {
-        GenomicStudyAnalysisSurrogate(
-          id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          identifier = this@with.identifier.takeUnless { it.all { it == null } },
-          methodType = this@with.methodType.takeUnless { it.all { it == null } },
-          changeType = this@with.changeType.takeUnless { it.all { it == null } },
-          genomeBuild = this@with.genomeBuild,
-          instantiatesCanonical = this@with.instantiatesCanonical?.value,
-          _instantiatesCanonical = this@with.instantiatesCanonical?.toElement(),
-          instantiatesUri = this@with.instantiatesUri?.value,
-          _instantiatesUri = this@with.instantiatesUri?.toElement(),
-          title = this@with.title?.value,
-          _title = this@with.title?.toElement(),
-          focus = this@with.focus.takeUnless { it.all { it == null } },
-          specimen = this@with.specimen.takeUnless { it.all { it == null } },
-          date = this@with.date?.value?.toString(),
-          _date = this@with.date?.toElement(),
-          note = this@with.note.takeUnless { it.all { it == null } },
-          protocolPerformed = this@with.protocolPerformed,
-          regionsStudied = this@with.regionsStudied.takeUnless { it.all { it == null } },
-          regionsCalled = this@with.regionsCalled.takeUnless { it.all { it == null } },
-          input = this@with.input.takeUnless { it.all { it == null } },
-          output = this@with.output.takeUnless { it.all { it == null } },
-          performer = this@with.performer.takeUnless { it.all { it == null } },
-          device = this@with.device.takeUnless { it.all { it == null } },
+        GenomicStudyAnalysisInputGeneratedBySurrogate(
+          generatedByIdentifier = this@with.asIdentifier()?.value,
+          generatedByReference = this@with.asReference()?.value,
         )
       }
   }

@@ -39,31 +39,6 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
-internal data class MedicinalProductContraindicationOtherTherapyMedicationSurrogate(
-  public var medicationCodeableConcept: CodeableConcept? = null,
-  public var medicationReference: Reference? = null,
-) {
-  public fun toModel(): MedicinalProductContraindication.OtherTherapy.Medication =
-    MedicinalProductContraindication.OtherTherapy.Medication.from(
-      this@MedicinalProductContraindicationOtherTherapyMedicationSurrogate
-        .medicationCodeableConcept,
-      this@MedicinalProductContraindicationOtherTherapyMedicationSurrogate.medicationReference,
-    )!! !!
-
-  public companion object {
-    public fun fromModel(
-      model: MedicinalProductContraindication.OtherTherapy.Medication
-    ): MedicinalProductContraindicationOtherTherapyMedicationSurrogate =
-      with(model) {
-        MedicinalProductContraindicationOtherTherapyMedicationSurrogate(
-          medicationCodeableConcept = this@with.asCodeableConcept()?.value,
-          medicationReference = this@with.asReference()?.value,
-        )
-      }
-  }
-}
-
-@Serializable
 internal data class MedicinalProductContraindicationOtherTherapySurrogate(
   public var id: String? = null,
   public var extension: MutableList<Extension>? = null,
@@ -95,6 +70,31 @@ internal data class MedicinalProductContraindicationOtherTherapySurrogate(
           modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
           therapyRelationshipType = this@with.therapyRelationshipType,
           medication = this@with.medication,
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class MedicinalProductContraindicationOtherTherapyMedicationSurrogate(
+  public var medicationCodeableConcept: CodeableConcept? = null,
+  public var medicationReference: Reference? = null,
+) {
+  public fun toModel(): MedicinalProductContraindication.OtherTherapy.Medication =
+    MedicinalProductContraindication.OtherTherapy.Medication.from(
+      this@MedicinalProductContraindicationOtherTherapyMedicationSurrogate
+        .medicationCodeableConcept,
+      this@MedicinalProductContraindicationOtherTherapyMedicationSurrogate.medicationReference,
+    )!! !!
+
+  public companion object {
+    public fun fromModel(
+      model: MedicinalProductContraindication.OtherTherapy.Medication
+    ): MedicinalProductContraindicationOtherTherapyMedicationSurrogate =
+      with(model) {
+        MedicinalProductContraindicationOtherTherapyMedicationSurrogate(
+          medicationCodeableConcept = this@with.asCodeableConcept()?.value,
+          medicationReference = this@with.asReference()?.value,
         )
       }
   }

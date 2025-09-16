@@ -41,31 +41,6 @@ import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.JsonPrimitive
 import kotlinx.serialization.json.jsonObject
 
-public object BiologicallyDerivedProductCollectionCollectedSerializer :
-  KSerializer<BiologicallyDerivedProduct.Collection.Collected> {
-  internal val surrogateSerializer:
-    KSerializer<BiologicallyDerivedProductCollectionCollectedSurrogate> by lazy {
-    BiologicallyDerivedProductCollectionCollectedSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Collected", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): BiologicallyDerivedProduct.Collection.Collected =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(
-    encoder: Encoder,
-    `value`: BiologicallyDerivedProduct.Collection.Collected,
-  ) {
-    surrogateSerializer.serialize(
-      encoder,
-      BiologicallyDerivedProductCollectionCollectedSurrogate.fromModel(value),
-    )
-  }
-}
-
 public object BiologicallyDerivedProductCollectionSerializer :
   KSerializer<BiologicallyDerivedProduct.Collection> {
   internal val surrogateSerializer:
@@ -115,28 +90,6 @@ public object BiologicallyDerivedProductCollectionSerializer :
   }
 }
 
-public object BiologicallyDerivedProductProcessingTimeSerializer :
-  KSerializer<BiologicallyDerivedProduct.Processing.Time> {
-  internal val surrogateSerializer:
-    KSerializer<BiologicallyDerivedProductProcessingTimeSurrogate> by lazy {
-    BiologicallyDerivedProductProcessingTimeSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Time", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): BiologicallyDerivedProduct.Processing.Time =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: BiologicallyDerivedProduct.Processing.Time) {
-    surrogateSerializer.serialize(
-      encoder,
-      BiologicallyDerivedProductProcessingTimeSurrogate.fromModel(value),
-    )
-  }
-}
-
 public object BiologicallyDerivedProductProcessingSerializer :
   KSerializer<BiologicallyDerivedProduct.Processing> {
   internal val surrogateSerializer:
@@ -183,28 +136,6 @@ public object BiologicallyDerivedProductProcessingSerializer :
       }
     val flattenedJsonObject = FhirJsonTransformer.flatten(oldJsonObject, multiChoiceProperties)
     jsonEncoder.encodeJsonElement(flattenedJsonObject)
-  }
-}
-
-public object BiologicallyDerivedProductManipulationTimeSerializer :
-  KSerializer<BiologicallyDerivedProduct.Manipulation.Time> {
-  internal val surrogateSerializer:
-    KSerializer<BiologicallyDerivedProductManipulationTimeSurrogate> by lazy {
-    BiologicallyDerivedProductManipulationTimeSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Time", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): BiologicallyDerivedProduct.Manipulation.Time =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: BiologicallyDerivedProduct.Manipulation.Time) {
-    surrogateSerializer.serialize(
-      encoder,
-      BiologicallyDerivedProductManipulationTimeSurrogate.fromModel(value),
-    )
   }
 }
 
@@ -275,6 +206,75 @@ public object BiologicallyDerivedProductStorageSerializer :
     surrogateSerializer.serialize(
       encoder,
       BiologicallyDerivedProductStorageSurrogate.fromModel(value),
+    )
+  }
+}
+
+public object BiologicallyDerivedProductCollectionCollectedSerializer :
+  KSerializer<BiologicallyDerivedProduct.Collection.Collected> {
+  internal val surrogateSerializer:
+    KSerializer<BiologicallyDerivedProductCollectionCollectedSurrogate> by lazy {
+    BiologicallyDerivedProductCollectionCollectedSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Collected", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): BiologicallyDerivedProduct.Collection.Collected =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(
+    encoder: Encoder,
+    `value`: BiologicallyDerivedProduct.Collection.Collected,
+  ) {
+    surrogateSerializer.serialize(
+      encoder,
+      BiologicallyDerivedProductCollectionCollectedSurrogate.fromModel(value),
+    )
+  }
+}
+
+public object BiologicallyDerivedProductProcessingTimeSerializer :
+  KSerializer<BiologicallyDerivedProduct.Processing.Time> {
+  internal val surrogateSerializer:
+    KSerializer<BiologicallyDerivedProductProcessingTimeSurrogate> by lazy {
+    BiologicallyDerivedProductProcessingTimeSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Time", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): BiologicallyDerivedProduct.Processing.Time =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: BiologicallyDerivedProduct.Processing.Time) {
+    surrogateSerializer.serialize(
+      encoder,
+      BiologicallyDerivedProductProcessingTimeSurrogate.fromModel(value),
+    )
+  }
+}
+
+public object BiologicallyDerivedProductManipulationTimeSerializer :
+  KSerializer<BiologicallyDerivedProduct.Manipulation.Time> {
+  internal val surrogateSerializer:
+    KSerializer<BiologicallyDerivedProductManipulationTimeSurrogate> by lazy {
+    BiologicallyDerivedProductManipulationTimeSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Time", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): BiologicallyDerivedProduct.Manipulation.Time =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: BiologicallyDerivedProduct.Manipulation.Time) {
+    surrogateSerializer.serialize(
+      encoder,
+      BiologicallyDerivedProductManipulationTimeSurrogate.fromModel(value),
     )
   }
 }

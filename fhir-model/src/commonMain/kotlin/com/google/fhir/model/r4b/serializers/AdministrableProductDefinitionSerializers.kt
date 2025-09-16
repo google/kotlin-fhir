@@ -39,28 +39,6 @@ import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.JsonPrimitive
 import kotlinx.serialization.json.jsonObject
 
-public object AdministrableProductDefinitionPropertyValueSerializer :
-  KSerializer<AdministrableProductDefinition.Property.Value> {
-  internal val surrogateSerializer:
-    KSerializer<AdministrableProductDefinitionPropertyValueSurrogate> by lazy {
-    AdministrableProductDefinitionPropertyValueSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Value", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): AdministrableProductDefinition.Property.Value =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: AdministrableProductDefinition.Property.Value) {
-    surrogateSerializer.serialize(
-      encoder,
-      AdministrableProductDefinitionPropertyValueSurrogate.fromModel(value),
-    )
-  }
-}
-
 public object AdministrableProductDefinitionPropertySerializer :
   KSerializer<AdministrableProductDefinition.Property> {
   internal val surrogateSerializer:
@@ -110,33 +88,27 @@ public object AdministrableProductDefinitionPropertySerializer :
   }
 }
 
-public object AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesWithdrawalPeriodSerializer :
-  KSerializer<AdministrableProductDefinition.RouteOfAdministration.TargetSpecies.WithdrawalPeriod> {
+public object AdministrableProductDefinitionRouteOfAdministrationSerializer :
+  KSerializer<AdministrableProductDefinition.RouteOfAdministration> {
   internal val surrogateSerializer:
-    KSerializer<
-      AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesWithdrawalPeriodSurrogate
-    > by lazy {
-    AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesWithdrawalPeriodSurrogate
-      .serializer()
+    KSerializer<AdministrableProductDefinitionRouteOfAdministrationSurrogate> by lazy {
+    AdministrableProductDefinitionRouteOfAdministrationSurrogate.serializer()
   }
 
   override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("WithdrawalPeriod", surrogateSerializer.descriptor)
+    SerialDescriptor("RouteOfAdministration", surrogateSerializer.descriptor)
   }
 
-  override fun deserialize(
-    decoder: Decoder
-  ): AdministrableProductDefinition.RouteOfAdministration.TargetSpecies.WithdrawalPeriod =
+  override fun deserialize(decoder: Decoder): AdministrableProductDefinition.RouteOfAdministration =
     surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(
     encoder: Encoder,
-    `value`: AdministrableProductDefinition.RouteOfAdministration.TargetSpecies.WithdrawalPeriod,
+    `value`: AdministrableProductDefinition.RouteOfAdministration,
   ) {
     surrogateSerializer.serialize(
       encoder,
-      AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesWithdrawalPeriodSurrogate
-        .fromModel(value),
+      AdministrableProductDefinitionRouteOfAdministrationSurrogate.fromModel(value),
     )
   }
 }
@@ -168,27 +140,55 @@ public object AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesSe
   }
 }
 
-public object AdministrableProductDefinitionRouteOfAdministrationSerializer :
-  KSerializer<AdministrableProductDefinition.RouteOfAdministration> {
+public object AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesWithdrawalPeriodSerializer :
+  KSerializer<AdministrableProductDefinition.RouteOfAdministration.TargetSpecies.WithdrawalPeriod> {
   internal val surrogateSerializer:
-    KSerializer<AdministrableProductDefinitionRouteOfAdministrationSurrogate> by lazy {
-    AdministrableProductDefinitionRouteOfAdministrationSurrogate.serializer()
+    KSerializer<
+      AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesWithdrawalPeriodSurrogate
+    > by lazy {
+    AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesWithdrawalPeriodSurrogate
+      .serializer()
   }
 
   override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("RouteOfAdministration", surrogateSerializer.descriptor)
+    SerialDescriptor("WithdrawalPeriod", surrogateSerializer.descriptor)
   }
 
-  override fun deserialize(decoder: Decoder): AdministrableProductDefinition.RouteOfAdministration =
+  override fun deserialize(
+    decoder: Decoder
+  ): AdministrableProductDefinition.RouteOfAdministration.TargetSpecies.WithdrawalPeriod =
     surrogateSerializer.deserialize(decoder).toModel()
 
   override fun serialize(
     encoder: Encoder,
-    `value`: AdministrableProductDefinition.RouteOfAdministration,
+    `value`: AdministrableProductDefinition.RouteOfAdministration.TargetSpecies.WithdrawalPeriod,
   ) {
     surrogateSerializer.serialize(
       encoder,
-      AdministrableProductDefinitionRouteOfAdministrationSurrogate.fromModel(value),
+      AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesWithdrawalPeriodSurrogate
+        .fromModel(value),
+    )
+  }
+}
+
+public object AdministrableProductDefinitionPropertyValueSerializer :
+  KSerializer<AdministrableProductDefinition.Property.Value> {
+  internal val surrogateSerializer:
+    KSerializer<AdministrableProductDefinitionPropertyValueSurrogate> by lazy {
+    AdministrableProductDefinitionPropertyValueSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Value", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): AdministrableProductDefinition.Property.Value =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: AdministrableProductDefinition.Property.Value) {
+    surrogateSerializer.serialize(
+      encoder,
+      AdministrableProductDefinitionPropertyValueSurrogate.fromModel(value),
     )
   }
 }

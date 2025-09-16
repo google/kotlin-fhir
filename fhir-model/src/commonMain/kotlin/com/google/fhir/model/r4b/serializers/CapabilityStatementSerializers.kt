@@ -78,6 +78,23 @@ public object CapabilityStatementImplementationSerializer :
   }
 }
 
+public object CapabilityStatementRestSerializer : KSerializer<CapabilityStatement.Rest> {
+  internal val surrogateSerializer: KSerializer<CapabilityStatementRestSurrogate> by lazy {
+    CapabilityStatementRestSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Rest", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): CapabilityStatement.Rest =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: CapabilityStatement.Rest) {
+    surrogateSerializer.serialize(encoder, CapabilityStatementRestSurrogate.fromModel(value))
+  }
+}
+
 public object CapabilityStatementRestSecuritySerializer :
   KSerializer<CapabilityStatement.Rest.Security> {
   internal val surrogateSerializer: KSerializer<CapabilityStatementRestSecuritySurrogate> by lazy {
@@ -95,6 +112,27 @@ public object CapabilityStatementRestSecuritySerializer :
     surrogateSerializer.serialize(
       encoder,
       CapabilityStatementRestSecuritySurrogate.fromModel(value),
+    )
+  }
+}
+
+public object CapabilityStatementRestResourceSerializer :
+  KSerializer<CapabilityStatement.Rest.Resource> {
+  internal val surrogateSerializer: KSerializer<CapabilityStatementRestResourceSurrogate> by lazy {
+    CapabilityStatementRestResourceSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Resource", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): CapabilityStatement.Rest.Resource =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: CapabilityStatement.Rest.Resource) {
+    surrogateSerializer.serialize(
+      encoder,
+      CapabilityStatementRestResourceSurrogate.fromModel(value),
     )
   }
 }
@@ -165,27 +203,6 @@ public object CapabilityStatementRestResourceOperationSerializer :
   }
 }
 
-public object CapabilityStatementRestResourceSerializer :
-  KSerializer<CapabilityStatement.Rest.Resource> {
-  internal val surrogateSerializer: KSerializer<CapabilityStatementRestResourceSurrogate> by lazy {
-    CapabilityStatementRestResourceSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Resource", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): CapabilityStatement.Rest.Resource =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: CapabilityStatement.Rest.Resource) {
-    surrogateSerializer.serialize(
-      encoder,
-      CapabilityStatementRestResourceSurrogate.fromModel(value),
-    )
-  }
-}
-
 public object CapabilityStatementRestInteractionSerializer :
   KSerializer<CapabilityStatement.Rest.Interaction> {
   internal val surrogateSerializer:
@@ -208,20 +225,20 @@ public object CapabilityStatementRestInteractionSerializer :
   }
 }
 
-public object CapabilityStatementRestSerializer : KSerializer<CapabilityStatement.Rest> {
-  internal val surrogateSerializer: KSerializer<CapabilityStatementRestSurrogate> by lazy {
-    CapabilityStatementRestSurrogate.serializer()
+public object CapabilityStatementMessagingSerializer : KSerializer<CapabilityStatement.Messaging> {
+  internal val surrogateSerializer: KSerializer<CapabilityStatementMessagingSurrogate> by lazy {
+    CapabilityStatementMessagingSurrogate.serializer()
   }
 
   override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Rest", surrogateSerializer.descriptor)
+    SerialDescriptor("Messaging", surrogateSerializer.descriptor)
   }
 
-  override fun deserialize(decoder: Decoder): CapabilityStatement.Rest =
+  override fun deserialize(decoder: Decoder): CapabilityStatement.Messaging =
     surrogateSerializer.deserialize(decoder).toModel()
 
-  override fun serialize(encoder: Encoder, `value`: CapabilityStatement.Rest) {
-    surrogateSerializer.serialize(encoder, CapabilityStatementRestSurrogate.fromModel(value))
+  override fun serialize(encoder: Encoder, `value`: CapabilityStatement.Messaging) {
+    surrogateSerializer.serialize(encoder, CapabilityStatementMessagingSurrogate.fromModel(value))
   }
 }
 
@@ -269,23 +286,6 @@ public object CapabilityStatementMessagingSupportedMessageSerializer :
       encoder,
       CapabilityStatementMessagingSupportedMessageSurrogate.fromModel(value),
     )
-  }
-}
-
-public object CapabilityStatementMessagingSerializer : KSerializer<CapabilityStatement.Messaging> {
-  internal val surrogateSerializer: KSerializer<CapabilityStatementMessagingSurrogate> by lazy {
-    CapabilityStatementMessagingSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Messaging", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): CapabilityStatement.Messaging =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: CapabilityStatement.Messaging) {
-    surrogateSerializer.serialize(encoder, CapabilityStatementMessagingSurrogate.fromModel(value))
   }
 }
 

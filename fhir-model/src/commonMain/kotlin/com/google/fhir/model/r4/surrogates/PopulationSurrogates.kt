@@ -37,7 +37,7 @@ internal data class PopulationAgeSurrogate(
   public var ageCodeableConcept: CodeableConcept? = null,
 ) {
   public fun toModel(): Population.Age =
-    Population.Age?.from(
+    Population.Age.from(
       this@PopulationAgeSurrogate.ageRange,
       this@PopulationAgeSurrogate.ageCodeableConcept,
     )!!

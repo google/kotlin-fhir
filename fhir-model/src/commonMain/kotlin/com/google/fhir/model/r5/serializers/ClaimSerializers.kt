@@ -89,23 +89,6 @@ public object ClaimPayeeSerializer : KSerializer<Claim.Payee> {
   }
 }
 
-public object ClaimEventWhenSerializer : KSerializer<Claim.Event.When> {
-  internal val surrogateSerializer: KSerializer<ClaimEventWhenSurrogate> by lazy {
-    ClaimEventWhenSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("When", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): Claim.Event.When =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: Claim.Event.When) {
-    surrogateSerializer.serialize(encoder, ClaimEventWhenSurrogate.fromModel(value))
-  }
-}
-
 public object ClaimEventSerializer : KSerializer<Claim.Event> {
   internal val surrogateSerializer: KSerializer<ClaimEventSurrogate> by lazy {
     ClaimEventSurrogate.serializer()
@@ -170,40 +153,6 @@ public object ClaimCareTeamSerializer : KSerializer<Claim.CareTeam> {
   }
 }
 
-public object ClaimSupportingInfoTimingSerializer : KSerializer<Claim.SupportingInfo.Timing> {
-  internal val surrogateSerializer: KSerializer<ClaimSupportingInfoTimingSurrogate> by lazy {
-    ClaimSupportingInfoTimingSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Timing", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): Claim.SupportingInfo.Timing =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: Claim.SupportingInfo.Timing) {
-    surrogateSerializer.serialize(encoder, ClaimSupportingInfoTimingSurrogate.fromModel(value))
-  }
-}
-
-public object ClaimSupportingInfoValueSerializer : KSerializer<Claim.SupportingInfo.Value> {
-  internal val surrogateSerializer: KSerializer<ClaimSupportingInfoValueSurrogate> by lazy {
-    ClaimSupportingInfoValueSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Value", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): Claim.SupportingInfo.Value =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: Claim.SupportingInfo.Value) {
-    surrogateSerializer.serialize(encoder, ClaimSupportingInfoValueSurrogate.fromModel(value))
-  }
-}
-
 public object ClaimSupportingInfoSerializer : KSerializer<Claim.SupportingInfo> {
   internal val surrogateSerializer: KSerializer<ClaimSupportingInfoSurrogate> by lazy {
     ClaimSupportingInfoSurrogate.serializer()
@@ -251,23 +200,6 @@ public object ClaimSupportingInfoSerializer : KSerializer<Claim.SupportingInfo> 
   }
 }
 
-public object ClaimDiagnosisDiagnosisSerializer : KSerializer<Claim.Diagnosis.Diagnosis> {
-  internal val surrogateSerializer: KSerializer<ClaimDiagnosisDiagnosisSurrogate> by lazy {
-    ClaimDiagnosisDiagnosisSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Diagnosis", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): Claim.Diagnosis.Diagnosis =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: Claim.Diagnosis.Diagnosis) {
-    surrogateSerializer.serialize(encoder, ClaimDiagnosisDiagnosisSurrogate.fromModel(value))
-  }
-}
-
 public object ClaimDiagnosisSerializer : KSerializer<Claim.Diagnosis> {
   internal val surrogateSerializer: KSerializer<ClaimDiagnosisSurrogate> by lazy {
     ClaimDiagnosisSurrogate.serializer()
@@ -312,23 +244,6 @@ public object ClaimDiagnosisSerializer : KSerializer<Claim.Diagnosis> {
       }
     val flattenedJsonObject = FhirJsonTransformer.flatten(oldJsonObject, multiChoiceProperties)
     jsonEncoder.encodeJsonElement(flattenedJsonObject)
-  }
-}
-
-public object ClaimProcedureProcedureSerializer : KSerializer<Claim.Procedure.Procedure> {
-  internal val surrogateSerializer: KSerializer<ClaimProcedureProcedureSurrogate> by lazy {
-    ClaimProcedureProcedureSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Procedure", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): Claim.Procedure.Procedure =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: Claim.Procedure.Procedure) {
-    surrogateSerializer.serialize(encoder, ClaimProcedureProcedureSurrogate.fromModel(value))
   }
 }
 
@@ -396,23 +311,6 @@ public object ClaimInsuranceSerializer : KSerializer<Claim.Insurance> {
   }
 }
 
-public object ClaimAccidentLocationSerializer : KSerializer<Claim.Accident.Location> {
-  internal val surrogateSerializer: KSerializer<ClaimAccidentLocationSurrogate> by lazy {
-    ClaimAccidentLocationSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Location", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): Claim.Accident.Location =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: Claim.Accident.Location) {
-    surrogateSerializer.serialize(encoder, ClaimAccidentLocationSurrogate.fromModel(value))
-  }
-}
-
 public object ClaimAccidentSerializer : KSerializer<Claim.Accident> {
   internal val surrogateSerializer: KSerializer<ClaimAccidentSurrogate> by lazy {
     ClaimAccidentSurrogate.serializer()
@@ -460,91 +358,6 @@ public object ClaimAccidentSerializer : KSerializer<Claim.Accident> {
   }
 }
 
-public object ClaimItemBodySiteSerializer : KSerializer<Claim.Item.BodySite> {
-  internal val surrogateSerializer: KSerializer<ClaimItemBodySiteSurrogate> by lazy {
-    ClaimItemBodySiteSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("BodySite", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): Claim.Item.BodySite =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: Claim.Item.BodySite) {
-    surrogateSerializer.serialize(encoder, ClaimItemBodySiteSurrogate.fromModel(value))
-  }
-}
-
-public object ClaimItemDetailSubDetailSerializer : KSerializer<Claim.Item.Detail.SubDetail> {
-  internal val surrogateSerializer: KSerializer<ClaimItemDetailSubDetailSurrogate> by lazy {
-    ClaimItemDetailSubDetailSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("SubDetail", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): Claim.Item.Detail.SubDetail =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: Claim.Item.Detail.SubDetail) {
-    surrogateSerializer.serialize(encoder, ClaimItemDetailSubDetailSurrogate.fromModel(value))
-  }
-}
-
-public object ClaimItemDetailSerializer : KSerializer<Claim.Item.Detail> {
-  internal val surrogateSerializer: KSerializer<ClaimItemDetailSurrogate> by lazy {
-    ClaimItemDetailSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Detail", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): Claim.Item.Detail =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: Claim.Item.Detail) {
-    surrogateSerializer.serialize(encoder, ClaimItemDetailSurrogate.fromModel(value))
-  }
-}
-
-public object ClaimItemServicedSerializer : KSerializer<Claim.Item.Serviced> {
-  internal val surrogateSerializer: KSerializer<ClaimItemServicedSurrogate> by lazy {
-    ClaimItemServicedSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Serviced", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): Claim.Item.Serviced =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: Claim.Item.Serviced) {
-    surrogateSerializer.serialize(encoder, ClaimItemServicedSurrogate.fromModel(value))
-  }
-}
-
-public object ClaimItemLocationSerializer : KSerializer<Claim.Item.Location> {
-  internal val surrogateSerializer: KSerializer<ClaimItemLocationSurrogate> by lazy {
-    ClaimItemLocationSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Location", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): Claim.Item.Location =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: Claim.Item.Location) {
-    surrogateSerializer.serialize(encoder, ClaimItemLocationSurrogate.fromModel(value))
-  }
-}
-
 public object ClaimItemSerializer : KSerializer<Claim.Item> {
   internal val surrogateSerializer: KSerializer<ClaimItemSurrogate> by lazy {
     ClaimItemSurrogate.serializer()
@@ -589,6 +402,193 @@ public object ClaimItemSerializer : KSerializer<Claim.Item> {
       }
     val flattenedJsonObject = FhirJsonTransformer.flatten(oldJsonObject, multiChoiceProperties)
     jsonEncoder.encodeJsonElement(flattenedJsonObject)
+  }
+}
+
+public object ClaimItemBodySiteSerializer : KSerializer<Claim.Item.BodySite> {
+  internal val surrogateSerializer: KSerializer<ClaimItemBodySiteSurrogate> by lazy {
+    ClaimItemBodySiteSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("BodySite", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): Claim.Item.BodySite =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: Claim.Item.BodySite) {
+    surrogateSerializer.serialize(encoder, ClaimItemBodySiteSurrogate.fromModel(value))
+  }
+}
+
+public object ClaimItemDetailSerializer : KSerializer<Claim.Item.Detail> {
+  internal val surrogateSerializer: KSerializer<ClaimItemDetailSurrogate> by lazy {
+    ClaimItemDetailSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Detail", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): Claim.Item.Detail =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: Claim.Item.Detail) {
+    surrogateSerializer.serialize(encoder, ClaimItemDetailSurrogate.fromModel(value))
+  }
+}
+
+public object ClaimItemDetailSubDetailSerializer : KSerializer<Claim.Item.Detail.SubDetail> {
+  internal val surrogateSerializer: KSerializer<ClaimItemDetailSubDetailSurrogate> by lazy {
+    ClaimItemDetailSubDetailSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("SubDetail", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): Claim.Item.Detail.SubDetail =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: Claim.Item.Detail.SubDetail) {
+    surrogateSerializer.serialize(encoder, ClaimItemDetailSubDetailSurrogate.fromModel(value))
+  }
+}
+
+public object ClaimEventWhenSerializer : KSerializer<Claim.Event.When> {
+  internal val surrogateSerializer: KSerializer<ClaimEventWhenSurrogate> by lazy {
+    ClaimEventWhenSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("When", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): Claim.Event.When =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: Claim.Event.When) {
+    surrogateSerializer.serialize(encoder, ClaimEventWhenSurrogate.fromModel(value))
+  }
+}
+
+public object ClaimSupportingInfoTimingSerializer : KSerializer<Claim.SupportingInfo.Timing> {
+  internal val surrogateSerializer: KSerializer<ClaimSupportingInfoTimingSurrogate> by lazy {
+    ClaimSupportingInfoTimingSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Timing", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): Claim.SupportingInfo.Timing =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: Claim.SupportingInfo.Timing) {
+    surrogateSerializer.serialize(encoder, ClaimSupportingInfoTimingSurrogate.fromModel(value))
+  }
+}
+
+public object ClaimSupportingInfoValueSerializer : KSerializer<Claim.SupportingInfo.Value> {
+  internal val surrogateSerializer: KSerializer<ClaimSupportingInfoValueSurrogate> by lazy {
+    ClaimSupportingInfoValueSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Value", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): Claim.SupportingInfo.Value =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: Claim.SupportingInfo.Value) {
+    surrogateSerializer.serialize(encoder, ClaimSupportingInfoValueSurrogate.fromModel(value))
+  }
+}
+
+public object ClaimDiagnosisDiagnosisSerializer : KSerializer<Claim.Diagnosis.Diagnosis> {
+  internal val surrogateSerializer: KSerializer<ClaimDiagnosisDiagnosisSurrogate> by lazy {
+    ClaimDiagnosisDiagnosisSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Diagnosis", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): Claim.Diagnosis.Diagnosis =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: Claim.Diagnosis.Diagnosis) {
+    surrogateSerializer.serialize(encoder, ClaimDiagnosisDiagnosisSurrogate.fromModel(value))
+  }
+}
+
+public object ClaimProcedureProcedureSerializer : KSerializer<Claim.Procedure.Procedure> {
+  internal val surrogateSerializer: KSerializer<ClaimProcedureProcedureSurrogate> by lazy {
+    ClaimProcedureProcedureSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Procedure", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): Claim.Procedure.Procedure =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: Claim.Procedure.Procedure) {
+    surrogateSerializer.serialize(encoder, ClaimProcedureProcedureSurrogate.fromModel(value))
+  }
+}
+
+public object ClaimAccidentLocationSerializer : KSerializer<Claim.Accident.Location> {
+  internal val surrogateSerializer: KSerializer<ClaimAccidentLocationSurrogate> by lazy {
+    ClaimAccidentLocationSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Location", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): Claim.Accident.Location =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: Claim.Accident.Location) {
+    surrogateSerializer.serialize(encoder, ClaimAccidentLocationSurrogate.fromModel(value))
+  }
+}
+
+public object ClaimItemServicedSerializer : KSerializer<Claim.Item.Serviced> {
+  internal val surrogateSerializer: KSerializer<ClaimItemServicedSurrogate> by lazy {
+    ClaimItemServicedSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Serviced", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): Claim.Item.Serviced =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: Claim.Item.Serviced) {
+    surrogateSerializer.serialize(encoder, ClaimItemServicedSurrogate.fromModel(value))
+  }
+}
+
+public object ClaimItemLocationSerializer : KSerializer<Claim.Item.Location> {
+  internal val surrogateSerializer: KSerializer<ClaimItemLocationSurrogate> by lazy {
+    ClaimItemLocationSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Location", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): Claim.Item.Location =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: Claim.Item.Location) {
+    surrogateSerializer.serialize(encoder, ClaimItemLocationSurrogate.fromModel(value))
   }
 }
 
