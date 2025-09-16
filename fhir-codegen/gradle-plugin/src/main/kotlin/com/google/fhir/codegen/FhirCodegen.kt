@@ -50,7 +50,7 @@ class FhirCodegen(
     CodegenContext(
       packageName = packageName,
       valueSetMap = valueSetMap,
-      baseClassesSet = baseClassesSet,
+      baseClassNameSet = baseClassesSet,
     )
 
   private val modelFileSpecGenerator = ModelFileSpecGenerator(codegenContext)

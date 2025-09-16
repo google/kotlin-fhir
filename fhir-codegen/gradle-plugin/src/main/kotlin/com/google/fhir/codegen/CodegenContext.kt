@@ -22,77 +22,18 @@ import com.google.fhir.codegen.schema.valueset.ValueSet
 import com.squareup.kotlinpoet.AnnotationSpec
 import com.squareup.kotlinpoet.ClassName
 import com.squareup.kotlinpoet.FileSpec
-import kotlinx.serialization.UseSerializers
 
 /** Shared context object containing contextual information needed for code generation. */
 data class CodegenContext(
   val packageName: String,
   val valueSetMap: Map<String, ValueSet>,
-  val baseClassesSet: HashSet<String>,
+  val baseClassNameSet: HashSet<String>,
 ) {
   fun getModelClassName(structureDefinition: StructureDefinition) =
     ClassName(packageName, structureDefinition.name.capitalized())
 
   fun isBaseClass(structureDefinition: StructureDefinition) =
-    baseClassesSet.contains(structureDefinition.name.capitalized())
-
-  /**
-   * Returns the [FileSpec.Builder] that represents the surrogate file for this [ClassName]. The
-   * surrogate file will contain the surrogate class for the given [ClassName] and all surrogate
-   * classes of its nested classes. The surrogate file will be under the `surrogate` package with a
-   * name suffixed with "Surrogates".
-   *
-   * For example:
-   * - `com.google.fhir.r4.Patient` will return [FileSpec] for `PatientSurrogates.kt` in package
-   *   `com.google.fhir.r4.surrogates`.
-   */
-  fun getSurrogateFileSpecBuilder(structureDefinition: StructureDefinition): FileSpec.Builder =
-    FileSpec.builder(
-        "${packageName}.surrogates",
-        getModelClassName(structureDefinition).simpleName.plus("Surrogates"),
-      )
-      .addUseSerializerAnnotations(structureDefinition)
-      .addSuppressAnnotation()
-
-  /**
-   * Returns the [FileSpec.Builder] that represents the serializer file for this [ClassName]. The
-   * serializer file will contain the serializer for the given [ClassName] and all serializers for
-   * its nested classes. The serializer file will be under the `serializers` package with a name
-   * suffixed with "Serializers".
-   *
-   * For example:
-   * - `com.google.fhir.r4.Patient` will return [FileSpec] for `PatientSerializers.kt` in package
-   *   `com.google.fhir.r4.serializers`.
-   */
-  fun getSerializerFileSpecBuilder(structureDefinition: StructureDefinition): FileSpec.Builder =
-    FileSpec.builder(
-        "${packageName}.serializers",
-        getModelClassName(structureDefinition).simpleName.plus("Serializers"),
-      )
-      .addSuppressAnnotation()
-
-  private fun FileSpec.Builder.addUseSerializerAnnotations(
-    structureDefinition: StructureDefinition
-  ) = apply {
-    addAnnotation(
-      AnnotationSpec.builder(UseSerializers::class)
-        .addMember(
-          "%T::class",
-          ClassName(
-            "${getModelClassName(structureDefinition).packageName}.serializers",
-            "DoubleSerializer",
-          ),
-        )
-        .addMember(
-          "%T::class",
-          ClassName(
-            "${getModelClassName(structureDefinition).packageName}.serializers",
-            "LocalTimeSerializer",
-          ),
-        )
-        .build()
-    )
-  }
+    baseClassNameSet.contains(structureDefinition.name.capitalized())
 }
 
 /**

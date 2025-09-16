@@ -61,10 +61,10 @@ private val decoderClassName = ClassName(KOTLINX_SERIALIZATION_ENCODING, "Decode
 class SerializerFileSpecGenerator(val codegenContext: CodegenContext) {
 
   fun generate(structureDefinition: StructureDefinition): FileSpec {
-    return codegenContext
-      .getSerializerFileSpecBuilder(structureDefinition)
+    val modelClassName = codegenContext.getModelClassName(structureDefinition)
+    return modelClassName
+      .toSerializerFileSpecBuilder()
       .apply {
-        val modelClassName = codegenContext.getModelClassName(structureDefinition)
         // Add serializer type specs for backbone elements recursively e.g.
         // PatientContactSerializer, PatientCommunicationSerializer and PatientLinkSerializer
         addBackboneElementSerializers(
@@ -379,3 +379,17 @@ private fun PropertySpec.Builder.initializeWithLazy(statement: String, vararg ar
  */
 fun ClassName.toSerializerClassName(): ClassName =
   ClassName("${packageName}.serializers", simpleNames.joinToString("").plus("Serializer"))
+
+/**
+ * Returns the [FileSpec.Builder] that represents the serializer file for this [ClassName]. The
+ * serializer file will contain the serializer for the given [ClassName] and all serializers for its
+ * nested classes. The serializer file will be under the `serializers` package with a name suffixed
+ * with "Serializers".
+ *
+ * For example:
+ * - `com.google.fhir.r4.Patient` will return [FileSpec] for `PatientSerializers.kt` in package
+ *   `com.google.fhir.r4.serializers`.
+ */
+private fun ClassName.toSerializerFileSpecBuilder(): FileSpec.Builder =
+  FileSpec.builder("${packageName}.serializers", simpleName.plus("Serializers"))
+    .addSuppressAnnotation()

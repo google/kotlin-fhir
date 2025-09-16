@@ -35,6 +35,7 @@ import com.google.fhir.codegen.schema.normalizeEnumName
 import com.google.fhir.codegen.schema.rootElements
 import com.google.fhir.codegen.schema.typeIsEnumeratedCode
 import com.google.fhir.codegen.schema.valueset.ValueSet
+import com.squareup.kotlinpoet.AnnotationSpec
 import com.squareup.kotlinpoet.ClassName
 import com.squareup.kotlinpoet.CodeBlock
 import com.squareup.kotlinpoet.FileSpec
@@ -44,6 +45,7 @@ import com.squareup.kotlinpoet.ParameterSpec
 import com.squareup.kotlinpoet.PropertySpec
 import com.squareup.kotlinpoet.TypeSpec
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.UseSerializers
 
 /**
  * Generates a [TypeSpec] for a surrogate classes.
@@ -63,8 +65,8 @@ class SurrogateFileSpecGenerator(val codegenContext: CodegenContext) {
    */
   fun generate(structureDefinition: StructureDefinition): FileSpec {
     val modelClassName = codegenContext.getModelClassName(structureDefinition)
-    return codegenContext
-      .getSurrogateFileSpecBuilder(structureDefinition)
+    return modelClassName
+      .toSurrogateFileSpecBuilder()
       .apply {
         // Add surrogate type specs for backbone elements recursively e.g. PatientContactSurrogate
         // , PatientCommunicationSurrogate and PatientLinkSerializeSurrogate
@@ -854,3 +856,37 @@ class SurrogateFileSpecGenerator(val codegenContext: CodegenContext) {
  */
 fun ClassName.toSurrogateClassName(): ClassName =
   ClassName("${packageName}.surrogates", simpleNames.joinToString("").plus("Surrogate"))
+
+/**
+ * Returns the [FileSpec.Builder] that represents the surrogate file for this [ClassName]. The
+ * surrogate file will contain the surrogate class for the given [ClassName] and all surrogate
+ * classes of its nested classes. The surrogate file will be under the `surrogate` package with a
+ * name suffixed with "Surrogates".
+ *
+ * For example:
+ * - `com.google.fhir.r4.Patient` will return [FileSpec] for `PatientSurrogates.kt` in package
+ *   `com.google.fhir.r4.surrogates`.
+ */
+private fun ClassName.toSurrogateFileSpecBuilder(): FileSpec.Builder =
+  FileSpec.builder("${packageName}.surrogates", simpleName.plus("Surrogates"))
+    .apply {
+      addAnnotation(
+        AnnotationSpec.builder(UseSerializers::class)
+          .addMember(
+            "%T::class",
+            ClassName(
+              "${this@toSurrogateFileSpecBuilder.packageName}.serializers",
+              "DoubleSerializer",
+            ),
+          )
+          .addMember(
+            "%T::class",
+            ClassName(
+              "${this@toSurrogateFileSpecBuilder.packageName}.serializers",
+              "LocalTimeSerializer",
+            ),
+          )
+          .build()
+      )
+    }
+    .addSuppressAnnotation()

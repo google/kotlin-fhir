@@ -48,7 +48,7 @@ import com.squareup.kotlinpoet.asTypeName
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
-/** Generates a [TypeSpec] for a model class. */
+/** Generates a [FileSpec] for a model class. */
 class ModelFileSpecGenerator(val codegenContext: CodegenContext) {
 
   fun generate(structureDefinition: StructureDefinition): FileSpec {
