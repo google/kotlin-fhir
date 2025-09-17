@@ -50,8 +50,7 @@ fun FileSpec.Builder.addSuppressAnnotation() = apply {
   addAnnotation(
     AnnotationSpec.builder(Suppress::class)
       // Suppresses warnings about redundant visibility modifiers (e.g., `public`) KotlinPoet
-      // might
-      // generate.
+      // might generate.
       .addMember("%S", "RedundantVisibilityModifier")
       // Suppress warnings about property names prefixed with an underscore `_` for FHIR primitive
       // data types.

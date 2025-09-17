@@ -51,9 +51,9 @@ private val decoderClassName = ClassName(KOTLINX_SERIALIZATION_ENCODING, "Decode
 
 /**
  * Generates a [FileSpec] for a custom serializer object that delegates
- * serialization/deserialization to a surrogate class.
- *
- * See
+ * serialization/deserialization to a surrogate class. The [FileSpec] will include the custom
+ * serializer for the model class as well as custom serializers for sealed interfaces and backbone
+ * elements defined as nested structures in the model class. See
  * [surrogate](https://github.com/Kotlin/kotlinx.serialization/blob/master/docs/serializers.md#composite-serializer-via-surrogate).
  */
 class SerializerFileSpecGenerator(val codegenContext: CodegenContext) {

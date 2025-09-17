@@ -44,7 +44,9 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 /**
- * Generates a [FileSpec] for a surrogate classes.
+ * Generates a [FileSpec] for surrogate classes for a model class. The [FileSpec] will include the
+ * surrogate class for the model class as well as surrogates for sealed interfaces and backbone
+ * elements defined as nested structures of the model class.
  *
  * The surrogate class represents the structure of the JSON object accurately for ease of
  * serialization/deserialization. The custom serializer delegates the serialization/deserialization
@@ -54,10 +56,7 @@ import kotlinx.serialization.UseSerializers
  * [surrogate](https://github.com/Kotlin/kotlinx.serialization/blob/master/docs/serializers.md#composite-serializer-via-surrogate).
  */
 class SurrogateFileSpecGenerator(val codegenContext: CodegenContext) {
-  /**
-   * Generates a [FileSpec] for the model's surrogate. The generated file will include surrogates
-   * for the backbone elements and possible sealed interfaces.
-   */
+  /** Generates a [FileSpec] for surrogate classes for a model class. */
   fun generate(structureDefinition: StructureDefinition): FileSpec {
     val modelClassName = codegenContext.getModelClassName(structureDefinition)
     return modelClassName
