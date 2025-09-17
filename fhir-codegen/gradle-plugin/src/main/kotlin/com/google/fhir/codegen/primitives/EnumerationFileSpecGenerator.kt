@@ -79,7 +79,7 @@ object EnumerationFileSpecGenerator {
                     May be used to represent additional information that is not part of the basic definition of the
                     resource. To make the use of extensions safe and manageable, there is a strict set of governance 
                     applied to the definition and use of extensions.
-                  """
+                    """
                       .trimIndent()
                       .sanitizeKDoc()
                   )
@@ -152,9 +152,9 @@ object EnumerationFileSpecGenerator {
         }
         .addKdoc(
           """
-            A FHIR Enumeration type bound to a specific set of codes. It represents a constrained code 
-            value from an enumerated list.
-            """
+          A FHIR Enumeration type bound to a specific set of codes. It represents a constrained code 
+          value from an enumerated list.
+          """
             .trimIndent()
             .sanitizeKDoc()
         )

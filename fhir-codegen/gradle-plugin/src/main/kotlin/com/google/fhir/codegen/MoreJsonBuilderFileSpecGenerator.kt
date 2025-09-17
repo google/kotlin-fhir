@@ -57,7 +57,7 @@ object MoreJsonBuilderFileSpecGenerator {
               .addStatement("%T {", SerializersModule::class)
               .indent()
               .apply {
-                subclasses.forEach {
+                subclasses.sorted().forEach {
                   addStatement(
                     "polymorphic(%T::class, %T::class, %T.serializer())",
                     baseClass,
