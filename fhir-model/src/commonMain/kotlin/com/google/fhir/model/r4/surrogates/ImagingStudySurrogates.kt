@@ -110,8 +110,8 @@ internal data class ImagingStudySeriesSurrogate(
       with(model) {
         ImagingStudySeriesSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           uid = this@with.uid.value,
           _uid = this@with.uid.toElement(),
           number = this@with.number?.value,
@@ -121,14 +121,14 @@ internal data class ImagingStudySeriesSurrogate(
           _description = this@with.description?.toElement(),
           numberOfInstances = this@with.numberOfInstances?.value,
           _numberOfInstances = this@with.numberOfInstances?.toElement(),
-          endpoint = this@with.endpoint.takeUnless { it.all { it == null } },
+          endpoint = this@with.endpoint.takeIf { it.isNotEmpty() },
           bodySite = this@with.bodySite,
           laterality = this@with.laterality,
-          specimen = this@with.specimen.takeUnless { it.all { it == null } },
+          specimen = this@with.specimen.takeIf { it.isNotEmpty() },
           started = this@with.started?.value?.toString(),
           _started = this@with.started?.toElement(),
-          performer = this@with.performer.takeUnless { it.all { it == null } },
-          instance = this@with.instance.takeUnless { it.all { it == null } },
+          performer = this@with.performer.takeIf { it.isNotEmpty() },
+          instance = this@with.instance.takeIf { it.isNotEmpty() },
         )
       }
   }
@@ -159,8 +159,8 @@ internal data class ImagingStudySeriesPerformerSurrogate(
       with(model) {
         ImagingStudySeriesPerformerSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           function = this@with.function,
           actor = this@with.actor,
         )
@@ -210,8 +210,8 @@ internal data class ImagingStudySeriesInstanceSurrogate(
       with(model) {
         ImagingStudySeriesInstanceSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           uid = this@with.uid.value,
           _uid = this@with.uid.toElement(),
           sopClass = this@with.sopClass,
@@ -276,9 +276,7 @@ internal data class ImagingStudySurrogate(
       identifier = this@ImagingStudySurrogate.identifier ?: mutableListOf(),
       status =
         Enumeration.of(
-          com.google.fhir.model.r4.ImagingStudy.ImagingStudyStatus.fromCode(
-            this@ImagingStudySurrogate.status!!
-          ),
+          ImagingStudy.ImagingStudyStatus.fromCode(this@ImagingStudySurrogate.status!!),
           this@ImagingStudySurrogate._status,
         ),
       modality = this@ImagingStudySurrogate.modality ?: mutableListOf(),
@@ -328,34 +326,34 @@ internal data class ImagingStudySurrogate(
           language = this@with.language?.value,
           _language = this@with.language?.toElement(),
           text = this@with.text,
-          contained = this@with.contained.takeUnless { it.all { it == null } },
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          contained = this@with.contained.takeIf { it.isNotEmpty() },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
+          identifier = this@with.identifier.takeIf { it.isNotEmpty() },
           status = this@with.status.value?.getCode(),
           _status = this@with.status.toElement(),
-          modality = this@with.modality.takeUnless { it.all { it == null } },
+          modality = this@with.modality.takeIf { it.isNotEmpty() },
           subject = this@with.subject,
           encounter = this@with.encounter,
           started = this@with.started?.value?.toString(),
           _started = this@with.started?.toElement(),
-          basedOn = this@with.basedOn.takeUnless { it.all { it == null } },
+          basedOn = this@with.basedOn.takeIf { it.isNotEmpty() },
           referrer = this@with.referrer,
-          interpreter = this@with.interpreter.takeUnless { it.all { it == null } },
-          endpoint = this@with.endpoint.takeUnless { it.all { it == null } },
+          interpreter = this@with.interpreter.takeIf { it.isNotEmpty() },
+          endpoint = this@with.endpoint.takeIf { it.isNotEmpty() },
           numberOfSeries = this@with.numberOfSeries?.value,
           _numberOfSeries = this@with.numberOfSeries?.toElement(),
           numberOfInstances = this@with.numberOfInstances?.value,
           _numberOfInstances = this@with.numberOfInstances?.toElement(),
           procedureReference = this@with.procedureReference,
-          procedureCode = this@with.procedureCode.takeUnless { it.all { it == null } },
+          procedureCode = this@with.procedureCode.takeIf { it.isNotEmpty() },
           location = this@with.location,
-          reasonCode = this@with.reasonCode.takeUnless { it.all { it == null } },
-          reasonReference = this@with.reasonReference.takeUnless { it.all { it == null } },
-          note = this@with.note.takeUnless { it.all { it == null } },
+          reasonCode = this@with.reasonCode.takeIf { it.isNotEmpty() },
+          reasonReference = this@with.reasonReference.takeIf { it.isNotEmpty() },
+          note = this@with.note.takeIf { it.isNotEmpty() },
           description = this@with.description?.value,
           _description = this@with.description?.toElement(),
-          series = this@with.series.takeUnless { it.all { it == null } },
+          series = this@with.series.takeIf { it.isNotEmpty() },
         )
       }
   }

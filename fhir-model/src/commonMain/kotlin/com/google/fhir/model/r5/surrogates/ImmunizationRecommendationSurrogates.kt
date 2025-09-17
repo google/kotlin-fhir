@@ -119,15 +119,15 @@ internal data class ImmunizationRecommendationRecommendationSurrogate(
       with(model) {
         ImmunizationRecommendationRecommendationSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          vaccineCode = this@with.vaccineCode.takeUnless { it.all { it == null } },
-          targetDisease = this@with.targetDisease.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
+          vaccineCode = this@with.vaccineCode.takeIf { it.isNotEmpty() },
+          targetDisease = this@with.targetDisease.takeIf { it.isNotEmpty() },
           contraindicatedVaccineCode =
-            this@with.contraindicatedVaccineCode.takeUnless { it.all { it == null } },
+            this@with.contraindicatedVaccineCode.takeIf { it.isNotEmpty() },
           forecastStatus = this@with.forecastStatus,
-          forecastReason = this@with.forecastReason.takeUnless { it.all { it == null } },
-          dateCriterion = this@with.dateCriterion.takeUnless { it.all { it == null } },
+          forecastReason = this@with.forecastReason.takeIf { it.isNotEmpty() },
+          dateCriterion = this@with.dateCriterion.takeIf { it.isNotEmpty() },
           description = this@with.description?.value,
           _description = this@with.description?.toElement(),
           series = this@with.series?.value,
@@ -136,10 +136,9 @@ internal data class ImmunizationRecommendationRecommendationSurrogate(
           _doseNumber = this@with.doseNumber?.toElement(),
           seriesDoses = this@with.seriesDoses?.value,
           _seriesDoses = this@with.seriesDoses?.toElement(),
-          supportingImmunization =
-            this@with.supportingImmunization.takeUnless { it.all { it == null } },
+          supportingImmunization = this@with.supportingImmunization.takeIf { it.isNotEmpty() },
           supportingPatientInformation =
-            this@with.supportingPatientInformation.takeUnless { it.all { it == null } },
+            this@with.supportingPatientInformation.takeIf { it.isNotEmpty() },
         )
       }
   }
@@ -180,8 +179,8 @@ internal data class ImmunizationRecommendationRecommendationDateCriterionSurroga
       with(model) {
         ImmunizationRecommendationRecommendationDateCriterionSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           code = this@with.code,
           `value` = this@with.`value`.value?.toString(),
           _value = this@with.`value`.toElement(),
@@ -250,15 +249,15 @@ internal data class ImmunizationRecommendationSurrogate(
           language = this@with.language?.value,
           _language = this@with.language?.toElement(),
           text = this@with.text,
-          contained = this@with.contained.takeUnless { it.all { it == null } },
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          contained = this@with.contained.takeIf { it.isNotEmpty() },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
+          identifier = this@with.identifier.takeIf { it.isNotEmpty() },
           patient = this@with.patient,
           date = this@with.date.value?.toString(),
           _date = this@with.date.toElement(),
           authority = this@with.authority,
-          recommendation = this@with.recommendation.takeUnless { it.all { it == null } },
+          recommendation = this@with.recommendation.takeIf { it.isNotEmpty() },
         )
       }
   }

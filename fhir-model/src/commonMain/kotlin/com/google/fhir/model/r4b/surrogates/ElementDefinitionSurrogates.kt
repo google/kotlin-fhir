@@ -78,6 +78,7 @@ import com.google.fhir.model.r4b.UsageContext
 import com.google.fhir.model.r4b.Uuid
 import com.google.fhir.model.r4b.serializers.DoubleSerializer
 import com.google.fhir.model.r4b.serializers.LocalTimeSerializer
+import com.google.fhir.model.r4b.terminologies.BindingStrength
 import kotlin.Boolean as KotlinBoolean
 import kotlin.Double
 import kotlin.Int
@@ -117,9 +118,7 @@ internal data class ElementDefinitionSlicingSurrogate(
         ),
       rules =
         Enumeration.of(
-          com.google.fhir.model.r4b.ElementDefinition.SlicingRules.fromCode(
-            this@ElementDefinitionSlicingSurrogate.rules!!
-          ),
+          ElementDefinition.SlicingRules.fromCode(this@ElementDefinitionSlicingSurrogate.rules!!),
           this@ElementDefinitionSlicingSurrogate._rules,
         ),
     )
@@ -129,8 +128,8 @@ internal data class ElementDefinitionSlicingSurrogate(
       with(model) {
         ElementDefinitionSlicingSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          discriminator = this@with.discriminator.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          discriminator = this@with.discriminator.takeIf { it.isNotEmpty() },
           description = this@with.description?.value,
           _description = this@with.description?.toElement(),
           ordered = this@with.ordered?.value,
@@ -157,7 +156,7 @@ internal data class ElementDefinitionSlicingDiscriminatorSurrogate(
       extension = this@ElementDefinitionSlicingDiscriminatorSurrogate.extension ?: mutableListOf(),
       type =
         Enumeration.of(
-          com.google.fhir.model.r4b.ElementDefinition.DiscriminatorType.fromCode(
+          ElementDefinition.DiscriminatorType.fromCode(
             this@ElementDefinitionSlicingDiscriminatorSurrogate.type!!
           ),
           this@ElementDefinitionSlicingDiscriminatorSurrogate._type,
@@ -176,7 +175,7 @@ internal data class ElementDefinitionSlicingDiscriminatorSurrogate(
       with(model) {
         ElementDefinitionSlicingDiscriminatorSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
           type = this@with.type.value?.getCode(),
           _type = this@with.type.toElement(),
           path = this@with.path.value,
@@ -223,7 +222,7 @@ internal data class ElementDefinitionBaseSurrogate(
       with(model) {
         ElementDefinitionBaseSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
           path = this@with.path.value,
           _path = this@with.path.toElement(),
           min = this@with.min.value,
@@ -306,9 +305,7 @@ internal data class ElementDefinitionTypeSurrogate(
             )
             .map { (value, element) ->
               Enumeration.of(
-                value.let {
-                  com.google.fhir.model.r4b.ElementDefinition.AggregationMode.fromCode(it!!)!!
-                },
+                value.let { ElementDefinition.AggregationMode.fromCode(it!!) },
                 element,
               )
             }
@@ -317,7 +314,7 @@ internal data class ElementDefinitionTypeSurrogate(
       versioning =
         this@ElementDefinitionTypeSurrogate.versioning?.let {
           Enumeration.of(
-            com.google.fhir.model.r4b.ElementDefinition.ReferenceVersionRules.fromCode(it!!),
+            ElementDefinition.ReferenceVersionRules.fromCode(it),
             this@ElementDefinitionTypeSurrogate._versioning,
           )
         },
@@ -328,7 +325,7 @@ internal data class ElementDefinitionTypeSurrogate(
       with(model) {
         ElementDefinitionTypeSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
           code = this@with.code.value,
           _code = this@with.code.toElement(),
           profile =
@@ -393,7 +390,7 @@ internal data class ElementDefinitionExampleSurrogate(
       with(model) {
         ElementDefinitionExampleSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
           label = this@with.label.value,
           _label = this@with.label.toElement(),
           `value` = this@with.`value`,
@@ -437,7 +434,7 @@ internal data class ElementDefinitionConstraintSurrogate(
         ),
       severity =
         Enumeration.of(
-          com.google.fhir.model.r4b.ElementDefinition.ConstraintSeverity.fromCode(
+          ElementDefinition.ConstraintSeverity.fromCode(
             this@ElementDefinitionConstraintSurrogate.severity!!
           ),
           this@ElementDefinitionConstraintSurrogate._severity,
@@ -471,7 +468,7 @@ internal data class ElementDefinitionConstraintSurrogate(
       with(model) {
         ElementDefinitionConstraintSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
           key = this@with.key.value,
           _key = this@with.key.toElement(),
           requirements = this@with.requirements?.value,
@@ -508,9 +505,7 @@ internal data class ElementDefinitionBindingSurrogate(
       extension = this@ElementDefinitionBindingSurrogate.extension ?: mutableListOf(),
       strength =
         Enumeration.of(
-          com.google.fhir.model.r4b.terminologies.BindingStrength.fromCode(
-            this@ElementDefinitionBindingSurrogate.strength!!
-          ),
+          BindingStrength.fromCode(this@ElementDefinitionBindingSurrogate.strength!!),
           this@ElementDefinitionBindingSurrogate._strength,
         ),
       description =
@@ -530,7 +525,7 @@ internal data class ElementDefinitionBindingSurrogate(
       with(model) {
         ElementDefinitionBindingSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
           strength = this@with.strength.value?.getCode(),
           _strength = this@with.strength.toElement(),
           description = this@with.description?.value,
@@ -586,7 +581,7 @@ internal data class ElementDefinitionMappingSurrogate(
       with(model) {
         ElementDefinitionMappingSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
           identity = this@with.identity.value,
           _identity = this@with.identity.toElement(),
           language = this@with.language?.value,
@@ -1577,7 +1572,7 @@ internal data class ElementDefinitionExampleValueSurrogate(
       this@ElementDefinitionExampleValueSurrogate.valueTriggerDefinition,
       this@ElementDefinitionExampleValueSurrogate.valueUsageContext,
       this@ElementDefinitionExampleValueSurrogate.valueDosage,
-    )!! !!
+    )!!
 
   public companion object {
     public fun fromModel(
@@ -1909,11 +1904,7 @@ internal data class ElementDefinitionSurrogate(
             )
             .map { (value, element) ->
               Enumeration.of(
-                value.let {
-                  com.google.fhir.model.r4b.ElementDefinition.PropertyRepresentation.fromCode(
-                    it!!
-                  )!!
-                },
+                value.let { ElementDefinition.PropertyRepresentation.fromCode(it!!) },
                 element,
               )
             }
@@ -2043,8 +2034,8 @@ internal data class ElementDefinitionSurrogate(
       with(model) {
         ElementDefinitionSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           path = this@with.path.value,
           _path = this@with.path.toElement(),
           representation =
@@ -2064,7 +2055,7 @@ internal data class ElementDefinitionSurrogate(
           _sliceIsConstraining = this@with.sliceIsConstraining?.toElement(),
           label = this@with.label?.value,
           _label = this@with.label?.toElement(),
-          code = this@with.code.takeUnless { it.all { it == null } },
+          code = this@with.code.takeIf { it.isNotEmpty() },
           slicing = this@with.slicing,
           short = this@with.short?.value,
           _short = this@with.short?.toElement(),
@@ -2089,7 +2080,7 @@ internal data class ElementDefinitionSurrogate(
           base = this@with.base,
           contentReference = this@with.contentReference?.value,
           _contentReference = this@with.contentReference?.toElement(),
-          type = this@with.type.takeUnless { it.all { it == null } },
+          type = this@with.type.takeIf { it.isNotEmpty() },
           defaultValue = this@with.defaultValue,
           meaningWhenMissing = this@with.meaningWhenMissing?.value,
           _meaningWhenMissing = this@with.meaningWhenMissing?.toElement(),
@@ -2097,7 +2088,7 @@ internal data class ElementDefinitionSurrogate(
           _orderMeaning = this@with.orderMeaning?.toElement(),
           fixed = this@with.fixed,
           pattern = this@with.pattern,
-          example = this@with.example.takeUnless { it.all { it == null } },
+          example = this@with.example.takeIf { it.isNotEmpty() },
           minValue = this@with.minValue,
           maxValue = this@with.maxValue,
           maxLength = this@with.maxLength?.value,
@@ -2113,7 +2104,7 @@ internal data class ElementDefinitionSurrogate(
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
               ?.toMutableList(),
-          constraint = this@with.constraint.takeUnless { it.all { it == null } },
+          constraint = this@with.constraint.takeIf { it.isNotEmpty() },
           mustSupport = this@with.mustSupport?.value,
           _mustSupport = this@with.mustSupport?.toElement(),
           isModifier = this@with.isModifier?.value,
@@ -2123,7 +2114,7 @@ internal data class ElementDefinitionSurrogate(
           isSummary = this@with.isSummary?.value,
           _isSummary = this@with.isSummary?.toElement(),
           binding = this@with.binding,
-          mapping = this@with.mapping.takeUnless { it.all { it == null } },
+          mapping = this@with.mapping.takeIf { it.isNotEmpty() },
         )
       }
   }

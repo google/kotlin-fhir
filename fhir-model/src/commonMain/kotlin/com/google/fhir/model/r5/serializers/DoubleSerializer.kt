@@ -17,6 +17,7 @@
 package com.google.fhir.model.r5.serializers
 
 import kotlin.Double
+import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.descriptors.PrimitiveKind
 import kotlinx.serialization.descriptors.PrimitiveSerialDescriptor
@@ -30,6 +31,7 @@ public object DoubleSerializer : KSerializer<Double> {
   override val descriptor: SerialDescriptor =
     PrimitiveSerialDescriptor("FormattedDouble", PrimitiveKind.DOUBLE)
 
+  @ExperimentalSerializationApi
   override fun serialize(encoder: Encoder, `value`: Double) {
     encoder.encodeSerializableValue(
       JsonPrimitive.serializer(),

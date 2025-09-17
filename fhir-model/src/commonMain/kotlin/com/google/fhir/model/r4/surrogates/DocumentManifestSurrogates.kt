@@ -36,6 +36,7 @@ import com.google.fhir.model.r4.String as R4String
 import com.google.fhir.model.r4.Uri
 import com.google.fhir.model.r4.serializers.DoubleSerializer
 import com.google.fhir.model.r4.serializers.LocalTimeSerializer
+import com.google.fhir.model.r4.terminologies.DocumentReferenceStatus
 import kotlin.String as KotlinString
 import kotlin.Suppress
 import kotlin.collections.MutableList
@@ -65,8 +66,8 @@ internal data class DocumentManifestRelatedSurrogate(
       with(model) {
         DocumentManifestRelatedSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           identifier = this@with.identifier,
           ref = this@with.ref,
         )
@@ -122,9 +123,7 @@ internal data class DocumentManifestSurrogate(
       identifier = this@DocumentManifestSurrogate.identifier ?: mutableListOf(),
       status =
         Enumeration.of(
-          com.google.fhir.model.r4.terminologies.DocumentReferenceStatus.fromCode(
-            this@DocumentManifestSurrogate.status!!
-          ),
+          DocumentReferenceStatus.fromCode(this@DocumentManifestSurrogate.status!!),
           this@DocumentManifestSurrogate._status,
         ),
       type = this@DocumentManifestSurrogate.type,
@@ -158,25 +157,25 @@ internal data class DocumentManifestSurrogate(
           language = this@with.language?.value,
           _language = this@with.language?.toElement(),
           text = this@with.text,
-          contained = this@with.contained.takeUnless { it.all { it == null } },
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          contained = this@with.contained.takeIf { it.isNotEmpty() },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           masterIdentifier = this@with.masterIdentifier,
-          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          identifier = this@with.identifier.takeIf { it.isNotEmpty() },
           status = this@with.status.value?.getCode(),
           _status = this@with.status.toElement(),
           type = this@with.type,
           subject = this@with.subject,
           created = this@with.created?.value?.toString(),
           _created = this@with.created?.toElement(),
-          author = this@with.author.takeUnless { it.all { it == null } },
-          recipient = this@with.recipient.takeUnless { it.all { it == null } },
+          author = this@with.author.takeIf { it.isNotEmpty() },
+          recipient = this@with.recipient.takeIf { it.isNotEmpty() },
           source = this@with.source?.value,
           _source = this@with.source?.toElement(),
           description = this@with.description?.value,
           _description = this@with.description?.toElement(),
-          content = this@with.content.takeUnless { it.all { it == null } },
-          related = this@with.related.takeUnless { it.all { it == null } },
+          content = this@with.content.takeIf { it.isNotEmpty() },
+          related = this@with.related.takeIf { it.isNotEmpty() },
         )
       }
   }

@@ -46,6 +46,7 @@ import com.google.fhir.model.r4b.Uri
 import com.google.fhir.model.r4b.UsageContext
 import com.google.fhir.model.r4b.serializers.DoubleSerializer
 import com.google.fhir.model.r4b.serializers.LocalTimeSerializer
+import com.google.fhir.model.r4b.terminologies.PublicationStatus
 import kotlin.Boolean as KotlinBoolean
 import kotlin.String as KotlinString
 import kotlin.Suppress
@@ -92,7 +93,7 @@ internal data class EvidenceVariableCharacteristicSurrogate(
       groupMeasure =
         this@EvidenceVariableCharacteristicSurrogate.groupMeasure?.let {
           Enumeration.of(
-            com.google.fhir.model.r4b.EvidenceVariable.GroupMeasure.fromCode(it!!),
+            EvidenceVariable.GroupMeasure.fromCode(it),
             this@EvidenceVariableCharacteristicSurrogate._groupMeasure,
           )
         },
@@ -105,8 +106,8 @@ internal data class EvidenceVariableCharacteristicSurrogate(
       with(model) {
         EvidenceVariableCharacteristicSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           description = this@with.description?.value,
           _description = this@with.description?.toElement(),
           definition = this@with.definition,
@@ -158,13 +159,13 @@ internal data class EvidenceVariableCharacteristicTimeFromStartSurrogate(
       with(model) {
         EvidenceVariableCharacteristicTimeFromStartSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           description = this@with.description?.value,
           _description = this@with.description?.toElement(),
           quantity = this@with.quantity,
           range = this@with.range,
-          note = this@with.note.takeUnless { it.all { it == null } },
+          note = this@with.note.takeIf { it.isNotEmpty() },
         )
       }
   }
@@ -198,8 +199,8 @@ internal data class EvidenceVariableCategorySurrogate(
       with(model) {
         EvidenceVariableCategorySurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           name = this@with.name?.value,
           _name = this@with.name?.toElement(),
           `value` = this@with.`value`,
@@ -225,7 +226,7 @@ internal data class EvidenceVariableCharacteristicDefinitionSurrogate(
       ),
       this@EvidenceVariableCharacteristicDefinitionSurrogate.definitionCodeableConcept,
       this@EvidenceVariableCharacteristicDefinitionSurrogate.definitionExpression,
-    )!! !!
+    )!!
 
   public companion object {
     public fun fromModel(
@@ -358,9 +359,7 @@ internal data class EvidenceVariableSurrogate(
         ),
       status =
         Enumeration.of(
-          com.google.fhir.model.r4b.terminologies.PublicationStatus.fromCode(
-            this@EvidenceVariableSurrogate.status!!
-          ),
+          PublicationStatus.fromCode(this@EvidenceVariableSurrogate.status!!),
           this@EvidenceVariableSurrogate._status,
         ),
       date =
@@ -394,7 +393,7 @@ internal data class EvidenceVariableSurrogate(
       characteristicCombination =
         this@EvidenceVariableSurrogate.characteristicCombination?.let {
           Enumeration.of(
-            com.google.fhir.model.r4b.EvidenceVariable.CharacteristicCombination.fromCode(it!!),
+            EvidenceVariable.CharacteristicCombination.fromCode(it),
             this@EvidenceVariableSurrogate._characteristicCombination,
           )
         },
@@ -402,7 +401,7 @@ internal data class EvidenceVariableSurrogate(
       handling =
         this@EvidenceVariableSurrogate.handling?.let {
           Enumeration.of(
-            com.google.fhir.model.r4b.EvidenceVariable.EvidenceVariableHandling.fromCode(it!!),
+            EvidenceVariable.EvidenceVariableHandling.fromCode(it),
             this@EvidenceVariableSurrogate._handling,
           )
         },
@@ -420,12 +419,12 @@ internal data class EvidenceVariableSurrogate(
           language = this@with.language?.value,
           _language = this@with.language?.toElement(),
           text = this@with.text,
-          contained = this@with.contained.takeUnless { it.all { it == null } },
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          contained = this@with.contained.takeIf { it.isNotEmpty() },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           url = this@with.url?.value,
           _url = this@with.url?.toElement(),
-          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          identifier = this@with.identifier.takeIf { it.isNotEmpty() },
           version = this@with.version?.value,
           _version = this@with.version?.toElement(),
           name = this@with.name?.value,
@@ -442,24 +441,24 @@ internal data class EvidenceVariableSurrogate(
           _date = this@with.date?.toElement(),
           description = this@with.description?.value,
           _description = this@with.description?.toElement(),
-          note = this@with.note.takeUnless { it.all { it == null } },
-          useContext = this@with.useContext.takeUnless { it.all { it == null } },
+          note = this@with.note.takeIf { it.isNotEmpty() },
+          useContext = this@with.useContext.takeIf { it.isNotEmpty() },
           publisher = this@with.publisher?.value,
           _publisher = this@with.publisher?.toElement(),
-          contact = this@with.contact.takeUnless { it.all { it == null } },
-          author = this@with.author.takeUnless { it.all { it == null } },
-          editor = this@with.editor.takeUnless { it.all { it == null } },
-          reviewer = this@with.reviewer.takeUnless { it.all { it == null } },
-          endorser = this@with.endorser.takeUnless { it.all { it == null } },
-          relatedArtifact = this@with.relatedArtifact.takeUnless { it.all { it == null } },
+          contact = this@with.contact.takeIf { it.isNotEmpty() },
+          author = this@with.author.takeIf { it.isNotEmpty() },
+          editor = this@with.editor.takeIf { it.isNotEmpty() },
+          reviewer = this@with.reviewer.takeIf { it.isNotEmpty() },
+          endorser = this@with.endorser.takeIf { it.isNotEmpty() },
+          relatedArtifact = this@with.relatedArtifact.takeIf { it.isNotEmpty() },
           `actual` = this@with.`actual`?.value,
           _actual = this@with.`actual`?.toElement(),
           characteristicCombination = this@with.characteristicCombination?.value?.getCode(),
           _characteristicCombination = this@with.characteristicCombination?.toElement(),
-          characteristic = this@with.characteristic.takeUnless { it.all { it == null } },
+          characteristic = this@with.characteristic.takeIf { it.isNotEmpty() },
           handling = this@with.handling?.value?.getCode(),
           _handling = this@with.handling?.toElement(),
-          category = this@with.category.takeUnless { it.all { it == null } },
+          category = this@with.category.takeIf { it.isNotEmpty() },
         )
       }
   }

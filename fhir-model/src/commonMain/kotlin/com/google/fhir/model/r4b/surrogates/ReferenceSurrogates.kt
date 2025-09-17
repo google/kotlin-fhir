@@ -61,7 +61,7 @@ internal data class ReferenceSurrogate(
       with(model) {
         ReferenceSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
           reference = this@with.reference?.value,
           _reference = this@with.reference?.toElement(),
           type = this@with.type?.value,

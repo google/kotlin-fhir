@@ -43,6 +43,7 @@ import com.google.fhir.model.r5.Uri
 import com.google.fhir.model.r5.UsageContext
 import com.google.fhir.model.r5.serializers.DoubleSerializer
 import com.google.fhir.model.r5.serializers.LocalTimeSerializer
+import com.google.fhir.model.r5.terminologies.PublicationStatus
 import kotlin.Boolean as KotlinBoolean
 import kotlin.Int
 import kotlin.String as KotlinString
@@ -78,8 +79,8 @@ internal data class TestPlanDependencySurrogate(
       with(model) {
         TestPlanDependencySurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           description = this@with.description?.value,
           _description = this@with.description?.toElement(),
           predecessor = this@with.predecessor,
@@ -123,15 +124,15 @@ internal data class TestPlanTestCaseSurrogate(
       with(model) {
         TestPlanTestCaseSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           sequence = this@with.sequence?.value,
           _sequence = this@with.sequence?.toElement(),
-          scope = this@with.scope.takeUnless { it.all { it == null } },
-          dependency = this@with.dependency.takeUnless { it.all { it == null } },
-          testRun = this@with.testRun.takeUnless { it.all { it == null } },
-          testData = this@with.testData.takeUnless { it.all { it == null } },
-          assertion = this@with.assertion.takeUnless { it.all { it == null } },
+          scope = this@with.scope.takeIf { it.isNotEmpty() },
+          dependency = this@with.dependency.takeIf { it.isNotEmpty() },
+          testRun = this@with.testRun.takeIf { it.isNotEmpty() },
+          testData = this@with.testData.takeIf { it.isNotEmpty() },
+          assertion = this@with.assertion.takeIf { it.isNotEmpty() },
         )
       }
   }
@@ -165,8 +166,8 @@ internal data class TestPlanTestCaseDependencySurrogate(
       with(model) {
         TestPlanTestCaseDependencySurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           description = this@with.description?.value,
           _description = this@with.description?.toElement(),
           predecessor = this@with.predecessor,
@@ -203,8 +204,8 @@ internal data class TestPlanTestCaseTestRunSurrogate(
       with(model) {
         TestPlanTestCaseTestRunSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           narrative = this@with.narrative?.value,
           _narrative = this@with.narrative?.toElement(),
           script = this@with.script,
@@ -238,8 +239,8 @@ internal data class TestPlanTestCaseTestRunScriptSurrogate(
       with(model) {
         TestPlanTestCaseTestRunScriptSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           language = this@with.language,
           source = this@with.source,
         )
@@ -272,8 +273,8 @@ internal data class TestPlanTestCaseTestDataSurrogate(
       with(model) {
         TestPlanTestCaseTestDataSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           type = this@with.type,
           content = this@with.content,
           source = this@with.source,
@@ -307,11 +308,11 @@ internal data class TestPlanTestCaseAssertionSurrogate(
       with(model) {
         TestPlanTestCaseAssertionSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          type = this@with.type.takeUnless { it.all { it == null } },
-          `object` = this@with.`object`.takeUnless { it.all { it == null } },
-          result = this@with.result.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
+          type = this@with.type.takeIf { it.isNotEmpty() },
+          `object` = this@with.`object`.takeIf { it.isNotEmpty() },
+          result = this@with.result.takeIf { it.isNotEmpty() },
         )
       }
   }
@@ -471,9 +472,7 @@ internal data class TestPlanSurrogate(
       title = R5String.of(this@TestPlanSurrogate.title, this@TestPlanSurrogate._title),
       status =
         Enumeration.of(
-          com.google.fhir.model.r5.terminologies.PublicationStatus.fromCode(
-            this@TestPlanSurrogate.status!!
-          ),
+          PublicationStatus.fromCode(this@TestPlanSurrogate.status!!),
           this@TestPlanSurrogate._status,
         ),
       experimental =
@@ -513,12 +512,12 @@ internal data class TestPlanSurrogate(
           language = this@with.language?.value,
           _language = this@with.language?.toElement(),
           text = this@with.text,
-          contained = this@with.contained.takeUnless { it.all { it == null } },
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          contained = this@with.contained.takeIf { it.isNotEmpty() },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           url = this@with.url?.value,
           _url = this@with.url?.toElement(),
-          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          identifier = this@with.identifier.takeIf { it.isNotEmpty() },
           version = this@with.version?.value,
           _version = this@with.version?.toElement(),
           versionAlgorithm = this@with.versionAlgorithm,
@@ -534,25 +533,25 @@ internal data class TestPlanSurrogate(
           _date = this@with.date?.toElement(),
           publisher = this@with.publisher?.value,
           _publisher = this@with.publisher?.toElement(),
-          contact = this@with.contact.takeUnless { it.all { it == null } },
+          contact = this@with.contact.takeIf { it.isNotEmpty() },
           description = this@with.description?.value,
           _description = this@with.description?.toElement(),
-          useContext = this@with.useContext.takeUnless { it.all { it == null } },
-          jurisdiction = this@with.jurisdiction.takeUnless { it.all { it == null } },
+          useContext = this@with.useContext.takeIf { it.isNotEmpty() },
+          jurisdiction = this@with.jurisdiction.takeIf { it.isNotEmpty() },
           purpose = this@with.purpose?.value,
           _purpose = this@with.purpose?.toElement(),
           copyright = this@with.copyright?.value,
           _copyright = this@with.copyright?.toElement(),
           copyrightLabel = this@with.copyrightLabel?.value,
           _copyrightLabel = this@with.copyrightLabel?.toElement(),
-          category = this@with.category.takeUnless { it.all { it == null } },
-          scope = this@with.scope.takeUnless { it.all { it == null } },
+          category = this@with.category.takeIf { it.isNotEmpty() },
+          scope = this@with.scope.takeIf { it.isNotEmpty() },
           testTools = this@with.testTools?.value,
           _testTools = this@with.testTools?.toElement(),
-          dependency = this@with.dependency.takeUnless { it.all { it == null } },
+          dependency = this@with.dependency.takeIf { it.isNotEmpty() },
           exitCriteria = this@with.exitCriteria?.value,
           _exitCriteria = this@with.exitCriteria?.toElement(),
-          testCase = this@with.testCase.takeUnless { it.all { it == null } },
+          testCase = this@with.testCase.takeIf { it.isNotEmpty() },
         )
       }
   }

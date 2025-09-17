@@ -42,6 +42,10 @@ import com.google.fhir.model.r5.Uri
 import com.google.fhir.model.r5.UsageContext
 import com.google.fhir.model.r5.serializers.DoubleSerializer
 import com.google.fhir.model.r5.serializers.LocalTimeSerializer
+import com.google.fhir.model.r5.terminologies.BindingStrength
+import com.google.fhir.model.r5.terminologies.FHIRTypes
+import com.google.fhir.model.r5.terminologies.PublicationStatus
+import com.google.fhir.model.r5.terminologies.SearchParamType
 import kotlin.Boolean as KotlinBoolean
 import kotlin.Int
 import kotlin.String as KotlinString
@@ -92,7 +96,7 @@ internal data class OperationDefinitionParameterSurrogate(
         )!!,
       use =
         Enumeration.of(
-          com.google.fhir.model.r5.OperationDefinition.OperationParameterUse.fromCode(
+          OperationDefinition.OperationParameterUse.fromCode(
             this@OperationDefinitionParameterSurrogate.use!!
           ),
           this@OperationDefinitionParameterSurrogate._use,
@@ -112,11 +116,7 @@ internal data class OperationDefinitionParameterSurrogate(
             )
             .map { (value, element) ->
               Enumeration.of(
-                value.let {
-                  com.google.fhir.model.r5.OperationDefinition.OperationParameterScope.fromCode(
-                    it!!
-                  )!!
-                },
+                value.let { OperationDefinition.OperationParameterScope.fromCode(it!!) },
                 element,
               )
             }
@@ -139,10 +139,7 @@ internal data class OperationDefinitionParameterSurrogate(
         ),
       type =
         this@OperationDefinitionParameterSurrogate.type?.let {
-          Enumeration.of(
-            com.google.fhir.model.r5.terminologies.FHIRTypes.fromCode(it!!),
-            this@OperationDefinitionParameterSurrogate._type,
-          )
+          Enumeration.of(FHIRTypes.fromCode(it), this@OperationDefinitionParameterSurrogate._type)
         },
       allowedType =
         if (
@@ -158,10 +155,7 @@ internal data class OperationDefinitionParameterSurrogate(
                 ?: List(this@OperationDefinitionParameterSurrogate.allowedType!!.size) { null }
             )
             .map { (value, element) ->
-              Enumeration.of(
-                value.let { com.google.fhir.model.r5.terminologies.FHIRTypes.fromCode(it!!)!! },
-                element,
-              )
+              Enumeration.of(value.let { FHIRTypes.fromCode(it!!) }, element)
             }
             .toMutableList()
         },
@@ -184,7 +178,7 @@ internal data class OperationDefinitionParameterSurrogate(
       searchType =
         this@OperationDefinitionParameterSurrogate.searchType?.let {
           Enumeration.of(
-            com.google.fhir.model.r5.terminologies.SearchParamType.fromCode(it!!),
+            SearchParamType.fromCode(it),
             this@OperationDefinitionParameterSurrogate._searchType,
           )
         },
@@ -200,8 +194,8 @@ internal data class OperationDefinitionParameterSurrogate(
       with(model) {
         OperationDefinitionParameterSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           name = this@with.name.value,
           _name = this@with.name.toElement(),
           use = this@with.use.value?.getCode(),
@@ -250,8 +244,8 @@ internal data class OperationDefinitionParameterSurrogate(
           searchType = this@with.searchType?.value?.getCode(),
           _searchType = this@with.searchType?.toElement(),
           binding = this@with.binding,
-          referencedFrom = this@with.referencedFrom.takeUnless { it.all { it == null } },
-          part = this@with.part.takeUnless { it.all { it == null } },
+          referencedFrom = this@with.referencedFrom.takeIf { it.isNotEmpty() },
+          part = this@with.part.takeIf { it.isNotEmpty() },
         )
       }
   }
@@ -275,9 +269,7 @@ internal data class OperationDefinitionParameterBindingSurrogate(
         this@OperationDefinitionParameterBindingSurrogate.modifierExtension ?: mutableListOf(),
       strength =
         Enumeration.of(
-          com.google.fhir.model.r5.terminologies.BindingStrength.fromCode(
-            this@OperationDefinitionParameterBindingSurrogate.strength!!
-          ),
+          BindingStrength.fromCode(this@OperationDefinitionParameterBindingSurrogate.strength!!),
           this@OperationDefinitionParameterBindingSurrogate._strength,
         ),
       valueSet =
@@ -294,8 +286,8 @@ internal data class OperationDefinitionParameterBindingSurrogate(
       with(model) {
         OperationDefinitionParameterBindingSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           strength = this@with.strength.value?.getCode(),
           _strength = this@with.strength.toElement(),
           valueSet = this@with.valueSet.value,
@@ -342,8 +334,8 @@ internal data class OperationDefinitionParameterReferencedFromSurrogate(
       with(model) {
         OperationDefinitionParameterReferencedFromSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           source = this@with.source.value,
           _source = this@with.source.toElement(),
           sourceId = this@with.sourceId?.value,
@@ -399,8 +391,8 @@ internal data class OperationDefinitionOverloadSurrogate(
       with(model) {
         OperationDefinitionOverloadSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           parameterName =
             this@with.parameterName
               .map { it.value }
@@ -552,16 +544,12 @@ internal data class OperationDefinitionSurrogate(
         ),
       status =
         Enumeration.of(
-          com.google.fhir.model.r5.terminologies.PublicationStatus.fromCode(
-            this@OperationDefinitionSurrogate.status!!
-          ),
+          PublicationStatus.fromCode(this@OperationDefinitionSurrogate.status!!),
           this@OperationDefinitionSurrogate._status,
         ),
       kind =
         Enumeration.of(
-          com.google.fhir.model.r5.OperationDefinition.OperationKind.fromCode(
-            this@OperationDefinitionSurrogate.kind!!
-          ),
+          OperationDefinition.OperationKind.fromCode(this@OperationDefinitionSurrogate.kind!!),
           this@OperationDefinitionSurrogate._kind,
         ),
       experimental =
@@ -634,10 +622,7 @@ internal data class OperationDefinitionSurrogate(
             )
             .map { (value, element) ->
               Enumeration.of(
-                value.let {
-                  com.google.fhir.model.r5.OperationDefinition.VersionIndependentResourceTypesAll
-                    .fromCode(it!!)!!
-                },
+                value.let { OperationDefinition.VersionIndependentResourceTypesAll.fromCode(it!!) },
                 element,
               )
             }
@@ -683,12 +668,12 @@ internal data class OperationDefinitionSurrogate(
           language = this@with.language?.value,
           _language = this@with.language?.toElement(),
           text = this@with.text,
-          contained = this@with.contained.takeUnless { it.all { it == null } },
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          contained = this@with.contained.takeIf { it.isNotEmpty() },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           url = this@with.url?.value,
           _url = this@with.url?.toElement(),
-          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          identifier = this@with.identifier.takeIf { it.isNotEmpty() },
           version = this@with.version?.value,
           _version = this@with.version?.toElement(),
           versionAlgorithm = this@with.versionAlgorithm,
@@ -706,11 +691,11 @@ internal data class OperationDefinitionSurrogate(
           _date = this@with.date?.toElement(),
           publisher = this@with.publisher?.value,
           _publisher = this@with.publisher?.toElement(),
-          contact = this@with.contact.takeUnless { it.all { it == null } },
+          contact = this@with.contact.takeIf { it.isNotEmpty() },
           description = this@with.description?.value,
           _description = this@with.description?.toElement(),
-          useContext = this@with.useContext.takeUnless { it.all { it == null } },
-          jurisdiction = this@with.jurisdiction.takeUnless { it.all { it == null } },
+          useContext = this@with.useContext.takeIf { it.isNotEmpty() },
+          jurisdiction = this@with.jurisdiction.takeIf { it.isNotEmpty() },
           purpose = this@with.purpose?.value,
           _purpose = this@with.purpose?.toElement(),
           copyright = this@with.copyright?.value,
@@ -746,8 +731,8 @@ internal data class OperationDefinitionSurrogate(
           _inputProfile = this@with.inputProfile?.toElement(),
           outputProfile = this@with.outputProfile?.value,
           _outputProfile = this@with.outputProfile?.toElement(),
-          parameter = this@with.parameter.takeUnless { it.all { it == null } },
-          overload = this@with.overload.takeUnless { it.all { it == null } },
+          parameter = this@with.parameter.takeIf { it.isNotEmpty() },
+          overload = this@with.overload.takeIf { it.isNotEmpty() },
         )
       }
   }

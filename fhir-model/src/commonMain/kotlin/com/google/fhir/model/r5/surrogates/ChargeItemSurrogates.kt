@@ -70,8 +70,8 @@ internal data class ChargeItemPerformerSurrogate(
       with(model) {
         ChargeItemPerformerSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           function = this@with.function,
           actor = this@with.actor,
         )
@@ -198,9 +198,7 @@ internal data class ChargeItemSurrogate(
         },
       status =
         Enumeration.of(
-          com.google.fhir.model.r5.ChargeItem.ChargeItemStatus.fromCode(
-            this@ChargeItemSurrogate.status!!
-          ),
+          ChargeItem.ChargeItemStatus.fromCode(this@ChargeItemSurrogate.status!!),
           this@ChargeItemSurrogate._status,
         ),
       partOf = this@ChargeItemSurrogate.partOf ?: mutableListOf(),
@@ -242,10 +240,10 @@ internal data class ChargeItemSurrogate(
           language = this@with.language?.value,
           _language = this@with.language?.toElement(),
           text = this@with.text,
-          contained = this@with.contained.takeUnless { it.all { it == null } },
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          contained = this@with.contained.takeIf { it.isNotEmpty() },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
+          identifier = this@with.identifier.takeIf { it.isNotEmpty() },
           definitionUri =
             this@with.definitionUri
               .map { it.value }
@@ -270,30 +268,29 @@ internal data class ChargeItemSurrogate(
               ?.toMutableList(),
           status = this@with.status.value?.getCode(),
           _status = this@with.status.toElement(),
-          partOf = this@with.partOf.takeUnless { it.all { it == null } },
+          partOf = this@with.partOf.takeIf { it.isNotEmpty() },
           code = this@with.code,
           subject = this@with.subject,
           encounter = this@with.encounter,
           occurrence = this@with.occurrence,
-          performer = this@with.performer.takeUnless { it.all { it == null } },
+          performer = this@with.performer.takeIf { it.isNotEmpty() },
           performingOrganization = this@with.performingOrganization,
           requestingOrganization = this@with.requestingOrganization,
           costCenter = this@with.costCenter,
           quantity = this@with.quantity,
-          bodysite = this@with.bodysite.takeUnless { it.all { it == null } },
+          bodysite = this@with.bodysite.takeIf { it.isNotEmpty() },
           unitPriceComponent = this@with.unitPriceComponent,
           totalPriceComponent = this@with.totalPriceComponent,
           overrideReason = this@with.overrideReason,
           enterer = this@with.enterer,
           enteredDate = this@with.enteredDate?.value?.toString(),
           _enteredDate = this@with.enteredDate?.toElement(),
-          reason = this@with.reason.takeUnless { it.all { it == null } },
-          service = this@with.service.takeUnless { it.all { it == null } },
-          product = this@with.product.takeUnless { it.all { it == null } },
-          account = this@with.account.takeUnless { it.all { it == null } },
-          note = this@with.note.takeUnless { it.all { it == null } },
-          supportingInformation =
-            this@with.supportingInformation.takeUnless { it.all { it == null } },
+          reason = this@with.reason.takeIf { it.isNotEmpty() },
+          service = this@with.service.takeIf { it.isNotEmpty() },
+          product = this@with.product.takeIf { it.isNotEmpty() },
+          account = this@with.account.takeIf { it.isNotEmpty() },
+          note = this@with.note.takeIf { it.isNotEmpty() },
+          supportingInformation = this@with.supportingInformation.takeIf { it.isNotEmpty() },
         )
       }
   }

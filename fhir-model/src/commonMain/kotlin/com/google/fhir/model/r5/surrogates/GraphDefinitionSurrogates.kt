@@ -43,6 +43,7 @@ import com.google.fhir.model.r5.Uri
 import com.google.fhir.model.r5.UsageContext
 import com.google.fhir.model.r5.serializers.DoubleSerializer
 import com.google.fhir.model.r5.serializers.LocalTimeSerializer
+import com.google.fhir.model.r5.terminologies.PublicationStatus
 import kotlin.Boolean as KotlinBoolean
 import kotlin.Int
 import kotlin.String as KotlinString
@@ -82,7 +83,7 @@ internal data class GraphDefinitionNodeSurrogate(
         ),
       type =
         Enumeration.of(
-          com.google.fhir.model.r5.GraphDefinition.VersionIndependentResourceTypesAll.fromCode(
+          GraphDefinition.VersionIndependentResourceTypesAll.fromCode(
             this@GraphDefinitionNodeSurrogate.type!!
           ),
           this@GraphDefinitionNodeSurrogate._type,
@@ -99,8 +100,8 @@ internal data class GraphDefinitionNodeSurrogate(
       with(model) {
         GraphDefinitionNodeSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           nodeId = this@with.nodeId.value,
           _nodeId = this@with.nodeId.toElement(),
           description = this@with.description?.value,
@@ -184,8 +185,8 @@ internal data class GraphDefinitionLinkSurrogate(
       with(model) {
         GraphDefinitionLinkSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           description = this@with.description?.value,
           _description = this@with.description?.toElement(),
           min = this@with.min?.value,
@@ -202,7 +203,7 @@ internal data class GraphDefinitionLinkSurrogate(
           _targetId = this@with.targetId.toElement(),
           params = this@with.params?.value,
           _params = this@with.params?.toElement(),
-          compartment = this@with.compartment.takeUnless { it.all { it == null } },
+          compartment = this@with.compartment.takeIf { it.isNotEmpty() },
         )
       }
   }
@@ -232,21 +233,21 @@ internal data class GraphDefinitionLinkCompartmentSurrogate(
         this@GraphDefinitionLinkCompartmentSurrogate.modifierExtension ?: mutableListOf(),
       use =
         Enumeration.of(
-          com.google.fhir.model.r5.GraphDefinition.GraphCompartmentUse.fromCode(
+          GraphDefinition.GraphCompartmentUse.fromCode(
             this@GraphDefinitionLinkCompartmentSurrogate.use!!
           ),
           this@GraphDefinitionLinkCompartmentSurrogate._use,
         ),
       rule =
         Enumeration.of(
-          com.google.fhir.model.r5.GraphDefinition.GraphCompartmentRule.fromCode(
+          GraphDefinition.GraphCompartmentRule.fromCode(
             this@GraphDefinitionLinkCompartmentSurrogate.rule!!
           ),
           this@GraphDefinitionLinkCompartmentSurrogate._rule,
         ),
       code =
         Enumeration.of(
-          com.google.fhir.model.r5.GraphDefinition.CompartmentType.fromCode(
+          GraphDefinition.CompartmentType.fromCode(
             this@GraphDefinitionLinkCompartmentSurrogate.code!!
           ),
           this@GraphDefinitionLinkCompartmentSurrogate._code,
@@ -270,8 +271,8 @@ internal data class GraphDefinitionLinkCompartmentSurrogate(
       with(model) {
         GraphDefinitionLinkCompartmentSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           use = this@with.use.value?.getCode(),
           _use = this@with.use.toElement(),
           rule = this@with.rule.value?.getCode(),
@@ -387,9 +388,7 @@ internal data class GraphDefinitionSurrogate(
         R5String.of(this@GraphDefinitionSurrogate.title, this@GraphDefinitionSurrogate._title),
       status =
         Enumeration.of(
-          com.google.fhir.model.r5.terminologies.PublicationStatus.fromCode(
-            this@GraphDefinitionSurrogate.status!!
-          ),
+          PublicationStatus.fromCode(this@GraphDefinitionSurrogate.status!!),
           this@GraphDefinitionSurrogate._status,
         ),
       experimental =
@@ -443,12 +442,12 @@ internal data class GraphDefinitionSurrogate(
           language = this@with.language?.value,
           _language = this@with.language?.toElement(),
           text = this@with.text,
-          contained = this@with.contained.takeUnless { it.all { it == null } },
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          contained = this@with.contained.takeIf { it.isNotEmpty() },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           url = this@with.url?.value,
           _url = this@with.url?.toElement(),
-          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          identifier = this@with.identifier.takeIf { it.isNotEmpty() },
           version = this@with.version?.value,
           _version = this@with.version?.toElement(),
           versionAlgorithm = this@with.versionAlgorithm,
@@ -464,11 +463,11 @@ internal data class GraphDefinitionSurrogate(
           _date = this@with.date?.toElement(),
           publisher = this@with.publisher?.value,
           _publisher = this@with.publisher?.toElement(),
-          contact = this@with.contact.takeUnless { it.all { it == null } },
+          contact = this@with.contact.takeIf { it.isNotEmpty() },
           description = this@with.description?.value,
           _description = this@with.description?.toElement(),
-          useContext = this@with.useContext.takeUnless { it.all { it == null } },
-          jurisdiction = this@with.jurisdiction.takeUnless { it.all { it == null } },
+          useContext = this@with.useContext.takeIf { it.isNotEmpty() },
+          jurisdiction = this@with.jurisdiction.takeIf { it.isNotEmpty() },
           purpose = this@with.purpose?.value,
           _purpose = this@with.purpose?.toElement(),
           copyright = this@with.copyright?.value,
@@ -477,8 +476,8 @@ internal data class GraphDefinitionSurrogate(
           _copyrightLabel = this@with.copyrightLabel?.toElement(),
           start = this@with.start?.value,
           _start = this@with.start?.toElement(),
-          node = this@with.node.takeUnless { it.all { it == null } },
-          link = this@with.link.takeUnless { it.all { it == null } },
+          node = this@with.node.takeIf { it.isNotEmpty() },
+          link = this@with.link.takeIf { it.isNotEmpty() },
         )
       }
   }

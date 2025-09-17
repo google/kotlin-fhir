@@ -71,8 +71,8 @@ internal data class ConsentPolicySurrogate(
       with(model) {
         ConsentPolicySurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           authority = this@with.authority?.value,
           _authority = this@with.authority?.toElement(),
           uri = this@with.uri?.value,
@@ -116,8 +116,8 @@ internal data class ConsentVerificationSurrogate(
       with(model) {
         ConsentVerificationSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           verified = this@with.verified.value,
           _verified = this@with.verified.toElement(),
           verifiedWith = this@with.verifiedWith,
@@ -154,7 +154,7 @@ internal data class ConsentProvisionSurrogate(
       type =
         this@ConsentProvisionSurrogate.type?.let {
           Enumeration.of(
-            com.google.fhir.model.r4.Consent.ConsentProvisionType.fromCode(it!!),
+            Consent.ConsentProvisionType.fromCode(it),
             this@ConsentProvisionSurrogate._type,
           )
         },
@@ -175,20 +175,20 @@ internal data class ConsentProvisionSurrogate(
       with(model) {
         ConsentProvisionSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           type = this@with.type?.value?.getCode(),
           _type = this@with.type?.toElement(),
           period = this@with.period,
-          actor = this@with.actor.takeUnless { it.all { it == null } },
-          action = this@with.action.takeUnless { it.all { it == null } },
-          securityLabel = this@with.securityLabel.takeUnless { it.all { it == null } },
-          purpose = this@with.purpose.takeUnless { it.all { it == null } },
-          `class` = this@with.`class`.takeUnless { it.all { it == null } },
-          code = this@with.code.takeUnless { it.all { it == null } },
+          actor = this@with.actor.takeIf { it.isNotEmpty() },
+          action = this@with.action.takeIf { it.isNotEmpty() },
+          securityLabel = this@with.securityLabel.takeIf { it.isNotEmpty() },
+          purpose = this@with.purpose.takeIf { it.isNotEmpty() },
+          `class` = this@with.`class`.takeIf { it.isNotEmpty() },
+          code = this@with.code.takeIf { it.isNotEmpty() },
           dataPeriod = this@with.dataPeriod,
-          `data` = this@with.`data`.takeUnless { it.all { it == null } },
-          provision = this@with.provision.takeUnless { it.all { it == null } },
+          `data` = this@with.`data`.takeIf { it.isNotEmpty() },
+          provision = this@with.provision.takeIf { it.isNotEmpty() },
         )
       }
   }
@@ -216,8 +216,8 @@ internal data class ConsentProvisionActorSurrogate(
       with(model) {
         ConsentProvisionActorSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           role = this@with.role,
           reference = this@with.reference,
         )
@@ -241,9 +241,7 @@ internal data class ConsentProvisionDataSurrogate(
       modifierExtension = this@ConsentProvisionDataSurrogate.modifierExtension ?: mutableListOf(),
       meaning =
         Enumeration.of(
-          com.google.fhir.model.r4.Consent.ConsentDataMeaning.fromCode(
-            this@ConsentProvisionDataSurrogate.meaning!!
-          ),
+          Consent.ConsentDataMeaning.fromCode(this@ConsentProvisionDataSurrogate.meaning!!),
           this@ConsentProvisionDataSurrogate._meaning,
         ),
       reference = this@ConsentProvisionDataSurrogate.reference,
@@ -254,8 +252,8 @@ internal data class ConsentProvisionDataSurrogate(
       with(model) {
         ConsentProvisionDataSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           meaning = this@with.meaning.value?.getCode(),
           _meaning = this@with.meaning.toElement(),
           reference = this@with.reference,
@@ -328,7 +326,7 @@ internal data class ConsentSurrogate(
       identifier = this@ConsentSurrogate.identifier ?: mutableListOf(),
       status =
         Enumeration.of(
-          com.google.fhir.model.r4.Consent.ConsentState.fromCode(this@ConsentSurrogate.status!!),
+          Consent.ConsentState.fromCode(this@ConsentSurrogate.status!!),
           this@ConsentSurrogate._status,
         ),
       scope = this@ConsentSurrogate.scope,
@@ -359,23 +357,23 @@ internal data class ConsentSurrogate(
           language = this@with.language?.value,
           _language = this@with.language?.toElement(),
           text = this@with.text,
-          contained = this@with.contained.takeUnless { it.all { it == null } },
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          contained = this@with.contained.takeIf { it.isNotEmpty() },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
+          identifier = this@with.identifier.takeIf { it.isNotEmpty() },
           status = this@with.status.value?.getCode(),
           _status = this@with.status.toElement(),
           scope = this@with.scope,
-          category = this@with.category.takeUnless { it.all { it == null } },
+          category = this@with.category.takeIf { it.isNotEmpty() },
           patient = this@with.patient,
           dateTime = this@with.dateTime?.value?.toString(),
           _dateTime = this@with.dateTime?.toElement(),
-          performer = this@with.performer.takeUnless { it.all { it == null } },
-          organization = this@with.organization.takeUnless { it.all { it == null } },
+          performer = this@with.performer.takeIf { it.isNotEmpty() },
+          organization = this@with.organization.takeIf { it.isNotEmpty() },
           source = this@with.source,
-          policy = this@with.policy.takeUnless { it.all { it == null } },
+          policy = this@with.policy.takeIf { it.isNotEmpty() },
           policyRule = this@with.policyRule,
-          verification = this@with.verification.takeUnless { it.all { it == null } },
+          verification = this@with.verification.takeIf { it.isNotEmpty() },
           provision = this@with.provision,
         )
       }

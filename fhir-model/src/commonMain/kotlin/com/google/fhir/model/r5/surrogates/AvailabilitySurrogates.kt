@@ -68,10 +68,7 @@ internal data class AvailabilityAvailableTimeSurrogate(
                 ?: List(this@AvailabilityAvailableTimeSurrogate.daysOfWeek!!.size) { null }
             )
             .map { (value, element) ->
-              Enumeration.of(
-                value.let { com.google.fhir.model.r5.Availability.DaysOfWeek.fromCode(it!!)!! },
-                element,
-              )
+              Enumeration.of(value.let { Availability.DaysOfWeek.fromCode(it!!) }, element)
             }
             .toMutableList()
         },
@@ -97,7 +94,7 @@ internal data class AvailabilityAvailableTimeSurrogate(
       with(model) {
         AvailabilityAvailableTimeSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
           daysOfWeek =
             this@with.daysOfWeek
               .map { it.value?.getCode() }
@@ -147,7 +144,7 @@ internal data class AvailabilityNotAvailableTimeSurrogate(
       with(model) {
         AvailabilityNotAvailableTimeSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
           description = this@with.description?.value,
           _description = this@with.description?.toElement(),
           during = this@with.during,
@@ -176,9 +173,9 @@ internal data class AvailabilitySurrogate(
       with(model) {
         AvailabilitySurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          availableTime = this@with.availableTime.takeUnless { it.all { it == null } },
-          notAvailableTime = this@with.notAvailableTime.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          availableTime = this@with.availableTime.takeIf { it.isNotEmpty() },
+          notAvailableTime = this@with.notAvailableTime.takeIf { it.isNotEmpty() },
         )
       }
   }

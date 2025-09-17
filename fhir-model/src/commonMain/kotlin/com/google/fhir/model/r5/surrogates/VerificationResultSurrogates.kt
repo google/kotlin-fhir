@@ -87,16 +87,16 @@ internal data class VerificationResultPrimarySourceSurrogate(
       with(model) {
         VerificationResultPrimarySourceSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           who = this@with.who,
-          type = this@with.type.takeUnless { it.all { it == null } },
-          communicationMethod = this@with.communicationMethod.takeUnless { it.all { it == null } },
+          type = this@with.type.takeIf { it.isNotEmpty() },
+          communicationMethod = this@with.communicationMethod.takeIf { it.isNotEmpty() },
           validationStatus = this@with.validationStatus,
           validationDate = this@with.validationDate?.value?.toString(),
           _validationDate = this@with.validationDate?.toElement(),
           canPushUpdates = this@with.canPushUpdates,
-          pushTypeAvailable = this@with.pushTypeAvailable.takeUnless { it.all { it == null } },
+          pushTypeAvailable = this@with.pushTypeAvailable.takeIf { it.isNotEmpty() },
         )
       }
   }
@@ -154,8 +154,8 @@ internal data class VerificationResultAttestationSurrogate(
       with(model) {
         VerificationResultAttestationSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           who = this@with.who,
           onBehalfOf = this@with.onBehalfOf,
           communicationMethod = this@with.communicationMethod,
@@ -204,8 +204,8 @@ internal data class VerificationResultValidatorSurrogate(
       with(model) {
         VerificationResultValidatorSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           organization = this@with.organization,
           identityCertificate = this@with.identityCertificate?.value,
           _identityCertificate = this@with.identityCertificate?.toElement(),
@@ -285,7 +285,7 @@ internal data class VerificationResultSurrogate(
       need = this@VerificationResultSurrogate.need,
       status =
         Enumeration.of(
-          com.google.fhir.model.r5.VerificationResult.VerificationResultStatus.fromCode(
+          VerificationResult.VerificationResultStatus.fromCode(
             this@VerificationResultSurrogate.status!!
           ),
           this@VerificationResultSurrogate._status,
@@ -325,10 +325,10 @@ internal data class VerificationResultSurrogate(
           language = this@with.language?.value,
           _language = this@with.language?.toElement(),
           text = this@with.text,
-          contained = this@with.contained.takeUnless { it.all { it == null } },
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          target = this@with.target.takeUnless { it.all { it == null } },
+          contained = this@with.contained.takeIf { it.isNotEmpty() },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
+          target = this@with.target.takeIf { it.isNotEmpty() },
           targetLocation =
             this@with.targetLocation
               .map { it.value }
@@ -346,16 +346,16 @@ internal data class VerificationResultSurrogate(
           statusDate = this@with.statusDate?.value?.toString(),
           _statusDate = this@with.statusDate?.toElement(),
           validationType = this@with.validationType,
-          validationProcess = this@with.validationProcess.takeUnless { it.all { it == null } },
+          validationProcess = this@with.validationProcess.takeIf { it.isNotEmpty() },
           frequency = this@with.frequency,
           lastPerformed = this@with.lastPerformed?.value?.toString(),
           _lastPerformed = this@with.lastPerformed?.toElement(),
           nextScheduled = this@with.nextScheduled?.value?.toString(),
           _nextScheduled = this@with.nextScheduled?.toElement(),
           failureAction = this@with.failureAction,
-          primarySource = this@with.primarySource.takeUnless { it.all { it == null } },
+          primarySource = this@with.primarySource.takeIf { it.isNotEmpty() },
           attestation = this@with.attestation,
-          validator = this@with.validator.takeUnless { it.all { it == null } },
+          validator = this@with.validator.takeIf { it.isNotEmpty() },
         )
       }
   }

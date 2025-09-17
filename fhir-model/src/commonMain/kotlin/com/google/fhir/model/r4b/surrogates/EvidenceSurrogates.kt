@@ -47,6 +47,7 @@ import com.google.fhir.model.r4b.Uri
 import com.google.fhir.model.r4b.UsageContext
 import com.google.fhir.model.r4b.serializers.DoubleSerializer
 import com.google.fhir.model.r4b.serializers.LocalTimeSerializer
+import com.google.fhir.model.r4b.terminologies.PublicationStatus
 import kotlin.Double
 import kotlin.Int
 import kotlin.String as KotlinString
@@ -91,11 +92,11 @@ internal data class EvidenceVariableDefinitionSurrogate(
       with(model) {
         EvidenceVariableDefinitionSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           description = this@with.description?.value,
           _description = this@with.description?.toElement(),
-          note = this@with.note.takeUnless { it.all { it == null } },
+          note = this@with.note.takeIf { it.isNotEmpty() },
           variableRole = this@with.variableRole,
           observed = this@with.observed,
           intended = this@with.intended,
@@ -158,11 +159,11 @@ internal data class EvidenceStatisticSurrogate(
       with(model) {
         EvidenceStatisticSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           description = this@with.description?.value,
           _description = this@with.description?.toElement(),
-          note = this@with.note.takeUnless { it.all { it == null } },
+          note = this@with.note.takeIf { it.isNotEmpty() },
           statisticType = this@with.statisticType,
           category = this@with.category,
           quantity = this@with.quantity,
@@ -171,8 +172,8 @@ internal data class EvidenceStatisticSurrogate(
           numberAffected = this@with.numberAffected?.value,
           _numberAffected = this@with.numberAffected?.toElement(),
           sampleSize = this@with.sampleSize,
-          attributeEstimate = this@with.attributeEstimate.takeUnless { it.all { it == null } },
-          modelCharacteristic = this@with.modelCharacteristic.takeUnless { it.all { it == null } },
+          attributeEstimate = this@with.attributeEstimate.takeIf { it.isNotEmpty() },
+          modelCharacteristic = this@with.modelCharacteristic.takeIf { it.isNotEmpty() },
         )
       }
   }
@@ -229,11 +230,11 @@ internal data class EvidenceStatisticSampleSizeSurrogate(
       with(model) {
         EvidenceStatisticSampleSizeSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           description = this@with.description?.value,
           _description = this@with.description?.toElement(),
-          note = this@with.note.takeUnless { it.all { it == null } },
+          note = this@with.note.takeIf { it.isNotEmpty() },
           numberOfStudies = this@with.numberOfStudies?.value,
           _numberOfStudies = this@with.numberOfStudies?.toElement(),
           numberOfParticipants = this@with.numberOfParticipants?.value,
@@ -291,17 +292,17 @@ internal data class EvidenceStatisticAttributeEstimateSurrogate(
       with(model) {
         EvidenceStatisticAttributeEstimateSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           description = this@with.description?.value,
           _description = this@with.description?.toElement(),
-          note = this@with.note.takeUnless { it.all { it == null } },
+          note = this@with.note.takeIf { it.isNotEmpty() },
           type = this@with.type,
           quantity = this@with.quantity,
           level = this@with.level?.value,
           _level = this@with.level?.toElement(),
           range = this@with.range,
-          attributeEstimate = this@with.attributeEstimate.takeUnless { it.all { it == null } },
+          attributeEstimate = this@with.attributeEstimate.takeIf { it.isNotEmpty() },
         )
       }
   }
@@ -337,12 +338,12 @@ internal data class EvidenceStatisticModelCharacteristicSurrogate(
       with(model) {
         EvidenceStatisticModelCharacteristicSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           code = this@with.code,
           `value` = this@with.`value`,
-          variable = this@with.variable.takeUnless { it.all { it == null } },
-          attributeEstimate = this@with.attributeEstimate.takeUnless { it.all { it == null } },
+          variable = this@with.variable.takeIf { it.isNotEmpty() },
+          attributeEstimate = this@with.attributeEstimate.takeIf { it.isNotEmpty() },
         )
       }
   }
@@ -373,7 +374,7 @@ internal data class EvidenceStatisticModelCharacteristicVariableSurrogate(
       handling =
         this@EvidenceStatisticModelCharacteristicVariableSurrogate.handling?.let {
           Enumeration.of(
-            com.google.fhir.model.r4b.Evidence.EvidenceVariableHandling.fromCode(it!!),
+            Evidence.EvidenceVariableHandling.fromCode(it),
             this@EvidenceStatisticModelCharacteristicVariableSurrogate._handling,
           )
         },
@@ -392,14 +393,14 @@ internal data class EvidenceStatisticModelCharacteristicVariableSurrogate(
       with(model) {
         EvidenceStatisticModelCharacteristicVariableSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           variableDefinition = this@with.variableDefinition,
           handling = this@with.handling?.value?.getCode(),
           _handling = this@with.handling?.toElement(),
-          valueCategory = this@with.valueCategory.takeUnless { it.all { it == null } },
-          valueQuantity = this@with.valueQuantity.takeUnless { it.all { it == null } },
-          valueRange = this@with.valueRange.takeUnless { it.all { it == null } },
+          valueCategory = this@with.valueCategory.takeIf { it.isNotEmpty() },
+          valueQuantity = this@with.valueQuantity.takeIf { it.isNotEmpty() },
+          valueRange = this@with.valueRange.takeIf { it.isNotEmpty() },
         )
       }
   }
@@ -442,16 +443,16 @@ internal data class EvidenceCertaintySurrogate(
       with(model) {
         EvidenceCertaintySurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           description = this@with.description?.value,
           _description = this@with.description?.toElement(),
-          note = this@with.note.takeUnless { it.all { it == null } },
+          note = this@with.note.takeIf { it.isNotEmpty() },
           type = this@with.type,
           rating = this@with.rating,
           rater = this@with.rater?.value,
           _rater = this@with.rater?.toElement(),
-          subcomponent = this@with.subcomponent.takeUnless { it.all { it == null } },
+          subcomponent = this@with.subcomponent.takeIf { it.isNotEmpty() },
         )
       }
   }
@@ -550,9 +551,7 @@ internal data class EvidenceSurrogate(
       citeAs = this@EvidenceSurrogate.citeAs,
       status =
         Enumeration.of(
-          com.google.fhir.model.r4b.terminologies.PublicationStatus.fromCode(
-            this@EvidenceSurrogate.status!!
-          ),
+          PublicationStatus.fromCode(this@EvidenceSurrogate.status!!),
           this@EvidenceSurrogate._status,
         ),
       date =
@@ -600,12 +599,12 @@ internal data class EvidenceSurrogate(
           language = this@with.language?.value,
           _language = this@with.language?.toElement(),
           text = this@with.text,
-          contained = this@with.contained.takeUnless { it.all { it == null } },
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          contained = this@with.contained.takeIf { it.isNotEmpty() },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           url = this@with.url?.value,
           _url = this@with.url?.toElement(),
-          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          identifier = this@with.identifier.takeIf { it.isNotEmpty() },
           version = this@with.version?.value,
           _version = this@with.version?.toElement(),
           title = this@with.title?.value,
@@ -615,29 +614,29 @@ internal data class EvidenceSurrogate(
           _status = this@with.status.toElement(),
           date = this@with.date?.value?.toString(),
           _date = this@with.date?.toElement(),
-          useContext = this@with.useContext.takeUnless { it.all { it == null } },
+          useContext = this@with.useContext.takeIf { it.isNotEmpty() },
           approvalDate = this@with.approvalDate?.value?.toString(),
           _approvalDate = this@with.approvalDate?.toElement(),
           lastReviewDate = this@with.lastReviewDate?.value?.toString(),
           _lastReviewDate = this@with.lastReviewDate?.toElement(),
           publisher = this@with.publisher?.value,
           _publisher = this@with.publisher?.toElement(),
-          contact = this@with.contact.takeUnless { it.all { it == null } },
-          author = this@with.author.takeUnless { it.all { it == null } },
-          editor = this@with.editor.takeUnless { it.all { it == null } },
-          reviewer = this@with.reviewer.takeUnless { it.all { it == null } },
-          endorser = this@with.endorser.takeUnless { it.all { it == null } },
-          relatedArtifact = this@with.relatedArtifact.takeUnless { it.all { it == null } },
+          contact = this@with.contact.takeIf { it.isNotEmpty() },
+          author = this@with.author.takeIf { it.isNotEmpty() },
+          editor = this@with.editor.takeIf { it.isNotEmpty() },
+          reviewer = this@with.reviewer.takeIf { it.isNotEmpty() },
+          endorser = this@with.endorser.takeIf { it.isNotEmpty() },
+          relatedArtifact = this@with.relatedArtifact.takeIf { it.isNotEmpty() },
           description = this@with.description?.value,
           _description = this@with.description?.toElement(),
           assertion = this@with.assertion?.value,
           _assertion = this@with.assertion?.toElement(),
-          note = this@with.note.takeUnless { it.all { it == null } },
-          variableDefinition = this@with.variableDefinition.takeUnless { it.all { it == null } },
+          note = this@with.note.takeIf { it.isNotEmpty() },
+          variableDefinition = this@with.variableDefinition.takeIf { it.isNotEmpty() },
           synthesisType = this@with.synthesisType,
           studyType = this@with.studyType,
-          statistic = this@with.statistic.takeUnless { it.all { it == null } },
-          certainty = this@with.certainty.takeUnless { it.all { it == null } },
+          statistic = this@with.statistic.takeIf { it.isNotEmpty() },
+          certainty = this@with.certainty.takeIf { it.isNotEmpty() },
         )
       }
   }

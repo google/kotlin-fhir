@@ -35,6 +35,7 @@ import com.google.fhir.model.r4b.String as R4bString
 import com.google.fhir.model.r4b.Uri
 import com.google.fhir.model.r4b.serializers.DoubleSerializer
 import com.google.fhir.model.r4b.serializers.LocalTimeSerializer
+import com.google.fhir.model.r4b.terminologies.RemittanceOutcome
 import kotlin.String as KotlinString
 import kotlin.Suppress
 import kotlin.collections.MutableList
@@ -88,19 +89,14 @@ internal data class EnrollmentResponseSurrogate(
       status =
         this@EnrollmentResponseSurrogate.status?.let {
           Enumeration.of(
-            com.google.fhir.model.r4b.EnrollmentResponse.FinancialResourceStatusCodes.fromCode(
-              it!!
-            ),
+            EnrollmentResponse.FinancialResourceStatusCodes.fromCode(it),
             this@EnrollmentResponseSurrogate._status,
           )
         },
       request = this@EnrollmentResponseSurrogate.request,
       outcome =
         this@EnrollmentResponseSurrogate.outcome?.let {
-          Enumeration.of(
-            com.google.fhir.model.r4b.terminologies.RemittanceOutcome.fromCode(it!!),
-            this@EnrollmentResponseSurrogate._outcome,
-          )
+          Enumeration.of(RemittanceOutcome.fromCode(it), this@EnrollmentResponseSurrogate._outcome)
         },
       disposition =
         R4bString.of(
@@ -127,10 +123,10 @@ internal data class EnrollmentResponseSurrogate(
           language = this@with.language?.value,
           _language = this@with.language?.toElement(),
           text = this@with.text,
-          contained = this@with.contained.takeUnless { it.all { it == null } },
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          contained = this@with.contained.takeIf { it.isNotEmpty() },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
+          identifier = this@with.identifier.takeIf { it.isNotEmpty() },
           status = this@with.status?.value?.getCode(),
           _status = this@with.status?.toElement(),
           request = this@with.request,

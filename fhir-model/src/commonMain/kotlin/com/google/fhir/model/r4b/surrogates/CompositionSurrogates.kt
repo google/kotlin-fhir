@@ -61,9 +61,7 @@ internal data class CompositionAttesterSurrogate(
       modifierExtension = this@CompositionAttesterSurrogate.modifierExtension ?: mutableListOf(),
       mode =
         Enumeration.of(
-          com.google.fhir.model.r4b.Composition.CompositionAttestationMode.fromCode(
-            this@CompositionAttesterSurrogate.mode!!
-          ),
+          Composition.CompositionAttestationMode.fromCode(this@CompositionAttesterSurrogate.mode!!),
           this@CompositionAttesterSurrogate._mode,
         ),
       time =
@@ -79,8 +77,8 @@ internal data class CompositionAttesterSurrogate(
       with(model) {
         CompositionAttesterSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           mode = this@with.mode.value?.getCode(),
           _mode = this@with.mode.toElement(),
           time = this@with.time?.value?.toString(),
@@ -107,9 +105,7 @@ internal data class CompositionRelatesToSurrogate(
       modifierExtension = this@CompositionRelatesToSurrogate.modifierExtension ?: mutableListOf(),
       code =
         Enumeration.of(
-          com.google.fhir.model.r4b.Composition.DocumentRelationshipType.fromCode(
-            this@CompositionRelatesToSurrogate.code!!
-          ),
+          Composition.DocumentRelationshipType.fromCode(this@CompositionRelatesToSurrogate.code!!),
           this@CompositionRelatesToSurrogate._code,
         ),
       target = this@CompositionRelatesToSurrogate.target,
@@ -120,8 +116,8 @@ internal data class CompositionRelatesToSurrogate(
       with(model) {
         CompositionRelatesToSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           code = this@with.code.value?.getCode(),
           _code = this@with.code.toElement(),
           target = this@with.target,
@@ -154,11 +150,11 @@ internal data class CompositionEventSurrogate(
       with(model) {
         CompositionEventSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          code = this@with.code.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
+          code = this@with.code.takeIf { it.isNotEmpty() },
           period = this@with.period,
-          detail = this@with.detail.takeUnless { it.all { it == null } },
+          detail = this@with.detail.takeIf { it.isNotEmpty() },
         )
       }
   }
@@ -198,10 +194,7 @@ internal data class CompositionSectionSurrogate(
       text = this@CompositionSectionSurrogate.text,
       mode =
         this@CompositionSectionSurrogate.mode?.let {
-          Enumeration.of(
-            com.google.fhir.model.r4b.Composition.ListMode.fromCode(it!!),
-            this@CompositionSectionSurrogate._mode,
-          )
+          Enumeration.of(Composition.ListMode.fromCode(it), this@CompositionSectionSurrogate._mode)
         },
       orderedBy = this@CompositionSectionSurrogate.orderedBy,
       entry = this@CompositionSectionSurrogate.entry ?: mutableListOf(),
@@ -214,20 +207,20 @@ internal data class CompositionSectionSurrogate(
       with(model) {
         CompositionSectionSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           title = this@with.title?.value,
           _title = this@with.title?.toElement(),
           code = this@with.code,
-          author = this@with.author.takeUnless { it.all { it == null } },
+          author = this@with.author.takeIf { it.isNotEmpty() },
           focus = this@with.focus,
           text = this@with.text,
           mode = this@with.mode?.value?.getCode(),
           _mode = this@with.mode?.toElement(),
           orderedBy = this@with.orderedBy,
-          entry = this@with.entry.takeUnless { it.all { it == null } },
+          entry = this@with.entry.takeIf { it.isNotEmpty() },
           emptyReason = this@with.emptyReason,
-          section = this@with.section.takeUnless { it.all { it == null } },
+          section = this@with.section.takeIf { it.isNotEmpty() },
         )
       }
   }
@@ -242,7 +235,7 @@ internal data class CompositionRelatesToTargetSurrogate(
     Composition.RelatesTo.Target.from(
       this@CompositionRelatesToTargetSurrogate.targetIdentifier,
       this@CompositionRelatesToTargetSurrogate.targetReference,
-    )!! !!
+    )!!
 
   public companion object {
     public fun fromModel(model: Composition.RelatesTo.Target): CompositionRelatesToTargetSurrogate =
@@ -301,9 +294,7 @@ internal data class CompositionSurrogate(
       identifier = this@CompositionSurrogate.identifier,
       status =
         Enumeration.of(
-          com.google.fhir.model.r4b.Composition.CompositionStatus.fromCode(
-            this@CompositionSurrogate.status!!
-          ),
+          Composition.CompositionStatus.fromCode(this@CompositionSurrogate.status!!),
           this@CompositionSurrogate._status,
         ),
       type = this@CompositionSurrogate.type,
@@ -320,7 +311,7 @@ internal data class CompositionSurrogate(
       confidentiality =
         this@CompositionSurrogate.confidentiality?.let {
           Enumeration.of(
-            com.google.fhir.model.r4b.Composition.Confidentiality.fromCode(it!!),
+            Composition.Confidentiality.fromCode(it),
             this@CompositionSurrogate._confidentiality,
           )
         },
@@ -342,28 +333,28 @@ internal data class CompositionSurrogate(
           language = this@with.language?.value,
           _language = this@with.language?.toElement(),
           text = this@with.text,
-          contained = this@with.contained.takeUnless { it.all { it == null } },
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          contained = this@with.contained.takeIf { it.isNotEmpty() },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           identifier = this@with.identifier,
           status = this@with.status.value?.getCode(),
           _status = this@with.status.toElement(),
           type = this@with.type,
-          category = this@with.category.takeUnless { it.all { it == null } },
+          category = this@with.category.takeIf { it.isNotEmpty() },
           subject = this@with.subject,
           encounter = this@with.encounter,
           date = this@with.date.value?.toString(),
           _date = this@with.date.toElement(),
-          author = this@with.author.takeUnless { it.all { it == null } },
+          author = this@with.author.takeIf { it.isNotEmpty() },
           title = this@with.title.value,
           _title = this@with.title.toElement(),
           confidentiality = this@with.confidentiality?.value?.getCode(),
           _confidentiality = this@with.confidentiality?.toElement(),
-          attester = this@with.attester.takeUnless { it.all { it == null } },
+          attester = this@with.attester.takeIf { it.isNotEmpty() },
           custodian = this@with.custodian,
-          relatesTo = this@with.relatesTo.takeUnless { it.all { it == null } },
-          event = this@with.event.takeUnless { it.all { it == null } },
-          section = this@with.section.takeUnless { it.all { it == null } },
+          relatesTo = this@with.relatesTo.takeIf { it.isNotEmpty() },
+          event = this@with.event.takeIf { it.isNotEmpty() },
+          section = this@with.section.takeIf { it.isNotEmpty() },
         )
       }
   }

@@ -29,6 +29,7 @@ import com.google.fhir.model.r4.ParameterDefinition
 import com.google.fhir.model.r4.String as R4String
 import com.google.fhir.model.r4.serializers.DoubleSerializer
 import com.google.fhir.model.r4.serializers.LocalTimeSerializer
+import com.google.fhir.model.r4.terminologies.FHIRAllTypes
 import kotlin.Int
 import kotlin.String as KotlinString
 import kotlin.Suppress
@@ -63,7 +64,7 @@ internal data class ParameterDefinitionSurrogate(
         Code.of(this@ParameterDefinitionSurrogate.name, this@ParameterDefinitionSurrogate._name),
       use =
         Enumeration.of(
-          com.google.fhir.model.r4.ParameterDefinition.OperationParameterUse.fromCode(
+          ParameterDefinition.OperationParameterUse.fromCode(
             this@ParameterDefinitionSurrogate.use!!
           ),
           this@ParameterDefinitionSurrogate._use,
@@ -79,9 +80,7 @@ internal data class ParameterDefinitionSurrogate(
         ),
       type =
         Enumeration.of(
-          com.google.fhir.model.r4.terminologies.FHIRAllTypes.fromCode(
-            this@ParameterDefinitionSurrogate.type!!
-          ),
+          FHIRAllTypes.fromCode(this@ParameterDefinitionSurrogate.type!!),
           this@ParameterDefinitionSurrogate._type,
         ),
       profile =
@@ -96,7 +95,7 @@ internal data class ParameterDefinitionSurrogate(
       with(model) {
         ParameterDefinitionSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
           name = this@with.name?.value,
           _name = this@with.name?.toElement(),
           use = this@with.use.value?.getCode(),

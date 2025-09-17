@@ -54,6 +54,8 @@ import com.google.fhir.model.r5.Uri
 import com.google.fhir.model.r5.UsageContext
 import com.google.fhir.model.r5.serializers.DoubleSerializer
 import com.google.fhir.model.r5.serializers.LocalTimeSerializer
+import com.google.fhir.model.r5.terminologies.PublicationStatus
+import com.google.fhir.model.r5.terminologies.RequestResourceTypes
 import kotlin.Boolean as KotlinBoolean
 import kotlin.String as KotlinString
 import kotlin.Suppress
@@ -83,7 +85,7 @@ internal data class ActivityDefinitionParticipantSurrogate(
       type =
         this@ActivityDefinitionParticipantSurrogate.type?.let {
           Enumeration.of(
-            com.google.fhir.model.r5.ActivityDefinition.ActionParticipantType.fromCode(it!!),
+            ActivityDefinition.ActionParticipantType.fromCode(it),
             this@ActivityDefinitionParticipantSurrogate._type,
           )
         },
@@ -104,8 +106,8 @@ internal data class ActivityDefinitionParticipantSurrogate(
       with(model) {
         ActivityDefinitionParticipantSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           type = this@with.type?.value?.getCode(),
           _type = this@with.type?.toElement(),
           typeCanonical = this@with.typeCanonical?.value,
@@ -148,8 +150,8 @@ internal data class ActivityDefinitionDynamicValueSurrogate(
       with(model) {
         ActivityDefinitionDynamicValueSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           path = this@with.path.value,
           _path = this@with.path.toElement(),
           expression = this@with.expression,
@@ -422,9 +424,7 @@ internal data class ActivityDefinitionSurrogate(
         ),
       status =
         Enumeration.of(
-          com.google.fhir.model.r5.terminologies.PublicationStatus.fromCode(
-            this@ActivityDefinitionSurrogate.status!!
-          ),
+          PublicationStatus.fromCode(this@ActivityDefinitionSurrogate.status!!),
           this@ActivityDefinitionSurrogate._status,
         ),
       experimental =
@@ -506,10 +506,7 @@ internal data class ActivityDefinitionSurrogate(
         },
       kind =
         this@ActivityDefinitionSurrogate.kind?.let {
-          Enumeration.of(
-            com.google.fhir.model.r5.terminologies.RequestResourceTypes.fromCode(it!!),
-            this@ActivityDefinitionSurrogate._kind,
-          )
+          Enumeration.of(RequestResourceTypes.fromCode(it), this@ActivityDefinitionSurrogate._kind)
         },
       profile =
         Canonical.of(
@@ -520,14 +517,14 @@ internal data class ActivityDefinitionSurrogate(
       intent =
         this@ActivityDefinitionSurrogate.intent?.let {
           Enumeration.of(
-            com.google.fhir.model.r5.ActivityDefinition.RequestIntent.fromCode(it!!),
+            ActivityDefinition.RequestIntent.fromCode(it),
             this@ActivityDefinitionSurrogate._intent,
           )
         },
       priority =
         this@ActivityDefinitionSurrogate.priority?.let {
           Enumeration.of(
-            com.google.fhir.model.r5.ActivityDefinition.RequestPriority.fromCode(it!!),
+            ActivityDefinition.RequestPriority.fromCode(it),
             this@ActivityDefinitionSurrogate._priority,
           )
         },
@@ -615,12 +612,12 @@ internal data class ActivityDefinitionSurrogate(
           language = this@with.language?.value,
           _language = this@with.language?.toElement(),
           text = this@with.text,
-          contained = this@with.contained.takeUnless { it.all { it == null } },
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          contained = this@with.contained.takeIf { it.isNotEmpty() },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           url = this@with.url?.value,
           _url = this@with.url?.toElement(),
-          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          identifier = this@with.identifier.takeIf { it.isNotEmpty() },
           version = this@with.version?.value,
           _version = this@with.version?.toElement(),
           versionAlgorithm = this@with.versionAlgorithm,
@@ -639,11 +636,11 @@ internal data class ActivityDefinitionSurrogate(
           _date = this@with.date?.toElement(),
           publisher = this@with.publisher?.value,
           _publisher = this@with.publisher?.toElement(),
-          contact = this@with.contact.takeUnless { it.all { it == null } },
+          contact = this@with.contact.takeIf { it.isNotEmpty() },
           description = this@with.description?.value,
           _description = this@with.description?.toElement(),
-          useContext = this@with.useContext.takeUnless { it.all { it == null } },
-          jurisdiction = this@with.jurisdiction.takeUnless { it.all { it == null } },
+          useContext = this@with.useContext.takeIf { it.isNotEmpty() },
+          jurisdiction = this@with.jurisdiction.takeIf { it.isNotEmpty() },
           purpose = this@with.purpose?.value,
           _purpose = this@with.purpose?.toElement(),
           usage = this@with.usage?.value,
@@ -657,12 +654,12 @@ internal data class ActivityDefinitionSurrogate(
           lastReviewDate = this@with.lastReviewDate?.value?.toString(),
           _lastReviewDate = this@with.lastReviewDate?.toElement(),
           effectivePeriod = this@with.effectivePeriod,
-          topic = this@with.topic.takeUnless { it.all { it == null } },
-          author = this@with.author.takeUnless { it.all { it == null } },
-          editor = this@with.editor.takeUnless { it.all { it == null } },
-          reviewer = this@with.reviewer.takeUnless { it.all { it == null } },
-          endorser = this@with.endorser.takeUnless { it.all { it == null } },
-          relatedArtifact = this@with.relatedArtifact.takeUnless { it.all { it == null } },
+          topic = this@with.topic.takeIf { it.isNotEmpty() },
+          author = this@with.author.takeIf { it.isNotEmpty() },
+          editor = this@with.editor.takeIf { it.isNotEmpty() },
+          reviewer = this@with.reviewer.takeIf { it.isNotEmpty() },
+          endorser = this@with.endorser.takeIf { it.isNotEmpty() },
+          relatedArtifact = this@with.relatedArtifact.takeIf { it.isNotEmpty() },
           library =
             this@with.library.map { it.value }.toMutableList().takeUnless { it.all { it == null } },
           _library =
@@ -685,11 +682,11 @@ internal data class ActivityDefinitionSurrogate(
           timing = this@with.timing,
           asNeeded = this@with.asNeeded,
           location = this@with.location,
-          participant = this@with.participant.takeUnless { it.all { it == null } },
+          participant = this@with.participant.takeIf { it.isNotEmpty() },
           product = this@with.product,
           quantity = this@with.quantity,
-          dosage = this@with.dosage.takeUnless { it.all { it == null } },
-          bodySite = this@with.bodySite.takeUnless { it.all { it == null } },
+          dosage = this@with.dosage.takeIf { it.isNotEmpty() },
+          bodySite = this@with.bodySite.takeIf { it.isNotEmpty() },
           specimenRequirement =
             this@with.specimenRequirement
               .map { it.value }
@@ -725,7 +722,7 @@ internal data class ActivityDefinitionSurrogate(
               ?.toMutableList(),
           transform = this@with.transform?.value,
           _transform = this@with.transform?.toElement(),
-          dynamicValue = this@with.dynamicValue.takeUnless { it.all { it == null } },
+          dynamicValue = this@with.dynamicValue.takeIf { it.isNotEmpty() },
         )
       }
   }

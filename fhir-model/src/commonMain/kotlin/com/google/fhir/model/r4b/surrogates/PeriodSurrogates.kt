@@ -59,7 +59,7 @@ internal data class PeriodSurrogate(
       with(model) {
         PeriodSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
           start = this@with.start?.value?.toString(),
           _start = this@with.start?.toElement(),
           end = this@with.end?.value?.toString(),

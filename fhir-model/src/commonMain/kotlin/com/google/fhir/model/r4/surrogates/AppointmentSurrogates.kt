@@ -70,15 +70,13 @@ internal data class AppointmentParticipantSurrogate(
       required =
         this@AppointmentParticipantSurrogate.required?.let {
           Enumeration.of(
-            com.google.fhir.model.r4.Appointment.ParticipantRequired.fromCode(it!!),
+            Appointment.ParticipantRequired.fromCode(it),
             this@AppointmentParticipantSurrogate._required,
           )
         },
       status =
         Enumeration.of(
-          com.google.fhir.model.r4.Appointment.ParticipationStatus.fromCode(
-            this@AppointmentParticipantSurrogate.status!!
-          ),
+          Appointment.ParticipationStatus.fromCode(this@AppointmentParticipantSurrogate.status!!),
           this@AppointmentParticipantSurrogate._status,
         ),
       period = this@AppointmentParticipantSurrogate.period,
@@ -89,9 +87,9 @@ internal data class AppointmentParticipantSurrogate(
       with(model) {
         AppointmentParticipantSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          type = this@with.type.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
+          type = this@with.type.takeIf { it.isNotEmpty() },
           actor = this@with.actor,
           required = this@with.required?.value?.getCode(),
           _required = this@with.required?.toElement(),
@@ -161,9 +159,7 @@ internal data class AppointmentSurrogate(
       identifier = this@AppointmentSurrogate.identifier ?: mutableListOf(),
       status =
         Enumeration.of(
-          com.google.fhir.model.r4.Appointment.AppointmentStatus.fromCode(
-            this@AppointmentSurrogate.status!!
-          ),
+          Appointment.AppointmentStatus.fromCode(this@AppointmentSurrogate.status!!),
           this@AppointmentSurrogate._status,
         ),
       cancelationReason = this@AppointmentSurrogate.cancelationReason,
@@ -221,41 +217,40 @@ internal data class AppointmentSurrogate(
           language = this@with.language?.value,
           _language = this@with.language?.toElement(),
           text = this@with.text,
-          contained = this@with.contained.takeUnless { it.all { it == null } },
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          contained = this@with.contained.takeIf { it.isNotEmpty() },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
+          identifier = this@with.identifier.takeIf { it.isNotEmpty() },
           status = this@with.status.value?.getCode(),
           _status = this@with.status.toElement(),
           cancelationReason = this@with.cancelationReason,
-          serviceCategory = this@with.serviceCategory.takeUnless { it.all { it == null } },
-          serviceType = this@with.serviceType.takeUnless { it.all { it == null } },
-          specialty = this@with.specialty.takeUnless { it.all { it == null } },
+          serviceCategory = this@with.serviceCategory.takeIf { it.isNotEmpty() },
+          serviceType = this@with.serviceType.takeIf { it.isNotEmpty() },
+          specialty = this@with.specialty.takeIf { it.isNotEmpty() },
           appointmentType = this@with.appointmentType,
-          reasonCode = this@with.reasonCode.takeUnless { it.all { it == null } },
-          reasonReference = this@with.reasonReference.takeUnless { it.all { it == null } },
+          reasonCode = this@with.reasonCode.takeIf { it.isNotEmpty() },
+          reasonReference = this@with.reasonReference.takeIf { it.isNotEmpty() },
           priority = this@with.priority?.value,
           _priority = this@with.priority?.toElement(),
           description = this@with.description?.value,
           _description = this@with.description?.toElement(),
-          supportingInformation =
-            this@with.supportingInformation.takeUnless { it.all { it == null } },
+          supportingInformation = this@with.supportingInformation.takeIf { it.isNotEmpty() },
           start = this@with.start?.value?.toString(),
           _start = this@with.start?.toElement(),
           end = this@with.end?.value?.toString(),
           _end = this@with.end?.toElement(),
           minutesDuration = this@with.minutesDuration?.value,
           _minutesDuration = this@with.minutesDuration?.toElement(),
-          slot = this@with.slot.takeUnless { it.all { it == null } },
+          slot = this@with.slot.takeIf { it.isNotEmpty() },
           created = this@with.created?.value?.toString(),
           _created = this@with.created?.toElement(),
           comment = this@with.comment?.value,
           _comment = this@with.comment?.toElement(),
           patientInstruction = this@with.patientInstruction?.value,
           _patientInstruction = this@with.patientInstruction?.toElement(),
-          basedOn = this@with.basedOn.takeUnless { it.all { it == null } },
-          participant = this@with.participant.takeUnless { it.all { it == null } },
-          requestedPeriod = this@with.requestedPeriod.takeUnless { it.all { it == null } },
+          basedOn = this@with.basedOn.takeIf { it.isNotEmpty() },
+          participant = this@with.participant.takeIf { it.isNotEmpty() },
+          requestedPeriod = this@with.requestedPeriod.takeIf { it.isNotEmpty() },
         )
       }
   }

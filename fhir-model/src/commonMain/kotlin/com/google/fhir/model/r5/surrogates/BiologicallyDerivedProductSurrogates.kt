@@ -78,8 +78,8 @@ internal data class BiologicallyDerivedProductCollectionSurrogate(
       with(model) {
         BiologicallyDerivedProductCollectionSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           collector = this@with.collector,
           source = this@with.source,
           collected = this@with.collected,
@@ -113,8 +113,8 @@ internal data class BiologicallyDerivedProductPropertySurrogate(
       with(model) {
         BiologicallyDerivedProductPropertySurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           type = this@with.type,
           `value` = this@with.`value`,
         )
@@ -188,7 +188,7 @@ internal data class BiologicallyDerivedProductPropertyValueSurrogate(
         this@BiologicallyDerivedProductPropertyValueSurrogate._valueString,
       ),
       this@BiologicallyDerivedProductPropertyValueSurrogate.valueAttachment,
-    )!! !!
+    )!!
 
   public companion object {
     public fun fromModel(
@@ -295,16 +295,16 @@ internal data class BiologicallyDerivedProductSurrogate(
           language = this@with.language?.value,
           _language = this@with.language?.toElement(),
           text = this@with.text,
-          contained = this@with.contained.takeUnless { it.all { it == null } },
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          contained = this@with.contained.takeIf { it.isNotEmpty() },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           productCategory = this@with.productCategory,
           productCode = this@with.productCode,
-          parent = this@with.parent.takeUnless { it.all { it == null } },
-          request = this@with.request.takeUnless { it.all { it == null } },
-          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          parent = this@with.parent.takeIf { it.isNotEmpty() },
+          request = this@with.request.takeIf { it.isNotEmpty() },
+          identifier = this@with.identifier.takeIf { it.isNotEmpty() },
           biologicalSourceEvent = this@with.biologicalSourceEvent,
-          processingFacility = this@with.processingFacility.takeUnless { it.all { it == null } },
+          processingFacility = this@with.processingFacility.takeIf { it.isNotEmpty() },
           division = this@with.division?.value,
           _division = this@with.division?.toElement(),
           productStatus = this@with.productStatus,
@@ -312,7 +312,7 @@ internal data class BiologicallyDerivedProductSurrogate(
           _expirationDate = this@with.expirationDate?.toElement(),
           collection = this@with.collection,
           storageTempRequirements = this@with.storageTempRequirements,
-          `property` = this@with.`property`.takeUnless { it.all { it == null } },
+          `property` = this@with.`property`.takeIf { it.isNotEmpty() },
         )
       }
   }

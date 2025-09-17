@@ -129,7 +129,7 @@ internal data class VirtualServiceDetailSurrogate(
       with(model) {
         VirtualServiceDetailSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
           channelType = this@with.channelType,
           address = this@with.address,
           additionalInfo =

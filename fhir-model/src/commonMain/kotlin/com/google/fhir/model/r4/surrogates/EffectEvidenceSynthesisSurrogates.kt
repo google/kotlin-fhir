@@ -46,6 +46,7 @@ import com.google.fhir.model.r4.Uri
 import com.google.fhir.model.r4.UsageContext
 import com.google.fhir.model.r4.serializers.DoubleSerializer
 import com.google.fhir.model.r4.serializers.LocalTimeSerializer
+import com.google.fhir.model.r4.terminologies.PublicationStatus
 import kotlin.Double
 import kotlin.Int
 import kotlin.String as KotlinString
@@ -96,8 +97,8 @@ internal data class EffectEvidenceSynthesisSampleSizeSurrogate(
       with(model) {
         EffectEvidenceSynthesisSampleSizeSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           description = this@with.description?.value,
           _description = this@with.description?.toElement(),
           numberOfStudies = this@with.numberOfStudies?.value,
@@ -136,7 +137,7 @@ internal data class EffectEvidenceSynthesisResultsByExposureSurrogate(
       exposureState =
         this@EffectEvidenceSynthesisResultsByExposureSurrogate.exposureState?.let {
           Enumeration.of(
-            com.google.fhir.model.r4.EffectEvidenceSynthesis.ExposureState.fromCode(it!!),
+            EffectEvidenceSynthesis.ExposureState.fromCode(it),
             this@EffectEvidenceSynthesisResultsByExposureSurrogate._exposureState,
           )
         },
@@ -152,8 +153,8 @@ internal data class EffectEvidenceSynthesisResultsByExposureSurrogate(
       with(model) {
         EffectEvidenceSynthesisResultsByExposureSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           description = this@with.description?.value,
           _description = this@with.description?.toElement(),
           exposureState = this@with.exposureState?.value?.getCode(),
@@ -211,8 +212,8 @@ internal data class EffectEvidenceSynthesisEffectEstimateSurrogate(
       with(model) {
         EffectEvidenceSynthesisEffectEstimateSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           description = this@with.description?.value,
           _description = this@with.description?.toElement(),
           type = this@with.type,
@@ -220,7 +221,7 @@ internal data class EffectEvidenceSynthesisEffectEstimateSurrogate(
           `value` = this@with.`value`?.value,
           _value = this@with.`value`?.toElement(),
           unitOfMeasure = this@with.unitOfMeasure,
-          precisionEstimate = this@with.precisionEstimate.takeUnless { it.all { it == null } },
+          precisionEstimate = this@with.precisionEstimate.takeIf { it.isNotEmpty() },
         )
       }
   }
@@ -273,8 +274,8 @@ internal data class EffectEvidenceSynthesisEffectEstimatePrecisionEstimateSurrog
       with(model) {
         EffectEvidenceSynthesisEffectEstimatePrecisionEstimateSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           type = this@with.type,
           level = this@with.level?.value,
           _level = this@with.level?.toElement(),
@@ -317,12 +318,11 @@ internal data class EffectEvidenceSynthesisCertaintySurrogate(
       with(model) {
         EffectEvidenceSynthesisCertaintySurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          rating = this@with.rating.takeUnless { it.all { it == null } },
-          note = this@with.note.takeUnless { it.all { it == null } },
-          certaintySubcomponent =
-            this@with.certaintySubcomponent.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
+          rating = this@with.rating.takeIf { it.isNotEmpty() },
+          note = this@with.note.takeIf { it.isNotEmpty() },
+          certaintySubcomponent = this@with.certaintySubcomponent.takeIf { it.isNotEmpty() },
         )
       }
   }
@@ -361,11 +361,11 @@ internal data class EffectEvidenceSynthesisCertaintyCertaintySubcomponentSurroga
       with(model) {
         EffectEvidenceSynthesisCertaintyCertaintySubcomponentSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           type = this@with.type,
-          rating = this@with.rating.takeUnless { it.all { it == null } },
-          note = this@with.note.takeUnless { it.all { it == null } },
+          rating = this@with.rating.takeIf { it.isNotEmpty() },
+          note = this@with.note.takeIf { it.isNotEmpty() },
         )
       }
   }
@@ -470,9 +470,7 @@ internal data class EffectEvidenceSynthesisSurrogate(
         ),
       status =
         Enumeration.of(
-          com.google.fhir.model.r4.terminologies.PublicationStatus.fromCode(
-            this@EffectEvidenceSynthesisSurrogate.status!!
-          ),
+          PublicationStatus.fromCode(this@EffectEvidenceSynthesisSurrogate.status!!),
           this@EffectEvidenceSynthesisSurrogate._status,
         ),
       date =
@@ -540,12 +538,12 @@ internal data class EffectEvidenceSynthesisSurrogate(
           language = this@with.language?.value,
           _language = this@with.language?.toElement(),
           text = this@with.text,
-          contained = this@with.contained.takeUnless { it.all { it == null } },
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          contained = this@with.contained.takeIf { it.isNotEmpty() },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           url = this@with.url?.value,
           _url = this@with.url?.toElement(),
-          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          identifier = this@with.identifier.takeIf { it.isNotEmpty() },
           version = this@with.version?.value,
           _version = this@with.version?.toElement(),
           name = this@with.name?.value,
@@ -558,12 +556,12 @@ internal data class EffectEvidenceSynthesisSurrogate(
           _date = this@with.date?.toElement(),
           publisher = this@with.publisher?.value,
           _publisher = this@with.publisher?.toElement(),
-          contact = this@with.contact.takeUnless { it.all { it == null } },
+          contact = this@with.contact.takeIf { it.isNotEmpty() },
           description = this@with.description?.value,
           _description = this@with.description?.toElement(),
-          note = this@with.note.takeUnless { it.all { it == null } },
-          useContext = this@with.useContext.takeUnless { it.all { it == null } },
-          jurisdiction = this@with.jurisdiction.takeUnless { it.all { it == null } },
+          note = this@with.note.takeIf { it.isNotEmpty() },
+          useContext = this@with.useContext.takeIf { it.isNotEmpty() },
+          jurisdiction = this@with.jurisdiction.takeIf { it.isNotEmpty() },
           copyright = this@with.copyright?.value,
           _copyright = this@with.copyright?.toElement(),
           approvalDate = this@with.approvalDate?.value?.toString(),
@@ -571,12 +569,12 @@ internal data class EffectEvidenceSynthesisSurrogate(
           lastReviewDate = this@with.lastReviewDate?.value?.toString(),
           _lastReviewDate = this@with.lastReviewDate?.toElement(),
           effectivePeriod = this@with.effectivePeriod,
-          topic = this@with.topic.takeUnless { it.all { it == null } },
-          author = this@with.author.takeUnless { it.all { it == null } },
-          editor = this@with.editor.takeUnless { it.all { it == null } },
-          reviewer = this@with.reviewer.takeUnless { it.all { it == null } },
-          endorser = this@with.endorser.takeUnless { it.all { it == null } },
-          relatedArtifact = this@with.relatedArtifact.takeUnless { it.all { it == null } },
+          topic = this@with.topic.takeIf { it.isNotEmpty() },
+          author = this@with.author.takeIf { it.isNotEmpty() },
+          editor = this@with.editor.takeIf { it.isNotEmpty() },
+          reviewer = this@with.reviewer.takeIf { it.isNotEmpty() },
+          endorser = this@with.endorser.takeIf { it.isNotEmpty() },
+          relatedArtifact = this@with.relatedArtifact.takeIf { it.isNotEmpty() },
           synthesisType = this@with.synthesisType,
           studyType = this@with.studyType,
           population = this@with.population,
@@ -584,9 +582,9 @@ internal data class EffectEvidenceSynthesisSurrogate(
           exposureAlternative = this@with.exposureAlternative,
           outcome = this@with.outcome,
           sampleSize = this@with.sampleSize,
-          resultsByExposure = this@with.resultsByExposure.takeUnless { it.all { it == null } },
-          effectEstimate = this@with.effectEstimate.takeUnless { it.all { it == null } },
-          certainty = this@with.certainty.takeUnless { it.all { it == null } },
+          resultsByExposure = this@with.resultsByExposure.takeIf { it.isNotEmpty() },
+          effectEstimate = this@with.effectEstimate.takeIf { it.isNotEmpty() },
+          certainty = this@with.certainty.takeIf { it.isNotEmpty() },
         )
       }
   }

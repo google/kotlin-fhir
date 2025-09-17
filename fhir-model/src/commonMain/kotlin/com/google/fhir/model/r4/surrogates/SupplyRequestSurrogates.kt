@@ -69,8 +69,8 @@ internal data class SupplyRequestParameterSurrogate(
       with(model) {
         SupplyRequestParameterSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           code = this@with.code,
           `value` = this@with.`value`,
         )
@@ -87,7 +87,7 @@ internal data class SupplyRequestItemSurrogate(
     SupplyRequest.Item.from(
       this@SupplyRequestItemSurrogate.itemCodeableConcept,
       this@SupplyRequestItemSurrogate.itemReference,
-    )!! !!
+    )!!
 
   public companion object {
     public fun fromModel(model: SupplyRequest.Item): SupplyRequestItemSurrogate =
@@ -215,7 +215,7 @@ internal data class SupplyRequestSurrogate(
       status =
         this@SupplyRequestSurrogate.status?.let {
           Enumeration.of(
-            com.google.fhir.model.r4.SupplyRequest.SupplyRequestStatus.fromCode(it!!),
+            SupplyRequest.SupplyRequestStatus.fromCode(it),
             this@SupplyRequestSurrogate._status,
           )
         },
@@ -223,7 +223,7 @@ internal data class SupplyRequestSurrogate(
       priority =
         this@SupplyRequestSurrogate.priority?.let {
           Enumeration.of(
-            com.google.fhir.model.r4.SupplyRequest.RequestPriority.fromCode(it!!),
+            SupplyRequest.RequestPriority.fromCode(it),
             this@SupplyRequestSurrogate._priority,
           )
         },
@@ -255,10 +255,10 @@ internal data class SupplyRequestSurrogate(
           language = this@with.language?.value,
           _language = this@with.language?.toElement(),
           text = this@with.text,
-          contained = this@with.contained.takeUnless { it.all { it == null } },
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          contained = this@with.contained.takeIf { it.isNotEmpty() },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
+          identifier = this@with.identifier.takeIf { it.isNotEmpty() },
           status = this@with.status?.value?.getCode(),
           _status = this@with.status?.toElement(),
           category = this@with.category,
@@ -266,14 +266,14 @@ internal data class SupplyRequestSurrogate(
           _priority = this@with.priority?.toElement(),
           item = this@with.item,
           quantity = this@with.quantity,
-          parameter = this@with.parameter.takeUnless { it.all { it == null } },
+          parameter = this@with.parameter.takeIf { it.isNotEmpty() },
           occurrence = this@with.occurrence,
           authoredOn = this@with.authoredOn?.value?.toString(),
           _authoredOn = this@with.authoredOn?.toElement(),
           requester = this@with.requester,
-          supplier = this@with.supplier.takeUnless { it.all { it == null } },
-          reasonCode = this@with.reasonCode.takeUnless { it.all { it == null } },
-          reasonReference = this@with.reasonReference.takeUnless { it.all { it == null } },
+          supplier = this@with.supplier.takeIf { it.isNotEmpty() },
+          reasonCode = this@with.reasonCode.takeIf { it.isNotEmpty() },
+          reasonReference = this@with.reasonReference.takeIf { it.isNotEmpty() },
           deliverFrom = this@with.deliverFrom,
           deliverTo = this@with.deliverTo,
         )

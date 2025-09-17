@@ -44,6 +44,7 @@ import com.google.fhir.model.r5.Url
 import com.google.fhir.model.r5.UsageContext
 import com.google.fhir.model.r5.serializers.DoubleSerializer
 import com.google.fhir.model.r5.serializers.LocalTimeSerializer
+import com.google.fhir.model.r5.terminologies.PublicationStatus
 import kotlin.Boolean as KotlinBoolean
 import kotlin.String as KotlinString
 import kotlin.Suppress
@@ -103,9 +104,7 @@ internal data class RequirementsStatementSurrogate(
             )
             .map { (value, element) ->
               Enumeration.of(
-                value.let {
-                  com.google.fhir.model.r5.Requirements.ConformanceExpectation.fromCode(it!!)!!
-                },
+                value.let { Requirements.ConformanceExpectation.fromCode(it!!) },
                 element,
               )
             }
@@ -171,8 +170,8 @@ internal data class RequirementsStatementSurrogate(
       with(model) {
         RequirementsStatementSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           key = this@with.key.value,
           _key = this@with.key.toElement(),
           label = this@with.label?.value,
@@ -218,7 +217,7 @@ internal data class RequirementsStatementSurrogate(
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
               ?.toMutableList(),
-          source = this@with.source.takeUnless { it.all { it == null } },
+          source = this@with.source.takeIf { it.isNotEmpty() },
         )
       }
   }
@@ -322,9 +321,7 @@ internal data class RequirementsSurrogate(
       title = R5String.of(this@RequirementsSurrogate.title, this@RequirementsSurrogate._title),
       status =
         Enumeration.of(
-          com.google.fhir.model.r5.terminologies.PublicationStatus.fromCode(
-            this@RequirementsSurrogate.status!!
-          ),
+          PublicationStatus.fromCode(this@RequirementsSurrogate.status!!),
           this@RequirementsSurrogate._status,
         ),
       experimental =
@@ -415,12 +412,12 @@ internal data class RequirementsSurrogate(
           language = this@with.language?.value,
           _language = this@with.language?.toElement(),
           text = this@with.text,
-          contained = this@with.contained.takeUnless { it.all { it == null } },
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          contained = this@with.contained.takeIf { it.isNotEmpty() },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           url = this@with.url?.value,
           _url = this@with.url?.toElement(),
-          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          identifier = this@with.identifier.takeIf { it.isNotEmpty() },
           version = this@with.version?.value,
           _version = this@with.version?.toElement(),
           versionAlgorithm = this@with.versionAlgorithm,
@@ -436,11 +433,11 @@ internal data class RequirementsSurrogate(
           _date = this@with.date?.toElement(),
           publisher = this@with.publisher?.value,
           _publisher = this@with.publisher?.toElement(),
-          contact = this@with.contact.takeUnless { it.all { it == null } },
+          contact = this@with.contact.takeIf { it.isNotEmpty() },
           description = this@with.description?.value,
           _description = this@with.description?.toElement(),
-          useContext = this@with.useContext.takeUnless { it.all { it == null } },
-          jurisdiction = this@with.jurisdiction.takeUnless { it.all { it == null } },
+          useContext = this@with.useContext.takeIf { it.isNotEmpty() },
+          jurisdiction = this@with.jurisdiction.takeIf { it.isNotEmpty() },
           purpose = this@with.purpose?.value,
           _purpose = this@with.purpose?.toElement(),
           copyright = this@with.copyright?.value,
@@ -477,7 +474,7 @@ internal data class RequirementsSurrogate(
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
               ?.toMutableList(),
-          statement = this@with.statement.takeUnless { it.all { it == null } },
+          statement = this@with.statement.takeIf { it.isNotEmpty() },
         )
       }
   }

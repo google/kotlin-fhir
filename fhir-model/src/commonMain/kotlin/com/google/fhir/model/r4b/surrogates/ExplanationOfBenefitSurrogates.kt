@@ -48,6 +48,8 @@ import com.google.fhir.model.r4b.UnsignedInt
 import com.google.fhir.model.r4b.Uri
 import com.google.fhir.model.r4b.serializers.DoubleSerializer
 import com.google.fhir.model.r4b.serializers.LocalTimeSerializer
+import com.google.fhir.model.r4b.terminologies.NoteType
+import com.google.fhir.model.r4b.terminologies.RemittanceOutcome
 import kotlin.Boolean as KotlinBoolean
 import kotlin.Double
 import kotlin.Int
@@ -84,8 +86,8 @@ internal data class ExplanationOfBenefitRelatedSurrogate(
       with(model) {
         ExplanationOfBenefitRelatedSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           claim = this@with.claim,
           relationship = this@with.relationship,
           reference = this@with.reference,
@@ -117,8 +119,8 @@ internal data class ExplanationOfBenefitPayeeSurrogate(
       with(model) {
         ExplanationOfBenefitPayeeSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           type = this@with.type,
           party = this@with.party,
         )
@@ -167,8 +169,8 @@ internal data class ExplanationOfBenefitCareTeamSurrogate(
       with(model) {
         ExplanationOfBenefitCareTeamSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           sequence = this@with.sequence.value,
           _sequence = this@with.sequence.toElement(),
           provider = this@with.provider,
@@ -219,8 +221,8 @@ internal data class ExplanationOfBenefitSupportingInfoSurrogate(
       with(model) {
         ExplanationOfBenefitSupportingInfoSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           sequence = this@with.sequence.value,
           _sequence = this@with.sequence.toElement(),
           category = this@with.category,
@@ -269,12 +271,12 @@ internal data class ExplanationOfBenefitDiagnosisSurrogate(
       with(model) {
         ExplanationOfBenefitDiagnosisSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           sequence = this@with.sequence.value,
           _sequence = this@with.sequence.toElement(),
           diagnosis = this@with.diagnosis,
-          type = this@with.type.takeUnless { it.all { it == null } },
+          type = this@with.type.takeIf { it.isNotEmpty() },
           onAdmission = this@with.onAdmission,
           packageCode = this@with.packageCode,
         )
@@ -323,15 +325,15 @@ internal data class ExplanationOfBenefitProcedureSurrogate(
       with(model) {
         ExplanationOfBenefitProcedureSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           sequence = this@with.sequence.value,
           _sequence = this@with.sequence.toElement(),
-          type = this@with.type.takeUnless { it.all { it == null } },
+          type = this@with.type.takeIf { it.isNotEmpty() },
           date = this@with.date?.value?.toString(),
           _date = this@with.date?.toElement(),
           procedure = this@with.procedure,
-          udi = this@with.udi.takeUnless { it.all { it == null } },
+          udi = this@with.udi.takeIf { it.isNotEmpty() },
         )
       }
   }
@@ -385,8 +387,8 @@ internal data class ExplanationOfBenefitInsuranceSurrogate(
       with(model) {
         ExplanationOfBenefitInsuranceSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           focal = this@with.focal.value,
           _focal = this@with.focal.toElement(),
           coverage = this@with.coverage,
@@ -438,8 +440,8 @@ internal data class ExplanationOfBenefitAccidentSurrogate(
       with(model) {
         ExplanationOfBenefitAccidentSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           date = this@with.date?.value?.toString(),
           _date = this@with.date?.toElement(),
           type = this@with.type,
@@ -604,8 +606,8 @@ internal data class ExplanationOfBenefitItemSurrogate(
       with(model) {
         ExplanationOfBenefitItemSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           sequence = this@with.sequence.value,
           _sequence = this@with.sequence.toElement(),
           careTeamSequence =
@@ -655,8 +657,8 @@ internal data class ExplanationOfBenefitItemSurrogate(
           revenue = this@with.revenue,
           category = this@with.category,
           productOrService = this@with.productOrService,
-          modifier = this@with.modifier.takeUnless { it.all { it == null } },
-          programCode = this@with.programCode.takeUnless { it.all { it == null } },
+          modifier = this@with.modifier.takeIf { it.isNotEmpty() },
+          programCode = this@with.programCode.takeIf { it.isNotEmpty() },
           serviced = this@with.serviced,
           location = this@with.location,
           quantity = this@with.quantity,
@@ -664,10 +666,10 @@ internal data class ExplanationOfBenefitItemSurrogate(
           factor = this@with.factor?.value,
           _factor = this@with.factor?.toElement(),
           net = this@with.net,
-          udi = this@with.udi.takeUnless { it.all { it == null } },
+          udi = this@with.udi.takeIf { it.isNotEmpty() },
           bodySite = this@with.bodySite,
-          subSite = this@with.subSite.takeUnless { it.all { it == null } },
-          encounter = this@with.encounter.takeUnless { it.all { it == null } },
+          subSite = this@with.subSite.takeIf { it.isNotEmpty() },
+          encounter = this@with.encounter.takeIf { it.isNotEmpty() },
           noteNumber =
             this@with.noteNumber
               .map { it.value }
@@ -679,8 +681,8 @@ internal data class ExplanationOfBenefitItemSurrogate(
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
               ?.toMutableList(),
-          adjudication = this@with.adjudication.takeUnless { it.all { it == null } },
-          detail = this@with.detail.takeUnless { it.all { it == null } },
+          adjudication = this@with.adjudication.takeIf { it.isNotEmpty() },
+          detail = this@with.detail.takeIf { it.isNotEmpty() },
         )
       }
   }
@@ -720,8 +722,8 @@ internal data class ExplanationOfBenefitItemAdjudicationSurrogate(
       with(model) {
         ExplanationOfBenefitItemAdjudicationSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           category = this@with.category,
           reason = this@with.reason,
           amount = this@with.amount,
@@ -807,21 +809,21 @@ internal data class ExplanationOfBenefitItemDetailSurrogate(
       with(model) {
         ExplanationOfBenefitItemDetailSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           sequence = this@with.sequence.value,
           _sequence = this@with.sequence.toElement(),
           revenue = this@with.revenue,
           category = this@with.category,
           productOrService = this@with.productOrService,
-          modifier = this@with.modifier.takeUnless { it.all { it == null } },
-          programCode = this@with.programCode.takeUnless { it.all { it == null } },
+          modifier = this@with.modifier.takeIf { it.isNotEmpty() },
+          programCode = this@with.programCode.takeIf { it.isNotEmpty() },
           quantity = this@with.quantity,
           unitPrice = this@with.unitPrice,
           factor = this@with.factor?.value,
           _factor = this@with.factor?.toElement(),
           net = this@with.net,
-          udi = this@with.udi.takeUnless { it.all { it == null } },
+          udi = this@with.udi.takeIf { it.isNotEmpty() },
           noteNumber =
             this@with.noteNumber
               .map { it.value }
@@ -833,8 +835,8 @@ internal data class ExplanationOfBenefitItemDetailSurrogate(
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
               ?.toMutableList(),
-          adjudication = this@with.adjudication.takeUnless { it.all { it == null } },
-          subDetail = this@with.subDetail.takeUnless { it.all { it == null } },
+          adjudication = this@with.adjudication.takeIf { it.isNotEmpty() },
+          subDetail = this@with.subDetail.takeIf { it.isNotEmpty() },
         )
       }
   }
@@ -920,21 +922,21 @@ internal data class ExplanationOfBenefitItemDetailSubDetailSurrogate(
       with(model) {
         ExplanationOfBenefitItemDetailSubDetailSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           sequence = this@with.sequence.value,
           _sequence = this@with.sequence.toElement(),
           revenue = this@with.revenue,
           category = this@with.category,
           productOrService = this@with.productOrService,
-          modifier = this@with.modifier.takeUnless { it.all { it == null } },
-          programCode = this@with.programCode.takeUnless { it.all { it == null } },
+          modifier = this@with.modifier.takeIf { it.isNotEmpty() },
+          programCode = this@with.programCode.takeIf { it.isNotEmpty() },
           quantity = this@with.quantity,
           unitPrice = this@with.unitPrice,
           factor = this@with.factor?.value,
           _factor = this@with.factor?.toElement(),
           net = this@with.net,
-          udi = this@with.udi.takeUnless { it.all { it == null } },
+          udi = this@with.udi.takeIf { it.isNotEmpty() },
           noteNumber =
             this@with.noteNumber
               .map { it.value }
@@ -946,7 +948,7 @@ internal data class ExplanationOfBenefitItemDetailSubDetailSurrogate(
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
               ?.toMutableList(),
-          adjudication = this@with.adjudication.takeUnless { it.all { it == null } },
+          adjudication = this@with.adjudication.takeIf { it.isNotEmpty() },
         )
       }
   }
@@ -1078,8 +1080,8 @@ internal data class ExplanationOfBenefitAddItemSurrogate(
       with(model) {
         ExplanationOfBenefitAddItemSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           itemSequence =
             this@with.itemSequence
               .map { it.value }
@@ -1113,10 +1115,10 @@ internal data class ExplanationOfBenefitAddItemSurrogate(
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
               ?.toMutableList(),
-          provider = this@with.provider.takeUnless { it.all { it == null } },
+          provider = this@with.provider.takeIf { it.isNotEmpty() },
           productOrService = this@with.productOrService,
-          modifier = this@with.modifier.takeUnless { it.all { it == null } },
-          programCode = this@with.programCode.takeUnless { it.all { it == null } },
+          modifier = this@with.modifier.takeIf { it.isNotEmpty() },
+          programCode = this@with.programCode.takeIf { it.isNotEmpty() },
           serviced = this@with.serviced,
           location = this@with.location,
           quantity = this@with.quantity,
@@ -1125,7 +1127,7 @@ internal data class ExplanationOfBenefitAddItemSurrogate(
           _factor = this@with.factor?.toElement(),
           net = this@with.net,
           bodySite = this@with.bodySite,
-          subSite = this@with.subSite.takeUnless { it.all { it == null } },
+          subSite = this@with.subSite.takeIf { it.isNotEmpty() },
           noteNumber =
             this@with.noteNumber
               .map { it.value }
@@ -1137,8 +1139,8 @@ internal data class ExplanationOfBenefitAddItemSurrogate(
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
               ?.toMutableList(),
-          adjudication = this@with.adjudication.takeUnless { it.all { it == null } },
-          detail = this@with.detail.takeUnless { it.all { it == null } },
+          adjudication = this@with.adjudication.takeIf { it.isNotEmpty() },
+          detail = this@with.detail.takeIf { it.isNotEmpty() },
         )
       }
   }
@@ -1205,10 +1207,10 @@ internal data class ExplanationOfBenefitAddItemDetailSurrogate(
       with(model) {
         ExplanationOfBenefitAddItemDetailSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           productOrService = this@with.productOrService,
-          modifier = this@with.modifier.takeUnless { it.all { it == null } },
+          modifier = this@with.modifier.takeIf { it.isNotEmpty() },
           quantity = this@with.quantity,
           unitPrice = this@with.unitPrice,
           factor = this@with.factor?.value,
@@ -1225,8 +1227,8 @@ internal data class ExplanationOfBenefitAddItemDetailSurrogate(
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
               ?.toMutableList(),
-          adjudication = this@with.adjudication.takeUnless { it.all { it == null } },
-          subDetail = this@with.subDetail.takeUnless { it.all { it == null } },
+          adjudication = this@with.adjudication.takeIf { it.isNotEmpty() },
+          subDetail = this@with.subDetail.takeIf { it.isNotEmpty() },
         )
       }
   }
@@ -1300,10 +1302,10 @@ internal data class ExplanationOfBenefitAddItemDetailSubDetailSurrogate(
       with(model) {
         ExplanationOfBenefitAddItemDetailSubDetailSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           productOrService = this@with.productOrService,
-          modifier = this@with.modifier.takeUnless { it.all { it == null } },
+          modifier = this@with.modifier.takeIf { it.isNotEmpty() },
           quantity = this@with.quantity,
           unitPrice = this@with.unitPrice,
           factor = this@with.factor?.value,
@@ -1320,7 +1322,7 @@ internal data class ExplanationOfBenefitAddItemDetailSubDetailSurrogate(
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
               ?.toMutableList(),
-          adjudication = this@with.adjudication.takeUnless { it.all { it == null } },
+          adjudication = this@with.adjudication.takeIf { it.isNotEmpty() },
         )
       }
   }
@@ -1349,8 +1351,8 @@ internal data class ExplanationOfBenefitTotalSurrogate(
       with(model) {
         ExplanationOfBenefitTotalSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           category = this@with.category,
           amount = this@with.amount,
         )
@@ -1396,8 +1398,8 @@ internal data class ExplanationOfBenefitPaymentSurrogate(
       with(model) {
         ExplanationOfBenefitPaymentSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           type = this@with.type,
           adjustment = this@with.adjustment,
           adjustmentReason = this@with.adjustmentReason,
@@ -1436,10 +1438,7 @@ internal data class ExplanationOfBenefitProcessNoteSurrogate(
         ),
       type =
         this@ExplanationOfBenefitProcessNoteSurrogate.type?.let {
-          Enumeration.of(
-            com.google.fhir.model.r4b.terminologies.NoteType.fromCode(it!!),
-            this@ExplanationOfBenefitProcessNoteSurrogate._type,
-          )
+          Enumeration.of(NoteType.fromCode(it), this@ExplanationOfBenefitProcessNoteSurrogate._type)
         },
       text =
         R4bString.of(
@@ -1456,8 +1455,8 @@ internal data class ExplanationOfBenefitProcessNoteSurrogate(
       with(model) {
         ExplanationOfBenefitProcessNoteSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           number = this@with.number?.value,
           _number = this@with.number?.toElement(),
           type = this@with.type?.value?.getCode(),
@@ -1522,8 +1521,8 @@ internal data class ExplanationOfBenefitBenefitBalanceSurrogate(
       with(model) {
         ExplanationOfBenefitBenefitBalanceSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           category = this@with.category,
           excluded = this@with.excluded?.value,
           _excluded = this@with.excluded?.toElement(),
@@ -1534,7 +1533,7 @@ internal data class ExplanationOfBenefitBenefitBalanceSurrogate(
           network = this@with.network,
           unit = this@with.unit,
           term = this@with.term,
-          financial = this@with.financial.takeUnless { it.all { it == null } },
+          financial = this@with.financial.takeIf { it.isNotEmpty() },
         )
       }
   }
@@ -1569,8 +1568,8 @@ internal data class ExplanationOfBenefitBenefitBalanceFinancialSurrogate(
       with(model) {
         ExplanationOfBenefitBenefitBalanceFinancialSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           type = this@with.type,
           allowed = this@with.allowed,
           used = this@with.used,
@@ -1660,7 +1659,7 @@ internal data class ExplanationOfBenefitDiagnosisDiagnosisSurrogate(
     ExplanationOfBenefit.Diagnosis.Diagnosis.from(
       this@ExplanationOfBenefitDiagnosisDiagnosisSurrogate.diagnosisCodeableConcept,
       this@ExplanationOfBenefitDiagnosisDiagnosisSurrogate.diagnosisReference,
-    )!! !!
+    )!!
 
   public companion object {
     public fun fromModel(
@@ -1684,7 +1683,7 @@ internal data class ExplanationOfBenefitProcedureProcedureSurrogate(
     ExplanationOfBenefit.Procedure.Procedure.from(
       this@ExplanationOfBenefitProcedureProcedureSurrogate.procedureCodeableConcept,
       this@ExplanationOfBenefitProcedureProcedureSurrogate.procedureReference,
-    )!! !!
+    )!!
 
   public companion object {
     public fun fromModel(
@@ -1985,7 +1984,7 @@ internal data class ExplanationOfBenefitSurrogate(
       identifier = this@ExplanationOfBenefitSurrogate.identifier ?: mutableListOf(),
       status =
         Enumeration.of(
-          com.google.fhir.model.r4b.ExplanationOfBenefit.ExplanationOfBenefitStatus.fromCode(
+          ExplanationOfBenefit.ExplanationOfBenefitStatus.fromCode(
             this@ExplanationOfBenefitSurrogate.status!!
           ),
           this@ExplanationOfBenefitSurrogate._status,
@@ -1994,9 +1993,7 @@ internal data class ExplanationOfBenefitSurrogate(
       subType = this@ExplanationOfBenefitSurrogate.subType,
       use =
         Enumeration.of(
-          com.google.fhir.model.r4b.ExplanationOfBenefit.Use.fromCode(
-            this@ExplanationOfBenefitSurrogate.use!!
-          ),
+          ExplanationOfBenefit.Use.fromCode(this@ExplanationOfBenefitSurrogate.use!!),
           this@ExplanationOfBenefitSurrogate._use,
         ),
       patient = this@ExplanationOfBenefitSurrogate.patient,
@@ -2022,9 +2019,7 @@ internal data class ExplanationOfBenefitSurrogate(
       claimResponse = this@ExplanationOfBenefitSurrogate.claimResponse,
       outcome =
         Enumeration.of(
-          com.google.fhir.model.r4b.terminologies.RemittanceOutcome.fromCode(
-            this@ExplanationOfBenefitSurrogate.outcome!!
-          ),
+          RemittanceOutcome.fromCode(this@ExplanationOfBenefitSurrogate.outcome!!),
           this@ExplanationOfBenefitSurrogate._outcome,
         ),
       disposition =
@@ -2083,10 +2078,10 @@ internal data class ExplanationOfBenefitSurrogate(
           language = this@with.language?.value,
           _language = this@with.language?.toElement(),
           text = this@with.text,
-          contained = this@with.contained.takeUnless { it.all { it == null } },
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          contained = this@with.contained.takeIf { it.isNotEmpty() },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
+          identifier = this@with.identifier.takeIf { it.isNotEmpty() },
           status = this@with.status.value?.getCode(),
           _status = this@with.status.toElement(),
           type = this@with.type,
@@ -2103,7 +2098,7 @@ internal data class ExplanationOfBenefitSurrogate(
           priority = this@with.priority,
           fundsReserveRequested = this@with.fundsReserveRequested,
           fundsReserve = this@with.fundsReserve,
-          related = this@with.related.takeUnless { it.all { it == null } },
+          related = this@with.related.takeIf { it.isNotEmpty() },
           prescription = this@with.prescription,
           originalPrescription = this@with.originalPrescription,
           payee = this@with.payee,
@@ -2126,25 +2121,25 @@ internal data class ExplanationOfBenefitSurrogate(
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
               ?.toMutableList(),
-          preAuthRefPeriod = this@with.preAuthRefPeriod.takeUnless { it.all { it == null } },
-          careTeam = this@with.careTeam.takeUnless { it.all { it == null } },
-          supportingInfo = this@with.supportingInfo.takeUnless { it.all { it == null } },
-          diagnosis = this@with.diagnosis.takeUnless { it.all { it == null } },
-          procedure = this@with.procedure.takeUnless { it.all { it == null } },
+          preAuthRefPeriod = this@with.preAuthRefPeriod.takeIf { it.isNotEmpty() },
+          careTeam = this@with.careTeam.takeIf { it.isNotEmpty() },
+          supportingInfo = this@with.supportingInfo.takeIf { it.isNotEmpty() },
+          diagnosis = this@with.diagnosis.takeIf { it.isNotEmpty() },
+          procedure = this@with.procedure.takeIf { it.isNotEmpty() },
           precedence = this@with.precedence?.value,
           _precedence = this@with.precedence?.toElement(),
-          insurance = this@with.insurance.takeUnless { it.all { it == null } },
+          insurance = this@with.insurance.takeIf { it.isNotEmpty() },
           accident = this@with.accident,
-          item = this@with.item.takeUnless { it.all { it == null } },
-          addItem = this@with.addItem.takeUnless { it.all { it == null } },
-          adjudication = this@with.adjudication.takeUnless { it.all { it == null } },
-          total = this@with.total.takeUnless { it.all { it == null } },
+          item = this@with.item.takeIf { it.isNotEmpty() },
+          addItem = this@with.addItem.takeIf { it.isNotEmpty() },
+          adjudication = this@with.adjudication.takeIf { it.isNotEmpty() },
+          total = this@with.total.takeIf { it.isNotEmpty() },
           payment = this@with.payment,
           formCode = this@with.formCode,
           form = this@with.form,
-          processNote = this@with.processNote.takeUnless { it.all { it == null } },
+          processNote = this@with.processNote.takeIf { it.isNotEmpty() },
           benefitPeriod = this@with.benefitPeriod,
-          benefitBalance = this@with.benefitBalance.takeUnless { it.all { it == null } },
+          benefitBalance = this@with.benefitBalance.takeIf { it.isNotEmpty() },
         )
       }
   }

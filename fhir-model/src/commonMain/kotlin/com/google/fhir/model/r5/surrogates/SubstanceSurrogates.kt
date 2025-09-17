@@ -69,8 +69,8 @@ internal data class SubstanceIngredientSurrogate(
       with(model) {
         SubstanceIngredientSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           quantity = this@with.quantity,
           substance = this@with.substance,
         )
@@ -87,7 +87,7 @@ internal data class SubstanceIngredientSubstanceSurrogate(
     Substance.Ingredient.Substance.from(
       this@SubstanceIngredientSubstanceSurrogate.substanceCodeableConcept,
       this@SubstanceIngredientSubstanceSurrogate.substanceReference,
-    )!! !!
+    )!!
 
   public companion object {
     public fun fromModel(
@@ -145,7 +145,7 @@ internal data class SubstanceSurrogate(
       status =
         this@SubstanceSurrogate.status?.let {
           Enumeration.of(
-            com.google.fhir.model.r5.Substance.FHIRSubstanceStatus.fromCode(it!!),
+            Substance.FHIRSubstanceStatus.fromCode(it),
             this@SubstanceSurrogate._status,
           )
         },
@@ -173,22 +173,22 @@ internal data class SubstanceSurrogate(
           language = this@with.language?.value,
           _language = this@with.language?.toElement(),
           text = this@with.text,
-          contained = this@with.contained.takeUnless { it.all { it == null } },
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          contained = this@with.contained.takeIf { it.isNotEmpty() },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
+          identifier = this@with.identifier.takeIf { it.isNotEmpty() },
           instance = this@with.instance.value,
           _instance = this@with.instance.toElement(),
           status = this@with.status?.value?.getCode(),
           _status = this@with.status?.toElement(),
-          category = this@with.category.takeUnless { it.all { it == null } },
+          category = this@with.category.takeIf { it.isNotEmpty() },
           code = this@with.code,
           description = this@with.description?.value,
           _description = this@with.description?.toElement(),
           expiry = this@with.expiry?.value?.toString(),
           _expiry = this@with.expiry?.toElement(),
           quantity = this@with.quantity,
-          ingredient = this@with.ingredient.takeUnless { it.all { it == null } },
+          ingredient = this@with.ingredient.takeIf { it.isNotEmpty() },
         )
       }
   }

@@ -41,6 +41,7 @@ import com.google.fhir.model.r5.Resource
 import com.google.fhir.model.r5.Uri
 import com.google.fhir.model.r5.serializers.DoubleSerializer
 import com.google.fhir.model.r5.serializers.LocalTimeSerializer
+import com.google.fhir.model.r5.terminologies.AdministrativeGender
 import kotlin.Boolean as KotlinBoolean
 import kotlin.String
 import kotlin.Suppress
@@ -76,8 +77,8 @@ internal data class RelatedPersonCommunicationSurrogate(
       with(model) {
         RelatedPersonCommunicationSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           language = this@with.language,
           preferred = this@with.preferred?.value,
           _preferred = this@with.preferred?.toElement(),
@@ -138,10 +139,7 @@ internal data class RelatedPersonSurrogate(
       telecom = this@RelatedPersonSurrogate.telecom ?: mutableListOf(),
       gender =
         this@RelatedPersonSurrogate.gender?.let {
-          Enumeration.of(
-            com.google.fhir.model.r5.terminologies.AdministrativeGender.fromCode(it!!),
-            this@RelatedPersonSurrogate._gender,
-          )
+          Enumeration.of(AdministrativeGender.fromCode(it), this@RelatedPersonSurrogate._gender)
         },
       birthDate =
         Date.of(
@@ -165,24 +163,24 @@ internal data class RelatedPersonSurrogate(
           language = this@with.language?.value,
           _language = this@with.language?.toElement(),
           text = this@with.text,
-          contained = this@with.contained.takeUnless { it.all { it == null } },
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          contained = this@with.contained.takeIf { it.isNotEmpty() },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
+          identifier = this@with.identifier.takeIf { it.isNotEmpty() },
           active = this@with.active?.value,
           _active = this@with.active?.toElement(),
           patient = this@with.patient,
-          relationship = this@with.relationship.takeUnless { it.all { it == null } },
-          name = this@with.name.takeUnless { it.all { it == null } },
-          telecom = this@with.telecom.takeUnless { it.all { it == null } },
+          relationship = this@with.relationship.takeIf { it.isNotEmpty() },
+          name = this@with.name.takeIf { it.isNotEmpty() },
+          telecom = this@with.telecom.takeIf { it.isNotEmpty() },
           gender = this@with.gender?.value?.getCode(),
           _gender = this@with.gender?.toElement(),
           birthDate = this@with.birthDate?.value?.toString(),
           _birthDate = this@with.birthDate?.toElement(),
-          address = this@with.address.takeUnless { it.all { it == null } },
-          photo = this@with.photo.takeUnless { it.all { it == null } },
+          address = this@with.address.takeIf { it.isNotEmpty() },
+          photo = this@with.photo.takeIf { it.isNotEmpty() },
           period = this@with.period,
-          communication = this@with.communication.takeUnless { it.all { it == null } },
+          communication = this@with.communication.takeIf { it.isNotEmpty() },
         )
       }
   }

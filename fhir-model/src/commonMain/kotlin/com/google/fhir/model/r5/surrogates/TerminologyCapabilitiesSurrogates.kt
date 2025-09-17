@@ -42,6 +42,7 @@ import com.google.fhir.model.r5.Url
 import com.google.fhir.model.r5.UsageContext
 import com.google.fhir.model.r5.serializers.DoubleSerializer
 import com.google.fhir.model.r5.serializers.LocalTimeSerializer
+import com.google.fhir.model.r5.terminologies.PublicationStatus
 import kotlin.Boolean as KotlinBoolean
 import kotlin.String as KotlinString
 import kotlin.Suppress
@@ -84,8 +85,8 @@ internal data class TerminologyCapabilitiesSoftwareSurrogate(
       with(model) {
         TerminologyCapabilitiesSoftwareSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           name = this@with.name.value,
           _name = this@with.name.toElement(),
           version = this@with.version?.value,
@@ -130,8 +131,8 @@ internal data class TerminologyCapabilitiesImplementationSurrogate(
       with(model) {
         TerminologyCapabilitiesImplementationSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           description = this@with.description.value,
           _description = this@with.description.toElement(),
           url = this@with.url?.value,
@@ -168,7 +169,7 @@ internal data class TerminologyCapabilitiesCodeSystemSurrogate(
       version = this@TerminologyCapabilitiesCodeSystemSurrogate.version ?: mutableListOf(),
       content =
         Enumeration.of(
-          com.google.fhir.model.r5.TerminologyCapabilities.CodeSystemContentMode.fromCode(
+          TerminologyCapabilities.CodeSystemContentMode.fromCode(
             this@TerminologyCapabilitiesCodeSystemSurrogate.content!!
           ),
           this@TerminologyCapabilitiesCodeSystemSurrogate._content,
@@ -187,11 +188,11 @@ internal data class TerminologyCapabilitiesCodeSystemSurrogate(
       with(model) {
         TerminologyCapabilitiesCodeSystemSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           uri = this@with.uri?.value,
           _uri = this@with.uri?.toElement(),
-          version = this@with.version.takeUnless { it.all { it == null } },
+          version = this@with.version.takeIf { it.isNotEmpty() },
           content = this@with.content.value?.getCode(),
           _content = this@with.content.toElement(),
           subsumption = this@with.subsumption?.value,
@@ -259,9 +260,7 @@ internal data class TerminologyCapabilitiesCodeSystemVersionSurrogate(
             )
             .map { (value, element) ->
               Enumeration.of(
-                value.let {
-                  com.google.fhir.model.r5.TerminologyCapabilities.CommonLanguages.fromCode(it!!)!!
-                },
+                value.let { TerminologyCapabilities.CommonLanguages.fromCode(it!!) },
                 element,
               )
             }
@@ -297,8 +296,8 @@ internal data class TerminologyCapabilitiesCodeSystemVersionSurrogate(
       with(model) {
         TerminologyCapabilitiesCodeSystemVersionSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           code = this@with.code?.value,
           _code = this@with.code?.toElement(),
           isDefault = this@with.isDefault?.value,
@@ -316,7 +315,7 @@ internal data class TerminologyCapabilitiesCodeSystemVersionSurrogate(
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
               ?.toMutableList(),
-          filter = this@with.filter.takeUnless { it.all { it == null } },
+          filter = this@with.filter.takeIf { it.isNotEmpty() },
           `property` =
             this@with.`property`
               .map { it.value }
@@ -385,8 +384,8 @@ internal data class TerminologyCapabilitiesCodeSystemVersionFilterSurrogate(
       with(model) {
         TerminologyCapabilitiesCodeSystemVersionFilterSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           code = this@with.code.value,
           _code = this@with.code.toElement(),
           op = this@with.op.map { it.value }.toMutableList().takeUnless { it.all { it == null } },
@@ -452,15 +451,15 @@ internal data class TerminologyCapabilitiesExpansionSurrogate(
       with(model) {
         TerminologyCapabilitiesExpansionSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           hierarchical = this@with.hierarchical?.value,
           _hierarchical = this@with.hierarchical?.toElement(),
           paging = this@with.paging?.value,
           _paging = this@with.paging?.toElement(),
           incomplete = this@with.incomplete?.value,
           _incomplete = this@with.incomplete?.toElement(),
-          parameter = this@with.parameter.takeUnless { it.all { it == null } },
+          parameter = this@with.parameter.takeIf { it.isNotEmpty() },
           textFilter = this@with.textFilter?.value,
           _textFilter = this@with.textFilter?.toElement(),
         )
@@ -505,8 +504,8 @@ internal data class TerminologyCapabilitiesExpansionParameterSurrogate(
       with(model) {
         TerminologyCapabilitiesExpansionParameterSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           name = this@with.name.value,
           _name = this@with.name.toElement(),
           documentation = this@with.documentation?.value,
@@ -544,8 +543,8 @@ internal data class TerminologyCapabilitiesValidateCodeSurrogate(
       with(model) {
         TerminologyCapabilitiesValidateCodeSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           translations = this@with.translations.value,
           _translations = this@with.translations.toElement(),
         )
@@ -581,8 +580,8 @@ internal data class TerminologyCapabilitiesTranslationSurrogate(
       with(model) {
         TerminologyCapabilitiesTranslationSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           needsMap = this@with.needsMap.value,
           _needsMap = this@with.needsMap.toElement(),
         )
@@ -618,8 +617,8 @@ internal data class TerminologyCapabilitiesClosureSurrogate(
       with(model) {
         TerminologyCapabilitiesClosureSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           translation = this@with.translation?.value,
           _translation = this@with.translation?.toElement(),
         )
@@ -754,9 +753,7 @@ internal data class TerminologyCapabilitiesSurrogate(
         ),
       status =
         Enumeration.of(
-          com.google.fhir.model.r5.terminologies.PublicationStatus.fromCode(
-            this@TerminologyCapabilitiesSurrogate.status!!
-          ),
+          PublicationStatus.fromCode(this@TerminologyCapabilitiesSurrogate.status!!),
           this@TerminologyCapabilitiesSurrogate._status,
         ),
       experimental =
@@ -799,7 +796,7 @@ internal data class TerminologyCapabilitiesSurrogate(
         ),
       kind =
         Enumeration.of(
-          com.google.fhir.model.r5.TerminologyCapabilities.CapabilityStatementKind.fromCode(
+          TerminologyCapabilities.CapabilityStatementKind.fromCode(
             this@TerminologyCapabilitiesSurrogate.kind!!
           ),
           this@TerminologyCapabilitiesSurrogate._kind,
@@ -816,7 +813,7 @@ internal data class TerminologyCapabilitiesSurrogate(
       codeSearch =
         this@TerminologyCapabilitiesSurrogate.codeSearch?.let {
           Enumeration.of(
-            com.google.fhir.model.r5.TerminologyCapabilities.CodeSearchSupport.fromCode(it!!),
+            TerminologyCapabilities.CodeSearchSupport.fromCode(it),
             this@TerminologyCapabilitiesSurrogate._codeSearch,
           )
         },
@@ -836,12 +833,12 @@ internal data class TerminologyCapabilitiesSurrogate(
           language = this@with.language?.value,
           _language = this@with.language?.toElement(),
           text = this@with.text,
-          contained = this@with.contained.takeUnless { it.all { it == null } },
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          contained = this@with.contained.takeIf { it.isNotEmpty() },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           url = this@with.url?.value,
           _url = this@with.url?.toElement(),
-          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          identifier = this@with.identifier.takeIf { it.isNotEmpty() },
           version = this@with.version?.value,
           _version = this@with.version?.toElement(),
           versionAlgorithm = this@with.versionAlgorithm,
@@ -857,11 +854,11 @@ internal data class TerminologyCapabilitiesSurrogate(
           _date = this@with.date.toElement(),
           publisher = this@with.publisher?.value,
           _publisher = this@with.publisher?.toElement(),
-          contact = this@with.contact.takeUnless { it.all { it == null } },
+          contact = this@with.contact.takeIf { it.isNotEmpty() },
           description = this@with.description?.value,
           _description = this@with.description?.toElement(),
-          useContext = this@with.useContext.takeUnless { it.all { it == null } },
-          jurisdiction = this@with.jurisdiction.takeUnless { it.all { it == null } },
+          useContext = this@with.useContext.takeIf { it.isNotEmpty() },
+          jurisdiction = this@with.jurisdiction.takeIf { it.isNotEmpty() },
           purpose = this@with.purpose?.value,
           _purpose = this@with.purpose?.toElement(),
           copyright = this@with.copyright?.value,
@@ -874,7 +871,7 @@ internal data class TerminologyCapabilitiesSurrogate(
           implementation = this@with.implementation,
           lockedDate = this@with.lockedDate?.value,
           _lockedDate = this@with.lockedDate?.toElement(),
-          codeSystem = this@with.codeSystem.takeUnless { it.all { it == null } },
+          codeSystem = this@with.codeSystem.takeIf { it.isNotEmpty() },
           expansion = this@with.expansion,
           codeSearch = this@with.codeSearch?.value?.getCode(),
           _codeSearch = this@with.codeSearch?.toElement(),

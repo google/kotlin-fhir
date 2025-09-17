@@ -49,9 +49,7 @@ internal data class ContributorSurrogate(
       extension = this@ContributorSurrogate.extension ?: mutableListOf(),
       type =
         Enumeration.of(
-          com.google.fhir.model.r5.Contributor.ContributorType.fromCode(
-            this@ContributorSurrogate.type!!
-          ),
+          Contributor.ContributorType.fromCode(this@ContributorSurrogate.type!!),
           this@ContributorSurrogate._type,
         ),
       name = R5String.of(this@ContributorSurrogate.name, this@ContributorSurrogate._name)!!,
@@ -63,12 +61,12 @@ internal data class ContributorSurrogate(
       with(model) {
         ContributorSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
           type = this@with.type.value?.getCode(),
           _type = this@with.type.toElement(),
           name = this@with.name.value,
           _name = this@with.name.toElement(),
-          contact = this@with.contact.takeUnless { it.all { it == null } },
+          contact = this@with.contact.takeIf { it.isNotEmpty() },
         )
       }
   }

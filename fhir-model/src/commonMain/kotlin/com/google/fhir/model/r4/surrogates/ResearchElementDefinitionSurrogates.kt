@@ -49,6 +49,7 @@ import com.google.fhir.model.r4.Uri
 import com.google.fhir.model.r4.UsageContext
 import com.google.fhir.model.r4.serializers.DoubleSerializer
 import com.google.fhir.model.r4.serializers.LocalTimeSerializer
+import com.google.fhir.model.r4.terminologies.PublicationStatus
 import kotlin.Boolean as KotlinBoolean
 import kotlin.String as KotlinString
 import kotlin.Suppress
@@ -107,7 +108,7 @@ internal data class ResearchElementDefinitionCharacteristicSurrogate(
       studyEffectiveGroupMeasure =
         this@ResearchElementDefinitionCharacteristicSurrogate.studyEffectiveGroupMeasure?.let {
           Enumeration.of(
-            com.google.fhir.model.r4.ResearchElementDefinition.GroupMeasure.fromCode(it!!),
+            ResearchElementDefinition.GroupMeasure.fromCode(it),
             this@ResearchElementDefinitionCharacteristicSurrogate._studyEffectiveGroupMeasure,
           )
         },
@@ -124,7 +125,7 @@ internal data class ResearchElementDefinitionCharacteristicSurrogate(
         this@ResearchElementDefinitionCharacteristicSurrogate.participantEffectiveGroupMeasure
           ?.let {
             Enumeration.of(
-              com.google.fhir.model.r4.ResearchElementDefinition.GroupMeasure.fromCode(it!!),
+              ResearchElementDefinition.GroupMeasure.fromCode(it),
               this@ResearchElementDefinitionCharacteristicSurrogate
                 ._participantEffectiveGroupMeasure,
             )
@@ -138,10 +139,10 @@ internal data class ResearchElementDefinitionCharacteristicSurrogate(
       with(model) {
         ResearchElementDefinitionCharacteristicSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           definition = this@with.definition,
-          usageContext = this@with.usageContext.takeUnless { it.all { it == null } },
+          usageContext = this@with.usageContext.takeIf { it.isNotEmpty() },
           exclude = this@with.exclude?.value,
           _exclude = this@with.exclude?.toElement(),
           unitOfMeasure = this@with.unitOfMeasure,
@@ -205,7 +206,7 @@ internal data class ResearchElementDefinitionCharacteristicDefinitionSurrogate(
       ),
       this@ResearchElementDefinitionCharacteristicDefinitionSurrogate.definitionExpression,
       this@ResearchElementDefinitionCharacteristicDefinitionSurrogate.definitionDataRequirement,
-    )!! !!
+    )!!
 
   public companion object {
     public fun fromModel(
@@ -420,9 +421,7 @@ internal data class ResearchElementDefinitionSurrogate(
         ),
       status =
         Enumeration.of(
-          com.google.fhir.model.r4.terminologies.PublicationStatus.fromCode(
-            this@ResearchElementDefinitionSurrogate.status!!
-          ),
+          PublicationStatus.fromCode(this@ResearchElementDefinitionSurrogate.status!!),
           this@ResearchElementDefinitionSurrogate._status,
         ),
       experimental =
@@ -515,7 +514,7 @@ internal data class ResearchElementDefinitionSurrogate(
         },
       type =
         Enumeration.of(
-          com.google.fhir.model.r4.ResearchElementDefinition.ResearchElementType.fromCode(
+          ResearchElementDefinition.ResearchElementType.fromCode(
             this@ResearchElementDefinitionSurrogate.type!!
           ),
           this@ResearchElementDefinitionSurrogate._type,
@@ -523,7 +522,7 @@ internal data class ResearchElementDefinitionSurrogate(
       variableType =
         this@ResearchElementDefinitionSurrogate.variableType?.let {
           Enumeration.of(
-            com.google.fhir.model.r4.ResearchElementDefinition.EvidenceVariableType.fromCode(it!!),
+            ResearchElementDefinition.EvidenceVariableType.fromCode(it),
             this@ResearchElementDefinitionSurrogate._variableType,
           )
         },
@@ -541,12 +540,12 @@ internal data class ResearchElementDefinitionSurrogate(
           language = this@with.language?.value,
           _language = this@with.language?.toElement(),
           text = this@with.text,
-          contained = this@with.contained.takeUnless { it.all { it == null } },
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          contained = this@with.contained.takeIf { it.isNotEmpty() },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           url = this@with.url?.value,
           _url = this@with.url?.toElement(),
-          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          identifier = this@with.identifier.takeIf { it.isNotEmpty() },
           version = this@with.version?.value,
           _version = this@with.version?.toElement(),
           name = this@with.name?.value,
@@ -566,7 +565,7 @@ internal data class ResearchElementDefinitionSurrogate(
           _date = this@with.date?.toElement(),
           publisher = this@with.publisher?.value,
           _publisher = this@with.publisher?.toElement(),
-          contact = this@with.contact.takeUnless { it.all { it == null } },
+          contact = this@with.contact.takeIf { it.isNotEmpty() },
           description = this@with.description?.value,
           _description = this@with.description?.toElement(),
           comment =
@@ -577,8 +576,8 @@ internal data class ResearchElementDefinitionSurrogate(
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
               ?.toMutableList(),
-          useContext = this@with.useContext.takeUnless { it.all { it == null } },
-          jurisdiction = this@with.jurisdiction.takeUnless { it.all { it == null } },
+          useContext = this@with.useContext.takeIf { it.isNotEmpty() },
+          jurisdiction = this@with.jurisdiction.takeIf { it.isNotEmpty() },
           purpose = this@with.purpose?.value,
           _purpose = this@with.purpose?.toElement(),
           usage = this@with.usage?.value,
@@ -590,12 +589,12 @@ internal data class ResearchElementDefinitionSurrogate(
           lastReviewDate = this@with.lastReviewDate?.value?.toString(),
           _lastReviewDate = this@with.lastReviewDate?.toElement(),
           effectivePeriod = this@with.effectivePeriod,
-          topic = this@with.topic.takeUnless { it.all { it == null } },
-          author = this@with.author.takeUnless { it.all { it == null } },
-          editor = this@with.editor.takeUnless { it.all { it == null } },
-          reviewer = this@with.reviewer.takeUnless { it.all { it == null } },
-          endorser = this@with.endorser.takeUnless { it.all { it == null } },
-          relatedArtifact = this@with.relatedArtifact.takeUnless { it.all { it == null } },
+          topic = this@with.topic.takeIf { it.isNotEmpty() },
+          author = this@with.author.takeIf { it.isNotEmpty() },
+          editor = this@with.editor.takeIf { it.isNotEmpty() },
+          reviewer = this@with.reviewer.takeIf { it.isNotEmpty() },
+          endorser = this@with.endorser.takeIf { it.isNotEmpty() },
+          relatedArtifact = this@with.relatedArtifact.takeIf { it.isNotEmpty() },
           library =
             this@with.library.map { it.value }.toMutableList().takeUnless { it.all { it == null } },
           _library =
@@ -608,7 +607,7 @@ internal data class ResearchElementDefinitionSurrogate(
           _type = this@with.type.toElement(),
           variableType = this@with.variableType?.value?.getCode(),
           _variableType = this@with.variableType?.toElement(),
-          characteristic = this@with.characteristic.takeUnless { it.all { it == null } },
+          characteristic = this@with.characteristic.takeIf { it.isNotEmpty() },
         )
       }
   }

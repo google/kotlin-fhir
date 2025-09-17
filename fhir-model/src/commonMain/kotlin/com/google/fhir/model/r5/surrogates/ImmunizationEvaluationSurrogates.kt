@@ -96,8 +96,9 @@ internal data class ImmunizationEvaluationSurrogate(
       identifier = this@ImmunizationEvaluationSurrogate.identifier ?: mutableListOf(),
       status =
         Enumeration.of(
-          com.google.fhir.model.r5.ImmunizationEvaluation.ImmunizationEvaluationStatusCodes
-            .fromCode(this@ImmunizationEvaluationSurrogate.status!!),
+          ImmunizationEvaluation.ImmunizationEvaluationStatusCodes.fromCode(
+            this@ImmunizationEvaluationSurrogate.status!!
+          ),
           this@ImmunizationEvaluationSurrogate._status,
         ),
       patient = this@ImmunizationEvaluationSurrogate.patient,
@@ -144,10 +145,10 @@ internal data class ImmunizationEvaluationSurrogate(
           language = this@with.language?.value,
           _language = this@with.language?.toElement(),
           text = this@with.text,
-          contained = this@with.contained.takeUnless { it.all { it == null } },
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          contained = this@with.contained.takeIf { it.isNotEmpty() },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
+          identifier = this@with.identifier.takeIf { it.isNotEmpty() },
           status = this@with.status.value?.getCode(),
           _status = this@with.status.toElement(),
           patient = this@with.patient,
@@ -157,7 +158,7 @@ internal data class ImmunizationEvaluationSurrogate(
           targetDisease = this@with.targetDisease,
           immunizationEvent = this@with.immunizationEvent,
           doseStatus = this@with.doseStatus,
-          doseStatusReason = this@with.doseStatusReason.takeUnless { it.all { it == null } },
+          doseStatusReason = this@with.doseStatusReason.takeIf { it.isNotEmpty() },
           description = this@with.description?.value,
           _description = this@with.description?.toElement(),
           series = this@with.series?.value,

@@ -82,10 +82,10 @@ internal data class MedicationKnowledgeRelatedMedicationKnowledgeSurrogate(
       with(model) {
         MedicationKnowledgeRelatedMedicationKnowledgeSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           type = this@with.type,
-          reference = this@with.reference.takeUnless { it.all { it == null } },
+          reference = this@with.reference.takeIf { it.isNotEmpty() },
         )
       }
   }
@@ -116,8 +116,8 @@ internal data class MedicationKnowledgeMonographSurrogate(
       with(model) {
         MedicationKnowledgeMonographSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           type = this@with.type,
           source = this@with.source,
         )
@@ -157,9 +157,9 @@ internal data class MedicationKnowledgeCostSurrogate(
       with(model) {
         MedicationKnowledgeCostSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          effectiveDate = this@with.effectiveDate.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
+          effectiveDate = this@with.effectiveDate.takeIf { it.isNotEmpty() },
           type = this@with.type,
           source = this@with.source?.value,
           _source = this@with.source?.toElement(),
@@ -199,8 +199,8 @@ internal data class MedicationKnowledgeMonitoringProgramSurrogate(
       with(model) {
         MedicationKnowledgeMonitoringProgramSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           type = this@with.type,
           name = this@with.name?.value,
           _name = this@with.name?.toElement(),
@@ -238,10 +238,10 @@ internal data class MedicationKnowledgeIndicationGuidelineSurrogate(
       with(model) {
         MedicationKnowledgeIndicationGuidelineSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          indication = this@with.indication.takeUnless { it.all { it == null } },
-          dosingGuideline = this@with.dosingGuideline.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
+          indication = this@with.indication.takeIf { it.isNotEmpty() },
+          dosingGuideline = this@with.dosingGuideline.takeIf { it.isNotEmpty() },
         )
       }
   }
@@ -288,13 +288,12 @@ internal data class MedicationKnowledgeIndicationGuidelineDosingGuidelineSurroga
       with(model) {
         MedicationKnowledgeIndicationGuidelineDosingGuidelineSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           treatmentIntent = this@with.treatmentIntent,
-          dosage = this@with.dosage.takeUnless { it.all { it == null } },
+          dosage = this@with.dosage.takeIf { it.isNotEmpty() },
           administrationTreatment = this@with.administrationTreatment,
-          patientCharacteristic =
-            this@with.patientCharacteristic.takeUnless { it.all { it == null } },
+          patientCharacteristic = this@with.patientCharacteristic.takeIf { it.isNotEmpty() },
         )
       }
   }
@@ -330,10 +329,10 @@ internal data class MedicationKnowledgeIndicationGuidelineDosingGuidelineDosageS
       with(model) {
         MedicationKnowledgeIndicationGuidelineDosingGuidelineDosageSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           type = this@with.type,
-          dosage = this@with.dosage.takeUnless { it.all { it == null } },
+          dosage = this@with.dosage.takeIf { it.isNotEmpty() },
         )
       }
   }
@@ -375,8 +374,8 @@ internal data class MedicationKnowledgeIndicationGuidelineDosingGuidelinePatient
       with(model) {
         MedicationKnowledgeIndicationGuidelineDosingGuidelinePatientCharacteristicSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           type = this@with.type,
           `value` = this@with.`value`,
         )
@@ -414,11 +413,11 @@ internal data class MedicationKnowledgeMedicineClassificationSurrogate(
       with(model) {
         MedicationKnowledgeMedicineClassificationSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           type = this@with.type,
           source = this@with.source,
-          classification = this@with.classification.takeUnless { it.all { it == null } },
+          classification = this@with.classification.takeIf { it.isNotEmpty() },
         )
       }
   }
@@ -449,9 +448,9 @@ internal data class MedicationKnowledgePackagingSurrogate(
       with(model) {
         MedicationKnowledgePackagingSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          cost = this@with.cost.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
+          cost = this@with.cost.takeIf { it.isNotEmpty() },
           packagedProduct = this@with.packagedProduct,
         )
       }
@@ -495,13 +494,13 @@ internal data class MedicationKnowledgeStorageGuidelineSurrogate(
       with(model) {
         MedicationKnowledgeStorageGuidelineSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           reference = this@with.reference?.value,
           _reference = this@with.reference?.toElement(),
-          note = this@with.note.takeUnless { it.all { it == null } },
+          note = this@with.note.takeIf { it.isNotEmpty() },
           stabilityDuration = this@with.stabilityDuration,
-          environmentalSetting = this@with.environmentalSetting.takeUnless { it.all { it == null } },
+          environmentalSetting = this@with.environmentalSetting.takeIf { it.isNotEmpty() },
         )
       }
   }
@@ -535,8 +534,8 @@ internal data class MedicationKnowledgeStorageGuidelineEnvironmentalSettingSurro
       with(model) {
         MedicationKnowledgeStorageGuidelineEnvironmentalSettingSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           type = this@with.type,
           `value` = this@with.`value`,
         )
@@ -573,11 +572,11 @@ internal data class MedicationKnowledgeRegulatorySurrogate(
       with(model) {
         MedicationKnowledgeRegulatorySurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           regulatoryAuthority = this@with.regulatoryAuthority,
-          substitution = this@with.substitution.takeUnless { it.all { it == null } },
-          schedule = this@with.schedule.takeUnless { it.all { it == null } },
+          substitution = this@with.substitution.takeIf { it.isNotEmpty() },
+          schedule = this@with.schedule.takeIf { it.isNotEmpty() },
           maxDispense = this@with.maxDispense,
         )
       }
@@ -616,8 +615,8 @@ internal data class MedicationKnowledgeRegulatorySubstitutionSurrogate(
       with(model) {
         MedicationKnowledgeRegulatorySubstitutionSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           type = this@with.type,
           allowed = this@with.allowed.value,
           _allowed = this@with.allowed.toElement(),
@@ -652,8 +651,8 @@ internal data class MedicationKnowledgeRegulatoryMaxDispenseSurrogate(
       with(model) {
         MedicationKnowledgeRegulatoryMaxDispenseSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           quantity = this@with.quantity,
           period = this@with.period,
         )
@@ -695,13 +694,13 @@ internal data class MedicationKnowledgeDefinitionalSurrogate(
       with(model) {
         MedicationKnowledgeDefinitionalSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          definition = this@with.definition.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
+          definition = this@with.definition.takeIf { it.isNotEmpty() },
           doseForm = this@with.doseForm,
-          intendedRoute = this@with.intendedRoute.takeUnless { it.all { it == null } },
-          ingredient = this@with.ingredient.takeUnless { it.all { it == null } },
-          drugCharacteristic = this@with.drugCharacteristic.takeUnless { it.all { it == null } },
+          intendedRoute = this@with.intendedRoute.takeIf { it.isNotEmpty() },
+          ingredient = this@with.ingredient.takeIf { it.isNotEmpty() },
+          drugCharacteristic = this@with.drugCharacteristic.takeIf { it.isNotEmpty() },
         )
       }
   }
@@ -736,8 +735,8 @@ internal data class MedicationKnowledgeDefinitionalIngredientSurrogate(
       with(model) {
         MedicationKnowledgeDefinitionalIngredientSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           item = this@with.item,
           type = this@with.type,
           strength = this@with.strength,
@@ -774,8 +773,8 @@ internal data class MedicationKnowledgeDefinitionalDrugCharacteristicSurrogate(
       with(model) {
         MedicationKnowledgeDefinitionalDrugCharacteristicSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           type = this@with.type,
           `value` = this@with.`value`,
         )
@@ -792,7 +791,7 @@ internal data class MedicationKnowledgeCostCostSurrogate(
     MedicationKnowledge.Cost.Cost.from(
       this@MedicationKnowledgeCostCostSurrogate.costMoney,
       this@MedicationKnowledgeCostCostSurrogate.costCodeableConcept,
-    )!! !!
+    )!!
 
   public companion object {
     public fun fromModel(
@@ -884,7 +883,7 @@ internal data class MedicationKnowledgeStorageGuidelineEnvironmentalSettingValue
       this@MedicationKnowledgeStorageGuidelineEnvironmentalSettingValueSurrogate.valueRange,
       this@MedicationKnowledgeStorageGuidelineEnvironmentalSettingValueSurrogate
         .valueCodeableConcept,
-    )!! !!
+    )!!
 
   public companion object {
     public fun fromModel(
@@ -1032,9 +1031,7 @@ internal data class MedicationKnowledgeSurrogate(
       status =
         this@MedicationKnowledgeSurrogate.status?.let {
           Enumeration.of(
-            com.google.fhir.model.r5.MedicationKnowledge.MedicationKnowledgeStatusCodes.fromCode(
-              it!!
-            ),
+            MedicationKnowledge.MedicationKnowledgeStatusCodes.fromCode(it),
             this@MedicationKnowledgeSurrogate._status,
           )
         },
@@ -1092,16 +1089,15 @@ internal data class MedicationKnowledgeSurrogate(
           language = this@with.language?.value,
           _language = this@with.language?.toElement(),
           text = this@with.text,
-          contained = this@with.contained.takeUnless { it.all { it == null } },
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          contained = this@with.contained.takeIf { it.isNotEmpty() },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
+          identifier = this@with.identifier.takeIf { it.isNotEmpty() },
           code = this@with.code,
           status = this@with.status?.value?.getCode(),
           _status = this@with.status?.toElement(),
           author = this@with.author,
-          intendedJurisdiction =
-            this@with.intendedJurisdiction.takeUnless { it.all { it == null } },
+          intendedJurisdiction = this@with.intendedJurisdiction.takeIf { it.isNotEmpty() },
           name =
             this@with.name.map { it.value }.toMutableList().takeUnless { it.all { it == null } },
           _name =
@@ -1111,22 +1107,20 @@ internal data class MedicationKnowledgeSurrogate(
               ?.map { it ?: Element() }
               ?.toMutableList(),
           relatedMedicationKnowledge =
-            this@with.relatedMedicationKnowledge.takeUnless { it.all { it == null } },
-          associatedMedication =
-            this@with.associatedMedication.takeUnless { it.all { it == null } },
-          productType = this@with.productType.takeUnless { it.all { it == null } },
-          monograph = this@with.monograph.takeUnless { it.all { it == null } },
+            this@with.relatedMedicationKnowledge.takeIf { it.isNotEmpty() },
+          associatedMedication = this@with.associatedMedication.takeIf { it.isNotEmpty() },
+          productType = this@with.productType.takeIf { it.isNotEmpty() },
+          monograph = this@with.monograph.takeIf { it.isNotEmpty() },
           preparationInstruction = this@with.preparationInstruction?.value,
           _preparationInstruction = this@with.preparationInstruction?.toElement(),
-          cost = this@with.cost.takeUnless { it.all { it == null } },
-          monitoringProgram = this@with.monitoringProgram.takeUnless { it.all { it == null } },
-          indicationGuideline = this@with.indicationGuideline.takeUnless { it.all { it == null } },
-          medicineClassification =
-            this@with.medicineClassification.takeUnless { it.all { it == null } },
-          packaging = this@with.packaging.takeUnless { it.all { it == null } },
-          clinicalUseIssue = this@with.clinicalUseIssue.takeUnless { it.all { it == null } },
-          storageGuideline = this@with.storageGuideline.takeUnless { it.all { it == null } },
-          regulatory = this@with.regulatory.takeUnless { it.all { it == null } },
+          cost = this@with.cost.takeIf { it.isNotEmpty() },
+          monitoringProgram = this@with.monitoringProgram.takeIf { it.isNotEmpty() },
+          indicationGuideline = this@with.indicationGuideline.takeIf { it.isNotEmpty() },
+          medicineClassification = this@with.medicineClassification.takeIf { it.isNotEmpty() },
+          packaging = this@with.packaging.takeIf { it.isNotEmpty() },
+          clinicalUseIssue = this@with.clinicalUseIssue.takeIf { it.isNotEmpty() },
+          storageGuideline = this@with.storageGuideline.takeIf { it.isNotEmpty() },
+          regulatory = this@with.regulatory.takeIf { it.isNotEmpty() },
           definitional = this@with.definitional,
         )
       }

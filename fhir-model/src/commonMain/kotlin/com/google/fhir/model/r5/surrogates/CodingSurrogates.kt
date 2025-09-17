@@ -67,7 +67,7 @@ internal data class CodingSurrogate(
       with(model) {
         CodingSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
           system = this@with.system?.value,
           _system = this@with.system?.toElement(),
           version = this@with.version?.value,

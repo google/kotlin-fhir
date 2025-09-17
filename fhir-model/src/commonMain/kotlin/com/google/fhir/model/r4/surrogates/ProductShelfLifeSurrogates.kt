@@ -59,13 +59,13 @@ internal data class ProductShelfLifeSurrogate(
       with(model) {
         ProductShelfLifeSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           identifier = this@with.identifier,
           type = this@with.type,
           period = this@with.period,
           specialPrecautionsForStorage =
-            this@with.specialPrecautionsForStorage.takeUnless { it.all { it == null } },
+            this@with.specialPrecautionsForStorage.takeIf { it.isNotEmpty() },
         )
       }
   }

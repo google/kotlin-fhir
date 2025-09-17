@@ -70,8 +70,8 @@ internal data class SupplyRequestParameterSurrogate(
       with(model) {
         SupplyRequestParameterSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           code = this@with.code,
           `value` = this@with.`value`,
         )
@@ -195,7 +195,7 @@ internal data class SupplyRequestSurrogate(
       status =
         this@SupplyRequestSurrogate.status?.let {
           Enumeration.of(
-            com.google.fhir.model.r5.SupplyRequest.SupplyRequestStatus.fromCode(it!!),
+            SupplyRequest.SupplyRequestStatus.fromCode(it),
             this@SupplyRequestSurrogate._status,
           )
         },
@@ -204,7 +204,7 @@ internal data class SupplyRequestSurrogate(
       priority =
         this@SupplyRequestSurrogate.priority?.let {
           Enumeration.of(
-            com.google.fhir.model.r5.SupplyRequest.RequestPriority.fromCode(it!!),
+            SupplyRequest.RequestPriority.fromCode(it),
             this@SupplyRequestSurrogate._priority,
           )
         },
@@ -236,26 +236,26 @@ internal data class SupplyRequestSurrogate(
           language = this@with.language?.value,
           _language = this@with.language?.toElement(),
           text = this@with.text,
-          contained = this@with.contained.takeUnless { it.all { it == null } },
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          contained = this@with.contained.takeIf { it.isNotEmpty() },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
+          identifier = this@with.identifier.takeIf { it.isNotEmpty() },
           status = this@with.status?.value?.getCode(),
           _status = this@with.status?.toElement(),
-          basedOn = this@with.basedOn.takeUnless { it.all { it == null } },
+          basedOn = this@with.basedOn.takeIf { it.isNotEmpty() },
           category = this@with.category,
           priority = this@with.priority?.value?.getCode(),
           _priority = this@with.priority?.toElement(),
           deliverFor = this@with.deliverFor,
           item = this@with.item,
           quantity = this@with.quantity,
-          parameter = this@with.parameter.takeUnless { it.all { it == null } },
+          parameter = this@with.parameter.takeIf { it.isNotEmpty() },
           occurrence = this@with.occurrence,
           authoredOn = this@with.authoredOn?.value?.toString(),
           _authoredOn = this@with.authoredOn?.toElement(),
           requester = this@with.requester,
-          supplier = this@with.supplier.takeUnless { it.all { it == null } },
-          reason = this@with.reason.takeUnless { it.all { it == null } },
+          supplier = this@with.supplier.takeIf { it.isNotEmpty() },
+          reason = this@with.reason.takeIf { it.isNotEmpty() },
           deliverFrom = this@with.deliverFrom,
           deliverTo = this@with.deliverTo,
         )

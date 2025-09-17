@@ -42,6 +42,7 @@ import com.google.fhir.model.r5.Uri
 import com.google.fhir.model.r5.UsageContext
 import com.google.fhir.model.r5.serializers.DoubleSerializer
 import com.google.fhir.model.r5.serializers.LocalTimeSerializer
+import com.google.fhir.model.r5.terminologies.PublicationStatus
 import kotlin.Boolean as KotlinBoolean
 import kotlin.String as KotlinString
 import kotlin.Suppress
@@ -74,8 +75,8 @@ internal data class ConditionDefinitionObservationSurrogate(
       with(model) {
         ConditionDefinitionObservationSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           category = this@with.category,
           code = this@with.code,
         )
@@ -108,8 +109,8 @@ internal data class ConditionDefinitionMedicationSurrogate(
       with(model) {
         ConditionDefinitionMedicationSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           category = this@with.category,
           code = this@with.code,
         )
@@ -135,7 +136,7 @@ internal data class ConditionDefinitionPreconditionSurrogate(
         this@ConditionDefinitionPreconditionSurrogate.modifierExtension ?: mutableListOf(),
       type =
         Enumeration.of(
-          com.google.fhir.model.r5.ConditionDefinition.ConditionPreconditionType.fromCode(
+          ConditionDefinition.ConditionPreconditionType.fromCode(
             this@ConditionDefinitionPreconditionSurrogate.type!!
           ),
           this@ConditionDefinitionPreconditionSurrogate._type,
@@ -151,8 +152,8 @@ internal data class ConditionDefinitionPreconditionSurrogate(
       with(model) {
         ConditionDefinitionPreconditionSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           type = this@with.type.value?.getCode(),
           _type = this@with.type.toElement(),
           code = this@with.code,
@@ -179,7 +180,7 @@ internal data class ConditionDefinitionQuestionnaireSurrogate(
         this@ConditionDefinitionQuestionnaireSurrogate.modifierExtension ?: mutableListOf(),
       purpose =
         Enumeration.of(
-          com.google.fhir.model.r5.ConditionDefinition.ConditionQuestionnairePurpose.fromCode(
+          ConditionDefinition.ConditionQuestionnairePurpose.fromCode(
             this@ConditionDefinitionQuestionnaireSurrogate.purpose!!
           ),
           this@ConditionDefinitionQuestionnaireSurrogate._purpose,
@@ -194,8 +195,8 @@ internal data class ConditionDefinitionQuestionnaireSurrogate(
       with(model) {
         ConditionDefinitionQuestionnaireSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           purpose = this@with.purpose.value?.getCode(),
           _purpose = this@with.purpose.toElement(),
           reference = this@with.reference,
@@ -227,8 +228,8 @@ internal data class ConditionDefinitionPlanSurrogate(
       with(model) {
         ConditionDefinitionPlanSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           role = this@with.role,
           reference = this@with.reference,
         )
@@ -388,9 +389,7 @@ internal data class ConditionDefinitionSurrogate(
         ),
       status =
         Enumeration.of(
-          com.google.fhir.model.r5.terminologies.PublicationStatus.fromCode(
-            this@ConditionDefinitionSurrogate.status!!
-          ),
+          PublicationStatus.fromCode(this@ConditionDefinitionSurrogate.status!!),
           this@ConditionDefinitionSurrogate._status,
         ),
       experimental =
@@ -470,12 +469,12 @@ internal data class ConditionDefinitionSurrogate(
           language = this@with.language?.value,
           _language = this@with.language?.toElement(),
           text = this@with.text,
-          contained = this@with.contained.takeUnless { it.all { it == null } },
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          contained = this@with.contained.takeIf { it.isNotEmpty() },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           url = this@with.url?.value,
           _url = this@with.url?.toElement(),
-          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          identifier = this@with.identifier.takeIf { it.isNotEmpty() },
           version = this@with.version?.value,
           _version = this@with.version?.toElement(),
           versionAlgorithm = this@with.versionAlgorithm,
@@ -493,11 +492,11 @@ internal data class ConditionDefinitionSurrogate(
           _date = this@with.date?.toElement(),
           publisher = this@with.publisher?.value,
           _publisher = this@with.publisher?.toElement(),
-          contact = this@with.contact.takeUnless { it.all { it == null } },
+          contact = this@with.contact.takeIf { it.isNotEmpty() },
           description = this@with.description?.value,
           _description = this@with.description?.toElement(),
-          useContext = this@with.useContext.takeUnless { it.all { it == null } },
-          jurisdiction = this@with.jurisdiction.takeUnless { it.all { it == null } },
+          useContext = this@with.useContext.takeIf { it.isNotEmpty() },
+          jurisdiction = this@with.jurisdiction.takeIf { it.isNotEmpty() },
           code = this@with.code,
           severity = this@with.severity,
           bodySite = this@with.bodySite,
@@ -519,12 +518,12 @@ internal data class ConditionDefinitionSurrogate(
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
               ?.toMutableList(),
-          observation = this@with.observation.takeUnless { it.all { it == null } },
-          medication = this@with.medication.takeUnless { it.all { it == null } },
-          precondition = this@with.precondition.takeUnless { it.all { it == null } },
-          team = this@with.team.takeUnless { it.all { it == null } },
-          questionnaire = this@with.questionnaire.takeUnless { it.all { it == null } },
-          plan = this@with.plan.takeUnless { it.all { it == null } },
+          observation = this@with.observation.takeIf { it.isNotEmpty() },
+          medication = this@with.medication.takeIf { it.isNotEmpty() },
+          precondition = this@with.precondition.takeIf { it.isNotEmpty() },
+          team = this@with.team.takeIf { it.isNotEmpty() },
+          questionnaire = this@with.questionnaire.takeIf { it.isNotEmpty() },
+          plan = this@with.plan.takeIf { it.isNotEmpty() },
         )
       }
   }

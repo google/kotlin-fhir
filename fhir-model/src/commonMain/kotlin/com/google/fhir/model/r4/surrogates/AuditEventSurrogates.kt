@@ -110,10 +110,10 @@ internal data class AuditEventAgentSurrogate(
       with(model) {
         AuditEventAgentSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           type = this@with.type,
-          role = this@with.role.takeUnless { it.all { it == null } },
+          role = this@with.role.takeIf { it.isNotEmpty() },
           who = this@with.who,
           altId = this@with.altId?.value,
           _altId = this@with.altId?.toElement(),
@@ -132,7 +132,7 @@ internal data class AuditEventAgentSurrogate(
               ?.toMutableList(),
           media = this@with.media,
           network = this@with.network,
-          purposeOfUse = this@with.purposeOfUse.takeUnless { it.all { it == null } },
+          purposeOfUse = this@with.purposeOfUse.takeIf { it.isNotEmpty() },
         )
       }
   }
@@ -161,7 +161,7 @@ internal data class AuditEventAgentNetworkSurrogate(
       type =
         this@AuditEventAgentNetworkSurrogate.type?.let {
           Enumeration.of(
-            com.google.fhir.model.r4.AuditEvent.AuditEventAgentNetworkType.fromCode(it!!),
+            AuditEvent.AuditEventAgentNetworkType.fromCode(it),
             this@AuditEventAgentNetworkSurrogate._type,
           )
         },
@@ -172,8 +172,8 @@ internal data class AuditEventAgentNetworkSurrogate(
       with(model) {
         AuditEventAgentNetworkSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           address = this@with.address?.value,
           _address = this@with.address?.toElement(),
           type = this@with.type?.value?.getCode(),
@@ -208,12 +208,12 @@ internal data class AuditEventSourceSurrogate(
       with(model) {
         AuditEventSourceSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           site = this@with.site?.value,
           _site = this@with.site?.toElement(),
           observer = this@with.observer,
-          type = this@with.type.takeUnless { it.all { it == null } },
+          type = this@with.type.takeIf { it.isNotEmpty() },
         )
       }
   }
@@ -266,20 +266,20 @@ internal data class AuditEventEntitySurrogate(
       with(model) {
         AuditEventEntitySurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           what = this@with.what,
           type = this@with.type,
           role = this@with.role,
           lifecycle = this@with.lifecycle,
-          securityLabel = this@with.securityLabel.takeUnless { it.all { it == null } },
+          securityLabel = this@with.securityLabel.takeIf { it.isNotEmpty() },
           name = this@with.name?.value,
           _name = this@with.name?.toElement(),
           description = this@with.description?.value,
           _description = this@with.description?.toElement(),
           query = this@with.query?.value,
           _query = this@with.query?.toElement(),
-          detail = this@with.detail.takeUnless { it.all { it == null } },
+          detail = this@with.detail.takeIf { it.isNotEmpty() },
         )
       }
   }
@@ -312,8 +312,8 @@ internal data class AuditEventEntityDetailSurrogate(
       with(model) {
         AuditEventEntityDetailSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           type = this@with.type.value,
           _type = this@with.type.toElement(),
           `value` = this@with.`value`,
@@ -339,7 +339,7 @@ internal data class AuditEventEntityDetailValueSurrogate(
         this@AuditEventEntityDetailValueSurrogate.valueBase64Binary,
         this@AuditEventEntityDetailValueSurrogate._valueBase64Binary,
       ),
-    )!! !!
+    )!!
 
   public companion object {
     public fun fromModel(
@@ -399,10 +399,7 @@ internal data class AuditEventSurrogate(
       subtype = this@AuditEventSurrogate.subtype ?: mutableListOf(),
       action =
         this@AuditEventSurrogate.action?.let {
-          Enumeration.of(
-            com.google.fhir.model.r4.AuditEvent.AuditEventAction.fromCode(it!!),
-            this@AuditEventSurrogate._action,
-          )
+          Enumeration.of(AuditEvent.AuditEventAction.fromCode(it), this@AuditEventSurrogate._action)
         },
       period = this@AuditEventSurrogate.period,
       recorded =
@@ -413,7 +410,7 @@ internal data class AuditEventSurrogate(
       outcome =
         this@AuditEventSurrogate.outcome?.let {
           Enumeration.of(
-            com.google.fhir.model.r4.AuditEvent.AuditEventOutcome.fromCode(it!!),
+            AuditEvent.AuditEventOutcome.fromCode(it),
             this@AuditEventSurrogate._outcome,
           )
         },
@@ -436,11 +433,11 @@ internal data class AuditEventSurrogate(
           language = this@with.language?.value,
           _language = this@with.language?.toElement(),
           text = this@with.text,
-          contained = this@with.contained.takeUnless { it.all { it == null } },
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          contained = this@with.contained.takeIf { it.isNotEmpty() },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           type = this@with.type,
-          subtype = this@with.subtype.takeUnless { it.all { it == null } },
+          subtype = this@with.subtype.takeIf { it.isNotEmpty() },
           action = this@with.action?.value?.getCode(),
           _action = this@with.action?.toElement(),
           period = this@with.period,
@@ -450,10 +447,10 @@ internal data class AuditEventSurrogate(
           _outcome = this@with.outcome?.toElement(),
           outcomeDesc = this@with.outcomeDesc?.value,
           _outcomeDesc = this@with.outcomeDesc?.toElement(),
-          purposeOfEvent = this@with.purposeOfEvent.takeUnless { it.all { it == null } },
-          agent = this@with.agent.takeUnless { it.all { it == null } },
+          purposeOfEvent = this@with.purposeOfEvent.takeIf { it.isNotEmpty() },
+          agent = this@with.agent.takeIf { it.isNotEmpty() },
           source = this@with.source,
-          entity = this@with.entity.takeUnless { it.all { it == null } },
+          entity = this@with.entity.takeIf { it.isNotEmpty() },
         )
       }
   }

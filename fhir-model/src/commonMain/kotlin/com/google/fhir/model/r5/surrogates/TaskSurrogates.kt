@@ -115,8 +115,8 @@ internal data class TaskPerformerSurrogate(
       with(model) {
         TaskPerformerSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           function = this@with.function,
           actor = this@with.actor,
         )
@@ -153,12 +153,12 @@ internal data class TaskRestrictionSurrogate(
       with(model) {
         TaskRestrictionSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           repetitions = this@with.repetitions?.value,
           _repetitions = this@with.repetitions?.toElement(),
           period = this@with.period,
-          recipient = this@with.recipient.takeUnless { it.all { it == null } },
+          recipient = this@with.recipient.takeIf { it.isNotEmpty() },
         )
       }
   }
@@ -186,8 +186,8 @@ internal data class TaskInputSurrogate(
       with(model) {
         TaskInputSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           type = this@with.type,
           `value` = this@with.`value`,
         )
@@ -217,8 +217,8 @@ internal data class TaskOutputSurrogate(
       with(model) {
         TaskOutputSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           type = this@with.type,
           `value` = this@with.`value`,
         )
@@ -398,7 +398,7 @@ internal data class TaskInputValueSurrogate(
       this@TaskInputValueSurrogate.valueExtendedContactDetail,
       this@TaskInputValueSurrogate.valueDosage,
       this@TaskInputValueSurrogate.valueMeta,
-    )!! !!
+    )!!
 
   public companion object {
     public fun fromModel(model: Task.Input.Value): TaskInputValueSurrogate =
@@ -655,7 +655,7 @@ internal data class TaskOutputValueSurrogate(
       this@TaskOutputValueSurrogate.valueExtendedContactDetail,
       this@TaskOutputValueSurrogate.valueDosage,
       this@TaskOutputValueSurrogate.valueMeta,
-    )!! !!
+    )!!
 
   public companion object {
     public fun fromModel(model: Task.Output.Value): TaskOutputValueSurrogate =
@@ -818,22 +818,19 @@ internal data class TaskSurrogate(
       partOf = this@TaskSurrogate.partOf ?: mutableListOf(),
       status =
         Enumeration.of(
-          com.google.fhir.model.r5.Task.TaskStatus.fromCode(this@TaskSurrogate.status!!),
+          Task.TaskStatus.fromCode(this@TaskSurrogate.status!!),
           this@TaskSurrogate._status,
         ),
       statusReason = this@TaskSurrogate.statusReason,
       businessStatus = this@TaskSurrogate.businessStatus,
       intent =
         Enumeration.of(
-          com.google.fhir.model.r5.Task.TaskIntent.fromCode(this@TaskSurrogate.intent!!),
+          Task.TaskIntent.fromCode(this@TaskSurrogate.intent!!),
           this@TaskSurrogate._intent,
         ),
       priority =
         this@TaskSurrogate.priority?.let {
-          Enumeration.of(
-            com.google.fhir.model.r5.Task.RequestPriority.fromCode(it!!),
-            this@TaskSurrogate._priority,
-          )
+          Enumeration.of(Task.RequestPriority.fromCode(it), this@TaskSurrogate._priority)
         },
       doNotPerform =
         R5Boolean.of(this@TaskSurrogate.doNotPerform, this@TaskSurrogate._doNotPerform),
@@ -879,17 +876,17 @@ internal data class TaskSurrogate(
           language = this@with.language?.value,
           _language = this@with.language?.toElement(),
           text = this@with.text,
-          contained = this@with.contained.takeUnless { it.all { it == null } },
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          contained = this@with.contained.takeIf { it.isNotEmpty() },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
+          identifier = this@with.identifier.takeIf { it.isNotEmpty() },
           instantiatesCanonical = this@with.instantiatesCanonical?.value,
           _instantiatesCanonical = this@with.instantiatesCanonical?.toElement(),
           instantiatesUri = this@with.instantiatesUri?.value,
           _instantiatesUri = this@with.instantiatesUri?.toElement(),
-          basedOn = this@with.basedOn.takeUnless { it.all { it == null } },
+          basedOn = this@with.basedOn.takeIf { it.isNotEmpty() },
           groupIdentifier = this@with.groupIdentifier,
-          partOf = this@with.partOf.takeUnless { it.all { it == null } },
+          partOf = this@with.partOf.takeIf { it.isNotEmpty() },
           status = this@with.status.value?.getCode(),
           _status = this@with.status.toElement(),
           statusReason = this@with.statusReason,
@@ -913,17 +910,17 @@ internal data class TaskSurrogate(
           lastModified = this@with.lastModified?.value?.toString(),
           _lastModified = this@with.lastModified?.toElement(),
           requester = this@with.requester,
-          requestedPerformer = this@with.requestedPerformer.takeUnless { it.all { it == null } },
+          requestedPerformer = this@with.requestedPerformer.takeIf { it.isNotEmpty() },
           owner = this@with.owner,
-          performer = this@with.performer.takeUnless { it.all { it == null } },
+          performer = this@with.performer.takeIf { it.isNotEmpty() },
           location = this@with.location,
-          reason = this@with.reason.takeUnless { it.all { it == null } },
-          insurance = this@with.insurance.takeUnless { it.all { it == null } },
-          note = this@with.note.takeUnless { it.all { it == null } },
-          relevantHistory = this@with.relevantHistory.takeUnless { it.all { it == null } },
+          reason = this@with.reason.takeIf { it.isNotEmpty() },
+          insurance = this@with.insurance.takeIf { it.isNotEmpty() },
+          note = this@with.note.takeIf { it.isNotEmpty() },
+          relevantHistory = this@with.relevantHistory.takeIf { it.isNotEmpty() },
           restriction = this@with.restriction,
-          input = this@with.input.takeUnless { it.all { it == null } },
-          output = this@with.output.takeUnless { it.all { it == null } },
+          input = this@with.input.takeIf { it.isNotEmpty() },
+          output = this@with.output.takeIf { it.isNotEmpty() },
         )
       }
   }

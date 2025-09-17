@@ -71,8 +71,8 @@ internal data class ProcedurePerformerSurrogate(
       with(model) {
         ProcedurePerformerSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           function = this@with.function,
           actor = this@with.actor,
           onBehalfOf = this@with.onBehalfOf,
@@ -103,8 +103,8 @@ internal data class ProcedureFocalDeviceSurrogate(
       with(model) {
         ProcedureFocalDeviceSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           action = this@with.action,
           manipulated = this@with.manipulated,
         )
@@ -245,7 +245,7 @@ internal data class ProcedureSurrogate(
       partOf = this@ProcedureSurrogate.partOf ?: mutableListOf(),
       status =
         Enumeration.of(
-          com.google.fhir.model.r4.Procedure.EventStatus.fromCode(this@ProcedureSurrogate.status!!),
+          Procedure.EventStatus.fromCode(this@ProcedureSurrogate.status!!),
           this@ProcedureSurrogate._status,
         ),
       statusReason = this@ProcedureSurrogate.statusReason,
@@ -283,10 +283,10 @@ internal data class ProcedureSurrogate(
           language = this@with.language?.value,
           _language = this@with.language?.toElement(),
           text = this@with.text,
-          contained = this@with.contained.takeUnless { it.all { it == null } },
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          contained = this@with.contained.takeIf { it.isNotEmpty() },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
+          identifier = this@with.identifier.takeIf { it.isNotEmpty() },
           instantiatesCanonical =
             this@with.instantiatesCanonical
               .map { it.value }
@@ -309,8 +309,8 @@ internal data class ProcedureSurrogate(
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
               ?.toMutableList(),
-          basedOn = this@with.basedOn.takeUnless { it.all { it == null } },
-          partOf = this@with.partOf.takeUnless { it.all { it == null } },
+          basedOn = this@with.basedOn.takeIf { it.isNotEmpty() },
+          partOf = this@with.partOf.takeIf { it.isNotEmpty() },
           status = this@with.status.value?.getCode(),
           _status = this@with.status.toElement(),
           statusReason = this@with.statusReason,
@@ -321,20 +321,20 @@ internal data class ProcedureSurrogate(
           performed = this@with.performed,
           recorder = this@with.recorder,
           asserter = this@with.asserter,
-          performer = this@with.performer.takeUnless { it.all { it == null } },
+          performer = this@with.performer.takeIf { it.isNotEmpty() },
           location = this@with.location,
-          reasonCode = this@with.reasonCode.takeUnless { it.all { it == null } },
-          reasonReference = this@with.reasonReference.takeUnless { it.all { it == null } },
-          bodySite = this@with.bodySite.takeUnless { it.all { it == null } },
+          reasonCode = this@with.reasonCode.takeIf { it.isNotEmpty() },
+          reasonReference = this@with.reasonReference.takeIf { it.isNotEmpty() },
+          bodySite = this@with.bodySite.takeIf { it.isNotEmpty() },
           outcome = this@with.outcome,
-          report = this@with.report.takeUnless { it.all { it == null } },
-          complication = this@with.complication.takeUnless { it.all { it == null } },
-          complicationDetail = this@with.complicationDetail.takeUnless { it.all { it == null } },
-          followUp = this@with.followUp.takeUnless { it.all { it == null } },
-          note = this@with.note.takeUnless { it.all { it == null } },
-          focalDevice = this@with.focalDevice.takeUnless { it.all { it == null } },
-          usedReference = this@with.usedReference.takeUnless { it.all { it == null } },
-          usedCode = this@with.usedCode.takeUnless { it.all { it == null } },
+          report = this@with.report.takeIf { it.isNotEmpty() },
+          complication = this@with.complication.takeIf { it.isNotEmpty() },
+          complicationDetail = this@with.complicationDetail.takeIf { it.isNotEmpty() },
+          followUp = this@with.followUp.takeIf { it.isNotEmpty() },
+          note = this@with.note.takeIf { it.isNotEmpty() },
+          focalDevice = this@with.focalDevice.takeIf { it.isNotEmpty() },
+          usedReference = this@with.usedReference.takeIf { it.isNotEmpty() },
+          usedCode = this@with.usedCode.takeIf { it.isNotEmpty() },
         )
       }
   }

@@ -39,6 +39,7 @@ import com.google.fhir.model.r4b.String as R4bString
 import com.google.fhir.model.r4b.Uri
 import com.google.fhir.model.r4b.serializers.DoubleSerializer
 import com.google.fhir.model.r4b.serializers.LocalTimeSerializer
+import com.google.fhir.model.r4b.terminologies.DocumentReferenceStatus
 import kotlin.String as KotlinString
 import kotlin.Suppress
 import kotlin.collections.MutableList
@@ -62,7 +63,7 @@ internal data class DocumentReferenceRelatesToSurrogate(
         this@DocumentReferenceRelatesToSurrogate.modifierExtension ?: mutableListOf(),
       code =
         Enumeration.of(
-          com.google.fhir.model.r4b.DocumentReference.DocumentRelationshipType.fromCode(
+          DocumentReference.DocumentRelationshipType.fromCode(
             this@DocumentReferenceRelatesToSurrogate.code!!
           ),
           this@DocumentReferenceRelatesToSurrogate._code,
@@ -75,8 +76,8 @@ internal data class DocumentReferenceRelatesToSurrogate(
       with(model) {
         DocumentReferenceRelatesToSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           code = this@with.code.value?.getCode(),
           _code = this@with.code.toElement(),
           target = this@with.target,
@@ -108,8 +109,8 @@ internal data class DocumentReferenceContentSurrogate(
       with(model) {
         DocumentReferenceContentSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           attachment = this@with.attachment,
           format = this@with.format,
         )
@@ -150,15 +151,15 @@ internal data class DocumentReferenceContextSurrogate(
       with(model) {
         DocumentReferenceContextSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          encounter = this@with.encounter.takeUnless { it.all { it == null } },
-          event = this@with.event.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
+          encounter = this@with.encounter.takeIf { it.isNotEmpty() },
+          event = this@with.event.takeIf { it.isNotEmpty() },
           period = this@with.period,
           facilityType = this@with.facilityType,
           practiceSetting = this@with.practiceSetting,
           sourcePatientInfo = this@with.sourcePatientInfo,
-          related = this@with.related.takeUnless { it.all { it == null } },
+          related = this@with.related.takeIf { it.isNotEmpty() },
         )
       }
   }
@@ -219,15 +220,13 @@ internal data class DocumentReferenceSurrogate(
       identifier = this@DocumentReferenceSurrogate.identifier ?: mutableListOf(),
       status =
         Enumeration.of(
-          com.google.fhir.model.r4b.terminologies.DocumentReferenceStatus.fromCode(
-            this@DocumentReferenceSurrogate.status!!
-          ),
+          DocumentReferenceStatus.fromCode(this@DocumentReferenceSurrogate.status!!),
           this@DocumentReferenceSurrogate._status,
         ),
       docStatus =
         this@DocumentReferenceSurrogate.docStatus?.let {
           Enumeration.of(
-            com.google.fhir.model.r4b.DocumentReference.CompositionStatus.fromCode(it!!),
+            DocumentReference.CompositionStatus.fromCode(it),
             this@DocumentReferenceSurrogate._docStatus,
           )
         },
@@ -264,28 +263,28 @@ internal data class DocumentReferenceSurrogate(
           language = this@with.language?.value,
           _language = this@with.language?.toElement(),
           text = this@with.text,
-          contained = this@with.contained.takeUnless { it.all { it == null } },
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          contained = this@with.contained.takeIf { it.isNotEmpty() },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           masterIdentifier = this@with.masterIdentifier,
-          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          identifier = this@with.identifier.takeIf { it.isNotEmpty() },
           status = this@with.status.value?.getCode(),
           _status = this@with.status.toElement(),
           docStatus = this@with.docStatus?.value?.getCode(),
           _docStatus = this@with.docStatus?.toElement(),
           type = this@with.type,
-          category = this@with.category.takeUnless { it.all { it == null } },
+          category = this@with.category.takeIf { it.isNotEmpty() },
           subject = this@with.subject,
           date = this@with.date?.value?.toString(),
           _date = this@with.date?.toElement(),
-          author = this@with.author.takeUnless { it.all { it == null } },
+          author = this@with.author.takeIf { it.isNotEmpty() },
           authenticator = this@with.authenticator,
           custodian = this@with.custodian,
-          relatesTo = this@with.relatesTo.takeUnless { it.all { it == null } },
+          relatesTo = this@with.relatesTo.takeIf { it.isNotEmpty() },
           description = this@with.description?.value,
           _description = this@with.description?.toElement(),
-          securityLabel = this@with.securityLabel.takeUnless { it.all { it == null } },
-          content = this@with.content.takeUnless { it.all { it == null } },
+          securityLabel = this@with.securityLabel.takeIf { it.isNotEmpty() },
+          content = this@with.content.takeIf { it.isNotEmpty() },
           context = this@with.context,
         )
       }

@@ -101,8 +101,8 @@ internal data class SubstanceProteinSubunitSurrogate(
       with(model) {
         SubstanceProteinSubunitSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           subunit = this@with.subunit?.value,
           _subunit = this@with.subunit?.toElement(),
           sequence = this@with.sequence?.value,
@@ -191,9 +191,9 @@ internal data class SubstanceProteinSurrogate(
           language = this@with.language?.value,
           _language = this@with.language?.toElement(),
           text = this@with.text,
-          contained = this@with.contained.takeUnless { it.all { it == null } },
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          contained = this@with.contained.takeIf { it.isNotEmpty() },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           sequenceType = this@with.sequenceType,
           numberOfSubunits = this@with.numberOfSubunits?.value,
           _numberOfSubunits = this@with.numberOfSubunits?.toElement(),
@@ -208,7 +208,7 @@ internal data class SubstanceProteinSurrogate(
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
               ?.toMutableList(),
-          subunit = this@with.subunit.takeUnless { it.all { it == null } },
+          subunit = this@with.subunit.takeIf { it.isNotEmpty() },
         )
       }
   }

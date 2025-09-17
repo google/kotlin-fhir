@@ -120,11 +120,11 @@ internal data class GenomicStudyAnalysisSurrogate(
       with(model) {
         GenomicStudyAnalysisSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          identifier = this@with.identifier.takeUnless { it.all { it == null } },
-          methodType = this@with.methodType.takeUnless { it.all { it == null } },
-          changeType = this@with.changeType.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
+          identifier = this@with.identifier.takeIf { it.isNotEmpty() },
+          methodType = this@with.methodType.takeIf { it.isNotEmpty() },
+          changeType = this@with.changeType.takeIf { it.isNotEmpty() },
           genomeBuild = this@with.genomeBuild,
           instantiatesCanonical = this@with.instantiatesCanonical?.value,
           _instantiatesCanonical = this@with.instantiatesCanonical?.toElement(),
@@ -132,18 +132,18 @@ internal data class GenomicStudyAnalysisSurrogate(
           _instantiatesUri = this@with.instantiatesUri?.toElement(),
           title = this@with.title?.value,
           _title = this@with.title?.toElement(),
-          focus = this@with.focus.takeUnless { it.all { it == null } },
-          specimen = this@with.specimen.takeUnless { it.all { it == null } },
+          focus = this@with.focus.takeIf { it.isNotEmpty() },
+          specimen = this@with.specimen.takeIf { it.isNotEmpty() },
           date = this@with.date?.value?.toString(),
           _date = this@with.date?.toElement(),
-          note = this@with.note.takeUnless { it.all { it == null } },
+          note = this@with.note.takeIf { it.isNotEmpty() },
           protocolPerformed = this@with.protocolPerformed,
-          regionsStudied = this@with.regionsStudied.takeUnless { it.all { it == null } },
-          regionsCalled = this@with.regionsCalled.takeUnless { it.all { it == null } },
-          input = this@with.input.takeUnless { it.all { it == null } },
-          output = this@with.output.takeUnless { it.all { it == null } },
-          performer = this@with.performer.takeUnless { it.all { it == null } },
-          device = this@with.device.takeUnless { it.all { it == null } },
+          regionsStudied = this@with.regionsStudied.takeIf { it.isNotEmpty() },
+          regionsCalled = this@with.regionsCalled.takeIf { it.isNotEmpty() },
+          input = this@with.input.takeIf { it.isNotEmpty() },
+          output = this@with.output.takeIf { it.isNotEmpty() },
+          performer = this@with.performer.takeIf { it.isNotEmpty() },
+          device = this@with.device.takeIf { it.isNotEmpty() },
         )
       }
   }
@@ -174,8 +174,8 @@ internal data class GenomicStudyAnalysisInputSurrogate(
       with(model) {
         GenomicStudyAnalysisInputSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           `file` = this@with.`file`,
           type = this@with.type,
           generatedBy = this@with.generatedBy,
@@ -207,8 +207,8 @@ internal data class GenomicStudyAnalysisOutputSurrogate(
       with(model) {
         GenomicStudyAnalysisOutputSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           `file` = this@with.`file`,
           type = this@with.type,
         )
@@ -241,8 +241,8 @@ internal data class GenomicStudyAnalysisPerformerSurrogate(
       with(model) {
         GenomicStudyAnalysisPerformerSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           actor = this@with.actor,
           role = this@with.role,
         )
@@ -273,8 +273,8 @@ internal data class GenomicStudyAnalysisDeviceSurrogate(
       with(model) {
         GenomicStudyAnalysisDeviceSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           device = this@with.device,
           function = this@with.function,
         )
@@ -353,9 +353,7 @@ internal data class GenomicStudySurrogate(
       identifier = this@GenomicStudySurrogate.identifier ?: mutableListOf(),
       status =
         Enumeration.of(
-          com.google.fhir.model.r5.GenomicStudy.GenomicStudyStatus.fromCode(
-            this@GenomicStudySurrogate.status!!
-          ),
+          GenomicStudy.GenomicStudyStatus.fromCode(this@GenomicStudySurrogate.status!!),
           this@GenomicStudySurrogate._status,
         ),
       type = this@GenomicStudySurrogate.type ?: mutableListOf(),
@@ -400,29 +398,29 @@ internal data class GenomicStudySurrogate(
           language = this@with.language?.value,
           _language = this@with.language?.toElement(),
           text = this@with.text,
-          contained = this@with.contained.takeUnless { it.all { it == null } },
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          contained = this@with.contained.takeIf { it.isNotEmpty() },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
+          identifier = this@with.identifier.takeIf { it.isNotEmpty() },
           status = this@with.status.value?.getCode(),
           _status = this@with.status.toElement(),
-          type = this@with.type.takeUnless { it.all { it == null } },
+          type = this@with.type.takeIf { it.isNotEmpty() },
           subject = this@with.subject,
           encounter = this@with.encounter,
           startDate = this@with.startDate?.value?.toString(),
           _startDate = this@with.startDate?.toElement(),
-          basedOn = this@with.basedOn.takeUnless { it.all { it == null } },
+          basedOn = this@with.basedOn.takeIf { it.isNotEmpty() },
           referrer = this@with.referrer,
-          interpreter = this@with.interpreter.takeUnless { it.all { it == null } },
-          reason = this@with.reason.takeUnless { it.all { it == null } },
+          interpreter = this@with.interpreter.takeIf { it.isNotEmpty() },
+          reason = this@with.reason.takeIf { it.isNotEmpty() },
           instantiatesCanonical = this@with.instantiatesCanonical?.value,
           _instantiatesCanonical = this@with.instantiatesCanonical?.toElement(),
           instantiatesUri = this@with.instantiatesUri?.value,
           _instantiatesUri = this@with.instantiatesUri?.toElement(),
-          note = this@with.note.takeUnless { it.all { it == null } },
+          note = this@with.note.takeIf { it.isNotEmpty() },
           description = this@with.description?.value,
           _description = this@with.description?.toElement(),
-          analysis = this@with.analysis.takeUnless { it.all { it == null } },
+          analysis = this@with.analysis.takeIf { it.isNotEmpty() },
         )
       }
   }

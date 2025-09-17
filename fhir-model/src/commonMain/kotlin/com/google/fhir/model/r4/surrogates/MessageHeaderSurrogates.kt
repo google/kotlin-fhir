@@ -81,8 +81,8 @@ internal data class MessageHeaderDestinationSurrogate(
       with(model) {
         MessageHeaderDestinationSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           name = this@with.name?.value,
           _name = this@with.name?.toElement(),
           target = this@with.target,
@@ -142,8 +142,8 @@ internal data class MessageHeaderSourceSurrogate(
       with(model) {
         MessageHeaderSourceSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           name = this@with.name?.value,
           _name = this@with.name?.toElement(),
           software = this@with.software?.value,
@@ -181,9 +181,7 @@ internal data class MessageHeaderResponseSurrogate(
         )!!,
       code =
         Enumeration.of(
-          com.google.fhir.model.r4.MessageHeader.ResponseType.fromCode(
-            this@MessageHeaderResponseSurrogate.code!!
-          ),
+          MessageHeader.ResponseType.fromCode(this@MessageHeaderResponseSurrogate.code!!),
           this@MessageHeaderResponseSurrogate._code,
         ),
       details = this@MessageHeaderResponseSurrogate.details,
@@ -194,8 +192,8 @@ internal data class MessageHeaderResponseSurrogate(
       with(model) {
         MessageHeaderResponseSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           identifier = this@with.identifier.value,
           _identifier = this@with.identifier.toElement(),
           code = this@with.code.value?.getCode(),
@@ -216,7 +214,7 @@ internal data class MessageHeaderEventSurrogate(
     MessageHeader.Event.from(
       this@MessageHeaderEventSurrogate.eventCoding,
       Uri.of(this@MessageHeaderEventSurrogate.eventUri, this@MessageHeaderEventSurrogate._eventUri),
-    )!! !!
+    )!!
 
   public companion object {
     public fun fromModel(model: MessageHeader.Event): MessageHeaderEventSurrogate =
@@ -298,11 +296,11 @@ internal data class MessageHeaderSurrogate(
           language = this@with.language?.value,
           _language = this@with.language?.toElement(),
           text = this@with.text,
-          contained = this@with.contained.takeUnless { it.all { it == null } },
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          contained = this@with.contained.takeIf { it.isNotEmpty() },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           event = this@with.event,
-          destination = this@with.destination.takeUnless { it.all { it == null } },
+          destination = this@with.destination.takeIf { it.isNotEmpty() },
           sender = this@with.sender,
           enterer = this@with.enterer,
           author = this@with.author,
@@ -310,7 +308,7 @@ internal data class MessageHeaderSurrogate(
           responsible = this@with.responsible,
           reason = this@with.reason,
           response = this@with.response,
-          focus = this@with.focus.takeUnless { it.all { it == null } },
+          focus = this@with.focus.takeIf { it.isNotEmpty() },
           definition = this@with.definition?.value,
           _definition = this@with.definition?.toElement(),
         )

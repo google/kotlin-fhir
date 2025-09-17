@@ -88,8 +88,8 @@ internal data class LocationPositionSurrogate(
       with(model) {
         LocationPositionSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           longitude = this@with.longitude.value,
           _longitude = this@with.longitude.toElement(),
           latitude = this@with.latitude.value,
@@ -135,10 +135,7 @@ internal data class LocationHoursOfOperationSurrogate(
                 ?: List(this@LocationHoursOfOperationSurrogate.daysOfWeek!!.size) { null }
             )
             .map { (value, element) ->
-              Enumeration.of(
-                value.let { com.google.fhir.model.r4b.Location.DaysOfWeek.fromCode(it!!)!! },
-                element,
-              )
+              Enumeration.of(value.let { Location.DaysOfWeek.fromCode(it!!) }, element)
             }
             .toMutableList()
         },
@@ -164,8 +161,8 @@ internal data class LocationHoursOfOperationSurrogate(
       with(model) {
         LocationHoursOfOperationSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           daysOfWeek =
             this@with.daysOfWeek
               .map { it.value?.getCode() }
@@ -238,10 +235,7 @@ internal data class LocationSurrogate(
       identifier = this@LocationSurrogate.identifier ?: mutableListOf(),
       status =
         this@LocationSurrogate.status?.let {
-          Enumeration.of(
-            com.google.fhir.model.r4b.Location.LocationStatus.fromCode(it!!),
-            this@LocationSurrogate._status,
-          )
+          Enumeration.of(Location.LocationStatus.fromCode(it), this@LocationSurrogate._status)
         },
       operationalStatus = this@LocationSurrogate.operationalStatus,
       name = R4bString.of(this@LocationSurrogate.name, this@LocationSurrogate._name),
@@ -260,10 +254,7 @@ internal data class LocationSurrogate(
         R4bString.of(this@LocationSurrogate.description, this@LocationSurrogate._description),
       mode =
         this@LocationSurrogate.mode?.let {
-          Enumeration.of(
-            com.google.fhir.model.r4b.Location.LocationMode.fromCode(it!!),
-            this@LocationSurrogate._mode,
-          )
+          Enumeration.of(Location.LocationMode.fromCode(it), this@LocationSurrogate._mode)
         },
       type = this@LocationSurrogate.type ?: mutableListOf(),
       telecom = this@LocationSurrogate.telecom ?: mutableListOf(),
@@ -292,10 +283,10 @@ internal data class LocationSurrogate(
           language = this@with.language?.value,
           _language = this@with.language?.toElement(),
           text = this@with.text,
-          contained = this@with.contained.takeUnless { it.all { it == null } },
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          contained = this@with.contained.takeIf { it.isNotEmpty() },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
+          identifier = this@with.identifier.takeIf { it.isNotEmpty() },
           status = this@with.status?.value?.getCode(),
           _status = this@with.status?.toElement(),
           operationalStatus = this@with.operationalStatus,
@@ -313,17 +304,17 @@ internal data class LocationSurrogate(
           _description = this@with.description?.toElement(),
           mode = this@with.mode?.value?.getCode(),
           _mode = this@with.mode?.toElement(),
-          type = this@with.type.takeUnless { it.all { it == null } },
-          telecom = this@with.telecom.takeUnless { it.all { it == null } },
+          type = this@with.type.takeIf { it.isNotEmpty() },
+          telecom = this@with.telecom.takeIf { it.isNotEmpty() },
           address = this@with.address,
           physicalType = this@with.physicalType,
           position = this@with.position,
           managingOrganization = this@with.managingOrganization,
           partOf = this@with.partOf,
-          hoursOfOperation = this@with.hoursOfOperation.takeUnless { it.all { it == null } },
+          hoursOfOperation = this@with.hoursOfOperation.takeIf { it.isNotEmpty() },
           availabilityExceptions = this@with.availabilityExceptions?.value,
           _availabilityExceptions = this@with.availabilityExceptions?.toElement(),
-          endpoint = this@with.endpoint.takeUnless { it.all { it == null } },
+          endpoint = this@with.endpoint.takeIf { it.isNotEmpty() },
         )
       }
   }

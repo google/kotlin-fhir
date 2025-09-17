@@ -71,8 +71,8 @@ internal data class MedicationAdministrationPerformerSurrogate(
       with(model) {
         MedicationAdministrationPerformerSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           function = this@with.function,
           actor = this@with.actor,
         )
@@ -118,8 +118,8 @@ internal data class MedicationAdministrationDosageSurrogate(
       with(model) {
         MedicationAdministrationDosageSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           text = this@with.text?.value,
           _text = this@with.text?.toElement(),
           site = this@with.site,
@@ -141,7 +141,7 @@ internal data class MedicationAdministrationMedicationSurrogate(
     MedicationAdministration.Medication.from(
       this@MedicationAdministrationMedicationSurrogate.medicationCodeableConcept,
       this@MedicationAdministrationMedicationSurrogate.medicationReference,
-    )!! !!
+    )!!
 
   public companion object {
     public fun fromModel(
@@ -169,7 +169,7 @@ internal data class MedicationAdministrationEffectiveSurrogate(
         this@MedicationAdministrationEffectiveSurrogate._effectiveDateTime,
       ),
       this@MedicationAdministrationEffectiveSurrogate.effectivePeriod,
-    )!! !!
+    )!!
 
   public companion object {
     public fun fromModel(
@@ -282,8 +282,9 @@ internal data class MedicationAdministrationSurrogate(
       partOf = this@MedicationAdministrationSurrogate.partOf ?: mutableListOf(),
       status =
         Enumeration.of(
-          com.google.fhir.model.r4.MedicationAdministration.MedicationAdministrationStatusCodes
-            .fromCode(this@MedicationAdministrationSurrogate.status!!),
+          MedicationAdministration.MedicationAdministrationStatusCodes.fromCode(
+            this@MedicationAdministrationSurrogate.status!!
+          ),
           this@MedicationAdministrationSurrogate._status,
         ),
       statusReason = this@MedicationAdministrationSurrogate.statusReason ?: mutableListOf(),
@@ -315,10 +316,10 @@ internal data class MedicationAdministrationSurrogate(
           language = this@with.language?.value,
           _language = this@with.language?.toElement(),
           text = this@with.text,
-          contained = this@with.contained.takeUnless { it.all { it == null } },
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          contained = this@with.contained.takeIf { it.isNotEmpty() },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
+          identifier = this@with.identifier.takeIf { it.isNotEmpty() },
           instantiates =
             this@with.instantiates
               .map { it.value }
@@ -330,25 +331,24 @@ internal data class MedicationAdministrationSurrogate(
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
               ?.toMutableList(),
-          partOf = this@with.partOf.takeUnless { it.all { it == null } },
+          partOf = this@with.partOf.takeIf { it.isNotEmpty() },
           status = this@with.status.value?.getCode(),
           _status = this@with.status.toElement(),
-          statusReason = this@with.statusReason.takeUnless { it.all { it == null } },
+          statusReason = this@with.statusReason.takeIf { it.isNotEmpty() },
           category = this@with.category,
           medication = this@with.medication,
           subject = this@with.subject,
           context = this@with.context,
-          supportingInformation =
-            this@with.supportingInformation.takeUnless { it.all { it == null } },
+          supportingInformation = this@with.supportingInformation.takeIf { it.isNotEmpty() },
           effective = this@with.effective,
-          performer = this@with.performer.takeUnless { it.all { it == null } },
-          reasonCode = this@with.reasonCode.takeUnless { it.all { it == null } },
-          reasonReference = this@with.reasonReference.takeUnless { it.all { it == null } },
+          performer = this@with.performer.takeIf { it.isNotEmpty() },
+          reasonCode = this@with.reasonCode.takeIf { it.isNotEmpty() },
+          reasonReference = this@with.reasonReference.takeIf { it.isNotEmpty() },
           request = this@with.request,
-          device = this@with.device.takeUnless { it.all { it == null } },
-          note = this@with.note.takeUnless { it.all { it == null } },
+          device = this@with.device.takeIf { it.isNotEmpty() },
+          note = this@with.note.takeIf { it.isNotEmpty() },
           dosage = this@with.dosage,
-          eventHistory = this@with.eventHistory.takeUnless { it.all { it == null } },
+          eventHistory = this@with.eventHistory.takeIf { it.isNotEmpty() },
         )
       }
   }

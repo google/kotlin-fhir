@@ -71,8 +71,8 @@ internal data class InvoiceParticipantSurrogate(
       with(model) {
         InvoiceParticipantSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           role = this@with.role,
           actor = this@with.actor,
         )
@@ -109,12 +109,12 @@ internal data class InvoiceLineItemSurrogate(
       with(model) {
         InvoiceLineItemSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           sequence = this@with.sequence?.value,
           _sequence = this@with.sequence?.toElement(),
           chargeItem = this@with.chargeItem,
-          priceComponent = this@with.priceComponent.takeUnless { it.all { it == null } },
+          priceComponent = this@with.priceComponent.takeIf { it.isNotEmpty() },
         )
       }
   }
@@ -140,7 +140,7 @@ internal data class InvoiceLineItemPriceComponentSurrogate(
         this@InvoiceLineItemPriceComponentSurrogate.modifierExtension ?: mutableListOf(),
       type =
         Enumeration.of(
-          com.google.fhir.model.r4.Invoice.InvoicePriceComponentType.fromCode(
+          Invoice.InvoicePriceComponentType.fromCode(
             this@InvoiceLineItemPriceComponentSurrogate.type!!
           ),
           this@InvoiceLineItemPriceComponentSurrogate._type,
@@ -161,8 +161,8 @@ internal data class InvoiceLineItemPriceComponentSurrogate(
       with(model) {
         InvoiceLineItemPriceComponentSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           type = this@with.type.value?.getCode(),
           _type = this@with.type.toElement(),
           code = this@with.code,
@@ -183,7 +183,7 @@ internal data class InvoiceLineItemChargeItemSurrogate(
     Invoice.LineItem.ChargeItem.from(
       this@InvoiceLineItemChargeItemSurrogate.chargeItemReference,
       this@InvoiceLineItemChargeItemSurrogate.chargeItemCodeableConcept,
-    )!! !!
+    )!!
 
   public companion object {
     public fun fromModel(model: Invoice.LineItem.ChargeItem): InvoiceLineItemChargeItemSurrogate =
@@ -243,7 +243,7 @@ internal data class InvoiceSurrogate(
       identifier = this@InvoiceSurrogate.identifier ?: mutableListOf(),
       status =
         Enumeration.of(
-          com.google.fhir.model.r4.Invoice.InvoiceStatus.fromCode(this@InvoiceSurrogate.status!!),
+          Invoice.InvoiceStatus.fromCode(this@InvoiceSurrogate.status!!),
           this@InvoiceSurrogate._status,
         ),
       cancelledReason =
@@ -279,10 +279,10 @@ internal data class InvoiceSurrogate(
           language = this@with.language?.value,
           _language = this@with.language?.toElement(),
           text = this@with.text,
-          contained = this@with.contained.takeUnless { it.all { it == null } },
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          contained = this@with.contained.takeIf { it.isNotEmpty() },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
+          identifier = this@with.identifier.takeIf { it.isNotEmpty() },
           status = this@with.status.value?.getCode(),
           _status = this@with.status.toElement(),
           cancelledReason = this@with.cancelledReason?.value,
@@ -292,16 +292,16 @@ internal data class InvoiceSurrogate(
           recipient = this@with.recipient,
           date = this@with.date?.value?.toString(),
           _date = this@with.date?.toElement(),
-          participant = this@with.participant.takeUnless { it.all { it == null } },
+          participant = this@with.participant.takeIf { it.isNotEmpty() },
           issuer = this@with.issuer,
           account = this@with.account,
-          lineItem = this@with.lineItem.takeUnless { it.all { it == null } },
-          totalPriceComponent = this@with.totalPriceComponent.takeUnless { it.all { it == null } },
+          lineItem = this@with.lineItem.takeIf { it.isNotEmpty() },
+          totalPriceComponent = this@with.totalPriceComponent.takeIf { it.isNotEmpty() },
           totalNet = this@with.totalNet,
           totalGross = this@with.totalGross,
           paymentTerms = this@with.paymentTerms?.value,
           _paymentTerms = this@with.paymentTerms?.toElement(),
-          note = this@with.note.takeUnless { it.all { it == null } },
+          note = this@with.note.takeIf { it.isNotEmpty() },
         )
       }
   }

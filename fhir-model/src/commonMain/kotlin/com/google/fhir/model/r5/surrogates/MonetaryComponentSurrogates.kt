@@ -52,9 +52,7 @@ internal data class MonetaryComponentSurrogate(
       extension = this@MonetaryComponentSurrogate.extension ?: mutableListOf(),
       type =
         Enumeration.of(
-          com.google.fhir.model.r5.MonetaryComponent.PriceComponentType.fromCode(
-            this@MonetaryComponentSurrogate.type!!
-          ),
+          MonetaryComponent.PriceComponentType.fromCode(this@MonetaryComponentSurrogate.type!!),
           this@MonetaryComponentSurrogate._type,
         ),
       code = this@MonetaryComponentSurrogate.code,
@@ -68,7 +66,7 @@ internal data class MonetaryComponentSurrogate(
       with(model) {
         MonetaryComponentSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
           type = this@with.type.value?.getCode(),
           _type = this@with.type.toElement(),
           code = this@with.code,

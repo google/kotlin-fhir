@@ -78,8 +78,8 @@ internal data class AccountCoverageSurrogate(
       with(model) {
         AccountCoverageSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           coverage = this@with.coverage,
           priority = this@with.priority?.value,
           _priority = this@with.priority?.toElement(),
@@ -114,8 +114,8 @@ internal data class AccountGuarantorSurrogate(
       with(model) {
         AccountGuarantorSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           party = this@with.party,
           onHold = this@with.onHold?.value,
           _onHold = this@with.onHold?.toElement(),
@@ -170,17 +170,17 @@ internal data class AccountDiagnosisSurrogate(
       with(model) {
         AccountDiagnosisSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           sequence = this@with.sequence?.value,
           _sequence = this@with.sequence?.toElement(),
           condition = this@with.condition,
           dateOfDiagnosis = this@with.dateOfDiagnosis?.value?.toString(),
           _dateOfDiagnosis = this@with.dateOfDiagnosis?.toElement(),
-          type = this@with.type.takeUnless { it.all { it == null } },
+          type = this@with.type.takeIf { it.isNotEmpty() },
           onAdmission = this@with.onAdmission?.value,
           _onAdmission = this@with.onAdmission?.toElement(),
-          packageCode = this@with.packageCode.takeUnless { it.all { it == null } },
+          packageCode = this@with.packageCode.takeIf { it.isNotEmpty() },
         )
       }
   }
@@ -226,16 +226,16 @@ internal data class AccountProcedureSurrogate(
       with(model) {
         AccountProcedureSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           sequence = this@with.sequence?.value,
           _sequence = this@with.sequence?.toElement(),
           code = this@with.code,
           dateOfService = this@with.dateOfService?.value?.toString(),
           _dateOfService = this@with.dateOfService?.toElement(),
-          type = this@with.type.takeUnless { it.all { it == null } },
-          packageCode = this@with.packageCode.takeUnless { it.all { it == null } },
-          device = this@with.device.takeUnless { it.all { it == null } },
+          type = this@with.type.takeIf { it.isNotEmpty() },
+          packageCode = this@with.packageCode.takeIf { it.isNotEmpty() },
+          device = this@with.device.takeIf { it.isNotEmpty() },
         )
       }
   }
@@ -263,8 +263,8 @@ internal data class AccountRelatedAccountSurrogate(
       with(model) {
         AccountRelatedAccountSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           relationship = this@with.relationship,
           account = this@with.account,
         )
@@ -300,8 +300,8 @@ internal data class AccountBalanceSurrogate(
       with(model) {
         AccountBalanceSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           aggregate = this@with.aggregate,
           term = this@with.term,
           estimate = this@with.estimate?.value,
@@ -360,7 +360,7 @@ internal data class AccountSurrogate(
       identifier = this@AccountSurrogate.identifier ?: mutableListOf(),
       status =
         Enumeration.of(
-          com.google.fhir.model.r5.Account.AccountStatus.fromCode(this@AccountSurrogate.status!!),
+          Account.AccountStatus.fromCode(this@AccountSurrogate.status!!),
           this@AccountSurrogate._status,
         ),
       billingStatus = this@AccountSurrogate.billingStatus,
@@ -396,28 +396,28 @@ internal data class AccountSurrogate(
           language = this@with.language?.value,
           _language = this@with.language?.toElement(),
           text = this@with.text,
-          contained = this@with.contained.takeUnless { it.all { it == null } },
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          contained = this@with.contained.takeIf { it.isNotEmpty() },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
+          identifier = this@with.identifier.takeIf { it.isNotEmpty() },
           status = this@with.status.value?.getCode(),
           _status = this@with.status.toElement(),
           billingStatus = this@with.billingStatus,
           type = this@with.type,
           name = this@with.name?.value,
           _name = this@with.name?.toElement(),
-          subject = this@with.subject.takeUnless { it.all { it == null } },
+          subject = this@with.subject.takeIf { it.isNotEmpty() },
           servicePeriod = this@with.servicePeriod,
-          coverage = this@with.coverage.takeUnless { it.all { it == null } },
+          coverage = this@with.coverage.takeIf { it.isNotEmpty() },
           owner = this@with.owner,
           description = this@with.description?.value,
           _description = this@with.description?.toElement(),
-          guarantor = this@with.guarantor.takeUnless { it.all { it == null } },
-          diagnosis = this@with.diagnosis.takeUnless { it.all { it == null } },
-          procedure = this@with.procedure.takeUnless { it.all { it == null } },
-          relatedAccount = this@with.relatedAccount.takeUnless { it.all { it == null } },
+          guarantor = this@with.guarantor.takeIf { it.isNotEmpty() },
+          diagnosis = this@with.diagnosis.takeIf { it.isNotEmpty() },
+          procedure = this@with.procedure.takeIf { it.isNotEmpty() },
+          relatedAccount = this@with.relatedAccount.takeIf { it.isNotEmpty() },
           currency = this@with.currency,
-          balance = this@with.balance.takeUnless { it.all { it == null } },
+          balance = this@with.balance.takeIf { it.isNotEmpty() },
           calculatedAt = this@with.calculatedAt?.value?.toString(),
           _calculatedAt = this@with.calculatedAt?.toElement(),
         )

@@ -76,8 +76,8 @@ internal data class MedicationIngredientSurrogate(
       with(model) {
         MedicationIngredientSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           item = this@with.item,
           isActive = this@with.isActive?.value,
           _isActive = this@with.isActive?.toElement(),
@@ -119,8 +119,8 @@ internal data class MedicationBatchSurrogate(
       with(model) {
         MedicationBatchSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           lotNumber = this@with.lotNumber?.value,
           _lotNumber = this@with.lotNumber?.toElement(),
           expirationDate = this@with.expirationDate?.value?.toString(),
@@ -196,7 +196,7 @@ internal data class MedicationSurrogate(
       status =
         this@MedicationSurrogate.status?.let {
           Enumeration.of(
-            com.google.fhir.model.r5.Medication.MedicationStatusCodes.fromCode(it!!),
+            Medication.MedicationStatusCodes.fromCode(it),
             this@MedicationSurrogate._status,
           )
         },
@@ -219,17 +219,17 @@ internal data class MedicationSurrogate(
           language = this@with.language?.value,
           _language = this@with.language?.toElement(),
           text = this@with.text,
-          contained = this@with.contained.takeUnless { it.all { it == null } },
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          contained = this@with.contained.takeIf { it.isNotEmpty() },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
+          identifier = this@with.identifier.takeIf { it.isNotEmpty() },
           code = this@with.code,
           status = this@with.status?.value?.getCode(),
           _status = this@with.status?.toElement(),
           marketingAuthorizationHolder = this@with.marketingAuthorizationHolder,
           doseForm = this@with.doseForm,
           totalVolume = this@with.totalVolume,
-          ingredient = this@with.ingredient.takeUnless { it.all { it == null } },
+          ingredient = this@with.ingredient.takeIf { it.isNotEmpty() },
           batch = this@with.batch,
           definition = this@with.definition,
         )

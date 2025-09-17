@@ -48,6 +48,8 @@ import com.google.fhir.model.r5.Uri
 import com.google.fhir.model.r5.UsageContext
 import com.google.fhir.model.r5.serializers.DoubleSerializer
 import com.google.fhir.model.r5.serializers.LocalTimeSerializer
+import com.google.fhir.model.r5.terminologies.ConceptMapRelationship
+import com.google.fhir.model.r5.terminologies.PublicationStatus
 import kotlin.Boolean as KotlinBoolean
 import kotlin.Double
 import kotlin.Int
@@ -88,9 +90,7 @@ internal data class ConceptMapPropertySurrogate(
         ),
       type =
         Enumeration.of(
-          com.google.fhir.model.r5.ConceptMap.ConceptMapPropertyType.fromCode(
-            this@ConceptMapPropertySurrogate.type!!
-          ),
+          ConceptMap.ConceptMapPropertyType.fromCode(this@ConceptMapPropertySurrogate.type!!),
           this@ConceptMapPropertySurrogate._type,
         ),
       system =
@@ -105,8 +105,8 @@ internal data class ConceptMapPropertySurrogate(
       with(model) {
         ConceptMapPropertySurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           code = this@with.code.value,
           _code = this@with.code.toElement(),
           uri = this@with.uri?.value,
@@ -159,7 +159,7 @@ internal data class ConceptMapAdditionalAttributeSurrogate(
         ),
       type =
         Enumeration.of(
-          com.google.fhir.model.r5.ConceptMap.ConceptMapAttributeType.fromCode(
+          ConceptMap.ConceptMapAttributeType.fromCode(
             this@ConceptMapAdditionalAttributeSurrogate.type!!
           ),
           this@ConceptMapAdditionalAttributeSurrogate._type,
@@ -173,8 +173,8 @@ internal data class ConceptMapAdditionalAttributeSurrogate(
       with(model) {
         ConceptMapAdditionalAttributeSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           code = this@with.code.value,
           _code = this@with.code.toElement(),
           uri = this@with.uri?.value,
@@ -218,13 +218,13 @@ internal data class ConceptMapGroupSurrogate(
       with(model) {
         ConceptMapGroupSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           source = this@with.source?.value,
           _source = this@with.source?.toElement(),
           target = this@with.target?.value,
           _target = this@with.target?.toElement(),
-          element = this@with.element.takeUnless { it.all { it == null } },
+          element = this@with.element.takeIf { it.isNotEmpty() },
           unmapped = this@with.unmapped,
         )
       }
@@ -279,8 +279,8 @@ internal data class ConceptMapGroupElementSurrogate(
       with(model) {
         ConceptMapGroupElementSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           code = this@with.code?.value,
           _code = this@with.code?.toElement(),
           display = this@with.display?.value,
@@ -289,7 +289,7 @@ internal data class ConceptMapGroupElementSurrogate(
           _valueSet = this@with.valueSet?.toElement(),
           noMap = this@with.noMap?.value,
           _noMap = this@with.noMap?.toElement(),
-          target = this@with.target.takeUnless { it.all { it == null } },
+          target = this@with.target.takeIf { it.isNotEmpty() },
         )
       }
   }
@@ -337,7 +337,7 @@ internal data class ConceptMapGroupElementTargetSurrogate(
         ),
       relationship =
         Enumeration.of(
-          com.google.fhir.model.r5.terminologies.ConceptMapRelationship.fromCode(
+          ConceptMapRelationship.fromCode(
             this@ConceptMapGroupElementTargetSurrogate.relationship!!
           ),
           this@ConceptMapGroupElementTargetSurrogate._relationship,
@@ -359,8 +359,8 @@ internal data class ConceptMapGroupElementTargetSurrogate(
       with(model) {
         ConceptMapGroupElementTargetSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           code = this@with.code?.value,
           _code = this@with.code?.toElement(),
           display = this@with.display?.value,
@@ -371,9 +371,9 @@ internal data class ConceptMapGroupElementTargetSurrogate(
           _relationship = this@with.relationship.toElement(),
           comment = this@with.comment?.value,
           _comment = this@with.comment?.toElement(),
-          `property` = this@with.`property`.takeUnless { it.all { it == null } },
-          dependsOn = this@with.dependsOn.takeUnless { it.all { it == null } },
-          product = this@with.product.takeUnless { it.all { it == null } },
+          `property` = this@with.`property`.takeIf { it.isNotEmpty() },
+          dependsOn = this@with.dependsOn.takeIf { it.isNotEmpty() },
+          product = this@with.product.takeIf { it.isNotEmpty() },
         )
       }
   }
@@ -409,8 +409,8 @@ internal data class ConceptMapGroupElementTargetPropertySurrogate(
       with(model) {
         ConceptMapGroupElementTargetPropertySurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           code = this@with.code.value,
           _code = this@with.code.toElement(),
           `value` = this@with.`value`,
@@ -456,8 +456,8 @@ internal data class ConceptMapGroupElementTargetDependsOnSurrogate(
       with(model) {
         ConceptMapGroupElementTargetDependsOnSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           attribute = this@with.attribute.value,
           _attribute = this@with.attribute.toElement(),
           `value` = this@with.`value`,
@@ -494,7 +494,7 @@ internal data class ConceptMapGroupUnmappedSurrogate(
         this@ConceptMapGroupUnmappedSurrogate.modifierExtension ?: mutableListOf(),
       mode =
         Enumeration.of(
-          com.google.fhir.model.r5.ConceptMap.ConceptMapGroupUnmappedMode.fromCode(
+          ConceptMap.ConceptMapGroupUnmappedMode.fromCode(
             this@ConceptMapGroupUnmappedSurrogate.mode!!
           ),
           this@ConceptMapGroupUnmappedSurrogate._mode,
@@ -517,7 +517,7 @@ internal data class ConceptMapGroupUnmappedSurrogate(
       relationship =
         this@ConceptMapGroupUnmappedSurrogate.relationship?.let {
           Enumeration.of(
-            com.google.fhir.model.r5.terminologies.ConceptMapRelationship.fromCode(it!!),
+            ConceptMapRelationship.fromCode(it),
             this@ConceptMapGroupUnmappedSurrogate._relationship,
           )
         },
@@ -533,8 +533,8 @@ internal data class ConceptMapGroupUnmappedSurrogate(
       with(model) {
         ConceptMapGroupUnmappedSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           mode = this@with.mode.value?.getCode(),
           _mode = this@with.mode.toElement(),
           code = this@with.code?.value,
@@ -688,7 +688,7 @@ internal data class ConceptMapGroupElementTargetPropertyValueSurrogate(
         this@ConceptMapGroupElementTargetPropertyValueSurrogate.valueCode,
         this@ConceptMapGroupElementTargetPropertyValueSurrogate._valueCode,
       ),
-    )!! !!
+    )!!
 
   public companion object {
     public fun fromModel(
@@ -839,9 +839,7 @@ internal data class ConceptMapSurrogate(
       title = R5String.of(this@ConceptMapSurrogate.title, this@ConceptMapSurrogate._title),
       status =
         Enumeration.of(
-          com.google.fhir.model.r5.terminologies.PublicationStatus.fromCode(
-            this@ConceptMapSurrogate.status!!
-          ),
+          PublicationStatus.fromCode(this@ConceptMapSurrogate.status!!),
           this@ConceptMapSurrogate._status,
         ),
       experimental =
@@ -901,12 +899,12 @@ internal data class ConceptMapSurrogate(
           language = this@with.language?.value,
           _language = this@with.language?.toElement(),
           text = this@with.text,
-          contained = this@with.contained.takeUnless { it.all { it == null } },
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          contained = this@with.contained.takeIf { it.isNotEmpty() },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           url = this@with.url?.value,
           _url = this@with.url?.toElement(),
-          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          identifier = this@with.identifier.takeIf { it.isNotEmpty() },
           version = this@with.version?.value,
           _version = this@with.version?.toElement(),
           versionAlgorithm = this@with.versionAlgorithm,
@@ -922,11 +920,11 @@ internal data class ConceptMapSurrogate(
           _date = this@with.date?.toElement(),
           publisher = this@with.publisher?.value,
           _publisher = this@with.publisher?.toElement(),
-          contact = this@with.contact.takeUnless { it.all { it == null } },
+          contact = this@with.contact.takeIf { it.isNotEmpty() },
           description = this@with.description?.value,
           _description = this@with.description?.toElement(),
-          useContext = this@with.useContext.takeUnless { it.all { it == null } },
-          jurisdiction = this@with.jurisdiction.takeUnless { it.all { it == null } },
+          useContext = this@with.useContext.takeIf { it.isNotEmpty() },
+          jurisdiction = this@with.jurisdiction.takeIf { it.isNotEmpty() },
           purpose = this@with.purpose?.value,
           _purpose = this@with.purpose?.toElement(),
           copyright = this@with.copyright?.value,
@@ -938,17 +936,17 @@ internal data class ConceptMapSurrogate(
           lastReviewDate = this@with.lastReviewDate?.value?.toString(),
           _lastReviewDate = this@with.lastReviewDate?.toElement(),
           effectivePeriod = this@with.effectivePeriod,
-          topic = this@with.topic.takeUnless { it.all { it == null } },
-          author = this@with.author.takeUnless { it.all { it == null } },
-          editor = this@with.editor.takeUnless { it.all { it == null } },
-          reviewer = this@with.reviewer.takeUnless { it.all { it == null } },
-          endorser = this@with.endorser.takeUnless { it.all { it == null } },
-          relatedArtifact = this@with.relatedArtifact.takeUnless { it.all { it == null } },
-          `property` = this@with.`property`.takeUnless { it.all { it == null } },
-          additionalAttribute = this@with.additionalAttribute.takeUnless { it.all { it == null } },
+          topic = this@with.topic.takeIf { it.isNotEmpty() },
+          author = this@with.author.takeIf { it.isNotEmpty() },
+          editor = this@with.editor.takeIf { it.isNotEmpty() },
+          reviewer = this@with.reviewer.takeIf { it.isNotEmpty() },
+          endorser = this@with.endorser.takeIf { it.isNotEmpty() },
+          relatedArtifact = this@with.relatedArtifact.takeIf { it.isNotEmpty() },
+          `property` = this@with.`property`.takeIf { it.isNotEmpty() },
+          additionalAttribute = this@with.additionalAttribute.takeIf { it.isNotEmpty() },
           sourceScope = this@with.sourceScope,
           targetScope = this@with.targetScope,
-          group = this@with.group.takeUnless { it.all { it == null } },
+          group = this@with.group.takeIf { it.isNotEmpty() },
         )
       }
   }

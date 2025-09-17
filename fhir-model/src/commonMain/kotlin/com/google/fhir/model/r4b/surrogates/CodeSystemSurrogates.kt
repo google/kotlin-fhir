@@ -44,6 +44,8 @@ import com.google.fhir.model.r4b.Uri
 import com.google.fhir.model.r4b.UsageContext
 import com.google.fhir.model.r4b.serializers.DoubleSerializer
 import com.google.fhir.model.r4b.serializers.LocalTimeSerializer
+import com.google.fhir.model.r4b.terminologies.CommonLanguages
+import com.google.fhir.model.r4b.terminologies.PublicationStatus
 import kotlin.Boolean as KotlinBoolean
 import kotlin.Double
 import kotlin.Int
@@ -92,10 +94,7 @@ internal data class CodeSystemFilterSurrogate(
                 ?: List(this@CodeSystemFilterSurrogate.`operator`!!.size) { null }
             )
             .map { (value, element) ->
-              Enumeration.of(
-                value.let { com.google.fhir.model.r4b.CodeSystem.FilterOperator.fromCode(it!!)!! },
-                element,
-              )
+              Enumeration.of(value.let { CodeSystem.FilterOperator.fromCode(it!!) }, element)
             }
             .toMutableList()
         },
@@ -111,8 +110,8 @@ internal data class CodeSystemFilterSurrogate(
       with(model) {
         CodeSystemFilterSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           code = this@with.code.value,
           _code = this@with.code.toElement(),
           description = this@with.description?.value,
@@ -164,9 +163,7 @@ internal data class CodeSystemPropertySurrogate(
         ),
       type =
         Enumeration.of(
-          com.google.fhir.model.r4b.CodeSystem.PropertyType.fromCode(
-            this@CodeSystemPropertySurrogate.type!!
-          ),
+          CodeSystem.PropertyType.fromCode(this@CodeSystemPropertySurrogate.type!!),
           this@CodeSystemPropertySurrogate._type,
         ),
     )
@@ -176,8 +173,8 @@ internal data class CodeSystemPropertySurrogate(
       with(model) {
         CodeSystemPropertySurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           code = this@with.code.value,
           _code = this@with.code.toElement(),
           uri = this@with.uri?.value,
@@ -232,17 +229,17 @@ internal data class CodeSystemConceptSurrogate(
       with(model) {
         CodeSystemConceptSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           code = this@with.code.value,
           _code = this@with.code.toElement(),
           display = this@with.display?.value,
           _display = this@with.display?.toElement(),
           definition = this@with.definition?.value,
           _definition = this@with.definition?.toElement(),
-          designation = this@with.designation.takeUnless { it.all { it == null } },
-          `property` = this@with.`property`.takeUnless { it.all { it == null } },
-          concept = this@with.concept.takeUnless { it.all { it == null } },
+          designation = this@with.designation.takeIf { it.isNotEmpty() },
+          `property` = this@with.`property`.takeIf { it.isNotEmpty() },
+          concept = this@with.concept.takeIf { it.isNotEmpty() },
         )
       }
   }
@@ -268,7 +265,7 @@ internal data class CodeSystemConceptDesignationSurrogate(
       language =
         this@CodeSystemConceptDesignationSurrogate.language?.let {
           Enumeration.of(
-            com.google.fhir.model.r4b.terminologies.CommonLanguages.fromCode(it!!),
+            CommonLanguages.fromCode(it),
             this@CodeSystemConceptDesignationSurrogate._language,
           )
         },
@@ -287,8 +284,8 @@ internal data class CodeSystemConceptDesignationSurrogate(
       with(model) {
         CodeSystemConceptDesignationSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           language = this@with.language?.value?.getCode(),
           _language = this@with.language?.toElement(),
           use = this@with.use,
@@ -327,8 +324,8 @@ internal data class CodeSystemConceptPropertySurrogate(
       with(model) {
         CodeSystemConceptPropertySurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           code = this@with.code.value,
           _code = this@with.code.toElement(),
           `value` = this@with.`value`,
@@ -380,7 +377,7 @@ internal data class CodeSystemConceptPropertyValueSurrogate(
         this@CodeSystemConceptPropertyValueSurrogate.valueDecimal,
         this@CodeSystemConceptPropertyValueSurrogate._valueDecimal,
       ),
-    )!! !!
+    )!!
 
   public companion object {
     public fun fromModel(
@@ -482,9 +479,7 @@ internal data class CodeSystemSurrogate(
       title = R4bString.of(this@CodeSystemSurrogate.title, this@CodeSystemSurrogate._title),
       status =
         Enumeration.of(
-          com.google.fhir.model.r4b.terminologies.PublicationStatus.fromCode(
-            this@CodeSystemSurrogate.status!!
-          ),
+          PublicationStatus.fromCode(this@CodeSystemSurrogate.status!!),
           this@CodeSystemSurrogate._status,
         ),
       experimental =
@@ -517,7 +512,7 @@ internal data class CodeSystemSurrogate(
       hierarchyMeaning =
         this@CodeSystemSurrogate.hierarchyMeaning?.let {
           Enumeration.of(
-            com.google.fhir.model.r4b.CodeSystem.CodeSystemHierarchyMeaning.fromCode(it!!),
+            CodeSystem.CodeSystemHierarchyMeaning.fromCode(it),
             this@CodeSystemSurrogate._hierarchyMeaning,
           )
         },
@@ -533,9 +528,7 @@ internal data class CodeSystemSurrogate(
         ),
       content =
         Enumeration.of(
-          com.google.fhir.model.r4b.CodeSystem.CodeSystemContentMode.fromCode(
-            this@CodeSystemSurrogate.content!!
-          ),
+          CodeSystem.CodeSystemContentMode.fromCode(this@CodeSystemSurrogate.content!!),
           this@CodeSystemSurrogate._content,
         ),
       supplements =
@@ -557,12 +550,12 @@ internal data class CodeSystemSurrogate(
           language = this@with.language?.value,
           _language = this@with.language?.toElement(),
           text = this@with.text,
-          contained = this@with.contained.takeUnless { it.all { it == null } },
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          contained = this@with.contained.takeIf { it.isNotEmpty() },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           url = this@with.url?.value,
           _url = this@with.url?.toElement(),
-          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          identifier = this@with.identifier.takeIf { it.isNotEmpty() },
           version = this@with.version?.value,
           _version = this@with.version?.toElement(),
           name = this@with.name?.value,
@@ -577,11 +570,11 @@ internal data class CodeSystemSurrogate(
           _date = this@with.date?.toElement(),
           publisher = this@with.publisher?.value,
           _publisher = this@with.publisher?.toElement(),
-          contact = this@with.contact.takeUnless { it.all { it == null } },
+          contact = this@with.contact.takeIf { it.isNotEmpty() },
           description = this@with.description?.value,
           _description = this@with.description?.toElement(),
-          useContext = this@with.useContext.takeUnless { it.all { it == null } },
-          jurisdiction = this@with.jurisdiction.takeUnless { it.all { it == null } },
+          useContext = this@with.useContext.takeIf { it.isNotEmpty() },
+          jurisdiction = this@with.jurisdiction.takeIf { it.isNotEmpty() },
           purpose = this@with.purpose?.value,
           _purpose = this@with.purpose?.toElement(),
           copyright = this@with.copyright?.value,
@@ -602,9 +595,9 @@ internal data class CodeSystemSurrogate(
           _supplements = this@with.supplements?.toElement(),
           count = this@with.count?.value,
           _count = this@with.count?.toElement(),
-          filter = this@with.filter.takeUnless { it.all { it == null } },
-          `property` = this@with.`property`.takeUnless { it.all { it == null } },
-          concept = this@with.concept.takeUnless { it.all { it == null } },
+          filter = this@with.filter.takeIf { it.isNotEmpty() },
+          `property` = this@with.`property`.takeIf { it.isNotEmpty() },
+          concept = this@with.concept.takeIf { it.isNotEmpty() },
         )
       }
   }

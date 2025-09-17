@@ -64,7 +64,7 @@ internal data class GuidanceResponseModuleSurrogate(
         this@GuidanceResponseModuleSurrogate._moduleCanonical,
       ),
       this@GuidanceResponseModuleSurrogate.moduleCodeableConcept,
-    )!! !!
+    )!!
 
   public companion object {
     public fun fromModel(model: GuidanceResponse.Module): GuidanceResponseModuleSurrogate =
@@ -129,9 +129,7 @@ internal data class GuidanceResponseSurrogate(
       module = this@GuidanceResponseSurrogate.module,
       status =
         Enumeration.of(
-          com.google.fhir.model.r5.GuidanceResponse.GuidanceResponseStatus.fromCode(
-            this@GuidanceResponseSurrogate.status!!
-          ),
+          GuidanceResponse.GuidanceResponseStatus.fromCode(this@GuidanceResponseSurrogate.status!!),
           this@GuidanceResponseSurrogate._status,
         ),
       subject = this@GuidanceResponseSurrogate.subject,
@@ -161,11 +159,11 @@ internal data class GuidanceResponseSurrogate(
           language = this@with.language?.value,
           _language = this@with.language?.toElement(),
           text = this@with.text,
-          contained = this@with.contained.takeUnless { it.all { it == null } },
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          contained = this@with.contained.takeIf { it.isNotEmpty() },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           requestIdentifier = this@with.requestIdentifier,
-          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          identifier = this@with.identifier.takeIf { it.isNotEmpty() },
           module = this@with.module,
           status = this@with.status.value?.getCode(),
           _status = this@with.status.toElement(),
@@ -174,12 +172,12 @@ internal data class GuidanceResponseSurrogate(
           occurrenceDateTime = this@with.occurrenceDateTime?.value?.toString(),
           _occurrenceDateTime = this@with.occurrenceDateTime?.toElement(),
           performer = this@with.performer,
-          reason = this@with.reason.takeUnless { it.all { it == null } },
-          note = this@with.note.takeUnless { it.all { it == null } },
+          reason = this@with.reason.takeIf { it.isNotEmpty() },
+          note = this@with.note.takeIf { it.isNotEmpty() },
           evaluationMessage = this@with.evaluationMessage,
           outputParameters = this@with.outputParameters,
-          result = this@with.result.takeUnless { it.all { it == null } },
-          dataRequirement = this@with.dataRequirement.takeUnless { it.all { it == null } },
+          result = this@with.result.takeIf { it.isNotEmpty() },
+          dataRequirement = this@with.dataRequirement.takeIf { it.isNotEmpty() },
         )
       }
   }

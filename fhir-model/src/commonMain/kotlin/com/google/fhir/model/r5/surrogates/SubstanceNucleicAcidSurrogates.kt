@@ -93,8 +93,8 @@ internal data class SubstanceNucleicAcidSubunitSurrogate(
       with(model) {
         SubstanceNucleicAcidSubunitSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           subunit = this@with.subunit?.value,
           _subunit = this@with.subunit?.toElement(),
           sequence = this@with.sequence?.value,
@@ -104,8 +104,8 @@ internal data class SubstanceNucleicAcidSubunitSurrogate(
           sequenceAttachment = this@with.sequenceAttachment,
           fivePrime = this@with.fivePrime,
           threePrime = this@with.threePrime,
-          linkage = this@with.linkage.takeUnless { it.all { it == null } },
-          sugar = this@with.sugar.takeUnless { it.all { it == null } },
+          linkage = this@with.linkage.takeIf { it.isNotEmpty() },
+          sugar = this@with.sugar.takeIf { it.isNotEmpty() },
         )
       }
   }
@@ -155,8 +155,8 @@ internal data class SubstanceNucleicAcidSubunitLinkageSurrogate(
       with(model) {
         SubstanceNucleicAcidSubunitLinkageSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           connectivity = this@with.connectivity?.value,
           _connectivity = this@with.connectivity?.toElement(),
           identifier = this@with.identifier,
@@ -206,8 +206,8 @@ internal data class SubstanceNucleicAcidSubunitSugarSurrogate(
       with(model) {
         SubstanceNucleicAcidSubunitSugarSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           identifier = this@with.identifier,
           name = this@with.name?.value,
           _name = this@with.name?.toElement(),
@@ -282,16 +282,16 @@ internal data class SubstanceNucleicAcidSurrogate(
           language = this@with.language?.value,
           _language = this@with.language?.toElement(),
           text = this@with.text,
-          contained = this@with.contained.takeUnless { it.all { it == null } },
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          contained = this@with.contained.takeIf { it.isNotEmpty() },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           sequenceType = this@with.sequenceType,
           numberOfSubunits = this@with.numberOfSubunits?.value,
           _numberOfSubunits = this@with.numberOfSubunits?.toElement(),
           areaOfHybridisation = this@with.areaOfHybridisation?.value,
           _areaOfHybridisation = this@with.areaOfHybridisation?.toElement(),
           oligoNucleotideType = this@with.oligoNucleotideType,
-          subunit = this@with.subunit.takeUnless { it.all { it == null } },
+          subunit = this@with.subunit.takeIf { it.isNotEmpty() },
         )
       }
   }

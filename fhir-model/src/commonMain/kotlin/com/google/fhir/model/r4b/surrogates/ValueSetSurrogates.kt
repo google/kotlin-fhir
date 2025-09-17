@@ -45,6 +45,8 @@ import com.google.fhir.model.r4b.UsageContext
 import com.google.fhir.model.r4b.ValueSet
 import com.google.fhir.model.r4b.serializers.DoubleSerializer
 import com.google.fhir.model.r4b.serializers.LocalTimeSerializer
+import com.google.fhir.model.r4b.terminologies.CommonLanguages
+import com.google.fhir.model.r4b.terminologies.PublicationStatus
 import kotlin.Boolean as KotlinBoolean
 import kotlin.Double
 import kotlin.Int
@@ -90,14 +92,14 @@ internal data class ValueSetComposeSurrogate(
       with(model) {
         ValueSetComposeSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           lockedDate = this@with.lockedDate?.value?.toString(),
           _lockedDate = this@with.lockedDate?.toElement(),
           inactive = this@with.inactive?.value,
           _inactive = this@with.inactive?.toElement(),
-          include = this@with.include.takeUnless { it.all { it == null } },
-          exclude = this@with.exclude.takeUnless { it.all { it == null } },
+          include = this@with.include.takeIf { it.isNotEmpty() },
+          exclude = this@with.exclude.takeIf { it.isNotEmpty() },
         )
       }
   }
@@ -157,14 +159,14 @@ internal data class ValueSetComposeIncludeSurrogate(
       with(model) {
         ValueSetComposeIncludeSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           system = this@with.system?.value,
           _system = this@with.system?.toElement(),
           version = this@with.version?.value,
           _version = this@with.version?.toElement(),
-          concept = this@with.concept.takeUnless { it.all { it == null } },
-          filter = this@with.filter.takeUnless { it.all { it == null } },
+          concept = this@with.concept.takeIf { it.isNotEmpty() },
+          filter = this@with.filter.takeIf { it.isNotEmpty() },
           valueSet =
             this@with.valueSet
               .map { it.value }
@@ -218,13 +220,13 @@ internal data class ValueSetComposeIncludeConceptSurrogate(
       with(model) {
         ValueSetComposeIncludeConceptSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           code = this@with.code.value,
           _code = this@with.code.toElement(),
           display = this@with.display?.value,
           _display = this@with.display?.toElement(),
-          designation = this@with.designation.takeUnless { it.all { it == null } },
+          designation = this@with.designation.takeIf { it.isNotEmpty() },
         )
       }
   }
@@ -251,7 +253,7 @@ internal data class ValueSetComposeIncludeConceptDesignationSurrogate(
       language =
         this@ValueSetComposeIncludeConceptDesignationSurrogate.language?.let {
           Enumeration.of(
-            com.google.fhir.model.r4b.terminologies.CommonLanguages.fromCode(it!!),
+            CommonLanguages.fromCode(it),
             this@ValueSetComposeIncludeConceptDesignationSurrogate._language,
           )
         },
@@ -270,8 +272,8 @@ internal data class ValueSetComposeIncludeConceptDesignationSurrogate(
       with(model) {
         ValueSetComposeIncludeConceptDesignationSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           language = this@with.language?.value?.getCode(),
           _language = this@with.language?.toElement(),
           use = this@with.use,
@@ -307,9 +309,7 @@ internal data class ValueSetComposeIncludeFilterSurrogate(
         )!!,
       op =
         Enumeration.of(
-          com.google.fhir.model.r4b.ValueSet.FilterOperator.fromCode(
-            this@ValueSetComposeIncludeFilterSurrogate.op!!
-          ),
+          ValueSet.FilterOperator.fromCode(this@ValueSetComposeIncludeFilterSurrogate.op!!),
           this@ValueSetComposeIncludeFilterSurrogate._op,
         ),
       `value` =
@@ -326,8 +326,8 @@ internal data class ValueSetComposeIncludeFilterSurrogate(
       with(model) {
         ValueSetComposeIncludeFilterSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           `property` = this@with.`property`.value,
           _property = this@with.`property`.toElement(),
           op = this@with.op.value?.getCode(),
@@ -383,8 +383,8 @@ internal data class ValueSetExpansionSurrogate(
       with(model) {
         ValueSetExpansionSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           identifier = this@with.identifier?.value,
           _identifier = this@with.identifier?.toElement(),
           timestamp = this@with.timestamp.value?.toString(),
@@ -393,8 +393,8 @@ internal data class ValueSetExpansionSurrogate(
           _total = this@with.total?.toElement(),
           offset = this@with.offset?.value,
           _offset = this@with.offset?.toElement(),
-          parameter = this@with.parameter.takeUnless { it.all { it == null } },
-          contains = this@with.contains.takeUnless { it.all { it == null } },
+          parameter = this@with.parameter.takeIf { it.isNotEmpty() },
+          contains = this@with.contains.takeIf { it.isNotEmpty() },
         )
       }
   }
@@ -428,8 +428,8 @@ internal data class ValueSetExpansionParameterSurrogate(
       with(model) {
         ValueSetExpansionParameterSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           name = this@with.name.value,
           _name = this@with.name.toElement(),
           `value` = this@with.`value`,
@@ -503,8 +503,8 @@ internal data class ValueSetExpansionContainsSurrogate(
       with(model) {
         ValueSetExpansionContainsSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           system = this@with.system?.value,
           _system = this@with.system?.toElement(),
           `abstract` = this@with.`abstract`?.value,
@@ -517,8 +517,8 @@ internal data class ValueSetExpansionContainsSurrogate(
           _code = this@with.code?.toElement(),
           display = this@with.display?.value,
           _display = this@with.display?.toElement(),
-          designation = this@with.designation.takeUnless { it.all { it == null } },
-          contains = this@with.contains.takeUnless { it.all { it == null } },
+          designation = this@with.designation.takeIf { it.isNotEmpty() },
+          contains = this@with.contains.takeIf { it.isNotEmpty() },
         )
       }
   }
@@ -659,9 +659,7 @@ internal data class ValueSetSurrogate(
       title = R4bString.of(this@ValueSetSurrogate.title, this@ValueSetSurrogate._title),
       status =
         Enumeration.of(
-          com.google.fhir.model.r4b.terminologies.PublicationStatus.fromCode(
-            this@ValueSetSurrogate.status!!
-          ),
+          PublicationStatus.fromCode(this@ValueSetSurrogate.status!!),
           this@ValueSetSurrogate._status,
         ),
       experimental =
@@ -696,12 +694,12 @@ internal data class ValueSetSurrogate(
           language = this@with.language?.value,
           _language = this@with.language?.toElement(),
           text = this@with.text,
-          contained = this@with.contained.takeUnless { it.all { it == null } },
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          contained = this@with.contained.takeIf { it.isNotEmpty() },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           url = this@with.url?.value,
           _url = this@with.url?.toElement(),
-          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          identifier = this@with.identifier.takeIf { it.isNotEmpty() },
           version = this@with.version?.value,
           _version = this@with.version?.toElement(),
           name = this@with.name?.value,
@@ -716,11 +714,11 @@ internal data class ValueSetSurrogate(
           _date = this@with.date?.toElement(),
           publisher = this@with.publisher?.value,
           _publisher = this@with.publisher?.toElement(),
-          contact = this@with.contact.takeUnless { it.all { it == null } },
+          contact = this@with.contact.takeIf { it.isNotEmpty() },
           description = this@with.description?.value,
           _description = this@with.description?.toElement(),
-          useContext = this@with.useContext.takeUnless { it.all { it == null } },
-          jurisdiction = this@with.jurisdiction.takeUnless { it.all { it == null } },
+          useContext = this@with.useContext.takeIf { it.isNotEmpty() },
+          jurisdiction = this@with.jurisdiction.takeIf { it.isNotEmpty() },
           immutable = this@with.immutable?.value,
           _immutable = this@with.immutable?.toElement(),
           purpose = this@with.purpose?.value,

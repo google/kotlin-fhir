@@ -79,14 +79,13 @@ internal data class BodyStructureIncludedStructureSurrogate(
       with(model) {
         BodyStructureIncludedStructureSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           structure = this@with.structure,
           laterality = this@with.laterality,
-          bodyLandmarkOrientation =
-            this@with.bodyLandmarkOrientation.takeUnless { it.all { it == null } },
-          spatialReference = this@with.spatialReference.takeUnless { it.all { it == null } },
-          qualifier = this@with.qualifier.takeUnless { it.all { it == null } },
+          bodyLandmarkOrientation = this@with.bodyLandmarkOrientation.takeIf { it.isNotEmpty() },
+          spatialReference = this@with.spatialReference.takeIf { it.isNotEmpty() },
+          qualifier = this@with.qualifier.takeIf { it.isNotEmpty() },
         )
       }
   }
@@ -134,13 +133,12 @@ internal data class BodyStructureIncludedStructureBodyLandmarkOrientationSurroga
       with(model) {
         BodyStructureIncludedStructureBodyLandmarkOrientationSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          landmarkDescription = this@with.landmarkDescription.takeUnless { it.all { it == null } },
-          clockFacePosition = this@with.clockFacePosition.takeUnless { it.all { it == null } },
-          distanceFromLandmark =
-            this@with.distanceFromLandmark.takeUnless { it.all { it == null } },
-          surfaceOrientation = this@with.surfaceOrientation.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
+          landmarkDescription = this@with.landmarkDescription.takeIf { it.isNotEmpty() },
+          clockFacePosition = this@with.clockFacePosition.takeIf { it.isNotEmpty() },
+          distanceFromLandmark = this@with.distanceFromLandmark.takeIf { it.isNotEmpty() },
+          surfaceOrientation = this@with.surfaceOrientation.takeIf { it.isNotEmpty() },
         )
       }
   }
@@ -180,10 +178,10 @@ internal data class BodyStructureIncludedStructureBodyLandmarkOrientationDistanc
       with(model) {
         BodyStructureIncludedStructureBodyLandmarkOrientationDistanceFromLandmarkSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          device = this@with.device.takeUnless { it.all { it == null } },
-          `value` = this@with.`value`.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
+          device = this@with.device.takeIf { it.isNotEmpty() },
+          `value` = this@with.`value`.takeIf { it.isNotEmpty() },
         )
       }
   }
@@ -253,18 +251,18 @@ internal data class BodyStructureSurrogate(
           language = this@with.language?.value,
           _language = this@with.language?.toElement(),
           text = this@with.text,
-          contained = this@with.contained.takeUnless { it.all { it == null } },
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          contained = this@with.contained.takeIf { it.isNotEmpty() },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
+          identifier = this@with.identifier.takeIf { it.isNotEmpty() },
           active = this@with.active?.value,
           _active = this@with.active?.toElement(),
           morphology = this@with.morphology,
-          includedStructure = this@with.includedStructure.takeUnless { it.all { it == null } },
-          excludedStructure = this@with.excludedStructure.takeUnless { it.all { it == null } },
+          includedStructure = this@with.includedStructure.takeIf { it.isNotEmpty() },
+          excludedStructure = this@with.excludedStructure.takeIf { it.isNotEmpty() },
           description = this@with.description?.value,
           _description = this@with.description?.toElement(),
-          image = this@with.image.takeUnless { it.all { it == null } },
+          image = this@with.image.takeIf { it.isNotEmpty() },
           patient = this@with.patient,
         )
       }

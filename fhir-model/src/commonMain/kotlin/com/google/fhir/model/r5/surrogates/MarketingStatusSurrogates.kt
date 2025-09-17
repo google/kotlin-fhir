@@ -67,8 +67,8 @@ internal data class MarketingStatusSurrogate(
       with(model) {
         MarketingStatusSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           country = this@with.country,
           jurisdiction = this@with.jurisdiction,
           status = this@with.status,

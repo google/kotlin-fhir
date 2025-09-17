@@ -81,9 +81,9 @@ internal data class EndpointPayloadSurrogate(
       with(model) {
         EndpointPayloadSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          type = this@with.type.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
+          type = this@with.type.takeIf { it.isNotEmpty() },
           mimeType =
             this@with.mimeType
               .map { it.value }
@@ -144,9 +144,7 @@ internal data class EndpointSurrogate(
       identifier = this@EndpointSurrogate.identifier ?: mutableListOf(),
       status =
         Enumeration.of(
-          com.google.fhir.model.r5.Endpoint.EndpointStatus.fromCode(
-            this@EndpointSurrogate.status!!
-          ),
+          Endpoint.EndpointStatus.fromCode(this@EndpointSurrogate.status!!),
           this@EndpointSurrogate._status,
         ),
       connectionType = this@EndpointSurrogate.connectionType ?: mutableListOf(),
@@ -184,22 +182,22 @@ internal data class EndpointSurrogate(
           language = this@with.language?.value,
           _language = this@with.language?.toElement(),
           text = this@with.text,
-          contained = this@with.contained.takeUnless { it.all { it == null } },
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          contained = this@with.contained.takeIf { it.isNotEmpty() },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
+          identifier = this@with.identifier.takeIf { it.isNotEmpty() },
           status = this@with.status.value?.getCode(),
           _status = this@with.status.toElement(),
-          connectionType = this@with.connectionType.takeUnless { it.all { it == null } },
+          connectionType = this@with.connectionType.takeIf { it.isNotEmpty() },
           name = this@with.name?.value,
           _name = this@with.name?.toElement(),
           description = this@with.description?.value,
           _description = this@with.description?.toElement(),
-          environmentType = this@with.environmentType.takeUnless { it.all { it == null } },
+          environmentType = this@with.environmentType.takeIf { it.isNotEmpty() },
           managingOrganization = this@with.managingOrganization,
-          contact = this@with.contact.takeUnless { it.all { it == null } },
+          contact = this@with.contact.takeIf { it.isNotEmpty() },
           period = this@with.period,
-          payload = this@with.payload.takeUnless { it.all { it == null } },
+          payload = this@with.payload.takeIf { it.isNotEmpty() },
           address = this@with.address.value,
           _address = this@with.address.toElement(),
           `header` =

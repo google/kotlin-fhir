@@ -78,8 +78,8 @@ internal data class HealthcareServiceEligibilitySurrogate(
       with(model) {
         HealthcareServiceEligibilitySurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           code = this@with.code,
           comment = this@with.comment?.value,
           _comment = this@with.comment?.toElement(),
@@ -122,12 +122,7 @@ internal data class HealthcareServiceAvailableTimeSurrogate(
                 ?: List(this@HealthcareServiceAvailableTimeSurrogate.daysOfWeek!!.size) { null }
             )
             .map { (value, element) ->
-              Enumeration.of(
-                value.let {
-                  com.google.fhir.model.r4.HealthcareService.DaysOfWeek.fromCode(it!!)!!
-                },
-                element,
-              )
+              Enumeration.of(value.let { HealthcareService.DaysOfWeek.fromCode(it!!) }, element)
             }
             .toMutableList()
         },
@@ -155,8 +150,8 @@ internal data class HealthcareServiceAvailableTimeSurrogate(
       with(model) {
         HealthcareServiceAvailableTimeSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           daysOfWeek =
             this@with.daysOfWeek
               .map { it.value?.getCode() }
@@ -209,8 +204,8 @@ internal data class HealthcareServiceNotAvailableSurrogate(
       with(model) {
         HealthcareServiceNotAvailableSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           description = this@with.description.value,
           _description = this@with.description.toElement(),
           during = this@with.during,
@@ -339,17 +334,17 @@ internal data class HealthcareServiceSurrogate(
           language = this@with.language?.value,
           _language = this@with.language?.toElement(),
           text = this@with.text,
-          contained = this@with.contained.takeUnless { it.all { it == null } },
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          contained = this@with.contained.takeIf { it.isNotEmpty() },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
+          identifier = this@with.identifier.takeIf { it.isNotEmpty() },
           active = this@with.active?.value,
           _active = this@with.active?.toElement(),
           providedBy = this@with.providedBy,
-          category = this@with.category.takeUnless { it.all { it == null } },
-          type = this@with.type.takeUnless { it.all { it == null } },
-          specialty = this@with.specialty.takeUnless { it.all { it == null } },
-          location = this@with.location.takeUnless { it.all { it == null } },
+          category = this@with.category.takeIf { it.isNotEmpty() },
+          type = this@with.type.takeIf { it.isNotEmpty() },
+          specialty = this@with.specialty.takeIf { it.isNotEmpty() },
+          location = this@with.location.takeIf { it.isNotEmpty() },
           name = this@with.name?.value,
           _name = this@with.name?.toElement(),
           comment = this@with.comment?.value,
@@ -357,22 +352,21 @@ internal data class HealthcareServiceSurrogate(
           extraDetails = this@with.extraDetails?.value,
           _extraDetails = this@with.extraDetails?.toElement(),
           photo = this@with.photo,
-          telecom = this@with.telecom.takeUnless { it.all { it == null } },
-          coverageArea = this@with.coverageArea.takeUnless { it.all { it == null } },
-          serviceProvisionCode =
-            this@with.serviceProvisionCode.takeUnless { it.all { it == null } },
-          eligibility = this@with.eligibility.takeUnless { it.all { it == null } },
-          program = this@with.program.takeUnless { it.all { it == null } },
-          characteristic = this@with.characteristic.takeUnless { it.all { it == null } },
-          communication = this@with.communication.takeUnless { it.all { it == null } },
-          referralMethod = this@with.referralMethod.takeUnless { it.all { it == null } },
+          telecom = this@with.telecom.takeIf { it.isNotEmpty() },
+          coverageArea = this@with.coverageArea.takeIf { it.isNotEmpty() },
+          serviceProvisionCode = this@with.serviceProvisionCode.takeIf { it.isNotEmpty() },
+          eligibility = this@with.eligibility.takeIf { it.isNotEmpty() },
+          program = this@with.program.takeIf { it.isNotEmpty() },
+          characteristic = this@with.characteristic.takeIf { it.isNotEmpty() },
+          communication = this@with.communication.takeIf { it.isNotEmpty() },
+          referralMethod = this@with.referralMethod.takeIf { it.isNotEmpty() },
           appointmentRequired = this@with.appointmentRequired?.value,
           _appointmentRequired = this@with.appointmentRequired?.toElement(),
-          availableTime = this@with.availableTime.takeUnless { it.all { it == null } },
-          notAvailable = this@with.notAvailable.takeUnless { it.all { it == null } },
+          availableTime = this@with.availableTime.takeIf { it.isNotEmpty() },
+          notAvailable = this@with.notAvailable.takeIf { it.isNotEmpty() },
           availabilityExceptions = this@with.availabilityExceptions?.value,
           _availabilityExceptions = this@with.availabilityExceptions?.toElement(),
-          endpoint = this@with.endpoint.takeUnless { it.all { it == null } },
+          endpoint = this@with.endpoint.takeIf { it.isNotEmpty() },
         )
       }
   }

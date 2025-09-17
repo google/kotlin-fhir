@@ -79,9 +79,7 @@ internal data class ArtifactAssessmentContentSurrogate(
       informationType =
         this@ArtifactAssessmentContentSurrogate.informationType?.let {
           Enumeration.of(
-            com.google.fhir.model.r5.ArtifactAssessment.ArtifactAssessmentInformationType.fromCode(
-              it!!
-            ),
+            ArtifactAssessment.ArtifactAssessmentInformationType.fromCode(it),
             this@ArtifactAssessmentContentSurrogate._informationType,
           )
         },
@@ -124,14 +122,14 @@ internal data class ArtifactAssessmentContentSurrogate(
       with(model) {
         ArtifactAssessmentContentSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           informationType = this@with.informationType?.value?.getCode(),
           _informationType = this@with.informationType?.toElement(),
           summary = this@with.summary?.value,
           _summary = this@with.summary?.toElement(),
           type = this@with.type,
-          classifier = this@with.classifier.takeUnless { it.all { it == null } },
+          classifier = this@with.classifier.takeIf { it.isNotEmpty() },
           quantity = this@with.quantity,
           author = this@with.author,
           path =
@@ -142,10 +140,10 @@ internal data class ArtifactAssessmentContentSurrogate(
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
               ?.toMutableList(),
-          relatedArtifact = this@with.relatedArtifact.takeUnless { it.all { it == null } },
+          relatedArtifact = this@with.relatedArtifact.takeIf { it.isNotEmpty() },
           freeToShare = this@with.freeToShare?.value,
           _freeToShare = this@with.freeToShare?.toElement(),
-          component = this@with.component.takeUnless { it.all { it == null } },
+          component = this@with.component.takeIf { it.isNotEmpty() },
         )
       }
   }
@@ -197,7 +195,7 @@ internal data class ArtifactAssessmentArtifactSurrogate(
         this@ArtifactAssessmentArtifactSurrogate.artifactUri,
         this@ArtifactAssessmentArtifactSurrogate._artifactUri,
       ),
-    )!! !!
+    )!!
 
   public companion object {
     public fun fromModel(model: ArtifactAssessment.Artifact): ArtifactAssessmentArtifactSurrogate =
@@ -294,18 +292,14 @@ internal data class ArtifactAssessmentSurrogate(
       workflowStatus =
         this@ArtifactAssessmentSurrogate.workflowStatus?.let {
           Enumeration.of(
-            com.google.fhir.model.r5.ArtifactAssessment.ArtifactAssessmentWorkflowStatus.fromCode(
-              it!!
-            ),
+            ArtifactAssessment.ArtifactAssessmentWorkflowStatus.fromCode(it),
             this@ArtifactAssessmentSurrogate._workflowStatus,
           )
         },
       disposition =
         this@ArtifactAssessmentSurrogate.disposition?.let {
           Enumeration.of(
-            com.google.fhir.model.r5.ArtifactAssessment.ArtifactAssessmentDisposition.fromCode(
-              it!!
-            ),
+            ArtifactAssessment.ArtifactAssessmentDisposition.fromCode(it),
             this@ArtifactAssessmentSurrogate._disposition,
           )
         },
@@ -322,10 +316,10 @@ internal data class ArtifactAssessmentSurrogate(
           language = this@with.language?.value,
           _language = this@with.language?.toElement(),
           text = this@with.text,
-          contained = this@with.contained.takeUnless { it.all { it == null } },
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          contained = this@with.contained.takeIf { it.isNotEmpty() },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
+          identifier = this@with.identifier.takeIf { it.isNotEmpty() },
           title = this@with.title?.value,
           _title = this@with.title?.toElement(),
           citeAs = this@with.citeAs,
@@ -338,7 +332,7 @@ internal data class ArtifactAssessmentSurrogate(
           lastReviewDate = this@with.lastReviewDate?.value?.toString(),
           _lastReviewDate = this@with.lastReviewDate?.toElement(),
           artifact = this@with.artifact,
-          content = this@with.content.takeUnless { it.all { it == null } },
+          content = this@with.content.takeIf { it.isNotEmpty() },
           workflowStatus = this@with.workflowStatus?.value?.getCode(),
           _workflowStatus = this@with.workflowStatus?.toElement(),
           disposition = this@with.disposition?.value?.getCode(),

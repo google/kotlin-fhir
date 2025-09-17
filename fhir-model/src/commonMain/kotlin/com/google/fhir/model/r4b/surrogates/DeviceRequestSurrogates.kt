@@ -71,8 +71,8 @@ internal data class DeviceRequestParameterSurrogate(
       with(model) {
         DeviceRequestParameterSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           code = this@with.code,
           `value` = this@with.`value`,
         )
@@ -89,7 +89,7 @@ internal data class DeviceRequestCodeSurrogate(
     DeviceRequest.Code.from(
       this@DeviceRequestCodeSurrogate.codeReference,
       this@DeviceRequestCodeSurrogate.codeCodeableConcept,
-    )!! !!
+    )!!
 
   public companion object {
     public fun fromModel(model: DeviceRequest.Code): DeviceRequestCodeSurrogate =
@@ -264,21 +264,19 @@ internal data class DeviceRequestSurrogate(
       status =
         this@DeviceRequestSurrogate.status?.let {
           Enumeration.of(
-            com.google.fhir.model.r4b.DeviceRequest.RequestStatus.fromCode(it!!),
+            DeviceRequest.RequestStatus.fromCode(it),
             this@DeviceRequestSurrogate._status,
           )
         },
       intent =
         Enumeration.of(
-          com.google.fhir.model.r4b.DeviceRequest.RequestIntent.fromCode(
-            this@DeviceRequestSurrogate.intent!!
-          ),
+          DeviceRequest.RequestIntent.fromCode(this@DeviceRequestSurrogate.intent!!),
           this@DeviceRequestSurrogate._intent,
         ),
       priority =
         this@DeviceRequestSurrogate.priority?.let {
           Enumeration.of(
-            com.google.fhir.model.r4b.DeviceRequest.RequestPriority.fromCode(it!!),
+            DeviceRequest.RequestPriority.fromCode(it),
             this@DeviceRequestSurrogate._priority,
           )
         },
@@ -314,10 +312,10 @@ internal data class DeviceRequestSurrogate(
           language = this@with.language?.value,
           _language = this@with.language?.toElement(),
           text = this@with.text,
-          contained = this@with.contained.takeUnless { it.all { it == null } },
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          contained = this@with.contained.takeIf { it.isNotEmpty() },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
+          identifier = this@with.identifier.takeIf { it.isNotEmpty() },
           instantiatesCanonical =
             this@with.instantiatesCanonical
               .map { it.value }
@@ -340,8 +338,8 @@ internal data class DeviceRequestSurrogate(
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
               ?.toMutableList(),
-          basedOn = this@with.basedOn.takeUnless { it.all { it == null } },
-          priorRequest = this@with.priorRequest.takeUnless { it.all { it == null } },
+          basedOn = this@with.basedOn.takeIf { it.isNotEmpty() },
+          priorRequest = this@with.priorRequest.takeIf { it.isNotEmpty() },
           groupIdentifier = this@with.groupIdentifier,
           status = this@with.status?.value?.getCode(),
           _status = this@with.status?.toElement(),
@@ -350,7 +348,7 @@ internal data class DeviceRequestSurrogate(
           priority = this@with.priority?.value?.getCode(),
           _priority = this@with.priority?.toElement(),
           code = this@with.code,
-          parameter = this@with.parameter.takeUnless { it.all { it == null } },
+          parameter = this@with.parameter.takeIf { it.isNotEmpty() },
           subject = this@with.subject,
           encounter = this@with.encounter,
           occurrence = this@with.occurrence,
@@ -359,12 +357,12 @@ internal data class DeviceRequestSurrogate(
           requester = this@with.requester,
           performerType = this@with.performerType,
           performer = this@with.performer,
-          reasonCode = this@with.reasonCode.takeUnless { it.all { it == null } },
-          reasonReference = this@with.reasonReference.takeUnless { it.all { it == null } },
-          insurance = this@with.insurance.takeUnless { it.all { it == null } },
-          supportingInfo = this@with.supportingInfo.takeUnless { it.all { it == null } },
-          note = this@with.note.takeUnless { it.all { it == null } },
-          relevantHistory = this@with.relevantHistory.takeUnless { it.all { it == null } },
+          reasonCode = this@with.reasonCode.takeIf { it.isNotEmpty() },
+          reasonReference = this@with.reasonReference.takeIf { it.isNotEmpty() },
+          insurance = this@with.insurance.takeIf { it.isNotEmpty() },
+          supportingInfo = this@with.supportingInfo.takeIf { it.isNotEmpty() },
+          note = this@with.note.takeIf { it.isNotEmpty() },
+          relevantHistory = this@with.relevantHistory.takeIf { it.isNotEmpty() },
         )
       }
   }

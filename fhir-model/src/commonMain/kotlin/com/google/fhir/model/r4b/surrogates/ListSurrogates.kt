@@ -77,8 +77,8 @@ internal data class ListEntrySurrogate(
       with(model) {
         ListEntrySurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           flag = this@with.flag,
           deleted = this@with.deleted?.value,
           _deleted = this@with.deleted?.toElement(),
@@ -133,14 +133,11 @@ internal data class ListSurrogate(
       identifier = this@ListSurrogate.identifier ?: mutableListOf(),
       status =
         Enumeration.of(
-          com.google.fhir.model.r4b.List.ListStatus.fromCode(this@ListSurrogate.status!!),
+          List.ListStatus.fromCode(this@ListSurrogate.status!!),
           this@ListSurrogate._status,
         ),
       mode =
-        Enumeration.of(
-          com.google.fhir.model.r4b.List.ListMode.fromCode(this@ListSurrogate.mode!!),
-          this@ListSurrogate._mode,
-        ),
+        Enumeration.of(List.ListMode.fromCode(this@ListSurrogate.mode!!), this@ListSurrogate._mode),
       title = R4bString.of(this@ListSurrogate.title, this@ListSurrogate._title),
       code = this@ListSurrogate.code,
       subject = this@ListSurrogate.subject,
@@ -165,10 +162,10 @@ internal data class ListSurrogate(
           language = this@with.language?.value,
           _language = this@with.language?.toElement(),
           text = this@with.text,
-          contained = this@with.contained.takeUnless { it.all { it == null } },
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          contained = this@with.contained.takeIf { it.isNotEmpty() },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
+          identifier = this@with.identifier.takeIf { it.isNotEmpty() },
           status = this@with.status.value?.getCode(),
           _status = this@with.status.toElement(),
           mode = this@with.mode.value?.getCode(),
@@ -182,8 +179,8 @@ internal data class ListSurrogate(
           _date = this@with.date?.toElement(),
           source = this@with.source,
           orderedBy = this@with.orderedBy,
-          note = this@with.note.takeUnless { it.all { it == null } },
-          entry = this@with.entry.takeUnless { it.all { it == null } },
+          note = this@with.note.takeIf { it.isNotEmpty() },
+          entry = this@with.entry.takeIf { it.isNotEmpty() },
           emptyReason = this@with.emptyReason,
         )
       }

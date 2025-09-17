@@ -71,9 +71,9 @@ internal data class OrganizationQualificationSurrogate(
       with(model) {
         OrganizationQualificationSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
+          identifier = this@with.identifier.takeIf { it.isNotEmpty() },
           code = this@with.code,
           period = this@with.period,
           issuer = this@with.issuer,
@@ -159,13 +159,13 @@ internal data class OrganizationSurrogate(
           language = this@with.language?.value,
           _language = this@with.language?.toElement(),
           text = this@with.text,
-          contained = this@with.contained.takeUnless { it.all { it == null } },
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          contained = this@with.contained.takeIf { it.isNotEmpty() },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
+          identifier = this@with.identifier.takeIf { it.isNotEmpty() },
           active = this@with.active?.value,
           _active = this@with.active?.toElement(),
-          type = this@with.type.takeUnless { it.all { it == null } },
+          type = this@with.type.takeIf { it.isNotEmpty() },
           name = this@with.name?.value,
           _name = this@with.name?.toElement(),
           alias =
@@ -178,10 +178,10 @@ internal data class OrganizationSurrogate(
               ?.toMutableList(),
           description = this@with.description?.value,
           _description = this@with.description?.toElement(),
-          contact = this@with.contact.takeUnless { it.all { it == null } },
+          contact = this@with.contact.takeIf { it.isNotEmpty() },
           partOf = this@with.partOf,
-          endpoint = this@with.endpoint.takeUnless { it.all { it == null } },
-          qualification = this@with.qualification.takeUnless { it.all { it == null } },
+          endpoint = this@with.endpoint.takeIf { it.isNotEmpty() },
+          qualification = this@with.qualification.takeIf { it.isNotEmpty() },
         )
       }
   }

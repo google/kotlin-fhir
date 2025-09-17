@@ -37,6 +37,7 @@ import com.google.fhir.model.r5.Resource
 import com.google.fhir.model.r5.Uri
 import com.google.fhir.model.r5.serializers.DoubleSerializer
 import com.google.fhir.model.r5.serializers.LocalTimeSerializer
+import com.google.fhir.model.r5.terminologies.PublicationStatus
 import kotlin.String
 import kotlin.Suppress
 import kotlin.collections.MutableList
@@ -84,8 +85,8 @@ internal data class ResearchSubjectProgressSurrogate(
       with(model) {
         ResearchSubjectProgressSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           type = this@with.type,
           subjectState = this@with.subjectState,
           milestone = this@with.milestone,
@@ -142,9 +143,7 @@ internal data class ResearchSubjectSurrogate(
       identifier = this@ResearchSubjectSurrogate.identifier ?: mutableListOf(),
       status =
         Enumeration.of(
-          com.google.fhir.model.r5.terminologies.PublicationStatus.fromCode(
-            this@ResearchSubjectSurrogate.status!!
-          ),
+          PublicationStatus.fromCode(this@ResearchSubjectSurrogate.status!!),
           this@ResearchSubjectSurrogate._status,
         ),
       progress = this@ResearchSubjectSurrogate.progress ?: mutableListOf(),
@@ -175,13 +174,13 @@ internal data class ResearchSubjectSurrogate(
           language = this@with.language?.value,
           _language = this@with.language?.toElement(),
           text = this@with.text,
-          contained = this@with.contained.takeUnless { it.all { it == null } },
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          contained = this@with.contained.takeIf { it.isNotEmpty() },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
+          identifier = this@with.identifier.takeIf { it.isNotEmpty() },
           status = this@with.status.value?.getCode(),
           _status = this@with.status.toElement(),
-          progress = this@with.progress.takeUnless { it.all { it == null } },
+          progress = this@with.progress.takeIf { it.isNotEmpty() },
           period = this@with.period,
           study = this@with.study,
           subject = this@with.subject,
@@ -189,7 +188,7 @@ internal data class ResearchSubjectSurrogate(
           _assignedComparisonGroup = this@with.assignedComparisonGroup?.toElement(),
           actualComparisonGroup = this@with.actualComparisonGroup?.value,
           _actualComparisonGroup = this@with.actualComparisonGroup?.toElement(),
-          consent = this@with.consent.takeUnless { it.all { it == null } },
+          consent = this@with.consent.takeIf { it.isNotEmpty() },
         )
       }
   }

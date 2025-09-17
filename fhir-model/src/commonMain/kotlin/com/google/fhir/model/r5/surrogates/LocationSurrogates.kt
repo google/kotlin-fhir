@@ -87,8 +87,8 @@ internal data class LocationPositionSurrogate(
       with(model) {
         LocationPositionSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           longitude = this@with.longitude.value,
           _longitude = this@with.longitude.toElement(),
           latitude = this@with.latitude.value,
@@ -150,10 +150,7 @@ internal data class LocationSurrogate(
       identifier = this@LocationSurrogate.identifier ?: mutableListOf(),
       status =
         this@LocationSurrogate.status?.let {
-          Enumeration.of(
-            com.google.fhir.model.r5.Location.LocationStatus.fromCode(it!!),
-            this@LocationSurrogate._status,
-          )
+          Enumeration.of(Location.LocationStatus.fromCode(it), this@LocationSurrogate._status)
         },
       operationalStatus = this@LocationSurrogate.operationalStatus,
       name = R5String.of(this@LocationSurrogate.name, this@LocationSurrogate._name),
@@ -172,10 +169,7 @@ internal data class LocationSurrogate(
         Markdown.of(this@LocationSurrogate.description, this@LocationSurrogate._description),
       mode =
         this@LocationSurrogate.mode?.let {
-          Enumeration.of(
-            com.google.fhir.model.r5.Location.LocationMode.fromCode(it!!),
-            this@LocationSurrogate._mode,
-          )
+          Enumeration.of(Location.LocationMode.fromCode(it), this@LocationSurrogate._mode)
         },
       type = this@LocationSurrogate.type ?: mutableListOf(),
       contact = this@LocationSurrogate.contact ?: mutableListOf(),
@@ -201,10 +195,10 @@ internal data class LocationSurrogate(
           language = this@with.language?.value,
           _language = this@with.language?.toElement(),
           text = this@with.text,
-          contained = this@with.contained.takeUnless { it.all { it == null } },
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          contained = this@with.contained.takeIf { it.isNotEmpty() },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
+          identifier = this@with.identifier.takeIf { it.isNotEmpty() },
           status = this@with.status?.value?.getCode(),
           _status = this@with.status?.toElement(),
           operationalStatus = this@with.operationalStatus,
@@ -222,17 +216,17 @@ internal data class LocationSurrogate(
           _description = this@with.description?.toElement(),
           mode = this@with.mode?.value?.getCode(),
           _mode = this@with.mode?.toElement(),
-          type = this@with.type.takeUnless { it.all { it == null } },
-          contact = this@with.contact.takeUnless { it.all { it == null } },
+          type = this@with.type.takeIf { it.isNotEmpty() },
+          contact = this@with.contact.takeIf { it.isNotEmpty() },
           address = this@with.address,
           form = this@with.form,
           position = this@with.position,
           managingOrganization = this@with.managingOrganization,
           partOf = this@with.partOf,
-          characteristic = this@with.characteristic.takeUnless { it.all { it == null } },
-          hoursOfOperation = this@with.hoursOfOperation.takeUnless { it.all { it == null } },
-          virtualService = this@with.virtualService.takeUnless { it.all { it == null } },
-          endpoint = this@with.endpoint.takeUnless { it.all { it == null } },
+          characteristic = this@with.characteristic.takeIf { it.isNotEmpty() },
+          hoursOfOperation = this@with.hoursOfOperation.takeIf { it.isNotEmpty() },
+          virtualService = this@with.virtualService.takeIf { it.isNotEmpty() },
+          endpoint = this@with.endpoint.takeIf { it.isNotEmpty() },
         )
       }
   }

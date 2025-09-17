@@ -83,7 +83,7 @@ internal data class MolecularSequenceReferenceSeqSurrogate(
       orientation =
         this@MolecularSequenceReferenceSeqSurrogate.orientation?.let {
           Enumeration.of(
-            com.google.fhir.model.r4b.MolecularSequence.OrientationType.fromCode(it!!),
+            MolecularSequence.OrientationType.fromCode(it),
             this@MolecularSequenceReferenceSeqSurrogate._orientation,
           )
         },
@@ -97,7 +97,7 @@ internal data class MolecularSequenceReferenceSeqSurrogate(
       strand =
         this@MolecularSequenceReferenceSeqSurrogate.strand?.let {
           Enumeration.of(
-            com.google.fhir.model.r4b.MolecularSequence.StrandType.fromCode(it!!),
+            MolecularSequence.StrandType.fromCode(it),
             this@MolecularSequenceReferenceSeqSurrogate._strand,
           )
         },
@@ -120,8 +120,8 @@ internal data class MolecularSequenceReferenceSeqSurrogate(
       with(model) {
         MolecularSequenceReferenceSeqSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           chromosome = this@with.chromosome,
           genomeBuild = this@with.genomeBuild?.value,
           _genomeBuild = this@with.genomeBuild?.toElement(),
@@ -198,8 +198,8 @@ internal data class MolecularSequenceVariantSurrogate(
       with(model) {
         MolecularSequenceVariantSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           start = this@with.start?.value,
           _start = this@with.start?.toElement(),
           end = this@with.end?.value,
@@ -256,9 +256,7 @@ internal data class MolecularSequenceQualitySurrogate(
         this@MolecularSequenceQualitySurrogate.modifierExtension ?: mutableListOf(),
       type =
         Enumeration.of(
-          com.google.fhir.model.r4b.MolecularSequence.QualityType.fromCode(
-            this@MolecularSequenceQualitySurrogate.type!!
-          ),
+          MolecularSequence.QualityType.fromCode(this@MolecularSequenceQualitySurrogate.type!!),
           this@MolecularSequenceQualitySurrogate._type,
         ),
       standardSequence = this@MolecularSequenceQualitySurrogate.standardSequence,
@@ -322,8 +320,8 @@ internal data class MolecularSequenceQualitySurrogate(
       with(model) {
         MolecularSequenceQualitySurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           type = this@with.type.value?.getCode(),
           _type = this@with.type.toElement(),
           standardSequence = this@with.standardSequence,
@@ -502,8 +500,8 @@ internal data class MolecularSequenceQualityRocSurrogate(
       with(model) {
         MolecularSequenceQualityRocSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           score =
             this@with.score.map { it.value }.toMutableList().takeUnless { it.all { it == null } },
           _score =
@@ -600,7 +598,7 @@ internal data class MolecularSequenceRepositorySurrogate(
         this@MolecularSequenceRepositorySurrogate.modifierExtension ?: mutableListOf(),
       type =
         Enumeration.of(
-          com.google.fhir.model.r4b.MolecularSequence.RepositoryType.fromCode(
+          MolecularSequence.RepositoryType.fromCode(
             this@MolecularSequenceRepositorySurrogate.type!!
           ),
           this@MolecularSequenceRepositorySurrogate._type,
@@ -639,8 +637,8 @@ internal data class MolecularSequenceRepositorySurrogate(
       with(model) {
         MolecularSequenceRepositorySurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           type = this@with.type.value?.getCode(),
           _type = this@with.type.toElement(),
           url = this@with.url?.value,
@@ -699,8 +697,8 @@ internal data class MolecularSequenceStructureVariantSurrogate(
       with(model) {
         MolecularSequenceStructureVariantSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           variantType = this@with.variantType,
           exact = this@with.exact?.value,
           _exact = this@with.exact?.toElement(),
@@ -748,8 +746,8 @@ internal data class MolecularSequenceStructureVariantOuterSurrogate(
       with(model) {
         MolecularSequenceStructureVariantOuterSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           start = this@with.start?.value,
           _start = this@with.start?.toElement(),
           end = this@with.end?.value,
@@ -794,8 +792,8 @@ internal data class MolecularSequenceStructureVariantInnerSurrogate(
       with(model) {
         MolecularSequenceStructureVariantInnerSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           start = this@with.start?.value,
           _start = this@with.start?.toElement(),
           end = this@with.end?.value,
@@ -860,7 +858,7 @@ internal data class MolecularSequenceSurrogate(
       type =
         this@MolecularSequenceSurrogate.type?.let {
           Enumeration.of(
-            com.google.fhir.model.r4b.MolecularSequence.SequenceType.fromCode(it!!),
+            MolecularSequence.SequenceType.fromCode(it),
             this@MolecularSequenceSurrogate._type,
           )
         },
@@ -903,10 +901,10 @@ internal data class MolecularSequenceSurrogate(
           language = this@with.language?.value,
           _language = this@with.language?.toElement(),
           text = this@with.text,
-          contained = this@with.contained.takeUnless { it.all { it == null } },
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          contained = this@with.contained.takeIf { it.isNotEmpty() },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
+          identifier = this@with.identifier.takeIf { it.isNotEmpty() },
           type = this@with.type?.value?.getCode(),
           _type = this@with.type?.toElement(),
           coordinateSystem = this@with.coordinateSystem.value,
@@ -917,15 +915,15 @@ internal data class MolecularSequenceSurrogate(
           performer = this@with.performer,
           quantity = this@with.quantity,
           referenceSeq = this@with.referenceSeq,
-          variant = this@with.variant.takeUnless { it.all { it == null } },
+          variant = this@with.variant.takeIf { it.isNotEmpty() },
           observedSeq = this@with.observedSeq?.value,
           _observedSeq = this@with.observedSeq?.toElement(),
-          quality = this@with.quality.takeUnless { it.all { it == null } },
+          quality = this@with.quality.takeIf { it.isNotEmpty() },
           readCoverage = this@with.readCoverage?.value,
           _readCoverage = this@with.readCoverage?.toElement(),
-          repository = this@with.repository.takeUnless { it.all { it == null } },
-          pointer = this@with.pointer.takeUnless { it.all { it == null } },
-          structureVariant = this@with.structureVariant.takeUnless { it.all { it == null } },
+          repository = this@with.repository.takeIf { it.isNotEmpty() },
+          pointer = this@with.pointer.takeIf { it.isNotEmpty() },
+          structureVariant = this@with.structureVariant.takeIf { it.isNotEmpty() },
         )
       }
   }

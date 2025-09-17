@@ -134,7 +134,7 @@ internal data class RequestOrchestrationActionSurrogate(
       priority =
         this@RequestOrchestrationActionSurrogate.priority?.let {
           Enumeration.of(
-            com.google.fhir.model.r5.RequestOrchestration.RequestPriority.fromCode(it!!),
+            RequestOrchestration.RequestPriority.fromCode(it),
             this@RequestOrchestrationActionSurrogate._priority,
           )
         },
@@ -152,35 +152,35 @@ internal data class RequestOrchestrationActionSurrogate(
       groupingBehavior =
         this@RequestOrchestrationActionSurrogate.groupingBehavior?.let {
           Enumeration.of(
-            com.google.fhir.model.r5.RequestOrchestration.ActionGroupingBehavior.fromCode(it!!),
+            RequestOrchestration.ActionGroupingBehavior.fromCode(it),
             this@RequestOrchestrationActionSurrogate._groupingBehavior,
           )
         },
       selectionBehavior =
         this@RequestOrchestrationActionSurrogate.selectionBehavior?.let {
           Enumeration.of(
-            com.google.fhir.model.r5.RequestOrchestration.ActionSelectionBehavior.fromCode(it!!),
+            RequestOrchestration.ActionSelectionBehavior.fromCode(it),
             this@RequestOrchestrationActionSurrogate._selectionBehavior,
           )
         },
       requiredBehavior =
         this@RequestOrchestrationActionSurrogate.requiredBehavior?.let {
           Enumeration.of(
-            com.google.fhir.model.r5.RequestOrchestration.ActionRequiredBehavior.fromCode(it!!),
+            RequestOrchestration.ActionRequiredBehavior.fromCode(it),
             this@RequestOrchestrationActionSurrogate._requiredBehavior,
           )
         },
       precheckBehavior =
         this@RequestOrchestrationActionSurrogate.precheckBehavior?.let {
           Enumeration.of(
-            com.google.fhir.model.r5.RequestOrchestration.ActionPrecheckBehavior.fromCode(it!!),
+            RequestOrchestration.ActionPrecheckBehavior.fromCode(it),
             this@RequestOrchestrationActionSurrogate._precheckBehavior,
           )
         },
       cardinalityBehavior =
         this@RequestOrchestrationActionSurrogate.cardinalityBehavior?.let {
           Enumeration.of(
-            com.google.fhir.model.r5.RequestOrchestration.ActionCardinalityBehavior.fromCode(it!!),
+            RequestOrchestration.ActionCardinalityBehavior.fromCode(it),
             this@RequestOrchestrationActionSurrogate._cardinalityBehavior,
           )
         },
@@ -200,8 +200,8 @@ internal data class RequestOrchestrationActionSurrogate(
       with(model) {
         RequestOrchestrationActionSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           linkId = this@with.linkId?.value,
           _linkId = this@with.linkId?.toElement(),
           prefix = this@with.prefix?.value,
@@ -214,16 +214,16 @@ internal data class RequestOrchestrationActionSurrogate(
           _textEquivalent = this@with.textEquivalent?.toElement(),
           priority = this@with.priority?.value?.getCode(),
           _priority = this@with.priority?.toElement(),
-          code = this@with.code.takeUnless { it.all { it == null } },
-          documentation = this@with.documentation.takeUnless { it.all { it == null } },
-          goal = this@with.goal.takeUnless { it.all { it == null } },
-          condition = this@with.condition.takeUnless { it.all { it == null } },
-          input = this@with.input.takeUnless { it.all { it == null } },
-          output = this@with.output.takeUnless { it.all { it == null } },
-          relatedAction = this@with.relatedAction.takeUnless { it.all { it == null } },
+          code = this@with.code.takeIf { it.isNotEmpty() },
+          documentation = this@with.documentation.takeIf { it.isNotEmpty() },
+          goal = this@with.goal.takeIf { it.isNotEmpty() },
+          condition = this@with.condition.takeIf { it.isNotEmpty() },
+          input = this@with.input.takeIf { it.isNotEmpty() },
+          output = this@with.output.takeIf { it.isNotEmpty() },
+          relatedAction = this@with.relatedAction.takeIf { it.isNotEmpty() },
           timing = this@with.timing,
           location = this@with.location,
-          participant = this@with.participant.takeUnless { it.all { it == null } },
+          participant = this@with.participant.takeIf { it.isNotEmpty() },
           type = this@with.type,
           groupingBehavior = this@with.groupingBehavior?.value?.getCode(),
           _groupingBehavior = this@with.groupingBehavior?.toElement(),
@@ -239,8 +239,8 @@ internal data class RequestOrchestrationActionSurrogate(
           definition = this@with.definition,
           transform = this@with.transform?.value,
           _transform = this@with.transform?.toElement(),
-          dynamicValue = this@with.dynamicValue.takeUnless { it.all { it == null } },
-          action = this@with.action.takeUnless { it.all { it == null } },
+          dynamicValue = this@with.dynamicValue.takeIf { it.isNotEmpty() },
+          action = this@with.action.takeIf { it.isNotEmpty() },
         )
       }
   }
@@ -263,7 +263,7 @@ internal data class RequestOrchestrationActionConditionSurrogate(
         this@RequestOrchestrationActionConditionSurrogate.modifierExtension ?: mutableListOf(),
       kind =
         Enumeration.of(
-          com.google.fhir.model.r5.RequestOrchestration.ActionConditionKind.fromCode(
+          RequestOrchestration.ActionConditionKind.fromCode(
             this@RequestOrchestrationActionConditionSurrogate.kind!!
           ),
           this@RequestOrchestrationActionConditionSurrogate._kind,
@@ -278,8 +278,8 @@ internal data class RequestOrchestrationActionConditionSurrogate(
       with(model) {
         RequestOrchestrationActionConditionSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           kind = this@with.kind.value?.getCode(),
           _kind = this@with.kind.toElement(),
           expression = this@with.expression,
@@ -325,8 +325,8 @@ internal data class RequestOrchestrationActionInputSurrogate(
       with(model) {
         RequestOrchestrationActionInputSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           title = this@with.title?.value,
           _title = this@with.title?.toElement(),
           requirement = this@with.requirement,
@@ -374,8 +374,8 @@ internal data class RequestOrchestrationActionOutputSurrogate(
       with(model) {
         RequestOrchestrationActionOutputSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           title = this@with.title?.value,
           _title = this@with.title?.toElement(),
           requirement = this@with.requirement,
@@ -413,7 +413,7 @@ internal data class RequestOrchestrationActionRelatedActionSurrogate(
         )!!,
       relationship =
         Enumeration.of(
-          com.google.fhir.model.r5.RequestOrchestration.ActionRelationshipType.fromCode(
+          RequestOrchestration.ActionRelationshipType.fromCode(
             this@RequestOrchestrationActionRelatedActionSurrogate.relationship!!
           ),
           this@RequestOrchestrationActionRelatedActionSurrogate._relationship,
@@ -421,7 +421,7 @@ internal data class RequestOrchestrationActionRelatedActionSurrogate(
       endRelationship =
         this@RequestOrchestrationActionRelatedActionSurrogate.endRelationship?.let {
           Enumeration.of(
-            com.google.fhir.model.r5.RequestOrchestration.ActionRelationshipType.fromCode(it!!),
+            RequestOrchestration.ActionRelationshipType.fromCode(it),
             this@RequestOrchestrationActionRelatedActionSurrogate._endRelationship,
           )
         },
@@ -435,8 +435,8 @@ internal data class RequestOrchestrationActionRelatedActionSurrogate(
       with(model) {
         RequestOrchestrationActionRelatedActionSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           targetId = this@with.targetId.value,
           _targetId = this@with.targetId.toElement(),
           relationship = this@with.relationship.value?.getCode(),
@@ -472,7 +472,7 @@ internal data class RequestOrchestrationActionParticipantSurrogate(
       type =
         this@RequestOrchestrationActionParticipantSurrogate.type?.let {
           Enumeration.of(
-            com.google.fhir.model.r5.RequestOrchestration.ActionParticipantType.fromCode(it!!),
+            RequestOrchestration.ActionParticipantType.fromCode(it),
             this@RequestOrchestrationActionParticipantSurrogate._type,
           )
         },
@@ -494,8 +494,8 @@ internal data class RequestOrchestrationActionParticipantSurrogate(
       with(model) {
         RequestOrchestrationActionParticipantSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           type = this@with.type?.value?.getCode(),
           _type = this@with.type?.toElement(),
           typeCanonical = this@with.typeCanonical?.value,
@@ -539,8 +539,8 @@ internal data class RequestOrchestrationActionDynamicValueSurrogate(
       with(model) {
         RequestOrchestrationActionDynamicValueSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           path = this@with.path?.value,
           _path = this@with.path?.toElement(),
           expression = this@with.expression,
@@ -770,22 +770,18 @@ internal data class RequestOrchestrationSurrogate(
       groupIdentifier = this@RequestOrchestrationSurrogate.groupIdentifier,
       status =
         Enumeration.of(
-          com.google.fhir.model.r5.RequestOrchestration.RequestStatus.fromCode(
-            this@RequestOrchestrationSurrogate.status!!
-          ),
+          RequestOrchestration.RequestStatus.fromCode(this@RequestOrchestrationSurrogate.status!!),
           this@RequestOrchestrationSurrogate._status,
         ),
       intent =
         Enumeration.of(
-          com.google.fhir.model.r5.RequestOrchestration.RequestIntent.fromCode(
-            this@RequestOrchestrationSurrogate.intent!!
-          ),
+          RequestOrchestration.RequestIntent.fromCode(this@RequestOrchestrationSurrogate.intent!!),
           this@RequestOrchestrationSurrogate._intent,
         ),
       priority =
         this@RequestOrchestrationSurrogate.priority?.let {
           Enumeration.of(
-            com.google.fhir.model.r5.RequestOrchestration.RequestPriority.fromCode(it!!),
+            RequestOrchestration.RequestPriority.fromCode(it),
             this@RequestOrchestrationSurrogate._priority,
           )
         },
@@ -815,10 +811,10 @@ internal data class RequestOrchestrationSurrogate(
           language = this@with.language?.value,
           _language = this@with.language?.toElement(),
           text = this@with.text,
-          contained = this@with.contained.takeUnless { it.all { it == null } },
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          contained = this@with.contained.takeIf { it.isNotEmpty() },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
+          identifier = this@with.identifier.takeIf { it.isNotEmpty() },
           instantiatesCanonical =
             this@with.instantiatesCanonical
               .map { it.value }
@@ -841,8 +837,8 @@ internal data class RequestOrchestrationSurrogate(
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
               ?.toMutableList(),
-          basedOn = this@with.basedOn.takeUnless { it.all { it == null } },
-          replaces = this@with.replaces.takeUnless { it.all { it == null } },
+          basedOn = this@with.basedOn.takeIf { it.isNotEmpty() },
+          replaces = this@with.replaces.takeIf { it.isNotEmpty() },
           groupIdentifier = this@with.groupIdentifier,
           status = this@with.status.value?.getCode(),
           _status = this@with.status.toElement(),
@@ -856,10 +852,10 @@ internal data class RequestOrchestrationSurrogate(
           authoredOn = this@with.authoredOn?.value?.toString(),
           _authoredOn = this@with.authoredOn?.toElement(),
           author = this@with.author,
-          reason = this@with.reason.takeUnless { it.all { it == null } },
-          goal = this@with.goal.takeUnless { it.all { it == null } },
-          note = this@with.note.takeUnless { it.all { it == null } },
-          action = this@with.action.takeUnless { it.all { it == null } },
+          reason = this@with.reason.takeIf { it.isNotEmpty() },
+          goal = this@with.goal.takeIf { it.isNotEmpty() },
+          note = this@with.note.takeIf { it.isNotEmpty() },
+          action = this@with.action.takeIf { it.isNotEmpty() },
         )
       }
   }

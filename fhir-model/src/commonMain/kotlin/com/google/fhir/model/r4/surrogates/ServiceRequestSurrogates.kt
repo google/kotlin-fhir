@@ -240,23 +240,19 @@ internal data class ServiceRequestSurrogate(
       requisition = this@ServiceRequestSurrogate.requisition,
       status =
         Enumeration.of(
-          com.google.fhir.model.r4.ServiceRequest.RequestStatus.fromCode(
-            this@ServiceRequestSurrogate.status!!
-          ),
+          ServiceRequest.RequestStatus.fromCode(this@ServiceRequestSurrogate.status!!),
           this@ServiceRequestSurrogate._status,
         ),
       intent =
         Enumeration.of(
-          com.google.fhir.model.r4.ServiceRequest.RequestIntent.fromCode(
-            this@ServiceRequestSurrogate.intent!!
-          ),
+          ServiceRequest.RequestIntent.fromCode(this@ServiceRequestSurrogate.intent!!),
           this@ServiceRequestSurrogate._intent,
         ),
       category = this@ServiceRequestSurrogate.category ?: mutableListOf(),
       priority =
         this@ServiceRequestSurrogate.priority?.let {
           Enumeration.of(
-            com.google.fhir.model.r4.ServiceRequest.RequestPriority.fromCode(it!!),
+            ServiceRequest.RequestPriority.fromCode(it),
             this@ServiceRequestSurrogate._priority,
           )
         },
@@ -308,10 +304,10 @@ internal data class ServiceRequestSurrogate(
           language = this@with.language?.value,
           _language = this@with.language?.toElement(),
           text = this@with.text,
-          contained = this@with.contained.takeUnless { it.all { it == null } },
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          contained = this@with.contained.takeIf { it.isNotEmpty() },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
+          identifier = this@with.identifier.takeIf { it.isNotEmpty() },
           instantiatesCanonical =
             this@with.instantiatesCanonical
               .map { it.value }
@@ -334,20 +330,20 @@ internal data class ServiceRequestSurrogate(
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
               ?.toMutableList(),
-          basedOn = this@with.basedOn.takeUnless { it.all { it == null } },
-          replaces = this@with.replaces.takeUnless { it.all { it == null } },
+          basedOn = this@with.basedOn.takeIf { it.isNotEmpty() },
+          replaces = this@with.replaces.takeIf { it.isNotEmpty() },
           requisition = this@with.requisition,
           status = this@with.status.value?.getCode(),
           _status = this@with.status.toElement(),
           intent = this@with.intent.value?.getCode(),
           _intent = this@with.intent.toElement(),
-          category = this@with.category.takeUnless { it.all { it == null } },
+          category = this@with.category.takeIf { it.isNotEmpty() },
           priority = this@with.priority?.value?.getCode(),
           _priority = this@with.priority?.toElement(),
           doNotPerform = this@with.doNotPerform?.value,
           _doNotPerform = this@with.doNotPerform?.toElement(),
           code = this@with.code,
-          orderDetail = this@with.orderDetail.takeUnless { it.all { it == null } },
+          orderDetail = this@with.orderDetail.takeIf { it.isNotEmpty() },
           quantity = this@with.quantity,
           subject = this@with.subject,
           encounter = this@with.encounter,
@@ -357,19 +353,19 @@ internal data class ServiceRequestSurrogate(
           _authoredOn = this@with.authoredOn?.toElement(),
           requester = this@with.requester,
           performerType = this@with.performerType,
-          performer = this@with.performer.takeUnless { it.all { it == null } },
-          locationCode = this@with.locationCode.takeUnless { it.all { it == null } },
-          locationReference = this@with.locationReference.takeUnless { it.all { it == null } },
-          reasonCode = this@with.reasonCode.takeUnless { it.all { it == null } },
-          reasonReference = this@with.reasonReference.takeUnless { it.all { it == null } },
-          insurance = this@with.insurance.takeUnless { it.all { it == null } },
-          supportingInfo = this@with.supportingInfo.takeUnless { it.all { it == null } },
-          specimen = this@with.specimen.takeUnless { it.all { it == null } },
-          bodySite = this@with.bodySite.takeUnless { it.all { it == null } },
-          note = this@with.note.takeUnless { it.all { it == null } },
+          performer = this@with.performer.takeIf { it.isNotEmpty() },
+          locationCode = this@with.locationCode.takeIf { it.isNotEmpty() },
+          locationReference = this@with.locationReference.takeIf { it.isNotEmpty() },
+          reasonCode = this@with.reasonCode.takeIf { it.isNotEmpty() },
+          reasonReference = this@with.reasonReference.takeIf { it.isNotEmpty() },
+          insurance = this@with.insurance.takeIf { it.isNotEmpty() },
+          supportingInfo = this@with.supportingInfo.takeIf { it.isNotEmpty() },
+          specimen = this@with.specimen.takeIf { it.isNotEmpty() },
+          bodySite = this@with.bodySite.takeIf { it.isNotEmpty() },
+          note = this@with.note.takeIf { it.isNotEmpty() },
           patientInstruction = this@with.patientInstruction?.value,
           _patientInstruction = this@with.patientInstruction?.toElement(),
-          relevantHistory = this@with.relevantHistory.takeUnless { it.all { it == null } },
+          relevantHistory = this@with.relevantHistory.takeIf { it.isNotEmpty() },
         )
       }
   }

@@ -68,10 +68,10 @@ internal data class SubstancePolymerMonomerSetSurrogate(
       with(model) {
         SubstancePolymerMonomerSetSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           ratioType = this@with.ratioType,
-          startingMaterial = this@with.startingMaterial.takeUnless { it.all { it == null } },
+          startingMaterial = this@with.startingMaterial.takeIf { it.isNotEmpty() },
         )
       }
   }
@@ -113,8 +113,8 @@ internal data class SubstancePolymerMonomerSetStartingMaterialSurrogate(
       with(model) {
         SubstancePolymerMonomerSetStartingMaterialSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           code = this@with.code,
           category = this@with.category,
           isDefining = this@with.isDefining?.value,
@@ -154,12 +154,12 @@ internal data class SubstancePolymerRepeatSurrogate(
       with(model) {
         SubstancePolymerRepeatSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           averageMolecularFormula = this@with.averageMolecularFormula?.value,
           _averageMolecularFormula = this@with.averageMolecularFormula?.toElement(),
           repeatUnitAmountType = this@with.repeatUnitAmountType,
-          repeatUnit = this@with.repeatUnit.takeUnless { it.all { it == null } },
+          repeatUnit = this@with.repeatUnit.takeIf { it.isNotEmpty() },
         )
       }
   }
@@ -212,17 +212,15 @@ internal data class SubstancePolymerRepeatRepeatUnitSurrogate(
       with(model) {
         SubstancePolymerRepeatRepeatUnitSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           unit = this@with.unit?.value,
           _unit = this@with.unit?.toElement(),
           orientation = this@with.orientation,
           amount = this@with.amount?.value,
           _amount = this@with.amount?.toElement(),
-          degreeOfPolymerisation =
-            this@with.degreeOfPolymerisation.takeUnless { it.all { it == null } },
-          structuralRepresentation =
-            this@with.structuralRepresentation.takeUnless { it.all { it == null } },
+          degreeOfPolymerisation = this@with.degreeOfPolymerisation.takeIf { it.isNotEmpty() },
+          structuralRepresentation = this@with.structuralRepresentation.takeIf { it.isNotEmpty() },
         )
       }
   }
@@ -275,8 +273,8 @@ internal data class SubstancePolymerRepeatRepeatUnitDegreeOfPolymerisationSurrog
       with(model) {
         SubstancePolymerRepeatRepeatUnitDegreeOfPolymerisationSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           type = this@with.type,
           average = this@with.average?.value,
           _average = this@with.average?.toElement(),
@@ -326,8 +324,8 @@ internal data class SubstancePolymerRepeatRepeatUnitStructuralRepresentationSurr
       with(model) {
         SubstancePolymerRepeatRepeatUnitStructuralRepresentationSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           type = this@with.type,
           representation = this@with.representation?.value,
           _representation = this@with.representation?.toElement(),
@@ -399,18 +397,17 @@ internal data class SubstancePolymerSurrogate(
           language = this@with.language?.value,
           _language = this@with.language?.toElement(),
           text = this@with.text,
-          contained = this@with.contained.takeUnless { it.all { it == null } },
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          contained = this@with.contained.takeIf { it.isNotEmpty() },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           identifier = this@with.identifier,
           `class` = this@with.`class`,
           geometry = this@with.geometry,
-          copolymerConnectivity =
-            this@with.copolymerConnectivity.takeUnless { it.all { it == null } },
+          copolymerConnectivity = this@with.copolymerConnectivity.takeIf { it.isNotEmpty() },
           modification = this@with.modification?.value,
           _modification = this@with.modification?.toElement(),
-          monomerSet = this@with.monomerSet.takeUnless { it.all { it == null } },
-          repeat = this@with.repeat.takeUnless { it.all { it == null } },
+          monomerSet = this@with.monomerSet.takeIf { it.isNotEmpty() },
+          repeat = this@with.repeat.takeIf { it.isNotEmpty() },
         )
       }
   }

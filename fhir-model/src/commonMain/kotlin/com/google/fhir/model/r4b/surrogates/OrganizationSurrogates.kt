@@ -70,11 +70,11 @@ internal data class OrganizationContactSurrogate(
       with(model) {
         OrganizationContactSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           purpose = this@with.purpose,
           name = this@with.name,
-          telecom = this@with.telecom.takeUnless { it.all { it == null } },
+          telecom = this@with.telecom.takeIf { it.isNotEmpty() },
           address = this@with.address,
         )
       }
@@ -153,13 +153,13 @@ internal data class OrganizationSurrogate(
           language = this@with.language?.value,
           _language = this@with.language?.toElement(),
           text = this@with.text,
-          contained = this@with.contained.takeUnless { it.all { it == null } },
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          contained = this@with.contained.takeIf { it.isNotEmpty() },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
+          identifier = this@with.identifier.takeIf { it.isNotEmpty() },
           active = this@with.active?.value,
           _active = this@with.active?.toElement(),
-          type = this@with.type.takeUnless { it.all { it == null } },
+          type = this@with.type.takeIf { it.isNotEmpty() },
           name = this@with.name?.value,
           _name = this@with.name?.toElement(),
           alias =
@@ -170,11 +170,11 @@ internal data class OrganizationSurrogate(
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
               ?.toMutableList(),
-          telecom = this@with.telecom.takeUnless { it.all { it == null } },
-          address = this@with.address.takeUnless { it.all { it == null } },
+          telecom = this@with.telecom.takeIf { it.isNotEmpty() },
+          address = this@with.address.takeIf { it.isNotEmpty() },
           partOf = this@with.partOf,
-          contact = this@with.contact.takeUnless { it.all { it == null } },
-          endpoint = this@with.endpoint.takeUnless { it.all { it == null } },
+          contact = this@with.contact.takeIf { it.isNotEmpty() },
+          endpoint = this@with.endpoint.takeIf { it.isNotEmpty() },
         )
       }
   }

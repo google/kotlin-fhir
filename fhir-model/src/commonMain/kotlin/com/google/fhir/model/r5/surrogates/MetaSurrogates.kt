@@ -80,7 +80,7 @@ internal data class MetaSurrogate(
       with(model) {
         MetaSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
           versionId = this@with.versionId?.value,
           _versionId = this@with.versionId?.toElement(),
           lastUpdated = this@with.lastUpdated?.value?.toString(),
@@ -95,8 +95,8 @@ internal data class MetaSurrogate(
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
               ?.toMutableList(),
-          security = this@with.security.takeUnless { it.all { it == null } },
-          tag = this@with.tag.takeUnless { it.all { it == null } },
+          security = this@with.security.takeIf { it.isNotEmpty() },
+          tag = this@with.tag.takeIf { it.isNotEmpty() },
         )
       }
   }

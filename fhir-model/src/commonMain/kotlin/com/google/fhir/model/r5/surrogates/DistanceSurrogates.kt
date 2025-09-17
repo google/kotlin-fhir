@@ -25,6 +25,7 @@ import com.google.fhir.model.r5.Distance
 import com.google.fhir.model.r5.Element
 import com.google.fhir.model.r5.Enumeration
 import com.google.fhir.model.r5.Extension
+import com.google.fhir.model.r5.Quantity
 import com.google.fhir.model.r5.String as R5String
 import com.google.fhir.model.r5.Uri
 import com.google.fhir.model.r5.serializers.DoubleSerializer
@@ -59,7 +60,7 @@ internal data class DistanceSurrogate(
       comparator =
         this@DistanceSurrogate.comparator?.let {
           Enumeration.of(
-            com.google.fhir.model.r5.Quantity.QuantityComparator.fromCode(it!!),
+            Quantity.QuantityComparator.fromCode(it),
             this@DistanceSurrogate._comparator,
           )
         },
@@ -73,7 +74,7 @@ internal data class DistanceSurrogate(
       with(model) {
         DistanceSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
           `value` = this@with.`value`?.value,
           _value = this@with.`value`?.toElement(),
           comparator = this@with.comparator?.value?.getCode(),

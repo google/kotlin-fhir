@@ -41,6 +41,7 @@ import com.google.fhir.model.r5.String as R5String
 import com.google.fhir.model.r5.Uri
 import com.google.fhir.model.r5.serializers.DoubleSerializer
 import com.google.fhir.model.r5.serializers.LocalTimeSerializer
+import com.google.fhir.model.r5.terminologies.NoteType
 import kotlin.Int
 import kotlin.String as KotlinString
 import kotlin.Suppress
@@ -100,8 +101,8 @@ internal data class PaymentReconciliationAllocationSurrogate(
       with(model) {
         PaymentReconciliationAllocationSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           identifier = this@with.identifier,
           predecessor = this@with.predecessor,
           target = this@with.target,
@@ -140,7 +141,7 @@ internal data class PaymentReconciliationProcessNoteSurrogate(
       type =
         this@PaymentReconciliationProcessNoteSurrogate.type?.let {
           Enumeration.of(
-            com.google.fhir.model.r5.terminologies.NoteType.fromCode(it!!),
+            NoteType.fromCode(it),
             this@PaymentReconciliationProcessNoteSurrogate._type,
           )
         },
@@ -158,8 +159,8 @@ internal data class PaymentReconciliationProcessNoteSurrogate(
       with(model) {
         PaymentReconciliationProcessNoteSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           type = this@with.type?.value?.getCode(),
           _type = this@with.type?.toElement(),
           text = this@with.text?.value,
@@ -281,7 +282,7 @@ internal data class PaymentReconciliationSurrogate(
       type = this@PaymentReconciliationSurrogate.type,
       status =
         Enumeration.of(
-          com.google.fhir.model.r5.PaymentReconciliation.FinancialResourceStatusCodes.fromCode(
+          PaymentReconciliation.FinancialResourceStatusCodes.fromCode(
             this@PaymentReconciliationSurrogate.status!!
           ),
           this@PaymentReconciliationSurrogate._status,
@@ -301,7 +302,7 @@ internal data class PaymentReconciliationSurrogate(
       outcome =
         this@PaymentReconciliationSurrogate.outcome?.let {
           Enumeration.of(
-            com.google.fhir.model.r5.PaymentReconciliation.PaymentOutcome.fromCode(it!!),
+            PaymentReconciliation.PaymentOutcome.fromCode(it),
             this@PaymentReconciliationSurrogate._outcome,
           )
         },
@@ -367,10 +368,10 @@ internal data class PaymentReconciliationSurrogate(
           language = this@with.language?.value,
           _language = this@with.language?.toElement(),
           text = this@with.text,
-          contained = this@with.contained.takeUnless { it.all { it == null } },
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          contained = this@with.contained.takeIf { it.isNotEmpty() },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
+          identifier = this@with.identifier.takeIf { it.isNotEmpty() },
           type = this@with.type,
           status = this@with.status.value?.getCode(),
           _status = this@with.status.toElement(),
@@ -407,9 +408,9 @@ internal data class PaymentReconciliationSurrogate(
           returnedAmount = this@with.returnedAmount,
           amount = this@with.amount,
           paymentIdentifier = this@with.paymentIdentifier,
-          allocation = this@with.allocation.takeUnless { it.all { it == null } },
+          allocation = this@with.allocation.takeIf { it.isNotEmpty() },
           formCode = this@with.formCode,
-          processNote = this@with.processNote.takeUnless { it.all { it == null } },
+          processNote = this@with.processNote.takeIf { it.isNotEmpty() },
         )
       }
   }

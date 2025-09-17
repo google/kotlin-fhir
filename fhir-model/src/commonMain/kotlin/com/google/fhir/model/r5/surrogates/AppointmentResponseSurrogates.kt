@@ -120,7 +120,7 @@ internal data class AppointmentResponseSurrogate(
       actor = this@AppointmentResponseSurrogate.actor,
       participantStatus =
         Enumeration.of(
-          com.google.fhir.model.r5.AppointmentResponse.AppointmentResponseStatus.fromCode(
+          AppointmentResponse.AppointmentResponseStatus.fromCode(
             this@AppointmentResponseSurrogate.participantStatus!!
           ),
           this@AppointmentResponseSurrogate._participantStatus,
@@ -158,10 +158,10 @@ internal data class AppointmentResponseSurrogate(
           language = this@with.language?.value,
           _language = this@with.language?.toElement(),
           text = this@with.text,
-          contained = this@with.contained.takeUnless { it.all { it == null } },
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          contained = this@with.contained.takeIf { it.isNotEmpty() },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
+          identifier = this@with.identifier.takeIf { it.isNotEmpty() },
           appointment = this@with.appointment,
           proposedNewTime = this@with.proposedNewTime?.value,
           _proposedNewTime = this@with.proposedNewTime?.toElement(),
@@ -169,7 +169,7 @@ internal data class AppointmentResponseSurrogate(
           _start = this@with.start?.toElement(),
           end = this@with.end?.value?.toString(),
           _end = this@with.end?.toElement(),
-          participantType = this@with.participantType.takeUnless { it.all { it == null } },
+          participantType = this@with.participantType.takeIf { it.isNotEmpty() },
           actor = this@with.actor,
           participantStatus = this@with.participantStatus.value?.getCode(),
           _participantStatus = this@with.participantStatus.toElement(),

@@ -72,8 +72,8 @@ internal data class DiagnosticReportSupportingInfoSurrogate(
       with(model) {
         DiagnosticReportSupportingInfoSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           type = this@with.type,
           reference = this@with.reference,
         )
@@ -108,8 +108,8 @@ internal data class DiagnosticReportMediaSurrogate(
       with(model) {
         DiagnosticReportMediaSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           comment = this@with.comment?.value,
           _comment = this@with.comment?.toElement(),
           link = this@with.link,
@@ -201,9 +201,7 @@ internal data class DiagnosticReportSurrogate(
       basedOn = this@DiagnosticReportSurrogate.basedOn ?: mutableListOf(),
       status =
         Enumeration.of(
-          com.google.fhir.model.r5.DiagnosticReport.DiagnosticReportStatus.fromCode(
-            this@DiagnosticReportSurrogate.status!!
-          ),
+          DiagnosticReport.DiagnosticReportStatus.fromCode(this@DiagnosticReportSurrogate.status!!),
           this@DiagnosticReportSurrogate._status,
         ),
       category = this@DiagnosticReportSurrogate.category ?: mutableListOf(),
@@ -245,33 +243,33 @@ internal data class DiagnosticReportSurrogate(
           language = this@with.language?.value,
           _language = this@with.language?.toElement(),
           text = this@with.text,
-          contained = this@with.contained.takeUnless { it.all { it == null } },
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          identifier = this@with.identifier.takeUnless { it.all { it == null } },
-          basedOn = this@with.basedOn.takeUnless { it.all { it == null } },
+          contained = this@with.contained.takeIf { it.isNotEmpty() },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
+          identifier = this@with.identifier.takeIf { it.isNotEmpty() },
+          basedOn = this@with.basedOn.takeIf { it.isNotEmpty() },
           status = this@with.status.value?.getCode(),
           _status = this@with.status.toElement(),
-          category = this@with.category.takeUnless { it.all { it == null } },
+          category = this@with.category.takeIf { it.isNotEmpty() },
           code = this@with.code,
           subject = this@with.subject,
           encounter = this@with.encounter,
           effective = this@with.effective,
           issued = this@with.issued?.value?.toString(),
           _issued = this@with.issued?.toElement(),
-          performer = this@with.performer.takeUnless { it.all { it == null } },
-          resultsInterpreter = this@with.resultsInterpreter.takeUnless { it.all { it == null } },
-          specimen = this@with.specimen.takeUnless { it.all { it == null } },
-          result = this@with.result.takeUnless { it.all { it == null } },
-          note = this@with.note.takeUnless { it.all { it == null } },
-          study = this@with.study.takeUnless { it.all { it == null } },
-          supportingInfo = this@with.supportingInfo.takeUnless { it.all { it == null } },
-          media = this@with.media.takeUnless { it.all { it == null } },
+          performer = this@with.performer.takeIf { it.isNotEmpty() },
+          resultsInterpreter = this@with.resultsInterpreter.takeIf { it.isNotEmpty() },
+          specimen = this@with.specimen.takeIf { it.isNotEmpty() },
+          result = this@with.result.takeIf { it.isNotEmpty() },
+          note = this@with.note.takeIf { it.isNotEmpty() },
+          study = this@with.study.takeIf { it.isNotEmpty() },
+          supportingInfo = this@with.supportingInfo.takeIf { it.isNotEmpty() },
+          media = this@with.media.takeIf { it.isNotEmpty() },
           composition = this@with.composition,
           conclusion = this@with.conclusion?.value,
           _conclusion = this@with.conclusion?.toElement(),
-          conclusionCode = this@with.conclusionCode.takeUnless { it.all { it == null } },
-          presentedForm = this@with.presentedForm.takeUnless { it.all { it == null } },
+          conclusionCode = this@with.conclusionCode.takeIf { it.isNotEmpty() },
+          presentedForm = this@with.presentedForm.takeIf { it.isNotEmpty() },
         )
       }
   }

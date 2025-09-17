@@ -87,14 +87,13 @@ internal data class NutritionOrderOralDietSurrogate(
       with(model) {
         NutritionOrderOralDietSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          type = this@with.type.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
+          type = this@with.type.takeIf { it.isNotEmpty() },
           schedule = this@with.schedule,
-          nutrient = this@with.nutrient.takeUnless { it.all { it == null } },
-          texture = this@with.texture.takeUnless { it.all { it == null } },
-          fluidConsistencyType =
-            this@with.fluidConsistencyType.takeUnless { it.all { it == null } },
+          nutrient = this@with.nutrient.takeIf { it.isNotEmpty() },
+          texture = this@with.texture.takeIf { it.isNotEmpty() },
+          fluidConsistencyType = this@with.fluidConsistencyType.takeIf { it.isNotEmpty() },
           instruction = this@with.instruction?.value,
           _instruction = this@with.instruction?.toElement(),
         )
@@ -134,9 +133,9 @@ internal data class NutritionOrderOralDietScheduleSurrogate(
       with(model) {
         NutritionOrderOralDietScheduleSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          timing = this@with.timing.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
+          timing = this@with.timing.takeIf { it.isNotEmpty() },
           asNeeded = this@with.asNeeded?.value,
           _asNeeded = this@with.asNeeded?.toElement(),
           asNeededFor = this@with.asNeededFor,
@@ -170,8 +169,8 @@ internal data class NutritionOrderOralDietNutrientSurrogate(
       with(model) {
         NutritionOrderOralDietNutrientSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           modifier = this@with.modifier,
           amount = this@with.amount,
         )
@@ -204,8 +203,8 @@ internal data class NutritionOrderOralDietTextureSurrogate(
       with(model) {
         NutritionOrderOralDietTextureSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           modifier = this@with.modifier,
           foodType = this@with.foodType,
         )
@@ -252,8 +251,8 @@ internal data class NutritionOrderSupplementSurrogate(
       with(model) {
         NutritionOrderSupplementSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           type = this@with.type,
           productName = this@with.productName?.value,
           _productName = this@with.productName?.toElement(),
@@ -298,9 +297,9 @@ internal data class NutritionOrderSupplementScheduleSurrogate(
       with(model) {
         NutritionOrderSupplementScheduleSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          timing = this@with.timing.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
+          timing = this@with.timing.takeIf { it.isNotEmpty() },
           asNeeded = this@with.asNeeded?.value,
           _asNeeded = this@with.asNeeded?.toElement(),
           asNeededFor = this@with.asNeededFor,
@@ -358,16 +357,16 @@ internal data class NutritionOrderEnteralFormulaSurrogate(
       with(model) {
         NutritionOrderEnteralFormulaSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           baseFormulaType = this@with.baseFormulaType,
           baseFormulaProductName = this@with.baseFormulaProductName?.value,
           _baseFormulaProductName = this@with.baseFormulaProductName?.toElement(),
-          deliveryDevice = this@with.deliveryDevice.takeUnless { it.all { it == null } },
-          additive = this@with.additive.takeUnless { it.all { it == null } },
+          deliveryDevice = this@with.deliveryDevice.takeIf { it.isNotEmpty() },
+          additive = this@with.additive.takeIf { it.isNotEmpty() },
           caloricDensity = this@with.caloricDensity,
           routeOfAdministration = this@with.routeOfAdministration,
-          administration = this@with.administration.takeUnless { it.all { it == null } },
+          administration = this@with.administration.takeIf { it.isNotEmpty() },
           maxVolumeToDeliver = this@with.maxVolumeToDeliver,
           administrationInstruction = this@with.administrationInstruction?.value,
           _administrationInstruction = this@with.administrationInstruction?.toElement(),
@@ -408,8 +407,8 @@ internal data class NutritionOrderEnteralFormulaAdditiveSurrogate(
       with(model) {
         NutritionOrderEnteralFormulaAdditiveSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           type = this@with.type,
           productName = this@with.productName?.value,
           _productName = this@with.productName?.toElement(),
@@ -448,8 +447,8 @@ internal data class NutritionOrderEnteralFormulaAdministrationSurrogate(
       with(model) {
         NutritionOrderEnteralFormulaAdministrationSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           schedule = this@with.schedule,
           quantity = this@with.quantity,
           rate = this@with.rate,
@@ -494,9 +493,9 @@ internal data class NutritionOrderEnteralFormulaAdministrationScheduleSurrogate(
       with(model) {
         NutritionOrderEnteralFormulaAdministrationScheduleSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          timing = this@with.timing.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
+          timing = this@with.timing.takeIf { it.isNotEmpty() },
           asNeeded = this@with.asNeeded?.value,
           _asNeeded = this@with.asNeeded?.toElement(),
           asNeededFor = this@with.asNeededFor,
@@ -641,22 +640,18 @@ internal data class NutritionOrderSurrogate(
       groupIdentifier = this@NutritionOrderSurrogate.groupIdentifier,
       status =
         Enumeration.of(
-          com.google.fhir.model.r5.NutritionOrder.RequestStatus.fromCode(
-            this@NutritionOrderSurrogate.status!!
-          ),
+          NutritionOrder.RequestStatus.fromCode(this@NutritionOrderSurrogate.status!!),
           this@NutritionOrderSurrogate._status,
         ),
       intent =
         Enumeration.of(
-          com.google.fhir.model.r5.NutritionOrder.RequestIntent.fromCode(
-            this@NutritionOrderSurrogate.intent!!
-          ),
+          NutritionOrder.RequestIntent.fromCode(this@NutritionOrderSurrogate.intent!!),
           this@NutritionOrderSurrogate._intent,
         ),
       priority =
         this@NutritionOrderSurrogate.priority?.let {
           Enumeration.of(
-            com.google.fhir.model.r5.NutritionOrder.RequestPriority.fromCode(it!!),
+            NutritionOrder.RequestPriority.fromCode(it),
             this@NutritionOrderSurrogate._priority,
           )
         },
@@ -696,10 +691,10 @@ internal data class NutritionOrderSurrogate(
           language = this@with.language?.value,
           _language = this@with.language?.toElement(),
           text = this@with.text,
-          contained = this@with.contained.takeUnless { it.all { it == null } },
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          contained = this@with.contained.takeIf { it.isNotEmpty() },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
+          identifier = this@with.identifier.takeIf { it.isNotEmpty() },
           instantiatesCanonical =
             this@with.instantiatesCanonical
               .map { it.value }
@@ -733,7 +728,7 @@ internal data class NutritionOrderSurrogate(
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
               ?.toMutableList(),
-          basedOn = this@with.basedOn.takeUnless { it.all { it == null } },
+          basedOn = this@with.basedOn.takeIf { it.isNotEmpty() },
           groupIdentifier = this@with.groupIdentifier,
           status = this@with.status.value?.getCode(),
           _status = this@with.status.toElement(),
@@ -743,22 +738,20 @@ internal data class NutritionOrderSurrogate(
           _priority = this@with.priority?.toElement(),
           subject = this@with.subject,
           encounter = this@with.encounter,
-          supportingInformation =
-            this@with.supportingInformation.takeUnless { it.all { it == null } },
+          supportingInformation = this@with.supportingInformation.takeIf { it.isNotEmpty() },
           dateTime = this@with.dateTime.value?.toString(),
           _dateTime = this@with.dateTime.toElement(),
           orderer = this@with.orderer,
-          performer = this@with.performer.takeUnless { it.all { it == null } },
-          allergyIntolerance = this@with.allergyIntolerance.takeUnless { it.all { it == null } },
-          foodPreferenceModifier =
-            this@with.foodPreferenceModifier.takeUnless { it.all { it == null } },
-          excludeFoodModifier = this@with.excludeFoodModifier.takeUnless { it.all { it == null } },
+          performer = this@with.performer.takeIf { it.isNotEmpty() },
+          allergyIntolerance = this@with.allergyIntolerance.takeIf { it.isNotEmpty() },
+          foodPreferenceModifier = this@with.foodPreferenceModifier.takeIf { it.isNotEmpty() },
+          excludeFoodModifier = this@with.excludeFoodModifier.takeIf { it.isNotEmpty() },
           outsideFoodAllowed = this@with.outsideFoodAllowed?.value,
           _outsideFoodAllowed = this@with.outsideFoodAllowed?.toElement(),
           oralDiet = this@with.oralDiet,
-          supplement = this@with.supplement.takeUnless { it.all { it == null } },
+          supplement = this@with.supplement.takeIf { it.isNotEmpty() },
           enteralFormula = this@with.enteralFormula,
-          note = this@with.note.takeUnless { it.all { it == null } },
+          note = this@with.note.takeIf { it.isNotEmpty() },
         )
       }
   }

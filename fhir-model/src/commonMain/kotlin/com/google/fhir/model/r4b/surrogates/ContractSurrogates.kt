@@ -93,7 +93,7 @@ internal data class ContractContentDefinitionSurrogate(
         ),
       publicationStatus =
         Enumeration.of(
-          com.google.fhir.model.r4b.Contract.ContractResourcePublicationStatusCodes.fromCode(
+          Contract.ContractResourcePublicationStatusCodes.fromCode(
             this@ContractContentDefinitionSurrogate.publicationStatus!!
           ),
           this@ContractContentDefinitionSurrogate._publicationStatus,
@@ -110,8 +110,8 @@ internal data class ContractContentDefinitionSurrogate(
       with(model) {
         ContractContentDefinitionSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           type = this@with.type,
           subType = this@with.subType,
           publisher = this@with.publisher,
@@ -174,8 +174,8 @@ internal data class ContractTermSurrogate(
       with(model) {
         ContractTermSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           identifier = this@with.identifier,
           issued = this@with.issued?.value?.toString(),
           _issued = this@with.issued?.toElement(),
@@ -185,11 +185,11 @@ internal data class ContractTermSurrogate(
           subType = this@with.subType,
           text = this@with.text?.value,
           _text = this@with.text?.toElement(),
-          securityLabel = this@with.securityLabel.takeUnless { it.all { it == null } },
+          securityLabel = this@with.securityLabel.takeIf { it.isNotEmpty() },
           offer = this@with.offer,
-          asset = this@with.asset.takeUnless { it.all { it == null } },
-          action = this@with.action.takeUnless { it.all { it == null } },
-          group = this@with.group.takeUnless { it.all { it == null } },
+          asset = this@with.asset.takeIf { it.isNotEmpty() },
+          action = this@with.action.takeIf { it.isNotEmpty() },
+          group = this@with.group.takeIf { it.isNotEmpty() },
         )
       }
   }
@@ -238,8 +238,8 @@ internal data class ContractTermSecurityLabelSurrogate(
       with(model) {
         ContractTermSecurityLabelSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           number =
             this@with.number.map { it.value }.toMutableList().takeUnless { it.all { it == null } },
           _number =
@@ -249,8 +249,8 @@ internal data class ContractTermSecurityLabelSurrogate(
               ?.map { it ?: Element() }
               ?.toMutableList(),
           classification = this@with.classification,
-          category = this@with.category.takeUnless { it.all { it == null } },
-          control = this@with.control.takeUnless { it.all { it == null } },
+          category = this@with.category.takeIf { it.isNotEmpty() },
+          control = this@with.control.takeIf { it.isNotEmpty() },
         )
       }
   }
@@ -328,15 +328,15 @@ internal data class ContractTermOfferSurrogate(
       with(model) {
         ContractTermOfferSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          identifier = this@with.identifier.takeUnless { it.all { it == null } },
-          party = this@with.party.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
+          identifier = this@with.identifier.takeIf { it.isNotEmpty() },
+          party = this@with.party.takeIf { it.isNotEmpty() },
           topic = this@with.topic,
           type = this@with.type,
           decision = this@with.decision,
-          decisionMode = this@with.decisionMode.takeUnless { it.all { it == null } },
-          answer = this@with.answer.takeUnless { it.all { it == null } },
+          decisionMode = this@with.decisionMode.takeIf { it.isNotEmpty() },
+          answer = this@with.answer.takeIf { it.isNotEmpty() },
           text = this@with.text?.value,
           _text = this@with.text?.toElement(),
           linkId =
@@ -385,9 +385,9 @@ internal data class ContractTermOfferPartySurrogate(
       with(model) {
         ContractTermOfferPartySurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          reference = this@with.reference.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
+          reference = this@with.reference.takeIf { it.isNotEmpty() },
           role = this@with.role,
         )
       }
@@ -415,8 +415,8 @@ internal data class ContractTermOfferAnswerSurrogate(
       with(model) {
         ContractTermOfferAnswerSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           `value` = this@with.`value`,
         )
       }
@@ -510,19 +510,19 @@ internal data class ContractTermAssetSurrogate(
       with(model) {
         ContractTermAssetSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           scope = this@with.scope,
-          type = this@with.type.takeUnless { it.all { it == null } },
-          typeReference = this@with.typeReference.takeUnless { it.all { it == null } },
-          subtype = this@with.subtype.takeUnless { it.all { it == null } },
+          type = this@with.type.takeIf { it.isNotEmpty() },
+          typeReference = this@with.typeReference.takeIf { it.isNotEmpty() },
+          subtype = this@with.subtype.takeIf { it.isNotEmpty() },
           relationship = this@with.relationship,
-          context = this@with.context.takeUnless { it.all { it == null } },
+          context = this@with.context.takeIf { it.isNotEmpty() },
           condition = this@with.condition?.value,
           _condition = this@with.condition?.toElement(),
-          periodType = this@with.periodType.takeUnless { it.all { it == null } },
-          period = this@with.period.takeUnless { it.all { it == null } },
-          usePeriod = this@with.usePeriod.takeUnless { it.all { it == null } },
+          periodType = this@with.periodType.takeIf { it.isNotEmpty() },
+          period = this@with.period.takeIf { it.isNotEmpty() },
+          usePeriod = this@with.usePeriod.takeIf { it.isNotEmpty() },
           text = this@with.text?.value,
           _text = this@with.text?.toElement(),
           linkId =
@@ -533,7 +533,7 @@ internal data class ContractTermAssetSurrogate(
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
               ?.toMutableList(),
-          answer = this@with.answer.takeUnless { it.all { it == null } },
+          answer = this@with.answer.takeIf { it.isNotEmpty() },
           securityLabelNumber =
             this@with.securityLabelNumber
               .map { it.value }
@@ -545,7 +545,7 @@ internal data class ContractTermAssetSurrogate(
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
               ?.toMutableList(),
-          valuedItem = this@with.valuedItem.takeUnless { it.all { it == null } },
+          valuedItem = this@with.valuedItem.takeIf { it.isNotEmpty() },
         )
       }
   }
@@ -581,10 +581,10 @@ internal data class ContractTermAssetContextSurrogate(
       with(model) {
         ContractTermAssetContextSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           reference = this@with.reference,
-          code = this@with.code.takeUnless { it.all { it == null } },
+          code = this@with.code.takeIf { it.isNotEmpty() },
           text = this@with.text?.value,
           _text = this@with.text?.toElement(),
         )
@@ -702,8 +702,8 @@ internal data class ContractTermAssetValuedItemSurrogate(
       with(model) {
         ContractTermAssetValuedItemSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           entity = this@with.entity,
           identifier = this@with.identifier,
           effectiveTime = this@with.effectiveTime?.value?.toString(),
@@ -922,12 +922,12 @@ internal data class ContractTermActionSurrogate(
       with(model) {
         ContractTermActionSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           doNotPerform = this@with.doNotPerform?.value,
           _doNotPerform = this@with.doNotPerform?.toElement(),
           type = this@with.type,
-          subject = this@with.subject.takeUnless { it.all { it == null } },
+          subject = this@with.subject.takeIf { it.isNotEmpty() },
           intent = this@with.intent,
           linkId =
             this@with.linkId.map { it.value }.toMutableList().takeUnless { it.all { it == null } },
@@ -951,7 +951,7 @@ internal data class ContractTermActionSurrogate(
               ?.map { it ?: Element() }
               ?.toMutableList(),
           occurrence = this@with.occurrence,
-          requester = this@with.requester.takeUnless { it.all { it == null } },
+          requester = this@with.requester.takeIf { it.isNotEmpty() },
           requesterLinkId =
             this@with.requesterLinkId
               .map { it.value }
@@ -963,7 +963,7 @@ internal data class ContractTermActionSurrogate(
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
               ?.toMutableList(),
-          performerType = this@with.performerType.takeUnless { it.all { it == null } },
+          performerType = this@with.performerType.takeIf { it.isNotEmpty() },
           performerRole = this@with.performerRole,
           performer = this@with.performer,
           performerLinkId =
@@ -977,8 +977,8 @@ internal data class ContractTermActionSurrogate(
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
               ?.toMutableList(),
-          reasonCode = this@with.reasonCode.takeUnless { it.all { it == null } },
-          reasonReference = this@with.reasonReference.takeUnless { it.all { it == null } },
+          reasonCode = this@with.reasonCode.takeIf { it.isNotEmpty() },
+          reasonReference = this@with.reasonReference.takeIf { it.isNotEmpty() },
           reason =
             this@with.reason.map { it.value }.toMutableList().takeUnless { it.all { it == null } },
           _reason =
@@ -998,7 +998,7 @@ internal data class ContractTermActionSurrogate(
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
               ?.toMutableList(),
-          note = this@with.note.takeUnless { it.all { it == null } },
+          note = this@with.note.takeIf { it.isNotEmpty() },
           securityLabelNumber =
             this@with.securityLabelNumber
               .map { it.value }
@@ -1038,9 +1038,9 @@ internal data class ContractTermActionSubjectSurrogate(
       with(model) {
         ContractTermActionSubjectSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          reference = this@with.reference.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
+          reference = this@with.reference.takeIf { it.isNotEmpty() },
           role = this@with.role,
         )
       }
@@ -1071,11 +1071,11 @@ internal data class ContractSignerSurrogate(
       with(model) {
         ContractSignerSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           type = this@with.type,
           party = this@with.party,
-          signature = this@with.signature.takeUnless { it.all { it == null } },
+          signature = this@with.signature.takeIf { it.isNotEmpty() },
         )
       }
   }
@@ -1101,8 +1101,8 @@ internal data class ContractFriendlySurrogate(
       with(model) {
         ContractFriendlySurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           content = this@with.content,
         )
       }
@@ -1129,8 +1129,8 @@ internal data class ContractLegalSurrogate(
       with(model) {
         ContractLegalSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           content = this@with.content,
         )
       }
@@ -1157,8 +1157,8 @@ internal data class ContractRuleSurrogate(
       with(model) {
         ContractRuleSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           content = this@with.content,
         )
       }
@@ -1270,7 +1270,7 @@ internal data class ContractTermOfferAnswerValueSurrogate(
       this@ContractTermOfferAnswerValueSurrogate.valueCoding,
       this@ContractTermOfferAnswerValueSurrogate.valueQuantity,
       this@ContractTermOfferAnswerValueSurrogate.valueReference,
-    )!! !!
+    )!!
 
   public companion object {
     public fun fromModel(
@@ -1368,7 +1368,7 @@ internal data class ContractFriendlyContentSurrogate(
     Contract.Friendly.Content.from(
       this@ContractFriendlyContentSurrogate.contentAttachment,
       this@ContractFriendlyContentSurrogate.contentReference,
-    )!! !!
+    )!!
 
   public companion object {
     public fun fromModel(model: Contract.Friendly.Content): ContractFriendlyContentSurrogate =
@@ -1390,7 +1390,7 @@ internal data class ContractLegalContentSurrogate(
     Contract.Legal.Content.from(
       this@ContractLegalContentSurrogate.contentAttachment,
       this@ContractLegalContentSurrogate.contentReference,
-    )!! !!
+    )!!
 
   public companion object {
     public fun fromModel(model: Contract.Legal.Content): ContractLegalContentSurrogate =
@@ -1412,7 +1412,7 @@ internal data class ContractRuleContentSurrogate(
     Contract.Rule.Content.from(
       this@ContractRuleContentSurrogate.contentAttachment,
       this@ContractRuleContentSurrogate.contentReference,
-    )!! !!
+    )!!
 
   public companion object {
     public fun fromModel(model: Contract.Rule.Content): ContractRuleContentSurrogate =
@@ -1519,7 +1519,7 @@ internal data class ContractSurrogate(
       status =
         this@ContractSurrogate.status?.let {
           Enumeration.of(
-            com.google.fhir.model.r4b.Contract.ContractResourceStatusCodes.fromCode(it!!),
+            Contract.ContractResourceStatusCodes.fromCode(it),
             this@ContractSurrogate._status,
           )
         },
@@ -1580,10 +1580,10 @@ internal data class ContractSurrogate(
           language = this@with.language?.value,
           _language = this@with.language?.toElement(),
           text = this@with.text,
-          contained = this@with.contained.takeUnless { it.all { it == null } },
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          contained = this@with.contained.takeIf { it.isNotEmpty() },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
+          identifier = this@with.identifier.takeIf { it.isNotEmpty() },
           url = this@with.url?.value,
           _url = this@with.url?.toElement(),
           version = this@with.version?.value,
@@ -1599,10 +1599,10 @@ internal data class ContractSurrogate(
           _issued = this@with.issued?.toElement(),
           applies = this@with.applies,
           expirationType = this@with.expirationType,
-          subject = this@with.subject.takeUnless { it.all { it == null } },
-          authority = this@with.authority.takeUnless { it.all { it == null } },
-          domain = this@with.domain.takeUnless { it.all { it == null } },
-          site = this@with.site.takeUnless { it.all { it == null } },
+          subject = this@with.subject.takeIf { it.isNotEmpty() },
+          authority = this@with.authority.takeIf { it.isNotEmpty() },
+          domain = this@with.domain.takeIf { it.isNotEmpty() },
+          site = this@with.site.takeIf { it.isNotEmpty() },
           name = this@with.name?.value,
           _name = this@with.name?.toElement(),
           title = this@with.title?.value,
@@ -1621,15 +1621,15 @@ internal data class ContractSurrogate(
           scope = this@with.scope,
           topic = this@with.topic,
           type = this@with.type,
-          subType = this@with.subType.takeUnless { it.all { it == null } },
+          subType = this@with.subType.takeIf { it.isNotEmpty() },
           contentDefinition = this@with.contentDefinition,
-          term = this@with.term.takeUnless { it.all { it == null } },
-          supportingInfo = this@with.supportingInfo.takeUnless { it.all { it == null } },
-          relevantHistory = this@with.relevantHistory.takeUnless { it.all { it == null } },
-          signer = this@with.signer.takeUnless { it.all { it == null } },
-          friendly = this@with.friendly.takeUnless { it.all { it == null } },
-          legal = this@with.legal.takeUnless { it.all { it == null } },
-          rule = this@with.rule.takeUnless { it.all { it == null } },
+          term = this@with.term.takeIf { it.isNotEmpty() },
+          supportingInfo = this@with.supportingInfo.takeIf { it.isNotEmpty() },
+          relevantHistory = this@with.relevantHistory.takeIf { it.isNotEmpty() },
+          signer = this@with.signer.takeIf { it.isNotEmpty() },
+          friendly = this@with.friendly.takeIf { it.isNotEmpty() },
+          legal = this@with.legal.takeIf { it.isNotEmpty() },
+          rule = this@with.rule.takeIf { it.isNotEmpty() },
           legallyBinding = this@with.legallyBinding,
         )
       }

@@ -62,7 +62,7 @@ internal data class DosageDoseAndRateSurrogate(
       with(model) {
         DosageDoseAndRateSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
           type = this@with.type,
           dose = this@with.dose,
           rate = this@with.rate,
@@ -196,14 +196,13 @@ internal data class DosageSurrogate(
       with(model) {
         DosageSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           sequence = this@with.sequence?.value,
           _sequence = this@with.sequence?.toElement(),
           text = this@with.text?.value,
           _text = this@with.text?.toElement(),
-          additionalInstruction =
-            this@with.additionalInstruction.takeUnless { it.all { it == null } },
+          additionalInstruction = this@with.additionalInstruction.takeIf { it.isNotEmpty() },
           patientInstruction = this@with.patientInstruction?.value,
           _patientInstruction = this@with.patientInstruction?.toElement(),
           timing = this@with.timing,
@@ -211,7 +210,7 @@ internal data class DosageSurrogate(
           site = this@with.site,
           route = this@with.route,
           method = this@with.method,
-          doseAndRate = this@with.doseAndRate.takeUnless { it.all { it == null } },
+          doseAndRate = this@with.doseAndRate.takeIf { it.isNotEmpty() },
           maxDosePerPeriod = this@with.maxDosePerPeriod,
           maxDosePerAdministration = this@with.maxDosePerAdministration,
           maxDosePerLifetime = this@with.maxDosePerLifetime,

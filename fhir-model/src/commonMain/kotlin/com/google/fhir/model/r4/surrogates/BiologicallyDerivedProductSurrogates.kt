@@ -74,8 +74,8 @@ internal data class BiologicallyDerivedProductCollectionSurrogate(
       with(model) {
         BiologicallyDerivedProductCollectionSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           collector = this@with.collector,
           source = this@with.source,
           collected = this@with.collected,
@@ -118,8 +118,8 @@ internal data class BiologicallyDerivedProductProcessingSurrogate(
       with(model) {
         BiologicallyDerivedProductProcessingSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           description = this@with.description?.value,
           _description = this@with.description?.toElement(),
           procedure = this@with.procedure,
@@ -160,8 +160,8 @@ internal data class BiologicallyDerivedProductManipulationSurrogate(
       with(model) {
         BiologicallyDerivedProductManipulationSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           description = this@with.description?.value,
           _description = this@with.description?.toElement(),
           time = this@with.time,
@@ -202,9 +202,7 @@ internal data class BiologicallyDerivedProductStorageSurrogate(
       scale =
         this@BiologicallyDerivedProductStorageSurrogate.scale?.let {
           Enumeration.of(
-            com.google.fhir.model.r4.BiologicallyDerivedProduct
-              .BiologicallyDerivedProductStorageScale
-              .fromCode(it!!),
+            BiologicallyDerivedProduct.BiologicallyDerivedProductStorageScale.fromCode(it),
             this@BiologicallyDerivedProductStorageSurrogate._scale,
           )
         },
@@ -218,8 +216,8 @@ internal data class BiologicallyDerivedProductStorageSurrogate(
       with(model) {
         BiologicallyDerivedProductStorageSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           description = this@with.description?.value,
           _description = this@with.description?.toElement(),
           temperature = this@with.temperature?.value,
@@ -375,8 +373,7 @@ internal data class BiologicallyDerivedProductSurrogate(
       productCategory =
         this@BiologicallyDerivedProductSurrogate.productCategory?.let {
           Enumeration.of(
-            com.google.fhir.model.r4.BiologicallyDerivedProduct.BiologicallyDerivedProductCategory
-              .fromCode(it!!),
+            BiologicallyDerivedProduct.BiologicallyDerivedProductCategory.fromCode(it),
             this@BiologicallyDerivedProductSurrogate._productCategory,
           )
         },
@@ -384,8 +381,7 @@ internal data class BiologicallyDerivedProductSurrogate(
       status =
         this@BiologicallyDerivedProductSurrogate.status?.let {
           Enumeration.of(
-            com.google.fhir.model.r4.BiologicallyDerivedProduct.BiologicallyDerivedProductStatus
-              .fromCode(it!!),
+            BiologicallyDerivedProduct.BiologicallyDerivedProductStatus.fromCode(it),
             this@BiologicallyDerivedProductSurrogate._status,
           )
         },
@@ -413,23 +409,23 @@ internal data class BiologicallyDerivedProductSurrogate(
           language = this@with.language?.value,
           _language = this@with.language?.toElement(),
           text = this@with.text,
-          contained = this@with.contained.takeUnless { it.all { it == null } },
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          contained = this@with.contained.takeIf { it.isNotEmpty() },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
+          identifier = this@with.identifier.takeIf { it.isNotEmpty() },
           productCategory = this@with.productCategory?.value?.getCode(),
           _productCategory = this@with.productCategory?.toElement(),
           productCode = this@with.productCode,
           status = this@with.status?.value?.getCode(),
           _status = this@with.status?.toElement(),
-          request = this@with.request.takeUnless { it.all { it == null } },
+          request = this@with.request.takeIf { it.isNotEmpty() },
           quantity = this@with.quantity?.value,
           _quantity = this@with.quantity?.toElement(),
-          parent = this@with.parent.takeUnless { it.all { it == null } },
+          parent = this@with.parent.takeIf { it.isNotEmpty() },
           collection = this@with.collection,
-          processing = this@with.processing.takeUnless { it.all { it == null } },
+          processing = this@with.processing.takeIf { it.isNotEmpty() },
           manipulation = this@with.manipulation,
-          storage = this@with.storage.takeUnless { it.all { it == null } },
+          storage = this@with.storage.takeIf { it.isNotEmpty() },
         )
       }
   }

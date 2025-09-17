@@ -56,10 +56,7 @@ internal data class IdentifierSurrogate(
       extension = this@IdentifierSurrogate.extension ?: mutableListOf(),
       use =
         this@IdentifierSurrogate.use?.let {
-          Enumeration.of(
-            com.google.fhir.model.r4.Identifier.IdentifierUse.fromCode(it!!),
-            this@IdentifierSurrogate._use,
-          )
+          Enumeration.of(Identifier.IdentifierUse.fromCode(it), this@IdentifierSurrogate._use)
         },
       type = this@IdentifierSurrogate.type,
       system = Uri.of(this@IdentifierSurrogate.system, this@IdentifierSurrogate._system),
@@ -73,7 +70,7 @@ internal data class IdentifierSurrogate(
       with(model) {
         IdentifierSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
           use = this@with.use?.value?.getCode(),
           _use = this@with.use?.toElement(),
           type = this@with.type,

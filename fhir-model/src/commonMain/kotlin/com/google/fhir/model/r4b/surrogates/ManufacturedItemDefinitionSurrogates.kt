@@ -38,6 +38,7 @@ import com.google.fhir.model.r4b.Resource
 import com.google.fhir.model.r4b.Uri
 import com.google.fhir.model.r4b.serializers.DoubleSerializer
 import com.google.fhir.model.r4b.serializers.LocalTimeSerializer
+import com.google.fhir.model.r4b.terminologies.PublicationStatus
 import kotlin.Boolean as KotlinBoolean
 import kotlin.String
 import kotlin.Suppress
@@ -70,8 +71,8 @@ internal data class ManufacturedItemDefinitionPropertySurrogate(
       with(model) {
         ManufacturedItemDefinitionPropertySurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           type = this@with.type,
           `value` = this@with.`value`,
         )
@@ -165,9 +166,7 @@ internal data class ManufacturedItemDefinitionSurrogate(
       identifier = this@ManufacturedItemDefinitionSurrogate.identifier ?: mutableListOf(),
       status =
         Enumeration.of(
-          com.google.fhir.model.r4b.terminologies.PublicationStatus.fromCode(
-            this@ManufacturedItemDefinitionSurrogate.status!!
-          ),
+          PublicationStatus.fromCode(this@ManufacturedItemDefinitionSurrogate.status!!),
           this@ManufacturedItemDefinitionSurrogate._status,
         ),
       manufacturedDoseForm = this@ManufacturedItemDefinitionSurrogate.manufacturedDoseForm,
@@ -188,17 +187,17 @@ internal data class ManufacturedItemDefinitionSurrogate(
           language = this@with.language?.value,
           _language = this@with.language?.toElement(),
           text = this@with.text,
-          contained = this@with.contained.takeUnless { it.all { it == null } },
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          contained = this@with.contained.takeIf { it.isNotEmpty() },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
+          identifier = this@with.identifier.takeIf { it.isNotEmpty() },
           status = this@with.status.value?.getCode(),
           _status = this@with.status.toElement(),
           manufacturedDoseForm = this@with.manufacturedDoseForm,
           unitOfPresentation = this@with.unitOfPresentation,
-          manufacturer = this@with.manufacturer.takeUnless { it.all { it == null } },
-          ingredient = this@with.ingredient.takeUnless { it.all { it == null } },
-          `property` = this@with.`property`.takeUnless { it.all { it == null } },
+          manufacturer = this@with.manufacturer.takeIf { it.isNotEmpty() },
+          ingredient = this@with.ingredient.takeIf { it.isNotEmpty() },
+          `property` = this@with.`property`.takeIf { it.isNotEmpty() },
         )
       }
   }

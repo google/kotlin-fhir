@@ -88,8 +88,8 @@ internal data class RiskAssessmentPredictionSurrogate(
       with(model) {
         RiskAssessmentPredictionSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           outcome = this@with.outcome,
           probability = this@with.probability,
           qualitativeRisk = this@with.qualitativeRisk,
@@ -235,9 +235,7 @@ internal data class RiskAssessmentSurrogate(
       parent = this@RiskAssessmentSurrogate.parent,
       status =
         Enumeration.of(
-          com.google.fhir.model.r4.RiskAssessment.ObservationStatus.fromCode(
-            this@RiskAssessmentSurrogate.status!!
-          ),
+          RiskAssessment.ObservationStatus.fromCode(this@RiskAssessmentSurrogate.status!!),
           this@RiskAssessmentSurrogate._status,
         ),
       method = this@RiskAssessmentSurrogate.method,
@@ -270,10 +268,10 @@ internal data class RiskAssessmentSurrogate(
           language = this@with.language?.value,
           _language = this@with.language?.toElement(),
           text = this@with.text,
-          contained = this@with.contained.takeUnless { it.all { it == null } },
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          contained = this@with.contained.takeIf { it.isNotEmpty() },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
+          identifier = this@with.identifier.takeIf { it.isNotEmpty() },
           basedOn = this@with.basedOn,
           parent = this@with.parent,
           status = this@with.status.value?.getCode(),
@@ -285,13 +283,13 @@ internal data class RiskAssessmentSurrogate(
           occurrence = this@with.occurrence,
           condition = this@with.condition,
           performer = this@with.performer,
-          reasonCode = this@with.reasonCode.takeUnless { it.all { it == null } },
-          reasonReference = this@with.reasonReference.takeUnless { it.all { it == null } },
-          basis = this@with.basis.takeUnless { it.all { it == null } },
-          prediction = this@with.prediction.takeUnless { it.all { it == null } },
+          reasonCode = this@with.reasonCode.takeIf { it.isNotEmpty() },
+          reasonReference = this@with.reasonReference.takeIf { it.isNotEmpty() },
+          basis = this@with.basis.takeIf { it.isNotEmpty() },
+          prediction = this@with.prediction.takeIf { it.isNotEmpty() },
           mitigation = this@with.mitigation?.value,
           _mitigation = this@with.mitigation?.toElement(),
-          note = this@with.note.takeUnless { it.all { it == null } },
+          note = this@with.note.takeIf { it.isNotEmpty() },
         )
       }
   }

@@ -95,7 +95,7 @@ class SurrogateFileSpecGenerator(val codegenContext: CodegenContext) {
   }
 
   /**
-   * Adds types [TypeSpec] for sealed interface surrogate classes
+   * Adds types [TypeSpec] for sealed interface surrogate classes.
    *
    * Examples: PatientMultipleBirthSurrogate and PatientDeceasedSurrogate
    */
@@ -241,7 +241,12 @@ class SurrogateFileSpecGenerator(val codegenContext: CodegenContext) {
                 }
                 .build()
             )
-            .add("!!")
+            .apply {
+              // Add `!!` if not already added by `addParamToModelClassConstructor` function.
+              if (element.min != 1) {
+                add("!!")
+              }
+            }
             .build()
         )
         .build()
@@ -423,7 +428,7 @@ class SurrogateFileSpecGenerator(val codegenContext: CodegenContext) {
         if (element.typeIsEnumeratedCode(codegenContext.valueSetMap)) {
           val enumClass = element.getEnumClass(modelClassName, codegenContext.valueSetMap)
           add(
-            "if(this@%T.%N == null && this@%T.%N == null) { mutableListOf() } else { (this@%T.%N ?: List(this@%T.%N!!.size) { null }).zip(this@%T.%N ?: List(this@%T.%N!!.size) { null }).map{ (value, element) -> %T.of(value.let { %L.fromCode(it!!)!! }, element) }.toMutableList() }",
+            "if(this@%T.%N == null && this@%T.%N == null) { mutableListOf() } else { (this@%T.%N ?: List(this@%T.%N!!.size) { null }).zip(this@%T.%N ?: List(this@%T.%N!!.size) { null }).map{ (value, element) -> %T.of(value.let { %T.fromCode(it!!) }, element) }.toMutableList() }",
             surrogateClassName,
             propertyName,
             surrogateClassName,
@@ -520,7 +525,7 @@ class SurrogateFileSpecGenerator(val codegenContext: CodegenContext) {
       val enumClass = element.getEnumClass(modelClassName, valueSetMap)
       if (element.min == 0) {
         add(
-          "this@%T.%N?.let { %T.of(%L.fromCode(it!!), this@%T.%N) }",
+          "this@%T.%N?.let { %T.of(%T.fromCode(it), this@%T.%N) }",
           surrogateClassName,
           propertyName,
           ClassName(modelClassName.packageName, "Enumeration"),
@@ -530,7 +535,7 @@ class SurrogateFileSpecGenerator(val codegenContext: CodegenContext) {
         )
       } else {
         add(
-          "%T.of(%L.fromCode(this@%T.%N!!), this@%T.%N)",
+          "%T.of(%T.fromCode(this@%T.%N!!), this@%T.%N)",
           ClassName(modelClassName.packageName, "Enumeration"),
           enumClass,
           surrogateClassName,
@@ -578,21 +583,20 @@ class SurrogateFileSpecGenerator(val codegenContext: CodegenContext) {
   ): ClassName {
     val elementBasePath: String? = base?.path
     val valueSetName = valueSetMap.getValue(getValueSetUrl()!!).name.normalizeEnumName()
-    val enumClassName =
-      if (path != elementBasePath && !elementBasePath.isNullOrBlank())
-        "${elementBasePath.substringBefore(".")}.$valueSetName"
-      else valueSetName
-    val enumClassPackageName =
-      when {
-        this.isCommonBinding -> "${modelClassName.packageName}.terminologies"
-        enumClassName.contains(".") -> modelClassName.packageName
-        else -> {
-          // Use qualified import e.g. com.google.fhir.model.AdministrativeGender
-          modelClassName.packageName + "." + modelClassName.simpleNames.first()
-        }
+    return when {
+      this.isCommonBinding -> ClassName("${modelClassName.packageName}.terminologies", valueSetName)
+      !elementBasePath.isNullOrBlank() && path != elementBasePath -> {
+        // Special case for `QuantityComparator` as it inherits from a different base enum.
+        ClassName(modelClassName.packageName, elementBasePath.substringBefore("."))
+          .nestedClass(valueSetName)
       }
-    val enumClass = ClassName(enumClassPackageName, enumClassName)
-    return enumClass
+      else -> {
+        // Enums in the model class are always nested at the top level of the class even when it is
+        // used in a deeply nested backbone element. Hence we only use the model class name.
+        ClassName(modelClassName.packageName, modelClassName.simpleNames.first())
+          .nestedClass(valueSetName)
+      }
+    }
   }
 
   /**
@@ -711,7 +715,7 @@ class SurrogateFileSpecGenerator(val codegenContext: CodegenContext) {
         )
       } else {
         // A list of complex type is simply assigned
-        add("%N = this@with.%N.takeUnless { it.all { it == null } },\n", propertyName, propertyName)
+        add("%N = this@with.%N.takeIf { it.isNotEmpty() },\n", propertyName, propertyName)
       }
     } else {
       if (FhirPathType.containsFhirTypeCode(element.type?.single()?.code ?: "")) {

@@ -98,8 +98,8 @@ internal data class MedicationRequestDispenseRequestSurrogate(
       with(model) {
         MedicationRequestDispenseRequestSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           initialFill = this@with.initialFill,
           dispenseInterval = this@with.dispenseInterval,
           validityPeriod = this@with.validityPeriod,
@@ -108,8 +108,7 @@ internal data class MedicationRequestDispenseRequestSurrogate(
           quantity = this@with.quantity,
           expectedSupplyDuration = this@with.expectedSupplyDuration,
           dispenser = this@with.dispenser,
-          dispenserInstruction =
-            this@with.dispenserInstruction.takeUnless { it.all { it == null } },
+          dispenserInstruction = this@with.dispenserInstruction.takeIf { it.isNotEmpty() },
           doseAdministrationAid = this@with.doseAdministrationAid,
         )
       }
@@ -143,8 +142,8 @@ internal data class MedicationRequestDispenseRequestInitialFillSurrogate(
       with(model) {
         MedicationRequestDispenseRequestInitialFillSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           quantity = this@with.quantity,
           duration = this@with.duration,
         )
@@ -177,8 +176,8 @@ internal data class MedicationRequestSubstitutionSurrogate(
       with(model) {
         MedicationRequestSubstitutionSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           allowed = this@with.allowed,
           reason = this@with.reason,
         )
@@ -199,7 +198,7 @@ internal data class MedicationRequestSubstitutionAllowedSurrogate(
         this@MedicationRequestSubstitutionAllowedSurrogate._allowedBoolean,
       ),
       this@MedicationRequestSubstitutionAllowedSurrogate.allowedCodeableConcept,
-    )!! !!
+    )!!
 
   public companion object {
     public fun fromModel(
@@ -293,7 +292,7 @@ internal data class MedicationRequestSurrogate(
       groupIdentifier = this@MedicationRequestSurrogate.groupIdentifier,
       status =
         Enumeration.of(
-          com.google.fhir.model.r5.MedicationRequest.MedicationrequestStatus.fromCode(
+          MedicationRequest.MedicationrequestStatus.fromCode(
             this@MedicationRequestSurrogate.status!!
           ),
           this@MedicationRequestSurrogate._status,
@@ -306,7 +305,7 @@ internal data class MedicationRequestSurrogate(
         ),
       intent =
         Enumeration.of(
-          com.google.fhir.model.r5.MedicationRequest.MedicationRequestIntent.fromCode(
+          MedicationRequest.MedicationRequestIntent.fromCode(
             this@MedicationRequestSurrogate.intent!!
           ),
           this@MedicationRequestSurrogate._intent,
@@ -315,7 +314,7 @@ internal data class MedicationRequestSurrogate(
       priority =
         this@MedicationRequestSurrogate.priority?.let {
           Enumeration.of(
-            com.google.fhir.model.r5.MedicationRequest.RequestPriority.fromCode(it!!),
+            MedicationRequest.RequestPriority.fromCode(it),
             this@MedicationRequestSurrogate._priority,
           )
         },
@@ -372,11 +371,11 @@ internal data class MedicationRequestSurrogate(
           language = this@with.language?.value,
           _language = this@with.language?.toElement(),
           text = this@with.text,
-          contained = this@with.contained.takeUnless { it.all { it == null } },
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          identifier = this@with.identifier.takeUnless { it.all { it == null } },
-          basedOn = this@with.basedOn.takeUnless { it.all { it == null } },
+          contained = this@with.contained.takeIf { it.isNotEmpty() },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
+          identifier = this@with.identifier.takeIf { it.isNotEmpty() },
+          basedOn = this@with.basedOn.takeIf { it.isNotEmpty() },
           priorPrescription = this@with.priorPrescription,
           groupIdentifier = this@with.groupIdentifier,
           status = this@with.status.value?.getCode(),
@@ -386,37 +385,36 @@ internal data class MedicationRequestSurrogate(
           _statusChanged = this@with.statusChanged?.toElement(),
           intent = this@with.intent.value?.getCode(),
           _intent = this@with.intent.toElement(),
-          category = this@with.category.takeUnless { it.all { it == null } },
+          category = this@with.category.takeIf { it.isNotEmpty() },
           priority = this@with.priority?.value?.getCode(),
           _priority = this@with.priority?.toElement(),
           doNotPerform = this@with.doNotPerform?.value,
           _doNotPerform = this@with.doNotPerform?.toElement(),
           medication = this@with.medication,
           subject = this@with.subject,
-          informationSource = this@with.informationSource.takeUnless { it.all { it == null } },
+          informationSource = this@with.informationSource.takeIf { it.isNotEmpty() },
           encounter = this@with.encounter,
-          supportingInformation =
-            this@with.supportingInformation.takeUnless { it.all { it == null } },
+          supportingInformation = this@with.supportingInformation.takeIf { it.isNotEmpty() },
           authoredOn = this@with.authoredOn?.value?.toString(),
           _authoredOn = this@with.authoredOn?.toElement(),
           requester = this@with.requester,
           reported = this@with.reported?.value,
           _reported = this@with.reported?.toElement(),
           performerType = this@with.performerType,
-          performer = this@with.performer.takeUnless { it.all { it == null } },
-          device = this@with.device.takeUnless { it.all { it == null } },
+          performer = this@with.performer.takeIf { it.isNotEmpty() },
+          device = this@with.device.takeIf { it.isNotEmpty() },
           recorder = this@with.recorder,
-          reason = this@with.reason.takeUnless { it.all { it == null } },
+          reason = this@with.reason.takeIf { it.isNotEmpty() },
           courseOfTherapyType = this@with.courseOfTherapyType,
-          insurance = this@with.insurance.takeUnless { it.all { it == null } },
-          note = this@with.note.takeUnless { it.all { it == null } },
+          insurance = this@with.insurance.takeIf { it.isNotEmpty() },
+          note = this@with.note.takeIf { it.isNotEmpty() },
           renderedDosageInstruction = this@with.renderedDosageInstruction?.value,
           _renderedDosageInstruction = this@with.renderedDosageInstruction?.toElement(),
           effectiveDosePeriod = this@with.effectiveDosePeriod,
-          dosageInstruction = this@with.dosageInstruction.takeUnless { it.all { it == null } },
+          dosageInstruction = this@with.dosageInstruction.takeIf { it.isNotEmpty() },
           dispenseRequest = this@with.dispenseRequest,
           substitution = this@with.substitution,
-          eventHistory = this@with.eventHistory.takeUnless { it.all { it == null } },
+          eventHistory = this@with.eventHistory.takeIf { it.isNotEmpty() },
         )
       }
   }

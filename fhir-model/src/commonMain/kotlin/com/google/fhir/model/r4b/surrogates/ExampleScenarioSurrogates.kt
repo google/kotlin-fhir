@@ -40,6 +40,8 @@ import com.google.fhir.model.r4b.Uri
 import com.google.fhir.model.r4b.UsageContext
 import com.google.fhir.model.r4b.serializers.DoubleSerializer
 import com.google.fhir.model.r4b.serializers.LocalTimeSerializer
+import com.google.fhir.model.r4b.terminologies.PublicationStatus
+import com.google.fhir.model.r4b.terminologies.ResourceType
 import kotlin.Boolean as KotlinBoolean
 import kotlin.String as KotlinString
 import kotlin.Suppress
@@ -73,7 +75,7 @@ internal data class ExampleScenarioActorSurrogate(
         )!!,
       type =
         Enumeration.of(
-          com.google.fhir.model.r4b.ExampleScenario.ExampleScenarioActorType.fromCode(
+          ExampleScenario.ExampleScenarioActorType.fromCode(
             this@ExampleScenarioActorSurrogate.type!!
           ),
           this@ExampleScenarioActorSurrogate._type,
@@ -95,8 +97,8 @@ internal data class ExampleScenarioActorSurrogate(
       with(model) {
         ExampleScenarioActorSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           actorId = this@with.actorId.value,
           _actorId = this@with.actorId.toElement(),
           type = this@with.type.value?.getCode(),
@@ -139,9 +141,7 @@ internal data class ExampleScenarioInstanceSurrogate(
         )!!,
       resourceType =
         Enumeration.of(
-          com.google.fhir.model.r4b.terminologies.ResourceType.fromCode(
-            this@ExampleScenarioInstanceSurrogate.resourceType!!
-          ),
+          ResourceType.fromCode(this@ExampleScenarioInstanceSurrogate.resourceType!!),
           this@ExampleScenarioInstanceSurrogate._resourceType,
         ),
       name =
@@ -163,8 +163,8 @@ internal data class ExampleScenarioInstanceSurrogate(
       with(model) {
         ExampleScenarioInstanceSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           resourceId = this@with.resourceId.value,
           _resourceId = this@with.resourceId.toElement(),
           resourceType = this@with.resourceType.value?.getCode(),
@@ -173,8 +173,8 @@ internal data class ExampleScenarioInstanceSurrogate(
           _name = this@with.name?.toElement(),
           description = this@with.description?.value,
           _description = this@with.description?.toElement(),
-          version = this@with.version.takeUnless { it.all { it == null } },
-          containedInstance = this@with.containedInstance.takeUnless { it.all { it == null } },
+          version = this@with.version.takeIf { it.isNotEmpty() },
+          containedInstance = this@with.containedInstance.takeIf { it.isNotEmpty() },
         )
       }
   }
@@ -215,8 +215,8 @@ internal data class ExampleScenarioInstanceVersionSurrogate(
       with(model) {
         ExampleScenarioInstanceVersionSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           versionId = this@with.versionId.value,
           _versionId = this@with.versionId.toElement(),
           description = this@with.description.value,
@@ -262,8 +262,8 @@ internal data class ExampleScenarioInstanceContainedInstanceSurrogate(
       with(model) {
         ExampleScenarioInstanceContainedInstanceSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           resourceId = this@with.resourceId.value,
           _resourceId = this@with.resourceId.toElement(),
           versionId = this@with.versionId?.value,
@@ -321,8 +321,8 @@ internal data class ExampleScenarioProcessSurrogate(
       with(model) {
         ExampleScenarioProcessSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           title = this@with.title.value,
           _title = this@with.title.toElement(),
           description = this@with.description?.value,
@@ -331,7 +331,7 @@ internal data class ExampleScenarioProcessSurrogate(
           _preConditions = this@with.preConditions?.toElement(),
           postConditions = this@with.postConditions?.value,
           _postConditions = this@with.postConditions?.toElement(),
-          step = this@with.step.takeUnless { it.all { it == null } },
+          step = this@with.step.takeIf { it.isNotEmpty() },
         )
       }
   }
@@ -369,13 +369,13 @@ internal data class ExampleScenarioProcessStepSurrogate(
       with(model) {
         ExampleScenarioProcessStepSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          process = this@with.process.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
+          process = this@with.process.takeIf { it.isNotEmpty() },
           pause = this@with.pause?.value,
           _pause = this@with.pause?.toElement(),
           operation = this@with.operation,
-          alternative = this@with.alternative.takeUnless { it.all { it == null } },
+          alternative = this@with.alternative.takeIf { it.isNotEmpty() },
         )
       }
   }
@@ -462,8 +462,8 @@ internal data class ExampleScenarioProcessStepOperationSurrogate(
       with(model) {
         ExampleScenarioProcessStepOperationSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           number = this@with.number.value,
           _number = this@with.number.toElement(),
           type = this@with.type?.value,
@@ -524,13 +524,13 @@ internal data class ExampleScenarioProcessStepAlternativeSurrogate(
       with(model) {
         ExampleScenarioProcessStepAlternativeSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           title = this@with.title.value,
           _title = this@with.title.toElement(),
           description = this@with.description?.value,
           _description = this@with.description?.toElement(),
-          step = this@with.step.takeUnless { it.all { it == null } },
+          step = this@with.step.takeIf { it.isNotEmpty() },
         )
       }
   }
@@ -598,9 +598,7 @@ internal data class ExampleScenarioSurrogate(
       name = R4bString.of(this@ExampleScenarioSurrogate.name, this@ExampleScenarioSurrogate._name),
       status =
         Enumeration.of(
-          com.google.fhir.model.r4b.terminologies.PublicationStatus.fromCode(
-            this@ExampleScenarioSurrogate.status!!
-          ),
+          PublicationStatus.fromCode(this@ExampleScenarioSurrogate.status!!),
           this@ExampleScenarioSurrogate._status,
         ),
       experimental =
@@ -660,12 +658,12 @@ internal data class ExampleScenarioSurrogate(
           language = this@with.language?.value,
           _language = this@with.language?.toElement(),
           text = this@with.text,
-          contained = this@with.contained.takeUnless { it.all { it == null } },
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          contained = this@with.contained.takeIf { it.isNotEmpty() },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           url = this@with.url?.value,
           _url = this@with.url?.toElement(),
-          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          identifier = this@with.identifier.takeIf { it.isNotEmpty() },
           version = this@with.version?.value,
           _version = this@with.version?.toElement(),
           name = this@with.name?.value,
@@ -678,16 +676,16 @@ internal data class ExampleScenarioSurrogate(
           _date = this@with.date?.toElement(),
           publisher = this@with.publisher?.value,
           _publisher = this@with.publisher?.toElement(),
-          contact = this@with.contact.takeUnless { it.all { it == null } },
-          useContext = this@with.useContext.takeUnless { it.all { it == null } },
-          jurisdiction = this@with.jurisdiction.takeUnless { it.all { it == null } },
+          contact = this@with.contact.takeIf { it.isNotEmpty() },
+          useContext = this@with.useContext.takeIf { it.isNotEmpty() },
+          jurisdiction = this@with.jurisdiction.takeIf { it.isNotEmpty() },
           copyright = this@with.copyright?.value,
           _copyright = this@with.copyright?.toElement(),
           purpose = this@with.purpose?.value,
           _purpose = this@with.purpose?.toElement(),
-          actor = this@with.actor.takeUnless { it.all { it == null } },
-          instance = this@with.instance.takeUnless { it.all { it == null } },
-          process = this@with.process.takeUnless { it.all { it == null } },
+          actor = this@with.actor.takeIf { it.isNotEmpty() },
+          instance = this@with.instance.takeIf { it.isNotEmpty() },
+          process = this@with.process.takeIf { it.isNotEmpty() },
           workflow =
             this@with.workflow
               .map { it.value }

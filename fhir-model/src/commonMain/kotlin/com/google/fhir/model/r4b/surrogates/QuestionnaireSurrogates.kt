@@ -50,6 +50,8 @@ import com.google.fhir.model.r4b.Uri
 import com.google.fhir.model.r4b.UsageContext
 import com.google.fhir.model.r4b.serializers.DoubleSerializer
 import com.google.fhir.model.r4b.serializers.LocalTimeSerializer
+import com.google.fhir.model.r4b.terminologies.PublicationStatus
+import com.google.fhir.model.r4b.terminologies.ResourceType
 import kotlin.Boolean as KotlinBoolean
 import kotlin.Double
 import kotlin.Int
@@ -118,16 +120,14 @@ internal data class QuestionnaireItemSurrogate(
         R4bString.of(this@QuestionnaireItemSurrogate.text, this@QuestionnaireItemSurrogate._text),
       type =
         Enumeration.of(
-          com.google.fhir.model.r4b.Questionnaire.QuestionnaireItemType.fromCode(
-            this@QuestionnaireItemSurrogate.type!!
-          ),
+          Questionnaire.QuestionnaireItemType.fromCode(this@QuestionnaireItemSurrogate.type!!),
           this@QuestionnaireItemSurrogate._type,
         ),
       enableWhen = this@QuestionnaireItemSurrogate.enableWhen ?: mutableListOf(),
       enableBehavior =
         this@QuestionnaireItemSurrogate.enableBehavior?.let {
           Enumeration.of(
-            com.google.fhir.model.r4b.Questionnaire.EnableWhenBehavior.fromCode(it!!),
+            Questionnaire.EnableWhenBehavior.fromCode(it),
             this@QuestionnaireItemSurrogate._enableBehavior,
           )
         },
@@ -166,20 +166,20 @@ internal data class QuestionnaireItemSurrogate(
       with(model) {
         QuestionnaireItemSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           linkId = this@with.linkId.value,
           _linkId = this@with.linkId.toElement(),
           definition = this@with.definition?.value,
           _definition = this@with.definition?.toElement(),
-          code = this@with.code.takeUnless { it.all { it == null } },
+          code = this@with.code.takeIf { it.isNotEmpty() },
           prefix = this@with.prefix?.value,
           _prefix = this@with.prefix?.toElement(),
           text = this@with.text?.value,
           _text = this@with.text?.toElement(),
           type = this@with.type.value?.getCode(),
           _type = this@with.type.toElement(),
-          enableWhen = this@with.enableWhen.takeUnless { it.all { it == null } },
+          enableWhen = this@with.enableWhen.takeIf { it.isNotEmpty() },
           enableBehavior = this@with.enableBehavior?.value?.getCode(),
           _enableBehavior = this@with.enableBehavior?.toElement(),
           required = this@with.required?.value,
@@ -192,9 +192,9 @@ internal data class QuestionnaireItemSurrogate(
           _maxLength = this@with.maxLength?.toElement(),
           answerValueSet = this@with.answerValueSet?.value,
           _answerValueSet = this@with.answerValueSet?.toElement(),
-          answerOption = this@with.answerOption.takeUnless { it.all { it == null } },
-          initial = this@with.initial.takeUnless { it.all { it == null } },
-          item = this@with.item.takeUnless { it.all { it == null } },
+          answerOption = this@with.answerOption.takeIf { it.isNotEmpty() },
+          initial = this@with.initial.takeIf { it.isNotEmpty() },
+          item = this@with.item.takeIf { it.isNotEmpty() },
         )
       }
   }
@@ -224,7 +224,7 @@ internal data class QuestionnaireItemEnableWhenSurrogate(
         )!!,
       `operator` =
         Enumeration.of(
-          com.google.fhir.model.r4b.Questionnaire.QuestionnaireItemOperator.fromCode(
+          Questionnaire.QuestionnaireItemOperator.fromCode(
             this@QuestionnaireItemEnableWhenSurrogate.`operator`!!
           ),
           this@QuestionnaireItemEnableWhenSurrogate._operator,
@@ -239,8 +239,8 @@ internal data class QuestionnaireItemEnableWhenSurrogate(
       with(model) {
         QuestionnaireItemEnableWhenSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           question = this@with.question.value,
           _question = this@with.question.toElement(),
           `operator` = this@with.`operator`.value?.getCode(),
@@ -281,8 +281,8 @@ internal data class QuestionnaireItemAnswerOptionSurrogate(
       with(model) {
         QuestionnaireItemAnswerOptionSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           `value` = this@with.`value`,
           initialSelected = this@with.initialSelected?.value,
           _initialSelected = this@with.initialSelected?.toElement(),
@@ -312,8 +312,8 @@ internal data class QuestionnaireItemInitialSurrogate(
       with(model) {
         QuestionnaireItemInitialSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           `value` = this@with.`value`,
         )
       }
@@ -373,7 +373,7 @@ internal data class QuestionnaireItemEnableWhenAnswerSurrogate(
       this@QuestionnaireItemEnableWhenAnswerSurrogate.answerCoding,
       this@QuestionnaireItemEnableWhenAnswerSurrogate.answerQuantity,
       this@QuestionnaireItemEnableWhenAnswerSurrogate.answerReference,
-    )!! !!
+    )!!
 
   public companion object {
     public fun fromModel(
@@ -436,7 +436,7 @@ internal data class QuestionnaireItemAnswerOptionValueSurrogate(
       ),
       this@QuestionnaireItemAnswerOptionValueSurrogate.valueCoding,
       this@QuestionnaireItemAnswerOptionValueSurrogate.valueReference,
-    )!! !!
+    )!!
 
   public companion object {
     public fun fromModel(
@@ -520,7 +520,7 @@ internal data class QuestionnaireItemInitialValueSurrogate(
       this@QuestionnaireItemInitialValueSurrogate.valueCoding,
       this@QuestionnaireItemInitialValueSurrogate.valueQuantity,
       this@QuestionnaireItemInitialValueSurrogate.valueReference,
-    )!! !!
+    )!!
 
   public companion object {
     public fun fromModel(
@@ -642,9 +642,7 @@ internal data class QuestionnaireSurrogate(
         },
       status =
         Enumeration.of(
-          com.google.fhir.model.r4b.terminologies.PublicationStatus.fromCode(
-            this@QuestionnaireSurrogate.status!!
-          ),
+          PublicationStatus.fromCode(this@QuestionnaireSurrogate.status!!),
           this@QuestionnaireSurrogate._status,
         ),
       experimental =
@@ -666,10 +664,7 @@ internal data class QuestionnaireSurrogate(
                 ?: List(this@QuestionnaireSurrogate.subjectType!!.size) { null }
             )
             .map { (value, element) ->
-              Enumeration.of(
-                value.let { com.google.fhir.model.r4b.terminologies.ResourceType.fromCode(it!!)!! },
-                element,
-              )
+              Enumeration.of(value.let { ResourceType.fromCode(it!!) }, element)
             }
             .toMutableList()
         },
@@ -718,12 +713,12 @@ internal data class QuestionnaireSurrogate(
           language = this@with.language?.value,
           _language = this@with.language?.toElement(),
           text = this@with.text,
-          contained = this@with.contained.takeUnless { it.all { it == null } },
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          contained = this@with.contained.takeIf { it.isNotEmpty() },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           url = this@with.url?.value,
           _url = this@with.url?.toElement(),
-          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          identifier = this@with.identifier.takeIf { it.isNotEmpty() },
           version = this@with.version?.value,
           _version = this@with.version?.toElement(),
           name = this@with.name?.value,
@@ -760,11 +755,11 @@ internal data class QuestionnaireSurrogate(
           _date = this@with.date?.toElement(),
           publisher = this@with.publisher?.value,
           _publisher = this@with.publisher?.toElement(),
-          contact = this@with.contact.takeUnless { it.all { it == null } },
+          contact = this@with.contact.takeIf { it.isNotEmpty() },
           description = this@with.description?.value,
           _description = this@with.description?.toElement(),
-          useContext = this@with.useContext.takeUnless { it.all { it == null } },
-          jurisdiction = this@with.jurisdiction.takeUnless { it.all { it == null } },
+          useContext = this@with.useContext.takeIf { it.isNotEmpty() },
+          jurisdiction = this@with.jurisdiction.takeIf { it.isNotEmpty() },
           purpose = this@with.purpose?.value,
           _purpose = this@with.purpose?.toElement(),
           copyright = this@with.copyright?.value,
@@ -774,8 +769,8 @@ internal data class QuestionnaireSurrogate(
           lastReviewDate = this@with.lastReviewDate?.value?.toString(),
           _lastReviewDate = this@with.lastReviewDate?.toElement(),
           effectivePeriod = this@with.effectivePeriod,
-          code = this@with.code.takeUnless { it.all { it == null } },
-          item = this@with.item.takeUnless { it.all { it == null } },
+          code = this@with.code.takeIf { it.isNotEmpty() },
+          item = this@with.item.takeIf { it.isNotEmpty() },
         )
       }
   }

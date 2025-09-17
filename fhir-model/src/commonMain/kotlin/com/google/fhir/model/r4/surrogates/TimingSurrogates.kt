@@ -92,10 +92,7 @@ internal data class TimingRepeatSurrogate(
         Decimal.of(this@TimingRepeatSurrogate.durationMax, this@TimingRepeatSurrogate._durationMax),
       durationUnit =
         this@TimingRepeatSurrogate.durationUnit?.let {
-          Enumeration.of(
-            com.google.fhir.model.r4.Timing.UnitsOfTime.fromCode(it!!),
-            this@TimingRepeatSurrogate._durationUnit,
-          )
+          Enumeration.of(Timing.UnitsOfTime.fromCode(it), this@TimingRepeatSurrogate._durationUnit)
         },
       frequency =
         PositiveInt.of(this@TimingRepeatSurrogate.frequency, this@TimingRepeatSurrogate._frequency),
@@ -109,10 +106,7 @@ internal data class TimingRepeatSurrogate(
         Decimal.of(this@TimingRepeatSurrogate.periodMax, this@TimingRepeatSurrogate._periodMax),
       periodUnit =
         this@TimingRepeatSurrogate.periodUnit?.let {
-          Enumeration.of(
-            com.google.fhir.model.r4.Timing.UnitsOfTime.fromCode(it!!),
-            this@TimingRepeatSurrogate._periodUnit,
-          )
+          Enumeration.of(Timing.UnitsOfTime.fromCode(it), this@TimingRepeatSurrogate._periodUnit)
         },
       dayOfWeek =
         if (
@@ -128,10 +122,7 @@ internal data class TimingRepeatSurrogate(
                 ?: List(this@TimingRepeatSurrogate.dayOfWeek!!.size) { null }
             )
             .map { (value, element) ->
-              Enumeration.of(
-                value.let { com.google.fhir.model.r4.Timing.DaysOfWeek.fromCode(it!!)!! },
-                element,
-              )
+              Enumeration.of(value.let { Timing.DaysOfWeek.fromCode(it!!) }, element)
             }
             .toMutableList()
         },
@@ -162,10 +153,7 @@ internal data class TimingRepeatSurrogate(
                 ?: List(this@TimingRepeatSurrogate.`when`!!.size) { null }
             )
             .map { (value, element) ->
-              Enumeration.of(
-                value.let { com.google.fhir.model.r4.Timing.EventTiming.fromCode(it!!)!! },
-                element,
-              )
+              Enumeration.of(value.let { Timing.EventTiming.fromCode(it!!) }, element)
             }
             .toMutableList()
         },
@@ -177,7 +165,7 @@ internal data class TimingRepeatSurrogate(
       with(model) {
         TimingRepeatSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
           bounds = this@with.bounds,
           count = this@with.count?.value,
           _count = this@with.count?.toElement(),
@@ -297,8 +285,8 @@ internal data class TimingSurrogate(
       with(model) {
         TimingSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           event =
             this@with.event
               .map { it.value?.toString() }

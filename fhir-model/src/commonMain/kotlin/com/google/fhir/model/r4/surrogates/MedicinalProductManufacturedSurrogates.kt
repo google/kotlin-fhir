@@ -101,16 +101,16 @@ internal data class MedicinalProductManufacturedSurrogate(
           language = this@with.language?.value,
           _language = this@with.language?.toElement(),
           text = this@with.text,
-          contained = this@with.contained.takeUnless { it.all { it == null } },
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          contained = this@with.contained.takeIf { it.isNotEmpty() },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           manufacturedDoseForm = this@with.manufacturedDoseForm,
           unitOfPresentation = this@with.unitOfPresentation,
           quantity = this@with.quantity,
-          manufacturer = this@with.manufacturer.takeUnless { it.all { it == null } },
-          ingredient = this@with.ingredient.takeUnless { it.all { it == null } },
+          manufacturer = this@with.manufacturer.takeIf { it.isNotEmpty() },
+          ingredient = this@with.ingredient.takeIf { it.isNotEmpty() },
           physicalCharacteristics = this@with.physicalCharacteristics,
-          otherCharacteristics = this@with.otherCharacteristics.takeUnless { it.all { it == null } },
+          otherCharacteristics = this@with.otherCharacteristics.takeIf { it.isNotEmpty() },
         )
       }
   }

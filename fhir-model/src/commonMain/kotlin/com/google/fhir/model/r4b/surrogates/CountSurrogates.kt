@@ -25,6 +25,7 @@ import com.google.fhir.model.r4b.Decimal
 import com.google.fhir.model.r4b.Element
 import com.google.fhir.model.r4b.Enumeration
 import com.google.fhir.model.r4b.Extension
+import com.google.fhir.model.r4b.Quantity
 import com.google.fhir.model.r4b.String as R4bString
 import com.google.fhir.model.r4b.Uri
 import com.google.fhir.model.r4b.serializers.DoubleSerializer
@@ -58,10 +59,7 @@ internal data class CountSurrogate(
       `value` = Decimal.of(this@CountSurrogate.`value`, this@CountSurrogate._value),
       comparator =
         this@CountSurrogate.comparator?.let {
-          Enumeration.of(
-            com.google.fhir.model.r4b.Quantity.QuantityComparator.fromCode(it!!),
-            this@CountSurrogate._comparator,
-          )
+          Enumeration.of(Quantity.QuantityComparator.fromCode(it), this@CountSurrogate._comparator)
         },
       unit = R4bString.of(this@CountSurrogate.unit, this@CountSurrogate._unit),
       system = Uri.of(this@CountSurrogate.system, this@CountSurrogate._system),
@@ -73,7 +71,7 @@ internal data class CountSurrogate(
       with(model) {
         CountSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
           `value` = this@with.`value`?.value,
           _value = this@with.`value`?.toElement(),
           comparator = this@with.comparator?.value?.getCode(),

@@ -78,8 +78,8 @@ internal data class ClaimResponseEventSurrogate(
       with(model) {
         ClaimResponseEventSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           type = this@with.type,
           `when` = this@with.`when`,
         )
@@ -138,11 +138,11 @@ internal data class ClaimResponseItemSurrogate(
       with(model) {
         ClaimResponseItemSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           itemSequence = this@with.itemSequence.value,
           _itemSequence = this@with.itemSequence.toElement(),
-          traceNumber = this@with.traceNumber.takeUnless { it.all { it == null } },
+          traceNumber = this@with.traceNumber.takeIf { it.isNotEmpty() },
           noteNumber =
             this@with.noteNumber
               .map { it.value }
@@ -155,8 +155,8 @@ internal data class ClaimResponseItemSurrogate(
               ?.map { it ?: Element() }
               ?.toMutableList(),
           reviewOutcome = this@with.reviewOutcome,
-          adjudication = this@with.adjudication.takeUnless { it.all { it == null } },
-          detail = this@with.detail.takeUnless { it.all { it == null } },
+          adjudication = this@with.adjudication.takeIf { it.isNotEmpty() },
+          detail = this@with.detail.takeIf { it.isNotEmpty() },
         )
       }
   }
@@ -196,10 +196,10 @@ internal data class ClaimResponseItemReviewOutcomeSurrogate(
       with(model) {
         ClaimResponseItemReviewOutcomeSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           decision = this@with.decision,
-          reason = this@with.reason.takeUnless { it.all { it == null } },
+          reason = this@with.reason.takeIf { it.isNotEmpty() },
           preAuthRef = this@with.preAuthRef?.value,
           _preAuthRef = this@with.preAuthRef?.toElement(),
           preAuthPeriod = this@with.preAuthPeriod,
@@ -237,8 +237,8 @@ internal data class ClaimResponseItemAdjudicationSurrogate(
       with(model) {
         ClaimResponseItemAdjudicationSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           category = this@with.category,
           reason = this@with.reason,
           amount = this@with.amount,
@@ -300,11 +300,11 @@ internal data class ClaimResponseItemDetailSurrogate(
       with(model) {
         ClaimResponseItemDetailSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           detailSequence = this@with.detailSequence.value,
           _detailSequence = this@with.detailSequence.toElement(),
-          traceNumber = this@with.traceNumber.takeUnless { it.all { it == null } },
+          traceNumber = this@with.traceNumber.takeIf { it.isNotEmpty() },
           noteNumber =
             this@with.noteNumber
               .map { it.value }
@@ -317,8 +317,8 @@ internal data class ClaimResponseItemDetailSurrogate(
               ?.map { it ?: Element() }
               ?.toMutableList(),
           reviewOutcome = this@with.reviewOutcome,
-          adjudication = this@with.adjudication.takeUnless { it.all { it == null } },
-          subDetail = this@with.subDetail.takeUnless { it.all { it == null } },
+          adjudication = this@with.adjudication.takeIf { it.isNotEmpty() },
+          subDetail = this@with.subDetail.takeIf { it.isNotEmpty() },
         )
       }
   }
@@ -376,11 +376,11 @@ internal data class ClaimResponseItemDetailSubDetailSurrogate(
       with(model) {
         ClaimResponseItemDetailSubDetailSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           subDetailSequence = this@with.subDetailSequence.value,
           _subDetailSequence = this@with.subDetailSequence.toElement(),
-          traceNumber = this@with.traceNumber.takeUnless { it.all { it == null } },
+          traceNumber = this@with.traceNumber.takeIf { it.isNotEmpty() },
           noteNumber =
             this@with.noteNumber
               .map { it.value }
@@ -393,7 +393,7 @@ internal data class ClaimResponseItemDetailSubDetailSurrogate(
               ?.map { it ?: Element() }
               ?.toMutableList(),
           reviewOutcome = this@with.reviewOutcome,
-          adjudication = this@with.adjudication.takeUnless { it.all { it == null } },
+          adjudication = this@with.adjudication.takeIf { it.isNotEmpty() },
         )
       }
   }
@@ -532,8 +532,8 @@ internal data class ClaimResponseAddItemSurrogate(
       with(model) {
         ClaimResponseAddItemSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           itemSequence =
             this@with.itemSequence
               .map { it.value }
@@ -567,14 +567,14 @@ internal data class ClaimResponseAddItemSurrogate(
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
               ?.toMutableList(),
-          traceNumber = this@with.traceNumber.takeUnless { it.all { it == null } },
-          provider = this@with.provider.takeUnless { it.all { it == null } },
+          traceNumber = this@with.traceNumber.takeIf { it.isNotEmpty() },
+          provider = this@with.provider.takeIf { it.isNotEmpty() },
           revenue = this@with.revenue,
           productOrService = this@with.productOrService,
           productOrServiceEnd = this@with.productOrServiceEnd,
-          request = this@with.request.takeUnless { it.all { it == null } },
-          modifier = this@with.modifier.takeUnless { it.all { it == null } },
-          programCode = this@with.programCode.takeUnless { it.all { it == null } },
+          request = this@with.request.takeIf { it.isNotEmpty() },
+          modifier = this@with.modifier.takeIf { it.isNotEmpty() },
+          programCode = this@with.programCode.takeIf { it.isNotEmpty() },
           serviced = this@with.serviced,
           location = this@with.location,
           quantity = this@with.quantity,
@@ -583,7 +583,7 @@ internal data class ClaimResponseAddItemSurrogate(
           _factor = this@with.factor?.toElement(),
           tax = this@with.tax,
           net = this@with.net,
-          bodySite = this@with.bodySite.takeUnless { it.all { it == null } },
+          bodySite = this@with.bodySite.takeIf { it.isNotEmpty() },
           noteNumber =
             this@with.noteNumber
               .map { it.value }
@@ -596,8 +596,8 @@ internal data class ClaimResponseAddItemSurrogate(
               ?.map { it ?: Element() }
               ?.toMutableList(),
           reviewOutcome = this@with.reviewOutcome,
-          adjudication = this@with.adjudication.takeUnless { it.all { it == null } },
-          detail = this@with.detail.takeUnless { it.all { it == null } },
+          adjudication = this@with.adjudication.takeIf { it.isNotEmpty() },
+          detail = this@with.detail.takeIf { it.isNotEmpty() },
         )
       }
   }
@@ -628,10 +628,10 @@ internal data class ClaimResponseAddItemBodySiteSurrogate(
       with(model) {
         ClaimResponseAddItemBodySiteSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          site = this@with.site.takeUnless { it.all { it == null } },
-          subSite = this@with.subSite.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
+          site = this@with.site.takeIf { it.isNotEmpty() },
+          subSite = this@with.subSite.takeIf { it.isNotEmpty() },
         )
       }
   }
@@ -705,13 +705,13 @@ internal data class ClaimResponseAddItemDetailSurrogate(
       with(model) {
         ClaimResponseAddItemDetailSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          traceNumber = this@with.traceNumber.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
+          traceNumber = this@with.traceNumber.takeIf { it.isNotEmpty() },
           revenue = this@with.revenue,
           productOrService = this@with.productOrService,
           productOrServiceEnd = this@with.productOrServiceEnd,
-          modifier = this@with.modifier.takeUnless { it.all { it == null } },
+          modifier = this@with.modifier.takeIf { it.isNotEmpty() },
           quantity = this@with.quantity,
           unitPrice = this@with.unitPrice,
           factor = this@with.factor?.value,
@@ -730,8 +730,8 @@ internal data class ClaimResponseAddItemDetailSurrogate(
               ?.map { it ?: Element() }
               ?.toMutableList(),
           reviewOutcome = this@with.reviewOutcome,
-          adjudication = this@with.adjudication.takeUnless { it.all { it == null } },
-          subDetail = this@with.subDetail.takeUnless { it.all { it == null } },
+          adjudication = this@with.adjudication.takeIf { it.isNotEmpty() },
+          subDetail = this@with.subDetail.takeIf { it.isNotEmpty() },
         )
       }
   }
@@ -811,13 +811,13 @@ internal data class ClaimResponseAddItemDetailSubDetailSurrogate(
       with(model) {
         ClaimResponseAddItemDetailSubDetailSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          traceNumber = this@with.traceNumber.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
+          traceNumber = this@with.traceNumber.takeIf { it.isNotEmpty() },
           revenue = this@with.revenue,
           productOrService = this@with.productOrService,
           productOrServiceEnd = this@with.productOrServiceEnd,
-          modifier = this@with.modifier.takeUnless { it.all { it == null } },
+          modifier = this@with.modifier.takeIf { it.isNotEmpty() },
           quantity = this@with.quantity,
           unitPrice = this@with.unitPrice,
           factor = this@with.factor?.value,
@@ -836,7 +836,7 @@ internal data class ClaimResponseAddItemDetailSubDetailSurrogate(
               ?.map { it ?: Element() }
               ?.toMutableList(),
           reviewOutcome = this@with.reviewOutcome,
-          adjudication = this@with.adjudication.takeUnless { it.all { it == null } },
+          adjudication = this@with.adjudication.takeIf { it.isNotEmpty() },
         )
       }
   }
@@ -864,8 +864,8 @@ internal data class ClaimResponseTotalSurrogate(
       with(model) {
         ClaimResponseTotalSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           category = this@with.category,
           amount = this@with.amount,
         )
@@ -908,8 +908,8 @@ internal data class ClaimResponsePaymentSurrogate(
       with(model) {
         ClaimResponsePaymentSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           type = this@with.type,
           adjustment = this@with.adjustment,
           adjustmentReason = this@with.adjustmentReason,
@@ -959,8 +959,8 @@ internal data class ClaimResponseProcessNoteSurrogate(
       with(model) {
         ClaimResponseProcessNoteSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           number = this@with.number?.value,
           _number = this@with.number?.toElement(),
           type = this@with.type,
@@ -1015,8 +1015,8 @@ internal data class ClaimResponseInsuranceSurrogate(
       with(model) {
         ClaimResponseInsuranceSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           sequence = this@with.sequence.value,
           _sequence = this@with.sequence.toElement(),
           focal = this@with.focal.value,
@@ -1089,8 +1089,8 @@ internal data class ClaimResponseErrorSurrogate(
       with(model) {
         ClaimResponseErrorSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           itemSequence = this@with.itemSequence?.value,
           _itemSequence = this@with.itemSequence?.toElement(),
           detailSequence = this@with.detailSequence?.value,
@@ -1127,7 +1127,7 @@ internal data class ClaimResponseEventWhenSurrogate(
         this@ClaimResponseEventWhenSurrogate._whenDateTime,
       ),
       this@ClaimResponseEventWhenSurrogate.whenPeriod,
-    )!! !!
+    )!!
 
   public companion object {
     public fun fromModel(model: ClaimResponse.Event.When): ClaimResponseEventWhenSurrogate =
@@ -1267,16 +1267,14 @@ internal data class ClaimResponseSurrogate(
       traceNumber = this@ClaimResponseSurrogate.traceNumber ?: mutableListOf(),
       status =
         Enumeration.of(
-          com.google.fhir.model.r5.ClaimResponse.FinancialResourceStatusCodes.fromCode(
-            this@ClaimResponseSurrogate.status!!
-          ),
+          ClaimResponse.FinancialResourceStatusCodes.fromCode(this@ClaimResponseSurrogate.status!!),
           this@ClaimResponseSurrogate._status,
         ),
       type = this@ClaimResponseSurrogate.type,
       subType = this@ClaimResponseSurrogate.subType,
       use =
         Enumeration.of(
-          com.google.fhir.model.r5.ClaimResponse.Use.fromCode(this@ClaimResponseSurrogate.use!!),
+          ClaimResponse.Use.fromCode(this@ClaimResponseSurrogate.use!!),
           this@ClaimResponseSurrogate._use,
         ),
       patient = this@ClaimResponseSurrogate.patient,
@@ -1290,9 +1288,7 @@ internal data class ClaimResponseSurrogate(
       request = this@ClaimResponseSurrogate.request,
       outcome =
         Enumeration.of(
-          com.google.fhir.model.r5.ClaimResponse.ClaimProcessingCodes.fromCode(
-            this@ClaimResponseSurrogate.outcome!!
-          ),
+          ClaimResponse.ClaimProcessingCodes.fromCode(this@ClaimResponseSurrogate.outcome!!),
           this@ClaimResponseSurrogate._outcome,
         ),
       decision = this@ClaimResponseSurrogate.decision,
@@ -1336,11 +1332,11 @@ internal data class ClaimResponseSurrogate(
           language = this@with.language?.value,
           _language = this@with.language?.toElement(),
           text = this@with.text,
-          contained = this@with.contained.takeUnless { it.all { it == null } },
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          identifier = this@with.identifier.takeUnless { it.all { it == null } },
-          traceNumber = this@with.traceNumber.takeUnless { it.all { it == null } },
+          contained = this@with.contained.takeIf { it.isNotEmpty() },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
+          identifier = this@with.identifier.takeIf { it.isNotEmpty() },
+          traceNumber = this@with.traceNumber.takeIf { it.isNotEmpty() },
           status = this@with.status.value?.getCode(),
           _status = this@with.status.toElement(),
           type = this@with.type,
@@ -1361,23 +1357,22 @@ internal data class ClaimResponseSurrogate(
           preAuthRef = this@with.preAuthRef?.value,
           _preAuthRef = this@with.preAuthRef?.toElement(),
           preAuthPeriod = this@with.preAuthPeriod,
-          event = this@with.event.takeUnless { it.all { it == null } },
+          event = this@with.event.takeIf { it.isNotEmpty() },
           payeeType = this@with.payeeType,
-          encounter = this@with.encounter.takeUnless { it.all { it == null } },
+          encounter = this@with.encounter.takeIf { it.isNotEmpty() },
           diagnosisRelatedGroup = this@with.diagnosisRelatedGroup,
-          item = this@with.item.takeUnless { it.all { it == null } },
-          addItem = this@with.addItem.takeUnless { it.all { it == null } },
-          adjudication = this@with.adjudication.takeUnless { it.all { it == null } },
-          total = this@with.total.takeUnless { it.all { it == null } },
+          item = this@with.item.takeIf { it.isNotEmpty() },
+          addItem = this@with.addItem.takeIf { it.isNotEmpty() },
+          adjudication = this@with.adjudication.takeIf { it.isNotEmpty() },
+          total = this@with.total.takeIf { it.isNotEmpty() },
           payment = this@with.payment,
           fundsReserve = this@with.fundsReserve,
           formCode = this@with.formCode,
           form = this@with.form,
-          processNote = this@with.processNote.takeUnless { it.all { it == null } },
-          communicationRequest =
-            this@with.communicationRequest.takeUnless { it.all { it == null } },
-          insurance = this@with.insurance.takeUnless { it.all { it == null } },
-          error = this@with.error.takeUnless { it.all { it == null } },
+          processNote = this@with.processNote.takeIf { it.isNotEmpty() },
+          communicationRequest = this@with.communicationRequest.takeIf { it.isNotEmpty() },
+          insurance = this@with.insurance.takeIf { it.isNotEmpty() },
+          error = this@with.error.takeIf { it.isNotEmpty() },
         )
       }
   }

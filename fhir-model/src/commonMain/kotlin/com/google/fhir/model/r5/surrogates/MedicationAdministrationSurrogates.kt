@@ -75,8 +75,8 @@ internal data class MedicationAdministrationPerformerSurrogate(
       with(model) {
         MedicationAdministrationPerformerSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           function = this@with.function,
           actor = this@with.actor,
         )
@@ -122,8 +122,8 @@ internal data class MedicationAdministrationDosageSurrogate(
       with(model) {
         MedicationAdministrationDosageSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           text = this@with.text?.value,
           _text = this@with.text?.toElement(),
           site = this@with.site,
@@ -151,7 +151,7 @@ internal data class MedicationAdministrationOccurenceSurrogate(
       ),
       this@MedicationAdministrationOccurenceSurrogate.occurencePeriod,
       this@MedicationAdministrationOccurenceSurrogate.occurenceTiming,
-    )!! !!
+    )!!
 
   public companion object {
     public fun fromModel(
@@ -253,8 +253,9 @@ internal data class MedicationAdministrationSurrogate(
       partOf = this@MedicationAdministrationSurrogate.partOf ?: mutableListOf(),
       status =
         Enumeration.of(
-          com.google.fhir.model.r5.MedicationAdministration.MedicationAdministrationStatusCodes
-            .fromCode(this@MedicationAdministrationSurrogate.status!!),
+          MedicationAdministration.MedicationAdministrationStatusCodes.fromCode(
+            this@MedicationAdministrationSurrogate.status!!
+          ),
           this@MedicationAdministrationSurrogate._status,
         ),
       statusReason = this@MedicationAdministrationSurrogate.statusReason ?: mutableListOf(),
@@ -296,34 +297,33 @@ internal data class MedicationAdministrationSurrogate(
           language = this@with.language?.value,
           _language = this@with.language?.toElement(),
           text = this@with.text,
-          contained = this@with.contained.takeUnless { it.all { it == null } },
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          identifier = this@with.identifier.takeUnless { it.all { it == null } },
-          basedOn = this@with.basedOn.takeUnless { it.all { it == null } },
-          partOf = this@with.partOf.takeUnless { it.all { it == null } },
+          contained = this@with.contained.takeIf { it.isNotEmpty() },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
+          identifier = this@with.identifier.takeIf { it.isNotEmpty() },
+          basedOn = this@with.basedOn.takeIf { it.isNotEmpty() },
+          partOf = this@with.partOf.takeIf { it.isNotEmpty() },
           status = this@with.status.value?.getCode(),
           _status = this@with.status.toElement(),
-          statusReason = this@with.statusReason.takeUnless { it.all { it == null } },
-          category = this@with.category.takeUnless { it.all { it == null } },
+          statusReason = this@with.statusReason.takeIf { it.isNotEmpty() },
+          category = this@with.category.takeIf { it.isNotEmpty() },
           medication = this@with.medication,
           subject = this@with.subject,
           encounter = this@with.encounter,
-          supportingInformation =
-            this@with.supportingInformation.takeUnless { it.all { it == null } },
+          supportingInformation = this@with.supportingInformation.takeIf { it.isNotEmpty() },
           occurence = this@with.occurence,
           recorded = this@with.recorded?.value?.toString(),
           _recorded = this@with.recorded?.toElement(),
           isSubPotent = this@with.isSubPotent?.value,
           _isSubPotent = this@with.isSubPotent?.toElement(),
-          subPotentReason = this@with.subPotentReason.takeUnless { it.all { it == null } },
-          performer = this@with.performer.takeUnless { it.all { it == null } },
-          reason = this@with.reason.takeUnless { it.all { it == null } },
+          subPotentReason = this@with.subPotentReason.takeIf { it.isNotEmpty() },
+          performer = this@with.performer.takeIf { it.isNotEmpty() },
+          reason = this@with.reason.takeIf { it.isNotEmpty() },
           request = this@with.request,
-          device = this@with.device.takeUnless { it.all { it == null } },
-          note = this@with.note.takeUnless { it.all { it == null } },
+          device = this@with.device.takeIf { it.isNotEmpty() },
+          note = this@with.note.takeIf { it.isNotEmpty() },
           dosage = this@with.dosage,
-          eventHistory = this@with.eventHistory.takeUnless { it.all { it == null } },
+          eventHistory = this@with.eventHistory.takeIf { it.isNotEmpty() },
         )
       }
   }

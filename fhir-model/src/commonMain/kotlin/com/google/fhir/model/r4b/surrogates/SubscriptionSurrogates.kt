@@ -62,9 +62,7 @@ internal data class SubscriptionChannelSurrogate(
       modifierExtension = this@SubscriptionChannelSurrogate.modifierExtension ?: mutableListOf(),
       type =
         Enumeration.of(
-          com.google.fhir.model.r4b.Subscription.SubscriptionChannelType.fromCode(
-            this@SubscriptionChannelSurrogate.type!!
-          ),
+          Subscription.SubscriptionChannelType.fromCode(this@SubscriptionChannelSurrogate.type!!),
           this@SubscriptionChannelSurrogate._type,
         ),
       endpoint =
@@ -100,8 +98,8 @@ internal data class SubscriptionChannelSurrogate(
       with(model) {
         SubscriptionChannelSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           type = this@with.type.value?.getCode(),
           _type = this@with.type.toElement(),
           endpoint = this@with.endpoint?.value,
@@ -162,9 +160,7 @@ internal data class SubscriptionSurrogate(
       modifierExtension = this@SubscriptionSurrogate.modifierExtension ?: mutableListOf(),
       status =
         Enumeration.of(
-          com.google.fhir.model.r4b.Subscription.SubscriptionStatusCodes.fromCode(
-            this@SubscriptionSurrogate.status!!
-          ),
+          Subscription.SubscriptionStatusCodes.fromCode(this@SubscriptionSurrogate.status!!),
           this@SubscriptionSurrogate._status,
         ),
       contact = this@SubscriptionSurrogate.contact ?: mutableListOf(),
@@ -192,12 +188,12 @@ internal data class SubscriptionSurrogate(
           language = this@with.language?.value,
           _language = this@with.language?.toElement(),
           text = this@with.text,
-          contained = this@with.contained.takeUnless { it.all { it == null } },
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          contained = this@with.contained.takeIf { it.isNotEmpty() },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           status = this@with.status.value?.getCode(),
           _status = this@with.status.toElement(),
-          contact = this@with.contact.takeUnless { it.all { it == null } },
+          contact = this@with.contact.takeIf { it.isNotEmpty() },
           end = this@with.end?.value?.toString(),
           _end = this@with.end?.toElement(),
           reason = this@with.reason.value,

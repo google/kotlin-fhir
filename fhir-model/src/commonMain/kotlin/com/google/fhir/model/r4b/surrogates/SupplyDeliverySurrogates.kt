@@ -67,8 +67,8 @@ internal data class SupplyDeliverySuppliedItemSurrogate(
       with(model) {
         SupplyDeliverySuppliedItemSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           quantity = this@with.quantity,
           item = this@with.item,
         )
@@ -176,7 +176,7 @@ internal data class SupplyDeliverySurrogate(
       status =
         this@SupplyDeliverySurrogate.status?.let {
           Enumeration.of(
-            com.google.fhir.model.r4b.SupplyDelivery.SupplyDeliveryStatus.fromCode(it!!),
+            SupplyDelivery.SupplyDeliveryStatus.fromCode(it),
             this@SupplyDeliverySurrogate._status,
           )
         },
@@ -200,12 +200,12 @@ internal data class SupplyDeliverySurrogate(
           language = this@with.language?.value,
           _language = this@with.language?.toElement(),
           text = this@with.text,
-          contained = this@with.contained.takeUnless { it.all { it == null } },
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          identifier = this@with.identifier.takeUnless { it.all { it == null } },
-          basedOn = this@with.basedOn.takeUnless { it.all { it == null } },
-          partOf = this@with.partOf.takeUnless { it.all { it == null } },
+          contained = this@with.contained.takeIf { it.isNotEmpty() },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
+          identifier = this@with.identifier.takeIf { it.isNotEmpty() },
+          basedOn = this@with.basedOn.takeIf { it.isNotEmpty() },
+          partOf = this@with.partOf.takeIf { it.isNotEmpty() },
           status = this@with.status?.value?.getCode(),
           _status = this@with.status?.toElement(),
           patient = this@with.patient,
@@ -214,7 +214,7 @@ internal data class SupplyDeliverySurrogate(
           occurrence = this@with.occurrence,
           supplier = this@with.supplier,
           destination = this@with.destination,
-          `receiver` = this@with.`receiver`.takeUnless { it.all { it == null } },
+          `receiver` = this@with.`receiver`.takeIf { it.isNotEmpty() },
         )
       }
   }

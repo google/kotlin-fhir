@@ -70,8 +70,8 @@ internal data class CommunicationRequestPayloadSurrogate(
       with(model) {
         CommunicationRequestPayloadSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           content = this@with.content,
         )
       }
@@ -89,7 +89,7 @@ internal data class CommunicationRequestPayloadContentSurrogate(
       this@CommunicationRequestPayloadContentSurrogate.contentAttachment,
       this@CommunicationRequestPayloadContentSurrogate.contentReference,
       this@CommunicationRequestPayloadContentSurrogate.contentCodeableConcept,
-    )!! !!
+    )!!
 
   public companion object {
     public fun fromModel(
@@ -198,24 +198,20 @@ internal data class CommunicationRequestSurrogate(
       groupIdentifier = this@CommunicationRequestSurrogate.groupIdentifier,
       status =
         Enumeration.of(
-          com.google.fhir.model.r5.CommunicationRequest.RequestStatus.fromCode(
-            this@CommunicationRequestSurrogate.status!!
-          ),
+          CommunicationRequest.RequestStatus.fromCode(this@CommunicationRequestSurrogate.status!!),
           this@CommunicationRequestSurrogate._status,
         ),
       statusReason = this@CommunicationRequestSurrogate.statusReason,
       intent =
         Enumeration.of(
-          com.google.fhir.model.r5.CommunicationRequest.RequestIntent.fromCode(
-            this@CommunicationRequestSurrogate.intent!!
-          ),
+          CommunicationRequest.RequestIntent.fromCode(this@CommunicationRequestSurrogate.intent!!),
           this@CommunicationRequestSurrogate._intent,
         ),
       category = this@CommunicationRequestSurrogate.category ?: mutableListOf(),
       priority =
         this@CommunicationRequestSurrogate.priority?.let {
           Enumeration.of(
-            com.google.fhir.model.r5.CommunicationRequest.RequestPriority.fromCode(it!!),
+            CommunicationRequest.RequestPriority.fromCode(it),
             this@CommunicationRequestSurrogate._priority,
           )
         },
@@ -254,36 +250,36 @@ internal data class CommunicationRequestSurrogate(
           language = this@with.language?.value,
           _language = this@with.language?.toElement(),
           text = this@with.text,
-          contained = this@with.contained.takeUnless { it.all { it == null } },
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          identifier = this@with.identifier.takeUnless { it.all { it == null } },
-          basedOn = this@with.basedOn.takeUnless { it.all { it == null } },
-          replaces = this@with.replaces.takeUnless { it.all { it == null } },
+          contained = this@with.contained.takeIf { it.isNotEmpty() },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
+          identifier = this@with.identifier.takeIf { it.isNotEmpty() },
+          basedOn = this@with.basedOn.takeIf { it.isNotEmpty() },
+          replaces = this@with.replaces.takeIf { it.isNotEmpty() },
           groupIdentifier = this@with.groupIdentifier,
           status = this@with.status.value?.getCode(),
           _status = this@with.status.toElement(),
           statusReason = this@with.statusReason,
           intent = this@with.intent.value?.getCode(),
           _intent = this@with.intent.toElement(),
-          category = this@with.category.takeUnless { it.all { it == null } },
+          category = this@with.category.takeIf { it.isNotEmpty() },
           priority = this@with.priority?.value?.getCode(),
           _priority = this@with.priority?.toElement(),
           doNotPerform = this@with.doNotPerform?.value,
           _doNotPerform = this@with.doNotPerform?.toElement(),
-          medium = this@with.medium.takeUnless { it.all { it == null } },
+          medium = this@with.medium.takeIf { it.isNotEmpty() },
           subject = this@with.subject,
-          about = this@with.about.takeUnless { it.all { it == null } },
+          about = this@with.about.takeIf { it.isNotEmpty() },
           encounter = this@with.encounter,
-          payload = this@with.payload.takeUnless { it.all { it == null } },
+          payload = this@with.payload.takeIf { it.isNotEmpty() },
           occurrence = this@with.occurrence,
           authoredOn = this@with.authoredOn?.value?.toString(),
           _authoredOn = this@with.authoredOn?.toElement(),
           requester = this@with.requester,
-          recipient = this@with.recipient.takeUnless { it.all { it == null } },
-          informationProvider = this@with.informationProvider.takeUnless { it.all { it == null } },
-          reason = this@with.reason.takeUnless { it.all { it == null } },
-          note = this@with.note.takeUnless { it.all { it == null } },
+          recipient = this@with.recipient.takeIf { it.isNotEmpty() },
+          informationProvider = this@with.informationProvider.takeIf { it.isNotEmpty() },
+          reason = this@with.reason.takeIf { it.isNotEmpty() },
+          note = this@with.note.takeIf { it.isNotEmpty() },
         )
       }
   }

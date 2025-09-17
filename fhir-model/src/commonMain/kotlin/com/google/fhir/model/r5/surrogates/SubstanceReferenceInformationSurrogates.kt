@@ -68,11 +68,11 @@ internal data class SubstanceReferenceInformationGeneSurrogate(
       with(model) {
         SubstanceReferenceInformationGeneSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           geneSequenceOrigin = this@with.geneSequenceOrigin,
           gene = this@with.gene,
-          source = this@with.source.takeUnless { it.all { it == null } },
+          source = this@with.source.takeIf { it.isNotEmpty() },
         )
       }
   }
@@ -106,11 +106,11 @@ internal data class SubstanceReferenceInformationGeneElementSurrogate(
       with(model) {
         SubstanceReferenceInformationGeneElementSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           type = this@with.type,
           element = this@with.element,
-          source = this@with.source.takeUnless { it.all { it == null } },
+          source = this@with.source.takeIf { it.isNotEmpty() },
         )
       }
   }
@@ -153,8 +153,8 @@ internal data class SubstanceReferenceInformationTargetSurrogate(
       with(model) {
         SubstanceReferenceInformationTargetSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           target = this@with.target,
           type = this@with.type,
           interaction = this@with.interaction,
@@ -162,7 +162,7 @@ internal data class SubstanceReferenceInformationTargetSurrogate(
           organismType = this@with.organismType,
           amount = this@with.amount,
           amountType = this@with.amountType,
-          source = this@with.source.takeUnless { it.all { it == null } },
+          source = this@with.source.takeIf { it.isNotEmpty() },
         )
       }
   }
@@ -260,14 +260,14 @@ internal data class SubstanceReferenceInformationSurrogate(
           language = this@with.language?.value,
           _language = this@with.language?.toElement(),
           text = this@with.text,
-          contained = this@with.contained.takeUnless { it.all { it == null } },
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          contained = this@with.contained.takeIf { it.isNotEmpty() },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           comment = this@with.comment?.value,
           _comment = this@with.comment?.toElement(),
-          gene = this@with.gene.takeUnless { it.all { it == null } },
-          geneElement = this@with.geneElement.takeUnless { it.all { it == null } },
-          target = this@with.target.takeUnless { it.all { it == null } },
+          gene = this@with.gene.takeIf { it.isNotEmpty() },
+          geneElement = this@with.geneElement.takeIf { it.isNotEmpty() },
+          target = this@with.target.takeIf { it.isNotEmpty() },
         )
       }
   }

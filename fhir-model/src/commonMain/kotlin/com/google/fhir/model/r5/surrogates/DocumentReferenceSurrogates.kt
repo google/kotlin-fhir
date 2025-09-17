@@ -43,6 +43,7 @@ import com.google.fhir.model.r5.String as R5String
 import com.google.fhir.model.r5.Uri
 import com.google.fhir.model.r5.serializers.DoubleSerializer
 import com.google.fhir.model.r5.serializers.LocalTimeSerializer
+import com.google.fhir.model.r5.terminologies.DocumentReferenceStatus
 import kotlin.String as KotlinString
 import kotlin.Suppress
 import kotlin.collections.MutableList
@@ -79,8 +80,8 @@ internal data class DocumentReferenceAttesterSurrogate(
       with(model) {
         DocumentReferenceAttesterSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           mode = this@with.mode,
           time = this@with.time?.value?.toString(),
           _time = this@with.time?.toElement(),
@@ -113,8 +114,8 @@ internal data class DocumentReferenceRelatesToSurrogate(
       with(model) {
         DocumentReferenceRelatesToSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           code = this@with.code,
           target = this@with.target,
         )
@@ -145,10 +146,10 @@ internal data class DocumentReferenceContentSurrogate(
       with(model) {
         DocumentReferenceContentSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           attachment = this@with.attachment,
-          profile = this@with.profile.takeUnless { it.all { it == null } },
+          profile = this@with.profile.takeIf { it.isNotEmpty() },
         )
       }
   }
@@ -177,8 +178,8 @@ internal data class DocumentReferenceContentProfileSurrogate(
       with(model) {
         DocumentReferenceContentProfileSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           `value` = this@with.`value`,
         )
       }
@@ -204,7 +205,7 @@ internal data class DocumentReferenceContentProfileValueSurrogate(
         this@DocumentReferenceContentProfileValueSurrogate.valueCanonical,
         this@DocumentReferenceContentProfileValueSurrogate._valueCanonical,
       ),
-    )!! !!
+    )!!
 
   public companion object {
     public fun fromModel(
@@ -290,15 +291,13 @@ internal data class DocumentReferenceSurrogate(
       basedOn = this@DocumentReferenceSurrogate.basedOn ?: mutableListOf(),
       status =
         Enumeration.of(
-          com.google.fhir.model.r5.terminologies.DocumentReferenceStatus.fromCode(
-            this@DocumentReferenceSurrogate.status!!
-          ),
+          DocumentReferenceStatus.fromCode(this@DocumentReferenceSurrogate.status!!),
           this@DocumentReferenceSurrogate._status,
         ),
       docStatus =
         this@DocumentReferenceSurrogate.docStatus?.let {
           Enumeration.of(
-            com.google.fhir.model.r5.DocumentReference.CompositionStatus.fromCode(it!!),
+            DocumentReference.CompositionStatus.fromCode(it),
             this@DocumentReferenceSurrogate._docStatus,
           )
         },
@@ -341,37 +340,37 @@ internal data class DocumentReferenceSurrogate(
           language = this@with.language?.value,
           _language = this@with.language?.toElement(),
           text = this@with.text,
-          contained = this@with.contained.takeUnless { it.all { it == null } },
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          contained = this@with.contained.takeIf { it.isNotEmpty() },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
+          identifier = this@with.identifier.takeIf { it.isNotEmpty() },
           version = this@with.version?.value,
           _version = this@with.version?.toElement(),
-          basedOn = this@with.basedOn.takeUnless { it.all { it == null } },
+          basedOn = this@with.basedOn.takeIf { it.isNotEmpty() },
           status = this@with.status.value?.getCode(),
           _status = this@with.status.toElement(),
           docStatus = this@with.docStatus?.value?.getCode(),
           _docStatus = this@with.docStatus?.toElement(),
-          modality = this@with.modality.takeUnless { it.all { it == null } },
+          modality = this@with.modality.takeIf { it.isNotEmpty() },
           type = this@with.type,
-          category = this@with.category.takeUnless { it.all { it == null } },
+          category = this@with.category.takeIf { it.isNotEmpty() },
           subject = this@with.subject,
-          context = this@with.context.takeUnless { it.all { it == null } },
-          event = this@with.event.takeUnless { it.all { it == null } },
-          bodySite = this@with.bodySite.takeUnless { it.all { it == null } },
+          context = this@with.context.takeIf { it.isNotEmpty() },
+          event = this@with.event.takeIf { it.isNotEmpty() },
+          bodySite = this@with.bodySite.takeIf { it.isNotEmpty() },
           facilityType = this@with.facilityType,
           practiceSetting = this@with.practiceSetting,
           period = this@with.period,
           date = this@with.date?.value?.toString(),
           _date = this@with.date?.toElement(),
-          author = this@with.author.takeUnless { it.all { it == null } },
-          attester = this@with.attester.takeUnless { it.all { it == null } },
+          author = this@with.author.takeIf { it.isNotEmpty() },
+          attester = this@with.attester.takeIf { it.isNotEmpty() },
           custodian = this@with.custodian,
-          relatesTo = this@with.relatesTo.takeUnless { it.all { it == null } },
+          relatesTo = this@with.relatesTo.takeIf { it.isNotEmpty() },
           description = this@with.description?.value,
           _description = this@with.description?.toElement(),
-          securityLabel = this@with.securityLabel.takeUnless { it.all { it == null } },
-          content = this@with.content.takeUnless { it.all { it == null } },
+          securityLabel = this@with.securityLabel.takeIf { it.isNotEmpty() },
+          content = this@with.content.takeIf { it.isNotEmpty() },
         )
       }
   }

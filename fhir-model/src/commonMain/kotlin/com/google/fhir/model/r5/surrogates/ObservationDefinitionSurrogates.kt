@@ -46,6 +46,8 @@ import com.google.fhir.model.r5.Uri
 import com.google.fhir.model.r5.UsageContext
 import com.google.fhir.model.r5.serializers.DoubleSerializer
 import com.google.fhir.model.r5.serializers.LocalTimeSerializer
+import com.google.fhir.model.r5.terminologies.AdministrativeGender
+import com.google.fhir.model.r5.terminologies.PublicationStatus
 import kotlin.Boolean as KotlinBoolean
 import kotlin.String as KotlinString
 import kotlin.Suppress
@@ -89,7 +91,7 @@ internal data class ObservationDefinitionQualifiedValueSurrogate(
       gender =
         this@ObservationDefinitionQualifiedValueSurrogate.gender?.let {
           Enumeration.of(
-            com.google.fhir.model.r5.terminologies.AdministrativeGender.fromCode(it!!),
+            AdministrativeGender.fromCode(it),
             this@ObservationDefinitionQualifiedValueSurrogate._gender,
           )
         },
@@ -103,7 +105,7 @@ internal data class ObservationDefinitionQualifiedValueSurrogate(
       rangeCategory =
         this@ObservationDefinitionQualifiedValueSurrogate.rangeCategory?.let {
           Enumeration.of(
-            com.google.fhir.model.r5.ObservationDefinition.ObservationRangeCategory.fromCode(it!!),
+            ObservationDefinition.ObservationRangeCategory.fromCode(it),
             this@ObservationDefinitionQualifiedValueSurrogate._rangeCategory,
           )
         },
@@ -137,10 +139,10 @@ internal data class ObservationDefinitionQualifiedValueSurrogate(
       with(model) {
         ObservationDefinitionQualifiedValueSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           context = this@with.context,
-          appliesTo = this@with.appliesTo.takeUnless { it.all { it == null } },
+          appliesTo = this@with.appliesTo.takeIf { it.isNotEmpty() },
           gender = this@with.gender?.value?.getCode(),
           _gender = this@with.gender?.toElement(),
           age = this@with.age,
@@ -200,11 +202,7 @@ internal data class ObservationDefinitionComponentSurrogate(
             )
             .map { (value, element) ->
               Enumeration.of(
-                value.let {
-                  com.google.fhir.model.r5.ObservationDefinition.ObservationDataType.fromCode(
-                    it!!
-                  )!!
-                },
+                value.let { ObservationDefinition.ObservationDataType.fromCode(it!!) },
                 element,
               )
             }
@@ -222,8 +220,8 @@ internal data class ObservationDefinitionComponentSurrogate(
       with(model) {
         ObservationDefinitionComponentSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           code = this@with.code,
           permittedDataType =
             this@with.permittedDataType
@@ -236,8 +234,8 @@ internal data class ObservationDefinitionComponentSurrogate(
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
               ?.toMutableList(),
-          permittedUnit = this@with.permittedUnit.takeUnless { it.all { it == null } },
-          qualifiedValue = this@with.qualifiedValue.takeUnless { it.all { it == null } },
+          permittedUnit = this@with.permittedUnit.takeIf { it.isNotEmpty() },
+          qualifiedValue = this@with.qualifiedValue.takeIf { it.isNotEmpty() },
         )
       }
   }
@@ -380,9 +378,7 @@ internal data class ObservationDefinitionSurrogate(
         ),
       status =
         Enumeration.of(
-          com.google.fhir.model.r5.terminologies.PublicationStatus.fromCode(
-            this@ObservationDefinitionSurrogate.status!!
-          ),
+          PublicationStatus.fromCode(this@ObservationDefinitionSurrogate.status!!),
           this@ObservationDefinitionSurrogate._status,
         ),
       experimental =
@@ -485,11 +481,7 @@ internal data class ObservationDefinitionSurrogate(
             )
             .map { (value, element) ->
               Enumeration.of(
-                value.let {
-                  com.google.fhir.model.r5.ObservationDefinition.ObservationDataType.fromCode(
-                    it!!
-                  )!!
-                },
+                value.let { ObservationDefinition.ObservationDataType.fromCode(it!!) },
                 element,
               )
             }
@@ -526,9 +518,9 @@ internal data class ObservationDefinitionSurrogate(
           language = this@with.language?.value,
           _language = this@with.language?.toElement(),
           text = this@with.text,
-          contained = this@with.contained.takeUnless { it.all { it == null } },
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          contained = this@with.contained.takeIf { it.isNotEmpty() },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           url = this@with.url?.value,
           _url = this@with.url?.toElement(),
           identifier = this@with.identifier,
@@ -547,11 +539,11 @@ internal data class ObservationDefinitionSurrogate(
           _date = this@with.date?.toElement(),
           publisher = this@with.publisher?.value,
           _publisher = this@with.publisher?.toElement(),
-          contact = this@with.contact.takeUnless { it.all { it == null } },
+          contact = this@with.contact.takeIf { it.isNotEmpty() },
           description = this@with.description?.value,
           _description = this@with.description?.toElement(),
-          useContext = this@with.useContext.takeUnless { it.all { it == null } },
-          jurisdiction = this@with.jurisdiction.takeUnless { it.all { it == null } },
+          useContext = this@with.useContext.takeIf { it.isNotEmpty() },
+          jurisdiction = this@with.jurisdiction.takeIf { it.isNotEmpty() },
           purpose = this@with.purpose?.value,
           _purpose = this@with.purpose?.toElement(),
           copyright = this@with.copyright?.value,
@@ -585,9 +577,9 @@ internal data class ObservationDefinitionSurrogate(
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
               ?.toMutableList(),
-          subject = this@with.subject.takeUnless { it.all { it == null } },
+          subject = this@with.subject.takeIf { it.isNotEmpty() },
           performerType = this@with.performerType,
-          category = this@with.category.takeUnless { it.all { it == null } },
+          category = this@with.category.takeIf { it.isNotEmpty() },
           code = this@with.code,
           permittedDataType =
             this@with.permittedDataType
@@ -604,14 +596,14 @@ internal data class ObservationDefinitionSurrogate(
           _multipleResultsAllowed = this@with.multipleResultsAllowed?.toElement(),
           bodySite = this@with.bodySite,
           method = this@with.method,
-          specimen = this@with.specimen.takeUnless { it.all { it == null } },
-          device = this@with.device.takeUnless { it.all { it == null } },
+          specimen = this@with.specimen.takeIf { it.isNotEmpty() },
+          device = this@with.device.takeIf { it.isNotEmpty() },
           preferredReportName = this@with.preferredReportName?.value,
           _preferredReportName = this@with.preferredReportName?.toElement(),
-          permittedUnit = this@with.permittedUnit.takeUnless { it.all { it == null } },
-          qualifiedValue = this@with.qualifiedValue.takeUnless { it.all { it == null } },
-          hasMember = this@with.hasMember.takeUnless { it.all { it == null } },
-          component = this@with.component.takeUnless { it.all { it == null } },
+          permittedUnit = this@with.permittedUnit.takeIf { it.isNotEmpty() },
+          qualifiedValue = this@with.qualifiedValue.takeIf { it.isNotEmpty() },
+          hasMember = this@with.hasMember.takeIf { it.isNotEmpty() },
+          component = this@with.component.takeIf { it.isNotEmpty() },
         )
       }
   }

@@ -76,8 +76,8 @@ internal data class MessageHeaderDestinationSurrogate(
       with(model) {
         MessageHeaderDestinationSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           endpoint = this@with.endpoint,
           name = this@with.name?.value,
           _name = this@with.name?.toElement(),
@@ -131,8 +131,8 @@ internal data class MessageHeaderSourceSurrogate(
       with(model) {
         MessageHeaderSourceSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           endpoint = this@with.endpoint,
           name = this@with.name?.value,
           _name = this@with.name?.toElement(),
@@ -164,9 +164,7 @@ internal data class MessageHeaderResponseSurrogate(
       identifier = this@MessageHeaderResponseSurrogate.identifier,
       code =
         Enumeration.of(
-          com.google.fhir.model.r5.MessageHeader.ResponseType.fromCode(
-            this@MessageHeaderResponseSurrogate.code!!
-          ),
+          MessageHeader.ResponseType.fromCode(this@MessageHeaderResponseSurrogate.code!!),
           this@MessageHeaderResponseSurrogate._code,
         ),
       details = this@MessageHeaderResponseSurrogate.details,
@@ -177,8 +175,8 @@ internal data class MessageHeaderResponseSurrogate(
       with(model) {
         MessageHeaderResponseSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           identifier = this@with.identifier,
           code = this@with.code.value?.getCode(),
           _code = this@with.code.toElement(),
@@ -201,7 +199,7 @@ internal data class MessageHeaderEventSurrogate(
         this@MessageHeaderEventSurrogate.eventCanonical,
         this@MessageHeaderEventSurrogate._eventCanonical,
       ),
-    )!! !!
+    )!!
 
   public companion object {
     public fun fromModel(model: MessageHeader.Event): MessageHeaderEventSurrogate =
@@ -339,18 +337,18 @@ internal data class MessageHeaderSurrogate(
           language = this@with.language?.value,
           _language = this@with.language?.toElement(),
           text = this@with.text,
-          contained = this@with.contained.takeUnless { it.all { it == null } },
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          contained = this@with.contained.takeIf { it.isNotEmpty() },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           event = this@with.event,
-          destination = this@with.destination.takeUnless { it.all { it == null } },
+          destination = this@with.destination.takeIf { it.isNotEmpty() },
           sender = this@with.sender,
           author = this@with.author,
           source = this@with.source,
           responsible = this@with.responsible,
           reason = this@with.reason,
           response = this@with.response,
-          focus = this@with.focus.takeUnless { it.all { it == null } },
+          focus = this@with.focus.takeIf { it.isNotEmpty() },
           definition = this@with.definition?.value,
           _definition = this@with.definition?.toElement(),
         )

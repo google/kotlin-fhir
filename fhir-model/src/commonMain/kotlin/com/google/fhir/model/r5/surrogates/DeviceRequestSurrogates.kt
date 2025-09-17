@@ -74,8 +74,8 @@ internal data class DeviceRequestParameterSurrogate(
       with(model) {
         DeviceRequestParameterSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           code = this@with.code,
           `value` = this@with.`value`,
         )
@@ -250,21 +250,19 @@ internal data class DeviceRequestSurrogate(
       status =
         this@DeviceRequestSurrogate.status?.let {
           Enumeration.of(
-            com.google.fhir.model.r5.DeviceRequest.RequestStatus.fromCode(it!!),
+            DeviceRequest.RequestStatus.fromCode(it),
             this@DeviceRequestSurrogate._status,
           )
         },
       intent =
         Enumeration.of(
-          com.google.fhir.model.r5.DeviceRequest.RequestIntent.fromCode(
-            this@DeviceRequestSurrogate.intent!!
-          ),
+          DeviceRequest.RequestIntent.fromCode(this@DeviceRequestSurrogate.intent!!),
           this@DeviceRequestSurrogate._intent,
         ),
       priority =
         this@DeviceRequestSurrogate.priority?.let {
           Enumeration.of(
-            com.google.fhir.model.r5.DeviceRequest.RequestPriority.fromCode(it!!),
+            DeviceRequest.RequestPriority.fromCode(it),
             this@DeviceRequestSurrogate._priority,
           )
         },
@@ -308,10 +306,10 @@ internal data class DeviceRequestSurrogate(
           language = this@with.language?.value,
           _language = this@with.language?.toElement(),
           text = this@with.text,
-          contained = this@with.contained.takeUnless { it.all { it == null } },
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          contained = this@with.contained.takeIf { it.isNotEmpty() },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
+          identifier = this@with.identifier.takeIf { it.isNotEmpty() },
           instantiatesCanonical =
             this@with.instantiatesCanonical
               .map { it.value }
@@ -334,8 +332,8 @@ internal data class DeviceRequestSurrogate(
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
               ?.toMutableList(),
-          basedOn = this@with.basedOn.takeUnless { it.all { it == null } },
-          replaces = this@with.replaces.takeUnless { it.all { it == null } },
+          basedOn = this@with.basedOn.takeIf { it.isNotEmpty() },
+          replaces = this@with.replaces.takeIf { it.isNotEmpty() },
           groupIdentifier = this@with.groupIdentifier,
           status = this@with.status?.value?.getCode(),
           _status = this@with.status?.toElement(),
@@ -348,7 +346,7 @@ internal data class DeviceRequestSurrogate(
           code = this@with.code,
           quantity = this@with.quantity?.value,
           _quantity = this@with.quantity?.toElement(),
-          parameter = this@with.parameter.takeUnless { it.all { it == null } },
+          parameter = this@with.parameter.takeIf { it.isNotEmpty() },
           subject = this@with.subject,
           encounter = this@with.encounter,
           occurrence = this@with.occurrence,
@@ -356,14 +354,14 @@ internal data class DeviceRequestSurrogate(
           _authoredOn = this@with.authoredOn?.toElement(),
           requester = this@with.requester,
           performer = this@with.performer,
-          reason = this@with.reason.takeUnless { it.all { it == null } },
+          reason = this@with.reason.takeIf { it.isNotEmpty() },
           asNeeded = this@with.asNeeded?.value,
           _asNeeded = this@with.asNeeded?.toElement(),
           asNeededFor = this@with.asNeededFor,
-          insurance = this@with.insurance.takeUnless { it.all { it == null } },
-          supportingInfo = this@with.supportingInfo.takeUnless { it.all { it == null } },
-          note = this@with.note.takeUnless { it.all { it == null } },
-          relevantHistory = this@with.relevantHistory.takeUnless { it.all { it == null } },
+          insurance = this@with.insurance.takeIf { it.isNotEmpty() },
+          supportingInfo = this@with.supportingInfo.takeIf { it.isNotEmpty() },
+          note = this@with.note.takeIf { it.isNotEmpty() },
+          relevantHistory = this@with.relevantHistory.takeIf { it.isNotEmpty() },
         )
       }
   }

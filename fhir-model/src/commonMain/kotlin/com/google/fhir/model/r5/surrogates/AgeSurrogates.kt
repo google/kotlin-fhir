@@ -25,6 +25,7 @@ import com.google.fhir.model.r5.Decimal
 import com.google.fhir.model.r5.Element
 import com.google.fhir.model.r5.Enumeration
 import com.google.fhir.model.r5.Extension
+import com.google.fhir.model.r5.Quantity
 import com.google.fhir.model.r5.String as R5String
 import com.google.fhir.model.r5.Uri
 import com.google.fhir.model.r5.serializers.DoubleSerializer
@@ -58,10 +59,7 @@ internal data class AgeSurrogate(
       `value` = Decimal.of(this@AgeSurrogate.`value`, this@AgeSurrogate._value),
       comparator =
         this@AgeSurrogate.comparator?.let {
-          Enumeration.of(
-            com.google.fhir.model.r5.Quantity.QuantityComparator.fromCode(it!!),
-            this@AgeSurrogate._comparator,
-          )
+          Enumeration.of(Quantity.QuantityComparator.fromCode(it), this@AgeSurrogate._comparator)
         },
       unit = R5String.of(this@AgeSurrogate.unit, this@AgeSurrogate._unit),
       system = Uri.of(this@AgeSurrogate.system, this@AgeSurrogate._system),
@@ -73,7 +71,7 @@ internal data class AgeSurrogate(
       with(model) {
         AgeSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
           `value` = this@with.`value`?.value,
           _value = this@with.`value`?.toElement(),
           comparator = this@with.comparator?.value?.getCode(),

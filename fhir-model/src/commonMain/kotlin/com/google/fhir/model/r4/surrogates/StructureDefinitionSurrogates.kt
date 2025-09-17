@@ -43,6 +43,8 @@ import com.google.fhir.model.r4.Uri
 import com.google.fhir.model.r4.UsageContext
 import com.google.fhir.model.r4.serializers.DoubleSerializer
 import com.google.fhir.model.r4.serializers.LocalTimeSerializer
+import com.google.fhir.model.r4.terminologies.FHIRVersion
+import com.google.fhir.model.r4.terminologies.PublicationStatus
 import kotlin.Boolean as KotlinBoolean
 import kotlin.String as KotlinString
 import kotlin.Suppress
@@ -97,8 +99,8 @@ internal data class StructureDefinitionMappingSurrogate(
       with(model) {
         StructureDefinitionMappingSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           identity = this@with.identity.value,
           _identity = this@with.identity.toElement(),
           uri = this@with.uri?.value,
@@ -130,7 +132,7 @@ internal data class StructureDefinitionContextSurrogate(
         this@StructureDefinitionContextSurrogate.modifierExtension ?: mutableListOf(),
       type =
         Enumeration.of(
-          com.google.fhir.model.r4.StructureDefinition.ExtensionContextType.fromCode(
+          StructureDefinition.ExtensionContextType.fromCode(
             this@StructureDefinitionContextSurrogate.type!!
           ),
           this@StructureDefinitionContextSurrogate._type,
@@ -147,8 +149,8 @@ internal data class StructureDefinitionContextSurrogate(
       with(model) {
         StructureDefinitionContextSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           type = this@with.type.value?.getCode(),
           _type = this@with.type.toElement(),
           expression = this@with.expression.value,
@@ -181,9 +183,9 @@ internal data class StructureDefinitionSnapshotSurrogate(
       with(model) {
         StructureDefinitionSnapshotSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          element = this@with.element.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
+          element = this@with.element.takeIf { it.isNotEmpty() },
         )
       }
   }
@@ -212,9 +214,9 @@ internal data class StructureDefinitionDifferentialSurrogate(
       with(model) {
         StructureDefinitionDifferentialSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          element = this@with.element.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
+          element = this@with.element.takeIf { it.isNotEmpty() },
         )
       }
   }
@@ -315,9 +317,7 @@ internal data class StructureDefinitionSurrogate(
         ),
       status =
         Enumeration.of(
-          com.google.fhir.model.r4.terminologies.PublicationStatus.fromCode(
-            this@StructureDefinitionSurrogate.status!!
-          ),
+          PublicationStatus.fromCode(this@StructureDefinitionSurrogate.status!!),
           this@StructureDefinitionSurrogate._status,
         ),
       experimental =
@@ -356,15 +356,12 @@ internal data class StructureDefinitionSurrogate(
       keyword = this@StructureDefinitionSurrogate.keyword ?: mutableListOf(),
       fhirVersion =
         this@StructureDefinitionSurrogate.fhirVersion?.let {
-          Enumeration.of(
-            com.google.fhir.model.r4.terminologies.FHIRVersion.fromCode(it!!),
-            this@StructureDefinitionSurrogate._fhirVersion,
-          )
+          Enumeration.of(FHIRVersion.fromCode(it), this@StructureDefinitionSurrogate._fhirVersion)
         },
       mapping = this@StructureDefinitionSurrogate.mapping ?: mutableListOf(),
       kind =
         Enumeration.of(
-          com.google.fhir.model.r4.StructureDefinition.StructureDefinitionKind.fromCode(
+          StructureDefinition.StructureDefinitionKind.fromCode(
             this@StructureDefinitionSurrogate.kind!!
           ),
           this@StructureDefinitionSurrogate._kind,
@@ -401,7 +398,7 @@ internal data class StructureDefinitionSurrogate(
       derivation =
         this@StructureDefinitionSurrogate.derivation?.let {
           Enumeration.of(
-            com.google.fhir.model.r4.StructureDefinition.TypeDerivationRule.fromCode(it!!),
+            StructureDefinition.TypeDerivationRule.fromCode(it),
             this@StructureDefinitionSurrogate._derivation,
           )
         },
@@ -420,12 +417,12 @@ internal data class StructureDefinitionSurrogate(
           language = this@with.language?.value,
           _language = this@with.language?.toElement(),
           text = this@with.text,
-          contained = this@with.contained.takeUnless { it.all { it == null } },
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          contained = this@with.contained.takeIf { it.isNotEmpty() },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           url = this@with.url.value,
           _url = this@with.url.toElement(),
-          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          identifier = this@with.identifier.takeIf { it.isNotEmpty() },
           version = this@with.version?.value,
           _version = this@with.version?.toElement(),
           name = this@with.name.value,
@@ -440,24 +437,24 @@ internal data class StructureDefinitionSurrogate(
           _date = this@with.date?.toElement(),
           publisher = this@with.publisher?.value,
           _publisher = this@with.publisher?.toElement(),
-          contact = this@with.contact.takeUnless { it.all { it == null } },
+          contact = this@with.contact.takeIf { it.isNotEmpty() },
           description = this@with.description?.value,
           _description = this@with.description?.toElement(),
-          useContext = this@with.useContext.takeUnless { it.all { it == null } },
-          jurisdiction = this@with.jurisdiction.takeUnless { it.all { it == null } },
+          useContext = this@with.useContext.takeIf { it.isNotEmpty() },
+          jurisdiction = this@with.jurisdiction.takeIf { it.isNotEmpty() },
           purpose = this@with.purpose?.value,
           _purpose = this@with.purpose?.toElement(),
           copyright = this@with.copyright?.value,
           _copyright = this@with.copyright?.toElement(),
-          keyword = this@with.keyword.takeUnless { it.all { it == null } },
+          keyword = this@with.keyword.takeIf { it.isNotEmpty() },
           fhirVersion = this@with.fhirVersion?.value?.getCode(),
           _fhirVersion = this@with.fhirVersion?.toElement(),
-          mapping = this@with.mapping.takeUnless { it.all { it == null } },
+          mapping = this@with.mapping.takeIf { it.isNotEmpty() },
           kind = this@with.kind.value?.getCode(),
           _kind = this@with.kind.toElement(),
           `abstract` = this@with.`abstract`.value,
           _abstract = this@with.`abstract`.toElement(),
-          context = this@with.context.takeUnless { it.all { it == null } },
+          context = this@with.context.takeIf { it.isNotEmpty() },
           contextInvariant =
             this@with.contextInvariant
               .map { it.value }

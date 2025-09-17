@@ -72,8 +72,8 @@ internal data class MedicationStatementAdherenceSurrogate(
       with(model) {
         MedicationStatementAdherenceSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           code = this@with.code,
           reason = this@with.reason,
         )
@@ -168,7 +168,7 @@ internal data class MedicationStatementSurrogate(
       partOf = this@MedicationStatementSurrogate.partOf ?: mutableListOf(),
       status =
         Enumeration.of(
-          com.google.fhir.model.r5.MedicationStatement.MedicationStatementStatusCodes.fromCode(
+          MedicationStatement.MedicationStatementStatusCodes.fromCode(
             this@MedicationStatementSurrogate.status!!
           ),
           this@MedicationStatementSurrogate._status,
@@ -209,29 +209,29 @@ internal data class MedicationStatementSurrogate(
           language = this@with.language?.value,
           _language = this@with.language?.toElement(),
           text = this@with.text,
-          contained = this@with.contained.takeUnless { it.all { it == null } },
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          identifier = this@with.identifier.takeUnless { it.all { it == null } },
-          partOf = this@with.partOf.takeUnless { it.all { it == null } },
+          contained = this@with.contained.takeIf { it.isNotEmpty() },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
+          identifier = this@with.identifier.takeIf { it.isNotEmpty() },
+          partOf = this@with.partOf.takeIf { it.isNotEmpty() },
           status = this@with.status.value?.getCode(),
           _status = this@with.status.toElement(),
-          category = this@with.category.takeUnless { it.all { it == null } },
+          category = this@with.category.takeIf { it.isNotEmpty() },
           medication = this@with.medication,
           subject = this@with.subject,
           encounter = this@with.encounter,
           effective = this@with.effective,
           dateAsserted = this@with.dateAsserted?.value?.toString(),
           _dateAsserted = this@with.dateAsserted?.toElement(),
-          informationSource = this@with.informationSource.takeUnless { it.all { it == null } },
-          derivedFrom = this@with.derivedFrom.takeUnless { it.all { it == null } },
-          reason = this@with.reason.takeUnless { it.all { it == null } },
-          note = this@with.note.takeUnless { it.all { it == null } },
+          informationSource = this@with.informationSource.takeIf { it.isNotEmpty() },
+          derivedFrom = this@with.derivedFrom.takeIf { it.isNotEmpty() },
+          reason = this@with.reason.takeIf { it.isNotEmpty() },
+          note = this@with.note.takeIf { it.isNotEmpty() },
           relatedClinicalInformation =
-            this@with.relatedClinicalInformation.takeUnless { it.all { it == null } },
+            this@with.relatedClinicalInformation.takeIf { it.isNotEmpty() },
           renderedDosageInstruction = this@with.renderedDosageInstruction?.value,
           _renderedDosageInstruction = this@with.renderedDosageInstruction?.toElement(),
-          dosage = this@with.dosage.takeUnless { it.all { it == null } },
+          dosage = this@with.dosage.takeIf { it.isNotEmpty() },
           adherence = this@with.adherence,
         )
       }

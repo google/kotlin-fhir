@@ -78,14 +78,14 @@ internal data class MolecularSequenceRelativeSurrogate(
       with(model) {
         MolecularSequenceRelativeSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           coordinateSystem = this@with.coordinateSystem,
           ordinalPosition = this@with.ordinalPosition?.value,
           _ordinalPosition = this@with.ordinalPosition?.toElement(),
           sequenceRange = this@with.sequenceRange,
           startingSequence = this@with.startingSequence,
-          edit = this@with.edit.takeUnless { it.all { it == null } },
+          edit = this@with.edit.takeIf { it.isNotEmpty() },
         )
       }
   }
@@ -132,14 +132,14 @@ internal data class MolecularSequenceRelativeStartingSequenceSurrogate(
       orientation =
         this@MolecularSequenceRelativeStartingSequenceSurrogate.orientation?.let {
           Enumeration.of(
-            com.google.fhir.model.r5.MolecularSequence.OrientationType.fromCode(it!!),
+            MolecularSequence.OrientationType.fromCode(it),
             this@MolecularSequenceRelativeStartingSequenceSurrogate._orientation,
           )
         },
       strand =
         this@MolecularSequenceRelativeStartingSequenceSurrogate.strand?.let {
           Enumeration.of(
-            com.google.fhir.model.r5.MolecularSequence.StrandType.fromCode(it!!),
+            MolecularSequence.StrandType.fromCode(it),
             this@MolecularSequenceRelativeStartingSequenceSurrogate._strand,
           )
         },
@@ -152,8 +152,8 @@ internal data class MolecularSequenceRelativeStartingSequenceSurrogate(
       with(model) {
         MolecularSequenceRelativeStartingSequenceSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           genomeAssembly = this@with.genomeAssembly,
           chromosome = this@with.chromosome,
           sequence = this@with.sequence,
@@ -219,8 +219,8 @@ internal data class MolecularSequenceRelativeEditSurrogate(
       with(model) {
         MolecularSequenceRelativeEditSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           start = this@with.start?.value,
           _start = this@with.start?.toElement(),
           end = this@with.end?.value,
@@ -313,7 +313,7 @@ internal data class MolecularSequenceSurrogate(
       type =
         this@MolecularSequenceSurrogate.type?.let {
           Enumeration.of(
-            com.google.fhir.model.r5.MolecularSequence.SequenceType.fromCode(it!!),
+            MolecularSequence.SequenceType.fromCode(it),
             this@MolecularSequenceSurrogate._type,
           )
         },
@@ -342,21 +342,21 @@ internal data class MolecularSequenceSurrogate(
           language = this@with.language?.value,
           _language = this@with.language?.toElement(),
           text = this@with.text,
-          contained = this@with.contained.takeUnless { it.all { it == null } },
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          contained = this@with.contained.takeIf { it.isNotEmpty() },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
+          identifier = this@with.identifier.takeIf { it.isNotEmpty() },
           type = this@with.type?.value?.getCode(),
           _type = this@with.type?.toElement(),
           subject = this@with.subject,
-          focus = this@with.focus.takeUnless { it.all { it == null } },
+          focus = this@with.focus.takeIf { it.isNotEmpty() },
           specimen = this@with.specimen,
           device = this@with.device,
           performer = this@with.performer,
           literal = this@with.literal?.value,
           _literal = this@with.literal?.toElement(),
-          formatted = this@with.formatted.takeUnless { it.all { it == null } },
-          relative = this@with.relative.takeUnless { it.all { it == null } },
+          formatted = this@with.formatted.takeIf { it.isNotEmpty() },
+          relative = this@with.relative.takeIf { it.isNotEmpty() },
         )
       }
   }
