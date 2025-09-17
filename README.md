@@ -387,16 +387,15 @@ Kotlin code is generated for StructureDefinitions in the following FHIR packages
 
 > **Note:** The following are **NOT** included in the generated code:
 > - [Logical](https://hl7.org/fhir/R4/valueset-structure-definition-kind.html) StructureDefinitions,
->
->> such as [Definition](https://hl7.org/fhir/R4/definition.html),
->> [Request](https://hl7.org/fhir/R4/request.html), and [Event](https://hl7.org/fhir/R4/event.html)
->> in R4
->> - Profiles StructureDefinitions
->> - Constraints (e.g. in [R4](https://hl7.org/fhir/R4/conformance-rules.html#constraints)) and
->> bindings (e.g. in [R4](https://hl7.org/fhir/R4/terminologies.html#binding)) in
->> StructureDefinitions are not represented in the generated code
->> - CapabilityStatements, CodeSystems, ConceptMaps, NamingSystems, OperationDefinitions,
->> SearchParameters, and ValueSets
+> such as [Definition](https://hl7.org/fhir/R4/definition.html),
+> [Request](https://hl7.org/fhir/R4/request.html), and [Event](https://hl7.org/fhir/R4/event.html)
+> in R4
+> - Profiles StructureDefinitions
+> - Constraints (e.g. in [R4](https://hl7.org/fhir/R4/conformance-rules.html#constraints)) and
+> bindings (e.g. in [R4](https://hl7.org/fhir/R4/terminologies.html#binding)) in
+> StructureDefinitions are not represented in the generated code
+> - CapabilityStatements, CodeSystems, ConceptMaps, NamingSystems, OperationDefinitions,
+> SearchParameters, and ValueSets
 
 ### FHIR codegen
 

@@ -16,40 +16,10 @@
 
 package com.google.fhir.codegen.schema
 
-import com.squareup.kotlinpoet.ClassName
-
 val StructureDefinition.rootElements
   get() =
     snapshot?.element?.filter { it.id.matches("$name\\.[A-Za-z0-9]+(\\[x])?".toRegex()) }
       ?: emptyList()
-
-/**
- * Returns [Element]s from the [StructureDefinition] representing data members of the specified
- * class.
- *
- * For example, in the Patient StructureDefinition in `StructureDefinition-Patient.json` file in the
- * FHIR package:
- * - element `Patient.contact` (amongst others) will be returned for the class `Patient`
- * - element `Patient.contact.name` (amongst others) will be returned from the class
- *   `Patient.Contact`
- *
- * Use this function to determine data members of a class during code generation and to filter out
- * data members of enclosing and nested classes in the same [StructureDefinition] which should be
- * ignored. This is especially useful when BackboneElements are nested under a top-level FHIR
- * resource.
- *
- * @param className A [ClassName] object representing the class to filter elements by. The package
- *   name is ignored.
- */
-fun StructureDefinition.getElements(className: ClassName) =
-  snapshot?.element?.filter { element ->
-    element.id.matches(
-      (className.simpleNames
-          .joinToString(".") { simpleName -> simpleName.replaceFirstChar { it.lowercase() } }
-          .capitalized() + "\\.[A-Za-z0-9]+(\\[x])?")
-        .toRegex()
-    )
-  } ?: emptyList()
 
 val StructureDefinition.backboneElements
   get() = snapshot?.element?.getBackboneElementsMap() ?: emptyMap()
