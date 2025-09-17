@@ -45,6 +45,53 @@ import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.JsonPrimitive
 import kotlinx.serialization.json.jsonObject
 
+public object RequestOrchestrationActionSerializer : KSerializer<RequestOrchestration.Action> {
+  internal val surrogateSerializer: KSerializer<RequestOrchestrationActionSurrogate> by lazy {
+    RequestOrchestrationActionSurrogate.serializer()
+  }
+
+  private val resourceType: String? = null
+
+  private val multiChoiceProperties: List<String> = listOf("timing", "definition")
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Action", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): RequestOrchestration.Action {
+    val jsonDecoder =
+      decoder as? JsonDecoder ?: error("This serializer only supports JSON decoding")
+    val oldJsonObject =
+      if (resourceType.isNullOrBlank()) {
+        jsonDecoder.decodeJsonElement().jsonObject
+      } else
+        JsonObject(
+          jsonDecoder.decodeJsonElement().jsonObject.toMutableMap().apply { remove("resourceType") }
+        )
+    val unflattenedJsonObject = FhirJsonTransformer.unflatten(oldJsonObject, multiChoiceProperties)
+    val surrogate =
+      jsonDecoder.json.decodeFromJsonElement(surrogateSerializer, unflattenedJsonObject)
+    return surrogate.toModel()
+  }
+
+  override fun serialize(encoder: Encoder, `value`: RequestOrchestration.Action) {
+    val jsonEncoder =
+      encoder as? JsonEncoder ?: error("This serializer only supports JSON encoding")
+    val surrogate = RequestOrchestrationActionSurrogate.fromModel(value)
+    val oldJsonObject =
+      if (resourceType.isNullOrBlank()) {
+        jsonEncoder.json.encodeToJsonElement(surrogateSerializer, surrogate).jsonObject
+      } else {
+        JsonObject(
+          mutableMapOf("resourceType" to JsonPrimitive(resourceType))
+            .plus(jsonEncoder.json.encodeToJsonElement(surrogateSerializer, surrogate).jsonObject)
+        )
+      }
+    val flattenedJsonObject = FhirJsonTransformer.flatten(oldJsonObject, multiChoiceProperties)
+    jsonEncoder.encodeJsonElement(flattenedJsonObject)
+  }
+}
+
 public object RequestOrchestrationActionConditionSerializer :
   KSerializer<RequestOrchestration.Action.Condition> {
   internal val surrogateSerializer:
@@ -109,31 +156,6 @@ public object RequestOrchestrationActionOutputSerializer :
   }
 }
 
-public object RequestOrchestrationActionRelatedActionOffsetSerializer :
-  KSerializer<RequestOrchestration.Action.RelatedAction.Offset> {
-  internal val surrogateSerializer:
-    KSerializer<RequestOrchestrationActionRelatedActionOffsetSurrogate> by lazy {
-    RequestOrchestrationActionRelatedActionOffsetSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Offset", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): RequestOrchestration.Action.RelatedAction.Offset =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(
-    encoder: Encoder,
-    `value`: RequestOrchestration.Action.RelatedAction.Offset,
-  ) {
-    surrogateSerializer.serialize(
-      encoder,
-      RequestOrchestrationActionRelatedActionOffsetSurrogate.fromModel(value),
-    )
-  }
-}
-
 public object RequestOrchestrationActionRelatedActionSerializer :
   KSerializer<RequestOrchestration.Action.RelatedAction> {
   internal val surrogateSerializer:
@@ -180,28 +202,6 @@ public object RequestOrchestrationActionRelatedActionSerializer :
       }
     val flattenedJsonObject = FhirJsonTransformer.flatten(oldJsonObject, multiChoiceProperties)
     jsonEncoder.encodeJsonElement(flattenedJsonObject)
-  }
-}
-
-public object RequestOrchestrationActionParticipantActorSerializer :
-  KSerializer<RequestOrchestration.Action.Participant.Actor> {
-  internal val surrogateSerializer:
-    KSerializer<RequestOrchestrationActionParticipantActorSurrogate> by lazy {
-    RequestOrchestrationActionParticipantActorSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Actor", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): RequestOrchestration.Action.Participant.Actor =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: RequestOrchestration.Action.Participant.Actor) {
-    surrogateSerializer.serialize(
-      encoder,
-      RequestOrchestrationActionParticipantActorSurrogate.fromModel(value),
-    )
   }
 }
 
@@ -276,6 +276,31 @@ public object RequestOrchestrationActionDynamicValueSerializer :
   }
 }
 
+public object RequestOrchestrationActionRelatedActionOffsetSerializer :
+  KSerializer<RequestOrchestration.Action.RelatedAction.Offset> {
+  internal val surrogateSerializer:
+    KSerializer<RequestOrchestrationActionRelatedActionOffsetSurrogate> by lazy {
+    RequestOrchestrationActionRelatedActionOffsetSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Offset", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): RequestOrchestration.Action.RelatedAction.Offset =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(
+    encoder: Encoder,
+    `value`: RequestOrchestration.Action.RelatedAction.Offset,
+  ) {
+    surrogateSerializer.serialize(
+      encoder,
+      RequestOrchestrationActionRelatedActionOffsetSurrogate.fromModel(value),
+    )
+  }
+}
+
 public object RequestOrchestrationActionTimingSerializer :
   KSerializer<RequestOrchestration.Action.Timing> {
   internal val surrogateSerializer: KSerializer<RequestOrchestrationActionTimingSurrogate> by lazy {
@@ -293,6 +318,28 @@ public object RequestOrchestrationActionTimingSerializer :
     surrogateSerializer.serialize(
       encoder,
       RequestOrchestrationActionTimingSurrogate.fromModel(value),
+    )
+  }
+}
+
+public object RequestOrchestrationActionParticipantActorSerializer :
+  KSerializer<RequestOrchestration.Action.Participant.Actor> {
+  internal val surrogateSerializer:
+    KSerializer<RequestOrchestrationActionParticipantActorSurrogate> by lazy {
+    RequestOrchestrationActionParticipantActorSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Actor", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): RequestOrchestration.Action.Participant.Actor =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: RequestOrchestration.Action.Participant.Actor) {
+    surrogateSerializer.serialize(
+      encoder,
+      RequestOrchestrationActionParticipantActorSurrogate.fromModel(value),
     )
   }
 }
@@ -316,53 +363,6 @@ public object RequestOrchestrationActionDefinitionSerializer :
       encoder,
       RequestOrchestrationActionDefinitionSurrogate.fromModel(value),
     )
-  }
-}
-
-public object RequestOrchestrationActionSerializer : KSerializer<RequestOrchestration.Action> {
-  internal val surrogateSerializer: KSerializer<RequestOrchestrationActionSurrogate> by lazy {
-    RequestOrchestrationActionSurrogate.serializer()
-  }
-
-  private val resourceType: String? = null
-
-  private val multiChoiceProperties: List<String> = listOf("timing", "definition")
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Action", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): RequestOrchestration.Action {
-    val jsonDecoder =
-      decoder as? JsonDecoder ?: error("This serializer only supports JSON decoding")
-    val oldJsonObject =
-      if (resourceType.isNullOrBlank()) {
-        jsonDecoder.decodeJsonElement().jsonObject
-      } else
-        JsonObject(
-          jsonDecoder.decodeJsonElement().jsonObject.toMutableMap().apply { remove("resourceType") }
-        )
-    val unflattenedJsonObject = FhirJsonTransformer.unflatten(oldJsonObject, multiChoiceProperties)
-    val surrogate =
-      jsonDecoder.json.decodeFromJsonElement(surrogateSerializer, unflattenedJsonObject)
-    return surrogate.toModel()
-  }
-
-  override fun serialize(encoder: Encoder, `value`: RequestOrchestration.Action) {
-    val jsonEncoder =
-      encoder as? JsonEncoder ?: error("This serializer only supports JSON encoding")
-    val surrogate = RequestOrchestrationActionSurrogate.fromModel(value)
-    val oldJsonObject =
-      if (resourceType.isNullOrBlank()) {
-        jsonEncoder.json.encodeToJsonElement(surrogateSerializer, surrogate).jsonObject
-      } else {
-        JsonObject(
-          mutableMapOf("resourceType" to JsonPrimitive(resourceType))
-            .plus(jsonEncoder.json.encodeToJsonElement(surrogateSerializer, surrogate).jsonObject)
-        )
-      }
-    val flattenedJsonObject = FhirJsonTransformer.flatten(oldJsonObject, multiChoiceProperties)
-    jsonEncoder.encodeJsonElement(flattenedJsonObject)
   }
 }
 

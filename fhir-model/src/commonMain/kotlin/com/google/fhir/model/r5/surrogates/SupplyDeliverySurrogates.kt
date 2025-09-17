@@ -45,30 +45,6 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
-internal data class SupplyDeliverySuppliedItemItemSurrogate(
-  public var itemCodeableConcept: CodeableConcept? = null,
-  public var itemReference: Reference? = null,
-) {
-  public fun toModel(): SupplyDelivery.SuppliedItem.Item =
-    SupplyDelivery.SuppliedItem.Item?.from(
-      this@SupplyDeliverySuppliedItemItemSurrogate.itemCodeableConcept,
-      this@SupplyDeliverySuppliedItemItemSurrogate.itemReference,
-    )!!
-
-  public companion object {
-    public fun fromModel(
-      model: SupplyDelivery.SuppliedItem.Item
-    ): SupplyDeliverySuppliedItemItemSurrogate =
-      with(model) {
-        SupplyDeliverySuppliedItemItemSurrogate(
-          itemCodeableConcept = this@with.asCodeableConcept()?.value,
-          itemReference = this@with.asReference()?.value,
-        )
-      }
-  }
-}
-
-@Serializable
 internal data class SupplyDeliverySuppliedItemSurrogate(
   public var id: String? = null,
   public var extension: MutableList<Extension>? = null,
@@ -101,6 +77,30 @@ internal data class SupplyDeliverySuppliedItemSurrogate(
 }
 
 @Serializable
+internal data class SupplyDeliverySuppliedItemItemSurrogate(
+  public var itemCodeableConcept: CodeableConcept? = null,
+  public var itemReference: Reference? = null,
+) {
+  public fun toModel(): SupplyDelivery.SuppliedItem.Item =
+    SupplyDelivery.SuppliedItem.Item.from(
+      this@SupplyDeliverySuppliedItemItemSurrogate.itemCodeableConcept,
+      this@SupplyDeliverySuppliedItemItemSurrogate.itemReference,
+    )!!
+
+  public companion object {
+    public fun fromModel(
+      model: SupplyDelivery.SuppliedItem.Item
+    ): SupplyDeliverySuppliedItemItemSurrogate =
+      with(model) {
+        SupplyDeliverySuppliedItemItemSurrogate(
+          itemCodeableConcept = this@with.asCodeableConcept()?.value,
+          itemReference = this@with.asReference()?.value,
+        )
+      }
+  }
+}
+
+@Serializable
 internal data class SupplyDeliveryOccurrenceSurrogate(
   public var occurrenceDateTime: String? = null,
   public var _occurrenceDateTime: Element? = null,
@@ -108,7 +108,7 @@ internal data class SupplyDeliveryOccurrenceSurrogate(
   public var occurrenceTiming: Timing? = null,
 ) {
   public fun toModel(): SupplyDelivery.Occurrence =
-    SupplyDelivery.Occurrence?.from(
+    SupplyDelivery.Occurrence.from(
       DateTime.of(
         FhirDateTime.fromString(this@SupplyDeliveryOccurrenceSurrogate.occurrenceDateTime),
         this@SupplyDeliveryOccurrenceSurrogate._occurrenceDateTime,

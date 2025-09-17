@@ -29,6 +29,23 @@ import kotlinx.serialization.descriptors.SerialDescriptor
 import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
 
+public object SubstanceNucleicAcidSubunitSerializer : KSerializer<SubstanceNucleicAcid.Subunit> {
+  internal val surrogateSerializer: KSerializer<SubstanceNucleicAcidSubunitSurrogate> by lazy {
+    SubstanceNucleicAcidSubunitSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Subunit", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): SubstanceNucleicAcid.Subunit =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: SubstanceNucleicAcid.Subunit) {
+    surrogateSerializer.serialize(encoder, SubstanceNucleicAcidSubunitSurrogate.fromModel(value))
+  }
+}
+
 public object SubstanceNucleicAcidSubunitLinkageSerializer :
   KSerializer<SubstanceNucleicAcid.Subunit.Linkage> {
   internal val surrogateSerializer:
@@ -69,23 +86,6 @@ public object SubstanceNucleicAcidSubunitSugarSerializer :
       encoder,
       SubstanceNucleicAcidSubunitSugarSurrogate.fromModel(value),
     )
-  }
-}
-
-public object SubstanceNucleicAcidSubunitSerializer : KSerializer<SubstanceNucleicAcid.Subunit> {
-  internal val surrogateSerializer: KSerializer<SubstanceNucleicAcidSubunitSurrogate> by lazy {
-    SubstanceNucleicAcidSubunitSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Subunit", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): SubstanceNucleicAcid.Subunit =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: SubstanceNucleicAcid.Subunit) {
-    surrogateSerializer.serialize(encoder, SubstanceNucleicAcidSubunitSurrogate.fromModel(value))
   }
 }
 

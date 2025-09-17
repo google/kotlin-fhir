@@ -165,7 +165,7 @@ internal data class ActivityDefinitionVersionAlgorithmSurrogate(
   public var versionAlgorithmCoding: Coding? = null,
 ) {
   public fun toModel(): ActivityDefinition.VersionAlgorithm =
-    ActivityDefinition.VersionAlgorithm?.from(
+    ActivityDefinition.VersionAlgorithm.from(
       R5String.of(
         this@ActivityDefinitionVersionAlgorithmSurrogate.versionAlgorithmString,
         this@ActivityDefinitionVersionAlgorithmSurrogate._versionAlgorithmString,
@@ -195,7 +195,7 @@ internal data class ActivityDefinitionSubjectSurrogate(
   public var _subjectCanonical: Element? = null,
 ) {
   public fun toModel(): ActivityDefinition.Subject =
-    ActivityDefinition.Subject?.from(
+    ActivityDefinition.Subject.from(
       this@ActivityDefinitionSubjectSurrogate.subjectCodeableConcept,
       this@ActivityDefinitionSubjectSurrogate.subjectReference,
       Canonical.of(
@@ -225,7 +225,7 @@ internal data class ActivityDefinitionTimingSurrogate(
   public var timingDuration: Duration? = null,
 ) {
   public fun toModel(): ActivityDefinition.Timing =
-    ActivityDefinition.Timing?.from(
+    ActivityDefinition.Timing.from(
       this@ActivityDefinitionTimingSurrogate.timingTiming,
       this@ActivityDefinitionTimingSurrogate.timingAge,
       this@ActivityDefinitionTimingSurrogate.timingRange,
@@ -252,7 +252,7 @@ internal data class ActivityDefinitionAsNeededSurrogate(
   public var asNeededCodeableConcept: CodeableConcept? = null,
 ) {
   public fun toModel(): ActivityDefinition.AsNeeded =
-    ActivityDefinition.AsNeeded?.from(
+    ActivityDefinition.AsNeeded.from(
       R5Boolean.of(
         this@ActivityDefinitionAsNeededSurrogate.asNeededBoolean,
         this@ActivityDefinitionAsNeededSurrogate._asNeededBoolean,
@@ -278,7 +278,7 @@ internal data class ActivityDefinitionProductSurrogate(
   public var productCodeableConcept: CodeableConcept? = null,
 ) {
   public fun toModel(): ActivityDefinition.Product =
-    ActivityDefinition.Product?.from(
+    ActivityDefinition.Product.from(
       this@ActivityDefinitionProductSurrogate.productReference,
       this@ActivityDefinitionProductSurrogate.productCodeableConcept,
     )!!

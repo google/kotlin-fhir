@@ -45,31 +45,6 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
-internal data class TimingRepeatBoundsSurrogate(
-  public var boundsDuration: Duration? = null,
-  public var boundsRange: Range? = null,
-  public var boundsPeriod: Period? = null,
-) {
-  public fun toModel(): Timing.Repeat.Bounds =
-    Timing.Repeat.Bounds?.from(
-      this@TimingRepeatBoundsSurrogate.boundsDuration,
-      this@TimingRepeatBoundsSurrogate.boundsRange,
-      this@TimingRepeatBoundsSurrogate.boundsPeriod,
-    )!!
-
-  public companion object {
-    public fun fromModel(model: Timing.Repeat.Bounds): TimingRepeatBoundsSurrogate =
-      with(model) {
-        TimingRepeatBoundsSurrogate(
-          boundsDuration = this@with.asDuration()?.value,
-          boundsRange = this@with.asRange()?.value,
-          boundsPeriod = this@with.asPeriod()?.value,
-        )
-      }
-  }
-}
-
-@Serializable
 internal data class TimingRepeatSurrogate(
   public var id: String? = null,
   public var extension: MutableList<Extension>? = null,
@@ -259,6 +234,31 @@ internal data class TimingRepeatSurrogate(
               ?.toMutableList(),
           offset = this@with.offset?.value,
           _offset = this@with.offset?.toElement(),
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class TimingRepeatBoundsSurrogate(
+  public var boundsDuration: Duration? = null,
+  public var boundsRange: Range? = null,
+  public var boundsPeriod: Period? = null,
+) {
+  public fun toModel(): Timing.Repeat.Bounds =
+    Timing.Repeat.Bounds.from(
+      this@TimingRepeatBoundsSurrogate.boundsDuration,
+      this@TimingRepeatBoundsSurrogate.boundsRange,
+      this@TimingRepeatBoundsSurrogate.boundsPeriod,
+    )!!
+
+  public companion object {
+    public fun fromModel(model: Timing.Repeat.Bounds): TimingRepeatBoundsSurrogate =
+      with(model) {
+        TimingRepeatBoundsSurrogate(
+          boundsDuration = this@with.asDuration()?.value,
+          boundsRange = this@with.asRange()?.value,
+          boundsPeriod = this@with.asPeriod()?.value,
         )
       }
   }

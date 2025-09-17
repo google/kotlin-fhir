@@ -85,30 +85,6 @@ internal data class MedicationAdministrationPerformerSurrogate(
 }
 
 @Serializable
-internal data class MedicationAdministrationDosageRateSurrogate(
-  public var rateRatio: Ratio? = null,
-  public var rateQuantity: Quantity? = null,
-) {
-  public fun toModel(): MedicationAdministration.Dosage.Rate =
-    MedicationAdministration.Dosage.Rate?.from(
-      this@MedicationAdministrationDosageRateSurrogate.rateRatio,
-      this@MedicationAdministrationDosageRateSurrogate.rateQuantity,
-    )!!
-
-  public companion object {
-    public fun fromModel(
-      model: MedicationAdministration.Dosage.Rate
-    ): MedicationAdministrationDosageRateSurrogate =
-      with(model) {
-        MedicationAdministrationDosageRateSurrogate(
-          rateRatio = this@with.asRatio()?.value,
-          rateQuantity = this@with.asQuantity()?.value,
-        )
-      }
-  }
-}
-
-@Serializable
 internal data class MedicationAdministrationDosageSurrogate(
   public var id: KotlinString? = null,
   public var extension: MutableList<Extension>? = null,
@@ -187,6 +163,30 @@ internal data class MedicationAdministrationOccurenceSurrogate(
           _occurenceDateTime = this@with.asDateTime()?.value?.toElement(),
           occurencePeriod = this@with.asPeriod()?.value,
           occurenceTiming = this@with.asTiming()?.value,
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class MedicationAdministrationDosageRateSurrogate(
+  public var rateRatio: Ratio? = null,
+  public var rateQuantity: Quantity? = null,
+) {
+  public fun toModel(): MedicationAdministration.Dosage.Rate =
+    MedicationAdministration.Dosage.Rate.from(
+      this@MedicationAdministrationDosageRateSurrogate.rateRatio,
+      this@MedicationAdministrationDosageRateSurrogate.rateQuantity,
+    )!!
+
+  public companion object {
+    public fun fromModel(
+      model: MedicationAdministration.Dosage.Rate
+    ): MedicationAdministrationDosageRateSurrogate =
+      with(model) {
+        MedicationAdministrationDosageRateSurrogate(
+          rateRatio = this@with.asRatio()?.value,
+          rateQuantity = this@with.asQuantity()?.value,
         )
       }
   }

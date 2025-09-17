@@ -41,56 +41,46 @@ import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.JsonPrimitive
 import kotlinx.serialization.json.jsonObject
 
-public object CoverageEligibilityResponseInsuranceItemBenefitAllowedSerializer :
-  KSerializer<CoverageEligibilityResponse.Insurance.Item.Benefit.Allowed> {
+public object CoverageEligibilityResponseInsuranceSerializer :
+  KSerializer<CoverageEligibilityResponse.Insurance> {
   internal val surrogateSerializer:
-    KSerializer<CoverageEligibilityResponseInsuranceItemBenefitAllowedSurrogate> by lazy {
-    CoverageEligibilityResponseInsuranceItemBenefitAllowedSurrogate.serializer()
+    KSerializer<CoverageEligibilityResponseInsuranceSurrogate> by lazy {
+    CoverageEligibilityResponseInsuranceSurrogate.serializer()
   }
 
   override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Allowed", surrogateSerializer.descriptor)
+    SerialDescriptor("Insurance", surrogateSerializer.descriptor)
   }
 
-  override fun deserialize(
-    decoder: Decoder
-  ): CoverageEligibilityResponse.Insurance.Item.Benefit.Allowed =
+  override fun deserialize(decoder: Decoder): CoverageEligibilityResponse.Insurance =
     surrogateSerializer.deserialize(decoder).toModel()
 
-  override fun serialize(
-    encoder: Encoder,
-    `value`: CoverageEligibilityResponse.Insurance.Item.Benefit.Allowed,
-  ) {
+  override fun serialize(encoder: Encoder, `value`: CoverageEligibilityResponse.Insurance) {
     surrogateSerializer.serialize(
       encoder,
-      CoverageEligibilityResponseInsuranceItemBenefitAllowedSurrogate.fromModel(value),
+      CoverageEligibilityResponseInsuranceSurrogate.fromModel(value),
     )
   }
 }
 
-public object CoverageEligibilityResponseInsuranceItemBenefitUsedSerializer :
-  KSerializer<CoverageEligibilityResponse.Insurance.Item.Benefit.Used> {
+public object CoverageEligibilityResponseInsuranceItemSerializer :
+  KSerializer<CoverageEligibilityResponse.Insurance.Item> {
   internal val surrogateSerializer:
-    KSerializer<CoverageEligibilityResponseInsuranceItemBenefitUsedSurrogate> by lazy {
-    CoverageEligibilityResponseInsuranceItemBenefitUsedSurrogate.serializer()
+    KSerializer<CoverageEligibilityResponseInsuranceItemSurrogate> by lazy {
+    CoverageEligibilityResponseInsuranceItemSurrogate.serializer()
   }
 
   override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Used", surrogateSerializer.descriptor)
+    SerialDescriptor("Item", surrogateSerializer.descriptor)
   }
 
-  override fun deserialize(
-    decoder: Decoder
-  ): CoverageEligibilityResponse.Insurance.Item.Benefit.Used =
+  override fun deserialize(decoder: Decoder): CoverageEligibilityResponse.Insurance.Item =
     surrogateSerializer.deserialize(decoder).toModel()
 
-  override fun serialize(
-    encoder: Encoder,
-    `value`: CoverageEligibilityResponse.Insurance.Item.Benefit.Used,
-  ) {
+  override fun serialize(encoder: Encoder, `value`: CoverageEligibilityResponse.Insurance.Item) {
     surrogateSerializer.serialize(
       encoder,
-      CoverageEligibilityResponseInsuranceItemBenefitUsedSurrogate.fromModel(value),
+      CoverageEligibilityResponseInsuranceItemSurrogate.fromModel(value),
     )
   }
 }
@@ -147,50 +137,6 @@ public object CoverageEligibilityResponseInsuranceItemBenefitSerializer :
   }
 }
 
-public object CoverageEligibilityResponseInsuranceItemSerializer :
-  KSerializer<CoverageEligibilityResponse.Insurance.Item> {
-  internal val surrogateSerializer:
-    KSerializer<CoverageEligibilityResponseInsuranceItemSurrogate> by lazy {
-    CoverageEligibilityResponseInsuranceItemSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Item", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): CoverageEligibilityResponse.Insurance.Item =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: CoverageEligibilityResponse.Insurance.Item) {
-    surrogateSerializer.serialize(
-      encoder,
-      CoverageEligibilityResponseInsuranceItemSurrogate.fromModel(value),
-    )
-  }
-}
-
-public object CoverageEligibilityResponseInsuranceSerializer :
-  KSerializer<CoverageEligibilityResponse.Insurance> {
-  internal val surrogateSerializer:
-    KSerializer<CoverageEligibilityResponseInsuranceSurrogate> by lazy {
-    CoverageEligibilityResponseInsuranceSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Insurance", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): CoverageEligibilityResponse.Insurance =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: CoverageEligibilityResponse.Insurance) {
-    surrogateSerializer.serialize(
-      encoder,
-      CoverageEligibilityResponseInsuranceSurrogate.fromModel(value),
-    )
-  }
-}
-
 public object CoverageEligibilityResponseErrorSerializer :
   KSerializer<CoverageEligibilityResponse.Error> {
   internal val surrogateSerializer: KSerializer<CoverageEligibilityResponseErrorSurrogate> by lazy {
@@ -230,6 +176,60 @@ public object CoverageEligibilityResponseServicedSerializer :
     surrogateSerializer.serialize(
       encoder,
       CoverageEligibilityResponseServicedSurrogate.fromModel(value),
+    )
+  }
+}
+
+public object CoverageEligibilityResponseInsuranceItemBenefitAllowedSerializer :
+  KSerializer<CoverageEligibilityResponse.Insurance.Item.Benefit.Allowed> {
+  internal val surrogateSerializer:
+    KSerializer<CoverageEligibilityResponseInsuranceItemBenefitAllowedSurrogate> by lazy {
+    CoverageEligibilityResponseInsuranceItemBenefitAllowedSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Allowed", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(
+    decoder: Decoder
+  ): CoverageEligibilityResponse.Insurance.Item.Benefit.Allowed =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(
+    encoder: Encoder,
+    `value`: CoverageEligibilityResponse.Insurance.Item.Benefit.Allowed,
+  ) {
+    surrogateSerializer.serialize(
+      encoder,
+      CoverageEligibilityResponseInsuranceItemBenefitAllowedSurrogate.fromModel(value),
+    )
+  }
+}
+
+public object CoverageEligibilityResponseInsuranceItemBenefitUsedSerializer :
+  KSerializer<CoverageEligibilityResponse.Insurance.Item.Benefit.Used> {
+  internal val surrogateSerializer:
+    KSerializer<CoverageEligibilityResponseInsuranceItemBenefitUsedSurrogate> by lazy {
+    CoverageEligibilityResponseInsuranceItemBenefitUsedSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Used", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(
+    decoder: Decoder
+  ): CoverageEligibilityResponse.Insurance.Item.Benefit.Used =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(
+    encoder: Encoder,
+    `value`: CoverageEligibilityResponse.Insurance.Item.Benefit.Used,
+  ) {
+    surrogateSerializer.serialize(
+      encoder,
+      CoverageEligibilityResponseInsuranceItemBenefitUsedSurrogate.fromModel(value),
     )
   }
 }

@@ -40,6 +40,23 @@ import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.JsonPrimitive
 import kotlinx.serialization.json.jsonObject
 
+public object MedicinalProductNameSerializer : KSerializer<MedicinalProduct.Name> {
+  internal val surrogateSerializer: KSerializer<MedicinalProductNameSurrogate> by lazy {
+    MedicinalProductNameSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Name", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): MedicinalProduct.Name =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: MedicinalProduct.Name) {
+    surrogateSerializer.serialize(encoder, MedicinalProductNameSurrogate.fromModel(value))
+  }
+}
+
 public object MedicinalProductNameNamePartSerializer : KSerializer<MedicinalProduct.Name.NamePart> {
   internal val surrogateSerializer: KSerializer<MedicinalProductNameNamePartSurrogate> by lazy {
     MedicinalProductNameNamePartSurrogate.serializer()
@@ -79,23 +96,6 @@ public object MedicinalProductNameCountryLanguageSerializer :
   }
 }
 
-public object MedicinalProductNameSerializer : KSerializer<MedicinalProduct.Name> {
-  internal val surrogateSerializer: KSerializer<MedicinalProductNameSurrogate> by lazy {
-    MedicinalProductNameSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Name", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): MedicinalProduct.Name =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: MedicinalProduct.Name) {
-    surrogateSerializer.serialize(encoder, MedicinalProductNameSurrogate.fromModel(value))
-  }
-}
-
 public object MedicinalProductManufacturingBusinessOperationSerializer :
   KSerializer<MedicinalProduct.ManufacturingBusinessOperation> {
   internal val surrogateSerializer:
@@ -117,31 +117,6 @@ public object MedicinalProductManufacturingBusinessOperationSerializer :
     surrogateSerializer.serialize(
       encoder,
       MedicinalProductManufacturingBusinessOperationSurrogate.fromModel(value),
-    )
-  }
-}
-
-public object MedicinalProductSpecialDesignationIndicationSerializer :
-  KSerializer<MedicinalProduct.SpecialDesignation.Indication> {
-  internal val surrogateSerializer:
-    KSerializer<MedicinalProductSpecialDesignationIndicationSurrogate> by lazy {
-    MedicinalProductSpecialDesignationIndicationSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Indication", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): MedicinalProduct.SpecialDesignation.Indication =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(
-    encoder: Encoder,
-    `value`: MedicinalProduct.SpecialDesignation.Indication,
-  ) {
-    surrogateSerializer.serialize(
-      encoder,
-      MedicinalProductSpecialDesignationIndicationSurrogate.fromModel(value),
     )
   }
 }
@@ -192,6 +167,31 @@ public object MedicinalProductSpecialDesignationSerializer :
       }
     val flattenedJsonObject = FhirJsonTransformer.flatten(oldJsonObject, multiChoiceProperties)
     jsonEncoder.encodeJsonElement(flattenedJsonObject)
+  }
+}
+
+public object MedicinalProductSpecialDesignationIndicationSerializer :
+  KSerializer<MedicinalProduct.SpecialDesignation.Indication> {
+  internal val surrogateSerializer:
+    KSerializer<MedicinalProductSpecialDesignationIndicationSurrogate> by lazy {
+    MedicinalProductSpecialDesignationIndicationSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Indication", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): MedicinalProduct.SpecialDesignation.Indication =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(
+    encoder: Encoder,
+    `value`: MedicinalProduct.SpecialDesignation.Indication,
+  ) {
+    surrogateSerializer.serialize(
+      encoder,
+      MedicinalProductSpecialDesignationIndicationSurrogate.fromModel(value),
+    )
   }
 }
 

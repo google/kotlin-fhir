@@ -55,46 +55,6 @@ public object CoverageClassSerializer : KSerializer<Coverage.Class> {
   }
 }
 
-public object CoverageCostToBeneficiaryExceptionSerializer :
-  KSerializer<Coverage.CostToBeneficiary.Exception> {
-  internal val surrogateSerializer:
-    KSerializer<CoverageCostToBeneficiaryExceptionSurrogate> by lazy {
-    CoverageCostToBeneficiaryExceptionSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Exception", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): Coverage.CostToBeneficiary.Exception =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: Coverage.CostToBeneficiary.Exception) {
-    surrogateSerializer.serialize(
-      encoder,
-      CoverageCostToBeneficiaryExceptionSurrogate.fromModel(value),
-    )
-  }
-}
-
-public object CoverageCostToBeneficiaryValueSerializer :
-  KSerializer<Coverage.CostToBeneficiary.Value> {
-  internal val surrogateSerializer: KSerializer<CoverageCostToBeneficiaryValueSurrogate> by lazy {
-    CoverageCostToBeneficiaryValueSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Value", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): Coverage.CostToBeneficiary.Value =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: Coverage.CostToBeneficiary.Value) {
-    surrogateSerializer.serialize(encoder, CoverageCostToBeneficiaryValueSurrogate.fromModel(value))
-  }
-}
-
 public object CoverageCostToBeneficiarySerializer : KSerializer<Coverage.CostToBeneficiary> {
   internal val surrogateSerializer: KSerializer<CoverageCostToBeneficiarySurrogate> by lazy {
     CoverageCostToBeneficiarySurrogate.serializer()
@@ -139,6 +99,46 @@ public object CoverageCostToBeneficiarySerializer : KSerializer<Coverage.CostToB
       }
     val flattenedJsonObject = FhirJsonTransformer.flatten(oldJsonObject, multiChoiceProperties)
     jsonEncoder.encodeJsonElement(flattenedJsonObject)
+  }
+}
+
+public object CoverageCostToBeneficiaryExceptionSerializer :
+  KSerializer<Coverage.CostToBeneficiary.Exception> {
+  internal val surrogateSerializer:
+    KSerializer<CoverageCostToBeneficiaryExceptionSurrogate> by lazy {
+    CoverageCostToBeneficiaryExceptionSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Exception", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): Coverage.CostToBeneficiary.Exception =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: Coverage.CostToBeneficiary.Exception) {
+    surrogateSerializer.serialize(
+      encoder,
+      CoverageCostToBeneficiaryExceptionSurrogate.fromModel(value),
+    )
+  }
+}
+
+public object CoverageCostToBeneficiaryValueSerializer :
+  KSerializer<Coverage.CostToBeneficiary.Value> {
+  internal val surrogateSerializer: KSerializer<CoverageCostToBeneficiaryValueSurrogate> by lazy {
+    CoverageCostToBeneficiaryValueSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Value", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): Coverage.CostToBeneficiary.Value =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: Coverage.CostToBeneficiary.Value) {
+    surrogateSerializer.serialize(encoder, CoverageCostToBeneficiaryValueSurrogate.fromModel(value))
   }
 }
 

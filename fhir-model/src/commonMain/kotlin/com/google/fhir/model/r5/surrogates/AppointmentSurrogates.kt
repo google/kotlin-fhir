@@ -109,6 +109,158 @@ internal data class AppointmentParticipantSurrogate(
 }
 
 @Serializable
+internal data class AppointmentRecurrenceTemplateSurrogate(
+  public var id: KotlinString? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var timezone: CodeableConcept? = null,
+  public var recurrenceType: CodeableConcept,
+  public var lastOccurrenceDate: KotlinString? = null,
+  public var _lastOccurrenceDate: Element? = null,
+  public var occurrenceCount: Int? = null,
+  public var _occurrenceCount: Element? = null,
+  public var occurrenceDate: MutableList<KotlinString?>? = null,
+  public var _occurrenceDate: MutableList<Element?>? = null,
+  public var weeklyTemplate: Appointment.RecurrenceTemplate.WeeklyTemplate? = null,
+  public var monthlyTemplate: Appointment.RecurrenceTemplate.MonthlyTemplate? = null,
+  public var yearlyTemplate: Appointment.RecurrenceTemplate.YearlyTemplate? = null,
+  public var excludingDate: MutableList<KotlinString?>? = null,
+  public var _excludingDate: MutableList<Element?>? = null,
+  public var excludingRecurrenceId: MutableList<Int?>? = null,
+  public var _excludingRecurrenceId: MutableList<Element?>? = null,
+) {
+  public fun toModel(): Appointment.RecurrenceTemplate =
+    Appointment.RecurrenceTemplate(
+      id = this@AppointmentRecurrenceTemplateSurrogate.id,
+      extension = this@AppointmentRecurrenceTemplateSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@AppointmentRecurrenceTemplateSurrogate.modifierExtension ?: mutableListOf(),
+      timezone = this@AppointmentRecurrenceTemplateSurrogate.timezone,
+      recurrenceType = this@AppointmentRecurrenceTemplateSurrogate.recurrenceType,
+      lastOccurrenceDate =
+        Date.of(
+          FhirDate.fromString(this@AppointmentRecurrenceTemplateSurrogate.lastOccurrenceDate),
+          this@AppointmentRecurrenceTemplateSurrogate._lastOccurrenceDate,
+        ),
+      occurrenceCount =
+        PositiveInt.of(
+          this@AppointmentRecurrenceTemplateSurrogate.occurrenceCount,
+          this@AppointmentRecurrenceTemplateSurrogate._occurrenceCount,
+        ),
+      occurrenceDate =
+        if (
+          this@AppointmentRecurrenceTemplateSurrogate.occurrenceDate == null &&
+            this@AppointmentRecurrenceTemplateSurrogate._occurrenceDate == null
+        ) {
+          mutableListOf()
+        } else {
+          (this@AppointmentRecurrenceTemplateSurrogate.occurrenceDate
+              ?: List(this@AppointmentRecurrenceTemplateSurrogate._occurrenceDate!!.size) { null })
+            .zip(
+              this@AppointmentRecurrenceTemplateSurrogate._occurrenceDate
+                ?: List(this@AppointmentRecurrenceTemplateSurrogate.occurrenceDate!!.size) { null }
+            )
+            .map { (value, element) -> Date.of(FhirDate.fromString(value), element)!! }
+            .toMutableList()
+        },
+      weeklyTemplate = this@AppointmentRecurrenceTemplateSurrogate.weeklyTemplate,
+      monthlyTemplate = this@AppointmentRecurrenceTemplateSurrogate.monthlyTemplate,
+      yearlyTemplate = this@AppointmentRecurrenceTemplateSurrogate.yearlyTemplate,
+      excludingDate =
+        if (
+          this@AppointmentRecurrenceTemplateSurrogate.excludingDate == null &&
+            this@AppointmentRecurrenceTemplateSurrogate._excludingDate == null
+        ) {
+          mutableListOf()
+        } else {
+          (this@AppointmentRecurrenceTemplateSurrogate.excludingDate
+              ?: List(this@AppointmentRecurrenceTemplateSurrogate._excludingDate!!.size) { null })
+            .zip(
+              this@AppointmentRecurrenceTemplateSurrogate._excludingDate
+                ?: List(this@AppointmentRecurrenceTemplateSurrogate.excludingDate!!.size) { null }
+            )
+            .map { (value, element) -> Date.of(FhirDate.fromString(value), element)!! }
+            .toMutableList()
+        },
+      excludingRecurrenceId =
+        if (
+          this@AppointmentRecurrenceTemplateSurrogate.excludingRecurrenceId == null &&
+            this@AppointmentRecurrenceTemplateSurrogate._excludingRecurrenceId == null
+        ) {
+          mutableListOf()
+        } else {
+          (this@AppointmentRecurrenceTemplateSurrogate.excludingRecurrenceId
+              ?: List(this@AppointmentRecurrenceTemplateSurrogate._excludingRecurrenceId!!.size) {
+                null
+              })
+            .zip(
+              this@AppointmentRecurrenceTemplateSurrogate._excludingRecurrenceId
+                ?: List(this@AppointmentRecurrenceTemplateSurrogate.excludingRecurrenceId!!.size) {
+                  null
+                }
+            )
+            .map { (value, element) -> PositiveInt.of(value, element)!! }
+            .toMutableList()
+        },
+    )
+
+  public companion object {
+    public fun fromModel(
+      model: Appointment.RecurrenceTemplate
+    ): AppointmentRecurrenceTemplateSurrogate =
+      with(model) {
+        AppointmentRecurrenceTemplateSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          timezone = this@with.timezone,
+          recurrenceType = this@with.recurrenceType,
+          lastOccurrenceDate = this@with.lastOccurrenceDate?.value?.toString(),
+          _lastOccurrenceDate = this@with.lastOccurrenceDate?.toElement(),
+          occurrenceCount = this@with.occurrenceCount?.value,
+          _occurrenceCount = this@with.occurrenceCount?.toElement(),
+          occurrenceDate =
+            this@with.occurrenceDate
+              .map { it.value?.toString() }
+              .toMutableList()
+              .takeUnless { it.all { it == null } },
+          _occurrenceDate =
+            this@with.occurrenceDate
+              .map { it.toElement() }
+              .takeUnless { it.all { it == null } }
+              ?.map { it ?: Element() }
+              ?.toMutableList(),
+          weeklyTemplate = this@with.weeklyTemplate,
+          monthlyTemplate = this@with.monthlyTemplate,
+          yearlyTemplate = this@with.yearlyTemplate,
+          excludingDate =
+            this@with.excludingDate
+              .map { it.value?.toString() }
+              .toMutableList()
+              .takeUnless { it.all { it == null } },
+          _excludingDate =
+            this@with.excludingDate
+              .map { it.toElement() }
+              .takeUnless { it.all { it == null } }
+              ?.map { it ?: Element() }
+              ?.toMutableList(),
+          excludingRecurrenceId =
+            this@with.excludingRecurrenceId
+              .map { it.value }
+              .toMutableList()
+              .takeUnless { it.all { it == null } },
+          _excludingRecurrenceId =
+            this@with.excludingRecurrenceId
+              .map { it.toElement() }
+              .takeUnless { it.all { it == null } }
+              ?.map { it ?: Element() }
+              ?.toMutableList(),
+        )
+      }
+  }
+}
+
+@Serializable
 internal data class AppointmentRecurrenceTemplateWeeklyTemplateSurrogate(
   public var id: KotlinString? = null,
   public var extension: MutableList<Extension>? = null,
@@ -298,158 +450,6 @@ internal data class AppointmentRecurrenceTemplateYearlyTemplateSurrogate(
           modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
           yearInterval = this@with.yearInterval.value,
           _yearInterval = this@with.yearInterval.toElement(),
-        )
-      }
-  }
-}
-
-@Serializable
-internal data class AppointmentRecurrenceTemplateSurrogate(
-  public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var timezone: CodeableConcept? = null,
-  public var recurrenceType: CodeableConcept,
-  public var lastOccurrenceDate: KotlinString? = null,
-  public var _lastOccurrenceDate: Element? = null,
-  public var occurrenceCount: Int? = null,
-  public var _occurrenceCount: Element? = null,
-  public var occurrenceDate: MutableList<KotlinString?>? = null,
-  public var _occurrenceDate: MutableList<Element?>? = null,
-  public var weeklyTemplate: Appointment.RecurrenceTemplate.WeeklyTemplate? = null,
-  public var monthlyTemplate: Appointment.RecurrenceTemplate.MonthlyTemplate? = null,
-  public var yearlyTemplate: Appointment.RecurrenceTemplate.YearlyTemplate? = null,
-  public var excludingDate: MutableList<KotlinString?>? = null,
-  public var _excludingDate: MutableList<Element?>? = null,
-  public var excludingRecurrenceId: MutableList<Int?>? = null,
-  public var _excludingRecurrenceId: MutableList<Element?>? = null,
-) {
-  public fun toModel(): Appointment.RecurrenceTemplate =
-    Appointment.RecurrenceTemplate(
-      id = this@AppointmentRecurrenceTemplateSurrogate.id,
-      extension = this@AppointmentRecurrenceTemplateSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@AppointmentRecurrenceTemplateSurrogate.modifierExtension ?: mutableListOf(),
-      timezone = this@AppointmentRecurrenceTemplateSurrogate.timezone,
-      recurrenceType = this@AppointmentRecurrenceTemplateSurrogate.recurrenceType,
-      lastOccurrenceDate =
-        Date.of(
-          FhirDate.fromString(this@AppointmentRecurrenceTemplateSurrogate.lastOccurrenceDate),
-          this@AppointmentRecurrenceTemplateSurrogate._lastOccurrenceDate,
-        ),
-      occurrenceCount =
-        PositiveInt.of(
-          this@AppointmentRecurrenceTemplateSurrogate.occurrenceCount,
-          this@AppointmentRecurrenceTemplateSurrogate._occurrenceCount,
-        ),
-      occurrenceDate =
-        if (
-          this@AppointmentRecurrenceTemplateSurrogate.occurrenceDate == null &&
-            this@AppointmentRecurrenceTemplateSurrogate._occurrenceDate == null
-        ) {
-          mutableListOf()
-        } else {
-          (this@AppointmentRecurrenceTemplateSurrogate.occurrenceDate
-              ?: List(this@AppointmentRecurrenceTemplateSurrogate._occurrenceDate!!.size) { null })
-            .zip(
-              this@AppointmentRecurrenceTemplateSurrogate._occurrenceDate
-                ?: List(this@AppointmentRecurrenceTemplateSurrogate.occurrenceDate!!.size) { null }
-            )
-            .map { (value, element) -> Date.of(FhirDate.fromString(value), element)!! }
-            .toMutableList()
-        },
-      weeklyTemplate = this@AppointmentRecurrenceTemplateSurrogate.weeklyTemplate,
-      monthlyTemplate = this@AppointmentRecurrenceTemplateSurrogate.monthlyTemplate,
-      yearlyTemplate = this@AppointmentRecurrenceTemplateSurrogate.yearlyTemplate,
-      excludingDate =
-        if (
-          this@AppointmentRecurrenceTemplateSurrogate.excludingDate == null &&
-            this@AppointmentRecurrenceTemplateSurrogate._excludingDate == null
-        ) {
-          mutableListOf()
-        } else {
-          (this@AppointmentRecurrenceTemplateSurrogate.excludingDate
-              ?: List(this@AppointmentRecurrenceTemplateSurrogate._excludingDate!!.size) { null })
-            .zip(
-              this@AppointmentRecurrenceTemplateSurrogate._excludingDate
-                ?: List(this@AppointmentRecurrenceTemplateSurrogate.excludingDate!!.size) { null }
-            )
-            .map { (value, element) -> Date.of(FhirDate.fromString(value), element)!! }
-            .toMutableList()
-        },
-      excludingRecurrenceId =
-        if (
-          this@AppointmentRecurrenceTemplateSurrogate.excludingRecurrenceId == null &&
-            this@AppointmentRecurrenceTemplateSurrogate._excludingRecurrenceId == null
-        ) {
-          mutableListOf()
-        } else {
-          (this@AppointmentRecurrenceTemplateSurrogate.excludingRecurrenceId
-              ?: List(this@AppointmentRecurrenceTemplateSurrogate._excludingRecurrenceId!!.size) {
-                null
-              })
-            .zip(
-              this@AppointmentRecurrenceTemplateSurrogate._excludingRecurrenceId
-                ?: List(this@AppointmentRecurrenceTemplateSurrogate.excludingRecurrenceId!!.size) {
-                  null
-                }
-            )
-            .map { (value, element) -> PositiveInt.of(value, element)!! }
-            .toMutableList()
-        },
-    )
-
-  public companion object {
-    public fun fromModel(
-      model: Appointment.RecurrenceTemplate
-    ): AppointmentRecurrenceTemplateSurrogate =
-      with(model) {
-        AppointmentRecurrenceTemplateSurrogate(
-          id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          timezone = this@with.timezone,
-          recurrenceType = this@with.recurrenceType,
-          lastOccurrenceDate = this@with.lastOccurrenceDate?.value?.toString(),
-          _lastOccurrenceDate = this@with.lastOccurrenceDate?.toElement(),
-          occurrenceCount = this@with.occurrenceCount?.value,
-          _occurrenceCount = this@with.occurrenceCount?.toElement(),
-          occurrenceDate =
-            this@with.occurrenceDate
-              .map { it.value?.toString() }
-              .toMutableList()
-              .takeUnless { it.all { it == null } },
-          _occurrenceDate =
-            this@with.occurrenceDate
-              .map { it.toElement() }
-              .takeUnless { it.all { it == null } }
-              ?.map { it ?: Element() }
-              ?.toMutableList(),
-          weeklyTemplate = this@with.weeklyTemplate,
-          monthlyTemplate = this@with.monthlyTemplate,
-          yearlyTemplate = this@with.yearlyTemplate,
-          excludingDate =
-            this@with.excludingDate
-              .map { it.value?.toString() }
-              .toMutableList()
-              .takeUnless { it.all { it == null } },
-          _excludingDate =
-            this@with.excludingDate
-              .map { it.toElement() }
-              .takeUnless { it.all { it == null } }
-              ?.map { it ?: Element() }
-              ?.toMutableList(),
-          excludingRecurrenceId =
-            this@with.excludingRecurrenceId
-              .map { it.value }
-              .toMutableList()
-              .takeUnless { it.all { it == null } },
-          _excludingRecurrenceId =
-            this@with.excludingRecurrenceId
-              .map { it.toElement() }
-              .takeUnless { it.all { it == null } }
-              ?.map { it ?: Element() }
-              ?.toMutableList(),
         )
       }
   }

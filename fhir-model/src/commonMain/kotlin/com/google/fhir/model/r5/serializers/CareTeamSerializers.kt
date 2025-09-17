@@ -36,23 +36,6 @@ import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.JsonPrimitive
 import kotlinx.serialization.json.jsonObject
 
-public object CareTeamParticipantCoverageSerializer : KSerializer<CareTeam.Participant.Coverage> {
-  internal val surrogateSerializer: KSerializer<CareTeamParticipantCoverageSurrogate> by lazy {
-    CareTeamParticipantCoverageSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Coverage", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): CareTeam.Participant.Coverage =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: CareTeam.Participant.Coverage) {
-    surrogateSerializer.serialize(encoder, CareTeamParticipantCoverageSurrogate.fromModel(value))
-  }
-}
-
 public object CareTeamParticipantSerializer : KSerializer<CareTeam.Participant> {
   internal val surrogateSerializer: KSerializer<CareTeamParticipantSurrogate> by lazy {
     CareTeamParticipantSurrogate.serializer()
@@ -97,6 +80,23 @@ public object CareTeamParticipantSerializer : KSerializer<CareTeam.Participant> 
       }
     val flattenedJsonObject = FhirJsonTransformer.flatten(oldJsonObject, multiChoiceProperties)
     jsonEncoder.encodeJsonElement(flattenedJsonObject)
+  }
+}
+
+public object CareTeamParticipantCoverageSerializer : KSerializer<CareTeam.Participant.Coverage> {
+  internal val surrogateSerializer: KSerializer<CareTeamParticipantCoverageSurrogate> by lazy {
+    CareTeamParticipantCoverageSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Coverage", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): CareTeam.Participant.Coverage =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: CareTeam.Participant.Coverage) {
+    surrogateSerializer.serialize(encoder, CareTeamParticipantCoverageSurrogate.fromModel(value))
   }
 }
 

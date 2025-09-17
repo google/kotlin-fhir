@@ -166,7 +166,7 @@ internal data class MessageDefinitionVersionAlgorithmSurrogate(
   public var versionAlgorithmCoding: Coding? = null,
 ) {
   public fun toModel(): MessageDefinition.VersionAlgorithm =
-    MessageDefinition.VersionAlgorithm?.from(
+    MessageDefinition.VersionAlgorithm.from(
       R5String.of(
         this@MessageDefinitionVersionAlgorithmSurrogate.versionAlgorithmString,
         this@MessageDefinitionVersionAlgorithmSurrogate._versionAlgorithmString,

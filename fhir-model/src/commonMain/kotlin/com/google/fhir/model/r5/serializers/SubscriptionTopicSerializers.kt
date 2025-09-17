@@ -40,6 +40,27 @@ import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.JsonPrimitive
 import kotlinx.serialization.json.jsonObject
 
+public object SubscriptionTopicResourceTriggerSerializer :
+  KSerializer<SubscriptionTopic.ResourceTrigger> {
+  internal val surrogateSerializer: KSerializer<SubscriptionTopicResourceTriggerSurrogate> by lazy {
+    SubscriptionTopicResourceTriggerSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("ResourceTrigger", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): SubscriptionTopic.ResourceTrigger =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: SubscriptionTopic.ResourceTrigger) {
+    surrogateSerializer.serialize(
+      encoder,
+      SubscriptionTopicResourceTriggerSurrogate.fromModel(value),
+    )
+  }
+}
+
 public object SubscriptionTopicResourceTriggerQueryCriteriaSerializer :
   KSerializer<SubscriptionTopic.ResourceTrigger.QueryCriteria> {
   internal val surrogateSerializer:
@@ -61,27 +82,6 @@ public object SubscriptionTopicResourceTriggerQueryCriteriaSerializer :
     surrogateSerializer.serialize(
       encoder,
       SubscriptionTopicResourceTriggerQueryCriteriaSurrogate.fromModel(value),
-    )
-  }
-}
-
-public object SubscriptionTopicResourceTriggerSerializer :
-  KSerializer<SubscriptionTopic.ResourceTrigger> {
-  internal val surrogateSerializer: KSerializer<SubscriptionTopicResourceTriggerSurrogate> by lazy {
-    SubscriptionTopicResourceTriggerSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("ResourceTrigger", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): SubscriptionTopic.ResourceTrigger =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: SubscriptionTopic.ResourceTrigger) {
-    surrogateSerializer.serialize(
-      encoder,
-      SubscriptionTopicResourceTriggerSurrogate.fromModel(value),
     )
   }
 }

@@ -58,7 +58,7 @@ internal data class EventDefinitionSubjectSurrogate(
   public var subjectReference: Reference? = null,
 ) {
   public fun toModel(): EventDefinition.Subject =
-    EventDefinition.Subject?.from(
+    EventDefinition.Subject.from(
       this@EventDefinitionSubjectSurrogate.subjectCodeableConcept,
       this@EventDefinitionSubjectSurrogate.subjectReference,
     )!!

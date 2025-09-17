@@ -47,7 +47,7 @@ internal data class VirtualServiceDetailAddressSurrogate(
   public var addressExtendedContactDetail: ExtendedContactDetail? = null,
 ) {
   public fun toModel(): VirtualServiceDetail.Address =
-    VirtualServiceDetail.Address?.from(
+    VirtualServiceDetail.Address.from(
       Url.of(
         this@VirtualServiceDetailAddressSurrogate.addressUrl,
         this@VirtualServiceDetailAddressSurrogate._addressUrl,

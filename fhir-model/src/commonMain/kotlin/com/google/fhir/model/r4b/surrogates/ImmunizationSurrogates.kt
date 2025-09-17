@@ -189,74 +189,6 @@ internal data class ImmunizationReactionSurrogate(
 }
 
 @Serializable
-internal data class ImmunizationProtocolAppliedDoseNumberSurrogate(
-  public var doseNumberPositiveInt: Int? = null,
-  public var _doseNumberPositiveInt: Element? = null,
-  public var doseNumberString: KotlinString? = null,
-  public var _doseNumberString: Element? = null,
-) {
-  public fun toModel(): Immunization.ProtocolApplied.DoseNumber =
-    Immunization.ProtocolApplied.DoseNumber.from(
-      PositiveInt.of(
-        this@ImmunizationProtocolAppliedDoseNumberSurrogate.doseNumberPositiveInt,
-        this@ImmunizationProtocolAppliedDoseNumberSurrogate._doseNumberPositiveInt,
-      ),
-      R4bString.of(
-        this@ImmunizationProtocolAppliedDoseNumberSurrogate.doseNumberString,
-        this@ImmunizationProtocolAppliedDoseNumberSurrogate._doseNumberString,
-      ),
-    )!! !!
-
-  public companion object {
-    public fun fromModel(
-      model: Immunization.ProtocolApplied.DoseNumber
-    ): ImmunizationProtocolAppliedDoseNumberSurrogate =
-      with(model) {
-        ImmunizationProtocolAppliedDoseNumberSurrogate(
-          doseNumberPositiveInt = this@with.asPositiveInt()?.value?.value,
-          _doseNumberPositiveInt = this@with.asPositiveInt()?.value?.toElement(),
-          doseNumberString = this@with.asString()?.value?.value,
-          _doseNumberString = this@with.asString()?.value?.toElement(),
-        )
-      }
-  }
-}
-
-@Serializable
-internal data class ImmunizationProtocolAppliedSeriesDosesSurrogate(
-  public var seriesDosesPositiveInt: Int? = null,
-  public var _seriesDosesPositiveInt: Element? = null,
-  public var seriesDosesString: KotlinString? = null,
-  public var _seriesDosesString: Element? = null,
-) {
-  public fun toModel(): Immunization.ProtocolApplied.SeriesDoses =
-    Immunization.ProtocolApplied.SeriesDoses?.from(
-      PositiveInt.of(
-        this@ImmunizationProtocolAppliedSeriesDosesSurrogate.seriesDosesPositiveInt,
-        this@ImmunizationProtocolAppliedSeriesDosesSurrogate._seriesDosesPositiveInt,
-      ),
-      R4bString.of(
-        this@ImmunizationProtocolAppliedSeriesDosesSurrogate.seriesDosesString,
-        this@ImmunizationProtocolAppliedSeriesDosesSurrogate._seriesDosesString,
-      ),
-    )!!
-
-  public companion object {
-    public fun fromModel(
-      model: Immunization.ProtocolApplied.SeriesDoses
-    ): ImmunizationProtocolAppliedSeriesDosesSurrogate =
-      with(model) {
-        ImmunizationProtocolAppliedSeriesDosesSurrogate(
-          seriesDosesPositiveInt = this@with.asPositiveInt()?.value?.value,
-          _seriesDosesPositiveInt = this@with.asPositiveInt()?.value?.toElement(),
-          seriesDosesString = this@with.asString()?.value?.value,
-          _seriesDosesString = this@with.asString()?.value?.toElement(),
-        )
-      }
-  }
-}
-
-@Serializable
 internal data class ImmunizationProtocolAppliedSurrogate(
   public var id: KotlinString? = null,
   public var extension: MutableList<Extension>? = null,
@@ -332,6 +264,74 @@ internal data class ImmunizationOccurrenceSurrogate(
           _occurrenceDateTime = this@with.asDateTime()?.value?.toElement(),
           occurrenceString = this@with.asString()?.value?.value,
           _occurrenceString = this@with.asString()?.value?.toElement(),
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class ImmunizationProtocolAppliedDoseNumberSurrogate(
+  public var doseNumberPositiveInt: Int? = null,
+  public var _doseNumberPositiveInt: Element? = null,
+  public var doseNumberString: KotlinString? = null,
+  public var _doseNumberString: Element? = null,
+) {
+  public fun toModel(): Immunization.ProtocolApplied.DoseNumber =
+    Immunization.ProtocolApplied.DoseNumber.from(
+      PositiveInt.of(
+        this@ImmunizationProtocolAppliedDoseNumberSurrogate.doseNumberPositiveInt,
+        this@ImmunizationProtocolAppliedDoseNumberSurrogate._doseNumberPositiveInt,
+      ),
+      R4bString.of(
+        this@ImmunizationProtocolAppliedDoseNumberSurrogate.doseNumberString,
+        this@ImmunizationProtocolAppliedDoseNumberSurrogate._doseNumberString,
+      ),
+    )!! !!
+
+  public companion object {
+    public fun fromModel(
+      model: Immunization.ProtocolApplied.DoseNumber
+    ): ImmunizationProtocolAppliedDoseNumberSurrogate =
+      with(model) {
+        ImmunizationProtocolAppliedDoseNumberSurrogate(
+          doseNumberPositiveInt = this@with.asPositiveInt()?.value?.value,
+          _doseNumberPositiveInt = this@with.asPositiveInt()?.value?.toElement(),
+          doseNumberString = this@with.asString()?.value?.value,
+          _doseNumberString = this@with.asString()?.value?.toElement(),
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class ImmunizationProtocolAppliedSeriesDosesSurrogate(
+  public var seriesDosesPositiveInt: Int? = null,
+  public var _seriesDosesPositiveInt: Element? = null,
+  public var seriesDosesString: KotlinString? = null,
+  public var _seriesDosesString: Element? = null,
+) {
+  public fun toModel(): Immunization.ProtocolApplied.SeriesDoses =
+    Immunization.ProtocolApplied.SeriesDoses.from(
+      PositiveInt.of(
+        this@ImmunizationProtocolAppliedSeriesDosesSurrogate.seriesDosesPositiveInt,
+        this@ImmunizationProtocolAppliedSeriesDosesSurrogate._seriesDosesPositiveInt,
+      ),
+      R4bString.of(
+        this@ImmunizationProtocolAppliedSeriesDosesSurrogate.seriesDosesString,
+        this@ImmunizationProtocolAppliedSeriesDosesSurrogate._seriesDosesString,
+      ),
+    )!!
+
+  public companion object {
+    public fun fromModel(
+      model: Immunization.ProtocolApplied.SeriesDoses
+    ): ImmunizationProtocolAppliedSeriesDosesSurrogate =
+      with(model) {
+        ImmunizationProtocolAppliedSeriesDosesSurrogate(
+          seriesDosesPositiveInt = this@with.asPositiveInt()?.value?.value,
+          _seriesDosesPositiveInt = this@with.asPositiveInt()?.value?.toElement(),
+          seriesDosesString = this@with.asString()?.value?.value,
+          _seriesDosesString = this@with.asString()?.value?.toElement(),
         )
       }
   }

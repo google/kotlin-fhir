@@ -56,40 +56,6 @@ public object InvoiceParticipantSerializer : KSerializer<Invoice.Participant> {
   }
 }
 
-public object InvoiceLineItemServicedSerializer : KSerializer<Invoice.LineItem.Serviced> {
-  internal val surrogateSerializer: KSerializer<InvoiceLineItemServicedSurrogate> by lazy {
-    InvoiceLineItemServicedSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Serviced", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): Invoice.LineItem.Serviced =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: Invoice.LineItem.Serviced) {
-    surrogateSerializer.serialize(encoder, InvoiceLineItemServicedSurrogate.fromModel(value))
-  }
-}
-
-public object InvoiceLineItemChargeItemSerializer : KSerializer<Invoice.LineItem.ChargeItem> {
-  internal val surrogateSerializer: KSerializer<InvoiceLineItemChargeItemSurrogate> by lazy {
-    InvoiceLineItemChargeItemSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("ChargeItem", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): Invoice.LineItem.ChargeItem =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: Invoice.LineItem.ChargeItem) {
-    surrogateSerializer.serialize(encoder, InvoiceLineItemChargeItemSurrogate.fromModel(value))
-  }
-}
-
 public object InvoiceLineItemSerializer : KSerializer<Invoice.LineItem> {
   internal val surrogateSerializer: KSerializer<InvoiceLineItemSurrogate> by lazy {
     InvoiceLineItemSurrogate.serializer()
@@ -151,6 +117,40 @@ public object InvoicePeriodSerializer : KSerializer<Invoice.Period> {
 
   override fun serialize(encoder: Encoder, `value`: Invoice.Period) {
     surrogateSerializer.serialize(encoder, InvoicePeriodSurrogate.fromModel(value))
+  }
+}
+
+public object InvoiceLineItemServicedSerializer : KSerializer<Invoice.LineItem.Serviced> {
+  internal val surrogateSerializer: KSerializer<InvoiceLineItemServicedSurrogate> by lazy {
+    InvoiceLineItemServicedSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Serviced", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): Invoice.LineItem.Serviced =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: Invoice.LineItem.Serviced) {
+    surrogateSerializer.serialize(encoder, InvoiceLineItemServicedSurrogate.fromModel(value))
+  }
+}
+
+public object InvoiceLineItemChargeItemSerializer : KSerializer<Invoice.LineItem.ChargeItem> {
+  internal val surrogateSerializer: KSerializer<InvoiceLineItemChargeItemSurrogate> by lazy {
+    InvoiceLineItemChargeItemSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("ChargeItem", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): Invoice.LineItem.ChargeItem =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: Invoice.LineItem.ChargeItem) {
+    surrogateSerializer.serialize(encoder, InvoiceLineItemChargeItemSurrogate.fromModel(value))
   }
 }
 

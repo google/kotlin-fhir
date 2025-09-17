@@ -46,30 +46,6 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
-internal data class CareTeamParticipantCoverageSurrogate(
-  public var coveragePeriod: Period? = null,
-  public var coverageTiming: Timing? = null,
-) {
-  public fun toModel(): CareTeam.Participant.Coverage =
-    CareTeam.Participant.Coverage?.from(
-      this@CareTeamParticipantCoverageSurrogate.coveragePeriod,
-      this@CareTeamParticipantCoverageSurrogate.coverageTiming,
-    )!!
-
-  public companion object {
-    public fun fromModel(
-      model: CareTeam.Participant.Coverage
-    ): CareTeamParticipantCoverageSurrogate =
-      with(model) {
-        CareTeamParticipantCoverageSurrogate(
-          coveragePeriod = this@with.asPeriod()?.value,
-          coverageTiming = this@with.asTiming()?.value,
-        )
-      }
-  }
-}
-
-@Serializable
 internal data class CareTeamParticipantSurrogate(
   public var id: KotlinString? = null,
   public var extension: MutableList<Extension>? = null,
@@ -101,6 +77,30 @@ internal data class CareTeamParticipantSurrogate(
           member = this@with.member,
           onBehalfOf = this@with.onBehalfOf,
           coverage = this@with.coverage,
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class CareTeamParticipantCoverageSurrogate(
+  public var coveragePeriod: Period? = null,
+  public var coverageTiming: Timing? = null,
+) {
+  public fun toModel(): CareTeam.Participant.Coverage =
+    CareTeam.Participant.Coverage.from(
+      this@CareTeamParticipantCoverageSurrogate.coveragePeriod,
+      this@CareTeamParticipantCoverageSurrogate.coverageTiming,
+    )!!
+
+  public companion object {
+    public fun fromModel(
+      model: CareTeam.Participant.Coverage
+    ): CareTeamParticipantCoverageSurrogate =
+      with(model) {
+        CareTeamParticipantCoverageSurrogate(
+          coveragePeriod = this@with.asPeriod()?.value,
+          coverageTiming = this@with.asTiming()?.value,
         )
       }
   }

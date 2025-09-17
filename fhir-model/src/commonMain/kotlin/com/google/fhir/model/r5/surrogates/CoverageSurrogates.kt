@@ -121,64 +121,6 @@ internal data class CoverageClassSurrogate(
 }
 
 @Serializable
-internal data class CoverageCostToBeneficiaryExceptionSurrogate(
-  public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var type: CodeableConcept,
-  public var period: Period? = null,
-) {
-  public fun toModel(): Coverage.CostToBeneficiary.Exception =
-    Coverage.CostToBeneficiary.Exception(
-      id = this@CoverageCostToBeneficiaryExceptionSurrogate.id,
-      extension = this@CoverageCostToBeneficiaryExceptionSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@CoverageCostToBeneficiaryExceptionSurrogate.modifierExtension ?: mutableListOf(),
-      type = this@CoverageCostToBeneficiaryExceptionSurrogate.type,
-      period = this@CoverageCostToBeneficiaryExceptionSurrogate.period,
-    )
-
-  public companion object {
-    public fun fromModel(
-      model: Coverage.CostToBeneficiary.Exception
-    ): CoverageCostToBeneficiaryExceptionSurrogate =
-      with(model) {
-        CoverageCostToBeneficiaryExceptionSurrogate(
-          id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          type = this@with.type,
-          period = this@with.period,
-        )
-      }
-  }
-}
-
-@Serializable
-internal data class CoverageCostToBeneficiaryValueSurrogate(
-  public var valueQuantity: Quantity? = null,
-  public var valueMoney: Money? = null,
-) {
-  public fun toModel(): Coverage.CostToBeneficiary.Value =
-    Coverage.CostToBeneficiary.Value?.from(
-      this@CoverageCostToBeneficiaryValueSurrogate.valueQuantity,
-      this@CoverageCostToBeneficiaryValueSurrogate.valueMoney,
-    )!!
-
-  public companion object {
-    public fun fromModel(
-      model: Coverage.CostToBeneficiary.Value
-    ): CoverageCostToBeneficiaryValueSurrogate =
-      with(model) {
-        CoverageCostToBeneficiaryValueSurrogate(
-          valueQuantity = this@with.asQuantity()?.value,
-          valueMoney = this@with.asMoney()?.value,
-        )
-      }
-  }
-}
-
-@Serializable
 internal data class CoverageCostToBeneficiarySurrogate(
   public var id: KotlinString? = null,
   public var extension: MutableList<Extension>? = null,
@@ -220,6 +162,64 @@ internal data class CoverageCostToBeneficiarySurrogate(
           term = this@with.term,
           `value` = this@with.`value`,
           exception = this@with.exception.takeUnless { it.all { it == null } },
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class CoverageCostToBeneficiaryExceptionSurrogate(
+  public var id: KotlinString? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var type: CodeableConcept,
+  public var period: Period? = null,
+) {
+  public fun toModel(): Coverage.CostToBeneficiary.Exception =
+    Coverage.CostToBeneficiary.Exception(
+      id = this@CoverageCostToBeneficiaryExceptionSurrogate.id,
+      extension = this@CoverageCostToBeneficiaryExceptionSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@CoverageCostToBeneficiaryExceptionSurrogate.modifierExtension ?: mutableListOf(),
+      type = this@CoverageCostToBeneficiaryExceptionSurrogate.type,
+      period = this@CoverageCostToBeneficiaryExceptionSurrogate.period,
+    )
+
+  public companion object {
+    public fun fromModel(
+      model: Coverage.CostToBeneficiary.Exception
+    ): CoverageCostToBeneficiaryExceptionSurrogate =
+      with(model) {
+        CoverageCostToBeneficiaryExceptionSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          type = this@with.type,
+          period = this@with.period,
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class CoverageCostToBeneficiaryValueSurrogate(
+  public var valueQuantity: Quantity? = null,
+  public var valueMoney: Money? = null,
+) {
+  public fun toModel(): Coverage.CostToBeneficiary.Value =
+    Coverage.CostToBeneficiary.Value.from(
+      this@CoverageCostToBeneficiaryValueSurrogate.valueQuantity,
+      this@CoverageCostToBeneficiaryValueSurrogate.valueMoney,
+    )!!
+
+  public companion object {
+    public fun fromModel(
+      model: Coverage.CostToBeneficiary.Value
+    ): CoverageCostToBeneficiaryValueSurrogate =
+      with(model) {
+        CoverageCostToBeneficiaryValueSurrogate(
+          valueQuantity = this@with.asQuantity()?.value,
+          valueMoney = this@with.asMoney()?.value,
         )
       }
   }

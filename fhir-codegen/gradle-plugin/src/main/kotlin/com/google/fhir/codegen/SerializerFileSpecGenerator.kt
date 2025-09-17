@@ -18,9 +18,13 @@ package com.google.fhir.codegen
 
 import com.google.fhir.codegen.schema.Element
 import com.google.fhir.codegen.schema.StructureDefinition
+import com.google.fhir.codegen.schema.backboneElements
+import com.google.fhir.codegen.schema.capitalized
 import com.google.fhir.codegen.schema.getElementName
+import com.google.fhir.codegen.schema.rootElements
 import com.squareup.kotlinpoet.ClassName
 import com.squareup.kotlinpoet.CodeBlock
+import com.squareup.kotlinpoet.FileSpec
 import com.squareup.kotlinpoet.FunSpec
 import com.squareup.kotlinpoet.KModifier
 import com.squareup.kotlinpoet.ParameterizedTypeName.Companion.parameterizedBy
@@ -46,27 +50,93 @@ private val encoderClassName = ClassName(KOTLINX_SERIALIZATION_ENCODING, "Encode
 private val decoderClassName = ClassName(KOTLINX_SERIALIZATION_ENCODING, "Decoder")
 
 /**
- * Generates a [TypeSpec] for a custom serializer object that delegates
- * serialization/deserialization to a surrogate class.
- *
- * See
+ * Generates a [FileSpec] for a custom serializer object that delegates
+ * serialization/deserialization to a surrogate class. The [FileSpec] will include the custom
+ * serializer for the model class as well as custom serializers for sealed interfaces and backbone
+ * elements defined as nested structures in the model class. See
  * [surrogate](https://github.com/Kotlin/kotlinx.serialization/blob/master/docs/serializers.md#composite-serializer-via-surrogate).
  */
-object SerializerTypeSpecGenerator {
-  /** @param className the class the serializer is for */
-  fun generate(
+class SerializerFileSpecGenerator(val codegenContext: CodegenContext) {
+
+  fun generate(structureDefinition: StructureDefinition): FileSpec {
+    val modelClassName = codegenContext.getModelClassName(structureDefinition)
+    return modelClassName
+      .toSerializerFileSpecBuilder()
+      .apply {
+        addBackboneElementSerializers(structureDefinition, modelClassName)
+
+        addSealedInterfaceSerializers(structureDefinition, modelClassName)
+
+        // Add type spec for the model class serializer e.g. PatientSerializer
+        addType(
+          createSerializerObjectTypeSpec(
+            modelClassName,
+            structureDefinition.kind to structureDefinition.name,
+            structureDefinition.rootElements,
+          )
+        )
+      }
+      .build()
+  }
+
+  /**
+   * Adds [TypeSpec] for backbone element serializer classes
+   *
+   * Examples: PatientContactSerializer, PatientCommunicationSerializer and PatientLinkSerializer
+   */
+  private fun FileSpec.Builder.addBackboneElementSerializers(
+    structureDefinition: StructureDefinition,
+    modelClassName: ClassName,
+  ): FileSpec.Builder = apply {
+    structureDefinition.backboneElements.forEach { (backboneElement, elements) ->
+      val simpleNames = backboneElement.path.split('.').map { it.capitalized() }
+      val backboneElementClassName = ClassName(modelClassName.packageName, simpleNames)
+      addType(
+        this@SerializerFileSpecGenerator.createSerializerObjectTypeSpec(
+          className = backboneElementClassName,
+          elements = elements,
+        )
+      )
+    }
+  }
+
+  /**
+   * Adds [TypeSpec] for sealed interfaces serializer classes
+   *
+   * Examples: PatientDeceasedSerializer and PatientMultipleBirthSerializer
+   */
+  private fun FileSpec.Builder.addSealedInterfaceSerializers(
+    structureDefinition: StructureDefinition,
+    modelClassName: ClassName,
+  ) = apply {
+    addTypes(
+      structureDefinition.snapshot
+        ?.element
+        ?.filter { it.path.endsWith("[x]") }
+        ?.map { element ->
+          val simpleNames = element.path.replace("[x]", "").split('.').map { it.capitalized() }
+          val sealedInterfaceClassName = ClassName(modelClassName.packageName, simpleNames)
+          createSerializerObjectTypeSpec(sealedInterfaceClassName)
+        } ?: emptyList()
+    )
+  }
+
+  private fun createSerializerObjectTypeSpec(
     className: ClassName,
-    elements: List<Element>?,
-    structureDefinitionKindAndName: Pair<StructureDefinition.Kind, String>? = null,
+    structureDefinitionKindNamePair: Pair<StructureDefinition.Kind, String>? = null,
+    elements: List<Element>? = null,
   ): TypeSpec {
-    val elementPaths = elements?.filter { it.path.endsWith("[x]") }?.map { it.getElementName() }
-    val hasMultiChoiceProperties = !elementPaths.isNullOrEmpty()
+    val multiChoiceElements = elements?.filter { it.path.endsWith("[x]") }
+    val hasMultiChoiceProperties = !multiChoiceElements.isNullOrEmpty()
     return TypeSpec.objectBuilder(className.toSerializerClassName())
       .addSuperinterface(KSerializer::class.asClassName().parameterizedBy(className))
       .addSurrogateSerializerProperty(className)
       .apply {
-        if (!elementPaths.isNullOrEmpty()) {
-          addMultiChoicePropertiesProperty(elementPaths, structureDefinitionKindAndName)
+        if (hasMultiChoiceProperties) {
+          addMultiChoicePropertiesProperty(
+            multiChoiceElements.map { it.getElementName() },
+            structureDefinitionKindNamePair,
+          )
         }
       }
       .addDescriptorProperty(className)
@@ -86,27 +156,29 @@ private fun TypeSpec.Builder.addMultiChoicePropertiesProperty(
   structureDefinitionKindAndName: Pair<StructureDefinition.Kind, String>?,
 ): TypeSpec.Builder {
   return apply {
-    // If the StructureDefinition.Kind is a resource, the resourceType will be removed
-    // from original JSON during Deserialization and added to the final JSON during
-    // Serialization, this is because the property is not used in the surrogates.
-    addProperty(
-      PropertySpec.builder("resourceType", String::class.asClassName().copy(nullable = true))
-        .addModifiers(KModifier.PRIVATE)
-        .initializer(
-          if (StructureDefinition.Kind.RESOURCE == structureDefinitionKindAndName?.first)
-            "\"${structureDefinitionKindAndName.second}\""
-          else "null"
-        )
-        .mutable(false)
-        .build()
-    )
-    addProperty(
-      PropertySpec.builder("multiChoiceProperties", List::class.parameterizedBy(String::class))
-        .addModifiers(KModifier.PRIVATE)
-        .mutable(false)
-        .initializer("listOf(${paths.joinToString(",") { """"$it"""" }})")
-        .build()
-    )
+    if (paths.isNotEmpty()) {
+      // If the StructureDefinition.Kind is a resource, the resourceType will be removed
+      // from original JSON during Deserialization and added to the final JSON during
+      // Serialization, this is because the property is not used in the surrogates.
+      addProperty(
+        PropertySpec.builder("resourceType", String::class.asClassName().copy(nullable = true))
+          .addModifiers(KModifier.PRIVATE)
+          .initializer(
+            if (StructureDefinition.Kind.RESOURCE == structureDefinitionKindAndName?.first)
+              "\"${structureDefinitionKindAndName.second}\""
+            else "null"
+          )
+          .mutable(false)
+          .build()
+      )
+      addProperty(
+        PropertySpec.builder("multiChoiceProperties", List::class.parameterizedBy(String::class))
+          .addModifiers(KModifier.PRIVATE)
+          .mutable(false)
+          .initializer("listOf(${paths.joinToString(",") { """"$it"""" }})")
+          .build()
+      )
+    }
   }
 }
 
@@ -282,3 +354,17 @@ private fun PropertySpec.Builder.initializeWithLazy(statement: String, vararg ar
  */
 fun ClassName.toSerializerClassName(): ClassName =
   ClassName("${packageName}.serializers", simpleNames.joinToString("").plus("Serializer"))
+
+/**
+ * Returns the [FileSpec.Builder] that represents the serializer file for this [ClassName]. The
+ * serializer file will contain the serializer for the given [ClassName] and all serializers for its
+ * nested classes. The serializer file will be under the `serializers` package with a name suffixed
+ * with "Serializers".
+ *
+ * For example:
+ * - `com.google.fhir.r4.Patient` will return [FileSpec] for `PatientSerializers.kt` in package
+ *   `com.google.fhir.r4.serializers`.
+ */
+private fun ClassName.toSerializerFileSpecBuilder(): FileSpec.Builder =
+  FileSpec.builder("${packageName}.serializers", simpleName.plus("Serializers"))
+    .addSuppressAnnotation()

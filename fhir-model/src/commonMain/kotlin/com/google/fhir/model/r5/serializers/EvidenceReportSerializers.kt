@@ -41,25 +41,20 @@ import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.JsonPrimitive
 import kotlinx.serialization.json.jsonObject
 
-public object EvidenceReportSubjectCharacteristicValueSerializer :
-  KSerializer<EvidenceReport.Subject.Characteristic.Value> {
-  internal val surrogateSerializer:
-    KSerializer<EvidenceReportSubjectCharacteristicValueSurrogate> by lazy {
-    EvidenceReportSubjectCharacteristicValueSurrogate.serializer()
+public object EvidenceReportSubjectSerializer : KSerializer<EvidenceReport.Subject> {
+  internal val surrogateSerializer: KSerializer<EvidenceReportSubjectSurrogate> by lazy {
+    EvidenceReportSubjectSurrogate.serializer()
   }
 
   override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Value", surrogateSerializer.descriptor)
+    SerialDescriptor("Subject", surrogateSerializer.descriptor)
   }
 
-  override fun deserialize(decoder: Decoder): EvidenceReport.Subject.Characteristic.Value =
+  override fun deserialize(decoder: Decoder): EvidenceReport.Subject =
     surrogateSerializer.deserialize(decoder).toModel()
 
-  override fun serialize(encoder: Encoder, `value`: EvidenceReport.Subject.Characteristic.Value) {
-    surrogateSerializer.serialize(
-      encoder,
-      EvidenceReportSubjectCharacteristicValueSurrogate.fromModel(value),
-    )
+  override fun serialize(encoder: Encoder, `value`: EvidenceReport.Subject) {
+    surrogateSerializer.serialize(encoder, EvidenceReportSubjectSurrogate.fromModel(value))
   }
 }
 
@@ -112,20 +107,20 @@ public object EvidenceReportSubjectCharacteristicSerializer :
   }
 }
 
-public object EvidenceReportSubjectSerializer : KSerializer<EvidenceReport.Subject> {
-  internal val surrogateSerializer: KSerializer<EvidenceReportSubjectSurrogate> by lazy {
-    EvidenceReportSubjectSurrogate.serializer()
+public object EvidenceReportRelatesToSerializer : KSerializer<EvidenceReport.RelatesTo> {
+  internal val surrogateSerializer: KSerializer<EvidenceReportRelatesToSurrogate> by lazy {
+    EvidenceReportRelatesToSurrogate.serializer()
   }
 
   override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Subject", surrogateSerializer.descriptor)
+    SerialDescriptor("RelatesTo", surrogateSerializer.descriptor)
   }
 
-  override fun deserialize(decoder: Decoder): EvidenceReport.Subject =
+  override fun deserialize(decoder: Decoder): EvidenceReport.RelatesTo =
     surrogateSerializer.deserialize(decoder).toModel()
 
-  override fun serialize(encoder: Encoder, `value`: EvidenceReport.Subject) {
-    surrogateSerializer.serialize(encoder, EvidenceReportSubjectSurrogate.fromModel(value))
+  override fun serialize(encoder: Encoder, `value`: EvidenceReport.RelatesTo) {
+    surrogateSerializer.serialize(encoder, EvidenceReportRelatesToSurrogate.fromModel(value))
   }
 }
 
@@ -144,23 +139,6 @@ public object EvidenceReportRelatesToTargetSerializer :
 
   override fun serialize(encoder: Encoder, `value`: EvidenceReport.RelatesTo.Target) {
     surrogateSerializer.serialize(encoder, EvidenceReportRelatesToTargetSurrogate.fromModel(value))
-  }
-}
-
-public object EvidenceReportRelatesToSerializer : KSerializer<EvidenceReport.RelatesTo> {
-  internal val surrogateSerializer: KSerializer<EvidenceReportRelatesToSurrogate> by lazy {
-    EvidenceReportRelatesToSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("RelatesTo", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): EvidenceReport.RelatesTo =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: EvidenceReport.RelatesTo) {
-    surrogateSerializer.serialize(encoder, EvidenceReportRelatesToSurrogate.fromModel(value))
   }
 }
 
@@ -195,6 +173,28 @@ public object EvidenceReportCiteAsSerializer : KSerializer<EvidenceReport.CiteAs
 
   override fun serialize(encoder: Encoder, `value`: EvidenceReport.CiteAs) {
     surrogateSerializer.serialize(encoder, EvidenceReportCiteAsSurrogate.fromModel(value))
+  }
+}
+
+public object EvidenceReportSubjectCharacteristicValueSerializer :
+  KSerializer<EvidenceReport.Subject.Characteristic.Value> {
+  internal val surrogateSerializer:
+    KSerializer<EvidenceReportSubjectCharacteristicValueSurrogate> by lazy {
+    EvidenceReportSubjectCharacteristicValueSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Value", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): EvidenceReport.Subject.Characteristic.Value =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: EvidenceReport.Subject.Characteristic.Value) {
+    surrogateSerializer.serialize(
+      encoder,
+      EvidenceReportSubjectCharacteristicValueSurrogate.fromModel(value),
+    )
   }
 }
 

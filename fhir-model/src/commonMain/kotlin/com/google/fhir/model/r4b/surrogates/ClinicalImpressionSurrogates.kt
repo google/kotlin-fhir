@@ -126,7 +126,7 @@ internal data class ClinicalImpressionEffectiveSurrogate(
   public var effectivePeriod: Period? = null,
 ) {
   public fun toModel(): ClinicalImpression.Effective =
-    ClinicalImpression.Effective?.from(
+    ClinicalImpression.Effective.from(
       DateTime.of(
         FhirDateTime.fromString(this@ClinicalImpressionEffectiveSurrogate.effectiveDateTime),
         this@ClinicalImpressionEffectiveSurrogate._effectiveDateTime,

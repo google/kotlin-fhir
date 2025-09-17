@@ -17,13 +17,9 @@
 package com.google.fhir.codegen
 
 import com.google.fhir.codegen.schema.StructureDefinition
-import com.google.fhir.codegen.schema.capitalized
-import com.google.fhir.codegen.schema.rootElements
 import com.google.fhir.codegen.schema.serializableWithCustomSerializer
-import com.squareup.kotlinpoet.AnnotationSpec
-import com.squareup.kotlinpoet.ClassName
+import com.google.fhir.codegen.schema.valueset.ValueSet
 import com.squareup.kotlinpoet.FileSpec
-import kotlinx.serialization.UseSerializers
 
 /**
  * Generates [FileSpec]s for a given FHIR StructureDefinition.
@@ -44,124 +40,33 @@ import kotlinx.serialization.UseSerializers
  * - `PatientSerializers.kt` in the `serializers` package containing custom serializers like
  *   `PatientSerializer`, `PatientContactSerializer`, etc.
  */
-object FhirCodegen {
-  fun generateFileSpecs(
-    packageName: String,
-    structureDefinition: StructureDefinition,
-    isBaseClass: Boolean,
-    modelTypeSpecGenerator: ModelTypeSpecGenerator,
-    surrogateTypeSpecGenerator: SurrogateTypeSpecGenerator,
-    enumFileSpecGenerator: EnumFileSpecGenerator,
-  ): List<FileSpec> {
-    val modelClassName = ClassName(packageName, structureDefinition.name.capitalized())
-    val modelFileSpec = FileSpec.builder(modelClassName)
-    val surrogateFileSpec = modelClassName.toSurrogateFileSpecBuilder()
-    val serializerFileSpec = modelClassName.toSerializerFileSpecBuilder()
+class FhirCodegen(
+  packageName: String,
+  valueSetMap: Map<String, ValueSet>,
+  baseClassesSet: HashSet<String>,
+) {
 
-    val fileSpecs =
-      mutableListOf(
-        modelFileSpec
-          .addType(
-            modelTypeSpecGenerator.generate(
-              modelClassName,
-              structureDefinition,
-              isBaseClass,
-              surrogateTypeSpecGenerator,
-              surrogateFileSpec,
-              serializerFileSpec,
-            )
-          )
-          .addSuppressAnnotation()
-          .build()
-      )
+  private val codegenContext =
+    CodegenContext(
+      packageName = packageName,
+      valueSetMap = valueSetMap,
+      baseClassNameSet = baseClassesSet,
+    )
 
+  private val modelFileSpecGenerator = ModelFileSpecGenerator(codegenContext)
+  private val surrogateFileSpecGenerator = SurrogateFileSpecGenerator(codegenContext)
+  private val serializerFileSpecGenerator = SerializerFileSpecGenerator(codegenContext)
+  private val enumFileSpecGenerator = EnumFileSpecGenerator(codegenContext)
+
+  fun generateFileSpecs(structureDefinition: StructureDefinition): List<FileSpec> {
+    val fileSpecs = mutableListOf(modelFileSpecGenerator.generate(structureDefinition))
     if (structureDefinition.serializableWithCustomSerializer) {
       // TODO: Handle cases where the class does not need the surrogate class and the
       //  custom serializer since it does not have any primitive fields.
-      val serializersPackageName = "${modelClassName.packageName}.serializers"
-      val rootElements = structureDefinition.rootElements
-
-      surrogateTypeSpecGenerator
-        .generateSealedInterfaceSurrogates(modelClassName, rootElements)
-        .forEach { surrogateFileSpec.addType(it) }
-      surrogateFileSpec.addType(
-        surrogateTypeSpecGenerator.generateModelSurrogate(modelClassName, rootElements)
-      )
-
-      fileSpecs +=
-        surrogateFileSpec
-          .addAnnotation(
-            AnnotationSpec.builder(UseSerializers::class)
-              .addMember("%T::class", ClassName(serializersPackageName, "DoubleSerializer"))
-              .addMember("%T::class", ClassName(serializersPackageName, "LocalTimeSerializer"))
-              .build()
-          )
-          .addSuppressAnnotation()
-          .build()
-
-      fileSpecs +=
-        serializerFileSpec
-          .addType(
-            SerializerTypeSpecGenerator.generate(
-              modelClassName,
-              rootElements,
-              structureDefinition.kind to structureDefinition.name,
-            )
-          )
-          .addSuppressAnnotation()
-          .build()
-
-      fileSpecs += enumFileSpecGenerator.generate(structureDefinition, packageName)
+      fileSpecs += surrogateFileSpecGenerator.generate(structureDefinition)
+      fileSpecs += serializerFileSpecGenerator.generate(structureDefinition)
     }
+    fileSpecs += enumFileSpecGenerator.generate(structureDefinition)
     return fileSpecs
   }
-}
-
-/**
- * Returns the [FileSpec.Builder] that represents the surrogate file for this [ClassName]. The
- * surrogate file will contain the surrogate class for the given [ClassName] and all surrogate
- * classes of its nested classes. The surrogate file will be under the `surrogate` package with a
- * name suffixed with "Surrogates".
- *
- * For example:
- * - `com.google.fhir.r4.Patient` will return [FileSpec] for `PatientSurrogates.kt` in package
- *   `com.google.fhir.r4.surrogates`.
- */
-private fun ClassName.toSurrogateFileSpecBuilder(): FileSpec.Builder =
-  FileSpec.builder("${packageName}.surrogates", simpleName.plus("Surrogates"))
-
-/**
- * Returns the [FileSpec.Builder] that represents the serializer file for this [ClassName]. The
- * serializer file will contain the serializer for the given [ClassName] and all serializers for its
- * nested classes. The serializer file will be under the `serializers` package with a name suffixed
- * with "Serializers".
- *
- * For example:
- * - `com.google.fhir.r4.Patient` will return [FileSpec] for `PatientSerializers.kt` in package
- *   `com.google.fhir.r4.serializers`.
- */
-private fun ClassName.toSerializerFileSpecBuilder(): FileSpec.Builder =
-  FileSpec.builder("${packageName}.serializers", simpleName.plus("Serializers"))
-
-/**
- * Adds a `@Suppress` annotation to the [FileSpec.Builder] to prevent warnings.
- *
- * This function adds the following suppressions:
- * - `RedundantVisibilityModifier`: Suppresses warnings about redundant visibility modifiers (e.g.,
- *   `public`) that KotlinPoet might generate.
- * - `PropertyName`: Suppresses warnings about property names that start with an underscore (`_`),
- *   which is a convention used in the generated code for JSON properties associated with FHIR
- *   primitive types that may have extensions.
- */
-private fun FileSpec.Builder.addSuppressAnnotation() = apply {
-  addAnnotation(
-    AnnotationSpec.builder(Suppress::class)
-      // Suppresses warnings about redundant visibility modifiers (e.g., `public`) KotlinPoet might
-      // generate.
-      .addMember("%S", "RedundantVisibilityModifier")
-      // Suppress warnings about property names prefixed with an underscore `_` for FHIR primitive
-      // data types.
-      .addMember("%S", "PropertyName")
-      .build()
-  )
 }

@@ -149,7 +149,7 @@ internal data class ActivityDefinitionSubjectSurrogate(
   public var _subjectCanonical: Element? = null,
 ) {
   public fun toModel(): ActivityDefinition.Subject =
-    ActivityDefinition.Subject?.from(
+    ActivityDefinition.Subject.from(
       this@ActivityDefinitionSubjectSurrogate.subjectCodeableConcept,
       this@ActivityDefinitionSubjectSurrogate.subjectReference,
       Canonical.of(
@@ -182,7 +182,7 @@ internal data class ActivityDefinitionTimingSurrogate(
   public var timingDuration: Duration? = null,
 ) {
   public fun toModel(): ActivityDefinition.Timing =
-    ActivityDefinition.Timing?.from(
+    ActivityDefinition.Timing.from(
       this@ActivityDefinitionTimingSurrogate.timingTiming,
       DateTime.of(
         FhirDateTime.fromString(this@ActivityDefinitionTimingSurrogate.timingDateTime),
@@ -216,7 +216,7 @@ internal data class ActivityDefinitionProductSurrogate(
   public var productCodeableConcept: CodeableConcept? = null,
 ) {
   public fun toModel(): ActivityDefinition.Product =
-    ActivityDefinition.Product?.from(
+    ActivityDefinition.Product.from(
       this@ActivityDefinitionProductSurrogate.productReference,
       this@ActivityDefinitionProductSurrogate.productCodeableConcept,
     )!!

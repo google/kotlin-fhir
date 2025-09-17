@@ -22,7 +22,6 @@ import com.google.fhir.codegen.schema.Type
 import com.google.fhir.codegen.schema.backboneElements
 import com.google.fhir.codegen.schema.capitalized
 import com.google.fhir.codegen.schema.getElementName
-import com.google.fhir.codegen.schema.getElements
 import com.google.fhir.codegen.schema.getEnumerationTypeName
 import com.google.fhir.codegen.schema.getTypeName
 import com.google.fhir.codegen.schema.getValueSetUrl
@@ -48,24 +47,18 @@ import com.squareup.kotlinpoet.asTypeName
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
-/** Generates a [TypeSpec] for a model class. */
-class ModelTypeSpecGenerator(private val valueSetMap: Map<String, ValueSet>) {
+/** Generates a [FileSpec] for a model class. */
+class ModelFileSpecGenerator(val codegenContext: CodegenContext) {
 
-  fun generate(
-    modelClassName: ClassName,
-    structureDefinition: StructureDefinition,
-    isBaseClass: Boolean,
-    surrogateTypeSpecGenerator: SurrogateTypeSpecGenerator,
-    surrogateFileSpec: FileSpec.Builder,
-    serializerFileSpec: FileSpec.Builder,
-  ): TypeSpec {
+  fun generate(structureDefinition: StructureDefinition): FileSpec {
     // Nested enums are all created inside the enclosing parent class for reusability
     val enumClassesMap = mutableMapOf<String, TypeSpec>()
+    val modelClassName = codegenContext.getModelClassName(structureDefinition)
     val typeSpec =
       TypeSpec.classBuilder(modelClassName)
         .apply {
           val structureDefinitionName = structureDefinition.name
-
+          val isBaseClass = codegenContext.isBaseClass(structureDefinition)
           if (
             structureDefinitionName == "Resource" || structureDefinitionName == "DomainResource"
           ) {
@@ -146,7 +139,7 @@ class ModelTypeSpecGenerator(private val valueSetMap: Map<String, ValueSet>) {
             structureDefinition.rootElements,
             structureDefinition,
             isBaseClass,
-            valueSetMap,
+            codegenContext.valueSetMap,
           )
 
           addBackboneElement(
@@ -154,17 +147,16 @@ class ModelTypeSpecGenerator(private val valueSetMap: Map<String, ValueSet>) {
             enclosingModelClassName = modelClassName,
             backboneElements = structureDefinition.backboneElements,
             structureDefinition = structureDefinition,
-            surrogateTypeSpecGenerator = surrogateTypeSpecGenerator,
-            surrogateFileSpec = surrogateFileSpec,
-            serializerFileSpec = serializerFileSpec,
+            valueSetMap = codegenContext.valueSetMap,
             createEnumNameToTypeSpecEntry = { enumClassName, typeSpec ->
               enumClassesMap.putIfAbsent(enumClassName, typeSpec)
             },
           )
 
-          addSealedInterfaces(modelClassName, structureDefinition.rootElements, serializerFileSpec)
+          addSealedInterfaces(modelClassName, structureDefinition.rootElements)
 
           addEnumClassTypeSpec(
+            valueSetMap = codegenContext.valueSetMap,
             elements = structureDefinition.rootElements,
             createEnumNameToTypeSpecEntry = { enumClassName, typeSpec ->
               enumClassesMap.putIfAbsent(enumClassName, typeSpec)
@@ -203,7 +195,7 @@ class ModelTypeSpecGenerator(private val valueSetMap: Map<String, ValueSet>) {
           }
         }
         .build()
-    return typeSpec
+    return FileSpec.builder(modelClassName).addSuppressAnnotation().addType(typeSpec).build()
   }
 
   private fun TypeSpec.Builder.addEqualsAndHashCodeFunctions(
@@ -261,9 +253,7 @@ class ModelTypeSpecGenerator(private val valueSetMap: Map<String, ValueSet>) {
     enclosingModelClassName: ClassName,
     backboneElements: Map<Element, List<Element>>,
     structureDefinition: StructureDefinition,
-    surrogateTypeSpecGenerator: SurrogateTypeSpecGenerator,
-    surrogateFileSpec: FileSpec.Builder,
-    serializerFileSpec: FileSpec.Builder,
+    valueSetMap: Map<String, ValueSet>,
     createEnumNameToTypeSpecEntry: (String, TypeSpec) -> Unit,
   ): TypeSpec.Builder {
     backboneElements
@@ -292,36 +282,16 @@ class ModelTypeSpecGenerator(private val valueSetMap: Map<String, ValueSet>) {
               backboneElementClassName,
               backboneElements,
               structureDefinition,
-              surrogateTypeSpecGenerator,
-              surrogateFileSpec,
-              serializerFileSpec,
+              valueSetMap,
               createEnumNameToTypeSpecEntry,
             )
-            .addSealedInterfaces(
-              backboneElementClassName,
-              structureDefinition.getElements(backboneElementClassName),
-              serializerFileSpec,
-            )
+            .addSealedInterfaces(backboneElementClassName, elements)
             .build()
-        )
-
-        // TODO: Handle cases where the BackboneElement does not need the surrogate class and
-        //  the custom serializer since it does not have any primitive fields.
-        surrogateFileSpec.apply {
-          surrogateTypeSpecGenerator
-            .generateSealedInterfaceSurrogates(backboneElementClassName, elements)
-            .forEach(this::addType)
-          addType(
-            surrogateTypeSpecGenerator.generateModelSurrogate(backboneElementClassName, elements)
-          )
-        }
-
-        serializerFileSpec.addType(
-          SerializerTypeSpecGenerator.generate(backboneElementClassName, elements)
         )
       }
 
     addEnumClassTypeSpec(
+      valueSetMap = valueSetMap,
       elements = backboneElements.values.flatten(),
       createEnumNameToTypeSpecEntry = createEnumNameToTypeSpecEntry,
     )
@@ -333,6 +303,7 @@ class ModelTypeSpecGenerator(private val valueSetMap: Map<String, ValueSet>) {
    * the ValueSet urls for common binding Elements.
    */
   private fun addEnumClassTypeSpec(
+    valueSetMap: Map<String, ValueSet>,
     elements: List<Element>,
     createEnumNameToTypeSpecEntry: (String, TypeSpec) -> Unit,
   ) {
@@ -439,7 +410,6 @@ private fun TypeSpec.Builder.buildProperties(
 private fun TypeSpec.Builder.addSealedInterfaces(
   enclosingModelClassName: ClassName,
   elements: List<Element>,
-  serializerFileSpec: FileSpec.Builder,
 ): TypeSpec.Builder {
   for (element in elements.filter { it.path.endsWith("[x]") }) {
     val sealedInterfaceClassName =
@@ -487,7 +457,6 @@ private fun TypeSpec.Builder.addSealedInterfaces(
         }
         .build()
     )
-    serializerFileSpec.addType(SerializerTypeSpecGenerator.generate(sealedInterfaceClassName, null))
   }
   return this
 }

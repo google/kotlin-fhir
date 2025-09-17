@@ -88,6 +88,49 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
+internal data class ParametersParameterSurrogate(
+  public var id: KotlinString? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var name: KotlinString? = null,
+  public var _name: Element? = null,
+  public var `value`: Parameters.Parameter.Value? = null,
+  public var resource: Resource? = null,
+  public var part: MutableList<Parameters.Parameter>? = null,
+) {
+  public fun toModel(): Parameters.Parameter =
+    Parameters.Parameter(
+      id = this@ParametersParameterSurrogate.id,
+      extension = this@ParametersParameterSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@ParametersParameterSurrogate.modifierExtension ?: mutableListOf(),
+      name =
+        R4String.of(
+          this@ParametersParameterSurrogate.name,
+          this@ParametersParameterSurrogate._name,
+        )!!,
+      `value` = this@ParametersParameterSurrogate.`value`,
+      resource = this@ParametersParameterSurrogate.resource,
+      part = this@ParametersParameterSurrogate.part ?: mutableListOf(),
+    )
+
+  public companion object {
+    public fun fromModel(model: Parameters.Parameter): ParametersParameterSurrogate =
+      with(model) {
+        ParametersParameterSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          name = this@with.name.value,
+          _name = this@with.name.toElement(),
+          `value` = this@with.`value`,
+          resource = this@with.resource,
+          part = this@with.part.takeUnless { it.all { it == null } },
+        )
+      }
+  }
+}
+
+@Serializable
 internal data class ParametersParameterValueSurrogate(
   public var valueBase64Binary: KotlinString? = null,
   public var _valueBase64Binary: Element? = null,
@@ -160,7 +203,7 @@ internal data class ParametersParameterValueSurrogate(
   public var valueMeta: Meta? = null,
 ) {
   public fun toModel(): Parameters.Parameter.Value =
-    Parameters.Parameter.Value?.from(
+    Parameters.Parameter.Value.from(
       Base64Binary.of(
         this@ParametersParameterValueSurrogate.valueBase64Binary,
         this@ParametersParameterValueSurrogate._valueBase64Binary,
@@ -343,49 +386,6 @@ internal data class ParametersParameterValueSurrogate(
           valueUsageContext = this@with.asUsageContext()?.value,
           valueDosage = this@with.asDosage()?.value,
           valueMeta = this@with.asMeta()?.value,
-        )
-      }
-  }
-}
-
-@Serializable
-internal data class ParametersParameterSurrogate(
-  public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var name: KotlinString? = null,
-  public var _name: Element? = null,
-  public var `value`: Parameters.Parameter.Value? = null,
-  public var resource: Resource? = null,
-  public var part: MutableList<Parameters.Parameter>? = null,
-) {
-  public fun toModel(): Parameters.Parameter =
-    Parameters.Parameter(
-      id = this@ParametersParameterSurrogate.id,
-      extension = this@ParametersParameterSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@ParametersParameterSurrogate.modifierExtension ?: mutableListOf(),
-      name =
-        R4String.of(
-          this@ParametersParameterSurrogate.name,
-          this@ParametersParameterSurrogate._name,
-        )!!,
-      `value` = this@ParametersParameterSurrogate.`value`,
-      resource = this@ParametersParameterSurrogate.resource,
-      part = this@ParametersParameterSurrogate.part ?: mutableListOf(),
-    )
-
-  public companion object {
-    public fun fromModel(model: Parameters.Parameter): ParametersParameterSurrogate =
-      with(model) {
-        ParametersParameterSurrogate(
-          id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          name = this@with.name.value,
-          _name = this@with.name.toElement(),
-          `value` = this@with.`value`,
-          resource = this@with.resource,
-          part = this@with.part.takeUnless { it.all { it == null } },
         )
       }
   }

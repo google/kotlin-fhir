@@ -167,7 +167,7 @@ internal data class ExtensionValueSurrogate(
   public var valueMeta: Meta? = null,
 ) {
   public fun toModel(): Extension.Value =
-    Extension.Value?.from(
+    Extension.Value.from(
       Base64Binary.of(
         this@ExtensionValueSurrogate.valueBase64Binary,
         this@ExtensionValueSurrogate._valueBase64Binary,

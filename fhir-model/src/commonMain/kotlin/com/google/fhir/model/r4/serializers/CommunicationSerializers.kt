@@ -36,23 +36,6 @@ import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.JsonPrimitive
 import kotlinx.serialization.json.jsonObject
 
-public object CommunicationPayloadContentSerializer : KSerializer<Communication.Payload.Content> {
-  internal val surrogateSerializer: KSerializer<CommunicationPayloadContentSurrogate> by lazy {
-    CommunicationPayloadContentSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Content", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): Communication.Payload.Content =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: Communication.Payload.Content) {
-    surrogateSerializer.serialize(encoder, CommunicationPayloadContentSurrogate.fromModel(value))
-  }
-}
-
 public object CommunicationPayloadSerializer : KSerializer<Communication.Payload> {
   internal val surrogateSerializer: KSerializer<CommunicationPayloadSurrogate> by lazy {
     CommunicationPayloadSurrogate.serializer()
@@ -97,6 +80,23 @@ public object CommunicationPayloadSerializer : KSerializer<Communication.Payload
       }
     val flattenedJsonObject = FhirJsonTransformer.flatten(oldJsonObject, multiChoiceProperties)
     jsonEncoder.encodeJsonElement(flattenedJsonObject)
+  }
+}
+
+public object CommunicationPayloadContentSerializer : KSerializer<Communication.Payload.Content> {
+  internal val surrogateSerializer: KSerializer<CommunicationPayloadContentSurrogate> by lazy {
+    CommunicationPayloadContentSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Content", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): Communication.Payload.Content =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: Communication.Payload.Content) {
+    surrogateSerializer.serialize(encoder, CommunicationPayloadContentSurrogate.fromModel(value))
   }
 }
 

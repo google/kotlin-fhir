@@ -46,28 +46,6 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
-internal data class MedicationIngredientItemSurrogate(
-  public var itemCodeableConcept: CodeableConcept? = null,
-  public var itemReference: Reference? = null,
-) {
-  public fun toModel(): Medication.Ingredient.Item =
-    Medication.Ingredient.Item.from(
-      this@MedicationIngredientItemSurrogate.itemCodeableConcept,
-      this@MedicationIngredientItemSurrogate.itemReference,
-    )!! !!
-
-  public companion object {
-    public fun fromModel(model: Medication.Ingredient.Item): MedicationIngredientItemSurrogate =
-      with(model) {
-        MedicationIngredientItemSurrogate(
-          itemCodeableConcept = this@with.asCodeableConcept()?.value,
-          itemReference = this@with.asReference()?.value,
-        )
-      }
-  }
-}
-
-@Serializable
 internal data class MedicationIngredientSurrogate(
   public var id: KotlinString? = null,
   public var extension: MutableList<Extension>? = null,
@@ -145,6 +123,28 @@ internal data class MedicationBatchSurrogate(
           _lotNumber = this@with.lotNumber?.toElement(),
           expirationDate = this@with.expirationDate?.value?.toString(),
           _expirationDate = this@with.expirationDate?.toElement(),
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class MedicationIngredientItemSurrogate(
+  public var itemCodeableConcept: CodeableConcept? = null,
+  public var itemReference: Reference? = null,
+) {
+  public fun toModel(): Medication.Ingredient.Item =
+    Medication.Ingredient.Item.from(
+      this@MedicationIngredientItemSurrogate.itemCodeableConcept,
+      this@MedicationIngredientItemSurrogate.itemReference,
+    )!! !!
+
+  public companion object {
+    public fun fromModel(model: Medication.Ingredient.Item): MedicationIngredientItemSurrogate =
+      with(model) {
+        MedicationIngredientItemSurrogate(
+          itemCodeableConcept = this@with.asCodeableConcept()?.value,
+          itemReference = this@with.asReference()?.value,
         )
       }
   }

@@ -76,42 +76,45 @@ internal data class PermissionJustificationSurrogate(
 }
 
 @Serializable
-internal data class PermissionRuleDataResourceSurrogate(
+internal data class PermissionRuleSurrogate(
   public var id: String? = null,
   public var extension: MutableList<Extension>? = null,
   public var modifierExtension: MutableList<Extension>? = null,
-  public var meaning: String? = null,
-  public var _meaning: Element? = null,
-  public var reference: Reference,
+  public var type: String? = null,
+  public var _type: Element? = null,
+  public var `data`: MutableList<Permission.Rule.Data>? = null,
+  public var activity: MutableList<Permission.Rule.Activity>? = null,
+  public var limit: MutableList<CodeableConcept>? = null,
 ) {
-  public fun toModel(): Permission.Rule.Data.Resource =
-    Permission.Rule.Data.Resource(
-      id = this@PermissionRuleDataResourceSurrogate.id,
-      extension = this@PermissionRuleDataResourceSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@PermissionRuleDataResourceSurrogate.modifierExtension ?: mutableListOf(),
-      meaning =
-        Enumeration.of(
-          com.google.fhir.model.r5.Permission.ConsentDataMeaning.fromCode(
-            this@PermissionRuleDataResourceSurrogate.meaning!!
-          ),
-          this@PermissionRuleDataResourceSurrogate._meaning,
-        ),
-      reference = this@PermissionRuleDataResourceSurrogate.reference,
+  public fun toModel(): Permission.Rule =
+    Permission.Rule(
+      id = this@PermissionRuleSurrogate.id,
+      extension = this@PermissionRuleSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@PermissionRuleSurrogate.modifierExtension ?: mutableListOf(),
+      type =
+        this@PermissionRuleSurrogate.type?.let {
+          Enumeration.of(
+            com.google.fhir.model.r5.Permission.ConsentProvisionType.fromCode(it!!),
+            this@PermissionRuleSurrogate._type,
+          )
+        },
+      `data` = this@PermissionRuleSurrogate.`data` ?: mutableListOf(),
+      activity = this@PermissionRuleSurrogate.activity ?: mutableListOf(),
+      limit = this@PermissionRuleSurrogate.limit ?: mutableListOf(),
     )
 
   public companion object {
-    public fun fromModel(
-      model: Permission.Rule.Data.Resource
-    ): PermissionRuleDataResourceSurrogate =
+    public fun fromModel(model: Permission.Rule): PermissionRuleSurrogate =
       with(model) {
-        PermissionRuleDataResourceSurrogate(
+        PermissionRuleSurrogate(
           id = this@with.id,
           extension = this@with.extension.takeUnless { it.all { it == null } },
           modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          meaning = this@with.meaning.value?.getCode(),
-          _meaning = this@with.meaning.toElement(),
-          reference = this@with.reference,
+          type = this@with.type?.value?.getCode(),
+          _type = this@with.type?.toElement(),
+          `data` = this@with.`data`.takeUnless { it.all { it == null } },
+          activity = this@with.activity.takeUnless { it.all { it == null } },
+          limit = this@with.limit.takeUnless { it.all { it == null } },
         )
       }
   }
@@ -155,6 +158,48 @@ internal data class PermissionRuleDataSurrogate(
 }
 
 @Serializable
+internal data class PermissionRuleDataResourceSurrogate(
+  public var id: String? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var meaning: String? = null,
+  public var _meaning: Element? = null,
+  public var reference: Reference,
+) {
+  public fun toModel(): Permission.Rule.Data.Resource =
+    Permission.Rule.Data.Resource(
+      id = this@PermissionRuleDataResourceSurrogate.id,
+      extension = this@PermissionRuleDataResourceSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@PermissionRuleDataResourceSurrogate.modifierExtension ?: mutableListOf(),
+      meaning =
+        Enumeration.of(
+          com.google.fhir.model.r5.Permission.ConsentDataMeaning.fromCode(
+            this@PermissionRuleDataResourceSurrogate.meaning!!
+          ),
+          this@PermissionRuleDataResourceSurrogate._meaning,
+        ),
+      reference = this@PermissionRuleDataResourceSurrogate.reference,
+    )
+
+  public companion object {
+    public fun fromModel(
+      model: Permission.Rule.Data.Resource
+    ): PermissionRuleDataResourceSurrogate =
+      with(model) {
+        PermissionRuleDataResourceSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          meaning = this@with.meaning.value?.getCode(),
+          _meaning = this@with.meaning.toElement(),
+          reference = this@with.reference,
+        )
+      }
+  }
+}
+
+@Serializable
 internal data class PermissionRuleActivitySurrogate(
   public var id: String? = null,
   public var extension: MutableList<Extension>? = null,
@@ -183,51 +228,6 @@ internal data class PermissionRuleActivitySurrogate(
           actor = this@with.actor.takeUnless { it.all { it == null } },
           action = this@with.action.takeUnless { it.all { it == null } },
           purpose = this@with.purpose.takeUnless { it.all { it == null } },
-        )
-      }
-  }
-}
-
-@Serializable
-internal data class PermissionRuleSurrogate(
-  public var id: String? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var type: String? = null,
-  public var _type: Element? = null,
-  public var `data`: MutableList<Permission.Rule.Data>? = null,
-  public var activity: MutableList<Permission.Rule.Activity>? = null,
-  public var limit: MutableList<CodeableConcept>? = null,
-) {
-  public fun toModel(): Permission.Rule =
-    Permission.Rule(
-      id = this@PermissionRuleSurrogate.id,
-      extension = this@PermissionRuleSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@PermissionRuleSurrogate.modifierExtension ?: mutableListOf(),
-      type =
-        this@PermissionRuleSurrogate.type?.let {
-          Enumeration.of(
-            com.google.fhir.model.r5.Permission.ConsentProvisionType.fromCode(it!!),
-            this@PermissionRuleSurrogate._type,
-          )
-        },
-      `data` = this@PermissionRuleSurrogate.`data` ?: mutableListOf(),
-      activity = this@PermissionRuleSurrogate.activity ?: mutableListOf(),
-      limit = this@PermissionRuleSurrogate.limit ?: mutableListOf(),
-    )
-
-  public companion object {
-    public fun fromModel(model: Permission.Rule): PermissionRuleSurrogate =
-      with(model) {
-        PermissionRuleSurrogate(
-          id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          type = this@with.type?.value?.getCode(),
-          _type = this@with.type?.toElement(),
-          `data` = this@with.`data`.takeUnless { it.all { it == null } },
-          activity = this@with.activity.takeUnless { it.all { it == null } },
-          limit = this@with.limit.takeUnless { it.all { it == null } },
         )
       }
   }

@@ -106,6 +106,79 @@ internal data class EvidenceVariableDefinitionSurrogate(
 }
 
 @Serializable
+internal data class EvidenceStatisticSurrogate(
+  public var id: KotlinString? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var description: KotlinString? = null,
+  public var _description: Element? = null,
+  public var note: MutableList<Annotation>? = null,
+  public var statisticType: CodeableConcept? = null,
+  public var category: CodeableConcept? = null,
+  public var quantity: Quantity? = null,
+  public var numberOfEvents: Int? = null,
+  public var _numberOfEvents: Element? = null,
+  public var numberAffected: Int? = null,
+  public var _numberAffected: Element? = null,
+  public var sampleSize: Evidence.Statistic.SampleSize? = null,
+  public var attributeEstimate: MutableList<Evidence.Statistic.AttributeEstimate>? = null,
+  public var modelCharacteristic: MutableList<Evidence.Statistic.ModelCharacteristic>? = null,
+) {
+  public fun toModel(): Evidence.Statistic =
+    Evidence.Statistic(
+      id = this@EvidenceStatisticSurrogate.id,
+      extension = this@EvidenceStatisticSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@EvidenceStatisticSurrogate.modifierExtension ?: mutableListOf(),
+      description =
+        R4bString.of(
+          this@EvidenceStatisticSurrogate.description,
+          this@EvidenceStatisticSurrogate._description,
+        ),
+      note = this@EvidenceStatisticSurrogate.note ?: mutableListOf(),
+      statisticType = this@EvidenceStatisticSurrogate.statisticType,
+      category = this@EvidenceStatisticSurrogate.category,
+      quantity = this@EvidenceStatisticSurrogate.quantity,
+      numberOfEvents =
+        UnsignedInt.of(
+          this@EvidenceStatisticSurrogate.numberOfEvents,
+          this@EvidenceStatisticSurrogate._numberOfEvents,
+        ),
+      numberAffected =
+        UnsignedInt.of(
+          this@EvidenceStatisticSurrogate.numberAffected,
+          this@EvidenceStatisticSurrogate._numberAffected,
+        ),
+      sampleSize = this@EvidenceStatisticSurrogate.sampleSize,
+      attributeEstimate = this@EvidenceStatisticSurrogate.attributeEstimate ?: mutableListOf(),
+      modelCharacteristic = this@EvidenceStatisticSurrogate.modelCharacteristic ?: mutableListOf(),
+    )
+
+  public companion object {
+    public fun fromModel(model: Evidence.Statistic): EvidenceStatisticSurrogate =
+      with(model) {
+        EvidenceStatisticSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          description = this@with.description?.value,
+          _description = this@with.description?.toElement(),
+          note = this@with.note.takeUnless { it.all { it == null } },
+          statisticType = this@with.statisticType,
+          category = this@with.category,
+          quantity = this@with.quantity,
+          numberOfEvents = this@with.numberOfEvents?.value,
+          _numberOfEvents = this@with.numberOfEvents?.toElement(),
+          numberAffected = this@with.numberAffected?.value,
+          _numberAffected = this@with.numberAffected?.toElement(),
+          sampleSize = this@with.sampleSize,
+          attributeEstimate = this@with.attributeEstimate.takeUnless { it.all { it == null } },
+          modelCharacteristic = this@with.modelCharacteristic.takeUnless { it.all { it == null } },
+        )
+      }
+  }
+}
+
+@Serializable
 internal data class EvidenceStatisticSampleSizeSurrogate(
   public var id: KotlinString? = null,
   public var extension: MutableList<Extension>? = null,
@@ -235,6 +308,47 @@ internal data class EvidenceStatisticAttributeEstimateSurrogate(
 }
 
 @Serializable
+internal data class EvidenceStatisticModelCharacteristicSurrogate(
+  public var id: KotlinString? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var code: CodeableConcept,
+  public var `value`: Quantity? = null,
+  public var variable: MutableList<Evidence.Statistic.ModelCharacteristic.Variable>? = null,
+  public var attributeEstimate: MutableList<Evidence.Statistic.AttributeEstimate>? = null,
+) {
+  public fun toModel(): Evidence.Statistic.ModelCharacteristic =
+    Evidence.Statistic.ModelCharacteristic(
+      id = this@EvidenceStatisticModelCharacteristicSurrogate.id,
+      extension = this@EvidenceStatisticModelCharacteristicSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@EvidenceStatisticModelCharacteristicSurrogate.modifierExtension ?: mutableListOf(),
+      code = this@EvidenceStatisticModelCharacteristicSurrogate.code,
+      `value` = this@EvidenceStatisticModelCharacteristicSurrogate.`value`,
+      variable = this@EvidenceStatisticModelCharacteristicSurrogate.variable ?: mutableListOf(),
+      attributeEstimate =
+        this@EvidenceStatisticModelCharacteristicSurrogate.attributeEstimate ?: mutableListOf(),
+    )
+
+  public companion object {
+    public fun fromModel(
+      model: Evidence.Statistic.ModelCharacteristic
+    ): EvidenceStatisticModelCharacteristicSurrogate =
+      with(model) {
+        EvidenceStatisticModelCharacteristicSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          code = this@with.code,
+          `value` = this@with.`value`,
+          variable = this@with.variable.takeUnless { it.all { it == null } },
+          attributeEstimate = this@with.attributeEstimate.takeUnless { it.all { it == null } },
+        )
+      }
+  }
+}
+
+@Serializable
 internal data class EvidenceStatisticModelCharacteristicVariableSurrogate(
   public var id: KotlinString? = null,
   public var extension: MutableList<Extension>? = null,
@@ -286,120 +400,6 @@ internal data class EvidenceStatisticModelCharacteristicVariableSurrogate(
           valueCategory = this@with.valueCategory.takeUnless { it.all { it == null } },
           valueQuantity = this@with.valueQuantity.takeUnless { it.all { it == null } },
           valueRange = this@with.valueRange.takeUnless { it.all { it == null } },
-        )
-      }
-  }
-}
-
-@Serializable
-internal data class EvidenceStatisticModelCharacteristicSurrogate(
-  public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var code: CodeableConcept,
-  public var `value`: Quantity? = null,
-  public var variable: MutableList<Evidence.Statistic.ModelCharacteristic.Variable>? = null,
-  public var attributeEstimate: MutableList<Evidence.Statistic.AttributeEstimate>? = null,
-) {
-  public fun toModel(): Evidence.Statistic.ModelCharacteristic =
-    Evidence.Statistic.ModelCharacteristic(
-      id = this@EvidenceStatisticModelCharacteristicSurrogate.id,
-      extension = this@EvidenceStatisticModelCharacteristicSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@EvidenceStatisticModelCharacteristicSurrogate.modifierExtension ?: mutableListOf(),
-      code = this@EvidenceStatisticModelCharacteristicSurrogate.code,
-      `value` = this@EvidenceStatisticModelCharacteristicSurrogate.`value`,
-      variable = this@EvidenceStatisticModelCharacteristicSurrogate.variable ?: mutableListOf(),
-      attributeEstimate =
-        this@EvidenceStatisticModelCharacteristicSurrogate.attributeEstimate ?: mutableListOf(),
-    )
-
-  public companion object {
-    public fun fromModel(
-      model: Evidence.Statistic.ModelCharacteristic
-    ): EvidenceStatisticModelCharacteristicSurrogate =
-      with(model) {
-        EvidenceStatisticModelCharacteristicSurrogate(
-          id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          code = this@with.code,
-          `value` = this@with.`value`,
-          variable = this@with.variable.takeUnless { it.all { it == null } },
-          attributeEstimate = this@with.attributeEstimate.takeUnless { it.all { it == null } },
-        )
-      }
-  }
-}
-
-@Serializable
-internal data class EvidenceStatisticSurrogate(
-  public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var description: KotlinString? = null,
-  public var _description: Element? = null,
-  public var note: MutableList<Annotation>? = null,
-  public var statisticType: CodeableConcept? = null,
-  public var category: CodeableConcept? = null,
-  public var quantity: Quantity? = null,
-  public var numberOfEvents: Int? = null,
-  public var _numberOfEvents: Element? = null,
-  public var numberAffected: Int? = null,
-  public var _numberAffected: Element? = null,
-  public var sampleSize: Evidence.Statistic.SampleSize? = null,
-  public var attributeEstimate: MutableList<Evidence.Statistic.AttributeEstimate>? = null,
-  public var modelCharacteristic: MutableList<Evidence.Statistic.ModelCharacteristic>? = null,
-) {
-  public fun toModel(): Evidence.Statistic =
-    Evidence.Statistic(
-      id = this@EvidenceStatisticSurrogate.id,
-      extension = this@EvidenceStatisticSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@EvidenceStatisticSurrogate.modifierExtension ?: mutableListOf(),
-      description =
-        R4bString.of(
-          this@EvidenceStatisticSurrogate.description,
-          this@EvidenceStatisticSurrogate._description,
-        ),
-      note = this@EvidenceStatisticSurrogate.note ?: mutableListOf(),
-      statisticType = this@EvidenceStatisticSurrogate.statisticType,
-      category = this@EvidenceStatisticSurrogate.category,
-      quantity = this@EvidenceStatisticSurrogate.quantity,
-      numberOfEvents =
-        UnsignedInt.of(
-          this@EvidenceStatisticSurrogate.numberOfEvents,
-          this@EvidenceStatisticSurrogate._numberOfEvents,
-        ),
-      numberAffected =
-        UnsignedInt.of(
-          this@EvidenceStatisticSurrogate.numberAffected,
-          this@EvidenceStatisticSurrogate._numberAffected,
-        ),
-      sampleSize = this@EvidenceStatisticSurrogate.sampleSize,
-      attributeEstimate = this@EvidenceStatisticSurrogate.attributeEstimate ?: mutableListOf(),
-      modelCharacteristic = this@EvidenceStatisticSurrogate.modelCharacteristic ?: mutableListOf(),
-    )
-
-  public companion object {
-    public fun fromModel(model: Evidence.Statistic): EvidenceStatisticSurrogate =
-      with(model) {
-        EvidenceStatisticSurrogate(
-          id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          description = this@with.description?.value,
-          _description = this@with.description?.toElement(),
-          note = this@with.note.takeUnless { it.all { it == null } },
-          statisticType = this@with.statisticType,
-          category = this@with.category,
-          quantity = this@with.quantity,
-          numberOfEvents = this@with.numberOfEvents?.value,
-          _numberOfEvents = this@with.numberOfEvents?.toElement(),
-          numberAffected = this@with.numberAffected?.value,
-          _numberAffected = this@with.numberAffected?.toElement(),
-          sampleSize = this@with.sampleSize,
-          attributeEstimate = this@with.attributeEstimate.takeUnless { it.all { it == null } },
-          modelCharacteristic = this@with.modelCharacteristic.takeUnless { it.all { it == null } },
         )
       }
   }
@@ -464,7 +464,7 @@ internal data class EvidenceCiteAsSurrogate(
   public var _citeAsMarkdown: Element? = null,
 ) {
   public fun toModel(): Evidence.CiteAs =
-    Evidence.CiteAs?.from(
+    Evidence.CiteAs.from(
       this@EvidenceCiteAsSurrogate.citeAsReference,
       Markdown.of(
         this@EvidenceCiteAsSurrogate.citeAsMarkdown,

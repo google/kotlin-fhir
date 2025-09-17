@@ -51,6 +51,28 @@ public object ChargeItemDefinitionApplicabilitySerializer :
   }
 }
 
+public object ChargeItemDefinitionPropertyGroupSerializer :
+  KSerializer<ChargeItemDefinition.PropertyGroup> {
+  internal val surrogateSerializer:
+    KSerializer<ChargeItemDefinitionPropertyGroupSurrogate> by lazy {
+    ChargeItemDefinitionPropertyGroupSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("PropertyGroup", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): ChargeItemDefinition.PropertyGroup =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: ChargeItemDefinition.PropertyGroup) {
+    surrogateSerializer.serialize(
+      encoder,
+      ChargeItemDefinitionPropertyGroupSurrogate.fromModel(value),
+    )
+  }
+}
+
 public object ChargeItemDefinitionPropertyGroupPriceComponentSerializer :
   KSerializer<ChargeItemDefinition.PropertyGroup.PriceComponent> {
   internal val surrogateSerializer:
@@ -72,28 +94,6 @@ public object ChargeItemDefinitionPropertyGroupPriceComponentSerializer :
     surrogateSerializer.serialize(
       encoder,
       ChargeItemDefinitionPropertyGroupPriceComponentSurrogate.fromModel(value),
-    )
-  }
-}
-
-public object ChargeItemDefinitionPropertyGroupSerializer :
-  KSerializer<ChargeItemDefinition.PropertyGroup> {
-  internal val surrogateSerializer:
-    KSerializer<ChargeItemDefinitionPropertyGroupSurrogate> by lazy {
-    ChargeItemDefinitionPropertyGroupSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("PropertyGroup", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): ChargeItemDefinition.PropertyGroup =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: ChargeItemDefinition.PropertyGroup) {
-    surrogateSerializer.serialize(
-      encoder,
-      ChargeItemDefinitionPropertyGroupSurrogate.fromModel(value),
     )
   }
 }

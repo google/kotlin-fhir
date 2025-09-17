@@ -40,7 +40,7 @@ internal data class ProductShelfLifePeriodSurrogate(
   public var _periodString: Element? = null,
 ) {
   public fun toModel(): ProductShelfLife.Period =
-    ProductShelfLife.Period?.from(
+    ProductShelfLife.Period.from(
       this@ProductShelfLifePeriodSurrogate.periodDuration,
       R5String.of(
         this@ProductShelfLifePeriodSurrogate.periodString,

@@ -188,7 +188,7 @@ internal data class PatientDeceasedSurrogate(
   public var _deceasedDateTime: Element? = null,
 ) {
   public fun toModel(): Patient.Deceased =
-    Patient.Deceased?.from(
+    Patient.Deceased.from(
       R5Boolean.of(
         this@PatientDeceasedSurrogate.deceasedBoolean,
         this@PatientDeceasedSurrogate._deceasedBoolean,
@@ -220,7 +220,7 @@ internal data class PatientMultipleBirthSurrogate(
   public var _multipleBirthInteger: Element? = null,
 ) {
   public fun toModel(): Patient.MultipleBirth =
-    Patient.MultipleBirth?.from(
+    Patient.MultipleBirth.from(
       R5Boolean.of(
         this@PatientMultipleBirthSurrogate.multipleBirthBoolean,
         this@PatientMultipleBirthSurrogate._multipleBirthBoolean,

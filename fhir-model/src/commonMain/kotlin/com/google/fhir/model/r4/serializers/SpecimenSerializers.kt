@@ -41,44 +41,6 @@ import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.JsonPrimitive
 import kotlinx.serialization.json.jsonObject
 
-public object SpecimenCollectionCollectedSerializer : KSerializer<Specimen.Collection.Collected> {
-  internal val surrogateSerializer: KSerializer<SpecimenCollectionCollectedSurrogate> by lazy {
-    SpecimenCollectionCollectedSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Collected", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): Specimen.Collection.Collected =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: Specimen.Collection.Collected) {
-    surrogateSerializer.serialize(encoder, SpecimenCollectionCollectedSurrogate.fromModel(value))
-  }
-}
-
-public object SpecimenCollectionFastingStatusSerializer :
-  KSerializer<Specimen.Collection.FastingStatus> {
-  internal val surrogateSerializer: KSerializer<SpecimenCollectionFastingStatusSurrogate> by lazy {
-    SpecimenCollectionFastingStatusSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("FastingStatus", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): Specimen.Collection.FastingStatus =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: Specimen.Collection.FastingStatus) {
-    surrogateSerializer.serialize(
-      encoder,
-      SpecimenCollectionFastingStatusSurrogate.fromModel(value),
-    )
-  }
-}
-
 public object SpecimenCollectionSerializer : KSerializer<Specimen.Collection> {
   internal val surrogateSerializer: KSerializer<SpecimenCollectionSurrogate> by lazy {
     SpecimenCollectionSurrogate.serializer()
@@ -123,23 +85,6 @@ public object SpecimenCollectionSerializer : KSerializer<Specimen.Collection> {
       }
     val flattenedJsonObject = FhirJsonTransformer.flatten(oldJsonObject, multiChoiceProperties)
     jsonEncoder.encodeJsonElement(flattenedJsonObject)
-  }
-}
-
-public object SpecimenProcessingTimeSerializer : KSerializer<Specimen.Processing.Time> {
-  internal val surrogateSerializer: KSerializer<SpecimenProcessingTimeSurrogate> by lazy {
-    SpecimenProcessingTimeSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Time", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): Specimen.Processing.Time =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: Specimen.Processing.Time) {
-    surrogateSerializer.serialize(encoder, SpecimenProcessingTimeSurrogate.fromModel(value))
   }
 }
 
@@ -190,23 +135,6 @@ public object SpecimenProcessingSerializer : KSerializer<Specimen.Processing> {
   }
 }
 
-public object SpecimenContainerAdditiveSerializer : KSerializer<Specimen.Container.Additive> {
-  internal val surrogateSerializer: KSerializer<SpecimenContainerAdditiveSurrogate> by lazy {
-    SpecimenContainerAdditiveSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Additive", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): Specimen.Container.Additive =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: Specimen.Container.Additive) {
-    surrogateSerializer.serialize(encoder, SpecimenContainerAdditiveSurrogate.fromModel(value))
-  }
-}
-
 public object SpecimenContainerSerializer : KSerializer<Specimen.Container> {
   internal val surrogateSerializer: KSerializer<SpecimenContainerSurrogate> by lazy {
     SpecimenContainerSurrogate.serializer()
@@ -251,6 +179,78 @@ public object SpecimenContainerSerializer : KSerializer<Specimen.Container> {
       }
     val flattenedJsonObject = FhirJsonTransformer.flatten(oldJsonObject, multiChoiceProperties)
     jsonEncoder.encodeJsonElement(flattenedJsonObject)
+  }
+}
+
+public object SpecimenCollectionCollectedSerializer : KSerializer<Specimen.Collection.Collected> {
+  internal val surrogateSerializer: KSerializer<SpecimenCollectionCollectedSurrogate> by lazy {
+    SpecimenCollectionCollectedSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Collected", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): Specimen.Collection.Collected =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: Specimen.Collection.Collected) {
+    surrogateSerializer.serialize(encoder, SpecimenCollectionCollectedSurrogate.fromModel(value))
+  }
+}
+
+public object SpecimenCollectionFastingStatusSerializer :
+  KSerializer<Specimen.Collection.FastingStatus> {
+  internal val surrogateSerializer: KSerializer<SpecimenCollectionFastingStatusSurrogate> by lazy {
+    SpecimenCollectionFastingStatusSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("FastingStatus", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): Specimen.Collection.FastingStatus =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: Specimen.Collection.FastingStatus) {
+    surrogateSerializer.serialize(
+      encoder,
+      SpecimenCollectionFastingStatusSurrogate.fromModel(value),
+    )
+  }
+}
+
+public object SpecimenProcessingTimeSerializer : KSerializer<Specimen.Processing.Time> {
+  internal val surrogateSerializer: KSerializer<SpecimenProcessingTimeSurrogate> by lazy {
+    SpecimenProcessingTimeSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Time", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): Specimen.Processing.Time =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: Specimen.Processing.Time) {
+    surrogateSerializer.serialize(encoder, SpecimenProcessingTimeSurrogate.fromModel(value))
+  }
+}
+
+public object SpecimenContainerAdditiveSerializer : KSerializer<Specimen.Container.Additive> {
+  internal val surrogateSerializer: KSerializer<SpecimenContainerAdditiveSurrogate> by lazy {
+    SpecimenContainerAdditiveSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Additive", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): Specimen.Container.Additive =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: Specimen.Container.Additive) {
+    surrogateSerializer.serialize(encoder, SpecimenContainerAdditiveSurrogate.fromModel(value))
   }
 }
 

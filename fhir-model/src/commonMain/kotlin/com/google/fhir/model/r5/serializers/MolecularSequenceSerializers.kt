@@ -38,28 +38,20 @@ import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.JsonPrimitive
 import kotlinx.serialization.json.jsonObject
 
-public object MolecularSequenceRelativeStartingSequenceSequenceSerializer :
-  KSerializer<MolecularSequence.Relative.StartingSequence.Sequence> {
-  internal val surrogateSerializer:
-    KSerializer<MolecularSequenceRelativeStartingSequenceSequenceSurrogate> by lazy {
-    MolecularSequenceRelativeStartingSequenceSequenceSurrogate.serializer()
+public object MolecularSequenceRelativeSerializer : KSerializer<MolecularSequence.Relative> {
+  internal val surrogateSerializer: KSerializer<MolecularSequenceRelativeSurrogate> by lazy {
+    MolecularSequenceRelativeSurrogate.serializer()
   }
 
   override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Sequence", surrogateSerializer.descriptor)
+    SerialDescriptor("Relative", surrogateSerializer.descriptor)
   }
 
-  override fun deserialize(decoder: Decoder): MolecularSequence.Relative.StartingSequence.Sequence =
+  override fun deserialize(decoder: Decoder): MolecularSequence.Relative =
     surrogateSerializer.deserialize(decoder).toModel()
 
-  override fun serialize(
-    encoder: Encoder,
-    `value`: MolecularSequence.Relative.StartingSequence.Sequence,
-  ) {
-    surrogateSerializer.serialize(
-      encoder,
-      MolecularSequenceRelativeStartingSequenceSequenceSurrogate.fromModel(value),
-    )
+  override fun serialize(encoder: Encoder, `value`: MolecularSequence.Relative) {
+    surrogateSerializer.serialize(encoder, MolecularSequenceRelativeSurrogate.fromModel(value))
   }
 }
 
@@ -130,20 +122,28 @@ public object MolecularSequenceRelativeEditSerializer :
   }
 }
 
-public object MolecularSequenceRelativeSerializer : KSerializer<MolecularSequence.Relative> {
-  internal val surrogateSerializer: KSerializer<MolecularSequenceRelativeSurrogate> by lazy {
-    MolecularSequenceRelativeSurrogate.serializer()
+public object MolecularSequenceRelativeStartingSequenceSequenceSerializer :
+  KSerializer<MolecularSequence.Relative.StartingSequence.Sequence> {
+  internal val surrogateSerializer:
+    KSerializer<MolecularSequenceRelativeStartingSequenceSequenceSurrogate> by lazy {
+    MolecularSequenceRelativeStartingSequenceSequenceSurrogate.serializer()
   }
 
   override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Relative", surrogateSerializer.descriptor)
+    SerialDescriptor("Sequence", surrogateSerializer.descriptor)
   }
 
-  override fun deserialize(decoder: Decoder): MolecularSequence.Relative =
+  override fun deserialize(decoder: Decoder): MolecularSequence.Relative.StartingSequence.Sequence =
     surrogateSerializer.deserialize(decoder).toModel()
 
-  override fun serialize(encoder: Encoder, `value`: MolecularSequence.Relative) {
-    surrogateSerializer.serialize(encoder, MolecularSequenceRelativeSurrogate.fromModel(value))
+  override fun serialize(
+    encoder: Encoder,
+    `value`: MolecularSequence.Relative.StartingSequence.Sequence,
+  ) {
+    surrogateSerializer.serialize(
+      encoder,
+      MolecularSequenceRelativeStartingSequenceSequenceSurrogate.fromModel(value),
+    )
   }
 }
 

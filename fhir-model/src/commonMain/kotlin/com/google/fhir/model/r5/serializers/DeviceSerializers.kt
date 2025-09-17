@@ -108,23 +108,6 @@ public object DeviceConformsToSerializer : KSerializer<Device.ConformsTo> {
   }
 }
 
-public object DevicePropertyValueSerializer : KSerializer<Device.Property.Value> {
-  internal val surrogateSerializer: KSerializer<DevicePropertyValueSurrogate> by lazy {
-    DevicePropertyValueSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Value", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): Device.Property.Value =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: Device.Property.Value) {
-    surrogateSerializer.serialize(encoder, DevicePropertyValueSurrogate.fromModel(value))
-  }
-}
-
 public object DevicePropertySerializer : KSerializer<Device.Property> {
   internal val surrogateSerializer: KSerializer<DevicePropertySurrogate> by lazy {
     DevicePropertySurrogate.serializer()
@@ -169,6 +152,23 @@ public object DevicePropertySerializer : KSerializer<Device.Property> {
       }
     val flattenedJsonObject = FhirJsonTransformer.flatten(oldJsonObject, multiChoiceProperties)
     jsonEncoder.encodeJsonElement(flattenedJsonObject)
+  }
+}
+
+public object DevicePropertyValueSerializer : KSerializer<Device.Property.Value> {
+  internal val surrogateSerializer: KSerializer<DevicePropertyValueSurrogate> by lazy {
+    DevicePropertyValueSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Value", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): Device.Property.Value =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: Device.Property.Value) {
+    surrogateSerializer.serialize(encoder, DevicePropertyValueSurrogate.fromModel(value))
   }
 }
 

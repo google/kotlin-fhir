@@ -52,6 +52,28 @@ public object RiskEvidenceSynthesisSampleSizeSerializer :
   }
 }
 
+public object RiskEvidenceSynthesisRiskEstimateSerializer :
+  KSerializer<RiskEvidenceSynthesis.RiskEstimate> {
+  internal val surrogateSerializer:
+    KSerializer<RiskEvidenceSynthesisRiskEstimateSurrogate> by lazy {
+    RiskEvidenceSynthesisRiskEstimateSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("RiskEstimate", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): RiskEvidenceSynthesis.RiskEstimate =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: RiskEvidenceSynthesis.RiskEstimate) {
+    surrogateSerializer.serialize(
+      encoder,
+      RiskEvidenceSynthesisRiskEstimateSurrogate.fromModel(value),
+    )
+  }
+}
+
 public object RiskEvidenceSynthesisRiskEstimatePrecisionEstimateSerializer :
   KSerializer<RiskEvidenceSynthesis.RiskEstimate.PrecisionEstimate> {
   internal val surrogateSerializer:
@@ -77,25 +99,21 @@ public object RiskEvidenceSynthesisRiskEstimatePrecisionEstimateSerializer :
   }
 }
 
-public object RiskEvidenceSynthesisRiskEstimateSerializer :
-  KSerializer<RiskEvidenceSynthesis.RiskEstimate> {
-  internal val surrogateSerializer:
-    KSerializer<RiskEvidenceSynthesisRiskEstimateSurrogate> by lazy {
-    RiskEvidenceSynthesisRiskEstimateSurrogate.serializer()
+public object RiskEvidenceSynthesisCertaintySerializer :
+  KSerializer<RiskEvidenceSynthesis.Certainty> {
+  internal val surrogateSerializer: KSerializer<RiskEvidenceSynthesisCertaintySurrogate> by lazy {
+    RiskEvidenceSynthesisCertaintySurrogate.serializer()
   }
 
   override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("RiskEstimate", surrogateSerializer.descriptor)
+    SerialDescriptor("Certainty", surrogateSerializer.descriptor)
   }
 
-  override fun deserialize(decoder: Decoder): RiskEvidenceSynthesis.RiskEstimate =
+  override fun deserialize(decoder: Decoder): RiskEvidenceSynthesis.Certainty =
     surrogateSerializer.deserialize(decoder).toModel()
 
-  override fun serialize(encoder: Encoder, `value`: RiskEvidenceSynthesis.RiskEstimate) {
-    surrogateSerializer.serialize(
-      encoder,
-      RiskEvidenceSynthesisRiskEstimateSurrogate.fromModel(value),
-    )
+  override fun serialize(encoder: Encoder, `value`: RiskEvidenceSynthesis.Certainty) {
+    surrogateSerializer.serialize(encoder, RiskEvidenceSynthesisCertaintySurrogate.fromModel(value))
   }
 }
 
@@ -123,24 +141,6 @@ public object RiskEvidenceSynthesisCertaintyCertaintySubcomponentSerializer :
       encoder,
       RiskEvidenceSynthesisCertaintyCertaintySubcomponentSurrogate.fromModel(value),
     )
-  }
-}
-
-public object RiskEvidenceSynthesisCertaintySerializer :
-  KSerializer<RiskEvidenceSynthesis.Certainty> {
-  internal val surrogateSerializer: KSerializer<RiskEvidenceSynthesisCertaintySurrogate> by lazy {
-    RiskEvidenceSynthesisCertaintySurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Certainty", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): RiskEvidenceSynthesis.Certainty =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: RiskEvidenceSynthesis.Certainty) {
-    surrogateSerializer.serialize(encoder, RiskEvidenceSynthesisCertaintySurrogate.fromModel(value))
   }
 }
 

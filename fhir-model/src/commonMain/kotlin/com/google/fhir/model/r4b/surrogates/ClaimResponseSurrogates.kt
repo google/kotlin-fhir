@@ -56,6 +56,75 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
+internal data class ClaimResponseItemSurrogate(
+  public var id: KotlinString? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var itemSequence: Int? = null,
+  public var _itemSequence: Element? = null,
+  public var noteNumber: MutableList<Int?>? = null,
+  public var _noteNumber: MutableList<Element?>? = null,
+  public var adjudication: MutableList<ClaimResponse.Item.Adjudication>? = null,
+  public var detail: MutableList<ClaimResponse.Item.Detail>? = null,
+) {
+  public fun toModel(): ClaimResponse.Item =
+    ClaimResponse.Item(
+      id = this@ClaimResponseItemSurrogate.id,
+      extension = this@ClaimResponseItemSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@ClaimResponseItemSurrogate.modifierExtension ?: mutableListOf(),
+      itemSequence =
+        PositiveInt.of(
+          this@ClaimResponseItemSurrogate.itemSequence,
+          this@ClaimResponseItemSurrogate._itemSequence,
+        )!!,
+      noteNumber =
+        if (
+          this@ClaimResponseItemSurrogate.noteNumber == null &&
+            this@ClaimResponseItemSurrogate._noteNumber == null
+        ) {
+          mutableListOf()
+        } else {
+          (this@ClaimResponseItemSurrogate.noteNumber
+              ?: List(this@ClaimResponseItemSurrogate._noteNumber!!.size) { null })
+            .zip(
+              this@ClaimResponseItemSurrogate._noteNumber
+                ?: List(this@ClaimResponseItemSurrogate.noteNumber!!.size) { null }
+            )
+            .map { (value, element) -> PositiveInt.of(value, element)!! }
+            .toMutableList()
+        },
+      adjudication = this@ClaimResponseItemSurrogate.adjudication ?: mutableListOf(),
+      detail = this@ClaimResponseItemSurrogate.detail ?: mutableListOf(),
+    )
+
+  public companion object {
+    public fun fromModel(model: ClaimResponse.Item): ClaimResponseItemSurrogate =
+      with(model) {
+        ClaimResponseItemSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          itemSequence = this@with.itemSequence.value,
+          _itemSequence = this@with.itemSequence.toElement(),
+          noteNumber =
+            this@with.noteNumber
+              .map { it.value }
+              .toMutableList()
+              .takeUnless { it.all { it == null } },
+          _noteNumber =
+            this@with.noteNumber
+              .map { it.toElement() }
+              .takeUnless { it.all { it == null } }
+              ?.map { it ?: Element() }
+              ?.toMutableList(),
+          adjudication = this@with.adjudication.takeUnless { it.all { it == null } },
+          detail = this@with.detail.takeUnless { it.all { it == null } },
+        )
+      }
+  }
+}
+
+@Serializable
 internal data class ClaimResponseItemAdjudicationSurrogate(
   public var id: KotlinString? = null,
   public var extension: MutableList<Extension>? = null,
@@ -96,75 +165,6 @@ internal data class ClaimResponseItemAdjudicationSurrogate(
           amount = this@with.amount,
           `value` = this@with.`value`?.value,
           _value = this@with.`value`?.toElement(),
-        )
-      }
-  }
-}
-
-@Serializable
-internal data class ClaimResponseItemDetailSubDetailSurrogate(
-  public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var subDetailSequence: Int? = null,
-  public var _subDetailSequence: Element? = null,
-  public var noteNumber: MutableList<Int?>? = null,
-  public var _noteNumber: MutableList<Element?>? = null,
-  public var adjudication: MutableList<ClaimResponse.Item.Adjudication>? = null,
-) {
-  public fun toModel(): ClaimResponse.Item.Detail.SubDetail =
-    ClaimResponse.Item.Detail.SubDetail(
-      id = this@ClaimResponseItemDetailSubDetailSurrogate.id,
-      extension = this@ClaimResponseItemDetailSubDetailSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@ClaimResponseItemDetailSubDetailSurrogate.modifierExtension ?: mutableListOf(),
-      subDetailSequence =
-        PositiveInt.of(
-          this@ClaimResponseItemDetailSubDetailSurrogate.subDetailSequence,
-          this@ClaimResponseItemDetailSubDetailSurrogate._subDetailSequence,
-        )!!,
-      noteNumber =
-        if (
-          this@ClaimResponseItemDetailSubDetailSurrogate.noteNumber == null &&
-            this@ClaimResponseItemDetailSubDetailSurrogate._noteNumber == null
-        ) {
-          mutableListOf()
-        } else {
-          (this@ClaimResponseItemDetailSubDetailSurrogate.noteNumber
-              ?: List(this@ClaimResponseItemDetailSubDetailSurrogate._noteNumber!!.size) { null })
-            .zip(
-              this@ClaimResponseItemDetailSubDetailSurrogate._noteNumber
-                ?: List(this@ClaimResponseItemDetailSubDetailSurrogate.noteNumber!!.size) { null }
-            )
-            .map { (value, element) -> PositiveInt.of(value, element)!! }
-            .toMutableList()
-        },
-      adjudication = this@ClaimResponseItemDetailSubDetailSurrogate.adjudication ?: mutableListOf(),
-    )
-
-  public companion object {
-    public fun fromModel(
-      model: ClaimResponse.Item.Detail.SubDetail
-    ): ClaimResponseItemDetailSubDetailSurrogate =
-      with(model) {
-        ClaimResponseItemDetailSubDetailSurrogate(
-          id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          subDetailSequence = this@with.subDetailSequence.value,
-          _subDetailSequence = this@with.subDetailSequence.toElement(),
-          noteNumber =
-            this@with.noteNumber
-              .map { it.value }
-              .toMutableList()
-              .takeUnless { it.all { it == null } },
-          _noteNumber =
-            this@with.noteNumber
-              .map { it.toElement() }
-              .takeUnless { it.all { it == null } }
-              ?.map { it ?: Element() }
-              ?.toMutableList(),
-          adjudication = this@with.adjudication.takeUnless { it.all { it == null } },
         )
       }
   }
@@ -241,56 +241,57 @@ internal data class ClaimResponseItemDetailSurrogate(
 }
 
 @Serializable
-internal data class ClaimResponseItemSurrogate(
+internal data class ClaimResponseItemDetailSubDetailSurrogate(
   public var id: KotlinString? = null,
   public var extension: MutableList<Extension>? = null,
   public var modifierExtension: MutableList<Extension>? = null,
-  public var itemSequence: Int? = null,
-  public var _itemSequence: Element? = null,
+  public var subDetailSequence: Int? = null,
+  public var _subDetailSequence: Element? = null,
   public var noteNumber: MutableList<Int?>? = null,
   public var _noteNumber: MutableList<Element?>? = null,
   public var adjudication: MutableList<ClaimResponse.Item.Adjudication>? = null,
-  public var detail: MutableList<ClaimResponse.Item.Detail>? = null,
 ) {
-  public fun toModel(): ClaimResponse.Item =
-    ClaimResponse.Item(
-      id = this@ClaimResponseItemSurrogate.id,
-      extension = this@ClaimResponseItemSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@ClaimResponseItemSurrogate.modifierExtension ?: mutableListOf(),
-      itemSequence =
+  public fun toModel(): ClaimResponse.Item.Detail.SubDetail =
+    ClaimResponse.Item.Detail.SubDetail(
+      id = this@ClaimResponseItemDetailSubDetailSurrogate.id,
+      extension = this@ClaimResponseItemDetailSubDetailSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@ClaimResponseItemDetailSubDetailSurrogate.modifierExtension ?: mutableListOf(),
+      subDetailSequence =
         PositiveInt.of(
-          this@ClaimResponseItemSurrogate.itemSequence,
-          this@ClaimResponseItemSurrogate._itemSequence,
+          this@ClaimResponseItemDetailSubDetailSurrogate.subDetailSequence,
+          this@ClaimResponseItemDetailSubDetailSurrogate._subDetailSequence,
         )!!,
       noteNumber =
         if (
-          this@ClaimResponseItemSurrogate.noteNumber == null &&
-            this@ClaimResponseItemSurrogate._noteNumber == null
+          this@ClaimResponseItemDetailSubDetailSurrogate.noteNumber == null &&
+            this@ClaimResponseItemDetailSubDetailSurrogate._noteNumber == null
         ) {
           mutableListOf()
         } else {
-          (this@ClaimResponseItemSurrogate.noteNumber
-              ?: List(this@ClaimResponseItemSurrogate._noteNumber!!.size) { null })
+          (this@ClaimResponseItemDetailSubDetailSurrogate.noteNumber
+              ?: List(this@ClaimResponseItemDetailSubDetailSurrogate._noteNumber!!.size) { null })
             .zip(
-              this@ClaimResponseItemSurrogate._noteNumber
-                ?: List(this@ClaimResponseItemSurrogate.noteNumber!!.size) { null }
+              this@ClaimResponseItemDetailSubDetailSurrogate._noteNumber
+                ?: List(this@ClaimResponseItemDetailSubDetailSurrogate.noteNumber!!.size) { null }
             )
             .map { (value, element) -> PositiveInt.of(value, element)!! }
             .toMutableList()
         },
-      adjudication = this@ClaimResponseItemSurrogate.adjudication ?: mutableListOf(),
-      detail = this@ClaimResponseItemSurrogate.detail ?: mutableListOf(),
+      adjudication = this@ClaimResponseItemDetailSubDetailSurrogate.adjudication ?: mutableListOf(),
     )
 
   public companion object {
-    public fun fromModel(model: ClaimResponse.Item): ClaimResponseItemSurrogate =
+    public fun fromModel(
+      model: ClaimResponse.Item.Detail.SubDetail
+    ): ClaimResponseItemDetailSubDetailSurrogate =
       with(model) {
-        ClaimResponseItemSurrogate(
+        ClaimResponseItemDetailSubDetailSurrogate(
           id = this@with.id,
           extension = this@with.extension.takeUnless { it.all { it == null } },
           modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          itemSequence = this@with.itemSequence.value,
-          _itemSequence = this@with.itemSequence.toElement(),
+          subDetailSequence = this@with.subDetailSequence.value,
+          _subDetailSequence = this@with.subDetailSequence.toElement(),
           noteNumber =
             this@with.noteNumber
               .map { it.value }
@@ -303,237 +304,6 @@ internal data class ClaimResponseItemSurrogate(
               ?.map { it ?: Element() }
               ?.toMutableList(),
           adjudication = this@with.adjudication.takeUnless { it.all { it == null } },
-          detail = this@with.detail.takeUnless { it.all { it == null } },
-        )
-      }
-  }
-}
-
-@Serializable
-internal data class ClaimResponseAddItemDetailSubDetailSurrogate(
-  public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var productOrService: CodeableConcept,
-  public var modifier: MutableList<CodeableConcept>? = null,
-  public var quantity: Quantity? = null,
-  public var unitPrice: Money? = null,
-  public var factor: Double? = null,
-  public var _factor: Element? = null,
-  public var net: Money? = null,
-  public var noteNumber: MutableList<Int?>? = null,
-  public var _noteNumber: MutableList<Element?>? = null,
-  public var adjudication: MutableList<ClaimResponse.Item.Adjudication>? = null,
-) {
-  public fun toModel(): ClaimResponse.AddItem.Detail.SubDetail =
-    ClaimResponse.AddItem.Detail.SubDetail(
-      id = this@ClaimResponseAddItemDetailSubDetailSurrogate.id,
-      extension = this@ClaimResponseAddItemDetailSubDetailSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@ClaimResponseAddItemDetailSubDetailSurrogate.modifierExtension ?: mutableListOf(),
-      productOrService = this@ClaimResponseAddItemDetailSubDetailSurrogate.productOrService,
-      modifier = this@ClaimResponseAddItemDetailSubDetailSurrogate.modifier ?: mutableListOf(),
-      quantity = this@ClaimResponseAddItemDetailSubDetailSurrogate.quantity,
-      unitPrice = this@ClaimResponseAddItemDetailSubDetailSurrogate.unitPrice,
-      factor =
-        Decimal.of(
-          this@ClaimResponseAddItemDetailSubDetailSurrogate.factor,
-          this@ClaimResponseAddItemDetailSubDetailSurrogate._factor,
-        ),
-      net = this@ClaimResponseAddItemDetailSubDetailSurrogate.net,
-      noteNumber =
-        if (
-          this@ClaimResponseAddItemDetailSubDetailSurrogate.noteNumber == null &&
-            this@ClaimResponseAddItemDetailSubDetailSurrogate._noteNumber == null
-        ) {
-          mutableListOf()
-        } else {
-          (this@ClaimResponseAddItemDetailSubDetailSurrogate.noteNumber
-              ?: List(this@ClaimResponseAddItemDetailSubDetailSurrogate._noteNumber!!.size) {
-                null
-              })
-            .zip(
-              this@ClaimResponseAddItemDetailSubDetailSurrogate._noteNumber
-                ?: List(this@ClaimResponseAddItemDetailSubDetailSurrogate.noteNumber!!.size) {
-                  null
-                }
-            )
-            .map { (value, element) -> PositiveInt.of(value, element)!! }
-            .toMutableList()
-        },
-      adjudication =
-        this@ClaimResponseAddItemDetailSubDetailSurrogate.adjudication ?: mutableListOf(),
-    )
-
-  public companion object {
-    public fun fromModel(
-      model: ClaimResponse.AddItem.Detail.SubDetail
-    ): ClaimResponseAddItemDetailSubDetailSurrogate =
-      with(model) {
-        ClaimResponseAddItemDetailSubDetailSurrogate(
-          id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          productOrService = this@with.productOrService,
-          modifier = this@with.modifier.takeUnless { it.all { it == null } },
-          quantity = this@with.quantity,
-          unitPrice = this@with.unitPrice,
-          factor = this@with.factor?.value,
-          _factor = this@with.factor?.toElement(),
-          net = this@with.net,
-          noteNumber =
-            this@with.noteNumber
-              .map { it.value }
-              .toMutableList()
-              .takeUnless { it.all { it == null } },
-          _noteNumber =
-            this@with.noteNumber
-              .map { it.toElement() }
-              .takeUnless { it.all { it == null } }
-              ?.map { it ?: Element() }
-              ?.toMutableList(),
-          adjudication = this@with.adjudication.takeUnless { it.all { it == null } },
-        )
-      }
-  }
-}
-
-@Serializable
-internal data class ClaimResponseAddItemDetailSurrogate(
-  public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var productOrService: CodeableConcept,
-  public var modifier: MutableList<CodeableConcept>? = null,
-  public var quantity: Quantity? = null,
-  public var unitPrice: Money? = null,
-  public var factor: Double? = null,
-  public var _factor: Element? = null,
-  public var net: Money? = null,
-  public var noteNumber: MutableList<Int?>? = null,
-  public var _noteNumber: MutableList<Element?>? = null,
-  public var adjudication: MutableList<ClaimResponse.Item.Adjudication>? = null,
-  public var subDetail: MutableList<ClaimResponse.AddItem.Detail.SubDetail>? = null,
-) {
-  public fun toModel(): ClaimResponse.AddItem.Detail =
-    ClaimResponse.AddItem.Detail(
-      id = this@ClaimResponseAddItemDetailSurrogate.id,
-      extension = this@ClaimResponseAddItemDetailSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@ClaimResponseAddItemDetailSurrogate.modifierExtension ?: mutableListOf(),
-      productOrService = this@ClaimResponseAddItemDetailSurrogate.productOrService,
-      modifier = this@ClaimResponseAddItemDetailSurrogate.modifier ?: mutableListOf(),
-      quantity = this@ClaimResponseAddItemDetailSurrogate.quantity,
-      unitPrice = this@ClaimResponseAddItemDetailSurrogate.unitPrice,
-      factor =
-        Decimal.of(
-          this@ClaimResponseAddItemDetailSurrogate.factor,
-          this@ClaimResponseAddItemDetailSurrogate._factor,
-        ),
-      net = this@ClaimResponseAddItemDetailSurrogate.net,
-      noteNumber =
-        if (
-          this@ClaimResponseAddItemDetailSurrogate.noteNumber == null &&
-            this@ClaimResponseAddItemDetailSurrogate._noteNumber == null
-        ) {
-          mutableListOf()
-        } else {
-          (this@ClaimResponseAddItemDetailSurrogate.noteNumber
-              ?: List(this@ClaimResponseAddItemDetailSurrogate._noteNumber!!.size) { null })
-            .zip(
-              this@ClaimResponseAddItemDetailSurrogate._noteNumber
-                ?: List(this@ClaimResponseAddItemDetailSurrogate.noteNumber!!.size) { null }
-            )
-            .map { (value, element) -> PositiveInt.of(value, element)!! }
-            .toMutableList()
-        },
-      adjudication = this@ClaimResponseAddItemDetailSurrogate.adjudication ?: mutableListOf(),
-      subDetail = this@ClaimResponseAddItemDetailSurrogate.subDetail ?: mutableListOf(),
-    )
-
-  public companion object {
-    public fun fromModel(model: ClaimResponse.AddItem.Detail): ClaimResponseAddItemDetailSurrogate =
-      with(model) {
-        ClaimResponseAddItemDetailSurrogate(
-          id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          productOrService = this@with.productOrService,
-          modifier = this@with.modifier.takeUnless { it.all { it == null } },
-          quantity = this@with.quantity,
-          unitPrice = this@with.unitPrice,
-          factor = this@with.factor?.value,
-          _factor = this@with.factor?.toElement(),
-          net = this@with.net,
-          noteNumber =
-            this@with.noteNumber
-              .map { it.value }
-              .toMutableList()
-              .takeUnless { it.all { it == null } },
-          _noteNumber =
-            this@with.noteNumber
-              .map { it.toElement() }
-              .takeUnless { it.all { it == null } }
-              ?.map { it ?: Element() }
-              ?.toMutableList(),
-          adjudication = this@with.adjudication.takeUnless { it.all { it == null } },
-          subDetail = this@with.subDetail.takeUnless { it.all { it == null } },
-        )
-      }
-  }
-}
-
-@Serializable
-internal data class ClaimResponseAddItemServicedSurrogate(
-  public var servicedDate: KotlinString? = null,
-  public var _servicedDate: Element? = null,
-  public var servicedPeriod: Period? = null,
-) {
-  public fun toModel(): ClaimResponse.AddItem.Serviced =
-    ClaimResponse.AddItem.Serviced?.from(
-      Date.of(
-        FhirDate.fromString(this@ClaimResponseAddItemServicedSurrogate.servicedDate),
-        this@ClaimResponseAddItemServicedSurrogate._servicedDate,
-      ),
-      this@ClaimResponseAddItemServicedSurrogate.servicedPeriod,
-    )!!
-
-  public companion object {
-    public fun fromModel(
-      model: ClaimResponse.AddItem.Serviced
-    ): ClaimResponseAddItemServicedSurrogate =
-      with(model) {
-        ClaimResponseAddItemServicedSurrogate(
-          servicedDate = this@with.asDate()?.value?.value?.toString(),
-          _servicedDate = this@with.asDate()?.value?.toElement(),
-          servicedPeriod = this@with.asPeriod()?.value,
-        )
-      }
-  }
-}
-
-@Serializable
-internal data class ClaimResponseAddItemLocationSurrogate(
-  public var locationCodeableConcept: CodeableConcept? = null,
-  public var locationAddress: Address? = null,
-  public var locationReference: Reference? = null,
-) {
-  public fun toModel(): ClaimResponse.AddItem.Location =
-    ClaimResponse.AddItem.Location?.from(
-      this@ClaimResponseAddItemLocationSurrogate.locationCodeableConcept,
-      this@ClaimResponseAddItemLocationSurrogate.locationAddress,
-      this@ClaimResponseAddItemLocationSurrogate.locationReference,
-    )!!
-
-  public companion object {
-    public fun fromModel(
-      model: ClaimResponse.AddItem.Location
-    ): ClaimResponseAddItemLocationSurrogate =
-      with(model) {
-        ClaimResponseAddItemLocationSurrogate(
-          locationCodeableConcept = this@with.asCodeableConcept()?.value,
-          locationAddress = this@with.asAddress()?.value,
-          locationReference = this@with.asReference()?.value,
         )
       }
   }
@@ -723,6 +493,180 @@ internal data class ClaimResponseAddItemSurrogate(
               ?.toMutableList(),
           adjudication = this@with.adjudication.takeUnless { it.all { it == null } },
           detail = this@with.detail.takeUnless { it.all { it == null } },
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class ClaimResponseAddItemDetailSurrogate(
+  public var id: KotlinString? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var productOrService: CodeableConcept,
+  public var modifier: MutableList<CodeableConcept>? = null,
+  public var quantity: Quantity? = null,
+  public var unitPrice: Money? = null,
+  public var factor: Double? = null,
+  public var _factor: Element? = null,
+  public var net: Money? = null,
+  public var noteNumber: MutableList<Int?>? = null,
+  public var _noteNumber: MutableList<Element?>? = null,
+  public var adjudication: MutableList<ClaimResponse.Item.Adjudication>? = null,
+  public var subDetail: MutableList<ClaimResponse.AddItem.Detail.SubDetail>? = null,
+) {
+  public fun toModel(): ClaimResponse.AddItem.Detail =
+    ClaimResponse.AddItem.Detail(
+      id = this@ClaimResponseAddItemDetailSurrogate.id,
+      extension = this@ClaimResponseAddItemDetailSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@ClaimResponseAddItemDetailSurrogate.modifierExtension ?: mutableListOf(),
+      productOrService = this@ClaimResponseAddItemDetailSurrogate.productOrService,
+      modifier = this@ClaimResponseAddItemDetailSurrogate.modifier ?: mutableListOf(),
+      quantity = this@ClaimResponseAddItemDetailSurrogate.quantity,
+      unitPrice = this@ClaimResponseAddItemDetailSurrogate.unitPrice,
+      factor =
+        Decimal.of(
+          this@ClaimResponseAddItemDetailSurrogate.factor,
+          this@ClaimResponseAddItemDetailSurrogate._factor,
+        ),
+      net = this@ClaimResponseAddItemDetailSurrogate.net,
+      noteNumber =
+        if (
+          this@ClaimResponseAddItemDetailSurrogate.noteNumber == null &&
+            this@ClaimResponseAddItemDetailSurrogate._noteNumber == null
+        ) {
+          mutableListOf()
+        } else {
+          (this@ClaimResponseAddItemDetailSurrogate.noteNumber
+              ?: List(this@ClaimResponseAddItemDetailSurrogate._noteNumber!!.size) { null })
+            .zip(
+              this@ClaimResponseAddItemDetailSurrogate._noteNumber
+                ?: List(this@ClaimResponseAddItemDetailSurrogate.noteNumber!!.size) { null }
+            )
+            .map { (value, element) -> PositiveInt.of(value, element)!! }
+            .toMutableList()
+        },
+      adjudication = this@ClaimResponseAddItemDetailSurrogate.adjudication ?: mutableListOf(),
+      subDetail = this@ClaimResponseAddItemDetailSurrogate.subDetail ?: mutableListOf(),
+    )
+
+  public companion object {
+    public fun fromModel(model: ClaimResponse.AddItem.Detail): ClaimResponseAddItemDetailSurrogate =
+      with(model) {
+        ClaimResponseAddItemDetailSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          productOrService = this@with.productOrService,
+          modifier = this@with.modifier.takeUnless { it.all { it == null } },
+          quantity = this@with.quantity,
+          unitPrice = this@with.unitPrice,
+          factor = this@with.factor?.value,
+          _factor = this@with.factor?.toElement(),
+          net = this@with.net,
+          noteNumber =
+            this@with.noteNumber
+              .map { it.value }
+              .toMutableList()
+              .takeUnless { it.all { it == null } },
+          _noteNumber =
+            this@with.noteNumber
+              .map { it.toElement() }
+              .takeUnless { it.all { it == null } }
+              ?.map { it ?: Element() }
+              ?.toMutableList(),
+          adjudication = this@with.adjudication.takeUnless { it.all { it == null } },
+          subDetail = this@with.subDetail.takeUnless { it.all { it == null } },
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class ClaimResponseAddItemDetailSubDetailSurrogate(
+  public var id: KotlinString? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var productOrService: CodeableConcept,
+  public var modifier: MutableList<CodeableConcept>? = null,
+  public var quantity: Quantity? = null,
+  public var unitPrice: Money? = null,
+  public var factor: Double? = null,
+  public var _factor: Element? = null,
+  public var net: Money? = null,
+  public var noteNumber: MutableList<Int?>? = null,
+  public var _noteNumber: MutableList<Element?>? = null,
+  public var adjudication: MutableList<ClaimResponse.Item.Adjudication>? = null,
+) {
+  public fun toModel(): ClaimResponse.AddItem.Detail.SubDetail =
+    ClaimResponse.AddItem.Detail.SubDetail(
+      id = this@ClaimResponseAddItemDetailSubDetailSurrogate.id,
+      extension = this@ClaimResponseAddItemDetailSubDetailSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@ClaimResponseAddItemDetailSubDetailSurrogate.modifierExtension ?: mutableListOf(),
+      productOrService = this@ClaimResponseAddItemDetailSubDetailSurrogate.productOrService,
+      modifier = this@ClaimResponseAddItemDetailSubDetailSurrogate.modifier ?: mutableListOf(),
+      quantity = this@ClaimResponseAddItemDetailSubDetailSurrogate.quantity,
+      unitPrice = this@ClaimResponseAddItemDetailSubDetailSurrogate.unitPrice,
+      factor =
+        Decimal.of(
+          this@ClaimResponseAddItemDetailSubDetailSurrogate.factor,
+          this@ClaimResponseAddItemDetailSubDetailSurrogate._factor,
+        ),
+      net = this@ClaimResponseAddItemDetailSubDetailSurrogate.net,
+      noteNumber =
+        if (
+          this@ClaimResponseAddItemDetailSubDetailSurrogate.noteNumber == null &&
+            this@ClaimResponseAddItemDetailSubDetailSurrogate._noteNumber == null
+        ) {
+          mutableListOf()
+        } else {
+          (this@ClaimResponseAddItemDetailSubDetailSurrogate.noteNumber
+              ?: List(this@ClaimResponseAddItemDetailSubDetailSurrogate._noteNumber!!.size) {
+                null
+              })
+            .zip(
+              this@ClaimResponseAddItemDetailSubDetailSurrogate._noteNumber
+                ?: List(this@ClaimResponseAddItemDetailSubDetailSurrogate.noteNumber!!.size) {
+                  null
+                }
+            )
+            .map { (value, element) -> PositiveInt.of(value, element)!! }
+            .toMutableList()
+        },
+      adjudication =
+        this@ClaimResponseAddItemDetailSubDetailSurrogate.adjudication ?: mutableListOf(),
+    )
+
+  public companion object {
+    public fun fromModel(
+      model: ClaimResponse.AddItem.Detail.SubDetail
+    ): ClaimResponseAddItemDetailSubDetailSurrogate =
+      with(model) {
+        ClaimResponseAddItemDetailSubDetailSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          productOrService = this@with.productOrService,
+          modifier = this@with.modifier.takeUnless { it.all { it == null } },
+          quantity = this@with.quantity,
+          unitPrice = this@with.unitPrice,
+          factor = this@with.factor?.value,
+          _factor = this@with.factor?.toElement(),
+          net = this@with.net,
+          noteNumber =
+            this@with.noteNumber
+              .map { it.value }
+              .toMutableList()
+              .takeUnless { it.all { it == null } },
+          _noteNumber =
+            this@with.noteNumber
+              .map { it.toElement() }
+              .takeUnless { it.all { it == null } }
+              ?.map { it ?: Element() }
+              ?.toMutableList(),
+          adjudication = this@with.adjudication.takeUnless { it.all { it == null } },
         )
       }
   }
@@ -974,6 +918,62 @@ internal data class ClaimResponseErrorSurrogate(
           subDetailSequence = this@with.subDetailSequence?.value,
           _subDetailSequence = this@with.subDetailSequence?.toElement(),
           code = this@with.code,
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class ClaimResponseAddItemServicedSurrogate(
+  public var servicedDate: KotlinString? = null,
+  public var _servicedDate: Element? = null,
+  public var servicedPeriod: Period? = null,
+) {
+  public fun toModel(): ClaimResponse.AddItem.Serviced =
+    ClaimResponse.AddItem.Serviced.from(
+      Date.of(
+        FhirDate.fromString(this@ClaimResponseAddItemServicedSurrogate.servicedDate),
+        this@ClaimResponseAddItemServicedSurrogate._servicedDate,
+      ),
+      this@ClaimResponseAddItemServicedSurrogate.servicedPeriod,
+    )!!
+
+  public companion object {
+    public fun fromModel(
+      model: ClaimResponse.AddItem.Serviced
+    ): ClaimResponseAddItemServicedSurrogate =
+      with(model) {
+        ClaimResponseAddItemServicedSurrogate(
+          servicedDate = this@with.asDate()?.value?.value?.toString(),
+          _servicedDate = this@with.asDate()?.value?.toElement(),
+          servicedPeriod = this@with.asPeriod()?.value,
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class ClaimResponseAddItemLocationSurrogate(
+  public var locationCodeableConcept: CodeableConcept? = null,
+  public var locationAddress: Address? = null,
+  public var locationReference: Reference? = null,
+) {
+  public fun toModel(): ClaimResponse.AddItem.Location =
+    ClaimResponse.AddItem.Location.from(
+      this@ClaimResponseAddItemLocationSurrogate.locationCodeableConcept,
+      this@ClaimResponseAddItemLocationSurrogate.locationAddress,
+      this@ClaimResponseAddItemLocationSurrogate.locationReference,
+    )!!
+
+  public companion object {
+    public fun fromModel(
+      model: ClaimResponse.AddItem.Location
+    ): ClaimResponseAddItemLocationSurrogate =
+      with(model) {
+        ClaimResponseAddItemLocationSurrogate(
+          locationCodeableConcept = this@with.asCodeableConcept()?.value,
+          locationAddress = this@with.asAddress()?.value,
+          locationReference = this@with.asReference()?.value,
         )
       }
   }

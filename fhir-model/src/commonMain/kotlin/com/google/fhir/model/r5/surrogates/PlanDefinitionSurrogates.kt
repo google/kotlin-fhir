@@ -67,95 +67,6 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
-internal data class PlanDefinitionGoalTargetDetailSurrogate(
-  public var detailQuantity: Quantity? = null,
-  public var detailRange: Range? = null,
-  public var detailCodeableConcept: CodeableConcept? = null,
-  public var detailString: KotlinString? = null,
-  public var _detailString: Element? = null,
-  public var detailBoolean: KotlinBoolean? = null,
-  public var _detailBoolean: Element? = null,
-  public var detailInteger: Int? = null,
-  public var _detailInteger: Element? = null,
-  public var detailRatio: Ratio? = null,
-) {
-  public fun toModel(): PlanDefinition.Goal.Target.Detail =
-    PlanDefinition.Goal.Target.Detail?.from(
-      this@PlanDefinitionGoalTargetDetailSurrogate.detailQuantity,
-      this@PlanDefinitionGoalTargetDetailSurrogate.detailRange,
-      this@PlanDefinitionGoalTargetDetailSurrogate.detailCodeableConcept,
-      R5String.of(
-        this@PlanDefinitionGoalTargetDetailSurrogate.detailString,
-        this@PlanDefinitionGoalTargetDetailSurrogate._detailString,
-      ),
-      R5Boolean.of(
-        this@PlanDefinitionGoalTargetDetailSurrogate.detailBoolean,
-        this@PlanDefinitionGoalTargetDetailSurrogate._detailBoolean,
-      ),
-      Integer.of(
-        this@PlanDefinitionGoalTargetDetailSurrogate.detailInteger,
-        this@PlanDefinitionGoalTargetDetailSurrogate._detailInteger,
-      ),
-      this@PlanDefinitionGoalTargetDetailSurrogate.detailRatio,
-    )!!
-
-  public companion object {
-    public fun fromModel(
-      model: PlanDefinition.Goal.Target.Detail
-    ): PlanDefinitionGoalTargetDetailSurrogate =
-      with(model) {
-        PlanDefinitionGoalTargetDetailSurrogate(
-          detailQuantity = this@with.asQuantity()?.value,
-          detailRange = this@with.asRange()?.value,
-          detailCodeableConcept = this@with.asCodeableConcept()?.value,
-          detailString = this@with.asString()?.value?.value,
-          _detailString = this@with.asString()?.value?.toElement(),
-          detailBoolean = this@with.asBoolean()?.value?.value,
-          _detailBoolean = this@with.asBoolean()?.value?.toElement(),
-          detailInteger = this@with.asInteger()?.value?.value,
-          _detailInteger = this@with.asInteger()?.value?.toElement(),
-          detailRatio = this@with.asRatio()?.value,
-        )
-      }
-  }
-}
-
-@Serializable
-internal data class PlanDefinitionGoalTargetSurrogate(
-  public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var measure: CodeableConcept? = null,
-  public var detail: PlanDefinition.Goal.Target.Detail? = null,
-  public var due: Duration? = null,
-) {
-  public fun toModel(): PlanDefinition.Goal.Target =
-    PlanDefinition.Goal.Target(
-      id = this@PlanDefinitionGoalTargetSurrogate.id,
-      extension = this@PlanDefinitionGoalTargetSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@PlanDefinitionGoalTargetSurrogate.modifierExtension ?: mutableListOf(),
-      measure = this@PlanDefinitionGoalTargetSurrogate.measure,
-      detail = this@PlanDefinitionGoalTargetSurrogate.detail,
-      due = this@PlanDefinitionGoalTargetSurrogate.due,
-    )
-
-  public companion object {
-    public fun fromModel(model: PlanDefinition.Goal.Target): PlanDefinitionGoalTargetSurrogate =
-      with(model) {
-        PlanDefinitionGoalTargetSurrogate(
-          id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          measure = this@with.measure,
-          detail = this@with.detail,
-          due = this@with.due,
-        )
-      }
-  }
-}
-
-@Serializable
 internal data class PlanDefinitionGoalSurrogate(
   public var id: KotlinString? = null,
   public var extension: MutableList<Extension>? = null,
@@ -202,52 +113,35 @@ internal data class PlanDefinitionGoalSurrogate(
 }
 
 @Serializable
-internal data class PlanDefinitionActorOptionSurrogate(
+internal data class PlanDefinitionGoalTargetSurrogate(
   public var id: KotlinString? = null,
   public var extension: MutableList<Extension>? = null,
   public var modifierExtension: MutableList<Extension>? = null,
-  public var type: KotlinString? = null,
-  public var _type: Element? = null,
-  public var typeCanonical: KotlinString? = null,
-  public var _typeCanonical: Element? = null,
-  public var typeReference: Reference? = null,
-  public var role: CodeableConcept? = null,
+  public var measure: CodeableConcept? = null,
+  public var detail: PlanDefinition.Goal.Target.Detail? = null,
+  public var due: Duration? = null,
 ) {
-  public fun toModel(): PlanDefinition.Actor.Option =
-    PlanDefinition.Actor.Option(
-      id = this@PlanDefinitionActorOptionSurrogate.id,
-      extension = this@PlanDefinitionActorOptionSurrogate.extension ?: mutableListOf(),
+  public fun toModel(): PlanDefinition.Goal.Target =
+    PlanDefinition.Goal.Target(
+      id = this@PlanDefinitionGoalTargetSurrogate.id,
+      extension = this@PlanDefinitionGoalTargetSurrogate.extension ?: mutableListOf(),
       modifierExtension =
-        this@PlanDefinitionActorOptionSurrogate.modifierExtension ?: mutableListOf(),
-      type =
-        this@PlanDefinitionActorOptionSurrogate.type?.let {
-          Enumeration.of(
-            com.google.fhir.model.r5.PlanDefinition.ActionParticipantType.fromCode(it!!),
-            this@PlanDefinitionActorOptionSurrogate._type,
-          )
-        },
-      typeCanonical =
-        Canonical.of(
-          this@PlanDefinitionActorOptionSurrogate.typeCanonical,
-          this@PlanDefinitionActorOptionSurrogate._typeCanonical,
-        ),
-      typeReference = this@PlanDefinitionActorOptionSurrogate.typeReference,
-      role = this@PlanDefinitionActorOptionSurrogate.role,
+        this@PlanDefinitionGoalTargetSurrogate.modifierExtension ?: mutableListOf(),
+      measure = this@PlanDefinitionGoalTargetSurrogate.measure,
+      detail = this@PlanDefinitionGoalTargetSurrogate.detail,
+      due = this@PlanDefinitionGoalTargetSurrogate.due,
     )
 
   public companion object {
-    public fun fromModel(model: PlanDefinition.Actor.Option): PlanDefinitionActorOptionSurrogate =
+    public fun fromModel(model: PlanDefinition.Goal.Target): PlanDefinitionGoalTargetSurrogate =
       with(model) {
-        PlanDefinitionActorOptionSurrogate(
+        PlanDefinitionGoalTargetSurrogate(
           id = this@with.id,
           extension = this@with.extension.takeUnless { it.all { it == null } },
           modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          type = this@with.type?.value?.getCode(),
-          _type = this@with.type?.toElement(),
-          typeCanonical = this@with.typeCanonical?.value,
-          _typeCanonical = this@with.typeCanonical?.toElement(),
-          typeReference = this@with.typeReference,
-          role = this@with.role,
+          measure = this@with.measure,
+          detail = this@with.detail,
+          due = this@with.due,
         )
       }
   }
@@ -300,422 +194,52 @@ internal data class PlanDefinitionActorSurrogate(
 }
 
 @Serializable
-internal data class PlanDefinitionActionConditionSurrogate(
+internal data class PlanDefinitionActorOptionSurrogate(
   public var id: KotlinString? = null,
   public var extension: MutableList<Extension>? = null,
   public var modifierExtension: MutableList<Extension>? = null,
-  public var kind: KotlinString? = null,
-  public var _kind: Element? = null,
-  public var expression: Expression? = null,
-) {
-  public fun toModel(): PlanDefinition.Action.Condition =
-    PlanDefinition.Action.Condition(
-      id = this@PlanDefinitionActionConditionSurrogate.id,
-      extension = this@PlanDefinitionActionConditionSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@PlanDefinitionActionConditionSurrogate.modifierExtension ?: mutableListOf(),
-      kind =
-        Enumeration.of(
-          com.google.fhir.model.r5.PlanDefinition.ActionConditionKind.fromCode(
-            this@PlanDefinitionActionConditionSurrogate.kind!!
-          ),
-          this@PlanDefinitionActionConditionSurrogate._kind,
-        ),
-      expression = this@PlanDefinitionActionConditionSurrogate.expression,
-    )
-
-  public companion object {
-    public fun fromModel(
-      model: PlanDefinition.Action.Condition
-    ): PlanDefinitionActionConditionSurrogate =
-      with(model) {
-        PlanDefinitionActionConditionSurrogate(
-          id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          kind = this@with.kind.value?.getCode(),
-          _kind = this@with.kind.toElement(),
-          expression = this@with.expression,
-        )
-      }
-  }
-}
-
-@Serializable
-internal data class PlanDefinitionActionInputSurrogate(
-  public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var title: KotlinString? = null,
-  public var _title: Element? = null,
-  public var requirement: DataRequirement? = null,
-  public var relatedData: KotlinString? = null,
-  public var _relatedData: Element? = null,
-) {
-  public fun toModel(): PlanDefinition.Action.Input =
-    PlanDefinition.Action.Input(
-      id = this@PlanDefinitionActionInputSurrogate.id,
-      extension = this@PlanDefinitionActionInputSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@PlanDefinitionActionInputSurrogate.modifierExtension ?: mutableListOf(),
-      title =
-        R5String.of(
-          this@PlanDefinitionActionInputSurrogate.title,
-          this@PlanDefinitionActionInputSurrogate._title,
-        ),
-      requirement = this@PlanDefinitionActionInputSurrogate.requirement,
-      relatedData =
-        Id.of(
-          this@PlanDefinitionActionInputSurrogate.relatedData,
-          this@PlanDefinitionActionInputSurrogate._relatedData,
-        ),
-    )
-
-  public companion object {
-    public fun fromModel(model: PlanDefinition.Action.Input): PlanDefinitionActionInputSurrogate =
-      with(model) {
-        PlanDefinitionActionInputSurrogate(
-          id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          title = this@with.title?.value,
-          _title = this@with.title?.toElement(),
-          requirement = this@with.requirement,
-          relatedData = this@with.relatedData?.value,
-          _relatedData = this@with.relatedData?.toElement(),
-        )
-      }
-  }
-}
-
-@Serializable
-internal data class PlanDefinitionActionOutputSurrogate(
-  public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var title: KotlinString? = null,
-  public var _title: Element? = null,
-  public var requirement: DataRequirement? = null,
-  public var relatedData: KotlinString? = null,
-  public var _relatedData: Element? = null,
-) {
-  public fun toModel(): PlanDefinition.Action.Output =
-    PlanDefinition.Action.Output(
-      id = this@PlanDefinitionActionOutputSurrogate.id,
-      extension = this@PlanDefinitionActionOutputSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@PlanDefinitionActionOutputSurrogate.modifierExtension ?: mutableListOf(),
-      title =
-        R5String.of(
-          this@PlanDefinitionActionOutputSurrogate.title,
-          this@PlanDefinitionActionOutputSurrogate._title,
-        ),
-      requirement = this@PlanDefinitionActionOutputSurrogate.requirement,
-      relatedData =
-        R5String.of(
-          this@PlanDefinitionActionOutputSurrogate.relatedData,
-          this@PlanDefinitionActionOutputSurrogate._relatedData,
-        ),
-    )
-
-  public companion object {
-    public fun fromModel(model: PlanDefinition.Action.Output): PlanDefinitionActionOutputSurrogate =
-      with(model) {
-        PlanDefinitionActionOutputSurrogate(
-          id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          title = this@with.title?.value,
-          _title = this@with.title?.toElement(),
-          requirement = this@with.requirement,
-          relatedData = this@with.relatedData?.value,
-          _relatedData = this@with.relatedData?.toElement(),
-        )
-      }
-  }
-}
-
-@Serializable
-internal data class PlanDefinitionActionRelatedActionOffsetSurrogate(
-  public var offsetDuration: Duration? = null,
-  public var offsetRange: Range? = null,
-) {
-  public fun toModel(): PlanDefinition.Action.RelatedAction.Offset =
-    PlanDefinition.Action.RelatedAction.Offset?.from(
-      this@PlanDefinitionActionRelatedActionOffsetSurrogate.offsetDuration,
-      this@PlanDefinitionActionRelatedActionOffsetSurrogate.offsetRange,
-    )!!
-
-  public companion object {
-    public fun fromModel(
-      model: PlanDefinition.Action.RelatedAction.Offset
-    ): PlanDefinitionActionRelatedActionOffsetSurrogate =
-      with(model) {
-        PlanDefinitionActionRelatedActionOffsetSurrogate(
-          offsetDuration = this@with.asDuration()?.value,
-          offsetRange = this@with.asRange()?.value,
-        )
-      }
-  }
-}
-
-@Serializable
-internal data class PlanDefinitionActionRelatedActionSurrogate(
-  public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var targetId: KotlinString? = null,
-  public var _targetId: Element? = null,
-  public var relationship: KotlinString? = null,
-  public var _relationship: Element? = null,
-  public var endRelationship: KotlinString? = null,
-  public var _endRelationship: Element? = null,
-  public var offset: PlanDefinition.Action.RelatedAction.Offset? = null,
-) {
-  public fun toModel(): PlanDefinition.Action.RelatedAction =
-    PlanDefinition.Action.RelatedAction(
-      id = this@PlanDefinitionActionRelatedActionSurrogate.id,
-      extension = this@PlanDefinitionActionRelatedActionSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@PlanDefinitionActionRelatedActionSurrogate.modifierExtension ?: mutableListOf(),
-      targetId =
-        Id.of(
-          this@PlanDefinitionActionRelatedActionSurrogate.targetId,
-          this@PlanDefinitionActionRelatedActionSurrogate._targetId,
-        )!!,
-      relationship =
-        Enumeration.of(
-          com.google.fhir.model.r5.PlanDefinition.ActionRelationshipType.fromCode(
-            this@PlanDefinitionActionRelatedActionSurrogate.relationship!!
-          ),
-          this@PlanDefinitionActionRelatedActionSurrogate._relationship,
-        ),
-      endRelationship =
-        this@PlanDefinitionActionRelatedActionSurrogate.endRelationship?.let {
-          Enumeration.of(
-            com.google.fhir.model.r5.PlanDefinition.ActionRelationshipType.fromCode(it!!),
-            this@PlanDefinitionActionRelatedActionSurrogate._endRelationship,
-          )
-        },
-      offset = this@PlanDefinitionActionRelatedActionSurrogate.offset,
-    )
-
-  public companion object {
-    public fun fromModel(
-      model: PlanDefinition.Action.RelatedAction
-    ): PlanDefinitionActionRelatedActionSurrogate =
-      with(model) {
-        PlanDefinitionActionRelatedActionSurrogate(
-          id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          targetId = this@with.targetId.value,
-          _targetId = this@with.targetId.toElement(),
-          relationship = this@with.relationship.value?.getCode(),
-          _relationship = this@with.relationship.toElement(),
-          endRelationship = this@with.endRelationship?.value?.getCode(),
-          _endRelationship = this@with.endRelationship?.toElement(),
-          offset = this@with.offset,
-        )
-      }
-  }
-}
-
-@Serializable
-internal data class PlanDefinitionActionParticipantSurrogate(
-  public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var actorId: KotlinString? = null,
-  public var _actorId: Element? = null,
   public var type: KotlinString? = null,
   public var _type: Element? = null,
   public var typeCanonical: KotlinString? = null,
   public var _typeCanonical: Element? = null,
   public var typeReference: Reference? = null,
   public var role: CodeableConcept? = null,
-  public var function: CodeableConcept? = null,
 ) {
-  public fun toModel(): PlanDefinition.Action.Participant =
-    PlanDefinition.Action.Participant(
-      id = this@PlanDefinitionActionParticipantSurrogate.id,
-      extension = this@PlanDefinitionActionParticipantSurrogate.extension ?: mutableListOf(),
+  public fun toModel(): PlanDefinition.Actor.Option =
+    PlanDefinition.Actor.Option(
+      id = this@PlanDefinitionActorOptionSurrogate.id,
+      extension = this@PlanDefinitionActorOptionSurrogate.extension ?: mutableListOf(),
       modifierExtension =
-        this@PlanDefinitionActionParticipantSurrogate.modifierExtension ?: mutableListOf(),
-      actorId =
-        R5String.of(
-          this@PlanDefinitionActionParticipantSurrogate.actorId,
-          this@PlanDefinitionActionParticipantSurrogate._actorId,
-        ),
+        this@PlanDefinitionActorOptionSurrogate.modifierExtension ?: mutableListOf(),
       type =
-        this@PlanDefinitionActionParticipantSurrogate.type?.let {
+        this@PlanDefinitionActorOptionSurrogate.type?.let {
           Enumeration.of(
             com.google.fhir.model.r5.PlanDefinition.ActionParticipantType.fromCode(it!!),
-            this@PlanDefinitionActionParticipantSurrogate._type,
+            this@PlanDefinitionActorOptionSurrogate._type,
           )
         },
       typeCanonical =
         Canonical.of(
-          this@PlanDefinitionActionParticipantSurrogate.typeCanonical,
-          this@PlanDefinitionActionParticipantSurrogate._typeCanonical,
+          this@PlanDefinitionActorOptionSurrogate.typeCanonical,
+          this@PlanDefinitionActorOptionSurrogate._typeCanonical,
         ),
-      typeReference = this@PlanDefinitionActionParticipantSurrogate.typeReference,
-      role = this@PlanDefinitionActionParticipantSurrogate.role,
-      function = this@PlanDefinitionActionParticipantSurrogate.function,
+      typeReference = this@PlanDefinitionActorOptionSurrogate.typeReference,
+      role = this@PlanDefinitionActorOptionSurrogate.role,
     )
 
   public companion object {
-    public fun fromModel(
-      model: PlanDefinition.Action.Participant
-    ): PlanDefinitionActionParticipantSurrogate =
+    public fun fromModel(model: PlanDefinition.Actor.Option): PlanDefinitionActorOptionSurrogate =
       with(model) {
-        PlanDefinitionActionParticipantSurrogate(
+        PlanDefinitionActorOptionSurrogate(
           id = this@with.id,
           extension = this@with.extension.takeUnless { it.all { it == null } },
           modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          actorId = this@with.actorId?.value,
-          _actorId = this@with.actorId?.toElement(),
           type = this@with.type?.value?.getCode(),
           _type = this@with.type?.toElement(),
           typeCanonical = this@with.typeCanonical?.value,
           _typeCanonical = this@with.typeCanonical?.toElement(),
           typeReference = this@with.typeReference,
           role = this@with.role,
-          function = this@with.function,
-        )
-      }
-  }
-}
-
-@Serializable
-internal data class PlanDefinitionActionDynamicValueSurrogate(
-  public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var path: KotlinString? = null,
-  public var _path: Element? = null,
-  public var expression: Expression? = null,
-) {
-  public fun toModel(): PlanDefinition.Action.DynamicValue =
-    PlanDefinition.Action.DynamicValue(
-      id = this@PlanDefinitionActionDynamicValueSurrogate.id,
-      extension = this@PlanDefinitionActionDynamicValueSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@PlanDefinitionActionDynamicValueSurrogate.modifierExtension ?: mutableListOf(),
-      path =
-        R5String.of(
-          this@PlanDefinitionActionDynamicValueSurrogate.path,
-          this@PlanDefinitionActionDynamicValueSurrogate._path,
-        ),
-      expression = this@PlanDefinitionActionDynamicValueSurrogate.expression,
-    )
-
-  public companion object {
-    public fun fromModel(
-      model: PlanDefinition.Action.DynamicValue
-    ): PlanDefinitionActionDynamicValueSurrogate =
-      with(model) {
-        PlanDefinitionActionDynamicValueSurrogate(
-          id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          path = this@with.path?.value,
-          _path = this@with.path?.toElement(),
-          expression = this@with.expression,
-        )
-      }
-  }
-}
-
-@Serializable
-internal data class PlanDefinitionActionSubjectSurrogate(
-  public var subjectCodeableConcept: CodeableConcept? = null,
-  public var subjectReference: Reference? = null,
-  public var subjectCanonical: KotlinString? = null,
-  public var _subjectCanonical: Element? = null,
-) {
-  public fun toModel(): PlanDefinition.Action.Subject =
-    PlanDefinition.Action.Subject?.from(
-      this@PlanDefinitionActionSubjectSurrogate.subjectCodeableConcept,
-      this@PlanDefinitionActionSubjectSurrogate.subjectReference,
-      Canonical.of(
-        this@PlanDefinitionActionSubjectSurrogate.subjectCanonical,
-        this@PlanDefinitionActionSubjectSurrogate._subjectCanonical,
-      ),
-    )!!
-
-  public companion object {
-    public fun fromModel(
-      model: PlanDefinition.Action.Subject
-    ): PlanDefinitionActionSubjectSurrogate =
-      with(model) {
-        PlanDefinitionActionSubjectSurrogate(
-          subjectCodeableConcept = this@with.asCodeableConcept()?.value,
-          subjectReference = this@with.asReference()?.value,
-          subjectCanonical = this@with.asCanonical()?.value?.value,
-          _subjectCanonical = this@with.asCanonical()?.value?.toElement(),
-        )
-      }
-  }
-}
-
-@Serializable
-internal data class PlanDefinitionActionTimingSurrogate(
-  public var timingAge: Age? = null,
-  public var timingDuration: Duration? = null,
-  public var timingRange: Range? = null,
-  public var timingTiming: Timing? = null,
-) {
-  public fun toModel(): PlanDefinition.Action.Timing =
-    PlanDefinition.Action.Timing?.from(
-      this@PlanDefinitionActionTimingSurrogate.timingAge,
-      this@PlanDefinitionActionTimingSurrogate.timingDuration,
-      this@PlanDefinitionActionTimingSurrogate.timingRange,
-      this@PlanDefinitionActionTimingSurrogate.timingTiming,
-    )!!
-
-  public companion object {
-    public fun fromModel(model: PlanDefinition.Action.Timing): PlanDefinitionActionTimingSurrogate =
-      with(model) {
-        PlanDefinitionActionTimingSurrogate(
-          timingAge = this@with.asAge()?.value,
-          timingDuration = this@with.asDuration()?.value,
-          timingRange = this@with.asRange()?.value,
-          timingTiming = this@with.asTiming()?.value,
-        )
-      }
-  }
-}
-
-@Serializable
-internal data class PlanDefinitionActionDefinitionSurrogate(
-  public var definitionCanonical: KotlinString? = null,
-  public var _definitionCanonical: Element? = null,
-  public var definitionUri: KotlinString? = null,
-  public var _definitionUri: Element? = null,
-) {
-  public fun toModel(): PlanDefinition.Action.Definition =
-    PlanDefinition.Action.Definition?.from(
-      Canonical.of(
-        this@PlanDefinitionActionDefinitionSurrogate.definitionCanonical,
-        this@PlanDefinitionActionDefinitionSurrogate._definitionCanonical,
-      ),
-      Uri.of(
-        this@PlanDefinitionActionDefinitionSurrogate.definitionUri,
-        this@PlanDefinitionActionDefinitionSurrogate._definitionUri,
-      ),
-    )!!
-
-  public companion object {
-    public fun fromModel(
-      model: PlanDefinition.Action.Definition
-    ): PlanDefinitionActionDefinitionSurrogate =
-      with(model) {
-        PlanDefinitionActionDefinitionSurrogate(
-          definitionCanonical = this@with.asCanonical()?.value?.value,
-          _definitionCanonical = this@with.asCanonical()?.value?.toElement(),
-          definitionUri = this@with.asUri()?.value?.value,
-          _definitionUri = this@with.asUri()?.value?.toElement(),
         )
       }
   }
@@ -941,13 +465,317 @@ internal data class PlanDefinitionActionSurrogate(
 }
 
 @Serializable
+internal data class PlanDefinitionActionConditionSurrogate(
+  public var id: KotlinString? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var kind: KotlinString? = null,
+  public var _kind: Element? = null,
+  public var expression: Expression? = null,
+) {
+  public fun toModel(): PlanDefinition.Action.Condition =
+    PlanDefinition.Action.Condition(
+      id = this@PlanDefinitionActionConditionSurrogate.id,
+      extension = this@PlanDefinitionActionConditionSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@PlanDefinitionActionConditionSurrogate.modifierExtension ?: mutableListOf(),
+      kind =
+        Enumeration.of(
+          com.google.fhir.model.r5.PlanDefinition.ActionConditionKind.fromCode(
+            this@PlanDefinitionActionConditionSurrogate.kind!!
+          ),
+          this@PlanDefinitionActionConditionSurrogate._kind,
+        ),
+      expression = this@PlanDefinitionActionConditionSurrogate.expression,
+    )
+
+  public companion object {
+    public fun fromModel(
+      model: PlanDefinition.Action.Condition
+    ): PlanDefinitionActionConditionSurrogate =
+      with(model) {
+        PlanDefinitionActionConditionSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          kind = this@with.kind.value?.getCode(),
+          _kind = this@with.kind.toElement(),
+          expression = this@with.expression,
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class PlanDefinitionActionInputSurrogate(
+  public var id: KotlinString? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var title: KotlinString? = null,
+  public var _title: Element? = null,
+  public var requirement: DataRequirement? = null,
+  public var relatedData: KotlinString? = null,
+  public var _relatedData: Element? = null,
+) {
+  public fun toModel(): PlanDefinition.Action.Input =
+    PlanDefinition.Action.Input(
+      id = this@PlanDefinitionActionInputSurrogate.id,
+      extension = this@PlanDefinitionActionInputSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@PlanDefinitionActionInputSurrogate.modifierExtension ?: mutableListOf(),
+      title =
+        R5String.of(
+          this@PlanDefinitionActionInputSurrogate.title,
+          this@PlanDefinitionActionInputSurrogate._title,
+        ),
+      requirement = this@PlanDefinitionActionInputSurrogate.requirement,
+      relatedData =
+        Id.of(
+          this@PlanDefinitionActionInputSurrogate.relatedData,
+          this@PlanDefinitionActionInputSurrogate._relatedData,
+        ),
+    )
+
+  public companion object {
+    public fun fromModel(model: PlanDefinition.Action.Input): PlanDefinitionActionInputSurrogate =
+      with(model) {
+        PlanDefinitionActionInputSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          title = this@with.title?.value,
+          _title = this@with.title?.toElement(),
+          requirement = this@with.requirement,
+          relatedData = this@with.relatedData?.value,
+          _relatedData = this@with.relatedData?.toElement(),
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class PlanDefinitionActionOutputSurrogate(
+  public var id: KotlinString? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var title: KotlinString? = null,
+  public var _title: Element? = null,
+  public var requirement: DataRequirement? = null,
+  public var relatedData: KotlinString? = null,
+  public var _relatedData: Element? = null,
+) {
+  public fun toModel(): PlanDefinition.Action.Output =
+    PlanDefinition.Action.Output(
+      id = this@PlanDefinitionActionOutputSurrogate.id,
+      extension = this@PlanDefinitionActionOutputSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@PlanDefinitionActionOutputSurrogate.modifierExtension ?: mutableListOf(),
+      title =
+        R5String.of(
+          this@PlanDefinitionActionOutputSurrogate.title,
+          this@PlanDefinitionActionOutputSurrogate._title,
+        ),
+      requirement = this@PlanDefinitionActionOutputSurrogate.requirement,
+      relatedData =
+        R5String.of(
+          this@PlanDefinitionActionOutputSurrogate.relatedData,
+          this@PlanDefinitionActionOutputSurrogate._relatedData,
+        ),
+    )
+
+  public companion object {
+    public fun fromModel(model: PlanDefinition.Action.Output): PlanDefinitionActionOutputSurrogate =
+      with(model) {
+        PlanDefinitionActionOutputSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          title = this@with.title?.value,
+          _title = this@with.title?.toElement(),
+          requirement = this@with.requirement,
+          relatedData = this@with.relatedData?.value,
+          _relatedData = this@with.relatedData?.toElement(),
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class PlanDefinitionActionRelatedActionSurrogate(
+  public var id: KotlinString? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var targetId: KotlinString? = null,
+  public var _targetId: Element? = null,
+  public var relationship: KotlinString? = null,
+  public var _relationship: Element? = null,
+  public var endRelationship: KotlinString? = null,
+  public var _endRelationship: Element? = null,
+  public var offset: PlanDefinition.Action.RelatedAction.Offset? = null,
+) {
+  public fun toModel(): PlanDefinition.Action.RelatedAction =
+    PlanDefinition.Action.RelatedAction(
+      id = this@PlanDefinitionActionRelatedActionSurrogate.id,
+      extension = this@PlanDefinitionActionRelatedActionSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@PlanDefinitionActionRelatedActionSurrogate.modifierExtension ?: mutableListOf(),
+      targetId =
+        Id.of(
+          this@PlanDefinitionActionRelatedActionSurrogate.targetId,
+          this@PlanDefinitionActionRelatedActionSurrogate._targetId,
+        )!!,
+      relationship =
+        Enumeration.of(
+          com.google.fhir.model.r5.PlanDefinition.ActionRelationshipType.fromCode(
+            this@PlanDefinitionActionRelatedActionSurrogate.relationship!!
+          ),
+          this@PlanDefinitionActionRelatedActionSurrogate._relationship,
+        ),
+      endRelationship =
+        this@PlanDefinitionActionRelatedActionSurrogate.endRelationship?.let {
+          Enumeration.of(
+            com.google.fhir.model.r5.PlanDefinition.ActionRelationshipType.fromCode(it!!),
+            this@PlanDefinitionActionRelatedActionSurrogate._endRelationship,
+          )
+        },
+      offset = this@PlanDefinitionActionRelatedActionSurrogate.offset,
+    )
+
+  public companion object {
+    public fun fromModel(
+      model: PlanDefinition.Action.RelatedAction
+    ): PlanDefinitionActionRelatedActionSurrogate =
+      with(model) {
+        PlanDefinitionActionRelatedActionSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          targetId = this@with.targetId.value,
+          _targetId = this@with.targetId.toElement(),
+          relationship = this@with.relationship.value?.getCode(),
+          _relationship = this@with.relationship.toElement(),
+          endRelationship = this@with.endRelationship?.value?.getCode(),
+          _endRelationship = this@with.endRelationship?.toElement(),
+          offset = this@with.offset,
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class PlanDefinitionActionParticipantSurrogate(
+  public var id: KotlinString? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var actorId: KotlinString? = null,
+  public var _actorId: Element? = null,
+  public var type: KotlinString? = null,
+  public var _type: Element? = null,
+  public var typeCanonical: KotlinString? = null,
+  public var _typeCanonical: Element? = null,
+  public var typeReference: Reference? = null,
+  public var role: CodeableConcept? = null,
+  public var function: CodeableConcept? = null,
+) {
+  public fun toModel(): PlanDefinition.Action.Participant =
+    PlanDefinition.Action.Participant(
+      id = this@PlanDefinitionActionParticipantSurrogate.id,
+      extension = this@PlanDefinitionActionParticipantSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@PlanDefinitionActionParticipantSurrogate.modifierExtension ?: mutableListOf(),
+      actorId =
+        R5String.of(
+          this@PlanDefinitionActionParticipantSurrogate.actorId,
+          this@PlanDefinitionActionParticipantSurrogate._actorId,
+        ),
+      type =
+        this@PlanDefinitionActionParticipantSurrogate.type?.let {
+          Enumeration.of(
+            com.google.fhir.model.r5.PlanDefinition.ActionParticipantType.fromCode(it!!),
+            this@PlanDefinitionActionParticipantSurrogate._type,
+          )
+        },
+      typeCanonical =
+        Canonical.of(
+          this@PlanDefinitionActionParticipantSurrogate.typeCanonical,
+          this@PlanDefinitionActionParticipantSurrogate._typeCanonical,
+        ),
+      typeReference = this@PlanDefinitionActionParticipantSurrogate.typeReference,
+      role = this@PlanDefinitionActionParticipantSurrogate.role,
+      function = this@PlanDefinitionActionParticipantSurrogate.function,
+    )
+
+  public companion object {
+    public fun fromModel(
+      model: PlanDefinition.Action.Participant
+    ): PlanDefinitionActionParticipantSurrogate =
+      with(model) {
+        PlanDefinitionActionParticipantSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          actorId = this@with.actorId?.value,
+          _actorId = this@with.actorId?.toElement(),
+          type = this@with.type?.value?.getCode(),
+          _type = this@with.type?.toElement(),
+          typeCanonical = this@with.typeCanonical?.value,
+          _typeCanonical = this@with.typeCanonical?.toElement(),
+          typeReference = this@with.typeReference,
+          role = this@with.role,
+          function = this@with.function,
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class PlanDefinitionActionDynamicValueSurrogate(
+  public var id: KotlinString? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var path: KotlinString? = null,
+  public var _path: Element? = null,
+  public var expression: Expression? = null,
+) {
+  public fun toModel(): PlanDefinition.Action.DynamicValue =
+    PlanDefinition.Action.DynamicValue(
+      id = this@PlanDefinitionActionDynamicValueSurrogate.id,
+      extension = this@PlanDefinitionActionDynamicValueSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@PlanDefinitionActionDynamicValueSurrogate.modifierExtension ?: mutableListOf(),
+      path =
+        R5String.of(
+          this@PlanDefinitionActionDynamicValueSurrogate.path,
+          this@PlanDefinitionActionDynamicValueSurrogate._path,
+        ),
+      expression = this@PlanDefinitionActionDynamicValueSurrogate.expression,
+    )
+
+  public companion object {
+    public fun fromModel(
+      model: PlanDefinition.Action.DynamicValue
+    ): PlanDefinitionActionDynamicValueSurrogate =
+      with(model) {
+        PlanDefinitionActionDynamicValueSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          path = this@with.path?.value,
+          _path = this@with.path?.toElement(),
+          expression = this@with.expression,
+        )
+      }
+  }
+}
+
+@Serializable
 internal data class PlanDefinitionVersionAlgorithmSurrogate(
   public var versionAlgorithmString: KotlinString? = null,
   public var _versionAlgorithmString: Element? = null,
   public var versionAlgorithmCoding: Coding? = null,
 ) {
   public fun toModel(): PlanDefinition.VersionAlgorithm =
-    PlanDefinition.VersionAlgorithm?.from(
+    PlanDefinition.VersionAlgorithm.from(
       R5String.of(
         this@PlanDefinitionVersionAlgorithmSurrogate.versionAlgorithmString,
         this@PlanDefinitionVersionAlgorithmSurrogate._versionAlgorithmString,
@@ -977,7 +805,7 @@ internal data class PlanDefinitionSubjectSurrogate(
   public var _subjectCanonical: Element? = null,
 ) {
   public fun toModel(): PlanDefinition.Subject =
-    PlanDefinition.Subject?.from(
+    PlanDefinition.Subject.from(
       this@PlanDefinitionSubjectSurrogate.subjectCodeableConcept,
       this@PlanDefinitionSubjectSurrogate.subjectReference,
       Canonical.of(
@@ -1000,13 +828,185 @@ internal data class PlanDefinitionSubjectSurrogate(
 }
 
 @Serializable
+internal data class PlanDefinitionGoalTargetDetailSurrogate(
+  public var detailQuantity: Quantity? = null,
+  public var detailRange: Range? = null,
+  public var detailCodeableConcept: CodeableConcept? = null,
+  public var detailString: KotlinString? = null,
+  public var _detailString: Element? = null,
+  public var detailBoolean: KotlinBoolean? = null,
+  public var _detailBoolean: Element? = null,
+  public var detailInteger: Int? = null,
+  public var _detailInteger: Element? = null,
+  public var detailRatio: Ratio? = null,
+) {
+  public fun toModel(): PlanDefinition.Goal.Target.Detail =
+    PlanDefinition.Goal.Target.Detail.from(
+      this@PlanDefinitionGoalTargetDetailSurrogate.detailQuantity,
+      this@PlanDefinitionGoalTargetDetailSurrogate.detailRange,
+      this@PlanDefinitionGoalTargetDetailSurrogate.detailCodeableConcept,
+      R5String.of(
+        this@PlanDefinitionGoalTargetDetailSurrogate.detailString,
+        this@PlanDefinitionGoalTargetDetailSurrogate._detailString,
+      ),
+      R5Boolean.of(
+        this@PlanDefinitionGoalTargetDetailSurrogate.detailBoolean,
+        this@PlanDefinitionGoalTargetDetailSurrogate._detailBoolean,
+      ),
+      Integer.of(
+        this@PlanDefinitionGoalTargetDetailSurrogate.detailInteger,
+        this@PlanDefinitionGoalTargetDetailSurrogate._detailInteger,
+      ),
+      this@PlanDefinitionGoalTargetDetailSurrogate.detailRatio,
+    )!!
+
+  public companion object {
+    public fun fromModel(
+      model: PlanDefinition.Goal.Target.Detail
+    ): PlanDefinitionGoalTargetDetailSurrogate =
+      with(model) {
+        PlanDefinitionGoalTargetDetailSurrogate(
+          detailQuantity = this@with.asQuantity()?.value,
+          detailRange = this@with.asRange()?.value,
+          detailCodeableConcept = this@with.asCodeableConcept()?.value,
+          detailString = this@with.asString()?.value?.value,
+          _detailString = this@with.asString()?.value?.toElement(),
+          detailBoolean = this@with.asBoolean()?.value?.value,
+          _detailBoolean = this@with.asBoolean()?.value?.toElement(),
+          detailInteger = this@with.asInteger()?.value?.value,
+          _detailInteger = this@with.asInteger()?.value?.toElement(),
+          detailRatio = this@with.asRatio()?.value,
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class PlanDefinitionActionSubjectSurrogate(
+  public var subjectCodeableConcept: CodeableConcept? = null,
+  public var subjectReference: Reference? = null,
+  public var subjectCanonical: KotlinString? = null,
+  public var _subjectCanonical: Element? = null,
+) {
+  public fun toModel(): PlanDefinition.Action.Subject =
+    PlanDefinition.Action.Subject.from(
+      this@PlanDefinitionActionSubjectSurrogate.subjectCodeableConcept,
+      this@PlanDefinitionActionSubjectSurrogate.subjectReference,
+      Canonical.of(
+        this@PlanDefinitionActionSubjectSurrogate.subjectCanonical,
+        this@PlanDefinitionActionSubjectSurrogate._subjectCanonical,
+      ),
+    )!!
+
+  public companion object {
+    public fun fromModel(
+      model: PlanDefinition.Action.Subject
+    ): PlanDefinitionActionSubjectSurrogate =
+      with(model) {
+        PlanDefinitionActionSubjectSurrogate(
+          subjectCodeableConcept = this@with.asCodeableConcept()?.value,
+          subjectReference = this@with.asReference()?.value,
+          subjectCanonical = this@with.asCanonical()?.value?.value,
+          _subjectCanonical = this@with.asCanonical()?.value?.toElement(),
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class PlanDefinitionActionRelatedActionOffsetSurrogate(
+  public var offsetDuration: Duration? = null,
+  public var offsetRange: Range? = null,
+) {
+  public fun toModel(): PlanDefinition.Action.RelatedAction.Offset =
+    PlanDefinition.Action.RelatedAction.Offset.from(
+      this@PlanDefinitionActionRelatedActionOffsetSurrogate.offsetDuration,
+      this@PlanDefinitionActionRelatedActionOffsetSurrogate.offsetRange,
+    )!!
+
+  public companion object {
+    public fun fromModel(
+      model: PlanDefinition.Action.RelatedAction.Offset
+    ): PlanDefinitionActionRelatedActionOffsetSurrogate =
+      with(model) {
+        PlanDefinitionActionRelatedActionOffsetSurrogate(
+          offsetDuration = this@with.asDuration()?.value,
+          offsetRange = this@with.asRange()?.value,
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class PlanDefinitionActionTimingSurrogate(
+  public var timingAge: Age? = null,
+  public var timingDuration: Duration? = null,
+  public var timingRange: Range? = null,
+  public var timingTiming: Timing? = null,
+) {
+  public fun toModel(): PlanDefinition.Action.Timing =
+    PlanDefinition.Action.Timing.from(
+      this@PlanDefinitionActionTimingSurrogate.timingAge,
+      this@PlanDefinitionActionTimingSurrogate.timingDuration,
+      this@PlanDefinitionActionTimingSurrogate.timingRange,
+      this@PlanDefinitionActionTimingSurrogate.timingTiming,
+    )!!
+
+  public companion object {
+    public fun fromModel(model: PlanDefinition.Action.Timing): PlanDefinitionActionTimingSurrogate =
+      with(model) {
+        PlanDefinitionActionTimingSurrogate(
+          timingAge = this@with.asAge()?.value,
+          timingDuration = this@with.asDuration()?.value,
+          timingRange = this@with.asRange()?.value,
+          timingTiming = this@with.asTiming()?.value,
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class PlanDefinitionActionDefinitionSurrogate(
+  public var definitionCanonical: KotlinString? = null,
+  public var _definitionCanonical: Element? = null,
+  public var definitionUri: KotlinString? = null,
+  public var _definitionUri: Element? = null,
+) {
+  public fun toModel(): PlanDefinition.Action.Definition =
+    PlanDefinition.Action.Definition.from(
+      Canonical.of(
+        this@PlanDefinitionActionDefinitionSurrogate.definitionCanonical,
+        this@PlanDefinitionActionDefinitionSurrogate._definitionCanonical,
+      ),
+      Uri.of(
+        this@PlanDefinitionActionDefinitionSurrogate.definitionUri,
+        this@PlanDefinitionActionDefinitionSurrogate._definitionUri,
+      ),
+    )!!
+
+  public companion object {
+    public fun fromModel(
+      model: PlanDefinition.Action.Definition
+    ): PlanDefinitionActionDefinitionSurrogate =
+      with(model) {
+        PlanDefinitionActionDefinitionSurrogate(
+          definitionCanonical = this@with.asCanonical()?.value?.value,
+          _definitionCanonical = this@with.asCanonical()?.value?.toElement(),
+          definitionUri = this@with.asUri()?.value?.value,
+          _definitionUri = this@with.asUri()?.value?.toElement(),
+        )
+      }
+  }
+}
+
+@Serializable
 internal data class PlanDefinitionAsNeededSurrogate(
   public var asNeededBoolean: KotlinBoolean? = null,
   public var _asNeededBoolean: Element? = null,
   public var asNeededCodeableConcept: CodeableConcept? = null,
 ) {
   public fun toModel(): PlanDefinition.AsNeeded =
-    PlanDefinition.AsNeeded?.from(
+    PlanDefinition.AsNeeded.from(
       R5Boolean.of(
         this@PlanDefinitionAsNeededSurrogate.asNeededBoolean,
         this@PlanDefinitionAsNeededSurrogate._asNeededBoolean,

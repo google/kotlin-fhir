@@ -51,85 +51,6 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
-internal data class SubscriptionTopicResourceTriggerQueryCriteriaSurrogate(
-  public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var previous: KotlinString? = null,
-  public var _previous: Element? = null,
-  public var resultForCreate: KotlinString? = null,
-  public var _resultForCreate: Element? = null,
-  public var current: KotlinString? = null,
-  public var _current: Element? = null,
-  public var resultForDelete: KotlinString? = null,
-  public var _resultForDelete: Element? = null,
-  public var requireBoth: KotlinBoolean? = null,
-  public var _requireBoth: Element? = null,
-) {
-  public fun toModel(): SubscriptionTopic.ResourceTrigger.QueryCriteria =
-    SubscriptionTopic.ResourceTrigger.QueryCriteria(
-      id = this@SubscriptionTopicResourceTriggerQueryCriteriaSurrogate.id,
-      extension =
-        this@SubscriptionTopicResourceTriggerQueryCriteriaSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@SubscriptionTopicResourceTriggerQueryCriteriaSurrogate.modifierExtension
-          ?: mutableListOf(),
-      previous =
-        R4bString.of(
-          this@SubscriptionTopicResourceTriggerQueryCriteriaSurrogate.previous,
-          this@SubscriptionTopicResourceTriggerQueryCriteriaSurrogate._previous,
-        ),
-      resultForCreate =
-        this@SubscriptionTopicResourceTriggerQueryCriteriaSurrogate.resultForCreate?.let {
-          Enumeration.of(
-            com.google.fhir.model.r4b.SubscriptionTopic.CriteriaNotExistsBehavior.fromCode(it!!),
-            this@SubscriptionTopicResourceTriggerQueryCriteriaSurrogate._resultForCreate,
-          )
-        },
-      current =
-        R4bString.of(
-          this@SubscriptionTopicResourceTriggerQueryCriteriaSurrogate.current,
-          this@SubscriptionTopicResourceTriggerQueryCriteriaSurrogate._current,
-        ),
-      resultForDelete =
-        this@SubscriptionTopicResourceTriggerQueryCriteriaSurrogate.resultForDelete?.let {
-          Enumeration.of(
-            com.google.fhir.model.r4b.SubscriptionTopic.CriteriaNotExistsBehavior.fromCode(it!!),
-            this@SubscriptionTopicResourceTriggerQueryCriteriaSurrogate._resultForDelete,
-          )
-        },
-      requireBoth =
-        R4bBoolean.of(
-          this@SubscriptionTopicResourceTriggerQueryCriteriaSurrogate.requireBoth,
-          this@SubscriptionTopicResourceTriggerQueryCriteriaSurrogate._requireBoth,
-        ),
-    )
-
-  public companion object {
-    public fun fromModel(
-      model: SubscriptionTopic.ResourceTrigger.QueryCriteria
-    ): SubscriptionTopicResourceTriggerQueryCriteriaSurrogate =
-      with(model) {
-        SubscriptionTopicResourceTriggerQueryCriteriaSurrogate(
-          id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          previous = this@with.previous?.value,
-          _previous = this@with.previous?.toElement(),
-          resultForCreate = this@with.resultForCreate?.value?.getCode(),
-          _resultForCreate = this@with.resultForCreate?.toElement(),
-          current = this@with.current?.value,
-          _current = this@with.current?.toElement(),
-          resultForDelete = this@with.resultForDelete?.value?.getCode(),
-          _resultForDelete = this@with.resultForDelete?.toElement(),
-          requireBoth = this@with.requireBoth?.value,
-          _requireBoth = this@with.requireBoth?.toElement(),
-        )
-      }
-  }
-}
-
-@Serializable
 internal data class SubscriptionTopicResourceTriggerSurrogate(
   public var id: KotlinString? = null,
   public var extension: MutableList<Extension>? = null,
@@ -224,6 +145,85 @@ internal data class SubscriptionTopicResourceTriggerSurrogate(
           queryCriteria = this@with.queryCriteria,
           fhirPathCriteria = this@with.fhirPathCriteria?.value,
           _fhirPathCriteria = this@with.fhirPathCriteria?.toElement(),
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class SubscriptionTopicResourceTriggerQueryCriteriaSurrogate(
+  public var id: KotlinString? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var previous: KotlinString? = null,
+  public var _previous: Element? = null,
+  public var resultForCreate: KotlinString? = null,
+  public var _resultForCreate: Element? = null,
+  public var current: KotlinString? = null,
+  public var _current: Element? = null,
+  public var resultForDelete: KotlinString? = null,
+  public var _resultForDelete: Element? = null,
+  public var requireBoth: KotlinBoolean? = null,
+  public var _requireBoth: Element? = null,
+) {
+  public fun toModel(): SubscriptionTopic.ResourceTrigger.QueryCriteria =
+    SubscriptionTopic.ResourceTrigger.QueryCriteria(
+      id = this@SubscriptionTopicResourceTriggerQueryCriteriaSurrogate.id,
+      extension =
+        this@SubscriptionTopicResourceTriggerQueryCriteriaSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@SubscriptionTopicResourceTriggerQueryCriteriaSurrogate.modifierExtension
+          ?: mutableListOf(),
+      previous =
+        R4bString.of(
+          this@SubscriptionTopicResourceTriggerQueryCriteriaSurrogate.previous,
+          this@SubscriptionTopicResourceTriggerQueryCriteriaSurrogate._previous,
+        ),
+      resultForCreate =
+        this@SubscriptionTopicResourceTriggerQueryCriteriaSurrogate.resultForCreate?.let {
+          Enumeration.of(
+            com.google.fhir.model.r4b.SubscriptionTopic.CriteriaNotExistsBehavior.fromCode(it!!),
+            this@SubscriptionTopicResourceTriggerQueryCriteriaSurrogate._resultForCreate,
+          )
+        },
+      current =
+        R4bString.of(
+          this@SubscriptionTopicResourceTriggerQueryCriteriaSurrogate.current,
+          this@SubscriptionTopicResourceTriggerQueryCriteriaSurrogate._current,
+        ),
+      resultForDelete =
+        this@SubscriptionTopicResourceTriggerQueryCriteriaSurrogate.resultForDelete?.let {
+          Enumeration.of(
+            com.google.fhir.model.r4b.SubscriptionTopic.CriteriaNotExistsBehavior.fromCode(it!!),
+            this@SubscriptionTopicResourceTriggerQueryCriteriaSurrogate._resultForDelete,
+          )
+        },
+      requireBoth =
+        R4bBoolean.of(
+          this@SubscriptionTopicResourceTriggerQueryCriteriaSurrogate.requireBoth,
+          this@SubscriptionTopicResourceTriggerQueryCriteriaSurrogate._requireBoth,
+        ),
+    )
+
+  public companion object {
+    public fun fromModel(
+      model: SubscriptionTopic.ResourceTrigger.QueryCriteria
+    ): SubscriptionTopicResourceTriggerQueryCriteriaSurrogate =
+      with(model) {
+        SubscriptionTopicResourceTriggerQueryCriteriaSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          previous = this@with.previous?.value,
+          _previous = this@with.previous?.toElement(),
+          resultForCreate = this@with.resultForCreate?.value?.getCode(),
+          _resultForCreate = this@with.resultForCreate?.toElement(),
+          current = this@with.current?.value,
+          _current = this@with.current?.toElement(),
+          resultForDelete = this@with.resultForDelete?.value?.getCode(),
+          _resultForDelete = this@with.resultForDelete?.toElement(),
+          requireBoth = this@with.requireBoth?.value,
+          _requireBoth = this@with.requireBoth?.toElement(),
         )
       }
   }

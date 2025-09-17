@@ -39,30 +39,6 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
-internal data class MedicinalProductInteractionInteractantItemSurrogate(
-  public var itemReference: Reference? = null,
-  public var itemCodeableConcept: CodeableConcept? = null,
-) {
-  public fun toModel(): MedicinalProductInteraction.Interactant.Item =
-    MedicinalProductInteraction.Interactant.Item.from(
-      this@MedicinalProductInteractionInteractantItemSurrogate.itemReference,
-      this@MedicinalProductInteractionInteractantItemSurrogate.itemCodeableConcept,
-    )!! !!
-
-  public companion object {
-    public fun fromModel(
-      model: MedicinalProductInteraction.Interactant.Item
-    ): MedicinalProductInteractionInteractantItemSurrogate =
-      with(model) {
-        MedicinalProductInteractionInteractantItemSurrogate(
-          itemReference = this@with.asReference()?.value,
-          itemCodeableConcept = this@with.asCodeableConcept()?.value,
-        )
-      }
-  }
-}
-
-@Serializable
 internal data class MedicinalProductInteractionInteractantSurrogate(
   public var id: KotlinString? = null,
   public var extension: MutableList<Extension>? = null,
@@ -88,6 +64,30 @@ internal data class MedicinalProductInteractionInteractantSurrogate(
           extension = this@with.extension.takeUnless { it.all { it == null } },
           modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
           item = this@with.item,
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class MedicinalProductInteractionInteractantItemSurrogate(
+  public var itemReference: Reference? = null,
+  public var itemCodeableConcept: CodeableConcept? = null,
+) {
+  public fun toModel(): MedicinalProductInteraction.Interactant.Item =
+    MedicinalProductInteraction.Interactant.Item.from(
+      this@MedicinalProductInteractionInteractantItemSurrogate.itemReference,
+      this@MedicinalProductInteractionInteractantItemSurrogate.itemCodeableConcept,
+    )!! !!
+
+  public companion object {
+    public fun fromModel(
+      model: MedicinalProductInteraction.Interactant.Item
+    ): MedicinalProductInteractionInteractantItemSurrogate =
+      with(model) {
+        MedicinalProductInteractionInteractantItemSurrogate(
+          itemReference = this@with.asReference()?.value,
+          itemCodeableConcept = this@with.asCodeableConcept()?.value,
         )
       }
   }

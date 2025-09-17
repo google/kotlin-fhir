@@ -89,7 +89,7 @@ internal data class DiagnosticReportEffectiveSurrogate(
   public var effectivePeriod: Period? = null,
 ) {
   public fun toModel(): DiagnosticReport.Effective =
-    DiagnosticReport.Effective?.from(
+    DiagnosticReport.Effective.from(
       DateTime.of(
         FhirDateTime.fromString(this@DiagnosticReportEffectiveSurrogate.effectiveDateTime),
         this@DiagnosticReportEffectiveSurrogate._effectiveDateTime,

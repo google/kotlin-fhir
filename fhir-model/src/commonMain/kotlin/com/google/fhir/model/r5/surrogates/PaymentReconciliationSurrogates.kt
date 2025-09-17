@@ -49,43 +49,6 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
-internal data class PaymentReconciliationAllocationTargetItemSurrogate(
-  public var targetItemString: KotlinString? = null,
-  public var _targetItemString: Element? = null,
-  public var targetItemIdentifier: Identifier? = null,
-  public var targetItemPositiveInt: Int? = null,
-  public var _targetItemPositiveInt: Element? = null,
-) {
-  public fun toModel(): PaymentReconciliation.Allocation.TargetItem =
-    PaymentReconciliation.Allocation.TargetItem?.from(
-      R5String.of(
-        this@PaymentReconciliationAllocationTargetItemSurrogate.targetItemString,
-        this@PaymentReconciliationAllocationTargetItemSurrogate._targetItemString,
-      ),
-      this@PaymentReconciliationAllocationTargetItemSurrogate.targetItemIdentifier,
-      PositiveInt.of(
-        this@PaymentReconciliationAllocationTargetItemSurrogate.targetItemPositiveInt,
-        this@PaymentReconciliationAllocationTargetItemSurrogate._targetItemPositiveInt,
-      ),
-    )!!
-
-  public companion object {
-    public fun fromModel(
-      model: PaymentReconciliation.Allocation.TargetItem
-    ): PaymentReconciliationAllocationTargetItemSurrogate =
-      with(model) {
-        PaymentReconciliationAllocationTargetItemSurrogate(
-          targetItemString = this@with.asString()?.value?.value,
-          _targetItemString = this@with.asString()?.value?.toElement(),
-          targetItemIdentifier = this@with.asIdentifier()?.value,
-          targetItemPositiveInt = this@with.asPositiveInt()?.value?.value,
-          _targetItemPositiveInt = this@with.asPositiveInt()?.value?.toElement(),
-        )
-      }
-  }
-}
-
-@Serializable
 internal data class PaymentReconciliationAllocationSurrogate(
   public var id: KotlinString? = null,
   public var extension: MutableList<Extension>? = null,
@@ -201,6 +164,43 @@ internal data class PaymentReconciliationProcessNoteSurrogate(
           _type = this@with.type?.toElement(),
           text = this@with.text?.value,
           _text = this@with.text?.toElement(),
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class PaymentReconciliationAllocationTargetItemSurrogate(
+  public var targetItemString: KotlinString? = null,
+  public var _targetItemString: Element? = null,
+  public var targetItemIdentifier: Identifier? = null,
+  public var targetItemPositiveInt: Int? = null,
+  public var _targetItemPositiveInt: Element? = null,
+) {
+  public fun toModel(): PaymentReconciliation.Allocation.TargetItem =
+    PaymentReconciliation.Allocation.TargetItem.from(
+      R5String.of(
+        this@PaymentReconciliationAllocationTargetItemSurrogate.targetItemString,
+        this@PaymentReconciliationAllocationTargetItemSurrogate._targetItemString,
+      ),
+      this@PaymentReconciliationAllocationTargetItemSurrogate.targetItemIdentifier,
+      PositiveInt.of(
+        this@PaymentReconciliationAllocationTargetItemSurrogate.targetItemPositiveInt,
+        this@PaymentReconciliationAllocationTargetItemSurrogate._targetItemPositiveInt,
+      ),
+    )!!
+
+  public companion object {
+    public fun fromModel(
+      model: PaymentReconciliation.Allocation.TargetItem
+    ): PaymentReconciliationAllocationTargetItemSurrogate =
+      with(model) {
+        PaymentReconciliationAllocationTargetItemSurrogate(
+          targetItemString = this@with.asString()?.value?.value,
+          _targetItemString = this@with.asString()?.value?.toElement(),
+          targetItemIdentifier = this@with.asIdentifier()?.value,
+          targetItemPositiveInt = this@with.asPositiveInt()?.value?.value,
+          _targetItemPositiveInt = this@with.asPositiveInt()?.value?.toElement(),
         )
       }
   }

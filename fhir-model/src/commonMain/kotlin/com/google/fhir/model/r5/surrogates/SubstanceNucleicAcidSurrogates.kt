@@ -42,6 +42,76 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
+internal data class SubstanceNucleicAcidSubunitSurrogate(
+  public var id: KotlinString? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var subunit: Int? = null,
+  public var _subunit: Element? = null,
+  public var sequence: KotlinString? = null,
+  public var _sequence: Element? = null,
+  public var length: Int? = null,
+  public var _length: Element? = null,
+  public var sequenceAttachment: Attachment? = null,
+  public var fivePrime: CodeableConcept? = null,
+  public var threePrime: CodeableConcept? = null,
+  public var linkage: MutableList<SubstanceNucleicAcid.Subunit.Linkage>? = null,
+  public var sugar: MutableList<SubstanceNucleicAcid.Subunit.Sugar>? = null,
+) {
+  public fun toModel(): SubstanceNucleicAcid.Subunit =
+    SubstanceNucleicAcid.Subunit(
+      id = this@SubstanceNucleicAcidSubunitSurrogate.id,
+      extension = this@SubstanceNucleicAcidSubunitSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@SubstanceNucleicAcidSubunitSurrogate.modifierExtension ?: mutableListOf(),
+      subunit =
+        Integer.of(
+          this@SubstanceNucleicAcidSubunitSurrogate.subunit,
+          this@SubstanceNucleicAcidSubunitSurrogate._subunit,
+        ),
+      sequence =
+        R5String.of(
+          this@SubstanceNucleicAcidSubunitSurrogate.sequence,
+          this@SubstanceNucleicAcidSubunitSurrogate._sequence,
+        ),
+      length =
+        Integer.of(
+          this@SubstanceNucleicAcidSubunitSurrogate.length,
+          this@SubstanceNucleicAcidSubunitSurrogate._length,
+        ),
+      sequenceAttachment = this@SubstanceNucleicAcidSubunitSurrogate.sequenceAttachment,
+      fivePrime = this@SubstanceNucleicAcidSubunitSurrogate.fivePrime,
+      threePrime = this@SubstanceNucleicAcidSubunitSurrogate.threePrime,
+      linkage = this@SubstanceNucleicAcidSubunitSurrogate.linkage ?: mutableListOf(),
+      sugar = this@SubstanceNucleicAcidSubunitSurrogate.sugar ?: mutableListOf(),
+    )
+
+  public companion object {
+    public fun fromModel(
+      model: SubstanceNucleicAcid.Subunit
+    ): SubstanceNucleicAcidSubunitSurrogate =
+      with(model) {
+        SubstanceNucleicAcidSubunitSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          subunit = this@with.subunit?.value,
+          _subunit = this@with.subunit?.toElement(),
+          sequence = this@with.sequence?.value,
+          _sequence = this@with.sequence?.toElement(),
+          length = this@with.length?.value,
+          _length = this@with.length?.toElement(),
+          sequenceAttachment = this@with.sequenceAttachment,
+          fivePrime = this@with.fivePrime,
+          threePrime = this@with.threePrime,
+          linkage = this@with.linkage.takeUnless { it.all { it == null } },
+          sugar = this@with.sugar.takeUnless { it.all { it == null } },
+        )
+      }
+  }
+}
+
+@Serializable
 internal data class SubstanceNucleicAcidSubunitLinkageSurrogate(
   public var id: KotlinString? = null,
   public var extension: MutableList<Extension>? = null,
@@ -143,76 +213,6 @@ internal data class SubstanceNucleicAcidSubunitSugarSurrogate(
           _name = this@with.name?.toElement(),
           residueSite = this@with.residueSite?.value,
           _residueSite = this@with.residueSite?.toElement(),
-        )
-      }
-  }
-}
-
-@Serializable
-internal data class SubstanceNucleicAcidSubunitSurrogate(
-  public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var subunit: Int? = null,
-  public var _subunit: Element? = null,
-  public var sequence: KotlinString? = null,
-  public var _sequence: Element? = null,
-  public var length: Int? = null,
-  public var _length: Element? = null,
-  public var sequenceAttachment: Attachment? = null,
-  public var fivePrime: CodeableConcept? = null,
-  public var threePrime: CodeableConcept? = null,
-  public var linkage: MutableList<SubstanceNucleicAcid.Subunit.Linkage>? = null,
-  public var sugar: MutableList<SubstanceNucleicAcid.Subunit.Sugar>? = null,
-) {
-  public fun toModel(): SubstanceNucleicAcid.Subunit =
-    SubstanceNucleicAcid.Subunit(
-      id = this@SubstanceNucleicAcidSubunitSurrogate.id,
-      extension = this@SubstanceNucleicAcidSubunitSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@SubstanceNucleicAcidSubunitSurrogate.modifierExtension ?: mutableListOf(),
-      subunit =
-        Integer.of(
-          this@SubstanceNucleicAcidSubunitSurrogate.subunit,
-          this@SubstanceNucleicAcidSubunitSurrogate._subunit,
-        ),
-      sequence =
-        R5String.of(
-          this@SubstanceNucleicAcidSubunitSurrogate.sequence,
-          this@SubstanceNucleicAcidSubunitSurrogate._sequence,
-        ),
-      length =
-        Integer.of(
-          this@SubstanceNucleicAcidSubunitSurrogate.length,
-          this@SubstanceNucleicAcidSubunitSurrogate._length,
-        ),
-      sequenceAttachment = this@SubstanceNucleicAcidSubunitSurrogate.sequenceAttachment,
-      fivePrime = this@SubstanceNucleicAcidSubunitSurrogate.fivePrime,
-      threePrime = this@SubstanceNucleicAcidSubunitSurrogate.threePrime,
-      linkage = this@SubstanceNucleicAcidSubunitSurrogate.linkage ?: mutableListOf(),
-      sugar = this@SubstanceNucleicAcidSubunitSurrogate.sugar ?: mutableListOf(),
-    )
-
-  public companion object {
-    public fun fromModel(
-      model: SubstanceNucleicAcid.Subunit
-    ): SubstanceNucleicAcidSubunitSurrogate =
-      with(model) {
-        SubstanceNucleicAcidSubunitSurrogate(
-          id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          subunit = this@with.subunit?.value,
-          _subunit = this@with.subunit?.toElement(),
-          sequence = this@with.sequence?.value,
-          _sequence = this@with.sequence?.toElement(),
-          length = this@with.length?.value,
-          _length = this@with.length?.toElement(),
-          sequenceAttachment = this@with.sequenceAttachment,
-          fivePrime = this@with.fivePrime,
-          threePrime = this@with.threePrime,
-          linkage = this@with.linkage.takeUnless { it.all { it == null } },
-          sugar = this@with.sugar.takeUnless { it.all { it == null } },
         )
       }
   }

@@ -28,6 +28,27 @@ import kotlinx.serialization.descriptors.SerialDescriptor
 import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
 
+public object InventoryReportInventoryListingSerializer :
+  KSerializer<InventoryReport.InventoryListing> {
+  internal val surrogateSerializer: KSerializer<InventoryReportInventoryListingSurrogate> by lazy {
+    InventoryReportInventoryListingSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("InventoryListing", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): InventoryReport.InventoryListing =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: InventoryReport.InventoryListing) {
+    surrogateSerializer.serialize(
+      encoder,
+      InventoryReportInventoryListingSurrogate.fromModel(value),
+    )
+  }
+}
+
 public object InventoryReportInventoryListingItemSerializer :
   KSerializer<InventoryReport.InventoryListing.Item> {
   internal val surrogateSerializer:
@@ -46,27 +67,6 @@ public object InventoryReportInventoryListingItemSerializer :
     surrogateSerializer.serialize(
       encoder,
       InventoryReportInventoryListingItemSurrogate.fromModel(value),
-    )
-  }
-}
-
-public object InventoryReportInventoryListingSerializer :
-  KSerializer<InventoryReport.InventoryListing> {
-  internal val surrogateSerializer: KSerializer<InventoryReportInventoryListingSurrogate> by lazy {
-    InventoryReportInventoryListingSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("InventoryListing", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): InventoryReport.InventoryListing =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: InventoryReport.InventoryListing) {
-    surrogateSerializer.serialize(
-      encoder,
-      InventoryReportInventoryListingSurrogate.fromModel(value),
     )
   }
 }

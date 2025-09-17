@@ -48,33 +48,6 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
-internal data class CommunicationRequestPayloadContentSurrogate(
-  public var contentAttachment: Attachment? = null,
-  public var contentReference: Reference? = null,
-  public var contentCodeableConcept: CodeableConcept? = null,
-) {
-  public fun toModel(): CommunicationRequest.Payload.Content =
-    CommunicationRequest.Payload.Content.from(
-      this@CommunicationRequestPayloadContentSurrogate.contentAttachment,
-      this@CommunicationRequestPayloadContentSurrogate.contentReference,
-      this@CommunicationRequestPayloadContentSurrogate.contentCodeableConcept,
-    )!! !!
-
-  public companion object {
-    public fun fromModel(
-      model: CommunicationRequest.Payload.Content
-    ): CommunicationRequestPayloadContentSurrogate =
-      with(model) {
-        CommunicationRequestPayloadContentSurrogate(
-          contentAttachment = this@with.asAttachment()?.value,
-          contentReference = this@with.asReference()?.value,
-          contentCodeableConcept = this@with.asCodeableConcept()?.value,
-        )
-      }
-  }
-}
-
-@Serializable
 internal data class CommunicationRequestPayloadSurrogate(
   public var id: String? = null,
   public var extension: MutableList<Extension>? = null,
@@ -106,13 +79,40 @@ internal data class CommunicationRequestPayloadSurrogate(
 }
 
 @Serializable
+internal data class CommunicationRequestPayloadContentSurrogate(
+  public var contentAttachment: Attachment? = null,
+  public var contentReference: Reference? = null,
+  public var contentCodeableConcept: CodeableConcept? = null,
+) {
+  public fun toModel(): CommunicationRequest.Payload.Content =
+    CommunicationRequest.Payload.Content.from(
+      this@CommunicationRequestPayloadContentSurrogate.contentAttachment,
+      this@CommunicationRequestPayloadContentSurrogate.contentReference,
+      this@CommunicationRequestPayloadContentSurrogate.contentCodeableConcept,
+    )!! !!
+
+  public companion object {
+    public fun fromModel(
+      model: CommunicationRequest.Payload.Content
+    ): CommunicationRequestPayloadContentSurrogate =
+      with(model) {
+        CommunicationRequestPayloadContentSurrogate(
+          contentAttachment = this@with.asAttachment()?.value,
+          contentReference = this@with.asReference()?.value,
+          contentCodeableConcept = this@with.asCodeableConcept()?.value,
+        )
+      }
+  }
+}
+
+@Serializable
 internal data class CommunicationRequestOccurrenceSurrogate(
   public var occurrenceDateTime: String? = null,
   public var _occurrenceDateTime: Element? = null,
   public var occurrencePeriod: Period? = null,
 ) {
   public fun toModel(): CommunicationRequest.Occurrence =
-    CommunicationRequest.Occurrence?.from(
+    CommunicationRequest.Occurrence.from(
       DateTime.of(
         FhirDateTime.fromString(this@CommunicationRequestOccurrenceSurrogate.occurrenceDateTime),
         this@CommunicationRequestOccurrenceSurrogate._occurrenceDateTime,

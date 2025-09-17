@@ -158,7 +158,7 @@ internal data class ArtifactAssessmentCiteAsSurrogate(
   public var _citeAsMarkdown: Element? = null,
 ) {
   public fun toModel(): ArtifactAssessment.CiteAs =
-    ArtifactAssessment.CiteAs?.from(
+    ArtifactAssessment.CiteAs.from(
       this@ArtifactAssessmentCiteAsSurrogate.citeAsReference,
       Markdown.of(
         this@ArtifactAssessmentCiteAsSurrogate.citeAsMarkdown,

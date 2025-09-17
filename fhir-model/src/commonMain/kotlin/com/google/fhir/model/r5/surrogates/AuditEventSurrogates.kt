@@ -86,41 +86,6 @@ internal data class AuditEventOutcomeSurrogate(
 }
 
 @Serializable
-internal data class AuditEventAgentNetworkSurrogate(
-  public var networkReference: Reference? = null,
-  public var networkUri: KotlinString? = null,
-  public var _networkUri: Element? = null,
-  public var networkString: KotlinString? = null,
-  public var _networkString: Element? = null,
-) {
-  public fun toModel(): AuditEvent.Agent.Network =
-    AuditEvent.Agent.Network?.from(
-      this@AuditEventAgentNetworkSurrogate.networkReference,
-      Uri.of(
-        this@AuditEventAgentNetworkSurrogate.networkUri,
-        this@AuditEventAgentNetworkSurrogate._networkUri,
-      ),
-      R5String.of(
-        this@AuditEventAgentNetworkSurrogate.networkString,
-        this@AuditEventAgentNetworkSurrogate._networkString,
-      ),
-    )!!
-
-  public companion object {
-    public fun fromModel(model: AuditEvent.Agent.Network): AuditEventAgentNetworkSurrogate =
-      with(model) {
-        AuditEventAgentNetworkSurrogate(
-          networkReference = this@with.asReference()?.value,
-          networkUri = this@with.asUri()?.value?.value,
-          _networkUri = this@with.asUri()?.value?.toElement(),
-          networkString = this@with.asString()?.value?.value,
-          _networkString = this@with.asString()?.value?.toElement(),
-        )
-      }
-  }
-}
-
-@Serializable
 internal data class AuditEventAgentSurrogate(
   public var id: KotlinString? = null,
   public var extension: MutableList<Extension>? = null,
@@ -233,6 +198,148 @@ internal data class AuditEventSourceSurrogate(
 }
 
 @Serializable
+internal data class AuditEventEntitySurrogate(
+  public var id: KotlinString? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var what: Reference? = null,
+  public var role: CodeableConcept? = null,
+  public var securityLabel: MutableList<CodeableConcept>? = null,
+  public var query: KotlinString? = null,
+  public var _query: Element? = null,
+  public var detail: MutableList<AuditEvent.Entity.Detail>? = null,
+  public var agent: MutableList<AuditEvent.Agent>? = null,
+) {
+  public fun toModel(): AuditEvent.Entity =
+    AuditEvent.Entity(
+      id = this@AuditEventEntitySurrogate.id,
+      extension = this@AuditEventEntitySurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@AuditEventEntitySurrogate.modifierExtension ?: mutableListOf(),
+      what = this@AuditEventEntitySurrogate.what,
+      role = this@AuditEventEntitySurrogate.role,
+      securityLabel = this@AuditEventEntitySurrogate.securityLabel ?: mutableListOf(),
+      query =
+        Base64Binary.of(
+          this@AuditEventEntitySurrogate.query,
+          this@AuditEventEntitySurrogate._query,
+        ),
+      detail = this@AuditEventEntitySurrogate.detail ?: mutableListOf(),
+      agent = this@AuditEventEntitySurrogate.agent ?: mutableListOf(),
+    )
+
+  public companion object {
+    public fun fromModel(model: AuditEvent.Entity): AuditEventEntitySurrogate =
+      with(model) {
+        AuditEventEntitySurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          what = this@with.what,
+          role = this@with.role,
+          securityLabel = this@with.securityLabel.takeUnless { it.all { it == null } },
+          query = this@with.query?.value,
+          _query = this@with.query?.toElement(),
+          detail = this@with.detail.takeUnless { it.all { it == null } },
+          agent = this@with.agent.takeUnless { it.all { it == null } },
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class AuditEventEntityDetailSurrogate(
+  public var id: KotlinString? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var type: CodeableConcept,
+  public var `value`: AuditEvent.Entity.Detail.Value,
+) {
+  public fun toModel(): AuditEvent.Entity.Detail =
+    AuditEvent.Entity.Detail(
+      id = this@AuditEventEntityDetailSurrogate.id,
+      extension = this@AuditEventEntityDetailSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@AuditEventEntityDetailSurrogate.modifierExtension ?: mutableListOf(),
+      type = this@AuditEventEntityDetailSurrogate.type,
+      `value` = this@AuditEventEntityDetailSurrogate.`value`,
+    )
+
+  public companion object {
+    public fun fromModel(model: AuditEvent.Entity.Detail): AuditEventEntityDetailSurrogate =
+      with(model) {
+        AuditEventEntityDetailSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          type = this@with.type,
+          `value` = this@with.`value`,
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class AuditEventOccurredSurrogate(
+  public var occurredPeriod: Period? = null,
+  public var occurredDateTime: KotlinString? = null,
+  public var _occurredDateTime: Element? = null,
+) {
+  public fun toModel(): AuditEvent.Occurred =
+    AuditEvent.Occurred.from(
+      this@AuditEventOccurredSurrogate.occurredPeriod,
+      DateTime.of(
+        FhirDateTime.fromString(this@AuditEventOccurredSurrogate.occurredDateTime),
+        this@AuditEventOccurredSurrogate._occurredDateTime,
+      ),
+    )!!
+
+  public companion object {
+    public fun fromModel(model: AuditEvent.Occurred): AuditEventOccurredSurrogate =
+      with(model) {
+        AuditEventOccurredSurrogate(
+          occurredPeriod = this@with.asPeriod()?.value,
+          occurredDateTime = this@with.asDateTime()?.value?.value?.toString(),
+          _occurredDateTime = this@with.asDateTime()?.value?.toElement(),
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class AuditEventAgentNetworkSurrogate(
+  public var networkReference: Reference? = null,
+  public var networkUri: KotlinString? = null,
+  public var _networkUri: Element? = null,
+  public var networkString: KotlinString? = null,
+  public var _networkString: Element? = null,
+) {
+  public fun toModel(): AuditEvent.Agent.Network =
+    AuditEvent.Agent.Network.from(
+      this@AuditEventAgentNetworkSurrogate.networkReference,
+      Uri.of(
+        this@AuditEventAgentNetworkSurrogate.networkUri,
+        this@AuditEventAgentNetworkSurrogate._networkUri,
+      ),
+      R5String.of(
+        this@AuditEventAgentNetworkSurrogate.networkString,
+        this@AuditEventAgentNetworkSurrogate._networkString,
+      ),
+    )!!
+
+  public companion object {
+    public fun fromModel(model: AuditEvent.Agent.Network): AuditEventAgentNetworkSurrogate =
+      with(model) {
+        AuditEventAgentNetworkSurrogate(
+          networkReference = this@with.asReference()?.value,
+          networkUri = this@with.asUri()?.value?.value,
+          _networkUri = this@with.asUri()?.value?.toElement(),
+          networkString = this@with.asString()?.value?.value,
+          _networkString = this@with.asString()?.value?.toElement(),
+        )
+      }
+  }
+}
+
+@Serializable
 internal data class AuditEventEntityDetailValueSurrogate(
   public var valueQuantity: Quantity? = null,
   public var valueCodeableConcept: CodeableConcept? = null,
@@ -308,113 +415,6 @@ internal data class AuditEventEntityDetailValueSurrogate(
           valuePeriod = this@with.asPeriod()?.value,
           valueBase64Binary = this@with.asBase64Binary()?.value?.value,
           _valueBase64Binary = this@with.asBase64Binary()?.value?.toElement(),
-        )
-      }
-  }
-}
-
-@Serializable
-internal data class AuditEventEntityDetailSurrogate(
-  public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var type: CodeableConcept,
-  public var `value`: AuditEvent.Entity.Detail.Value,
-) {
-  public fun toModel(): AuditEvent.Entity.Detail =
-    AuditEvent.Entity.Detail(
-      id = this@AuditEventEntityDetailSurrogate.id,
-      extension = this@AuditEventEntityDetailSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@AuditEventEntityDetailSurrogate.modifierExtension ?: mutableListOf(),
-      type = this@AuditEventEntityDetailSurrogate.type,
-      `value` = this@AuditEventEntityDetailSurrogate.`value`,
-    )
-
-  public companion object {
-    public fun fromModel(model: AuditEvent.Entity.Detail): AuditEventEntityDetailSurrogate =
-      with(model) {
-        AuditEventEntityDetailSurrogate(
-          id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          type = this@with.type,
-          `value` = this@with.`value`,
-        )
-      }
-  }
-}
-
-@Serializable
-internal data class AuditEventEntitySurrogate(
-  public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var what: Reference? = null,
-  public var role: CodeableConcept? = null,
-  public var securityLabel: MutableList<CodeableConcept>? = null,
-  public var query: KotlinString? = null,
-  public var _query: Element? = null,
-  public var detail: MutableList<AuditEvent.Entity.Detail>? = null,
-  public var agent: MutableList<AuditEvent.Agent>? = null,
-) {
-  public fun toModel(): AuditEvent.Entity =
-    AuditEvent.Entity(
-      id = this@AuditEventEntitySurrogate.id,
-      extension = this@AuditEventEntitySurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@AuditEventEntitySurrogate.modifierExtension ?: mutableListOf(),
-      what = this@AuditEventEntitySurrogate.what,
-      role = this@AuditEventEntitySurrogate.role,
-      securityLabel = this@AuditEventEntitySurrogate.securityLabel ?: mutableListOf(),
-      query =
-        Base64Binary.of(
-          this@AuditEventEntitySurrogate.query,
-          this@AuditEventEntitySurrogate._query,
-        ),
-      detail = this@AuditEventEntitySurrogate.detail ?: mutableListOf(),
-      agent = this@AuditEventEntitySurrogate.agent ?: mutableListOf(),
-    )
-
-  public companion object {
-    public fun fromModel(model: AuditEvent.Entity): AuditEventEntitySurrogate =
-      with(model) {
-        AuditEventEntitySurrogate(
-          id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          what = this@with.what,
-          role = this@with.role,
-          securityLabel = this@with.securityLabel.takeUnless { it.all { it == null } },
-          query = this@with.query?.value,
-          _query = this@with.query?.toElement(),
-          detail = this@with.detail.takeUnless { it.all { it == null } },
-          agent = this@with.agent.takeUnless { it.all { it == null } },
-        )
-      }
-  }
-}
-
-@Serializable
-internal data class AuditEventOccurredSurrogate(
-  public var occurredPeriod: Period? = null,
-  public var occurredDateTime: KotlinString? = null,
-  public var _occurredDateTime: Element? = null,
-) {
-  public fun toModel(): AuditEvent.Occurred =
-    AuditEvent.Occurred?.from(
-      this@AuditEventOccurredSurrogate.occurredPeriod,
-      DateTime.of(
-        FhirDateTime.fromString(this@AuditEventOccurredSurrogate.occurredDateTime),
-        this@AuditEventOccurredSurrogate._occurredDateTime,
-      ),
-    )!!
-
-  public companion object {
-    public fun fromModel(model: AuditEvent.Occurred): AuditEventOccurredSurrogate =
-      with(model) {
-        AuditEventOccurredSurrogate(
-          occurredPeriod = this@with.asPeriod()?.value,
-          occurredDateTime = this@with.asDateTime()?.value?.value?.toString(),
-          _occurredDateTime = this@with.asDateTime()?.value?.toElement(),
         )
       }
   }

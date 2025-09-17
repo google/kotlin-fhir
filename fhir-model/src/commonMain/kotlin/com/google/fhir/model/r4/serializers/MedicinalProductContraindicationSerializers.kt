@@ -36,33 +36,6 @@ import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.JsonPrimitive
 import kotlinx.serialization.json.jsonObject
 
-public object MedicinalProductContraindicationOtherTherapyMedicationSerializer :
-  KSerializer<MedicinalProductContraindication.OtherTherapy.Medication> {
-  internal val surrogateSerializer:
-    KSerializer<MedicinalProductContraindicationOtherTherapyMedicationSurrogate> by lazy {
-    MedicinalProductContraindicationOtherTherapyMedicationSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Medication", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(
-    decoder: Decoder
-  ): MedicinalProductContraindication.OtherTherapy.Medication =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(
-    encoder: Encoder,
-    `value`: MedicinalProductContraindication.OtherTherapy.Medication,
-  ) {
-    surrogateSerializer.serialize(
-      encoder,
-      MedicinalProductContraindicationOtherTherapyMedicationSurrogate.fromModel(value),
-    )
-  }
-}
-
 public object MedicinalProductContraindicationOtherTherapySerializer :
   KSerializer<MedicinalProductContraindication.OtherTherapy> {
   internal val surrogateSerializer:
@@ -109,6 +82,33 @@ public object MedicinalProductContraindicationOtherTherapySerializer :
       }
     val flattenedJsonObject = FhirJsonTransformer.flatten(oldJsonObject, multiChoiceProperties)
     jsonEncoder.encodeJsonElement(flattenedJsonObject)
+  }
+}
+
+public object MedicinalProductContraindicationOtherTherapyMedicationSerializer :
+  KSerializer<MedicinalProductContraindication.OtherTherapy.Medication> {
+  internal val surrogateSerializer:
+    KSerializer<MedicinalProductContraindicationOtherTherapyMedicationSurrogate> by lazy {
+    MedicinalProductContraindicationOtherTherapyMedicationSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Medication", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(
+    decoder: Decoder
+  ): MedicinalProductContraindication.OtherTherapy.Medication =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(
+    encoder: Encoder,
+    `value`: MedicinalProductContraindication.OtherTherapy.Medication,
+  ) {
+    surrogateSerializer.serialize(
+      encoder,
+      MedicinalProductContraindicationOtherTherapyMedicationSurrogate.fromModel(value),
+    )
   }
 }
 

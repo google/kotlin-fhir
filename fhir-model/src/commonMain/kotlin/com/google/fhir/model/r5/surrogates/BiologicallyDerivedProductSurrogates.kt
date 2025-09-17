@@ -52,37 +52,6 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
-internal data class BiologicallyDerivedProductCollectionCollectedSurrogate(
-  public var collectedDateTime: KotlinString? = null,
-  public var _collectedDateTime: Element? = null,
-  public var collectedPeriod: Period? = null,
-) {
-  public fun toModel(): BiologicallyDerivedProduct.Collection.Collected =
-    BiologicallyDerivedProduct.Collection.Collected?.from(
-      DateTime.of(
-        FhirDateTime.fromString(
-          this@BiologicallyDerivedProductCollectionCollectedSurrogate.collectedDateTime
-        ),
-        this@BiologicallyDerivedProductCollectionCollectedSurrogate._collectedDateTime,
-      ),
-      this@BiologicallyDerivedProductCollectionCollectedSurrogate.collectedPeriod,
-    )!!
-
-  public companion object {
-    public fun fromModel(
-      model: BiologicallyDerivedProduct.Collection.Collected
-    ): BiologicallyDerivedProductCollectionCollectedSurrogate =
-      with(model) {
-        BiologicallyDerivedProductCollectionCollectedSurrogate(
-          collectedDateTime = this@with.asDateTime()?.value?.value?.toString(),
-          _collectedDateTime = this@with.asDateTime()?.value?.toElement(),
-          collectedPeriod = this@with.asPeriod()?.value,
-        )
-      }
-  }
-}
-
-@Serializable
 internal data class BiologicallyDerivedProductCollectionSurrogate(
   public var id: KotlinString? = null,
   public var extension: MutableList<Extension>? = null,
@@ -114,6 +83,71 @@ internal data class BiologicallyDerivedProductCollectionSurrogate(
           collector = this@with.collector,
           source = this@with.source,
           collected = this@with.collected,
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class BiologicallyDerivedProductPropertySurrogate(
+  public var id: KotlinString? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var type: CodeableConcept,
+  public var `value`: BiologicallyDerivedProduct.Property.Value,
+) {
+  public fun toModel(): BiologicallyDerivedProduct.Property =
+    BiologicallyDerivedProduct.Property(
+      id = this@BiologicallyDerivedProductPropertySurrogate.id,
+      extension = this@BiologicallyDerivedProductPropertySurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@BiologicallyDerivedProductPropertySurrogate.modifierExtension ?: mutableListOf(),
+      type = this@BiologicallyDerivedProductPropertySurrogate.type,
+      `value` = this@BiologicallyDerivedProductPropertySurrogate.`value`,
+    )
+
+  public companion object {
+    public fun fromModel(
+      model: BiologicallyDerivedProduct.Property
+    ): BiologicallyDerivedProductPropertySurrogate =
+      with(model) {
+        BiologicallyDerivedProductPropertySurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          type = this@with.type,
+          `value` = this@with.`value`,
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class BiologicallyDerivedProductCollectionCollectedSurrogate(
+  public var collectedDateTime: KotlinString? = null,
+  public var _collectedDateTime: Element? = null,
+  public var collectedPeriod: Period? = null,
+) {
+  public fun toModel(): BiologicallyDerivedProduct.Collection.Collected =
+    BiologicallyDerivedProduct.Collection.Collected.from(
+      DateTime.of(
+        FhirDateTime.fromString(
+          this@BiologicallyDerivedProductCollectionCollectedSurrogate.collectedDateTime
+        ),
+        this@BiologicallyDerivedProductCollectionCollectedSurrogate._collectedDateTime,
+      ),
+      this@BiologicallyDerivedProductCollectionCollectedSurrogate.collectedPeriod,
+    )!!
+
+  public companion object {
+    public fun fromModel(
+      model: BiologicallyDerivedProduct.Collection.Collected
+    ): BiologicallyDerivedProductCollectionCollectedSurrogate =
+      with(model) {
+        BiologicallyDerivedProductCollectionCollectedSurrogate(
+          collectedDateTime = this@with.asDateTime()?.value?.value?.toString(),
+          _collectedDateTime = this@with.asDateTime()?.value?.toElement(),
+          collectedPeriod = this@with.asPeriod()?.value,
         )
       }
   }
@@ -174,40 +208,6 @@ internal data class BiologicallyDerivedProductPropertyValueSurrogate(
           valueString = this@with.asString()?.value?.value,
           _valueString = this@with.asString()?.value?.toElement(),
           valueAttachment = this@with.asAttachment()?.value,
-        )
-      }
-  }
-}
-
-@Serializable
-internal data class BiologicallyDerivedProductPropertySurrogate(
-  public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var type: CodeableConcept,
-  public var `value`: BiologicallyDerivedProduct.Property.Value,
-) {
-  public fun toModel(): BiologicallyDerivedProduct.Property =
-    BiologicallyDerivedProduct.Property(
-      id = this@BiologicallyDerivedProductPropertySurrogate.id,
-      extension = this@BiologicallyDerivedProductPropertySurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@BiologicallyDerivedProductPropertySurrogate.modifierExtension ?: mutableListOf(),
-      type = this@BiologicallyDerivedProductPropertySurrogate.type,
-      `value` = this@BiologicallyDerivedProductPropertySurrogate.`value`,
-    )
-
-  public companion object {
-    public fun fromModel(
-      model: BiologicallyDerivedProduct.Property
-    ): BiologicallyDerivedProductPropertySurrogate =
-      with(model) {
-        BiologicallyDerivedProductPropertySurrogate(
-          id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          type = this@with.type,
-          `value` = this@with.`value`,
         )
       }
   }

@@ -165,6 +165,68 @@ internal data class TaskRestrictionSurrogate(
 }
 
 @Serializable
+internal data class TaskInputSurrogate(
+  public var id: KotlinString? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var type: CodeableConcept,
+  public var `value`: Task.Input.Value,
+) {
+  public fun toModel(): Task.Input =
+    Task.Input(
+      id = this@TaskInputSurrogate.id,
+      extension = this@TaskInputSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@TaskInputSurrogate.modifierExtension ?: mutableListOf(),
+      type = this@TaskInputSurrogate.type,
+      `value` = this@TaskInputSurrogate.`value`,
+    )
+
+  public companion object {
+    public fun fromModel(model: Task.Input): TaskInputSurrogate =
+      with(model) {
+        TaskInputSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          type = this@with.type,
+          `value` = this@with.`value`,
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class TaskOutputSurrogate(
+  public var id: KotlinString? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var type: CodeableConcept,
+  public var `value`: Task.Output.Value,
+) {
+  public fun toModel(): Task.Output =
+    Task.Output(
+      id = this@TaskOutputSurrogate.id,
+      extension = this@TaskOutputSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@TaskOutputSurrogate.modifierExtension ?: mutableListOf(),
+      type = this@TaskOutputSurrogate.type,
+      `value` = this@TaskOutputSurrogate.`value`,
+    )
+
+  public companion object {
+    public fun fromModel(model: Task.Output): TaskOutputSurrogate =
+      with(model) {
+        TaskOutputSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          type = this@with.type,
+          `value` = this@with.`value`,
+        )
+      }
+  }
+}
+
+@Serializable
 internal data class TaskInputValueSurrogate(
   public var valueBase64Binary: KotlinString? = null,
   public var _valueBase64Binary: Element? = null,
@@ -422,37 +484,6 @@ internal data class TaskInputValueSurrogate(
 }
 
 @Serializable
-internal data class TaskInputSurrogate(
-  public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var type: CodeableConcept,
-  public var `value`: Task.Input.Value,
-) {
-  public fun toModel(): Task.Input =
-    Task.Input(
-      id = this@TaskInputSurrogate.id,
-      extension = this@TaskInputSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@TaskInputSurrogate.modifierExtension ?: mutableListOf(),
-      type = this@TaskInputSurrogate.type,
-      `value` = this@TaskInputSurrogate.`value`,
-    )
-
-  public companion object {
-    public fun fromModel(model: Task.Input): TaskInputSurrogate =
-      with(model) {
-        TaskInputSurrogate(
-          id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          type = this@with.type,
-          `value` = this@with.`value`,
-        )
-      }
-  }
-}
-
-@Serializable
 internal data class TaskOutputValueSurrogate(
   public var valueBase64Binary: KotlinString? = null,
   public var _valueBase64Binary: Element? = null,
@@ -704,37 +735,6 @@ internal data class TaskOutputValueSurrogate(
           valueExtendedContactDetail = this@with.asExtendedContactDetail()?.value,
           valueDosage = this@with.asDosage()?.value,
           valueMeta = this@with.asMeta()?.value,
-        )
-      }
-  }
-}
-
-@Serializable
-internal data class TaskOutputSurrogate(
-  public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var type: CodeableConcept,
-  public var `value`: Task.Output.Value,
-) {
-  public fun toModel(): Task.Output =
-    Task.Output(
-      id = this@TaskOutputSurrogate.id,
-      extension = this@TaskOutputSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@TaskOutputSurrogate.modifierExtension ?: mutableListOf(),
-      type = this@TaskOutputSurrogate.type,
-      `value` = this@TaskOutputSurrogate.`value`,
-    )
-
-  public companion object {
-    public fun fromModel(model: Task.Output): TaskOutputSurrogate =
-      with(model) {
-        TaskOutputSurrogate(
-          id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          type = this@with.type,
-          `value` = this@with.`value`,
         )
       }
   }

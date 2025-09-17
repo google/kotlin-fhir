@@ -129,6 +129,72 @@ internal data class ConsentVerificationSurrogate(
 }
 
 @Serializable
+internal data class ConsentProvisionSurrogate(
+  public var id: String? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var type: String? = null,
+  public var _type: Element? = null,
+  public var period: Period? = null,
+  public var actor: MutableList<Consent.Provision.Actor>? = null,
+  public var action: MutableList<CodeableConcept>? = null,
+  public var securityLabel: MutableList<Coding>? = null,
+  public var purpose: MutableList<Coding>? = null,
+  public var `class`: MutableList<Coding>? = null,
+  public var code: MutableList<CodeableConcept>? = null,
+  public var dataPeriod: Period? = null,
+  public var `data`: MutableList<Consent.Provision.Data>? = null,
+  public var provision: MutableList<Consent.Provision>? = null,
+) {
+  public fun toModel(): Consent.Provision =
+    Consent.Provision(
+      id = this@ConsentProvisionSurrogate.id,
+      extension = this@ConsentProvisionSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@ConsentProvisionSurrogate.modifierExtension ?: mutableListOf(),
+      type =
+        this@ConsentProvisionSurrogate.type?.let {
+          Enumeration.of(
+            com.google.fhir.model.r4b.Consent.ConsentProvisionType.fromCode(it!!),
+            this@ConsentProvisionSurrogate._type,
+          )
+        },
+      period = this@ConsentProvisionSurrogate.period,
+      actor = this@ConsentProvisionSurrogate.actor ?: mutableListOf(),
+      action = this@ConsentProvisionSurrogate.action ?: mutableListOf(),
+      securityLabel = this@ConsentProvisionSurrogate.securityLabel ?: mutableListOf(),
+      purpose = this@ConsentProvisionSurrogate.purpose ?: mutableListOf(),
+      `class` = this@ConsentProvisionSurrogate.`class` ?: mutableListOf(),
+      code = this@ConsentProvisionSurrogate.code ?: mutableListOf(),
+      dataPeriod = this@ConsentProvisionSurrogate.dataPeriod,
+      `data` = this@ConsentProvisionSurrogate.`data` ?: mutableListOf(),
+      provision = this@ConsentProvisionSurrogate.provision ?: mutableListOf(),
+    )
+
+  public companion object {
+    public fun fromModel(model: Consent.Provision): ConsentProvisionSurrogate =
+      with(model) {
+        ConsentProvisionSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          type = this@with.type?.value?.getCode(),
+          _type = this@with.type?.toElement(),
+          period = this@with.period,
+          actor = this@with.actor.takeUnless { it.all { it == null } },
+          action = this@with.action.takeUnless { it.all { it == null } },
+          securityLabel = this@with.securityLabel.takeUnless { it.all { it == null } },
+          purpose = this@with.purpose.takeUnless { it.all { it == null } },
+          `class` = this@with.`class`.takeUnless { it.all { it == null } },
+          code = this@with.code.takeUnless { it.all { it == null } },
+          dataPeriod = this@with.dataPeriod,
+          `data` = this@with.`data`.takeUnless { it.all { it == null } },
+          provision = this@with.provision.takeUnless { it.all { it == null } },
+        )
+      }
+  }
+}
+
+@Serializable
 internal data class ConsentProvisionActorSurrogate(
   public var id: String? = null,
   public var extension: MutableList<Extension>? = null,
@@ -199,78 +265,12 @@ internal data class ConsentProvisionDataSurrogate(
 }
 
 @Serializable
-internal data class ConsentProvisionSurrogate(
-  public var id: String? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var type: String? = null,
-  public var _type: Element? = null,
-  public var period: Period? = null,
-  public var actor: MutableList<Consent.Provision.Actor>? = null,
-  public var action: MutableList<CodeableConcept>? = null,
-  public var securityLabel: MutableList<Coding>? = null,
-  public var purpose: MutableList<Coding>? = null,
-  public var `class`: MutableList<Coding>? = null,
-  public var code: MutableList<CodeableConcept>? = null,
-  public var dataPeriod: Period? = null,
-  public var `data`: MutableList<Consent.Provision.Data>? = null,
-  public var provision: MutableList<Consent.Provision>? = null,
-) {
-  public fun toModel(): Consent.Provision =
-    Consent.Provision(
-      id = this@ConsentProvisionSurrogate.id,
-      extension = this@ConsentProvisionSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@ConsentProvisionSurrogate.modifierExtension ?: mutableListOf(),
-      type =
-        this@ConsentProvisionSurrogate.type?.let {
-          Enumeration.of(
-            com.google.fhir.model.r4b.Consent.ConsentProvisionType.fromCode(it!!),
-            this@ConsentProvisionSurrogate._type,
-          )
-        },
-      period = this@ConsentProvisionSurrogate.period,
-      actor = this@ConsentProvisionSurrogate.actor ?: mutableListOf(),
-      action = this@ConsentProvisionSurrogate.action ?: mutableListOf(),
-      securityLabel = this@ConsentProvisionSurrogate.securityLabel ?: mutableListOf(),
-      purpose = this@ConsentProvisionSurrogate.purpose ?: mutableListOf(),
-      `class` = this@ConsentProvisionSurrogate.`class` ?: mutableListOf(),
-      code = this@ConsentProvisionSurrogate.code ?: mutableListOf(),
-      dataPeriod = this@ConsentProvisionSurrogate.dataPeriod,
-      `data` = this@ConsentProvisionSurrogate.`data` ?: mutableListOf(),
-      provision = this@ConsentProvisionSurrogate.provision ?: mutableListOf(),
-    )
-
-  public companion object {
-    public fun fromModel(model: Consent.Provision): ConsentProvisionSurrogate =
-      with(model) {
-        ConsentProvisionSurrogate(
-          id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          type = this@with.type?.value?.getCode(),
-          _type = this@with.type?.toElement(),
-          period = this@with.period,
-          actor = this@with.actor.takeUnless { it.all { it == null } },
-          action = this@with.action.takeUnless { it.all { it == null } },
-          securityLabel = this@with.securityLabel.takeUnless { it.all { it == null } },
-          purpose = this@with.purpose.takeUnless { it.all { it == null } },
-          `class` = this@with.`class`.takeUnless { it.all { it == null } },
-          code = this@with.code.takeUnless { it.all { it == null } },
-          dataPeriod = this@with.dataPeriod,
-          `data` = this@with.`data`.takeUnless { it.all { it == null } },
-          provision = this@with.provision.takeUnless { it.all { it == null } },
-        )
-      }
-  }
-}
-
-@Serializable
 internal data class ConsentSourceSurrogate(
   public var sourceAttachment: Attachment? = null,
   public var sourceReference: Reference? = null,
 ) {
   public fun toModel(): Consent.Source =
-    Consent.Source?.from(
+    Consent.Source.from(
       this@ConsentSourceSurrogate.sourceAttachment,
       this@ConsentSourceSurrogate.sourceReference,
     )!!

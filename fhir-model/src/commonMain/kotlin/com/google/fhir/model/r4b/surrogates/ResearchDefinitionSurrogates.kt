@@ -58,7 +58,7 @@ internal data class ResearchDefinitionSubjectSurrogate(
   public var subjectReference: Reference? = null,
 ) {
   public fun toModel(): ResearchDefinition.Subject =
-    ResearchDefinition.Subject?.from(
+    ResearchDefinition.Subject.from(
       this@ResearchDefinitionSubjectSurrogate.subjectCodeableConcept,
       this@ResearchDefinitionSubjectSurrogate.subjectReference,
     )!!

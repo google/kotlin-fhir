@@ -51,113 +51,46 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
-internal data class CoverageEligibilityResponseInsuranceItemBenefitAllowedSurrogate(
-  public var allowedUnsignedInt: Int? = null,
-  public var _allowedUnsignedInt: Element? = null,
-  public var allowedString: KotlinString? = null,
-  public var _allowedString: Element? = null,
-  public var allowedMoney: Money? = null,
-) {
-  public fun toModel(): CoverageEligibilityResponse.Insurance.Item.Benefit.Allowed =
-    CoverageEligibilityResponse.Insurance.Item.Benefit.Allowed?.from(
-      UnsignedInt.of(
-        this@CoverageEligibilityResponseInsuranceItemBenefitAllowedSurrogate.allowedUnsignedInt,
-        this@CoverageEligibilityResponseInsuranceItemBenefitAllowedSurrogate._allowedUnsignedInt,
-      ),
-      R4String.of(
-        this@CoverageEligibilityResponseInsuranceItemBenefitAllowedSurrogate.allowedString,
-        this@CoverageEligibilityResponseInsuranceItemBenefitAllowedSurrogate._allowedString,
-      ),
-      this@CoverageEligibilityResponseInsuranceItemBenefitAllowedSurrogate.allowedMoney,
-    )!!
-
-  public companion object {
-    public fun fromModel(
-      model: CoverageEligibilityResponse.Insurance.Item.Benefit.Allowed
-    ): CoverageEligibilityResponseInsuranceItemBenefitAllowedSurrogate =
-      with(model) {
-        CoverageEligibilityResponseInsuranceItemBenefitAllowedSurrogate(
-          allowedUnsignedInt = this@with.asUnsignedInt()?.value?.value,
-          _allowedUnsignedInt = this@with.asUnsignedInt()?.value?.toElement(),
-          allowedString = this@with.asString()?.value?.value,
-          _allowedString = this@with.asString()?.value?.toElement(),
-          allowedMoney = this@with.asMoney()?.value,
-        )
-      }
-  }
-}
-
-@Serializable
-internal data class CoverageEligibilityResponseInsuranceItemBenefitUsedSurrogate(
-  public var usedUnsignedInt: Int? = null,
-  public var _usedUnsignedInt: Element? = null,
-  public var usedString: KotlinString? = null,
-  public var _usedString: Element? = null,
-  public var usedMoney: Money? = null,
-) {
-  public fun toModel(): CoverageEligibilityResponse.Insurance.Item.Benefit.Used =
-    CoverageEligibilityResponse.Insurance.Item.Benefit.Used?.from(
-      UnsignedInt.of(
-        this@CoverageEligibilityResponseInsuranceItemBenefitUsedSurrogate.usedUnsignedInt,
-        this@CoverageEligibilityResponseInsuranceItemBenefitUsedSurrogate._usedUnsignedInt,
-      ),
-      R4String.of(
-        this@CoverageEligibilityResponseInsuranceItemBenefitUsedSurrogate.usedString,
-        this@CoverageEligibilityResponseInsuranceItemBenefitUsedSurrogate._usedString,
-      ),
-      this@CoverageEligibilityResponseInsuranceItemBenefitUsedSurrogate.usedMoney,
-    )!!
-
-  public companion object {
-    public fun fromModel(
-      model: CoverageEligibilityResponse.Insurance.Item.Benefit.Used
-    ): CoverageEligibilityResponseInsuranceItemBenefitUsedSurrogate =
-      with(model) {
-        CoverageEligibilityResponseInsuranceItemBenefitUsedSurrogate(
-          usedUnsignedInt = this@with.asUnsignedInt()?.value?.value,
-          _usedUnsignedInt = this@with.asUnsignedInt()?.value?.toElement(),
-          usedString = this@with.asString()?.value?.value,
-          _usedString = this@with.asString()?.value?.toElement(),
-          usedMoney = this@with.asMoney()?.value,
-        )
-      }
-  }
-}
-
-@Serializable
-internal data class CoverageEligibilityResponseInsuranceItemBenefitSurrogate(
+internal data class CoverageEligibilityResponseInsuranceSurrogate(
   public var id: KotlinString? = null,
   public var extension: MutableList<Extension>? = null,
   public var modifierExtension: MutableList<Extension>? = null,
-  public var type: CodeableConcept,
-  public var allowed: CoverageEligibilityResponse.Insurance.Item.Benefit.Allowed? = null,
-  public var used: CoverageEligibilityResponse.Insurance.Item.Benefit.Used? = null,
+  public var coverage: Reference,
+  public var inforce: KotlinBoolean? = null,
+  public var _inforce: Element? = null,
+  public var benefitPeriod: Period? = null,
+  public var item: MutableList<CoverageEligibilityResponse.Insurance.Item>? = null,
 ) {
-  public fun toModel(): CoverageEligibilityResponse.Insurance.Item.Benefit =
-    CoverageEligibilityResponse.Insurance.Item.Benefit(
-      id = this@CoverageEligibilityResponseInsuranceItemBenefitSurrogate.id,
-      extension =
-        this@CoverageEligibilityResponseInsuranceItemBenefitSurrogate.extension ?: mutableListOf(),
+  public fun toModel(): CoverageEligibilityResponse.Insurance =
+    CoverageEligibilityResponse.Insurance(
+      id = this@CoverageEligibilityResponseInsuranceSurrogate.id,
+      extension = this@CoverageEligibilityResponseInsuranceSurrogate.extension ?: mutableListOf(),
       modifierExtension =
-        this@CoverageEligibilityResponseInsuranceItemBenefitSurrogate.modifierExtension
-          ?: mutableListOf(),
-      type = this@CoverageEligibilityResponseInsuranceItemBenefitSurrogate.type,
-      allowed = this@CoverageEligibilityResponseInsuranceItemBenefitSurrogate.allowed,
-      used = this@CoverageEligibilityResponseInsuranceItemBenefitSurrogate.used,
+        this@CoverageEligibilityResponseInsuranceSurrogate.modifierExtension ?: mutableListOf(),
+      coverage = this@CoverageEligibilityResponseInsuranceSurrogate.coverage,
+      inforce =
+        R4Boolean.of(
+          this@CoverageEligibilityResponseInsuranceSurrogate.inforce,
+          this@CoverageEligibilityResponseInsuranceSurrogate._inforce,
+        ),
+      benefitPeriod = this@CoverageEligibilityResponseInsuranceSurrogate.benefitPeriod,
+      item = this@CoverageEligibilityResponseInsuranceSurrogate.item ?: mutableListOf(),
     )
 
   public companion object {
     public fun fromModel(
-      model: CoverageEligibilityResponse.Insurance.Item.Benefit
-    ): CoverageEligibilityResponseInsuranceItemBenefitSurrogate =
+      model: CoverageEligibilityResponse.Insurance
+    ): CoverageEligibilityResponseInsuranceSurrogate =
       with(model) {
-        CoverageEligibilityResponseInsuranceItemBenefitSurrogate(
+        CoverageEligibilityResponseInsuranceSurrogate(
           id = this@with.id,
           extension = this@with.extension.takeUnless { it.all { it == null } },
           modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          type = this@with.type,
-          allowed = this@with.allowed,
-          used = this@with.used,
+          coverage = this@with.coverage,
+          inforce = this@with.inforce?.value,
+          _inforce = this@with.inforce?.toElement(),
+          benefitPeriod = this@with.benefitPeriod,
+          item = this@with.item.takeUnless { it.all { it == null } },
         )
       }
   }
@@ -268,46 +201,39 @@ internal data class CoverageEligibilityResponseInsuranceItemSurrogate(
 }
 
 @Serializable
-internal data class CoverageEligibilityResponseInsuranceSurrogate(
+internal data class CoverageEligibilityResponseInsuranceItemBenefitSurrogate(
   public var id: KotlinString? = null,
   public var extension: MutableList<Extension>? = null,
   public var modifierExtension: MutableList<Extension>? = null,
-  public var coverage: Reference,
-  public var inforce: KotlinBoolean? = null,
-  public var _inforce: Element? = null,
-  public var benefitPeriod: Period? = null,
-  public var item: MutableList<CoverageEligibilityResponse.Insurance.Item>? = null,
+  public var type: CodeableConcept,
+  public var allowed: CoverageEligibilityResponse.Insurance.Item.Benefit.Allowed? = null,
+  public var used: CoverageEligibilityResponse.Insurance.Item.Benefit.Used? = null,
 ) {
-  public fun toModel(): CoverageEligibilityResponse.Insurance =
-    CoverageEligibilityResponse.Insurance(
-      id = this@CoverageEligibilityResponseInsuranceSurrogate.id,
-      extension = this@CoverageEligibilityResponseInsuranceSurrogate.extension ?: mutableListOf(),
+  public fun toModel(): CoverageEligibilityResponse.Insurance.Item.Benefit =
+    CoverageEligibilityResponse.Insurance.Item.Benefit(
+      id = this@CoverageEligibilityResponseInsuranceItemBenefitSurrogate.id,
+      extension =
+        this@CoverageEligibilityResponseInsuranceItemBenefitSurrogate.extension ?: mutableListOf(),
       modifierExtension =
-        this@CoverageEligibilityResponseInsuranceSurrogate.modifierExtension ?: mutableListOf(),
-      coverage = this@CoverageEligibilityResponseInsuranceSurrogate.coverage,
-      inforce =
-        R4Boolean.of(
-          this@CoverageEligibilityResponseInsuranceSurrogate.inforce,
-          this@CoverageEligibilityResponseInsuranceSurrogate._inforce,
-        ),
-      benefitPeriod = this@CoverageEligibilityResponseInsuranceSurrogate.benefitPeriod,
-      item = this@CoverageEligibilityResponseInsuranceSurrogate.item ?: mutableListOf(),
+        this@CoverageEligibilityResponseInsuranceItemBenefitSurrogate.modifierExtension
+          ?: mutableListOf(),
+      type = this@CoverageEligibilityResponseInsuranceItemBenefitSurrogate.type,
+      allowed = this@CoverageEligibilityResponseInsuranceItemBenefitSurrogate.allowed,
+      used = this@CoverageEligibilityResponseInsuranceItemBenefitSurrogate.used,
     )
 
   public companion object {
     public fun fromModel(
-      model: CoverageEligibilityResponse.Insurance
-    ): CoverageEligibilityResponseInsuranceSurrogate =
+      model: CoverageEligibilityResponse.Insurance.Item.Benefit
+    ): CoverageEligibilityResponseInsuranceItemBenefitSurrogate =
       with(model) {
-        CoverageEligibilityResponseInsuranceSurrogate(
+        CoverageEligibilityResponseInsuranceItemBenefitSurrogate(
           id = this@with.id,
           extension = this@with.extension.takeUnless { it.all { it == null } },
           modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          coverage = this@with.coverage,
-          inforce = this@with.inforce?.value,
-          _inforce = this@with.inforce?.toElement(),
-          benefitPeriod = this@with.benefitPeriod,
-          item = this@with.item.takeUnless { it.all { it == null } },
+          type = this@with.type,
+          allowed = this@with.allowed,
+          used = this@with.used,
         )
       }
   }
@@ -351,7 +277,7 @@ internal data class CoverageEligibilityResponseServicedSurrogate(
   public var servicedPeriod: Period? = null,
 ) {
   public fun toModel(): CoverageEligibilityResponse.Serviced =
-    CoverageEligibilityResponse.Serviced?.from(
+    CoverageEligibilityResponse.Serviced.from(
       Date.of(
         FhirDate.fromString(this@CoverageEligibilityResponseServicedSurrogate.servicedDate),
         this@CoverageEligibilityResponseServicedSurrogate._servicedDate,
@@ -368,6 +294,80 @@ internal data class CoverageEligibilityResponseServicedSurrogate(
           servicedDate = this@with.asDate()?.value?.value?.toString(),
           _servicedDate = this@with.asDate()?.value?.toElement(),
           servicedPeriod = this@with.asPeriod()?.value,
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class CoverageEligibilityResponseInsuranceItemBenefitAllowedSurrogate(
+  public var allowedUnsignedInt: Int? = null,
+  public var _allowedUnsignedInt: Element? = null,
+  public var allowedString: KotlinString? = null,
+  public var _allowedString: Element? = null,
+  public var allowedMoney: Money? = null,
+) {
+  public fun toModel(): CoverageEligibilityResponse.Insurance.Item.Benefit.Allowed =
+    CoverageEligibilityResponse.Insurance.Item.Benefit.Allowed.from(
+      UnsignedInt.of(
+        this@CoverageEligibilityResponseInsuranceItemBenefitAllowedSurrogate.allowedUnsignedInt,
+        this@CoverageEligibilityResponseInsuranceItemBenefitAllowedSurrogate._allowedUnsignedInt,
+      ),
+      R4String.of(
+        this@CoverageEligibilityResponseInsuranceItemBenefitAllowedSurrogate.allowedString,
+        this@CoverageEligibilityResponseInsuranceItemBenefitAllowedSurrogate._allowedString,
+      ),
+      this@CoverageEligibilityResponseInsuranceItemBenefitAllowedSurrogate.allowedMoney,
+    )!!
+
+  public companion object {
+    public fun fromModel(
+      model: CoverageEligibilityResponse.Insurance.Item.Benefit.Allowed
+    ): CoverageEligibilityResponseInsuranceItemBenefitAllowedSurrogate =
+      with(model) {
+        CoverageEligibilityResponseInsuranceItemBenefitAllowedSurrogate(
+          allowedUnsignedInt = this@with.asUnsignedInt()?.value?.value,
+          _allowedUnsignedInt = this@with.asUnsignedInt()?.value?.toElement(),
+          allowedString = this@with.asString()?.value?.value,
+          _allowedString = this@with.asString()?.value?.toElement(),
+          allowedMoney = this@with.asMoney()?.value,
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class CoverageEligibilityResponseInsuranceItemBenefitUsedSurrogate(
+  public var usedUnsignedInt: Int? = null,
+  public var _usedUnsignedInt: Element? = null,
+  public var usedString: KotlinString? = null,
+  public var _usedString: Element? = null,
+  public var usedMoney: Money? = null,
+) {
+  public fun toModel(): CoverageEligibilityResponse.Insurance.Item.Benefit.Used =
+    CoverageEligibilityResponse.Insurance.Item.Benefit.Used.from(
+      UnsignedInt.of(
+        this@CoverageEligibilityResponseInsuranceItemBenefitUsedSurrogate.usedUnsignedInt,
+        this@CoverageEligibilityResponseInsuranceItemBenefitUsedSurrogate._usedUnsignedInt,
+      ),
+      R4String.of(
+        this@CoverageEligibilityResponseInsuranceItemBenefitUsedSurrogate.usedString,
+        this@CoverageEligibilityResponseInsuranceItemBenefitUsedSurrogate._usedString,
+      ),
+      this@CoverageEligibilityResponseInsuranceItemBenefitUsedSurrogate.usedMoney,
+    )!!
+
+  public companion object {
+    public fun fromModel(
+      model: CoverageEligibilityResponse.Insurance.Item.Benefit.Used
+    ): CoverageEligibilityResponseInsuranceItemBenefitUsedSurrogate =
+      with(model) {
+        CoverageEligibilityResponseInsuranceItemBenefitUsedSurrogate(
+          usedUnsignedInt = this@with.asUnsignedInt()?.value?.value,
+          _usedUnsignedInt = this@with.asUnsignedInt()?.value?.toElement(),
+          usedString = this@with.asString()?.value?.value,
+          _usedString = this@with.asString()?.value?.toElement(),
+          usedMoney = this@with.asMoney()?.value,
         )
       }
   }

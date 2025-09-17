@@ -58,7 +58,7 @@ internal data class ServiceRequestQuantitySurrogate(
   public var quantityRange: Range? = null,
 ) {
   public fun toModel(): ServiceRequest.Quantity =
-    ServiceRequest.Quantity?.from(
+    ServiceRequest.Quantity.from(
       this@ServiceRequestQuantitySurrogate.quantityQuantity,
       this@ServiceRequestQuantitySurrogate.quantityRatio,
       this@ServiceRequestQuantitySurrogate.quantityRange,
@@ -84,7 +84,7 @@ internal data class ServiceRequestOccurrenceSurrogate(
   public var occurrenceTiming: Timing? = null,
 ) {
   public fun toModel(): ServiceRequest.Occurrence =
-    ServiceRequest.Occurrence?.from(
+    ServiceRequest.Occurrence.from(
       DateTime.of(
         FhirDateTime.fromString(this@ServiceRequestOccurrenceSurrogate.occurrenceDateTime),
         this@ServiceRequestOccurrenceSurrogate._occurrenceDateTime,
@@ -113,7 +113,7 @@ internal data class ServiceRequestAsNeededSurrogate(
   public var asNeededCodeableConcept: CodeableConcept? = null,
 ) {
   public fun toModel(): ServiceRequest.AsNeeded =
-    ServiceRequest.AsNeeded?.from(
+    ServiceRequest.AsNeeded.from(
       R4bBoolean.of(
         this@ServiceRequestAsNeededSurrogate.asNeededBoolean,
         this@ServiceRequestAsNeededSurrogate._asNeededBoolean,

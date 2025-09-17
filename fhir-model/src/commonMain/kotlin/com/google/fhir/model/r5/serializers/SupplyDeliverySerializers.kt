@@ -37,24 +37,6 @@ import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.JsonPrimitive
 import kotlinx.serialization.json.jsonObject
 
-public object SupplyDeliverySuppliedItemItemSerializer :
-  KSerializer<SupplyDelivery.SuppliedItem.Item> {
-  internal val surrogateSerializer: KSerializer<SupplyDeliverySuppliedItemItemSurrogate> by lazy {
-    SupplyDeliverySuppliedItemItemSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Item", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): SupplyDelivery.SuppliedItem.Item =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: SupplyDelivery.SuppliedItem.Item) {
-    surrogateSerializer.serialize(encoder, SupplyDeliverySuppliedItemItemSurrogate.fromModel(value))
-  }
-}
-
 public object SupplyDeliverySuppliedItemSerializer : KSerializer<SupplyDelivery.SuppliedItem> {
   internal val surrogateSerializer: KSerializer<SupplyDeliverySuppliedItemSurrogate> by lazy {
     SupplyDeliverySuppliedItemSurrogate.serializer()
@@ -99,6 +81,24 @@ public object SupplyDeliverySuppliedItemSerializer : KSerializer<SupplyDelivery.
       }
     val flattenedJsonObject = FhirJsonTransformer.flatten(oldJsonObject, multiChoiceProperties)
     jsonEncoder.encodeJsonElement(flattenedJsonObject)
+  }
+}
+
+public object SupplyDeliverySuppliedItemItemSerializer :
+  KSerializer<SupplyDelivery.SuppliedItem.Item> {
+  internal val surrogateSerializer: KSerializer<SupplyDeliverySuppliedItemItemSurrogate> by lazy {
+    SupplyDeliverySuppliedItemItemSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Item", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): SupplyDelivery.SuppliedItem.Item =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: SupplyDelivery.SuppliedItem.Item) {
+    surrogateSerializer.serialize(encoder, SupplyDeliverySuppliedItemItemSurrogate.fromModel(value))
   }
 }
 

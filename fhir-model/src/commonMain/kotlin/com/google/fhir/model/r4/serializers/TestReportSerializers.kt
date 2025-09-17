@@ -52,6 +52,40 @@ public object TestReportParticipantSerializer : KSerializer<TestReport.Participa
   }
 }
 
+public object TestReportSetupSerializer : KSerializer<TestReport.Setup> {
+  internal val surrogateSerializer: KSerializer<TestReportSetupSurrogate> by lazy {
+    TestReportSetupSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Setup", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): TestReport.Setup =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: TestReport.Setup) {
+    surrogateSerializer.serialize(encoder, TestReportSetupSurrogate.fromModel(value))
+  }
+}
+
+public object TestReportSetupActionSerializer : KSerializer<TestReport.Setup.Action> {
+  internal val surrogateSerializer: KSerializer<TestReportSetupActionSurrogate> by lazy {
+    TestReportSetupActionSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Action", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): TestReport.Setup.Action =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: TestReport.Setup.Action) {
+    surrogateSerializer.serialize(encoder, TestReportSetupActionSurrogate.fromModel(value))
+  }
+}
+
 public object TestReportSetupActionOperationSerializer :
   KSerializer<TestReport.Setup.Action.Operation> {
   internal val surrogateSerializer: KSerializer<TestReportSetupActionOperationSurrogate> by lazy {
@@ -87,37 +121,20 @@ public object TestReportSetupActionAssertSerializer : KSerializer<TestReport.Set
   }
 }
 
-public object TestReportSetupActionSerializer : KSerializer<TestReport.Setup.Action> {
-  internal val surrogateSerializer: KSerializer<TestReportSetupActionSurrogate> by lazy {
-    TestReportSetupActionSurrogate.serializer()
+public object TestReportTestSerializer : KSerializer<TestReport.Test> {
+  internal val surrogateSerializer: KSerializer<TestReportTestSurrogate> by lazy {
+    TestReportTestSurrogate.serializer()
   }
 
   override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Action", surrogateSerializer.descriptor)
+    SerialDescriptor("Test", surrogateSerializer.descriptor)
   }
 
-  override fun deserialize(decoder: Decoder): TestReport.Setup.Action =
+  override fun deserialize(decoder: Decoder): TestReport.Test =
     surrogateSerializer.deserialize(decoder).toModel()
 
-  override fun serialize(encoder: Encoder, `value`: TestReport.Setup.Action) {
-    surrogateSerializer.serialize(encoder, TestReportSetupActionSurrogate.fromModel(value))
-  }
-}
-
-public object TestReportSetupSerializer : KSerializer<TestReport.Setup> {
-  internal val surrogateSerializer: KSerializer<TestReportSetupSurrogate> by lazy {
-    TestReportSetupSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Setup", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): TestReport.Setup =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: TestReport.Setup) {
-    surrogateSerializer.serialize(encoder, TestReportSetupSurrogate.fromModel(value))
+  override fun serialize(encoder: Encoder, `value`: TestReport.Test) {
+    surrogateSerializer.serialize(encoder, TestReportTestSurrogate.fromModel(value))
   }
 }
 
@@ -138,20 +155,20 @@ public object TestReportTestActionSerializer : KSerializer<TestReport.Test.Actio
   }
 }
 
-public object TestReportTestSerializer : KSerializer<TestReport.Test> {
-  internal val surrogateSerializer: KSerializer<TestReportTestSurrogate> by lazy {
-    TestReportTestSurrogate.serializer()
+public object TestReportTeardownSerializer : KSerializer<TestReport.Teardown> {
+  internal val surrogateSerializer: KSerializer<TestReportTeardownSurrogate> by lazy {
+    TestReportTeardownSurrogate.serializer()
   }
 
   override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Test", surrogateSerializer.descriptor)
+    SerialDescriptor("Teardown", surrogateSerializer.descriptor)
   }
 
-  override fun deserialize(decoder: Decoder): TestReport.Test =
+  override fun deserialize(decoder: Decoder): TestReport.Teardown =
     surrogateSerializer.deserialize(decoder).toModel()
 
-  override fun serialize(encoder: Encoder, `value`: TestReport.Test) {
-    surrogateSerializer.serialize(encoder, TestReportTestSurrogate.fromModel(value))
+  override fun serialize(encoder: Encoder, `value`: TestReport.Teardown) {
+    surrogateSerializer.serialize(encoder, TestReportTeardownSurrogate.fromModel(value))
   }
 }
 
@@ -169,23 +186,6 @@ public object TestReportTeardownActionSerializer : KSerializer<TestReport.Teardo
 
   override fun serialize(encoder: Encoder, `value`: TestReport.Teardown.Action) {
     surrogateSerializer.serialize(encoder, TestReportTeardownActionSurrogate.fromModel(value))
-  }
-}
-
-public object TestReportTeardownSerializer : KSerializer<TestReport.Teardown> {
-  internal val surrogateSerializer: KSerializer<TestReportTeardownSurrogate> by lazy {
-    TestReportTeardownSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Teardown", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): TestReport.Teardown =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: TestReport.Teardown) {
-    surrogateSerializer.serialize(encoder, TestReportTeardownSurrogate.fromModel(value))
   }
 }
 

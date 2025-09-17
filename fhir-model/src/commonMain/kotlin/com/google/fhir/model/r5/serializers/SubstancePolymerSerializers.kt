@@ -32,6 +32,23 @@ import kotlinx.serialization.descriptors.SerialDescriptor
 import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
 
+public object SubstancePolymerMonomerSetSerializer : KSerializer<SubstancePolymer.MonomerSet> {
+  internal val surrogateSerializer: KSerializer<SubstancePolymerMonomerSetSurrogate> by lazy {
+    SubstancePolymerMonomerSetSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("MonomerSet", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): SubstancePolymer.MonomerSet =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: SubstancePolymer.MonomerSet) {
+    surrogateSerializer.serialize(encoder, SubstancePolymerMonomerSetSurrogate.fromModel(value))
+  }
+}
+
 public object SubstancePolymerMonomerSetStartingMaterialSerializer :
   KSerializer<SubstancePolymer.MonomerSet.StartingMaterial> {
   internal val surrogateSerializer:
@@ -54,20 +71,41 @@ public object SubstancePolymerMonomerSetStartingMaterialSerializer :
   }
 }
 
-public object SubstancePolymerMonomerSetSerializer : KSerializer<SubstancePolymer.MonomerSet> {
-  internal val surrogateSerializer: KSerializer<SubstancePolymerMonomerSetSurrogate> by lazy {
-    SubstancePolymerMonomerSetSurrogate.serializer()
+public object SubstancePolymerRepeatSerializer : KSerializer<SubstancePolymer.Repeat> {
+  internal val surrogateSerializer: KSerializer<SubstancePolymerRepeatSurrogate> by lazy {
+    SubstancePolymerRepeatSurrogate.serializer()
   }
 
   override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("MonomerSet", surrogateSerializer.descriptor)
+    SerialDescriptor("Repeat", surrogateSerializer.descriptor)
   }
 
-  override fun deserialize(decoder: Decoder): SubstancePolymer.MonomerSet =
+  override fun deserialize(decoder: Decoder): SubstancePolymer.Repeat =
     surrogateSerializer.deserialize(decoder).toModel()
 
-  override fun serialize(encoder: Encoder, `value`: SubstancePolymer.MonomerSet) {
-    surrogateSerializer.serialize(encoder, SubstancePolymerMonomerSetSurrogate.fromModel(value))
+  override fun serialize(encoder: Encoder, `value`: SubstancePolymer.Repeat) {
+    surrogateSerializer.serialize(encoder, SubstancePolymerRepeatSurrogate.fromModel(value))
+  }
+}
+
+public object SubstancePolymerRepeatRepeatUnitSerializer :
+  KSerializer<SubstancePolymer.Repeat.RepeatUnit> {
+  internal val surrogateSerializer: KSerializer<SubstancePolymerRepeatRepeatUnitSurrogate> by lazy {
+    SubstancePolymerRepeatRepeatUnitSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("RepeatUnit", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): SubstancePolymer.Repeat.RepeatUnit =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: SubstancePolymer.Repeat.RepeatUnit) {
+    surrogateSerializer.serialize(
+      encoder,
+      SubstancePolymerRepeatRepeatUnitSurrogate.fromModel(value),
+    )
   }
 }
 
@@ -122,44 +160,6 @@ public object SubstancePolymerRepeatRepeatUnitStructuralRepresentationSerializer
       encoder,
       SubstancePolymerRepeatRepeatUnitStructuralRepresentationSurrogate.fromModel(value),
     )
-  }
-}
-
-public object SubstancePolymerRepeatRepeatUnitSerializer :
-  KSerializer<SubstancePolymer.Repeat.RepeatUnit> {
-  internal val surrogateSerializer: KSerializer<SubstancePolymerRepeatRepeatUnitSurrogate> by lazy {
-    SubstancePolymerRepeatRepeatUnitSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("RepeatUnit", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): SubstancePolymer.Repeat.RepeatUnit =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: SubstancePolymer.Repeat.RepeatUnit) {
-    surrogateSerializer.serialize(
-      encoder,
-      SubstancePolymerRepeatRepeatUnitSurrogate.fromModel(value),
-    )
-  }
-}
-
-public object SubstancePolymerRepeatSerializer : KSerializer<SubstancePolymer.Repeat> {
-  internal val surrogateSerializer: KSerializer<SubstancePolymerRepeatSurrogate> by lazy {
-    SubstancePolymerRepeatSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Repeat", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): SubstancePolymer.Repeat =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: SubstancePolymer.Repeat) {
-    surrogateSerializer.serialize(encoder, SubstancePolymerRepeatSurrogate.fromModel(value))
   }
 }
 

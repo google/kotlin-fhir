@@ -34,6 +34,40 @@ import kotlinx.serialization.descriptors.SerialDescriptor
 import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
 
+public object InsurancePlanCoverageSerializer : KSerializer<InsurancePlan.Coverage> {
+  internal val surrogateSerializer: KSerializer<InsurancePlanCoverageSurrogate> by lazy {
+    InsurancePlanCoverageSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Coverage", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): InsurancePlan.Coverage =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: InsurancePlan.Coverage) {
+    surrogateSerializer.serialize(encoder, InsurancePlanCoverageSurrogate.fromModel(value))
+  }
+}
+
+public object InsurancePlanCoverageBenefitSerializer : KSerializer<InsurancePlan.Coverage.Benefit> {
+  internal val surrogateSerializer: KSerializer<InsurancePlanCoverageBenefitSurrogate> by lazy {
+    InsurancePlanCoverageBenefitSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Benefit", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): InsurancePlan.Coverage.Benefit =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: InsurancePlan.Coverage.Benefit) {
+    surrogateSerializer.serialize(encoder, InsurancePlanCoverageBenefitSurrogate.fromModel(value))
+  }
+}
+
 public object InsurancePlanCoverageBenefitLimitSerializer :
   KSerializer<InsurancePlan.Coverage.Benefit.Limit> {
   internal val surrogateSerializer:
@@ -56,37 +90,20 @@ public object InsurancePlanCoverageBenefitLimitSerializer :
   }
 }
 
-public object InsurancePlanCoverageBenefitSerializer : KSerializer<InsurancePlan.Coverage.Benefit> {
-  internal val surrogateSerializer: KSerializer<InsurancePlanCoverageBenefitSurrogate> by lazy {
-    InsurancePlanCoverageBenefitSurrogate.serializer()
+public object InsurancePlanPlanSerializer : KSerializer<InsurancePlan.Plan> {
+  internal val surrogateSerializer: KSerializer<InsurancePlanPlanSurrogate> by lazy {
+    InsurancePlanPlanSurrogate.serializer()
   }
 
   override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Benefit", surrogateSerializer.descriptor)
+    SerialDescriptor("Plan", surrogateSerializer.descriptor)
   }
 
-  override fun deserialize(decoder: Decoder): InsurancePlan.Coverage.Benefit =
+  override fun deserialize(decoder: Decoder): InsurancePlan.Plan =
     surrogateSerializer.deserialize(decoder).toModel()
 
-  override fun serialize(encoder: Encoder, `value`: InsurancePlan.Coverage.Benefit) {
-    surrogateSerializer.serialize(encoder, InsurancePlanCoverageBenefitSurrogate.fromModel(value))
-  }
-}
-
-public object InsurancePlanCoverageSerializer : KSerializer<InsurancePlan.Coverage> {
-  internal val surrogateSerializer: KSerializer<InsurancePlanCoverageSurrogate> by lazy {
-    InsurancePlanCoverageSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Coverage", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): InsurancePlan.Coverage =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: InsurancePlan.Coverage) {
-    surrogateSerializer.serialize(encoder, InsurancePlanCoverageSurrogate.fromModel(value))
+  override fun serialize(encoder: Encoder, `value`: InsurancePlan.Plan) {
+    surrogateSerializer.serialize(encoder, InsurancePlanPlanSurrogate.fromModel(value))
   }
 }
 
@@ -107,25 +124,21 @@ public object InsurancePlanPlanGeneralCostSerializer : KSerializer<InsurancePlan
   }
 }
 
-public object InsurancePlanPlanSpecificCostBenefitCostSerializer :
-  KSerializer<InsurancePlan.Plan.SpecificCost.Benefit.Cost> {
-  internal val surrogateSerializer:
-    KSerializer<InsurancePlanPlanSpecificCostBenefitCostSurrogate> by lazy {
-    InsurancePlanPlanSpecificCostBenefitCostSurrogate.serializer()
+public object InsurancePlanPlanSpecificCostSerializer :
+  KSerializer<InsurancePlan.Plan.SpecificCost> {
+  internal val surrogateSerializer: KSerializer<InsurancePlanPlanSpecificCostSurrogate> by lazy {
+    InsurancePlanPlanSpecificCostSurrogate.serializer()
   }
 
   override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Cost", surrogateSerializer.descriptor)
+    SerialDescriptor("SpecificCost", surrogateSerializer.descriptor)
   }
 
-  override fun deserialize(decoder: Decoder): InsurancePlan.Plan.SpecificCost.Benefit.Cost =
+  override fun deserialize(decoder: Decoder): InsurancePlan.Plan.SpecificCost =
     surrogateSerializer.deserialize(decoder).toModel()
 
-  override fun serialize(encoder: Encoder, `value`: InsurancePlan.Plan.SpecificCost.Benefit.Cost) {
-    surrogateSerializer.serialize(
-      encoder,
-      InsurancePlanPlanSpecificCostBenefitCostSurrogate.fromModel(value),
-    )
+  override fun serialize(encoder: Encoder, `value`: InsurancePlan.Plan.SpecificCost) {
+    surrogateSerializer.serialize(encoder, InsurancePlanPlanSpecificCostSurrogate.fromModel(value))
   }
 }
 
@@ -151,38 +164,25 @@ public object InsurancePlanPlanSpecificCostBenefitSerializer :
   }
 }
 
-public object InsurancePlanPlanSpecificCostSerializer :
-  KSerializer<InsurancePlan.Plan.SpecificCost> {
-  internal val surrogateSerializer: KSerializer<InsurancePlanPlanSpecificCostSurrogate> by lazy {
-    InsurancePlanPlanSpecificCostSurrogate.serializer()
+public object InsurancePlanPlanSpecificCostBenefitCostSerializer :
+  KSerializer<InsurancePlan.Plan.SpecificCost.Benefit.Cost> {
+  internal val surrogateSerializer:
+    KSerializer<InsurancePlanPlanSpecificCostBenefitCostSurrogate> by lazy {
+    InsurancePlanPlanSpecificCostBenefitCostSurrogate.serializer()
   }
 
   override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("SpecificCost", surrogateSerializer.descriptor)
+    SerialDescriptor("Cost", surrogateSerializer.descriptor)
   }
 
-  override fun deserialize(decoder: Decoder): InsurancePlan.Plan.SpecificCost =
+  override fun deserialize(decoder: Decoder): InsurancePlan.Plan.SpecificCost.Benefit.Cost =
     surrogateSerializer.deserialize(decoder).toModel()
 
-  override fun serialize(encoder: Encoder, `value`: InsurancePlan.Plan.SpecificCost) {
-    surrogateSerializer.serialize(encoder, InsurancePlanPlanSpecificCostSurrogate.fromModel(value))
-  }
-}
-
-public object InsurancePlanPlanSerializer : KSerializer<InsurancePlan.Plan> {
-  internal val surrogateSerializer: KSerializer<InsurancePlanPlanSurrogate> by lazy {
-    InsurancePlanPlanSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Plan", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): InsurancePlan.Plan =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: InsurancePlan.Plan) {
-    surrogateSerializer.serialize(encoder, InsurancePlanPlanSurrogate.fromModel(value))
+  override fun serialize(encoder: Encoder, `value`: InsurancePlan.Plan.SpecificCost.Benefit.Cost) {
+    surrogateSerializer.serialize(
+      encoder,
+      InsurancePlanPlanSpecificCostBenefitCostSurrogate.fromModel(value),
+    )
   }
 }
 

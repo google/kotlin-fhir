@@ -56,23 +56,6 @@ public object CompositionAttesterSerializer : KSerializer<Composition.Attester> 
   }
 }
 
-public object CompositionRelatesToTargetSerializer : KSerializer<Composition.RelatesTo.Target> {
-  internal val surrogateSerializer: KSerializer<CompositionRelatesToTargetSurrogate> by lazy {
-    CompositionRelatesToTargetSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Target", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): Composition.RelatesTo.Target =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: Composition.RelatesTo.Target) {
-    surrogateSerializer.serialize(encoder, CompositionRelatesToTargetSurrogate.fromModel(value))
-  }
-}
-
 public object CompositionRelatesToSerializer : KSerializer<Composition.RelatesTo> {
   internal val surrogateSerializer: KSerializer<CompositionRelatesToSurrogate> by lazy {
     CompositionRelatesToSurrogate.serializer()
@@ -151,6 +134,23 @@ public object CompositionSectionSerializer : KSerializer<Composition.Section> {
 
   override fun serialize(encoder: Encoder, `value`: Composition.Section) {
     surrogateSerializer.serialize(encoder, CompositionSectionSurrogate.fromModel(value))
+  }
+}
+
+public object CompositionRelatesToTargetSerializer : KSerializer<Composition.RelatesTo.Target> {
+  internal val surrogateSerializer: KSerializer<CompositionRelatesToTargetSurrogate> by lazy {
+    CompositionRelatesToTargetSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Target", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): Composition.RelatesTo.Target =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: Composition.RelatesTo.Target) {
+    surrogateSerializer.serialize(encoder, CompositionRelatesToTargetSurrogate.fromModel(value))
   }
 }
 

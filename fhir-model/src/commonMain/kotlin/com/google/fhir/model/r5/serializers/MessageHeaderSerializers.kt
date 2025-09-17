@@ -40,27 +40,6 @@ import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.JsonPrimitive
 import kotlinx.serialization.json.jsonObject
 
-public object MessageHeaderDestinationEndpointSerializer :
-  KSerializer<MessageHeader.Destination.Endpoint> {
-  internal val surrogateSerializer: KSerializer<MessageHeaderDestinationEndpointSurrogate> by lazy {
-    MessageHeaderDestinationEndpointSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Endpoint", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): MessageHeader.Destination.Endpoint =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: MessageHeader.Destination.Endpoint) {
-    surrogateSerializer.serialize(
-      encoder,
-      MessageHeaderDestinationEndpointSurrogate.fromModel(value),
-    )
-  }
-}
-
 public object MessageHeaderDestinationSerializer : KSerializer<MessageHeader.Destination> {
   internal val surrogateSerializer: KSerializer<MessageHeaderDestinationSurrogate> by lazy {
     MessageHeaderDestinationSurrogate.serializer()
@@ -105,23 +84,6 @@ public object MessageHeaderDestinationSerializer : KSerializer<MessageHeader.Des
       }
     val flattenedJsonObject = FhirJsonTransformer.flatten(oldJsonObject, multiChoiceProperties)
     jsonEncoder.encodeJsonElement(flattenedJsonObject)
-  }
-}
-
-public object MessageHeaderSourceEndpointSerializer : KSerializer<MessageHeader.Source.Endpoint> {
-  internal val surrogateSerializer: KSerializer<MessageHeaderSourceEndpointSurrogate> by lazy {
-    MessageHeaderSourceEndpointSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Endpoint", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): MessageHeader.Source.Endpoint =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: MessageHeader.Source.Endpoint) {
-    surrogateSerializer.serialize(encoder, MessageHeaderSourceEndpointSurrogate.fromModel(value))
   }
 }
 
@@ -203,6 +165,44 @@ public object MessageHeaderEventSerializer : KSerializer<MessageHeader.Event> {
 
   override fun serialize(encoder: Encoder, `value`: MessageHeader.Event) {
     surrogateSerializer.serialize(encoder, MessageHeaderEventSurrogate.fromModel(value))
+  }
+}
+
+public object MessageHeaderDestinationEndpointSerializer :
+  KSerializer<MessageHeader.Destination.Endpoint> {
+  internal val surrogateSerializer: KSerializer<MessageHeaderDestinationEndpointSurrogate> by lazy {
+    MessageHeaderDestinationEndpointSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Endpoint", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): MessageHeader.Destination.Endpoint =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: MessageHeader.Destination.Endpoint) {
+    surrogateSerializer.serialize(
+      encoder,
+      MessageHeaderDestinationEndpointSurrogate.fromModel(value),
+    )
+  }
+}
+
+public object MessageHeaderSourceEndpointSerializer : KSerializer<MessageHeader.Source.Endpoint> {
+  internal val surrogateSerializer: KSerializer<MessageHeaderSourceEndpointSurrogate> by lazy {
+    MessageHeaderSourceEndpointSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Endpoint", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): MessageHeader.Source.Endpoint =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: MessageHeader.Source.Endpoint) {
+    surrogateSerializer.serialize(encoder, MessageHeaderSourceEndpointSurrogate.fromModel(value))
   }
 }
 

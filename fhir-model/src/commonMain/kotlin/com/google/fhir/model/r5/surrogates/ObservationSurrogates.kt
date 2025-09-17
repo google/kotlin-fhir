@@ -161,86 +161,6 @@ internal data class ObservationReferenceRangeSurrogate(
 }
 
 @Serializable
-internal data class ObservationComponentValueSurrogate(
-  public var valueQuantity: Quantity? = null,
-  public var valueCodeableConcept: CodeableConcept? = null,
-  public var valueString: KotlinString? = null,
-  public var _valueString: Element? = null,
-  public var valueBoolean: KotlinBoolean? = null,
-  public var _valueBoolean: Element? = null,
-  public var valueInteger: Int? = null,
-  public var _valueInteger: Element? = null,
-  public var valueRange: Range? = null,
-  public var valueRatio: Ratio? = null,
-  public var valueSampledData: SampledData? = null,
-  public var valueTime: LocalTime? = null,
-  public var _valueTime: Element? = null,
-  public var valueDateTime: KotlinString? = null,
-  public var _valueDateTime: Element? = null,
-  public var valuePeriod: Period? = null,
-  public var valueAttachment: Attachment? = null,
-  public var valueReference: Reference? = null,
-) {
-  public fun toModel(): Observation.Component.Value =
-    Observation.Component.Value?.from(
-      this@ObservationComponentValueSurrogate.valueQuantity,
-      this@ObservationComponentValueSurrogate.valueCodeableConcept,
-      R5String.of(
-        this@ObservationComponentValueSurrogate.valueString,
-        this@ObservationComponentValueSurrogate._valueString,
-      ),
-      R5Boolean.of(
-        this@ObservationComponentValueSurrogate.valueBoolean,
-        this@ObservationComponentValueSurrogate._valueBoolean,
-      ),
-      Integer.of(
-        this@ObservationComponentValueSurrogate.valueInteger,
-        this@ObservationComponentValueSurrogate._valueInteger,
-      ),
-      this@ObservationComponentValueSurrogate.valueRange,
-      this@ObservationComponentValueSurrogate.valueRatio,
-      this@ObservationComponentValueSurrogate.valueSampledData,
-      Time.of(
-        this@ObservationComponentValueSurrogate.valueTime,
-        this@ObservationComponentValueSurrogate._valueTime,
-      ),
-      DateTime.of(
-        FhirDateTime.fromString(this@ObservationComponentValueSurrogate.valueDateTime),
-        this@ObservationComponentValueSurrogate._valueDateTime,
-      ),
-      this@ObservationComponentValueSurrogate.valuePeriod,
-      this@ObservationComponentValueSurrogate.valueAttachment,
-      this@ObservationComponentValueSurrogate.valueReference,
-    )!!
-
-  public companion object {
-    public fun fromModel(model: Observation.Component.Value): ObservationComponentValueSurrogate =
-      with(model) {
-        ObservationComponentValueSurrogate(
-          valueQuantity = this@with.asQuantity()?.value,
-          valueCodeableConcept = this@with.asCodeableConcept()?.value,
-          valueString = this@with.asString()?.value?.value,
-          _valueString = this@with.asString()?.value?.toElement(),
-          valueBoolean = this@with.asBoolean()?.value?.value,
-          _valueBoolean = this@with.asBoolean()?.value?.toElement(),
-          valueInteger = this@with.asInteger()?.value?.value,
-          _valueInteger = this@with.asInteger()?.value?.toElement(),
-          valueRange = this@with.asRange()?.value,
-          valueRatio = this@with.asRatio()?.value,
-          valueSampledData = this@with.asSampledData()?.value,
-          valueTime = this@with.asTime()?.value?.value,
-          _valueTime = this@with.asTime()?.value?.toElement(),
-          valueDateTime = this@with.asDateTime()?.value?.value?.toString(),
-          _valueDateTime = this@with.asDateTime()?.value?.toElement(),
-          valuePeriod = this@with.asPeriod()?.value,
-          valueAttachment = this@with.asAttachment()?.value,
-          valueReference = this@with.asReference()?.value,
-        )
-      }
-  }
-}
-
-@Serializable
 internal data class ObservationComponentSurrogate(
   public var id: KotlinString? = null,
   public var extension: MutableList<Extension>? = null,
@@ -287,7 +207,7 @@ internal data class ObservationInstantiatesSurrogate(
   public var instantiatesReference: Reference? = null,
 ) {
   public fun toModel(): Observation.Instantiates =
-    Observation.Instantiates?.from(
+    Observation.Instantiates.from(
       Canonical.of(
         this@ObservationInstantiatesSurrogate.instantiatesCanonical,
         this@ObservationInstantiatesSurrogate._instantiatesCanonical,
@@ -317,7 +237,7 @@ internal data class ObservationEffectiveSurrogate(
   public var _effectiveInstant: Element? = null,
 ) {
   public fun toModel(): Observation.Effective =
-    Observation.Effective?.from(
+    Observation.Effective.from(
       DateTime.of(
         FhirDateTime.fromString(this@ObservationEffectiveSurrogate.effectiveDateTime),
         this@ObservationEffectiveSurrogate._effectiveDateTime,
@@ -367,7 +287,7 @@ internal data class ObservationValueSurrogate(
   public var valueReference: Reference? = null,
 ) {
   public fun toModel(): Observation.Value =
-    Observation.Value?.from(
+    Observation.Value.from(
       this@ObservationValueSurrogate.valueQuantity,
       this@ObservationValueSurrogate.valueCodeableConcept,
       R5String.of(
@@ -399,6 +319,86 @@ internal data class ObservationValueSurrogate(
     public fun fromModel(model: Observation.Value): ObservationValueSurrogate =
       with(model) {
         ObservationValueSurrogate(
+          valueQuantity = this@with.asQuantity()?.value,
+          valueCodeableConcept = this@with.asCodeableConcept()?.value,
+          valueString = this@with.asString()?.value?.value,
+          _valueString = this@with.asString()?.value?.toElement(),
+          valueBoolean = this@with.asBoolean()?.value?.value,
+          _valueBoolean = this@with.asBoolean()?.value?.toElement(),
+          valueInteger = this@with.asInteger()?.value?.value,
+          _valueInteger = this@with.asInteger()?.value?.toElement(),
+          valueRange = this@with.asRange()?.value,
+          valueRatio = this@with.asRatio()?.value,
+          valueSampledData = this@with.asSampledData()?.value,
+          valueTime = this@with.asTime()?.value?.value,
+          _valueTime = this@with.asTime()?.value?.toElement(),
+          valueDateTime = this@with.asDateTime()?.value?.value?.toString(),
+          _valueDateTime = this@with.asDateTime()?.value?.toElement(),
+          valuePeriod = this@with.asPeriod()?.value,
+          valueAttachment = this@with.asAttachment()?.value,
+          valueReference = this@with.asReference()?.value,
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class ObservationComponentValueSurrogate(
+  public var valueQuantity: Quantity? = null,
+  public var valueCodeableConcept: CodeableConcept? = null,
+  public var valueString: KotlinString? = null,
+  public var _valueString: Element? = null,
+  public var valueBoolean: KotlinBoolean? = null,
+  public var _valueBoolean: Element? = null,
+  public var valueInteger: Int? = null,
+  public var _valueInteger: Element? = null,
+  public var valueRange: Range? = null,
+  public var valueRatio: Ratio? = null,
+  public var valueSampledData: SampledData? = null,
+  public var valueTime: LocalTime? = null,
+  public var _valueTime: Element? = null,
+  public var valueDateTime: KotlinString? = null,
+  public var _valueDateTime: Element? = null,
+  public var valuePeriod: Period? = null,
+  public var valueAttachment: Attachment? = null,
+  public var valueReference: Reference? = null,
+) {
+  public fun toModel(): Observation.Component.Value =
+    Observation.Component.Value.from(
+      this@ObservationComponentValueSurrogate.valueQuantity,
+      this@ObservationComponentValueSurrogate.valueCodeableConcept,
+      R5String.of(
+        this@ObservationComponentValueSurrogate.valueString,
+        this@ObservationComponentValueSurrogate._valueString,
+      ),
+      R5Boolean.of(
+        this@ObservationComponentValueSurrogate.valueBoolean,
+        this@ObservationComponentValueSurrogate._valueBoolean,
+      ),
+      Integer.of(
+        this@ObservationComponentValueSurrogate.valueInteger,
+        this@ObservationComponentValueSurrogate._valueInteger,
+      ),
+      this@ObservationComponentValueSurrogate.valueRange,
+      this@ObservationComponentValueSurrogate.valueRatio,
+      this@ObservationComponentValueSurrogate.valueSampledData,
+      Time.of(
+        this@ObservationComponentValueSurrogate.valueTime,
+        this@ObservationComponentValueSurrogate._valueTime,
+      ),
+      DateTime.of(
+        FhirDateTime.fromString(this@ObservationComponentValueSurrogate.valueDateTime),
+        this@ObservationComponentValueSurrogate._valueDateTime,
+      ),
+      this@ObservationComponentValueSurrogate.valuePeriod,
+      this@ObservationComponentValueSurrogate.valueAttachment,
+      this@ObservationComponentValueSurrogate.valueReference,
+    )!!
+
+  public companion object {
+    public fun fromModel(model: Observation.Component.Value): ObservationComponentValueSurrogate =
+      with(model) {
+        ObservationComponentValueSurrogate(
           valueQuantity = this@with.asQuantity()?.value,
           valueCodeableConcept = this@with.asCodeableConcept()?.value,
           valueString = this@with.asString()?.value?.value,

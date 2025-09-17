@@ -52,41 +52,6 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
-internal data class FamilyMemberHistoryConditionOnsetSurrogate(
-  public var onsetAge: Age? = null,
-  public var onsetRange: Range? = null,
-  public var onsetPeriod: Period? = null,
-  public var onsetString: KotlinString? = null,
-  public var _onsetString: Element? = null,
-) {
-  public fun toModel(): FamilyMemberHistory.Condition.Onset =
-    FamilyMemberHistory.Condition.Onset?.from(
-      this@FamilyMemberHistoryConditionOnsetSurrogate.onsetAge,
-      this@FamilyMemberHistoryConditionOnsetSurrogate.onsetRange,
-      this@FamilyMemberHistoryConditionOnsetSurrogate.onsetPeriod,
-      R4bString.of(
-        this@FamilyMemberHistoryConditionOnsetSurrogate.onsetString,
-        this@FamilyMemberHistoryConditionOnsetSurrogate._onsetString,
-      ),
-    )!!
-
-  public companion object {
-    public fun fromModel(
-      model: FamilyMemberHistory.Condition.Onset
-    ): FamilyMemberHistoryConditionOnsetSurrogate =
-      with(model) {
-        FamilyMemberHistoryConditionOnsetSurrogate(
-          onsetAge = this@with.asAge()?.value,
-          onsetRange = this@with.asRange()?.value,
-          onsetPeriod = this@with.asPeriod()?.value,
-          onsetString = this@with.asString()?.value?.value,
-          _onsetString = this@with.asString()?.value?.toElement(),
-        )
-      }
-  }
-}
-
-@Serializable
 internal data class FamilyMemberHistoryConditionSurrogate(
   public var id: KotlinString? = null,
   public var extension: MutableList<Extension>? = null,
@@ -144,7 +109,7 @@ internal data class FamilyMemberHistoryBornSurrogate(
   public var _bornString: Element? = null,
 ) {
   public fun toModel(): FamilyMemberHistory.Born =
-    FamilyMemberHistory.Born?.from(
+    FamilyMemberHistory.Born.from(
       this@FamilyMemberHistoryBornSurrogate.bornPeriod,
       Date.of(
         FhirDate.fromString(this@FamilyMemberHistoryBornSurrogate.bornDate),
@@ -178,7 +143,7 @@ internal data class FamilyMemberHistoryAgeSurrogate(
   public var _ageString: Element? = null,
 ) {
   public fun toModel(): FamilyMemberHistory.Age =
-    FamilyMemberHistory.Age?.from(
+    FamilyMemberHistory.Age.from(
       this@FamilyMemberHistoryAgeSurrogate.ageAge,
       this@FamilyMemberHistoryAgeSurrogate.ageRange,
       R4bString.of(
@@ -212,7 +177,7 @@ internal data class FamilyMemberHistoryDeceasedSurrogate(
   public var _deceasedString: Element? = null,
 ) {
   public fun toModel(): FamilyMemberHistory.Deceased =
-    FamilyMemberHistory.Deceased?.from(
+    FamilyMemberHistory.Deceased.from(
       R4bBoolean.of(
         this@FamilyMemberHistoryDeceasedSurrogate.deceasedBoolean,
         this@FamilyMemberHistoryDeceasedSurrogate._deceasedBoolean,
@@ -243,6 +208,41 @@ internal data class FamilyMemberHistoryDeceasedSurrogate(
           _deceasedDate = this@with.asDate()?.value?.toElement(),
           deceasedString = this@with.asString()?.value?.value,
           _deceasedString = this@with.asString()?.value?.toElement(),
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class FamilyMemberHistoryConditionOnsetSurrogate(
+  public var onsetAge: Age? = null,
+  public var onsetRange: Range? = null,
+  public var onsetPeriod: Period? = null,
+  public var onsetString: KotlinString? = null,
+  public var _onsetString: Element? = null,
+) {
+  public fun toModel(): FamilyMemberHistory.Condition.Onset =
+    FamilyMemberHistory.Condition.Onset.from(
+      this@FamilyMemberHistoryConditionOnsetSurrogate.onsetAge,
+      this@FamilyMemberHistoryConditionOnsetSurrogate.onsetRange,
+      this@FamilyMemberHistoryConditionOnsetSurrogate.onsetPeriod,
+      R4bString.of(
+        this@FamilyMemberHistoryConditionOnsetSurrogate.onsetString,
+        this@FamilyMemberHistoryConditionOnsetSurrogate._onsetString,
+      ),
+    )!!
+
+  public companion object {
+    public fun fromModel(
+      model: FamilyMemberHistory.Condition.Onset
+    ): FamilyMemberHistoryConditionOnsetSurrogate =
+      with(model) {
+        FamilyMemberHistoryConditionOnsetSurrogate(
+          onsetAge = this@with.asAge()?.value,
+          onsetRange = this@with.asRange()?.value,
+          onsetPeriod = this@with.asPeriod()?.value,
+          onsetString = this@with.asString()?.value?.value,
+          _onsetString = this@with.asString()?.value?.toElement(),
         )
       }
   }

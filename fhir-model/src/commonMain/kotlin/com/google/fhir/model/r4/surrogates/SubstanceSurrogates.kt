@@ -85,30 +85,6 @@ internal data class SubstanceInstanceSurrogate(
 }
 
 @Serializable
-internal data class SubstanceIngredientSubstanceSurrogate(
-  public var substanceCodeableConcept: CodeableConcept? = null,
-  public var substanceReference: Reference? = null,
-) {
-  public fun toModel(): Substance.Ingredient.Substance =
-    Substance.Ingredient.Substance.from(
-      this@SubstanceIngredientSubstanceSurrogate.substanceCodeableConcept,
-      this@SubstanceIngredientSubstanceSurrogate.substanceReference,
-    )!! !!
-
-  public companion object {
-    public fun fromModel(
-      model: Substance.Ingredient.Substance
-    ): SubstanceIngredientSubstanceSurrogate =
-      with(model) {
-        SubstanceIngredientSubstanceSurrogate(
-          substanceCodeableConcept = this@with.asCodeableConcept()?.value,
-          substanceReference = this@with.asReference()?.value,
-        )
-      }
-  }
-}
-
-@Serializable
 internal data class SubstanceIngredientSurrogate(
   public var id: KotlinString? = null,
   public var extension: MutableList<Extension>? = null,
@@ -134,6 +110,30 @@ internal data class SubstanceIngredientSurrogate(
           modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
           quantity = this@with.quantity,
           substance = this@with.substance,
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class SubstanceIngredientSubstanceSurrogate(
+  public var substanceCodeableConcept: CodeableConcept? = null,
+  public var substanceReference: Reference? = null,
+) {
+  public fun toModel(): Substance.Ingredient.Substance =
+    Substance.Ingredient.Substance.from(
+      this@SubstanceIngredientSubstanceSurrogate.substanceCodeableConcept,
+      this@SubstanceIngredientSubstanceSurrogate.substanceReference,
+    )!! !!
+
+  public companion object {
+    public fun fromModel(
+      model: Substance.Ingredient.Substance
+    ): SubstanceIngredientSubstanceSurrogate =
+      with(model) {
+        SubstanceIngredientSubstanceSurrogate(
+          substanceCodeableConcept = this@with.asCodeableConcept()?.value,
+          substanceReference = this@with.asReference()?.value,
         )
       }
   }

@@ -61,27 +61,24 @@ public object PackagedProductDefinitionLegalStatusOfSupplySerializer :
   }
 }
 
-public object PackagedProductDefinitionPackagingPropertyValueSerializer :
-  KSerializer<PackagedProductDefinition.Packaging.Property.Value> {
+public object PackagedProductDefinitionPackagingSerializer :
+  KSerializer<PackagedProductDefinition.Packaging> {
   internal val surrogateSerializer:
-    KSerializer<PackagedProductDefinitionPackagingPropertyValueSurrogate> by lazy {
-    PackagedProductDefinitionPackagingPropertyValueSurrogate.serializer()
+    KSerializer<PackagedProductDefinitionPackagingSurrogate> by lazy {
+    PackagedProductDefinitionPackagingSurrogate.serializer()
   }
 
   override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Value", surrogateSerializer.descriptor)
+    SerialDescriptor("Packaging", surrogateSerializer.descriptor)
   }
 
-  override fun deserialize(decoder: Decoder): PackagedProductDefinition.Packaging.Property.Value =
+  override fun deserialize(decoder: Decoder): PackagedProductDefinition.Packaging =
     surrogateSerializer.deserialize(decoder).toModel()
 
-  override fun serialize(
-    encoder: Encoder,
-    `value`: PackagedProductDefinition.Packaging.Property.Value,
-  ) {
+  override fun serialize(encoder: Encoder, `value`: PackagedProductDefinition.Packaging) {
     surrogateSerializer.serialize(
       encoder,
-      PackagedProductDefinitionPackagingPropertyValueSurrogate.fromModel(value),
+      PackagedProductDefinitionPackagingSurrogate.fromModel(value),
     )
   }
 }
@@ -160,24 +157,27 @@ public object PackagedProductDefinitionPackagingContainedItemSerializer :
   }
 }
 
-public object PackagedProductDefinitionPackagingSerializer :
-  KSerializer<PackagedProductDefinition.Packaging> {
+public object PackagedProductDefinitionPackagingPropertyValueSerializer :
+  KSerializer<PackagedProductDefinition.Packaging.Property.Value> {
   internal val surrogateSerializer:
-    KSerializer<PackagedProductDefinitionPackagingSurrogate> by lazy {
-    PackagedProductDefinitionPackagingSurrogate.serializer()
+    KSerializer<PackagedProductDefinitionPackagingPropertyValueSurrogate> by lazy {
+    PackagedProductDefinitionPackagingPropertyValueSurrogate.serializer()
   }
 
   override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Packaging", surrogateSerializer.descriptor)
+    SerialDescriptor("Value", surrogateSerializer.descriptor)
   }
 
-  override fun deserialize(decoder: Decoder): PackagedProductDefinition.Packaging =
+  override fun deserialize(decoder: Decoder): PackagedProductDefinition.Packaging.Property.Value =
     surrogateSerializer.deserialize(decoder).toModel()
 
-  override fun serialize(encoder: Encoder, `value`: PackagedProductDefinition.Packaging) {
+  override fun serialize(
+    encoder: Encoder,
+    `value`: PackagedProductDefinition.Packaging.Property.Value,
+  ) {
     surrogateSerializer.serialize(
       encoder,
-      PackagedProductDefinitionPackagingSurrogate.fromModel(value),
+      PackagedProductDefinitionPackagingPropertyValueSurrogate.fromModel(value),
     )
   }
 }

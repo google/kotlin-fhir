@@ -261,6 +261,37 @@ internal data class DeviceConformsToSurrogate(
 }
 
 @Serializable
+internal data class DevicePropertySurrogate(
+  public var id: KotlinString? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var type: CodeableConcept,
+  public var `value`: Device.Property.Value,
+) {
+  public fun toModel(): Device.Property =
+    Device.Property(
+      id = this@DevicePropertySurrogate.id,
+      extension = this@DevicePropertySurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@DevicePropertySurrogate.modifierExtension ?: mutableListOf(),
+      type = this@DevicePropertySurrogate.type,
+      `value` = this@DevicePropertySurrogate.`value`,
+    )
+
+  public companion object {
+    public fun fromModel(model: Device.Property): DevicePropertySurrogate =
+      with(model) {
+        DevicePropertySurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          type = this@with.type,
+          `value` = this@with.`value`,
+        )
+      }
+  }
+}
+
+@Serializable
 internal data class DevicePropertyValueSurrogate(
   public var valueQuantity: Quantity? = null,
   public var valueCodeableConcept: CodeableConcept? = null,
@@ -307,37 +338,6 @@ internal data class DevicePropertyValueSurrogate(
           _valueInteger = this@with.asInteger()?.value?.toElement(),
           valueRange = this@with.asRange()?.value,
           valueAttachment = this@with.asAttachment()?.value,
-        )
-      }
-  }
-}
-
-@Serializable
-internal data class DevicePropertySurrogate(
-  public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var type: CodeableConcept,
-  public var `value`: Device.Property.Value,
-) {
-  public fun toModel(): Device.Property =
-    Device.Property(
-      id = this@DevicePropertySurrogate.id,
-      extension = this@DevicePropertySurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@DevicePropertySurrogate.modifierExtension ?: mutableListOf(),
-      type = this@DevicePropertySurrogate.type,
-      `value` = this@DevicePropertySurrogate.`value`,
-    )
-
-  public companion object {
-    public fun fromModel(model: Device.Property): DevicePropertySurrogate =
-      with(model) {
-        DevicePropertySurrogate(
-          id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          type = this@with.type,
-          `value` = this@with.`value`,
         )
       }
   }

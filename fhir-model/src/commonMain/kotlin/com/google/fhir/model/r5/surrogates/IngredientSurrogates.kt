@@ -87,136 +87,31 @@ internal data class IngredientManufacturerSurrogate(
 }
 
 @Serializable
-internal data class IngredientSubstanceStrengthReferenceStrengthStrengthSurrogate(
-  public var strengthRatio: Ratio? = null,
-  public var strengthRatioRange: RatioRange? = null,
-  public var strengthQuantity: Quantity? = null,
-) {
-  public fun toModel(): Ingredient.Substance.Strength.ReferenceStrength.Strength =
-    Ingredient.Substance.Strength.ReferenceStrength.Strength.from(
-      this@IngredientSubstanceStrengthReferenceStrengthStrengthSurrogate.strengthRatio,
-      this@IngredientSubstanceStrengthReferenceStrengthStrengthSurrogate.strengthRatioRange,
-      this@IngredientSubstanceStrengthReferenceStrengthStrengthSurrogate.strengthQuantity,
-    )!! !!
-
-  public companion object {
-    public fun fromModel(
-      model: Ingredient.Substance.Strength.ReferenceStrength.Strength
-    ): IngredientSubstanceStrengthReferenceStrengthStrengthSurrogate =
-      with(model) {
-        IngredientSubstanceStrengthReferenceStrengthStrengthSurrogate(
-          strengthRatio = this@with.asRatio()?.value,
-          strengthRatioRange = this@with.asRatioRange()?.value,
-          strengthQuantity = this@with.asQuantity()?.value,
-        )
-      }
-  }
-}
-
-@Serializable
-internal data class IngredientSubstanceStrengthReferenceStrengthSurrogate(
+internal data class IngredientSubstanceSurrogate(
   public var id: KotlinString? = null,
   public var extension: MutableList<Extension>? = null,
   public var modifierExtension: MutableList<Extension>? = null,
-  public var substance: CodeableReference,
-  public var strength: Ingredient.Substance.Strength.ReferenceStrength.Strength,
-  public var measurementPoint: KotlinString? = null,
-  public var _measurementPoint: Element? = null,
-  public var country: MutableList<CodeableConcept>? = null,
+  public var code: CodeableReference,
+  public var strength: MutableList<Ingredient.Substance.Strength>? = null,
 ) {
-  public fun toModel(): Ingredient.Substance.Strength.ReferenceStrength =
-    Ingredient.Substance.Strength.ReferenceStrength(
-      id = this@IngredientSubstanceStrengthReferenceStrengthSurrogate.id,
-      extension =
-        this@IngredientSubstanceStrengthReferenceStrengthSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@IngredientSubstanceStrengthReferenceStrengthSurrogate.modifierExtension
-          ?: mutableListOf(),
-      substance = this@IngredientSubstanceStrengthReferenceStrengthSurrogate.substance,
-      strength = this@IngredientSubstanceStrengthReferenceStrengthSurrogate.strength,
-      measurementPoint =
-        R5String.of(
-          this@IngredientSubstanceStrengthReferenceStrengthSurrogate.measurementPoint,
-          this@IngredientSubstanceStrengthReferenceStrengthSurrogate._measurementPoint,
-        ),
-      country =
-        this@IngredientSubstanceStrengthReferenceStrengthSurrogate.country ?: mutableListOf(),
+  public fun toModel(): Ingredient.Substance =
+    Ingredient.Substance(
+      id = this@IngredientSubstanceSurrogate.id,
+      extension = this@IngredientSubstanceSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@IngredientSubstanceSurrogate.modifierExtension ?: mutableListOf(),
+      code = this@IngredientSubstanceSurrogate.code,
+      strength = this@IngredientSubstanceSurrogate.strength ?: mutableListOf(),
     )
 
   public companion object {
-    public fun fromModel(
-      model: Ingredient.Substance.Strength.ReferenceStrength
-    ): IngredientSubstanceStrengthReferenceStrengthSurrogate =
+    public fun fromModel(model: Ingredient.Substance): IngredientSubstanceSurrogate =
       with(model) {
-        IngredientSubstanceStrengthReferenceStrengthSurrogate(
+        IngredientSubstanceSurrogate(
           id = this@with.id,
           extension = this@with.extension.takeUnless { it.all { it == null } },
           modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          substance = this@with.substance,
-          strength = this@with.strength,
-          measurementPoint = this@with.measurementPoint?.value,
-          _measurementPoint = this@with.measurementPoint?.toElement(),
-          country = this@with.country.takeUnless { it.all { it == null } },
-        )
-      }
-  }
-}
-
-@Serializable
-internal data class IngredientSubstanceStrengthPresentationSurrogate(
-  public var presentationRatio: Ratio? = null,
-  public var presentationRatioRange: RatioRange? = null,
-  public var presentationCodeableConcept: CodeableConcept? = null,
-  public var presentationQuantity: Quantity? = null,
-) {
-  public fun toModel(): Ingredient.Substance.Strength.Presentation =
-    Ingredient.Substance.Strength.Presentation?.from(
-      this@IngredientSubstanceStrengthPresentationSurrogate.presentationRatio,
-      this@IngredientSubstanceStrengthPresentationSurrogate.presentationRatioRange,
-      this@IngredientSubstanceStrengthPresentationSurrogate.presentationCodeableConcept,
-      this@IngredientSubstanceStrengthPresentationSurrogate.presentationQuantity,
-    )!!
-
-  public companion object {
-    public fun fromModel(
-      model: Ingredient.Substance.Strength.Presentation
-    ): IngredientSubstanceStrengthPresentationSurrogate =
-      with(model) {
-        IngredientSubstanceStrengthPresentationSurrogate(
-          presentationRatio = this@with.asRatio()?.value,
-          presentationRatioRange = this@with.asRatioRange()?.value,
-          presentationCodeableConcept = this@with.asCodeableConcept()?.value,
-          presentationQuantity = this@with.asQuantity()?.value,
-        )
-      }
-  }
-}
-
-@Serializable
-internal data class IngredientSubstanceStrengthConcentrationSurrogate(
-  public var concentrationRatio: Ratio? = null,
-  public var concentrationRatioRange: RatioRange? = null,
-  public var concentrationCodeableConcept: CodeableConcept? = null,
-  public var concentrationQuantity: Quantity? = null,
-) {
-  public fun toModel(): Ingredient.Substance.Strength.Concentration =
-    Ingredient.Substance.Strength.Concentration?.from(
-      this@IngredientSubstanceStrengthConcentrationSurrogate.concentrationRatio,
-      this@IngredientSubstanceStrengthConcentrationSurrogate.concentrationRatioRange,
-      this@IngredientSubstanceStrengthConcentrationSurrogate.concentrationCodeableConcept,
-      this@IngredientSubstanceStrengthConcentrationSurrogate.concentrationQuantity,
-    )!!
-
-  public companion object {
-    public fun fromModel(
-      model: Ingredient.Substance.Strength.Concentration
-    ): IngredientSubstanceStrengthConcentrationSurrogate =
-      with(model) {
-        IngredientSubstanceStrengthConcentrationSurrogate(
-          concentrationRatio = this@with.asRatio()?.value,
-          concentrationRatioRange = this@with.asRatioRange()?.value,
-          concentrationCodeableConcept = this@with.asCodeableConcept()?.value,
-          concentrationQuantity = this@with.asQuantity()?.value,
+          code = this@with.code,
+          strength = this@with.strength.takeUnless { it.all { it == null } },
         )
       }
   }
@@ -294,31 +189,136 @@ internal data class IngredientSubstanceStrengthSurrogate(
 }
 
 @Serializable
-internal data class IngredientSubstanceSurrogate(
+internal data class IngredientSubstanceStrengthReferenceStrengthSurrogate(
   public var id: KotlinString? = null,
   public var extension: MutableList<Extension>? = null,
   public var modifierExtension: MutableList<Extension>? = null,
-  public var code: CodeableReference,
-  public var strength: MutableList<Ingredient.Substance.Strength>? = null,
+  public var substance: CodeableReference,
+  public var strength: Ingredient.Substance.Strength.ReferenceStrength.Strength,
+  public var measurementPoint: KotlinString? = null,
+  public var _measurementPoint: Element? = null,
+  public var country: MutableList<CodeableConcept>? = null,
 ) {
-  public fun toModel(): Ingredient.Substance =
-    Ingredient.Substance(
-      id = this@IngredientSubstanceSurrogate.id,
-      extension = this@IngredientSubstanceSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@IngredientSubstanceSurrogate.modifierExtension ?: mutableListOf(),
-      code = this@IngredientSubstanceSurrogate.code,
-      strength = this@IngredientSubstanceSurrogate.strength ?: mutableListOf(),
+  public fun toModel(): Ingredient.Substance.Strength.ReferenceStrength =
+    Ingredient.Substance.Strength.ReferenceStrength(
+      id = this@IngredientSubstanceStrengthReferenceStrengthSurrogate.id,
+      extension =
+        this@IngredientSubstanceStrengthReferenceStrengthSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@IngredientSubstanceStrengthReferenceStrengthSurrogate.modifierExtension
+          ?: mutableListOf(),
+      substance = this@IngredientSubstanceStrengthReferenceStrengthSurrogate.substance,
+      strength = this@IngredientSubstanceStrengthReferenceStrengthSurrogate.strength,
+      measurementPoint =
+        R5String.of(
+          this@IngredientSubstanceStrengthReferenceStrengthSurrogate.measurementPoint,
+          this@IngredientSubstanceStrengthReferenceStrengthSurrogate._measurementPoint,
+        ),
+      country =
+        this@IngredientSubstanceStrengthReferenceStrengthSurrogate.country ?: mutableListOf(),
     )
 
   public companion object {
-    public fun fromModel(model: Ingredient.Substance): IngredientSubstanceSurrogate =
+    public fun fromModel(
+      model: Ingredient.Substance.Strength.ReferenceStrength
+    ): IngredientSubstanceStrengthReferenceStrengthSurrogate =
       with(model) {
-        IngredientSubstanceSurrogate(
+        IngredientSubstanceStrengthReferenceStrengthSurrogate(
           id = this@with.id,
           extension = this@with.extension.takeUnless { it.all { it == null } },
           modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          code = this@with.code,
-          strength = this@with.strength.takeUnless { it.all { it == null } },
+          substance = this@with.substance,
+          strength = this@with.strength,
+          measurementPoint = this@with.measurementPoint?.value,
+          _measurementPoint = this@with.measurementPoint?.toElement(),
+          country = this@with.country.takeUnless { it.all { it == null } },
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class IngredientSubstanceStrengthPresentationSurrogate(
+  public var presentationRatio: Ratio? = null,
+  public var presentationRatioRange: RatioRange? = null,
+  public var presentationCodeableConcept: CodeableConcept? = null,
+  public var presentationQuantity: Quantity? = null,
+) {
+  public fun toModel(): Ingredient.Substance.Strength.Presentation =
+    Ingredient.Substance.Strength.Presentation.from(
+      this@IngredientSubstanceStrengthPresentationSurrogate.presentationRatio,
+      this@IngredientSubstanceStrengthPresentationSurrogate.presentationRatioRange,
+      this@IngredientSubstanceStrengthPresentationSurrogate.presentationCodeableConcept,
+      this@IngredientSubstanceStrengthPresentationSurrogate.presentationQuantity,
+    )!!
+
+  public companion object {
+    public fun fromModel(
+      model: Ingredient.Substance.Strength.Presentation
+    ): IngredientSubstanceStrengthPresentationSurrogate =
+      with(model) {
+        IngredientSubstanceStrengthPresentationSurrogate(
+          presentationRatio = this@with.asRatio()?.value,
+          presentationRatioRange = this@with.asRatioRange()?.value,
+          presentationCodeableConcept = this@with.asCodeableConcept()?.value,
+          presentationQuantity = this@with.asQuantity()?.value,
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class IngredientSubstanceStrengthConcentrationSurrogate(
+  public var concentrationRatio: Ratio? = null,
+  public var concentrationRatioRange: RatioRange? = null,
+  public var concentrationCodeableConcept: CodeableConcept? = null,
+  public var concentrationQuantity: Quantity? = null,
+) {
+  public fun toModel(): Ingredient.Substance.Strength.Concentration =
+    Ingredient.Substance.Strength.Concentration.from(
+      this@IngredientSubstanceStrengthConcentrationSurrogate.concentrationRatio,
+      this@IngredientSubstanceStrengthConcentrationSurrogate.concentrationRatioRange,
+      this@IngredientSubstanceStrengthConcentrationSurrogate.concentrationCodeableConcept,
+      this@IngredientSubstanceStrengthConcentrationSurrogate.concentrationQuantity,
+    )!!
+
+  public companion object {
+    public fun fromModel(
+      model: Ingredient.Substance.Strength.Concentration
+    ): IngredientSubstanceStrengthConcentrationSurrogate =
+      with(model) {
+        IngredientSubstanceStrengthConcentrationSurrogate(
+          concentrationRatio = this@with.asRatio()?.value,
+          concentrationRatioRange = this@with.asRatioRange()?.value,
+          concentrationCodeableConcept = this@with.asCodeableConcept()?.value,
+          concentrationQuantity = this@with.asQuantity()?.value,
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class IngredientSubstanceStrengthReferenceStrengthStrengthSurrogate(
+  public var strengthRatio: Ratio? = null,
+  public var strengthRatioRange: RatioRange? = null,
+  public var strengthQuantity: Quantity? = null,
+) {
+  public fun toModel(): Ingredient.Substance.Strength.ReferenceStrength.Strength =
+    Ingredient.Substance.Strength.ReferenceStrength.Strength.from(
+      this@IngredientSubstanceStrengthReferenceStrengthStrengthSurrogate.strengthRatio,
+      this@IngredientSubstanceStrengthReferenceStrengthStrengthSurrogate.strengthRatioRange,
+      this@IngredientSubstanceStrengthReferenceStrengthStrengthSurrogate.strengthQuantity,
+    )!! !!
+
+  public companion object {
+    public fun fromModel(
+      model: Ingredient.Substance.Strength.ReferenceStrength.Strength
+    ): IngredientSubstanceStrengthReferenceStrengthStrengthSurrogate =
+      with(model) {
+        IngredientSubstanceStrengthReferenceStrengthStrengthSurrogate(
+          strengthRatio = this@with.asRatio()?.value,
+          strengthRatioRange = this@with.asRatioRange()?.value,
+          strengthQuantity = this@with.asQuantity()?.value,
         )
       }
   }

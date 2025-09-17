@@ -95,38 +95,6 @@ internal data class DataRequirementCodeFilterSurrogate(
 }
 
 @Serializable
-internal data class DataRequirementDateFilterValueSurrogate(
-  public var valueDateTime: KotlinString? = null,
-  public var _valueDateTime: Element? = null,
-  public var valuePeriod: Period? = null,
-  public var valueDuration: Duration? = null,
-) {
-  public fun toModel(): DataRequirement.DateFilter.Value =
-    DataRequirement.DateFilter.Value?.from(
-      DateTime.of(
-        FhirDateTime.fromString(this@DataRequirementDateFilterValueSurrogate.valueDateTime),
-        this@DataRequirementDateFilterValueSurrogate._valueDateTime,
-      ),
-      this@DataRequirementDateFilterValueSurrogate.valuePeriod,
-      this@DataRequirementDateFilterValueSurrogate.valueDuration,
-    )!!
-
-  public companion object {
-    public fun fromModel(
-      model: DataRequirement.DateFilter.Value
-    ): DataRequirementDateFilterValueSurrogate =
-      with(model) {
-        DataRequirementDateFilterValueSurrogate(
-          valueDateTime = this@with.asDateTime()?.value?.value?.toString(),
-          _valueDateTime = this@with.asDateTime()?.value?.toElement(),
-          valuePeriod = this@with.asPeriod()?.value,
-          valueDuration = this@with.asDuration()?.value,
-        )
-      }
-  }
-}
-
-@Serializable
 internal data class DataRequirementDateFilterSurrogate(
   public var id: KotlinString? = null,
   public var extension: MutableList<Extension>? = null,
@@ -217,7 +185,7 @@ internal data class DataRequirementSubjectSurrogate(
   public var subjectReference: Reference? = null,
 ) {
   public fun toModel(): DataRequirement.Subject =
-    DataRequirement.Subject?.from(
+    DataRequirement.Subject.from(
       this@DataRequirementSubjectSurrogate.subjectCodeableConcept,
       this@DataRequirementSubjectSurrogate.subjectReference,
     )!!
@@ -228,6 +196,38 @@ internal data class DataRequirementSubjectSurrogate(
         DataRequirementSubjectSurrogate(
           subjectCodeableConcept = this@with.asCodeableConcept()?.value,
           subjectReference = this@with.asReference()?.value,
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class DataRequirementDateFilterValueSurrogate(
+  public var valueDateTime: KotlinString? = null,
+  public var _valueDateTime: Element? = null,
+  public var valuePeriod: Period? = null,
+  public var valueDuration: Duration? = null,
+) {
+  public fun toModel(): DataRequirement.DateFilter.Value =
+    DataRequirement.DateFilter.Value.from(
+      DateTime.of(
+        FhirDateTime.fromString(this@DataRequirementDateFilterValueSurrogate.valueDateTime),
+        this@DataRequirementDateFilterValueSurrogate._valueDateTime,
+      ),
+      this@DataRequirementDateFilterValueSurrogate.valuePeriod,
+      this@DataRequirementDateFilterValueSurrogate.valueDuration,
+    )!!
+
+  public companion object {
+    public fun fromModel(
+      model: DataRequirement.DateFilter.Value
+    ): DataRequirementDateFilterValueSurrogate =
+      with(model) {
+        DataRequirementDateFilterValueSurrogate(
+          valueDateTime = this@with.asDateTime()?.value?.value?.toString(),
+          _valueDateTime = this@with.asDateTime()?.value?.toElement(),
+          valuePeriod = this@with.asPeriod()?.value,
+          valueDuration = this@with.asDuration()?.value,
         )
       }
   }

@@ -52,7 +52,7 @@ internal data class TriggerDefinitionTimingSurrogate(
   public var _timingDateTime: Element? = null,
 ) {
   public fun toModel(): TriggerDefinition.Timing =
-    TriggerDefinition.Timing?.from(
+    TriggerDefinition.Timing.from(
       this@TriggerDefinitionTimingSurrogate.timingTiming,
       this@TriggerDefinitionTimingSurrogate.timingReference,
       Date.of(

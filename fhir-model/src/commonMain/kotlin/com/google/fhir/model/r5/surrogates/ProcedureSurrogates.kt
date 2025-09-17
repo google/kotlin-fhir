@@ -131,7 +131,7 @@ internal data class ProcedureOccurrenceSurrogate(
   public var occurrenceTiming: Timing? = null,
 ) {
   public fun toModel(): Procedure.Occurrence =
-    Procedure.Occurrence?.from(
+    Procedure.Occurrence.from(
       DateTime.of(
         FhirDateTime.fromString(this@ProcedureOccurrenceSurrogate.occurrenceDateTime),
         this@ProcedureOccurrenceSurrogate._occurrenceDateTime,
@@ -170,7 +170,7 @@ internal data class ProcedureReportedSurrogate(
   public var reportedReference: Reference? = null,
 ) {
   public fun toModel(): Procedure.Reported =
-    Procedure.Reported?.from(
+    Procedure.Reported.from(
       R5Boolean.of(
         this@ProcedureReportedSurrogate.reportedBoolean,
         this@ProcedureReportedSurrogate._reportedBoolean,

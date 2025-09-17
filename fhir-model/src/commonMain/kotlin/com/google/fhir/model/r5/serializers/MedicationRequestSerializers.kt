@@ -38,28 +38,6 @@ import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.JsonPrimitive
 import kotlinx.serialization.json.jsonObject
 
-public object MedicationRequestDispenseRequestInitialFillSerializer :
-  KSerializer<MedicationRequest.DispenseRequest.InitialFill> {
-  internal val surrogateSerializer:
-    KSerializer<MedicationRequestDispenseRequestInitialFillSurrogate> by lazy {
-    MedicationRequestDispenseRequestInitialFillSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("InitialFill", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): MedicationRequest.DispenseRequest.InitialFill =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: MedicationRequest.DispenseRequest.InitialFill) {
-    surrogateSerializer.serialize(
-      encoder,
-      MedicationRequestDispenseRequestInitialFillSurrogate.fromModel(value),
-    )
-  }
-}
-
 public object MedicationRequestDispenseRequestSerializer :
   KSerializer<MedicationRequest.DispenseRequest> {
   internal val surrogateSerializer: KSerializer<MedicationRequestDispenseRequestSurrogate> by lazy {
@@ -81,24 +59,24 @@ public object MedicationRequestDispenseRequestSerializer :
   }
 }
 
-public object MedicationRequestSubstitutionAllowedSerializer :
-  KSerializer<MedicationRequest.Substitution.Allowed> {
+public object MedicationRequestDispenseRequestInitialFillSerializer :
+  KSerializer<MedicationRequest.DispenseRequest.InitialFill> {
   internal val surrogateSerializer:
-    KSerializer<MedicationRequestSubstitutionAllowedSurrogate> by lazy {
-    MedicationRequestSubstitutionAllowedSurrogate.serializer()
+    KSerializer<MedicationRequestDispenseRequestInitialFillSurrogate> by lazy {
+    MedicationRequestDispenseRequestInitialFillSurrogate.serializer()
   }
 
   override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Allowed", surrogateSerializer.descriptor)
+    SerialDescriptor("InitialFill", surrogateSerializer.descriptor)
   }
 
-  override fun deserialize(decoder: Decoder): MedicationRequest.Substitution.Allowed =
+  override fun deserialize(decoder: Decoder): MedicationRequest.DispenseRequest.InitialFill =
     surrogateSerializer.deserialize(decoder).toModel()
 
-  override fun serialize(encoder: Encoder, `value`: MedicationRequest.Substitution.Allowed) {
+  override fun serialize(encoder: Encoder, `value`: MedicationRequest.DispenseRequest.InitialFill) {
     surrogateSerializer.serialize(
       encoder,
-      MedicationRequestSubstitutionAllowedSurrogate.fromModel(value),
+      MedicationRequestDispenseRequestInitialFillSurrogate.fromModel(value),
     )
   }
 }
@@ -148,6 +126,28 @@ public object MedicationRequestSubstitutionSerializer :
       }
     val flattenedJsonObject = FhirJsonTransformer.flatten(oldJsonObject, multiChoiceProperties)
     jsonEncoder.encodeJsonElement(flattenedJsonObject)
+  }
+}
+
+public object MedicationRequestSubstitutionAllowedSerializer :
+  KSerializer<MedicationRequest.Substitution.Allowed> {
+  internal val surrogateSerializer:
+    KSerializer<MedicationRequestSubstitutionAllowedSurrogate> by lazy {
+    MedicationRequestSubstitutionAllowedSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Allowed", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): MedicationRequest.Substitution.Allowed =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: MedicationRequest.Substitution.Allowed) {
+    surrogateSerializer.serialize(
+      encoder,
+      MedicationRequestSubstitutionAllowedSurrogate.fromModel(value),
+    )
   }
 }
 

@@ -50,60 +50,6 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
-internal data class ManufacturedItemDefinitionPropertyValueSurrogate(
-  public var valueCodeableConcept: CodeableConcept? = null,
-  public var valueQuantity: Quantity? = null,
-  public var valueDate: KotlinString? = null,
-  public var _valueDate: Element? = null,
-  public var valueBoolean: KotlinBoolean? = null,
-  public var _valueBoolean: Element? = null,
-  public var valueMarkdown: KotlinString? = null,
-  public var _valueMarkdown: Element? = null,
-  public var valueAttachment: Attachment? = null,
-  public var valueReference: Reference? = null,
-) {
-  public fun toModel(): ManufacturedItemDefinition.Property.Value =
-    ManufacturedItemDefinition.Property.Value?.from(
-      this@ManufacturedItemDefinitionPropertyValueSurrogate.valueCodeableConcept,
-      this@ManufacturedItemDefinitionPropertyValueSurrogate.valueQuantity,
-      Date.of(
-        FhirDate.fromString(this@ManufacturedItemDefinitionPropertyValueSurrogate.valueDate),
-        this@ManufacturedItemDefinitionPropertyValueSurrogate._valueDate,
-      ),
-      R5Boolean.of(
-        this@ManufacturedItemDefinitionPropertyValueSurrogate.valueBoolean,
-        this@ManufacturedItemDefinitionPropertyValueSurrogate._valueBoolean,
-      ),
-      Markdown.of(
-        this@ManufacturedItemDefinitionPropertyValueSurrogate.valueMarkdown,
-        this@ManufacturedItemDefinitionPropertyValueSurrogate._valueMarkdown,
-      ),
-      this@ManufacturedItemDefinitionPropertyValueSurrogate.valueAttachment,
-      this@ManufacturedItemDefinitionPropertyValueSurrogate.valueReference,
-    )!!
-
-  public companion object {
-    public fun fromModel(
-      model: ManufacturedItemDefinition.Property.Value
-    ): ManufacturedItemDefinitionPropertyValueSurrogate =
-      with(model) {
-        ManufacturedItemDefinitionPropertyValueSurrogate(
-          valueCodeableConcept = this@with.asCodeableConcept()?.value,
-          valueQuantity = this@with.asQuantity()?.value,
-          valueDate = this@with.asDate()?.value?.value?.toString(),
-          _valueDate = this@with.asDate()?.value?.toElement(),
-          valueBoolean = this@with.asBoolean()?.value?.value,
-          _valueBoolean = this@with.asBoolean()?.value?.toElement(),
-          valueMarkdown = this@with.asMarkdown()?.value?.value,
-          _valueMarkdown = this@with.asMarkdown()?.value?.toElement(),
-          valueAttachment = this@with.asAttachment()?.value,
-          valueReference = this@with.asReference()?.value,
-        )
-      }
-  }
-}
-
-@Serializable
 internal data class ManufacturedItemDefinitionPropertySurrogate(
   public var id: KotlinString? = null,
   public var extension: MutableList<Extension>? = null,
@@ -132,6 +78,53 @@ internal data class ManufacturedItemDefinitionPropertySurrogate(
           modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
           type = this@with.type,
           `value` = this@with.`value`,
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class ManufacturedItemDefinitionComponentSurrogate(
+  public var id: KotlinString? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var type: CodeableConcept,
+  public var function: MutableList<CodeableConcept>? = null,
+  public var amount: MutableList<Quantity>? = null,
+  public var constituent: MutableList<ManufacturedItemDefinition.Component.Constituent>? = null,
+  public var `property`: MutableList<ManufacturedItemDefinition.Property>? = null,
+  public var component: MutableList<ManufacturedItemDefinition.Component>? = null,
+) {
+  public fun toModel(): ManufacturedItemDefinition.Component =
+    ManufacturedItemDefinition.Component(
+      id = this@ManufacturedItemDefinitionComponentSurrogate.id,
+      extension = this@ManufacturedItemDefinitionComponentSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@ManufacturedItemDefinitionComponentSurrogate.modifierExtension ?: mutableListOf(),
+      type = this@ManufacturedItemDefinitionComponentSurrogate.type,
+      function = this@ManufacturedItemDefinitionComponentSurrogate.function ?: mutableListOf(),
+      amount = this@ManufacturedItemDefinitionComponentSurrogate.amount ?: mutableListOf(),
+      constituent =
+        this@ManufacturedItemDefinitionComponentSurrogate.constituent ?: mutableListOf(),
+      `property` = this@ManufacturedItemDefinitionComponentSurrogate.`property` ?: mutableListOf(),
+      component = this@ManufacturedItemDefinitionComponentSurrogate.component ?: mutableListOf(),
+    )
+
+  public companion object {
+    public fun fromModel(
+      model: ManufacturedItemDefinition.Component
+    ): ManufacturedItemDefinitionComponentSurrogate =
+      with(model) {
+        ManufacturedItemDefinitionComponentSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          type = this@with.type,
+          function = this@with.function.takeUnless { it.all { it == null } },
+          amount = this@with.amount.takeUnless { it.all { it == null } },
+          constituent = this@with.constituent.takeUnless { it.all { it == null } },
+          `property` = this@with.`property`.takeUnless { it.all { it == null } },
+          component = this@with.component.takeUnless { it.all { it == null } },
         )
       }
   }
@@ -185,47 +178,54 @@ internal data class ManufacturedItemDefinitionComponentConstituentSurrogate(
 }
 
 @Serializable
-internal data class ManufacturedItemDefinitionComponentSurrogate(
-  public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var type: CodeableConcept,
-  public var function: MutableList<CodeableConcept>? = null,
-  public var amount: MutableList<Quantity>? = null,
-  public var constituent: MutableList<ManufacturedItemDefinition.Component.Constituent>? = null,
-  public var `property`: MutableList<ManufacturedItemDefinition.Property>? = null,
-  public var component: MutableList<ManufacturedItemDefinition.Component>? = null,
+internal data class ManufacturedItemDefinitionPropertyValueSurrogate(
+  public var valueCodeableConcept: CodeableConcept? = null,
+  public var valueQuantity: Quantity? = null,
+  public var valueDate: KotlinString? = null,
+  public var _valueDate: Element? = null,
+  public var valueBoolean: KotlinBoolean? = null,
+  public var _valueBoolean: Element? = null,
+  public var valueMarkdown: KotlinString? = null,
+  public var _valueMarkdown: Element? = null,
+  public var valueAttachment: Attachment? = null,
+  public var valueReference: Reference? = null,
 ) {
-  public fun toModel(): ManufacturedItemDefinition.Component =
-    ManufacturedItemDefinition.Component(
-      id = this@ManufacturedItemDefinitionComponentSurrogate.id,
-      extension = this@ManufacturedItemDefinitionComponentSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@ManufacturedItemDefinitionComponentSurrogate.modifierExtension ?: mutableListOf(),
-      type = this@ManufacturedItemDefinitionComponentSurrogate.type,
-      function = this@ManufacturedItemDefinitionComponentSurrogate.function ?: mutableListOf(),
-      amount = this@ManufacturedItemDefinitionComponentSurrogate.amount ?: mutableListOf(),
-      constituent =
-        this@ManufacturedItemDefinitionComponentSurrogate.constituent ?: mutableListOf(),
-      `property` = this@ManufacturedItemDefinitionComponentSurrogate.`property` ?: mutableListOf(),
-      component = this@ManufacturedItemDefinitionComponentSurrogate.component ?: mutableListOf(),
-    )
+  public fun toModel(): ManufacturedItemDefinition.Property.Value =
+    ManufacturedItemDefinition.Property.Value.from(
+      this@ManufacturedItemDefinitionPropertyValueSurrogate.valueCodeableConcept,
+      this@ManufacturedItemDefinitionPropertyValueSurrogate.valueQuantity,
+      Date.of(
+        FhirDate.fromString(this@ManufacturedItemDefinitionPropertyValueSurrogate.valueDate),
+        this@ManufacturedItemDefinitionPropertyValueSurrogate._valueDate,
+      ),
+      R5Boolean.of(
+        this@ManufacturedItemDefinitionPropertyValueSurrogate.valueBoolean,
+        this@ManufacturedItemDefinitionPropertyValueSurrogate._valueBoolean,
+      ),
+      Markdown.of(
+        this@ManufacturedItemDefinitionPropertyValueSurrogate.valueMarkdown,
+        this@ManufacturedItemDefinitionPropertyValueSurrogate._valueMarkdown,
+      ),
+      this@ManufacturedItemDefinitionPropertyValueSurrogate.valueAttachment,
+      this@ManufacturedItemDefinitionPropertyValueSurrogate.valueReference,
+    )!!
 
   public companion object {
     public fun fromModel(
-      model: ManufacturedItemDefinition.Component
-    ): ManufacturedItemDefinitionComponentSurrogate =
+      model: ManufacturedItemDefinition.Property.Value
+    ): ManufacturedItemDefinitionPropertyValueSurrogate =
       with(model) {
-        ManufacturedItemDefinitionComponentSurrogate(
-          id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          type = this@with.type,
-          function = this@with.function.takeUnless { it.all { it == null } },
-          amount = this@with.amount.takeUnless { it.all { it == null } },
-          constituent = this@with.constituent.takeUnless { it.all { it == null } },
-          `property` = this@with.`property`.takeUnless { it.all { it == null } },
-          component = this@with.component.takeUnless { it.all { it == null } },
+        ManufacturedItemDefinitionPropertyValueSurrogate(
+          valueCodeableConcept = this@with.asCodeableConcept()?.value,
+          valueQuantity = this@with.asQuantity()?.value,
+          valueDate = this@with.asDate()?.value?.value?.toString(),
+          _valueDate = this@with.asDate()?.value?.toElement(),
+          valueBoolean = this@with.asBoolean()?.value?.value,
+          _valueBoolean = this@with.asBoolean()?.value?.toElement(),
+          valueMarkdown = this@with.asMarkdown()?.value?.value,
+          _valueMarkdown = this@with.asMarkdown()?.value?.toElement(),
+          valueAttachment = this@with.asAttachment()?.value,
+          valueReference = this@with.asReference()?.value,
         )
       }
   }

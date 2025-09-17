@@ -90,45 +90,77 @@ internal data class PackagedProductDefinitionLegalStatusOfSupplySurrogate(
 }
 
 @Serializable
-internal data class PackagedProductDefinitionPackagingPropertyValueSurrogate(
-  public var valueCodeableConcept: CodeableConcept? = null,
-  public var valueQuantity: Quantity? = null,
-  public var valueDate: KotlinString? = null,
-  public var _valueDate: Element? = null,
-  public var valueBoolean: KotlinBoolean? = null,
-  public var _valueBoolean: Element? = null,
-  public var valueAttachment: Attachment? = null,
+internal data class PackagedProductDefinitionPackagingSurrogate(
+  public var id: KotlinString? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var identifier: MutableList<Identifier>? = null,
+  public var type: CodeableConcept? = null,
+  public var componentPart: KotlinBoolean? = null,
+  public var _componentPart: Element? = null,
+  public var quantity: Int? = null,
+  public var _quantity: Element? = null,
+  public var material: MutableList<CodeableConcept>? = null,
+  public var alternateMaterial: MutableList<CodeableConcept>? = null,
+  public var shelfLifeStorage: MutableList<ProductShelfLife>? = null,
+  public var manufacturer: MutableList<Reference>? = null,
+  public var `property`: MutableList<PackagedProductDefinition.Packaging.Property>? = null,
+  public var containedItem: MutableList<PackagedProductDefinition.Packaging.ContainedItem>? = null,
+  public var packaging: MutableList<PackagedProductDefinition.Packaging>? = null,
 ) {
-  public fun toModel(): PackagedProductDefinition.Packaging.Property.Value =
-    PackagedProductDefinition.Packaging.Property.Value?.from(
-      this@PackagedProductDefinitionPackagingPropertyValueSurrogate.valueCodeableConcept,
-      this@PackagedProductDefinitionPackagingPropertyValueSurrogate.valueQuantity,
-      Date.of(
-        FhirDate.fromString(
-          this@PackagedProductDefinitionPackagingPropertyValueSurrogate.valueDate
+  public fun toModel(): PackagedProductDefinition.Packaging =
+    PackagedProductDefinition.Packaging(
+      id = this@PackagedProductDefinitionPackagingSurrogate.id,
+      extension = this@PackagedProductDefinitionPackagingSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@PackagedProductDefinitionPackagingSurrogate.modifierExtension ?: mutableListOf(),
+      identifier = this@PackagedProductDefinitionPackagingSurrogate.identifier ?: mutableListOf(),
+      type = this@PackagedProductDefinitionPackagingSurrogate.type,
+      componentPart =
+        R5Boolean.of(
+          this@PackagedProductDefinitionPackagingSurrogate.componentPart,
+          this@PackagedProductDefinitionPackagingSurrogate._componentPart,
         ),
-        this@PackagedProductDefinitionPackagingPropertyValueSurrogate._valueDate,
-      ),
-      R5Boolean.of(
-        this@PackagedProductDefinitionPackagingPropertyValueSurrogate.valueBoolean,
-        this@PackagedProductDefinitionPackagingPropertyValueSurrogate._valueBoolean,
-      ),
-      this@PackagedProductDefinitionPackagingPropertyValueSurrogate.valueAttachment,
-    )!!
+      quantity =
+        Integer.of(
+          this@PackagedProductDefinitionPackagingSurrogate.quantity,
+          this@PackagedProductDefinitionPackagingSurrogate._quantity,
+        ),
+      material = this@PackagedProductDefinitionPackagingSurrogate.material ?: mutableListOf(),
+      alternateMaterial =
+        this@PackagedProductDefinitionPackagingSurrogate.alternateMaterial ?: mutableListOf(),
+      shelfLifeStorage =
+        this@PackagedProductDefinitionPackagingSurrogate.shelfLifeStorage ?: mutableListOf(),
+      manufacturer =
+        this@PackagedProductDefinitionPackagingSurrogate.manufacturer ?: mutableListOf(),
+      `property` = this@PackagedProductDefinitionPackagingSurrogate.`property` ?: mutableListOf(),
+      containedItem =
+        this@PackagedProductDefinitionPackagingSurrogate.containedItem ?: mutableListOf(),
+      packaging = this@PackagedProductDefinitionPackagingSurrogate.packaging ?: mutableListOf(),
+    )
 
   public companion object {
     public fun fromModel(
-      model: PackagedProductDefinition.Packaging.Property.Value
-    ): PackagedProductDefinitionPackagingPropertyValueSurrogate =
+      model: PackagedProductDefinition.Packaging
+    ): PackagedProductDefinitionPackagingSurrogate =
       with(model) {
-        PackagedProductDefinitionPackagingPropertyValueSurrogate(
-          valueCodeableConcept = this@with.asCodeableConcept()?.value,
-          valueQuantity = this@with.asQuantity()?.value,
-          valueDate = this@with.asDate()?.value?.value?.toString(),
-          _valueDate = this@with.asDate()?.value?.toElement(),
-          valueBoolean = this@with.asBoolean()?.value?.value,
-          _valueBoolean = this@with.asBoolean()?.value?.toElement(),
-          valueAttachment = this@with.asAttachment()?.value,
+        PackagedProductDefinitionPackagingSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          type = this@with.type,
+          componentPart = this@with.componentPart?.value,
+          _componentPart = this@with.componentPart?.toElement(),
+          quantity = this@with.quantity?.value,
+          _quantity = this@with.quantity?.toElement(),
+          material = this@with.material.takeUnless { it.all { it == null } },
+          alternateMaterial = this@with.alternateMaterial.takeUnless { it.all { it == null } },
+          shelfLifeStorage = this@with.shelfLifeStorage.takeUnless { it.all { it == null } },
+          manufacturer = this@with.manufacturer.takeUnless { it.all { it == null } },
+          `property` = this@with.`property`.takeUnless { it.all { it == null } },
+          containedItem = this@with.containedItem.takeUnless { it.all { it == null } },
+          packaging = this@with.packaging.takeUnless { it.all { it == null } },
         )
       }
   }
@@ -207,77 +239,45 @@ internal data class PackagedProductDefinitionPackagingContainedItemSurrogate(
 }
 
 @Serializable
-internal data class PackagedProductDefinitionPackagingSurrogate(
-  public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var identifier: MutableList<Identifier>? = null,
-  public var type: CodeableConcept? = null,
-  public var componentPart: KotlinBoolean? = null,
-  public var _componentPart: Element? = null,
-  public var quantity: Int? = null,
-  public var _quantity: Element? = null,
-  public var material: MutableList<CodeableConcept>? = null,
-  public var alternateMaterial: MutableList<CodeableConcept>? = null,
-  public var shelfLifeStorage: MutableList<ProductShelfLife>? = null,
-  public var manufacturer: MutableList<Reference>? = null,
-  public var `property`: MutableList<PackagedProductDefinition.Packaging.Property>? = null,
-  public var containedItem: MutableList<PackagedProductDefinition.Packaging.ContainedItem>? = null,
-  public var packaging: MutableList<PackagedProductDefinition.Packaging>? = null,
+internal data class PackagedProductDefinitionPackagingPropertyValueSurrogate(
+  public var valueCodeableConcept: CodeableConcept? = null,
+  public var valueQuantity: Quantity? = null,
+  public var valueDate: KotlinString? = null,
+  public var _valueDate: Element? = null,
+  public var valueBoolean: KotlinBoolean? = null,
+  public var _valueBoolean: Element? = null,
+  public var valueAttachment: Attachment? = null,
 ) {
-  public fun toModel(): PackagedProductDefinition.Packaging =
-    PackagedProductDefinition.Packaging(
-      id = this@PackagedProductDefinitionPackagingSurrogate.id,
-      extension = this@PackagedProductDefinitionPackagingSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@PackagedProductDefinitionPackagingSurrogate.modifierExtension ?: mutableListOf(),
-      identifier = this@PackagedProductDefinitionPackagingSurrogate.identifier ?: mutableListOf(),
-      type = this@PackagedProductDefinitionPackagingSurrogate.type,
-      componentPart =
-        R5Boolean.of(
-          this@PackagedProductDefinitionPackagingSurrogate.componentPart,
-          this@PackagedProductDefinitionPackagingSurrogate._componentPart,
+  public fun toModel(): PackagedProductDefinition.Packaging.Property.Value =
+    PackagedProductDefinition.Packaging.Property.Value.from(
+      this@PackagedProductDefinitionPackagingPropertyValueSurrogate.valueCodeableConcept,
+      this@PackagedProductDefinitionPackagingPropertyValueSurrogate.valueQuantity,
+      Date.of(
+        FhirDate.fromString(
+          this@PackagedProductDefinitionPackagingPropertyValueSurrogate.valueDate
         ),
-      quantity =
-        Integer.of(
-          this@PackagedProductDefinitionPackagingSurrogate.quantity,
-          this@PackagedProductDefinitionPackagingSurrogate._quantity,
-        ),
-      material = this@PackagedProductDefinitionPackagingSurrogate.material ?: mutableListOf(),
-      alternateMaterial =
-        this@PackagedProductDefinitionPackagingSurrogate.alternateMaterial ?: mutableListOf(),
-      shelfLifeStorage =
-        this@PackagedProductDefinitionPackagingSurrogate.shelfLifeStorage ?: mutableListOf(),
-      manufacturer =
-        this@PackagedProductDefinitionPackagingSurrogate.manufacturer ?: mutableListOf(),
-      `property` = this@PackagedProductDefinitionPackagingSurrogate.`property` ?: mutableListOf(),
-      containedItem =
-        this@PackagedProductDefinitionPackagingSurrogate.containedItem ?: mutableListOf(),
-      packaging = this@PackagedProductDefinitionPackagingSurrogate.packaging ?: mutableListOf(),
-    )
+        this@PackagedProductDefinitionPackagingPropertyValueSurrogate._valueDate,
+      ),
+      R5Boolean.of(
+        this@PackagedProductDefinitionPackagingPropertyValueSurrogate.valueBoolean,
+        this@PackagedProductDefinitionPackagingPropertyValueSurrogate._valueBoolean,
+      ),
+      this@PackagedProductDefinitionPackagingPropertyValueSurrogate.valueAttachment,
+    )!!
 
   public companion object {
     public fun fromModel(
-      model: PackagedProductDefinition.Packaging
-    ): PackagedProductDefinitionPackagingSurrogate =
+      model: PackagedProductDefinition.Packaging.Property.Value
+    ): PackagedProductDefinitionPackagingPropertyValueSurrogate =
       with(model) {
-        PackagedProductDefinitionPackagingSurrogate(
-          id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          identifier = this@with.identifier.takeUnless { it.all { it == null } },
-          type = this@with.type,
-          componentPart = this@with.componentPart?.value,
-          _componentPart = this@with.componentPart?.toElement(),
-          quantity = this@with.quantity?.value,
-          _quantity = this@with.quantity?.toElement(),
-          material = this@with.material.takeUnless { it.all { it == null } },
-          alternateMaterial = this@with.alternateMaterial.takeUnless { it.all { it == null } },
-          shelfLifeStorage = this@with.shelfLifeStorage.takeUnless { it.all { it == null } },
-          manufacturer = this@with.manufacturer.takeUnless { it.all { it == null } },
-          `property` = this@with.`property`.takeUnless { it.all { it == null } },
-          containedItem = this@with.containedItem.takeUnless { it.all { it == null } },
-          packaging = this@with.packaging.takeUnless { it.all { it == null } },
+        PackagedProductDefinitionPackagingPropertyValueSurrogate(
+          valueCodeableConcept = this@with.asCodeableConcept()?.value,
+          valueQuantity = this@with.asQuantity()?.value,
+          valueDate = this@with.asDate()?.value?.value?.toString(),
+          _valueDate = this@with.asDate()?.value?.toElement(),
+          valueBoolean = this@with.asBoolean()?.value?.value,
+          _valueBoolean = this@with.asBoolean()?.value?.toElement(),
+          valueAttachment = this@with.asAttachment()?.value,
         )
       }
   }

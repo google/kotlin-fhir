@@ -61,359 +61,6 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
-internal data class QuestionnaireItemEnableWhenAnswerSurrogate(
-  public var answerBoolean: KotlinBoolean? = null,
-  public var _answerBoolean: Element? = null,
-  public var answerDecimal: Double? = null,
-  public var _answerDecimal: Element? = null,
-  public var answerInteger: Int? = null,
-  public var _answerInteger: Element? = null,
-  public var answerDate: KotlinString? = null,
-  public var _answerDate: Element? = null,
-  public var answerDateTime: KotlinString? = null,
-  public var _answerDateTime: Element? = null,
-  public var answerTime: LocalTime? = null,
-  public var _answerTime: Element? = null,
-  public var answerString: KotlinString? = null,
-  public var _answerString: Element? = null,
-  public var answerCoding: Coding? = null,
-  public var answerQuantity: Quantity? = null,
-  public var answerReference: Reference? = null,
-) {
-  public fun toModel(): Questionnaire.Item.EnableWhen.Answer =
-    Questionnaire.Item.EnableWhen.Answer.from(
-      R4bBoolean.of(
-        this@QuestionnaireItemEnableWhenAnswerSurrogate.answerBoolean,
-        this@QuestionnaireItemEnableWhenAnswerSurrogate._answerBoolean,
-      ),
-      Decimal.of(
-        this@QuestionnaireItemEnableWhenAnswerSurrogate.answerDecimal,
-        this@QuestionnaireItemEnableWhenAnswerSurrogate._answerDecimal,
-      ),
-      Integer.of(
-        this@QuestionnaireItemEnableWhenAnswerSurrogate.answerInteger,
-        this@QuestionnaireItemEnableWhenAnswerSurrogate._answerInteger,
-      ),
-      Date.of(
-        FhirDate.fromString(this@QuestionnaireItemEnableWhenAnswerSurrogate.answerDate),
-        this@QuestionnaireItemEnableWhenAnswerSurrogate._answerDate,
-      ),
-      DateTime.of(
-        FhirDateTime.fromString(this@QuestionnaireItemEnableWhenAnswerSurrogate.answerDateTime),
-        this@QuestionnaireItemEnableWhenAnswerSurrogate._answerDateTime,
-      ),
-      Time.of(
-        this@QuestionnaireItemEnableWhenAnswerSurrogate.answerTime,
-        this@QuestionnaireItemEnableWhenAnswerSurrogate._answerTime,
-      ),
-      R4bString.of(
-        this@QuestionnaireItemEnableWhenAnswerSurrogate.answerString,
-        this@QuestionnaireItemEnableWhenAnswerSurrogate._answerString,
-      ),
-      this@QuestionnaireItemEnableWhenAnswerSurrogate.answerCoding,
-      this@QuestionnaireItemEnableWhenAnswerSurrogate.answerQuantity,
-      this@QuestionnaireItemEnableWhenAnswerSurrogate.answerReference,
-    )!! !!
-
-  public companion object {
-    public fun fromModel(
-      model: Questionnaire.Item.EnableWhen.Answer
-    ): QuestionnaireItemEnableWhenAnswerSurrogate =
-      with(model) {
-        QuestionnaireItemEnableWhenAnswerSurrogate(
-          answerBoolean = this@with.asBoolean()?.value?.value,
-          _answerBoolean = this@with.asBoolean()?.value?.toElement(),
-          answerDecimal = this@with.asDecimal()?.value?.value,
-          _answerDecimal = this@with.asDecimal()?.value?.toElement(),
-          answerInteger = this@with.asInteger()?.value?.value,
-          _answerInteger = this@with.asInteger()?.value?.toElement(),
-          answerDate = this@with.asDate()?.value?.value?.toString(),
-          _answerDate = this@with.asDate()?.value?.toElement(),
-          answerDateTime = this@with.asDateTime()?.value?.value?.toString(),
-          _answerDateTime = this@with.asDateTime()?.value?.toElement(),
-          answerTime = this@with.asTime()?.value?.value,
-          _answerTime = this@with.asTime()?.value?.toElement(),
-          answerString = this@with.asString()?.value?.value,
-          _answerString = this@with.asString()?.value?.toElement(),
-          answerCoding = this@with.asCoding()?.value,
-          answerQuantity = this@with.asQuantity()?.value,
-          answerReference = this@with.asReference()?.value,
-        )
-      }
-  }
-}
-
-@Serializable
-internal data class QuestionnaireItemEnableWhenSurrogate(
-  public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var question: KotlinString? = null,
-  public var _question: Element? = null,
-  public var `operator`: KotlinString? = null,
-  public var _operator: Element? = null,
-  public var answer: Questionnaire.Item.EnableWhen.Answer,
-) {
-  public fun toModel(): Questionnaire.Item.EnableWhen =
-    Questionnaire.Item.EnableWhen(
-      id = this@QuestionnaireItemEnableWhenSurrogate.id,
-      extension = this@QuestionnaireItemEnableWhenSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@QuestionnaireItemEnableWhenSurrogate.modifierExtension ?: mutableListOf(),
-      question =
-        R4bString.of(
-          this@QuestionnaireItemEnableWhenSurrogate.question,
-          this@QuestionnaireItemEnableWhenSurrogate._question,
-        )!!,
-      `operator` =
-        Enumeration.of(
-          com.google.fhir.model.r4b.Questionnaire.QuestionnaireItemOperator.fromCode(
-            this@QuestionnaireItemEnableWhenSurrogate.`operator`!!
-          ),
-          this@QuestionnaireItemEnableWhenSurrogate._operator,
-        ),
-      answer = this@QuestionnaireItemEnableWhenSurrogate.answer,
-    )
-
-  public companion object {
-    public fun fromModel(
-      model: Questionnaire.Item.EnableWhen
-    ): QuestionnaireItemEnableWhenSurrogate =
-      with(model) {
-        QuestionnaireItemEnableWhenSurrogate(
-          id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          question = this@with.question.value,
-          _question = this@with.question.toElement(),
-          `operator` = this@with.`operator`.value?.getCode(),
-          _operator = this@with.`operator`.toElement(),
-          answer = this@with.answer,
-        )
-      }
-  }
-}
-
-@Serializable
-internal data class QuestionnaireItemAnswerOptionValueSurrogate(
-  public var valueInteger: Int? = null,
-  public var _valueInteger: Element? = null,
-  public var valueDate: KotlinString? = null,
-  public var _valueDate: Element? = null,
-  public var valueTime: LocalTime? = null,
-  public var _valueTime: Element? = null,
-  public var valueString: KotlinString? = null,
-  public var _valueString: Element? = null,
-  public var valueCoding: Coding? = null,
-  public var valueReference: Reference? = null,
-) {
-  public fun toModel(): Questionnaire.Item.AnswerOption.Value =
-    Questionnaire.Item.AnswerOption.Value.from(
-      Integer.of(
-        this@QuestionnaireItemAnswerOptionValueSurrogate.valueInteger,
-        this@QuestionnaireItemAnswerOptionValueSurrogate._valueInteger,
-      ),
-      Date.of(
-        FhirDate.fromString(this@QuestionnaireItemAnswerOptionValueSurrogate.valueDate),
-        this@QuestionnaireItemAnswerOptionValueSurrogate._valueDate,
-      ),
-      Time.of(
-        this@QuestionnaireItemAnswerOptionValueSurrogate.valueTime,
-        this@QuestionnaireItemAnswerOptionValueSurrogate._valueTime,
-      ),
-      R4bString.of(
-        this@QuestionnaireItemAnswerOptionValueSurrogate.valueString,
-        this@QuestionnaireItemAnswerOptionValueSurrogate._valueString,
-      ),
-      this@QuestionnaireItemAnswerOptionValueSurrogate.valueCoding,
-      this@QuestionnaireItemAnswerOptionValueSurrogate.valueReference,
-    )!! !!
-
-  public companion object {
-    public fun fromModel(
-      model: Questionnaire.Item.AnswerOption.Value
-    ): QuestionnaireItemAnswerOptionValueSurrogate =
-      with(model) {
-        QuestionnaireItemAnswerOptionValueSurrogate(
-          valueInteger = this@with.asInteger()?.value?.value,
-          _valueInteger = this@with.asInteger()?.value?.toElement(),
-          valueDate = this@with.asDate()?.value?.value?.toString(),
-          _valueDate = this@with.asDate()?.value?.toElement(),
-          valueTime = this@with.asTime()?.value?.value,
-          _valueTime = this@with.asTime()?.value?.toElement(),
-          valueString = this@with.asString()?.value?.value,
-          _valueString = this@with.asString()?.value?.toElement(),
-          valueCoding = this@with.asCoding()?.value,
-          valueReference = this@with.asReference()?.value,
-        )
-      }
-  }
-}
-
-@Serializable
-internal data class QuestionnaireItemAnswerOptionSurrogate(
-  public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var `value`: Questionnaire.Item.AnswerOption.Value,
-  public var initialSelected: KotlinBoolean? = null,
-  public var _initialSelected: Element? = null,
-) {
-  public fun toModel(): Questionnaire.Item.AnswerOption =
-    Questionnaire.Item.AnswerOption(
-      id = this@QuestionnaireItemAnswerOptionSurrogate.id,
-      extension = this@QuestionnaireItemAnswerOptionSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@QuestionnaireItemAnswerOptionSurrogate.modifierExtension ?: mutableListOf(),
-      `value` = this@QuestionnaireItemAnswerOptionSurrogate.`value`,
-      initialSelected =
-        R4bBoolean.of(
-          this@QuestionnaireItemAnswerOptionSurrogate.initialSelected,
-          this@QuestionnaireItemAnswerOptionSurrogate._initialSelected,
-        ),
-    )
-
-  public companion object {
-    public fun fromModel(
-      model: Questionnaire.Item.AnswerOption
-    ): QuestionnaireItemAnswerOptionSurrogate =
-      with(model) {
-        QuestionnaireItemAnswerOptionSurrogate(
-          id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          `value` = this@with.`value`,
-          initialSelected = this@with.initialSelected?.value,
-          _initialSelected = this@with.initialSelected?.toElement(),
-        )
-      }
-  }
-}
-
-@Serializable
-internal data class QuestionnaireItemInitialValueSurrogate(
-  public var valueBoolean: KotlinBoolean? = null,
-  public var _valueBoolean: Element? = null,
-  public var valueDecimal: Double? = null,
-  public var _valueDecimal: Element? = null,
-  public var valueInteger: Int? = null,
-  public var _valueInteger: Element? = null,
-  public var valueDate: KotlinString? = null,
-  public var _valueDate: Element? = null,
-  public var valueDateTime: KotlinString? = null,
-  public var _valueDateTime: Element? = null,
-  public var valueTime: LocalTime? = null,
-  public var _valueTime: Element? = null,
-  public var valueString: KotlinString? = null,
-  public var _valueString: Element? = null,
-  public var valueUri: KotlinString? = null,
-  public var _valueUri: Element? = null,
-  public var valueAttachment: Attachment? = null,
-  public var valueCoding: Coding? = null,
-  public var valueQuantity: Quantity? = null,
-  public var valueReference: Reference? = null,
-) {
-  public fun toModel(): Questionnaire.Item.Initial.Value =
-    Questionnaire.Item.Initial.Value.from(
-      R4bBoolean.of(
-        this@QuestionnaireItemInitialValueSurrogate.valueBoolean,
-        this@QuestionnaireItemInitialValueSurrogate._valueBoolean,
-      ),
-      Decimal.of(
-        this@QuestionnaireItemInitialValueSurrogate.valueDecimal,
-        this@QuestionnaireItemInitialValueSurrogate._valueDecimal,
-      ),
-      Integer.of(
-        this@QuestionnaireItemInitialValueSurrogate.valueInteger,
-        this@QuestionnaireItemInitialValueSurrogate._valueInteger,
-      ),
-      Date.of(
-        FhirDate.fromString(this@QuestionnaireItemInitialValueSurrogate.valueDate),
-        this@QuestionnaireItemInitialValueSurrogate._valueDate,
-      ),
-      DateTime.of(
-        FhirDateTime.fromString(this@QuestionnaireItemInitialValueSurrogate.valueDateTime),
-        this@QuestionnaireItemInitialValueSurrogate._valueDateTime,
-      ),
-      Time.of(
-        this@QuestionnaireItemInitialValueSurrogate.valueTime,
-        this@QuestionnaireItemInitialValueSurrogate._valueTime,
-      ),
-      R4bString.of(
-        this@QuestionnaireItemInitialValueSurrogate.valueString,
-        this@QuestionnaireItemInitialValueSurrogate._valueString,
-      ),
-      Uri.of(
-        this@QuestionnaireItemInitialValueSurrogate.valueUri,
-        this@QuestionnaireItemInitialValueSurrogate._valueUri,
-      ),
-      this@QuestionnaireItemInitialValueSurrogate.valueAttachment,
-      this@QuestionnaireItemInitialValueSurrogate.valueCoding,
-      this@QuestionnaireItemInitialValueSurrogate.valueQuantity,
-      this@QuestionnaireItemInitialValueSurrogate.valueReference,
-    )!! !!
-
-  public companion object {
-    public fun fromModel(
-      model: Questionnaire.Item.Initial.Value
-    ): QuestionnaireItemInitialValueSurrogate =
-      with(model) {
-        QuestionnaireItemInitialValueSurrogate(
-          valueBoolean = this@with.asBoolean()?.value?.value,
-          _valueBoolean = this@with.asBoolean()?.value?.toElement(),
-          valueDecimal = this@with.asDecimal()?.value?.value,
-          _valueDecimal = this@with.asDecimal()?.value?.toElement(),
-          valueInteger = this@with.asInteger()?.value?.value,
-          _valueInteger = this@with.asInteger()?.value?.toElement(),
-          valueDate = this@with.asDate()?.value?.value?.toString(),
-          _valueDate = this@with.asDate()?.value?.toElement(),
-          valueDateTime = this@with.asDateTime()?.value?.value?.toString(),
-          _valueDateTime = this@with.asDateTime()?.value?.toElement(),
-          valueTime = this@with.asTime()?.value?.value,
-          _valueTime = this@with.asTime()?.value?.toElement(),
-          valueString = this@with.asString()?.value?.value,
-          _valueString = this@with.asString()?.value?.toElement(),
-          valueUri = this@with.asUri()?.value?.value,
-          _valueUri = this@with.asUri()?.value?.toElement(),
-          valueAttachment = this@with.asAttachment()?.value,
-          valueCoding = this@with.asCoding()?.value,
-          valueQuantity = this@with.asQuantity()?.value,
-          valueReference = this@with.asReference()?.value,
-        )
-      }
-  }
-}
-
-@Serializable
-internal data class QuestionnaireItemInitialSurrogate(
-  public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var `value`: Questionnaire.Item.Initial.Value,
-) {
-  public fun toModel(): Questionnaire.Item.Initial =
-    Questionnaire.Item.Initial(
-      id = this@QuestionnaireItemInitialSurrogate.id,
-      extension = this@QuestionnaireItemInitialSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@QuestionnaireItemInitialSurrogate.modifierExtension ?: mutableListOf(),
-      `value` = this@QuestionnaireItemInitialSurrogate.`value`,
-    )
-
-  public companion object {
-    public fun fromModel(model: Questionnaire.Item.Initial): QuestionnaireItemInitialSurrogate =
-      with(model) {
-        QuestionnaireItemInitialSurrogate(
-          id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          `value` = this@with.`value`,
-        )
-      }
-  }
-}
-
-@Serializable
 internal data class QuestionnaireItemSurrogate(
   public var id: KotlinString? = null,
   public var extension: MutableList<Extension>? = null,
@@ -548,6 +195,359 @@ internal data class QuestionnaireItemSurrogate(
           answerOption = this@with.answerOption.takeUnless { it.all { it == null } },
           initial = this@with.initial.takeUnless { it.all { it == null } },
           item = this@with.item.takeUnless { it.all { it == null } },
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class QuestionnaireItemEnableWhenSurrogate(
+  public var id: KotlinString? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var question: KotlinString? = null,
+  public var _question: Element? = null,
+  public var `operator`: KotlinString? = null,
+  public var _operator: Element? = null,
+  public var answer: Questionnaire.Item.EnableWhen.Answer,
+) {
+  public fun toModel(): Questionnaire.Item.EnableWhen =
+    Questionnaire.Item.EnableWhen(
+      id = this@QuestionnaireItemEnableWhenSurrogate.id,
+      extension = this@QuestionnaireItemEnableWhenSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@QuestionnaireItemEnableWhenSurrogate.modifierExtension ?: mutableListOf(),
+      question =
+        R4bString.of(
+          this@QuestionnaireItemEnableWhenSurrogate.question,
+          this@QuestionnaireItemEnableWhenSurrogate._question,
+        )!!,
+      `operator` =
+        Enumeration.of(
+          com.google.fhir.model.r4b.Questionnaire.QuestionnaireItemOperator.fromCode(
+            this@QuestionnaireItemEnableWhenSurrogate.`operator`!!
+          ),
+          this@QuestionnaireItemEnableWhenSurrogate._operator,
+        ),
+      answer = this@QuestionnaireItemEnableWhenSurrogate.answer,
+    )
+
+  public companion object {
+    public fun fromModel(
+      model: Questionnaire.Item.EnableWhen
+    ): QuestionnaireItemEnableWhenSurrogate =
+      with(model) {
+        QuestionnaireItemEnableWhenSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          question = this@with.question.value,
+          _question = this@with.question.toElement(),
+          `operator` = this@with.`operator`.value?.getCode(),
+          _operator = this@with.`operator`.toElement(),
+          answer = this@with.answer,
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class QuestionnaireItemAnswerOptionSurrogate(
+  public var id: KotlinString? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var `value`: Questionnaire.Item.AnswerOption.Value,
+  public var initialSelected: KotlinBoolean? = null,
+  public var _initialSelected: Element? = null,
+) {
+  public fun toModel(): Questionnaire.Item.AnswerOption =
+    Questionnaire.Item.AnswerOption(
+      id = this@QuestionnaireItemAnswerOptionSurrogate.id,
+      extension = this@QuestionnaireItemAnswerOptionSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@QuestionnaireItemAnswerOptionSurrogate.modifierExtension ?: mutableListOf(),
+      `value` = this@QuestionnaireItemAnswerOptionSurrogate.`value`,
+      initialSelected =
+        R4bBoolean.of(
+          this@QuestionnaireItemAnswerOptionSurrogate.initialSelected,
+          this@QuestionnaireItemAnswerOptionSurrogate._initialSelected,
+        ),
+    )
+
+  public companion object {
+    public fun fromModel(
+      model: Questionnaire.Item.AnswerOption
+    ): QuestionnaireItemAnswerOptionSurrogate =
+      with(model) {
+        QuestionnaireItemAnswerOptionSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          `value` = this@with.`value`,
+          initialSelected = this@with.initialSelected?.value,
+          _initialSelected = this@with.initialSelected?.toElement(),
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class QuestionnaireItemInitialSurrogate(
+  public var id: KotlinString? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var `value`: Questionnaire.Item.Initial.Value,
+) {
+  public fun toModel(): Questionnaire.Item.Initial =
+    Questionnaire.Item.Initial(
+      id = this@QuestionnaireItemInitialSurrogate.id,
+      extension = this@QuestionnaireItemInitialSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@QuestionnaireItemInitialSurrogate.modifierExtension ?: mutableListOf(),
+      `value` = this@QuestionnaireItemInitialSurrogate.`value`,
+    )
+
+  public companion object {
+    public fun fromModel(model: Questionnaire.Item.Initial): QuestionnaireItemInitialSurrogate =
+      with(model) {
+        QuestionnaireItemInitialSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          `value` = this@with.`value`,
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class QuestionnaireItemEnableWhenAnswerSurrogate(
+  public var answerBoolean: KotlinBoolean? = null,
+  public var _answerBoolean: Element? = null,
+  public var answerDecimal: Double? = null,
+  public var _answerDecimal: Element? = null,
+  public var answerInteger: Int? = null,
+  public var _answerInteger: Element? = null,
+  public var answerDate: KotlinString? = null,
+  public var _answerDate: Element? = null,
+  public var answerDateTime: KotlinString? = null,
+  public var _answerDateTime: Element? = null,
+  public var answerTime: LocalTime? = null,
+  public var _answerTime: Element? = null,
+  public var answerString: KotlinString? = null,
+  public var _answerString: Element? = null,
+  public var answerCoding: Coding? = null,
+  public var answerQuantity: Quantity? = null,
+  public var answerReference: Reference? = null,
+) {
+  public fun toModel(): Questionnaire.Item.EnableWhen.Answer =
+    Questionnaire.Item.EnableWhen.Answer.from(
+      R4bBoolean.of(
+        this@QuestionnaireItemEnableWhenAnswerSurrogate.answerBoolean,
+        this@QuestionnaireItemEnableWhenAnswerSurrogate._answerBoolean,
+      ),
+      Decimal.of(
+        this@QuestionnaireItemEnableWhenAnswerSurrogate.answerDecimal,
+        this@QuestionnaireItemEnableWhenAnswerSurrogate._answerDecimal,
+      ),
+      Integer.of(
+        this@QuestionnaireItemEnableWhenAnswerSurrogate.answerInteger,
+        this@QuestionnaireItemEnableWhenAnswerSurrogate._answerInteger,
+      ),
+      Date.of(
+        FhirDate.fromString(this@QuestionnaireItemEnableWhenAnswerSurrogate.answerDate),
+        this@QuestionnaireItemEnableWhenAnswerSurrogate._answerDate,
+      ),
+      DateTime.of(
+        FhirDateTime.fromString(this@QuestionnaireItemEnableWhenAnswerSurrogate.answerDateTime),
+        this@QuestionnaireItemEnableWhenAnswerSurrogate._answerDateTime,
+      ),
+      Time.of(
+        this@QuestionnaireItemEnableWhenAnswerSurrogate.answerTime,
+        this@QuestionnaireItemEnableWhenAnswerSurrogate._answerTime,
+      ),
+      R4bString.of(
+        this@QuestionnaireItemEnableWhenAnswerSurrogate.answerString,
+        this@QuestionnaireItemEnableWhenAnswerSurrogate._answerString,
+      ),
+      this@QuestionnaireItemEnableWhenAnswerSurrogate.answerCoding,
+      this@QuestionnaireItemEnableWhenAnswerSurrogate.answerQuantity,
+      this@QuestionnaireItemEnableWhenAnswerSurrogate.answerReference,
+    )!! !!
+
+  public companion object {
+    public fun fromModel(
+      model: Questionnaire.Item.EnableWhen.Answer
+    ): QuestionnaireItemEnableWhenAnswerSurrogate =
+      with(model) {
+        QuestionnaireItemEnableWhenAnswerSurrogate(
+          answerBoolean = this@with.asBoolean()?.value?.value,
+          _answerBoolean = this@with.asBoolean()?.value?.toElement(),
+          answerDecimal = this@with.asDecimal()?.value?.value,
+          _answerDecimal = this@with.asDecimal()?.value?.toElement(),
+          answerInteger = this@with.asInteger()?.value?.value,
+          _answerInteger = this@with.asInteger()?.value?.toElement(),
+          answerDate = this@with.asDate()?.value?.value?.toString(),
+          _answerDate = this@with.asDate()?.value?.toElement(),
+          answerDateTime = this@with.asDateTime()?.value?.value?.toString(),
+          _answerDateTime = this@with.asDateTime()?.value?.toElement(),
+          answerTime = this@with.asTime()?.value?.value,
+          _answerTime = this@with.asTime()?.value?.toElement(),
+          answerString = this@with.asString()?.value?.value,
+          _answerString = this@with.asString()?.value?.toElement(),
+          answerCoding = this@with.asCoding()?.value,
+          answerQuantity = this@with.asQuantity()?.value,
+          answerReference = this@with.asReference()?.value,
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class QuestionnaireItemAnswerOptionValueSurrogate(
+  public var valueInteger: Int? = null,
+  public var _valueInteger: Element? = null,
+  public var valueDate: KotlinString? = null,
+  public var _valueDate: Element? = null,
+  public var valueTime: LocalTime? = null,
+  public var _valueTime: Element? = null,
+  public var valueString: KotlinString? = null,
+  public var _valueString: Element? = null,
+  public var valueCoding: Coding? = null,
+  public var valueReference: Reference? = null,
+) {
+  public fun toModel(): Questionnaire.Item.AnswerOption.Value =
+    Questionnaire.Item.AnswerOption.Value.from(
+      Integer.of(
+        this@QuestionnaireItemAnswerOptionValueSurrogate.valueInteger,
+        this@QuestionnaireItemAnswerOptionValueSurrogate._valueInteger,
+      ),
+      Date.of(
+        FhirDate.fromString(this@QuestionnaireItemAnswerOptionValueSurrogate.valueDate),
+        this@QuestionnaireItemAnswerOptionValueSurrogate._valueDate,
+      ),
+      Time.of(
+        this@QuestionnaireItemAnswerOptionValueSurrogate.valueTime,
+        this@QuestionnaireItemAnswerOptionValueSurrogate._valueTime,
+      ),
+      R4bString.of(
+        this@QuestionnaireItemAnswerOptionValueSurrogate.valueString,
+        this@QuestionnaireItemAnswerOptionValueSurrogate._valueString,
+      ),
+      this@QuestionnaireItemAnswerOptionValueSurrogate.valueCoding,
+      this@QuestionnaireItemAnswerOptionValueSurrogate.valueReference,
+    )!! !!
+
+  public companion object {
+    public fun fromModel(
+      model: Questionnaire.Item.AnswerOption.Value
+    ): QuestionnaireItemAnswerOptionValueSurrogate =
+      with(model) {
+        QuestionnaireItemAnswerOptionValueSurrogate(
+          valueInteger = this@with.asInteger()?.value?.value,
+          _valueInteger = this@with.asInteger()?.value?.toElement(),
+          valueDate = this@with.asDate()?.value?.value?.toString(),
+          _valueDate = this@with.asDate()?.value?.toElement(),
+          valueTime = this@with.asTime()?.value?.value,
+          _valueTime = this@with.asTime()?.value?.toElement(),
+          valueString = this@with.asString()?.value?.value,
+          _valueString = this@with.asString()?.value?.toElement(),
+          valueCoding = this@with.asCoding()?.value,
+          valueReference = this@with.asReference()?.value,
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class QuestionnaireItemInitialValueSurrogate(
+  public var valueBoolean: KotlinBoolean? = null,
+  public var _valueBoolean: Element? = null,
+  public var valueDecimal: Double? = null,
+  public var _valueDecimal: Element? = null,
+  public var valueInteger: Int? = null,
+  public var _valueInteger: Element? = null,
+  public var valueDate: KotlinString? = null,
+  public var _valueDate: Element? = null,
+  public var valueDateTime: KotlinString? = null,
+  public var _valueDateTime: Element? = null,
+  public var valueTime: LocalTime? = null,
+  public var _valueTime: Element? = null,
+  public var valueString: KotlinString? = null,
+  public var _valueString: Element? = null,
+  public var valueUri: KotlinString? = null,
+  public var _valueUri: Element? = null,
+  public var valueAttachment: Attachment? = null,
+  public var valueCoding: Coding? = null,
+  public var valueQuantity: Quantity? = null,
+  public var valueReference: Reference? = null,
+) {
+  public fun toModel(): Questionnaire.Item.Initial.Value =
+    Questionnaire.Item.Initial.Value.from(
+      R4bBoolean.of(
+        this@QuestionnaireItemInitialValueSurrogate.valueBoolean,
+        this@QuestionnaireItemInitialValueSurrogate._valueBoolean,
+      ),
+      Decimal.of(
+        this@QuestionnaireItemInitialValueSurrogate.valueDecimal,
+        this@QuestionnaireItemInitialValueSurrogate._valueDecimal,
+      ),
+      Integer.of(
+        this@QuestionnaireItemInitialValueSurrogate.valueInteger,
+        this@QuestionnaireItemInitialValueSurrogate._valueInteger,
+      ),
+      Date.of(
+        FhirDate.fromString(this@QuestionnaireItemInitialValueSurrogate.valueDate),
+        this@QuestionnaireItemInitialValueSurrogate._valueDate,
+      ),
+      DateTime.of(
+        FhirDateTime.fromString(this@QuestionnaireItemInitialValueSurrogate.valueDateTime),
+        this@QuestionnaireItemInitialValueSurrogate._valueDateTime,
+      ),
+      Time.of(
+        this@QuestionnaireItemInitialValueSurrogate.valueTime,
+        this@QuestionnaireItemInitialValueSurrogate._valueTime,
+      ),
+      R4bString.of(
+        this@QuestionnaireItemInitialValueSurrogate.valueString,
+        this@QuestionnaireItemInitialValueSurrogate._valueString,
+      ),
+      Uri.of(
+        this@QuestionnaireItemInitialValueSurrogate.valueUri,
+        this@QuestionnaireItemInitialValueSurrogate._valueUri,
+      ),
+      this@QuestionnaireItemInitialValueSurrogate.valueAttachment,
+      this@QuestionnaireItemInitialValueSurrogate.valueCoding,
+      this@QuestionnaireItemInitialValueSurrogate.valueQuantity,
+      this@QuestionnaireItemInitialValueSurrogate.valueReference,
+    )!! !!
+
+  public companion object {
+    public fun fromModel(
+      model: Questionnaire.Item.Initial.Value
+    ): QuestionnaireItemInitialValueSurrogate =
+      with(model) {
+        QuestionnaireItemInitialValueSurrogate(
+          valueBoolean = this@with.asBoolean()?.value?.value,
+          _valueBoolean = this@with.asBoolean()?.value?.toElement(),
+          valueDecimal = this@with.asDecimal()?.value?.value,
+          _valueDecimal = this@with.asDecimal()?.value?.toElement(),
+          valueInteger = this@with.asInteger()?.value?.value,
+          _valueInteger = this@with.asInteger()?.value?.toElement(),
+          valueDate = this@with.asDate()?.value?.value?.toString(),
+          _valueDate = this@with.asDate()?.value?.toElement(),
+          valueDateTime = this@with.asDateTime()?.value?.value?.toString(),
+          _valueDateTime = this@with.asDateTime()?.value?.toElement(),
+          valueTime = this@with.asTime()?.value?.value,
+          _valueTime = this@with.asTime()?.value?.toElement(),
+          valueString = this@with.asString()?.value?.value,
+          _valueString = this@with.asString()?.value?.toElement(),
+          valueUri = this@with.asUri()?.value?.value,
+          _valueUri = this@with.asUri()?.value?.toElement(),
+          valueAttachment = this@with.asAttachment()?.value,
+          valueCoding = this@with.asCoding()?.value,
+          valueQuantity = this@with.asQuantity()?.value,
+          valueReference = this@with.asReference()?.value,
         )
       }
   }

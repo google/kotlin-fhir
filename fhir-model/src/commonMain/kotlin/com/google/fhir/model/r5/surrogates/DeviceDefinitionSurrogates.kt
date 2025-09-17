@@ -57,50 +57,6 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
-internal data class DeviceDefinitionUdiDeviceIdentifierMarketDistributionSurrogate(
-  public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var marketPeriod: Period,
-  public var subJurisdiction: KotlinString? = null,
-  public var _subJurisdiction: Element? = null,
-) {
-  public fun toModel(): DeviceDefinition.UdiDeviceIdentifier.MarketDistribution =
-    DeviceDefinition.UdiDeviceIdentifier.MarketDistribution(
-      id = this@DeviceDefinitionUdiDeviceIdentifierMarketDistributionSurrogate.id,
-      extension =
-        this@DeviceDefinitionUdiDeviceIdentifierMarketDistributionSurrogate.extension
-          ?: mutableListOf(),
-      modifierExtension =
-        this@DeviceDefinitionUdiDeviceIdentifierMarketDistributionSurrogate.modifierExtension
-          ?: mutableListOf(),
-      marketPeriod =
-        this@DeviceDefinitionUdiDeviceIdentifierMarketDistributionSurrogate.marketPeriod,
-      subJurisdiction =
-        Uri.of(
-          this@DeviceDefinitionUdiDeviceIdentifierMarketDistributionSurrogate.subJurisdiction,
-          this@DeviceDefinitionUdiDeviceIdentifierMarketDistributionSurrogate._subJurisdiction,
-        )!!,
-    )
-
-  public companion object {
-    public fun fromModel(
-      model: DeviceDefinition.UdiDeviceIdentifier.MarketDistribution
-    ): DeviceDefinitionUdiDeviceIdentifierMarketDistributionSurrogate =
-      with(model) {
-        DeviceDefinitionUdiDeviceIdentifierMarketDistributionSurrogate(
-          id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          marketPeriod = this@with.marketPeriod,
-          subJurisdiction = this@with.subJurisdiction.value,
-          _subJurisdiction = this@with.subJurisdiction.toElement(),
-        )
-      }
-  }
-}
-
-@Serializable
 internal data class DeviceDefinitionUdiDeviceIdentifierSurrogate(
   public var id: KotlinString? = null,
   public var extension: MutableList<Extension>? = null,
@@ -156,6 +112,50 @@ internal data class DeviceDefinitionUdiDeviceIdentifierSurrogate(
           jurisdiction = this@with.jurisdiction.value,
           _jurisdiction = this@with.jurisdiction.toElement(),
           marketDistribution = this@with.marketDistribution.takeUnless { it.all { it == null } },
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class DeviceDefinitionUdiDeviceIdentifierMarketDistributionSurrogate(
+  public var id: KotlinString? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var marketPeriod: Period,
+  public var subJurisdiction: KotlinString? = null,
+  public var _subJurisdiction: Element? = null,
+) {
+  public fun toModel(): DeviceDefinition.UdiDeviceIdentifier.MarketDistribution =
+    DeviceDefinition.UdiDeviceIdentifier.MarketDistribution(
+      id = this@DeviceDefinitionUdiDeviceIdentifierMarketDistributionSurrogate.id,
+      extension =
+        this@DeviceDefinitionUdiDeviceIdentifierMarketDistributionSurrogate.extension
+          ?: mutableListOf(),
+      modifierExtension =
+        this@DeviceDefinitionUdiDeviceIdentifierMarketDistributionSurrogate.modifierExtension
+          ?: mutableListOf(),
+      marketPeriod =
+        this@DeviceDefinitionUdiDeviceIdentifierMarketDistributionSurrogate.marketPeriod,
+      subJurisdiction =
+        Uri.of(
+          this@DeviceDefinitionUdiDeviceIdentifierMarketDistributionSurrogate.subJurisdiction,
+          this@DeviceDefinitionUdiDeviceIdentifierMarketDistributionSurrogate._subJurisdiction,
+        )!!,
+    )
+
+  public companion object {
+    public fun fromModel(
+      model: DeviceDefinition.UdiDeviceIdentifier.MarketDistribution
+    ): DeviceDefinitionUdiDeviceIdentifierMarketDistributionSurrogate =
+      with(model) {
+        DeviceDefinitionUdiDeviceIdentifierMarketDistributionSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          marketPeriod = this@with.marketPeriod,
+          subJurisdiction = this@with.subJurisdiction.value,
+          _subJurisdiction = this@with.subJurisdiction.toElement(),
         )
       }
   }
@@ -406,48 +406,6 @@ internal data class DeviceDefinitionHasPartSurrogate(
 }
 
 @Serializable
-internal data class DeviceDefinitionPackagingDistributorSurrogate(
-  public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var name: KotlinString? = null,
-  public var _name: Element? = null,
-  public var organizationReference: MutableList<Reference>? = null,
-) {
-  public fun toModel(): DeviceDefinition.Packaging.Distributor =
-    DeviceDefinition.Packaging.Distributor(
-      id = this@DeviceDefinitionPackagingDistributorSurrogate.id,
-      extension = this@DeviceDefinitionPackagingDistributorSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@DeviceDefinitionPackagingDistributorSurrogate.modifierExtension ?: mutableListOf(),
-      name =
-        R5String.of(
-          this@DeviceDefinitionPackagingDistributorSurrogate.name,
-          this@DeviceDefinitionPackagingDistributorSurrogate._name,
-        ),
-      organizationReference =
-        this@DeviceDefinitionPackagingDistributorSurrogate.organizationReference ?: mutableListOf(),
-    )
-
-  public companion object {
-    public fun fromModel(
-      model: DeviceDefinition.Packaging.Distributor
-    ): DeviceDefinitionPackagingDistributorSurrogate =
-      with(model) {
-        DeviceDefinitionPackagingDistributorSurrogate(
-          id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          name = this@with.name?.value,
-          _name = this@with.name?.toElement(),
-          organizationReference =
-            this@with.organizationReference.takeUnless { it.all { it == null } },
-        )
-      }
-  }
-}
-
-@Serializable
 internal data class DeviceDefinitionPackagingSurrogate(
   public var id: KotlinString? = null,
   public var extension: MutableList<Extension>? = null,
@@ -499,6 +457,48 @@ internal data class DeviceDefinitionPackagingSurrogate(
 }
 
 @Serializable
+internal data class DeviceDefinitionPackagingDistributorSurrogate(
+  public var id: KotlinString? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var name: KotlinString? = null,
+  public var _name: Element? = null,
+  public var organizationReference: MutableList<Reference>? = null,
+) {
+  public fun toModel(): DeviceDefinition.Packaging.Distributor =
+    DeviceDefinition.Packaging.Distributor(
+      id = this@DeviceDefinitionPackagingDistributorSurrogate.id,
+      extension = this@DeviceDefinitionPackagingDistributorSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@DeviceDefinitionPackagingDistributorSurrogate.modifierExtension ?: mutableListOf(),
+      name =
+        R5String.of(
+          this@DeviceDefinitionPackagingDistributorSurrogate.name,
+          this@DeviceDefinitionPackagingDistributorSurrogate._name,
+        ),
+      organizationReference =
+        this@DeviceDefinitionPackagingDistributorSurrogate.organizationReference ?: mutableListOf(),
+    )
+
+  public companion object {
+    public fun fromModel(
+      model: DeviceDefinition.Packaging.Distributor
+    ): DeviceDefinitionPackagingDistributorSurrogate =
+      with(model) {
+        DeviceDefinitionPackagingDistributorSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          name = this@with.name?.value,
+          _name = this@with.name?.toElement(),
+          organizationReference =
+            this@with.organizationReference.takeUnless { it.all { it == null } },
+        )
+      }
+  }
+}
+
+@Serializable
 internal data class DeviceDefinitionVersionSurrogate(
   public var id: KotlinString? = null,
   public var extension: MutableList<Extension>? = null,
@@ -534,60 +534,6 @@ internal data class DeviceDefinitionVersionSurrogate(
           component = this@with.component,
           `value` = this@with.`value`.value,
           _value = this@with.`value`.toElement(),
-        )
-      }
-  }
-}
-
-@Serializable
-internal data class DeviceDefinitionPropertyValueSurrogate(
-  public var valueQuantity: Quantity? = null,
-  public var valueCodeableConcept: CodeableConcept? = null,
-  public var valueString: KotlinString? = null,
-  public var _valueString: Element? = null,
-  public var valueBoolean: KotlinBoolean? = null,
-  public var _valueBoolean: Element? = null,
-  public var valueInteger: Int? = null,
-  public var _valueInteger: Element? = null,
-  public var valueRange: Range? = null,
-  public var valueAttachment: Attachment? = null,
-) {
-  public fun toModel(): DeviceDefinition.Property.Value =
-    DeviceDefinition.Property.Value.from(
-      this@DeviceDefinitionPropertyValueSurrogate.valueQuantity,
-      this@DeviceDefinitionPropertyValueSurrogate.valueCodeableConcept,
-      R5String.of(
-        this@DeviceDefinitionPropertyValueSurrogate.valueString,
-        this@DeviceDefinitionPropertyValueSurrogate._valueString,
-      ),
-      R5Boolean.of(
-        this@DeviceDefinitionPropertyValueSurrogate.valueBoolean,
-        this@DeviceDefinitionPropertyValueSurrogate._valueBoolean,
-      ),
-      Integer.of(
-        this@DeviceDefinitionPropertyValueSurrogate.valueInteger,
-        this@DeviceDefinitionPropertyValueSurrogate._valueInteger,
-      ),
-      this@DeviceDefinitionPropertyValueSurrogate.valueRange,
-      this@DeviceDefinitionPropertyValueSurrogate.valueAttachment,
-    )!! !!
-
-  public companion object {
-    public fun fromModel(
-      model: DeviceDefinition.Property.Value
-    ): DeviceDefinitionPropertyValueSurrogate =
-      with(model) {
-        DeviceDefinitionPropertyValueSurrogate(
-          valueQuantity = this@with.asQuantity()?.value,
-          valueCodeableConcept = this@with.asCodeableConcept()?.value,
-          valueString = this@with.asString()?.value?.value,
-          _valueString = this@with.asString()?.value?.toElement(),
-          valueBoolean = this@with.asBoolean()?.value?.value,
-          _valueBoolean = this@with.asBoolean()?.value?.toElement(),
-          valueInteger = this@with.asInteger()?.value?.value,
-          _valueInteger = this@with.asInteger()?.value?.toElement(),
-          valueRange = this@with.asRange()?.value,
-          valueAttachment = this@with.asAttachment()?.value,
         )
       }
   }
@@ -847,6 +793,60 @@ internal data class DeviceDefinitionChargeItemSurrogate(
           count = this@with.count,
           effectivePeriod = this@with.effectivePeriod,
           useContext = this@with.useContext.takeUnless { it.all { it == null } },
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class DeviceDefinitionPropertyValueSurrogate(
+  public var valueQuantity: Quantity? = null,
+  public var valueCodeableConcept: CodeableConcept? = null,
+  public var valueString: KotlinString? = null,
+  public var _valueString: Element? = null,
+  public var valueBoolean: KotlinBoolean? = null,
+  public var _valueBoolean: Element? = null,
+  public var valueInteger: Int? = null,
+  public var _valueInteger: Element? = null,
+  public var valueRange: Range? = null,
+  public var valueAttachment: Attachment? = null,
+) {
+  public fun toModel(): DeviceDefinition.Property.Value =
+    DeviceDefinition.Property.Value.from(
+      this@DeviceDefinitionPropertyValueSurrogate.valueQuantity,
+      this@DeviceDefinitionPropertyValueSurrogate.valueCodeableConcept,
+      R5String.of(
+        this@DeviceDefinitionPropertyValueSurrogate.valueString,
+        this@DeviceDefinitionPropertyValueSurrogate._valueString,
+      ),
+      R5Boolean.of(
+        this@DeviceDefinitionPropertyValueSurrogate.valueBoolean,
+        this@DeviceDefinitionPropertyValueSurrogate._valueBoolean,
+      ),
+      Integer.of(
+        this@DeviceDefinitionPropertyValueSurrogate.valueInteger,
+        this@DeviceDefinitionPropertyValueSurrogate._valueInteger,
+      ),
+      this@DeviceDefinitionPropertyValueSurrogate.valueRange,
+      this@DeviceDefinitionPropertyValueSurrogate.valueAttachment,
+    )!! !!
+
+  public companion object {
+    public fun fromModel(
+      model: DeviceDefinition.Property.Value
+    ): DeviceDefinitionPropertyValueSurrogate =
+      with(model) {
+        DeviceDefinitionPropertyValueSurrogate(
+          valueQuantity = this@with.asQuantity()?.value,
+          valueCodeableConcept = this@with.asCodeableConcept()?.value,
+          valueString = this@with.asString()?.value?.value,
+          _valueString = this@with.asString()?.value?.toElement(),
+          valueBoolean = this@with.asBoolean()?.value?.value,
+          _valueBoolean = this@with.asBoolean()?.value?.toElement(),
+          valueInteger = this@with.asInteger()?.value?.value,
+          _valueInteger = this@with.asInteger()?.value?.toElement(),
+          valueRange = this@with.asRange()?.value,
+          valueAttachment = this@with.asAttachment()?.value,
         )
       }
   }

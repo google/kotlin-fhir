@@ -58,24 +58,6 @@ public object DataRequirementCodeFilterSerializer : KSerializer<DataRequirement.
   }
 }
 
-public object DataRequirementDateFilterValueSerializer :
-  KSerializer<DataRequirement.DateFilter.Value> {
-  internal val surrogateSerializer: KSerializer<DataRequirementDateFilterValueSurrogate> by lazy {
-    DataRequirementDateFilterValueSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Value", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): DataRequirement.DateFilter.Value =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: DataRequirement.DateFilter.Value) {
-    surrogateSerializer.serialize(encoder, DataRequirementDateFilterValueSurrogate.fromModel(value))
-  }
-}
-
 public object DataRequirementDateFilterSerializer : KSerializer<DataRequirement.DateFilter> {
   internal val surrogateSerializer: KSerializer<DataRequirementDateFilterSurrogate> by lazy {
     DataRequirementDateFilterSurrogate.serializer()
@@ -120,27 +102,6 @@ public object DataRequirementDateFilterSerializer : KSerializer<DataRequirement.
       }
     val flattenedJsonObject = FhirJsonTransformer.flatten(oldJsonObject, multiChoiceProperties)
     jsonEncoder.encodeJsonElement(flattenedJsonObject)
-  }
-}
-
-public object DataRequirementValueFilterValueSerializer :
-  KSerializer<DataRequirement.ValueFilter.Value> {
-  internal val surrogateSerializer: KSerializer<DataRequirementValueFilterValueSurrogate> by lazy {
-    DataRequirementValueFilterValueSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Value", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): DataRequirement.ValueFilter.Value =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: DataRequirement.ValueFilter.Value) {
-    surrogateSerializer.serialize(
-      encoder,
-      DataRequirementValueFilterValueSurrogate.fromModel(value),
-    )
   }
 }
 
@@ -222,6 +183,45 @@ public object DataRequirementSubjectSerializer : KSerializer<DataRequirement.Sub
 
   override fun serialize(encoder: Encoder, `value`: DataRequirement.Subject) {
     surrogateSerializer.serialize(encoder, DataRequirementSubjectSurrogate.fromModel(value))
+  }
+}
+
+public object DataRequirementDateFilterValueSerializer :
+  KSerializer<DataRequirement.DateFilter.Value> {
+  internal val surrogateSerializer: KSerializer<DataRequirementDateFilterValueSurrogate> by lazy {
+    DataRequirementDateFilterValueSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Value", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): DataRequirement.DateFilter.Value =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: DataRequirement.DateFilter.Value) {
+    surrogateSerializer.serialize(encoder, DataRequirementDateFilterValueSurrogate.fromModel(value))
+  }
+}
+
+public object DataRequirementValueFilterValueSerializer :
+  KSerializer<DataRequirement.ValueFilter.Value> {
+  internal val surrogateSerializer: KSerializer<DataRequirementValueFilterValueSurrogate> by lazy {
+    DataRequirementValueFilterValueSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Value", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): DataRequirement.ValueFilter.Value =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: DataRequirement.ValueFilter.Value) {
+    surrogateSerializer.serialize(
+      encoder,
+      DataRequirementValueFilterValueSurrogate.fromModel(value),
+    )
   }
 }
 

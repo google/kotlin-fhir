@@ -177,7 +177,7 @@ internal data class NutritionIntakeOccurrenceSurrogate(
   public var occurrencePeriod: Period? = null,
 ) {
   public fun toModel(): NutritionIntake.Occurrence =
-    NutritionIntake.Occurrence?.from(
+    NutritionIntake.Occurrence.from(
       DateTime.of(
         FhirDateTime.fromString(this@NutritionIntakeOccurrenceSurrogate.occurrenceDateTime),
         this@NutritionIntakeOccurrenceSurrogate._occurrenceDateTime,
@@ -204,7 +204,7 @@ internal data class NutritionIntakeReportedSurrogate(
   public var reportedReference: Reference? = null,
 ) {
   public fun toModel(): NutritionIntake.Reported =
-    NutritionIntake.Reported?.from(
+    NutritionIntake.Reported.from(
       R5Boolean.of(
         this@NutritionIntakeReportedSurrogate.reportedBoolean,
         this@NutritionIntakeReportedSurrogate._reportedBoolean,

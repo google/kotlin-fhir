@@ -36,7 +36,8 @@ import kotlinx.serialization.modules.SerializersModule
  * class discriminators (e.g., "resourceType").
  */
 object MoreJsonBuilderFileSpecGenerator {
-  fun generate(packageName: String, baseClass: ClassName, subclasses: List<ClassName>): FileSpec {
+  fun generate(packageName: String, subclasses: List<ClassName>): FileSpec {
+    val baseClass = ClassName(packageName, "Resource")
     val fhirVersion = packageName.substringAfterLast('.').capitalized()
     val funName = "configure${fhirVersion}"
     val serializersModuleName = "serializersModule${fhirVersion}"

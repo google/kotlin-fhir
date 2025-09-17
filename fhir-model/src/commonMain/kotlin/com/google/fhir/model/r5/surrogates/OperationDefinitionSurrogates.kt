@@ -51,102 +51,6 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
-internal data class OperationDefinitionParameterBindingSurrogate(
-  public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var strength: KotlinString? = null,
-  public var _strength: Element? = null,
-  public var valueSet: KotlinString? = null,
-  public var _valueSet: Element? = null,
-) {
-  public fun toModel(): OperationDefinition.Parameter.Binding =
-    OperationDefinition.Parameter.Binding(
-      id = this@OperationDefinitionParameterBindingSurrogate.id,
-      extension = this@OperationDefinitionParameterBindingSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@OperationDefinitionParameterBindingSurrogate.modifierExtension ?: mutableListOf(),
-      strength =
-        Enumeration.of(
-          com.google.fhir.model.r5.terminologies.BindingStrength.fromCode(
-            this@OperationDefinitionParameterBindingSurrogate.strength!!
-          ),
-          this@OperationDefinitionParameterBindingSurrogate._strength,
-        ),
-      valueSet =
-        Canonical.of(
-          this@OperationDefinitionParameterBindingSurrogate.valueSet,
-          this@OperationDefinitionParameterBindingSurrogate._valueSet,
-        )!!,
-    )
-
-  public companion object {
-    public fun fromModel(
-      model: OperationDefinition.Parameter.Binding
-    ): OperationDefinitionParameterBindingSurrogate =
-      with(model) {
-        OperationDefinitionParameterBindingSurrogate(
-          id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          strength = this@with.strength.value?.getCode(),
-          _strength = this@with.strength.toElement(),
-          valueSet = this@with.valueSet.value,
-          _valueSet = this@with.valueSet.toElement(),
-        )
-      }
-  }
-}
-
-@Serializable
-internal data class OperationDefinitionParameterReferencedFromSurrogate(
-  public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var source: KotlinString? = null,
-  public var _source: Element? = null,
-  public var sourceId: KotlinString? = null,
-  public var _sourceId: Element? = null,
-) {
-  public fun toModel(): OperationDefinition.Parameter.ReferencedFrom =
-    OperationDefinition.Parameter.ReferencedFrom(
-      id = this@OperationDefinitionParameterReferencedFromSurrogate.id,
-      extension =
-        this@OperationDefinitionParameterReferencedFromSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@OperationDefinitionParameterReferencedFromSurrogate.modifierExtension
-          ?: mutableListOf(),
-      source =
-        R5String.of(
-          this@OperationDefinitionParameterReferencedFromSurrogate.source,
-          this@OperationDefinitionParameterReferencedFromSurrogate._source,
-        )!!,
-      sourceId =
-        R5String.of(
-          this@OperationDefinitionParameterReferencedFromSurrogate.sourceId,
-          this@OperationDefinitionParameterReferencedFromSurrogate._sourceId,
-        ),
-    )
-
-  public companion object {
-    public fun fromModel(
-      model: OperationDefinition.Parameter.ReferencedFrom
-    ): OperationDefinitionParameterReferencedFromSurrogate =
-      with(model) {
-        OperationDefinitionParameterReferencedFromSurrogate(
-          id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          source = this@with.source.value,
-          _source = this@with.source.toElement(),
-          sourceId = this@with.sourceId?.value,
-          _sourceId = this@with.sourceId?.toElement(),
-        )
-      }
-  }
-}
-
-@Serializable
 internal data class OperationDefinitionParameterSurrogate(
   public var id: KotlinString? = null,
   public var extension: MutableList<Extension>? = null,
@@ -354,6 +258,102 @@ internal data class OperationDefinitionParameterSurrogate(
 }
 
 @Serializable
+internal data class OperationDefinitionParameterBindingSurrogate(
+  public var id: KotlinString? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var strength: KotlinString? = null,
+  public var _strength: Element? = null,
+  public var valueSet: KotlinString? = null,
+  public var _valueSet: Element? = null,
+) {
+  public fun toModel(): OperationDefinition.Parameter.Binding =
+    OperationDefinition.Parameter.Binding(
+      id = this@OperationDefinitionParameterBindingSurrogate.id,
+      extension = this@OperationDefinitionParameterBindingSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@OperationDefinitionParameterBindingSurrogate.modifierExtension ?: mutableListOf(),
+      strength =
+        Enumeration.of(
+          com.google.fhir.model.r5.terminologies.BindingStrength.fromCode(
+            this@OperationDefinitionParameterBindingSurrogate.strength!!
+          ),
+          this@OperationDefinitionParameterBindingSurrogate._strength,
+        ),
+      valueSet =
+        Canonical.of(
+          this@OperationDefinitionParameterBindingSurrogate.valueSet,
+          this@OperationDefinitionParameterBindingSurrogate._valueSet,
+        )!!,
+    )
+
+  public companion object {
+    public fun fromModel(
+      model: OperationDefinition.Parameter.Binding
+    ): OperationDefinitionParameterBindingSurrogate =
+      with(model) {
+        OperationDefinitionParameterBindingSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          strength = this@with.strength.value?.getCode(),
+          _strength = this@with.strength.toElement(),
+          valueSet = this@with.valueSet.value,
+          _valueSet = this@with.valueSet.toElement(),
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class OperationDefinitionParameterReferencedFromSurrogate(
+  public var id: KotlinString? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var source: KotlinString? = null,
+  public var _source: Element? = null,
+  public var sourceId: KotlinString? = null,
+  public var _sourceId: Element? = null,
+) {
+  public fun toModel(): OperationDefinition.Parameter.ReferencedFrom =
+    OperationDefinition.Parameter.ReferencedFrom(
+      id = this@OperationDefinitionParameterReferencedFromSurrogate.id,
+      extension =
+        this@OperationDefinitionParameterReferencedFromSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@OperationDefinitionParameterReferencedFromSurrogate.modifierExtension
+          ?: mutableListOf(),
+      source =
+        R5String.of(
+          this@OperationDefinitionParameterReferencedFromSurrogate.source,
+          this@OperationDefinitionParameterReferencedFromSurrogate._source,
+        )!!,
+      sourceId =
+        R5String.of(
+          this@OperationDefinitionParameterReferencedFromSurrogate.sourceId,
+          this@OperationDefinitionParameterReferencedFromSurrogate._sourceId,
+        ),
+    )
+
+  public companion object {
+    public fun fromModel(
+      model: OperationDefinition.Parameter.ReferencedFrom
+    ): OperationDefinitionParameterReferencedFromSurrogate =
+      with(model) {
+        OperationDefinitionParameterReferencedFromSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          source = this@with.source.value,
+          _source = this@with.source.toElement(),
+          sourceId = this@with.sourceId?.value,
+          _sourceId = this@with.sourceId?.toElement(),
+        )
+      }
+  }
+}
+
+@Serializable
 internal data class OperationDefinitionOverloadSurrogate(
   public var id: KotlinString? = null,
   public var extension: MutableList<Extension>? = null,
@@ -426,7 +426,7 @@ internal data class OperationDefinitionVersionAlgorithmSurrogate(
   public var versionAlgorithmCoding: Coding? = null,
 ) {
   public fun toModel(): OperationDefinition.VersionAlgorithm =
-    OperationDefinition.VersionAlgorithm?.from(
+    OperationDefinition.VersionAlgorithm.from(
       R5String.of(
         this@OperationDefinitionVersionAlgorithmSurrogate.versionAlgorithmString,
         this@OperationDefinitionVersionAlgorithmSurrogate._versionAlgorithmString,

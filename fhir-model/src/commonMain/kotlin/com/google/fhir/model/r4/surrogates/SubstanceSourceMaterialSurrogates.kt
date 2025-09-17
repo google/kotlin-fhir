@@ -81,6 +81,64 @@ internal data class SubstanceSourceMaterialFractionDescriptionSurrogate(
 }
 
 @Serializable
+internal data class SubstanceSourceMaterialOrganismSurrogate(
+  public var id: KotlinString? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var family: CodeableConcept? = null,
+  public var genus: CodeableConcept? = null,
+  public var species: CodeableConcept? = null,
+  public var intraspecificType: CodeableConcept? = null,
+  public var intraspecificDescription: KotlinString? = null,
+  public var _intraspecificDescription: Element? = null,
+  public var author: MutableList<SubstanceSourceMaterial.Organism.Author>? = null,
+  public var hybrid: SubstanceSourceMaterial.Organism.Hybrid? = null,
+  public var organismGeneral: SubstanceSourceMaterial.Organism.OrganismGeneral? = null,
+) {
+  public fun toModel(): SubstanceSourceMaterial.Organism =
+    SubstanceSourceMaterial.Organism(
+      id = this@SubstanceSourceMaterialOrganismSurrogate.id,
+      extension = this@SubstanceSourceMaterialOrganismSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@SubstanceSourceMaterialOrganismSurrogate.modifierExtension ?: mutableListOf(),
+      family = this@SubstanceSourceMaterialOrganismSurrogate.family,
+      genus = this@SubstanceSourceMaterialOrganismSurrogate.genus,
+      species = this@SubstanceSourceMaterialOrganismSurrogate.species,
+      intraspecificType = this@SubstanceSourceMaterialOrganismSurrogate.intraspecificType,
+      intraspecificDescription =
+        R4String.of(
+          this@SubstanceSourceMaterialOrganismSurrogate.intraspecificDescription,
+          this@SubstanceSourceMaterialOrganismSurrogate._intraspecificDescription,
+        ),
+      author = this@SubstanceSourceMaterialOrganismSurrogate.author ?: mutableListOf(),
+      hybrid = this@SubstanceSourceMaterialOrganismSurrogate.hybrid,
+      organismGeneral = this@SubstanceSourceMaterialOrganismSurrogate.organismGeneral,
+    )
+
+  public companion object {
+    public fun fromModel(
+      model: SubstanceSourceMaterial.Organism
+    ): SubstanceSourceMaterialOrganismSurrogate =
+      with(model) {
+        SubstanceSourceMaterialOrganismSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          family = this@with.family,
+          genus = this@with.genus,
+          species = this@with.species,
+          intraspecificType = this@with.intraspecificType,
+          intraspecificDescription = this@with.intraspecificDescription?.value,
+          _intraspecificDescription = this@with.intraspecificDescription?.toElement(),
+          author = this@with.author.takeUnless { it.all { it == null } },
+          hybrid = this@with.hybrid,
+          organismGeneral = this@with.organismGeneral,
+        )
+      }
+  }
+}
+
+@Serializable
 internal data class SubstanceSourceMaterialOrganismAuthorSurrogate(
   public var id: KotlinString? = null,
   public var extension: MutableList<Extension>? = null,
@@ -224,64 +282,6 @@ internal data class SubstanceSourceMaterialOrganismOrganismGeneralSurrogate(
           phylum = this@with.phylum,
           `class` = this@with.`class`,
           order = this@with.order,
-        )
-      }
-  }
-}
-
-@Serializable
-internal data class SubstanceSourceMaterialOrganismSurrogate(
-  public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var family: CodeableConcept? = null,
-  public var genus: CodeableConcept? = null,
-  public var species: CodeableConcept? = null,
-  public var intraspecificType: CodeableConcept? = null,
-  public var intraspecificDescription: KotlinString? = null,
-  public var _intraspecificDescription: Element? = null,
-  public var author: MutableList<SubstanceSourceMaterial.Organism.Author>? = null,
-  public var hybrid: SubstanceSourceMaterial.Organism.Hybrid? = null,
-  public var organismGeneral: SubstanceSourceMaterial.Organism.OrganismGeneral? = null,
-) {
-  public fun toModel(): SubstanceSourceMaterial.Organism =
-    SubstanceSourceMaterial.Organism(
-      id = this@SubstanceSourceMaterialOrganismSurrogate.id,
-      extension = this@SubstanceSourceMaterialOrganismSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@SubstanceSourceMaterialOrganismSurrogate.modifierExtension ?: mutableListOf(),
-      family = this@SubstanceSourceMaterialOrganismSurrogate.family,
-      genus = this@SubstanceSourceMaterialOrganismSurrogate.genus,
-      species = this@SubstanceSourceMaterialOrganismSurrogate.species,
-      intraspecificType = this@SubstanceSourceMaterialOrganismSurrogate.intraspecificType,
-      intraspecificDescription =
-        R4String.of(
-          this@SubstanceSourceMaterialOrganismSurrogate.intraspecificDescription,
-          this@SubstanceSourceMaterialOrganismSurrogate._intraspecificDescription,
-        ),
-      author = this@SubstanceSourceMaterialOrganismSurrogate.author ?: mutableListOf(),
-      hybrid = this@SubstanceSourceMaterialOrganismSurrogate.hybrid,
-      organismGeneral = this@SubstanceSourceMaterialOrganismSurrogate.organismGeneral,
-    )
-
-  public companion object {
-    public fun fromModel(
-      model: SubstanceSourceMaterial.Organism
-    ): SubstanceSourceMaterialOrganismSurrogate =
-      with(model) {
-        SubstanceSourceMaterialOrganismSurrogate(
-          id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          family = this@with.family,
-          genus = this@with.genus,
-          species = this@with.species,
-          intraspecificType = this@with.intraspecificType,
-          intraspecificDescription = this@with.intraspecificDescription?.value,
-          _intraspecificDescription = this@with.intraspecificDescription?.toElement(),
-          author = this@with.author.takeUnless { it.all { it == null } },
-          hybrid = this@with.hybrid,
-          organismGeneral = this@with.organismGeneral,
         )
       }
   }

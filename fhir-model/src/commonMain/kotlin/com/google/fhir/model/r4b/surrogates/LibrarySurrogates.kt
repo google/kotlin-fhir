@@ -60,7 +60,7 @@ internal data class LibrarySubjectSurrogate(
   public var subjectReference: Reference? = null,
 ) {
   public fun toModel(): Library.Subject =
-    Library.Subject?.from(
+    Library.Subject.from(
       this@LibrarySubjectSurrogate.subjectCodeableConcept,
       this@LibrarySubjectSurrogate.subjectReference,
     )!!

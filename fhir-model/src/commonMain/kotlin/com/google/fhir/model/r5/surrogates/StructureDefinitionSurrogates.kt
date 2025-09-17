@@ -227,7 +227,7 @@ internal data class StructureDefinitionVersionAlgorithmSurrogate(
   public var versionAlgorithmCoding: Coding? = null,
 ) {
   public fun toModel(): StructureDefinition.VersionAlgorithm =
-    StructureDefinition.VersionAlgorithm?.from(
+    StructureDefinition.VersionAlgorithm.from(
       R5String.of(
         this@StructureDefinitionVersionAlgorithmSurrogate.versionAlgorithmString,
         this@StructureDefinitionVersionAlgorithmSurrogate._versionAlgorithmString,

@@ -37,23 +37,6 @@ import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.JsonPrimitive
 import kotlinx.serialization.json.jsonObject
 
-public object GroupCharacteristicValueSerializer : KSerializer<Group.Characteristic.Value> {
-  internal val surrogateSerializer: KSerializer<GroupCharacteristicValueSurrogate> by lazy {
-    GroupCharacteristicValueSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Value", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): Group.Characteristic.Value =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: Group.Characteristic.Value) {
-    surrogateSerializer.serialize(encoder, GroupCharacteristicValueSurrogate.fromModel(value))
-  }
-}
-
 public object GroupCharacteristicSerializer : KSerializer<Group.Characteristic> {
   internal val surrogateSerializer: KSerializer<GroupCharacteristicSurrogate> by lazy {
     GroupCharacteristicSurrogate.serializer()
@@ -115,6 +98,23 @@ public object GroupMemberSerializer : KSerializer<Group.Member> {
 
   override fun serialize(encoder: Encoder, `value`: Group.Member) {
     surrogateSerializer.serialize(encoder, GroupMemberSurrogate.fromModel(value))
+  }
+}
+
+public object GroupCharacteristicValueSerializer : KSerializer<Group.Characteristic.Value> {
+  internal val surrogateSerializer: KSerializer<GroupCharacteristicValueSurrogate> by lazy {
+    GroupCharacteristicValueSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Value", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): Group.Characteristic.Value =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: Group.Characteristic.Value) {
+    surrogateSerializer.serialize(encoder, GroupCharacteristicValueSurrogate.fromModel(value))
   }
 }
 

@@ -29,25 +29,20 @@ import kotlinx.serialization.descriptors.SerialDescriptor
 import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
 
-public object GraphDefinitionLinkTargetCompartmentSerializer :
-  KSerializer<GraphDefinition.Link.Target.Compartment> {
-  internal val surrogateSerializer:
-    KSerializer<GraphDefinitionLinkTargetCompartmentSurrogate> by lazy {
-    GraphDefinitionLinkTargetCompartmentSurrogate.serializer()
+public object GraphDefinitionLinkSerializer : KSerializer<GraphDefinition.Link> {
+  internal val surrogateSerializer: KSerializer<GraphDefinitionLinkSurrogate> by lazy {
+    GraphDefinitionLinkSurrogate.serializer()
   }
 
   override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Compartment", surrogateSerializer.descriptor)
+    SerialDescriptor("Link", surrogateSerializer.descriptor)
   }
 
-  override fun deserialize(decoder: Decoder): GraphDefinition.Link.Target.Compartment =
+  override fun deserialize(decoder: Decoder): GraphDefinition.Link =
     surrogateSerializer.deserialize(decoder).toModel()
 
-  override fun serialize(encoder: Encoder, `value`: GraphDefinition.Link.Target.Compartment) {
-    surrogateSerializer.serialize(
-      encoder,
-      GraphDefinitionLinkTargetCompartmentSurrogate.fromModel(value),
-    )
+  override fun serialize(encoder: Encoder, `value`: GraphDefinition.Link) {
+    surrogateSerializer.serialize(encoder, GraphDefinitionLinkSurrogate.fromModel(value))
   }
 }
 
@@ -68,20 +63,25 @@ public object GraphDefinitionLinkTargetSerializer : KSerializer<GraphDefinition.
   }
 }
 
-public object GraphDefinitionLinkSerializer : KSerializer<GraphDefinition.Link> {
-  internal val surrogateSerializer: KSerializer<GraphDefinitionLinkSurrogate> by lazy {
-    GraphDefinitionLinkSurrogate.serializer()
+public object GraphDefinitionLinkTargetCompartmentSerializer :
+  KSerializer<GraphDefinition.Link.Target.Compartment> {
+  internal val surrogateSerializer:
+    KSerializer<GraphDefinitionLinkTargetCompartmentSurrogate> by lazy {
+    GraphDefinitionLinkTargetCompartmentSurrogate.serializer()
   }
 
   override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Link", surrogateSerializer.descriptor)
+    SerialDescriptor("Compartment", surrogateSerializer.descriptor)
   }
 
-  override fun deserialize(decoder: Decoder): GraphDefinition.Link =
+  override fun deserialize(decoder: Decoder): GraphDefinition.Link.Target.Compartment =
     surrogateSerializer.deserialize(decoder).toModel()
 
-  override fun serialize(encoder: Encoder, `value`: GraphDefinition.Link) {
-    surrogateSerializer.serialize(encoder, GraphDefinitionLinkSurrogate.fromModel(value))
+  override fun serialize(encoder: Encoder, `value`: GraphDefinition.Link.Target.Compartment) {
+    surrogateSerializer.serialize(
+      encoder,
+      GraphDefinitionLinkTargetCompartmentSurrogate.fromModel(value),
+    )
   }
 }
 

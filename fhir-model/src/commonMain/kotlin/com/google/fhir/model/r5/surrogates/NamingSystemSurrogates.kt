@@ -133,7 +133,7 @@ internal data class NamingSystemVersionAlgorithmSurrogate(
   public var versionAlgorithmCoding: Coding? = null,
 ) {
   public fun toModel(): NamingSystem.VersionAlgorithm =
-    NamingSystem.VersionAlgorithm?.from(
+    NamingSystem.VersionAlgorithm.from(
       R5String.of(
         this@NamingSystemVersionAlgorithmSurrogate.versionAlgorithmString,
         this@NamingSystemVersionAlgorithmSurrogate._versionAlgorithmString,

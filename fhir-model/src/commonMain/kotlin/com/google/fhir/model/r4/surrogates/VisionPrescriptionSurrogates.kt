@@ -49,55 +49,6 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
-internal data class VisionPrescriptionLensSpecificationPrismSurrogate(
-  public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var amount: Double? = null,
-  public var _amount: Element? = null,
-  public var base: KotlinString? = null,
-  public var _base: Element? = null,
-) {
-  public fun toModel(): VisionPrescription.LensSpecification.Prism =
-    VisionPrescription.LensSpecification.Prism(
-      id = this@VisionPrescriptionLensSpecificationPrismSurrogate.id,
-      extension =
-        this@VisionPrescriptionLensSpecificationPrismSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@VisionPrescriptionLensSpecificationPrismSurrogate.modifierExtension ?: mutableListOf(),
-      amount =
-        Decimal.of(
-          this@VisionPrescriptionLensSpecificationPrismSurrogate.amount,
-          this@VisionPrescriptionLensSpecificationPrismSurrogate._amount,
-        )!!,
-      base =
-        Enumeration.of(
-          com.google.fhir.model.r4.VisionPrescription.VisionBase.fromCode(
-            this@VisionPrescriptionLensSpecificationPrismSurrogate.base!!
-          ),
-          this@VisionPrescriptionLensSpecificationPrismSurrogate._base,
-        ),
-    )
-
-  public companion object {
-    public fun fromModel(
-      model: VisionPrescription.LensSpecification.Prism
-    ): VisionPrescriptionLensSpecificationPrismSurrogate =
-      with(model) {
-        VisionPrescriptionLensSpecificationPrismSurrogate(
-          id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          amount = this@with.amount.value,
-          _amount = this@with.amount.toElement(),
-          base = this@with.base.value?.getCode(),
-          _base = this@with.base.toElement(),
-        )
-      }
-  }
-}
-
-@Serializable
 internal data class VisionPrescriptionLensSpecificationSurrogate(
   public var id: KotlinString? = null,
   public var extension: MutableList<Extension>? = null,
@@ -224,6 +175,55 @@ internal data class VisionPrescriptionLensSpecificationSurrogate(
           brand = this@with.brand?.value,
           _brand = this@with.brand?.toElement(),
           note = this@with.note.takeUnless { it.all { it == null } },
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class VisionPrescriptionLensSpecificationPrismSurrogate(
+  public var id: KotlinString? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var amount: Double? = null,
+  public var _amount: Element? = null,
+  public var base: KotlinString? = null,
+  public var _base: Element? = null,
+) {
+  public fun toModel(): VisionPrescription.LensSpecification.Prism =
+    VisionPrescription.LensSpecification.Prism(
+      id = this@VisionPrescriptionLensSpecificationPrismSurrogate.id,
+      extension =
+        this@VisionPrescriptionLensSpecificationPrismSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@VisionPrescriptionLensSpecificationPrismSurrogate.modifierExtension ?: mutableListOf(),
+      amount =
+        Decimal.of(
+          this@VisionPrescriptionLensSpecificationPrismSurrogate.amount,
+          this@VisionPrescriptionLensSpecificationPrismSurrogate._amount,
+        )!!,
+      base =
+        Enumeration.of(
+          com.google.fhir.model.r4.VisionPrescription.VisionBase.fromCode(
+            this@VisionPrescriptionLensSpecificationPrismSurrogate.base!!
+          ),
+          this@VisionPrescriptionLensSpecificationPrismSurrogate._base,
+        ),
+    )
+
+  public companion object {
+    public fun fromModel(
+      model: VisionPrescription.LensSpecification.Prism
+    ): VisionPrescriptionLensSpecificationPrismSurrogate =
+      with(model) {
+        VisionPrescriptionLensSpecificationPrismSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          amount = this@with.amount.value,
+          _amount = this@with.amount.toElement(),
+          base = this@with.base.value?.getCode(),
+          _base = this@with.base.toElement(),
         )
       }
   }

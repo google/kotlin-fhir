@@ -135,7 +135,7 @@ internal data class ChargeItemDefinitionVersionAlgorithmSurrogate(
   public var versionAlgorithmCoding: Coding? = null,
 ) {
   public fun toModel(): ChargeItemDefinition.VersionAlgorithm =
-    ChargeItemDefinition.VersionAlgorithm?.from(
+    ChargeItemDefinition.VersionAlgorithm.from(
       R5String.of(
         this@ChargeItemDefinitionVersionAlgorithmSurrogate.versionAlgorithmString,
         this@ChargeItemDefinitionVersionAlgorithmSurrogate._versionAlgorithmString,

@@ -36,28 +36,6 @@ import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.JsonPrimitive
 import kotlinx.serialization.json.jsonObject
 
-public object MedicinalProductInteractionInteractantItemSerializer :
-  KSerializer<MedicinalProductInteraction.Interactant.Item> {
-  internal val surrogateSerializer:
-    KSerializer<MedicinalProductInteractionInteractantItemSurrogate> by lazy {
-    MedicinalProductInteractionInteractantItemSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Item", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): MedicinalProductInteraction.Interactant.Item =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: MedicinalProductInteraction.Interactant.Item) {
-    surrogateSerializer.serialize(
-      encoder,
-      MedicinalProductInteractionInteractantItemSurrogate.fromModel(value),
-    )
-  }
-}
-
 public object MedicinalProductInteractionInteractantSerializer :
   KSerializer<MedicinalProductInteraction.Interactant> {
   internal val surrogateSerializer:
@@ -104,6 +82,28 @@ public object MedicinalProductInteractionInteractantSerializer :
       }
     val flattenedJsonObject = FhirJsonTransformer.flatten(oldJsonObject, multiChoiceProperties)
     jsonEncoder.encodeJsonElement(flattenedJsonObject)
+  }
+}
+
+public object MedicinalProductInteractionInteractantItemSerializer :
+  KSerializer<MedicinalProductInteraction.Interactant.Item> {
+  internal val surrogateSerializer:
+    KSerializer<MedicinalProductInteractionInteractantItemSurrogate> by lazy {
+    MedicinalProductInteractionInteractantItemSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Item", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): MedicinalProductInteraction.Interactant.Item =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: MedicinalProductInteraction.Interactant.Item) {
+    surrogateSerializer.serialize(
+      encoder,
+      MedicinalProductInteractionInteractantItemSurrogate.fromModel(value),
+    )
   }
 }
 

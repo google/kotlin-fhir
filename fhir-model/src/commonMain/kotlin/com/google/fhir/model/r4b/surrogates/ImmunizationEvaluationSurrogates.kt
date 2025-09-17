@@ -52,7 +52,7 @@ internal data class ImmunizationEvaluationDoseNumberSurrogate(
   public var _doseNumberString: Element? = null,
 ) {
   public fun toModel(): ImmunizationEvaluation.DoseNumber =
-    ImmunizationEvaluation.DoseNumber?.from(
+    ImmunizationEvaluation.DoseNumber.from(
       PositiveInt.of(
         this@ImmunizationEvaluationDoseNumberSurrogate.doseNumberPositiveInt,
         this@ImmunizationEvaluationDoseNumberSurrogate._doseNumberPositiveInt,
@@ -86,7 +86,7 @@ internal data class ImmunizationEvaluationSeriesDosesSurrogate(
   public var _seriesDosesString: Element? = null,
 ) {
   public fun toModel(): ImmunizationEvaluation.SeriesDoses =
-    ImmunizationEvaluation.SeriesDoses?.from(
+    ImmunizationEvaluation.SeriesDoses.from(
       PositiveInt.of(
         this@ImmunizationEvaluationSeriesDosesSurrogate.seriesDosesPositiveInt,
         this@ImmunizationEvaluationSeriesDosesSurrogate._seriesDosesPositiveInt,

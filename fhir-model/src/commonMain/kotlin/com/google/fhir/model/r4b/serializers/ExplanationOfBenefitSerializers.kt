@@ -116,50 +116,6 @@ public object ExplanationOfBenefitCareTeamSerializer : KSerializer<ExplanationOf
   }
 }
 
-public object ExplanationOfBenefitSupportingInfoTimingSerializer :
-  KSerializer<ExplanationOfBenefit.SupportingInfo.Timing> {
-  internal val surrogateSerializer:
-    KSerializer<ExplanationOfBenefitSupportingInfoTimingSurrogate> by lazy {
-    ExplanationOfBenefitSupportingInfoTimingSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Timing", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): ExplanationOfBenefit.SupportingInfo.Timing =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: ExplanationOfBenefit.SupportingInfo.Timing) {
-    surrogateSerializer.serialize(
-      encoder,
-      ExplanationOfBenefitSupportingInfoTimingSurrogate.fromModel(value),
-    )
-  }
-}
-
-public object ExplanationOfBenefitSupportingInfoValueSerializer :
-  KSerializer<ExplanationOfBenefit.SupportingInfo.Value> {
-  internal val surrogateSerializer:
-    KSerializer<ExplanationOfBenefitSupportingInfoValueSurrogate> by lazy {
-    ExplanationOfBenefitSupportingInfoValueSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Value", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): ExplanationOfBenefit.SupportingInfo.Value =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: ExplanationOfBenefit.SupportingInfo.Value) {
-    surrogateSerializer.serialize(
-      encoder,
-      ExplanationOfBenefitSupportingInfoValueSurrogate.fromModel(value),
-    )
-  }
-}
-
 public object ExplanationOfBenefitSupportingInfoSerializer :
   KSerializer<ExplanationOfBenefit.SupportingInfo> {
   internal val surrogateSerializer:
@@ -209,28 +165,6 @@ public object ExplanationOfBenefitSupportingInfoSerializer :
   }
 }
 
-public object ExplanationOfBenefitDiagnosisDiagnosisSerializer :
-  KSerializer<ExplanationOfBenefit.Diagnosis.Diagnosis> {
-  internal val surrogateSerializer:
-    KSerializer<ExplanationOfBenefitDiagnosisDiagnosisSurrogate> by lazy {
-    ExplanationOfBenefitDiagnosisDiagnosisSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Diagnosis", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): ExplanationOfBenefit.Diagnosis.Diagnosis =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: ExplanationOfBenefit.Diagnosis.Diagnosis) {
-    surrogateSerializer.serialize(
-      encoder,
-      ExplanationOfBenefitDiagnosisDiagnosisSurrogate.fromModel(value),
-    )
-  }
-}
-
 public object ExplanationOfBenefitDiagnosisSerializer :
   KSerializer<ExplanationOfBenefit.Diagnosis> {
   internal val surrogateSerializer: KSerializer<ExplanationOfBenefitDiagnosisSurrogate> by lazy {
@@ -276,28 +210,6 @@ public object ExplanationOfBenefitDiagnosisSerializer :
       }
     val flattenedJsonObject = FhirJsonTransformer.flatten(oldJsonObject, multiChoiceProperties)
     jsonEncoder.encodeJsonElement(flattenedJsonObject)
-  }
-}
-
-public object ExplanationOfBenefitProcedureProcedureSerializer :
-  KSerializer<ExplanationOfBenefit.Procedure.Procedure> {
-  internal val surrogateSerializer:
-    KSerializer<ExplanationOfBenefitProcedureProcedureSurrogate> by lazy {
-    ExplanationOfBenefitProcedureProcedureSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Procedure", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): ExplanationOfBenefit.Procedure.Procedure =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: ExplanationOfBenefit.Procedure.Procedure) {
-    surrogateSerializer.serialize(
-      encoder,
-      ExplanationOfBenefitProcedureProcedureSurrogate.fromModel(value),
-    )
   }
 }
 
@@ -367,28 +279,6 @@ public object ExplanationOfBenefitInsuranceSerializer :
   }
 }
 
-public object ExplanationOfBenefitAccidentLocationSerializer :
-  KSerializer<ExplanationOfBenefit.Accident.Location> {
-  internal val surrogateSerializer:
-    KSerializer<ExplanationOfBenefitAccidentLocationSurrogate> by lazy {
-    ExplanationOfBenefitAccidentLocationSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Location", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): ExplanationOfBenefit.Accident.Location =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: ExplanationOfBenefit.Accident.Location) {
-    surrogateSerializer.serialize(
-      encoder,
-      ExplanationOfBenefitAccidentLocationSurrogate.fromModel(value),
-    )
-  }
-}
-
 public object ExplanationOfBenefitAccidentSerializer : KSerializer<ExplanationOfBenefit.Accident> {
   internal val surrogateSerializer: KSerializer<ExplanationOfBenefitAccidentSurrogate> by lazy {
     ExplanationOfBenefitAccidentSurrogate.serializer()
@@ -433,110 +323,6 @@ public object ExplanationOfBenefitAccidentSerializer : KSerializer<ExplanationOf
       }
     val flattenedJsonObject = FhirJsonTransformer.flatten(oldJsonObject, multiChoiceProperties)
     jsonEncoder.encodeJsonElement(flattenedJsonObject)
-  }
-}
-
-public object ExplanationOfBenefitItemAdjudicationSerializer :
-  KSerializer<ExplanationOfBenefit.Item.Adjudication> {
-  internal val surrogateSerializer:
-    KSerializer<ExplanationOfBenefitItemAdjudicationSurrogate> by lazy {
-    ExplanationOfBenefitItemAdjudicationSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Adjudication", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): ExplanationOfBenefit.Item.Adjudication =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: ExplanationOfBenefit.Item.Adjudication) {
-    surrogateSerializer.serialize(
-      encoder,
-      ExplanationOfBenefitItemAdjudicationSurrogate.fromModel(value),
-    )
-  }
-}
-
-public object ExplanationOfBenefitItemDetailSubDetailSerializer :
-  KSerializer<ExplanationOfBenefit.Item.Detail.SubDetail> {
-  internal val surrogateSerializer:
-    KSerializer<ExplanationOfBenefitItemDetailSubDetailSurrogate> by lazy {
-    ExplanationOfBenefitItemDetailSubDetailSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("SubDetail", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): ExplanationOfBenefit.Item.Detail.SubDetail =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: ExplanationOfBenefit.Item.Detail.SubDetail) {
-    surrogateSerializer.serialize(
-      encoder,
-      ExplanationOfBenefitItemDetailSubDetailSurrogate.fromModel(value),
-    )
-  }
-}
-
-public object ExplanationOfBenefitItemDetailSerializer :
-  KSerializer<ExplanationOfBenefit.Item.Detail> {
-  internal val surrogateSerializer: KSerializer<ExplanationOfBenefitItemDetailSurrogate> by lazy {
-    ExplanationOfBenefitItemDetailSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Detail", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): ExplanationOfBenefit.Item.Detail =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: ExplanationOfBenefit.Item.Detail) {
-    surrogateSerializer.serialize(encoder, ExplanationOfBenefitItemDetailSurrogate.fromModel(value))
-  }
-}
-
-public object ExplanationOfBenefitItemServicedSerializer :
-  KSerializer<ExplanationOfBenefit.Item.Serviced> {
-  internal val surrogateSerializer: KSerializer<ExplanationOfBenefitItemServicedSurrogate> by lazy {
-    ExplanationOfBenefitItemServicedSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Serviced", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): ExplanationOfBenefit.Item.Serviced =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: ExplanationOfBenefit.Item.Serviced) {
-    surrogateSerializer.serialize(
-      encoder,
-      ExplanationOfBenefitItemServicedSurrogate.fromModel(value),
-    )
-  }
-}
-
-public object ExplanationOfBenefitItemLocationSerializer :
-  KSerializer<ExplanationOfBenefit.Item.Location> {
-  internal val surrogateSerializer: KSerializer<ExplanationOfBenefitItemLocationSurrogate> by lazy {
-    ExplanationOfBenefitItemLocationSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Location", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): ExplanationOfBenefit.Item.Location =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: ExplanationOfBenefit.Item.Location) {
-    surrogateSerializer.serialize(
-      encoder,
-      ExplanationOfBenefitItemLocationSurrogate.fromModel(value),
-    )
   }
 }
 
@@ -587,90 +373,64 @@ public object ExplanationOfBenefitItemSerializer : KSerializer<ExplanationOfBene
   }
 }
 
-public object ExplanationOfBenefitAddItemDetailSubDetailSerializer :
-  KSerializer<ExplanationOfBenefit.AddItem.Detail.SubDetail> {
+public object ExplanationOfBenefitItemAdjudicationSerializer :
+  KSerializer<ExplanationOfBenefit.Item.Adjudication> {
   internal val surrogateSerializer:
-    KSerializer<ExplanationOfBenefitAddItemDetailSubDetailSurrogate> by lazy {
-    ExplanationOfBenefitAddItemDetailSubDetailSurrogate.serializer()
+    KSerializer<ExplanationOfBenefitItemAdjudicationSurrogate> by lazy {
+    ExplanationOfBenefitItemAdjudicationSurrogate.serializer()
   }
 
   override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("SubDetail", surrogateSerializer.descriptor)
+    SerialDescriptor("Adjudication", surrogateSerializer.descriptor)
   }
 
-  override fun deserialize(decoder: Decoder): ExplanationOfBenefit.AddItem.Detail.SubDetail =
+  override fun deserialize(decoder: Decoder): ExplanationOfBenefit.Item.Adjudication =
     surrogateSerializer.deserialize(decoder).toModel()
 
-  override fun serialize(encoder: Encoder, `value`: ExplanationOfBenefit.AddItem.Detail.SubDetail) {
+  override fun serialize(encoder: Encoder, `value`: ExplanationOfBenefit.Item.Adjudication) {
     surrogateSerializer.serialize(
       encoder,
-      ExplanationOfBenefitAddItemDetailSubDetailSurrogate.fromModel(value),
+      ExplanationOfBenefitItemAdjudicationSurrogate.fromModel(value),
     )
   }
 }
 
-public object ExplanationOfBenefitAddItemDetailSerializer :
-  KSerializer<ExplanationOfBenefit.AddItem.Detail> {
-  internal val surrogateSerializer:
-    KSerializer<ExplanationOfBenefitAddItemDetailSurrogate> by lazy {
-    ExplanationOfBenefitAddItemDetailSurrogate.serializer()
+public object ExplanationOfBenefitItemDetailSerializer :
+  KSerializer<ExplanationOfBenefit.Item.Detail> {
+  internal val surrogateSerializer: KSerializer<ExplanationOfBenefitItemDetailSurrogate> by lazy {
+    ExplanationOfBenefitItemDetailSurrogate.serializer()
   }
 
   override val descriptor: SerialDescriptor by lazy {
     SerialDescriptor("Detail", surrogateSerializer.descriptor)
   }
 
-  override fun deserialize(decoder: Decoder): ExplanationOfBenefit.AddItem.Detail =
+  override fun deserialize(decoder: Decoder): ExplanationOfBenefit.Item.Detail =
     surrogateSerializer.deserialize(decoder).toModel()
 
-  override fun serialize(encoder: Encoder, `value`: ExplanationOfBenefit.AddItem.Detail) {
-    surrogateSerializer.serialize(
-      encoder,
-      ExplanationOfBenefitAddItemDetailSurrogate.fromModel(value),
-    )
+  override fun serialize(encoder: Encoder, `value`: ExplanationOfBenefit.Item.Detail) {
+    surrogateSerializer.serialize(encoder, ExplanationOfBenefitItemDetailSurrogate.fromModel(value))
   }
 }
 
-public object ExplanationOfBenefitAddItemServicedSerializer :
-  KSerializer<ExplanationOfBenefit.AddItem.Serviced> {
+public object ExplanationOfBenefitItemDetailSubDetailSerializer :
+  KSerializer<ExplanationOfBenefit.Item.Detail.SubDetail> {
   internal val surrogateSerializer:
-    KSerializer<ExplanationOfBenefitAddItemServicedSurrogate> by lazy {
-    ExplanationOfBenefitAddItemServicedSurrogate.serializer()
+    KSerializer<ExplanationOfBenefitItemDetailSubDetailSurrogate> by lazy {
+    ExplanationOfBenefitItemDetailSubDetailSurrogate.serializer()
   }
 
   override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Serviced", surrogateSerializer.descriptor)
+    SerialDescriptor("SubDetail", surrogateSerializer.descriptor)
   }
 
-  override fun deserialize(decoder: Decoder): ExplanationOfBenefit.AddItem.Serviced =
+  override fun deserialize(decoder: Decoder): ExplanationOfBenefit.Item.Detail.SubDetail =
     surrogateSerializer.deserialize(decoder).toModel()
 
-  override fun serialize(encoder: Encoder, `value`: ExplanationOfBenefit.AddItem.Serviced) {
+  override fun serialize(encoder: Encoder, `value`: ExplanationOfBenefit.Item.Detail.SubDetail) {
     surrogateSerializer.serialize(
       encoder,
-      ExplanationOfBenefitAddItemServicedSurrogate.fromModel(value),
-    )
-  }
-}
-
-public object ExplanationOfBenefitAddItemLocationSerializer :
-  KSerializer<ExplanationOfBenefit.AddItem.Location> {
-  internal val surrogateSerializer:
-    KSerializer<ExplanationOfBenefitAddItemLocationSurrogate> by lazy {
-    ExplanationOfBenefitAddItemLocationSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Location", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): ExplanationOfBenefit.AddItem.Location =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: ExplanationOfBenefit.AddItem.Location) {
-    surrogateSerializer.serialize(
-      encoder,
-      ExplanationOfBenefitAddItemLocationSurrogate.fromModel(value),
+      ExplanationOfBenefitItemDetailSubDetailSurrogate.fromModel(value),
     )
   }
 }
@@ -719,6 +479,50 @@ public object ExplanationOfBenefitAddItemSerializer : KSerializer<ExplanationOfB
       }
     val flattenedJsonObject = FhirJsonTransformer.flatten(oldJsonObject, multiChoiceProperties)
     jsonEncoder.encodeJsonElement(flattenedJsonObject)
+  }
+}
+
+public object ExplanationOfBenefitAddItemDetailSerializer :
+  KSerializer<ExplanationOfBenefit.AddItem.Detail> {
+  internal val surrogateSerializer:
+    KSerializer<ExplanationOfBenefitAddItemDetailSurrogate> by lazy {
+    ExplanationOfBenefitAddItemDetailSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Detail", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): ExplanationOfBenefit.AddItem.Detail =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: ExplanationOfBenefit.AddItem.Detail) {
+    surrogateSerializer.serialize(
+      encoder,
+      ExplanationOfBenefitAddItemDetailSurrogate.fromModel(value),
+    )
+  }
+}
+
+public object ExplanationOfBenefitAddItemDetailSubDetailSerializer :
+  KSerializer<ExplanationOfBenefit.AddItem.Detail.SubDetail> {
+  internal val surrogateSerializer:
+    KSerializer<ExplanationOfBenefitAddItemDetailSubDetailSurrogate> by lazy {
+    ExplanationOfBenefitAddItemDetailSubDetailSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("SubDetail", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): ExplanationOfBenefit.AddItem.Detail.SubDetail =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: ExplanationOfBenefit.AddItem.Detail.SubDetail) {
+    surrogateSerializer.serialize(
+      encoder,
+      ExplanationOfBenefitAddItemDetailSubDetailSurrogate.fromModel(value),
+    )
   }
 }
 
@@ -777,54 +581,24 @@ public object ExplanationOfBenefitProcessNoteSerializer :
   }
 }
 
-public object ExplanationOfBenefitBenefitBalanceFinancialAllowedSerializer :
-  KSerializer<ExplanationOfBenefit.BenefitBalance.Financial.Allowed> {
+public object ExplanationOfBenefitBenefitBalanceSerializer :
+  KSerializer<ExplanationOfBenefit.BenefitBalance> {
   internal val surrogateSerializer:
-    KSerializer<ExplanationOfBenefitBenefitBalanceFinancialAllowedSurrogate> by lazy {
-    ExplanationOfBenefitBenefitBalanceFinancialAllowedSurrogate.serializer()
+    KSerializer<ExplanationOfBenefitBenefitBalanceSurrogate> by lazy {
+    ExplanationOfBenefitBenefitBalanceSurrogate.serializer()
   }
 
   override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Allowed", surrogateSerializer.descriptor)
+    SerialDescriptor("BenefitBalance", surrogateSerializer.descriptor)
   }
 
-  override fun deserialize(
-    decoder: Decoder
-  ): ExplanationOfBenefit.BenefitBalance.Financial.Allowed =
+  override fun deserialize(decoder: Decoder): ExplanationOfBenefit.BenefitBalance =
     surrogateSerializer.deserialize(decoder).toModel()
 
-  override fun serialize(
-    encoder: Encoder,
-    `value`: ExplanationOfBenefit.BenefitBalance.Financial.Allowed,
-  ) {
+  override fun serialize(encoder: Encoder, `value`: ExplanationOfBenefit.BenefitBalance) {
     surrogateSerializer.serialize(
       encoder,
-      ExplanationOfBenefitBenefitBalanceFinancialAllowedSurrogate.fromModel(value),
-    )
-  }
-}
-
-public object ExplanationOfBenefitBenefitBalanceFinancialUsedSerializer :
-  KSerializer<ExplanationOfBenefit.BenefitBalance.Financial.Used> {
-  internal val surrogateSerializer:
-    KSerializer<ExplanationOfBenefitBenefitBalanceFinancialUsedSurrogate> by lazy {
-    ExplanationOfBenefitBenefitBalanceFinancialUsedSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Used", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): ExplanationOfBenefit.BenefitBalance.Financial.Used =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(
-    encoder: Encoder,
-    `value`: ExplanationOfBenefit.BenefitBalance.Financial.Used,
-  ) {
-    surrogateSerializer.serialize(
-      encoder,
-      ExplanationOfBenefitBenefitBalanceFinancialUsedSurrogate.fromModel(value),
+      ExplanationOfBenefitBenefitBalanceSurrogate.fromModel(value),
     )
   }
 }
@@ -878,24 +652,250 @@ public object ExplanationOfBenefitBenefitBalanceFinancialSerializer :
   }
 }
 
-public object ExplanationOfBenefitBenefitBalanceSerializer :
-  KSerializer<ExplanationOfBenefit.BenefitBalance> {
+public object ExplanationOfBenefitSupportingInfoTimingSerializer :
+  KSerializer<ExplanationOfBenefit.SupportingInfo.Timing> {
   internal val surrogateSerializer:
-    KSerializer<ExplanationOfBenefitBenefitBalanceSurrogate> by lazy {
-    ExplanationOfBenefitBenefitBalanceSurrogate.serializer()
+    KSerializer<ExplanationOfBenefitSupportingInfoTimingSurrogate> by lazy {
+    ExplanationOfBenefitSupportingInfoTimingSurrogate.serializer()
   }
 
   override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("BenefitBalance", surrogateSerializer.descriptor)
+    SerialDescriptor("Timing", surrogateSerializer.descriptor)
   }
 
-  override fun deserialize(decoder: Decoder): ExplanationOfBenefit.BenefitBalance =
+  override fun deserialize(decoder: Decoder): ExplanationOfBenefit.SupportingInfo.Timing =
     surrogateSerializer.deserialize(decoder).toModel()
 
-  override fun serialize(encoder: Encoder, `value`: ExplanationOfBenefit.BenefitBalance) {
+  override fun serialize(encoder: Encoder, `value`: ExplanationOfBenefit.SupportingInfo.Timing) {
     surrogateSerializer.serialize(
       encoder,
-      ExplanationOfBenefitBenefitBalanceSurrogate.fromModel(value),
+      ExplanationOfBenefitSupportingInfoTimingSurrogate.fromModel(value),
+    )
+  }
+}
+
+public object ExplanationOfBenefitSupportingInfoValueSerializer :
+  KSerializer<ExplanationOfBenefit.SupportingInfo.Value> {
+  internal val surrogateSerializer:
+    KSerializer<ExplanationOfBenefitSupportingInfoValueSurrogate> by lazy {
+    ExplanationOfBenefitSupportingInfoValueSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Value", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): ExplanationOfBenefit.SupportingInfo.Value =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: ExplanationOfBenefit.SupportingInfo.Value) {
+    surrogateSerializer.serialize(
+      encoder,
+      ExplanationOfBenefitSupportingInfoValueSurrogate.fromModel(value),
+    )
+  }
+}
+
+public object ExplanationOfBenefitDiagnosisDiagnosisSerializer :
+  KSerializer<ExplanationOfBenefit.Diagnosis.Diagnosis> {
+  internal val surrogateSerializer:
+    KSerializer<ExplanationOfBenefitDiagnosisDiagnosisSurrogate> by lazy {
+    ExplanationOfBenefitDiagnosisDiagnosisSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Diagnosis", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): ExplanationOfBenefit.Diagnosis.Diagnosis =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: ExplanationOfBenefit.Diagnosis.Diagnosis) {
+    surrogateSerializer.serialize(
+      encoder,
+      ExplanationOfBenefitDiagnosisDiagnosisSurrogate.fromModel(value),
+    )
+  }
+}
+
+public object ExplanationOfBenefitProcedureProcedureSerializer :
+  KSerializer<ExplanationOfBenefit.Procedure.Procedure> {
+  internal val surrogateSerializer:
+    KSerializer<ExplanationOfBenefitProcedureProcedureSurrogate> by lazy {
+    ExplanationOfBenefitProcedureProcedureSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Procedure", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): ExplanationOfBenefit.Procedure.Procedure =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: ExplanationOfBenefit.Procedure.Procedure) {
+    surrogateSerializer.serialize(
+      encoder,
+      ExplanationOfBenefitProcedureProcedureSurrogate.fromModel(value),
+    )
+  }
+}
+
+public object ExplanationOfBenefitAccidentLocationSerializer :
+  KSerializer<ExplanationOfBenefit.Accident.Location> {
+  internal val surrogateSerializer:
+    KSerializer<ExplanationOfBenefitAccidentLocationSurrogate> by lazy {
+    ExplanationOfBenefitAccidentLocationSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Location", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): ExplanationOfBenefit.Accident.Location =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: ExplanationOfBenefit.Accident.Location) {
+    surrogateSerializer.serialize(
+      encoder,
+      ExplanationOfBenefitAccidentLocationSurrogate.fromModel(value),
+    )
+  }
+}
+
+public object ExplanationOfBenefitItemServicedSerializer :
+  KSerializer<ExplanationOfBenefit.Item.Serviced> {
+  internal val surrogateSerializer: KSerializer<ExplanationOfBenefitItemServicedSurrogate> by lazy {
+    ExplanationOfBenefitItemServicedSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Serviced", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): ExplanationOfBenefit.Item.Serviced =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: ExplanationOfBenefit.Item.Serviced) {
+    surrogateSerializer.serialize(
+      encoder,
+      ExplanationOfBenefitItemServicedSurrogate.fromModel(value),
+    )
+  }
+}
+
+public object ExplanationOfBenefitItemLocationSerializer :
+  KSerializer<ExplanationOfBenefit.Item.Location> {
+  internal val surrogateSerializer: KSerializer<ExplanationOfBenefitItemLocationSurrogate> by lazy {
+    ExplanationOfBenefitItemLocationSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Location", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): ExplanationOfBenefit.Item.Location =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: ExplanationOfBenefit.Item.Location) {
+    surrogateSerializer.serialize(
+      encoder,
+      ExplanationOfBenefitItemLocationSurrogate.fromModel(value),
+    )
+  }
+}
+
+public object ExplanationOfBenefitAddItemServicedSerializer :
+  KSerializer<ExplanationOfBenefit.AddItem.Serviced> {
+  internal val surrogateSerializer:
+    KSerializer<ExplanationOfBenefitAddItemServicedSurrogate> by lazy {
+    ExplanationOfBenefitAddItemServicedSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Serviced", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): ExplanationOfBenefit.AddItem.Serviced =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: ExplanationOfBenefit.AddItem.Serviced) {
+    surrogateSerializer.serialize(
+      encoder,
+      ExplanationOfBenefitAddItemServicedSurrogate.fromModel(value),
+    )
+  }
+}
+
+public object ExplanationOfBenefitAddItemLocationSerializer :
+  KSerializer<ExplanationOfBenefit.AddItem.Location> {
+  internal val surrogateSerializer:
+    KSerializer<ExplanationOfBenefitAddItemLocationSurrogate> by lazy {
+    ExplanationOfBenefitAddItemLocationSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Location", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): ExplanationOfBenefit.AddItem.Location =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: ExplanationOfBenefit.AddItem.Location) {
+    surrogateSerializer.serialize(
+      encoder,
+      ExplanationOfBenefitAddItemLocationSurrogate.fromModel(value),
+    )
+  }
+}
+
+public object ExplanationOfBenefitBenefitBalanceFinancialAllowedSerializer :
+  KSerializer<ExplanationOfBenefit.BenefitBalance.Financial.Allowed> {
+  internal val surrogateSerializer:
+    KSerializer<ExplanationOfBenefitBenefitBalanceFinancialAllowedSurrogate> by lazy {
+    ExplanationOfBenefitBenefitBalanceFinancialAllowedSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Allowed", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(
+    decoder: Decoder
+  ): ExplanationOfBenefit.BenefitBalance.Financial.Allowed =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(
+    encoder: Encoder,
+    `value`: ExplanationOfBenefit.BenefitBalance.Financial.Allowed,
+  ) {
+    surrogateSerializer.serialize(
+      encoder,
+      ExplanationOfBenefitBenefitBalanceFinancialAllowedSurrogate.fromModel(value),
+    )
+  }
+}
+
+public object ExplanationOfBenefitBenefitBalanceFinancialUsedSerializer :
+  KSerializer<ExplanationOfBenefit.BenefitBalance.Financial.Used> {
+  internal val surrogateSerializer:
+    KSerializer<ExplanationOfBenefitBenefitBalanceFinancialUsedSurrogate> by lazy {
+    ExplanationOfBenefitBenefitBalanceFinancialUsedSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Used", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): ExplanationOfBenefit.BenefitBalance.Financial.Used =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(
+    encoder: Encoder,
+    `value`: ExplanationOfBenefit.BenefitBalance.Financial.Used,
+  ) {
+    surrogateSerializer.serialize(
+      encoder,
+      ExplanationOfBenefitBenefitBalanceFinancialUsedSurrogate.fromModel(value),
     )
   }
 }

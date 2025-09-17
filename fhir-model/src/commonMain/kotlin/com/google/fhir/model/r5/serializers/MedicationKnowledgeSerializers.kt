@@ -100,23 +100,6 @@ public object MedicationKnowledgeMonographSerializer : KSerializer<MedicationKno
   }
 }
 
-public object MedicationKnowledgeCostCostSerializer : KSerializer<MedicationKnowledge.Cost.Cost> {
-  internal val surrogateSerializer: KSerializer<MedicationKnowledgeCostCostSurrogate> by lazy {
-    MedicationKnowledgeCostCostSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Cost", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): MedicationKnowledge.Cost.Cost =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: MedicationKnowledge.Cost.Cost) {
-    surrogateSerializer.serialize(encoder, MedicationKnowledgeCostCostSurrogate.fromModel(value))
-  }
-}
-
 public object MedicationKnowledgeCostSerializer : KSerializer<MedicationKnowledge.Cost> {
   internal val surrogateSerializer: KSerializer<MedicationKnowledgeCostSurrogate> by lazy {
     MedicationKnowledgeCostSurrogate.serializer()
@@ -186,6 +169,55 @@ public object MedicationKnowledgeMonitoringProgramSerializer :
   }
 }
 
+public object MedicationKnowledgeIndicationGuidelineSerializer :
+  KSerializer<MedicationKnowledge.IndicationGuideline> {
+  internal val surrogateSerializer:
+    KSerializer<MedicationKnowledgeIndicationGuidelineSurrogate> by lazy {
+    MedicationKnowledgeIndicationGuidelineSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("IndicationGuideline", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): MedicationKnowledge.IndicationGuideline =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: MedicationKnowledge.IndicationGuideline) {
+    surrogateSerializer.serialize(
+      encoder,
+      MedicationKnowledgeIndicationGuidelineSurrogate.fromModel(value),
+    )
+  }
+}
+
+public object MedicationKnowledgeIndicationGuidelineDosingGuidelineSerializer :
+  KSerializer<MedicationKnowledge.IndicationGuideline.DosingGuideline> {
+  internal val surrogateSerializer:
+    KSerializer<MedicationKnowledgeIndicationGuidelineDosingGuidelineSurrogate> by lazy {
+    MedicationKnowledgeIndicationGuidelineDosingGuidelineSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("DosingGuideline", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(
+    decoder: Decoder
+  ): MedicationKnowledge.IndicationGuideline.DosingGuideline =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(
+    encoder: Encoder,
+    `value`: MedicationKnowledge.IndicationGuideline.DosingGuideline,
+  ) {
+    surrogateSerializer.serialize(
+      encoder,
+      MedicationKnowledgeIndicationGuidelineDosingGuidelineSurrogate.fromModel(value),
+    )
+  }
+}
+
 public object MedicationKnowledgeIndicationGuidelineDosingGuidelineDosageSerializer :
   KSerializer<MedicationKnowledge.IndicationGuideline.DosingGuideline.Dosage> {
   internal val surrogateSerializer:
@@ -209,37 +241,6 @@ public object MedicationKnowledgeIndicationGuidelineDosingGuidelineDosageSeriali
     surrogateSerializer.serialize(
       encoder,
       MedicationKnowledgeIndicationGuidelineDosingGuidelineDosageSurrogate.fromModel(value),
-    )
-  }
-}
-
-public object MedicationKnowledgeIndicationGuidelineDosingGuidelinePatientCharacteristicValueSerializer :
-  KSerializer<MedicationKnowledge.IndicationGuideline.DosingGuideline.PatientCharacteristic.Value> {
-  internal val surrogateSerializer:
-    KSerializer<
-      MedicationKnowledgeIndicationGuidelineDosingGuidelinePatientCharacteristicValueSurrogate
-    > by lazy {
-    MedicationKnowledgeIndicationGuidelineDosingGuidelinePatientCharacteristicValueSurrogate
-      .serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Value", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(
-    decoder: Decoder
-  ): MedicationKnowledge.IndicationGuideline.DosingGuideline.PatientCharacteristic.Value =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(
-    encoder: Encoder,
-    `value`: MedicationKnowledge.IndicationGuideline.DosingGuideline.PatientCharacteristic.Value,
-  ) {
-    surrogateSerializer.serialize(
-      encoder,
-      MedicationKnowledgeIndicationGuidelineDosingGuidelinePatientCharacteristicValueSurrogate
-        .fromModel(value),
     )
   }
 }
@@ -300,80 +301,6 @@ public object MedicationKnowledgeIndicationGuidelineDosingGuidelinePatientCharac
       }
     val flattenedJsonObject = FhirJsonTransformer.flatten(oldJsonObject, multiChoiceProperties)
     jsonEncoder.encodeJsonElement(flattenedJsonObject)
-  }
-}
-
-public object MedicationKnowledgeIndicationGuidelineDosingGuidelineSerializer :
-  KSerializer<MedicationKnowledge.IndicationGuideline.DosingGuideline> {
-  internal val surrogateSerializer:
-    KSerializer<MedicationKnowledgeIndicationGuidelineDosingGuidelineSurrogate> by lazy {
-    MedicationKnowledgeIndicationGuidelineDosingGuidelineSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("DosingGuideline", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(
-    decoder: Decoder
-  ): MedicationKnowledge.IndicationGuideline.DosingGuideline =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(
-    encoder: Encoder,
-    `value`: MedicationKnowledge.IndicationGuideline.DosingGuideline,
-  ) {
-    surrogateSerializer.serialize(
-      encoder,
-      MedicationKnowledgeIndicationGuidelineDosingGuidelineSurrogate.fromModel(value),
-    )
-  }
-}
-
-public object MedicationKnowledgeIndicationGuidelineSerializer :
-  KSerializer<MedicationKnowledge.IndicationGuideline> {
-  internal val surrogateSerializer:
-    KSerializer<MedicationKnowledgeIndicationGuidelineSurrogate> by lazy {
-    MedicationKnowledgeIndicationGuidelineSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("IndicationGuideline", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): MedicationKnowledge.IndicationGuideline =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: MedicationKnowledge.IndicationGuideline) {
-    surrogateSerializer.serialize(
-      encoder,
-      MedicationKnowledgeIndicationGuidelineSurrogate.fromModel(value),
-    )
-  }
-}
-
-public object MedicationKnowledgeMedicineClassificationSourceSerializer :
-  KSerializer<MedicationKnowledge.MedicineClassification.Source> {
-  internal val surrogateSerializer:
-    KSerializer<MedicationKnowledgeMedicineClassificationSourceSurrogate> by lazy {
-    MedicationKnowledgeMedicineClassificationSourceSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Source", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): MedicationKnowledge.MedicineClassification.Source =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(
-    encoder: Encoder,
-    `value`: MedicationKnowledge.MedicineClassification.Source,
-  ) {
-    surrogateSerializer.serialize(
-      encoder,
-      MedicationKnowledgeMedicineClassificationSourceSurrogate.fromModel(value),
-    )
   }
 }
 
@@ -443,29 +370,24 @@ public object MedicationKnowledgePackagingSerializer : KSerializer<MedicationKno
   }
 }
 
-public object MedicationKnowledgeStorageGuidelineEnvironmentalSettingValueSerializer :
-  KSerializer<MedicationKnowledge.StorageGuideline.EnvironmentalSetting.Value> {
+public object MedicationKnowledgeStorageGuidelineSerializer :
+  KSerializer<MedicationKnowledge.StorageGuideline> {
   internal val surrogateSerializer:
-    KSerializer<MedicationKnowledgeStorageGuidelineEnvironmentalSettingValueSurrogate> by lazy {
-    MedicationKnowledgeStorageGuidelineEnvironmentalSettingValueSurrogate.serializer()
+    KSerializer<MedicationKnowledgeStorageGuidelineSurrogate> by lazy {
+    MedicationKnowledgeStorageGuidelineSurrogate.serializer()
   }
 
   override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Value", surrogateSerializer.descriptor)
+    SerialDescriptor("StorageGuideline", surrogateSerializer.descriptor)
   }
 
-  override fun deserialize(
-    decoder: Decoder
-  ): MedicationKnowledge.StorageGuideline.EnvironmentalSetting.Value =
+  override fun deserialize(decoder: Decoder): MedicationKnowledge.StorageGuideline =
     surrogateSerializer.deserialize(decoder).toModel()
 
-  override fun serialize(
-    encoder: Encoder,
-    `value`: MedicationKnowledge.StorageGuideline.EnvironmentalSetting.Value,
-  ) {
+  override fun serialize(encoder: Encoder, `value`: MedicationKnowledge.StorageGuideline) {
     surrogateSerializer.serialize(
       encoder,
-      MedicationKnowledgeStorageGuidelineEnvironmentalSettingValueSurrogate.fromModel(value),
+      MedicationKnowledgeStorageGuidelineSurrogate.fromModel(value),
     )
   }
 }
@@ -525,25 +447,21 @@ public object MedicationKnowledgeStorageGuidelineEnvironmentalSettingSerializer 
   }
 }
 
-public object MedicationKnowledgeStorageGuidelineSerializer :
-  KSerializer<MedicationKnowledge.StorageGuideline> {
-  internal val surrogateSerializer:
-    KSerializer<MedicationKnowledgeStorageGuidelineSurrogate> by lazy {
-    MedicationKnowledgeStorageGuidelineSurrogate.serializer()
+public object MedicationKnowledgeRegulatorySerializer :
+  KSerializer<MedicationKnowledge.Regulatory> {
+  internal val surrogateSerializer: KSerializer<MedicationKnowledgeRegulatorySurrogate> by lazy {
+    MedicationKnowledgeRegulatorySurrogate.serializer()
   }
 
   override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("StorageGuideline", surrogateSerializer.descriptor)
+    SerialDescriptor("Regulatory", surrogateSerializer.descriptor)
   }
 
-  override fun deserialize(decoder: Decoder): MedicationKnowledge.StorageGuideline =
+  override fun deserialize(decoder: Decoder): MedicationKnowledge.Regulatory =
     surrogateSerializer.deserialize(decoder).toModel()
 
-  override fun serialize(encoder: Encoder, `value`: MedicationKnowledge.StorageGuideline) {
-    surrogateSerializer.serialize(
-      encoder,
-      MedicationKnowledgeStorageGuidelineSurrogate.fromModel(value),
-    )
+  override fun serialize(encoder: Encoder, `value`: MedicationKnowledge.Regulatory) {
+    surrogateSerializer.serialize(encoder, MedicationKnowledgeRegulatorySurrogate.fromModel(value))
   }
 }
 
@@ -591,45 +509,23 @@ public object MedicationKnowledgeRegulatoryMaxDispenseSerializer :
   }
 }
 
-public object MedicationKnowledgeRegulatorySerializer :
-  KSerializer<MedicationKnowledge.Regulatory> {
-  internal val surrogateSerializer: KSerializer<MedicationKnowledgeRegulatorySurrogate> by lazy {
-    MedicationKnowledgeRegulatorySurrogate.serializer()
+public object MedicationKnowledgeDefinitionalSerializer :
+  KSerializer<MedicationKnowledge.Definitional> {
+  internal val surrogateSerializer: KSerializer<MedicationKnowledgeDefinitionalSurrogate> by lazy {
+    MedicationKnowledgeDefinitionalSurrogate.serializer()
   }
 
   override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Regulatory", surrogateSerializer.descriptor)
+    SerialDescriptor("Definitional", surrogateSerializer.descriptor)
   }
 
-  override fun deserialize(decoder: Decoder): MedicationKnowledge.Regulatory =
+  override fun deserialize(decoder: Decoder): MedicationKnowledge.Definitional =
     surrogateSerializer.deserialize(decoder).toModel()
 
-  override fun serialize(encoder: Encoder, `value`: MedicationKnowledge.Regulatory) {
-    surrogateSerializer.serialize(encoder, MedicationKnowledgeRegulatorySurrogate.fromModel(value))
-  }
-}
-
-public object MedicationKnowledgeDefinitionalIngredientStrengthSerializer :
-  KSerializer<MedicationKnowledge.Definitional.Ingredient.Strength> {
-  internal val surrogateSerializer:
-    KSerializer<MedicationKnowledgeDefinitionalIngredientStrengthSurrogate> by lazy {
-    MedicationKnowledgeDefinitionalIngredientStrengthSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Strength", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): MedicationKnowledge.Definitional.Ingredient.Strength =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(
-    encoder: Encoder,
-    `value`: MedicationKnowledge.Definitional.Ingredient.Strength,
-  ) {
+  override fun serialize(encoder: Encoder, `value`: MedicationKnowledge.Definitional) {
     surrogateSerializer.serialize(
       encoder,
-      MedicationKnowledgeDefinitionalIngredientStrengthSurrogate.fromModel(value),
+      MedicationKnowledgeDefinitionalSurrogate.fromModel(value),
     )
   }
 }
@@ -680,33 +576,6 @@ public object MedicationKnowledgeDefinitionalIngredientSerializer :
       }
     val flattenedJsonObject = FhirJsonTransformer.flatten(oldJsonObject, multiChoiceProperties)
     jsonEncoder.encodeJsonElement(flattenedJsonObject)
-  }
-}
-
-public object MedicationKnowledgeDefinitionalDrugCharacteristicValueSerializer :
-  KSerializer<MedicationKnowledge.Definitional.DrugCharacteristic.Value> {
-  internal val surrogateSerializer:
-    KSerializer<MedicationKnowledgeDefinitionalDrugCharacteristicValueSurrogate> by lazy {
-    MedicationKnowledgeDefinitionalDrugCharacteristicValueSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Value", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(
-    decoder: Decoder
-  ): MedicationKnowledge.Definitional.DrugCharacteristic.Value =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(
-    encoder: Encoder,
-    `value`: MedicationKnowledge.Definitional.DrugCharacteristic.Value,
-  ) {
-    surrogateSerializer.serialize(
-      encoder,
-      MedicationKnowledgeDefinitionalDrugCharacteristicValueSurrogate.fromModel(value),
-    )
   }
 }
 
@@ -762,23 +631,154 @@ public object MedicationKnowledgeDefinitionalDrugCharacteristicSerializer :
   }
 }
 
-public object MedicationKnowledgeDefinitionalSerializer :
-  KSerializer<MedicationKnowledge.Definitional> {
-  internal val surrogateSerializer: KSerializer<MedicationKnowledgeDefinitionalSurrogate> by lazy {
-    MedicationKnowledgeDefinitionalSurrogate.serializer()
+public object MedicationKnowledgeCostCostSerializer : KSerializer<MedicationKnowledge.Cost.Cost> {
+  internal val surrogateSerializer: KSerializer<MedicationKnowledgeCostCostSurrogate> by lazy {
+    MedicationKnowledgeCostCostSurrogate.serializer()
   }
 
   override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Definitional", surrogateSerializer.descriptor)
+    SerialDescriptor("Cost", surrogateSerializer.descriptor)
   }
 
-  override fun deserialize(decoder: Decoder): MedicationKnowledge.Definitional =
+  override fun deserialize(decoder: Decoder): MedicationKnowledge.Cost.Cost =
     surrogateSerializer.deserialize(decoder).toModel()
 
-  override fun serialize(encoder: Encoder, `value`: MedicationKnowledge.Definitional) {
+  override fun serialize(encoder: Encoder, `value`: MedicationKnowledge.Cost.Cost) {
+    surrogateSerializer.serialize(encoder, MedicationKnowledgeCostCostSurrogate.fromModel(value))
+  }
+}
+
+public object MedicationKnowledgeIndicationGuidelineDosingGuidelinePatientCharacteristicValueSerializer :
+  KSerializer<MedicationKnowledge.IndicationGuideline.DosingGuideline.PatientCharacteristic.Value> {
+  internal val surrogateSerializer:
+    KSerializer<
+      MedicationKnowledgeIndicationGuidelineDosingGuidelinePatientCharacteristicValueSurrogate
+    > by lazy {
+    MedicationKnowledgeIndicationGuidelineDosingGuidelinePatientCharacteristicValueSurrogate
+      .serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Value", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(
+    decoder: Decoder
+  ): MedicationKnowledge.IndicationGuideline.DosingGuideline.PatientCharacteristic.Value =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(
+    encoder: Encoder,
+    `value`: MedicationKnowledge.IndicationGuideline.DosingGuideline.PatientCharacteristic.Value,
+  ) {
     surrogateSerializer.serialize(
       encoder,
-      MedicationKnowledgeDefinitionalSurrogate.fromModel(value),
+      MedicationKnowledgeIndicationGuidelineDosingGuidelinePatientCharacteristicValueSurrogate
+        .fromModel(value),
+    )
+  }
+}
+
+public object MedicationKnowledgeMedicineClassificationSourceSerializer :
+  KSerializer<MedicationKnowledge.MedicineClassification.Source> {
+  internal val surrogateSerializer:
+    KSerializer<MedicationKnowledgeMedicineClassificationSourceSurrogate> by lazy {
+    MedicationKnowledgeMedicineClassificationSourceSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Source", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): MedicationKnowledge.MedicineClassification.Source =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(
+    encoder: Encoder,
+    `value`: MedicationKnowledge.MedicineClassification.Source,
+  ) {
+    surrogateSerializer.serialize(
+      encoder,
+      MedicationKnowledgeMedicineClassificationSourceSurrogate.fromModel(value),
+    )
+  }
+}
+
+public object MedicationKnowledgeStorageGuidelineEnvironmentalSettingValueSerializer :
+  KSerializer<MedicationKnowledge.StorageGuideline.EnvironmentalSetting.Value> {
+  internal val surrogateSerializer:
+    KSerializer<MedicationKnowledgeStorageGuidelineEnvironmentalSettingValueSurrogate> by lazy {
+    MedicationKnowledgeStorageGuidelineEnvironmentalSettingValueSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Value", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(
+    decoder: Decoder
+  ): MedicationKnowledge.StorageGuideline.EnvironmentalSetting.Value =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(
+    encoder: Encoder,
+    `value`: MedicationKnowledge.StorageGuideline.EnvironmentalSetting.Value,
+  ) {
+    surrogateSerializer.serialize(
+      encoder,
+      MedicationKnowledgeStorageGuidelineEnvironmentalSettingValueSurrogate.fromModel(value),
+    )
+  }
+}
+
+public object MedicationKnowledgeDefinitionalIngredientStrengthSerializer :
+  KSerializer<MedicationKnowledge.Definitional.Ingredient.Strength> {
+  internal val surrogateSerializer:
+    KSerializer<MedicationKnowledgeDefinitionalIngredientStrengthSurrogate> by lazy {
+    MedicationKnowledgeDefinitionalIngredientStrengthSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Strength", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): MedicationKnowledge.Definitional.Ingredient.Strength =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(
+    encoder: Encoder,
+    `value`: MedicationKnowledge.Definitional.Ingredient.Strength,
+  ) {
+    surrogateSerializer.serialize(
+      encoder,
+      MedicationKnowledgeDefinitionalIngredientStrengthSurrogate.fromModel(value),
+    )
+  }
+}
+
+public object MedicationKnowledgeDefinitionalDrugCharacteristicValueSerializer :
+  KSerializer<MedicationKnowledge.Definitional.DrugCharacteristic.Value> {
+  internal val surrogateSerializer:
+    KSerializer<MedicationKnowledgeDefinitionalDrugCharacteristicValueSurrogate> by lazy {
+    MedicationKnowledgeDefinitionalDrugCharacteristicValueSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Value", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(
+    decoder: Decoder
+  ): MedicationKnowledge.Definitional.DrugCharacteristic.Value =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(
+    encoder: Encoder,
+    `value`: MedicationKnowledge.Definitional.DrugCharacteristic.Value,
+  ) {
+    surrogateSerializer.serialize(
+      encoder,
+      MedicationKnowledgeDefinitionalDrugCharacteristicValueSurrogate.fromModel(value),
     )
   }
 }

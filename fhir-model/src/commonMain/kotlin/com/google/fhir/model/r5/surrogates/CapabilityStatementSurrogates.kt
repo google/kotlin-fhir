@@ -157,6 +157,96 @@ internal data class CapabilityStatementImplementationSurrogate(
 }
 
 @Serializable
+internal data class CapabilityStatementRestSurrogate(
+  public var id: KotlinString? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var mode: KotlinString? = null,
+  public var _mode: Element? = null,
+  public var documentation: KotlinString? = null,
+  public var _documentation: Element? = null,
+  public var security: CapabilityStatement.Rest.Security? = null,
+  public var resource: MutableList<CapabilityStatement.Rest.Resource>? = null,
+  public var interaction: MutableList<CapabilityStatement.Rest.Interaction>? = null,
+  public var searchParam: MutableList<CapabilityStatement.Rest.Resource.SearchParam>? = null,
+  public var operation: MutableList<CapabilityStatement.Rest.Resource.Operation>? = null,
+  public var compartment: MutableList<KotlinString?>? = null,
+  public var _compartment: MutableList<Element?>? = null,
+) {
+  public fun toModel(): CapabilityStatement.Rest =
+    CapabilityStatement.Rest(
+      id = this@CapabilityStatementRestSurrogate.id,
+      extension = this@CapabilityStatementRestSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@CapabilityStatementRestSurrogate.modifierExtension ?: mutableListOf(),
+      mode =
+        Enumeration.of(
+          com.google.fhir.model.r5.CapabilityStatement.RestfulCapabilityMode.fromCode(
+            this@CapabilityStatementRestSurrogate.mode!!
+          ),
+          this@CapabilityStatementRestSurrogate._mode,
+        ),
+      documentation =
+        Markdown.of(
+          this@CapabilityStatementRestSurrogate.documentation,
+          this@CapabilityStatementRestSurrogate._documentation,
+        ),
+      security = this@CapabilityStatementRestSurrogate.security,
+      resource = this@CapabilityStatementRestSurrogate.resource ?: mutableListOf(),
+      interaction = this@CapabilityStatementRestSurrogate.interaction ?: mutableListOf(),
+      searchParam = this@CapabilityStatementRestSurrogate.searchParam ?: mutableListOf(),
+      operation = this@CapabilityStatementRestSurrogate.operation ?: mutableListOf(),
+      compartment =
+        if (
+          this@CapabilityStatementRestSurrogate.compartment == null &&
+            this@CapabilityStatementRestSurrogate._compartment == null
+        ) {
+          mutableListOf()
+        } else {
+          (this@CapabilityStatementRestSurrogate.compartment
+              ?: List(this@CapabilityStatementRestSurrogate._compartment!!.size) { null })
+            .zip(
+              this@CapabilityStatementRestSurrogate._compartment
+                ?: List(this@CapabilityStatementRestSurrogate.compartment!!.size) { null }
+            )
+            .map { (value, element) -> Canonical.of(value, element)!! }
+            .toMutableList()
+        },
+    )
+
+  public companion object {
+    public fun fromModel(model: CapabilityStatement.Rest): CapabilityStatementRestSurrogate =
+      with(model) {
+        CapabilityStatementRestSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          mode = this@with.mode.value?.getCode(),
+          _mode = this@with.mode.toElement(),
+          documentation = this@with.documentation?.value,
+          _documentation = this@with.documentation?.toElement(),
+          security = this@with.security,
+          resource = this@with.resource.takeUnless { it.all { it == null } },
+          interaction = this@with.interaction.takeUnless { it.all { it == null } },
+          searchParam = this@with.searchParam.takeUnless { it.all { it == null } },
+          operation = this@with.operation.takeUnless { it.all { it == null } },
+          compartment =
+            this@with.compartment
+              .map { it.value }
+              .toMutableList()
+              .takeUnless { it.all { it == null } },
+          _compartment =
+            this@with.compartment
+              .map { it.toElement() }
+              .takeUnless { it.all { it == null } }
+              ?.map { it ?: Element() }
+              ?.toMutableList(),
+        )
+      }
+  }
+}
+
+@Serializable
 internal data class CapabilityStatementRestSecuritySurrogate(
   public var id: KotlinString? = null,
   public var extension: MutableList<Extension>? = null,
@@ -200,180 +290,6 @@ internal data class CapabilityStatementRestSecuritySurrogate(
           service = this@with.service.takeUnless { it.all { it == null } },
           description = this@with.description?.value,
           _description = this@with.description?.toElement(),
-        )
-      }
-  }
-}
-
-@Serializable
-internal data class CapabilityStatementRestResourceInteractionSurrogate(
-  public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var code: KotlinString? = null,
-  public var _code: Element? = null,
-  public var documentation: KotlinString? = null,
-  public var _documentation: Element? = null,
-) {
-  public fun toModel(): CapabilityStatement.Rest.Resource.Interaction =
-    CapabilityStatement.Rest.Resource.Interaction(
-      id = this@CapabilityStatementRestResourceInteractionSurrogate.id,
-      extension =
-        this@CapabilityStatementRestResourceInteractionSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@CapabilityStatementRestResourceInteractionSurrogate.modifierExtension
-          ?: mutableListOf(),
-      code =
-        Enumeration.of(
-          com.google.fhir.model.r5.CapabilityStatement.TypeRestfulInteraction.fromCode(
-            this@CapabilityStatementRestResourceInteractionSurrogate.code!!
-          ),
-          this@CapabilityStatementRestResourceInteractionSurrogate._code,
-        ),
-      documentation =
-        Markdown.of(
-          this@CapabilityStatementRestResourceInteractionSurrogate.documentation,
-          this@CapabilityStatementRestResourceInteractionSurrogate._documentation,
-        ),
-    )
-
-  public companion object {
-    public fun fromModel(
-      model: CapabilityStatement.Rest.Resource.Interaction
-    ): CapabilityStatementRestResourceInteractionSurrogate =
-      with(model) {
-        CapabilityStatementRestResourceInteractionSurrogate(
-          id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          code = this@with.code.value?.getCode(),
-          _code = this@with.code.toElement(),
-          documentation = this@with.documentation?.value,
-          _documentation = this@with.documentation?.toElement(),
-        )
-      }
-  }
-}
-
-@Serializable
-internal data class CapabilityStatementRestResourceSearchParamSurrogate(
-  public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var name: KotlinString? = null,
-  public var _name: Element? = null,
-  public var definition: KotlinString? = null,
-  public var _definition: Element? = null,
-  public var type: KotlinString? = null,
-  public var _type: Element? = null,
-  public var documentation: KotlinString? = null,
-  public var _documentation: Element? = null,
-) {
-  public fun toModel(): CapabilityStatement.Rest.Resource.SearchParam =
-    CapabilityStatement.Rest.Resource.SearchParam(
-      id = this@CapabilityStatementRestResourceSearchParamSurrogate.id,
-      extension =
-        this@CapabilityStatementRestResourceSearchParamSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@CapabilityStatementRestResourceSearchParamSurrogate.modifierExtension
-          ?: mutableListOf(),
-      name =
-        R5String.of(
-          this@CapabilityStatementRestResourceSearchParamSurrogate.name,
-          this@CapabilityStatementRestResourceSearchParamSurrogate._name,
-        )!!,
-      definition =
-        Canonical.of(
-          this@CapabilityStatementRestResourceSearchParamSurrogate.definition,
-          this@CapabilityStatementRestResourceSearchParamSurrogate._definition,
-        ),
-      type =
-        Enumeration.of(
-          com.google.fhir.model.r5.terminologies.SearchParamType.fromCode(
-            this@CapabilityStatementRestResourceSearchParamSurrogate.type!!
-          ),
-          this@CapabilityStatementRestResourceSearchParamSurrogate._type,
-        ),
-      documentation =
-        Markdown.of(
-          this@CapabilityStatementRestResourceSearchParamSurrogate.documentation,
-          this@CapabilityStatementRestResourceSearchParamSurrogate._documentation,
-        ),
-    )
-
-  public companion object {
-    public fun fromModel(
-      model: CapabilityStatement.Rest.Resource.SearchParam
-    ): CapabilityStatementRestResourceSearchParamSurrogate =
-      with(model) {
-        CapabilityStatementRestResourceSearchParamSurrogate(
-          id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          name = this@with.name.value,
-          _name = this@with.name.toElement(),
-          definition = this@with.definition?.value,
-          _definition = this@with.definition?.toElement(),
-          type = this@with.type.value?.getCode(),
-          _type = this@with.type.toElement(),
-          documentation = this@with.documentation?.value,
-          _documentation = this@with.documentation?.toElement(),
-        )
-      }
-  }
-}
-
-@Serializable
-internal data class CapabilityStatementRestResourceOperationSurrogate(
-  public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var name: KotlinString? = null,
-  public var _name: Element? = null,
-  public var definition: KotlinString? = null,
-  public var _definition: Element? = null,
-  public var documentation: KotlinString? = null,
-  public var _documentation: Element? = null,
-) {
-  public fun toModel(): CapabilityStatement.Rest.Resource.Operation =
-    CapabilityStatement.Rest.Resource.Operation(
-      id = this@CapabilityStatementRestResourceOperationSurrogate.id,
-      extension =
-        this@CapabilityStatementRestResourceOperationSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@CapabilityStatementRestResourceOperationSurrogate.modifierExtension ?: mutableListOf(),
-      name =
-        R5String.of(
-          this@CapabilityStatementRestResourceOperationSurrogate.name,
-          this@CapabilityStatementRestResourceOperationSurrogate._name,
-        )!!,
-      definition =
-        Canonical.of(
-          this@CapabilityStatementRestResourceOperationSurrogate.definition,
-          this@CapabilityStatementRestResourceOperationSurrogate._definition,
-        )!!,
-      documentation =
-        Markdown.of(
-          this@CapabilityStatementRestResourceOperationSurrogate.documentation,
-          this@CapabilityStatementRestResourceOperationSurrogate._documentation,
-        ),
-    )
-
-  public companion object {
-    public fun fromModel(
-      model: CapabilityStatement.Rest.Resource.Operation
-    ): CapabilityStatementRestResourceOperationSurrogate =
-      with(model) {
-        CapabilityStatementRestResourceOperationSurrogate(
-          id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          name = this@with.name.value,
-          _name = this@with.name.toElement(),
-          definition = this@with.definition.value,
-          _definition = this@with.definition.toElement(),
-          documentation = this@with.documentation?.value,
-          _documentation = this@with.documentation?.toElement(),
         )
       }
   }
@@ -661,6 +577,180 @@ internal data class CapabilityStatementRestResourceSurrogate(
 }
 
 @Serializable
+internal data class CapabilityStatementRestResourceInteractionSurrogate(
+  public var id: KotlinString? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var code: KotlinString? = null,
+  public var _code: Element? = null,
+  public var documentation: KotlinString? = null,
+  public var _documentation: Element? = null,
+) {
+  public fun toModel(): CapabilityStatement.Rest.Resource.Interaction =
+    CapabilityStatement.Rest.Resource.Interaction(
+      id = this@CapabilityStatementRestResourceInteractionSurrogate.id,
+      extension =
+        this@CapabilityStatementRestResourceInteractionSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@CapabilityStatementRestResourceInteractionSurrogate.modifierExtension
+          ?: mutableListOf(),
+      code =
+        Enumeration.of(
+          com.google.fhir.model.r5.CapabilityStatement.TypeRestfulInteraction.fromCode(
+            this@CapabilityStatementRestResourceInteractionSurrogate.code!!
+          ),
+          this@CapabilityStatementRestResourceInteractionSurrogate._code,
+        ),
+      documentation =
+        Markdown.of(
+          this@CapabilityStatementRestResourceInteractionSurrogate.documentation,
+          this@CapabilityStatementRestResourceInteractionSurrogate._documentation,
+        ),
+    )
+
+  public companion object {
+    public fun fromModel(
+      model: CapabilityStatement.Rest.Resource.Interaction
+    ): CapabilityStatementRestResourceInteractionSurrogate =
+      with(model) {
+        CapabilityStatementRestResourceInteractionSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          code = this@with.code.value?.getCode(),
+          _code = this@with.code.toElement(),
+          documentation = this@with.documentation?.value,
+          _documentation = this@with.documentation?.toElement(),
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class CapabilityStatementRestResourceSearchParamSurrogate(
+  public var id: KotlinString? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var name: KotlinString? = null,
+  public var _name: Element? = null,
+  public var definition: KotlinString? = null,
+  public var _definition: Element? = null,
+  public var type: KotlinString? = null,
+  public var _type: Element? = null,
+  public var documentation: KotlinString? = null,
+  public var _documentation: Element? = null,
+) {
+  public fun toModel(): CapabilityStatement.Rest.Resource.SearchParam =
+    CapabilityStatement.Rest.Resource.SearchParam(
+      id = this@CapabilityStatementRestResourceSearchParamSurrogate.id,
+      extension =
+        this@CapabilityStatementRestResourceSearchParamSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@CapabilityStatementRestResourceSearchParamSurrogate.modifierExtension
+          ?: mutableListOf(),
+      name =
+        R5String.of(
+          this@CapabilityStatementRestResourceSearchParamSurrogate.name,
+          this@CapabilityStatementRestResourceSearchParamSurrogate._name,
+        )!!,
+      definition =
+        Canonical.of(
+          this@CapabilityStatementRestResourceSearchParamSurrogate.definition,
+          this@CapabilityStatementRestResourceSearchParamSurrogate._definition,
+        ),
+      type =
+        Enumeration.of(
+          com.google.fhir.model.r5.terminologies.SearchParamType.fromCode(
+            this@CapabilityStatementRestResourceSearchParamSurrogate.type!!
+          ),
+          this@CapabilityStatementRestResourceSearchParamSurrogate._type,
+        ),
+      documentation =
+        Markdown.of(
+          this@CapabilityStatementRestResourceSearchParamSurrogate.documentation,
+          this@CapabilityStatementRestResourceSearchParamSurrogate._documentation,
+        ),
+    )
+
+  public companion object {
+    public fun fromModel(
+      model: CapabilityStatement.Rest.Resource.SearchParam
+    ): CapabilityStatementRestResourceSearchParamSurrogate =
+      with(model) {
+        CapabilityStatementRestResourceSearchParamSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          name = this@with.name.value,
+          _name = this@with.name.toElement(),
+          definition = this@with.definition?.value,
+          _definition = this@with.definition?.toElement(),
+          type = this@with.type.value?.getCode(),
+          _type = this@with.type.toElement(),
+          documentation = this@with.documentation?.value,
+          _documentation = this@with.documentation?.toElement(),
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class CapabilityStatementRestResourceOperationSurrogate(
+  public var id: KotlinString? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var name: KotlinString? = null,
+  public var _name: Element? = null,
+  public var definition: KotlinString? = null,
+  public var _definition: Element? = null,
+  public var documentation: KotlinString? = null,
+  public var _documentation: Element? = null,
+) {
+  public fun toModel(): CapabilityStatement.Rest.Resource.Operation =
+    CapabilityStatement.Rest.Resource.Operation(
+      id = this@CapabilityStatementRestResourceOperationSurrogate.id,
+      extension =
+        this@CapabilityStatementRestResourceOperationSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@CapabilityStatementRestResourceOperationSurrogate.modifierExtension ?: mutableListOf(),
+      name =
+        R5String.of(
+          this@CapabilityStatementRestResourceOperationSurrogate.name,
+          this@CapabilityStatementRestResourceOperationSurrogate._name,
+        )!!,
+      definition =
+        Canonical.of(
+          this@CapabilityStatementRestResourceOperationSurrogate.definition,
+          this@CapabilityStatementRestResourceOperationSurrogate._definition,
+        )!!,
+      documentation =
+        Markdown.of(
+          this@CapabilityStatementRestResourceOperationSurrogate.documentation,
+          this@CapabilityStatementRestResourceOperationSurrogate._documentation,
+        ),
+    )
+
+  public companion object {
+    public fun fromModel(
+      model: CapabilityStatement.Rest.Resource.Operation
+    ): CapabilityStatementRestResourceOperationSurrogate =
+      with(model) {
+        CapabilityStatementRestResourceOperationSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          name = this@with.name.value,
+          _name = this@with.name.toElement(),
+          definition = this@with.definition.value,
+          _definition = this@with.definition.toElement(),
+          documentation = this@with.documentation?.value,
+          _documentation = this@with.documentation?.toElement(),
+        )
+      }
+  }
+}
+
+@Serializable
 internal data class CapabilityStatementRestInteractionSurrogate(
   public var id: KotlinString? = null,
   public var extension: MutableList<Extension>? = null,
@@ -709,90 +799,53 @@ internal data class CapabilityStatementRestInteractionSurrogate(
 }
 
 @Serializable
-internal data class CapabilityStatementRestSurrogate(
+internal data class CapabilityStatementMessagingSurrogate(
   public var id: KotlinString? = null,
   public var extension: MutableList<Extension>? = null,
   public var modifierExtension: MutableList<Extension>? = null,
-  public var mode: KotlinString? = null,
-  public var _mode: Element? = null,
+  public var endpoint: MutableList<CapabilityStatement.Messaging.Endpoint>? = null,
+  public var reliableCache: Int? = null,
+  public var _reliableCache: Element? = null,
   public var documentation: KotlinString? = null,
   public var _documentation: Element? = null,
-  public var security: CapabilityStatement.Rest.Security? = null,
-  public var resource: MutableList<CapabilityStatement.Rest.Resource>? = null,
-  public var interaction: MutableList<CapabilityStatement.Rest.Interaction>? = null,
-  public var searchParam: MutableList<CapabilityStatement.Rest.Resource.SearchParam>? = null,
-  public var operation: MutableList<CapabilityStatement.Rest.Resource.Operation>? = null,
-  public var compartment: MutableList<KotlinString?>? = null,
-  public var _compartment: MutableList<Element?>? = null,
+  public var supportedMessage: MutableList<CapabilityStatement.Messaging.SupportedMessage>? = null,
 ) {
-  public fun toModel(): CapabilityStatement.Rest =
-    CapabilityStatement.Rest(
-      id = this@CapabilityStatementRestSurrogate.id,
-      extension = this@CapabilityStatementRestSurrogate.extension ?: mutableListOf(),
+  public fun toModel(): CapabilityStatement.Messaging =
+    CapabilityStatement.Messaging(
+      id = this@CapabilityStatementMessagingSurrogate.id,
+      extension = this@CapabilityStatementMessagingSurrogate.extension ?: mutableListOf(),
       modifierExtension =
-        this@CapabilityStatementRestSurrogate.modifierExtension ?: mutableListOf(),
-      mode =
-        Enumeration.of(
-          com.google.fhir.model.r5.CapabilityStatement.RestfulCapabilityMode.fromCode(
-            this@CapabilityStatementRestSurrogate.mode!!
-          ),
-          this@CapabilityStatementRestSurrogate._mode,
+        this@CapabilityStatementMessagingSurrogate.modifierExtension ?: mutableListOf(),
+      endpoint = this@CapabilityStatementMessagingSurrogate.endpoint ?: mutableListOf(),
+      reliableCache =
+        UnsignedInt.of(
+          this@CapabilityStatementMessagingSurrogate.reliableCache,
+          this@CapabilityStatementMessagingSurrogate._reliableCache,
         ),
       documentation =
         Markdown.of(
-          this@CapabilityStatementRestSurrogate.documentation,
-          this@CapabilityStatementRestSurrogate._documentation,
+          this@CapabilityStatementMessagingSurrogate.documentation,
+          this@CapabilityStatementMessagingSurrogate._documentation,
         ),
-      security = this@CapabilityStatementRestSurrogate.security,
-      resource = this@CapabilityStatementRestSurrogate.resource ?: mutableListOf(),
-      interaction = this@CapabilityStatementRestSurrogate.interaction ?: mutableListOf(),
-      searchParam = this@CapabilityStatementRestSurrogate.searchParam ?: mutableListOf(),
-      operation = this@CapabilityStatementRestSurrogate.operation ?: mutableListOf(),
-      compartment =
-        if (
-          this@CapabilityStatementRestSurrogate.compartment == null &&
-            this@CapabilityStatementRestSurrogate._compartment == null
-        ) {
-          mutableListOf()
-        } else {
-          (this@CapabilityStatementRestSurrogate.compartment
-              ?: List(this@CapabilityStatementRestSurrogate._compartment!!.size) { null })
-            .zip(
-              this@CapabilityStatementRestSurrogate._compartment
-                ?: List(this@CapabilityStatementRestSurrogate.compartment!!.size) { null }
-            )
-            .map { (value, element) -> Canonical.of(value, element)!! }
-            .toMutableList()
-        },
+      supportedMessage =
+        this@CapabilityStatementMessagingSurrogate.supportedMessage ?: mutableListOf(),
     )
 
   public companion object {
-    public fun fromModel(model: CapabilityStatement.Rest): CapabilityStatementRestSurrogate =
+    public fun fromModel(
+      model: CapabilityStatement.Messaging
+    ): CapabilityStatementMessagingSurrogate =
       with(model) {
-        CapabilityStatementRestSurrogate(
+        CapabilityStatementMessagingSurrogate(
           id = this@with.id,
           extension = this@with.extension.takeUnless { it.all { it == null } },
           modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          mode = this@with.mode.value?.getCode(),
-          _mode = this@with.mode.toElement(),
+          endpoint = this@with.endpoint.takeUnless { it.all { it == null } },
+          reliableCache = this@with.reliableCache?.value,
+          _reliableCache = this@with.reliableCache?.toElement(),
           documentation = this@with.documentation?.value,
           _documentation = this@with.documentation?.toElement(),
-          security = this@with.security,
-          resource = this@with.resource.takeUnless { it.all { it == null } },
-          interaction = this@with.interaction.takeUnless { it.all { it == null } },
-          searchParam = this@with.searchParam.takeUnless { it.all { it == null } },
-          operation = this@with.operation.takeUnless { it.all { it == null } },
-          compartment =
-            this@with.compartment
-              .map { it.value }
-              .toMutableList()
-              .takeUnless { it.all { it == null } },
-          _compartment =
-            this@with.compartment
-              .map { it.toElement() }
-              .takeUnless { it.all { it == null } }
-              ?.map { it ?: Element() }
-              ?.toMutableList(),
+          supportedMessage = this@with.supportedMessage.takeUnless { it.all { it == null } },
         )
       }
   }
@@ -889,59 +942,6 @@ internal data class CapabilityStatementMessagingSupportedMessageSurrogate(
 }
 
 @Serializable
-internal data class CapabilityStatementMessagingSurrogate(
-  public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var endpoint: MutableList<CapabilityStatement.Messaging.Endpoint>? = null,
-  public var reliableCache: Int? = null,
-  public var _reliableCache: Element? = null,
-  public var documentation: KotlinString? = null,
-  public var _documentation: Element? = null,
-  public var supportedMessage: MutableList<CapabilityStatement.Messaging.SupportedMessage>? = null,
-) {
-  public fun toModel(): CapabilityStatement.Messaging =
-    CapabilityStatement.Messaging(
-      id = this@CapabilityStatementMessagingSurrogate.id,
-      extension = this@CapabilityStatementMessagingSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@CapabilityStatementMessagingSurrogate.modifierExtension ?: mutableListOf(),
-      endpoint = this@CapabilityStatementMessagingSurrogate.endpoint ?: mutableListOf(),
-      reliableCache =
-        UnsignedInt.of(
-          this@CapabilityStatementMessagingSurrogate.reliableCache,
-          this@CapabilityStatementMessagingSurrogate._reliableCache,
-        ),
-      documentation =
-        Markdown.of(
-          this@CapabilityStatementMessagingSurrogate.documentation,
-          this@CapabilityStatementMessagingSurrogate._documentation,
-        ),
-      supportedMessage =
-        this@CapabilityStatementMessagingSurrogate.supportedMessage ?: mutableListOf(),
-    )
-
-  public companion object {
-    public fun fromModel(
-      model: CapabilityStatement.Messaging
-    ): CapabilityStatementMessagingSurrogate =
-      with(model) {
-        CapabilityStatementMessagingSurrogate(
-          id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          endpoint = this@with.endpoint.takeUnless { it.all { it == null } },
-          reliableCache = this@with.reliableCache?.value,
-          _reliableCache = this@with.reliableCache?.toElement(),
-          documentation = this@with.documentation?.value,
-          _documentation = this@with.documentation?.toElement(),
-          supportedMessage = this@with.supportedMessage.takeUnless { it.all { it == null } },
-        )
-      }
-  }
-}
-
-@Serializable
 internal data class CapabilityStatementDocumentSurrogate(
   public var id: KotlinString? = null,
   public var extension: MutableList<Extension>? = null,
@@ -1005,7 +1005,7 @@ internal data class CapabilityStatementVersionAlgorithmSurrogate(
   public var versionAlgorithmCoding: Coding? = null,
 ) {
   public fun toModel(): CapabilityStatement.VersionAlgorithm =
-    CapabilityStatement.VersionAlgorithm?.from(
+    CapabilityStatement.VersionAlgorithm.from(
       R5String.of(
         this@CapabilityStatementVersionAlgorithmSurrogate.versionAlgorithmString,
         this@CapabilityStatementVersionAlgorithmSurrogate._versionAlgorithmString,

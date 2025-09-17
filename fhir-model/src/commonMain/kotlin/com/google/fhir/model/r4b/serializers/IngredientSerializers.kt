@@ -58,30 +58,67 @@ public object IngredientManufacturerSerializer : KSerializer<Ingredient.Manufact
   }
 }
 
-public object IngredientSubstanceStrengthReferenceStrengthStrengthSerializer :
-  KSerializer<Ingredient.Substance.Strength.ReferenceStrength.Strength> {
-  internal val surrogateSerializer:
-    KSerializer<IngredientSubstanceStrengthReferenceStrengthStrengthSurrogate> by lazy {
-    IngredientSubstanceStrengthReferenceStrengthStrengthSurrogate.serializer()
+public object IngredientSubstanceSerializer : KSerializer<Ingredient.Substance> {
+  internal val surrogateSerializer: KSerializer<IngredientSubstanceSurrogate> by lazy {
+    IngredientSubstanceSurrogate.serializer()
   }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Substance", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): Ingredient.Substance =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: Ingredient.Substance) {
+    surrogateSerializer.serialize(encoder, IngredientSubstanceSurrogate.fromModel(value))
+  }
+}
+
+public object IngredientSubstanceStrengthSerializer : KSerializer<Ingredient.Substance.Strength> {
+  internal val surrogateSerializer: KSerializer<IngredientSubstanceStrengthSurrogate> by lazy {
+    IngredientSubstanceStrengthSurrogate.serializer()
+  }
+
+  private val resourceType: String? = null
+
+  private val multiChoiceProperties: List<String> = listOf("presentation", "concentration")
 
   override val descriptor: SerialDescriptor by lazy {
     SerialDescriptor("Strength", surrogateSerializer.descriptor)
   }
 
-  override fun deserialize(
-    decoder: Decoder
-  ): Ingredient.Substance.Strength.ReferenceStrength.Strength =
-    surrogateSerializer.deserialize(decoder).toModel()
+  override fun deserialize(decoder: Decoder): Ingredient.Substance.Strength {
+    val jsonDecoder =
+      decoder as? JsonDecoder ?: error("This serializer only supports JSON decoding")
+    val oldJsonObject =
+      if (resourceType.isNullOrBlank()) {
+        jsonDecoder.decodeJsonElement().jsonObject
+      } else
+        JsonObject(
+          jsonDecoder.decodeJsonElement().jsonObject.toMutableMap().apply { remove("resourceType") }
+        )
+    val unflattenedJsonObject = FhirJsonTransformer.unflatten(oldJsonObject, multiChoiceProperties)
+    val surrogate =
+      jsonDecoder.json.decodeFromJsonElement(surrogateSerializer, unflattenedJsonObject)
+    return surrogate.toModel()
+  }
 
-  override fun serialize(
-    encoder: Encoder,
-    `value`: Ingredient.Substance.Strength.ReferenceStrength.Strength,
-  ) {
-    surrogateSerializer.serialize(
-      encoder,
-      IngredientSubstanceStrengthReferenceStrengthStrengthSurrogate.fromModel(value),
-    )
+  override fun serialize(encoder: Encoder, `value`: Ingredient.Substance.Strength) {
+    val jsonEncoder =
+      encoder as? JsonEncoder ?: error("This serializer only supports JSON encoding")
+    val surrogate = IngredientSubstanceStrengthSurrogate.fromModel(value)
+    val oldJsonObject =
+      if (resourceType.isNullOrBlank()) {
+        jsonEncoder.json.encodeToJsonElement(surrogateSerializer, surrogate).jsonObject
+      } else {
+        JsonObject(
+          mutableMapOf("resourceType" to JsonPrimitive(resourceType))
+            .plus(jsonEncoder.json.encodeToJsonElement(surrogateSerializer, surrogate).jsonObject)
+        )
+      }
+    val flattenedJsonObject = FhirJsonTransformer.flatten(oldJsonObject, multiChoiceProperties)
+    jsonEncoder.encodeJsonElement(flattenedJsonObject)
   }
 }
 
@@ -181,67 +218,30 @@ public object IngredientSubstanceStrengthConcentrationSerializer :
   }
 }
 
-public object IngredientSubstanceStrengthSerializer : KSerializer<Ingredient.Substance.Strength> {
-  internal val surrogateSerializer: KSerializer<IngredientSubstanceStrengthSurrogate> by lazy {
-    IngredientSubstanceStrengthSurrogate.serializer()
+public object IngredientSubstanceStrengthReferenceStrengthStrengthSerializer :
+  KSerializer<Ingredient.Substance.Strength.ReferenceStrength.Strength> {
+  internal val surrogateSerializer:
+    KSerializer<IngredientSubstanceStrengthReferenceStrengthStrengthSurrogate> by lazy {
+    IngredientSubstanceStrengthReferenceStrengthStrengthSurrogate.serializer()
   }
-
-  private val resourceType: String? = null
-
-  private val multiChoiceProperties: List<String> = listOf("presentation", "concentration")
 
   override val descriptor: SerialDescriptor by lazy {
     SerialDescriptor("Strength", surrogateSerializer.descriptor)
   }
 
-  override fun deserialize(decoder: Decoder): Ingredient.Substance.Strength {
-    val jsonDecoder =
-      decoder as? JsonDecoder ?: error("This serializer only supports JSON decoding")
-    val oldJsonObject =
-      if (resourceType.isNullOrBlank()) {
-        jsonDecoder.decodeJsonElement().jsonObject
-      } else
-        JsonObject(
-          jsonDecoder.decodeJsonElement().jsonObject.toMutableMap().apply { remove("resourceType") }
-        )
-    val unflattenedJsonObject = FhirJsonTransformer.unflatten(oldJsonObject, multiChoiceProperties)
-    val surrogate =
-      jsonDecoder.json.decodeFromJsonElement(surrogateSerializer, unflattenedJsonObject)
-    return surrogate.toModel()
-  }
-
-  override fun serialize(encoder: Encoder, `value`: Ingredient.Substance.Strength) {
-    val jsonEncoder =
-      encoder as? JsonEncoder ?: error("This serializer only supports JSON encoding")
-    val surrogate = IngredientSubstanceStrengthSurrogate.fromModel(value)
-    val oldJsonObject =
-      if (resourceType.isNullOrBlank()) {
-        jsonEncoder.json.encodeToJsonElement(surrogateSerializer, surrogate).jsonObject
-      } else {
-        JsonObject(
-          mutableMapOf("resourceType" to JsonPrimitive(resourceType))
-            .plus(jsonEncoder.json.encodeToJsonElement(surrogateSerializer, surrogate).jsonObject)
-        )
-      }
-    val flattenedJsonObject = FhirJsonTransformer.flatten(oldJsonObject, multiChoiceProperties)
-    jsonEncoder.encodeJsonElement(flattenedJsonObject)
-  }
-}
-
-public object IngredientSubstanceSerializer : KSerializer<Ingredient.Substance> {
-  internal val surrogateSerializer: KSerializer<IngredientSubstanceSurrogate> by lazy {
-    IngredientSubstanceSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Substance", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): Ingredient.Substance =
+  override fun deserialize(
+    decoder: Decoder
+  ): Ingredient.Substance.Strength.ReferenceStrength.Strength =
     surrogateSerializer.deserialize(decoder).toModel()
 
-  override fun serialize(encoder: Encoder, `value`: Ingredient.Substance) {
-    surrogateSerializer.serialize(encoder, IngredientSubstanceSurrogate.fromModel(value))
+  override fun serialize(
+    encoder: Encoder,
+    `value`: Ingredient.Substance.Strength.ReferenceStrength.Strength,
+  ) {
+    surrogateSerializer.serialize(
+      encoder,
+      IngredientSubstanceStrengthReferenceStrengthStrengthSurrogate.fromModel(value),
+    )
   }
 }
 

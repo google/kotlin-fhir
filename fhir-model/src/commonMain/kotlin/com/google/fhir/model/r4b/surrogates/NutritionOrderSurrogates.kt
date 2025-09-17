@@ -48,6 +48,57 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
+internal data class NutritionOrderOralDietSurrogate(
+  public var id: KotlinString? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var type: MutableList<CodeableConcept>? = null,
+  public var schedule: MutableList<Timing>? = null,
+  public var nutrient: MutableList<NutritionOrder.OralDiet.Nutrient>? = null,
+  public var texture: MutableList<NutritionOrder.OralDiet.Texture>? = null,
+  public var fluidConsistencyType: MutableList<CodeableConcept>? = null,
+  public var instruction: KotlinString? = null,
+  public var _instruction: Element? = null,
+) {
+  public fun toModel(): NutritionOrder.OralDiet =
+    NutritionOrder.OralDiet(
+      id = this@NutritionOrderOralDietSurrogate.id,
+      extension = this@NutritionOrderOralDietSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@NutritionOrderOralDietSurrogate.modifierExtension ?: mutableListOf(),
+      type = this@NutritionOrderOralDietSurrogate.type ?: mutableListOf(),
+      schedule = this@NutritionOrderOralDietSurrogate.schedule ?: mutableListOf(),
+      nutrient = this@NutritionOrderOralDietSurrogate.nutrient ?: mutableListOf(),
+      texture = this@NutritionOrderOralDietSurrogate.texture ?: mutableListOf(),
+      fluidConsistencyType =
+        this@NutritionOrderOralDietSurrogate.fluidConsistencyType ?: mutableListOf(),
+      instruction =
+        R4bString.of(
+          this@NutritionOrderOralDietSurrogate.instruction,
+          this@NutritionOrderOralDietSurrogate._instruction,
+        ),
+    )
+
+  public companion object {
+    public fun fromModel(model: NutritionOrder.OralDiet): NutritionOrderOralDietSurrogate =
+      with(model) {
+        NutritionOrderOralDietSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          type = this@with.type.takeUnless { it.all { it == null } },
+          schedule = this@with.schedule.takeUnless { it.all { it == null } },
+          nutrient = this@with.nutrient.takeUnless { it.all { it == null } },
+          texture = this@with.texture.takeUnless { it.all { it == null } },
+          fluidConsistencyType =
+            this@with.fluidConsistencyType.takeUnless { it.all { it == null } },
+          instruction = this@with.instruction?.value,
+          _instruction = this@with.instruction?.toElement(),
+        )
+      }
+  }
+}
+
+@Serializable
 internal data class NutritionOrderOralDietNutrientSurrogate(
   public var id: KotlinString? = null,
   public var extension: MutableList<Extension>? = null,
@@ -116,57 +167,6 @@ internal data class NutritionOrderOralDietTextureSurrogate(
 }
 
 @Serializable
-internal data class NutritionOrderOralDietSurrogate(
-  public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var type: MutableList<CodeableConcept>? = null,
-  public var schedule: MutableList<Timing>? = null,
-  public var nutrient: MutableList<NutritionOrder.OralDiet.Nutrient>? = null,
-  public var texture: MutableList<NutritionOrder.OralDiet.Texture>? = null,
-  public var fluidConsistencyType: MutableList<CodeableConcept>? = null,
-  public var instruction: KotlinString? = null,
-  public var _instruction: Element? = null,
-) {
-  public fun toModel(): NutritionOrder.OralDiet =
-    NutritionOrder.OralDiet(
-      id = this@NutritionOrderOralDietSurrogate.id,
-      extension = this@NutritionOrderOralDietSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@NutritionOrderOralDietSurrogate.modifierExtension ?: mutableListOf(),
-      type = this@NutritionOrderOralDietSurrogate.type ?: mutableListOf(),
-      schedule = this@NutritionOrderOralDietSurrogate.schedule ?: mutableListOf(),
-      nutrient = this@NutritionOrderOralDietSurrogate.nutrient ?: mutableListOf(),
-      texture = this@NutritionOrderOralDietSurrogate.texture ?: mutableListOf(),
-      fluidConsistencyType =
-        this@NutritionOrderOralDietSurrogate.fluidConsistencyType ?: mutableListOf(),
-      instruction =
-        R4bString.of(
-          this@NutritionOrderOralDietSurrogate.instruction,
-          this@NutritionOrderOralDietSurrogate._instruction,
-        ),
-    )
-
-  public companion object {
-    public fun fromModel(model: NutritionOrder.OralDiet): NutritionOrderOralDietSurrogate =
-      with(model) {
-        NutritionOrderOralDietSurrogate(
-          id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          type = this@with.type.takeUnless { it.all { it == null } },
-          schedule = this@with.schedule.takeUnless { it.all { it == null } },
-          nutrient = this@with.nutrient.takeUnless { it.all { it == null } },
-          texture = this@with.texture.takeUnless { it.all { it == null } },
-          fluidConsistencyType =
-            this@with.fluidConsistencyType.takeUnless { it.all { it == null } },
-          instruction = this@with.instruction?.value,
-          _instruction = this@with.instruction?.toElement(),
-        )
-      }
-  }
-}
-
-@Serializable
 internal data class NutritionOrderSupplementSurrogate(
   public var id: KotlinString? = null,
   public var extension: MutableList<Extension>? = null,
@@ -214,69 +214,6 @@ internal data class NutritionOrderSupplementSurrogate(
           quantity = this@with.quantity,
           instruction = this@with.instruction?.value,
           _instruction = this@with.instruction?.toElement(),
-        )
-      }
-  }
-}
-
-@Serializable
-internal data class NutritionOrderEnteralFormulaAdministrationRateSurrogate(
-  public var rateQuantity: Quantity? = null,
-  public var rateRatio: Ratio? = null,
-) {
-  public fun toModel(): NutritionOrder.EnteralFormula.Administration.Rate =
-    NutritionOrder.EnteralFormula.Administration.Rate?.from(
-      this@NutritionOrderEnteralFormulaAdministrationRateSurrogate.rateQuantity,
-      this@NutritionOrderEnteralFormulaAdministrationRateSurrogate.rateRatio,
-    )!!
-
-  public companion object {
-    public fun fromModel(
-      model: NutritionOrder.EnteralFormula.Administration.Rate
-    ): NutritionOrderEnteralFormulaAdministrationRateSurrogate =
-      with(model) {
-        NutritionOrderEnteralFormulaAdministrationRateSurrogate(
-          rateQuantity = this@with.asQuantity()?.value,
-          rateRatio = this@with.asRatio()?.value,
-        )
-      }
-  }
-}
-
-@Serializable
-internal data class NutritionOrderEnteralFormulaAdministrationSurrogate(
-  public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var schedule: Timing? = null,
-  public var quantity: Quantity? = null,
-  public var rate: NutritionOrder.EnteralFormula.Administration.Rate? = null,
-) {
-  public fun toModel(): NutritionOrder.EnteralFormula.Administration =
-    NutritionOrder.EnteralFormula.Administration(
-      id = this@NutritionOrderEnteralFormulaAdministrationSurrogate.id,
-      extension =
-        this@NutritionOrderEnteralFormulaAdministrationSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@NutritionOrderEnteralFormulaAdministrationSurrogate.modifierExtension
-          ?: mutableListOf(),
-      schedule = this@NutritionOrderEnteralFormulaAdministrationSurrogate.schedule,
-      quantity = this@NutritionOrderEnteralFormulaAdministrationSurrogate.quantity,
-      rate = this@NutritionOrderEnteralFormulaAdministrationSurrogate.rate,
-    )
-
-  public companion object {
-    public fun fromModel(
-      model: NutritionOrder.EnteralFormula.Administration
-    ): NutritionOrderEnteralFormulaAdministrationSurrogate =
-      with(model) {
-        NutritionOrderEnteralFormulaAdministrationSurrogate(
-          id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          schedule = this@with.schedule,
-          quantity = this@with.quantity,
-          rate = this@with.rate,
         )
       }
   }
@@ -350,6 +287,69 @@ internal data class NutritionOrderEnteralFormulaSurrogate(
           maxVolumeToDeliver = this@with.maxVolumeToDeliver,
           administrationInstruction = this@with.administrationInstruction?.value,
           _administrationInstruction = this@with.administrationInstruction?.toElement(),
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class NutritionOrderEnteralFormulaAdministrationSurrogate(
+  public var id: KotlinString? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var schedule: Timing? = null,
+  public var quantity: Quantity? = null,
+  public var rate: NutritionOrder.EnteralFormula.Administration.Rate? = null,
+) {
+  public fun toModel(): NutritionOrder.EnteralFormula.Administration =
+    NutritionOrder.EnteralFormula.Administration(
+      id = this@NutritionOrderEnteralFormulaAdministrationSurrogate.id,
+      extension =
+        this@NutritionOrderEnteralFormulaAdministrationSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@NutritionOrderEnteralFormulaAdministrationSurrogate.modifierExtension
+          ?: mutableListOf(),
+      schedule = this@NutritionOrderEnteralFormulaAdministrationSurrogate.schedule,
+      quantity = this@NutritionOrderEnteralFormulaAdministrationSurrogate.quantity,
+      rate = this@NutritionOrderEnteralFormulaAdministrationSurrogate.rate,
+    )
+
+  public companion object {
+    public fun fromModel(
+      model: NutritionOrder.EnteralFormula.Administration
+    ): NutritionOrderEnteralFormulaAdministrationSurrogate =
+      with(model) {
+        NutritionOrderEnteralFormulaAdministrationSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          schedule = this@with.schedule,
+          quantity = this@with.quantity,
+          rate = this@with.rate,
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class NutritionOrderEnteralFormulaAdministrationRateSurrogate(
+  public var rateQuantity: Quantity? = null,
+  public var rateRatio: Ratio? = null,
+) {
+  public fun toModel(): NutritionOrder.EnteralFormula.Administration.Rate =
+    NutritionOrder.EnteralFormula.Administration.Rate.from(
+      this@NutritionOrderEnteralFormulaAdministrationRateSurrogate.rateQuantity,
+      this@NutritionOrderEnteralFormulaAdministrationRateSurrogate.rateRatio,
+    )!!
+
+  public companion object {
+    public fun fromModel(
+      model: NutritionOrder.EnteralFormula.Administration.Rate
+    ): NutritionOrderEnteralFormulaAdministrationRateSurrogate =
+      with(model) {
+        NutritionOrderEnteralFormulaAdministrationRateSurrogate(
+          rateQuantity = this@with.asQuantity()?.value,
+          rateRatio = this@with.asRatio()?.value,
         )
       }
   }

@@ -59,23 +59,6 @@ public object AuditEventOutcomeSerializer : KSerializer<AuditEvent.Outcome> {
   }
 }
 
-public object AuditEventAgentNetworkSerializer : KSerializer<AuditEvent.Agent.Network> {
-  internal val surrogateSerializer: KSerializer<AuditEventAgentNetworkSurrogate> by lazy {
-    AuditEventAgentNetworkSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Network", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): AuditEvent.Agent.Network =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: AuditEvent.Agent.Network) {
-    surrogateSerializer.serialize(encoder, AuditEventAgentNetworkSurrogate.fromModel(value))
-  }
-}
-
 public object AuditEventAgentSerializer : KSerializer<AuditEvent.Agent> {
   internal val surrogateSerializer: KSerializer<AuditEventAgentSurrogate> by lazy {
     AuditEventAgentSurrogate.serializer()
@@ -140,20 +123,20 @@ public object AuditEventSourceSerializer : KSerializer<AuditEvent.Source> {
   }
 }
 
-public object AuditEventEntityDetailValueSerializer : KSerializer<AuditEvent.Entity.Detail.Value> {
-  internal val surrogateSerializer: KSerializer<AuditEventEntityDetailValueSurrogate> by lazy {
-    AuditEventEntityDetailValueSurrogate.serializer()
+public object AuditEventEntitySerializer : KSerializer<AuditEvent.Entity> {
+  internal val surrogateSerializer: KSerializer<AuditEventEntitySurrogate> by lazy {
+    AuditEventEntitySurrogate.serializer()
   }
 
   override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Value", surrogateSerializer.descriptor)
+    SerialDescriptor("Entity", surrogateSerializer.descriptor)
   }
 
-  override fun deserialize(decoder: Decoder): AuditEvent.Entity.Detail.Value =
+  override fun deserialize(decoder: Decoder): AuditEvent.Entity =
     surrogateSerializer.deserialize(decoder).toModel()
 
-  override fun serialize(encoder: Encoder, `value`: AuditEvent.Entity.Detail.Value) {
-    surrogateSerializer.serialize(encoder, AuditEventEntityDetailValueSurrogate.fromModel(value))
+  override fun serialize(encoder: Encoder, `value`: AuditEvent.Entity) {
+    surrogateSerializer.serialize(encoder, AuditEventEntitySurrogate.fromModel(value))
   }
 }
 
@@ -204,23 +187,6 @@ public object AuditEventEntityDetailSerializer : KSerializer<AuditEvent.Entity.D
   }
 }
 
-public object AuditEventEntitySerializer : KSerializer<AuditEvent.Entity> {
-  internal val surrogateSerializer: KSerializer<AuditEventEntitySurrogate> by lazy {
-    AuditEventEntitySurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Entity", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): AuditEvent.Entity =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: AuditEvent.Entity) {
-    surrogateSerializer.serialize(encoder, AuditEventEntitySurrogate.fromModel(value))
-  }
-}
-
 public object AuditEventOccurredSerializer : KSerializer<AuditEvent.Occurred> {
   internal val surrogateSerializer: KSerializer<AuditEventOccurredSurrogate> by lazy {
     AuditEventOccurredSurrogate.serializer()
@@ -235,6 +201,40 @@ public object AuditEventOccurredSerializer : KSerializer<AuditEvent.Occurred> {
 
   override fun serialize(encoder: Encoder, `value`: AuditEvent.Occurred) {
     surrogateSerializer.serialize(encoder, AuditEventOccurredSurrogate.fromModel(value))
+  }
+}
+
+public object AuditEventAgentNetworkSerializer : KSerializer<AuditEvent.Agent.Network> {
+  internal val surrogateSerializer: KSerializer<AuditEventAgentNetworkSurrogate> by lazy {
+    AuditEventAgentNetworkSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Network", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): AuditEvent.Agent.Network =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: AuditEvent.Agent.Network) {
+    surrogateSerializer.serialize(encoder, AuditEventAgentNetworkSurrogate.fromModel(value))
+  }
+}
+
+public object AuditEventEntityDetailValueSerializer : KSerializer<AuditEvent.Entity.Detail.Value> {
+  internal val surrogateSerializer: KSerializer<AuditEventEntityDetailValueSurrogate> by lazy {
+    AuditEventEntityDetailValueSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Value", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): AuditEvent.Entity.Detail.Value =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: AuditEvent.Entity.Detail.Value) {
+    surrogateSerializer.serialize(encoder, AuditEventEntityDetailValueSurrogate.fromModel(value))
   }
 }
 

@@ -48,20 +48,20 @@ public object PermissionJustificationSerializer : KSerializer<Permission.Justifi
   }
 }
 
-public object PermissionRuleDataResourceSerializer : KSerializer<Permission.Rule.Data.Resource> {
-  internal val surrogateSerializer: KSerializer<PermissionRuleDataResourceSurrogate> by lazy {
-    PermissionRuleDataResourceSurrogate.serializer()
+public object PermissionRuleSerializer : KSerializer<Permission.Rule> {
+  internal val surrogateSerializer: KSerializer<PermissionRuleSurrogate> by lazy {
+    PermissionRuleSurrogate.serializer()
   }
 
   override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Resource", surrogateSerializer.descriptor)
+    SerialDescriptor("Rule", surrogateSerializer.descriptor)
   }
 
-  override fun deserialize(decoder: Decoder): Permission.Rule.Data.Resource =
+  override fun deserialize(decoder: Decoder): Permission.Rule =
     surrogateSerializer.deserialize(decoder).toModel()
 
-  override fun serialize(encoder: Encoder, `value`: Permission.Rule.Data.Resource) {
-    surrogateSerializer.serialize(encoder, PermissionRuleDataResourceSurrogate.fromModel(value))
+  override fun serialize(encoder: Encoder, `value`: Permission.Rule) {
+    surrogateSerializer.serialize(encoder, PermissionRuleSurrogate.fromModel(value))
   }
 }
 
@@ -82,6 +82,23 @@ public object PermissionRuleDataSerializer : KSerializer<Permission.Rule.Data> {
   }
 }
 
+public object PermissionRuleDataResourceSerializer : KSerializer<Permission.Rule.Data.Resource> {
+  internal val surrogateSerializer: KSerializer<PermissionRuleDataResourceSurrogate> by lazy {
+    PermissionRuleDataResourceSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Resource", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): Permission.Rule.Data.Resource =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: Permission.Rule.Data.Resource) {
+    surrogateSerializer.serialize(encoder, PermissionRuleDataResourceSurrogate.fromModel(value))
+  }
+}
+
 public object PermissionRuleActivitySerializer : KSerializer<Permission.Rule.Activity> {
   internal val surrogateSerializer: KSerializer<PermissionRuleActivitySurrogate> by lazy {
     PermissionRuleActivitySurrogate.serializer()
@@ -96,23 +113,6 @@ public object PermissionRuleActivitySerializer : KSerializer<Permission.Rule.Act
 
   override fun serialize(encoder: Encoder, `value`: Permission.Rule.Activity) {
     surrogateSerializer.serialize(encoder, PermissionRuleActivitySurrogate.fromModel(value))
-  }
-}
-
-public object PermissionRuleSerializer : KSerializer<Permission.Rule> {
-  internal val surrogateSerializer: KSerializer<PermissionRuleSurrogate> by lazy {
-    PermissionRuleSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Rule", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): Permission.Rule =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: Permission.Rule) {
-    surrogateSerializer.serialize(encoder, PermissionRuleSurrogate.fromModel(value))
   }
 }
 

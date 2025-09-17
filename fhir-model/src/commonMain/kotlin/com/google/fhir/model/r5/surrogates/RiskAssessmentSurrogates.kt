@@ -49,59 +49,6 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
-internal data class RiskAssessmentPredictionProbabilitySurrogate(
-  public var probabilityDecimal: Double? = null,
-  public var _probabilityDecimal: Element? = null,
-  public var probabilityRange: Range? = null,
-) {
-  public fun toModel(): RiskAssessment.Prediction.Probability =
-    RiskAssessment.Prediction.Probability?.from(
-      Decimal.of(
-        this@RiskAssessmentPredictionProbabilitySurrogate.probabilityDecimal,
-        this@RiskAssessmentPredictionProbabilitySurrogate._probabilityDecimal,
-      ),
-      this@RiskAssessmentPredictionProbabilitySurrogate.probabilityRange,
-    )!!
-
-  public companion object {
-    public fun fromModel(
-      model: RiskAssessment.Prediction.Probability
-    ): RiskAssessmentPredictionProbabilitySurrogate =
-      with(model) {
-        RiskAssessmentPredictionProbabilitySurrogate(
-          probabilityDecimal = this@with.asDecimal()?.value?.value,
-          _probabilityDecimal = this@with.asDecimal()?.value?.toElement(),
-          probabilityRange = this@with.asRange()?.value,
-        )
-      }
-  }
-}
-
-@Serializable
-internal data class RiskAssessmentPredictionWhenSurrogate(
-  public var whenPeriod: Period? = null,
-  public var whenRange: Range? = null,
-) {
-  public fun toModel(): RiskAssessment.Prediction.When =
-    RiskAssessment.Prediction.When?.from(
-      this@RiskAssessmentPredictionWhenSurrogate.whenPeriod,
-      this@RiskAssessmentPredictionWhenSurrogate.whenRange,
-    )!!
-
-  public companion object {
-    public fun fromModel(
-      model: RiskAssessment.Prediction.When
-    ): RiskAssessmentPredictionWhenSurrogate =
-      with(model) {
-        RiskAssessmentPredictionWhenSurrogate(
-          whenPeriod = this@with.asPeriod()?.value,
-          whenRange = this@with.asRange()?.value,
-        )
-      }
-  }
-}
-
-@Serializable
 internal data class RiskAssessmentPredictionSurrogate(
   public var id: KotlinString? = null,
   public var extension: MutableList<Extension>? = null,
@@ -164,7 +111,7 @@ internal data class RiskAssessmentOccurrenceSurrogate(
   public var occurrencePeriod: Period? = null,
 ) {
   public fun toModel(): RiskAssessment.Occurrence =
-    RiskAssessment.Occurrence?.from(
+    RiskAssessment.Occurrence.from(
       DateTime.of(
         FhirDateTime.fromString(this@RiskAssessmentOccurrenceSurrogate.occurrenceDateTime),
         this@RiskAssessmentOccurrenceSurrogate._occurrenceDateTime,
@@ -179,6 +126,59 @@ internal data class RiskAssessmentOccurrenceSurrogate(
           occurrenceDateTime = this@with.asDateTime()?.value?.value?.toString(),
           _occurrenceDateTime = this@with.asDateTime()?.value?.toElement(),
           occurrencePeriod = this@with.asPeriod()?.value,
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class RiskAssessmentPredictionProbabilitySurrogate(
+  public var probabilityDecimal: Double? = null,
+  public var _probabilityDecimal: Element? = null,
+  public var probabilityRange: Range? = null,
+) {
+  public fun toModel(): RiskAssessment.Prediction.Probability =
+    RiskAssessment.Prediction.Probability.from(
+      Decimal.of(
+        this@RiskAssessmentPredictionProbabilitySurrogate.probabilityDecimal,
+        this@RiskAssessmentPredictionProbabilitySurrogate._probabilityDecimal,
+      ),
+      this@RiskAssessmentPredictionProbabilitySurrogate.probabilityRange,
+    )!!
+
+  public companion object {
+    public fun fromModel(
+      model: RiskAssessment.Prediction.Probability
+    ): RiskAssessmentPredictionProbabilitySurrogate =
+      with(model) {
+        RiskAssessmentPredictionProbabilitySurrogate(
+          probabilityDecimal = this@with.asDecimal()?.value?.value,
+          _probabilityDecimal = this@with.asDecimal()?.value?.toElement(),
+          probabilityRange = this@with.asRange()?.value,
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class RiskAssessmentPredictionWhenSurrogate(
+  public var whenPeriod: Period? = null,
+  public var whenRange: Range? = null,
+) {
+  public fun toModel(): RiskAssessment.Prediction.When =
+    RiskAssessment.Prediction.When.from(
+      this@RiskAssessmentPredictionWhenSurrogate.whenPeriod,
+      this@RiskAssessmentPredictionWhenSurrogate.whenRange,
+    )!!
+
+  public companion object {
+    public fun fromModel(
+      model: RiskAssessment.Prediction.When
+    ): RiskAssessmentPredictionWhenSurrogate =
+      with(model) {
+        RiskAssessmentPredictionWhenSurrogate(
+          whenPeriod = this@with.asPeriod()?.value,
+          whenRange = this@with.asRange()?.value,
         )
       }
   }

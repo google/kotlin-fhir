@@ -86,6 +86,51 @@ internal data class BundleLinkSurrogate(
 }
 
 @Serializable
+internal data class BundleEntrySurrogate(
+  public var id: KotlinString? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var link: MutableList<Bundle.Link>? = null,
+  public var fullUrl: KotlinString? = null,
+  public var _fullUrl: Element? = null,
+  public var resource: Resource? = null,
+  public var search: Bundle.Entry.Search? = null,
+  public var request: Bundle.Entry.Request? = null,
+  public var response: Bundle.Entry.Response? = null,
+) {
+  public fun toModel(): Bundle.Entry =
+    Bundle.Entry(
+      id = this@BundleEntrySurrogate.id,
+      extension = this@BundleEntrySurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@BundleEntrySurrogate.modifierExtension ?: mutableListOf(),
+      link = this@BundleEntrySurrogate.link ?: mutableListOf(),
+      fullUrl = Uri.of(this@BundleEntrySurrogate.fullUrl, this@BundleEntrySurrogate._fullUrl),
+      resource = this@BundleEntrySurrogate.resource,
+      search = this@BundleEntrySurrogate.search,
+      request = this@BundleEntrySurrogate.request,
+      response = this@BundleEntrySurrogate.response,
+    )
+
+  public companion object {
+    public fun fromModel(model: Bundle.Entry): BundleEntrySurrogate =
+      with(model) {
+        BundleEntrySurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          link = this@with.link.takeUnless { it.all { it == null } },
+          fullUrl = this@with.fullUrl?.value,
+          _fullUrl = this@with.fullUrl?.toElement(),
+          resource = this@with.resource,
+          search = this@with.search,
+          request = this@with.request,
+          response = this@with.response,
+        )
+      }
+  }
+}
+
+@Serializable
 internal data class BundleEntrySearchSurrogate(
   public var id: KotlinString? = null,
   public var extension: MutableList<Extension>? = null,
@@ -263,51 +308,6 @@ internal data class BundleEntryResponseSurrogate(
           lastModified = this@with.lastModified?.value?.toString(),
           _lastModified = this@with.lastModified?.toElement(),
           outcome = this@with.outcome,
-        )
-      }
-  }
-}
-
-@Serializable
-internal data class BundleEntrySurrogate(
-  public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var link: MutableList<Bundle.Link>? = null,
-  public var fullUrl: KotlinString? = null,
-  public var _fullUrl: Element? = null,
-  public var resource: Resource? = null,
-  public var search: Bundle.Entry.Search? = null,
-  public var request: Bundle.Entry.Request? = null,
-  public var response: Bundle.Entry.Response? = null,
-) {
-  public fun toModel(): Bundle.Entry =
-    Bundle.Entry(
-      id = this@BundleEntrySurrogate.id,
-      extension = this@BundleEntrySurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@BundleEntrySurrogate.modifierExtension ?: mutableListOf(),
-      link = this@BundleEntrySurrogate.link ?: mutableListOf(),
-      fullUrl = Uri.of(this@BundleEntrySurrogate.fullUrl, this@BundleEntrySurrogate._fullUrl),
-      resource = this@BundleEntrySurrogate.resource,
-      search = this@BundleEntrySurrogate.search,
-      request = this@BundleEntrySurrogate.request,
-      response = this@BundleEntrySurrogate.response,
-    )
-
-  public companion object {
-    public fun fromModel(model: Bundle.Entry): BundleEntrySurrogate =
-      with(model) {
-        BundleEntrySurrogate(
-          id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          link = this@with.link.takeUnless { it.all { it == null } },
-          fullUrl = this@with.fullUrl?.value,
-          _fullUrl = this@with.fullUrl?.toElement(),
-          resource = this@with.resource,
-          search = this@with.search,
-          request = this@with.request,
-          response = this@with.response,
         )
       }
   }

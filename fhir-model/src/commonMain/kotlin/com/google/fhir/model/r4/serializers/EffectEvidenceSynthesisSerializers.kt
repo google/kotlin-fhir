@@ -76,6 +76,28 @@ public object EffectEvidenceSynthesisResultsByExposureSerializer :
   }
 }
 
+public object EffectEvidenceSynthesisEffectEstimateSerializer :
+  KSerializer<EffectEvidenceSynthesis.EffectEstimate> {
+  internal val surrogateSerializer:
+    KSerializer<EffectEvidenceSynthesisEffectEstimateSurrogate> by lazy {
+    EffectEvidenceSynthesisEffectEstimateSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("EffectEstimate", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): EffectEvidenceSynthesis.EffectEstimate =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: EffectEvidenceSynthesis.EffectEstimate) {
+    surrogateSerializer.serialize(
+      encoder,
+      EffectEvidenceSynthesisEffectEstimateSurrogate.fromModel(value),
+    )
+  }
+}
+
 public object EffectEvidenceSynthesisEffectEstimatePrecisionEstimateSerializer :
   KSerializer<EffectEvidenceSynthesis.EffectEstimate.PrecisionEstimate> {
   internal val surrogateSerializer:
@@ -103,24 +125,23 @@ public object EffectEvidenceSynthesisEffectEstimatePrecisionEstimateSerializer :
   }
 }
 
-public object EffectEvidenceSynthesisEffectEstimateSerializer :
-  KSerializer<EffectEvidenceSynthesis.EffectEstimate> {
-  internal val surrogateSerializer:
-    KSerializer<EffectEvidenceSynthesisEffectEstimateSurrogate> by lazy {
-    EffectEvidenceSynthesisEffectEstimateSurrogate.serializer()
+public object EffectEvidenceSynthesisCertaintySerializer :
+  KSerializer<EffectEvidenceSynthesis.Certainty> {
+  internal val surrogateSerializer: KSerializer<EffectEvidenceSynthesisCertaintySurrogate> by lazy {
+    EffectEvidenceSynthesisCertaintySurrogate.serializer()
   }
 
   override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("EffectEstimate", surrogateSerializer.descriptor)
+    SerialDescriptor("Certainty", surrogateSerializer.descriptor)
   }
 
-  override fun deserialize(decoder: Decoder): EffectEvidenceSynthesis.EffectEstimate =
+  override fun deserialize(decoder: Decoder): EffectEvidenceSynthesis.Certainty =
     surrogateSerializer.deserialize(decoder).toModel()
 
-  override fun serialize(encoder: Encoder, `value`: EffectEvidenceSynthesis.EffectEstimate) {
+  override fun serialize(encoder: Encoder, `value`: EffectEvidenceSynthesis.Certainty) {
     surrogateSerializer.serialize(
       encoder,
-      EffectEvidenceSynthesisEffectEstimateSurrogate.fromModel(value),
+      EffectEvidenceSynthesisCertaintySurrogate.fromModel(value),
     )
   }
 }
@@ -148,27 +169,6 @@ public object EffectEvidenceSynthesisCertaintyCertaintySubcomponentSerializer :
     surrogateSerializer.serialize(
       encoder,
       EffectEvidenceSynthesisCertaintyCertaintySubcomponentSurrogate.fromModel(value),
-    )
-  }
-}
-
-public object EffectEvidenceSynthesisCertaintySerializer :
-  KSerializer<EffectEvidenceSynthesis.Certainty> {
-  internal val surrogateSerializer: KSerializer<EffectEvidenceSynthesisCertaintySurrogate> by lazy {
-    EffectEvidenceSynthesisCertaintySurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Certainty", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): EffectEvidenceSynthesis.Certainty =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: EffectEvidenceSynthesis.Certainty) {
-    surrogateSerializer.serialize(
-      encoder,
-      EffectEvidenceSynthesisCertaintySurrogate.fromModel(value),
     )
   }
 }

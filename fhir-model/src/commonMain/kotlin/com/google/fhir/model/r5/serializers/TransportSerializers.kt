@@ -56,23 +56,6 @@ public object TransportRestrictionSerializer : KSerializer<Transport.Restriction
   }
 }
 
-public object TransportInputValueSerializer : KSerializer<Transport.Input.Value> {
-  internal val surrogateSerializer: KSerializer<TransportInputValueSurrogate> by lazy {
-    TransportInputValueSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Value", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): Transport.Input.Value =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: Transport.Input.Value) {
-    surrogateSerializer.serialize(encoder, TransportInputValueSurrogate.fromModel(value))
-  }
-}
-
 public object TransportInputSerializer : KSerializer<Transport.Input> {
   internal val surrogateSerializer: KSerializer<TransportInputSurrogate> by lazy {
     TransportInputSurrogate.serializer()
@@ -120,23 +103,6 @@ public object TransportInputSerializer : KSerializer<Transport.Input> {
   }
 }
 
-public object TransportOutputValueSerializer : KSerializer<Transport.Output.Value> {
-  internal val surrogateSerializer: KSerializer<TransportOutputValueSurrogate> by lazy {
-    TransportOutputValueSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Value", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): Transport.Output.Value =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: Transport.Output.Value) {
-    surrogateSerializer.serialize(encoder, TransportOutputValueSurrogate.fromModel(value))
-  }
-}
-
 public object TransportOutputSerializer : KSerializer<Transport.Output> {
   internal val surrogateSerializer: KSerializer<TransportOutputSurrogate> by lazy {
     TransportOutputSurrogate.serializer()
@@ -181,6 +147,40 @@ public object TransportOutputSerializer : KSerializer<Transport.Output> {
       }
     val flattenedJsonObject = FhirJsonTransformer.flatten(oldJsonObject, multiChoiceProperties)
     jsonEncoder.encodeJsonElement(flattenedJsonObject)
+  }
+}
+
+public object TransportInputValueSerializer : KSerializer<Transport.Input.Value> {
+  internal val surrogateSerializer: KSerializer<TransportInputValueSurrogate> by lazy {
+    TransportInputValueSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Value", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): Transport.Input.Value =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: Transport.Input.Value) {
+    surrogateSerializer.serialize(encoder, TransportInputValueSurrogate.fromModel(value))
+  }
+}
+
+public object TransportOutputValueSerializer : KSerializer<Transport.Output.Value> {
+  internal val surrogateSerializer: KSerializer<TransportOutputValueSurrogate> by lazy {
+    TransportOutputValueSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Value", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): Transport.Output.Value =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: Transport.Output.Value) {
+    surrogateSerializer.serialize(encoder, TransportOutputValueSurrogate.fromModel(value))
   }
 }
 

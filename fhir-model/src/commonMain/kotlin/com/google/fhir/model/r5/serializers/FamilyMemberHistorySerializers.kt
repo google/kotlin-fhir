@@ -60,28 +60,6 @@ public object FamilyMemberHistoryParticipantSerializer :
   }
 }
 
-public object FamilyMemberHistoryConditionOnsetSerializer :
-  KSerializer<FamilyMemberHistory.Condition.Onset> {
-  internal val surrogateSerializer:
-    KSerializer<FamilyMemberHistoryConditionOnsetSurrogate> by lazy {
-    FamilyMemberHistoryConditionOnsetSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Onset", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): FamilyMemberHistory.Condition.Onset =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: FamilyMemberHistory.Condition.Onset) {
-    surrogateSerializer.serialize(
-      encoder,
-      FamilyMemberHistoryConditionOnsetSurrogate.fromModel(value),
-    )
-  }
-}
-
 public object FamilyMemberHistoryConditionSerializer : KSerializer<FamilyMemberHistory.Condition> {
   internal val surrogateSerializer: KSerializer<FamilyMemberHistoryConditionSurrogate> by lazy {
     FamilyMemberHistoryConditionSurrogate.serializer()
@@ -126,28 +104,6 @@ public object FamilyMemberHistoryConditionSerializer : KSerializer<FamilyMemberH
       }
     val flattenedJsonObject = FhirJsonTransformer.flatten(oldJsonObject, multiChoiceProperties)
     jsonEncoder.encodeJsonElement(flattenedJsonObject)
-  }
-}
-
-public object FamilyMemberHistoryProcedurePerformedSerializer :
-  KSerializer<FamilyMemberHistory.Procedure.Performed> {
-  internal val surrogateSerializer:
-    KSerializer<FamilyMemberHistoryProcedurePerformedSurrogate> by lazy {
-    FamilyMemberHistoryProcedurePerformedSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Performed", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): FamilyMemberHistory.Procedure.Performed =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: FamilyMemberHistory.Procedure.Performed) {
-    surrogateSerializer.serialize(
-      encoder,
-      FamilyMemberHistoryProcedurePerformedSurrogate.fromModel(value),
-    )
   }
 }
 
@@ -246,6 +202,50 @@ public object FamilyMemberHistoryDeceasedSerializer : KSerializer<FamilyMemberHi
 
   override fun serialize(encoder: Encoder, `value`: FamilyMemberHistory.Deceased) {
     surrogateSerializer.serialize(encoder, FamilyMemberHistoryDeceasedSurrogate.fromModel(value))
+  }
+}
+
+public object FamilyMemberHistoryConditionOnsetSerializer :
+  KSerializer<FamilyMemberHistory.Condition.Onset> {
+  internal val surrogateSerializer:
+    KSerializer<FamilyMemberHistoryConditionOnsetSurrogate> by lazy {
+    FamilyMemberHistoryConditionOnsetSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Onset", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): FamilyMemberHistory.Condition.Onset =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: FamilyMemberHistory.Condition.Onset) {
+    surrogateSerializer.serialize(
+      encoder,
+      FamilyMemberHistoryConditionOnsetSurrogate.fromModel(value),
+    )
+  }
+}
+
+public object FamilyMemberHistoryProcedurePerformedSerializer :
+  KSerializer<FamilyMemberHistory.Procedure.Performed> {
+  internal val surrogateSerializer:
+    KSerializer<FamilyMemberHistoryProcedurePerformedSurrogate> by lazy {
+    FamilyMemberHistoryProcedurePerformedSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Performed", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): FamilyMemberHistory.Procedure.Performed =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: FamilyMemberHistory.Procedure.Performed) {
+    surrogateSerializer.serialize(
+      encoder,
+      FamilyMemberHistoryProcedurePerformedSurrogate.fromModel(value),
+    )
   }
 }
 

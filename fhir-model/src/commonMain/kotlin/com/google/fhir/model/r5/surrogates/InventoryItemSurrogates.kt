@@ -217,6 +217,92 @@ internal data class InventoryItemAssociationSurrogate(
 }
 
 @Serializable
+internal data class InventoryItemCharacteristicSurrogate(
+  public var id: KotlinString? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var characteristicType: CodeableConcept,
+  public var `value`: InventoryItem.Characteristic.Value,
+) {
+  public fun toModel(): InventoryItem.Characteristic =
+    InventoryItem.Characteristic(
+      id = this@InventoryItemCharacteristicSurrogate.id,
+      extension = this@InventoryItemCharacteristicSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@InventoryItemCharacteristicSurrogate.modifierExtension ?: mutableListOf(),
+      characteristicType = this@InventoryItemCharacteristicSurrogate.characteristicType,
+      `value` = this@InventoryItemCharacteristicSurrogate.`value`,
+    )
+
+  public companion object {
+    public fun fromModel(
+      model: InventoryItem.Characteristic
+    ): InventoryItemCharacteristicSurrogate =
+      with(model) {
+        InventoryItemCharacteristicSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          characteristicType = this@with.characteristicType,
+          `value` = this@with.`value`,
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class InventoryItemInstanceSurrogate(
+  public var id: KotlinString? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var identifier: MutableList<Identifier>? = null,
+  public var lotNumber: KotlinString? = null,
+  public var _lotNumber: Element? = null,
+  public var expiry: KotlinString? = null,
+  public var _expiry: Element? = null,
+  public var subject: Reference? = null,
+  public var location: Reference? = null,
+) {
+  public fun toModel(): InventoryItem.Instance =
+    InventoryItem.Instance(
+      id = this@InventoryItemInstanceSurrogate.id,
+      extension = this@InventoryItemInstanceSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@InventoryItemInstanceSurrogate.modifierExtension ?: mutableListOf(),
+      identifier = this@InventoryItemInstanceSurrogate.identifier ?: mutableListOf(),
+      lotNumber =
+        R5String.of(
+          this@InventoryItemInstanceSurrogate.lotNumber,
+          this@InventoryItemInstanceSurrogate._lotNumber,
+        ),
+      expiry =
+        DateTime.of(
+          FhirDateTime.fromString(this@InventoryItemInstanceSurrogate.expiry),
+          this@InventoryItemInstanceSurrogate._expiry,
+        ),
+      subject = this@InventoryItemInstanceSurrogate.subject,
+      location = this@InventoryItemInstanceSurrogate.location,
+    )
+
+  public companion object {
+    public fun fromModel(model: InventoryItem.Instance): InventoryItemInstanceSurrogate =
+      with(model) {
+        InventoryItemInstanceSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          lotNumber = this@with.lotNumber?.value,
+          _lotNumber = this@with.lotNumber?.toElement(),
+          expiry = this@with.expiry?.value?.toString(),
+          _expiry = this@with.expiry?.toElement(),
+          subject = this@with.subject,
+          location = this@with.location,
+        )
+      }
+  }
+}
+
+@Serializable
 internal data class InventoryItemCharacteristicValueSurrogate(
   public var valueString: KotlinString? = null,
   public var _valueString: Element? = null,
@@ -298,92 +384,6 @@ internal data class InventoryItemCharacteristicValueSurrogate(
           valueAddress = this@with.asAddress()?.value,
           valueDuration = this@with.asDuration()?.value,
           valueCodeableConcept = this@with.asCodeableConcept()?.value,
-        )
-      }
-  }
-}
-
-@Serializable
-internal data class InventoryItemCharacteristicSurrogate(
-  public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var characteristicType: CodeableConcept,
-  public var `value`: InventoryItem.Characteristic.Value,
-) {
-  public fun toModel(): InventoryItem.Characteristic =
-    InventoryItem.Characteristic(
-      id = this@InventoryItemCharacteristicSurrogate.id,
-      extension = this@InventoryItemCharacteristicSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@InventoryItemCharacteristicSurrogate.modifierExtension ?: mutableListOf(),
-      characteristicType = this@InventoryItemCharacteristicSurrogate.characteristicType,
-      `value` = this@InventoryItemCharacteristicSurrogate.`value`,
-    )
-
-  public companion object {
-    public fun fromModel(
-      model: InventoryItem.Characteristic
-    ): InventoryItemCharacteristicSurrogate =
-      with(model) {
-        InventoryItemCharacteristicSurrogate(
-          id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          characteristicType = this@with.characteristicType,
-          `value` = this@with.`value`,
-        )
-      }
-  }
-}
-
-@Serializable
-internal data class InventoryItemInstanceSurrogate(
-  public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var identifier: MutableList<Identifier>? = null,
-  public var lotNumber: KotlinString? = null,
-  public var _lotNumber: Element? = null,
-  public var expiry: KotlinString? = null,
-  public var _expiry: Element? = null,
-  public var subject: Reference? = null,
-  public var location: Reference? = null,
-) {
-  public fun toModel(): InventoryItem.Instance =
-    InventoryItem.Instance(
-      id = this@InventoryItemInstanceSurrogate.id,
-      extension = this@InventoryItemInstanceSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@InventoryItemInstanceSurrogate.modifierExtension ?: mutableListOf(),
-      identifier = this@InventoryItemInstanceSurrogate.identifier ?: mutableListOf(),
-      lotNumber =
-        R5String.of(
-          this@InventoryItemInstanceSurrogate.lotNumber,
-          this@InventoryItemInstanceSurrogate._lotNumber,
-        ),
-      expiry =
-        DateTime.of(
-          FhirDateTime.fromString(this@InventoryItemInstanceSurrogate.expiry),
-          this@InventoryItemInstanceSurrogate._expiry,
-        ),
-      subject = this@InventoryItemInstanceSurrogate.subject,
-      location = this@InventoryItemInstanceSurrogate.location,
-    )
-
-  public companion object {
-    public fun fromModel(model: InventoryItem.Instance): InventoryItemInstanceSurrogate =
-      with(model) {
-        InventoryItemInstanceSurrogate(
-          id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          identifier = this@with.identifier.takeUnless { it.all { it == null } },
-          lotNumber = this@with.lotNumber?.value,
-          _lotNumber = this@with.lotNumber?.toElement(),
-          expiry = this@with.expiry?.value?.toString(),
-          _expiry = this@with.expiry?.toElement(),
-          subject = this@with.subject,
-          location = this@with.location,
         )
       }
   }

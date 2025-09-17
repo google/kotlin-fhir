@@ -49,6 +49,134 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
+internal data class GraphDefinitionLinkSurrogate(
+  public var id: KotlinString? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var path: KotlinString? = null,
+  public var _path: Element? = null,
+  public var sliceName: KotlinString? = null,
+  public var _sliceName: Element? = null,
+  public var min: Int? = null,
+  public var _min: Element? = null,
+  public var max: KotlinString? = null,
+  public var _max: Element? = null,
+  public var description: KotlinString? = null,
+  public var _description: Element? = null,
+  public var target: MutableList<GraphDefinition.Link.Target>? = null,
+) {
+  public fun toModel(): GraphDefinition.Link =
+    GraphDefinition.Link(
+      id = this@GraphDefinitionLinkSurrogate.id,
+      extension = this@GraphDefinitionLinkSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@GraphDefinitionLinkSurrogate.modifierExtension ?: mutableListOf(),
+      path =
+        R4bString.of(
+          this@GraphDefinitionLinkSurrogate.path,
+          this@GraphDefinitionLinkSurrogate._path,
+        ),
+      sliceName =
+        R4bString.of(
+          this@GraphDefinitionLinkSurrogate.sliceName,
+          this@GraphDefinitionLinkSurrogate._sliceName,
+        ),
+      min =
+        Integer.of(this@GraphDefinitionLinkSurrogate.min, this@GraphDefinitionLinkSurrogate._min),
+      max =
+        R4bString.of(this@GraphDefinitionLinkSurrogate.max, this@GraphDefinitionLinkSurrogate._max),
+      description =
+        R4bString.of(
+          this@GraphDefinitionLinkSurrogate.description,
+          this@GraphDefinitionLinkSurrogate._description,
+        ),
+      target = this@GraphDefinitionLinkSurrogate.target ?: mutableListOf(),
+    )
+
+  public companion object {
+    public fun fromModel(model: GraphDefinition.Link): GraphDefinitionLinkSurrogate =
+      with(model) {
+        GraphDefinitionLinkSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          path = this@with.path?.value,
+          _path = this@with.path?.toElement(),
+          sliceName = this@with.sliceName?.value,
+          _sliceName = this@with.sliceName?.toElement(),
+          min = this@with.min?.value,
+          _min = this@with.min?.toElement(),
+          max = this@with.max?.value,
+          _max = this@with.max?.toElement(),
+          description = this@with.description?.value,
+          _description = this@with.description?.toElement(),
+          target = this@with.target.takeUnless { it.all { it == null } },
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class GraphDefinitionLinkTargetSurrogate(
+  public var id: KotlinString? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var type: KotlinString? = null,
+  public var _type: Element? = null,
+  public var params: KotlinString? = null,
+  public var _params: Element? = null,
+  public var profile: KotlinString? = null,
+  public var _profile: Element? = null,
+  public var compartment: MutableList<GraphDefinition.Link.Target.Compartment>? = null,
+  public var link: MutableList<GraphDefinition.Link>? = null,
+) {
+  public fun toModel(): GraphDefinition.Link.Target =
+    GraphDefinition.Link.Target(
+      id = this@GraphDefinitionLinkTargetSurrogate.id,
+      extension = this@GraphDefinitionLinkTargetSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@GraphDefinitionLinkTargetSurrogate.modifierExtension ?: mutableListOf(),
+      type =
+        Enumeration.of(
+          com.google.fhir.model.r4b.terminologies.ResourceType.fromCode(
+            this@GraphDefinitionLinkTargetSurrogate.type!!
+          ),
+          this@GraphDefinitionLinkTargetSurrogate._type,
+        ),
+      params =
+        R4bString.of(
+          this@GraphDefinitionLinkTargetSurrogate.params,
+          this@GraphDefinitionLinkTargetSurrogate._params,
+        ),
+      profile =
+        Canonical.of(
+          this@GraphDefinitionLinkTargetSurrogate.profile,
+          this@GraphDefinitionLinkTargetSurrogate._profile,
+        ),
+      compartment = this@GraphDefinitionLinkTargetSurrogate.compartment ?: mutableListOf(),
+      link = this@GraphDefinitionLinkTargetSurrogate.link ?: mutableListOf(),
+    )
+
+  public companion object {
+    public fun fromModel(model: GraphDefinition.Link.Target): GraphDefinitionLinkTargetSurrogate =
+      with(model) {
+        GraphDefinitionLinkTargetSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          type = this@with.type.value?.getCode(),
+          _type = this@with.type.toElement(),
+          params = this@with.params?.value,
+          _params = this@with.params?.toElement(),
+          profile = this@with.profile?.value,
+          _profile = this@with.profile?.toElement(),
+          compartment = this@with.compartment.takeUnless { it.all { it == null } },
+          link = this@with.link.takeUnless { it.all { it == null } },
+        )
+      }
+  }
+}
+
+@Serializable
 internal data class GraphDefinitionLinkTargetCompartmentSurrogate(
   public var id: KotlinString? = null,
   public var extension: MutableList<Extension>? = null,
@@ -122,134 +250,6 @@ internal data class GraphDefinitionLinkTargetCompartmentSurrogate(
           _expression = this@with.expression?.toElement(),
           description = this@with.description?.value,
           _description = this@with.description?.toElement(),
-        )
-      }
-  }
-}
-
-@Serializable
-internal data class GraphDefinitionLinkTargetSurrogate(
-  public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var type: KotlinString? = null,
-  public var _type: Element? = null,
-  public var params: KotlinString? = null,
-  public var _params: Element? = null,
-  public var profile: KotlinString? = null,
-  public var _profile: Element? = null,
-  public var compartment: MutableList<GraphDefinition.Link.Target.Compartment>? = null,
-  public var link: MutableList<GraphDefinition.Link>? = null,
-) {
-  public fun toModel(): GraphDefinition.Link.Target =
-    GraphDefinition.Link.Target(
-      id = this@GraphDefinitionLinkTargetSurrogate.id,
-      extension = this@GraphDefinitionLinkTargetSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@GraphDefinitionLinkTargetSurrogate.modifierExtension ?: mutableListOf(),
-      type =
-        Enumeration.of(
-          com.google.fhir.model.r4b.terminologies.ResourceType.fromCode(
-            this@GraphDefinitionLinkTargetSurrogate.type!!
-          ),
-          this@GraphDefinitionLinkTargetSurrogate._type,
-        ),
-      params =
-        R4bString.of(
-          this@GraphDefinitionLinkTargetSurrogate.params,
-          this@GraphDefinitionLinkTargetSurrogate._params,
-        ),
-      profile =
-        Canonical.of(
-          this@GraphDefinitionLinkTargetSurrogate.profile,
-          this@GraphDefinitionLinkTargetSurrogate._profile,
-        ),
-      compartment = this@GraphDefinitionLinkTargetSurrogate.compartment ?: mutableListOf(),
-      link = this@GraphDefinitionLinkTargetSurrogate.link ?: mutableListOf(),
-    )
-
-  public companion object {
-    public fun fromModel(model: GraphDefinition.Link.Target): GraphDefinitionLinkTargetSurrogate =
-      with(model) {
-        GraphDefinitionLinkTargetSurrogate(
-          id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          type = this@with.type.value?.getCode(),
-          _type = this@with.type.toElement(),
-          params = this@with.params?.value,
-          _params = this@with.params?.toElement(),
-          profile = this@with.profile?.value,
-          _profile = this@with.profile?.toElement(),
-          compartment = this@with.compartment.takeUnless { it.all { it == null } },
-          link = this@with.link.takeUnless { it.all { it == null } },
-        )
-      }
-  }
-}
-
-@Serializable
-internal data class GraphDefinitionLinkSurrogate(
-  public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var path: KotlinString? = null,
-  public var _path: Element? = null,
-  public var sliceName: KotlinString? = null,
-  public var _sliceName: Element? = null,
-  public var min: Int? = null,
-  public var _min: Element? = null,
-  public var max: KotlinString? = null,
-  public var _max: Element? = null,
-  public var description: KotlinString? = null,
-  public var _description: Element? = null,
-  public var target: MutableList<GraphDefinition.Link.Target>? = null,
-) {
-  public fun toModel(): GraphDefinition.Link =
-    GraphDefinition.Link(
-      id = this@GraphDefinitionLinkSurrogate.id,
-      extension = this@GraphDefinitionLinkSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@GraphDefinitionLinkSurrogate.modifierExtension ?: mutableListOf(),
-      path =
-        R4bString.of(
-          this@GraphDefinitionLinkSurrogate.path,
-          this@GraphDefinitionLinkSurrogate._path,
-        ),
-      sliceName =
-        R4bString.of(
-          this@GraphDefinitionLinkSurrogate.sliceName,
-          this@GraphDefinitionLinkSurrogate._sliceName,
-        ),
-      min =
-        Integer.of(this@GraphDefinitionLinkSurrogate.min, this@GraphDefinitionLinkSurrogate._min),
-      max =
-        R4bString.of(this@GraphDefinitionLinkSurrogate.max, this@GraphDefinitionLinkSurrogate._max),
-      description =
-        R4bString.of(
-          this@GraphDefinitionLinkSurrogate.description,
-          this@GraphDefinitionLinkSurrogate._description,
-        ),
-      target = this@GraphDefinitionLinkSurrogate.target ?: mutableListOf(),
-    )
-
-  public companion object {
-    public fun fromModel(model: GraphDefinition.Link): GraphDefinitionLinkSurrogate =
-      with(model) {
-        GraphDefinitionLinkSurrogate(
-          id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          path = this@with.path?.value,
-          _path = this@with.path?.toElement(),
-          sliceName = this@with.sliceName?.value,
-          _sliceName = this@with.sliceName?.toElement(),
-          min = this@with.min?.value,
-          _min = this@with.min?.toElement(),
-          max = this@with.max?.value,
-          _max = this@with.max?.toElement(),
-          description = this@with.description?.value,
-          _description = this@with.description?.toElement(),
-          target = this@with.target.takeUnless { it.all { it == null } },
         )
       }
   }

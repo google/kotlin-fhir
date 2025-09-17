@@ -124,6 +124,37 @@ internal data class TestScriptDestinationSurrogate(
 }
 
 @Serializable
+internal data class TestScriptMetadataSurrogate(
+  public var id: KotlinString? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var link: MutableList<TestScript.Metadata.Link>? = null,
+  public var capability: MutableList<TestScript.Metadata.Capability>? = null,
+) {
+  public fun toModel(): TestScript.Metadata =
+    TestScript.Metadata(
+      id = this@TestScriptMetadataSurrogate.id,
+      extension = this@TestScriptMetadataSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@TestScriptMetadataSurrogate.modifierExtension ?: mutableListOf(),
+      link = this@TestScriptMetadataSurrogate.link ?: mutableListOf(),
+      capability = this@TestScriptMetadataSurrogate.capability ?: mutableListOf(),
+    )
+
+  public companion object {
+    public fun fromModel(model: TestScript.Metadata): TestScriptMetadataSurrogate =
+      with(model) {
+        TestScriptMetadataSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          link = this@with.link.takeUnless { it.all { it == null } },
+          capability = this@with.capability.takeUnless { it.all { it == null } },
+        )
+      }
+  }
+}
+
+@Serializable
 internal data class TestScriptMetadataLinkSurrogate(
   public var id: KotlinString? = null,
   public var extension: MutableList<Extension>? = null,
@@ -292,37 +323,6 @@ internal data class TestScriptMetadataCapabilitySurrogate(
 }
 
 @Serializable
-internal data class TestScriptMetadataSurrogate(
-  public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var link: MutableList<TestScript.Metadata.Link>? = null,
-  public var capability: MutableList<TestScript.Metadata.Capability>? = null,
-) {
-  public fun toModel(): TestScript.Metadata =
-    TestScript.Metadata(
-      id = this@TestScriptMetadataSurrogate.id,
-      extension = this@TestScriptMetadataSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@TestScriptMetadataSurrogate.modifierExtension ?: mutableListOf(),
-      link = this@TestScriptMetadataSurrogate.link ?: mutableListOf(),
-      capability = this@TestScriptMetadataSurrogate.capability ?: mutableListOf(),
-    )
-
-  public companion object {
-    public fun fromModel(model: TestScript.Metadata): TestScriptMetadataSurrogate =
-      with(model) {
-        TestScriptMetadataSurrogate(
-          id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          link = this@with.link.takeUnless { it.all { it == null } },
-          capability = this@with.capability.takeUnless { it.all { it == null } },
-        )
-      }
-  }
-}
-
-@Serializable
 internal data class TestScriptFixtureSurrogate(
   public var id: KotlinString? = null,
   public var extension: MutableList<Extension>? = null,
@@ -457,48 +457,59 @@ internal data class TestScriptVariableSurrogate(
 }
 
 @Serializable
-internal data class TestScriptSetupActionOperationRequestHeaderSurrogate(
+internal data class TestScriptSetupSurrogate(
   public var id: KotlinString? = null,
   public var extension: MutableList<Extension>? = null,
   public var modifierExtension: MutableList<Extension>? = null,
-  public var `field`: KotlinString? = null,
-  public var _field: Element? = null,
-  public var `value`: KotlinString? = null,
-  public var _value: Element? = null,
+  public var action: MutableList<TestScript.Setup.Action>? = null,
 ) {
-  public fun toModel(): TestScript.Setup.Action.Operation.RequestHeader =
-    TestScript.Setup.Action.Operation.RequestHeader(
-      id = this@TestScriptSetupActionOperationRequestHeaderSurrogate.id,
-      extension =
-        this@TestScriptSetupActionOperationRequestHeaderSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@TestScriptSetupActionOperationRequestHeaderSurrogate.modifierExtension
-          ?: mutableListOf(),
-      `field` =
-        R4String.of(
-          this@TestScriptSetupActionOperationRequestHeaderSurrogate.`field`,
-          this@TestScriptSetupActionOperationRequestHeaderSurrogate._field,
-        )!!,
-      `value` =
-        R4String.of(
-          this@TestScriptSetupActionOperationRequestHeaderSurrogate.`value`,
-          this@TestScriptSetupActionOperationRequestHeaderSurrogate._value,
-        )!!,
+  public fun toModel(): TestScript.Setup =
+    TestScript.Setup(
+      id = this@TestScriptSetupSurrogate.id,
+      extension = this@TestScriptSetupSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@TestScriptSetupSurrogate.modifierExtension ?: mutableListOf(),
+      action = this@TestScriptSetupSurrogate.action ?: mutableListOf(),
     )
 
   public companion object {
-    public fun fromModel(
-      model: TestScript.Setup.Action.Operation.RequestHeader
-    ): TestScriptSetupActionOperationRequestHeaderSurrogate =
+    public fun fromModel(model: TestScript.Setup): TestScriptSetupSurrogate =
       with(model) {
-        TestScriptSetupActionOperationRequestHeaderSurrogate(
+        TestScriptSetupSurrogate(
           id = this@with.id,
           extension = this@with.extension.takeUnless { it.all { it == null } },
           modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          `field` = this@with.`field`.value,
-          _field = this@with.`field`.toElement(),
-          `value` = this@with.`value`.value,
-          _value = this@with.`value`.toElement(),
+          action = this@with.action.takeUnless { it.all { it == null } },
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class TestScriptSetupActionSurrogate(
+  public var id: KotlinString? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var operation: TestScript.Setup.Action.Operation? = null,
+  public var assert: TestScript.Setup.Action.Assert? = null,
+) {
+  public fun toModel(): TestScript.Setup.Action =
+    TestScript.Setup.Action(
+      id = this@TestScriptSetupActionSurrogate.id,
+      extension = this@TestScriptSetupActionSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@TestScriptSetupActionSurrogate.modifierExtension ?: mutableListOf(),
+      operation = this@TestScriptSetupActionSurrogate.operation,
+      assert = this@TestScriptSetupActionSurrogate.assert,
+    )
+
+  public companion object {
+    public fun fromModel(model: TestScript.Setup.Action): TestScriptSetupActionSurrogate =
+      with(model) {
+        TestScriptSetupActionSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          operation = this@with.operation,
+          assert = this@with.assert,
         )
       }
   }
@@ -672,6 +683,54 @@ internal data class TestScriptSetupActionOperationSurrogate(
           _targetId = this@with.targetId?.toElement(),
           url = this@with.url?.value,
           _url = this@with.url?.toElement(),
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class TestScriptSetupActionOperationRequestHeaderSurrogate(
+  public var id: KotlinString? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var `field`: KotlinString? = null,
+  public var _field: Element? = null,
+  public var `value`: KotlinString? = null,
+  public var _value: Element? = null,
+) {
+  public fun toModel(): TestScript.Setup.Action.Operation.RequestHeader =
+    TestScript.Setup.Action.Operation.RequestHeader(
+      id = this@TestScriptSetupActionOperationRequestHeaderSurrogate.id,
+      extension =
+        this@TestScriptSetupActionOperationRequestHeaderSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@TestScriptSetupActionOperationRequestHeaderSurrogate.modifierExtension
+          ?: mutableListOf(),
+      `field` =
+        R4String.of(
+          this@TestScriptSetupActionOperationRequestHeaderSurrogate.`field`,
+          this@TestScriptSetupActionOperationRequestHeaderSurrogate._field,
+        )!!,
+      `value` =
+        R4String.of(
+          this@TestScriptSetupActionOperationRequestHeaderSurrogate.`value`,
+          this@TestScriptSetupActionOperationRequestHeaderSurrogate._value,
+        )!!,
+    )
+
+  public companion object {
+    public fun fromModel(
+      model: TestScript.Setup.Action.Operation.RequestHeader
+    ): TestScriptSetupActionOperationRequestHeaderSurrogate =
+      with(model) {
+        TestScriptSetupActionOperationRequestHeaderSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          `field` = this@with.`field`.value,
+          _field = this@with.`field`.toElement(),
+          `value` = this@with.`value`.value,
+          _value = this@with.`value`.toElement(),
         )
       }
   }
@@ -914,96 +973,6 @@ internal data class TestScriptSetupActionAssertSurrogate(
 }
 
 @Serializable
-internal data class TestScriptSetupActionSurrogate(
-  public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var operation: TestScript.Setup.Action.Operation? = null,
-  public var assert: TestScript.Setup.Action.Assert? = null,
-) {
-  public fun toModel(): TestScript.Setup.Action =
-    TestScript.Setup.Action(
-      id = this@TestScriptSetupActionSurrogate.id,
-      extension = this@TestScriptSetupActionSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@TestScriptSetupActionSurrogate.modifierExtension ?: mutableListOf(),
-      operation = this@TestScriptSetupActionSurrogate.operation,
-      assert = this@TestScriptSetupActionSurrogate.assert,
-    )
-
-  public companion object {
-    public fun fromModel(model: TestScript.Setup.Action): TestScriptSetupActionSurrogate =
-      with(model) {
-        TestScriptSetupActionSurrogate(
-          id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          operation = this@with.operation,
-          assert = this@with.assert,
-        )
-      }
-  }
-}
-
-@Serializable
-internal data class TestScriptSetupSurrogate(
-  public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var action: MutableList<TestScript.Setup.Action>? = null,
-) {
-  public fun toModel(): TestScript.Setup =
-    TestScript.Setup(
-      id = this@TestScriptSetupSurrogate.id,
-      extension = this@TestScriptSetupSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@TestScriptSetupSurrogate.modifierExtension ?: mutableListOf(),
-      action = this@TestScriptSetupSurrogate.action ?: mutableListOf(),
-    )
-
-  public companion object {
-    public fun fromModel(model: TestScript.Setup): TestScriptSetupSurrogate =
-      with(model) {
-        TestScriptSetupSurrogate(
-          id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          action = this@with.action.takeUnless { it.all { it == null } },
-        )
-      }
-  }
-}
-
-@Serializable
-internal data class TestScriptTestActionSurrogate(
-  public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var operation: TestScript.Setup.Action.Operation? = null,
-  public var assert: TestScript.Setup.Action.Assert? = null,
-) {
-  public fun toModel(): TestScript.Test.Action =
-    TestScript.Test.Action(
-      id = this@TestScriptTestActionSurrogate.id,
-      extension = this@TestScriptTestActionSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@TestScriptTestActionSurrogate.modifierExtension ?: mutableListOf(),
-      operation = this@TestScriptTestActionSurrogate.operation,
-      assert = this@TestScriptTestActionSurrogate.assert,
-    )
-
-  public companion object {
-    public fun fromModel(model: TestScript.Test.Action): TestScriptTestActionSurrogate =
-      with(model) {
-        TestScriptTestActionSurrogate(
-          id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          operation = this@with.operation,
-          assert = this@with.assert,
-        )
-      }
-  }
-}
-
-@Serializable
 internal data class TestScriptTestSurrogate(
   public var id: KotlinString? = null,
   public var extension: MutableList<Extension>? = null,
@@ -1046,29 +1015,31 @@ internal data class TestScriptTestSurrogate(
 }
 
 @Serializable
-internal data class TestScriptTeardownActionSurrogate(
+internal data class TestScriptTestActionSurrogate(
   public var id: KotlinString? = null,
   public var extension: MutableList<Extension>? = null,
   public var modifierExtension: MutableList<Extension>? = null,
-  public var operation: TestScript.Setup.Action.Operation,
+  public var operation: TestScript.Setup.Action.Operation? = null,
+  public var assert: TestScript.Setup.Action.Assert? = null,
 ) {
-  public fun toModel(): TestScript.Teardown.Action =
-    TestScript.Teardown.Action(
-      id = this@TestScriptTeardownActionSurrogate.id,
-      extension = this@TestScriptTeardownActionSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@TestScriptTeardownActionSurrogate.modifierExtension ?: mutableListOf(),
-      operation = this@TestScriptTeardownActionSurrogate.operation,
+  public fun toModel(): TestScript.Test.Action =
+    TestScript.Test.Action(
+      id = this@TestScriptTestActionSurrogate.id,
+      extension = this@TestScriptTestActionSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@TestScriptTestActionSurrogate.modifierExtension ?: mutableListOf(),
+      operation = this@TestScriptTestActionSurrogate.operation,
+      assert = this@TestScriptTestActionSurrogate.assert,
     )
 
   public companion object {
-    public fun fromModel(model: TestScript.Teardown.Action): TestScriptTeardownActionSurrogate =
+    public fun fromModel(model: TestScript.Test.Action): TestScriptTestActionSurrogate =
       with(model) {
-        TestScriptTeardownActionSurrogate(
+        TestScriptTestActionSurrogate(
           id = this@with.id,
           extension = this@with.extension.takeUnless { it.all { it == null } },
           modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
           operation = this@with.operation,
+          assert = this@with.assert,
         )
       }
   }
@@ -1097,6 +1068,35 @@ internal data class TestScriptTeardownSurrogate(
           extension = this@with.extension.takeUnless { it.all { it == null } },
           modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
           action = this@with.action.takeUnless { it.all { it == null } },
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class TestScriptTeardownActionSurrogate(
+  public var id: KotlinString? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var operation: TestScript.Setup.Action.Operation,
+) {
+  public fun toModel(): TestScript.Teardown.Action =
+    TestScript.Teardown.Action(
+      id = this@TestScriptTeardownActionSurrogate.id,
+      extension = this@TestScriptTeardownActionSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@TestScriptTeardownActionSurrogate.modifierExtension ?: mutableListOf(),
+      operation = this@TestScriptTeardownActionSurrogate.operation,
+    )
+
+  public companion object {
+    public fun fromModel(model: TestScript.Teardown.Action): TestScriptTeardownActionSurrogate =
+      with(model) {
+        TestScriptTeardownActionSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          operation = this@with.operation,
         )
       }
   }

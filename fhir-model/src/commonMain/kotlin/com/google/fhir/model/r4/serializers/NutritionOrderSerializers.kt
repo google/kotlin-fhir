@@ -41,6 +41,23 @@ import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.JsonPrimitive
 import kotlinx.serialization.json.jsonObject
 
+public object NutritionOrderOralDietSerializer : KSerializer<NutritionOrder.OralDiet> {
+  internal val surrogateSerializer: KSerializer<NutritionOrderOralDietSurrogate> by lazy {
+    NutritionOrderOralDietSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("OralDiet", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): NutritionOrder.OralDiet =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: NutritionOrder.OralDiet) {
+    surrogateSerializer.serialize(encoder, NutritionOrderOralDietSurrogate.fromModel(value))
+  }
+}
+
 public object NutritionOrderOralDietNutrientSerializer :
   KSerializer<NutritionOrder.OralDiet.Nutrient> {
   internal val surrogateSerializer: KSerializer<NutritionOrderOralDietNutrientSurrogate> by lazy {
@@ -77,23 +94,6 @@ public object NutritionOrderOralDietTextureSerializer :
   }
 }
 
-public object NutritionOrderOralDietSerializer : KSerializer<NutritionOrder.OralDiet> {
-  internal val surrogateSerializer: KSerializer<NutritionOrderOralDietSurrogate> by lazy {
-    NutritionOrderOralDietSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("OralDiet", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): NutritionOrder.OralDiet =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: NutritionOrder.OralDiet) {
-    surrogateSerializer.serialize(encoder, NutritionOrderOralDietSurrogate.fromModel(value))
-  }
-}
-
 public object NutritionOrderSupplementSerializer : KSerializer<NutritionOrder.Supplement> {
   internal val surrogateSerializer: KSerializer<NutritionOrderSupplementSurrogate> by lazy {
     NutritionOrderSupplementSurrogate.serializer()
@@ -111,28 +111,20 @@ public object NutritionOrderSupplementSerializer : KSerializer<NutritionOrder.Su
   }
 }
 
-public object NutritionOrderEnteralFormulaAdministrationRateSerializer :
-  KSerializer<NutritionOrder.EnteralFormula.Administration.Rate> {
-  internal val surrogateSerializer:
-    KSerializer<NutritionOrderEnteralFormulaAdministrationRateSurrogate> by lazy {
-    NutritionOrderEnteralFormulaAdministrationRateSurrogate.serializer()
+public object NutritionOrderEnteralFormulaSerializer : KSerializer<NutritionOrder.EnteralFormula> {
+  internal val surrogateSerializer: KSerializer<NutritionOrderEnteralFormulaSurrogate> by lazy {
+    NutritionOrderEnteralFormulaSurrogate.serializer()
   }
 
   override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Rate", surrogateSerializer.descriptor)
+    SerialDescriptor("EnteralFormula", surrogateSerializer.descriptor)
   }
 
-  override fun deserialize(decoder: Decoder): NutritionOrder.EnteralFormula.Administration.Rate =
+  override fun deserialize(decoder: Decoder): NutritionOrder.EnteralFormula =
     surrogateSerializer.deserialize(decoder).toModel()
 
-  override fun serialize(
-    encoder: Encoder,
-    `value`: NutritionOrder.EnteralFormula.Administration.Rate,
-  ) {
-    surrogateSerializer.serialize(
-      encoder,
-      NutritionOrderEnteralFormulaAdministrationRateSurrogate.fromModel(value),
-    )
+  override fun serialize(encoder: Encoder, `value`: NutritionOrder.EnteralFormula) {
+    surrogateSerializer.serialize(encoder, NutritionOrderEnteralFormulaSurrogate.fromModel(value))
   }
 }
 
@@ -185,20 +177,28 @@ public object NutritionOrderEnteralFormulaAdministrationSerializer :
   }
 }
 
-public object NutritionOrderEnteralFormulaSerializer : KSerializer<NutritionOrder.EnteralFormula> {
-  internal val surrogateSerializer: KSerializer<NutritionOrderEnteralFormulaSurrogate> by lazy {
-    NutritionOrderEnteralFormulaSurrogate.serializer()
+public object NutritionOrderEnteralFormulaAdministrationRateSerializer :
+  KSerializer<NutritionOrder.EnteralFormula.Administration.Rate> {
+  internal val surrogateSerializer:
+    KSerializer<NutritionOrderEnteralFormulaAdministrationRateSurrogate> by lazy {
+    NutritionOrderEnteralFormulaAdministrationRateSurrogate.serializer()
   }
 
   override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("EnteralFormula", surrogateSerializer.descriptor)
+    SerialDescriptor("Rate", surrogateSerializer.descriptor)
   }
 
-  override fun deserialize(decoder: Decoder): NutritionOrder.EnteralFormula =
+  override fun deserialize(decoder: Decoder): NutritionOrder.EnteralFormula.Administration.Rate =
     surrogateSerializer.deserialize(decoder).toModel()
 
-  override fun serialize(encoder: Encoder, `value`: NutritionOrder.EnteralFormula) {
-    surrogateSerializer.serialize(encoder, NutritionOrderEnteralFormulaSurrogate.fromModel(value))
+  override fun serialize(
+    encoder: Encoder,
+    `value`: NutritionOrder.EnteralFormula.Administration.Rate,
+  ) {
+    surrogateSerializer.serialize(
+      encoder,
+      NutritionOrderEnteralFormulaAdministrationRateSurrogate.fromModel(value),
+    )
   }
 }
 

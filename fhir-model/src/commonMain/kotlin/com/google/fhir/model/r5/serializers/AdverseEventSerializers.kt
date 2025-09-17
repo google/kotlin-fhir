@@ -64,50 +64,6 @@ public object AdverseEventParticipantSerializer : KSerializer<AdverseEvent.Parti
   }
 }
 
-public object AdverseEventSuspectEntityCausalitySerializer :
-  KSerializer<AdverseEvent.SuspectEntity.Causality> {
-  internal val surrogateSerializer:
-    KSerializer<AdverseEventSuspectEntityCausalitySurrogate> by lazy {
-    AdverseEventSuspectEntityCausalitySurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Causality", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): AdverseEvent.SuspectEntity.Causality =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: AdverseEvent.SuspectEntity.Causality) {
-    surrogateSerializer.serialize(
-      encoder,
-      AdverseEventSuspectEntityCausalitySurrogate.fromModel(value),
-    )
-  }
-}
-
-public object AdverseEventSuspectEntityInstanceSerializer :
-  KSerializer<AdverseEvent.SuspectEntity.Instance> {
-  internal val surrogateSerializer:
-    KSerializer<AdverseEventSuspectEntityInstanceSurrogate> by lazy {
-    AdverseEventSuspectEntityInstanceSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Instance", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): AdverseEvent.SuspectEntity.Instance =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: AdverseEvent.SuspectEntity.Instance) {
-    surrogateSerializer.serialize(
-      encoder,
-      AdverseEventSuspectEntityInstanceSurrogate.fromModel(value),
-    )
-  }
-}
-
 public object AdverseEventSuspectEntitySerializer : KSerializer<AdverseEvent.SuspectEntity> {
   internal val surrogateSerializer: KSerializer<AdverseEventSuspectEntitySurrogate> by lazy {
     AdverseEventSuspectEntitySurrogate.serializer()
@@ -155,24 +111,24 @@ public object AdverseEventSuspectEntitySerializer : KSerializer<AdverseEvent.Sus
   }
 }
 
-public object AdverseEventContributingFactorItemSerializer :
-  KSerializer<AdverseEvent.ContributingFactor.Item> {
+public object AdverseEventSuspectEntityCausalitySerializer :
+  KSerializer<AdverseEvent.SuspectEntity.Causality> {
   internal val surrogateSerializer:
-    KSerializer<AdverseEventContributingFactorItemSurrogate> by lazy {
-    AdverseEventContributingFactorItemSurrogate.serializer()
+    KSerializer<AdverseEventSuspectEntityCausalitySurrogate> by lazy {
+    AdverseEventSuspectEntityCausalitySurrogate.serializer()
   }
 
   override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Item", surrogateSerializer.descriptor)
+    SerialDescriptor("Causality", surrogateSerializer.descriptor)
   }
 
-  override fun deserialize(decoder: Decoder): AdverseEvent.ContributingFactor.Item =
+  override fun deserialize(decoder: Decoder): AdverseEvent.SuspectEntity.Causality =
     surrogateSerializer.deserialize(decoder).toModel()
 
-  override fun serialize(encoder: Encoder, `value`: AdverseEvent.ContributingFactor.Item) {
+  override fun serialize(encoder: Encoder, `value`: AdverseEvent.SuspectEntity.Causality) {
     surrogateSerializer.serialize(
       encoder,
-      AdverseEventContributingFactorItemSurrogate.fromModel(value),
+      AdverseEventSuspectEntityCausalitySurrogate.fromModel(value),
     )
   }
 }
@@ -225,27 +181,6 @@ public object AdverseEventContributingFactorSerializer :
   }
 }
 
-public object AdverseEventPreventiveActionItemSerializer :
-  KSerializer<AdverseEvent.PreventiveAction.Item> {
-  internal val surrogateSerializer: KSerializer<AdverseEventPreventiveActionItemSurrogate> by lazy {
-    AdverseEventPreventiveActionItemSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Item", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): AdverseEvent.PreventiveAction.Item =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: AdverseEvent.PreventiveAction.Item) {
-    surrogateSerializer.serialize(
-      encoder,
-      AdverseEventPreventiveActionItemSurrogate.fromModel(value),
-    )
-  }
-}
-
 public object AdverseEventPreventiveActionSerializer : KSerializer<AdverseEvent.PreventiveAction> {
   internal val surrogateSerializer: KSerializer<AdverseEventPreventiveActionSurrogate> by lazy {
     AdverseEventPreventiveActionSurrogate.serializer()
@@ -293,27 +228,6 @@ public object AdverseEventPreventiveActionSerializer : KSerializer<AdverseEvent.
   }
 }
 
-public object AdverseEventMitigatingActionItemSerializer :
-  KSerializer<AdverseEvent.MitigatingAction.Item> {
-  internal val surrogateSerializer: KSerializer<AdverseEventMitigatingActionItemSurrogate> by lazy {
-    AdverseEventMitigatingActionItemSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Item", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): AdverseEvent.MitigatingAction.Item =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: AdverseEvent.MitigatingAction.Item) {
-    surrogateSerializer.serialize(
-      encoder,
-      AdverseEventMitigatingActionItemSurrogate.fromModel(value),
-    )
-  }
-}
-
 public object AdverseEventMitigatingActionSerializer : KSerializer<AdverseEvent.MitigatingAction> {
   internal val surrogateSerializer: KSerializer<AdverseEventMitigatingActionSurrogate> by lazy {
     AdverseEventMitigatingActionSurrogate.serializer()
@@ -358,24 +272,6 @@ public object AdverseEventMitigatingActionSerializer : KSerializer<AdverseEvent.
       }
     val flattenedJsonObject = FhirJsonTransformer.flatten(oldJsonObject, multiChoiceProperties)
     jsonEncoder.encodeJsonElement(flattenedJsonObject)
-  }
-}
-
-public object AdverseEventSupportingInfoItemSerializer :
-  KSerializer<AdverseEvent.SupportingInfo.Item> {
-  internal val surrogateSerializer: KSerializer<AdverseEventSupportingInfoItemSurrogate> by lazy {
-    AdverseEventSupportingInfoItemSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Item", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): AdverseEvent.SupportingInfo.Item =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: AdverseEvent.SupportingInfo.Item) {
-    surrogateSerializer.serialize(encoder, AdverseEventSupportingInfoItemSurrogate.fromModel(value))
   }
 }
 
@@ -440,6 +336,110 @@ public object AdverseEventOccurrenceSerializer : KSerializer<AdverseEvent.Occurr
 
   override fun serialize(encoder: Encoder, `value`: AdverseEvent.Occurrence) {
     surrogateSerializer.serialize(encoder, AdverseEventOccurrenceSurrogate.fromModel(value))
+  }
+}
+
+public object AdverseEventSuspectEntityInstanceSerializer :
+  KSerializer<AdverseEvent.SuspectEntity.Instance> {
+  internal val surrogateSerializer:
+    KSerializer<AdverseEventSuspectEntityInstanceSurrogate> by lazy {
+    AdverseEventSuspectEntityInstanceSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Instance", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): AdverseEvent.SuspectEntity.Instance =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: AdverseEvent.SuspectEntity.Instance) {
+    surrogateSerializer.serialize(
+      encoder,
+      AdverseEventSuspectEntityInstanceSurrogate.fromModel(value),
+    )
+  }
+}
+
+public object AdverseEventContributingFactorItemSerializer :
+  KSerializer<AdverseEvent.ContributingFactor.Item> {
+  internal val surrogateSerializer:
+    KSerializer<AdverseEventContributingFactorItemSurrogate> by lazy {
+    AdverseEventContributingFactorItemSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Item", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): AdverseEvent.ContributingFactor.Item =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: AdverseEvent.ContributingFactor.Item) {
+    surrogateSerializer.serialize(
+      encoder,
+      AdverseEventContributingFactorItemSurrogate.fromModel(value),
+    )
+  }
+}
+
+public object AdverseEventPreventiveActionItemSerializer :
+  KSerializer<AdverseEvent.PreventiveAction.Item> {
+  internal val surrogateSerializer: KSerializer<AdverseEventPreventiveActionItemSurrogate> by lazy {
+    AdverseEventPreventiveActionItemSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Item", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): AdverseEvent.PreventiveAction.Item =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: AdverseEvent.PreventiveAction.Item) {
+    surrogateSerializer.serialize(
+      encoder,
+      AdverseEventPreventiveActionItemSurrogate.fromModel(value),
+    )
+  }
+}
+
+public object AdverseEventMitigatingActionItemSerializer :
+  KSerializer<AdverseEvent.MitigatingAction.Item> {
+  internal val surrogateSerializer: KSerializer<AdverseEventMitigatingActionItemSurrogate> by lazy {
+    AdverseEventMitigatingActionItemSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Item", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): AdverseEvent.MitigatingAction.Item =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: AdverseEvent.MitigatingAction.Item) {
+    surrogateSerializer.serialize(
+      encoder,
+      AdverseEventMitigatingActionItemSurrogate.fromModel(value),
+    )
+  }
+}
+
+public object AdverseEventSupportingInfoItemSerializer :
+  KSerializer<AdverseEvent.SupportingInfo.Item> {
+  internal val surrogateSerializer: KSerializer<AdverseEventSupportingInfoItemSurrogate> by lazy {
+    AdverseEventSupportingInfoItemSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Item", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): AdverseEvent.SupportingInfo.Item =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: AdverseEvent.SupportingInfo.Item) {
+    surrogateSerializer.serialize(encoder, AdverseEventSupportingInfoItemSurrogate.fromModel(value))
   }
 }
 

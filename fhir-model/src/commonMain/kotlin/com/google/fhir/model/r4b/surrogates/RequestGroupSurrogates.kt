@@ -53,162 +53,6 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
-internal data class RequestGroupActionConditionSurrogate(
-  public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var kind: KotlinString? = null,
-  public var _kind: Element? = null,
-  public var expression: Expression? = null,
-) {
-  public fun toModel(): RequestGroup.Action.Condition =
-    RequestGroup.Action.Condition(
-      id = this@RequestGroupActionConditionSurrogate.id,
-      extension = this@RequestGroupActionConditionSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@RequestGroupActionConditionSurrogate.modifierExtension ?: mutableListOf(),
-      kind =
-        Enumeration.of(
-          com.google.fhir.model.r4b.RequestGroup.ActionConditionKind.fromCode(
-            this@RequestGroupActionConditionSurrogate.kind!!
-          ),
-          this@RequestGroupActionConditionSurrogate._kind,
-        ),
-      expression = this@RequestGroupActionConditionSurrogate.expression,
-    )
-
-  public companion object {
-    public fun fromModel(
-      model: RequestGroup.Action.Condition
-    ): RequestGroupActionConditionSurrogate =
-      with(model) {
-        RequestGroupActionConditionSurrogate(
-          id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          kind = this@with.kind.value?.getCode(),
-          _kind = this@with.kind.toElement(),
-          expression = this@with.expression,
-        )
-      }
-  }
-}
-
-@Serializable
-internal data class RequestGroupActionRelatedActionOffsetSurrogate(
-  public var offsetDuration: Duration? = null,
-  public var offsetRange: Range? = null,
-) {
-  public fun toModel(): RequestGroup.Action.RelatedAction.Offset =
-    RequestGroup.Action.RelatedAction.Offset?.from(
-      this@RequestGroupActionRelatedActionOffsetSurrogate.offsetDuration,
-      this@RequestGroupActionRelatedActionOffsetSurrogate.offsetRange,
-    )!!
-
-  public companion object {
-    public fun fromModel(
-      model: RequestGroup.Action.RelatedAction.Offset
-    ): RequestGroupActionRelatedActionOffsetSurrogate =
-      with(model) {
-        RequestGroupActionRelatedActionOffsetSurrogate(
-          offsetDuration = this@with.asDuration()?.value,
-          offsetRange = this@with.asRange()?.value,
-        )
-      }
-  }
-}
-
-@Serializable
-internal data class RequestGroupActionRelatedActionSurrogate(
-  public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var actionId: KotlinString? = null,
-  public var _actionId: Element? = null,
-  public var relationship: KotlinString? = null,
-  public var _relationship: Element? = null,
-  public var offset: RequestGroup.Action.RelatedAction.Offset? = null,
-) {
-  public fun toModel(): RequestGroup.Action.RelatedAction =
-    RequestGroup.Action.RelatedAction(
-      id = this@RequestGroupActionRelatedActionSurrogate.id,
-      extension = this@RequestGroupActionRelatedActionSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@RequestGroupActionRelatedActionSurrogate.modifierExtension ?: mutableListOf(),
-      actionId =
-        Id.of(
-          this@RequestGroupActionRelatedActionSurrogate.actionId,
-          this@RequestGroupActionRelatedActionSurrogate._actionId,
-        )!!,
-      relationship =
-        Enumeration.of(
-          com.google.fhir.model.r4b.RequestGroup.ActionRelationshipType.fromCode(
-            this@RequestGroupActionRelatedActionSurrogate.relationship!!
-          ),
-          this@RequestGroupActionRelatedActionSurrogate._relationship,
-        ),
-      offset = this@RequestGroupActionRelatedActionSurrogate.offset,
-    )
-
-  public companion object {
-    public fun fromModel(
-      model: RequestGroup.Action.RelatedAction
-    ): RequestGroupActionRelatedActionSurrogate =
-      with(model) {
-        RequestGroupActionRelatedActionSurrogate(
-          id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          actionId = this@with.actionId.value,
-          _actionId = this@with.actionId.toElement(),
-          relationship = this@with.relationship.value?.getCode(),
-          _relationship = this@with.relationship.toElement(),
-          offset = this@with.offset,
-        )
-      }
-  }
-}
-
-@Serializable
-internal data class RequestGroupActionTimingSurrogate(
-  public var timingDateTime: KotlinString? = null,
-  public var _timingDateTime: Element? = null,
-  public var timingAge: Age? = null,
-  public var timingPeriod: Period? = null,
-  public var timingDuration: Duration? = null,
-  public var timingRange: Range? = null,
-  public var timingTiming: Timing? = null,
-) {
-  public fun toModel(): RequestGroup.Action.Timing =
-    RequestGroup.Action.Timing?.from(
-      DateTime.of(
-        FhirDateTime.fromString(this@RequestGroupActionTimingSurrogate.timingDateTime),
-        this@RequestGroupActionTimingSurrogate._timingDateTime,
-      ),
-      this@RequestGroupActionTimingSurrogate.timingAge,
-      this@RequestGroupActionTimingSurrogate.timingPeriod,
-      this@RequestGroupActionTimingSurrogate.timingDuration,
-      this@RequestGroupActionTimingSurrogate.timingRange,
-      this@RequestGroupActionTimingSurrogate.timingTiming,
-    )!!
-
-  public companion object {
-    public fun fromModel(model: RequestGroup.Action.Timing): RequestGroupActionTimingSurrogate =
-      with(model) {
-        RequestGroupActionTimingSurrogate(
-          timingDateTime = this@with.asDateTime()?.value?.value?.toString(),
-          _timingDateTime = this@with.asDateTime()?.value?.toElement(),
-          timingAge = this@with.asAge()?.value,
-          timingPeriod = this@with.asPeriod()?.value,
-          timingDuration = this@with.asDuration()?.value,
-          timingRange = this@with.asRange()?.value,
-          timingTiming = this@with.asTiming()?.value,
-        )
-      }
-  }
-}
-
-@Serializable
 internal data class RequestGroupActionSurrogate(
   public var id: KotlinString? = null,
   public var extension: MutableList<Extension>? = null,
@@ -357,6 +201,162 @@ internal data class RequestGroupActionSurrogate(
           _cardinalityBehavior = this@with.cardinalityBehavior?.toElement(),
           resource = this@with.resource,
           action = this@with.action.takeUnless { it.all { it == null } },
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class RequestGroupActionConditionSurrogate(
+  public var id: KotlinString? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var kind: KotlinString? = null,
+  public var _kind: Element? = null,
+  public var expression: Expression? = null,
+) {
+  public fun toModel(): RequestGroup.Action.Condition =
+    RequestGroup.Action.Condition(
+      id = this@RequestGroupActionConditionSurrogate.id,
+      extension = this@RequestGroupActionConditionSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@RequestGroupActionConditionSurrogate.modifierExtension ?: mutableListOf(),
+      kind =
+        Enumeration.of(
+          com.google.fhir.model.r4b.RequestGroup.ActionConditionKind.fromCode(
+            this@RequestGroupActionConditionSurrogate.kind!!
+          ),
+          this@RequestGroupActionConditionSurrogate._kind,
+        ),
+      expression = this@RequestGroupActionConditionSurrogate.expression,
+    )
+
+  public companion object {
+    public fun fromModel(
+      model: RequestGroup.Action.Condition
+    ): RequestGroupActionConditionSurrogate =
+      with(model) {
+        RequestGroupActionConditionSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          kind = this@with.kind.value?.getCode(),
+          _kind = this@with.kind.toElement(),
+          expression = this@with.expression,
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class RequestGroupActionRelatedActionSurrogate(
+  public var id: KotlinString? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var actionId: KotlinString? = null,
+  public var _actionId: Element? = null,
+  public var relationship: KotlinString? = null,
+  public var _relationship: Element? = null,
+  public var offset: RequestGroup.Action.RelatedAction.Offset? = null,
+) {
+  public fun toModel(): RequestGroup.Action.RelatedAction =
+    RequestGroup.Action.RelatedAction(
+      id = this@RequestGroupActionRelatedActionSurrogate.id,
+      extension = this@RequestGroupActionRelatedActionSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@RequestGroupActionRelatedActionSurrogate.modifierExtension ?: mutableListOf(),
+      actionId =
+        Id.of(
+          this@RequestGroupActionRelatedActionSurrogate.actionId,
+          this@RequestGroupActionRelatedActionSurrogate._actionId,
+        )!!,
+      relationship =
+        Enumeration.of(
+          com.google.fhir.model.r4b.RequestGroup.ActionRelationshipType.fromCode(
+            this@RequestGroupActionRelatedActionSurrogate.relationship!!
+          ),
+          this@RequestGroupActionRelatedActionSurrogate._relationship,
+        ),
+      offset = this@RequestGroupActionRelatedActionSurrogate.offset,
+    )
+
+  public companion object {
+    public fun fromModel(
+      model: RequestGroup.Action.RelatedAction
+    ): RequestGroupActionRelatedActionSurrogate =
+      with(model) {
+        RequestGroupActionRelatedActionSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          actionId = this@with.actionId.value,
+          _actionId = this@with.actionId.toElement(),
+          relationship = this@with.relationship.value?.getCode(),
+          _relationship = this@with.relationship.toElement(),
+          offset = this@with.offset,
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class RequestGroupActionRelatedActionOffsetSurrogate(
+  public var offsetDuration: Duration? = null,
+  public var offsetRange: Range? = null,
+) {
+  public fun toModel(): RequestGroup.Action.RelatedAction.Offset =
+    RequestGroup.Action.RelatedAction.Offset.from(
+      this@RequestGroupActionRelatedActionOffsetSurrogate.offsetDuration,
+      this@RequestGroupActionRelatedActionOffsetSurrogate.offsetRange,
+    )!!
+
+  public companion object {
+    public fun fromModel(
+      model: RequestGroup.Action.RelatedAction.Offset
+    ): RequestGroupActionRelatedActionOffsetSurrogate =
+      with(model) {
+        RequestGroupActionRelatedActionOffsetSurrogate(
+          offsetDuration = this@with.asDuration()?.value,
+          offsetRange = this@with.asRange()?.value,
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class RequestGroupActionTimingSurrogate(
+  public var timingDateTime: KotlinString? = null,
+  public var _timingDateTime: Element? = null,
+  public var timingAge: Age? = null,
+  public var timingPeriod: Period? = null,
+  public var timingDuration: Duration? = null,
+  public var timingRange: Range? = null,
+  public var timingTiming: Timing? = null,
+) {
+  public fun toModel(): RequestGroup.Action.Timing =
+    RequestGroup.Action.Timing.from(
+      DateTime.of(
+        FhirDateTime.fromString(this@RequestGroupActionTimingSurrogate.timingDateTime),
+        this@RequestGroupActionTimingSurrogate._timingDateTime,
+      ),
+      this@RequestGroupActionTimingSurrogate.timingAge,
+      this@RequestGroupActionTimingSurrogate.timingPeriod,
+      this@RequestGroupActionTimingSurrogate.timingDuration,
+      this@RequestGroupActionTimingSurrogate.timingRange,
+      this@RequestGroupActionTimingSurrogate.timingTiming,
+    )!!
+
+  public companion object {
+    public fun fromModel(model: RequestGroup.Action.Timing): RequestGroupActionTimingSurrogate =
+      with(model) {
+        RequestGroupActionTimingSurrogate(
+          timingDateTime = this@with.asDateTime()?.value?.value?.toString(),
+          _timingDateTime = this@with.asDateTime()?.value?.toElement(),
+          timingAge = this@with.asAge()?.value,
+          timingPeriod = this@with.asPeriod()?.value,
+          timingDuration = this@with.asDuration()?.value,
+          timingRange = this@with.asRange()?.value,
+          timingTiming = this@with.asTiming()?.value,
         )
       }
   }

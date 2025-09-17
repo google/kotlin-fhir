@@ -38,31 +38,6 @@ import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.JsonPrimitive
 import kotlinx.serialization.json.jsonObject
 
-public object BiologicallyDerivedProductCollectionCollectedSerializer :
-  KSerializer<BiologicallyDerivedProduct.Collection.Collected> {
-  internal val surrogateSerializer:
-    KSerializer<BiologicallyDerivedProductCollectionCollectedSurrogate> by lazy {
-    BiologicallyDerivedProductCollectionCollectedSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Collected", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): BiologicallyDerivedProduct.Collection.Collected =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(
-    encoder: Encoder,
-    `value`: BiologicallyDerivedProduct.Collection.Collected,
-  ) {
-    surrogateSerializer.serialize(
-      encoder,
-      BiologicallyDerivedProductCollectionCollectedSurrogate.fromModel(value),
-    )
-  }
-}
-
 public object BiologicallyDerivedProductCollectionSerializer :
   KSerializer<BiologicallyDerivedProduct.Collection> {
   internal val surrogateSerializer:
@@ -112,28 +87,6 @@ public object BiologicallyDerivedProductCollectionSerializer :
   }
 }
 
-public object BiologicallyDerivedProductPropertyValueSerializer :
-  KSerializer<BiologicallyDerivedProduct.Property.Value> {
-  internal val surrogateSerializer:
-    KSerializer<BiologicallyDerivedProductPropertyValueSurrogate> by lazy {
-    BiologicallyDerivedProductPropertyValueSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Value", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): BiologicallyDerivedProduct.Property.Value =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: BiologicallyDerivedProduct.Property.Value) {
-    surrogateSerializer.serialize(
-      encoder,
-      BiologicallyDerivedProductPropertyValueSurrogate.fromModel(value),
-    )
-  }
-}
-
 public object BiologicallyDerivedProductPropertySerializer :
   KSerializer<BiologicallyDerivedProduct.Property> {
   internal val surrogateSerializer:
@@ -180,6 +133,53 @@ public object BiologicallyDerivedProductPropertySerializer :
       }
     val flattenedJsonObject = FhirJsonTransformer.flatten(oldJsonObject, multiChoiceProperties)
     jsonEncoder.encodeJsonElement(flattenedJsonObject)
+  }
+}
+
+public object BiologicallyDerivedProductCollectionCollectedSerializer :
+  KSerializer<BiologicallyDerivedProduct.Collection.Collected> {
+  internal val surrogateSerializer:
+    KSerializer<BiologicallyDerivedProductCollectionCollectedSurrogate> by lazy {
+    BiologicallyDerivedProductCollectionCollectedSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Collected", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): BiologicallyDerivedProduct.Collection.Collected =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(
+    encoder: Encoder,
+    `value`: BiologicallyDerivedProduct.Collection.Collected,
+  ) {
+    surrogateSerializer.serialize(
+      encoder,
+      BiologicallyDerivedProductCollectionCollectedSurrogate.fromModel(value),
+    )
+  }
+}
+
+public object BiologicallyDerivedProductPropertyValueSerializer :
+  KSerializer<BiologicallyDerivedProduct.Property.Value> {
+  internal val surrogateSerializer:
+    KSerializer<BiologicallyDerivedProductPropertyValueSurrogate> by lazy {
+    BiologicallyDerivedProductPropertyValueSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Value", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): BiologicallyDerivedProduct.Property.Value =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: BiologicallyDerivedProduct.Property.Value) {
+    surrogateSerializer.serialize(
+      encoder,
+      BiologicallyDerivedProductPropertyValueSurrogate.fromModel(value),
+    )
   }
 }
 

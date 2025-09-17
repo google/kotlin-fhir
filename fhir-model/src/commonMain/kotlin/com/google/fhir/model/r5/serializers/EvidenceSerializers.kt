@@ -60,6 +60,23 @@ public object EvidenceVariableDefinitionSerializer : KSerializer<Evidence.Variab
   }
 }
 
+public object EvidenceStatisticSerializer : KSerializer<Evidence.Statistic> {
+  internal val surrogateSerializer: KSerializer<EvidenceStatisticSurrogate> by lazy {
+    EvidenceStatisticSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Statistic", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): Evidence.Statistic =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: Evidence.Statistic) {
+    surrogateSerializer.serialize(encoder, EvidenceStatisticSurrogate.fromModel(value))
+  }
+}
+
 public object EvidenceStatisticSampleSizeSerializer : KSerializer<Evidence.Statistic.SampleSize> {
   internal val surrogateSerializer: KSerializer<EvidenceStatisticSampleSizeSurrogate> by lazy {
     EvidenceStatisticSampleSizeSurrogate.serializer()
@@ -99,31 +116,6 @@ public object EvidenceStatisticAttributeEstimateSerializer :
   }
 }
 
-public object EvidenceStatisticModelCharacteristicVariableSerializer :
-  KSerializer<Evidence.Statistic.ModelCharacteristic.Variable> {
-  internal val surrogateSerializer:
-    KSerializer<EvidenceStatisticModelCharacteristicVariableSurrogate> by lazy {
-    EvidenceStatisticModelCharacteristicVariableSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Variable", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): Evidence.Statistic.ModelCharacteristic.Variable =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(
-    encoder: Encoder,
-    `value`: Evidence.Statistic.ModelCharacteristic.Variable,
-  ) {
-    surrogateSerializer.serialize(
-      encoder,
-      EvidenceStatisticModelCharacteristicVariableSurrogate.fromModel(value),
-    )
-  }
-}
-
 public object EvidenceStatisticModelCharacteristicSerializer :
   KSerializer<Evidence.Statistic.ModelCharacteristic> {
   internal val surrogateSerializer:
@@ -146,20 +138,28 @@ public object EvidenceStatisticModelCharacteristicSerializer :
   }
 }
 
-public object EvidenceStatisticSerializer : KSerializer<Evidence.Statistic> {
-  internal val surrogateSerializer: KSerializer<EvidenceStatisticSurrogate> by lazy {
-    EvidenceStatisticSurrogate.serializer()
+public object EvidenceStatisticModelCharacteristicVariableSerializer :
+  KSerializer<Evidence.Statistic.ModelCharacteristic.Variable> {
+  internal val surrogateSerializer:
+    KSerializer<EvidenceStatisticModelCharacteristicVariableSurrogate> by lazy {
+    EvidenceStatisticModelCharacteristicVariableSurrogate.serializer()
   }
 
   override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Statistic", surrogateSerializer.descriptor)
+    SerialDescriptor("Variable", surrogateSerializer.descriptor)
   }
 
-  override fun deserialize(decoder: Decoder): Evidence.Statistic =
+  override fun deserialize(decoder: Decoder): Evidence.Statistic.ModelCharacteristic.Variable =
     surrogateSerializer.deserialize(decoder).toModel()
 
-  override fun serialize(encoder: Encoder, `value`: Evidence.Statistic) {
-    surrogateSerializer.serialize(encoder, EvidenceStatisticSurrogate.fromModel(value))
+  override fun serialize(
+    encoder: Encoder,
+    `value`: Evidence.Statistic.ModelCharacteristic.Variable,
+  ) {
+    surrogateSerializer.serialize(
+      encoder,
+      EvidenceStatisticModelCharacteristicVariableSurrogate.fromModel(value),
+    )
   }
 }
 

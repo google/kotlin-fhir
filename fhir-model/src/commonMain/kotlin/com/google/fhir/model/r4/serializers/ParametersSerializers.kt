@@ -36,23 +36,6 @@ import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.JsonPrimitive
 import kotlinx.serialization.json.jsonObject
 
-public object ParametersParameterValueSerializer : KSerializer<Parameters.Parameter.Value> {
-  internal val surrogateSerializer: KSerializer<ParametersParameterValueSurrogate> by lazy {
-    ParametersParameterValueSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Value", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): Parameters.Parameter.Value =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: Parameters.Parameter.Value) {
-    surrogateSerializer.serialize(encoder, ParametersParameterValueSurrogate.fromModel(value))
-  }
-}
-
 public object ParametersParameterSerializer : KSerializer<Parameters.Parameter> {
   internal val surrogateSerializer: KSerializer<ParametersParameterSurrogate> by lazy {
     ParametersParameterSurrogate.serializer()
@@ -97,6 +80,23 @@ public object ParametersParameterSerializer : KSerializer<Parameters.Parameter> 
       }
     val flattenedJsonObject = FhirJsonTransformer.flatten(oldJsonObject, multiChoiceProperties)
     jsonEncoder.encodeJsonElement(flattenedJsonObject)
+  }
+}
+
+public object ParametersParameterValueSerializer : KSerializer<Parameters.Parameter.Value> {
+  internal val surrogateSerializer: KSerializer<ParametersParameterValueSurrogate> by lazy {
+    ParametersParameterValueSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Value", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): Parameters.Parameter.Value =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: Parameters.Parameter.Value) {
+    surrogateSerializer.serialize(encoder, ParametersParameterValueSurrogate.fromModel(value))
   }
 }
 

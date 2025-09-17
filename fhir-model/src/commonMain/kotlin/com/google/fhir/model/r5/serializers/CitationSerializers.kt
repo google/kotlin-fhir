@@ -104,6 +104,23 @@ public object CitationStatusDateSerializer : KSerializer<Citation.StatusDate> {
   }
 }
 
+public object CitationCitedArtifactSerializer : KSerializer<Citation.CitedArtifact> {
+  internal val surrogateSerializer: KSerializer<CitationCitedArtifactSurrogate> by lazy {
+    CitationCitedArtifactSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("CitedArtifact", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): Citation.CitedArtifact =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: Citation.CitedArtifact) {
+    surrogateSerializer.serialize(encoder, CitationCitedArtifactSurrogate.fromModel(value))
+  }
+}
+
 public object CitationCitedArtifactVersionSerializer : KSerializer<Citation.CitedArtifact.Version> {
   internal val surrogateSerializer: KSerializer<CitationCitedArtifactVersionSurrogate> by lazy {
     CitationCitedArtifactVersionSurrogate.serializer()
@@ -212,6 +229,28 @@ public object CitationCitedArtifactRelatesToSerializer :
   }
 }
 
+public object CitationCitedArtifactPublicationFormSerializer :
+  KSerializer<Citation.CitedArtifact.PublicationForm> {
+  internal val surrogateSerializer:
+    KSerializer<CitationCitedArtifactPublicationFormSurrogate> by lazy {
+    CitationCitedArtifactPublicationFormSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("PublicationForm", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): Citation.CitedArtifact.PublicationForm =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: Citation.CitedArtifact.PublicationForm) {
+    surrogateSerializer.serialize(
+      encoder,
+      CitationCitedArtifactPublicationFormSurrogate.fromModel(value),
+    )
+  }
+}
+
 public object CitationCitedArtifactPublicationFormPublishedInSerializer :
   KSerializer<Citation.CitedArtifact.PublicationForm.PublishedIn> {
   internal val surrogateSerializer:
@@ -233,28 +272,6 @@ public object CitationCitedArtifactPublicationFormPublishedInSerializer :
     surrogateSerializer.serialize(
       encoder,
       CitationCitedArtifactPublicationFormPublishedInSurrogate.fromModel(value),
-    )
-  }
-}
-
-public object CitationCitedArtifactPublicationFormSerializer :
-  KSerializer<Citation.CitedArtifact.PublicationForm> {
-  internal val surrogateSerializer:
-    KSerializer<CitationCitedArtifactPublicationFormSurrogate> by lazy {
-    CitationCitedArtifactPublicationFormSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("PublicationForm", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): Citation.CitedArtifact.PublicationForm =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: Citation.CitedArtifact.PublicationForm) {
-    surrogateSerializer.serialize(
-      encoder,
-      CitationCitedArtifactPublicationFormSurrogate.fromModel(value),
     )
   }
 }
@@ -302,6 +319,50 @@ public object CitationCitedArtifactClassificationSerializer :
   }
 }
 
+public object CitationCitedArtifactContributorshipSerializer :
+  KSerializer<Citation.CitedArtifact.Contributorship> {
+  internal val surrogateSerializer:
+    KSerializer<CitationCitedArtifactContributorshipSurrogate> by lazy {
+    CitationCitedArtifactContributorshipSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Contributorship", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): Citation.CitedArtifact.Contributorship =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: Citation.CitedArtifact.Contributorship) {
+    surrogateSerializer.serialize(
+      encoder,
+      CitationCitedArtifactContributorshipSurrogate.fromModel(value),
+    )
+  }
+}
+
+public object CitationCitedArtifactContributorshipEntrySerializer :
+  KSerializer<Citation.CitedArtifact.Contributorship.Entry> {
+  internal val surrogateSerializer:
+    KSerializer<CitationCitedArtifactContributorshipEntrySurrogate> by lazy {
+    CitationCitedArtifactContributorshipEntrySurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Entry", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): Citation.CitedArtifact.Contributorship.Entry =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: Citation.CitedArtifact.Contributorship.Entry) {
+    surrogateSerializer.serialize(
+      encoder,
+      CitationCitedArtifactContributorshipEntrySurrogate.fromModel(value),
+    )
+  }
+}
+
 public object CitationCitedArtifactContributorshipEntryContributionInstanceSerializer :
   KSerializer<Citation.CitedArtifact.Contributorship.Entry.ContributionInstance> {
   internal val surrogateSerializer:
@@ -329,28 +390,6 @@ public object CitationCitedArtifactContributorshipEntryContributionInstanceSeria
   }
 }
 
-public object CitationCitedArtifactContributorshipEntrySerializer :
-  KSerializer<Citation.CitedArtifact.Contributorship.Entry> {
-  internal val surrogateSerializer:
-    KSerializer<CitationCitedArtifactContributorshipEntrySurrogate> by lazy {
-    CitationCitedArtifactContributorshipEntrySurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Entry", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): Citation.CitedArtifact.Contributorship.Entry =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: Citation.CitedArtifact.Contributorship.Entry) {
-    surrogateSerializer.serialize(
-      encoder,
-      CitationCitedArtifactContributorshipEntrySurrogate.fromModel(value),
-    )
-  }
-}
-
 public object CitationCitedArtifactContributorshipSummarySerializer :
   KSerializer<Citation.CitedArtifact.Contributorship.Summary> {
   internal val surrogateSerializer:
@@ -373,45 +412,6 @@ public object CitationCitedArtifactContributorshipSummarySerializer :
       encoder,
       CitationCitedArtifactContributorshipSummarySurrogate.fromModel(value),
     )
-  }
-}
-
-public object CitationCitedArtifactContributorshipSerializer :
-  KSerializer<Citation.CitedArtifact.Contributorship> {
-  internal val surrogateSerializer:
-    KSerializer<CitationCitedArtifactContributorshipSurrogate> by lazy {
-    CitationCitedArtifactContributorshipSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Contributorship", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): Citation.CitedArtifact.Contributorship =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: Citation.CitedArtifact.Contributorship) {
-    surrogateSerializer.serialize(
-      encoder,
-      CitationCitedArtifactContributorshipSurrogate.fromModel(value),
-    )
-  }
-}
-
-public object CitationCitedArtifactSerializer : KSerializer<Citation.CitedArtifact> {
-  internal val surrogateSerializer: KSerializer<CitationCitedArtifactSurrogate> by lazy {
-    CitationCitedArtifactSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("CitedArtifact", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): Citation.CitedArtifact =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: Citation.CitedArtifact) {
-    surrogateSerializer.serialize(encoder, CitationCitedArtifactSurrogate.fromModel(value))
   }
 }
 

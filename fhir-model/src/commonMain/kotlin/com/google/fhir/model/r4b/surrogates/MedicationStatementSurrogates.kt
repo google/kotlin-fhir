@@ -75,7 +75,7 @@ internal data class MedicationStatementEffectiveSurrogate(
   public var effectivePeriod: Period? = null,
 ) {
   public fun toModel(): MedicationStatement.Effective =
-    MedicationStatement.Effective?.from(
+    MedicationStatement.Effective.from(
       DateTime.of(
         FhirDateTime.fromString(this@MedicationStatementEffectiveSurrogate.effectiveDateTime),
         this@MedicationStatementEffectiveSurrogate._effectiveDateTime,

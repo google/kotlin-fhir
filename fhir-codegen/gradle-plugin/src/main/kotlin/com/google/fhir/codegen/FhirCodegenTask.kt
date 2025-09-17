@@ -67,24 +67,15 @@ abstract class FhirCodegenTask : DefaultTask() {
     outputDir.deleteRecursively()
     outputDir.mkdirs()
 
-    // Prepare the input files
-    val structureDefinitionInputFiles =
-      corePackageFiles.files.flatMap { file ->
-        // Use structure definitions files
-        // NB filtering by file name is only an approximation.
-        file.walkTopDown().filter {
-          it.isFile && it.name.matches("StructureDefinition-[A-Za-z0-9]*\\.json".toRegex())
-        }
-      }
-
-    val valueSetInputFiles =
-      expansionPackageFiles.files.flatMap { file ->
-        file.walkTopDown().filter { it.isFile && it.name.matches("^ValueSet.*\\.json$".toRegex()) }
-      }
-
+    // Prepare value set maps for each value set inside the expansion package
     val valueSetMap =
-      valueSetInputFiles
+      expansionPackageFiles.files
         .asSequence()
+        .flatMap { file ->
+          file.walkTopDown().filter {
+            it.isFile && it.name.matches("^ValueSet.*\\.json$".toRegex())
+          }
+        }
         .map { json.decodeFromString<ValueSet>(it.readText(Charsets.UTF_8)) }
         .filter {
           // Refer to the section "Excluded ValueSets from Enum Generation" on the README file for
@@ -98,8 +89,15 @@ abstract class FhirCodegenTask : DefaultTask() {
 
     // Only use structure definition files for resource types.
     val structureDefinitions =
-      structureDefinitionInputFiles
+      corePackageFiles.files
         .asSequence()
+        .flatMap { file ->
+          // Use structure definitions files
+          // NB filtering by file name is only an approximation.
+          file.walkTopDown().filter {
+            it.isFile && it.name.matches("StructureDefinition-[A-Za-z0-9]*\\.json".toRegex())
+          }
+        }
         .filter { it.name.startsWith("StructureDefinition") }
         .map { json.decodeFromString<StructureDefinition>(it.readText(Charsets.UTF_8)) }
         .filterNot {
@@ -123,40 +121,28 @@ abstract class FhirCodegenTask : DefaultTask() {
         .toList()
 
     val baseClasses =
-      structureDefinitions
-        .map { it.baseDefinition?.substringAfterLast('/')?.capitalized() }
-        .distinct()
+      structureDefinitions.mapNotNullTo(hashSetOf()) {
+        it.baseDefinition?.substringAfterLast('/')?.capitalized()
+      }
 
     val packageName = this.packageName.get()
 
-    val modelTypeSpecGenerator = ModelTypeSpecGenerator(valueSetMap)
-    val surrogateTypeSpecGenerator = SurrogateTypeSpecGenerator(valueSetMap)
-    val enumFileSpecGenerator = EnumFileSpecGenerator(valueSetMap)
+    val fhirCodegen = FhirCodegen(packageName, valueSetMap, baseClasses)
+
     structureDefinitions
-      .flatMap { structureDefinition ->
-        FhirCodegen.generateFileSpecs(
-          packageName = packageName,
-          structureDefinition = structureDefinition,
-          isBaseClass = baseClasses.contains(structureDefinition.name.capitalized()),
-          modelTypeSpecGenerator = modelTypeSpecGenerator,
-          surrogateTypeSpecGenerator = surrogateTypeSpecGenerator,
-          enumFileSpecGenerator = enumFileSpecGenerator,
-        )
-      }
+      .flatMap { fhirCodegen.generateFileSpecs(it) }
       .forEach { it.writeTo(outputDir) }
 
-    MoreJsonBuilderFileSpecGenerator.generate(
-        this.packageName.get(),
-        ClassName(this.packageName.get(), "Resource"),
-        structureDefinitions
-          .mapNotNull {
-            if (it.kind != StructureDefinition.Kind.RESOURCE) return@mapNotNull null
-            if (it.abstract) return@mapNotNull null
-            return@mapNotNull ClassName(this.packageName.get(), it.name.capitalized())
-          }
-          .toList(),
-      )
-      .writeTo(outputDir)
+    val subclasses =
+      structureDefinitions
+        .mapNotNull {
+          if (it.kind != StructureDefinition.Kind.RESOURCE) return@mapNotNull null
+          if (it.abstract) return@mapNotNull null
+          return@mapNotNull ClassName(packageName, it.name.capitalized())
+        }
+        .toList()
+
+    MoreJsonBuilderFileSpecGenerator.generate(packageName, subclasses).writeTo(outputDir)
 
     FhirDateTimeFileSpecGenerator.generate(packageName).writeTo(outputDir)
     FhirDateFileSpecGenerator.generate(packageName).writeTo(outputDir)

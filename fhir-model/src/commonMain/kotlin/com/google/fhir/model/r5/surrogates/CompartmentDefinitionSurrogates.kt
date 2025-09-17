@@ -144,7 +144,7 @@ internal data class CompartmentDefinitionVersionAlgorithmSurrogate(
   public var versionAlgorithmCoding: Coding? = null,
 ) {
   public fun toModel(): CompartmentDefinition.VersionAlgorithm =
-    CompartmentDefinition.VersionAlgorithm?.from(
+    CompartmentDefinition.VersionAlgorithm.from(
       R5String.of(
         this@CompartmentDefinitionVersionAlgorithmSurrogate.versionAlgorithmString,
         this@CompartmentDefinitionVersionAlgorithmSurrogate._versionAlgorithmString,

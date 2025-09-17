@@ -43,51 +43,6 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
-internal data class ImmunizationRecommendationRecommendationDateCriterionSurrogate(
-  public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var code: CodeableConcept,
-  public var `value`: KotlinString? = null,
-  public var _value: Element? = null,
-) {
-  public fun toModel(): ImmunizationRecommendation.Recommendation.DateCriterion =
-    ImmunizationRecommendation.Recommendation.DateCriterion(
-      id = this@ImmunizationRecommendationRecommendationDateCriterionSurrogate.id,
-      extension =
-        this@ImmunizationRecommendationRecommendationDateCriterionSurrogate.extension
-          ?: mutableListOf(),
-      modifierExtension =
-        this@ImmunizationRecommendationRecommendationDateCriterionSurrogate.modifierExtension
-          ?: mutableListOf(),
-      code = this@ImmunizationRecommendationRecommendationDateCriterionSurrogate.code,
-      `value` =
-        DateTime.of(
-          FhirDateTime.fromString(
-            this@ImmunizationRecommendationRecommendationDateCriterionSurrogate.`value`
-          ),
-          this@ImmunizationRecommendationRecommendationDateCriterionSurrogate._value,
-        )!!,
-    )
-
-  public companion object {
-    public fun fromModel(
-      model: ImmunizationRecommendation.Recommendation.DateCriterion
-    ): ImmunizationRecommendationRecommendationDateCriterionSurrogate =
-      with(model) {
-        ImmunizationRecommendationRecommendationDateCriterionSurrogate(
-          id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          code = this@with.code,
-          `value` = this@with.`value`.value?.toString(),
-          _value = this@with.`value`.toElement(),
-        )
-      }
-  }
-}
-
-@Serializable
 internal data class ImmunizationRecommendationRecommendationSurrogate(
   public var id: KotlinString? = null,
   public var extension: MutableList<Extension>? = null,
@@ -185,6 +140,51 @@ internal data class ImmunizationRecommendationRecommendationSurrogate(
             this@with.supportingImmunization.takeUnless { it.all { it == null } },
           supportingPatientInformation =
             this@with.supportingPatientInformation.takeUnless { it.all { it == null } },
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class ImmunizationRecommendationRecommendationDateCriterionSurrogate(
+  public var id: KotlinString? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var code: CodeableConcept,
+  public var `value`: KotlinString? = null,
+  public var _value: Element? = null,
+) {
+  public fun toModel(): ImmunizationRecommendation.Recommendation.DateCriterion =
+    ImmunizationRecommendation.Recommendation.DateCriterion(
+      id = this@ImmunizationRecommendationRecommendationDateCriterionSurrogate.id,
+      extension =
+        this@ImmunizationRecommendationRecommendationDateCriterionSurrogate.extension
+          ?: mutableListOf(),
+      modifierExtension =
+        this@ImmunizationRecommendationRecommendationDateCriterionSurrogate.modifierExtension
+          ?: mutableListOf(),
+      code = this@ImmunizationRecommendationRecommendationDateCriterionSurrogate.code,
+      `value` =
+        DateTime.of(
+          FhirDateTime.fromString(
+            this@ImmunizationRecommendationRecommendationDateCriterionSurrogate.`value`
+          ),
+          this@ImmunizationRecommendationRecommendationDateCriterionSurrogate._value,
+        )!!,
+    )
+
+  public companion object {
+    public fun fromModel(
+      model: ImmunizationRecommendation.Recommendation.DateCriterion
+    ): ImmunizationRecommendationRecommendationDateCriterionSurrogate =
+      with(model) {
+        ImmunizationRecommendationRecommendationDateCriterionSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          code = this@with.code,
+          `value` = this@with.`value`.value?.toString(),
+          _value = this@with.`value`.toElement(),
         )
       }
   }

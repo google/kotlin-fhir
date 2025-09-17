@@ -60,78 +60,6 @@ public object MeasureTermSerializer : KSerializer<Measure.Term> {
   }
 }
 
-public object MeasureGroupPopulationSerializer : KSerializer<Measure.Group.Population> {
-  internal val surrogateSerializer: KSerializer<MeasureGroupPopulationSurrogate> by lazy {
-    MeasureGroupPopulationSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Population", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): Measure.Group.Population =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: Measure.Group.Population) {
-    surrogateSerializer.serialize(encoder, MeasureGroupPopulationSurrogate.fromModel(value))
-  }
-}
-
-public object MeasureGroupStratifierComponentSerializer :
-  KSerializer<Measure.Group.Stratifier.Component> {
-  internal val surrogateSerializer: KSerializer<MeasureGroupStratifierComponentSurrogate> by lazy {
-    MeasureGroupStratifierComponentSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Component", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): Measure.Group.Stratifier.Component =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: Measure.Group.Stratifier.Component) {
-    surrogateSerializer.serialize(
-      encoder,
-      MeasureGroupStratifierComponentSurrogate.fromModel(value),
-    )
-  }
-}
-
-public object MeasureGroupStratifierSerializer : KSerializer<Measure.Group.Stratifier> {
-  internal val surrogateSerializer: KSerializer<MeasureGroupStratifierSurrogate> by lazy {
-    MeasureGroupStratifierSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Stratifier", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): Measure.Group.Stratifier =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: Measure.Group.Stratifier) {
-    surrogateSerializer.serialize(encoder, MeasureGroupStratifierSurrogate.fromModel(value))
-  }
-}
-
-public object MeasureGroupSubjectSerializer : KSerializer<Measure.Group.Subject> {
-  internal val surrogateSerializer: KSerializer<MeasureGroupSubjectSurrogate> by lazy {
-    MeasureGroupSubjectSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Subject", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): Measure.Group.Subject =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: Measure.Group.Subject) {
-    surrogateSerializer.serialize(encoder, MeasureGroupSubjectSurrogate.fromModel(value))
-  }
-}
-
 public object MeasureGroupSerializer : KSerializer<Measure.Group> {
   internal val surrogateSerializer: KSerializer<MeasureGroupSurrogate> by lazy {
     MeasureGroupSurrogate.serializer()
@@ -176,6 +104,61 @@ public object MeasureGroupSerializer : KSerializer<Measure.Group> {
       }
     val flattenedJsonObject = FhirJsonTransformer.flatten(oldJsonObject, multiChoiceProperties)
     jsonEncoder.encodeJsonElement(flattenedJsonObject)
+  }
+}
+
+public object MeasureGroupPopulationSerializer : KSerializer<Measure.Group.Population> {
+  internal val surrogateSerializer: KSerializer<MeasureGroupPopulationSurrogate> by lazy {
+    MeasureGroupPopulationSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Population", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): Measure.Group.Population =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: Measure.Group.Population) {
+    surrogateSerializer.serialize(encoder, MeasureGroupPopulationSurrogate.fromModel(value))
+  }
+}
+
+public object MeasureGroupStratifierSerializer : KSerializer<Measure.Group.Stratifier> {
+  internal val surrogateSerializer: KSerializer<MeasureGroupStratifierSurrogate> by lazy {
+    MeasureGroupStratifierSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Stratifier", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): Measure.Group.Stratifier =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: Measure.Group.Stratifier) {
+    surrogateSerializer.serialize(encoder, MeasureGroupStratifierSurrogate.fromModel(value))
+  }
+}
+
+public object MeasureGroupStratifierComponentSerializer :
+  KSerializer<Measure.Group.Stratifier.Component> {
+  internal val surrogateSerializer: KSerializer<MeasureGroupStratifierComponentSurrogate> by lazy {
+    MeasureGroupStratifierComponentSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Component", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): Measure.Group.Stratifier.Component =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: Measure.Group.Stratifier.Component) {
+    surrogateSerializer.serialize(
+      encoder,
+      MeasureGroupStratifierComponentSurrogate.fromModel(value),
+    )
   }
 }
 
@@ -227,6 +210,23 @@ public object MeasureSubjectSerializer : KSerializer<Measure.Subject> {
 
   override fun serialize(encoder: Encoder, `value`: Measure.Subject) {
     surrogateSerializer.serialize(encoder, MeasureSubjectSurrogate.fromModel(value))
+  }
+}
+
+public object MeasureGroupSubjectSerializer : KSerializer<Measure.Group.Subject> {
+  internal val surrogateSerializer: KSerializer<MeasureGroupSubjectSurrogate> by lazy {
+    MeasureGroupSubjectSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Subject", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): Measure.Group.Subject =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: Measure.Group.Subject) {
+    surrogateSerializer.serialize(encoder, MeasureGroupSubjectSurrogate.fromModel(value))
   }
 }
 

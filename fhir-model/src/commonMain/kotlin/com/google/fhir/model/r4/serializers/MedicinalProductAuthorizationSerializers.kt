@@ -64,28 +64,6 @@ public object MedicinalProductAuthorizationJurisdictionalAuthorizationSerializer
   }
 }
 
-public object MedicinalProductAuthorizationProcedureDateSerializer :
-  KSerializer<MedicinalProductAuthorization.Procedure.Date> {
-  internal val surrogateSerializer:
-    KSerializer<MedicinalProductAuthorizationProcedureDateSurrogate> by lazy {
-    MedicinalProductAuthorizationProcedureDateSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Date", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): MedicinalProductAuthorization.Procedure.Date =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: MedicinalProductAuthorization.Procedure.Date) {
-    surrogateSerializer.serialize(
-      encoder,
-      MedicinalProductAuthorizationProcedureDateSurrogate.fromModel(value),
-    )
-  }
-}
-
 public object MedicinalProductAuthorizationProcedureSerializer :
   KSerializer<MedicinalProductAuthorization.Procedure> {
   internal val surrogateSerializer:
@@ -132,6 +110,28 @@ public object MedicinalProductAuthorizationProcedureSerializer :
       }
     val flattenedJsonObject = FhirJsonTransformer.flatten(oldJsonObject, multiChoiceProperties)
     jsonEncoder.encodeJsonElement(flattenedJsonObject)
+  }
+}
+
+public object MedicinalProductAuthorizationProcedureDateSerializer :
+  KSerializer<MedicinalProductAuthorization.Procedure.Date> {
+  internal val surrogateSerializer:
+    KSerializer<MedicinalProductAuthorizationProcedureDateSurrogate> by lazy {
+    MedicinalProductAuthorizationProcedureDateSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Date", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): MedicinalProductAuthorization.Procedure.Date =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: MedicinalProductAuthorization.Procedure.Date) {
+    surrogateSerializer.serialize(
+      encoder,
+      MedicinalProductAuthorizationProcedureDateSurrogate.fromModel(value),
+    )
   }
 }
 

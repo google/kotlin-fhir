@@ -48,6 +48,23 @@ public object BundleLinkSerializer : KSerializer<Bundle.Link> {
   }
 }
 
+public object BundleEntrySerializer : KSerializer<Bundle.Entry> {
+  internal val surrogateSerializer: KSerializer<BundleEntrySurrogate> by lazy {
+    BundleEntrySurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Entry", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): Bundle.Entry =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: Bundle.Entry) {
+    surrogateSerializer.serialize(encoder, BundleEntrySurrogate.fromModel(value))
+  }
+}
+
 public object BundleEntrySearchSerializer : KSerializer<Bundle.Entry.Search> {
   internal val surrogateSerializer: KSerializer<BundleEntrySearchSurrogate> by lazy {
     BundleEntrySearchSurrogate.serializer()
@@ -96,23 +113,6 @@ public object BundleEntryResponseSerializer : KSerializer<Bundle.Entry.Response>
 
   override fun serialize(encoder: Encoder, `value`: Bundle.Entry.Response) {
     surrogateSerializer.serialize(encoder, BundleEntryResponseSurrogate.fromModel(value))
-  }
-}
-
-public object BundleEntrySerializer : KSerializer<Bundle.Entry> {
-  internal val surrogateSerializer: KSerializer<BundleEntrySurrogate> by lazy {
-    BundleEntrySurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Entry", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): Bundle.Entry =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: Bundle.Entry) {
-    surrogateSerializer.serialize(encoder, BundleEntrySurrogate.fromModel(value))
   }
 }
 

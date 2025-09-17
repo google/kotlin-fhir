@@ -122,7 +122,7 @@ internal data class ConditionOnsetSurrogate(
   public var _onsetString: Element? = null,
 ) {
   public fun toModel(): Condition.Onset =
-    Condition.Onset?.from(
+    Condition.Onset.from(
       DateTime.of(
         FhirDateTime.fromString(this@ConditionOnsetSurrogate.onsetDateTime),
         this@ConditionOnsetSurrogate._onsetDateTime,
@@ -163,7 +163,7 @@ internal data class ConditionAbatementSurrogate(
   public var _abatementString: Element? = null,
 ) {
   public fun toModel(): Condition.Abatement =
-    Condition.Abatement?.from(
+    Condition.Abatement.from(
       DateTime.of(
         FhirDateTime.fromString(this@ConditionAbatementSurrogate.abatementDateTime),
         this@ConditionAbatementSurrogate._abatementDateTime,

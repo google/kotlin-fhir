@@ -126,7 +126,7 @@ internal data class DetectedIssueIdentifiedSurrogate(
   public var identifiedPeriod: Period? = null,
 ) {
   public fun toModel(): DetectedIssue.Identified =
-    DetectedIssue.Identified?.from(
+    DetectedIssue.Identified.from(
       DateTime.of(
         FhirDateTime.fromString(this@DetectedIssueIdentifiedSurrogate.identifiedDateTime),
         this@DetectedIssueIdentifiedSurrogate._identifiedDateTime,

@@ -189,208 +189,107 @@ internal data class ConceptMapAdditionalAttributeSurrogate(
 }
 
 @Serializable
-internal data class ConceptMapGroupElementTargetPropertyValueSurrogate(
-  public var valueCoding: Coding? = null,
-  public var valueString: KotlinString? = null,
-  public var _valueString: Element? = null,
-  public var valueInteger: Int? = null,
-  public var _valueInteger: Element? = null,
-  public var valueBoolean: KotlinBoolean? = null,
-  public var _valueBoolean: Element? = null,
-  public var valueDateTime: KotlinString? = null,
-  public var _valueDateTime: Element? = null,
-  public var valueDecimal: Double? = null,
-  public var _valueDecimal: Element? = null,
-  public var valueCode: KotlinString? = null,
-  public var _valueCode: Element? = null,
+internal data class ConceptMapGroupSurrogate(
+  public var id: KotlinString? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var source: KotlinString? = null,
+  public var _source: Element? = null,
+  public var target: KotlinString? = null,
+  public var _target: Element? = null,
+  public var element: MutableList<ConceptMap.Group.Element>? = null,
+  public var unmapped: ConceptMap.Group.Unmapped? = null,
 ) {
-  public fun toModel(): ConceptMap.Group.Element.Target.Property.Value =
-    ConceptMap.Group.Element.Target.Property.Value.from(
-      this@ConceptMapGroupElementTargetPropertyValueSurrogate.valueCoding,
-      R5String.of(
-        this@ConceptMapGroupElementTargetPropertyValueSurrogate.valueString,
-        this@ConceptMapGroupElementTargetPropertyValueSurrogate._valueString,
-      ),
-      Integer.of(
-        this@ConceptMapGroupElementTargetPropertyValueSurrogate.valueInteger,
-        this@ConceptMapGroupElementTargetPropertyValueSurrogate._valueInteger,
-      ),
-      R5Boolean.of(
-        this@ConceptMapGroupElementTargetPropertyValueSurrogate.valueBoolean,
-        this@ConceptMapGroupElementTargetPropertyValueSurrogate._valueBoolean,
-      ),
-      DateTime.of(
-        FhirDateTime.fromString(
-          this@ConceptMapGroupElementTargetPropertyValueSurrogate.valueDateTime
-        ),
-        this@ConceptMapGroupElementTargetPropertyValueSurrogate._valueDateTime,
-      ),
-      Decimal.of(
-        this@ConceptMapGroupElementTargetPropertyValueSurrogate.valueDecimal,
-        this@ConceptMapGroupElementTargetPropertyValueSurrogate._valueDecimal,
-      ),
-      Code.of(
-        this@ConceptMapGroupElementTargetPropertyValueSurrogate.valueCode,
-        this@ConceptMapGroupElementTargetPropertyValueSurrogate._valueCode,
-      ),
-    )!! !!
+  public fun toModel(): ConceptMap.Group =
+    ConceptMap.Group(
+      id = this@ConceptMapGroupSurrogate.id,
+      extension = this@ConceptMapGroupSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@ConceptMapGroupSurrogate.modifierExtension ?: mutableListOf(),
+      source =
+        Canonical.of(this@ConceptMapGroupSurrogate.source, this@ConceptMapGroupSurrogate._source),
+      target =
+        Canonical.of(this@ConceptMapGroupSurrogate.target, this@ConceptMapGroupSurrogate._target),
+      element = this@ConceptMapGroupSurrogate.element ?: mutableListOf(),
+      unmapped = this@ConceptMapGroupSurrogate.unmapped,
+    )
 
   public companion object {
-    public fun fromModel(
-      model: ConceptMap.Group.Element.Target.Property.Value
-    ): ConceptMapGroupElementTargetPropertyValueSurrogate =
+    public fun fromModel(model: ConceptMap.Group): ConceptMapGroupSurrogate =
       with(model) {
-        ConceptMapGroupElementTargetPropertyValueSurrogate(
-          valueCoding = this@with.asCoding()?.value,
-          valueString = this@with.asString()?.value?.value,
-          _valueString = this@with.asString()?.value?.toElement(),
-          valueInteger = this@with.asInteger()?.value?.value,
-          _valueInteger = this@with.asInteger()?.value?.toElement(),
-          valueBoolean = this@with.asBoolean()?.value?.value,
-          _valueBoolean = this@with.asBoolean()?.value?.toElement(),
-          valueDateTime = this@with.asDateTime()?.value?.value?.toString(),
-          _valueDateTime = this@with.asDateTime()?.value?.toElement(),
-          valueDecimal = this@with.asDecimal()?.value?.value,
-          _valueDecimal = this@with.asDecimal()?.value?.toElement(),
-          valueCode = this@with.asCode()?.value?.value,
-          _valueCode = this@with.asCode()?.value?.toElement(),
+        ConceptMapGroupSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          source = this@with.source?.value,
+          _source = this@with.source?.toElement(),
+          target = this@with.target?.value,
+          _target = this@with.target?.toElement(),
+          element = this@with.element.takeUnless { it.all { it == null } },
+          unmapped = this@with.unmapped,
         )
       }
   }
 }
 
 @Serializable
-internal data class ConceptMapGroupElementTargetPropertySurrogate(
+internal data class ConceptMapGroupElementSurrogate(
   public var id: KotlinString? = null,
   public var extension: MutableList<Extension>? = null,
   public var modifierExtension: MutableList<Extension>? = null,
   public var code: KotlinString? = null,
   public var _code: Element? = null,
-  public var `value`: ConceptMap.Group.Element.Target.Property.Value,
-) {
-  public fun toModel(): ConceptMap.Group.Element.Target.Property =
-    ConceptMap.Group.Element.Target.Property(
-      id = this@ConceptMapGroupElementTargetPropertySurrogate.id,
-      extension = this@ConceptMapGroupElementTargetPropertySurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@ConceptMapGroupElementTargetPropertySurrogate.modifierExtension ?: mutableListOf(),
-      code =
-        Code.of(
-          this@ConceptMapGroupElementTargetPropertySurrogate.code,
-          this@ConceptMapGroupElementTargetPropertySurrogate._code,
-        )!!,
-      `value` = this@ConceptMapGroupElementTargetPropertySurrogate.`value`,
-    )
-
-  public companion object {
-    public fun fromModel(
-      model: ConceptMap.Group.Element.Target.Property
-    ): ConceptMapGroupElementTargetPropertySurrogate =
-      with(model) {
-        ConceptMapGroupElementTargetPropertySurrogate(
-          id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          code = this@with.code.value,
-          _code = this@with.code.toElement(),
-          `value` = this@with.`value`,
-        )
-      }
-  }
-}
-
-@Serializable
-internal data class ConceptMapGroupElementTargetDependsOnValueSurrogate(
-  public var valueCode: KotlinString? = null,
-  public var _valueCode: Element? = null,
-  public var valueCoding: Coding? = null,
-  public var valueString: KotlinString? = null,
-  public var _valueString: Element? = null,
-  public var valueBoolean: KotlinBoolean? = null,
-  public var _valueBoolean: Element? = null,
-  public var valueQuantity: Quantity? = null,
-) {
-  public fun toModel(): ConceptMap.Group.Element.Target.DependsOn.Value =
-    ConceptMap.Group.Element.Target.DependsOn.Value?.from(
-      Code.of(
-        this@ConceptMapGroupElementTargetDependsOnValueSurrogate.valueCode,
-        this@ConceptMapGroupElementTargetDependsOnValueSurrogate._valueCode,
-      ),
-      this@ConceptMapGroupElementTargetDependsOnValueSurrogate.valueCoding,
-      R5String.of(
-        this@ConceptMapGroupElementTargetDependsOnValueSurrogate.valueString,
-        this@ConceptMapGroupElementTargetDependsOnValueSurrogate._valueString,
-      ),
-      R5Boolean.of(
-        this@ConceptMapGroupElementTargetDependsOnValueSurrogate.valueBoolean,
-        this@ConceptMapGroupElementTargetDependsOnValueSurrogate._valueBoolean,
-      ),
-      this@ConceptMapGroupElementTargetDependsOnValueSurrogate.valueQuantity,
-    )!!
-
-  public companion object {
-    public fun fromModel(
-      model: ConceptMap.Group.Element.Target.DependsOn.Value
-    ): ConceptMapGroupElementTargetDependsOnValueSurrogate =
-      with(model) {
-        ConceptMapGroupElementTargetDependsOnValueSurrogate(
-          valueCode = this@with.asCode()?.value?.value,
-          _valueCode = this@with.asCode()?.value?.toElement(),
-          valueCoding = this@with.asCoding()?.value,
-          valueString = this@with.asString()?.value?.value,
-          _valueString = this@with.asString()?.value?.toElement(),
-          valueBoolean = this@with.asBoolean()?.value?.value,
-          _valueBoolean = this@with.asBoolean()?.value?.toElement(),
-          valueQuantity = this@with.asQuantity()?.value,
-        )
-      }
-  }
-}
-
-@Serializable
-internal data class ConceptMapGroupElementTargetDependsOnSurrogate(
-  public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var attribute: KotlinString? = null,
-  public var _attribute: Element? = null,
-  public var `value`: ConceptMap.Group.Element.Target.DependsOn.Value? = null,
+  public var display: KotlinString? = null,
+  public var _display: Element? = null,
   public var valueSet: KotlinString? = null,
   public var _valueSet: Element? = null,
+  public var noMap: KotlinBoolean? = null,
+  public var _noMap: Element? = null,
+  public var target: MutableList<ConceptMap.Group.Element.Target>? = null,
 ) {
-  public fun toModel(): ConceptMap.Group.Element.Target.DependsOn =
-    ConceptMap.Group.Element.Target.DependsOn(
-      id = this@ConceptMapGroupElementTargetDependsOnSurrogate.id,
-      extension = this@ConceptMapGroupElementTargetDependsOnSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@ConceptMapGroupElementTargetDependsOnSurrogate.modifierExtension ?: mutableListOf(),
-      attribute =
+  public fun toModel(): ConceptMap.Group.Element =
+    ConceptMap.Group.Element(
+      id = this@ConceptMapGroupElementSurrogate.id,
+      extension = this@ConceptMapGroupElementSurrogate.extension ?: mutableListOf(),
+      modifierExtension = this@ConceptMapGroupElementSurrogate.modifierExtension ?: mutableListOf(),
+      code =
         Code.of(
-          this@ConceptMapGroupElementTargetDependsOnSurrogate.attribute,
-          this@ConceptMapGroupElementTargetDependsOnSurrogate._attribute,
-        )!!,
-      `value` = this@ConceptMapGroupElementTargetDependsOnSurrogate.`value`,
+          this@ConceptMapGroupElementSurrogate.code,
+          this@ConceptMapGroupElementSurrogate._code,
+        ),
+      display =
+        R5String.of(
+          this@ConceptMapGroupElementSurrogate.display,
+          this@ConceptMapGroupElementSurrogate._display,
+        ),
       valueSet =
         Canonical.of(
-          this@ConceptMapGroupElementTargetDependsOnSurrogate.valueSet,
-          this@ConceptMapGroupElementTargetDependsOnSurrogate._valueSet,
+          this@ConceptMapGroupElementSurrogate.valueSet,
+          this@ConceptMapGroupElementSurrogate._valueSet,
         ),
+      noMap =
+        R5Boolean.of(
+          this@ConceptMapGroupElementSurrogate.noMap,
+          this@ConceptMapGroupElementSurrogate._noMap,
+        ),
+      target = this@ConceptMapGroupElementSurrogate.target ?: mutableListOf(),
     )
 
   public companion object {
-    public fun fromModel(
-      model: ConceptMap.Group.Element.Target.DependsOn
-    ): ConceptMapGroupElementTargetDependsOnSurrogate =
+    public fun fromModel(model: ConceptMap.Group.Element): ConceptMapGroupElementSurrogate =
       with(model) {
-        ConceptMapGroupElementTargetDependsOnSurrogate(
+        ConceptMapGroupElementSurrogate(
           id = this@with.id,
           extension = this@with.extension.takeUnless { it.all { it == null } },
           modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          attribute = this@with.attribute.value,
-          _attribute = this@with.attribute.toElement(),
-          `value` = this@with.`value`,
+          code = this@with.code?.value,
+          _code = this@with.code?.toElement(),
+          display = this@with.display?.value,
+          _display = this@with.display?.toElement(),
           valueSet = this@with.valueSet?.value,
           _valueSet = this@with.valueSet?.toElement(),
+          noMap = this@with.noMap?.value,
+          _noMap = this@with.noMap?.toElement(),
+          target = this@with.target.takeUnless { it.all { it == null } },
         )
       }
   }
@@ -481,64 +380,89 @@ internal data class ConceptMapGroupElementTargetSurrogate(
 }
 
 @Serializable
-internal data class ConceptMapGroupElementSurrogate(
+internal data class ConceptMapGroupElementTargetPropertySurrogate(
   public var id: KotlinString? = null,
   public var extension: MutableList<Extension>? = null,
   public var modifierExtension: MutableList<Extension>? = null,
   public var code: KotlinString? = null,
   public var _code: Element? = null,
-  public var display: KotlinString? = null,
-  public var _display: Element? = null,
-  public var valueSet: KotlinString? = null,
-  public var _valueSet: Element? = null,
-  public var noMap: KotlinBoolean? = null,
-  public var _noMap: Element? = null,
-  public var target: MutableList<ConceptMap.Group.Element.Target>? = null,
+  public var `value`: ConceptMap.Group.Element.Target.Property.Value,
 ) {
-  public fun toModel(): ConceptMap.Group.Element =
-    ConceptMap.Group.Element(
-      id = this@ConceptMapGroupElementSurrogate.id,
-      extension = this@ConceptMapGroupElementSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@ConceptMapGroupElementSurrogate.modifierExtension ?: mutableListOf(),
+  public fun toModel(): ConceptMap.Group.Element.Target.Property =
+    ConceptMap.Group.Element.Target.Property(
+      id = this@ConceptMapGroupElementTargetPropertySurrogate.id,
+      extension = this@ConceptMapGroupElementTargetPropertySurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@ConceptMapGroupElementTargetPropertySurrogate.modifierExtension ?: mutableListOf(),
       code =
         Code.of(
-          this@ConceptMapGroupElementSurrogate.code,
-          this@ConceptMapGroupElementSurrogate._code,
-        ),
-      display =
-        R5String.of(
-          this@ConceptMapGroupElementSurrogate.display,
-          this@ConceptMapGroupElementSurrogate._display,
-        ),
-      valueSet =
-        Canonical.of(
-          this@ConceptMapGroupElementSurrogate.valueSet,
-          this@ConceptMapGroupElementSurrogate._valueSet,
-        ),
-      noMap =
-        R5Boolean.of(
-          this@ConceptMapGroupElementSurrogate.noMap,
-          this@ConceptMapGroupElementSurrogate._noMap,
-        ),
-      target = this@ConceptMapGroupElementSurrogate.target ?: mutableListOf(),
+          this@ConceptMapGroupElementTargetPropertySurrogate.code,
+          this@ConceptMapGroupElementTargetPropertySurrogate._code,
+        )!!,
+      `value` = this@ConceptMapGroupElementTargetPropertySurrogate.`value`,
     )
 
   public companion object {
-    public fun fromModel(model: ConceptMap.Group.Element): ConceptMapGroupElementSurrogate =
+    public fun fromModel(
+      model: ConceptMap.Group.Element.Target.Property
+    ): ConceptMapGroupElementTargetPropertySurrogate =
       with(model) {
-        ConceptMapGroupElementSurrogate(
+        ConceptMapGroupElementTargetPropertySurrogate(
           id = this@with.id,
           extension = this@with.extension.takeUnless { it.all { it == null } },
           modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          code = this@with.code?.value,
-          _code = this@with.code?.toElement(),
-          display = this@with.display?.value,
-          _display = this@with.display?.toElement(),
+          code = this@with.code.value,
+          _code = this@with.code.toElement(),
+          `value` = this@with.`value`,
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class ConceptMapGroupElementTargetDependsOnSurrogate(
+  public var id: KotlinString? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var attribute: KotlinString? = null,
+  public var _attribute: Element? = null,
+  public var `value`: ConceptMap.Group.Element.Target.DependsOn.Value? = null,
+  public var valueSet: KotlinString? = null,
+  public var _valueSet: Element? = null,
+) {
+  public fun toModel(): ConceptMap.Group.Element.Target.DependsOn =
+    ConceptMap.Group.Element.Target.DependsOn(
+      id = this@ConceptMapGroupElementTargetDependsOnSurrogate.id,
+      extension = this@ConceptMapGroupElementTargetDependsOnSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@ConceptMapGroupElementTargetDependsOnSurrogate.modifierExtension ?: mutableListOf(),
+      attribute =
+        Code.of(
+          this@ConceptMapGroupElementTargetDependsOnSurrogate.attribute,
+          this@ConceptMapGroupElementTargetDependsOnSurrogate._attribute,
+        )!!,
+      `value` = this@ConceptMapGroupElementTargetDependsOnSurrogate.`value`,
+      valueSet =
+        Canonical.of(
+          this@ConceptMapGroupElementTargetDependsOnSurrogate.valueSet,
+          this@ConceptMapGroupElementTargetDependsOnSurrogate._valueSet,
+        ),
+    )
+
+  public companion object {
+    public fun fromModel(
+      model: ConceptMap.Group.Element.Target.DependsOn
+    ): ConceptMapGroupElementTargetDependsOnSurrogate =
+      with(model) {
+        ConceptMapGroupElementTargetDependsOnSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          attribute = this@with.attribute.value,
+          _attribute = this@with.attribute.toElement(),
+          `value` = this@with.`value`,
           valueSet = this@with.valueSet?.value,
           _valueSet = this@with.valueSet?.toElement(),
-          noMap = this@with.noMap?.value,
-          _noMap = this@with.noMap?.toElement(),
-          target = this@with.target.takeUnless { it.all { it == null } },
         )
       }
   }
@@ -629,56 +553,13 @@ internal data class ConceptMapGroupUnmappedSurrogate(
 }
 
 @Serializable
-internal data class ConceptMapGroupSurrogate(
-  public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var source: KotlinString? = null,
-  public var _source: Element? = null,
-  public var target: KotlinString? = null,
-  public var _target: Element? = null,
-  public var element: MutableList<ConceptMap.Group.Element>? = null,
-  public var unmapped: ConceptMap.Group.Unmapped? = null,
-) {
-  public fun toModel(): ConceptMap.Group =
-    ConceptMap.Group(
-      id = this@ConceptMapGroupSurrogate.id,
-      extension = this@ConceptMapGroupSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@ConceptMapGroupSurrogate.modifierExtension ?: mutableListOf(),
-      source =
-        Canonical.of(this@ConceptMapGroupSurrogate.source, this@ConceptMapGroupSurrogate._source),
-      target =
-        Canonical.of(this@ConceptMapGroupSurrogate.target, this@ConceptMapGroupSurrogate._target),
-      element = this@ConceptMapGroupSurrogate.element ?: mutableListOf(),
-      unmapped = this@ConceptMapGroupSurrogate.unmapped,
-    )
-
-  public companion object {
-    public fun fromModel(model: ConceptMap.Group): ConceptMapGroupSurrogate =
-      with(model) {
-        ConceptMapGroupSurrogate(
-          id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          source = this@with.source?.value,
-          _source = this@with.source?.toElement(),
-          target = this@with.target?.value,
-          _target = this@with.target?.toElement(),
-          element = this@with.element.takeUnless { it.all { it == null } },
-          unmapped = this@with.unmapped,
-        )
-      }
-  }
-}
-
-@Serializable
 internal data class ConceptMapVersionAlgorithmSurrogate(
   public var versionAlgorithmString: KotlinString? = null,
   public var _versionAlgorithmString: Element? = null,
   public var versionAlgorithmCoding: Coding? = null,
 ) {
   public fun toModel(): ConceptMap.VersionAlgorithm =
-    ConceptMap.VersionAlgorithm?.from(
+    ConceptMap.VersionAlgorithm.from(
       R5String.of(
         this@ConceptMapVersionAlgorithmSurrogate.versionAlgorithmString,
         this@ConceptMapVersionAlgorithmSurrogate._versionAlgorithmString,
@@ -706,7 +587,7 @@ internal data class ConceptMapSourceScopeSurrogate(
   public var _sourceScopeCanonical: Element? = null,
 ) {
   public fun toModel(): ConceptMap.SourceScope =
-    ConceptMap.SourceScope?.from(
+    ConceptMap.SourceScope.from(
       Uri.of(
         this@ConceptMapSourceScopeSurrogate.sourceScopeUri,
         this@ConceptMapSourceScopeSurrogate._sourceScopeUri,
@@ -738,7 +619,7 @@ internal data class ConceptMapTargetScopeSurrogate(
   public var _targetScopeCanonical: Element? = null,
 ) {
   public fun toModel(): ConceptMap.TargetScope =
-    ConceptMap.TargetScope?.from(
+    ConceptMap.TargetScope.from(
       Uri.of(
         this@ConceptMapTargetScopeSurrogate.targetScopeUri,
         this@ConceptMapTargetScopeSurrogate._targetScopeUri,
@@ -757,6 +638,125 @@ internal data class ConceptMapTargetScopeSurrogate(
           _targetScopeUri = this@with.asUri()?.value?.toElement(),
           targetScopeCanonical = this@with.asCanonical()?.value?.value,
           _targetScopeCanonical = this@with.asCanonical()?.value?.toElement(),
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class ConceptMapGroupElementTargetPropertyValueSurrogate(
+  public var valueCoding: Coding? = null,
+  public var valueString: KotlinString? = null,
+  public var _valueString: Element? = null,
+  public var valueInteger: Int? = null,
+  public var _valueInteger: Element? = null,
+  public var valueBoolean: KotlinBoolean? = null,
+  public var _valueBoolean: Element? = null,
+  public var valueDateTime: KotlinString? = null,
+  public var _valueDateTime: Element? = null,
+  public var valueDecimal: Double? = null,
+  public var _valueDecimal: Element? = null,
+  public var valueCode: KotlinString? = null,
+  public var _valueCode: Element? = null,
+) {
+  public fun toModel(): ConceptMap.Group.Element.Target.Property.Value =
+    ConceptMap.Group.Element.Target.Property.Value.from(
+      this@ConceptMapGroupElementTargetPropertyValueSurrogate.valueCoding,
+      R5String.of(
+        this@ConceptMapGroupElementTargetPropertyValueSurrogate.valueString,
+        this@ConceptMapGroupElementTargetPropertyValueSurrogate._valueString,
+      ),
+      Integer.of(
+        this@ConceptMapGroupElementTargetPropertyValueSurrogate.valueInteger,
+        this@ConceptMapGroupElementTargetPropertyValueSurrogate._valueInteger,
+      ),
+      R5Boolean.of(
+        this@ConceptMapGroupElementTargetPropertyValueSurrogate.valueBoolean,
+        this@ConceptMapGroupElementTargetPropertyValueSurrogate._valueBoolean,
+      ),
+      DateTime.of(
+        FhirDateTime.fromString(
+          this@ConceptMapGroupElementTargetPropertyValueSurrogate.valueDateTime
+        ),
+        this@ConceptMapGroupElementTargetPropertyValueSurrogate._valueDateTime,
+      ),
+      Decimal.of(
+        this@ConceptMapGroupElementTargetPropertyValueSurrogate.valueDecimal,
+        this@ConceptMapGroupElementTargetPropertyValueSurrogate._valueDecimal,
+      ),
+      Code.of(
+        this@ConceptMapGroupElementTargetPropertyValueSurrogate.valueCode,
+        this@ConceptMapGroupElementTargetPropertyValueSurrogate._valueCode,
+      ),
+    )!! !!
+
+  public companion object {
+    public fun fromModel(
+      model: ConceptMap.Group.Element.Target.Property.Value
+    ): ConceptMapGroupElementTargetPropertyValueSurrogate =
+      with(model) {
+        ConceptMapGroupElementTargetPropertyValueSurrogate(
+          valueCoding = this@with.asCoding()?.value,
+          valueString = this@with.asString()?.value?.value,
+          _valueString = this@with.asString()?.value?.toElement(),
+          valueInteger = this@with.asInteger()?.value?.value,
+          _valueInteger = this@with.asInteger()?.value?.toElement(),
+          valueBoolean = this@with.asBoolean()?.value?.value,
+          _valueBoolean = this@with.asBoolean()?.value?.toElement(),
+          valueDateTime = this@with.asDateTime()?.value?.value?.toString(),
+          _valueDateTime = this@with.asDateTime()?.value?.toElement(),
+          valueDecimal = this@with.asDecimal()?.value?.value,
+          _valueDecimal = this@with.asDecimal()?.value?.toElement(),
+          valueCode = this@with.asCode()?.value?.value,
+          _valueCode = this@with.asCode()?.value?.toElement(),
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class ConceptMapGroupElementTargetDependsOnValueSurrogate(
+  public var valueCode: KotlinString? = null,
+  public var _valueCode: Element? = null,
+  public var valueCoding: Coding? = null,
+  public var valueString: KotlinString? = null,
+  public var _valueString: Element? = null,
+  public var valueBoolean: KotlinBoolean? = null,
+  public var _valueBoolean: Element? = null,
+  public var valueQuantity: Quantity? = null,
+) {
+  public fun toModel(): ConceptMap.Group.Element.Target.DependsOn.Value =
+    ConceptMap.Group.Element.Target.DependsOn.Value.from(
+      Code.of(
+        this@ConceptMapGroupElementTargetDependsOnValueSurrogate.valueCode,
+        this@ConceptMapGroupElementTargetDependsOnValueSurrogate._valueCode,
+      ),
+      this@ConceptMapGroupElementTargetDependsOnValueSurrogate.valueCoding,
+      R5String.of(
+        this@ConceptMapGroupElementTargetDependsOnValueSurrogate.valueString,
+        this@ConceptMapGroupElementTargetDependsOnValueSurrogate._valueString,
+      ),
+      R5Boolean.of(
+        this@ConceptMapGroupElementTargetDependsOnValueSurrogate.valueBoolean,
+        this@ConceptMapGroupElementTargetDependsOnValueSurrogate._valueBoolean,
+      ),
+      this@ConceptMapGroupElementTargetDependsOnValueSurrogate.valueQuantity,
+    )!!
+
+  public companion object {
+    public fun fromModel(
+      model: ConceptMap.Group.Element.Target.DependsOn.Value
+    ): ConceptMapGroupElementTargetDependsOnValueSurrogate =
+      with(model) {
+        ConceptMapGroupElementTargetDependsOnValueSurrogate(
+          valueCode = this@with.asCode()?.value?.value,
+          _valueCode = this@with.asCode()?.value?.toElement(),
+          valueCoding = this@with.asCoding()?.value,
+          valueString = this@with.asString()?.value?.value,
+          _valueString = this@with.asString()?.value?.toElement(),
+          valueBoolean = this@with.asBoolean()?.value?.value,
+          _valueBoolean = this@with.asBoolean()?.value?.toElement(),
+          valueQuantity = this@with.asQuantity()?.value,
         )
       }
   }

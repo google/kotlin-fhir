@@ -38,45 +38,6 @@ import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.JsonPrimitive
 import kotlinx.serialization.json.jsonObject
 
-public object RiskAssessmentPredictionProbabilitySerializer :
-  KSerializer<RiskAssessment.Prediction.Probability> {
-  internal val surrogateSerializer:
-    KSerializer<RiskAssessmentPredictionProbabilitySurrogate> by lazy {
-    RiskAssessmentPredictionProbabilitySurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Probability", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): RiskAssessment.Prediction.Probability =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: RiskAssessment.Prediction.Probability) {
-    surrogateSerializer.serialize(
-      encoder,
-      RiskAssessmentPredictionProbabilitySurrogate.fromModel(value),
-    )
-  }
-}
-
-public object RiskAssessmentPredictionWhenSerializer : KSerializer<RiskAssessment.Prediction.When> {
-  internal val surrogateSerializer: KSerializer<RiskAssessmentPredictionWhenSurrogate> by lazy {
-    RiskAssessmentPredictionWhenSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("When", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): RiskAssessment.Prediction.When =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: RiskAssessment.Prediction.When) {
-    surrogateSerializer.serialize(encoder, RiskAssessmentPredictionWhenSurrogate.fromModel(value))
-  }
-}
-
 public object RiskAssessmentPredictionSerializer : KSerializer<RiskAssessment.Prediction> {
   internal val surrogateSerializer: KSerializer<RiskAssessmentPredictionSurrogate> by lazy {
     RiskAssessmentPredictionSurrogate.serializer()
@@ -138,6 +99,45 @@ public object RiskAssessmentOccurrenceSerializer : KSerializer<RiskAssessment.Oc
 
   override fun serialize(encoder: Encoder, `value`: RiskAssessment.Occurrence) {
     surrogateSerializer.serialize(encoder, RiskAssessmentOccurrenceSurrogate.fromModel(value))
+  }
+}
+
+public object RiskAssessmentPredictionProbabilitySerializer :
+  KSerializer<RiskAssessment.Prediction.Probability> {
+  internal val surrogateSerializer:
+    KSerializer<RiskAssessmentPredictionProbabilitySurrogate> by lazy {
+    RiskAssessmentPredictionProbabilitySurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Probability", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): RiskAssessment.Prediction.Probability =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: RiskAssessment.Prediction.Probability) {
+    surrogateSerializer.serialize(
+      encoder,
+      RiskAssessmentPredictionProbabilitySurrogate.fromModel(value),
+    )
+  }
+}
+
+public object RiskAssessmentPredictionWhenSerializer : KSerializer<RiskAssessment.Prediction.When> {
+  internal val surrogateSerializer: KSerializer<RiskAssessmentPredictionWhenSurrogate> by lazy {
+    RiskAssessmentPredictionWhenSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("When", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): RiskAssessment.Prediction.When =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: RiskAssessment.Prediction.When) {
+    surrogateSerializer.serialize(encoder, RiskAssessmentPredictionWhenSurrogate.fromModel(value))
   }
 }
 

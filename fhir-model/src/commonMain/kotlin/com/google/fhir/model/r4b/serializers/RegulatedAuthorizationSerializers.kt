@@ -36,24 +36,6 @@ import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.JsonPrimitive
 import kotlinx.serialization.json.jsonObject
 
-public object RegulatedAuthorizationCaseDateSerializer :
-  KSerializer<RegulatedAuthorization.Case.Date> {
-  internal val surrogateSerializer: KSerializer<RegulatedAuthorizationCaseDateSurrogate> by lazy {
-    RegulatedAuthorizationCaseDateSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Date", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): RegulatedAuthorization.Case.Date =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: RegulatedAuthorization.Case.Date) {
-    surrogateSerializer.serialize(encoder, RegulatedAuthorizationCaseDateSurrogate.fromModel(value))
-  }
-}
-
 public object RegulatedAuthorizationCaseSerializer : KSerializer<RegulatedAuthorization.Case> {
   internal val surrogateSerializer: KSerializer<RegulatedAuthorizationCaseSurrogate> by lazy {
     RegulatedAuthorizationCaseSurrogate.serializer()
@@ -98,6 +80,24 @@ public object RegulatedAuthorizationCaseSerializer : KSerializer<RegulatedAuthor
       }
     val flattenedJsonObject = FhirJsonTransformer.flatten(oldJsonObject, multiChoiceProperties)
     jsonEncoder.encodeJsonElement(flattenedJsonObject)
+  }
+}
+
+public object RegulatedAuthorizationCaseDateSerializer :
+  KSerializer<RegulatedAuthorization.Case.Date> {
+  internal val surrogateSerializer: KSerializer<RegulatedAuthorizationCaseDateSurrogate> by lazy {
+    RegulatedAuthorizationCaseDateSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Date", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): RegulatedAuthorization.Case.Date =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: RegulatedAuthorization.Case.Date) {
+    surrogateSerializer.serialize(encoder, RegulatedAuthorizationCaseDateSurrogate.fromModel(value))
   }
 }
 

@@ -85,59 +85,6 @@ internal data class SpecimenFeatureSurrogate(
 }
 
 @Serializable
-internal data class SpecimenCollectionCollectedSurrogate(
-  public var collectedDateTime: KotlinString? = null,
-  public var _collectedDateTime: Element? = null,
-  public var collectedPeriod: Period? = null,
-) {
-  public fun toModel(): Specimen.Collection.Collected =
-    Specimen.Collection.Collected?.from(
-      DateTime.of(
-        FhirDateTime.fromString(this@SpecimenCollectionCollectedSurrogate.collectedDateTime),
-        this@SpecimenCollectionCollectedSurrogate._collectedDateTime,
-      ),
-      this@SpecimenCollectionCollectedSurrogate.collectedPeriod,
-    )!!
-
-  public companion object {
-    public fun fromModel(
-      model: Specimen.Collection.Collected
-    ): SpecimenCollectionCollectedSurrogate =
-      with(model) {
-        SpecimenCollectionCollectedSurrogate(
-          collectedDateTime = this@with.asDateTime()?.value?.value?.toString(),
-          _collectedDateTime = this@with.asDateTime()?.value?.toElement(),
-          collectedPeriod = this@with.asPeriod()?.value,
-        )
-      }
-  }
-}
-
-@Serializable
-internal data class SpecimenCollectionFastingStatusSurrogate(
-  public var fastingStatusCodeableConcept: CodeableConcept? = null,
-  public var fastingStatusDuration: Duration? = null,
-) {
-  public fun toModel(): Specimen.Collection.FastingStatus =
-    Specimen.Collection.FastingStatus?.from(
-      this@SpecimenCollectionFastingStatusSurrogate.fastingStatusCodeableConcept,
-      this@SpecimenCollectionFastingStatusSurrogate.fastingStatusDuration,
-    )!!
-
-  public companion object {
-    public fun fromModel(
-      model: Specimen.Collection.FastingStatus
-    ): SpecimenCollectionFastingStatusSurrogate =
-      with(model) {
-        SpecimenCollectionFastingStatusSurrogate(
-          fastingStatusCodeableConcept = this@with.asCodeableConcept()?.value,
-          fastingStatusDuration = this@with.asDuration()?.value,
-        )
-      }
-  }
-}
-
-@Serializable
 internal data class SpecimenCollectionSurrogate(
   public var id: KotlinString? = null,
   public var extension: MutableList<Extension>? = null,
@@ -184,33 +131,6 @@ internal data class SpecimenCollectionSurrogate(
           procedure = this@with.procedure,
           bodySite = this@with.bodySite,
           fastingStatus = this@with.fastingStatus,
-        )
-      }
-  }
-}
-
-@Serializable
-internal data class SpecimenProcessingTimeSurrogate(
-  public var timeDateTime: KotlinString? = null,
-  public var _timeDateTime: Element? = null,
-  public var timePeriod: Period? = null,
-) {
-  public fun toModel(): Specimen.Processing.Time =
-    Specimen.Processing.Time?.from(
-      DateTime.of(
-        FhirDateTime.fromString(this@SpecimenProcessingTimeSurrogate.timeDateTime),
-        this@SpecimenProcessingTimeSurrogate._timeDateTime,
-      ),
-      this@SpecimenProcessingTimeSurrogate.timePeriod,
-    )!!
-
-  public companion object {
-    public fun fromModel(model: Specimen.Processing.Time): SpecimenProcessingTimeSurrogate =
-      with(model) {
-        SpecimenProcessingTimeSurrogate(
-          timeDateTime = this@with.asDateTime()?.value?.value?.toString(),
-          _timeDateTime = this@with.asDateTime()?.value?.toElement(),
-          timePeriod = this@with.asPeriod()?.value,
         )
       }
   }
@@ -288,6 +208,86 @@ internal data class SpecimenContainerSurrogate(
           device = this@with.device,
           location = this@with.location,
           specimenQuantity = this@with.specimenQuantity,
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class SpecimenCollectionCollectedSurrogate(
+  public var collectedDateTime: KotlinString? = null,
+  public var _collectedDateTime: Element? = null,
+  public var collectedPeriod: Period? = null,
+) {
+  public fun toModel(): Specimen.Collection.Collected =
+    Specimen.Collection.Collected.from(
+      DateTime.of(
+        FhirDateTime.fromString(this@SpecimenCollectionCollectedSurrogate.collectedDateTime),
+        this@SpecimenCollectionCollectedSurrogate._collectedDateTime,
+      ),
+      this@SpecimenCollectionCollectedSurrogate.collectedPeriod,
+    )!!
+
+  public companion object {
+    public fun fromModel(
+      model: Specimen.Collection.Collected
+    ): SpecimenCollectionCollectedSurrogate =
+      with(model) {
+        SpecimenCollectionCollectedSurrogate(
+          collectedDateTime = this@with.asDateTime()?.value?.value?.toString(),
+          _collectedDateTime = this@with.asDateTime()?.value?.toElement(),
+          collectedPeriod = this@with.asPeriod()?.value,
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class SpecimenCollectionFastingStatusSurrogate(
+  public var fastingStatusCodeableConcept: CodeableConcept? = null,
+  public var fastingStatusDuration: Duration? = null,
+) {
+  public fun toModel(): Specimen.Collection.FastingStatus =
+    Specimen.Collection.FastingStatus.from(
+      this@SpecimenCollectionFastingStatusSurrogate.fastingStatusCodeableConcept,
+      this@SpecimenCollectionFastingStatusSurrogate.fastingStatusDuration,
+    )!!
+
+  public companion object {
+    public fun fromModel(
+      model: Specimen.Collection.FastingStatus
+    ): SpecimenCollectionFastingStatusSurrogate =
+      with(model) {
+        SpecimenCollectionFastingStatusSurrogate(
+          fastingStatusCodeableConcept = this@with.asCodeableConcept()?.value,
+          fastingStatusDuration = this@with.asDuration()?.value,
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class SpecimenProcessingTimeSurrogate(
+  public var timeDateTime: KotlinString? = null,
+  public var _timeDateTime: Element? = null,
+  public var timePeriod: Period? = null,
+) {
+  public fun toModel(): Specimen.Processing.Time =
+    Specimen.Processing.Time.from(
+      DateTime.of(
+        FhirDateTime.fromString(this@SpecimenProcessingTimeSurrogate.timeDateTime),
+        this@SpecimenProcessingTimeSurrogate._timeDateTime,
+      ),
+      this@SpecimenProcessingTimeSurrogate.timePeriod,
+    )!!
+
+  public companion object {
+    public fun fromModel(model: Specimen.Processing.Time): SpecimenProcessingTimeSurrogate =
+      with(model) {
+        SpecimenProcessingTimeSurrogate(
+          timeDateTime = this@with.asDateTime()?.value?.value?.toString(),
+          _timeDateTime = this@with.asDateTime()?.value?.toElement(),
+          timePeriod = this@with.asPeriod()?.value,
         )
       }
   }

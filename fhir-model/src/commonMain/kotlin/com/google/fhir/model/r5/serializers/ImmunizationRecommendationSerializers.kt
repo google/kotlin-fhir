@@ -28,6 +28,28 @@ import kotlinx.serialization.descriptors.SerialDescriptor
 import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
 
+public object ImmunizationRecommendationRecommendationSerializer :
+  KSerializer<ImmunizationRecommendation.Recommendation> {
+  internal val surrogateSerializer:
+    KSerializer<ImmunizationRecommendationRecommendationSurrogate> by lazy {
+    ImmunizationRecommendationRecommendationSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Recommendation", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): ImmunizationRecommendation.Recommendation =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: ImmunizationRecommendation.Recommendation) {
+    surrogateSerializer.serialize(
+      encoder,
+      ImmunizationRecommendationRecommendationSurrogate.fromModel(value),
+    )
+  }
+}
+
 public object ImmunizationRecommendationRecommendationDateCriterionSerializer :
   KSerializer<ImmunizationRecommendation.Recommendation.DateCriterion> {
   internal val surrogateSerializer:
@@ -51,28 +73,6 @@ public object ImmunizationRecommendationRecommendationDateCriterionSerializer :
     surrogateSerializer.serialize(
       encoder,
       ImmunizationRecommendationRecommendationDateCriterionSurrogate.fromModel(value),
-    )
-  }
-}
-
-public object ImmunizationRecommendationRecommendationSerializer :
-  KSerializer<ImmunizationRecommendation.Recommendation> {
-  internal val surrogateSerializer:
-    KSerializer<ImmunizationRecommendationRecommendationSurrogate> by lazy {
-    ImmunizationRecommendationRecommendationSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Recommendation", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): ImmunizationRecommendation.Recommendation =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: ImmunizationRecommendation.Recommendation) {
-    surrogateSerializer.serialize(
-      encoder,
-      ImmunizationRecommendationRecommendationSurrogate.fromModel(value),
     )
   }
 }

@@ -65,6 +65,23 @@ public object ConsentVerificationSerializer : KSerializer<Consent.Verification> 
   }
 }
 
+public object ConsentProvisionSerializer : KSerializer<Consent.Provision> {
+  internal val surrogateSerializer: KSerializer<ConsentProvisionSurrogate> by lazy {
+    ConsentProvisionSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Provision", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): Consent.Provision =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: Consent.Provision) {
+    surrogateSerializer.serialize(encoder, ConsentProvisionSurrogate.fromModel(value))
+  }
+}
+
 public object ConsentProvisionActorSerializer : KSerializer<Consent.Provision.Actor> {
   internal val surrogateSerializer: KSerializer<ConsentProvisionActorSurrogate> by lazy {
     ConsentProvisionActorSurrogate.serializer()
@@ -96,23 +113,6 @@ public object ConsentProvisionDataSerializer : KSerializer<Consent.Provision.Dat
 
   override fun serialize(encoder: Encoder, `value`: Consent.Provision.Data) {
     surrogateSerializer.serialize(encoder, ConsentProvisionDataSurrogate.fromModel(value))
-  }
-}
-
-public object ConsentProvisionSerializer : KSerializer<Consent.Provision> {
-  internal val surrogateSerializer: KSerializer<ConsentProvisionSurrogate> by lazy {
-    ConsentProvisionSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Provision", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): Consent.Provision =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: Consent.Provision) {
-    surrogateSerializer.serialize(encoder, ConsentProvisionSurrogate.fromModel(value))
   }
 }
 

@@ -162,6 +162,49 @@ internal data class ImplementationGuideGlobalSurrogate(
 }
 
 @Serializable
+internal data class ImplementationGuideDefinitionSurrogate(
+  public var id: KotlinString? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var grouping: MutableList<ImplementationGuide.Definition.Grouping>? = null,
+  public var resource: MutableList<ImplementationGuide.Definition.Resource>? = null,
+  public var page: ImplementationGuide.Definition.Page? = null,
+  public var parameter: MutableList<ImplementationGuide.Definition.Parameter>? = null,
+  public var template: MutableList<ImplementationGuide.Definition.Template>? = null,
+) {
+  public fun toModel(): ImplementationGuide.Definition =
+    ImplementationGuide.Definition(
+      id = this@ImplementationGuideDefinitionSurrogate.id,
+      extension = this@ImplementationGuideDefinitionSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@ImplementationGuideDefinitionSurrogate.modifierExtension ?: mutableListOf(),
+      grouping = this@ImplementationGuideDefinitionSurrogate.grouping ?: mutableListOf(),
+      resource = this@ImplementationGuideDefinitionSurrogate.resource ?: mutableListOf(),
+      page = this@ImplementationGuideDefinitionSurrogate.page,
+      parameter = this@ImplementationGuideDefinitionSurrogate.parameter ?: mutableListOf(),
+      template = this@ImplementationGuideDefinitionSurrogate.template ?: mutableListOf(),
+    )
+
+  public companion object {
+    public fun fromModel(
+      model: ImplementationGuide.Definition
+    ): ImplementationGuideDefinitionSurrogate =
+      with(model) {
+        ImplementationGuideDefinitionSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          grouping = this@with.grouping.takeUnless { it.all { it == null } },
+          resource = this@with.resource.takeUnless { it.all { it == null } },
+          page = this@with.page,
+          parameter = this@with.parameter.takeUnless { it.all { it == null } },
+          template = this@with.template.takeUnless { it.all { it == null } },
+        )
+      }
+  }
+}
+
+@Serializable
 internal data class ImplementationGuideDefinitionGroupingSurrogate(
   public var id: KotlinString? = null,
   public var extension: MutableList<Extension>? = null,
@@ -339,48 +382,6 @@ internal data class ImplementationGuideDefinitionResourceSurrogate(
 }
 
 @Serializable
-internal data class ImplementationGuideDefinitionPageSourceSurrogate(
-  public var sourceUrl: KotlinString? = null,
-  public var _sourceUrl: Element? = null,
-  public var sourceString: KotlinString? = null,
-  public var _sourceString: Element? = null,
-  public var sourceMarkdown: KotlinString? = null,
-  public var _sourceMarkdown: Element? = null,
-) {
-  public fun toModel(): ImplementationGuide.Definition.Page.Source =
-    ImplementationGuide.Definition.Page.Source?.from(
-      Url.of(
-        this@ImplementationGuideDefinitionPageSourceSurrogate.sourceUrl,
-        this@ImplementationGuideDefinitionPageSourceSurrogate._sourceUrl,
-      ),
-      R5String.of(
-        this@ImplementationGuideDefinitionPageSourceSurrogate.sourceString,
-        this@ImplementationGuideDefinitionPageSourceSurrogate._sourceString,
-      ),
-      Markdown.of(
-        this@ImplementationGuideDefinitionPageSourceSurrogate.sourceMarkdown,
-        this@ImplementationGuideDefinitionPageSourceSurrogate._sourceMarkdown,
-      ),
-    )!!
-
-  public companion object {
-    public fun fromModel(
-      model: ImplementationGuide.Definition.Page.Source
-    ): ImplementationGuideDefinitionPageSourceSurrogate =
-      with(model) {
-        ImplementationGuideDefinitionPageSourceSurrogate(
-          sourceUrl = this@with.asUrl()?.value?.value,
-          _sourceUrl = this@with.asUrl()?.value?.toElement(),
-          sourceString = this@with.asString()?.value?.value,
-          _sourceString = this@with.asString()?.value?.toElement(),
-          sourceMarkdown = this@with.asMarkdown()?.value?.value,
-          _sourceMarkdown = this@with.asMarkdown()?.value?.toElement(),
-        )
-      }
-  }
-}
-
-@Serializable
 internal data class ImplementationGuideDefinitionPageSurrogate(
   public var id: KotlinString? = null,
   public var extension: MutableList<Extension>? = null,
@@ -539,43 +540,95 @@ internal data class ImplementationGuideDefinitionTemplateSurrogate(
 }
 
 @Serializable
-internal data class ImplementationGuideDefinitionSurrogate(
+internal data class ImplementationGuideManifestSurrogate(
   public var id: KotlinString? = null,
   public var extension: MutableList<Extension>? = null,
   public var modifierExtension: MutableList<Extension>? = null,
-  public var grouping: MutableList<ImplementationGuide.Definition.Grouping>? = null,
-  public var resource: MutableList<ImplementationGuide.Definition.Resource>? = null,
-  public var page: ImplementationGuide.Definition.Page? = null,
-  public var parameter: MutableList<ImplementationGuide.Definition.Parameter>? = null,
-  public var template: MutableList<ImplementationGuide.Definition.Template>? = null,
+  public var rendering: KotlinString? = null,
+  public var _rendering: Element? = null,
+  public var resource: MutableList<ImplementationGuide.Manifest.Resource>? = null,
+  public var page: MutableList<ImplementationGuide.Manifest.Page>? = null,
+  public var image: MutableList<KotlinString?>? = null,
+  public var _image: MutableList<Element?>? = null,
+  public var other: MutableList<KotlinString?>? = null,
+  public var _other: MutableList<Element?>? = null,
 ) {
-  public fun toModel(): ImplementationGuide.Definition =
-    ImplementationGuide.Definition(
-      id = this@ImplementationGuideDefinitionSurrogate.id,
-      extension = this@ImplementationGuideDefinitionSurrogate.extension ?: mutableListOf(),
+  public fun toModel(): ImplementationGuide.Manifest =
+    ImplementationGuide.Manifest(
+      id = this@ImplementationGuideManifestSurrogate.id,
+      extension = this@ImplementationGuideManifestSurrogate.extension ?: mutableListOf(),
       modifierExtension =
-        this@ImplementationGuideDefinitionSurrogate.modifierExtension ?: mutableListOf(),
-      grouping = this@ImplementationGuideDefinitionSurrogate.grouping ?: mutableListOf(),
-      resource = this@ImplementationGuideDefinitionSurrogate.resource ?: mutableListOf(),
-      page = this@ImplementationGuideDefinitionSurrogate.page,
-      parameter = this@ImplementationGuideDefinitionSurrogate.parameter ?: mutableListOf(),
-      template = this@ImplementationGuideDefinitionSurrogate.template ?: mutableListOf(),
+        this@ImplementationGuideManifestSurrogate.modifierExtension ?: mutableListOf(),
+      rendering =
+        Url.of(
+          this@ImplementationGuideManifestSurrogate.rendering,
+          this@ImplementationGuideManifestSurrogate._rendering,
+        ),
+      resource = this@ImplementationGuideManifestSurrogate.resource ?: mutableListOf(),
+      page = this@ImplementationGuideManifestSurrogate.page ?: mutableListOf(),
+      image =
+        if (
+          this@ImplementationGuideManifestSurrogate.image == null &&
+            this@ImplementationGuideManifestSurrogate._image == null
+        ) {
+          mutableListOf()
+        } else {
+          (this@ImplementationGuideManifestSurrogate.image
+              ?: List(this@ImplementationGuideManifestSurrogate._image!!.size) { null })
+            .zip(
+              this@ImplementationGuideManifestSurrogate._image
+                ?: List(this@ImplementationGuideManifestSurrogate.image!!.size) { null }
+            )
+            .map { (value, element) -> R5String.of(value, element)!! }
+            .toMutableList()
+        },
+      other =
+        if (
+          this@ImplementationGuideManifestSurrogate.other == null &&
+            this@ImplementationGuideManifestSurrogate._other == null
+        ) {
+          mutableListOf()
+        } else {
+          (this@ImplementationGuideManifestSurrogate.other
+              ?: List(this@ImplementationGuideManifestSurrogate._other!!.size) { null })
+            .zip(
+              this@ImplementationGuideManifestSurrogate._other
+                ?: List(this@ImplementationGuideManifestSurrogate.other!!.size) { null }
+            )
+            .map { (value, element) -> R5String.of(value, element)!! }
+            .toMutableList()
+        },
     )
 
   public companion object {
     public fun fromModel(
-      model: ImplementationGuide.Definition
-    ): ImplementationGuideDefinitionSurrogate =
+      model: ImplementationGuide.Manifest
+    ): ImplementationGuideManifestSurrogate =
       with(model) {
-        ImplementationGuideDefinitionSurrogate(
+        ImplementationGuideManifestSurrogate(
           id = this@with.id,
           extension = this@with.extension.takeUnless { it.all { it == null } },
           modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          grouping = this@with.grouping.takeUnless { it.all { it == null } },
+          rendering = this@with.rendering?.value,
+          _rendering = this@with.rendering?.toElement(),
           resource = this@with.resource.takeUnless { it.all { it == null } },
-          page = this@with.page,
-          parameter = this@with.parameter.takeUnless { it.all { it == null } },
-          template = this@with.template.takeUnless { it.all { it == null } },
+          page = this@with.page.takeUnless { it.all { it == null } },
+          image =
+            this@with.image.map { it.value }.toMutableList().takeUnless { it.all { it == null } },
+          _image =
+            this@with.image
+              .map { it.toElement() }
+              .takeUnless { it.all { it == null } }
+              ?.map { it ?: Element() }
+              ?.toMutableList(),
+          other =
+            this@with.other.map { it.value }.toMutableList().takeUnless { it.all { it == null } },
+          _other =
+            this@with.other
+              .map { it.toElement() }
+              .takeUnless { it.all { it == null } }
+              ?.map { it ?: Element() }
+              ?.toMutableList(),
         )
       }
   }
@@ -729,108 +782,13 @@ internal data class ImplementationGuideManifestPageSurrogate(
 }
 
 @Serializable
-internal data class ImplementationGuideManifestSurrogate(
-  public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var rendering: KotlinString? = null,
-  public var _rendering: Element? = null,
-  public var resource: MutableList<ImplementationGuide.Manifest.Resource>? = null,
-  public var page: MutableList<ImplementationGuide.Manifest.Page>? = null,
-  public var image: MutableList<KotlinString?>? = null,
-  public var _image: MutableList<Element?>? = null,
-  public var other: MutableList<KotlinString?>? = null,
-  public var _other: MutableList<Element?>? = null,
-) {
-  public fun toModel(): ImplementationGuide.Manifest =
-    ImplementationGuide.Manifest(
-      id = this@ImplementationGuideManifestSurrogate.id,
-      extension = this@ImplementationGuideManifestSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@ImplementationGuideManifestSurrogate.modifierExtension ?: mutableListOf(),
-      rendering =
-        Url.of(
-          this@ImplementationGuideManifestSurrogate.rendering,
-          this@ImplementationGuideManifestSurrogate._rendering,
-        ),
-      resource = this@ImplementationGuideManifestSurrogate.resource ?: mutableListOf(),
-      page = this@ImplementationGuideManifestSurrogate.page ?: mutableListOf(),
-      image =
-        if (
-          this@ImplementationGuideManifestSurrogate.image == null &&
-            this@ImplementationGuideManifestSurrogate._image == null
-        ) {
-          mutableListOf()
-        } else {
-          (this@ImplementationGuideManifestSurrogate.image
-              ?: List(this@ImplementationGuideManifestSurrogate._image!!.size) { null })
-            .zip(
-              this@ImplementationGuideManifestSurrogate._image
-                ?: List(this@ImplementationGuideManifestSurrogate.image!!.size) { null }
-            )
-            .map { (value, element) -> R5String.of(value, element)!! }
-            .toMutableList()
-        },
-      other =
-        if (
-          this@ImplementationGuideManifestSurrogate.other == null &&
-            this@ImplementationGuideManifestSurrogate._other == null
-        ) {
-          mutableListOf()
-        } else {
-          (this@ImplementationGuideManifestSurrogate.other
-              ?: List(this@ImplementationGuideManifestSurrogate._other!!.size) { null })
-            .zip(
-              this@ImplementationGuideManifestSurrogate._other
-                ?: List(this@ImplementationGuideManifestSurrogate.other!!.size) { null }
-            )
-            .map { (value, element) -> R5String.of(value, element)!! }
-            .toMutableList()
-        },
-    )
-
-  public companion object {
-    public fun fromModel(
-      model: ImplementationGuide.Manifest
-    ): ImplementationGuideManifestSurrogate =
-      with(model) {
-        ImplementationGuideManifestSurrogate(
-          id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          rendering = this@with.rendering?.value,
-          _rendering = this@with.rendering?.toElement(),
-          resource = this@with.resource.takeUnless { it.all { it == null } },
-          page = this@with.page.takeUnless { it.all { it == null } },
-          image =
-            this@with.image.map { it.value }.toMutableList().takeUnless { it.all { it == null } },
-          _image =
-            this@with.image
-              .map { it.toElement() }
-              .takeUnless { it.all { it == null } }
-              ?.map { it ?: Element() }
-              ?.toMutableList(),
-          other =
-            this@with.other.map { it.value }.toMutableList().takeUnless { it.all { it == null } },
-          _other =
-            this@with.other
-              .map { it.toElement() }
-              .takeUnless { it.all { it == null } }
-              ?.map { it ?: Element() }
-              ?.toMutableList(),
-        )
-      }
-  }
-}
-
-@Serializable
 internal data class ImplementationGuideVersionAlgorithmSurrogate(
   public var versionAlgorithmString: KotlinString? = null,
   public var _versionAlgorithmString: Element? = null,
   public var versionAlgorithmCoding: Coding? = null,
 ) {
   public fun toModel(): ImplementationGuide.VersionAlgorithm =
-    ImplementationGuide.VersionAlgorithm?.from(
+    ImplementationGuide.VersionAlgorithm.from(
       R5String.of(
         this@ImplementationGuideVersionAlgorithmSurrogate.versionAlgorithmString,
         this@ImplementationGuideVersionAlgorithmSurrogate._versionAlgorithmString,
@@ -847,6 +805,48 @@ internal data class ImplementationGuideVersionAlgorithmSurrogate(
           versionAlgorithmString = this@with.asString()?.value?.value,
           _versionAlgorithmString = this@with.asString()?.value?.toElement(),
           versionAlgorithmCoding = this@with.asCoding()?.value,
+        )
+      }
+  }
+}
+
+@Serializable
+internal data class ImplementationGuideDefinitionPageSourceSurrogate(
+  public var sourceUrl: KotlinString? = null,
+  public var _sourceUrl: Element? = null,
+  public var sourceString: KotlinString? = null,
+  public var _sourceString: Element? = null,
+  public var sourceMarkdown: KotlinString? = null,
+  public var _sourceMarkdown: Element? = null,
+) {
+  public fun toModel(): ImplementationGuide.Definition.Page.Source =
+    ImplementationGuide.Definition.Page.Source.from(
+      Url.of(
+        this@ImplementationGuideDefinitionPageSourceSurrogate.sourceUrl,
+        this@ImplementationGuideDefinitionPageSourceSurrogate._sourceUrl,
+      ),
+      R5String.of(
+        this@ImplementationGuideDefinitionPageSourceSurrogate.sourceString,
+        this@ImplementationGuideDefinitionPageSourceSurrogate._sourceString,
+      ),
+      Markdown.of(
+        this@ImplementationGuideDefinitionPageSourceSurrogate.sourceMarkdown,
+        this@ImplementationGuideDefinitionPageSourceSurrogate._sourceMarkdown,
+      ),
+    )!!
+
+  public companion object {
+    public fun fromModel(
+      model: ImplementationGuide.Definition.Page.Source
+    ): ImplementationGuideDefinitionPageSourceSurrogate =
+      with(model) {
+        ImplementationGuideDefinitionPageSourceSurrogate(
+          sourceUrl = this@with.asUrl()?.value?.value,
+          _sourceUrl = this@with.asUrl()?.value?.toElement(),
+          sourceString = this@with.asString()?.value?.value,
+          _sourceString = this@with.asString()?.value?.toElement(),
+          sourceMarkdown = this@with.asMarkdown()?.value?.value,
+          _sourceMarkdown = this@with.asMarkdown()?.value?.toElement(),
         )
       }
   }

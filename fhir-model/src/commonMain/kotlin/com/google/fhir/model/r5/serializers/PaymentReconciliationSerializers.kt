@@ -37,28 +37,6 @@ import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.JsonPrimitive
 import kotlinx.serialization.json.jsonObject
 
-public object PaymentReconciliationAllocationTargetItemSerializer :
-  KSerializer<PaymentReconciliation.Allocation.TargetItem> {
-  internal val surrogateSerializer:
-    KSerializer<PaymentReconciliationAllocationTargetItemSurrogate> by lazy {
-    PaymentReconciliationAllocationTargetItemSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("TargetItem", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): PaymentReconciliation.Allocation.TargetItem =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: PaymentReconciliation.Allocation.TargetItem) {
-    surrogateSerializer.serialize(
-      encoder,
-      PaymentReconciliationAllocationTargetItemSurrogate.fromModel(value),
-    )
-  }
-}
-
 public object PaymentReconciliationAllocationSerializer :
   KSerializer<PaymentReconciliation.Allocation> {
   internal val surrogateSerializer: KSerializer<PaymentReconciliationAllocationSurrogate> by lazy {
@@ -124,6 +102,28 @@ public object PaymentReconciliationProcessNoteSerializer :
     surrogateSerializer.serialize(
       encoder,
       PaymentReconciliationProcessNoteSurrogate.fromModel(value),
+    )
+  }
+}
+
+public object PaymentReconciliationAllocationTargetItemSerializer :
+  KSerializer<PaymentReconciliation.Allocation.TargetItem> {
+  internal val surrogateSerializer:
+    KSerializer<PaymentReconciliationAllocationTargetItemSurrogate> by lazy {
+    PaymentReconciliationAllocationTargetItemSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("TargetItem", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): PaymentReconciliation.Allocation.TargetItem =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: PaymentReconciliation.Allocation.TargetItem) {
+    surrogateSerializer.serialize(
+      encoder,
+      PaymentReconciliationAllocationTargetItemSurrogate.fromModel(value),
     )
   }
 }

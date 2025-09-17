@@ -48,6 +48,23 @@ import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.JsonPrimitive
 import kotlinx.serialization.json.jsonObject
 
+public object ElementDefinitionSlicingSerializer : KSerializer<ElementDefinition.Slicing> {
+  internal val surrogateSerializer: KSerializer<ElementDefinitionSlicingSurrogate> by lazy {
+    ElementDefinitionSlicingSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Slicing", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): ElementDefinition.Slicing =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: ElementDefinition.Slicing) {
+    surrogateSerializer.serialize(encoder, ElementDefinitionSlicingSurrogate.fromModel(value))
+  }
+}
+
 public object ElementDefinitionSlicingDiscriminatorSerializer :
   KSerializer<ElementDefinition.Slicing.Discriminator> {
   internal val surrogateSerializer:
@@ -67,23 +84,6 @@ public object ElementDefinitionSlicingDiscriminatorSerializer :
       encoder,
       ElementDefinitionSlicingDiscriminatorSurrogate.fromModel(value),
     )
-  }
-}
-
-public object ElementDefinitionSlicingSerializer : KSerializer<ElementDefinition.Slicing> {
-  internal val surrogateSerializer: KSerializer<ElementDefinitionSlicingSurrogate> by lazy {
-    ElementDefinitionSlicingSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Slicing", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): ElementDefinition.Slicing =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: ElementDefinition.Slicing) {
-    surrogateSerializer.serialize(encoder, ElementDefinitionSlicingSurrogate.fromModel(value))
   }
 }
 
@@ -118,24 +118,6 @@ public object ElementDefinitionTypeSerializer : KSerializer<ElementDefinition.Ty
 
   override fun serialize(encoder: Encoder, `value`: ElementDefinition.Type) {
     surrogateSerializer.serialize(encoder, ElementDefinitionTypeSurrogate.fromModel(value))
-  }
-}
-
-public object ElementDefinitionExampleValueSerializer :
-  KSerializer<ElementDefinition.Example.Value> {
-  internal val surrogateSerializer: KSerializer<ElementDefinitionExampleValueSurrogate> by lazy {
-    ElementDefinitionExampleValueSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Value", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): ElementDefinition.Example.Value =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: ElementDefinition.Example.Value) {
-    surrogateSerializer.serialize(encoder, ElementDefinitionExampleValueSurrogate.fromModel(value))
   }
 }
 
@@ -286,6 +268,24 @@ public object ElementDefinitionPatternSerializer : KSerializer<ElementDefinition
 
   override fun serialize(encoder: Encoder, `value`: ElementDefinition.Pattern) {
     surrogateSerializer.serialize(encoder, ElementDefinitionPatternSurrogate.fromModel(value))
+  }
+}
+
+public object ElementDefinitionExampleValueSerializer :
+  KSerializer<ElementDefinition.Example.Value> {
+  internal val surrogateSerializer: KSerializer<ElementDefinitionExampleValueSurrogate> by lazy {
+    ElementDefinitionExampleValueSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Value", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): ElementDefinition.Example.Value =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: ElementDefinition.Example.Value) {
+    surrogateSerializer.serialize(encoder, ElementDefinitionExampleValueSurrogate.fromModel(value))
   }
 }
 

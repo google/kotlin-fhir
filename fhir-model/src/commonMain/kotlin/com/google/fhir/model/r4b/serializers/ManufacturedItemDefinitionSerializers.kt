@@ -36,28 +36,6 @@ import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.JsonPrimitive
 import kotlinx.serialization.json.jsonObject
 
-public object ManufacturedItemDefinitionPropertyValueSerializer :
-  KSerializer<ManufacturedItemDefinition.Property.Value> {
-  internal val surrogateSerializer:
-    KSerializer<ManufacturedItemDefinitionPropertyValueSurrogate> by lazy {
-    ManufacturedItemDefinitionPropertyValueSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Value", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): ManufacturedItemDefinition.Property.Value =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: ManufacturedItemDefinition.Property.Value) {
-    surrogateSerializer.serialize(
-      encoder,
-      ManufacturedItemDefinitionPropertyValueSurrogate.fromModel(value),
-    )
-  }
-}
-
 public object ManufacturedItemDefinitionPropertySerializer :
   KSerializer<ManufacturedItemDefinition.Property> {
   internal val surrogateSerializer:
@@ -104,6 +82,28 @@ public object ManufacturedItemDefinitionPropertySerializer :
       }
     val flattenedJsonObject = FhirJsonTransformer.flatten(oldJsonObject, multiChoiceProperties)
     jsonEncoder.encodeJsonElement(flattenedJsonObject)
+  }
+}
+
+public object ManufacturedItemDefinitionPropertyValueSerializer :
+  KSerializer<ManufacturedItemDefinition.Property.Value> {
+  internal val surrogateSerializer:
+    KSerializer<ManufacturedItemDefinitionPropertyValueSurrogate> by lazy {
+    ManufacturedItemDefinitionPropertyValueSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Value", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): ManufacturedItemDefinition.Property.Value =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: ManufacturedItemDefinition.Property.Value) {
+    surrogateSerializer.serialize(
+      encoder,
+      ManufacturedItemDefinitionPropertyValueSurrogate.fromModel(value),
+    )
   }
 }
 

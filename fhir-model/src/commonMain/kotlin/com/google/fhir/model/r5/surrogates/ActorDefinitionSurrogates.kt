@@ -56,7 +56,7 @@ internal data class ActorDefinitionVersionAlgorithmSurrogate(
   public var versionAlgorithmCoding: Coding? = null,
 ) {
   public fun toModel(): ActorDefinition.VersionAlgorithm =
-    ActorDefinition.VersionAlgorithm?.from(
+    ActorDefinition.VersionAlgorithm.from(
       R5String.of(
         this@ActorDefinitionVersionAlgorithmSurrogate.versionAlgorithmString,
         this@ActorDefinitionVersionAlgorithmSurrogate._versionAlgorithmString,

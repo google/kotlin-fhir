@@ -29,6 +29,23 @@ import kotlinx.serialization.descriptors.SerialDescriptor
 import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
 
+public object ImagingStudySeriesSerializer : KSerializer<ImagingStudy.Series> {
+  internal val surrogateSerializer: KSerializer<ImagingStudySeriesSurrogate> by lazy {
+    ImagingStudySeriesSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Series", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): ImagingStudy.Series =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: ImagingStudy.Series) {
+    surrogateSerializer.serialize(encoder, ImagingStudySeriesSurrogate.fromModel(value))
+  }
+}
+
 public object ImagingStudySeriesPerformerSerializer : KSerializer<ImagingStudy.Series.Performer> {
   internal val surrogateSerializer: KSerializer<ImagingStudySeriesPerformerSurrogate> by lazy {
     ImagingStudySeriesPerformerSurrogate.serializer()
@@ -60,23 +77,6 @@ public object ImagingStudySeriesInstanceSerializer : KSerializer<ImagingStudy.Se
 
   override fun serialize(encoder: Encoder, `value`: ImagingStudy.Series.Instance) {
     surrogateSerializer.serialize(encoder, ImagingStudySeriesInstanceSurrogate.fromModel(value))
-  }
-}
-
-public object ImagingStudySeriesSerializer : KSerializer<ImagingStudy.Series> {
-  internal val surrogateSerializer: KSerializer<ImagingStudySeriesSurrogate> by lazy {
-    ImagingStudySeriesSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Series", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): ImagingStudy.Series =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: ImagingStudy.Series) {
-    surrogateSerializer.serialize(encoder, ImagingStudySeriesSurrogate.fromModel(value))
   }
 }
 

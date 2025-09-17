@@ -87,6 +87,41 @@ internal data class CoverageClassSurrogate(
 }
 
 @Serializable
+internal data class CoverageCostToBeneficiarySurrogate(
+  public var id: KotlinString? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var type: CodeableConcept? = null,
+  public var `value`: Coverage.CostToBeneficiary.Value,
+  public var exception: MutableList<Coverage.CostToBeneficiary.Exception>? = null,
+) {
+  public fun toModel(): Coverage.CostToBeneficiary =
+    Coverage.CostToBeneficiary(
+      id = this@CoverageCostToBeneficiarySurrogate.id,
+      extension = this@CoverageCostToBeneficiarySurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@CoverageCostToBeneficiarySurrogate.modifierExtension ?: mutableListOf(),
+      type = this@CoverageCostToBeneficiarySurrogate.type,
+      `value` = this@CoverageCostToBeneficiarySurrogate.`value`,
+      exception = this@CoverageCostToBeneficiarySurrogate.exception ?: mutableListOf(),
+    )
+
+  public companion object {
+    public fun fromModel(model: Coverage.CostToBeneficiary): CoverageCostToBeneficiarySurrogate =
+      with(model) {
+        CoverageCostToBeneficiarySurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          type = this@with.type,
+          `value` = this@with.`value`,
+          exception = this@with.exception.takeUnless { it.all { it == null } },
+        )
+      }
+  }
+}
+
+@Serializable
 internal data class CoverageCostToBeneficiaryExceptionSurrogate(
   public var id: KotlinString? = null,
   public var extension: MutableList<Extension>? = null,
@@ -139,41 +174,6 @@ internal data class CoverageCostToBeneficiaryValueSurrogate(
         CoverageCostToBeneficiaryValueSurrogate(
           valueQuantity = this@with.asQuantity()?.value,
           valueMoney = this@with.asMoney()?.value,
-        )
-      }
-  }
-}
-
-@Serializable
-internal data class CoverageCostToBeneficiarySurrogate(
-  public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var type: CodeableConcept? = null,
-  public var `value`: Coverage.CostToBeneficiary.Value,
-  public var exception: MutableList<Coverage.CostToBeneficiary.Exception>? = null,
-) {
-  public fun toModel(): Coverage.CostToBeneficiary =
-    Coverage.CostToBeneficiary(
-      id = this@CoverageCostToBeneficiarySurrogate.id,
-      extension = this@CoverageCostToBeneficiarySurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@CoverageCostToBeneficiarySurrogate.modifierExtension ?: mutableListOf(),
-      type = this@CoverageCostToBeneficiarySurrogate.type,
-      `value` = this@CoverageCostToBeneficiarySurrogate.`value`,
-      exception = this@CoverageCostToBeneficiarySurrogate.exception ?: mutableListOf(),
-    )
-
-  public companion object {
-    public fun fromModel(model: Coverage.CostToBeneficiary): CoverageCostToBeneficiarySurrogate =
-      with(model) {
-        CoverageCostToBeneficiarySurrogate(
-          id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          type = this@with.type,
-          `value` = this@with.`value`,
-          exception = this@with.exception.takeUnless { it.all { it == null } },
         )
       }
   }

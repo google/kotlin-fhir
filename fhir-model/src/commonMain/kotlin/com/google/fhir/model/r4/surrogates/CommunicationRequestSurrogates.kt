@@ -48,6 +48,37 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
+internal data class CommunicationRequestPayloadSurrogate(
+  public var id: KotlinString? = null,
+  public var extension: MutableList<Extension>? = null,
+  public var modifierExtension: MutableList<Extension>? = null,
+  public var content: CommunicationRequest.Payload.Content,
+) {
+  public fun toModel(): CommunicationRequest.Payload =
+    CommunicationRequest.Payload(
+      id = this@CommunicationRequestPayloadSurrogate.id,
+      extension = this@CommunicationRequestPayloadSurrogate.extension ?: mutableListOf(),
+      modifierExtension =
+        this@CommunicationRequestPayloadSurrogate.modifierExtension ?: mutableListOf(),
+      content = this@CommunicationRequestPayloadSurrogate.content,
+    )
+
+  public companion object {
+    public fun fromModel(
+      model: CommunicationRequest.Payload
+    ): CommunicationRequestPayloadSurrogate =
+      with(model) {
+        CommunicationRequestPayloadSurrogate(
+          id = this@with.id,
+          extension = this@with.extension.takeUnless { it.all { it == null } },
+          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          content = this@with.content,
+        )
+      }
+  }
+}
+
+@Serializable
 internal data class CommunicationRequestPayloadContentSurrogate(
   public var contentString: KotlinString? = null,
   public var _contentString: Element? = null,
@@ -80,44 +111,13 @@ internal data class CommunicationRequestPayloadContentSurrogate(
 }
 
 @Serializable
-internal data class CommunicationRequestPayloadSurrogate(
-  public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var content: CommunicationRequest.Payload.Content,
-) {
-  public fun toModel(): CommunicationRequest.Payload =
-    CommunicationRequest.Payload(
-      id = this@CommunicationRequestPayloadSurrogate.id,
-      extension = this@CommunicationRequestPayloadSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@CommunicationRequestPayloadSurrogate.modifierExtension ?: mutableListOf(),
-      content = this@CommunicationRequestPayloadSurrogate.content,
-    )
-
-  public companion object {
-    public fun fromModel(
-      model: CommunicationRequest.Payload
-    ): CommunicationRequestPayloadSurrogate =
-      with(model) {
-        CommunicationRequestPayloadSurrogate(
-          id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          content = this@with.content,
-        )
-      }
-  }
-}
-
-@Serializable
 internal data class CommunicationRequestOccurrenceSurrogate(
   public var occurrenceDateTime: KotlinString? = null,
   public var _occurrenceDateTime: Element? = null,
   public var occurrencePeriod: Period? = null,
 ) {
   public fun toModel(): CommunicationRequest.Occurrence =
-    CommunicationRequest.Occurrence?.from(
+    CommunicationRequest.Occurrence.from(
       DateTime.of(
         FhirDateTime.fromString(this@CommunicationRequestOccurrenceSurrogate.occurrenceDateTime),
         this@CommunicationRequestOccurrenceSurrogate._occurrenceDateTime,

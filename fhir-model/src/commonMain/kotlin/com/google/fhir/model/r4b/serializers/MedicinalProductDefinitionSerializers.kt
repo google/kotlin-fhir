@@ -64,6 +64,24 @@ public object MedicinalProductDefinitionContactSerializer :
   }
 }
 
+public object MedicinalProductDefinitionNameSerializer :
+  KSerializer<MedicinalProductDefinition.Name> {
+  internal val surrogateSerializer: KSerializer<MedicinalProductDefinitionNameSurrogate> by lazy {
+    MedicinalProductDefinitionNameSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Name", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): MedicinalProductDefinition.Name =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(encoder: Encoder, `value`: MedicinalProductDefinition.Name) {
+    surrogateSerializer.serialize(encoder, MedicinalProductDefinitionNameSurrogate.fromModel(value))
+  }
+}
+
 public object MedicinalProductDefinitionNameNamePartSerializer :
   KSerializer<MedicinalProductDefinition.Name.NamePart> {
   internal val surrogateSerializer:
@@ -111,24 +129,6 @@ public object MedicinalProductDefinitionNameCountryLanguageSerializer :
   }
 }
 
-public object MedicinalProductDefinitionNameSerializer :
-  KSerializer<MedicinalProductDefinition.Name> {
-  internal val surrogateSerializer: KSerializer<MedicinalProductDefinitionNameSurrogate> by lazy {
-    MedicinalProductDefinitionNameSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Name", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): MedicinalProductDefinition.Name =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(encoder: Encoder, `value`: MedicinalProductDefinition.Name) {
-    surrogateSerializer.serialize(encoder, MedicinalProductDefinitionNameSurrogate.fromModel(value))
-  }
-}
-
 public object MedicinalProductDefinitionCrossReferenceSerializer :
   KSerializer<MedicinalProductDefinition.CrossReference> {
   internal val surrogateSerializer:
@@ -169,31 +169,6 @@ public object MedicinalProductDefinitionOperationSerializer :
     surrogateSerializer.serialize(
       encoder,
       MedicinalProductDefinitionOperationSurrogate.fromModel(value),
-    )
-  }
-}
-
-public object MedicinalProductDefinitionCharacteristicValueSerializer :
-  KSerializer<MedicinalProductDefinition.Characteristic.Value> {
-  internal val surrogateSerializer:
-    KSerializer<MedicinalProductDefinitionCharacteristicValueSurrogate> by lazy {
-    MedicinalProductDefinitionCharacteristicValueSurrogate.serializer()
-  }
-
-  override val descriptor: SerialDescriptor by lazy {
-    SerialDescriptor("Value", surrogateSerializer.descriptor)
-  }
-
-  override fun deserialize(decoder: Decoder): MedicinalProductDefinition.Characteristic.Value =
-    surrogateSerializer.deserialize(decoder).toModel()
-
-  override fun serialize(
-    encoder: Encoder,
-    `value`: MedicinalProductDefinition.Characteristic.Value,
-  ) {
-    surrogateSerializer.serialize(
-      encoder,
-      MedicinalProductDefinitionCharacteristicValueSurrogate.fromModel(value),
     )
   }
 }
@@ -244,6 +219,31 @@ public object MedicinalProductDefinitionCharacteristicSerializer :
       }
     val flattenedJsonObject = FhirJsonTransformer.flatten(oldJsonObject, multiChoiceProperties)
     jsonEncoder.encodeJsonElement(flattenedJsonObject)
+  }
+}
+
+public object MedicinalProductDefinitionCharacteristicValueSerializer :
+  KSerializer<MedicinalProductDefinition.Characteristic.Value> {
+  internal val surrogateSerializer:
+    KSerializer<MedicinalProductDefinitionCharacteristicValueSurrogate> by lazy {
+    MedicinalProductDefinitionCharacteristicValueSurrogate.serializer()
+  }
+
+  override val descriptor: SerialDescriptor by lazy {
+    SerialDescriptor("Value", surrogateSerializer.descriptor)
+  }
+
+  override fun deserialize(decoder: Decoder): MedicinalProductDefinition.Characteristic.Value =
+    surrogateSerializer.deserialize(decoder).toModel()
+
+  override fun serialize(
+    encoder: Encoder,
+    `value`: MedicinalProductDefinition.Characteristic.Value,
+  ) {
+    surrogateSerializer.serialize(
+      encoder,
+      MedicinalProductDefinitionCharacteristicValueSurrogate.fromModel(value),
+    )
   }
 }
 
