@@ -63,17 +63,11 @@ internal data class AddressSurrogate(
       extension = this@AddressSurrogate.extension ?: mutableListOf(),
       use =
         this@AddressSurrogate.use?.let {
-          Enumeration.of(
-            com.google.fhir.model.r4b.Address.AddressUse.fromCode(it!!),
-            this@AddressSurrogate._use,
-          )
+          Enumeration.of(Address.AddressUse.fromCode(it), this@AddressSurrogate._use)
         },
       type =
         this@AddressSurrogate.type?.let {
-          Enumeration.of(
-            com.google.fhir.model.r4b.Address.AddressType.fromCode(it!!),
-            this@AddressSurrogate._type,
-          )
+          Enumeration.of(Address.AddressType.fromCode(it), this@AddressSurrogate._type)
         },
       text = R4bString.of(this@AddressSurrogate.text, this@AddressSurrogate._text),
       line =
@@ -99,7 +93,7 @@ internal data class AddressSurrogate(
       with(model) {
         AddressSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
           use = this@with.use?.value?.getCode(),
           _use = this@with.use?.toElement(),
           type = this@with.type?.value?.getCode(),

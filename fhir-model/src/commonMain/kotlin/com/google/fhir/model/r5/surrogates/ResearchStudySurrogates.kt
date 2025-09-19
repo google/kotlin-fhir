@@ -44,6 +44,7 @@ import com.google.fhir.model.r5.UnsignedInt
 import com.google.fhir.model.r5.Uri
 import com.google.fhir.model.r5.serializers.DoubleSerializer
 import com.google.fhir.model.r5.serializers.LocalTimeSerializer
+import com.google.fhir.model.r5.terminologies.PublicationStatus
 import kotlin.Boolean as KotlinBoolean
 import kotlin.Int
 import kotlin.String as KotlinString
@@ -79,8 +80,8 @@ internal data class ResearchStudyLabelSurrogate(
       with(model) {
         ResearchStudyLabelSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           type = this@with.type,
           `value` = this@with.`value`?.value,
           _value = this@with.`value`?.toElement(),
@@ -125,13 +126,13 @@ internal data class ResearchStudyAssociatedPartySurrogate(
       with(model) {
         ResearchStudyAssociatedPartySurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           name = this@with.name?.value,
           _name = this@with.name?.toElement(),
           role = this@with.role,
-          period = this@with.period.takeUnless { it.all { it == null } },
-          classifier = this@with.classifier.takeUnless { it.all { it == null } },
+          period = this@with.period.takeIf { it.isNotEmpty() },
+          classifier = this@with.classifier.takeIf { it.isNotEmpty() },
           party = this@with.party,
         )
       }
@@ -170,8 +171,8 @@ internal data class ResearchStudyProgressStatusSurrogate(
       with(model) {
         ResearchStudyProgressStatusSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           state = this@with.state,
           `actual` = this@with.`actual`?.value,
           _actual = this@with.`actual`?.toElement(),
@@ -218,8 +219,8 @@ internal data class ResearchStudyRecruitmentSurrogate(
       with(model) {
         ResearchStudyRecruitmentSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           targetNumber = this@with.targetNumber?.value,
           _targetNumber = this@with.targetNumber?.toElement(),
           actualNumber = this@with.actualNumber?.value,
@@ -280,8 +281,8 @@ internal data class ResearchStudyComparisonGroupSurrogate(
       with(model) {
         ResearchStudyComparisonGroupSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           linkId = this@with.linkId?.value,
           _linkId = this@with.linkId?.toElement(),
           name = this@with.name.value,
@@ -289,7 +290,7 @@ internal data class ResearchStudyComparisonGroupSurrogate(
           type = this@with.type,
           description = this@with.description?.value,
           _description = this@with.description?.toElement(),
-          intendedExposure = this@with.intendedExposure.takeUnless { it.all { it == null } },
+          intendedExposure = this@with.intendedExposure.takeIf { it.isNotEmpty() },
           observedGroup = this@with.observedGroup,
         )
       }
@@ -330,8 +331,8 @@ internal data class ResearchStudyObjectiveSurrogate(
       with(model) {
         ResearchStudyObjectiveSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           name = this@with.name?.value,
           _name = this@with.name?.toElement(),
           type = this@with.type,
@@ -381,11 +382,11 @@ internal data class ResearchStudyOutcomeMeasureSurrogate(
       with(model) {
         ResearchStudyOutcomeMeasureSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           name = this@with.name?.value,
           _name = this@with.name?.toElement(),
-          type = this@with.type.takeUnless { it.all { it == null } },
+          type = this@with.type.takeIf { it.isNotEmpty() },
           description = this@with.description?.value,
           _description = this@with.description?.toElement(),
           reference = this@with.reference,
@@ -479,9 +480,7 @@ internal data class ResearchStudySurrogate(
         ),
       status =
         Enumeration.of(
-          com.google.fhir.model.r5.terminologies.PublicationStatus.fromCode(
-            this@ResearchStudySurrogate.status!!
-          ),
+          PublicationStatus.fromCode(this@ResearchStudySurrogate.status!!),
           this@ResearchStudySurrogate._status,
         ),
       primaryPurposeType = this@ResearchStudySurrogate.primaryPurposeType,
@@ -526,49 +525,49 @@ internal data class ResearchStudySurrogate(
           language = this@with.language?.value,
           _language = this@with.language?.toElement(),
           text = this@with.text,
-          contained = this@with.contained.takeUnless { it.all { it == null } },
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          contained = this@with.contained.takeIf { it.isNotEmpty() },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           url = this@with.url?.value,
           _url = this@with.url?.toElement(),
-          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          identifier = this@with.identifier.takeIf { it.isNotEmpty() },
           version = this@with.version?.value,
           _version = this@with.version?.toElement(),
           name = this@with.name?.value,
           _name = this@with.name?.toElement(),
           title = this@with.title?.value,
           _title = this@with.title?.toElement(),
-          label = this@with.label.takeUnless { it.all { it == null } },
-          protocol = this@with.protocol.takeUnless { it.all { it == null } },
-          partOf = this@with.partOf.takeUnless { it.all { it == null } },
-          relatedArtifact = this@with.relatedArtifact.takeUnless { it.all { it == null } },
+          label = this@with.label.takeIf { it.isNotEmpty() },
+          protocol = this@with.protocol.takeIf { it.isNotEmpty() },
+          partOf = this@with.partOf.takeIf { it.isNotEmpty() },
+          relatedArtifact = this@with.relatedArtifact.takeIf { it.isNotEmpty() },
           date = this@with.date?.value?.toString(),
           _date = this@with.date?.toElement(),
           status = this@with.status.value?.getCode(),
           _status = this@with.status.toElement(),
           primaryPurposeType = this@with.primaryPurposeType,
           phase = this@with.phase,
-          studyDesign = this@with.studyDesign.takeUnless { it.all { it == null } },
-          focus = this@with.focus.takeUnless { it.all { it == null } },
-          condition = this@with.condition.takeUnless { it.all { it == null } },
-          keyword = this@with.keyword.takeUnless { it.all { it == null } },
-          region = this@with.region.takeUnless { it.all { it == null } },
+          studyDesign = this@with.studyDesign.takeIf { it.isNotEmpty() },
+          focus = this@with.focus.takeIf { it.isNotEmpty() },
+          condition = this@with.condition.takeIf { it.isNotEmpty() },
+          keyword = this@with.keyword.takeIf { it.isNotEmpty() },
+          region = this@with.region.takeIf { it.isNotEmpty() },
           descriptionSummary = this@with.descriptionSummary?.value,
           _descriptionSummary = this@with.descriptionSummary?.toElement(),
           description = this@with.description?.value,
           _description = this@with.description?.toElement(),
           period = this@with.period,
-          site = this@with.site.takeUnless { it.all { it == null } },
-          note = this@with.note.takeUnless { it.all { it == null } },
-          classifier = this@with.classifier.takeUnless { it.all { it == null } },
-          associatedParty = this@with.associatedParty.takeUnless { it.all { it == null } },
-          progressStatus = this@with.progressStatus.takeUnless { it.all { it == null } },
+          site = this@with.site.takeIf { it.isNotEmpty() },
+          note = this@with.note.takeIf { it.isNotEmpty() },
+          classifier = this@with.classifier.takeIf { it.isNotEmpty() },
+          associatedParty = this@with.associatedParty.takeIf { it.isNotEmpty() },
+          progressStatus = this@with.progressStatus.takeIf { it.isNotEmpty() },
           whyStopped = this@with.whyStopped,
           recruitment = this@with.recruitment,
-          comparisonGroup = this@with.comparisonGroup.takeUnless { it.all { it == null } },
-          objective = this@with.objective.takeUnless { it.all { it == null } },
-          outcomeMeasure = this@with.outcomeMeasure.takeUnless { it.all { it == null } },
-          result = this@with.result.takeUnless { it.all { it == null } },
+          comparisonGroup = this@with.comparisonGroup.takeIf { it.isNotEmpty() },
+          objective = this@with.objective.takeIf { it.isNotEmpty() },
+          outcomeMeasure = this@with.outcomeMeasure.takeIf { it.isNotEmpty() },
+          result = this@with.result.takeIf { it.isNotEmpty() },
         )
       }
   }

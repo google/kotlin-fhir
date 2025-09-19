@@ -33,6 +33,7 @@ import com.google.fhir.model.r5.RelatedArtifact
 import com.google.fhir.model.r5.String as R5String
 import com.google.fhir.model.r5.serializers.DoubleSerializer
 import com.google.fhir.model.r5.serializers.LocalTimeSerializer
+import com.google.fhir.model.r5.terminologies.PublicationStatus
 import kotlin.String as KotlinString
 import kotlin.Suppress
 import kotlin.collections.MutableList
@@ -67,9 +68,7 @@ internal data class RelatedArtifactSurrogate(
       extension = this@RelatedArtifactSurrogate.extension ?: mutableListOf(),
       type =
         Enumeration.of(
-          com.google.fhir.model.r5.RelatedArtifact.RelatedArtifactType.fromCode(
-            this@RelatedArtifactSurrogate.type!!
-          ),
+          RelatedArtifact.RelatedArtifactType.fromCode(this@RelatedArtifactSurrogate.type!!),
           this@RelatedArtifactSurrogate._type,
         ),
       classifier = this@RelatedArtifactSurrogate.classifier ?: mutableListOf(),
@@ -92,7 +91,7 @@ internal data class RelatedArtifactSurrogate(
       publicationStatus =
         this@RelatedArtifactSurrogate.publicationStatus?.let {
           Enumeration.of(
-            com.google.fhir.model.r5.terminologies.PublicationStatus.fromCode(it!!),
+            PublicationStatus.fromCode(it),
             this@RelatedArtifactSurrogate._publicationStatus,
           )
         },
@@ -108,10 +107,10 @@ internal data class RelatedArtifactSurrogate(
       with(model) {
         RelatedArtifactSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
           type = this@with.type.value?.getCode(),
           _type = this@with.type.toElement(),
-          classifier = this@with.classifier.takeUnless { it.all { it == null } },
+          classifier = this@with.classifier.takeIf { it.isNotEmpty() },
           label = this@with.label?.value,
           _label = this@with.label?.toElement(),
           display = this@with.display?.value,

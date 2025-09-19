@@ -366,7 +366,7 @@ internal data class ExtensionSurrogate(
       with(model) {
         ExtensionSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
           url = this@with.url,
           `value` = this@with.`value`,
         )

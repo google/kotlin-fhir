@@ -101,7 +101,7 @@ internal data class AttachmentSurrogate(
       with(model) {
         AttachmentSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
           contentType = this@with.contentType?.value,
           _contentType = this@with.contentType?.toElement(),
           language = this@with.language?.value,

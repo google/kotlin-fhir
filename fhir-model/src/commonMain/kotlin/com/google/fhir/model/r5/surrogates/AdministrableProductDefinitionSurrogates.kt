@@ -42,6 +42,7 @@ import com.google.fhir.model.r5.String as R5String
 import com.google.fhir.model.r5.Uri
 import com.google.fhir.model.r5.serializers.DoubleSerializer
 import com.google.fhir.model.r5.serializers.LocalTimeSerializer
+import com.google.fhir.model.r5.terminologies.PublicationStatus
 import kotlin.Boolean as KotlinBoolean
 import kotlin.String as KotlinString
 import kotlin.Suppress
@@ -76,8 +77,8 @@ internal data class AdministrableProductDefinitionPropertySurrogate(
       with(model) {
         AdministrableProductDefinitionPropertySurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           type = this@with.type,
           `value` = this@with.`value`,
           status = this@with.status,
@@ -132,15 +133,15 @@ internal data class AdministrableProductDefinitionRouteOfAdministrationSurrogate
       with(model) {
         AdministrableProductDefinitionRouteOfAdministrationSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           code = this@with.code,
           firstDose = this@with.firstDose,
           maxSingleDose = this@with.maxSingleDose,
           maxDosePerDay = this@with.maxDosePerDay,
           maxDosePerTreatmentPeriod = this@with.maxDosePerTreatmentPeriod,
           maxTreatmentPeriod = this@with.maxTreatmentPeriod,
-          targetSpecies = this@with.targetSpecies.takeUnless { it.all { it == null } },
+          targetSpecies = this@with.targetSpecies.takeIf { it.isNotEmpty() },
         )
       }
   }
@@ -180,10 +181,10 @@ internal data class AdministrableProductDefinitionRouteOfAdministrationTargetSpe
       with(model) {
         AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           code = this@with.code,
-          withdrawalPeriod = this@with.withdrawalPeriod.takeUnless { it.all { it == null } },
+          withdrawalPeriod = this@with.withdrawalPeriod.takeIf { it.isNotEmpty() },
         )
       }
   }
@@ -233,8 +234,8 @@ internal data class AdministrableProductDefinitionRouteOfAdministrationTargetSpe
       with(model) {
         AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesWithdrawalPeriodSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           tissue = this@with.tissue,
           `value` = this@with.`value`,
           supportingInformation = this@with.supportingInformation?.value,
@@ -348,9 +349,7 @@ internal data class AdministrableProductDefinitionSurrogate(
       identifier = this@AdministrableProductDefinitionSurrogate.identifier ?: mutableListOf(),
       status =
         Enumeration.of(
-          com.google.fhir.model.r5.terminologies.PublicationStatus.fromCode(
-            this@AdministrableProductDefinitionSurrogate.status!!
-          ),
+          PublicationStatus.fromCode(this@AdministrableProductDefinitionSurrogate.status!!),
           this@AdministrableProductDefinitionSurrogate._status,
         ),
       formOf = this@AdministrableProductDefinitionSurrogate.formOf ?: mutableListOf(),
@@ -382,23 +381,22 @@ internal data class AdministrableProductDefinitionSurrogate(
           language = this@with.language?.value,
           _language = this@with.language?.toElement(),
           text = this@with.text,
-          contained = this@with.contained.takeUnless { it.all { it == null } },
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          contained = this@with.contained.takeIf { it.isNotEmpty() },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
+          identifier = this@with.identifier.takeIf { it.isNotEmpty() },
           status = this@with.status.value?.getCode(),
           _status = this@with.status.toElement(),
-          formOf = this@with.formOf.takeUnless { it.all { it == null } },
+          formOf = this@with.formOf.takeIf { it.isNotEmpty() },
           administrableDoseForm = this@with.administrableDoseForm,
           unitOfPresentation = this@with.unitOfPresentation,
-          producedFrom = this@with.producedFrom.takeUnless { it.all { it == null } },
-          ingredient = this@with.ingredient.takeUnless { it.all { it == null } },
+          producedFrom = this@with.producedFrom.takeIf { it.isNotEmpty() },
+          ingredient = this@with.ingredient.takeIf { it.isNotEmpty() },
           device = this@with.device,
           description = this@with.description?.value,
           _description = this@with.description?.toElement(),
-          `property` = this@with.`property`.takeUnless { it.all { it == null } },
-          routeOfAdministration =
-            this@with.routeOfAdministration.takeUnless { it.all { it == null } },
+          `property` = this@with.`property`.takeIf { it.isNotEmpty() },
+          routeOfAdministration = this@with.routeOfAdministration.takeIf { it.isNotEmpty() },
         )
       }
   }

@@ -47,6 +47,7 @@ import com.google.fhir.model.r5.Uri
 import com.google.fhir.model.r5.UsageContext
 import com.google.fhir.model.r5.serializers.DoubleSerializer
 import com.google.fhir.model.r5.serializers.LocalTimeSerializer
+import com.google.fhir.model.r5.terminologies.PublicationStatus
 import kotlin.Boolean as KotlinBoolean
 import kotlin.Double
 import kotlin.Int
@@ -83,9 +84,7 @@ internal data class StructureMapStructureSurrogate(
         )!!,
       mode =
         Enumeration.of(
-          com.google.fhir.model.r5.StructureMap.StructureMapModelMode.fromCode(
-            this@StructureMapStructureSurrogate.mode!!
-          ),
+          StructureMap.StructureMapModelMode.fromCode(this@StructureMapStructureSurrogate.mode!!),
           this@StructureMapStructureSurrogate._mode,
         ),
       alias =
@@ -105,8 +104,8 @@ internal data class StructureMapStructureSurrogate(
       with(model) {
         StructureMapStructureSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           url = this@with.url.value,
           _url = this@with.url.toElement(),
           mode = this@with.mode.value?.getCode(),
@@ -145,8 +144,8 @@ internal data class StructureMapConstSurrogate(
       with(model) {
         StructureMapConstSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           name = this@with.name?.value,
           _name = this@with.name?.toElement(),
           `value` = this@with.`value`?.value,
@@ -183,7 +182,7 @@ internal data class StructureMapGroupSurrogate(
       typeMode =
         this@StructureMapGroupSurrogate.typeMode?.let {
           Enumeration.of(
-            com.google.fhir.model.r5.StructureMap.StructureMapGroupTypeMode.fromCode(it!!),
+            StructureMap.StructureMapGroupTypeMode.fromCode(it),
             this@StructureMapGroupSurrogate._typeMode,
           )
         },
@@ -201,8 +200,8 @@ internal data class StructureMapGroupSurrogate(
       with(model) {
         StructureMapGroupSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           name = this@with.name.value,
           _name = this@with.name.toElement(),
           extends = this@with.extends?.value,
@@ -211,8 +210,8 @@ internal data class StructureMapGroupSurrogate(
           _typeMode = this@with.typeMode?.toElement(),
           documentation = this@with.documentation?.value,
           _documentation = this@with.documentation?.toElement(),
-          input = this@with.input.takeUnless { it.all { it == null } },
-          rule = this@with.rule.takeUnless { it.all { it == null } },
+          input = this@with.input.takeIf { it.isNotEmpty() },
+          rule = this@with.rule.takeIf { it.isNotEmpty() },
         )
       }
   }
@@ -249,9 +248,7 @@ internal data class StructureMapGroupInputSurrogate(
         ),
       mode =
         Enumeration.of(
-          com.google.fhir.model.r5.StructureMap.StructureMapInputMode.fromCode(
-            this@StructureMapGroupInputSurrogate.mode!!
-          ),
+          StructureMap.StructureMapInputMode.fromCode(this@StructureMapGroupInputSurrogate.mode!!),
           this@StructureMapGroupInputSurrogate._mode,
         ),
       documentation =
@@ -266,8 +263,8 @@ internal data class StructureMapGroupInputSurrogate(
       with(model) {
         StructureMapGroupInputSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           name = this@with.name.value,
           _name = this@with.name.toElement(),
           type = this@with.type?.value,
@@ -318,14 +315,14 @@ internal data class StructureMapGroupRuleSurrogate(
       with(model) {
         StructureMapGroupRuleSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           name = this@with.name?.value,
           _name = this@with.name?.toElement(),
-          source = this@with.source.takeUnless { it.all { it == null } },
-          target = this@with.target.takeUnless { it.all { it == null } },
-          rule = this@with.rule.takeUnless { it.all { it == null } },
-          dependent = this@with.dependent.takeUnless { it.all { it == null } },
+          source = this@with.source.takeIf { it.isNotEmpty() },
+          target = this@with.target.takeIf { it.isNotEmpty() },
+          rule = this@with.rule.takeIf { it.isNotEmpty() },
+          dependent = this@with.dependent.takeIf { it.isNotEmpty() },
           documentation = this@with.documentation?.value,
           _documentation = this@with.documentation?.toElement(),
         )
@@ -400,7 +397,7 @@ internal data class StructureMapGroupRuleSourceSurrogate(
       listMode =
         this@StructureMapGroupRuleSourceSurrogate.listMode?.let {
           Enumeration.of(
-            com.google.fhir.model.r5.StructureMap.StructureMapSourceListMode.fromCode(it!!),
+            StructureMap.StructureMapSourceListMode.fromCode(it),
             this@StructureMapGroupRuleSourceSurrogate._listMode,
           )
         },
@@ -433,8 +430,8 @@ internal data class StructureMapGroupRuleSourceSurrogate(
       with(model) {
         StructureMapGroupRuleSourceSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           context = this@with.context.value,
           _context = this@with.context.toElement(),
           min = this@with.min?.value,
@@ -517,9 +514,7 @@ internal data class StructureMapGroupRuleTargetSurrogate(
             )
             .map { (value, element) ->
               Enumeration.of(
-                value.let {
-                  com.google.fhir.model.r5.StructureMap.StructureMapTargetListMode.fromCode(it!!)!!
-                },
+                value.let { StructureMap.StructureMapTargetListMode.fromCode(it!!) },
                 element,
               )
             }
@@ -533,7 +528,7 @@ internal data class StructureMapGroupRuleTargetSurrogate(
       transform =
         this@StructureMapGroupRuleTargetSurrogate.transform?.let {
           Enumeration.of(
-            com.google.fhir.model.r5.StructureMap.StructureMapTransform.fromCode(it!!),
+            StructureMap.StructureMapTransform.fromCode(it),
             this@StructureMapGroupRuleTargetSurrogate._transform,
           )
         },
@@ -547,8 +542,8 @@ internal data class StructureMapGroupRuleTargetSurrogate(
       with(model) {
         StructureMapGroupRuleTargetSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           context = this@with.context?.value,
           _context = this@with.context?.toElement(),
           element = this@with.element?.value,
@@ -570,7 +565,7 @@ internal data class StructureMapGroupRuleTargetSurrogate(
           _listRuleId = this@with.listRuleId?.toElement(),
           transform = this@with.transform?.value?.getCode(),
           _transform = this@with.transform?.toElement(),
-          parameter = this@with.parameter.takeUnless { it.all { it == null } },
+          parameter = this@with.parameter.takeIf { it.isNotEmpty() },
         )
       }
   }
@@ -599,8 +594,8 @@ internal data class StructureMapGroupRuleTargetParameterSurrogate(
       with(model) {
         StructureMapGroupRuleTargetParameterSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           `value` = this@with.`value`,
         )
       }
@@ -637,11 +632,11 @@ internal data class StructureMapGroupRuleDependentSurrogate(
       with(model) {
         StructureMapGroupRuleDependentSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           name = this@with.name.value,
           _name = this@with.name.toElement(),
-          parameter = this@with.parameter.takeUnless { it.all { it == null } },
+          parameter = this@with.parameter.takeIf { it.isNotEmpty() },
         )
       }
   }
@@ -731,7 +726,7 @@ internal data class StructureMapGroupRuleTargetParameterValueSurrogate(
         ),
         this@StructureMapGroupRuleTargetParameterValueSurrogate._valueDateTime,
       ),
-    )!! !!
+    )!!
 
   public companion object {
     public fun fromModel(
@@ -827,9 +822,7 @@ internal data class StructureMapSurrogate(
       title = R5String.of(this@StructureMapSurrogate.title, this@StructureMapSurrogate._title),
       status =
         Enumeration.of(
-          com.google.fhir.model.r5.terminologies.PublicationStatus.fromCode(
-            this@StructureMapSurrogate.status!!
-          ),
+          PublicationStatus.fromCode(this@StructureMapSurrogate.status!!),
           this@StructureMapSurrogate._status,
         ),
       experimental =
@@ -892,12 +885,12 @@ internal data class StructureMapSurrogate(
           language = this@with.language?.value,
           _language = this@with.language?.toElement(),
           text = this@with.text,
-          contained = this@with.contained.takeUnless { it.all { it == null } },
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          contained = this@with.contained.takeIf { it.isNotEmpty() },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           url = this@with.url.value,
           _url = this@with.url.toElement(),
-          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          identifier = this@with.identifier.takeIf { it.isNotEmpty() },
           version = this@with.version?.value,
           _version = this@with.version?.toElement(),
           versionAlgorithm = this@with.versionAlgorithm,
@@ -913,18 +906,18 @@ internal data class StructureMapSurrogate(
           _date = this@with.date?.toElement(),
           publisher = this@with.publisher?.value,
           _publisher = this@with.publisher?.toElement(),
-          contact = this@with.contact.takeUnless { it.all { it == null } },
+          contact = this@with.contact.takeIf { it.isNotEmpty() },
           description = this@with.description?.value,
           _description = this@with.description?.toElement(),
-          useContext = this@with.useContext.takeUnless { it.all { it == null } },
-          jurisdiction = this@with.jurisdiction.takeUnless { it.all { it == null } },
+          useContext = this@with.useContext.takeIf { it.isNotEmpty() },
+          jurisdiction = this@with.jurisdiction.takeIf { it.isNotEmpty() },
           purpose = this@with.purpose?.value,
           _purpose = this@with.purpose?.toElement(),
           copyright = this@with.copyright?.value,
           _copyright = this@with.copyright?.toElement(),
           copyrightLabel = this@with.copyrightLabel?.value,
           _copyrightLabel = this@with.copyrightLabel?.toElement(),
-          structure = this@with.structure.takeUnless { it.all { it == null } },
+          structure = this@with.structure.takeIf { it.isNotEmpty() },
           `import` =
             this@with.`import`
               .map { it.value }
@@ -936,8 +929,8 @@ internal data class StructureMapSurrogate(
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
               ?.toMutableList(),
-          `const` = this@with.`const`.takeUnless { it.all { it == null } },
-          group = this@with.group.takeUnless { it.all { it == null } },
+          `const` = this@with.`const`.takeIf { it.isNotEmpty() },
+          group = this@with.group.takeIf { it.isNotEmpty() },
         )
       }
   }

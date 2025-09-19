@@ -59,7 +59,7 @@ internal data class QuantitySurrogate(
       comparator =
         this@QuantitySurrogate.comparator?.let {
           Enumeration.of(
-            com.google.fhir.model.r4.Quantity.QuantityComparator.fromCode(it!!),
+            Quantity.QuantityComparator.fromCode(it),
             this@QuantitySurrogate._comparator,
           )
         },
@@ -73,7 +73,7 @@ internal data class QuantitySurrogate(
       with(model) {
         QuantitySurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
           `value` = this@with.`value`?.value,
           _value = this@with.`value`?.toElement(),
           comparator = this@with.comparator?.value?.getCode(),

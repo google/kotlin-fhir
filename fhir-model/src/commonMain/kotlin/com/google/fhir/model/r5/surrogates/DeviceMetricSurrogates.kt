@@ -63,14 +63,14 @@ internal data class DeviceMetricCalibrationSurrogate(
       type =
         this@DeviceMetricCalibrationSurrogate.type?.let {
           Enumeration.of(
-            com.google.fhir.model.r5.DeviceMetric.DeviceMetricCalibrationType.fromCode(it!!),
+            DeviceMetric.DeviceMetricCalibrationType.fromCode(it),
             this@DeviceMetricCalibrationSurrogate._type,
           )
         },
       state =
         this@DeviceMetricCalibrationSurrogate.state?.let {
           Enumeration.of(
-            com.google.fhir.model.r5.DeviceMetric.DeviceMetricCalibrationState.fromCode(it!!),
+            DeviceMetric.DeviceMetricCalibrationState.fromCode(it),
             this@DeviceMetricCalibrationSurrogate._state,
           )
         },
@@ -86,8 +86,8 @@ internal data class DeviceMetricCalibrationSurrogate(
       with(model) {
         DeviceMetricCalibrationSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           type = this@with.type?.value?.getCode(),
           _type = this@with.type?.toElement(),
           state = this@with.state?.value?.getCode(),
@@ -142,16 +142,14 @@ internal data class DeviceMetricSurrogate(
       operationalStatus =
         this@DeviceMetricSurrogate.operationalStatus?.let {
           Enumeration.of(
-            com.google.fhir.model.r5.DeviceMetric.DeviceMetricOperationalStatus.fromCode(it!!),
+            DeviceMetric.DeviceMetricOperationalStatus.fromCode(it),
             this@DeviceMetricSurrogate._operationalStatus,
           )
         },
       color = Code.of(this@DeviceMetricSurrogate.color, this@DeviceMetricSurrogate._color),
       category =
         Enumeration.of(
-          com.google.fhir.model.r5.DeviceMetric.DeviceMetricCategory.fromCode(
-            this@DeviceMetricSurrogate.category!!
-          ),
+          DeviceMetric.DeviceMetricCategory.fromCode(this@DeviceMetricSurrogate.category!!),
           this@DeviceMetricSurrogate._category,
         ),
       measurementFrequency = this@DeviceMetricSurrogate.measurementFrequency,
@@ -169,10 +167,10 @@ internal data class DeviceMetricSurrogate(
           language = this@with.language?.value,
           _language = this@with.language?.toElement(),
           text = this@with.text,
-          contained = this@with.contained.takeUnless { it.all { it == null } },
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          contained = this@with.contained.takeIf { it.isNotEmpty() },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
+          identifier = this@with.identifier.takeIf { it.isNotEmpty() },
           type = this@with.type,
           unit = this@with.unit,
           device = this@with.device,
@@ -183,7 +181,7 @@ internal data class DeviceMetricSurrogate(
           category = this@with.category.value?.getCode(),
           _category = this@with.category.toElement(),
           measurementFrequency = this@with.measurementFrequency,
-          calibration = this@with.calibration.takeUnless { it.all { it == null } },
+          calibration = this@with.calibration.takeIf { it.isNotEmpty() },
         )
       }
   }

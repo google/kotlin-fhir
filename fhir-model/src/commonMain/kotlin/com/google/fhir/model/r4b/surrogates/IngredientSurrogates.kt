@@ -38,6 +38,7 @@ import com.google.fhir.model.r4b.String as R4bString
 import com.google.fhir.model.r4b.Uri
 import com.google.fhir.model.r4b.serializers.DoubleSerializer
 import com.google.fhir.model.r4b.serializers.LocalTimeSerializer
+import com.google.fhir.model.r4b.terminologies.PublicationStatus
 import kotlin.Boolean as KotlinBoolean
 import kotlin.String as KotlinString
 import kotlin.Suppress
@@ -62,7 +63,7 @@ internal data class IngredientManufacturerSurrogate(
       role =
         this@IngredientManufacturerSurrogate.role?.let {
           Enumeration.of(
-            com.google.fhir.model.r4b.Ingredient.IngredientManufacturerRole.fromCode(it!!),
+            Ingredient.IngredientManufacturerRole.fromCode(it),
             this@IngredientManufacturerSurrogate._role,
           )
         },
@@ -74,8 +75,8 @@ internal data class IngredientManufacturerSurrogate(
       with(model) {
         IngredientManufacturerSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           role = this@with.role?.value?.getCode(),
           _role = this@with.role?.toElement(),
           manufacturer = this@with.manufacturer,
@@ -106,10 +107,10 @@ internal data class IngredientSubstanceSurrogate(
       with(model) {
         IngredientSubstanceSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           code = this@with.code,
-          strength = this@with.strength.takeUnless { it.all { it == null } },
+          strength = this@with.strength.takeIf { it.isNotEmpty() },
         )
       }
   }
@@ -166,8 +167,8 @@ internal data class IngredientSubstanceStrengthSurrogate(
       with(model) {
         IngredientSubstanceStrengthSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           presentation = this@with.presentation,
           textPresentation = this@with.textPresentation?.value,
           _textPresentation = this@with.textPresentation?.toElement(),
@@ -176,8 +177,8 @@ internal data class IngredientSubstanceStrengthSurrogate(
           _textConcentration = this@with.textConcentration?.toElement(),
           measurementPoint = this@with.measurementPoint?.value,
           _measurementPoint = this@with.measurementPoint?.toElement(),
-          country = this@with.country.takeUnless { it.all { it == null } },
-          referenceStrength = this@with.referenceStrength.takeUnless { it.all { it == null } },
+          country = this@with.country.takeIf { it.isNotEmpty() },
+          referenceStrength = this@with.referenceStrength.takeIf { it.isNotEmpty() },
         )
       }
   }
@@ -220,13 +221,13 @@ internal data class IngredientSubstanceStrengthReferenceStrengthSurrogate(
       with(model) {
         IngredientSubstanceStrengthReferenceStrengthSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           substance = this@with.substance,
           strength = this@with.strength,
           measurementPoint = this@with.measurementPoint?.value,
           _measurementPoint = this@with.measurementPoint?.toElement(),
-          country = this@with.country.takeUnless { it.all { it == null } },
+          country = this@with.country.takeIf { it.isNotEmpty() },
         )
       }
   }
@@ -289,7 +290,7 @@ internal data class IngredientSubstanceStrengthReferenceStrengthStrengthSurrogat
     Ingredient.Substance.Strength.ReferenceStrength.Strength.from(
       this@IngredientSubstanceStrengthReferenceStrengthStrengthSurrogate.strengthRatio,
       this@IngredientSubstanceStrengthReferenceStrengthStrengthSurrogate.strengthRatioRange,
-    )!! !!
+    )!!
 
   public companion object {
     public fun fromModel(
@@ -341,9 +342,7 @@ internal data class IngredientSurrogate(
       identifier = this@IngredientSurrogate.identifier,
       status =
         Enumeration.of(
-          com.google.fhir.model.r4b.terminologies.PublicationStatus.fromCode(
-            this@IngredientSurrogate.status!!
-          ),
+          PublicationStatus.fromCode(this@IngredientSurrogate.status!!),
           this@IngredientSurrogate._status,
         ),
       `for` = this@IngredientSurrogate.`for` ?: mutableListOf(),
@@ -369,18 +368,18 @@ internal data class IngredientSurrogate(
           language = this@with.language?.value,
           _language = this@with.language?.toElement(),
           text = this@with.text,
-          contained = this@with.contained.takeUnless { it.all { it == null } },
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          contained = this@with.contained.takeIf { it.isNotEmpty() },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           identifier = this@with.identifier,
           status = this@with.status.value?.getCode(),
           _status = this@with.status.toElement(),
-          `for` = this@with.`for`.takeUnless { it.all { it == null } },
+          `for` = this@with.`for`.takeIf { it.isNotEmpty() },
           role = this@with.role,
-          function = this@with.function.takeUnless { it.all { it == null } },
+          function = this@with.function.takeIf { it.isNotEmpty() },
           allergenicIndicator = this@with.allergenicIndicator?.value,
           _allergenicIndicator = this@with.allergenicIndicator?.toElement(),
-          manufacturer = this@with.manufacturer.takeUnless { it.all { it == null } },
+          manufacturer = this@with.manufacturer.takeIf { it.isNotEmpty() },
           substance = this@with.substance,
         )
       }

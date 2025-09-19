@@ -32,6 +32,7 @@ import com.google.fhir.model.r4.UnsignedInt
 import com.google.fhir.model.r4.Url
 import com.google.fhir.model.r4.serializers.DoubleSerializer
 import com.google.fhir.model.r4.serializers.LocalTimeSerializer
+import com.google.fhir.model.r4.terminologies.CommonLanguages
 import kotlin.Int
 import kotlin.String as KotlinString
 import kotlin.Suppress
@@ -68,10 +69,7 @@ internal data class AttachmentSurrogate(
         Code.of(this@AttachmentSurrogate.contentType, this@AttachmentSurrogate._contentType),
       language =
         this@AttachmentSurrogate.language?.let {
-          Enumeration.of(
-            com.google.fhir.model.r4.terminologies.CommonLanguages.fromCode(it!!),
-            this@AttachmentSurrogate._language,
-          )
+          Enumeration.of(CommonLanguages.fromCode(it), this@AttachmentSurrogate._language)
         },
       `data` = Base64Binary.of(this@AttachmentSurrogate.`data`, this@AttachmentSurrogate._data),
       url = Url.of(this@AttachmentSurrogate.url, this@AttachmentSurrogate._url),
@@ -90,7 +88,7 @@ internal data class AttachmentSurrogate(
       with(model) {
         AttachmentSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
           contentType = this@with.contentType?.value,
           _contentType = this@with.contentType?.toElement(),
           language = this@with.language?.value?.getCode(),

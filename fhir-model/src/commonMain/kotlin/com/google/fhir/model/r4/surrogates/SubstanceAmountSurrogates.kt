@@ -56,7 +56,7 @@ internal data class SubstanceAmountReferenceRangeSurrogate(
       with(model) {
         SubstanceAmountReferenceRangeSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
           lowLimit = this@with.lowLimit,
           highLimit = this@with.highLimit,
         )
@@ -125,8 +125,8 @@ internal data class SubstanceAmountSurrogate(
       with(model) {
         SubstanceAmountSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           amount = this@with.amount,
           amountType = this@with.amountType,
           amountText = this@with.amountText?.value,

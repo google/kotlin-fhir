@@ -76,8 +76,8 @@ internal data class GoalTargetSurrogate(
       with(model) {
         GoalTargetSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           measure = this@with.measure,
           detail = this@with.detail,
           due = this@with.due,
@@ -238,9 +238,7 @@ internal data class GoalSurrogate(
       identifier = this@GoalSurrogate.identifier ?: mutableListOf(),
       lifecycleStatus =
         Enumeration.of(
-          com.google.fhir.model.r5.Goal.GoalLifecycleStatus.fromCode(
-            this@GoalSurrogate.lifecycleStatus!!
-          ),
+          Goal.GoalLifecycleStatus.fromCode(this@GoalSurrogate.lifecycleStatus!!),
           this@GoalSurrogate._lifecycleStatus,
         ),
       achievementStatus = this@GoalSurrogate.achievementStatus,
@@ -271,29 +269,29 @@ internal data class GoalSurrogate(
           language = this@with.language?.value,
           _language = this@with.language?.toElement(),
           text = this@with.text,
-          contained = this@with.contained.takeUnless { it.all { it == null } },
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          contained = this@with.contained.takeIf { it.isNotEmpty() },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
+          identifier = this@with.identifier.takeIf { it.isNotEmpty() },
           lifecycleStatus = this@with.lifecycleStatus.value?.getCode(),
           _lifecycleStatus = this@with.lifecycleStatus.toElement(),
           achievementStatus = this@with.achievementStatus,
-          category = this@with.category.takeUnless { it.all { it == null } },
+          category = this@with.category.takeIf { it.isNotEmpty() },
           continuous = this@with.continuous?.value,
           _continuous = this@with.continuous?.toElement(),
           priority = this@with.priority,
           description = this@with.description,
           subject = this@with.subject,
           start = this@with.start,
-          target = this@with.target.takeUnless { it.all { it == null } },
+          target = this@with.target.takeIf { it.isNotEmpty() },
           statusDate = this@with.statusDate?.value?.toString(),
           _statusDate = this@with.statusDate?.toElement(),
           statusReason = this@with.statusReason?.value,
           _statusReason = this@with.statusReason?.toElement(),
           source = this@with.source,
-          addresses = this@with.addresses.takeUnless { it.all { it == null } },
-          note = this@with.note.takeUnless { it.all { it == null } },
-          outcome = this@with.outcome.takeUnless { it.all { it == null } },
+          addresses = this@with.addresses.takeIf { it.isNotEmpty() },
+          note = this@with.note.takeIf { it.isNotEmpty() },
+          outcome = this@with.outcome.takeIf { it.isNotEmpty() },
         )
       }
   }

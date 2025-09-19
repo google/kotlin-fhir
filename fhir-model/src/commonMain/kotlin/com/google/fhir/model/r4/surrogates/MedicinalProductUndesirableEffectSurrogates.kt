@@ -96,14 +96,14 @@ internal data class MedicinalProductUndesirableEffectSurrogate(
           language = this@with.language?.value,
           _language = this@with.language?.toElement(),
           text = this@with.text,
-          contained = this@with.contained.takeUnless { it.all { it == null } },
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          subject = this@with.subject.takeUnless { it.all { it == null } },
+          contained = this@with.contained.takeIf { it.isNotEmpty() },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
+          subject = this@with.subject.takeIf { it.isNotEmpty() },
           symptomConditionEffect = this@with.symptomConditionEffect,
           classification = this@with.classification,
           frequencyOfOccurrence = this@with.frequencyOfOccurrence,
-          population = this@with.population.takeUnless { it.all { it == null } },
+          population = this@with.population.takeIf { it.isNotEmpty() },
         )
       }
   }

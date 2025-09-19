@@ -42,6 +42,8 @@ import com.google.fhir.model.r5.Uri
 import com.google.fhir.model.r5.UsageContext
 import com.google.fhir.model.r5.serializers.DoubleSerializer
 import com.google.fhir.model.r5.serializers.LocalTimeSerializer
+import com.google.fhir.model.r5.terminologies.PublicationStatus
+import com.google.fhir.model.r5.terminologies.ResourceType
 import kotlin.Boolean as KotlinBoolean
 import kotlin.Int
 import kotlin.String as KotlinString
@@ -71,9 +73,7 @@ internal data class MessageDefinitionFocusSurrogate(
       modifierExtension = this@MessageDefinitionFocusSurrogate.modifierExtension ?: mutableListOf(),
       code =
         Enumeration.of(
-          com.google.fhir.model.r5.terminologies.ResourceType.fromCode(
-            this@MessageDefinitionFocusSurrogate.code!!
-          ),
+          ResourceType.fromCode(this@MessageDefinitionFocusSurrogate.code!!),
           this@MessageDefinitionFocusSurrogate._code,
         ),
       profile =
@@ -98,8 +98,8 @@ internal data class MessageDefinitionFocusSurrogate(
       with(model) {
         MessageDefinitionFocusSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           code = this@with.code.value?.getCode(),
           _code = this@with.code.toElement(),
           profile = this@with.profile?.value,
@@ -148,8 +148,8 @@ internal data class MessageDefinitionAllowedResponseSurrogate(
       with(model) {
         MessageDefinitionAllowedResponseSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           message = this@with.message.value,
           _message = this@with.message.toElement(),
           situation = this@with.situation?.value,
@@ -201,7 +201,7 @@ internal data class MessageDefinitionEventSurrogate(
         this@MessageDefinitionEventSurrogate.eventUri,
         this@MessageDefinitionEventSurrogate._eventUri,
       ),
-    )!! !!
+    )!!
 
   public companion object {
     public fun fromModel(model: MessageDefinition.Event): MessageDefinitionEventSurrogate =
@@ -320,9 +320,7 @@ internal data class MessageDefinitionSurrogate(
         },
       status =
         Enumeration.of(
-          com.google.fhir.model.r5.terminologies.PublicationStatus.fromCode(
-            this@MessageDefinitionSurrogate.status!!
-          ),
+          PublicationStatus.fromCode(this@MessageDefinitionSurrogate.status!!),
           this@MessageDefinitionSurrogate._status,
         ),
       experimental =
@@ -385,7 +383,7 @@ internal data class MessageDefinitionSurrogate(
       category =
         this@MessageDefinitionSurrogate.category?.let {
           Enumeration.of(
-            com.google.fhir.model.r5.MessageDefinition.MessageSignificanceCategory.fromCode(it!!),
+            MessageDefinition.MessageSignificanceCategory.fromCode(it),
             this@MessageDefinitionSurrogate._category,
           )
         },
@@ -393,7 +391,7 @@ internal data class MessageDefinitionSurrogate(
       responseRequired =
         this@MessageDefinitionSurrogate.responseRequired?.let {
           Enumeration.of(
-            com.google.fhir.model.r5.MessageDefinition.MessageheaderResponseRequest.fromCode(it!!),
+            MessageDefinition.MessageheaderResponseRequest.fromCode(it),
             this@MessageDefinitionSurrogate._responseRequired,
           )
         },
@@ -413,12 +411,12 @@ internal data class MessageDefinitionSurrogate(
           language = this@with.language?.value,
           _language = this@with.language?.toElement(),
           text = this@with.text,
-          contained = this@with.contained.takeUnless { it.all { it == null } },
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          contained = this@with.contained.takeIf { it.isNotEmpty() },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           url = this@with.url?.value,
           _url = this@with.url?.toElement(),
-          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          identifier = this@with.identifier.takeIf { it.isNotEmpty() },
           version = this@with.version?.value,
           _version = this@with.version?.toElement(),
           versionAlgorithm = this@with.versionAlgorithm,
@@ -445,11 +443,11 @@ internal data class MessageDefinitionSurrogate(
           _date = this@with.date.toElement(),
           publisher = this@with.publisher?.value,
           _publisher = this@with.publisher?.toElement(),
-          contact = this@with.contact.takeUnless { it.all { it == null } },
+          contact = this@with.contact.takeIf { it.isNotEmpty() },
           description = this@with.description?.value,
           _description = this@with.description?.toElement(),
-          useContext = this@with.useContext.takeUnless { it.all { it == null } },
-          jurisdiction = this@with.jurisdiction.takeUnless { it.all { it == null } },
+          useContext = this@with.useContext.takeIf { it.isNotEmpty() },
+          jurisdiction = this@with.jurisdiction.takeIf { it.isNotEmpty() },
           purpose = this@with.purpose?.value,
           _purpose = this@with.purpose?.toElement(),
           copyright = this@with.copyright?.value,
@@ -469,10 +467,10 @@ internal data class MessageDefinitionSurrogate(
           event = this@with.event,
           category = this@with.category?.value?.getCode(),
           _category = this@with.category?.toElement(),
-          focus = this@with.focus.takeUnless { it.all { it == null } },
+          focus = this@with.focus.takeIf { it.isNotEmpty() },
           responseRequired = this@with.responseRequired?.value?.getCode(),
           _responseRequired = this@with.responseRequired?.toElement(),
-          allowedResponse = this@with.allowedResponse.takeUnless { it.all { it == null } },
+          allowedResponse = this@with.allowedResponse.takeIf { it.isNotEmpty() },
           graph = this@with.graph?.value,
           _graph = this@with.graph?.toElement(),
         )

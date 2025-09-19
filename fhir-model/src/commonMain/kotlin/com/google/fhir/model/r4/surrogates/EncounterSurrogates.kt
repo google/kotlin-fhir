@@ -60,9 +60,7 @@ internal data class EncounterStatusHistorySurrogate(
       modifierExtension = this@EncounterStatusHistorySurrogate.modifierExtension ?: mutableListOf(),
       status =
         Enumeration.of(
-          com.google.fhir.model.r4.Encounter.EncounterStatus.fromCode(
-            this@EncounterStatusHistorySurrogate.status!!
-          ),
+          Encounter.EncounterStatus.fromCode(this@EncounterStatusHistorySurrogate.status!!),
           this@EncounterStatusHistorySurrogate._status,
         ),
       period = this@EncounterStatusHistorySurrogate.period,
@@ -73,8 +71,8 @@ internal data class EncounterStatusHistorySurrogate(
       with(model) {
         EncounterStatusHistorySurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           status = this@with.status.value?.getCode(),
           _status = this@with.status.toElement(),
           period = this@with.period,
@@ -105,8 +103,8 @@ internal data class EncounterClassHistorySurrogate(
       with(model) {
         EncounterClassHistorySurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           `class` = this@with.`class`,
           period = this@with.period,
         )
@@ -138,9 +136,9 @@ internal data class EncounterParticipantSurrogate(
       with(model) {
         EncounterParticipantSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          type = this@with.type.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
+          type = this@with.type.takeIf { it.isNotEmpty() },
           period = this@with.period,
           individual = this@with.individual,
         )
@@ -177,8 +175,8 @@ internal data class EncounterDiagnosisSurrogate(
       with(model) {
         EncounterDiagnosisSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           condition = this@with.condition,
           use = this@with.use,
           rank = this@with.rank?.value,
@@ -226,15 +224,15 @@ internal data class EncounterHospitalizationSurrogate(
       with(model) {
         EncounterHospitalizationSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           preAdmissionIdentifier = this@with.preAdmissionIdentifier,
           origin = this@with.origin,
           admitSource = this@with.admitSource,
           reAdmission = this@with.reAdmission,
-          dietPreference = this@with.dietPreference.takeUnless { it.all { it == null } },
-          specialCourtesy = this@with.specialCourtesy.takeUnless { it.all { it == null } },
-          specialArrangement = this@with.specialArrangement.takeUnless { it.all { it == null } },
+          dietPreference = this@with.dietPreference.takeIf { it.isNotEmpty() },
+          specialCourtesy = this@with.specialCourtesy.takeIf { it.isNotEmpty() },
+          specialArrangement = this@with.specialArrangement.takeIf { it.isNotEmpty() },
           destination = this@with.destination,
           dischargeDisposition = this@with.dischargeDisposition,
         )
@@ -262,7 +260,7 @@ internal data class EncounterLocationSurrogate(
       status =
         this@EncounterLocationSurrogate.status?.let {
           Enumeration.of(
-            com.google.fhir.model.r4.Encounter.EncounterLocationStatus.fromCode(it!!),
+            Encounter.EncounterLocationStatus.fromCode(it),
             this@EncounterLocationSurrogate._status,
           )
         },
@@ -275,8 +273,8 @@ internal data class EncounterLocationSurrogate(
       with(model) {
         EncounterLocationSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           location = this@with.location,
           status = this@with.status?.value?.getCode(),
           _status = this@with.status?.toElement(),
@@ -338,9 +336,7 @@ internal data class EncounterSurrogate(
       identifier = this@EncounterSurrogate.identifier ?: mutableListOf(),
       status =
         Enumeration.of(
-          com.google.fhir.model.r4.Encounter.EncounterStatus.fromCode(
-            this@EncounterSurrogate.status!!
-          ),
+          Encounter.EncounterStatus.fromCode(this@EncounterSurrogate.status!!),
           this@EncounterSurrogate._status,
         ),
       statusHistory = this@EncounterSurrogate.statusHistory ?: mutableListOf(),
@@ -377,31 +373,31 @@ internal data class EncounterSurrogate(
           language = this@with.language?.value,
           _language = this@with.language?.toElement(),
           text = this@with.text,
-          contained = this@with.contained.takeUnless { it.all { it == null } },
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          contained = this@with.contained.takeIf { it.isNotEmpty() },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
+          identifier = this@with.identifier.takeIf { it.isNotEmpty() },
           status = this@with.status.value?.getCode(),
           _status = this@with.status.toElement(),
-          statusHistory = this@with.statusHistory.takeUnless { it.all { it == null } },
+          statusHistory = this@with.statusHistory.takeIf { it.isNotEmpty() },
           `class` = this@with.`class`,
-          classHistory = this@with.classHistory.takeUnless { it.all { it == null } },
-          type = this@with.type.takeUnless { it.all { it == null } },
+          classHistory = this@with.classHistory.takeIf { it.isNotEmpty() },
+          type = this@with.type.takeIf { it.isNotEmpty() },
           serviceType = this@with.serviceType,
           priority = this@with.priority,
           subject = this@with.subject,
-          episodeOfCare = this@with.episodeOfCare.takeUnless { it.all { it == null } },
-          basedOn = this@with.basedOn.takeUnless { it.all { it == null } },
-          participant = this@with.participant.takeUnless { it.all { it == null } },
-          appointment = this@with.appointment.takeUnless { it.all { it == null } },
+          episodeOfCare = this@with.episodeOfCare.takeIf { it.isNotEmpty() },
+          basedOn = this@with.basedOn.takeIf { it.isNotEmpty() },
+          participant = this@with.participant.takeIf { it.isNotEmpty() },
+          appointment = this@with.appointment.takeIf { it.isNotEmpty() },
           period = this@with.period,
           length = this@with.length,
-          reasonCode = this@with.reasonCode.takeUnless { it.all { it == null } },
-          reasonReference = this@with.reasonReference.takeUnless { it.all { it == null } },
-          diagnosis = this@with.diagnosis.takeUnless { it.all { it == null } },
-          account = this@with.account.takeUnless { it.all { it == null } },
+          reasonCode = this@with.reasonCode.takeIf { it.isNotEmpty() },
+          reasonReference = this@with.reasonReference.takeIf { it.isNotEmpty() },
+          diagnosis = this@with.diagnosis.takeIf { it.isNotEmpty() },
+          account = this@with.account.takeIf { it.isNotEmpty() },
           hospitalization = this@with.hospitalization,
-          location = this@with.location.takeUnless { it.all { it == null } },
+          location = this@with.location.takeIf { it.isNotEmpty() },
           serviceProvider = this@with.serviceProvider,
           partOf = this@with.partOf,
         )

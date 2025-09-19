@@ -63,9 +63,7 @@ internal data class TestReportParticipantSurrogate(
       modifierExtension = this@TestReportParticipantSurrogate.modifierExtension ?: mutableListOf(),
       type =
         Enumeration.of(
-          com.google.fhir.model.r5.TestReport.TestReportParticipantType.fromCode(
-            this@TestReportParticipantSurrogate.type!!
-          ),
+          TestReport.TestReportParticipantType.fromCode(this@TestReportParticipantSurrogate.type!!),
           this@TestReportParticipantSurrogate._type,
         ),
       uri =
@@ -82,8 +80,8 @@ internal data class TestReportParticipantSurrogate(
       with(model) {
         TestReportParticipantSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           type = this@with.type.value?.getCode(),
           _type = this@with.type.toElement(),
           uri = this@with.uri.value,
@@ -115,9 +113,9 @@ internal data class TestReportSetupSurrogate(
       with(model) {
         TestReportSetupSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          action = this@with.action.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
+          action = this@with.action.takeIf { it.isNotEmpty() },
         )
       }
   }
@@ -145,8 +143,8 @@ internal data class TestReportSetupActionSurrogate(
       with(model) {
         TestReportSetupActionSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           operation = this@with.operation,
           assert = this@with.assert,
         )
@@ -174,7 +172,7 @@ internal data class TestReportSetupActionOperationSurrogate(
         this@TestReportSetupActionOperationSurrogate.modifierExtension ?: mutableListOf(),
       result =
         Enumeration.of(
-          com.google.fhir.model.r5.TestReport.TestReportActionResult.fromCode(
+          TestReport.TestReportActionResult.fromCode(
             this@TestReportSetupActionOperationSurrogate.result!!
           ),
           this@TestReportSetupActionOperationSurrogate._result,
@@ -198,8 +196,8 @@ internal data class TestReportSetupActionOperationSurrogate(
       with(model) {
         TestReportSetupActionOperationSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           result = this@with.result.value?.getCode(),
           _result = this@with.result.toElement(),
           message = this@with.message?.value,
@@ -232,7 +230,7 @@ internal data class TestReportSetupActionAssertSurrogate(
         this@TestReportSetupActionAssertSurrogate.modifierExtension ?: mutableListOf(),
       result =
         Enumeration.of(
-          com.google.fhir.model.r5.TestReport.TestReportActionResult.fromCode(
+          TestReport.TestReportActionResult.fromCode(
             this@TestReportSetupActionAssertSurrogate.result!!
           ),
           this@TestReportSetupActionAssertSurrogate._result,
@@ -257,15 +255,15 @@ internal data class TestReportSetupActionAssertSurrogate(
       with(model) {
         TestReportSetupActionAssertSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           result = this@with.result.value?.getCode(),
           _result = this@with.result.toElement(),
           message = this@with.message?.value,
           _message = this@with.message?.toElement(),
           detail = this@with.detail?.value,
           _detail = this@with.detail?.toElement(),
-          requirement = this@with.requirement.takeUnless { it.all { it == null } },
+          requirement = this@with.requirement.takeIf { it.isNotEmpty() },
         )
       }
   }
@@ -294,8 +292,8 @@ internal data class TestReportSetupActionAssertRequirementSurrogate(
       with(model) {
         TestReportSetupActionAssertRequirementSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           link = this@with.link,
         )
       }
@@ -332,13 +330,13 @@ internal data class TestReportTestSurrogate(
       with(model) {
         TestReportTestSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           name = this@with.name?.value,
           _name = this@with.name?.toElement(),
           description = this@with.description?.value,
           _description = this@with.description?.toElement(),
-          action = this@with.action.takeUnless { it.all { it == null } },
+          action = this@with.action.takeIf { it.isNotEmpty() },
         )
       }
   }
@@ -366,8 +364,8 @@ internal data class TestReportTestActionSurrogate(
       with(model) {
         TestReportTestActionSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           operation = this@with.operation,
           assert = this@with.assert,
         )
@@ -395,9 +393,9 @@ internal data class TestReportTeardownSurrogate(
       with(model) {
         TestReportTeardownSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          action = this@with.action.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
+          action = this@with.action.takeIf { it.isNotEmpty() },
         )
       }
   }
@@ -424,8 +422,8 @@ internal data class TestReportTeardownActionSurrogate(
       with(model) {
         TestReportTeardownActionSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           operation = this@with.operation,
         )
       }
@@ -513,18 +511,14 @@ internal data class TestReportSurrogate(
       name = R5String.of(this@TestReportSurrogate.name, this@TestReportSurrogate._name),
       status =
         Enumeration.of(
-          com.google.fhir.model.r5.TestReport.TestReportStatus.fromCode(
-            this@TestReportSurrogate.status!!
-          ),
+          TestReport.TestReportStatus.fromCode(this@TestReportSurrogate.status!!),
           this@TestReportSurrogate._status,
         ),
       testScript =
         Canonical.of(this@TestReportSurrogate.testScript, this@TestReportSurrogate._testScript)!!,
       result =
         Enumeration.of(
-          com.google.fhir.model.r5.TestReport.TestReportResult.fromCode(
-            this@TestReportSurrogate.result!!
-          ),
+          TestReport.TestReportResult.fromCode(this@TestReportSurrogate.result!!),
           this@TestReportSurrogate._result,
         ),
       score = Decimal.of(this@TestReportSurrogate.score, this@TestReportSurrogate._score),
@@ -551,9 +545,9 @@ internal data class TestReportSurrogate(
           language = this@with.language?.value,
           _language = this@with.language?.toElement(),
           text = this@with.text,
-          contained = this@with.contained.takeUnless { it.all { it == null } },
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          contained = this@with.contained.takeIf { it.isNotEmpty() },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           identifier = this@with.identifier,
           name = this@with.name?.value,
           _name = this@with.name?.toElement(),
@@ -569,9 +563,9 @@ internal data class TestReportSurrogate(
           _tester = this@with.tester?.toElement(),
           issued = this@with.issued?.value?.toString(),
           _issued = this@with.issued?.toElement(),
-          participant = this@with.participant.takeUnless { it.all { it == null } },
+          participant = this@with.participant.takeIf { it.isNotEmpty() },
           setup = this@with.setup,
-          test = this@with.test.takeUnless { it.all { it == null } },
+          test = this@with.test.takeIf { it.isNotEmpty() },
           teardown = this@with.teardown,
         )
       }

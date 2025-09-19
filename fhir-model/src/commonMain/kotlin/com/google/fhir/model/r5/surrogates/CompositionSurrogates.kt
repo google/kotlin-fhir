@@ -76,8 +76,8 @@ internal data class CompositionAttesterSurrogate(
       with(model) {
         CompositionAttesterSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           mode = this@with.mode,
           time = this@with.time?.value?.toString(),
           _time = this@with.time?.toElement(),
@@ -109,10 +109,10 @@ internal data class CompositionEventSurrogate(
       with(model) {
         CompositionEventSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           period = this@with.period,
-          detail = this@with.detail.takeUnless { it.all { it == null } },
+          detail = this@with.detail.takeIf { it.isNotEmpty() },
         )
       }
   }
@@ -159,18 +159,18 @@ internal data class CompositionSectionSurrogate(
       with(model) {
         CompositionSectionSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           title = this@with.title?.value,
           _title = this@with.title?.toElement(),
           code = this@with.code,
-          author = this@with.author.takeUnless { it.all { it == null } },
+          author = this@with.author.takeIf { it.isNotEmpty() },
           focus = this@with.focus,
           text = this@with.text,
           orderedBy = this@with.orderedBy,
-          entry = this@with.entry.takeUnless { it.all { it == null } },
+          entry = this@with.entry.takeIf { it.isNotEmpty() },
           emptyReason = this@with.emptyReason,
-          section = this@with.section.takeUnless { it.all { it == null } },
+          section = this@with.section.takeIf { it.isNotEmpty() },
         )
       }
   }
@@ -230,9 +230,7 @@ internal data class CompositionSurrogate(
       version = R5String.of(this@CompositionSurrogate.version, this@CompositionSurrogate._version),
       status =
         Enumeration.of(
-          com.google.fhir.model.r5.Composition.CompositionStatus.fromCode(
-            this@CompositionSurrogate.status!!
-          ),
+          Composition.CompositionStatus.fromCode(this@CompositionSurrogate.status!!),
           this@CompositionSurrogate._status,
         ),
       type = this@CompositionSurrogate.type,
@@ -267,34 +265,34 @@ internal data class CompositionSurrogate(
           language = this@with.language?.value,
           _language = this@with.language?.toElement(),
           text = this@with.text,
-          contained = this@with.contained.takeUnless { it.all { it == null } },
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          contained = this@with.contained.takeIf { it.isNotEmpty() },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           url = this@with.url?.value,
           _url = this@with.url?.toElement(),
-          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          identifier = this@with.identifier.takeIf { it.isNotEmpty() },
           version = this@with.version?.value,
           _version = this@with.version?.toElement(),
           status = this@with.status.value?.getCode(),
           _status = this@with.status.toElement(),
           type = this@with.type,
-          category = this@with.category.takeUnless { it.all { it == null } },
-          subject = this@with.subject.takeUnless { it.all { it == null } },
+          category = this@with.category.takeIf { it.isNotEmpty() },
+          subject = this@with.subject.takeIf { it.isNotEmpty() },
           encounter = this@with.encounter,
           date = this@with.date.value?.toString(),
           _date = this@with.date.toElement(),
-          useContext = this@with.useContext.takeUnless { it.all { it == null } },
-          author = this@with.author.takeUnless { it.all { it == null } },
+          useContext = this@with.useContext.takeIf { it.isNotEmpty() },
+          author = this@with.author.takeIf { it.isNotEmpty() },
           name = this@with.name?.value,
           _name = this@with.name?.toElement(),
           title = this@with.title.value,
           _title = this@with.title.toElement(),
-          note = this@with.note.takeUnless { it.all { it == null } },
-          attester = this@with.attester.takeUnless { it.all { it == null } },
+          note = this@with.note.takeIf { it.isNotEmpty() },
+          attester = this@with.attester.takeIf { it.isNotEmpty() },
           custodian = this@with.custodian,
-          relatesTo = this@with.relatesTo.takeUnless { it.all { it == null } },
-          event = this@with.event.takeUnless { it.all { it == null } },
-          section = this@with.section.takeUnless { it.all { it == null } },
+          relatesTo = this@with.relatesTo.takeIf { it.isNotEmpty() },
+          event = this@with.event.takeIf { it.isNotEmpty() },
+          section = this@with.section.takeIf { it.isNotEmpty() },
         )
       }
   }

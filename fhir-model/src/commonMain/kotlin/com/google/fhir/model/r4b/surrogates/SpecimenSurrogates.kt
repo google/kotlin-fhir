@@ -78,8 +78,8 @@ internal data class SpecimenCollectionSurrogate(
       with(model) {
         SpecimenCollectionSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           collector = this@with.collector,
           collected = this@with.collected,
           duration = this@with.duration,
@@ -123,12 +123,12 @@ internal data class SpecimenProcessingSurrogate(
       with(model) {
         SpecimenProcessingSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           description = this@with.description?.value,
           _description = this@with.description?.toElement(),
           procedure = this@with.procedure,
-          additive = this@with.additive.takeUnless { it.all { it == null } },
+          additive = this@with.additive.takeIf { it.isNotEmpty() },
           time = this@with.time,
         )
       }
@@ -170,9 +170,9 @@ internal data class SpecimenContainerSurrogate(
       with(model) {
         SpecimenContainerSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
+          identifier = this@with.identifier.takeIf { it.isNotEmpty() },
           description = this@with.description?.value,
           _description = this@with.description?.toElement(),
           type = this@with.type,
@@ -329,10 +329,7 @@ internal data class SpecimenSurrogate(
       accessionIdentifier = this@SpecimenSurrogate.accessionIdentifier,
       status =
         this@SpecimenSurrogate.status?.let {
-          Enumeration.of(
-            com.google.fhir.model.r4b.Specimen.SpecimenStatus.fromCode(it!!),
-            this@SpecimenSurrogate._status,
-          )
+          Enumeration.of(Specimen.SpecimenStatus.fromCode(it), this@SpecimenSurrogate._status)
         },
       type = this@SpecimenSurrogate.type,
       subject = this@SpecimenSurrogate.subject,
@@ -361,10 +358,10 @@ internal data class SpecimenSurrogate(
           language = this@with.language?.value,
           _language = this@with.language?.toElement(),
           text = this@with.text,
-          contained = this@with.contained.takeUnless { it.all { it == null } },
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          contained = this@with.contained.takeIf { it.isNotEmpty() },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
+          identifier = this@with.identifier.takeIf { it.isNotEmpty() },
           accessionIdentifier = this@with.accessionIdentifier,
           status = this@with.status?.value?.getCode(),
           _status = this@with.status?.toElement(),
@@ -372,13 +369,13 @@ internal data class SpecimenSurrogate(
           subject = this@with.subject,
           receivedTime = this@with.receivedTime?.value?.toString(),
           _receivedTime = this@with.receivedTime?.toElement(),
-          parent = this@with.parent.takeUnless { it.all { it == null } },
-          request = this@with.request.takeUnless { it.all { it == null } },
+          parent = this@with.parent.takeIf { it.isNotEmpty() },
+          request = this@with.request.takeIf { it.isNotEmpty() },
           collection = this@with.collection,
-          processing = this@with.processing.takeUnless { it.all { it == null } },
-          container = this@with.container.takeUnless { it.all { it == null } },
-          condition = this@with.condition.takeUnless { it.all { it == null } },
-          note = this@with.note.takeUnless { it.all { it == null } },
+          processing = this@with.processing.takeIf { it.isNotEmpty() },
+          container = this@with.container.takeIf { it.isNotEmpty() },
+          condition = this@with.condition.takeIf { it.isNotEmpty() },
+          note = this@with.note.takeIf { it.isNotEmpty() },
         )
       }
   }

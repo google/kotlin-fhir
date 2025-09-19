@@ -53,8 +53,8 @@ internal data class CodeableConceptSurrogate(
       with(model) {
         CodeableConceptSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          coding = this@with.coding.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          coding = this@with.coding.takeIf { it.isNotEmpty() },
           text = this@with.text?.value,
           _text = this@with.text?.toElement(),
         )

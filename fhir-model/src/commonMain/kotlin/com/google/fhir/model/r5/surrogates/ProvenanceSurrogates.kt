@@ -70,10 +70,10 @@ internal data class ProvenanceAgentSurrogate(
       with(model) {
         ProvenanceAgentSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           type = this@with.type,
-          role = this@with.role.takeUnless { it.all { it == null } },
+          role = this@with.role.takeIf { it.isNotEmpty() },
           who = this@with.who,
           onBehalfOf = this@with.onBehalfOf,
         )
@@ -98,9 +98,7 @@ internal data class ProvenanceEntitySurrogate(
       modifierExtension = this@ProvenanceEntitySurrogate.modifierExtension ?: mutableListOf(),
       role =
         Enumeration.of(
-          com.google.fhir.model.r5.Provenance.ProvenanceEntityRole.fromCode(
-            this@ProvenanceEntitySurrogate.role!!
-          ),
+          Provenance.ProvenanceEntityRole.fromCode(this@ProvenanceEntitySurrogate.role!!),
           this@ProvenanceEntitySurrogate._role,
         ),
       what = this@ProvenanceEntitySurrogate.what,
@@ -112,12 +110,12 @@ internal data class ProvenanceEntitySurrogate(
       with(model) {
         ProvenanceEntitySurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           role = this@with.role.value?.getCode(),
           _role = this@with.role.toElement(),
           what = this@with.what,
-          agent = this@with.agent.takeUnless { it.all { it == null } },
+          agent = this@with.agent.takeIf { it.isNotEmpty() },
         )
       }
   }
@@ -231,10 +229,10 @@ internal data class ProvenanceSurrogate(
           language = this@with.language?.value,
           _language = this@with.language?.toElement(),
           text = this@with.text,
-          contained = this@with.contained.takeUnless { it.all { it == null } },
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          target = this@with.target.takeUnless { it.all { it == null } },
+          contained = this@with.contained.takeIf { it.isNotEmpty() },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
+          target = this@with.target.takeIf { it.isNotEmpty() },
           occurred = this@with.occurred,
           recorded = this@with.recorded?.value?.toString(),
           _recorded = this@with.recorded?.toElement(),
@@ -247,14 +245,14 @@ internal data class ProvenanceSurrogate(
               ?.map { it ?: Element() }
               ?.toMutableList(),
           location = this@with.location,
-          authorization = this@with.authorization.takeUnless { it.all { it == null } },
+          authorization = this@with.authorization.takeIf { it.isNotEmpty() },
           activity = this@with.activity,
-          basedOn = this@with.basedOn.takeUnless { it.all { it == null } },
+          basedOn = this@with.basedOn.takeIf { it.isNotEmpty() },
           patient = this@with.patient,
           encounter = this@with.encounter,
-          agent = this@with.agent.takeUnless { it.all { it == null } },
-          entity = this@with.entity.takeUnless { it.all { it == null } },
-          signature = this@with.signature.takeUnless { it.all { it == null } },
+          agent = this@with.agent.takeIf { it.isNotEmpty() },
+          entity = this@with.entity.takeIf { it.isNotEmpty() },
+          signature = this@with.signature.takeIf { it.isNotEmpty() },
         )
       }
   }

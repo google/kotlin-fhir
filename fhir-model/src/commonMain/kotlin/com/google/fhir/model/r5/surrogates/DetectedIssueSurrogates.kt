@@ -66,10 +66,10 @@ internal data class DetectedIssueEvidenceSurrogate(
       with(model) {
         DetectedIssueEvidenceSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          code = this@with.code.takeUnless { it.all { it == null } },
-          detail = this@with.detail.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
+          code = this@with.code.takeIf { it.isNotEmpty() },
+          detail = this@with.detail.takeIf { it.isNotEmpty() },
         )
       }
   }
@@ -107,13 +107,13 @@ internal data class DetectedIssueMitigationSurrogate(
       with(model) {
         DetectedIssueMitigationSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           action = this@with.action,
           date = this@with.date?.value?.toString(),
           _date = this@with.date?.toElement(),
           author = this@with.author,
-          note = this@with.note.takeUnless { it.all { it == null } },
+          note = this@with.note.takeIf { it.isNotEmpty() },
         )
       }
   }
@@ -195,9 +195,7 @@ internal data class DetectedIssueSurrogate(
       identifier = this@DetectedIssueSurrogate.identifier ?: mutableListOf(),
       status =
         Enumeration.of(
-          com.google.fhir.model.r5.DetectedIssue.DetectedIssueStatus.fromCode(
-            this@DetectedIssueSurrogate.status!!
-          ),
+          DetectedIssue.DetectedIssueStatus.fromCode(this@DetectedIssueSurrogate.status!!),
           this@DetectedIssueSurrogate._status,
         ),
       category = this@DetectedIssueSurrogate.category ?: mutableListOf(),
@@ -205,7 +203,7 @@ internal data class DetectedIssueSurrogate(
       severity =
         this@DetectedIssueSurrogate.severity?.let {
           Enumeration.of(
-            com.google.fhir.model.r5.DetectedIssue.DetectedIssueSeverity.fromCode(it!!),
+            DetectedIssue.DetectedIssueSeverity.fromCode(it),
             this@DetectedIssueSurrogate._severity,
           )
         },
@@ -232,13 +230,13 @@ internal data class DetectedIssueSurrogate(
           language = this@with.language?.value,
           _language = this@with.language?.toElement(),
           text = this@with.text,
-          contained = this@with.contained.takeUnless { it.all { it == null } },
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          contained = this@with.contained.takeIf { it.isNotEmpty() },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
+          identifier = this@with.identifier.takeIf { it.isNotEmpty() },
           status = this@with.status.value?.getCode(),
           _status = this@with.status.toElement(),
-          category = this@with.category.takeUnless { it.all { it == null } },
+          category = this@with.category.takeIf { it.isNotEmpty() },
           code = this@with.code,
           severity = this@with.severity?.value?.getCode(),
           _severity = this@with.severity?.toElement(),
@@ -246,13 +244,13 @@ internal data class DetectedIssueSurrogate(
           encounter = this@with.encounter,
           identified = this@with.identified,
           author = this@with.author,
-          implicated = this@with.implicated.takeUnless { it.all { it == null } },
-          evidence = this@with.evidence.takeUnless { it.all { it == null } },
+          implicated = this@with.implicated.takeIf { it.isNotEmpty() },
+          evidence = this@with.evidence.takeIf { it.isNotEmpty() },
           detail = this@with.detail?.value,
           _detail = this@with.detail?.toElement(),
           reference = this@with.reference?.value,
           _reference = this@with.reference?.toElement(),
-          mitigation = this@with.mitigation.takeUnless { it.all { it == null } },
+          mitigation = this@with.mitigation.takeIf { it.isNotEmpty() },
         )
       }
   }

@@ -44,6 +44,7 @@ import com.google.fhir.model.r4.Uri
 import com.google.fhir.model.r4.UsageContext
 import com.google.fhir.model.r4.serializers.DoubleSerializer
 import com.google.fhir.model.r4.serializers.LocalTimeSerializer
+import com.google.fhir.model.r4.terminologies.PublicationStatus
 import kotlin.String as KotlinString
 import kotlin.Suppress
 import kotlin.collections.MutableList
@@ -125,9 +126,7 @@ internal data class EvidenceSurrogate(
       subtitle = R4String.of(this@EvidenceSurrogate.subtitle, this@EvidenceSurrogate._subtitle),
       status =
         Enumeration.of(
-          com.google.fhir.model.r4.terminologies.PublicationStatus.fromCode(
-            this@EvidenceSurrogate.status!!
-          ),
+          PublicationStatus.fromCode(this@EvidenceSurrogate.status!!),
           this@EvidenceSurrogate._status,
         ),
       date =
@@ -176,12 +175,12 @@ internal data class EvidenceSurrogate(
           language = this@with.language?.value,
           _language = this@with.language?.toElement(),
           text = this@with.text,
-          contained = this@with.contained.takeUnless { it.all { it == null } },
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          contained = this@with.contained.takeIf { it.isNotEmpty() },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           url = this@with.url?.value,
           _url = this@with.url?.toElement(),
-          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          identifier = this@with.identifier.takeIf { it.isNotEmpty() },
           version = this@with.version?.value,
           _version = this@with.version?.toElement(),
           name = this@with.name?.value,
@@ -198,12 +197,12 @@ internal data class EvidenceSurrogate(
           _date = this@with.date?.toElement(),
           publisher = this@with.publisher?.value,
           _publisher = this@with.publisher?.toElement(),
-          contact = this@with.contact.takeUnless { it.all { it == null } },
+          contact = this@with.contact.takeIf { it.isNotEmpty() },
           description = this@with.description?.value,
           _description = this@with.description?.toElement(),
-          note = this@with.note.takeUnless { it.all { it == null } },
-          useContext = this@with.useContext.takeUnless { it.all { it == null } },
-          jurisdiction = this@with.jurisdiction.takeUnless { it.all { it == null } },
+          note = this@with.note.takeIf { it.isNotEmpty() },
+          useContext = this@with.useContext.takeIf { it.isNotEmpty() },
+          jurisdiction = this@with.jurisdiction.takeIf { it.isNotEmpty() },
           copyright = this@with.copyright?.value,
           _copyright = this@with.copyright?.toElement(),
           approvalDate = this@with.approvalDate?.value?.toString(),
@@ -211,15 +210,15 @@ internal data class EvidenceSurrogate(
           lastReviewDate = this@with.lastReviewDate?.value?.toString(),
           _lastReviewDate = this@with.lastReviewDate?.toElement(),
           effectivePeriod = this@with.effectivePeriod,
-          topic = this@with.topic.takeUnless { it.all { it == null } },
-          author = this@with.author.takeUnless { it.all { it == null } },
-          editor = this@with.editor.takeUnless { it.all { it == null } },
-          reviewer = this@with.reviewer.takeUnless { it.all { it == null } },
-          endorser = this@with.endorser.takeUnless { it.all { it == null } },
-          relatedArtifact = this@with.relatedArtifact.takeUnless { it.all { it == null } },
+          topic = this@with.topic.takeIf { it.isNotEmpty() },
+          author = this@with.author.takeIf { it.isNotEmpty() },
+          editor = this@with.editor.takeIf { it.isNotEmpty() },
+          reviewer = this@with.reviewer.takeIf { it.isNotEmpty() },
+          endorser = this@with.endorser.takeIf { it.isNotEmpty() },
+          relatedArtifact = this@with.relatedArtifact.takeIf { it.isNotEmpty() },
           exposureBackground = this@with.exposureBackground,
-          exposureVariant = this@with.exposureVariant.takeUnless { it.all { it == null } },
-          outcome = this@with.outcome.takeUnless { it.all { it == null } },
+          exposureVariant = this@with.exposureVariant.takeIf { it.isNotEmpty() },
+          outcome = this@with.outcome.takeIf { it.isNotEmpty() },
         )
       }
   }

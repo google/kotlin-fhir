@@ -75,8 +75,8 @@ internal data class SignatureSurrogate(
       with(model) {
         SignatureSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          type = this@with.type.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          type = this@with.type.takeIf { it.isNotEmpty() },
           `when` = this@with.`when`?.value?.toString(),
           _when = this@with.`when`?.toElement(),
           who = this@with.who,

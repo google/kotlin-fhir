@@ -79,8 +79,8 @@ internal data class GroupCharacteristicSurrogate(
       with(model) {
         GroupCharacteristicSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           code = this@with.code,
           `value` = this@with.`value`,
           exclude = this@with.exclude.value,
@@ -117,8 +117,8 @@ internal data class GroupMemberSurrogate(
       with(model) {
         GroupMemberSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           entity = this@with.entity,
           period = this@with.period,
           inactive = this@with.inactive?.value,
@@ -147,7 +147,7 @@ internal data class GroupCharacteristicValueSurrogate(
       this@GroupCharacteristicValueSurrogate.valueQuantity,
       this@GroupCharacteristicValueSurrogate.valueRange,
       this@GroupCharacteristicValueSurrogate.valueReference,
-    )!! !!
+    )!!
 
   public companion object {
     public fun fromModel(model: Group.Characteristic.Value): GroupCharacteristicValueSurrogate =
@@ -208,14 +208,12 @@ internal data class GroupSurrogate(
       active = R5Boolean.of(this@GroupSurrogate.active, this@GroupSurrogate._active),
       type =
         Enumeration.of(
-          com.google.fhir.model.r5.Group.GroupType.fromCode(this@GroupSurrogate.type!!),
+          Group.GroupType.fromCode(this@GroupSurrogate.type!!),
           this@GroupSurrogate._type,
         ),
       membership =
         Enumeration.of(
-          com.google.fhir.model.r5.Group.GroupMembershipBasis.fromCode(
-            this@GroupSurrogate.membership!!
-          ),
+          Group.GroupMembershipBasis.fromCode(this@GroupSurrogate.membership!!),
           this@GroupSurrogate._membership,
         ),
       code = this@GroupSurrogate.code,
@@ -238,10 +236,10 @@ internal data class GroupSurrogate(
           language = this@with.language?.value,
           _language = this@with.language?.toElement(),
           text = this@with.text,
-          contained = this@with.contained.takeUnless { it.all { it == null } },
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          contained = this@with.contained.takeIf { it.isNotEmpty() },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
+          identifier = this@with.identifier.takeIf { it.isNotEmpty() },
           active = this@with.active?.value,
           _active = this@with.active?.toElement(),
           type = this@with.type.value?.getCode(),
@@ -256,8 +254,8 @@ internal data class GroupSurrogate(
           quantity = this@with.quantity?.value,
           _quantity = this@with.quantity?.toElement(),
           managingEntity = this@with.managingEntity,
-          characteristic = this@with.characteristic.takeUnless { it.all { it == null } },
-          member = this@with.member.takeUnless { it.all { it == null } },
+          characteristic = this@with.characteristic.takeIf { it.isNotEmpty() },
+          member = this@with.member.takeIf { it.isNotEmpty() },
         )
       }
   }

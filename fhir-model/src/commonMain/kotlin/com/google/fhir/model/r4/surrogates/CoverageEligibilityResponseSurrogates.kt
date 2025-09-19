@@ -42,6 +42,7 @@ import com.google.fhir.model.r4.UnsignedInt
 import com.google.fhir.model.r4.Uri
 import com.google.fhir.model.r4.serializers.DoubleSerializer
 import com.google.fhir.model.r4.serializers.LocalTimeSerializer
+import com.google.fhir.model.r4.terminologies.ClaimProcessingCodes
 import kotlin.Boolean as KotlinBoolean
 import kotlin.Int
 import kotlin.String as KotlinString
@@ -84,13 +85,13 @@ internal data class CoverageEligibilityResponseInsuranceSurrogate(
       with(model) {
         CoverageEligibilityResponseInsuranceSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           coverage = this@with.coverage,
           inforce = this@with.inforce?.value,
           _inforce = this@with.inforce?.toElement(),
           benefitPeriod = this@with.benefitPeriod,
-          item = this@with.item.takeUnless { it.all { it == null } },
+          item = this@with.item.takeIf { it.isNotEmpty() },
         )
       }
   }
@@ -173,11 +174,11 @@ internal data class CoverageEligibilityResponseInsuranceItemSurrogate(
       with(model) {
         CoverageEligibilityResponseInsuranceItemSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           category = this@with.category,
           productOrService = this@with.productOrService,
-          modifier = this@with.modifier.takeUnless { it.all { it == null } },
+          modifier = this@with.modifier.takeIf { it.isNotEmpty() },
           provider = this@with.provider,
           excluded = this@with.excluded?.value,
           _excluded = this@with.excluded?.toElement(),
@@ -188,11 +189,10 @@ internal data class CoverageEligibilityResponseInsuranceItemSurrogate(
           network = this@with.network,
           unit = this@with.unit,
           term = this@with.term,
-          benefit = this@with.benefit.takeUnless { it.all { it == null } },
+          benefit = this@with.benefit.takeIf { it.isNotEmpty() },
           authorizationRequired = this@with.authorizationRequired?.value,
           _authorizationRequired = this@with.authorizationRequired?.toElement(),
-          authorizationSupporting =
-            this@with.authorizationSupporting.takeUnless { it.all { it == null } },
+          authorizationSupporting = this@with.authorizationSupporting.takeIf { it.isNotEmpty() },
           authorizationUrl = this@with.authorizationUrl?.value,
           _authorizationUrl = this@with.authorizationUrl?.toElement(),
         )
@@ -229,8 +229,8 @@ internal data class CoverageEligibilityResponseInsuranceItemBenefitSurrogate(
       with(model) {
         CoverageEligibilityResponseInsuranceItemBenefitSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           type = this@with.type,
           allowed = this@with.allowed,
           used = this@with.used,
@@ -262,8 +262,8 @@ internal data class CoverageEligibilityResponseErrorSurrogate(
       with(model) {
         CoverageEligibilityResponseErrorSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           code = this@with.code,
         )
       }
@@ -429,8 +429,9 @@ internal data class CoverageEligibilityResponseSurrogate(
       identifier = this@CoverageEligibilityResponseSurrogate.identifier ?: mutableListOf(),
       status =
         Enumeration.of(
-          com.google.fhir.model.r4.CoverageEligibilityResponse.FinancialResourceStatusCodes
-            .fromCode(this@CoverageEligibilityResponseSurrogate.status!!),
+          CoverageEligibilityResponse.FinancialResourceStatusCodes.fromCode(
+            this@CoverageEligibilityResponseSurrogate.status!!
+          ),
           this@CoverageEligibilityResponseSurrogate._status,
         ),
       purpose =
@@ -448,10 +449,7 @@ internal data class CoverageEligibilityResponseSurrogate(
             )
             .map { (value, element) ->
               Enumeration.of(
-                value.let {
-                  com.google.fhir.model.r4.CoverageEligibilityResponse.EligibilityResponsePurpose
-                    .fromCode(it!!)!!
-                },
+                value.let { CoverageEligibilityResponse.EligibilityResponsePurpose.fromCode(it!!) },
                 element,
               )
             }
@@ -468,9 +466,7 @@ internal data class CoverageEligibilityResponseSurrogate(
       request = this@CoverageEligibilityResponseSurrogate.request,
       outcome =
         Enumeration.of(
-          com.google.fhir.model.r4.terminologies.ClaimProcessingCodes.fromCode(
-            this@CoverageEligibilityResponseSurrogate.outcome!!
-          ),
+          ClaimProcessingCodes.fromCode(this@CoverageEligibilityResponseSurrogate.outcome!!),
           this@CoverageEligibilityResponseSurrogate._outcome,
         ),
       disposition =
@@ -500,10 +496,10 @@ internal data class CoverageEligibilityResponseSurrogate(
           language = this@with.language?.value,
           _language = this@with.language?.toElement(),
           text = this@with.text,
-          contained = this@with.contained.takeUnless { it.all { it == null } },
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          contained = this@with.contained.takeIf { it.isNotEmpty() },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
+          identifier = this@with.identifier.takeIf { it.isNotEmpty() },
           status = this@with.status.value?.getCode(),
           _status = this@with.status.toElement(),
           purpose =
@@ -528,11 +524,11 @@ internal data class CoverageEligibilityResponseSurrogate(
           disposition = this@with.disposition?.value,
           _disposition = this@with.disposition?.toElement(),
           insurer = this@with.insurer,
-          insurance = this@with.insurance.takeUnless { it.all { it == null } },
+          insurance = this@with.insurance.takeIf { it.isNotEmpty() },
           preAuthRef = this@with.preAuthRef?.value,
           _preAuthRef = this@with.preAuthRef?.toElement(),
           form = this@with.form,
-          error = this@with.error.takeUnless { it.all { it == null } },
+          error = this@with.error.takeIf { it.isNotEmpty() },
         )
       }
   }

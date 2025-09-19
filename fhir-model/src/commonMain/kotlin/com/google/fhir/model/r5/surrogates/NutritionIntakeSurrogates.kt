@@ -89,8 +89,8 @@ internal data class NutritionIntakeConsumedItemSurrogate(
       with(model) {
         NutritionIntakeConsumedItemSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           type = this@with.type,
           nutritionProduct = this@with.nutritionProduct,
           schedule = this@with.schedule,
@@ -129,8 +129,8 @@ internal data class NutritionIntakeIngredientLabelSurrogate(
       with(model) {
         NutritionIntakeIngredientLabelSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           nutrient = this@with.nutrient,
           amount = this@with.amount,
         )
@@ -161,8 +161,8 @@ internal data class NutritionIntakePerformerSurrogate(
       with(model) {
         NutritionIntakePerformerSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           function = this@with.function,
           actor = this@with.actor,
         )
@@ -313,9 +313,7 @@ internal data class NutritionIntakeSurrogate(
       partOf = this@NutritionIntakeSurrogate.partOf ?: mutableListOf(),
       status =
         Enumeration.of(
-          com.google.fhir.model.r5.NutritionIntake.EventStatus.fromCode(
-            this@NutritionIntakeSurrogate.status!!
-          ),
+          NutritionIntake.EventStatus.fromCode(this@NutritionIntakeSurrogate.status!!),
           this@NutritionIntakeSurrogate._status,
         ),
       statusReason = this@NutritionIntakeSurrogate.statusReason ?: mutableListOf(),
@@ -349,10 +347,10 @@ internal data class NutritionIntakeSurrogate(
           language = this@with.language?.value,
           _language = this@with.language?.toElement(),
           text = this@with.text,
-          contained = this@with.contained.takeUnless { it.all { it == null } },
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          contained = this@with.contained.takeIf { it.isNotEmpty() },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
+          identifier = this@with.identifier.takeIf { it.isNotEmpty() },
           instantiatesCanonical =
             this@with.instantiatesCanonical
               .map { it.value }
@@ -375,11 +373,11 @@ internal data class NutritionIntakeSurrogate(
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
               ?.toMutableList(),
-          basedOn = this@with.basedOn.takeUnless { it.all { it == null } },
-          partOf = this@with.partOf.takeUnless { it.all { it == null } },
+          basedOn = this@with.basedOn.takeIf { it.isNotEmpty() },
+          partOf = this@with.partOf.takeIf { it.isNotEmpty() },
           status = this@with.status.value?.getCode(),
           _status = this@with.status.toElement(),
-          statusReason = this@with.statusReason.takeUnless { it.all { it == null } },
+          statusReason = this@with.statusReason.takeIf { it.isNotEmpty() },
           code = this@with.code,
           subject = this@with.subject,
           encounter = this@with.encounter,
@@ -387,13 +385,13 @@ internal data class NutritionIntakeSurrogate(
           recorded = this@with.recorded?.value?.toString(),
           _recorded = this@with.recorded?.toElement(),
           reported = this@with.reported,
-          consumedItem = this@with.consumedItem.takeUnless { it.all { it == null } },
-          ingredientLabel = this@with.ingredientLabel.takeUnless { it.all { it == null } },
-          performer = this@with.performer.takeUnless { it.all { it == null } },
+          consumedItem = this@with.consumedItem.takeIf { it.isNotEmpty() },
+          ingredientLabel = this@with.ingredientLabel.takeIf { it.isNotEmpty() },
+          performer = this@with.performer.takeIf { it.isNotEmpty() },
           location = this@with.location,
-          derivedFrom = this@with.derivedFrom.takeUnless { it.all { it == null } },
-          reason = this@with.reason.takeUnless { it.all { it == null } },
-          note = this@with.note.takeUnless { it.all { it == null } },
+          derivedFrom = this@with.derivedFrom.takeIf { it.isNotEmpty() },
+          reason = this@with.reason.takeIf { it.isNotEmpty() },
+          note = this@with.note.takeIf { it.isNotEmpty() },
         )
       }
   }

@@ -69,9 +69,9 @@ internal data class EncounterParticipantSurrogate(
       with(model) {
         EncounterParticipantSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          type = this@with.type.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
+          type = this@with.type.takeIf { it.isNotEmpty() },
           period = this@with.period,
           actor = this@with.actor,
         )
@@ -101,10 +101,10 @@ internal data class EncounterReasonSurrogate(
       with(model) {
         EncounterReasonSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          use = this@with.use.takeUnless { it.all { it == null } },
-          `value` = this@with.`value`.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
+          use = this@with.use.takeIf { it.isNotEmpty() },
+          `value` = this@with.`value`.takeIf { it.isNotEmpty() },
         )
       }
   }
@@ -132,10 +132,10 @@ internal data class EncounterDiagnosisSurrogate(
       with(model) {
         EncounterDiagnosisSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          condition = this@with.condition.takeUnless { it.all { it == null } },
-          use = this@with.use.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
+          condition = this@with.condition.takeIf { it.isNotEmpty() },
+          use = this@with.use.takeIf { it.isNotEmpty() },
         )
       }
   }
@@ -171,8 +171,8 @@ internal data class EncounterAdmissionSurrogate(
       with(model) {
         EncounterAdmissionSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           preAdmissionIdentifier = this@with.preAdmissionIdentifier,
           origin = this@with.origin,
           admitSource = this@with.admitSource,
@@ -204,7 +204,7 @@ internal data class EncounterLocationSurrogate(
       status =
         this@EncounterLocationSurrogate.status?.let {
           Enumeration.of(
-            com.google.fhir.model.r5.Encounter.EncounterLocationStatus.fromCode(it!!),
+            Encounter.EncounterLocationStatus.fromCode(it),
             this@EncounterLocationSurrogate._status,
           )
         },
@@ -217,8 +217,8 @@ internal data class EncounterLocationSurrogate(
       with(model) {
         EncounterLocationSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           location = this@with.location,
           status = this@with.status?.value?.getCode(),
           _status = this@with.status?.toElement(),
@@ -287,9 +287,7 @@ internal data class EncounterSurrogate(
       identifier = this@EncounterSurrogate.identifier ?: mutableListOf(),
       status =
         Enumeration.of(
-          com.google.fhir.model.r5.Encounter.EncounterStatus.fromCode(
-            this@EncounterSurrogate.status!!
-          ),
+          Encounter.EncounterStatus.fromCode(this@EncounterSurrogate.status!!),
           this@EncounterSurrogate._status,
         ),
       `class` = this@EncounterSurrogate.`class` ?: mutableListOf(),
@@ -339,40 +337,40 @@ internal data class EncounterSurrogate(
           language = this@with.language?.value,
           _language = this@with.language?.toElement(),
           text = this@with.text,
-          contained = this@with.contained.takeUnless { it.all { it == null } },
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          contained = this@with.contained.takeIf { it.isNotEmpty() },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
+          identifier = this@with.identifier.takeIf { it.isNotEmpty() },
           status = this@with.status.value?.getCode(),
           _status = this@with.status.toElement(),
-          `class` = this@with.`class`.takeUnless { it.all { it == null } },
+          `class` = this@with.`class`.takeIf { it.isNotEmpty() },
           priority = this@with.priority,
-          type = this@with.type.takeUnless { it.all { it == null } },
-          serviceType = this@with.serviceType.takeUnless { it.all { it == null } },
+          type = this@with.type.takeIf { it.isNotEmpty() },
+          serviceType = this@with.serviceType.takeIf { it.isNotEmpty() },
           subject = this@with.subject,
           subjectStatus = this@with.subjectStatus,
-          episodeOfCare = this@with.episodeOfCare.takeUnless { it.all { it == null } },
-          basedOn = this@with.basedOn.takeUnless { it.all { it == null } },
-          careTeam = this@with.careTeam.takeUnless { it.all { it == null } },
+          episodeOfCare = this@with.episodeOfCare.takeIf { it.isNotEmpty() },
+          basedOn = this@with.basedOn.takeIf { it.isNotEmpty() },
+          careTeam = this@with.careTeam.takeIf { it.isNotEmpty() },
           partOf = this@with.partOf,
           serviceProvider = this@with.serviceProvider,
-          participant = this@with.participant.takeUnless { it.all { it == null } },
-          appointment = this@with.appointment.takeUnless { it.all { it == null } },
-          virtualService = this@with.virtualService.takeUnless { it.all { it == null } },
+          participant = this@with.participant.takeIf { it.isNotEmpty() },
+          appointment = this@with.appointment.takeIf { it.isNotEmpty() },
+          virtualService = this@with.virtualService.takeIf { it.isNotEmpty() },
           actualPeriod = this@with.actualPeriod,
           plannedStartDate = this@with.plannedStartDate?.value?.toString(),
           _plannedStartDate = this@with.plannedStartDate?.toElement(),
           plannedEndDate = this@with.plannedEndDate?.value?.toString(),
           _plannedEndDate = this@with.plannedEndDate?.toElement(),
           length = this@with.length,
-          reason = this@with.reason.takeUnless { it.all { it == null } },
-          diagnosis = this@with.diagnosis.takeUnless { it.all { it == null } },
-          account = this@with.account.takeUnless { it.all { it == null } },
-          dietPreference = this@with.dietPreference.takeUnless { it.all { it == null } },
-          specialArrangement = this@with.specialArrangement.takeUnless { it.all { it == null } },
-          specialCourtesy = this@with.specialCourtesy.takeUnless { it.all { it == null } },
+          reason = this@with.reason.takeIf { it.isNotEmpty() },
+          diagnosis = this@with.diagnosis.takeIf { it.isNotEmpty() },
+          account = this@with.account.takeIf { it.isNotEmpty() },
+          dietPreference = this@with.dietPreference.takeIf { it.isNotEmpty() },
+          specialArrangement = this@with.specialArrangement.takeIf { it.isNotEmpty() },
+          specialCourtesy = this@with.specialCourtesy.takeIf { it.isNotEmpty() },
           admission = this@with.admission,
-          location = this@with.location.takeUnless { it.all { it == null } },
+          location = this@with.location.takeIf { it.isNotEmpty() },
         )
       }
   }

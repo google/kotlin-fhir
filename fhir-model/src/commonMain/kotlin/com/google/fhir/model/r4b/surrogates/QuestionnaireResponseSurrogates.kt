@@ -99,16 +99,16 @@ internal data class QuestionnaireResponseItemSurrogate(
       with(model) {
         QuestionnaireResponseItemSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           linkId = this@with.linkId.value,
           _linkId = this@with.linkId.toElement(),
           definition = this@with.definition?.value,
           _definition = this@with.definition?.toElement(),
           text = this@with.text?.value,
           _text = this@with.text?.toElement(),
-          answer = this@with.answer.takeUnless { it.all { it == null } },
-          item = this@with.item.takeUnless { it.all { it == null } },
+          answer = this@with.answer.takeIf { it.isNotEmpty() },
+          item = this@with.item.takeIf { it.isNotEmpty() },
         )
       }
   }
@@ -139,10 +139,10 @@ internal data class QuestionnaireResponseItemAnswerSurrogate(
       with(model) {
         QuestionnaireResponseItemAnswerSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           `value` = this@with.`value`,
-          item = this@with.item.takeUnless { it.all { it == null } },
+          item = this@with.item.takeIf { it.isNotEmpty() },
         )
       }
   }
@@ -297,7 +297,7 @@ internal data class QuestionnaireResponseSurrogate(
         ),
       status =
         Enumeration.of(
-          com.google.fhir.model.r4b.QuestionnaireResponse.QuestionnaireResponseStatus.fromCode(
+          QuestionnaireResponse.QuestionnaireResponseStatus.fromCode(
             this@QuestionnaireResponseSurrogate.status!!
           ),
           this@QuestionnaireResponseSurrogate._status,
@@ -325,12 +325,12 @@ internal data class QuestionnaireResponseSurrogate(
           language = this@with.language?.value,
           _language = this@with.language?.toElement(),
           text = this@with.text,
-          contained = this@with.contained.takeUnless { it.all { it == null } },
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          contained = this@with.contained.takeIf { it.isNotEmpty() },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           identifier = this@with.identifier,
-          basedOn = this@with.basedOn.takeUnless { it.all { it == null } },
-          partOf = this@with.partOf.takeUnless { it.all { it == null } },
+          basedOn = this@with.basedOn.takeIf { it.isNotEmpty() },
+          partOf = this@with.partOf.takeIf { it.isNotEmpty() },
           questionnaire = this@with.questionnaire?.value,
           _questionnaire = this@with.questionnaire?.toElement(),
           status = this@with.status.value?.getCode(),
@@ -341,7 +341,7 @@ internal data class QuestionnaireResponseSurrogate(
           _authored = this@with.authored?.toElement(),
           author = this@with.author,
           source = this@with.source,
-          item = this@with.item.takeUnless { it.all { it == null } },
+          item = this@with.item.takeIf { it.isNotEmpty() },
         )
       }
   }

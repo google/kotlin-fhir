@@ -62,16 +62,12 @@ internal data class OperationOutcomeIssueSurrogate(
       modifierExtension = this@OperationOutcomeIssueSurrogate.modifierExtension ?: mutableListOf(),
       severity =
         Enumeration.of(
-          com.google.fhir.model.r5.OperationOutcome.IssueSeverity.fromCode(
-            this@OperationOutcomeIssueSurrogate.severity!!
-          ),
+          OperationOutcome.IssueSeverity.fromCode(this@OperationOutcomeIssueSurrogate.severity!!),
           this@OperationOutcomeIssueSurrogate._severity,
         ),
       code =
         Enumeration.of(
-          com.google.fhir.model.r5.OperationOutcome.IssueType.fromCode(
-            this@OperationOutcomeIssueSurrogate.code!!
-          ),
+          OperationOutcome.IssueType.fromCode(this@OperationOutcomeIssueSurrogate.code!!),
           this@OperationOutcomeIssueSurrogate._code,
         ),
       details = this@OperationOutcomeIssueSurrogate.details,
@@ -119,8 +115,8 @@ internal data class OperationOutcomeIssueSurrogate(
       with(model) {
         OperationOutcomeIssueSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           severity = this@with.severity.value?.getCode(),
           _severity = this@with.severity.toElement(),
           code = this@with.code.value?.getCode(),
@@ -198,10 +194,10 @@ internal data class OperationOutcomeSurrogate(
           language = this@with.language?.value,
           _language = this@with.language?.toElement(),
           text = this@with.text,
-          contained = this@with.contained.takeUnless { it.all { it == null } },
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          issue = this@with.issue.takeUnless { it.all { it == null } },
+          contained = this@with.contained.takeIf { it.isNotEmpty() },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
+          issue = this@with.issue.takeIf { it.isNotEmpty() },
         )
       }
   }

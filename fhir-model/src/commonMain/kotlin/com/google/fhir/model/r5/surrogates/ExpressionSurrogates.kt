@@ -59,7 +59,7 @@ internal data class ExpressionSurrogate(
       language =
         this@ExpressionSurrogate.language?.let {
           Enumeration.of(
-            com.google.fhir.model.r5.Expression.ExpressionLanguage.fromCode(it!!),
+            Expression.ExpressionLanguage.fromCode(it),
             this@ExpressionSurrogate._language,
           )
         },
@@ -73,7 +73,7 @@ internal data class ExpressionSurrogate(
       with(model) {
         ExpressionSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
           description = this@with.description?.value,
           _description = this@with.description?.toElement(),
           name = this@with.name?.value,

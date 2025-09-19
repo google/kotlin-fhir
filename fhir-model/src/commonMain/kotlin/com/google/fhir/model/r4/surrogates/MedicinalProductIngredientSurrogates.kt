@@ -74,12 +74,12 @@ internal data class MedicinalProductIngredientSpecifiedSubstanceSurrogate(
       with(model) {
         MedicinalProductIngredientSpecifiedSubstanceSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           code = this@with.code,
           group = this@with.group,
           confidentiality = this@with.confidentiality,
-          strength = this@with.strength.takeUnless { it.all { it == null } },
+          strength = this@with.strength.takeIf { it.isNotEmpty() },
         )
       }
   }
@@ -138,16 +138,16 @@ internal data class MedicinalProductIngredientSpecifiedSubstanceStrengthSurrogat
       with(model) {
         MedicinalProductIngredientSpecifiedSubstanceStrengthSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           presentation = this@with.presentation,
           presentationLowLimit = this@with.presentationLowLimit,
           concentration = this@with.concentration,
           concentrationLowLimit = this@with.concentrationLowLimit,
           measurementPoint = this@with.measurementPoint?.value,
           _measurementPoint = this@with.measurementPoint?.toElement(),
-          country = this@with.country.takeUnless { it.all { it == null } },
-          referenceStrength = this@with.referenceStrength.takeUnless { it.all { it == null } },
+          country = this@with.country.takeIf { it.isNotEmpty() },
+          referenceStrength = this@with.referenceStrength.takeIf { it.isNotEmpty() },
         )
       }
   }
@@ -202,14 +202,14 @@ internal data class MedicinalProductIngredientSpecifiedSubstanceStrengthReferenc
       with(model) {
         MedicinalProductIngredientSpecifiedSubstanceStrengthReferenceStrengthSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           substance = this@with.substance,
           strength = this@with.strength,
           strengthLowLimit = this@with.strengthLowLimit,
           measurementPoint = this@with.measurementPoint?.value,
           _measurementPoint = this@with.measurementPoint?.toElement(),
-          country = this@with.country.takeUnless { it.all { it == null } },
+          country = this@with.country.takeIf { it.isNotEmpty() },
         )
       }
   }
@@ -240,10 +240,10 @@ internal data class MedicinalProductIngredientSubstanceSurrogate(
       with(model) {
         MedicinalProductIngredientSubstanceSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           code = this@with.code,
-          strength = this@with.strength.takeUnless { it.all { it == null } },
+          strength = this@with.strength.takeIf { it.isNotEmpty() },
         )
       }
   }
@@ -312,15 +312,15 @@ internal data class MedicinalProductIngredientSurrogate(
           language = this@with.language?.value,
           _language = this@with.language?.toElement(),
           text = this@with.text,
-          contained = this@with.contained.takeUnless { it.all { it == null } },
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          contained = this@with.contained.takeIf { it.isNotEmpty() },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           identifier = this@with.identifier,
           role = this@with.role,
           allergenicIndicator = this@with.allergenicIndicator?.value,
           _allergenicIndicator = this@with.allergenicIndicator?.toElement(),
-          manufacturer = this@with.manufacturer.takeUnless { it.all { it == null } },
-          specifiedSubstance = this@with.specifiedSubstance.takeUnless { it.all { it == null } },
+          manufacturer = this@with.manufacturer.takeIf { it.isNotEmpty() },
+          specifiedSubstance = this@with.specifiedSubstance.takeIf { it.isNotEmpty() },
           substance = this@with.substance,
         )
       }

@@ -65,10 +65,10 @@ internal data class AdverseEventSuspectEntitySurrogate(
       with(model) {
         AdverseEventSuspectEntitySurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           instance = this@with.instance,
-          causality = this@with.causality.takeUnless { it.all { it == null } },
+          causality = this@with.causality.takeIf { it.isNotEmpty() },
         )
       }
   }
@@ -108,8 +108,8 @@ internal data class AdverseEventSuspectEntityCausalitySurrogate(
       with(model) {
         AdverseEventSuspectEntityCausalitySurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           assessment = this@with.assessment,
           productRelatedness = this@with.productRelatedness?.value,
           _productRelatedness = this@with.productRelatedness?.toElement(),
@@ -171,9 +171,7 @@ internal data class AdverseEventSurrogate(
       identifier = this@AdverseEventSurrogate.identifier,
       actuality =
         Enumeration.of(
-          com.google.fhir.model.r4b.AdverseEvent.AdverseEventActuality.fromCode(
-            this@AdverseEventSurrogate.actuality!!
-          ),
+          AdverseEvent.AdverseEventActuality.fromCode(this@AdverseEventSurrogate.actuality!!),
           this@AdverseEventSurrogate._actuality,
         ),
       category = this@AdverseEventSurrogate.category ?: mutableListOf(),
@@ -219,13 +217,13 @@ internal data class AdverseEventSurrogate(
           language = this@with.language?.value,
           _language = this@with.language?.toElement(),
           text = this@with.text,
-          contained = this@with.contained.takeUnless { it.all { it == null } },
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          contained = this@with.contained.takeIf { it.isNotEmpty() },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           identifier = this@with.identifier,
           actuality = this@with.actuality.value?.getCode(),
           _actuality = this@with.actuality.toElement(),
-          category = this@with.category.takeUnless { it.all { it == null } },
+          category = this@with.category.takeIf { it.isNotEmpty() },
           event = this@with.event,
           subject = this@with.subject,
           encounter = this@with.encounter,
@@ -235,18 +233,17 @@ internal data class AdverseEventSurrogate(
           _detected = this@with.detected?.toElement(),
           recordedDate = this@with.recordedDate?.value?.toString(),
           _recordedDate = this@with.recordedDate?.toElement(),
-          resultingCondition = this@with.resultingCondition.takeUnless { it.all { it == null } },
+          resultingCondition = this@with.resultingCondition.takeIf { it.isNotEmpty() },
           location = this@with.location,
           seriousness = this@with.seriousness,
           severity = this@with.severity,
           outcome = this@with.outcome,
           recorder = this@with.recorder,
-          contributor = this@with.contributor.takeUnless { it.all { it == null } },
-          suspectEntity = this@with.suspectEntity.takeUnless { it.all { it == null } },
-          subjectMedicalHistory =
-            this@with.subjectMedicalHistory.takeUnless { it.all { it == null } },
-          referenceDocument = this@with.referenceDocument.takeUnless { it.all { it == null } },
-          study = this@with.study.takeUnless { it.all { it == null } },
+          contributor = this@with.contributor.takeIf { it.isNotEmpty() },
+          suspectEntity = this@with.suspectEntity.takeIf { it.isNotEmpty() },
+          subjectMedicalHistory = this@with.subjectMedicalHistory.takeIf { it.isNotEmpty() },
+          referenceDocument = this@with.referenceDocument.takeIf { it.isNotEmpty() },
+          study = this@with.study.takeIf { it.isNotEmpty() },
         )
       }
   }

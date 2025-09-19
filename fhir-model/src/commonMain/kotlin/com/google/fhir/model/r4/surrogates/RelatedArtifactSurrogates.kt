@@ -60,9 +60,7 @@ internal data class RelatedArtifactSurrogate(
       extension = this@RelatedArtifactSurrogate.extension ?: mutableListOf(),
       type =
         Enumeration.of(
-          com.google.fhir.model.r4.RelatedArtifact.RelatedArtifactType.fromCode(
-            this@RelatedArtifactSurrogate.type!!
-          ),
+          RelatedArtifact.RelatedArtifactType.fromCode(this@RelatedArtifactSurrogate.type!!),
           this@RelatedArtifactSurrogate._type,
         ),
       label =
@@ -88,7 +86,7 @@ internal data class RelatedArtifactSurrogate(
       with(model) {
         RelatedArtifactSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
           type = this@with.type.value?.getCode(),
           _type = this@with.type.toElement(),
           label = this@with.label?.value,

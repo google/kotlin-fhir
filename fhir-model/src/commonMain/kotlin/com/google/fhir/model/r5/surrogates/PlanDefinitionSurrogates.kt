@@ -58,6 +58,7 @@ import com.google.fhir.model.r5.Uri
 import com.google.fhir.model.r5.UsageContext
 import com.google.fhir.model.r5.serializers.DoubleSerializer
 import com.google.fhir.model.r5.serializers.LocalTimeSerializer
+import com.google.fhir.model.r5.terminologies.PublicationStatus
 import kotlin.Boolean as KotlinBoolean
 import kotlin.Int
 import kotlin.String as KotlinString
@@ -98,15 +99,15 @@ internal data class PlanDefinitionGoalSurrogate(
       with(model) {
         PlanDefinitionGoalSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           category = this@with.category,
           description = this@with.description,
           priority = this@with.priority,
           start = this@with.start,
-          addresses = this@with.addresses.takeUnless { it.all { it == null } },
-          documentation = this@with.documentation.takeUnless { it.all { it == null } },
-          target = this@with.target.takeUnless { it.all { it == null } },
+          addresses = this@with.addresses.takeIf { it.isNotEmpty() },
+          documentation = this@with.documentation.takeIf { it.isNotEmpty() },
+          target = this@with.target.takeIf { it.isNotEmpty() },
         )
       }
   }
@@ -137,8 +138,8 @@ internal data class PlanDefinitionGoalTargetSurrogate(
       with(model) {
         PlanDefinitionGoalTargetSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           measure = this@with.measure,
           detail = this@with.detail,
           due = this@with.due,
@@ -181,13 +182,13 @@ internal data class PlanDefinitionActorSurrogate(
       with(model) {
         PlanDefinitionActorSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           title = this@with.title?.value,
           _title = this@with.title?.toElement(),
           description = this@with.description?.value,
           _description = this@with.description?.toElement(),
-          option = this@with.option.takeUnless { it.all { it == null } },
+          option = this@with.option.takeIf { it.isNotEmpty() },
         )
       }
   }
@@ -214,7 +215,7 @@ internal data class PlanDefinitionActorOptionSurrogate(
       type =
         this@PlanDefinitionActorOptionSurrogate.type?.let {
           Enumeration.of(
-            com.google.fhir.model.r5.PlanDefinition.ActionParticipantType.fromCode(it!!),
+            PlanDefinition.ActionParticipantType.fromCode(it),
             this@PlanDefinitionActorOptionSurrogate._type,
           )
         },
@@ -232,8 +233,8 @@ internal data class PlanDefinitionActorOptionSurrogate(
       with(model) {
         PlanDefinitionActorOptionSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           type = this@with.type?.value?.getCode(),
           _type = this@with.type?.toElement(),
           typeCanonical = this@with.typeCanonical?.value,
@@ -326,7 +327,7 @@ internal data class PlanDefinitionActionSurrogate(
       priority =
         this@PlanDefinitionActionSurrogate.priority?.let {
           Enumeration.of(
-            com.google.fhir.model.r5.PlanDefinition.RequestPriority.fromCode(it!!),
+            PlanDefinition.RequestPriority.fromCode(it),
             this@PlanDefinitionActionSurrogate._priority,
           )
         },
@@ -362,35 +363,35 @@ internal data class PlanDefinitionActionSurrogate(
       groupingBehavior =
         this@PlanDefinitionActionSurrogate.groupingBehavior?.let {
           Enumeration.of(
-            com.google.fhir.model.r5.PlanDefinition.ActionGroupingBehavior.fromCode(it!!),
+            PlanDefinition.ActionGroupingBehavior.fromCode(it),
             this@PlanDefinitionActionSurrogate._groupingBehavior,
           )
         },
       selectionBehavior =
         this@PlanDefinitionActionSurrogate.selectionBehavior?.let {
           Enumeration.of(
-            com.google.fhir.model.r5.PlanDefinition.ActionSelectionBehavior.fromCode(it!!),
+            PlanDefinition.ActionSelectionBehavior.fromCode(it),
             this@PlanDefinitionActionSurrogate._selectionBehavior,
           )
         },
       requiredBehavior =
         this@PlanDefinitionActionSurrogate.requiredBehavior?.let {
           Enumeration.of(
-            com.google.fhir.model.r5.PlanDefinition.ActionRequiredBehavior.fromCode(it!!),
+            PlanDefinition.ActionRequiredBehavior.fromCode(it),
             this@PlanDefinitionActionSurrogate._requiredBehavior,
           )
         },
       precheckBehavior =
         this@PlanDefinitionActionSurrogate.precheckBehavior?.let {
           Enumeration.of(
-            com.google.fhir.model.r5.PlanDefinition.ActionPrecheckBehavior.fromCode(it!!),
+            PlanDefinition.ActionPrecheckBehavior.fromCode(it),
             this@PlanDefinitionActionSurrogate._precheckBehavior,
           )
         },
       cardinalityBehavior =
         this@PlanDefinitionActionSurrogate.cardinalityBehavior?.let {
           Enumeration.of(
-            com.google.fhir.model.r5.PlanDefinition.ActionCardinalityBehavior.fromCode(it!!),
+            PlanDefinition.ActionCardinalityBehavior.fromCode(it),
             this@PlanDefinitionActionSurrogate._cardinalityBehavior,
           )
         },
@@ -409,8 +410,8 @@ internal data class PlanDefinitionActionSurrogate(
       with(model) {
         PlanDefinitionActionSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           linkId = this@with.linkId?.value,
           _linkId = this@with.linkId?.toElement(),
           prefix = this@with.prefix?.value,
@@ -424,8 +425,8 @@ internal data class PlanDefinitionActionSurrogate(
           priority = this@with.priority?.value?.getCode(),
           _priority = this@with.priority?.toElement(),
           code = this@with.code,
-          reason = this@with.reason.takeUnless { it.all { it == null } },
-          documentation = this@with.documentation.takeUnless { it.all { it == null } },
+          reason = this@with.reason.takeIf { it.isNotEmpty() },
+          documentation = this@with.documentation.takeIf { it.isNotEmpty() },
           goalId =
             this@with.goalId.map { it.value }.toMutableList().takeUnless { it.all { it == null } },
           _goalId =
@@ -435,14 +436,14 @@ internal data class PlanDefinitionActionSurrogate(
               ?.map { it ?: Element() }
               ?.toMutableList(),
           subject = this@with.subject,
-          trigger = this@with.trigger.takeUnless { it.all { it == null } },
-          condition = this@with.condition.takeUnless { it.all { it == null } },
-          input = this@with.input.takeUnless { it.all { it == null } },
-          output = this@with.output.takeUnless { it.all { it == null } },
-          relatedAction = this@with.relatedAction.takeUnless { it.all { it == null } },
+          trigger = this@with.trigger.takeIf { it.isNotEmpty() },
+          condition = this@with.condition.takeIf { it.isNotEmpty() },
+          input = this@with.input.takeIf { it.isNotEmpty() },
+          output = this@with.output.takeIf { it.isNotEmpty() },
+          relatedAction = this@with.relatedAction.takeIf { it.isNotEmpty() },
           timing = this@with.timing,
           location = this@with.location,
-          participant = this@with.participant.takeUnless { it.all { it == null } },
+          participant = this@with.participant.takeIf { it.isNotEmpty() },
           type = this@with.type,
           groupingBehavior = this@with.groupingBehavior?.value?.getCode(),
           _groupingBehavior = this@with.groupingBehavior?.toElement(),
@@ -457,8 +458,8 @@ internal data class PlanDefinitionActionSurrogate(
           definition = this@with.definition,
           transform = this@with.transform?.value,
           _transform = this@with.transform?.toElement(),
-          dynamicValue = this@with.dynamicValue.takeUnless { it.all { it == null } },
-          action = this@with.action.takeUnless { it.all { it == null } },
+          dynamicValue = this@with.dynamicValue.takeIf { it.isNotEmpty() },
+          action = this@with.action.takeIf { it.isNotEmpty() },
         )
       }
   }
@@ -481,7 +482,7 @@ internal data class PlanDefinitionActionConditionSurrogate(
         this@PlanDefinitionActionConditionSurrogate.modifierExtension ?: mutableListOf(),
       kind =
         Enumeration.of(
-          com.google.fhir.model.r5.PlanDefinition.ActionConditionKind.fromCode(
+          PlanDefinition.ActionConditionKind.fromCode(
             this@PlanDefinitionActionConditionSurrogate.kind!!
           ),
           this@PlanDefinitionActionConditionSurrogate._kind,
@@ -496,8 +497,8 @@ internal data class PlanDefinitionActionConditionSurrogate(
       with(model) {
         PlanDefinitionActionConditionSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           kind = this@with.kind.value?.getCode(),
           _kind = this@with.kind.toElement(),
           expression = this@with.expression,
@@ -541,8 +542,8 @@ internal data class PlanDefinitionActionInputSurrogate(
       with(model) {
         PlanDefinitionActionInputSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           title = this@with.title?.value,
           _title = this@with.title?.toElement(),
           requirement = this@with.requirement,
@@ -588,8 +589,8 @@ internal data class PlanDefinitionActionOutputSurrogate(
       with(model) {
         PlanDefinitionActionOutputSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           title = this@with.title?.value,
           _title = this@with.title?.toElement(),
           requirement = this@with.requirement,
@@ -626,7 +627,7 @@ internal data class PlanDefinitionActionRelatedActionSurrogate(
         )!!,
       relationship =
         Enumeration.of(
-          com.google.fhir.model.r5.PlanDefinition.ActionRelationshipType.fromCode(
+          PlanDefinition.ActionRelationshipType.fromCode(
             this@PlanDefinitionActionRelatedActionSurrogate.relationship!!
           ),
           this@PlanDefinitionActionRelatedActionSurrogate._relationship,
@@ -634,7 +635,7 @@ internal data class PlanDefinitionActionRelatedActionSurrogate(
       endRelationship =
         this@PlanDefinitionActionRelatedActionSurrogate.endRelationship?.let {
           Enumeration.of(
-            com.google.fhir.model.r5.PlanDefinition.ActionRelationshipType.fromCode(it!!),
+            PlanDefinition.ActionRelationshipType.fromCode(it),
             this@PlanDefinitionActionRelatedActionSurrogate._endRelationship,
           )
         },
@@ -648,8 +649,8 @@ internal data class PlanDefinitionActionRelatedActionSurrogate(
       with(model) {
         PlanDefinitionActionRelatedActionSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           targetId = this@with.targetId.value,
           _targetId = this@with.targetId.toElement(),
           relationship = this@with.relationship.value?.getCode(),
@@ -691,7 +692,7 @@ internal data class PlanDefinitionActionParticipantSurrogate(
       type =
         this@PlanDefinitionActionParticipantSurrogate.type?.let {
           Enumeration.of(
-            com.google.fhir.model.r5.PlanDefinition.ActionParticipantType.fromCode(it!!),
+            PlanDefinition.ActionParticipantType.fromCode(it),
             this@PlanDefinitionActionParticipantSurrogate._type,
           )
         },
@@ -712,8 +713,8 @@ internal data class PlanDefinitionActionParticipantSurrogate(
       with(model) {
         PlanDefinitionActionParticipantSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           actorId = this@with.actorId?.value,
           _actorId = this@with.actorId?.toElement(),
           type = this@with.type?.value?.getCode(),
@@ -758,8 +759,8 @@ internal data class PlanDefinitionActionDynamicValueSurrogate(
       with(model) {
         PlanDefinitionActionDynamicValueSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           path = this@with.path?.value,
           _path = this@with.path?.toElement(),
           expression = this@with.expression,
@@ -1118,9 +1119,7 @@ internal data class PlanDefinitionSurrogate(
       type = this@PlanDefinitionSurrogate.type,
       status =
         Enumeration.of(
-          com.google.fhir.model.r5.terminologies.PublicationStatus.fromCode(
-            this@PlanDefinitionSurrogate.status!!
-          ),
+          PublicationStatus.fromCode(this@PlanDefinitionSurrogate.status!!),
           this@PlanDefinitionSurrogate._status,
         ),
       experimental =
@@ -1210,12 +1209,12 @@ internal data class PlanDefinitionSurrogate(
           language = this@with.language?.value,
           _language = this@with.language?.toElement(),
           text = this@with.text,
-          contained = this@with.contained.takeUnless { it.all { it == null } },
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          contained = this@with.contained.takeIf { it.isNotEmpty() },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           url = this@with.url?.value,
           _url = this@with.url?.toElement(),
-          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          identifier = this@with.identifier.takeIf { it.isNotEmpty() },
           version = this@with.version?.value,
           _version = this@with.version?.toElement(),
           versionAlgorithm = this@with.versionAlgorithm,
@@ -1235,11 +1234,11 @@ internal data class PlanDefinitionSurrogate(
           _date = this@with.date?.toElement(),
           publisher = this@with.publisher?.value,
           _publisher = this@with.publisher?.toElement(),
-          contact = this@with.contact.takeUnless { it.all { it == null } },
+          contact = this@with.contact.takeIf { it.isNotEmpty() },
           description = this@with.description?.value,
           _description = this@with.description?.toElement(),
-          useContext = this@with.useContext.takeUnless { it.all { it == null } },
-          jurisdiction = this@with.jurisdiction.takeUnless { it.all { it == null } },
+          useContext = this@with.useContext.takeIf { it.isNotEmpty() },
+          jurisdiction = this@with.jurisdiction.takeIf { it.isNotEmpty() },
           purpose = this@with.purpose?.value,
           _purpose = this@with.purpose?.toElement(),
           usage = this@with.usage?.value,
@@ -1253,12 +1252,12 @@ internal data class PlanDefinitionSurrogate(
           lastReviewDate = this@with.lastReviewDate?.value?.toString(),
           _lastReviewDate = this@with.lastReviewDate?.toElement(),
           effectivePeriod = this@with.effectivePeriod,
-          topic = this@with.topic.takeUnless { it.all { it == null } },
-          author = this@with.author.takeUnless { it.all { it == null } },
-          editor = this@with.editor.takeUnless { it.all { it == null } },
-          reviewer = this@with.reviewer.takeUnless { it.all { it == null } },
-          endorser = this@with.endorser.takeUnless { it.all { it == null } },
-          relatedArtifact = this@with.relatedArtifact.takeUnless { it.all { it == null } },
+          topic = this@with.topic.takeIf { it.isNotEmpty() },
+          author = this@with.author.takeIf { it.isNotEmpty() },
+          editor = this@with.editor.takeIf { it.isNotEmpty() },
+          reviewer = this@with.reviewer.takeIf { it.isNotEmpty() },
+          endorser = this@with.endorser.takeIf { it.isNotEmpty() },
+          relatedArtifact = this@with.relatedArtifact.takeIf { it.isNotEmpty() },
           library =
             this@with.library.map { it.value }.toMutableList().takeUnless { it.all { it == null } },
           _library =
@@ -1267,9 +1266,9 @@ internal data class PlanDefinitionSurrogate(
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
               ?.toMutableList(),
-          goal = this@with.goal.takeUnless { it.all { it == null } },
-          actor = this@with.actor.takeUnless { it.all { it == null } },
-          action = this@with.action.takeUnless { it.all { it == null } },
+          goal = this@with.goal.takeIf { it.isNotEmpty() },
+          actor = this@with.actor.takeIf { it.isNotEmpty() },
+          action = this@with.action.takeIf { it.isNotEmpty() },
           asNeeded = this@with.asNeeded,
         )
       }

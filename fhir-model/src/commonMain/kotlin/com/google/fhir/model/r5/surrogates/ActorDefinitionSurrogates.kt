@@ -42,6 +42,7 @@ import com.google.fhir.model.r5.Url
 import com.google.fhir.model.r5.UsageContext
 import com.google.fhir.model.r5.serializers.DoubleSerializer
 import com.google.fhir.model.r5.serializers.LocalTimeSerializer
+import com.google.fhir.model.r5.terminologies.PublicationStatus
 import kotlin.Boolean as KotlinBoolean
 import kotlin.String as KotlinString
 import kotlin.Suppress
@@ -155,9 +156,7 @@ internal data class ActorDefinitionSurrogate(
         R5String.of(this@ActorDefinitionSurrogate.title, this@ActorDefinitionSurrogate._title),
       status =
         Enumeration.of(
-          com.google.fhir.model.r5.terminologies.PublicationStatus.fromCode(
-            this@ActorDefinitionSurrogate.status!!
-          ),
+          PublicationStatus.fromCode(this@ActorDefinitionSurrogate.status!!),
           this@ActorDefinitionSurrogate._status,
         ),
       experimental =
@@ -197,9 +196,7 @@ internal data class ActorDefinitionSurrogate(
         ),
       type =
         Enumeration.of(
-          com.google.fhir.model.r5.ActorDefinition.ExampleScenarioActorType.fromCode(
-            this@ActorDefinitionSurrogate.type!!
-          ),
+          ActorDefinition.ExampleScenarioActorType.fromCode(this@ActorDefinitionSurrogate.type!!),
           this@ActorDefinitionSurrogate._type,
         ),
       documentation =
@@ -257,12 +254,12 @@ internal data class ActorDefinitionSurrogate(
           language = this@with.language?.value,
           _language = this@with.language?.toElement(),
           text = this@with.text,
-          contained = this@with.contained.takeUnless { it.all { it == null } },
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          contained = this@with.contained.takeIf { it.isNotEmpty() },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           url = this@with.url?.value,
           _url = this@with.url?.toElement(),
-          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          identifier = this@with.identifier.takeIf { it.isNotEmpty() },
           version = this@with.version?.value,
           _version = this@with.version?.toElement(),
           versionAlgorithm = this@with.versionAlgorithm,
@@ -278,11 +275,11 @@ internal data class ActorDefinitionSurrogate(
           _date = this@with.date?.toElement(),
           publisher = this@with.publisher?.value,
           _publisher = this@with.publisher?.toElement(),
-          contact = this@with.contact.takeUnless { it.all { it == null } },
+          contact = this@with.contact.takeIf { it.isNotEmpty() },
           description = this@with.description?.value,
           _description = this@with.description?.toElement(),
-          useContext = this@with.useContext.takeUnless { it.all { it == null } },
-          jurisdiction = this@with.jurisdiction.takeUnless { it.all { it == null } },
+          useContext = this@with.useContext.takeIf { it.isNotEmpty() },
+          jurisdiction = this@with.jurisdiction.takeIf { it.isNotEmpty() },
           purpose = this@with.purpose?.value,
           _purpose = this@with.purpose?.toElement(),
           copyright = this@with.copyright?.value,

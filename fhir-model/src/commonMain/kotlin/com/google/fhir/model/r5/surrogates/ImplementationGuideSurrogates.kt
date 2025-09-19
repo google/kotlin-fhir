@@ -44,6 +44,9 @@ import com.google.fhir.model.r5.Url
 import com.google.fhir.model.r5.UsageContext
 import com.google.fhir.model.r5.serializers.DoubleSerializer
 import com.google.fhir.model.r5.serializers.LocalTimeSerializer
+import com.google.fhir.model.r5.terminologies.FHIRVersion
+import com.google.fhir.model.r5.terminologies.PublicationStatus
+import com.google.fhir.model.r5.terminologies.ResourceType
 import kotlin.Boolean as KotlinBoolean
 import kotlin.String as KotlinString
 import kotlin.Suppress
@@ -100,8 +103,8 @@ internal data class ImplementationGuideDependsOnSurrogate(
       with(model) {
         ImplementationGuideDependsOnSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           uri = this@with.uri.value,
           _uri = this@with.uri.toElement(),
           packageId = this@with.packageId?.value,
@@ -133,9 +136,7 @@ internal data class ImplementationGuideGlobalSurrogate(
         this@ImplementationGuideGlobalSurrogate.modifierExtension ?: mutableListOf(),
       type =
         Enumeration.of(
-          com.google.fhir.model.r5.terminologies.ResourceType.fromCode(
-            this@ImplementationGuideGlobalSurrogate.type!!
-          ),
+          ResourceType.fromCode(this@ImplementationGuideGlobalSurrogate.type!!),
           this@ImplementationGuideGlobalSurrogate._type,
         ),
       profile =
@@ -150,8 +151,8 @@ internal data class ImplementationGuideGlobalSurrogate(
       with(model) {
         ImplementationGuideGlobalSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           type = this@with.type.value?.getCode(),
           _type = this@with.type.toElement(),
           profile = this@with.profile.value,
@@ -192,13 +193,13 @@ internal data class ImplementationGuideDefinitionSurrogate(
       with(model) {
         ImplementationGuideDefinitionSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          grouping = this@with.grouping.takeUnless { it.all { it == null } },
-          resource = this@with.resource.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
+          grouping = this@with.grouping.takeIf { it.isNotEmpty() },
+          resource = this@with.resource.takeIf { it.isNotEmpty() },
           page = this@with.page,
-          parameter = this@with.parameter.takeUnless { it.all { it == null } },
-          template = this@with.template.takeUnless { it.all { it == null } },
+          parameter = this@with.parameter.takeIf { it.isNotEmpty() },
+          template = this@with.template.takeIf { it.isNotEmpty() },
         )
       }
   }
@@ -239,8 +240,8 @@ internal data class ImplementationGuideDefinitionGroupingSurrogate(
       with(model) {
         ImplementationGuideDefinitionGroupingSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           name = this@with.name.value,
           _name = this@with.name.toElement(),
           description = this@with.description?.value,
@@ -294,10 +295,7 @@ internal data class ImplementationGuideDefinitionResourceSurrogate(
                 }
             )
             .map { (value, element) ->
-              Enumeration.of(
-                value.let { com.google.fhir.model.r5.terminologies.FHIRVersion.fromCode(it!!)!! },
-                element,
-              )
+              Enumeration.of(value.let { FHIRVersion.fromCode(it!!) }, element)
             }
             .toMutableList()
         },
@@ -346,8 +344,8 @@ internal data class ImplementationGuideDefinitionResourceSurrogate(
       with(model) {
         ImplementationGuideDefinitionResourceSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           reference = this@with.reference,
           fhirVersion =
             this@with.fhirVersion
@@ -414,7 +412,7 @@ internal data class ImplementationGuideDefinitionPageSurrogate(
         )!!,
       generation =
         Enumeration.of(
-          com.google.fhir.model.r5.ImplementationGuide.GuidePageGeneration.fromCode(
+          ImplementationGuide.GuidePageGeneration.fromCode(
             this@ImplementationGuideDefinitionPageSurrogate.generation!!
           ),
           this@ImplementationGuideDefinitionPageSurrogate._generation,
@@ -429,8 +427,8 @@ internal data class ImplementationGuideDefinitionPageSurrogate(
       with(model) {
         ImplementationGuideDefinitionPageSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           source = this@with.source,
           name = this@with.name.value,
           _name = this@with.name.toElement(),
@@ -438,7 +436,7 @@ internal data class ImplementationGuideDefinitionPageSurrogate(
           _title = this@with.title.toElement(),
           generation = this@with.generation.value?.getCode(),
           _generation = this@with.generation.toElement(),
-          page = this@with.page.takeUnless { it.all { it == null } },
+          page = this@with.page.takeIf { it.isNotEmpty() },
         )
       }
   }
@@ -474,8 +472,8 @@ internal data class ImplementationGuideDefinitionParameterSurrogate(
       with(model) {
         ImplementationGuideDefinitionParameterSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           code = this@with.code,
           `value` = this@with.`value`.value,
           _value = this@with.`value`.toElement(),
@@ -526,8 +524,8 @@ internal data class ImplementationGuideDefinitionTemplateSurrogate(
       with(model) {
         ImplementationGuideDefinitionTemplateSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           code = this@with.code.value,
           _code = this@with.code.toElement(),
           source = this@with.source.value,
@@ -607,12 +605,12 @@ internal data class ImplementationGuideManifestSurrogate(
       with(model) {
         ImplementationGuideManifestSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           rendering = this@with.rendering?.value,
           _rendering = this@with.rendering?.toElement(),
-          resource = this@with.resource.takeUnless { it.all { it == null } },
-          page = this@with.page.takeUnless { it.all { it == null } },
+          resource = this@with.resource.takeIf { it.isNotEmpty() },
+          page = this@with.page.takeIf { it.isNotEmpty() },
           image =
             this@with.image.map { it.value }.toMutableList().takeUnless { it.all { it == null } },
           _image =
@@ -689,8 +687,8 @@ internal data class ImplementationGuideManifestResourceSurrogate(
       with(model) {
         ImplementationGuideManifestResourceSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           reference = this@with.reference,
           isExample = this@with.isExample?.value,
           _isExample = this@with.isExample?.toElement(),
@@ -762,8 +760,8 @@ internal data class ImplementationGuideManifestPageSurrogate(
       with(model) {
         ImplementationGuideManifestPageSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           name = this@with.name.value,
           _name = this@with.name.toElement(),
           title = this@with.title?.value,
@@ -942,9 +940,7 @@ internal data class ImplementationGuideSurrogate(
         ),
       status =
         Enumeration.of(
-          com.google.fhir.model.r5.terminologies.PublicationStatus.fromCode(
-            this@ImplementationGuideSurrogate.status!!
-          ),
+          PublicationStatus.fromCode(this@ImplementationGuideSurrogate.status!!),
           this@ImplementationGuideSurrogate._status,
         ),
       experimental =
@@ -993,7 +989,7 @@ internal data class ImplementationGuideSurrogate(
       license =
         this@ImplementationGuideSurrogate.license?.let {
           Enumeration.of(
-            com.google.fhir.model.r5.ImplementationGuide.SPDXLicense.fromCode(it!!),
+            ImplementationGuide.SPDXLicense.fromCode(it),
             this@ImplementationGuideSurrogate._license,
           )
         },
@@ -1011,10 +1007,7 @@ internal data class ImplementationGuideSurrogate(
                 ?: List(this@ImplementationGuideSurrogate.fhirVersion!!.size) { null }
             )
             .map { (value, element) ->
-              Enumeration.of(
-                value.let { com.google.fhir.model.r5.terminologies.FHIRVersion.fromCode(it!!)!! },
-                element,
-              )
+              Enumeration.of(value.let { FHIRVersion.fromCode(it!!) }, element)
             }
             .toMutableList()
         },
@@ -1035,12 +1028,12 @@ internal data class ImplementationGuideSurrogate(
           language = this@with.language?.value,
           _language = this@with.language?.toElement(),
           text = this@with.text,
-          contained = this@with.contained.takeUnless { it.all { it == null } },
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          contained = this@with.contained.takeIf { it.isNotEmpty() },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           url = this@with.url.value,
           _url = this@with.url.toElement(),
-          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          identifier = this@with.identifier.takeIf { it.isNotEmpty() },
           version = this@with.version?.value,
           _version = this@with.version?.toElement(),
           versionAlgorithm = this@with.versionAlgorithm,
@@ -1056,11 +1049,11 @@ internal data class ImplementationGuideSurrogate(
           _date = this@with.date?.toElement(),
           publisher = this@with.publisher?.value,
           _publisher = this@with.publisher?.toElement(),
-          contact = this@with.contact.takeUnless { it.all { it == null } },
+          contact = this@with.contact.takeIf { it.isNotEmpty() },
           description = this@with.description?.value,
           _description = this@with.description?.toElement(),
-          useContext = this@with.useContext.takeUnless { it.all { it == null } },
-          jurisdiction = this@with.jurisdiction.takeUnless { it.all { it == null } },
+          useContext = this@with.useContext.takeIf { it.isNotEmpty() },
+          jurisdiction = this@with.jurisdiction.takeIf { it.isNotEmpty() },
           purpose = this@with.purpose?.value,
           _purpose = this@with.purpose?.toElement(),
           copyright = this@with.copyright?.value,
@@ -1082,8 +1075,8 @@ internal data class ImplementationGuideSurrogate(
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
               ?.toMutableList(),
-          dependsOn = this@with.dependsOn.takeUnless { it.all { it == null } },
-          global = this@with.global.takeUnless { it.all { it == null } },
+          dependsOn = this@with.dependsOn.takeIf { it.isNotEmpty() },
+          global = this@with.global.takeIf { it.isNotEmpty() },
           definition = this@with.definition,
           manifest = this@with.manifest,
         )

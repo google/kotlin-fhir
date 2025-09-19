@@ -95,8 +95,8 @@ internal data class SubstanceDefinitionMoietySurrogate(
       with(model) {
         SubstanceDefinitionMoietySurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           role = this@with.role,
           identifier = this@with.identifier,
           name = this@with.name?.value,
@@ -146,13 +146,13 @@ internal data class SubstanceDefinitionCharacterizationSurrogate(
       with(model) {
         SubstanceDefinitionCharacterizationSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           technique = this@with.technique,
           form = this@with.form,
           description = this@with.description?.value,
           _description = this@with.description?.toElement(),
-          `file` = this@with.`file`.takeUnless { it.all { it == null } },
+          `file` = this@with.`file`.takeIf { it.isNotEmpty() },
         )
       }
   }
@@ -183,8 +183,8 @@ internal data class SubstanceDefinitionPropertySurrogate(
       with(model) {
         SubstanceDefinitionPropertySurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           type = this@with.type,
           `value` = this@with.`value`,
         )
@@ -219,8 +219,8 @@ internal data class SubstanceDefinitionMolecularWeightSurrogate(
       with(model) {
         SubstanceDefinitionMolecularWeightSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           method = this@with.method,
           type = this@with.type,
           amount = this@with.amount,
@@ -276,8 +276,8 @@ internal data class SubstanceDefinitionStructureSurrogate(
       with(model) {
         SubstanceDefinitionStructureSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           stereochemistry = this@with.stereochemistry,
           opticalActivity = this@with.opticalActivity,
           molecularFormula = this@with.molecularFormula?.value,
@@ -285,9 +285,9 @@ internal data class SubstanceDefinitionStructureSurrogate(
           molecularFormulaByMoiety = this@with.molecularFormulaByMoiety?.value,
           _molecularFormulaByMoiety = this@with.molecularFormulaByMoiety?.toElement(),
           molecularWeight = this@with.molecularWeight,
-          technique = this@with.technique.takeUnless { it.all { it == null } },
-          sourceDocument = this@with.sourceDocument.takeUnless { it.all { it == null } },
-          representation = this@with.representation.takeUnless { it.all { it == null } },
+          technique = this@with.technique.takeIf { it.isNotEmpty() },
+          sourceDocument = this@with.sourceDocument.takeIf { it.isNotEmpty() },
+          representation = this@with.representation.takeIf { it.isNotEmpty() },
         )
       }
   }
@@ -329,8 +329,8 @@ internal data class SubstanceDefinitionStructureRepresentationSurrogate(
       with(model) {
         SubstanceDefinitionStructureRepresentationSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           type = this@with.type,
           representation = this@with.representation?.value,
           _representation = this@with.representation?.toElement(),
@@ -375,14 +375,14 @@ internal data class SubstanceDefinitionCodeSurrogate(
       with(model) {
         SubstanceDefinitionCodeSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           code = this@with.code,
           status = this@with.status,
           statusDate = this@with.statusDate?.value?.toString(),
           _statusDate = this@with.statusDate?.toElement(),
-          note = this@with.note.takeUnless { it.all { it == null } },
-          source = this@with.source.takeUnless { it.all { it == null } },
+          note = this@with.note.takeIf { it.isNotEmpty() },
+          source = this@with.source.takeIf { it.isNotEmpty() },
         )
       }
   }
@@ -439,21 +439,21 @@ internal data class SubstanceDefinitionNameSurrogate(
       with(model) {
         SubstanceDefinitionNameSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           name = this@with.name.value,
           _name = this@with.name.toElement(),
           type = this@with.type,
           status = this@with.status,
           preferred = this@with.preferred?.value,
           _preferred = this@with.preferred?.toElement(),
-          language = this@with.language.takeUnless { it.all { it == null } },
-          domain = this@with.domain.takeUnless { it.all { it == null } },
-          jurisdiction = this@with.jurisdiction.takeUnless { it.all { it == null } },
-          synonym = this@with.synonym.takeUnless { it.all { it == null } },
-          translation = this@with.translation.takeUnless { it.all { it == null } },
-          official = this@with.official.takeUnless { it.all { it == null } },
-          source = this@with.source.takeUnless { it.all { it == null } },
+          language = this@with.language.takeIf { it.isNotEmpty() },
+          domain = this@with.domain.takeIf { it.isNotEmpty() },
+          jurisdiction = this@with.jurisdiction.takeIf { it.isNotEmpty() },
+          synonym = this@with.synonym.takeIf { it.isNotEmpty() },
+          translation = this@with.translation.takeIf { it.isNotEmpty() },
+          official = this@with.official.takeIf { it.isNotEmpty() },
+          source = this@with.source.takeIf { it.isNotEmpty() },
         )
       }
   }
@@ -491,8 +491,8 @@ internal data class SubstanceDefinitionNameOfficialSurrogate(
       with(model) {
         SubstanceDefinitionNameOfficialSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           authority = this@with.authority,
           status = this@with.status,
           date = this@with.date?.value?.toString(),
@@ -542,8 +542,8 @@ internal data class SubstanceDefinitionRelationshipSurrogate(
       with(model) {
         SubstanceDefinitionRelationshipSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           substanceDefinition = this@with.substanceDefinition,
           type = this@with.type,
           isDefining = this@with.isDefining?.value,
@@ -551,7 +551,7 @@ internal data class SubstanceDefinitionRelationshipSurrogate(
           amount = this@with.amount,
           ratioHighLimitAmount = this@with.ratioHighLimitAmount,
           comparator = this@with.comparator,
-          source = this@with.source.takeUnless { it.all { it == null } },
+          source = this@with.source.takeIf { it.isNotEmpty() },
         )
       }
   }
@@ -589,13 +589,13 @@ internal data class SubstanceDefinitionSourceMaterialSurrogate(
       with(model) {
         SubstanceDefinitionSourceMaterialSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           type = this@with.type,
           genus = this@with.genus,
           species = this@with.species,
           part = this@with.part,
-          countryOfOrigin = this@with.countryOfOrigin.takeUnless { it.all { it == null } },
+          countryOfOrigin = this@with.countryOfOrigin.takeIf { it.isNotEmpty() },
         )
       }
   }
@@ -832,31 +832,31 @@ internal data class SubstanceDefinitionSurrogate(
           language = this@with.language?.value,
           _language = this@with.language?.toElement(),
           text = this@with.text,
-          contained = this@with.contained.takeUnless { it.all { it == null } },
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          contained = this@with.contained.takeIf { it.isNotEmpty() },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
+          identifier = this@with.identifier.takeIf { it.isNotEmpty() },
           version = this@with.version?.value,
           _version = this@with.version?.toElement(),
           status = this@with.status,
-          classification = this@with.classification.takeUnless { it.all { it == null } },
+          classification = this@with.classification.takeIf { it.isNotEmpty() },
           domain = this@with.domain,
-          grade = this@with.grade.takeUnless { it.all { it == null } },
+          grade = this@with.grade.takeIf { it.isNotEmpty() },
           description = this@with.description?.value,
           _description = this@with.description?.toElement(),
-          informationSource = this@with.informationSource.takeUnless { it.all { it == null } },
-          note = this@with.note.takeUnless { it.all { it == null } },
-          manufacturer = this@with.manufacturer.takeUnless { it.all { it == null } },
-          supplier = this@with.supplier.takeUnless { it.all { it == null } },
-          moiety = this@with.moiety.takeUnless { it.all { it == null } },
-          characterization = this@with.characterization.takeUnless { it.all { it == null } },
-          `property` = this@with.`property`.takeUnless { it.all { it == null } },
+          informationSource = this@with.informationSource.takeIf { it.isNotEmpty() },
+          note = this@with.note.takeIf { it.isNotEmpty() },
+          manufacturer = this@with.manufacturer.takeIf { it.isNotEmpty() },
+          supplier = this@with.supplier.takeIf { it.isNotEmpty() },
+          moiety = this@with.moiety.takeIf { it.isNotEmpty() },
+          characterization = this@with.characterization.takeIf { it.isNotEmpty() },
+          `property` = this@with.`property`.takeIf { it.isNotEmpty() },
           referenceInformation = this@with.referenceInformation,
-          molecularWeight = this@with.molecularWeight.takeUnless { it.all { it == null } },
+          molecularWeight = this@with.molecularWeight.takeIf { it.isNotEmpty() },
           structure = this@with.structure,
-          code = this@with.code.takeUnless { it.all { it == null } },
-          name = this@with.name.takeUnless { it.all { it == null } },
-          relationship = this@with.relationship.takeUnless { it.all { it == null } },
+          code = this@with.code.takeIf { it.isNotEmpty() },
+          name = this@with.name.takeIf { it.isNotEmpty() },
+          relationship = this@with.relationship.takeIf { it.isNotEmpty() },
           nucleicAcid = this@with.nucleicAcid,
           polymer = this@with.polymer,
           protein = this@with.protein,

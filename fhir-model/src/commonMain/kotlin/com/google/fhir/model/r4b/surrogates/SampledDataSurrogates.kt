@@ -78,7 +78,7 @@ internal data class SampledDataSurrogate(
       with(model) {
         SampledDataSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
           origin = this@with.origin,
           period = this@with.period.value,
           _period = this@with.period.toElement(),

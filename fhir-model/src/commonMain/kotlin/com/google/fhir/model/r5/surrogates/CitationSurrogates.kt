@@ -49,6 +49,7 @@ import com.google.fhir.model.r5.Uri
 import com.google.fhir.model.r5.UsageContext
 import com.google.fhir.model.r5.serializers.DoubleSerializer
 import com.google.fhir.model.r5.serializers.LocalTimeSerializer
+import com.google.fhir.model.r5.terminologies.PublicationStatus
 import kotlin.Boolean as KotlinBoolean
 import kotlin.Int
 import kotlin.String as KotlinString
@@ -80,8 +81,8 @@ internal data class CitationSummarySurrogate(
       with(model) {
         CitationSummarySurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           style = this@with.style,
           text = this@with.text.value,
           _text = this@with.text.toElement(),
@@ -112,10 +113,10 @@ internal data class CitationClassificationSurrogate(
       with(model) {
         CitationClassificationSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           type = this@with.type,
-          classifier = this@with.classifier.takeUnless { it.all { it == null } },
+          classifier = this@with.classifier.takeIf { it.isNotEmpty() },
         )
       }
   }
@@ -150,8 +151,8 @@ internal data class CitationStatusDateSurrogate(
       with(model) {
         CitationStatusDateSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           activity = this@with.activity,
           `actual` = this@with.`actual`?.value,
           _actual = this@with.`actual`?.toElement(),
@@ -214,24 +215,24 @@ internal data class CitationCitedArtifactSurrogate(
       with(model) {
         CitationCitedArtifactSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          identifier = this@with.identifier.takeUnless { it.all { it == null } },
-          relatedIdentifier = this@with.relatedIdentifier.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
+          identifier = this@with.identifier.takeIf { it.isNotEmpty() },
+          relatedIdentifier = this@with.relatedIdentifier.takeIf { it.isNotEmpty() },
           dateAccessed = this@with.dateAccessed?.value?.toString(),
           _dateAccessed = this@with.dateAccessed?.toElement(),
           version = this@with.version,
-          currentState = this@with.currentState.takeUnless { it.all { it == null } },
-          statusDate = this@with.statusDate.takeUnless { it.all { it == null } },
-          title = this@with.title.takeUnless { it.all { it == null } },
-          `abstract` = this@with.`abstract`.takeUnless { it.all { it == null } },
+          currentState = this@with.currentState.takeIf { it.isNotEmpty() },
+          statusDate = this@with.statusDate.takeIf { it.isNotEmpty() },
+          title = this@with.title.takeIf { it.isNotEmpty() },
+          `abstract` = this@with.`abstract`.takeIf { it.isNotEmpty() },
           part = this@with.part,
-          relatesTo = this@with.relatesTo.takeUnless { it.all { it == null } },
-          publicationForm = this@with.publicationForm.takeUnless { it.all { it == null } },
-          webLocation = this@with.webLocation.takeUnless { it.all { it == null } },
-          classification = this@with.classification.takeUnless { it.all { it == null } },
+          relatesTo = this@with.relatesTo.takeIf { it.isNotEmpty() },
+          publicationForm = this@with.publicationForm.takeIf { it.isNotEmpty() },
+          webLocation = this@with.webLocation.takeIf { it.isNotEmpty() },
+          classification = this@with.classification.takeIf { it.isNotEmpty() },
           contributorship = this@with.contributorship,
-          note = this@with.note.takeUnless { it.all { it == null } },
+          note = this@with.note.takeIf { it.isNotEmpty() },
         )
       }
   }
@@ -267,8 +268,8 @@ internal data class CitationCitedArtifactVersionSurrogate(
       with(model) {
         CitationCitedArtifactVersionSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           `value` = this@with.`value`.value,
           _value = this@with.`value`.toElement(),
           baseCitation = this@with.baseCitation,
@@ -309,8 +310,8 @@ internal data class CitationCitedArtifactStatusDateSurrogate(
       with(model) {
         CitationCitedArtifactStatusDateSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           activity = this@with.activity,
           `actual` = this@with.`actual`?.value,
           _actual = this@with.`actual`?.toElement(),
@@ -350,9 +351,9 @@ internal data class CitationCitedArtifactTitleSurrogate(
       with(model) {
         CitationCitedArtifactTitleSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          type = this@with.type.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
+          type = this@with.type.takeIf { it.isNotEmpty() },
           language = this@with.language,
           text = this@with.text.value,
           _text = this@with.text.toElement(),
@@ -400,8 +401,8 @@ internal data class CitationCitedArtifactAbstractSurrogate(
       with(model) {
         CitationCitedArtifactAbstractSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           type = this@with.type,
           language = this@with.language,
           text = this@with.text.value,
@@ -443,8 +444,8 @@ internal data class CitationCitedArtifactPartSurrogate(
       with(model) {
         CitationCitedArtifactPartSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           type = this@with.type,
           `value` = this@with.`value`?.value,
           _value = this@with.`value`?.toElement(),
@@ -481,7 +482,7 @@ internal data class CitationCitedArtifactRelatesToSurrogate(
         this@CitationCitedArtifactRelatesToSurrogate.modifierExtension ?: mutableListOf(),
       type =
         Enumeration.of(
-          com.google.fhir.model.r5.Citation.RelatedArtifactTypeExpanded.fromCode(
+          Citation.RelatedArtifactTypeExpanded.fromCode(
             this@CitationCitedArtifactRelatesToSurrogate.type!!
           ),
           this@CitationCitedArtifactRelatesToSurrogate._type,
@@ -518,11 +519,11 @@ internal data class CitationCitedArtifactRelatesToSurrogate(
       with(model) {
         CitationCitedArtifactRelatesToSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           type = this@with.type.value?.getCode(),
           _type = this@with.type.toElement(),
-          classifier = this@with.classifier.takeUnless { it.all { it == null } },
+          classifier = this@with.classifier.takeIf { it.isNotEmpty() },
           label = this@with.label?.value,
           _label = this@with.label?.toElement(),
           display = this@with.display?.value,
@@ -651,8 +652,8 @@ internal data class CitationCitedArtifactPublicationFormSurrogate(
       with(model) {
         CitationCitedArtifactPublicationFormSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           publishedIn = this@with.publishedIn,
           citedMedium = this@with.citedMedium,
           volume = this@with.volume?.value,
@@ -667,7 +668,7 @@ internal data class CitationCitedArtifactPublicationFormSurrogate(
           _publicationDateSeason = this@with.publicationDateSeason?.toElement(),
           lastRevisionDate = this@with.lastRevisionDate?.value?.toString(),
           _lastRevisionDate = this@with.lastRevisionDate?.toElement(),
-          language = this@with.language.takeUnless { it.all { it == null } },
+          language = this@with.language.takeIf { it.isNotEmpty() },
           accessionNumber = this@with.accessionNumber?.value,
           _accessionNumber = this@with.accessionNumber?.toElement(),
           pageString = this@with.pageString?.value,
@@ -729,10 +730,10 @@ internal data class CitationCitedArtifactPublicationFormPublishedInSurrogate(
       with(model) {
         CitationCitedArtifactPublicationFormPublishedInSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           type = this@with.type,
-          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          identifier = this@with.identifier.takeIf { it.isNotEmpty() },
           title = this@with.title?.value,
           _title = this@with.title?.toElement(),
           publisher = this@with.publisher,
@@ -773,9 +774,9 @@ internal data class CitationCitedArtifactWebLocationSurrogate(
       with(model) {
         CitationCitedArtifactWebLocationSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          classifier = this@with.classifier.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
+          classifier = this@with.classifier.takeIf { it.isNotEmpty() },
           url = this@with.url?.value,
           _url = this@with.url?.toElement(),
         )
@@ -811,11 +812,11 @@ internal data class CitationCitedArtifactClassificationSurrogate(
       with(model) {
         CitationCitedArtifactClassificationSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           type = this@with.type,
-          classifier = this@with.classifier.takeUnless { it.all { it == null } },
-          artifactAssessment = this@with.artifactAssessment.takeUnless { it.all { it == null } },
+          classifier = this@with.classifier.takeIf { it.isNotEmpty() },
+          artifactAssessment = this@with.artifactAssessment.takeIf { it.isNotEmpty() },
         )
       }
   }
@@ -853,12 +854,12 @@ internal data class CitationCitedArtifactContributorshipSurrogate(
       with(model) {
         CitationCitedArtifactContributorshipSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           complete = this@with.complete?.value,
           _complete = this@with.complete?.toElement(),
-          entry = this@with.entry.takeUnless { it.all { it == null } },
-          summary = this@with.summary.takeUnless { it.all { it == null } },
+          entry = this@with.entry.takeIf { it.isNotEmpty() },
+          summary = this@with.summary.takeIf { it.isNotEmpty() },
         )
       }
   }
@@ -924,16 +925,15 @@ internal data class CitationCitedArtifactContributorshipEntrySurrogate(
       with(model) {
         CitationCitedArtifactContributorshipEntrySurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           contributor = this@with.contributor,
           forenameInitials = this@with.forenameInitials?.value,
           _forenameInitials = this@with.forenameInitials?.toElement(),
-          affiliation = this@with.affiliation.takeUnless { it.all { it == null } },
-          contributionType = this@with.contributionType.takeUnless { it.all { it == null } },
+          affiliation = this@with.affiliation.takeIf { it.isNotEmpty() },
+          contributionType = this@with.contributionType.takeIf { it.isNotEmpty() },
           role = this@with.role,
-          contributionInstance =
-            this@with.contributionInstance.takeUnless { it.all { it == null } },
+          contributionInstance = this@with.contributionInstance.takeIf { it.isNotEmpty() },
           correspondingContact = this@with.correspondingContact?.value,
           _correspondingContact = this@with.correspondingContact?.toElement(),
           rankingOrder = this@with.rankingOrder?.value,
@@ -978,8 +978,8 @@ internal data class CitationCitedArtifactContributorshipEntryContributionInstanc
       with(model) {
         CitationCitedArtifactContributorshipEntryContributionInstanceSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           type = this@with.type,
           time = this@with.time?.value?.toString(),
           _time = this@with.time?.toElement(),
@@ -1024,8 +1024,8 @@ internal data class CitationCitedArtifactContributorshipSummarySurrogate(
       with(model) {
         CitationCitedArtifactContributorshipSummarySurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           type = this@with.type,
           style = this@with.style,
           source = this@with.source,
@@ -1140,9 +1140,7 @@ internal data class CitationSurrogate(
       title = R5String.of(this@CitationSurrogate.title, this@CitationSurrogate._title),
       status =
         Enumeration.of(
-          com.google.fhir.model.r5.terminologies.PublicationStatus.fromCode(
-            this@CitationSurrogate.status!!
-          ),
+          PublicationStatus.fromCode(this@CitationSurrogate.status!!),
           this@CitationSurrogate._status,
         ),
       experimental =
@@ -1197,12 +1195,12 @@ internal data class CitationSurrogate(
           language = this@with.language?.value,
           _language = this@with.language?.toElement(),
           text = this@with.text,
-          contained = this@with.contained.takeUnless { it.all { it == null } },
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          contained = this@with.contained.takeIf { it.isNotEmpty() },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           url = this@with.url?.value,
           _url = this@with.url?.toElement(),
-          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          identifier = this@with.identifier.takeIf { it.isNotEmpty() },
           version = this@with.version?.value,
           _version = this@with.version?.toElement(),
           versionAlgorithm = this@with.versionAlgorithm,
@@ -1218,11 +1216,11 @@ internal data class CitationSurrogate(
           _date = this@with.date?.toElement(),
           publisher = this@with.publisher?.value,
           _publisher = this@with.publisher?.toElement(),
-          contact = this@with.contact.takeUnless { it.all { it == null } },
+          contact = this@with.contact.takeIf { it.isNotEmpty() },
           description = this@with.description?.value,
           _description = this@with.description?.toElement(),
-          useContext = this@with.useContext.takeUnless { it.all { it == null } },
-          jurisdiction = this@with.jurisdiction.takeUnless { it.all { it == null } },
+          useContext = this@with.useContext.takeIf { it.isNotEmpty() },
+          jurisdiction = this@with.jurisdiction.takeIf { it.isNotEmpty() },
           purpose = this@with.purpose?.value,
           _purpose = this@with.purpose?.toElement(),
           copyright = this@with.copyright?.value,
@@ -1234,16 +1232,16 @@ internal data class CitationSurrogate(
           lastReviewDate = this@with.lastReviewDate?.value?.toString(),
           _lastReviewDate = this@with.lastReviewDate?.toElement(),
           effectivePeriod = this@with.effectivePeriod,
-          author = this@with.author.takeUnless { it.all { it == null } },
-          editor = this@with.editor.takeUnless { it.all { it == null } },
-          reviewer = this@with.reviewer.takeUnless { it.all { it == null } },
-          endorser = this@with.endorser.takeUnless { it.all { it == null } },
-          summary = this@with.summary.takeUnless { it.all { it == null } },
-          classification = this@with.classification.takeUnless { it.all { it == null } },
-          note = this@with.note.takeUnless { it.all { it == null } },
-          currentState = this@with.currentState.takeUnless { it.all { it == null } },
-          statusDate = this@with.statusDate.takeUnless { it.all { it == null } },
-          relatedArtifact = this@with.relatedArtifact.takeUnless { it.all { it == null } },
+          author = this@with.author.takeIf { it.isNotEmpty() },
+          editor = this@with.editor.takeIf { it.isNotEmpty() },
+          reviewer = this@with.reviewer.takeIf { it.isNotEmpty() },
+          endorser = this@with.endorser.takeIf { it.isNotEmpty() },
+          summary = this@with.summary.takeIf { it.isNotEmpty() },
+          classification = this@with.classification.takeIf { it.isNotEmpty() },
+          note = this@with.note.takeIf { it.isNotEmpty() },
+          currentState = this@with.currentState.takeIf { it.isNotEmpty() },
+          statusDate = this@with.statusDate.takeIf { it.isNotEmpty() },
+          relatedArtifact = this@with.relatedArtifact.takeIf { it.isNotEmpty() },
           citedArtifact = this@with.citedArtifact,
         )
       }

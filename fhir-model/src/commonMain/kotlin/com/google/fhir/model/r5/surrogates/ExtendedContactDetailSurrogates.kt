@@ -63,10 +63,10 @@ internal data class ExtendedContactDetailSurrogate(
       with(model) {
         ExtendedContactDetailSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
           purpose = this@with.purpose,
-          name = this@with.name.takeUnless { it.all { it == null } },
-          telecom = this@with.telecom.takeUnless { it.all { it == null } },
+          name = this@with.name.takeIf { it.isNotEmpty() },
+          telecom = this@with.telecom.takeIf { it.isNotEmpty() },
           address = this@with.address,
           organization = this@with.organization,
           period = this@with.period,

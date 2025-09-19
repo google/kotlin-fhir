@@ -66,10 +66,10 @@ internal data class PermissionJustificationSurrogate(
       with(model) {
         PermissionJustificationSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          basis = this@with.basis.takeUnless { it.all { it == null } },
-          evidence = this@with.evidence.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
+          basis = this@with.basis.takeIf { it.isNotEmpty() },
+          evidence = this@with.evidence.takeIf { it.isNotEmpty() },
         )
       }
   }
@@ -94,7 +94,7 @@ internal data class PermissionRuleSurrogate(
       type =
         this@PermissionRuleSurrogate.type?.let {
           Enumeration.of(
-            com.google.fhir.model.r5.Permission.ConsentProvisionType.fromCode(it!!),
+            Permission.ConsentProvisionType.fromCode(it),
             this@PermissionRuleSurrogate._type,
           )
         },
@@ -108,13 +108,13 @@ internal data class PermissionRuleSurrogate(
       with(model) {
         PermissionRuleSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           type = this@with.type?.value?.getCode(),
           _type = this@with.type?.toElement(),
-          `data` = this@with.`data`.takeUnless { it.all { it == null } },
-          activity = this@with.activity.takeUnless { it.all { it == null } },
-          limit = this@with.limit.takeUnless { it.all { it == null } },
+          `data` = this@with.`data`.takeIf { it.isNotEmpty() },
+          activity = this@with.activity.takeIf { it.isNotEmpty() },
+          limit = this@with.limit.takeIf { it.isNotEmpty() },
         )
       }
   }
@@ -146,11 +146,11 @@ internal data class PermissionRuleDataSurrogate(
       with(model) {
         PermissionRuleDataSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          resource = this@with.resource.takeUnless { it.all { it == null } },
-          security = this@with.security.takeUnless { it.all { it == null } },
-          period = this@with.period.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
+          resource = this@with.resource.takeIf { it.isNotEmpty() },
+          security = this@with.security.takeIf { it.isNotEmpty() },
+          period = this@with.period.takeIf { it.isNotEmpty() },
           expression = this@with.expression,
         )
       }
@@ -174,7 +174,7 @@ internal data class PermissionRuleDataResourceSurrogate(
         this@PermissionRuleDataResourceSurrogate.modifierExtension ?: mutableListOf(),
       meaning =
         Enumeration.of(
-          com.google.fhir.model.r5.Permission.ConsentDataMeaning.fromCode(
+          Permission.ConsentDataMeaning.fromCode(
             this@PermissionRuleDataResourceSurrogate.meaning!!
           ),
           this@PermissionRuleDataResourceSurrogate._meaning,
@@ -189,8 +189,8 @@ internal data class PermissionRuleDataResourceSurrogate(
       with(model) {
         PermissionRuleDataResourceSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           meaning = this@with.meaning.value?.getCode(),
           _meaning = this@with.meaning.toElement(),
           reference = this@with.reference,
@@ -223,11 +223,11 @@ internal data class PermissionRuleActivitySurrogate(
       with(model) {
         PermissionRuleActivitySurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          actor = this@with.actor.takeUnless { it.all { it == null } },
-          action = this@with.action.takeUnless { it.all { it == null } },
-          purpose = this@with.purpose.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
+          actor = this@with.actor.takeIf { it.isNotEmpty() },
+          action = this@with.action.takeIf { it.isNotEmpty() },
+          purpose = this@with.purpose.takeIf { it.isNotEmpty() },
         )
       }
   }
@@ -269,9 +269,7 @@ internal data class PermissionSurrogate(
       modifierExtension = this@PermissionSurrogate.modifierExtension ?: mutableListOf(),
       status =
         Enumeration.of(
-          com.google.fhir.model.r5.Permission.PermissionStatus.fromCode(
-            this@PermissionSurrogate.status!!
-          ),
+          Permission.PermissionStatus.fromCode(this@PermissionSurrogate.status!!),
           this@PermissionSurrogate._status,
         ),
       asserter = this@PermissionSurrogate.asserter,
@@ -290,9 +288,7 @@ internal data class PermissionSurrogate(
       justification = this@PermissionSurrogate.justification,
       combining =
         Enumeration.of(
-          com.google.fhir.model.r5.Permission.PermissionRuleCombining.fromCode(
-            this@PermissionSurrogate.combining!!
-          ),
+          Permission.PermissionRuleCombining.fromCode(this@PermissionSurrogate.combining!!),
           this@PermissionSurrogate._combining,
         ),
       rule = this@PermissionSurrogate.rule ?: mutableListOf(),
@@ -309,9 +305,9 @@ internal data class PermissionSurrogate(
           language = this@with.language?.value,
           _language = this@with.language?.toElement(),
           text = this@with.text,
-          contained = this@with.contained.takeUnless { it.all { it == null } },
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          contained = this@with.contained.takeIf { it.isNotEmpty() },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           status = this@with.status.value?.getCode(),
           _status = this@with.status.toElement(),
           asserter = this@with.asserter,
@@ -330,7 +326,7 @@ internal data class PermissionSurrogate(
           justification = this@with.justification,
           combining = this@with.combining.value?.getCode(),
           _combining = this@with.combining.toElement(),
-          rule = this@with.rule.takeUnless { it.all { it == null } },
+          rule = this@with.rule.takeIf { it.isNotEmpty() },
         )
       }
   }

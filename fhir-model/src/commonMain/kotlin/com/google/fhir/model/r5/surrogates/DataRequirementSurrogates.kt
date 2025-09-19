@@ -35,6 +35,7 @@ import com.google.fhir.model.r5.Reference
 import com.google.fhir.model.r5.String as R5String
 import com.google.fhir.model.r5.serializers.DoubleSerializer
 import com.google.fhir.model.r5.serializers.LocalTimeSerializer
+import com.google.fhir.model.r5.terminologies.FHIRTypes
 import kotlin.Int
 import kotlin.String as KotlinString
 import kotlin.Suppress
@@ -81,14 +82,14 @@ internal data class DataRequirementCodeFilterSurrogate(
       with(model) {
         DataRequirementCodeFilterSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
           path = this@with.path?.value,
           _path = this@with.path?.toElement(),
           searchParam = this@with.searchParam?.value,
           _searchParam = this@with.searchParam?.toElement(),
           valueSet = this@with.valueSet?.value,
           _valueSet = this@with.valueSet?.toElement(),
-          code = this@with.code.takeUnless { it.all { it == null } },
+          code = this@with.code.takeIf { it.isNotEmpty() },
         )
       }
   }
@@ -126,7 +127,7 @@ internal data class DataRequirementDateFilterSurrogate(
       with(model) {
         DataRequirementDateFilterSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
           path = this@with.path?.value,
           _path = this@with.path?.toElement(),
           searchParam = this@with.searchParam?.value,
@@ -166,7 +167,7 @@ internal data class DataRequirementValueFilterSurrogate(
       comparator =
         this@DataRequirementValueFilterSurrogate.comparator?.let {
           Enumeration.of(
-            com.google.fhir.model.r5.DataRequirement.ValueFilterComparator.fromCode(it!!),
+            DataRequirement.ValueFilterComparator.fromCode(it),
             this@DataRequirementValueFilterSurrogate._comparator,
           )
         },
@@ -178,7 +179,7 @@ internal data class DataRequirementValueFilterSurrogate(
       with(model) {
         DataRequirementValueFilterSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
           path = this@with.path?.value,
           _path = this@with.path?.toElement(),
           searchParam = this@with.searchParam?.value,
@@ -211,9 +212,7 @@ internal data class DataRequirementSortSurrogate(
         )!!,
       direction =
         Enumeration.of(
-          com.google.fhir.model.r5.DataRequirement.SortDirection.fromCode(
-            this@DataRequirementSortSurrogate.direction!!
-          ),
+          DataRequirement.SortDirection.fromCode(this@DataRequirementSortSurrogate.direction!!),
           this@DataRequirementSortSurrogate._direction,
         ),
     )
@@ -223,7 +222,7 @@ internal data class DataRequirementSortSurrogate(
       with(model) {
         DataRequirementSortSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
           path = this@with.path.value,
           _path = this@with.path.toElement(),
           direction = this@with.direction.value?.getCode(),
@@ -343,9 +342,7 @@ internal data class DataRequirementSurrogate(
       extension = this@DataRequirementSurrogate.extension ?: mutableListOf(),
       type =
         Enumeration.of(
-          com.google.fhir.model.r5.terminologies.FHIRTypes.fromCode(
-            this@DataRequirementSurrogate.type!!
-          ),
+          FHIRTypes.fromCode(this@DataRequirementSurrogate.type!!),
           this@DataRequirementSurrogate._type,
         ),
       profile =
@@ -394,7 +391,7 @@ internal data class DataRequirementSurrogate(
       with(model) {
         DataRequirementSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
           type = this@with.type.value?.getCode(),
           _type = this@with.type.toElement(),
           profile =
@@ -417,12 +414,12 @@ internal data class DataRequirementSurrogate(
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
               ?.toMutableList(),
-          codeFilter = this@with.codeFilter.takeUnless { it.all { it == null } },
-          dateFilter = this@with.dateFilter.takeUnless { it.all { it == null } },
-          valueFilter = this@with.valueFilter.takeUnless { it.all { it == null } },
+          codeFilter = this@with.codeFilter.takeIf { it.isNotEmpty() },
+          dateFilter = this@with.dateFilter.takeIf { it.isNotEmpty() },
+          valueFilter = this@with.valueFilter.takeIf { it.isNotEmpty() },
           limit = this@with.limit?.value,
           _limit = this@with.limit?.toElement(),
-          sort = this@with.sort.takeUnless { it.all { it == null } },
+          sort = this@with.sort.takeIf { it.isNotEmpty() },
         )
       }
   }

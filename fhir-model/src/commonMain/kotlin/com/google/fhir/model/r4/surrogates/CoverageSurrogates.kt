@@ -74,8 +74,8 @@ internal data class CoverageClassSurrogate(
       with(model) {
         CoverageClassSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           type = this@with.type,
           `value` = this@with.`value`.value,
           _value = this@with.`value`.toElement(),
@@ -111,11 +111,11 @@ internal data class CoverageCostToBeneficiarySurrogate(
       with(model) {
         CoverageCostToBeneficiarySurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           type = this@with.type,
           `value` = this@with.`value`,
-          exception = this@with.exception.takeUnless { it.all { it == null } },
+          exception = this@with.exception.takeIf { it.isNotEmpty() },
         )
       }
   }
@@ -146,8 +146,8 @@ internal data class CoverageCostToBeneficiaryExceptionSurrogate(
       with(model) {
         CoverageCostToBeneficiaryExceptionSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           type = this@with.type,
           period = this@with.period,
         )
@@ -164,7 +164,7 @@ internal data class CoverageCostToBeneficiaryValueSurrogate(
     Coverage.CostToBeneficiary.Value.from(
       this@CoverageCostToBeneficiaryValueSurrogate.valueQuantity,
       this@CoverageCostToBeneficiaryValueSurrogate.valueMoney,
-    )!! !!
+    )!!
 
   public companion object {
     public fun fromModel(
@@ -229,9 +229,7 @@ internal data class CoverageSurrogate(
       identifier = this@CoverageSurrogate.identifier ?: mutableListOf(),
       status =
         Enumeration.of(
-          com.google.fhir.model.r4.Coverage.FinancialResourceStatusCodes.fromCode(
-            this@CoverageSurrogate.status!!
-          ),
+          Coverage.FinancialResourceStatusCodes.fromCode(this@CoverageSurrogate.status!!),
           this@CoverageSurrogate._status,
         ),
       type = this@CoverageSurrogate.type,
@@ -264,10 +262,10 @@ internal data class CoverageSurrogate(
           language = this@with.language?.value,
           _language = this@with.language?.toElement(),
           text = this@with.text,
-          contained = this@with.contained.takeUnless { it.all { it == null } },
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          contained = this@with.contained.takeIf { it.isNotEmpty() },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
+          identifier = this@with.identifier.takeIf { it.isNotEmpty() },
           status = this@with.status.value?.getCode(),
           _status = this@with.status.toElement(),
           type = this@with.type,
@@ -280,16 +278,16 @@ internal data class CoverageSurrogate(
           _dependent = this@with.dependent?.toElement(),
           relationship = this@with.relationship,
           period = this@with.period,
-          payor = this@with.payor.takeUnless { it.all { it == null } },
-          `class` = this@with.`class`.takeUnless { it.all { it == null } },
+          payor = this@with.payor.takeIf { it.isNotEmpty() },
+          `class` = this@with.`class`.takeIf { it.isNotEmpty() },
           order = this@with.order?.value,
           _order = this@with.order?.toElement(),
           network = this@with.network?.value,
           _network = this@with.network?.toElement(),
-          costToBeneficiary = this@with.costToBeneficiary.takeUnless { it.all { it == null } },
+          costToBeneficiary = this@with.costToBeneficiary.takeIf { it.isNotEmpty() },
           subrogation = this@with.subrogation?.value,
           _subrogation = this@with.subrogation?.toElement(),
-          contract = this@with.contract.takeUnless { it.all { it == null } },
+          contract = this@with.contract.takeIf { it.isNotEmpty() },
         )
       }
   }

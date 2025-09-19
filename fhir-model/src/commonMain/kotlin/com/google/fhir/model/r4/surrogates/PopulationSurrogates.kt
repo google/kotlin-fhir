@@ -79,8 +79,8 @@ internal data class PopulationSurrogate(
       with(model) {
         PopulationSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           age = this@with.age,
           gender = this@with.gender,
           race = this@with.race,

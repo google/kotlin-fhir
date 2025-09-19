@@ -47,7 +47,7 @@ internal data class UsageContextValueSurrogate(
       this@UsageContextValueSurrogate.valueQuantity,
       this@UsageContextValueSurrogate.valueRange,
       this@UsageContextValueSurrogate.valueReference,
-    )!! !!
+    )!!
 
   public companion object {
     public fun fromModel(model: UsageContext.Value): UsageContextValueSurrogate =
@@ -82,7 +82,7 @@ internal data class UsageContextSurrogate(
       with(model) {
         UsageContextSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
           code = this@with.code,
           `value` = this@with.`value`,
         )

@@ -118,13 +118,13 @@ internal data class ParametersParameterSurrogate(
       with(model) {
         ParametersParameterSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           name = this@with.name.value,
           _name = this@with.name.toElement(),
           `value` = this@with.`value`,
           resource = this@with.resource,
-          part = this@with.part.takeUnless { it.all { it == null } },
+          part = this@with.part.takeIf { it.isNotEmpty() },
         )
       }
   }
@@ -421,7 +421,7 @@ internal data class ParametersSurrogate(
           _implicitRules = this@with.implicitRules?.toElement(),
           language = this@with.language?.value,
           _language = this@with.language?.toElement(),
-          parameter = this@with.parameter.takeUnless { it.all { it == null } },
+          parameter = this@with.parameter.takeIf { it.isNotEmpty() },
         )
       }
   }

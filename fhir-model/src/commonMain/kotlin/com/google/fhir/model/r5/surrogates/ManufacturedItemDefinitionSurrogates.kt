@@ -42,6 +42,7 @@ import com.google.fhir.model.r5.String as R5String
 import com.google.fhir.model.r5.Uri
 import com.google.fhir.model.r5.serializers.DoubleSerializer
 import com.google.fhir.model.r5.serializers.LocalTimeSerializer
+import com.google.fhir.model.r5.terminologies.PublicationStatus
 import kotlin.Boolean as KotlinBoolean
 import kotlin.String as KotlinString
 import kotlin.Suppress
@@ -74,8 +75,8 @@ internal data class ManufacturedItemDefinitionPropertySurrogate(
       with(model) {
         ManufacturedItemDefinitionPropertySurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           type = this@with.type,
           `value` = this@with.`value`,
         )
@@ -117,14 +118,14 @@ internal data class ManufacturedItemDefinitionComponentSurrogate(
       with(model) {
         ManufacturedItemDefinitionComponentSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           type = this@with.type,
-          function = this@with.function.takeUnless { it.all { it == null } },
-          amount = this@with.amount.takeUnless { it.all { it == null } },
-          constituent = this@with.constituent.takeUnless { it.all { it == null } },
-          `property` = this@with.`property`.takeUnless { it.all { it == null } },
-          component = this@with.component.takeUnless { it.all { it == null } },
+          function = this@with.function.takeIf { it.isNotEmpty() },
+          amount = this@with.amount.takeIf { it.isNotEmpty() },
+          constituent = this@with.constituent.takeIf { it.isNotEmpty() },
+          `property` = this@with.`property`.takeIf { it.isNotEmpty() },
+          component = this@with.component.takeIf { it.isNotEmpty() },
         )
       }
   }
@@ -166,12 +167,12 @@ internal data class ManufacturedItemDefinitionComponentConstituentSurrogate(
       with(model) {
         ManufacturedItemDefinitionComponentConstituentSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          amount = this@with.amount.takeUnless { it.all { it == null } },
-          location = this@with.location.takeUnless { it.all { it == null } },
-          function = this@with.function.takeUnless { it.all { it == null } },
-          hasIngredient = this@with.hasIngredient.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
+          amount = this@with.amount.takeIf { it.isNotEmpty() },
+          location = this@with.location.takeIf { it.isNotEmpty() },
+          function = this@with.function.takeIf { it.isNotEmpty() },
+          hasIngredient = this@with.hasIngredient.takeIf { it.isNotEmpty() },
         )
       }
   }
@@ -278,9 +279,7 @@ internal data class ManufacturedItemDefinitionSurrogate(
       identifier = this@ManufacturedItemDefinitionSurrogate.identifier ?: mutableListOf(),
       status =
         Enumeration.of(
-          com.google.fhir.model.r5.terminologies.PublicationStatus.fromCode(
-            this@ManufacturedItemDefinitionSurrogate.status!!
-          ),
+          PublicationStatus.fromCode(this@ManufacturedItemDefinitionSurrogate.status!!),
           this@ManufacturedItemDefinitionSurrogate._status,
         ),
       name =
@@ -308,21 +307,21 @@ internal data class ManufacturedItemDefinitionSurrogate(
           language = this@with.language?.value,
           _language = this@with.language?.toElement(),
           text = this@with.text,
-          contained = this@with.contained.takeUnless { it.all { it == null } },
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          contained = this@with.contained.takeIf { it.isNotEmpty() },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
+          identifier = this@with.identifier.takeIf { it.isNotEmpty() },
           status = this@with.status.value?.getCode(),
           _status = this@with.status.toElement(),
           name = this@with.name?.value,
           _name = this@with.name?.toElement(),
           manufacturedDoseForm = this@with.manufacturedDoseForm,
           unitOfPresentation = this@with.unitOfPresentation,
-          manufacturer = this@with.manufacturer.takeUnless { it.all { it == null } },
-          marketingStatus = this@with.marketingStatus.takeUnless { it.all { it == null } },
-          ingredient = this@with.ingredient.takeUnless { it.all { it == null } },
-          `property` = this@with.`property`.takeUnless { it.all { it == null } },
-          component = this@with.component.takeUnless { it.all { it == null } },
+          manufacturer = this@with.manufacturer.takeIf { it.isNotEmpty() },
+          marketingStatus = this@with.marketingStatus.takeIf { it.isNotEmpty() },
+          ingredient = this@with.ingredient.takeIf { it.isNotEmpty() },
+          `property` = this@with.`property`.takeIf { it.isNotEmpty() },
+          component = this@with.component.takeIf { it.isNotEmpty() },
         )
       }
   }

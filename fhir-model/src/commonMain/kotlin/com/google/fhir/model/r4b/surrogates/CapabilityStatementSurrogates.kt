@@ -43,6 +43,10 @@ import com.google.fhir.model.r4b.Url
 import com.google.fhir.model.r4b.UsageContext
 import com.google.fhir.model.r4b.serializers.DoubleSerializer
 import com.google.fhir.model.r4b.serializers.LocalTimeSerializer
+import com.google.fhir.model.r4b.terminologies.FHIRVersion
+import com.google.fhir.model.r4b.terminologies.PublicationStatus
+import com.google.fhir.model.r4b.terminologies.ResourceType
+import com.google.fhir.model.r4b.terminologies.SearchParamType
 import kotlin.Boolean as KotlinBoolean
 import kotlin.Int
 import kotlin.String as KotlinString
@@ -93,8 +97,8 @@ internal data class CapabilityStatementSoftwareSurrogate(
       with(model) {
         CapabilityStatementSoftwareSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           name = this@with.name.value,
           _name = this@with.name.toElement(),
           version = this@with.version?.value,
@@ -143,8 +147,8 @@ internal data class CapabilityStatementImplementationSurrogate(
       with(model) {
         CapabilityStatementImplementationSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           description = this@with.description.value,
           _description = this@with.description.toElement(),
           url = this@with.url?.value,
@@ -180,7 +184,7 @@ internal data class CapabilityStatementRestSurrogate(
         this@CapabilityStatementRestSurrogate.modifierExtension ?: mutableListOf(),
       mode =
         Enumeration.of(
-          com.google.fhir.model.r4b.CapabilityStatement.RestfulCapabilityMode.fromCode(
+          CapabilityStatement.RestfulCapabilityMode.fromCode(
             this@CapabilityStatementRestSurrogate.mode!!
           ),
           this@CapabilityStatementRestSurrogate._mode,
@@ -218,17 +222,17 @@ internal data class CapabilityStatementRestSurrogate(
       with(model) {
         CapabilityStatementRestSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           mode = this@with.mode.value?.getCode(),
           _mode = this@with.mode.toElement(),
           documentation = this@with.documentation?.value,
           _documentation = this@with.documentation?.toElement(),
           security = this@with.security,
-          resource = this@with.resource.takeUnless { it.all { it == null } },
-          interaction = this@with.interaction.takeUnless { it.all { it == null } },
-          searchParam = this@with.searchParam.takeUnless { it.all { it == null } },
-          operation = this@with.operation.takeUnless { it.all { it == null } },
+          resource = this@with.resource.takeIf { it.isNotEmpty() },
+          interaction = this@with.interaction.takeIf { it.isNotEmpty() },
+          searchParam = this@with.searchParam.takeIf { it.isNotEmpty() },
+          operation = this@with.operation.takeIf { it.isNotEmpty() },
           compartment =
             this@with.compartment
               .map { it.value }
@@ -282,11 +286,11 @@ internal data class CapabilityStatementRestSecuritySurrogate(
       with(model) {
         CapabilityStatementRestSecuritySurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           cors = this@with.cors?.value,
           _cors = this@with.cors?.toElement(),
-          service = this@with.service.takeUnless { it.all { it == null } },
+          service = this@with.service.takeIf { it.isNotEmpty() },
           description = this@with.description?.value,
           _description = this@with.description?.toElement(),
         )
@@ -339,9 +343,7 @@ internal data class CapabilityStatementRestResourceSurrogate(
         this@CapabilityStatementRestResourceSurrogate.modifierExtension ?: mutableListOf(),
       type =
         Enumeration.of(
-          com.google.fhir.model.r4b.terminologies.ResourceType.fromCode(
-            this@CapabilityStatementRestResourceSurrogate.type!!
-          ),
+          ResourceType.fromCode(this@CapabilityStatementRestResourceSurrogate.type!!),
           this@CapabilityStatementRestResourceSurrogate._type,
         ),
       profile =
@@ -378,7 +380,7 @@ internal data class CapabilityStatementRestResourceSurrogate(
       versioning =
         this@CapabilityStatementRestResourceSurrogate.versioning?.let {
           Enumeration.of(
-            com.google.fhir.model.r4b.CapabilityStatement.ResourceVersionPolicy.fromCode(it!!),
+            CapabilityStatement.ResourceVersionPolicy.fromCode(it),
             this@CapabilityStatementRestResourceSurrogate._versioning,
           )
         },
@@ -400,7 +402,7 @@ internal data class CapabilityStatementRestResourceSurrogate(
       conditionalRead =
         this@CapabilityStatementRestResourceSurrogate.conditionalRead?.let {
           Enumeration.of(
-            com.google.fhir.model.r4b.CapabilityStatement.ConditionalReadStatus.fromCode(it!!),
+            CapabilityStatement.ConditionalReadStatus.fromCode(it),
             this@CapabilityStatementRestResourceSurrogate._conditionalRead,
           )
         },
@@ -412,7 +414,7 @@ internal data class CapabilityStatementRestResourceSurrogate(
       conditionalDelete =
         this@CapabilityStatementRestResourceSurrogate.conditionalDelete?.let {
           Enumeration.of(
-            com.google.fhir.model.r4b.CapabilityStatement.ConditionalDeleteStatus.fromCode(it!!),
+            CapabilityStatement.ConditionalDeleteStatus.fromCode(it),
             this@CapabilityStatementRestResourceSurrogate._conditionalDelete,
           )
         },
@@ -435,11 +437,7 @@ internal data class CapabilityStatementRestResourceSurrogate(
             )
             .map { (value, element) ->
               Enumeration.of(
-                value.let {
-                  com.google.fhir.model.r4b.CapabilityStatement.ReferenceHandlingPolicy.fromCode(
-                    it!!
-                  )!!
-                },
+                value.let { CapabilityStatement.ReferenceHandlingPolicy.fromCode(it!!) },
                 element,
               )
             }
@@ -492,8 +490,8 @@ internal data class CapabilityStatementRestResourceSurrogate(
       with(model) {
         CapabilityStatementRestResourceSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           type = this@with.type.value?.getCode(),
           _type = this@with.type.toElement(),
           profile = this@with.profile?.value,
@@ -511,7 +509,7 @@ internal data class CapabilityStatementRestResourceSurrogate(
               ?.toMutableList(),
           documentation = this@with.documentation?.value,
           _documentation = this@with.documentation?.toElement(),
-          interaction = this@with.interaction.takeUnless { it.all { it == null } },
+          interaction = this@with.interaction.takeIf { it.isNotEmpty() },
           versioning = this@with.versioning?.value?.getCode(),
           _versioning = this@with.versioning?.toElement(),
           readHistory = this@with.readHistory?.value,
@@ -559,8 +557,8 @@ internal data class CapabilityStatementRestResourceSurrogate(
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
               ?.toMutableList(),
-          searchParam = this@with.searchParam.takeUnless { it.all { it == null } },
-          operation = this@with.operation.takeUnless { it.all { it == null } },
+          searchParam = this@with.searchParam.takeIf { it.isNotEmpty() },
+          operation = this@with.operation.takeIf { it.isNotEmpty() },
         )
       }
   }
@@ -586,7 +584,7 @@ internal data class CapabilityStatementRestResourceInteractionSurrogate(
           ?: mutableListOf(),
       code =
         Enumeration.of(
-          com.google.fhir.model.r4b.CapabilityStatement.TypeRestfulInteraction.fromCode(
+          CapabilityStatement.TypeRestfulInteraction.fromCode(
             this@CapabilityStatementRestResourceInteractionSurrogate.code!!
           ),
           this@CapabilityStatementRestResourceInteractionSurrogate._code,
@@ -605,8 +603,8 @@ internal data class CapabilityStatementRestResourceInteractionSurrogate(
       with(model) {
         CapabilityStatementRestResourceInteractionSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           code = this@with.code.value?.getCode(),
           _code = this@with.code.toElement(),
           documentation = this@with.documentation?.value,
@@ -650,9 +648,7 @@ internal data class CapabilityStatementRestResourceSearchParamSurrogate(
         ),
       type =
         Enumeration.of(
-          com.google.fhir.model.r4b.terminologies.SearchParamType.fromCode(
-            this@CapabilityStatementRestResourceSearchParamSurrogate.type!!
-          ),
+          SearchParamType.fromCode(this@CapabilityStatementRestResourceSearchParamSurrogate.type!!),
           this@CapabilityStatementRestResourceSearchParamSurrogate._type,
         ),
       documentation =
@@ -669,8 +665,8 @@ internal data class CapabilityStatementRestResourceSearchParamSurrogate(
       with(model) {
         CapabilityStatementRestResourceSearchParamSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           name = this@with.name.value,
           _name = this@with.name.toElement(),
           definition = this@with.definition?.value,
@@ -727,8 +723,8 @@ internal data class CapabilityStatementRestResourceOperationSurrogate(
       with(model) {
         CapabilityStatementRestResourceOperationSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           name = this@with.name.value,
           _name = this@with.name.toElement(),
           definition = this@with.definition.value,
@@ -758,7 +754,7 @@ internal data class CapabilityStatementRestInteractionSurrogate(
         this@CapabilityStatementRestInteractionSurrogate.modifierExtension ?: mutableListOf(),
       code =
         Enumeration.of(
-          com.google.fhir.model.r4b.CapabilityStatement.SystemRestfulInteraction.fromCode(
+          CapabilityStatement.SystemRestfulInteraction.fromCode(
             this@CapabilityStatementRestInteractionSurrogate.code!!
           ),
           this@CapabilityStatementRestInteractionSurrogate._code,
@@ -777,8 +773,8 @@ internal data class CapabilityStatementRestInteractionSurrogate(
       with(model) {
         CapabilityStatementRestInteractionSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           code = this@with.code.value?.getCode(),
           _code = this@with.code.toElement(),
           documentation = this@with.documentation?.value,
@@ -828,14 +824,14 @@ internal data class CapabilityStatementMessagingSurrogate(
       with(model) {
         CapabilityStatementMessagingSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          endpoint = this@with.endpoint.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
+          endpoint = this@with.endpoint.takeIf { it.isNotEmpty() },
           reliableCache = this@with.reliableCache?.value,
           _reliableCache = this@with.reliableCache?.toElement(),
           documentation = this@with.documentation?.value,
           _documentation = this@with.documentation?.toElement(),
-          supportedMessage = this@with.supportedMessage.takeUnless { it.all { it == null } },
+          supportedMessage = this@with.supportedMessage.takeIf { it.isNotEmpty() },
         )
       }
   }
@@ -871,8 +867,8 @@ internal data class CapabilityStatementMessagingEndpointSurrogate(
       with(model) {
         CapabilityStatementMessagingEndpointSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           protocol = this@with.protocol,
           address = this@with.address.value,
           _address = this@with.address.toElement(),
@@ -901,7 +897,7 @@ internal data class CapabilityStatementMessagingSupportedMessageSurrogate(
           ?: mutableListOf(),
       mode =
         Enumeration.of(
-          com.google.fhir.model.r4b.CapabilityStatement.EventCapabilityMode.fromCode(
+          CapabilityStatement.EventCapabilityMode.fromCode(
             this@CapabilityStatementMessagingSupportedMessageSurrogate.mode!!
           ),
           this@CapabilityStatementMessagingSupportedMessageSurrogate._mode,
@@ -920,8 +916,8 @@ internal data class CapabilityStatementMessagingSupportedMessageSurrogate(
       with(model) {
         CapabilityStatementMessagingSupportedMessageSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           mode = this@with.mode.value?.getCode(),
           _mode = this@with.mode.toElement(),
           definition = this@with.definition.value,
@@ -951,7 +947,7 @@ internal data class CapabilityStatementDocumentSurrogate(
         this@CapabilityStatementDocumentSurrogate.modifierExtension ?: mutableListOf(),
       mode =
         Enumeration.of(
-          com.google.fhir.model.r4b.CapabilityStatement.DocumentMode.fromCode(
+          CapabilityStatement.DocumentMode.fromCode(
             this@CapabilityStatementDocumentSurrogate.mode!!
           ),
           this@CapabilityStatementDocumentSurrogate._mode,
@@ -975,8 +971,8 @@ internal data class CapabilityStatementDocumentSurrogate(
       with(model) {
         CapabilityStatementDocumentSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           mode = this@with.mode.value?.getCode(),
           _mode = this@with.mode.toElement(),
           documentation = this@with.documentation?.value,
@@ -1081,9 +1077,7 @@ internal data class CapabilityStatementSurrogate(
         ),
       status =
         Enumeration.of(
-          com.google.fhir.model.r4b.terminologies.PublicationStatus.fromCode(
-            this@CapabilityStatementSurrogate.status!!
-          ),
+          PublicationStatus.fromCode(this@CapabilityStatementSurrogate.status!!),
           this@CapabilityStatementSurrogate._status,
         ),
       experimental =
@@ -1121,7 +1115,7 @@ internal data class CapabilityStatementSurrogate(
         ),
       kind =
         Enumeration.of(
-          com.google.fhir.model.r4b.CapabilityStatement.CapabilityStatementKind.fromCode(
+          CapabilityStatement.CapabilityStatementKind.fromCode(
             this@CapabilityStatementSurrogate.kind!!
           ),
           this@CapabilityStatementSurrogate._kind,
@@ -1162,9 +1156,7 @@ internal data class CapabilityStatementSurrogate(
       implementation = this@CapabilityStatementSurrogate.implementation,
       fhirVersion =
         Enumeration.of(
-          com.google.fhir.model.r4b.terminologies.FHIRVersion.fromCode(
-            this@CapabilityStatementSurrogate.fhirVersion!!
-          ),
+          FHIRVersion.fromCode(this@CapabilityStatementSurrogate.fhirVersion!!),
           this@CapabilityStatementSurrogate._fhirVersion,
         ),
       format =
@@ -1231,9 +1223,9 @@ internal data class CapabilityStatementSurrogate(
           language = this@with.language?.value,
           _language = this@with.language?.toElement(),
           text = this@with.text,
-          contained = this@with.contained.takeUnless { it.all { it == null } },
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          contained = this@with.contained.takeIf { it.isNotEmpty() },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           url = this@with.url?.value,
           _url = this@with.url?.toElement(),
           version = this@with.version?.value,
@@ -1250,11 +1242,11 @@ internal data class CapabilityStatementSurrogate(
           _date = this@with.date.toElement(),
           publisher = this@with.publisher?.value,
           _publisher = this@with.publisher?.toElement(),
-          contact = this@with.contact.takeUnless { it.all { it == null } },
+          contact = this@with.contact.takeIf { it.isNotEmpty() },
           description = this@with.description?.value,
           _description = this@with.description?.toElement(),
-          useContext = this@with.useContext.takeUnless { it.all { it == null } },
-          jurisdiction = this@with.jurisdiction.takeUnless { it.all { it == null } },
+          useContext = this@with.useContext.takeIf { it.isNotEmpty() },
+          jurisdiction = this@with.jurisdiction.takeIf { it.isNotEmpty() },
           purpose = this@with.purpose?.value,
           _purpose = this@with.purpose?.toElement(),
           copyright = this@with.copyright?.value,
@@ -1314,9 +1306,9 @@ internal data class CapabilityStatementSurrogate(
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
               ?.toMutableList(),
-          rest = this@with.rest.takeUnless { it.all { it == null } },
-          messaging = this@with.messaging.takeUnless { it.all { it == null } },
-          document = this@with.document.takeUnless { it.all { it == null } },
+          rest = this@with.rest.takeIf { it.isNotEmpty() },
+          messaging = this@with.messaging.takeIf { it.isNotEmpty() },
+          document = this@with.document.takeIf { it.isNotEmpty() },
         )
       }
   }

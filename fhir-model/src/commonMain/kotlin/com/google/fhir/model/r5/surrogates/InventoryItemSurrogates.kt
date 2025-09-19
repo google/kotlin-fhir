@@ -75,9 +75,7 @@ internal data class InventoryItemNameSurrogate(
       nameType = this@InventoryItemNameSurrogate.nameType,
       language =
         Enumeration.of(
-          com.google.fhir.model.r5.InventoryItem.CommonLanguages.fromCode(
-            this@InventoryItemNameSurrogate.language!!
-          ),
+          InventoryItem.CommonLanguages.fromCode(this@InventoryItemNameSurrogate.language!!),
           this@InventoryItemNameSurrogate._language,
         ),
       name =
@@ -89,8 +87,8 @@ internal data class InventoryItemNameSurrogate(
       with(model) {
         InventoryItemNameSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           nameType = this@with.nameType,
           language = this@with.language.value?.getCode(),
           _language = this@with.language.toElement(),
@@ -126,8 +124,8 @@ internal data class InventoryItemResponsibleOrganizationSurrogate(
       with(model) {
         InventoryItemResponsibleOrganizationSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           role = this@with.role,
           organization = this@with.organization,
         )
@@ -154,7 +152,7 @@ internal data class InventoryItemDescriptionSurrogate(
       language =
         this@InventoryItemDescriptionSurrogate.language?.let {
           Enumeration.of(
-            com.google.fhir.model.r5.InventoryItem.CommonLanguages.fromCode(it!!),
+            InventoryItem.CommonLanguages.fromCode(it),
             this@InventoryItemDescriptionSurrogate._language,
           )
         },
@@ -170,8 +168,8 @@ internal data class InventoryItemDescriptionSurrogate(
       with(model) {
         InventoryItemDescriptionSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           language = this@with.language?.value?.getCode(),
           _language = this@with.language?.toElement(),
           description = this@with.description?.value,
@@ -206,8 +204,8 @@ internal data class InventoryItemAssociationSurrogate(
       with(model) {
         InventoryItemAssociationSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           associationType = this@with.associationType,
           relatedItem = this@with.relatedItem,
           quantity = this@with.quantity,
@@ -241,8 +239,8 @@ internal data class InventoryItemCharacteristicSurrogate(
       with(model) {
         InventoryItemCharacteristicSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           characteristicType = this@with.characteristicType,
           `value` = this@with.`value`,
         )
@@ -288,9 +286,9 @@ internal data class InventoryItemInstanceSurrogate(
       with(model) {
         InventoryItemInstanceSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
+          identifier = this@with.identifier.takeIf { it.isNotEmpty() },
           lotNumber = this@with.lotNumber?.value,
           _lotNumber = this@with.lotNumber?.toElement(),
           expiry = this@with.expiry?.value?.toString(),
@@ -357,7 +355,7 @@ internal data class InventoryItemCharacteristicValueSurrogate(
       this@InventoryItemCharacteristicValueSurrogate.valueAddress,
       this@InventoryItemCharacteristicValueSurrogate.valueDuration,
       this@InventoryItemCharacteristicValueSurrogate.valueCodeableConcept,
-    )!! !!
+    )!!
 
   public companion object {
     public fun fromModel(
@@ -435,9 +433,7 @@ internal data class InventoryItemSurrogate(
       identifier = this@InventoryItemSurrogate.identifier ?: mutableListOf(),
       status =
         Enumeration.of(
-          com.google.fhir.model.r5.InventoryItem.InventoryItemStatusCodes.fromCode(
-            this@InventoryItemSurrogate.status!!
-          ),
+          InventoryItem.InventoryItemStatusCodes.fromCode(this@InventoryItemSurrogate.status!!),
           this@InventoryItemSurrogate._status,
         ),
       category = this@InventoryItemSurrogate.category ?: mutableListOf(),
@@ -466,23 +462,22 @@ internal data class InventoryItemSurrogate(
           language = this@with.language?.value,
           _language = this@with.language?.toElement(),
           text = this@with.text,
-          contained = this@with.contained.takeUnless { it.all { it == null } },
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          contained = this@with.contained.takeIf { it.isNotEmpty() },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
+          identifier = this@with.identifier.takeIf { it.isNotEmpty() },
           status = this@with.status.value?.getCode(),
           _status = this@with.status.toElement(),
-          category = this@with.category.takeUnless { it.all { it == null } },
-          code = this@with.code.takeUnless { it.all { it == null } },
-          name = this@with.name.takeUnless { it.all { it == null } },
-          responsibleOrganization =
-            this@with.responsibleOrganization.takeUnless { it.all { it == null } },
+          category = this@with.category.takeIf { it.isNotEmpty() },
+          code = this@with.code.takeIf { it.isNotEmpty() },
+          name = this@with.name.takeIf { it.isNotEmpty() },
+          responsibleOrganization = this@with.responsibleOrganization.takeIf { it.isNotEmpty() },
           description = this@with.description,
-          inventoryStatus = this@with.inventoryStatus.takeUnless { it.all { it == null } },
+          inventoryStatus = this@with.inventoryStatus.takeIf { it.isNotEmpty() },
           baseUnit = this@with.baseUnit,
           netContent = this@with.netContent,
-          association = this@with.association.takeUnless { it.all { it == null } },
-          characteristic = this@with.characteristic.takeUnless { it.all { it == null } },
+          association = this@with.association.takeIf { it.isNotEmpty() },
+          characteristic = this@with.characteristic.takeIf { it.isNotEmpty() },
           instance = this@with.instance,
           productReference = this@with.productReference,
         )

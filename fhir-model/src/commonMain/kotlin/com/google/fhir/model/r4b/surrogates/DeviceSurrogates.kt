@@ -94,7 +94,7 @@ internal data class DeviceUdiCarrierSurrogate(
       entryType =
         this@DeviceUdiCarrierSurrogate.entryType?.let {
           Enumeration.of(
-            com.google.fhir.model.r4b.Device.UDIEntryType.fromCode(it!!),
+            Device.UDIEntryType.fromCode(it),
             this@DeviceUdiCarrierSurrogate._entryType,
           )
         },
@@ -105,8 +105,8 @@ internal data class DeviceUdiCarrierSurrogate(
       with(model) {
         DeviceUdiCarrierSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           deviceIdentifier = this@with.deviceIdentifier?.value,
           _deviceIdentifier = this@with.deviceIdentifier?.toElement(),
           issuer = this@with.issuer?.value,
@@ -143,9 +143,7 @@ internal data class DeviceDeviceNameSurrogate(
         R4bString.of(this@DeviceDeviceNameSurrogate.name, this@DeviceDeviceNameSurrogate._name)!!,
       type =
         Enumeration.of(
-          com.google.fhir.model.r4b.Device.DeviceNameType.fromCode(
-            this@DeviceDeviceNameSurrogate.type!!
-          ),
+          Device.DeviceNameType.fromCode(this@DeviceDeviceNameSurrogate.type!!),
           this@DeviceDeviceNameSurrogate._type,
         ),
     )
@@ -155,8 +153,8 @@ internal data class DeviceDeviceNameSurrogate(
       with(model) {
         DeviceDeviceNameSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           name = this@with.name.value,
           _name = this@with.name.toElement(),
           type = this@with.type.value?.getCode(),
@@ -193,8 +191,8 @@ internal data class DeviceSpecializationSurrogate(
       with(model) {
         DeviceSpecializationSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           systemType = this@with.systemType,
           version = this@with.version?.value,
           _version = this@with.version?.toElement(),
@@ -229,8 +227,8 @@ internal data class DeviceVersionSurrogate(
       with(model) {
         DeviceVersionSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           type = this@with.type,
           component = this@with.component,
           `value` = this@with.`value`.value,
@@ -264,11 +262,11 @@ internal data class DevicePropertySurrogate(
       with(model) {
         DevicePropertySurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           type = this@with.type,
-          valueQuantity = this@with.valueQuantity.takeUnless { it.all { it == null } },
-          valueCode = this@with.valueCode.takeUnless { it.all { it == null } },
+          valueQuantity = this@with.valueQuantity.takeIf { it.isNotEmpty() },
+          valueCode = this@with.valueCode.takeIf { it.isNotEmpty() },
         )
       }
   }
@@ -339,10 +337,7 @@ internal data class DeviceSurrogate(
       udiCarrier = this@DeviceSurrogate.udiCarrier ?: mutableListOf(),
       status =
         this@DeviceSurrogate.status?.let {
-          Enumeration.of(
-            com.google.fhir.model.r4b.Device.FHIRDeviceStatus.fromCode(it!!),
-            this@DeviceSurrogate._status,
-          )
+          Enumeration.of(Device.FHIRDeviceStatus.fromCode(it), this@DeviceSurrogate._status)
         },
       statusReason = this@DeviceSurrogate.statusReason ?: mutableListOf(),
       distinctIdentifier =
@@ -394,15 +389,15 @@ internal data class DeviceSurrogate(
           language = this@with.language?.value,
           _language = this@with.language?.toElement(),
           text = this@with.text,
-          contained = this@with.contained.takeUnless { it.all { it == null } },
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          contained = this@with.contained.takeIf { it.isNotEmpty() },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
+          identifier = this@with.identifier.takeIf { it.isNotEmpty() },
           definition = this@with.definition,
-          udiCarrier = this@with.udiCarrier.takeUnless { it.all { it == null } },
+          udiCarrier = this@with.udiCarrier.takeIf { it.isNotEmpty() },
           status = this@with.status?.value?.getCode(),
           _status = this@with.status?.toElement(),
-          statusReason = this@with.statusReason.takeUnless { it.all { it == null } },
+          statusReason = this@with.statusReason.takeIf { it.isNotEmpty() },
           distinctIdentifier = this@with.distinctIdentifier?.value,
           _distinctIdentifier = this@with.distinctIdentifier?.toElement(),
           manufacturer = this@with.manufacturer?.value,
@@ -415,23 +410,23 @@ internal data class DeviceSurrogate(
           _lotNumber = this@with.lotNumber?.toElement(),
           serialNumber = this@with.serialNumber?.value,
           _serialNumber = this@with.serialNumber?.toElement(),
-          deviceName = this@with.deviceName.takeUnless { it.all { it == null } },
+          deviceName = this@with.deviceName.takeIf { it.isNotEmpty() },
           modelNumber = this@with.modelNumber?.value,
           _modelNumber = this@with.modelNumber?.toElement(),
           partNumber = this@with.partNumber?.value,
           _partNumber = this@with.partNumber?.toElement(),
           type = this@with.type,
-          specialization = this@with.specialization.takeUnless { it.all { it == null } },
-          version = this@with.version.takeUnless { it.all { it == null } },
-          `property` = this@with.`property`.takeUnless { it.all { it == null } },
+          specialization = this@with.specialization.takeIf { it.isNotEmpty() },
+          version = this@with.version.takeIf { it.isNotEmpty() },
+          `property` = this@with.`property`.takeIf { it.isNotEmpty() },
           patient = this@with.patient,
           owner = this@with.owner,
-          contact = this@with.contact.takeUnless { it.all { it == null } },
+          contact = this@with.contact.takeIf { it.isNotEmpty() },
           location = this@with.location,
           url = this@with.url?.value,
           _url = this@with.url?.toElement(),
-          note = this@with.note.takeUnless { it.all { it == null } },
-          safety = this@with.safety.takeUnless { it.all { it == null } },
+          note = this@with.note.takeIf { it.isNotEmpty() },
+          safety = this@with.safety.takeIf { it.isNotEmpty() },
           parent = this@with.parent,
         )
       }

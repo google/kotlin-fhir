@@ -39,6 +39,7 @@ import com.google.fhir.model.r4b.Uri
 import com.google.fhir.model.r4b.UsageContext
 import com.google.fhir.model.r4b.serializers.DoubleSerializer
 import com.google.fhir.model.r4b.serializers.LocalTimeSerializer
+import com.google.fhir.model.r4b.terminologies.PublicationStatus
 import kotlin.Boolean as KotlinBoolean
 import kotlin.String as KotlinString
 import kotlin.Suppress
@@ -68,7 +69,7 @@ internal data class NamingSystemUniqueIdSurrogate(
       modifierExtension = this@NamingSystemUniqueIdSurrogate.modifierExtension ?: mutableListOf(),
       type =
         Enumeration.of(
-          com.google.fhir.model.r4b.NamingSystem.NamingSystemIdentifierType.fromCode(
+          NamingSystem.NamingSystemIdentifierType.fromCode(
             this@NamingSystemUniqueIdSurrogate.type!!
           ),
           this@NamingSystemUniqueIdSurrogate._type,
@@ -96,8 +97,8 @@ internal data class NamingSystemUniqueIdSurrogate(
       with(model) {
         NamingSystemUniqueIdSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           type = this@with.type.value?.getCode(),
           _type = this@with.type.toElement(),
           `value` = this@with.`value`.value,
@@ -160,16 +161,12 @@ internal data class NamingSystemSurrogate(
       name = R4bString.of(this@NamingSystemSurrogate.name, this@NamingSystemSurrogate._name)!!,
       status =
         Enumeration.of(
-          com.google.fhir.model.r4b.terminologies.PublicationStatus.fromCode(
-            this@NamingSystemSurrogate.status!!
-          ),
+          PublicationStatus.fromCode(this@NamingSystemSurrogate.status!!),
           this@NamingSystemSurrogate._status,
         ),
       kind =
         Enumeration.of(
-          com.google.fhir.model.r4b.NamingSystem.NamingSystemType.fromCode(
-            this@NamingSystemSurrogate.kind!!
-          ),
+          NamingSystem.NamingSystemType.fromCode(this@NamingSystemSurrogate.kind!!),
           this@NamingSystemSurrogate._kind,
         ),
       date =
@@ -208,9 +205,9 @@ internal data class NamingSystemSurrogate(
           language = this@with.language?.value,
           _language = this@with.language?.toElement(),
           text = this@with.text,
-          contained = this@with.contained.takeUnless { it.all { it == null } },
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          contained = this@with.contained.takeIf { it.isNotEmpty() },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           name = this@with.name.value,
           _name = this@with.name.toElement(),
           status = this@with.status.value?.getCode(),
@@ -221,17 +218,17 @@ internal data class NamingSystemSurrogate(
           _date = this@with.date.toElement(),
           publisher = this@with.publisher?.value,
           _publisher = this@with.publisher?.toElement(),
-          contact = this@with.contact.takeUnless { it.all { it == null } },
+          contact = this@with.contact.takeIf { it.isNotEmpty() },
           responsible = this@with.responsible?.value,
           _responsible = this@with.responsible?.toElement(),
           type = this@with.type,
           description = this@with.description?.value,
           _description = this@with.description?.toElement(),
-          useContext = this@with.useContext.takeUnless { it.all { it == null } },
-          jurisdiction = this@with.jurisdiction.takeUnless { it.all { it == null } },
+          useContext = this@with.useContext.takeIf { it.isNotEmpty() },
+          jurisdiction = this@with.jurisdiction.takeIf { it.isNotEmpty() },
           usage = this@with.usage?.value,
           _usage = this@with.usage?.toElement(),
-          uniqueId = this@with.uniqueId.takeUnless { it.all { it == null } },
+          uniqueId = this@with.uniqueId.takeIf { it.isNotEmpty() },
         )
       }
   }

@@ -72,12 +72,12 @@ internal data class MedicinalProductNameSurrogate(
       with(model) {
         MedicinalProductNameSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           productName = this@with.productName.value,
           _productName = this@with.productName.toElement(),
-          namePart = this@with.namePart.takeUnless { it.all { it == null } },
-          countryLanguage = this@with.countryLanguage.takeUnless { it.all { it == null } },
+          namePart = this@with.namePart.takeIf { it.isNotEmpty() },
+          countryLanguage = this@with.countryLanguage.takeIf { it.isNotEmpty() },
         )
       }
   }
@@ -113,8 +113,8 @@ internal data class MedicinalProductNameNamePartSurrogate(
       with(model) {
         MedicinalProductNameNamePartSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           part = this@with.part.value,
           _part = this@with.part.toElement(),
           type = this@with.type,
@@ -150,8 +150,8 @@ internal data class MedicinalProductNameCountryLanguageSurrogate(
       with(model) {
         MedicinalProductNameCountryLanguageSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           country = this@with.country,
           jurisdiction = this@with.jurisdiction,
           language = this@with.language,
@@ -206,14 +206,14 @@ internal data class MedicinalProductManufacturingBusinessOperationSurrogate(
       with(model) {
         MedicinalProductManufacturingBusinessOperationSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           operationType = this@with.operationType,
           authorisationReferenceNumber = this@with.authorisationReferenceNumber,
           effectiveDate = this@with.effectiveDate?.value?.toString(),
           _effectiveDate = this@with.effectiveDate?.toElement(),
           confidentialityIndicator = this@with.confidentialityIndicator,
-          manufacturer = this@with.manufacturer.takeUnless { it.all { it == null } },
+          manufacturer = this@with.manufacturer.takeIf { it.isNotEmpty() },
           regulator = this@with.regulator,
         )
       }
@@ -260,9 +260,9 @@ internal data class MedicinalProductSpecialDesignationSurrogate(
       with(model) {
         MedicinalProductSpecialDesignationSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
+          identifier = this@with.identifier.takeIf { it.isNotEmpty() },
           type = this@with.type,
           intendedUse = this@with.intendedUse,
           indication = this@with.indication,
@@ -403,10 +403,10 @@ internal data class MedicinalProductSurrogate(
           language = this@with.language?.value,
           _language = this@with.language?.toElement(),
           text = this@with.text,
-          contained = this@with.contained.takeUnless { it.all { it == null } },
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          contained = this@with.contained.takeIf { it.isNotEmpty() },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
+          identifier = this@with.identifier.takeIf { it.isNotEmpty() },
           type = this@with.type,
           domain = this@with.domain,
           combinedPharmaceuticalDoseForm = this@with.combinedPharmaceuticalDoseForm,
@@ -424,22 +424,19 @@ internal data class MedicinalProductSurrogate(
               ?.map { it ?: Element() }
               ?.toMutableList(),
           paediatricUseIndicator = this@with.paediatricUseIndicator,
-          productClassification =
-            this@with.productClassification.takeUnless { it.all { it == null } },
-          marketingStatus = this@with.marketingStatus.takeUnless { it.all { it == null } },
-          pharmaceuticalProduct =
-            this@with.pharmaceuticalProduct.takeUnless { it.all { it == null } },
-          packagedMedicinalProduct =
-            this@with.packagedMedicinalProduct.takeUnless { it.all { it == null } },
-          attachedDocument = this@with.attachedDocument.takeUnless { it.all { it == null } },
-          masterFile = this@with.masterFile.takeUnless { it.all { it == null } },
-          contact = this@with.contact.takeUnless { it.all { it == null } },
-          clinicalTrial = this@with.clinicalTrial.takeUnless { it.all { it == null } },
-          name = this@with.name.takeUnless { it.all { it == null } },
-          crossReference = this@with.crossReference.takeUnless { it.all { it == null } },
+          productClassification = this@with.productClassification.takeIf { it.isNotEmpty() },
+          marketingStatus = this@with.marketingStatus.takeIf { it.isNotEmpty() },
+          pharmaceuticalProduct = this@with.pharmaceuticalProduct.takeIf { it.isNotEmpty() },
+          packagedMedicinalProduct = this@with.packagedMedicinalProduct.takeIf { it.isNotEmpty() },
+          attachedDocument = this@with.attachedDocument.takeIf { it.isNotEmpty() },
+          masterFile = this@with.masterFile.takeIf { it.isNotEmpty() },
+          contact = this@with.contact.takeIf { it.isNotEmpty() },
+          clinicalTrial = this@with.clinicalTrial.takeIf { it.isNotEmpty() },
+          name = this@with.name.takeIf { it.isNotEmpty() },
+          crossReference = this@with.crossReference.takeIf { it.isNotEmpty() },
           manufacturingBusinessOperation =
-            this@with.manufacturingBusinessOperation.takeUnless { it.all { it == null } },
-          specialDesignation = this@with.specialDesignation.takeUnless { it.all { it == null } },
+            this@with.manufacturingBusinessOperation.takeIf { it.isNotEmpty() },
+          specialDesignation = this@with.specialDesignation.takeIf { it.isNotEmpty() },
         )
       }
   }

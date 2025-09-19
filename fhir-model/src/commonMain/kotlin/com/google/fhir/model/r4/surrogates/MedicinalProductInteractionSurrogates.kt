@@ -61,8 +61,8 @@ internal data class MedicinalProductInteractionInteractantSurrogate(
       with(model) {
         MedicinalProductInteractionInteractantSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           item = this@with.item,
         )
       }
@@ -78,7 +78,7 @@ internal data class MedicinalProductInteractionInteractantItemSurrogate(
     MedicinalProductInteraction.Interactant.Item.from(
       this@MedicinalProductInteractionInteractantItemSurrogate.itemReference,
       this@MedicinalProductInteractionInteractantItemSurrogate.itemCodeableConcept,
-    )!! !!
+    )!!
 
   public companion object {
     public fun fromModel(
@@ -157,13 +157,13 @@ internal data class MedicinalProductInteractionSurrogate(
           language = this@with.language?.value,
           _language = this@with.language?.toElement(),
           text = this@with.text,
-          contained = this@with.contained.takeUnless { it.all { it == null } },
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          subject = this@with.subject.takeUnless { it.all { it == null } },
+          contained = this@with.contained.takeIf { it.isNotEmpty() },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
+          subject = this@with.subject.takeIf { it.isNotEmpty() },
           description = this@with.description?.value,
           _description = this@with.description?.toElement(),
-          interactant = this@with.interactant.takeUnless { it.all { it == null } },
+          interactant = this@with.interactant.takeIf { it.isNotEmpty() },
           type = this@with.type,
           effect = this@with.effect,
           incidence = this@with.incidence,

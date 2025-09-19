@@ -67,8 +67,8 @@ internal data class EncounterHistoryLocationSurrogate(
       with(model) {
         EncounterHistoryLocationSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           location = this@with.location,
           form = this@with.form,
         )
@@ -124,9 +124,7 @@ internal data class EncounterHistorySurrogate(
       identifier = this@EncounterHistorySurrogate.identifier ?: mutableListOf(),
       status =
         Enumeration.of(
-          com.google.fhir.model.r5.EncounterHistory.EncounterStatus.fromCode(
-            this@EncounterHistorySurrogate.status!!
-          ),
+          EncounterHistory.EncounterStatus.fromCode(this@EncounterHistorySurrogate.status!!),
           this@EncounterHistorySurrogate._status,
         ),
       `class` = this@EncounterHistorySurrogate.`class`,
@@ -160,16 +158,16 @@ internal data class EncounterHistorySurrogate(
           language = this@with.language?.value,
           _language = this@with.language?.toElement(),
           text = this@with.text,
-          contained = this@with.contained.takeUnless { it.all { it == null } },
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          contained = this@with.contained.takeIf { it.isNotEmpty() },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           encounter = this@with.encounter,
-          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          identifier = this@with.identifier.takeIf { it.isNotEmpty() },
           status = this@with.status.value?.getCode(),
           _status = this@with.status.toElement(),
           `class` = this@with.`class`,
-          type = this@with.type.takeUnless { it.all { it == null } },
-          serviceType = this@with.serviceType.takeUnless { it.all { it == null } },
+          type = this@with.type.takeIf { it.isNotEmpty() },
+          serviceType = this@with.serviceType.takeIf { it.isNotEmpty() },
           subject = this@with.subject,
           subjectStatus = this@with.subjectStatus,
           actualPeriod = this@with.actualPeriod,
@@ -178,7 +176,7 @@ internal data class EncounterHistorySurrogate(
           plannedEndDate = this@with.plannedEndDate?.value?.toString(),
           _plannedEndDate = this@with.plannedEndDate?.toElement(),
           length = this@with.length,
-          location = this@with.location.takeUnless { it.all { it == null } },
+          location = this@with.location.takeIf { it.isNotEmpty() },
         )
       }
   }

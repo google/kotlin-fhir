@@ -26,6 +26,7 @@ import com.google.fhir.model.r4b.Extension
 import com.google.fhir.model.r4b.Money
 import com.google.fhir.model.r4b.serializers.DoubleSerializer
 import com.google.fhir.model.r4b.serializers.LocalTimeSerializer
+import com.google.fhir.model.r4b.terminologies.Currencies
 import kotlin.Double
 import kotlin.String
 import kotlin.Suppress
@@ -49,10 +50,7 @@ internal data class MoneySurrogate(
       `value` = Decimal.of(this@MoneySurrogate.`value`, this@MoneySurrogate._value),
       currency =
         this@MoneySurrogate.currency?.let {
-          Enumeration.of(
-            com.google.fhir.model.r4b.terminologies.Currencies.fromCode(it!!),
-            this@MoneySurrogate._currency,
-          )
+          Enumeration.of(Currencies.fromCode(it), this@MoneySurrogate._currency)
         },
     )
 
@@ -61,7 +59,7 @@ internal data class MoneySurrogate(
       with(model) {
         MoneySurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
           `value` = this@with.`value`?.value,
           _value = this@with.`value`?.toElement(),
           currency = this@with.currency?.value?.getCode(),

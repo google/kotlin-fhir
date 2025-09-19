@@ -71,8 +71,8 @@ internal data class ImmunizationPerformerSurrogate(
       with(model) {
         ImmunizationPerformerSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           function = this@with.function,
           actor = this@with.actor,
         )
@@ -105,8 +105,8 @@ internal data class ImmunizationProgramEligibilitySurrogate(
       with(model) {
         ImmunizationProgramEligibilitySurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           program = this@with.program,
           programStatus = this@with.programStatus,
         )
@@ -148,8 +148,8 @@ internal data class ImmunizationReactionSurrogate(
       with(model) {
         ImmunizationReactionSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           date = this@with.date?.value?.toString(),
           _date = this@with.date?.toElement(),
           manifestation = this@with.manifestation,
@@ -206,12 +206,12 @@ internal data class ImmunizationProtocolAppliedSurrogate(
       with(model) {
         ImmunizationProtocolAppliedSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           series = this@with.series?.value,
           _series = this@with.series?.toElement(),
           authority = this@with.authority,
-          targetDisease = this@with.targetDisease.takeUnless { it.all { it == null } },
+          targetDisease = this@with.targetDisease.takeIf { it.isNotEmpty() },
           doseNumber = this@with.doseNumber.value,
           _doseNumber = this@with.doseNumber.toElement(),
           seriesDoses = this@with.seriesDoses?.value,
@@ -238,7 +238,7 @@ internal data class ImmunizationOccurrenceSurrogate(
         this@ImmunizationOccurrenceSurrogate.occurrenceString,
         this@ImmunizationOccurrenceSurrogate._occurrenceString,
       ),
-    )!! !!
+    )!!
 
   public companion object {
     public fun fromModel(model: Immunization.Occurrence): ImmunizationOccurrenceSurrogate =
@@ -314,9 +314,7 @@ internal data class ImmunizationSurrogate(
       basedOn = this@ImmunizationSurrogate.basedOn ?: mutableListOf(),
       status =
         Enumeration.of(
-          com.google.fhir.model.r5.Immunization.ImmunizationStatusCodes.fromCode(
-            this@ImmunizationSurrogate.status!!
-          ),
+          Immunization.ImmunizationStatusCodes.fromCode(this@ImmunizationSurrogate.status!!),
           this@ImmunizationSurrogate._status,
         ),
       statusReason = this@ImmunizationSurrogate.statusReason,
@@ -370,11 +368,11 @@ internal data class ImmunizationSurrogate(
           language = this@with.language?.value,
           _language = this@with.language?.toElement(),
           text = this@with.text,
-          contained = this@with.contained.takeUnless { it.all { it == null } },
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          identifier = this@with.identifier.takeUnless { it.all { it == null } },
-          basedOn = this@with.basedOn.takeUnless { it.all { it == null } },
+          contained = this@with.contained.takeIf { it.isNotEmpty() },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
+          identifier = this@with.identifier.takeIf { it.isNotEmpty() },
+          basedOn = this@with.basedOn.takeIf { it.isNotEmpty() },
           status = this@with.status.value?.getCode(),
           _status = this@with.status.toElement(),
           statusReason = this@with.statusReason,
@@ -387,8 +385,7 @@ internal data class ImmunizationSurrogate(
           _expirationDate = this@with.expirationDate?.toElement(),
           patient = this@with.patient,
           encounter = this@with.encounter,
-          supportingInformation =
-            this@with.supportingInformation.takeUnless { it.all { it == null } },
+          supportingInformation = this@with.supportingInformation.takeIf { it.isNotEmpty() },
           occurrence = this@with.occurrence,
           primarySource = this@with.primarySource?.value,
           _primarySource = this@with.primarySource?.toElement(),
@@ -397,16 +394,16 @@ internal data class ImmunizationSurrogate(
           site = this@with.site,
           route = this@with.route,
           doseQuantity = this@with.doseQuantity,
-          performer = this@with.performer.takeUnless { it.all { it == null } },
-          note = this@with.note.takeUnless { it.all { it == null } },
-          reason = this@with.reason.takeUnless { it.all { it == null } },
+          performer = this@with.performer.takeIf { it.isNotEmpty() },
+          note = this@with.note.takeIf { it.isNotEmpty() },
+          reason = this@with.reason.takeIf { it.isNotEmpty() },
           isSubpotent = this@with.isSubpotent?.value,
           _isSubpotent = this@with.isSubpotent?.toElement(),
-          subpotentReason = this@with.subpotentReason.takeUnless { it.all { it == null } },
-          programEligibility = this@with.programEligibility.takeUnless { it.all { it == null } },
+          subpotentReason = this@with.subpotentReason.takeIf { it.isNotEmpty() },
+          programEligibility = this@with.programEligibility.takeIf { it.isNotEmpty() },
           fundingSource = this@with.fundingSource,
-          reaction = this@with.reaction.takeUnless { it.all { it == null } },
-          protocolApplied = this@with.protocolApplied.takeUnless { it.all { it == null } },
+          reaction = this@with.reaction.takeIf { it.isNotEmpty() },
+          protocolApplied = this@with.protocolApplied.takeIf { it.isNotEmpty() },
         )
       }
   }

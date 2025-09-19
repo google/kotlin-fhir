@@ -47,6 +47,8 @@ import com.google.fhir.model.r5.Uri
 import com.google.fhir.model.r5.UsageContext
 import com.google.fhir.model.r5.serializers.DoubleSerializer
 import com.google.fhir.model.r5.serializers.LocalTimeSerializer
+import com.google.fhir.model.r5.terminologies.FHIRTypes
+import com.google.fhir.model.r5.terminologies.PublicationStatus
 import kotlin.Boolean as KotlinBoolean
 import kotlin.String as KotlinString
 import kotlin.Suppress
@@ -78,8 +80,8 @@ internal data class MeasureTermSurrogate(
       with(model) {
         MeasureTermSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           code = this@with.code,
           definition = this@with.definition?.value,
           _definition = this@with.definition?.toElement(),
@@ -128,10 +130,7 @@ internal data class MeasureGroupSurrogate(
       subject = this@MeasureGroupSurrogate.subject,
       basis =
         this@MeasureGroupSurrogate.basis?.let {
-          Enumeration.of(
-            com.google.fhir.model.r5.terminologies.FHIRTypes.fromCode(it!!),
-            this@MeasureGroupSurrogate._basis,
-          )
+          Enumeration.of(FHIRTypes.fromCode(it), this@MeasureGroupSurrogate._basis)
         },
       scoring = this@MeasureGroupSurrogate.scoring,
       scoringUnit = this@MeasureGroupSurrogate.scoringUnit,
@@ -165,14 +164,14 @@ internal data class MeasureGroupSurrogate(
       with(model) {
         MeasureGroupSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           linkId = this@with.linkId?.value,
           _linkId = this@with.linkId?.toElement(),
           code = this@with.code,
           description = this@with.description?.value,
           _description = this@with.description?.toElement(),
-          type = this@with.type.takeUnless { it.all { it == null } },
+          type = this@with.type.takeIf { it.isNotEmpty() },
           subject = this@with.subject,
           basis = this@with.basis?.value?.getCode(),
           _basis = this@with.basis?.toElement(),
@@ -189,8 +188,8 @@ internal data class MeasureGroupSurrogate(
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
               ?.toMutableList(),
-          population = this@with.population.takeUnless { it.all { it == null } },
-          stratifier = this@with.stratifier.takeUnless { it.all { it == null } },
+          population = this@with.population.takeIf { it.isNotEmpty() },
+          stratifier = this@with.stratifier.takeIf { it.isNotEmpty() },
         )
       }
   }
@@ -243,8 +242,8 @@ internal data class MeasureGroupPopulationSurrogate(
       with(model) {
         MeasureGroupPopulationSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           linkId = this@with.linkId?.value,
           _linkId = this@with.linkId?.toElement(),
           code = this@with.code,
@@ -300,8 +299,8 @@ internal data class MeasureGroupStratifierSurrogate(
       with(model) {
         MeasureGroupStratifierSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           linkId = this@with.linkId?.value,
           _linkId = this@with.linkId?.toElement(),
           code = this@with.code,
@@ -309,7 +308,7 @@ internal data class MeasureGroupStratifierSurrogate(
           _description = this@with.description?.toElement(),
           criteria = this@with.criteria,
           groupDefinition = this@with.groupDefinition,
-          component = this@with.component.takeUnless { it.all { it == null } },
+          component = this@with.component.takeIf { it.isNotEmpty() },
         )
       }
   }
@@ -356,8 +355,8 @@ internal data class MeasureGroupStratifierComponentSurrogate(
       with(model) {
         MeasureGroupStratifierComponentSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           linkId = this@with.linkId?.value,
           _linkId = this@with.linkId?.toElement(),
           code = this@with.code,
@@ -409,12 +408,12 @@ internal data class MeasureSupplementalDataSurrogate(
       with(model) {
         MeasureSupplementalDataSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           linkId = this@with.linkId?.value,
           _linkId = this@with.linkId?.toElement(),
           code = this@with.code,
-          usage = this@with.usage.takeUnless { it.all { it == null } },
+          usage = this@with.usage.takeIf { it.isNotEmpty() },
           description = this@with.description?.value,
           _description = this@with.description?.toElement(),
           criteria = this@with.criteria,
@@ -596,9 +595,7 @@ internal data class MeasureSurrogate(
       subtitle = R5String.of(this@MeasureSurrogate.subtitle, this@MeasureSurrogate._subtitle),
       status =
         Enumeration.of(
-          com.google.fhir.model.r5.terminologies.PublicationStatus.fromCode(
-            this@MeasureSurrogate.status!!
-          ),
+          PublicationStatus.fromCode(this@MeasureSurrogate.status!!),
           this@MeasureSurrogate._status,
         ),
       experimental =
@@ -606,10 +603,7 @@ internal data class MeasureSurrogate(
       subject = this@MeasureSurrogate.subject,
       basis =
         this@MeasureSurrogate.basis?.let {
-          Enumeration.of(
-            com.google.fhir.model.r5.terminologies.FHIRTypes.fromCode(it!!),
-            this@MeasureSurrogate._basis,
-          )
+          Enumeration.of(FHIRTypes.fromCode(it), this@MeasureSurrogate._basis)
         },
       date =
         DateTime.of(
@@ -688,12 +682,12 @@ internal data class MeasureSurrogate(
           language = this@with.language?.value,
           _language = this@with.language?.toElement(),
           text = this@with.text,
-          contained = this@with.contained.takeUnless { it.all { it == null } },
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          contained = this@with.contained.takeIf { it.isNotEmpty() },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           url = this@with.url?.value,
           _url = this@with.url?.toElement(),
-          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          identifier = this@with.identifier.takeIf { it.isNotEmpty() },
           version = this@with.version?.value,
           _version = this@with.version?.toElement(),
           versionAlgorithm = this@with.versionAlgorithm,
@@ -714,11 +708,11 @@ internal data class MeasureSurrogate(
           _date = this@with.date?.toElement(),
           publisher = this@with.publisher?.value,
           _publisher = this@with.publisher?.toElement(),
-          contact = this@with.contact.takeUnless { it.all { it == null } },
+          contact = this@with.contact.takeIf { it.isNotEmpty() },
           description = this@with.description?.value,
           _description = this@with.description?.toElement(),
-          useContext = this@with.useContext.takeUnless { it.all { it == null } },
-          jurisdiction = this@with.jurisdiction.takeUnless { it.all { it == null } },
+          useContext = this@with.useContext.takeIf { it.isNotEmpty() },
+          jurisdiction = this@with.jurisdiction.takeIf { it.isNotEmpty() },
           purpose = this@with.purpose?.value,
           _purpose = this@with.purpose?.toElement(),
           usage = this@with.usage?.value,
@@ -732,12 +726,12 @@ internal data class MeasureSurrogate(
           lastReviewDate = this@with.lastReviewDate?.value?.toString(),
           _lastReviewDate = this@with.lastReviewDate?.toElement(),
           effectivePeriod = this@with.effectivePeriod,
-          topic = this@with.topic.takeUnless { it.all { it == null } },
-          author = this@with.author.takeUnless { it.all { it == null } },
-          editor = this@with.editor.takeUnless { it.all { it == null } },
-          reviewer = this@with.reviewer.takeUnless { it.all { it == null } },
-          endorser = this@with.endorser.takeUnless { it.all { it == null } },
-          relatedArtifact = this@with.relatedArtifact.takeUnless { it.all { it == null } },
+          topic = this@with.topic.takeIf { it.isNotEmpty() },
+          author = this@with.author.takeIf { it.isNotEmpty() },
+          editor = this@with.editor.takeIf { it.isNotEmpty() },
+          reviewer = this@with.reviewer.takeIf { it.isNotEmpty() },
+          endorser = this@with.endorser.takeIf { it.isNotEmpty() },
+          relatedArtifact = this@with.relatedArtifact.takeIf { it.isNotEmpty() },
           library =
             this@with.library.map { it.value }.toMutableList().takeUnless { it.all { it == null } },
           _library =
@@ -751,7 +745,7 @@ internal data class MeasureSurrogate(
           scoring = this@with.scoring,
           scoringUnit = this@with.scoringUnit,
           compositeScoring = this@with.compositeScoring,
-          type = this@with.type.takeUnless { it.all { it == null } },
+          type = this@with.type.takeIf { it.isNotEmpty() },
           riskAdjustment = this@with.riskAdjustment?.value,
           _riskAdjustment = this@with.riskAdjustment?.toElement(),
           rateAggregation = this@with.rateAggregation?.value,
@@ -761,11 +755,11 @@ internal data class MeasureSurrogate(
           clinicalRecommendationStatement = this@with.clinicalRecommendationStatement?.value,
           _clinicalRecommendationStatement = this@with.clinicalRecommendationStatement?.toElement(),
           improvementNotation = this@with.improvementNotation,
-          term = this@with.term.takeUnless { it.all { it == null } },
+          term = this@with.term.takeIf { it.isNotEmpty() },
           guidance = this@with.guidance?.value,
           _guidance = this@with.guidance?.toElement(),
-          group = this@with.group.takeUnless { it.all { it == null } },
-          supplementalData = this@with.supplementalData.takeUnless { it.all { it == null } },
+          group = this@with.group.takeIf { it.isNotEmpty() },
+          supplementalData = this@with.supplementalData.takeIf { it.isNotEmpty() },
         )
       }
   }

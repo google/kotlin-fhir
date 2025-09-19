@@ -25,6 +25,7 @@ import com.squareup.kotlinpoet.ParameterizedTypeName.Companion.parameterizedBy
 import com.squareup.kotlinpoet.PropertySpec
 import com.squareup.kotlinpoet.TypeSpec
 import com.squareup.kotlinpoet.asClassName
+import kotlinx.serialization.ExperimentalSerializationApi
 
 /**
  * Generalizes a [FileSpec] for `DoubleSerializer` that always serializes Double with at least one
@@ -58,6 +59,7 @@ object DoubleSerializerFileSpecGenerator {
           )
           .addFunction(
             FunSpec.builder("serialize")
+              .addAnnotation(ExperimentalSerializationApi::class)
               .addModifiers(KModifier.OVERRIDE)
               .addParameter("encoder", ClassName("kotlinx.serialization.encoding", "Encoder"))
               .addParameter("value", Double::class.asClassName())

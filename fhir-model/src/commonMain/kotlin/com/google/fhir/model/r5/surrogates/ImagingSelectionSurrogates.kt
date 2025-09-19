@@ -72,8 +72,8 @@ internal data class ImagingSelectionPerformerSurrogate(
       with(model) {
         ImagingSelectionPerformerSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           function = this@with.function,
           actor = this@with.actor,
         )
@@ -138,8 +138,8 @@ internal data class ImagingSelectionInstanceSurrogate(
       with(model) {
         ImagingSelectionInstanceSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           uid = this@with.uid.value,
           _uid = this@with.uid.toElement(),
           number = this@with.number?.value,
@@ -153,8 +153,8 @@ internal data class ImagingSelectionInstanceSurrogate(
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
               ?.toMutableList(),
-          imageRegion2D = this@with.imageRegion2D.takeUnless { it.all { it == null } },
-          imageRegion3D = this@with.imageRegion3D.takeUnless { it.all { it == null } },
+          imageRegion2D = this@with.imageRegion2D.takeIf { it.isNotEmpty() },
+          imageRegion3D = this@with.imageRegion3D.takeIf { it.isNotEmpty() },
         )
       }
   }
@@ -178,7 +178,7 @@ internal data class ImagingSelectionInstanceImageRegion2DSurrogate(
         this@ImagingSelectionInstanceImageRegion2DSurrogate.modifierExtension ?: mutableListOf(),
       regionType =
         Enumeration.of(
-          com.google.fhir.model.r5.ImagingSelection.ImagingSelection2DGraphicType.fromCode(
+          ImagingSelection.ImagingSelection2DGraphicType.fromCode(
             this@ImagingSelectionInstanceImageRegion2DSurrogate.regionType!!
           ),
           this@ImagingSelectionInstanceImageRegion2DSurrogate._regionType,
@@ -212,8 +212,8 @@ internal data class ImagingSelectionInstanceImageRegion2DSurrogate(
       with(model) {
         ImagingSelectionInstanceImageRegion2DSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           regionType = this@with.regionType.value?.getCode(),
           _regionType = this@with.regionType.toElement(),
           coordinate =
@@ -250,7 +250,7 @@ internal data class ImagingSelectionInstanceImageRegion3DSurrogate(
         this@ImagingSelectionInstanceImageRegion3DSurrogate.modifierExtension ?: mutableListOf(),
       regionType =
         Enumeration.of(
-          com.google.fhir.model.r5.ImagingSelection.ImagingSelection3DGraphicType.fromCode(
+          ImagingSelection.ImagingSelection3DGraphicType.fromCode(
             this@ImagingSelectionInstanceImageRegion3DSurrogate.regionType!!
           ),
           this@ImagingSelectionInstanceImageRegion3DSurrogate._regionType,
@@ -284,8 +284,8 @@ internal data class ImagingSelectionInstanceImageRegion3DSurrogate(
       with(model) {
         ImagingSelectionInstanceImageRegion3DSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           regionType = this@with.regionType.value?.getCode(),
           _regionType = this@with.regionType.toElement(),
           coordinate =
@@ -358,9 +358,7 @@ internal data class ImagingSelectionSurrogate(
       identifier = this@ImagingSelectionSurrogate.identifier ?: mutableListOf(),
       status =
         Enumeration.of(
-          com.google.fhir.model.r5.ImagingSelection.ImagingSelectionStatus.fromCode(
-            this@ImagingSelectionSurrogate.status!!
-          ),
+          ImagingSelection.ImagingSelectionStatus.fromCode(this@ImagingSelectionSurrogate.status!!),
           this@ImagingSelectionSurrogate._status,
         ),
       subject = this@ImagingSelectionSurrogate.subject,
@@ -405,23 +403,23 @@ internal data class ImagingSelectionSurrogate(
           language = this@with.language?.value,
           _language = this@with.language?.toElement(),
           text = this@with.text,
-          contained = this@with.contained.takeUnless { it.all { it == null } },
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          contained = this@with.contained.takeIf { it.isNotEmpty() },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
+          identifier = this@with.identifier.takeIf { it.isNotEmpty() },
           status = this@with.status.value?.getCode(),
           _status = this@with.status.toElement(),
           subject = this@with.subject,
           issued = this@with.issued?.value?.toString(),
           _issued = this@with.issued?.toElement(),
-          performer = this@with.performer.takeUnless { it.all { it == null } },
-          basedOn = this@with.basedOn.takeUnless { it.all { it == null } },
-          category = this@with.category.takeUnless { it.all { it == null } },
+          performer = this@with.performer.takeIf { it.isNotEmpty() },
+          basedOn = this@with.basedOn.takeIf { it.isNotEmpty() },
+          category = this@with.category.takeIf { it.isNotEmpty() },
           code = this@with.code,
           studyUid = this@with.studyUid?.value,
           _studyUid = this@with.studyUid?.toElement(),
-          derivedFrom = this@with.derivedFrom.takeUnless { it.all { it == null } },
-          endpoint = this@with.endpoint.takeUnless { it.all { it == null } },
+          derivedFrom = this@with.derivedFrom.takeIf { it.isNotEmpty() },
+          endpoint = this@with.endpoint.takeIf { it.isNotEmpty() },
           seriesUid = this@with.seriesUid?.value,
           _seriesUid = this@with.seriesUid?.toElement(),
           seriesNumber = this@with.seriesNumber?.value,
@@ -429,8 +427,8 @@ internal data class ImagingSelectionSurrogate(
           frameOfReferenceUid = this@with.frameOfReferenceUid?.value,
           _frameOfReferenceUid = this@with.frameOfReferenceUid?.toElement(),
           bodySite = this@with.bodySite,
-          focus = this@with.focus.takeUnless { it.all { it == null } },
-          instance = this@with.instance.takeUnless { it.all { it == null } },
+          focus = this@with.focus.takeIf { it.isNotEmpty() },
+          instance = this@with.instance.takeIf { it.isNotEmpty() },
         )
       }
   }

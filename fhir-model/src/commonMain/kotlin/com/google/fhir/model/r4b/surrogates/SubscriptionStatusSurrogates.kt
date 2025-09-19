@@ -82,14 +82,14 @@ internal data class SubscriptionStatusNotificationEventSurrogate(
       with(model) {
         SubscriptionStatusNotificationEventSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           eventNumber = this@with.eventNumber.value,
           _eventNumber = this@with.eventNumber.toElement(),
           timestamp = this@with.timestamp?.value?.toString(),
           _timestamp = this@with.timestamp?.toElement(),
           focus = this@with.focus,
-          additionalContext = this@with.additionalContext.takeUnless { it.all { it == null } },
+          additionalContext = this@with.additionalContext.takeIf { it.isNotEmpty() },
         )
       }
   }
@@ -140,13 +140,13 @@ internal data class SubscriptionStatusSurrogate(
       status =
         this@SubscriptionStatusSurrogate.status?.let {
           Enumeration.of(
-            com.google.fhir.model.r4b.SubscriptionStatus.SubscriptionStatusCodes.fromCode(it!!),
+            SubscriptionStatus.SubscriptionStatusCodes.fromCode(it),
             this@SubscriptionStatusSurrogate._status,
           )
         },
       type =
         Enumeration.of(
-          com.google.fhir.model.r4b.SubscriptionStatus.SubscriptionNotificationType.fromCode(
+          SubscriptionStatus.SubscriptionNotificationType.fromCode(
             this@SubscriptionStatusSurrogate.type!!
           ),
           this@SubscriptionStatusSurrogate._type,
@@ -177,20 +177,20 @@ internal data class SubscriptionStatusSurrogate(
           language = this@with.language?.value,
           _language = this@with.language?.toElement(),
           text = this@with.text,
-          contained = this@with.contained.takeUnless { it.all { it == null } },
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          contained = this@with.contained.takeIf { it.isNotEmpty() },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           status = this@with.status?.value?.getCode(),
           _status = this@with.status?.toElement(),
           type = this@with.type.value?.getCode(),
           _type = this@with.type.toElement(),
           eventsSinceSubscriptionStart = this@with.eventsSinceSubscriptionStart?.value,
           _eventsSinceSubscriptionStart = this@with.eventsSinceSubscriptionStart?.toElement(),
-          notificationEvent = this@with.notificationEvent.takeUnless { it.all { it == null } },
+          notificationEvent = this@with.notificationEvent.takeIf { it.isNotEmpty() },
           subscription = this@with.subscription,
           topic = this@with.topic?.value,
           _topic = this@with.topic?.toElement(),
-          error = this@with.error.takeUnless { it.all { it == null } },
+          error = this@with.error.takeIf { it.isNotEmpty() },
         )
       }
   }

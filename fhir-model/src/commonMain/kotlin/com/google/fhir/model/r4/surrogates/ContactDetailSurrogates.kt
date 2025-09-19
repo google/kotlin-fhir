@@ -53,10 +53,10 @@ internal data class ContactDetailSurrogate(
       with(model) {
         ContactDetailSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
           name = this@with.name?.value,
           _name = this@with.name?.toElement(),
-          telecom = this@with.telecom.takeUnless { it.all { it == null } },
+          telecom = this@with.telecom.takeIf { it.isNotEmpty() },
         )
       }
   }

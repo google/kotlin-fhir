@@ -35,6 +35,7 @@ import com.google.fhir.model.r4.String as R4String
 import com.google.fhir.model.r4.Uri
 import com.google.fhir.model.r4.serializers.DoubleSerializer
 import com.google.fhir.model.r4.serializers.LocalTimeSerializer
+import com.google.fhir.model.r4.terminologies.ClaimProcessingCodes
 import kotlin.String as KotlinString
 import kotlin.Suppress
 import kotlin.collections.MutableList
@@ -88,7 +89,7 @@ internal data class EnrollmentResponseSurrogate(
       status =
         this@EnrollmentResponseSurrogate.status?.let {
           Enumeration.of(
-            com.google.fhir.model.r4.EnrollmentResponse.FinancialResourceStatusCodes.fromCode(it!!),
+            EnrollmentResponse.FinancialResourceStatusCodes.fromCode(it),
             this@EnrollmentResponseSurrogate._status,
           )
         },
@@ -96,7 +97,7 @@ internal data class EnrollmentResponseSurrogate(
       outcome =
         this@EnrollmentResponseSurrogate.outcome?.let {
           Enumeration.of(
-            com.google.fhir.model.r4.terminologies.ClaimProcessingCodes.fromCode(it!!),
+            ClaimProcessingCodes.fromCode(it),
             this@EnrollmentResponseSurrogate._outcome,
           )
         },
@@ -125,10 +126,10 @@ internal data class EnrollmentResponseSurrogate(
           language = this@with.language?.value,
           _language = this@with.language?.toElement(),
           text = this@with.text,
-          contained = this@with.contained.takeUnless { it.all { it == null } },
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          contained = this@with.contained.takeIf { it.isNotEmpty() },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
+          identifier = this@with.identifier.takeIf { it.isNotEmpty() },
           status = this@with.status?.value?.getCode(),
           _status = this@with.status?.toElement(),
           request = this@with.request,

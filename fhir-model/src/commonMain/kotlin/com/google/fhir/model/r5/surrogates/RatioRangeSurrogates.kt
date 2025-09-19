@@ -52,7 +52,7 @@ internal data class RatioRangeSurrogate(
       with(model) {
         RatioRangeSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
           lowNumerator = this@with.lowNumerator,
           highNumerator = this@with.highNumerator,
           denominator = this@with.denominator,

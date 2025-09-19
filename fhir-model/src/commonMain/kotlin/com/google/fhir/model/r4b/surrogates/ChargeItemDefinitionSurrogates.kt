@@ -46,6 +46,7 @@ import com.google.fhir.model.r4b.Uri
 import com.google.fhir.model.r4b.UsageContext
 import com.google.fhir.model.r4b.serializers.DoubleSerializer
 import com.google.fhir.model.r4b.serializers.LocalTimeSerializer
+import com.google.fhir.model.r4b.terminologies.PublicationStatus
 import kotlin.Boolean as KotlinBoolean
 import kotlin.Double
 import kotlin.String as KotlinString
@@ -96,8 +97,8 @@ internal data class ChargeItemDefinitionApplicabilitySurrogate(
       with(model) {
         ChargeItemDefinitionApplicabilitySurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           description = this@with.description?.value,
           _description = this@with.description?.toElement(),
           language = this@with.language?.value,
@@ -136,10 +137,10 @@ internal data class ChargeItemDefinitionPropertyGroupSurrogate(
       with(model) {
         ChargeItemDefinitionPropertyGroupSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          applicability = this@with.applicability.takeUnless { it.all { it == null } },
-          priceComponent = this@with.priceComponent.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
+          applicability = this@with.applicability.takeIf { it.isNotEmpty() },
+          priceComponent = this@with.priceComponent.takeIf { it.isNotEmpty() },
         )
       }
   }
@@ -167,7 +168,7 @@ internal data class ChargeItemDefinitionPropertyGroupPriceComponentSurrogate(
           ?: mutableListOf(),
       type =
         Enumeration.of(
-          com.google.fhir.model.r4b.ChargeItemDefinition.InvoicePriceComponentType.fromCode(
+          ChargeItemDefinition.InvoicePriceComponentType.fromCode(
             this@ChargeItemDefinitionPropertyGroupPriceComponentSurrogate.type!!
           ),
           this@ChargeItemDefinitionPropertyGroupPriceComponentSurrogate._type,
@@ -188,8 +189,8 @@ internal data class ChargeItemDefinitionPropertyGroupPriceComponentSurrogate(
       with(model) {
         ChargeItemDefinitionPropertyGroupPriceComponentSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           type = this@with.type.value?.getCode(),
           _type = this@with.type.toElement(),
           code = this@with.code,
@@ -332,9 +333,7 @@ internal data class ChargeItemDefinitionSurrogate(
         },
       status =
         Enumeration.of(
-          com.google.fhir.model.r4b.terminologies.PublicationStatus.fromCode(
-            this@ChargeItemDefinitionSurrogate.status!!
-          ),
+          PublicationStatus.fromCode(this@ChargeItemDefinitionSurrogate.status!!),
           this@ChargeItemDefinitionSurrogate._status,
         ),
       experimental =
@@ -393,12 +392,12 @@ internal data class ChargeItemDefinitionSurrogate(
           language = this@with.language?.value,
           _language = this@with.language?.toElement(),
           text = this@with.text,
-          contained = this@with.contained.takeUnless { it.all { it == null } },
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          contained = this@with.contained.takeIf { it.isNotEmpty() },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           url = this@with.url.value,
           _url = this@with.url.toElement(),
-          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          identifier = this@with.identifier.takeIf { it.isNotEmpty() },
           version = this@with.version?.value,
           _version = this@with.version?.toElement(),
           title = this@with.title?.value,
@@ -441,11 +440,11 @@ internal data class ChargeItemDefinitionSurrogate(
           _date = this@with.date?.toElement(),
           publisher = this@with.publisher?.value,
           _publisher = this@with.publisher?.toElement(),
-          contact = this@with.contact.takeUnless { it.all { it == null } },
+          contact = this@with.contact.takeIf { it.isNotEmpty() },
           description = this@with.description?.value,
           _description = this@with.description?.toElement(),
-          useContext = this@with.useContext.takeUnless { it.all { it == null } },
-          jurisdiction = this@with.jurisdiction.takeUnless { it.all { it == null } },
+          useContext = this@with.useContext.takeIf { it.isNotEmpty() },
+          jurisdiction = this@with.jurisdiction.takeIf { it.isNotEmpty() },
           copyright = this@with.copyright?.value,
           _copyright = this@with.copyright?.toElement(),
           approvalDate = this@with.approvalDate?.value?.toString(),
@@ -454,9 +453,9 @@ internal data class ChargeItemDefinitionSurrogate(
           _lastReviewDate = this@with.lastReviewDate?.toElement(),
           effectivePeriod = this@with.effectivePeriod,
           code = this@with.code,
-          instance = this@with.instance.takeUnless { it.all { it == null } },
-          applicability = this@with.applicability.takeUnless { it.all { it == null } },
-          propertyGroup = this@with.propertyGroup.takeUnless { it.all { it == null } },
+          instance = this@with.instance.takeIf { it.isNotEmpty() },
+          applicability = this@with.applicability.takeIf { it.isNotEmpty() },
+          propertyGroup = this@with.propertyGroup.takeIf { it.isNotEmpty() },
         )
       }
   }

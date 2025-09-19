@@ -48,6 +48,7 @@ import com.google.fhir.model.r5.Uri
 import com.google.fhir.model.r5.UsageContext
 import com.google.fhir.model.r5.serializers.DoubleSerializer
 import com.google.fhir.model.r5.serializers.LocalTimeSerializer
+import com.google.fhir.model.r5.terminologies.PublicationStatus
 import kotlin.Boolean as KotlinBoolean
 import kotlin.String as KotlinString
 import kotlin.Suppress
@@ -89,7 +90,7 @@ internal data class SpecimenDefinitionTypeTestedSurrogate(
       type = this@SpecimenDefinitionTypeTestedSurrogate.type,
       preference =
         Enumeration.of(
-          com.google.fhir.model.r5.SpecimenDefinition.SpecimenContainedPreference.fromCode(
+          SpecimenDefinition.SpecimenContainedPreference.fromCode(
             this@SpecimenDefinitionTypeTestedSurrogate.preference!!
           ),
           this@SpecimenDefinitionTypeTestedSurrogate._preference,
@@ -120,8 +121,8 @@ internal data class SpecimenDefinitionTypeTestedSurrogate(
       with(model) {
         SpecimenDefinitionTypeTestedSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           isDerived = this@with.isDerived?.value,
           _isDerived = this@with.isDerived?.toElement(),
           type = this@with.type,
@@ -133,9 +134,9 @@ internal data class SpecimenDefinitionTypeTestedSurrogate(
           retentionTime = this@with.retentionTime,
           singleUse = this@with.singleUse?.value,
           _singleUse = this@with.singleUse?.toElement(),
-          rejectionCriterion = this@with.rejectionCriterion.takeUnless { it.all { it == null } },
-          handling = this@with.handling.takeUnless { it.all { it == null } },
-          testingDestination = this@with.testingDestination.takeUnless { it.all { it == null } },
+          rejectionCriterion = this@with.rejectionCriterion.takeIf { it.isNotEmpty() },
+          handling = this@with.handling.takeIf { it.isNotEmpty() },
+          testingDestination = this@with.testingDestination.takeIf { it.isNotEmpty() },
         )
       }
   }
@@ -188,8 +189,8 @@ internal data class SpecimenDefinitionTypeTestedContainerSurrogate(
       with(model) {
         SpecimenDefinitionTypeTestedContainerSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           material = this@with.material,
           type = this@with.type,
           cap = this@with.cap,
@@ -197,7 +198,7 @@ internal data class SpecimenDefinitionTypeTestedContainerSurrogate(
           _description = this@with.description?.toElement(),
           capacity = this@with.capacity,
           minimumVolume = this@with.minimumVolume,
-          additive = this@with.additive.takeUnless { it.all { it == null } },
+          additive = this@with.additive.takeIf { it.isNotEmpty() },
           preparation = this@with.preparation?.value,
           _preparation = this@with.preparation?.toElement(),
         )
@@ -230,8 +231,8 @@ internal data class SpecimenDefinitionTypeTestedContainerAdditiveSurrogate(
       with(model) {
         SpecimenDefinitionTypeTestedContainerAdditiveSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           additive = this@with.additive,
         )
       }
@@ -273,8 +274,8 @@ internal data class SpecimenDefinitionTypeTestedHandlingSurrogate(
       with(model) {
         SpecimenDefinitionTypeTestedHandlingSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           temperatureQualifier = this@with.temperatureQualifier,
           temperatureRange = this@with.temperatureRange,
           maxDuration = this@with.maxDuration,
@@ -374,7 +375,7 @@ internal data class SpecimenDefinitionTypeTestedContainerAdditiveAdditiveSurroga
     SpecimenDefinition.TypeTested.Container.Additive.Additive.from(
       this@SpecimenDefinitionTypeTestedContainerAdditiveAdditiveSurrogate.additiveCodeableConcept,
       this@SpecimenDefinitionTypeTestedContainerAdditiveAdditiveSurrogate.additiveReference,
-    )!! !!
+    )!!
 
   public companion object {
     public fun fromModel(
@@ -514,9 +515,7 @@ internal data class SpecimenDefinitionSurrogate(
         },
       status =
         Enumeration.of(
-          com.google.fhir.model.r5.terminologies.PublicationStatus.fromCode(
-            this@SpecimenDefinitionSurrogate.status!!
-          ),
+          PublicationStatus.fromCode(this@SpecimenDefinitionSurrogate.status!!),
           this@SpecimenDefinitionSurrogate._status,
         ),
       experimental =
@@ -591,9 +590,9 @@ internal data class SpecimenDefinitionSurrogate(
           language = this@with.language?.value,
           _language = this@with.language?.toElement(),
           text = this@with.text,
-          contained = this@with.contained.takeUnless { it.all { it == null } },
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          contained = this@with.contained.takeIf { it.isNotEmpty() },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           url = this@with.url?.value,
           _url = this@with.url?.toElement(),
           identifier = this@with.identifier,
@@ -635,11 +634,11 @@ internal data class SpecimenDefinitionSurrogate(
           _date = this@with.date?.toElement(),
           publisher = this@with.publisher?.value,
           _publisher = this@with.publisher?.toElement(),
-          contact = this@with.contact.takeUnless { it.all { it == null } },
+          contact = this@with.contact.takeIf { it.isNotEmpty() },
           description = this@with.description?.value,
           _description = this@with.description?.toElement(),
-          useContext = this@with.useContext.takeUnless { it.all { it == null } },
-          jurisdiction = this@with.jurisdiction.takeUnless { it.all { it == null } },
+          useContext = this@with.useContext.takeIf { it.isNotEmpty() },
+          jurisdiction = this@with.jurisdiction.takeIf { it.isNotEmpty() },
           purpose = this@with.purpose?.value,
           _purpose = this@with.purpose?.toElement(),
           copyright = this@with.copyright?.value,
@@ -652,11 +651,11 @@ internal data class SpecimenDefinitionSurrogate(
           _lastReviewDate = this@with.lastReviewDate?.toElement(),
           effectivePeriod = this@with.effectivePeriod,
           typeCollected = this@with.typeCollected,
-          patientPreparation = this@with.patientPreparation.takeUnless { it.all { it == null } },
+          patientPreparation = this@with.patientPreparation.takeIf { it.isNotEmpty() },
           timeAspect = this@with.timeAspect?.value,
           _timeAspect = this@with.timeAspect?.toElement(),
-          collection = this@with.collection.takeUnless { it.all { it == null } },
-          typeTested = this@with.typeTested.takeUnless { it.all { it == null } },
+          collection = this@with.collection.takeIf { it.isNotEmpty() },
+          typeTested = this@with.typeTested.takeIf { it.isNotEmpty() },
         )
       }
   }

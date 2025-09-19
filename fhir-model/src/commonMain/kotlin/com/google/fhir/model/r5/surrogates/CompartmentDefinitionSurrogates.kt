@@ -38,6 +38,8 @@ import com.google.fhir.model.r5.Uri
 import com.google.fhir.model.r5.UsageContext
 import com.google.fhir.model.r5.serializers.DoubleSerializer
 import com.google.fhir.model.r5.serializers.LocalTimeSerializer
+import com.google.fhir.model.r5.terminologies.PublicationStatus
+import com.google.fhir.model.r5.terminologies.ResourceType
 import kotlin.Boolean as KotlinBoolean
 import kotlin.String as KotlinString
 import kotlin.Suppress
@@ -69,9 +71,7 @@ internal data class CompartmentDefinitionResourceSurrogate(
         this@CompartmentDefinitionResourceSurrogate.modifierExtension ?: mutableListOf(),
       code =
         Enumeration.of(
-          com.google.fhir.model.r5.terminologies.ResourceType.fromCode(
-            this@CompartmentDefinitionResourceSurrogate.code!!
-          ),
+          ResourceType.fromCode(this@CompartmentDefinitionResourceSurrogate.code!!),
           this@CompartmentDefinitionResourceSurrogate._code,
         ),
       `param` =
@@ -114,8 +114,8 @@ internal data class CompartmentDefinitionResourceSurrogate(
       with(model) {
         CompartmentDefinitionResourceSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           code = this@with.code.value?.getCode(),
           _code = this@with.code.toElement(),
           `param` =
@@ -245,9 +245,7 @@ internal data class CompartmentDefinitionSurrogate(
         ),
       status =
         Enumeration.of(
-          com.google.fhir.model.r5.terminologies.PublicationStatus.fromCode(
-            this@CompartmentDefinitionSurrogate.status!!
-          ),
+          PublicationStatus.fromCode(this@CompartmentDefinitionSurrogate.status!!),
           this@CompartmentDefinitionSurrogate._status,
         ),
       experimental =
@@ -279,7 +277,7 @@ internal data class CompartmentDefinitionSurrogate(
         ),
       code =
         Enumeration.of(
-          com.google.fhir.model.r5.CompartmentDefinition.CompartmentType.fromCode(
+          CompartmentDefinition.CompartmentType.fromCode(
             this@CompartmentDefinitionSurrogate.code!!
           ),
           this@CompartmentDefinitionSurrogate._code,
@@ -303,9 +301,9 @@ internal data class CompartmentDefinitionSurrogate(
           language = this@with.language?.value,
           _language = this@with.language?.toElement(),
           text = this@with.text,
-          contained = this@with.contained.takeUnless { it.all { it == null } },
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          contained = this@with.contained.takeIf { it.isNotEmpty() },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           url = this@with.url.value,
           _url = this@with.url.toElement(),
           version = this@with.version?.value,
@@ -323,17 +321,17 @@ internal data class CompartmentDefinitionSurrogate(
           _date = this@with.date?.toElement(),
           publisher = this@with.publisher?.value,
           _publisher = this@with.publisher?.toElement(),
-          contact = this@with.contact.takeUnless { it.all { it == null } },
+          contact = this@with.contact.takeIf { it.isNotEmpty() },
           description = this@with.description?.value,
           _description = this@with.description?.toElement(),
-          useContext = this@with.useContext.takeUnless { it.all { it == null } },
+          useContext = this@with.useContext.takeIf { it.isNotEmpty() },
           purpose = this@with.purpose?.value,
           _purpose = this@with.purpose?.toElement(),
           code = this@with.code.value?.getCode(),
           _code = this@with.code.toElement(),
           search = this@with.search.value,
           _search = this@with.search.toElement(),
-          resource = this@with.resource.takeUnless { it.all { it == null } },
+          resource = this@with.resource.takeIf { it.isNotEmpty() },
         )
       }
   }

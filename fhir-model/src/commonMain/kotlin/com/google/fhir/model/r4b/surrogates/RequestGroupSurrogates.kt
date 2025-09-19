@@ -115,7 +115,7 @@ internal data class RequestGroupActionSurrogate(
       priority =
         this@RequestGroupActionSurrogate.priority?.let {
           Enumeration.of(
-            com.google.fhir.model.r4b.RequestGroup.RequestPriority.fromCode(it!!),
+            RequestGroup.RequestPriority.fromCode(it),
             this@RequestGroupActionSurrogate._priority,
           )
         },
@@ -129,35 +129,35 @@ internal data class RequestGroupActionSurrogate(
       groupingBehavior =
         this@RequestGroupActionSurrogate.groupingBehavior?.let {
           Enumeration.of(
-            com.google.fhir.model.r4b.RequestGroup.ActionGroupingBehavior.fromCode(it!!),
+            RequestGroup.ActionGroupingBehavior.fromCode(it),
             this@RequestGroupActionSurrogate._groupingBehavior,
           )
         },
       selectionBehavior =
         this@RequestGroupActionSurrogate.selectionBehavior?.let {
           Enumeration.of(
-            com.google.fhir.model.r4b.RequestGroup.ActionSelectionBehavior.fromCode(it!!),
+            RequestGroup.ActionSelectionBehavior.fromCode(it),
             this@RequestGroupActionSurrogate._selectionBehavior,
           )
         },
       requiredBehavior =
         this@RequestGroupActionSurrogate.requiredBehavior?.let {
           Enumeration.of(
-            com.google.fhir.model.r4b.RequestGroup.ActionRequiredBehavior.fromCode(it!!),
+            RequestGroup.ActionRequiredBehavior.fromCode(it),
             this@RequestGroupActionSurrogate._requiredBehavior,
           )
         },
       precheckBehavior =
         this@RequestGroupActionSurrogate.precheckBehavior?.let {
           Enumeration.of(
-            com.google.fhir.model.r4b.RequestGroup.ActionPrecheckBehavior.fromCode(it!!),
+            RequestGroup.ActionPrecheckBehavior.fromCode(it),
             this@RequestGroupActionSurrogate._precheckBehavior,
           )
         },
       cardinalityBehavior =
         this@RequestGroupActionSurrogate.cardinalityBehavior?.let {
           Enumeration.of(
-            com.google.fhir.model.r4b.RequestGroup.ActionCardinalityBehavior.fromCode(it!!),
+            RequestGroup.ActionCardinalityBehavior.fromCode(it),
             this@RequestGroupActionSurrogate._cardinalityBehavior,
           )
         },
@@ -170,8 +170,8 @@ internal data class RequestGroupActionSurrogate(
       with(model) {
         RequestGroupActionSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           prefix = this@with.prefix?.value,
           _prefix = this@with.prefix?.toElement(),
           title = this@with.title?.value,
@@ -182,12 +182,12 @@ internal data class RequestGroupActionSurrogate(
           _textEquivalent = this@with.textEquivalent?.toElement(),
           priority = this@with.priority?.value?.getCode(),
           _priority = this@with.priority?.toElement(),
-          code = this@with.code.takeUnless { it.all { it == null } },
-          documentation = this@with.documentation.takeUnless { it.all { it == null } },
-          condition = this@with.condition.takeUnless { it.all { it == null } },
-          relatedAction = this@with.relatedAction.takeUnless { it.all { it == null } },
+          code = this@with.code.takeIf { it.isNotEmpty() },
+          documentation = this@with.documentation.takeIf { it.isNotEmpty() },
+          condition = this@with.condition.takeIf { it.isNotEmpty() },
+          relatedAction = this@with.relatedAction.takeIf { it.isNotEmpty() },
           timing = this@with.timing,
-          participant = this@with.participant.takeUnless { it.all { it == null } },
+          participant = this@with.participant.takeIf { it.isNotEmpty() },
           type = this@with.type,
           groupingBehavior = this@with.groupingBehavior?.value?.getCode(),
           _groupingBehavior = this@with.groupingBehavior?.toElement(),
@@ -200,7 +200,7 @@ internal data class RequestGroupActionSurrogate(
           cardinalityBehavior = this@with.cardinalityBehavior?.value?.getCode(),
           _cardinalityBehavior = this@with.cardinalityBehavior?.toElement(),
           resource = this@with.resource,
-          action = this@with.action.takeUnless { it.all { it == null } },
+          action = this@with.action.takeIf { it.isNotEmpty() },
         )
       }
   }
@@ -223,7 +223,7 @@ internal data class RequestGroupActionConditionSurrogate(
         this@RequestGroupActionConditionSurrogate.modifierExtension ?: mutableListOf(),
       kind =
         Enumeration.of(
-          com.google.fhir.model.r4b.RequestGroup.ActionConditionKind.fromCode(
+          RequestGroup.ActionConditionKind.fromCode(
             this@RequestGroupActionConditionSurrogate.kind!!
           ),
           this@RequestGroupActionConditionSurrogate._kind,
@@ -238,8 +238,8 @@ internal data class RequestGroupActionConditionSurrogate(
       with(model) {
         RequestGroupActionConditionSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           kind = this@with.kind.value?.getCode(),
           _kind = this@with.kind.toElement(),
           expression = this@with.expression,
@@ -272,7 +272,7 @@ internal data class RequestGroupActionRelatedActionSurrogate(
         )!!,
       relationship =
         Enumeration.of(
-          com.google.fhir.model.r4b.RequestGroup.ActionRelationshipType.fromCode(
+          RequestGroup.ActionRelationshipType.fromCode(
             this@RequestGroupActionRelatedActionSurrogate.relationship!!
           ),
           this@RequestGroupActionRelatedActionSurrogate._relationship,
@@ -287,8 +287,8 @@ internal data class RequestGroupActionRelatedActionSurrogate(
       with(model) {
         RequestGroupActionRelatedActionSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           actionId = this@with.actionId.value,
           _actionId = this@with.actionId.toElement(),
           relationship = this@with.relationship.value?.getCode(),
@@ -448,22 +448,18 @@ internal data class RequestGroupSurrogate(
       groupIdentifier = this@RequestGroupSurrogate.groupIdentifier,
       status =
         Enumeration.of(
-          com.google.fhir.model.r4b.RequestGroup.RequestStatus.fromCode(
-            this@RequestGroupSurrogate.status!!
-          ),
+          RequestGroup.RequestStatus.fromCode(this@RequestGroupSurrogate.status!!),
           this@RequestGroupSurrogate._status,
         ),
       intent =
         Enumeration.of(
-          com.google.fhir.model.r4b.RequestGroup.RequestIntent.fromCode(
-            this@RequestGroupSurrogate.intent!!
-          ),
+          RequestGroup.RequestIntent.fromCode(this@RequestGroupSurrogate.intent!!),
           this@RequestGroupSurrogate._intent,
         ),
       priority =
         this@RequestGroupSurrogate.priority?.let {
           Enumeration.of(
-            com.google.fhir.model.r4b.RequestGroup.RequestPriority.fromCode(it!!),
+            RequestGroup.RequestPriority.fromCode(it),
             this@RequestGroupSurrogate._priority,
           )
         },
@@ -493,10 +489,10 @@ internal data class RequestGroupSurrogate(
           language = this@with.language?.value,
           _language = this@with.language?.toElement(),
           text = this@with.text,
-          contained = this@with.contained.takeUnless { it.all { it == null } },
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          contained = this@with.contained.takeIf { it.isNotEmpty() },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
+          identifier = this@with.identifier.takeIf { it.isNotEmpty() },
           instantiatesCanonical =
             this@with.instantiatesCanonical
               .map { it.value }
@@ -519,8 +515,8 @@ internal data class RequestGroupSurrogate(
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
               ?.toMutableList(),
-          basedOn = this@with.basedOn.takeUnless { it.all { it == null } },
-          replaces = this@with.replaces.takeUnless { it.all { it == null } },
+          basedOn = this@with.basedOn.takeIf { it.isNotEmpty() },
+          replaces = this@with.replaces.takeIf { it.isNotEmpty() },
           groupIdentifier = this@with.groupIdentifier,
           status = this@with.status.value?.getCode(),
           _status = this@with.status.toElement(),
@@ -534,10 +530,10 @@ internal data class RequestGroupSurrogate(
           authoredOn = this@with.authoredOn?.value?.toString(),
           _authoredOn = this@with.authoredOn?.toElement(),
           author = this@with.author,
-          reasonCode = this@with.reasonCode.takeUnless { it.all { it == null } },
-          reasonReference = this@with.reasonReference.takeUnless { it.all { it == null } },
-          note = this@with.note.takeUnless { it.all { it == null } },
-          action = this@with.action.takeUnless { it.all { it == null } },
+          reasonCode = this@with.reasonCode.takeIf { it.isNotEmpty() },
+          reasonReference = this@with.reasonReference.takeIf { it.isNotEmpty() },
+          note = this@with.note.takeIf { it.isNotEmpty() },
+          action = this@with.action.takeIf { it.isNotEmpty() },
         )
       }
   }

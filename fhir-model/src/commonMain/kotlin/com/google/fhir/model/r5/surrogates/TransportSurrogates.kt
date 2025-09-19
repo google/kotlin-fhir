@@ -122,12 +122,12 @@ internal data class TransportRestrictionSurrogate(
       with(model) {
         TransportRestrictionSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           repetitions = this@with.repetitions?.value,
           _repetitions = this@with.repetitions?.toElement(),
           period = this@with.period,
-          recipient = this@with.recipient.takeUnless { it.all { it == null } },
+          recipient = this@with.recipient.takeIf { it.isNotEmpty() },
         )
       }
   }
@@ -155,8 +155,8 @@ internal data class TransportInputSurrogate(
       with(model) {
         TransportInputSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           type = this@with.type,
           `value` = this@with.`value`,
         )
@@ -186,8 +186,8 @@ internal data class TransportOutputSurrogate(
       with(model) {
         TransportOutputSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           type = this@with.type,
           `value` = this@with.`value`,
         )
@@ -385,7 +385,7 @@ internal data class TransportInputValueSurrogate(
       this@TransportInputValueSurrogate.valueExtendedContactDetail,
       this@TransportInputValueSurrogate.valueDosage,
       this@TransportInputValueSurrogate.valueMeta,
-    )!! !!
+    )!!
 
   public companion object {
     public fun fromModel(model: Transport.Input.Value): TransportInputValueSurrogate =
@@ -663,7 +663,7 @@ internal data class TransportOutputValueSurrogate(
       this@TransportOutputValueSurrogate.valueExtendedContactDetail,
       this@TransportOutputValueSurrogate.valueDosage,
       this@TransportOutputValueSurrogate.valueMeta,
-    )!! !!
+    )!!
 
   public companion object {
     public fun fromModel(model: Transport.Output.Value): TransportOutputValueSurrogate =
@@ -826,25 +826,17 @@ internal data class TransportSurrogate(
       partOf = this@TransportSurrogate.partOf ?: mutableListOf(),
       status =
         this@TransportSurrogate.status?.let {
-          Enumeration.of(
-            com.google.fhir.model.r5.Transport.TransportStatus.fromCode(it!!),
-            this@TransportSurrogate._status,
-          )
+          Enumeration.of(Transport.TransportStatus.fromCode(it), this@TransportSurrogate._status)
         },
       statusReason = this@TransportSurrogate.statusReason,
       intent =
         Enumeration.of(
-          com.google.fhir.model.r5.Transport.TransportIntent.fromCode(
-            this@TransportSurrogate.intent!!
-          ),
+          Transport.TransportIntent.fromCode(this@TransportSurrogate.intent!!),
           this@TransportSurrogate._intent,
         ),
       priority =
         this@TransportSurrogate.priority?.let {
-          Enumeration.of(
-            com.google.fhir.model.r5.Transport.RequestPriority.fromCode(it!!),
-            this@TransportSurrogate._priority,
-          )
+          Enumeration.of(Transport.RequestPriority.fromCode(it), this@TransportSurrogate._priority)
         },
       code = this@TransportSurrogate.code,
       description =
@@ -894,17 +886,17 @@ internal data class TransportSurrogate(
           language = this@with.language?.value,
           _language = this@with.language?.toElement(),
           text = this@with.text,
-          contained = this@with.contained.takeUnless { it.all { it == null } },
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          contained = this@with.contained.takeIf { it.isNotEmpty() },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
+          identifier = this@with.identifier.takeIf { it.isNotEmpty() },
           instantiatesCanonical = this@with.instantiatesCanonical?.value,
           _instantiatesCanonical = this@with.instantiatesCanonical?.toElement(),
           instantiatesUri = this@with.instantiatesUri?.value,
           _instantiatesUri = this@with.instantiatesUri?.toElement(),
-          basedOn = this@with.basedOn.takeUnless { it.all { it == null } },
+          basedOn = this@with.basedOn.takeIf { it.isNotEmpty() },
           groupIdentifier = this@with.groupIdentifier,
-          partOf = this@with.partOf.takeUnless { it.all { it == null } },
+          partOf = this@with.partOf.takeIf { it.isNotEmpty() },
           status = this@with.status?.value?.getCode(),
           _status = this@with.status?.toElement(),
           statusReason = this@with.statusReason,
@@ -925,15 +917,15 @@ internal data class TransportSurrogate(
           lastModified = this@with.lastModified?.value?.toString(),
           _lastModified = this@with.lastModified?.toElement(),
           requester = this@with.requester,
-          performerType = this@with.performerType.takeUnless { it.all { it == null } },
+          performerType = this@with.performerType.takeIf { it.isNotEmpty() },
           owner = this@with.owner,
           location = this@with.location,
-          insurance = this@with.insurance.takeUnless { it.all { it == null } },
-          note = this@with.note.takeUnless { it.all { it == null } },
-          relevantHistory = this@with.relevantHistory.takeUnless { it.all { it == null } },
+          insurance = this@with.insurance.takeIf { it.isNotEmpty() },
+          note = this@with.note.takeIf { it.isNotEmpty() },
+          relevantHistory = this@with.relevantHistory.takeIf { it.isNotEmpty() },
           restriction = this@with.restriction,
-          input = this@with.input.takeUnless { it.all { it == null } },
-          output = this@with.output.takeUnless { it.all { it == null } },
+          input = this@with.input.takeIf { it.isNotEmpty() },
+          output = this@with.output.takeIf { it.isNotEmpty() },
           requestedLocation = this@with.requestedLocation,
           currentLocation = this@with.currentLocation,
           reason = this@with.reason,

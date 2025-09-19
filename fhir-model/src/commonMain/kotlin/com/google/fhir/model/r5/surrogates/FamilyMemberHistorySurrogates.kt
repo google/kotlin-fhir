@@ -77,8 +77,8 @@ internal data class FamilyMemberHistoryParticipantSurrogate(
       with(model) {
         FamilyMemberHistoryParticipantSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           function = this@with.function,
           actor = this@with.actor,
         )
@@ -122,14 +122,14 @@ internal data class FamilyMemberHistoryConditionSurrogate(
       with(model) {
         FamilyMemberHistoryConditionSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           code = this@with.code,
           outcome = this@with.outcome,
           contributedToDeath = this@with.contributedToDeath?.value,
           _contributedToDeath = this@with.contributedToDeath?.toElement(),
           onset = this@with.onset,
-          note = this@with.note.takeUnless { it.all { it == null } },
+          note = this@with.note.takeIf { it.isNotEmpty() },
         )
       }
   }
@@ -171,14 +171,14 @@ internal data class FamilyMemberHistoryProcedureSurrogate(
       with(model) {
         FamilyMemberHistoryProcedureSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           code = this@with.code,
           outcome = this@with.outcome,
           contributedToDeath = this@with.contributedToDeath?.value,
           _contributedToDeath = this@with.contributedToDeath?.toElement(),
           performed = this@with.performed,
-          note = this@with.note.takeUnless { it.all { it == null } },
+          note = this@with.note.takeIf { it.isNotEmpty() },
         )
       }
   }
@@ -468,7 +468,7 @@ internal data class FamilyMemberHistorySurrogate(
         },
       status =
         Enumeration.of(
-          com.google.fhir.model.r5.FamilyMemberHistory.FamilyHistoryStatus.fromCode(
+          FamilyMemberHistory.FamilyHistoryStatus.fromCode(
             this@FamilyMemberHistorySurrogate.status!!
           ),
           this@FamilyMemberHistorySurrogate._status,
@@ -513,10 +513,10 @@ internal data class FamilyMemberHistorySurrogate(
           language = this@with.language?.value,
           _language = this@with.language?.toElement(),
           text = this@with.text,
-          contained = this@with.contained.takeUnless { it.all { it == null } },
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          contained = this@with.contained.takeIf { it.isNotEmpty() },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
+          identifier = this@with.identifier.takeIf { it.isNotEmpty() },
           instantiatesCanonical =
             this@with.instantiatesCanonical
               .map { it.value }
@@ -545,7 +545,7 @@ internal data class FamilyMemberHistorySurrogate(
           patient = this@with.patient,
           date = this@with.date?.value?.toString(),
           _date = this@with.date?.toElement(),
-          participant = this@with.participant.takeUnless { it.all { it == null } },
+          participant = this@with.participant.takeIf { it.isNotEmpty() },
           name = this@with.name?.value,
           _name = this@with.name?.toElement(),
           relationship = this@with.relationship,
@@ -555,10 +555,10 @@ internal data class FamilyMemberHistorySurrogate(
           estimatedAge = this@with.estimatedAge?.value,
           _estimatedAge = this@with.estimatedAge?.toElement(),
           deceased = this@with.deceased,
-          reason = this@with.reason.takeUnless { it.all { it == null } },
-          note = this@with.note.takeUnless { it.all { it == null } },
-          condition = this@with.condition.takeUnless { it.all { it == null } },
-          procedure = this@with.procedure.takeUnless { it.all { it == null } },
+          reason = this@with.reason.takeIf { it.isNotEmpty() },
+          note = this@with.note.takeIf { it.isNotEmpty() },
+          condition = this@with.condition.takeIf { it.isNotEmpty() },
+          procedure = this@with.procedure.takeIf { it.isNotEmpty() },
         )
       }
   }

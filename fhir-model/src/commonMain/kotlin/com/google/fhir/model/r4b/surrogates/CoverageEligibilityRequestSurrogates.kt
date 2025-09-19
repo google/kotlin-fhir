@@ -89,8 +89,8 @@ internal data class CoverageEligibilityRequestSupportingInfoSurrogate(
       with(model) {
         CoverageEligibilityRequestSupportingInfoSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           sequence = this@with.sequence.value,
           _sequence = this@with.sequence.toElement(),
           information = this@with.information,
@@ -138,8 +138,8 @@ internal data class CoverageEligibilityRequestInsuranceSurrogate(
       with(model) {
         CoverageEligibilityRequestInsuranceSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           focal = this@with.focal?.value,
           _focal = this@with.focal?.toElement(),
           coverage = this@with.coverage,
@@ -213,8 +213,8 @@ internal data class CoverageEligibilityRequestItemSurrogate(
       with(model) {
         CoverageEligibilityRequestItemSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           supportingInfoSequence =
             this@with.supportingInfoSequence
               .map { it.value }
@@ -228,13 +228,13 @@ internal data class CoverageEligibilityRequestItemSurrogate(
               ?.toMutableList(),
           category = this@with.category,
           productOrService = this@with.productOrService,
-          modifier = this@with.modifier.takeUnless { it.all { it == null } },
+          modifier = this@with.modifier.takeIf { it.isNotEmpty() },
           provider = this@with.provider,
           quantity = this@with.quantity,
           unitPrice = this@with.unitPrice,
           facility = this@with.facility,
-          diagnosis = this@with.diagnosis.takeUnless { it.all { it == null } },
-          detail = this@with.detail.takeUnless { it.all { it == null } },
+          diagnosis = this@with.diagnosis.takeIf { it.isNotEmpty() },
+          detail = this@with.detail.takeIf { it.isNotEmpty() },
         )
       }
   }
@@ -264,8 +264,8 @@ internal data class CoverageEligibilityRequestItemDiagnosisSurrogate(
       with(model) {
         CoverageEligibilityRequestItemDiagnosisSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           diagnosis = this@with.diagnosis,
         )
       }
@@ -377,8 +377,9 @@ internal data class CoverageEligibilityRequestSurrogate(
       identifier = this@CoverageEligibilityRequestSurrogate.identifier ?: mutableListOf(),
       status =
         Enumeration.of(
-          com.google.fhir.model.r4b.CoverageEligibilityRequest.FinancialResourceStatusCodes
-            .fromCode(this@CoverageEligibilityRequestSurrogate.status!!),
+          CoverageEligibilityRequest.FinancialResourceStatusCodes.fromCode(
+            this@CoverageEligibilityRequestSurrogate.status!!
+          ),
           this@CoverageEligibilityRequestSurrogate._status,
         ),
       priority = this@CoverageEligibilityRequestSurrogate.priority,
@@ -397,10 +398,7 @@ internal data class CoverageEligibilityRequestSurrogate(
             )
             .map { (value, element) ->
               Enumeration.of(
-                value.let {
-                  com.google.fhir.model.r4b.CoverageEligibilityRequest.EligibilityRequestPurpose
-                    .fromCode(it!!)!!
-                },
+                value.let { CoverageEligibilityRequest.EligibilityRequestPurpose.fromCode(it!!) },
                 element,
               )
             }
@@ -433,10 +431,10 @@ internal data class CoverageEligibilityRequestSurrogate(
           language = this@with.language?.value,
           _language = this@with.language?.toElement(),
           text = this@with.text,
-          contained = this@with.contained.takeUnless { it.all { it == null } },
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          contained = this@with.contained.takeIf { it.isNotEmpty() },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
+          identifier = this@with.identifier.takeIf { it.isNotEmpty() },
           status = this@with.status.value?.getCode(),
           _status = this@with.status.toElement(),
           priority = this@with.priority,
@@ -459,9 +457,9 @@ internal data class CoverageEligibilityRequestSurrogate(
           provider = this@with.provider,
           insurer = this@with.insurer,
           facility = this@with.facility,
-          supportingInfo = this@with.supportingInfo.takeUnless { it.all { it == null } },
-          insurance = this@with.insurance.takeUnless { it.all { it == null } },
-          item = this@with.item.takeUnless { it.all { it == null } },
+          supportingInfo = this@with.supportingInfo.takeIf { it.isNotEmpty() },
+          insurance = this@with.insurance.takeIf { it.isNotEmpty() },
+          item = this@with.item.takeIf { it.isNotEmpty() },
         )
       }
   }

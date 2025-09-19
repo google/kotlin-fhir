@@ -90,7 +90,7 @@ internal data class AnnotationSurrogate(
       with(model) {
         AnnotationSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
           author = this@with.author,
           time = this@with.time?.value?.toString(),
           _time = this@with.time?.toElement(),

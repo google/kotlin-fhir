@@ -69,8 +69,8 @@ internal data class AdverseEventParticipantSurrogate(
       with(model) {
         AdverseEventParticipantSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           function = this@with.function,
           actor = this@with.actor,
         )
@@ -101,8 +101,8 @@ internal data class AdverseEventSuspectEntitySurrogate(
       with(model) {
         AdverseEventSuspectEntitySurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           instance = this@with.instance,
           causality = this@with.causality,
         )
@@ -137,8 +137,8 @@ internal data class AdverseEventSuspectEntityCausalitySurrogate(
       with(model) {
         AdverseEventSuspectEntityCausalitySurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           assessmentMethod = this@with.assessmentMethod,
           entityRelatedness = this@with.entityRelatedness,
           author = this@with.author,
@@ -170,8 +170,8 @@ internal data class AdverseEventContributingFactorSurrogate(
       with(model) {
         AdverseEventContributingFactorSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           item = this@with.item,
         )
       }
@@ -201,8 +201,8 @@ internal data class AdverseEventPreventiveActionSurrogate(
       with(model) {
         AdverseEventPreventiveActionSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           item = this@with.item,
         )
       }
@@ -232,8 +232,8 @@ internal data class AdverseEventMitigatingActionSurrogate(
       with(model) {
         AdverseEventMitigatingActionSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           item = this@with.item,
         )
       }
@@ -261,8 +261,8 @@ internal data class AdverseEventSupportingInfoSurrogate(
       with(model) {
         AdverseEventSupportingInfoSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           item = this@with.item,
         )
       }
@@ -308,7 +308,7 @@ internal data class AdverseEventSuspectEntityInstanceSurrogate(
     AdverseEvent.SuspectEntity.Instance.from(
       this@AdverseEventSuspectEntityInstanceSurrogate.instanceCodeableConcept,
       this@AdverseEventSuspectEntityInstanceSurrogate.instanceReference,
-    )!! !!
+    )!!
 
   public companion object {
     public fun fromModel(
@@ -332,7 +332,7 @@ internal data class AdverseEventContributingFactorItemSurrogate(
     AdverseEvent.ContributingFactor.Item.from(
       this@AdverseEventContributingFactorItemSurrogate.itemReference,
       this@AdverseEventContributingFactorItemSurrogate.itemCodeableConcept,
-    )!! !!
+    )!!
 
   public companion object {
     public fun fromModel(
@@ -356,7 +356,7 @@ internal data class AdverseEventPreventiveActionItemSurrogate(
     AdverseEvent.PreventiveAction.Item.from(
       this@AdverseEventPreventiveActionItemSurrogate.itemReference,
       this@AdverseEventPreventiveActionItemSurrogate.itemCodeableConcept,
-    )!! !!
+    )!!
 
   public companion object {
     public fun fromModel(
@@ -380,7 +380,7 @@ internal data class AdverseEventMitigatingActionItemSurrogate(
     AdverseEvent.MitigatingAction.Item.from(
       this@AdverseEventMitigatingActionItemSurrogate.itemReference,
       this@AdverseEventMitigatingActionItemSurrogate.itemCodeableConcept,
-    )!! !!
+    )!!
 
   public companion object {
     public fun fromModel(
@@ -404,7 +404,7 @@ internal data class AdverseEventSupportingInfoItemSurrogate(
     AdverseEvent.SupportingInfo.Item.from(
       this@AdverseEventSupportingInfoItemSurrogate.itemReference,
       this@AdverseEventSupportingInfoItemSurrogate.itemCodeableConcept,
-    )!! !!
+    )!!
 
   public companion object {
     public fun fromModel(
@@ -475,16 +475,12 @@ internal data class AdverseEventSurrogate(
       identifier = this@AdverseEventSurrogate.identifier ?: mutableListOf(),
       status =
         Enumeration.of(
-          com.google.fhir.model.r5.AdverseEvent.AdverseEventStatus.fromCode(
-            this@AdverseEventSurrogate.status!!
-          ),
+          AdverseEvent.AdverseEventStatus.fromCode(this@AdverseEventSurrogate.status!!),
           this@AdverseEventSurrogate._status,
         ),
       actuality =
         Enumeration.of(
-          com.google.fhir.model.r5.AdverseEvent.AdverseEventActuality.fromCode(
-            this@AdverseEventSurrogate.actuality!!
-          ),
+          AdverseEvent.AdverseEventActuality.fromCode(this@AdverseEventSurrogate.actuality!!),
           this@AdverseEventSurrogate._actuality,
         ),
       category = this@AdverseEventSurrogate.category ?: mutableListOf(),
@@ -533,15 +529,15 @@ internal data class AdverseEventSurrogate(
           language = this@with.language?.value,
           _language = this@with.language?.toElement(),
           text = this@with.text,
-          contained = this@with.contained.takeUnless { it.all { it == null } },
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          contained = this@with.contained.takeIf { it.isNotEmpty() },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
+          identifier = this@with.identifier.takeIf { it.isNotEmpty() },
           status = this@with.status.value?.getCode(),
           _status = this@with.status.toElement(),
           actuality = this@with.actuality.value?.getCode(),
           _actuality = this@with.actuality.toElement(),
-          category = this@with.category.takeUnless { it.all { it == null } },
+          category = this@with.category.takeIf { it.isNotEmpty() },
           code = this@with.code,
           subject = this@with.subject,
           encounter = this@with.encounter,
@@ -550,21 +546,21 @@ internal data class AdverseEventSurrogate(
           _detected = this@with.detected?.toElement(),
           recordedDate = this@with.recordedDate?.value?.toString(),
           _recordedDate = this@with.recordedDate?.toElement(),
-          resultingEffect = this@with.resultingEffect.takeUnless { it.all { it == null } },
+          resultingEffect = this@with.resultingEffect.takeIf { it.isNotEmpty() },
           location = this@with.location,
           seriousness = this@with.seriousness,
-          outcome = this@with.outcome.takeUnless { it.all { it == null } },
+          outcome = this@with.outcome.takeIf { it.isNotEmpty() },
           recorder = this@with.recorder,
-          participant = this@with.participant.takeUnless { it.all { it == null } },
-          study = this@with.study.takeUnless { it.all { it == null } },
+          participant = this@with.participant.takeIf { it.isNotEmpty() },
+          study = this@with.study.takeIf { it.isNotEmpty() },
           expectedInResearchStudy = this@with.expectedInResearchStudy?.value,
           _expectedInResearchStudy = this@with.expectedInResearchStudy?.toElement(),
-          suspectEntity = this@with.suspectEntity.takeUnless { it.all { it == null } },
-          contributingFactor = this@with.contributingFactor.takeUnless { it.all { it == null } },
-          preventiveAction = this@with.preventiveAction.takeUnless { it.all { it == null } },
-          mitigatingAction = this@with.mitigatingAction.takeUnless { it.all { it == null } },
-          supportingInfo = this@with.supportingInfo.takeUnless { it.all { it == null } },
-          note = this@with.note.takeUnless { it.all { it == null } },
+          suspectEntity = this@with.suspectEntity.takeIf { it.isNotEmpty() },
+          contributingFactor = this@with.contributingFactor.takeIf { it.isNotEmpty() },
+          preventiveAction = this@with.preventiveAction.takeIf { it.isNotEmpty() },
+          mitigatingAction = this@with.mitigatingAction.takeIf { it.isNotEmpty() },
+          supportingInfo = this@with.supportingInfo.takeIf { it.isNotEmpty() },
+          note = this@with.note.takeIf { it.isNotEmpty() },
         )
       }
   }

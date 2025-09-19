@@ -59,7 +59,7 @@ internal data class EpisodeOfCareStatusHistorySurrogate(
         this@EpisodeOfCareStatusHistorySurrogate.modifierExtension ?: mutableListOf(),
       status =
         Enumeration.of(
-          com.google.fhir.model.r4.EpisodeOfCare.EpisodeOfCareStatus.fromCode(
+          EpisodeOfCare.EpisodeOfCareStatus.fromCode(
             this@EpisodeOfCareStatusHistorySurrogate.status!!
           ),
           this@EpisodeOfCareStatusHistorySurrogate._status,
@@ -72,8 +72,8 @@ internal data class EpisodeOfCareStatusHistorySurrogate(
       with(model) {
         EpisodeOfCareStatusHistorySurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           status = this@with.status.value?.getCode(),
           _status = this@with.status.toElement(),
           period = this@with.period,
@@ -111,8 +111,8 @@ internal data class EpisodeOfCareDiagnosisSurrogate(
       with(model) {
         EpisodeOfCareDiagnosisSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           condition = this@with.condition,
           role = this@with.role,
           rank = this@with.rank?.value,
@@ -166,9 +166,7 @@ internal data class EpisodeOfCareSurrogate(
       identifier = this@EpisodeOfCareSurrogate.identifier ?: mutableListOf(),
       status =
         Enumeration.of(
-          com.google.fhir.model.r4.EpisodeOfCare.EpisodeOfCareStatus.fromCode(
-            this@EpisodeOfCareSurrogate.status!!
-          ),
+          EpisodeOfCare.EpisodeOfCareStatus.fromCode(this@EpisodeOfCareSurrogate.status!!),
           this@EpisodeOfCareSurrogate._status,
         ),
       statusHistory = this@EpisodeOfCareSurrogate.statusHistory ?: mutableListOf(),
@@ -194,22 +192,22 @@ internal data class EpisodeOfCareSurrogate(
           language = this@with.language?.value,
           _language = this@with.language?.toElement(),
           text = this@with.text,
-          contained = this@with.contained.takeUnless { it.all { it == null } },
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          contained = this@with.contained.takeIf { it.isNotEmpty() },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
+          identifier = this@with.identifier.takeIf { it.isNotEmpty() },
           status = this@with.status.value?.getCode(),
           _status = this@with.status.toElement(),
-          statusHistory = this@with.statusHistory.takeUnless { it.all { it == null } },
-          type = this@with.type.takeUnless { it.all { it == null } },
-          diagnosis = this@with.diagnosis.takeUnless { it.all { it == null } },
+          statusHistory = this@with.statusHistory.takeIf { it.isNotEmpty() },
+          type = this@with.type.takeIf { it.isNotEmpty() },
+          diagnosis = this@with.diagnosis.takeIf { it.isNotEmpty() },
           patient = this@with.patient,
           managingOrganization = this@with.managingOrganization,
           period = this@with.period,
-          referralRequest = this@with.referralRequest.takeUnless { it.all { it == null } },
+          referralRequest = this@with.referralRequest.takeIf { it.isNotEmpty() },
           careManager = this@with.careManager,
-          team = this@with.team.takeUnless { it.all { it == null } },
-          account = this@with.account.takeUnless { it.all { it == null } },
+          team = this@with.team.takeIf { it.isNotEmpty() },
+          account = this@with.account.takeIf { it.isNotEmpty() },
         )
       }
   }

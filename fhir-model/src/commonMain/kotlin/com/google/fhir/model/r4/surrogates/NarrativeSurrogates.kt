@@ -47,9 +47,7 @@ internal data class NarrativeSurrogate(
       extension = this@NarrativeSurrogate.extension ?: mutableListOf(),
       status =
         Enumeration.of(
-          com.google.fhir.model.r4.Narrative.NarrativeStatus.fromCode(
-            this@NarrativeSurrogate.status!!
-          ),
+          Narrative.NarrativeStatus.fromCode(this@NarrativeSurrogate.status!!),
           this@NarrativeSurrogate._status,
         ),
       div = Xhtml.of(this@NarrativeSurrogate.div!!, this@NarrativeSurrogate._div)!!,
@@ -60,7 +58,7 @@ internal data class NarrativeSurrogate(
       with(model) {
         NarrativeSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
           status = this@with.status.value?.getCode(),
           _status = this@with.status.toElement(),
           div = this@with.div.value,

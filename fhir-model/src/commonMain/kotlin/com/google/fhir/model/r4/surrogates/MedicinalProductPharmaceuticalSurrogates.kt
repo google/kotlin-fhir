@@ -69,8 +69,8 @@ internal data class MedicinalProductPharmaceuticalCharacteristicsSurrogate(
       with(model) {
         MedicinalProductPharmaceuticalCharacteristicsSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           code = this@with.code,
           status = this@with.status,
         )
@@ -124,15 +124,15 @@ internal data class MedicinalProductPharmaceuticalRouteOfAdministrationSurrogate
       with(model) {
         MedicinalProductPharmaceuticalRouteOfAdministrationSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           code = this@with.code,
           firstDose = this@with.firstDose,
           maxSingleDose = this@with.maxSingleDose,
           maxDosePerDay = this@with.maxDosePerDay,
           maxDosePerTreatmentPeriod = this@with.maxDosePerTreatmentPeriod,
           maxTreatmentPeriod = this@with.maxTreatmentPeriod,
-          targetSpecies = this@with.targetSpecies.takeUnless { it.all { it == null } },
+          targetSpecies = this@with.targetSpecies.takeIf { it.isNotEmpty() },
         )
       }
   }
@@ -172,10 +172,10 @@ internal data class MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpe
       with(model) {
         MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpeciesSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           code = this@with.code,
-          withdrawalPeriod = this@with.withdrawalPeriod.takeUnless { it.all { it == null } },
+          withdrawalPeriod = this@with.withdrawalPeriod.takeIf { it.isNotEmpty() },
         )
       }
   }
@@ -225,8 +225,8 @@ internal data class MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpe
       with(model) {
         MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpeciesWithdrawalPeriodSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           tissue = this@with.tissue,
           `value` = this@with.`value`,
           supportingInformation = this@with.supportingInformation?.value,
@@ -301,17 +301,16 @@ internal data class MedicinalProductPharmaceuticalSurrogate(
           language = this@with.language?.value,
           _language = this@with.language?.toElement(),
           text = this@with.text,
-          contained = this@with.contained.takeUnless { it.all { it == null } },
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          contained = this@with.contained.takeIf { it.isNotEmpty() },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
+          identifier = this@with.identifier.takeIf { it.isNotEmpty() },
           administrableDoseForm = this@with.administrableDoseForm,
           unitOfPresentation = this@with.unitOfPresentation,
-          ingredient = this@with.ingredient.takeUnless { it.all { it == null } },
-          device = this@with.device.takeUnless { it.all { it == null } },
-          characteristics = this@with.characteristics.takeUnless { it.all { it == null } },
-          routeOfAdministration =
-            this@with.routeOfAdministration.takeUnless { it.all { it == null } },
+          ingredient = this@with.ingredient.takeIf { it.isNotEmpty() },
+          device = this@with.device.takeIf { it.isNotEmpty() },
+          characteristics = this@with.characteristics.takeIf { it.isNotEmpty() },
+          routeOfAdministration = this@with.routeOfAdministration.takeIf { it.isNotEmpty() },
         )
       }
   }

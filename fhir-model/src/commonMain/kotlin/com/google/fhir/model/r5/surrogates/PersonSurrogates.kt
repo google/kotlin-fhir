@@ -42,6 +42,7 @@ import com.google.fhir.model.r5.Resource
 import com.google.fhir.model.r5.Uri
 import com.google.fhir.model.r5.serializers.DoubleSerializer
 import com.google.fhir.model.r5.serializers.LocalTimeSerializer
+import com.google.fhir.model.r5.terminologies.AdministrativeGender
 import kotlin.Boolean as KotlinBoolean
 import kotlin.String
 import kotlin.Suppress
@@ -76,8 +77,8 @@ internal data class PersonCommunicationSurrogate(
       with(model) {
         PersonCommunicationSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           language = this@with.language,
           preferred = this@with.preferred?.value,
           _preferred = this@with.preferred?.toElement(),
@@ -104,7 +105,7 @@ internal data class PersonLinkSurrogate(
       assurance =
         this@PersonLinkSurrogate.assurance?.let {
           Enumeration.of(
-            com.google.fhir.model.r5.Person.IdentityAssuranceLevel.fromCode(it!!),
+            Person.IdentityAssuranceLevel.fromCode(it),
             this@PersonLinkSurrogate._assurance,
           )
         },
@@ -115,8 +116,8 @@ internal data class PersonLinkSurrogate(
       with(model) {
         PersonLinkSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           target = this@with.target,
           assurance = this@with.assurance?.value?.getCode(),
           _assurance = this@with.assurance?.toElement(),
@@ -203,10 +204,7 @@ internal data class PersonSurrogate(
       telecom = this@PersonSurrogate.telecom ?: mutableListOf(),
       gender =
         this@PersonSurrogate.gender?.let {
-          Enumeration.of(
-            com.google.fhir.model.r5.terminologies.AdministrativeGender.fromCode(it!!),
-            this@PersonSurrogate._gender,
-          )
+          Enumeration.of(AdministrativeGender.fromCode(it), this@PersonSurrogate._gender)
         },
       birthDate =
         Date.of(
@@ -233,25 +231,25 @@ internal data class PersonSurrogate(
           language = this@with.language?.value,
           _language = this@with.language?.toElement(),
           text = this@with.text,
-          contained = this@with.contained.takeUnless { it.all { it == null } },
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          contained = this@with.contained.takeIf { it.isNotEmpty() },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
+          identifier = this@with.identifier.takeIf { it.isNotEmpty() },
           active = this@with.active?.value,
           _active = this@with.active?.toElement(),
-          name = this@with.name.takeUnless { it.all { it == null } },
-          telecom = this@with.telecom.takeUnless { it.all { it == null } },
+          name = this@with.name.takeIf { it.isNotEmpty() },
+          telecom = this@with.telecom.takeIf { it.isNotEmpty() },
           gender = this@with.gender?.value?.getCode(),
           _gender = this@with.gender?.toElement(),
           birthDate = this@with.birthDate?.value?.toString(),
           _birthDate = this@with.birthDate?.toElement(),
           deceased = this@with.deceased,
-          address = this@with.address.takeUnless { it.all { it == null } },
+          address = this@with.address.takeIf { it.isNotEmpty() },
           maritalStatus = this@with.maritalStatus,
-          photo = this@with.photo.takeUnless { it.all { it == null } },
-          communication = this@with.communication.takeUnless { it.all { it == null } },
+          photo = this@with.photo.takeIf { it.isNotEmpty() },
+          communication = this@with.communication.takeIf { it.isNotEmpty() },
           managingOrganization = this@with.managingOrganization,
-          link = this@with.link.takeUnless { it.all { it == null } },
+          link = this@with.link.takeIf { it.isNotEmpty() },
         )
       }
   }

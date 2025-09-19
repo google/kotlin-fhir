@@ -66,8 +66,8 @@ internal data class MedicinalProductContraindicationOtherTherapySurrogate(
       with(model) {
         MedicinalProductContraindicationOtherTherapySurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           therapyRelationshipType = this@with.therapyRelationshipType,
           medication = this@with.medication,
         )
@@ -85,7 +85,7 @@ internal data class MedicinalProductContraindicationOtherTherapyMedicationSurrog
       this@MedicinalProductContraindicationOtherTherapyMedicationSurrogate
         .medicationCodeableConcept,
       this@MedicinalProductContraindicationOtherTherapyMedicationSurrogate.medicationReference,
-    )!! !!
+    )!!
 
   public companion object {
     public fun fromModel(
@@ -162,17 +162,16 @@ internal data class MedicinalProductContraindicationSurrogate(
           language = this@with.language?.value,
           _language = this@with.language?.toElement(),
           text = this@with.text,
-          contained = this@with.contained.takeUnless { it.all { it == null } },
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          subject = this@with.subject.takeUnless { it.all { it == null } },
+          contained = this@with.contained.takeIf { it.isNotEmpty() },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
+          subject = this@with.subject.takeIf { it.isNotEmpty() },
           disease = this@with.disease,
           diseaseStatus = this@with.diseaseStatus,
-          comorbidity = this@with.comorbidity.takeUnless { it.all { it == null } },
-          therapeuticIndication =
-            this@with.therapeuticIndication.takeUnless { it.all { it == null } },
-          otherTherapy = this@with.otherTherapy.takeUnless { it.all { it == null } },
-          population = this@with.population.takeUnless { it.all { it == null } },
+          comorbidity = this@with.comorbidity.takeIf { it.isNotEmpty() },
+          therapeuticIndication = this@with.therapeuticIndication.takeIf { it.isNotEmpty() },
+          otherTherapy = this@with.otherTherapy.takeIf { it.isNotEmpty() },
+          population = this@with.population.takeIf { it.isNotEmpty() },
         )
       }
   }

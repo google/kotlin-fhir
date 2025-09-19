@@ -50,7 +50,7 @@ internal data class RangeSurrogate(
       with(model) {
         RangeSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
           low = this@with.low,
           high = this@with.high,
         )

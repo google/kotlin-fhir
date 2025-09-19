@@ -79,13 +79,13 @@ internal data class InventoryReportInventoryListingSurrogate(
       with(model) {
         InventoryReportInventoryListingSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           location = this@with.location,
           itemStatus = this@with.itemStatus,
           countingDateTime = this@with.countingDateTime?.value?.toString(),
           _countingDateTime = this@with.countingDateTime?.toElement(),
-          item = this@with.item.takeUnless { it.all { it == null } },
+          item = this@with.item.takeIf { it.isNotEmpty() },
         )
       }
   }
@@ -118,8 +118,8 @@ internal data class InventoryReportInventoryListingItemSurrogate(
       with(model) {
         InventoryReportInventoryListingItemSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           category = this@with.category,
           quantity = this@with.quantity,
           item = this@with.item,
@@ -172,16 +172,12 @@ internal data class InventoryReportSurrogate(
       identifier = this@InventoryReportSurrogate.identifier ?: mutableListOf(),
       status =
         Enumeration.of(
-          com.google.fhir.model.r5.InventoryReport.InventoryReportStatus.fromCode(
-            this@InventoryReportSurrogate.status!!
-          ),
+          InventoryReport.InventoryReportStatus.fromCode(this@InventoryReportSurrogate.status!!),
           this@InventoryReportSurrogate._status,
         ),
       countType =
         Enumeration.of(
-          com.google.fhir.model.r5.InventoryReport.InventoryCountType.fromCode(
-            this@InventoryReportSurrogate.countType!!
-          ),
+          InventoryReport.InventoryCountType.fromCode(this@InventoryReportSurrogate.countType!!),
           this@InventoryReportSurrogate._countType,
         ),
       operationType = this@InventoryReportSurrogate.operationType,
@@ -208,10 +204,10 @@ internal data class InventoryReportSurrogate(
           language = this@with.language?.value,
           _language = this@with.language?.toElement(),
           text = this@with.text,
-          contained = this@with.contained.takeUnless { it.all { it == null } },
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          contained = this@with.contained.takeIf { it.isNotEmpty() },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
+          identifier = this@with.identifier.takeIf { it.isNotEmpty() },
           status = this@with.status.value?.getCode(),
           _status = this@with.status.toElement(),
           countType = this@with.countType.value?.getCode(),
@@ -222,8 +218,8 @@ internal data class InventoryReportSurrogate(
           _reportedDateTime = this@with.reportedDateTime.toElement(),
           reporter = this@with.reporter,
           reportingPeriod = this@with.reportingPeriod,
-          inventoryListing = this@with.inventoryListing.takeUnless { it.all { it == null } },
-          note = this@with.note.takeUnless { it.all { it == null } },
+          inventoryListing = this@with.inventoryListing.takeIf { it.isNotEmpty() },
+          note = this@with.note.takeIf { it.isNotEmpty() },
         )
       }
   }

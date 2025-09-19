@@ -83,7 +83,7 @@ internal data class AllergyIntoleranceReactionSurrogate(
       severity =
         this@AllergyIntoleranceReactionSurrogate.severity?.let {
           Enumeration.of(
-            com.google.fhir.model.r4b.AllergyIntolerance.AllergyIntoleranceSeverity.fromCode(it!!),
+            AllergyIntolerance.AllergyIntoleranceSeverity.fromCode(it),
             this@AllergyIntoleranceReactionSurrogate._severity,
           )
         },
@@ -96,10 +96,10 @@ internal data class AllergyIntoleranceReactionSurrogate(
       with(model) {
         AllergyIntoleranceReactionSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           substance = this@with.substance,
-          manifestation = this@with.manifestation.takeUnless { it.all { it == null } },
+          manifestation = this@with.manifestation.takeIf { it.isNotEmpty() },
           description = this@with.description?.value,
           _description = this@with.description?.toElement(),
           onset = this@with.onset?.value?.toString(),
@@ -107,7 +107,7 @@ internal data class AllergyIntoleranceReactionSurrogate(
           severity = this@with.severity?.value?.getCode(),
           _severity = this@with.severity?.toElement(),
           exposureRoute = this@with.exposureRoute,
-          note = this@with.note.takeUnless { it.all { it == null } },
+          note = this@with.note.takeIf { it.isNotEmpty() },
         )
       }
   }
@@ -212,7 +212,7 @@ internal data class AllergyIntoleranceSurrogate(
       type =
         this@AllergyIntoleranceSurrogate.type?.let {
           Enumeration.of(
-            com.google.fhir.model.r4b.AllergyIntolerance.AllergyIntoleranceType.fromCode(it!!),
+            AllergyIntolerance.AllergyIntoleranceType.fromCode(it),
             this@AllergyIntoleranceSurrogate._type,
           )
         },
@@ -231,11 +231,7 @@ internal data class AllergyIntoleranceSurrogate(
             )
             .map { (value, element) ->
               Enumeration.of(
-                value.let {
-                  com.google.fhir.model.r4b.AllergyIntolerance.AllergyIntoleranceCategory.fromCode(
-                    it!!
-                  )!!
-                },
+                value.let { AllergyIntolerance.AllergyIntoleranceCategory.fromCode(it!!) },
                 element,
               )
             }
@@ -244,9 +240,7 @@ internal data class AllergyIntoleranceSurrogate(
       criticality =
         this@AllergyIntoleranceSurrogate.criticality?.let {
           Enumeration.of(
-            com.google.fhir.model.r4b.AllergyIntolerance.AllergyIntoleranceCriticality.fromCode(
-              it!!
-            ),
+            AllergyIntolerance.AllergyIntoleranceCriticality.fromCode(it),
             this@AllergyIntoleranceSurrogate._criticality,
           )
         },
@@ -281,10 +275,10 @@ internal data class AllergyIntoleranceSurrogate(
           language = this@with.language?.value,
           _language = this@with.language?.toElement(),
           text = this@with.text,
-          contained = this@with.contained.takeUnless { it.all { it == null } },
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          contained = this@with.contained.takeIf { it.isNotEmpty() },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
+          identifier = this@with.identifier.takeIf { it.isNotEmpty() },
           clinicalStatus = this@with.clinicalStatus,
           verificationStatus = this@with.verificationStatus,
           type = this@with.type?.value?.getCode(),
@@ -312,8 +306,8 @@ internal data class AllergyIntoleranceSurrogate(
           asserter = this@with.asserter,
           lastOccurrence = this@with.lastOccurrence?.value?.toString(),
           _lastOccurrence = this@with.lastOccurrence?.toElement(),
-          note = this@with.note.takeUnless { it.all { it == null } },
-          reaction = this@with.reaction.takeUnless { it.all { it == null } },
+          note = this@with.note.takeIf { it.isNotEmpty() },
+          reaction = this@with.reaction.takeIf { it.isNotEmpty() },
         )
       }
   }

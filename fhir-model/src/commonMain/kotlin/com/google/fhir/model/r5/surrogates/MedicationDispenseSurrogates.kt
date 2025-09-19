@@ -73,8 +73,8 @@ internal data class MedicationDispensePerformerSurrogate(
       with(model) {
         MedicationDispensePerformerSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           function = this@with.function,
           actor = this@with.actor,
         )
@@ -116,12 +116,12 @@ internal data class MedicationDispenseSubstitutionSurrogate(
       with(model) {
         MedicationDispenseSubstitutionSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           wasSubstituted = this@with.wasSubstituted.value,
           _wasSubstituted = this@with.wasSubstituted.toElement(),
           type = this@with.type,
-          reason = this@with.reason.takeUnless { it.all { it == null } },
+          reason = this@with.reason.takeIf { it.isNotEmpty() },
           responsibleParty = this@with.responsibleParty,
         )
       }
@@ -197,7 +197,7 @@ internal data class MedicationDispenseSurrogate(
       partOf = this@MedicationDispenseSurrogate.partOf ?: mutableListOf(),
       status =
         Enumeration.of(
-          com.google.fhir.model.r5.MedicationDispense.MedicationDispenseStatusCodes.fromCode(
+          MedicationDispense.MedicationDispenseStatusCodes.fromCode(
             this@MedicationDispenseSurrogate.status!!
           ),
           this@MedicationDispenseSurrogate._status,
@@ -260,27 +260,25 @@ internal data class MedicationDispenseSurrogate(
           language = this@with.language?.value,
           _language = this@with.language?.toElement(),
           text = this@with.text,
-          contained = this@with.contained.takeUnless { it.all { it == null } },
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          identifier = this@with.identifier.takeUnless { it.all { it == null } },
-          basedOn = this@with.basedOn.takeUnless { it.all { it == null } },
-          partOf = this@with.partOf.takeUnless { it.all { it == null } },
+          contained = this@with.contained.takeIf { it.isNotEmpty() },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
+          identifier = this@with.identifier.takeIf { it.isNotEmpty() },
+          basedOn = this@with.basedOn.takeIf { it.isNotEmpty() },
+          partOf = this@with.partOf.takeIf { it.isNotEmpty() },
           status = this@with.status.value?.getCode(),
           _status = this@with.status.toElement(),
           notPerformedReason = this@with.notPerformedReason,
           statusChanged = this@with.statusChanged?.value?.toString(),
           _statusChanged = this@with.statusChanged?.toElement(),
-          category = this@with.category.takeUnless { it.all { it == null } },
+          category = this@with.category.takeIf { it.isNotEmpty() },
           medication = this@with.medication,
           subject = this@with.subject,
           encounter = this@with.encounter,
-          supportingInformation =
-            this@with.supportingInformation.takeUnless { it.all { it == null } },
-          performer = this@with.performer.takeUnless { it.all { it == null } },
+          supportingInformation = this@with.supportingInformation.takeIf { it.isNotEmpty() },
+          performer = this@with.performer.takeIf { it.isNotEmpty() },
           location = this@with.location,
-          authorizingPrescription =
-            this@with.authorizingPrescription.takeUnless { it.all { it == null } },
+          authorizingPrescription = this@with.authorizingPrescription.takeIf { it.isNotEmpty() },
           type = this@with.type,
           quantity = this@with.quantity,
           daysSupply = this@with.daysSupply,
@@ -291,13 +289,13 @@ internal data class MedicationDispenseSurrogate(
           whenHandedOver = this@with.whenHandedOver?.value?.toString(),
           _whenHandedOver = this@with.whenHandedOver?.toElement(),
           destination = this@with.destination,
-          `receiver` = this@with.`receiver`.takeUnless { it.all { it == null } },
-          note = this@with.note.takeUnless { it.all { it == null } },
+          `receiver` = this@with.`receiver`.takeIf { it.isNotEmpty() },
+          note = this@with.note.takeIf { it.isNotEmpty() },
           renderedDosageInstruction = this@with.renderedDosageInstruction?.value,
           _renderedDosageInstruction = this@with.renderedDosageInstruction?.toElement(),
-          dosageInstruction = this@with.dosageInstruction.takeUnless { it.all { it == null } },
+          dosageInstruction = this@with.dosageInstruction.takeIf { it.isNotEmpty() },
           substitution = this@with.substitution,
-          eventHistory = this@with.eventHistory.takeUnless { it.all { it == null } },
+          eventHistory = this@with.eventHistory.takeIf { it.isNotEmpty() },
         )
       }
   }

@@ -70,8 +70,8 @@ internal data class SubstanceSourceMaterialFractionDescriptionSurrogate(
       with(model) {
         SubstanceSourceMaterialFractionDescriptionSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           fraction = this@with.fraction?.value,
           _fraction = this@with.fraction?.toElement(),
           materialType = this@with.materialType,
@@ -122,15 +122,15 @@ internal data class SubstanceSourceMaterialOrganismSurrogate(
       with(model) {
         SubstanceSourceMaterialOrganismSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           family = this@with.family,
           genus = this@with.genus,
           species = this@with.species,
           intraspecificType = this@with.intraspecificType,
           intraspecificDescription = this@with.intraspecificDescription?.value,
           _intraspecificDescription = this@with.intraspecificDescription?.toElement(),
-          author = this@with.author.takeUnless { it.all { it == null } },
+          author = this@with.author.takeIf { it.isNotEmpty() },
           hybrid = this@with.hybrid,
           organismGeneral = this@with.organismGeneral,
         )
@@ -168,8 +168,8 @@ internal data class SubstanceSourceMaterialOrganismAuthorSurrogate(
       with(model) {
         SubstanceSourceMaterialOrganismAuthorSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           authorType = this@with.authorType,
           authorDescription = this@with.authorDescription?.value,
           _authorDescription = this@with.authorDescription?.toElement(),
@@ -229,8 +229,8 @@ internal data class SubstanceSourceMaterialOrganismHybridSurrogate(
       with(model) {
         SubstanceSourceMaterialOrganismHybridSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           maternalOrganismId = this@with.maternalOrganismId?.value,
           _maternalOrganismId = this@with.maternalOrganismId?.toElement(),
           maternalOrganismName = this@with.maternalOrganismName?.value,
@@ -276,8 +276,8 @@ internal data class SubstanceSourceMaterialOrganismOrganismGeneralSurrogate(
       with(model) {
         SubstanceSourceMaterialOrganismOrganismGeneralSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           kingdom = this@with.kingdom,
           phylum = this@with.phylum,
           `class` = this@with.`class`,
@@ -312,8 +312,8 @@ internal data class SubstanceSourceMaterialPartDescriptionSurrogate(
       with(model) {
         SubstanceSourceMaterialPartDescriptionSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           part = this@with.part,
           partLocation = this@with.partLocation,
         )
@@ -431,16 +431,16 @@ internal data class SubstanceSourceMaterialSurrogate(
           language = this@with.language?.value,
           _language = this@with.language?.toElement(),
           text = this@with.text,
-          contained = this@with.contained.takeUnless { it.all { it == null } },
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          contained = this@with.contained.takeIf { it.isNotEmpty() },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           sourceMaterialClass = this@with.sourceMaterialClass,
           sourceMaterialType = this@with.sourceMaterialType,
           sourceMaterialState = this@with.sourceMaterialState,
           organismId = this@with.organismId,
           organismName = this@with.organismName?.value,
           _organismName = this@with.organismName?.toElement(),
-          parentSubstanceId = this@with.parentSubstanceId.takeUnless { it.all { it == null } },
+          parentSubstanceId = this@with.parentSubstanceId.takeIf { it.isNotEmpty() },
           parentSubstanceName =
             this@with.parentSubstanceName
               .map { it.value }
@@ -452,7 +452,7 @@ internal data class SubstanceSourceMaterialSurrogate(
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
               ?.toMutableList(),
-          countryOfOrigin = this@with.countryOfOrigin.takeUnless { it.all { it == null } },
+          countryOfOrigin = this@with.countryOfOrigin.takeIf { it.isNotEmpty() },
           geographicalLocation =
             this@with.geographicalLocation
               .map { it.value }
@@ -465,9 +465,9 @@ internal data class SubstanceSourceMaterialSurrogate(
               ?.map { it ?: Element() }
               ?.toMutableList(),
           developmentStage = this@with.developmentStage,
-          fractionDescription = this@with.fractionDescription.takeUnless { it.all { it == null } },
+          fractionDescription = this@with.fractionDescription.takeIf { it.isNotEmpty() },
           organism = this@with.organism,
-          partDescription = this@with.partDescription.takeUnless { it.all { it == null } },
+          partDescription = this@with.partDescription.takeIf { it.isNotEmpty() },
         )
       }
   }

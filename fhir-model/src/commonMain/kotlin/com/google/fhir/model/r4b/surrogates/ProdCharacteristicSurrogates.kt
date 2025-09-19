@@ -111,8 +111,8 @@ internal data class ProdCharacteristicSurrogate(
       with(model) {
         ProdCharacteristicSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           height = this@with.height,
           width = this@with.width,
           depth = this@with.depth,
@@ -137,7 +137,7 @@ internal data class ProdCharacteristicSurrogate(
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
               ?.toMutableList(),
-          image = this@with.image.takeUnless { it.all { it == null } },
+          image = this@with.image.takeIf { it.isNotEmpty() },
           scoring = this@with.scoring,
         )
       }

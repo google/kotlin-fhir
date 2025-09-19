@@ -69,8 +69,8 @@ internal data class MedicinalProductPackagedBatchIdentifierSurrogate(
       with(model) {
         MedicinalProductPackagedBatchIdentifierSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           outerPackaging = this@with.outerPackaging,
           immediatePackaging = this@with.immediatePackaging,
         )
@@ -130,21 +130,20 @@ internal data class MedicinalProductPackagedPackageItemSurrogate(
       with(model) {
         MedicinalProductPackagedPackageItemSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
+          identifier = this@with.identifier.takeIf { it.isNotEmpty() },
           type = this@with.type,
           quantity = this@with.quantity,
-          material = this@with.material.takeUnless { it.all { it == null } },
-          alternateMaterial = this@with.alternateMaterial.takeUnless { it.all { it == null } },
-          device = this@with.device.takeUnless { it.all { it == null } },
-          manufacturedItem = this@with.manufacturedItem.takeUnless { it.all { it == null } },
-          packageItem = this@with.packageItem.takeUnless { it.all { it == null } },
+          material = this@with.material.takeIf { it.isNotEmpty() },
+          alternateMaterial = this@with.alternateMaterial.takeIf { it.isNotEmpty() },
+          device = this@with.device.takeIf { it.isNotEmpty() },
+          manufacturedItem = this@with.manufacturedItem.takeIf { it.isNotEmpty() },
+          packageItem = this@with.packageItem.takeIf { it.isNotEmpty() },
           physicalCharacteristics = this@with.physicalCharacteristics,
-          otherCharacteristics =
-            this@with.otherCharacteristics.takeUnless { it.all { it == null } },
-          shelfLifeStorage = this@with.shelfLifeStorage.takeUnless { it.all { it == null } },
-          manufacturer = this@with.manufacturer.takeUnless { it.all { it == null } },
+          otherCharacteristics = this@with.otherCharacteristics.takeIf { it.isNotEmpty() },
+          shelfLifeStorage = this@with.shelfLifeStorage.takeIf { it.isNotEmpty() },
+          manufacturer = this@with.manufacturer.takeIf { it.isNotEmpty() },
         )
       }
   }
@@ -218,19 +217,19 @@ internal data class MedicinalProductPackagedSurrogate(
           language = this@with.language?.value,
           _language = this@with.language?.toElement(),
           text = this@with.text,
-          contained = this@with.contained.takeUnless { it.all { it == null } },
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          identifier = this@with.identifier.takeUnless { it.all { it == null } },
-          subject = this@with.subject.takeUnless { it.all { it == null } },
+          contained = this@with.contained.takeIf { it.isNotEmpty() },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
+          identifier = this@with.identifier.takeIf { it.isNotEmpty() },
+          subject = this@with.subject.takeIf { it.isNotEmpty() },
           description = this@with.description?.value,
           _description = this@with.description?.toElement(),
           legalStatusOfSupply = this@with.legalStatusOfSupply,
-          marketingStatus = this@with.marketingStatus.takeUnless { it.all { it == null } },
+          marketingStatus = this@with.marketingStatus.takeIf { it.isNotEmpty() },
           marketingAuthorization = this@with.marketingAuthorization,
-          manufacturer = this@with.manufacturer.takeUnless { it.all { it == null } },
-          batchIdentifier = this@with.batchIdentifier.takeUnless { it.all { it == null } },
-          packageItem = this@with.packageItem.takeUnless { it.all { it == null } },
+          manufacturer = this@with.manufacturer.takeIf { it.isNotEmpty() },
+          batchIdentifier = this@with.batchIdentifier.takeIf { it.isNotEmpty() },
+          packageItem = this@with.packageItem.takeIf { it.isNotEmpty() },
         )
       }
   }

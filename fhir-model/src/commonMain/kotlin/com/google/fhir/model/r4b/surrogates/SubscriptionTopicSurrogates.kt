@@ -43,6 +43,7 @@ import com.google.fhir.model.r4b.Uri
 import com.google.fhir.model.r4b.UsageContext
 import com.google.fhir.model.r4b.serializers.DoubleSerializer
 import com.google.fhir.model.r4b.serializers.LocalTimeSerializer
+import com.google.fhir.model.r4b.terminologies.PublicationStatus
 import kotlin.Boolean as KotlinBoolean
 import kotlin.String as KotlinString
 import kotlin.Suppress
@@ -102,9 +103,7 @@ internal data class SubscriptionTopicResourceTriggerSurrogate(
             )
             .map { (value, element) ->
               Enumeration.of(
-                value.let {
-                  com.google.fhir.model.r4b.SubscriptionTopic.InteractionTrigger.fromCode(it!!)!!
-                },
+                value.let { SubscriptionTopic.InteractionTrigger.fromCode(it!!) },
                 element,
               )
             }
@@ -125,8 +124,8 @@ internal data class SubscriptionTopicResourceTriggerSurrogate(
       with(model) {
         SubscriptionTopicResourceTriggerSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           description = this@with.description?.value,
           _description = this@with.description?.toElement(),
           resource = this@with.resource.value,
@@ -182,7 +181,7 @@ internal data class SubscriptionTopicResourceTriggerQueryCriteriaSurrogate(
       resultForCreate =
         this@SubscriptionTopicResourceTriggerQueryCriteriaSurrogate.resultForCreate?.let {
           Enumeration.of(
-            com.google.fhir.model.r4b.SubscriptionTopic.CriteriaNotExistsBehavior.fromCode(it!!),
+            SubscriptionTopic.CriteriaNotExistsBehavior.fromCode(it),
             this@SubscriptionTopicResourceTriggerQueryCriteriaSurrogate._resultForCreate,
           )
         },
@@ -194,7 +193,7 @@ internal data class SubscriptionTopicResourceTriggerQueryCriteriaSurrogate(
       resultForDelete =
         this@SubscriptionTopicResourceTriggerQueryCriteriaSurrogate.resultForDelete?.let {
           Enumeration.of(
-            com.google.fhir.model.r4b.SubscriptionTopic.CriteriaNotExistsBehavior.fromCode(it!!),
+            SubscriptionTopic.CriteriaNotExistsBehavior.fromCode(it),
             this@SubscriptionTopicResourceTriggerQueryCriteriaSurrogate._resultForDelete,
           )
         },
@@ -212,8 +211,8 @@ internal data class SubscriptionTopicResourceTriggerQueryCriteriaSurrogate(
       with(model) {
         SubscriptionTopicResourceTriggerQueryCriteriaSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           previous = this@with.previous?.value,
           _previous = this@with.previous?.toElement(),
           resultForCreate = this@with.resultForCreate?.value?.getCode(),
@@ -266,8 +265,8 @@ internal data class SubscriptionTopicEventTriggerSurrogate(
       with(model) {
         SubscriptionTopicEventTriggerSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           description = this@with.description?.value,
           _description = this@with.description?.toElement(),
           event = this@with.event,
@@ -335,11 +334,7 @@ internal data class SubscriptionTopicCanFilterBySurrogate(
             )
             .map { (value, element) ->
               Enumeration.of(
-                value.let {
-                  com.google.fhir.model.r4b.SubscriptionTopic.SubscriptionSearchModifier.fromCode(
-                    it!!
-                  )!!
-                },
+                value.let { SubscriptionTopic.SubscriptionSearchModifier.fromCode(it!!) },
                 element,
               )
             }
@@ -354,8 +349,8 @@ internal data class SubscriptionTopicCanFilterBySurrogate(
       with(model) {
         SubscriptionTopicCanFilterBySurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           description = this@with.description?.value,
           _description = this@with.description?.toElement(),
           resource = this@with.resource?.value,
@@ -444,8 +439,8 @@ internal data class SubscriptionTopicNotificationShapeSurrogate(
       with(model) {
         SubscriptionTopicNotificationShapeSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           resource = this@with.resource.value,
           _resource = this@with.resource.toElement(),
           include =
@@ -565,9 +560,7 @@ internal data class SubscriptionTopicSurrogate(
         },
       status =
         Enumeration.of(
-          com.google.fhir.model.r4b.terminologies.PublicationStatus.fromCode(
-            this@SubscriptionTopicSurrogate.status!!
-          ),
+          PublicationStatus.fromCode(this@SubscriptionTopicSurrogate.status!!),
           this@SubscriptionTopicSurrogate._status,
         ),
       experimental =
@@ -631,12 +624,12 @@ internal data class SubscriptionTopicSurrogate(
           language = this@with.language?.value,
           _language = this@with.language?.toElement(),
           text = this@with.text,
-          contained = this@with.contained.takeUnless { it.all { it == null } },
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          contained = this@with.contained.takeIf { it.isNotEmpty() },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           url = this@with.url.value,
           _url = this@with.url.toElement(),
-          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          identifier = this@with.identifier.takeIf { it.isNotEmpty() },
           version = this@with.version?.value,
           _version = this@with.version?.toElement(),
           title = this@with.title?.value,
@@ -660,11 +653,11 @@ internal data class SubscriptionTopicSurrogate(
           _date = this@with.date?.toElement(),
           publisher = this@with.publisher?.value,
           _publisher = this@with.publisher?.toElement(),
-          contact = this@with.contact.takeUnless { it.all { it == null } },
+          contact = this@with.contact.takeIf { it.isNotEmpty() },
           description = this@with.description?.value,
           _description = this@with.description?.toElement(),
-          useContext = this@with.useContext.takeUnless { it.all { it == null } },
-          jurisdiction = this@with.jurisdiction.takeUnless { it.all { it == null } },
+          useContext = this@with.useContext.takeIf { it.isNotEmpty() },
+          jurisdiction = this@with.jurisdiction.takeIf { it.isNotEmpty() },
           purpose = this@with.purpose?.value,
           _purpose = this@with.purpose?.toElement(),
           copyright = this@with.copyright?.value,
@@ -674,10 +667,10 @@ internal data class SubscriptionTopicSurrogate(
           lastReviewDate = this@with.lastReviewDate?.value?.toString(),
           _lastReviewDate = this@with.lastReviewDate?.toElement(),
           effectivePeriod = this@with.effectivePeriod,
-          resourceTrigger = this@with.resourceTrigger.takeUnless { it.all { it == null } },
-          eventTrigger = this@with.eventTrigger.takeUnless { it.all { it == null } },
-          canFilterBy = this@with.canFilterBy.takeUnless { it.all { it == null } },
-          notificationShape = this@with.notificationShape.takeUnless { it.all { it == null } },
+          resourceTrigger = this@with.resourceTrigger.takeIf { it.isNotEmpty() },
+          eventTrigger = this@with.eventTrigger.takeIf { it.isNotEmpty() },
+          canFilterBy = this@with.canFilterBy.takeIf { it.isNotEmpty() },
+          notificationShape = this@with.notificationShape.takeIf { it.isNotEmpty() },
         )
       }
   }

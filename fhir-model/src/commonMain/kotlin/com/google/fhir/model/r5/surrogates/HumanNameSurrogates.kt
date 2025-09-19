@@ -57,10 +57,7 @@ internal data class HumanNameSurrogate(
       extension = this@HumanNameSurrogate.extension ?: mutableListOf(),
       use =
         this@HumanNameSurrogate.use?.let {
-          Enumeration.of(
-            com.google.fhir.model.r5.HumanName.NameUse.fromCode(it!!),
-            this@HumanNameSurrogate._use,
-          )
+          Enumeration.of(HumanName.NameUse.fromCode(it), this@HumanNameSurrogate._use)
         },
       text = R5String.of(this@HumanNameSurrogate.text, this@HumanNameSurrogate._text),
       family = R5String.of(this@HumanNameSurrogate.family, this@HumanNameSurrogate._family),
@@ -107,7 +104,7 @@ internal data class HumanNameSurrogate(
       with(model) {
         HumanNameSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
           use = this@with.use?.value?.getCode(),
           _use = this@with.use?.toElement(),
           text = this@with.text?.value,

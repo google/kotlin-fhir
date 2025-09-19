@@ -51,6 +51,7 @@ import com.google.fhir.model.r4.Uri
 import com.google.fhir.model.r4.UsageContext
 import com.google.fhir.model.r4.serializers.DoubleSerializer
 import com.google.fhir.model.r4.serializers.LocalTimeSerializer
+import com.google.fhir.model.r4.terminologies.PublicationStatus
 import kotlin.Boolean as KotlinBoolean
 import kotlin.String as KotlinString
 import kotlin.Suppress
@@ -97,7 +98,7 @@ internal data class EvidenceVariableCharacteristicSurrogate(
       groupMeasure =
         this@EvidenceVariableCharacteristicSurrogate.groupMeasure?.let {
           Enumeration.of(
-            com.google.fhir.model.r4.EvidenceVariable.GroupMeasure.fromCode(it!!),
+            EvidenceVariable.GroupMeasure.fromCode(it),
             this@EvidenceVariableCharacteristicSurrogate._groupMeasure,
           )
         },
@@ -110,12 +111,12 @@ internal data class EvidenceVariableCharacteristicSurrogate(
       with(model) {
         EvidenceVariableCharacteristicSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           description = this@with.description?.value,
           _description = this@with.description?.toElement(),
           definition = this@with.definition,
-          usageContext = this@with.usageContext.takeUnless { it.all { it == null } },
+          usageContext = this@with.usageContext.takeIf { it.isNotEmpty() },
           exclude = this@with.exclude?.value,
           _exclude = this@with.exclude?.toElement(),
           participantEffective = this@with.participantEffective,
@@ -148,7 +149,7 @@ internal data class EvidenceVariableCharacteristicDefinitionSurrogate(
       this@EvidenceVariableCharacteristicDefinitionSurrogate.definitionExpression,
       this@EvidenceVariableCharacteristicDefinitionSurrogate.definitionDataRequirement,
       this@EvidenceVariableCharacteristicDefinitionSurrogate.definitionTriggerDefinition,
-    )!! !!
+    )!!
 
   public companion object {
     public fun fromModel(
@@ -298,9 +299,7 @@ internal data class EvidenceVariableSurrogate(
         ),
       status =
         Enumeration.of(
-          com.google.fhir.model.r4.terminologies.PublicationStatus.fromCode(
-            this@EvidenceVariableSurrogate.status!!
-          ),
+          PublicationStatus.fromCode(this@EvidenceVariableSurrogate.status!!),
           this@EvidenceVariableSurrogate._status,
         ),
       date =
@@ -347,7 +346,7 @@ internal data class EvidenceVariableSurrogate(
       type =
         this@EvidenceVariableSurrogate.type?.let {
           Enumeration.of(
-            com.google.fhir.model.r4.EvidenceVariable.EvidenceVariableType.fromCode(it!!),
+            EvidenceVariable.EvidenceVariableType.fromCode(it),
             this@EvidenceVariableSurrogate._type,
           )
         },
@@ -365,12 +364,12 @@ internal data class EvidenceVariableSurrogate(
           language = this@with.language?.value,
           _language = this@with.language?.toElement(),
           text = this@with.text,
-          contained = this@with.contained.takeUnless { it.all { it == null } },
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          contained = this@with.contained.takeIf { it.isNotEmpty() },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           url = this@with.url?.value,
           _url = this@with.url?.toElement(),
-          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          identifier = this@with.identifier.takeIf { it.isNotEmpty() },
           version = this@with.version?.value,
           _version = this@with.version?.toElement(),
           name = this@with.name?.value,
@@ -387,12 +386,12 @@ internal data class EvidenceVariableSurrogate(
           _date = this@with.date?.toElement(),
           publisher = this@with.publisher?.value,
           _publisher = this@with.publisher?.toElement(),
-          contact = this@with.contact.takeUnless { it.all { it == null } },
+          contact = this@with.contact.takeIf { it.isNotEmpty() },
           description = this@with.description?.value,
           _description = this@with.description?.toElement(),
-          note = this@with.note.takeUnless { it.all { it == null } },
-          useContext = this@with.useContext.takeUnless { it.all { it == null } },
-          jurisdiction = this@with.jurisdiction.takeUnless { it.all { it == null } },
+          note = this@with.note.takeIf { it.isNotEmpty() },
+          useContext = this@with.useContext.takeIf { it.isNotEmpty() },
+          jurisdiction = this@with.jurisdiction.takeIf { it.isNotEmpty() },
           copyright = this@with.copyright?.value,
           _copyright = this@with.copyright?.toElement(),
           approvalDate = this@with.approvalDate?.value?.toString(),
@@ -400,15 +399,15 @@ internal data class EvidenceVariableSurrogate(
           lastReviewDate = this@with.lastReviewDate?.value?.toString(),
           _lastReviewDate = this@with.lastReviewDate?.toElement(),
           effectivePeriod = this@with.effectivePeriod,
-          topic = this@with.topic.takeUnless { it.all { it == null } },
-          author = this@with.author.takeUnless { it.all { it == null } },
-          editor = this@with.editor.takeUnless { it.all { it == null } },
-          reviewer = this@with.reviewer.takeUnless { it.all { it == null } },
-          endorser = this@with.endorser.takeUnless { it.all { it == null } },
-          relatedArtifact = this@with.relatedArtifact.takeUnless { it.all { it == null } },
+          topic = this@with.topic.takeIf { it.isNotEmpty() },
+          author = this@with.author.takeIf { it.isNotEmpty() },
+          editor = this@with.editor.takeIf { it.isNotEmpty() },
+          reviewer = this@with.reviewer.takeIf { it.isNotEmpty() },
+          endorser = this@with.endorser.takeIf { it.isNotEmpty() },
+          relatedArtifact = this@with.relatedArtifact.takeIf { it.isNotEmpty() },
           type = this@with.type?.value?.getCode(),
           _type = this@with.type?.toElement(),
-          characteristic = this@with.characteristic.takeUnless { it.all { it == null } },
+          characteristic = this@with.characteristic.takeIf { it.isNotEmpty() },
         )
       }
   }

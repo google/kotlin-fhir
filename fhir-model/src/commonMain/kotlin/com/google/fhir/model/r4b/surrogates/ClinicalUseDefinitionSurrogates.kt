@@ -78,13 +78,13 @@ internal data class ClinicalUseDefinitionContraindicationSurrogate(
       with(model) {
         ClinicalUseDefinitionContraindicationSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           diseaseSymptomProcedure = this@with.diseaseSymptomProcedure,
           diseaseStatus = this@with.diseaseStatus,
-          comorbidity = this@with.comorbidity.takeUnless { it.all { it == null } },
-          indication = this@with.indication.takeUnless { it.all { it == null } },
-          otherTherapy = this@with.otherTherapy.takeUnless { it.all { it == null } },
+          comorbidity = this@with.comorbidity.takeIf { it.isNotEmpty() },
+          indication = this@with.indication.takeIf { it.isNotEmpty() },
+          otherTherapy = this@with.otherTherapy.takeIf { it.isNotEmpty() },
         )
       }
   }
@@ -119,8 +119,8 @@ internal data class ClinicalUseDefinitionContraindicationOtherTherapySurrogate(
       with(model) {
         ClinicalUseDefinitionContraindicationOtherTherapySurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           relationshipType = this@with.relationshipType,
           therapy = this@with.therapy,
         )
@@ -165,15 +165,15 @@ internal data class ClinicalUseDefinitionIndicationSurrogate(
       with(model) {
         ClinicalUseDefinitionIndicationSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           diseaseSymptomProcedure = this@with.diseaseSymptomProcedure,
           diseaseStatus = this@with.diseaseStatus,
-          comorbidity = this@with.comorbidity.takeUnless { it.all { it == null } },
+          comorbidity = this@with.comorbidity.takeIf { it.isNotEmpty() },
           intendedEffect = this@with.intendedEffect,
           duration = this@with.duration,
-          undesirableEffect = this@with.undesirableEffect.takeUnless { it.all { it == null } },
-          otherTherapy = this@with.otherTherapy.takeUnless { it.all { it == null } },
+          undesirableEffect = this@with.undesirableEffect.takeIf { it.isNotEmpty() },
+          otherTherapy = this@with.otherTherapy.takeIf { it.isNotEmpty() },
         )
       }
   }
@@ -210,13 +210,13 @@ internal data class ClinicalUseDefinitionInteractionSurrogate(
       with(model) {
         ClinicalUseDefinitionInteractionSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          interactant = this@with.interactant.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
+          interactant = this@with.interactant.takeIf { it.isNotEmpty() },
           type = this@with.type,
           effect = this@with.effect,
           incidence = this@with.incidence,
-          management = this@with.management.takeUnless { it.all { it == null } },
+          management = this@with.management.takeIf { it.isNotEmpty() },
         )
       }
   }
@@ -247,8 +247,8 @@ internal data class ClinicalUseDefinitionInteractionInteractantSurrogate(
       with(model) {
         ClinicalUseDefinitionInteractionInteractantSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           item = this@with.item,
         )
       }
@@ -284,8 +284,8 @@ internal data class ClinicalUseDefinitionUndesirableEffectSurrogate(
       with(model) {
         ClinicalUseDefinitionUndesirableEffectSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           symptomConditionEffect = this@with.symptomConditionEffect,
           classification = this@with.classification,
           frequencyOfOccurrence = this@with.frequencyOfOccurrence,
@@ -324,8 +324,8 @@ internal data class ClinicalUseDefinitionWarningSurrogate(
       with(model) {
         ClinicalUseDefinitionWarningSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           description = this@with.description?.value,
           _description = this@with.description?.toElement(),
           code = this@with.code,
@@ -372,7 +372,7 @@ internal data class ClinicalUseDefinitionInteractionInteractantItemSurrogate(
     ClinicalUseDefinition.Interaction.Interactant.Item.from(
       this@ClinicalUseDefinitionInteractionInteractantItemSurrogate.itemReference,
       this@ClinicalUseDefinitionInteractionInteractantItemSurrogate.itemCodeableConcept,
-    )!! !!
+    )!!
 
   public companion object {
     public fun fromModel(
@@ -433,7 +433,7 @@ internal data class ClinicalUseDefinitionSurrogate(
       identifier = this@ClinicalUseDefinitionSurrogate.identifier ?: mutableListOf(),
       type =
         Enumeration.of(
-          com.google.fhir.model.r4b.ClinicalUseDefinition.ClinicalUseDefinitionType.fromCode(
+          ClinicalUseDefinition.ClinicalUseDefinitionType.fromCode(
             this@ClinicalUseDefinitionSurrogate.type!!
           ),
           this@ClinicalUseDefinitionSurrogate._type,
@@ -460,19 +460,19 @@ internal data class ClinicalUseDefinitionSurrogate(
           language = this@with.language?.value,
           _language = this@with.language?.toElement(),
           text = this@with.text,
-          contained = this@with.contained.takeUnless { it.all { it == null } },
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          contained = this@with.contained.takeIf { it.isNotEmpty() },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
+          identifier = this@with.identifier.takeIf { it.isNotEmpty() },
           type = this@with.type.value?.getCode(),
           _type = this@with.type.toElement(),
-          category = this@with.category.takeUnless { it.all { it == null } },
-          subject = this@with.subject.takeUnless { it.all { it == null } },
+          category = this@with.category.takeIf { it.isNotEmpty() },
+          subject = this@with.subject.takeIf { it.isNotEmpty() },
           status = this@with.status,
           contraindication = this@with.contraindication,
           indication = this@with.indication,
           interaction = this@with.interaction,
-          population = this@with.population.takeUnless { it.all { it == null } },
+          population = this@with.population.takeIf { it.isNotEmpty() },
           undesirableEffect = this@with.undesirableEffect,
           warning = this@with.warning,
         )

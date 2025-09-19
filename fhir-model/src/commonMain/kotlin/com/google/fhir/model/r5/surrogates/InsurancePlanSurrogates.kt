@@ -39,6 +39,7 @@ import com.google.fhir.model.r5.String as R5String
 import com.google.fhir.model.r5.Uri
 import com.google.fhir.model.r5.serializers.DoubleSerializer
 import com.google.fhir.model.r5.serializers.LocalTimeSerializer
+import com.google.fhir.model.r5.terminologies.PublicationStatus
 import kotlin.Int
 import kotlin.String as KotlinString
 import kotlin.Suppress
@@ -70,11 +71,11 @@ internal data class InsurancePlanCoverageSurrogate(
       with(model) {
         InsurancePlanCoverageSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           type = this@with.type,
-          network = this@with.network.takeUnless { it.all { it == null } },
-          benefit = this@with.benefit.takeUnless { it.all { it == null } },
+          network = this@with.network.takeIf { it.isNotEmpty() },
+          benefit = this@with.benefit.takeIf { it.isNotEmpty() },
         )
       }
   }
@@ -112,12 +113,12 @@ internal data class InsurancePlanCoverageBenefitSurrogate(
       with(model) {
         InsurancePlanCoverageBenefitSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           type = this@with.type,
           requirement = this@with.requirement?.value,
           _requirement = this@with.requirement?.toElement(),
-          limit = this@with.limit.takeUnless { it.all { it == null } },
+          limit = this@with.limit.takeIf { it.isNotEmpty() },
         )
       }
   }
@@ -148,8 +149,8 @@ internal data class InsurancePlanCoverageBenefitLimitSurrogate(
       with(model) {
         InsurancePlanCoverageBenefitLimitSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           `value` = this@with.`value`,
           code = this@with.code,
         )
@@ -187,14 +188,14 @@ internal data class InsurancePlanPlanSurrogate(
       with(model) {
         InsurancePlanPlanSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
+          identifier = this@with.identifier.takeIf { it.isNotEmpty() },
           type = this@with.type,
-          coverageArea = this@with.coverageArea.takeUnless { it.all { it == null } },
-          network = this@with.network.takeUnless { it.all { it == null } },
-          generalCost = this@with.generalCost.takeUnless { it.all { it == null } },
-          specificCost = this@with.specificCost.takeUnless { it.all { it == null } },
+          coverageArea = this@with.coverageArea.takeIf { it.isNotEmpty() },
+          network = this@with.network.takeIf { it.isNotEmpty() },
+          generalCost = this@with.generalCost.takeIf { it.isNotEmpty() },
+          specificCost = this@with.specificCost.takeIf { it.isNotEmpty() },
         )
       }
   }
@@ -239,8 +240,8 @@ internal data class InsurancePlanPlanGeneralCostSurrogate(
       with(model) {
         InsurancePlanPlanGeneralCostSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           type = this@with.type,
           groupSize = this@with.groupSize?.value,
           _groupSize = this@with.groupSize?.toElement(),
@@ -277,10 +278,10 @@ internal data class InsurancePlanPlanSpecificCostSurrogate(
       with(model) {
         InsurancePlanPlanSpecificCostSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           category = this@with.category,
-          benefit = this@with.benefit.takeUnless { it.all { it == null } },
+          benefit = this@with.benefit.takeIf { it.isNotEmpty() },
         )
       }
   }
@@ -311,10 +312,10 @@ internal data class InsurancePlanPlanSpecificCostBenefitSurrogate(
       with(model) {
         InsurancePlanPlanSpecificCostBenefitSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           type = this@with.type,
-          cost = this@with.cost.takeUnless { it.all { it == null } },
+          cost = this@with.cost.takeIf { it.isNotEmpty() },
         )
       }
   }
@@ -351,11 +352,11 @@ internal data class InsurancePlanPlanSpecificCostBenefitCostSurrogate(
       with(model) {
         InsurancePlanPlanSpecificCostBenefitCostSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           type = this@with.type,
           applicability = this@with.applicability,
-          qualifiers = this@with.qualifiers.takeUnless { it.all { it == null } },
+          qualifiers = this@with.qualifiers.takeIf { it.isNotEmpty() },
           `value` = this@with.`value`,
         )
       }
@@ -410,10 +411,7 @@ internal data class InsurancePlanSurrogate(
       identifier = this@InsurancePlanSurrogate.identifier ?: mutableListOf(),
       status =
         this@InsurancePlanSurrogate.status?.let {
-          Enumeration.of(
-            com.google.fhir.model.r5.terminologies.PublicationStatus.fromCode(it!!),
-            this@InsurancePlanSurrogate._status,
-          )
+          Enumeration.of(PublicationStatus.fromCode(it), this@InsurancePlanSurrogate._status)
         },
       type = this@InsurancePlanSurrogate.type ?: mutableListOf(),
       name = R5String.of(this@InsurancePlanSurrogate.name, this@InsurancePlanSurrogate._name),
@@ -454,13 +452,13 @@ internal data class InsurancePlanSurrogate(
           language = this@with.language?.value,
           _language = this@with.language?.toElement(),
           text = this@with.text,
-          contained = this@with.contained.takeUnless { it.all { it == null } },
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          contained = this@with.contained.takeIf { it.isNotEmpty() },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
+          identifier = this@with.identifier.takeIf { it.isNotEmpty() },
           status = this@with.status?.value?.getCode(),
           _status = this@with.status?.toElement(),
-          type = this@with.type.takeUnless { it.all { it == null } },
+          type = this@with.type.takeIf { it.isNotEmpty() },
           name = this@with.name?.value,
           _name = this@with.name?.toElement(),
           alias =
@@ -474,12 +472,12 @@ internal data class InsurancePlanSurrogate(
           period = this@with.period,
           ownedBy = this@with.ownedBy,
           administeredBy = this@with.administeredBy,
-          coverageArea = this@with.coverageArea.takeUnless { it.all { it == null } },
-          contact = this@with.contact.takeUnless { it.all { it == null } },
-          endpoint = this@with.endpoint.takeUnless { it.all { it == null } },
-          network = this@with.network.takeUnless { it.all { it == null } },
-          coverage = this@with.coverage.takeUnless { it.all { it == null } },
-          plan = this@with.plan.takeUnless { it.all { it == null } },
+          coverageArea = this@with.coverageArea.takeIf { it.isNotEmpty() },
+          contact = this@with.contact.takeIf { it.isNotEmpty() },
+          endpoint = this@with.endpoint.takeIf { it.isNotEmpty() },
+          network = this@with.network.takeIf { it.isNotEmpty() },
+          coverage = this@with.coverage.takeIf { it.isNotEmpty() },
+          plan = this@with.plan.takeIf { it.isNotEmpty() },
         )
       }
   }

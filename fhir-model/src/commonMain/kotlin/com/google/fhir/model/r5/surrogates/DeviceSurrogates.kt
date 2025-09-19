@@ -103,7 +103,7 @@ internal data class DeviceUdiCarrierSurrogate(
       entryType =
         this@DeviceUdiCarrierSurrogate.entryType?.let {
           Enumeration.of(
-            com.google.fhir.model.r5.Device.UDIEntryType.fromCode(it!!),
+            Device.UDIEntryType.fromCode(it),
             this@DeviceUdiCarrierSurrogate._entryType,
           )
         },
@@ -114,8 +114,8 @@ internal data class DeviceUdiCarrierSurrogate(
       with(model) {
         DeviceUdiCarrierSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           deviceIdentifier = this@with.deviceIdentifier.value,
           _deviceIdentifier = this@with.deviceIdentifier.toElement(),
           issuer = this@with.issuer.value,
@@ -153,7 +153,7 @@ internal data class DeviceNameSurrogate(
       `value` = R5String.of(this@DeviceNameSurrogate.`value`, this@DeviceNameSurrogate._value)!!,
       type =
         Enumeration.of(
-          com.google.fhir.model.r5.Device.DeviceNameType.fromCode(this@DeviceNameSurrogate.type!!),
+          Device.DeviceNameType.fromCode(this@DeviceNameSurrogate.type!!),
           this@DeviceNameSurrogate._type,
         ),
       display = R5Boolean.of(this@DeviceNameSurrogate.display, this@DeviceNameSurrogate._display),
@@ -164,8 +164,8 @@ internal data class DeviceNameSurrogate(
       with(model) {
         DeviceNameSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           `value` = this@with.`value`.value,
           _value = this@with.`value`.toElement(),
           type = this@with.type.value?.getCode(),
@@ -210,8 +210,8 @@ internal data class DeviceVersionSurrogate(
       with(model) {
         DeviceVersionSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           type = this@with.type,
           component = this@with.component,
           installDate = this@with.installDate?.value?.toString(),
@@ -249,8 +249,8 @@ internal data class DeviceConformsToSurrogate(
       with(model) {
         DeviceConformsToSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           category = this@with.category,
           specification = this@with.specification,
           version = this@with.version?.value,
@@ -282,8 +282,8 @@ internal data class DevicePropertySurrogate(
       with(model) {
         DevicePropertySurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           type = this@with.type,
           `value` = this@with.`value`,
         )
@@ -322,7 +322,7 @@ internal data class DevicePropertyValueSurrogate(
       ),
       this@DevicePropertyValueSurrogate.valueRange,
       this@DevicePropertyValueSurrogate.valueAttachment,
-    )!! !!
+    )!!
 
   public companion object {
     public fun fromModel(model: Device.Property.Value): DevicePropertyValueSurrogate =
@@ -416,10 +416,7 @@ internal data class DeviceSurrogate(
       udiCarrier = this@DeviceSurrogate.udiCarrier ?: mutableListOf(),
       status =
         this@DeviceSurrogate.status?.let {
-          Enumeration.of(
-            com.google.fhir.model.r5.Device.FHIRDeviceStatus.fromCode(it!!),
-            this@DeviceSurrogate._status,
-          )
+          Enumeration.of(Device.FHIRDeviceStatus.fromCode(it), this@DeviceSurrogate._status)
         },
       availabilityStatus = this@DeviceSurrogate.availabilityStatus,
       biologicalSourceEvent = this@DeviceSurrogate.biologicalSourceEvent,
@@ -472,14 +469,14 @@ internal data class DeviceSurrogate(
           language = this@with.language?.value,
           _language = this@with.language?.toElement(),
           text = this@with.text,
-          contained = this@with.contained.takeUnless { it.all { it == null } },
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          contained = this@with.contained.takeIf { it.isNotEmpty() },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
+          identifier = this@with.identifier.takeIf { it.isNotEmpty() },
           displayName = this@with.displayName?.value,
           _displayName = this@with.displayName?.toElement(),
           definition = this@with.definition,
-          udiCarrier = this@with.udiCarrier.takeUnless { it.all { it == null } },
+          udiCarrier = this@with.udiCarrier.takeIf { it.isNotEmpty() },
           status = this@with.status?.value?.getCode(),
           _status = this@with.status?.toElement(),
           availabilityStatus = this@with.availabilityStatus,
@@ -494,28 +491,28 @@ internal data class DeviceSurrogate(
           _lotNumber = this@with.lotNumber?.toElement(),
           serialNumber = this@with.serialNumber?.value,
           _serialNumber = this@with.serialNumber?.toElement(),
-          name = this@with.name.takeUnless { it.all { it == null } },
+          name = this@with.name.takeIf { it.isNotEmpty() },
           modelNumber = this@with.modelNumber?.value,
           _modelNumber = this@with.modelNumber?.toElement(),
           partNumber = this@with.partNumber?.value,
           _partNumber = this@with.partNumber?.toElement(),
-          category = this@with.category.takeUnless { it.all { it == null } },
-          type = this@with.type.takeUnless { it.all { it == null } },
-          version = this@with.version.takeUnless { it.all { it == null } },
-          conformsTo = this@with.conformsTo.takeUnless { it.all { it == null } },
-          `property` = this@with.`property`.takeUnless { it.all { it == null } },
+          category = this@with.category.takeIf { it.isNotEmpty() },
+          type = this@with.type.takeIf { it.isNotEmpty() },
+          version = this@with.version.takeIf { it.isNotEmpty() },
+          conformsTo = this@with.conformsTo.takeIf { it.isNotEmpty() },
+          `property` = this@with.`property`.takeIf { it.isNotEmpty() },
           mode = this@with.mode,
           cycle = this@with.cycle,
           duration = this@with.duration,
           owner = this@with.owner,
-          contact = this@with.contact.takeUnless { it.all { it == null } },
+          contact = this@with.contact.takeIf { it.isNotEmpty() },
           location = this@with.location,
           url = this@with.url?.value,
           _url = this@with.url?.toElement(),
-          endpoint = this@with.endpoint.takeUnless { it.all { it == null } },
-          gateway = this@with.gateway.takeUnless { it.all { it == null } },
-          note = this@with.note.takeUnless { it.all { it == null } },
-          safety = this@with.safety.takeUnless { it.all { it == null } },
+          endpoint = this@with.endpoint.takeIf { it.isNotEmpty() },
+          gateway = this@with.gateway.takeIf { it.isNotEmpty() },
+          note = this@with.note.takeIf { it.isNotEmpty() },
+          safety = this@with.safety.takeIf { it.isNotEmpty() },
           parent = this@with.parent,
         )
       }

@@ -38,6 +38,7 @@ import com.google.fhir.model.r4b.String as R4bString
 import com.google.fhir.model.r4b.Uri
 import com.google.fhir.model.r4b.serializers.DoubleSerializer
 import com.google.fhir.model.r4b.serializers.LocalTimeSerializer
+import com.google.fhir.model.r4b.terminologies.AdministrativeGender
 import kotlin.Boolean as KotlinBoolean
 import kotlin.Double
 import kotlin.Int
@@ -87,8 +88,8 @@ internal data class ObservationDefinitionQuantitativeDetailsSurrogate(
       with(model) {
         ObservationDefinitionQuantitativeDetailsSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           customaryUnit = this@with.customaryUnit,
           unit = this@with.unit,
           conversionFactor = this@with.conversionFactor?.value,
@@ -126,7 +127,7 @@ internal data class ObservationDefinitionQualifiedIntervalSurrogate(
       category =
         this@ObservationDefinitionQualifiedIntervalSurrogate.category?.let {
           Enumeration.of(
-            com.google.fhir.model.r4b.ObservationDefinition.ObservationRangeCategory.fromCode(it!!),
+            ObservationDefinition.ObservationRangeCategory.fromCode(it),
             this@ObservationDefinitionQualifiedIntervalSurrogate._category,
           )
         },
@@ -136,7 +137,7 @@ internal data class ObservationDefinitionQualifiedIntervalSurrogate(
       gender =
         this@ObservationDefinitionQualifiedIntervalSurrogate.gender?.let {
           Enumeration.of(
-            com.google.fhir.model.r4b.terminologies.AdministrativeGender.fromCode(it!!),
+            AdministrativeGender.fromCode(it),
             this@ObservationDefinitionQualifiedIntervalSurrogate._gender,
           )
         },
@@ -156,13 +157,13 @@ internal data class ObservationDefinitionQualifiedIntervalSurrogate(
       with(model) {
         ObservationDefinitionQualifiedIntervalSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           category = this@with.category?.value?.getCode(),
           _category = this@with.category?.toElement(),
           range = this@with.range,
           context = this@with.context,
-          appliesTo = this@with.appliesTo.takeUnless { it.all { it == null } },
+          appliesTo = this@with.appliesTo.takeIf { it.isNotEmpty() },
           gender = this@with.gender?.value?.getCode(),
           _gender = this@with.gender?.toElement(),
           age = this@with.age,
@@ -239,11 +240,7 @@ internal data class ObservationDefinitionSurrogate(
             )
             .map { (value, element) ->
               Enumeration.of(
-                value.let {
-                  com.google.fhir.model.r4b.ObservationDefinition.ObservationDataType.fromCode(
-                    it!!
-                  )!!
-                },
+                value.let { ObservationDefinition.ObservationDataType.fromCode(it!!) },
                 element,
               )
             }
@@ -279,12 +276,12 @@ internal data class ObservationDefinitionSurrogate(
           language = this@with.language?.value,
           _language = this@with.language?.toElement(),
           text = this@with.text,
-          contained = this@with.contained.takeUnless { it.all { it == null } },
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          category = this@with.category.takeUnless { it.all { it == null } },
+          contained = this@with.contained.takeIf { it.isNotEmpty() },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
+          category = this@with.category.takeIf { it.isNotEmpty() },
           code = this@with.code,
-          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          identifier = this@with.identifier.takeIf { it.isNotEmpty() },
           permittedDataType =
             this@with.permittedDataType
               .map { it.value?.getCode() }
@@ -302,7 +299,7 @@ internal data class ObservationDefinitionSurrogate(
           preferredReportName = this@with.preferredReportName?.value,
           _preferredReportName = this@with.preferredReportName?.toElement(),
           quantitativeDetails = this@with.quantitativeDetails,
-          qualifiedInterval = this@with.qualifiedInterval.takeUnless { it.all { it == null } },
+          qualifiedInterval = this@with.qualifiedInterval.takeIf { it.isNotEmpty() },
           validCodedValueSet = this@with.validCodedValueSet,
           normalCodedValueSet = this@with.normalCodedValueSet,
           abnormalCodedValueSet = this@with.abnormalCodedValueSet,

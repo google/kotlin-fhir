@@ -96,9 +96,7 @@ internal data class TriggerDefinitionSurrogate(
       extension = this@TriggerDefinitionSurrogate.extension ?: mutableListOf(),
       type =
         Enumeration.of(
-          com.google.fhir.model.r4.TriggerDefinition.TriggerType.fromCode(
-            this@TriggerDefinitionSurrogate.type!!
-          ),
+          TriggerDefinition.TriggerType.fromCode(this@TriggerDefinitionSurrogate.type!!),
           this@TriggerDefinitionSurrogate._type,
         ),
       name =
@@ -113,13 +111,13 @@ internal data class TriggerDefinitionSurrogate(
       with(model) {
         TriggerDefinitionSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
           type = this@with.type.value?.getCode(),
           _type = this@with.type.toElement(),
           name = this@with.name?.value,
           _name = this@with.name?.toElement(),
           timing = this@with.timing,
-          `data` = this@with.`data`.takeUnless { it.all { it == null } },
+          `data` = this@with.`data`.takeIf { it.isNotEmpty() },
           condition = this@with.condition,
         )
       }

@@ -50,7 +50,7 @@ internal data class RatioSurrogate(
       with(model) {
         RatioSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
           numerator = this@with.numerator,
           denominator = this@with.denominator,
         )

@@ -75,7 +75,7 @@ internal data class FormularyItemSurrogate(
       status =
         this@FormularyItemSurrogate.status?.let {
           Enumeration.of(
-            com.google.fhir.model.r5.FormularyItem.FormularyItemStatusCodes.fromCode(it!!),
+            FormularyItem.FormularyItemStatusCodes.fromCode(it),
             this@FormularyItemSurrogate._status,
           )
         },
@@ -92,10 +92,10 @@ internal data class FormularyItemSurrogate(
           language = this@with.language?.value,
           _language = this@with.language?.toElement(),
           text = this@with.text,
-          contained = this@with.contained.takeUnless { it.all { it == null } },
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          contained = this@with.contained.takeIf { it.isNotEmpty() },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
+          identifier = this@with.identifier.takeIf { it.isNotEmpty() },
           code = this@with.code,
           status = this@with.status?.value?.getCode(),
           _status = this@with.status?.toElement(),

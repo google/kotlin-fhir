@@ -69,8 +69,8 @@ internal data class BundleLinkSurrogate(
       with(model) {
         BundleLinkSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           relation = this@with.relation.value,
           _relation = this@with.relation.toElement(),
           url = this@with.url.value,
@@ -111,9 +111,9 @@ internal data class BundleEntrySurrogate(
       with(model) {
         BundleEntrySurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          link = this@with.link.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
+          link = this@with.link.takeIf { it.isNotEmpty() },
           fullUrl = this@with.fullUrl?.value,
           _fullUrl = this@with.fullUrl?.toElement(),
           resource = this@with.resource,
@@ -142,10 +142,7 @@ internal data class BundleEntrySearchSurrogate(
       modifierExtension = this@BundleEntrySearchSurrogate.modifierExtension ?: mutableListOf(),
       mode =
         this@BundleEntrySearchSurrogate.mode?.let {
-          Enumeration.of(
-            com.google.fhir.model.r4.Bundle.SearchEntryMode.fromCode(it!!),
-            this@BundleEntrySearchSurrogate._mode,
-          )
+          Enumeration.of(Bundle.SearchEntryMode.fromCode(it), this@BundleEntrySearchSurrogate._mode)
         },
       score =
         Decimal.of(this@BundleEntrySearchSurrogate.score, this@BundleEntrySearchSurrogate._score),
@@ -156,8 +153,8 @@ internal data class BundleEntrySearchSurrogate(
       with(model) {
         BundleEntrySearchSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           mode = this@with.mode?.value?.getCode(),
           _mode = this@with.mode?.toElement(),
           score = this@with.score?.value,
@@ -192,9 +189,7 @@ internal data class BundleEntryRequestSurrogate(
       modifierExtension = this@BundleEntryRequestSurrogate.modifierExtension ?: mutableListOf(),
       method =
         Enumeration.of(
-          com.google.fhir.model.r4.Bundle.HTTPVerb.fromCode(
-            this@BundleEntryRequestSurrogate.method!!
-          ),
+          Bundle.HTTPVerb.fromCode(this@BundleEntryRequestSurrogate.method!!),
           this@BundleEntryRequestSurrogate._method,
         ),
       url = Uri.of(this@BundleEntryRequestSurrogate.url, this@BundleEntryRequestSurrogate._url)!!,
@@ -225,8 +220,8 @@ internal data class BundleEntryRequestSurrogate(
       with(model) {
         BundleEntryRequestSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           method = this@with.method.value?.getCode(),
           _method = this@with.method.toElement(),
           url = this@with.url.value,
@@ -292,8 +287,8 @@ internal data class BundleEntryResponseSurrogate(
       with(model) {
         BundleEntryResponseSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           status = this@with.status.value,
           _status = this@with.status.toElement(),
           location = this@with.location?.value,
@@ -337,7 +332,7 @@ internal data class BundleSurrogate(
       identifier = this@BundleSurrogate.identifier,
       type =
         Enumeration.of(
-          com.google.fhir.model.r4.Bundle.BundleType.fromCode(this@BundleSurrogate.type!!),
+          Bundle.BundleType.fromCode(this@BundleSurrogate.type!!),
           this@BundleSurrogate._type,
         ),
       timestamp =
@@ -368,8 +363,8 @@ internal data class BundleSurrogate(
           _timestamp = this@with.timestamp?.toElement(),
           total = this@with.total?.value,
           _total = this@with.total?.toElement(),
-          link = this@with.link.takeUnless { it.all { it == null } },
-          entry = this@with.entry.takeUnless { it.all { it == null } },
+          link = this@with.link.takeIf { it.isNotEmpty() },
+          entry = this@with.entry.takeIf { it.isNotEmpty() },
           signature = this@with.signature,
         )
       }

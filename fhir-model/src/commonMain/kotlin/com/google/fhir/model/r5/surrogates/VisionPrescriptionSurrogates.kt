@@ -87,7 +87,7 @@ internal data class VisionPrescriptionLensSpecificationSurrogate(
       product = this@VisionPrescriptionLensSpecificationSurrogate.product,
       eye =
         Enumeration.of(
-          com.google.fhir.model.r5.VisionPrescription.VisionEyes.fromCode(
+          VisionPrescription.VisionEyes.fromCode(
             this@VisionPrescriptionLensSpecificationSurrogate.eye!!
           ),
           this@VisionPrescriptionLensSpecificationSurrogate._eye,
@@ -149,8 +149,8 @@ internal data class VisionPrescriptionLensSpecificationSurrogate(
       with(model) {
         VisionPrescriptionLensSpecificationSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           product = this@with.product,
           eye = this@with.eye.value?.getCode(),
           _eye = this@with.eye.toElement(),
@@ -160,7 +160,7 @@ internal data class VisionPrescriptionLensSpecificationSurrogate(
           _cylinder = this@with.cylinder?.toElement(),
           axis = this@with.axis?.value,
           _axis = this@with.axis?.toElement(),
-          prism = this@with.prism.takeUnless { it.all { it == null } },
+          prism = this@with.prism.takeIf { it.isNotEmpty() },
           add = this@with.add?.value,
           _add = this@with.add?.toElement(),
           power = this@with.power?.value,
@@ -174,7 +174,7 @@ internal data class VisionPrescriptionLensSpecificationSurrogate(
           _color = this@with.color?.toElement(),
           brand = this@with.brand?.value,
           _brand = this@with.brand?.toElement(),
-          note = this@with.note.takeUnless { it.all { it == null } },
+          note = this@with.note.takeIf { it.isNotEmpty() },
         )
       }
   }
@@ -204,7 +204,7 @@ internal data class VisionPrescriptionLensSpecificationPrismSurrogate(
         )!!,
       base =
         Enumeration.of(
-          com.google.fhir.model.r5.VisionPrescription.VisionBase.fromCode(
+          VisionPrescription.VisionBase.fromCode(
             this@VisionPrescriptionLensSpecificationPrismSurrogate.base!!
           ),
           this@VisionPrescriptionLensSpecificationPrismSurrogate._base,
@@ -218,8 +218,8 @@ internal data class VisionPrescriptionLensSpecificationPrismSurrogate(
       with(model) {
         VisionPrescriptionLensSpecificationPrismSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           amount = this@with.amount.value,
           _amount = this@with.amount.toElement(),
           base = this@with.base.value?.getCode(),
@@ -274,7 +274,7 @@ internal data class VisionPrescriptionSurrogate(
       identifier = this@VisionPrescriptionSurrogate.identifier ?: mutableListOf(),
       status =
         Enumeration.of(
-          com.google.fhir.model.r5.VisionPrescription.FinancialResourceStatusCodes.fromCode(
+          VisionPrescription.FinancialResourceStatusCodes.fromCode(
             this@VisionPrescriptionSurrogate.status!!
           ),
           this@VisionPrescriptionSurrogate._status,
@@ -306,10 +306,10 @@ internal data class VisionPrescriptionSurrogate(
           language = this@with.language?.value,
           _language = this@with.language?.toElement(),
           text = this@with.text,
-          contained = this@with.contained.takeUnless { it.all { it == null } },
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          contained = this@with.contained.takeIf { it.isNotEmpty() },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
+          identifier = this@with.identifier.takeIf { it.isNotEmpty() },
           status = this@with.status.value?.getCode(),
           _status = this@with.status.toElement(),
           created = this@with.created.value?.toString(),
@@ -319,7 +319,7 @@ internal data class VisionPrescriptionSurrogate(
           dateWritten = this@with.dateWritten.value?.toString(),
           _dateWritten = this@with.dateWritten.toElement(),
           prescriber = this@with.prescriber,
-          lensSpecification = this@with.lensSpecification.takeUnless { it.all { it == null } },
+          lensSpecification = this@with.lensSpecification.takeIf { it.isNotEmpty() },
         )
       }
   }

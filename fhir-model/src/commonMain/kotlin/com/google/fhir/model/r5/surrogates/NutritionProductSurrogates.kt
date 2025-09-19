@@ -73,10 +73,10 @@ internal data class NutritionProductNutrientSurrogate(
       with(model) {
         NutritionProductNutrientSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           item = this@with.item,
-          amount = this@with.amount.takeUnless { it.all { it == null } },
+          amount = this@with.amount.takeIf { it.isNotEmpty() },
         )
       }
   }
@@ -105,10 +105,10 @@ internal data class NutritionProductIngredientSurrogate(
       with(model) {
         NutritionProductIngredientSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           item = this@with.item,
-          amount = this@with.amount.takeUnless { it.all { it == null } },
+          amount = this@with.amount.takeIf { it.isNotEmpty() },
         )
       }
   }
@@ -139,8 +139,8 @@ internal data class NutritionProductCharacteristicSurrogate(
       with(model) {
         NutritionProductCharacteristicSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           type = this@with.type,
           `value` = this@with.`value`,
         )
@@ -201,10 +201,10 @@ internal data class NutritionProductInstanceSurrogate(
       with(model) {
         NutritionProductInstanceSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           quantity = this@with.quantity,
-          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          identifier = this@with.identifier.takeIf { it.isNotEmpty() },
           name = this@with.name?.value,
           _name = this@with.name?.toElement(),
           lotNumber = this@with.lotNumber?.value,
@@ -248,7 +248,7 @@ internal data class NutritionProductCharacteristicValueSurrogate(
         this@NutritionProductCharacteristicValueSurrogate.valueBoolean,
         this@NutritionProductCharacteristicValueSurrogate._valueBoolean,
       ),
-    )!! !!
+    )!!
 
   public companion object {
     public fun fromModel(
@@ -312,9 +312,7 @@ internal data class NutritionProductSurrogate(
       code = this@NutritionProductSurrogate.code,
       status =
         Enumeration.of(
-          com.google.fhir.model.r5.NutritionProduct.NutritionProductStatus.fromCode(
-            this@NutritionProductSurrogate.status!!
-          ),
+          NutritionProduct.NutritionProductStatus.fromCode(this@NutritionProductSurrogate.status!!),
           this@NutritionProductSurrogate._status,
         ),
       category = this@NutritionProductSurrogate.category ?: mutableListOf(),
@@ -338,20 +336,20 @@ internal data class NutritionProductSurrogate(
           language = this@with.language?.value,
           _language = this@with.language?.toElement(),
           text = this@with.text,
-          contained = this@with.contained.takeUnless { it.all { it == null } },
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          contained = this@with.contained.takeIf { it.isNotEmpty() },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           code = this@with.code,
           status = this@with.status.value?.getCode(),
           _status = this@with.status.toElement(),
-          category = this@with.category.takeUnless { it.all { it == null } },
-          manufacturer = this@with.manufacturer.takeUnless { it.all { it == null } },
-          nutrient = this@with.nutrient.takeUnless { it.all { it == null } },
-          ingredient = this@with.ingredient.takeUnless { it.all { it == null } },
-          knownAllergen = this@with.knownAllergen.takeUnless { it.all { it == null } },
-          characteristic = this@with.characteristic.takeUnless { it.all { it == null } },
-          instance = this@with.instance.takeUnless { it.all { it == null } },
-          note = this@with.note.takeUnless { it.all { it == null } },
+          category = this@with.category.takeIf { it.isNotEmpty() },
+          manufacturer = this@with.manufacturer.takeIf { it.isNotEmpty() },
+          nutrient = this@with.nutrient.takeIf { it.isNotEmpty() },
+          ingredient = this@with.ingredient.takeIf { it.isNotEmpty() },
+          knownAllergen = this@with.knownAllergen.takeIf { it.isNotEmpty() },
+          characteristic = this@with.characteristic.takeIf { it.isNotEmpty() },
+          instance = this@with.instance.takeIf { it.isNotEmpty() },
+          note = this@with.note.takeIf { it.isNotEmpty() },
         )
       }
   }

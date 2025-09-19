@@ -82,14 +82,14 @@ internal data class SubscriptionFilterBySurrogate(
       comparator =
         this@SubscriptionFilterBySurrogate.comparator?.let {
           Enumeration.of(
-            com.google.fhir.model.r5.Subscription.SearchComparator.fromCode(it!!),
+            Subscription.SearchComparator.fromCode(it),
             this@SubscriptionFilterBySurrogate._comparator,
           )
         },
       modifier =
         this@SubscriptionFilterBySurrogate.modifier?.let {
           Enumeration.of(
-            com.google.fhir.model.r5.Subscription.SearchModifierCode.fromCode(it!!),
+            Subscription.SearchModifierCode.fromCode(it),
             this@SubscriptionFilterBySurrogate._modifier,
           )
         },
@@ -105,8 +105,8 @@ internal data class SubscriptionFilterBySurrogate(
       with(model) {
         SubscriptionFilterBySurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           resourceType = this@with.resourceType?.value,
           _resourceType = this@with.resourceType?.toElement(),
           filterParameter = this@with.filterParameter.value,
@@ -154,8 +154,8 @@ internal data class SubscriptionParameterSurrogate(
       with(model) {
         SubscriptionParameterSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           name = this@with.name.value,
           _name = this@with.name.toElement(),
           `value` = this@with.`value`.value,
@@ -221,9 +221,7 @@ internal data class SubscriptionSurrogate(
       name = R5String.of(this@SubscriptionSurrogate.name, this@SubscriptionSurrogate._name),
       status =
         Enumeration.of(
-          com.google.fhir.model.r5.Subscription.SubscriptionStatusCodes.fromCode(
-            this@SubscriptionSurrogate.status!!
-          ),
+          Subscription.SubscriptionStatusCodes.fromCode(this@SubscriptionSurrogate.status!!),
           this@SubscriptionSurrogate._status,
         ),
       topic = Canonical.of(this@SubscriptionSurrogate.topic, this@SubscriptionSurrogate._topic)!!,
@@ -251,7 +249,7 @@ internal data class SubscriptionSurrogate(
       content =
         this@SubscriptionSurrogate.content?.let {
           Enumeration.of(
-            com.google.fhir.model.r5.Subscription.SubscriptionPayloadContent.fromCode(it!!),
+            Subscription.SubscriptionPayloadContent.fromCode(it),
             this@SubscriptionSurrogate._content,
           )
         },
@@ -270,27 +268,27 @@ internal data class SubscriptionSurrogate(
           language = this@with.language?.value,
           _language = this@with.language?.toElement(),
           text = this@with.text,
-          contained = this@with.contained.takeUnless { it.all { it == null } },
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          contained = this@with.contained.takeIf { it.isNotEmpty() },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
+          identifier = this@with.identifier.takeIf { it.isNotEmpty() },
           name = this@with.name?.value,
           _name = this@with.name?.toElement(),
           status = this@with.status.value?.getCode(),
           _status = this@with.status.toElement(),
           topic = this@with.topic.value,
           _topic = this@with.topic.toElement(),
-          contact = this@with.contact.takeUnless { it.all { it == null } },
+          contact = this@with.contact.takeIf { it.isNotEmpty() },
           end = this@with.end?.value?.toString(),
           _end = this@with.end?.toElement(),
           managingEntity = this@with.managingEntity,
           reason = this@with.reason?.value,
           _reason = this@with.reason?.toElement(),
-          filterBy = this@with.filterBy.takeUnless { it.all { it == null } },
+          filterBy = this@with.filterBy.takeIf { it.isNotEmpty() },
           channelType = this@with.channelType,
           endpoint = this@with.endpoint?.value,
           _endpoint = this@with.endpoint?.toElement(),
-          parameter = this@with.parameter.takeUnless { it.all { it == null } },
+          parameter = this@with.parameter.takeIf { it.isNotEmpty() },
           heartbeatPeriod = this@with.heartbeatPeriod?.value,
           _heartbeatPeriod = this@with.heartbeatPeriod?.toElement(),
           timeout = this@with.timeout?.value,

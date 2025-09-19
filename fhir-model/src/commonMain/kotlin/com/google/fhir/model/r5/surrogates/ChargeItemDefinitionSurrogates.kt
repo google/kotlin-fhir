@@ -48,6 +48,7 @@ import com.google.fhir.model.r5.Uri
 import com.google.fhir.model.r5.UsageContext
 import com.google.fhir.model.r5.serializers.DoubleSerializer
 import com.google.fhir.model.r5.serializers.LocalTimeSerializer
+import com.google.fhir.model.r5.terminologies.PublicationStatus
 import kotlin.Boolean as KotlinBoolean
 import kotlin.String as KotlinString
 import kotlin.Suppress
@@ -82,8 +83,8 @@ internal data class ChargeItemDefinitionApplicabilitySurrogate(
       with(model) {
         ChargeItemDefinitionApplicabilitySurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           condition = this@with.condition,
           effectivePeriod = this@with.effectivePeriod,
           relatedArtifact = this@with.relatedArtifact,
@@ -119,10 +120,10 @@ internal data class ChargeItemDefinitionPropertyGroupSurrogate(
       with(model) {
         ChargeItemDefinitionPropertyGroupSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          applicability = this@with.applicability.takeUnless { it.all { it == null } },
-          priceComponent = this@with.priceComponent.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
+          applicability = this@with.applicability.takeIf { it.isNotEmpty() },
+          priceComponent = this@with.priceComponent.takeIf { it.isNotEmpty() },
         )
       }
   }
@@ -299,9 +300,7 @@ internal data class ChargeItemDefinitionSurrogate(
         },
       status =
         Enumeration.of(
-          com.google.fhir.model.r5.terminologies.PublicationStatus.fromCode(
-            this@ChargeItemDefinitionSurrogate.status!!
-          ),
+          PublicationStatus.fromCode(this@ChargeItemDefinitionSurrogate.status!!),
           this@ChargeItemDefinitionSurrogate._status,
         ),
       experimental =
@@ -369,12 +368,12 @@ internal data class ChargeItemDefinitionSurrogate(
           language = this@with.language?.value,
           _language = this@with.language?.toElement(),
           text = this@with.text,
-          contained = this@with.contained.takeUnless { it.all { it == null } },
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          contained = this@with.contained.takeIf { it.isNotEmpty() },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           url = this@with.url?.value,
           _url = this@with.url?.toElement(),
-          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          identifier = this@with.identifier.takeIf { it.isNotEmpty() },
           version = this@with.version?.value,
           _version = this@with.version?.toElement(),
           versionAlgorithm = this@with.versionAlgorithm,
@@ -420,11 +419,11 @@ internal data class ChargeItemDefinitionSurrogate(
           _date = this@with.date?.toElement(),
           publisher = this@with.publisher?.value,
           _publisher = this@with.publisher?.toElement(),
-          contact = this@with.contact.takeUnless { it.all { it == null } },
+          contact = this@with.contact.takeIf { it.isNotEmpty() },
           description = this@with.description?.value,
           _description = this@with.description?.toElement(),
-          useContext = this@with.useContext.takeUnless { it.all { it == null } },
-          jurisdiction = this@with.jurisdiction.takeUnless { it.all { it == null } },
+          useContext = this@with.useContext.takeIf { it.isNotEmpty() },
+          jurisdiction = this@with.jurisdiction.takeIf { it.isNotEmpty() },
           purpose = this@with.purpose?.value,
           _purpose = this@with.purpose?.toElement(),
           copyright = this@with.copyright?.value,
@@ -436,9 +435,9 @@ internal data class ChargeItemDefinitionSurrogate(
           lastReviewDate = this@with.lastReviewDate?.value?.toString(),
           _lastReviewDate = this@with.lastReviewDate?.toElement(),
           code = this@with.code,
-          instance = this@with.instance.takeUnless { it.all { it == null } },
-          applicability = this@with.applicability.takeUnless { it.all { it == null } },
-          propertyGroup = this@with.propertyGroup.takeUnless { it.all { it == null } },
+          instance = this@with.instance.takeIf { it.isNotEmpty() },
+          applicability = this@with.applicability.takeIf { it.isNotEmpty() },
+          propertyGroup = this@with.propertyGroup.takeIf { it.isNotEmpty() },
         )
       }
   }

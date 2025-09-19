@@ -65,8 +65,8 @@ internal data class MedicinalProductIndicationOtherTherapySurrogate(
       with(model) {
         MedicinalProductIndicationOtherTherapySurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           therapyRelationshipType = this@with.therapyRelationshipType,
           medication = this@with.medication,
         )
@@ -83,7 +83,7 @@ internal data class MedicinalProductIndicationOtherTherapyMedicationSurrogate(
     MedicinalProductIndication.OtherTherapy.Medication.from(
       this@MedicinalProductIndicationOtherTherapyMedicationSurrogate.medicationCodeableConcept,
       this@MedicinalProductIndicationOtherTherapyMedicationSurrogate.medicationReference,
-    )!! !!
+    )!!
 
   public companion object {
     public fun fromModel(
@@ -162,18 +162,18 @@ internal data class MedicinalProductIndicationSurrogate(
           language = this@with.language?.value,
           _language = this@with.language?.toElement(),
           text = this@with.text,
-          contained = this@with.contained.takeUnless { it.all { it == null } },
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          subject = this@with.subject.takeUnless { it.all { it == null } },
+          contained = this@with.contained.takeIf { it.isNotEmpty() },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
+          subject = this@with.subject.takeIf { it.isNotEmpty() },
           diseaseSymptomProcedure = this@with.diseaseSymptomProcedure,
           diseaseStatus = this@with.diseaseStatus,
-          comorbidity = this@with.comorbidity.takeUnless { it.all { it == null } },
+          comorbidity = this@with.comorbidity.takeIf { it.isNotEmpty() },
           intendedEffect = this@with.intendedEffect,
           duration = this@with.duration,
-          otherTherapy = this@with.otherTherapy.takeUnless { it.all { it == null } },
-          undesirableEffect = this@with.undesirableEffect.takeUnless { it.all { it == null } },
-          population = this@with.population.takeUnless { it.all { it == null } },
+          otherTherapy = this@with.otherTherapy.takeIf { it.isNotEmpty() },
+          undesirableEffect = this@with.undesirableEffect.takeIf { it.isNotEmpty() },
+          population = this@with.population.takeIf { it.isNotEmpty() },
         )
       }
   }

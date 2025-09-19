@@ -56,17 +56,14 @@ internal data class ContactPointSurrogate(
       system =
         this@ContactPointSurrogate.system?.let {
           Enumeration.of(
-            com.google.fhir.model.r4b.ContactPoint.ContactPointSystem.fromCode(it!!),
+            ContactPoint.ContactPointSystem.fromCode(it),
             this@ContactPointSurrogate._system,
           )
         },
       `value` = R4bString.of(this@ContactPointSurrogate.`value`, this@ContactPointSurrogate._value),
       use =
         this@ContactPointSurrogate.use?.let {
-          Enumeration.of(
-            com.google.fhir.model.r4b.ContactPoint.ContactPointUse.fromCode(it!!),
-            this@ContactPointSurrogate._use,
-          )
+          Enumeration.of(ContactPoint.ContactPointUse.fromCode(it), this@ContactPointSurrogate._use)
         },
       rank = PositiveInt.of(this@ContactPointSurrogate.rank, this@ContactPointSurrogate._rank),
       period = this@ContactPointSurrogate.period,
@@ -77,7 +74,7 @@ internal data class ContactPointSurrogate(
       with(model) {
         ContactPointSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
           system = this@with.system?.value?.getCode(),
           _system = this@with.system?.toElement(),
           `value` = this@with.`value`?.value,

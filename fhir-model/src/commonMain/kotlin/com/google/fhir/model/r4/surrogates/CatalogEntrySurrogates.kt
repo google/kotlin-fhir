@@ -37,6 +37,7 @@ import com.google.fhir.model.r4.Resource
 import com.google.fhir.model.r4.Uri
 import com.google.fhir.model.r4.serializers.DoubleSerializer
 import com.google.fhir.model.r4.serializers.LocalTimeSerializer
+import com.google.fhir.model.r4.terminologies.PublicationStatus
 import kotlin.Boolean as KotlinBoolean
 import kotlin.String
 import kotlin.Suppress
@@ -61,7 +62,7 @@ internal data class CatalogEntryRelatedEntrySurrogate(
         this@CatalogEntryRelatedEntrySurrogate.modifierExtension ?: mutableListOf(),
       relationtype =
         Enumeration.of(
-          com.google.fhir.model.r4.CatalogEntry.CatalogEntryRelationType.fromCode(
+          CatalogEntry.CatalogEntryRelationType.fromCode(
             this@CatalogEntryRelatedEntrySurrogate.relationtype!!
           ),
           this@CatalogEntryRelatedEntrySurrogate._relationtype,
@@ -74,8 +75,8 @@ internal data class CatalogEntryRelatedEntrySurrogate(
       with(model) {
         CatalogEntryRelatedEntrySurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           relationtype = this@with.relationtype.value?.getCode(),
           _relationtype = this@with.relationtype.toElement(),
           item = this@with.item,
@@ -134,10 +135,7 @@ internal data class CatalogEntrySurrogate(
       classification = this@CatalogEntrySurrogate.classification ?: mutableListOf(),
       status =
         this@CatalogEntrySurrogate.status?.let {
-          Enumeration.of(
-            com.google.fhir.model.r4.terminologies.PublicationStatus.fromCode(it!!),
-            this@CatalogEntrySurrogate._status,
-          )
+          Enumeration.of(PublicationStatus.fromCode(it), this@CatalogEntrySurrogate._status)
         },
       validityPeriod = this@CatalogEntrySurrogate.validityPeriod,
       validTo =
@@ -168,17 +166,16 @@ internal data class CatalogEntrySurrogate(
           language = this@with.language?.value,
           _language = this@with.language?.toElement(),
           text = this@with.text,
-          contained = this@with.contained.takeUnless { it.all { it == null } },
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          contained = this@with.contained.takeIf { it.isNotEmpty() },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
+          identifier = this@with.identifier.takeIf { it.isNotEmpty() },
           type = this@with.type,
           orderable = this@with.orderable.value,
           _orderable = this@with.orderable.toElement(),
           referencedItem = this@with.referencedItem,
-          additionalIdentifier =
-            this@with.additionalIdentifier.takeUnless { it.all { it == null } },
-          classification = this@with.classification.takeUnless { it.all { it == null } },
+          additionalIdentifier = this@with.additionalIdentifier.takeIf { it.isNotEmpty() },
+          classification = this@with.classification.takeIf { it.isNotEmpty() },
           status = this@with.status?.value?.getCode(),
           _status = this@with.status?.toElement(),
           validityPeriod = this@with.validityPeriod,
@@ -186,11 +183,9 @@ internal data class CatalogEntrySurrogate(
           _validTo = this@with.validTo?.toElement(),
           lastUpdated = this@with.lastUpdated?.value?.toString(),
           _lastUpdated = this@with.lastUpdated?.toElement(),
-          additionalCharacteristic =
-            this@with.additionalCharacteristic.takeUnless { it.all { it == null } },
-          additionalClassification =
-            this@with.additionalClassification.takeUnless { it.all { it == null } },
-          relatedEntry = this@with.relatedEntry.takeUnless { it.all { it == null } },
+          additionalCharacteristic = this@with.additionalCharacteristic.takeIf { it.isNotEmpty() },
+          additionalClassification = this@with.additionalClassification.takeIf { it.isNotEmpty() },
+          relatedEntry = this@with.relatedEntry.takeIf { it.isNotEmpty() },
         )
       }
   }

@@ -41,6 +41,8 @@ import com.google.fhir.model.r5.Uri
 import com.google.fhir.model.r5.UsageContext
 import com.google.fhir.model.r5.serializers.DoubleSerializer
 import com.google.fhir.model.r5.serializers.LocalTimeSerializer
+import com.google.fhir.model.r5.terminologies.PublicationStatus
+import com.google.fhir.model.r5.terminologies.SearchParamType
 import kotlin.Boolean as KotlinBoolean
 import kotlin.String as KotlinString
 import kotlin.Suppress
@@ -81,8 +83,8 @@ internal data class SearchParameterComponentSurrogate(
       with(model) {
         SearchParameterComponentSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           definition = this@with.definition.value,
           _definition = this@with.definition.toElement(),
           expression = this@with.expression.value,
@@ -220,9 +222,7 @@ internal data class SearchParameterSurrogate(
         ),
       status =
         Enumeration.of(
-          com.google.fhir.model.r5.terminologies.PublicationStatus.fromCode(
-            this@SearchParameterSurrogate.status!!
-          ),
+          PublicationStatus.fromCode(this@SearchParameterSurrogate.status!!),
           this@SearchParameterSurrogate._status,
         ),
       experimental =
@@ -275,10 +275,7 @@ internal data class SearchParameterSurrogate(
             )
             .map { (value, element) ->
               Enumeration.of(
-                value.let {
-                  com.google.fhir.model.r5.SearchParameter.VersionIndependentResourceTypesAll
-                    .fromCode(it!!)!!
-                },
+                value.let { SearchParameter.VersionIndependentResourceTypesAll.fromCode(it!!) },
                 element,
               )
             }
@@ -286,9 +283,7 @@ internal data class SearchParameterSurrogate(
         },
       type =
         Enumeration.of(
-          com.google.fhir.model.r5.terminologies.SearchParamType.fromCode(
-            this@SearchParameterSurrogate.type!!
-          ),
+          SearchParamType.fromCode(this@SearchParameterSurrogate.type!!),
           this@SearchParameterSurrogate._type,
         ),
       expression =
@@ -299,7 +294,7 @@ internal data class SearchParameterSurrogate(
       processingMode =
         this@SearchParameterSurrogate.processingMode?.let {
           Enumeration.of(
-            com.google.fhir.model.r5.SearchParameter.SearchProcessingModeType.fromCode(it!!),
+            SearchParameter.SearchProcessingModeType.fromCode(it),
             this@SearchParameterSurrogate._processingMode,
           )
         },
@@ -323,10 +318,7 @@ internal data class SearchParameterSurrogate(
             )
             .map { (value, element) ->
               Enumeration.of(
-                value.let {
-                  com.google.fhir.model.r5.SearchParameter.VersionIndependentResourceTypesAll
-                    .fromCode(it!!)!!
-                },
+                value.let { SearchParameter.VersionIndependentResourceTypesAll.fromCode(it!!) },
                 element,
               )
             }
@@ -356,12 +348,7 @@ internal data class SearchParameterSurrogate(
                 ?: List(this@SearchParameterSurrogate.comparator!!.size) { null }
             )
             .map { (value, element) ->
-              Enumeration.of(
-                value.let {
-                  com.google.fhir.model.r5.SearchParameter.SearchComparator.fromCode(it!!)!!
-                },
-                element,
-              )
+              Enumeration.of(value.let { SearchParameter.SearchComparator.fromCode(it!!) }, element)
             }
             .toMutableList()
         },
@@ -380,9 +367,7 @@ internal data class SearchParameterSurrogate(
             )
             .map { (value, element) ->
               Enumeration.of(
-                value.let {
-                  com.google.fhir.model.r5.SearchParameter.SearchModifierCode.fromCode(it!!)!!
-                },
+                value.let { SearchParameter.SearchModifierCode.fromCode(it!!) },
                 element,
               )
             }
@@ -418,12 +403,12 @@ internal data class SearchParameterSurrogate(
           language = this@with.language?.value,
           _language = this@with.language?.toElement(),
           text = this@with.text,
-          contained = this@with.contained.takeUnless { it.all { it == null } },
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          contained = this@with.contained.takeIf { it.isNotEmpty() },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           url = this@with.url.value,
           _url = this@with.url.toElement(),
-          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          identifier = this@with.identifier.takeIf { it.isNotEmpty() },
           version = this@with.version?.value,
           _version = this@with.version?.toElement(),
           versionAlgorithm = this@with.versionAlgorithm,
@@ -441,11 +426,11 @@ internal data class SearchParameterSurrogate(
           _date = this@with.date?.toElement(),
           publisher = this@with.publisher?.value,
           _publisher = this@with.publisher?.toElement(),
-          contact = this@with.contact.takeUnless { it.all { it == null } },
+          contact = this@with.contact.takeIf { it.isNotEmpty() },
           description = this@with.description.value,
           _description = this@with.description.toElement(),
-          useContext = this@with.useContext.takeUnless { it.all { it == null } },
-          jurisdiction = this@with.jurisdiction.takeUnless { it.all { it == null } },
+          useContext = this@with.useContext.takeIf { it.isNotEmpty() },
+          jurisdiction = this@with.jurisdiction.takeIf { it.isNotEmpty() },
           purpose = this@with.purpose?.value,
           _purpose = this@with.purpose?.toElement(),
           copyright = this@with.copyright?.value,
@@ -518,7 +503,7 @@ internal data class SearchParameterSurrogate(
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
               ?.toMutableList(),
-          component = this@with.component.takeUnless { it.all { it == null } },
+          component = this@with.component.takeIf { it.isNotEmpty() },
         )
       }
   }

@@ -68,8 +68,8 @@ internal data class DeviceDispensePerformerSurrogate(
       with(model) {
         DeviceDispensePerformerSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           function = this@with.function,
           actor = this@with.actor,
         )
@@ -135,9 +135,7 @@ internal data class DeviceDispenseSurrogate(
       partOf = this@DeviceDispenseSurrogate.partOf ?: mutableListOf(),
       status =
         Enumeration.of(
-          com.google.fhir.model.r5.DeviceDispense.DeviceDispenseStatusCodes.fromCode(
-            this@DeviceDispenseSurrogate.status!!
-          ),
+          DeviceDispense.DeviceDispenseStatusCodes.fromCode(this@DeviceDispenseSurrogate.status!!),
           this@DeviceDispenseSurrogate._status,
         ),
       statusReason = this@DeviceDispenseSurrogate.statusReason,
@@ -182,23 +180,22 @@ internal data class DeviceDispenseSurrogate(
           language = this@with.language?.value,
           _language = this@with.language?.toElement(),
           text = this@with.text,
-          contained = this@with.contained.takeUnless { it.all { it == null } },
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          identifier = this@with.identifier.takeUnless { it.all { it == null } },
-          basedOn = this@with.basedOn.takeUnless { it.all { it == null } },
-          partOf = this@with.partOf.takeUnless { it.all { it == null } },
+          contained = this@with.contained.takeIf { it.isNotEmpty() },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
+          identifier = this@with.identifier.takeIf { it.isNotEmpty() },
+          basedOn = this@with.basedOn.takeIf { it.isNotEmpty() },
+          partOf = this@with.partOf.takeIf { it.isNotEmpty() },
           status = this@with.status.value?.getCode(),
           _status = this@with.status.toElement(),
           statusReason = this@with.statusReason,
-          category = this@with.category.takeUnless { it.all { it == null } },
+          category = this@with.category.takeIf { it.isNotEmpty() },
           device = this@with.device,
           subject = this@with.subject,
           `receiver` = this@with.`receiver`,
           encounter = this@with.encounter,
-          supportingInformation =
-            this@with.supportingInformation.takeUnless { it.all { it == null } },
-          performer = this@with.performer.takeUnless { it.all { it == null } },
+          supportingInformation = this@with.supportingInformation.takeIf { it.isNotEmpty() },
+          performer = this@with.performer.takeIf { it.isNotEmpty() },
           location = this@with.location,
           type = this@with.type,
           quantity = this@with.quantity,
@@ -207,10 +204,10 @@ internal data class DeviceDispenseSurrogate(
           whenHandedOver = this@with.whenHandedOver?.value?.toString(),
           _whenHandedOver = this@with.whenHandedOver?.toElement(),
           destination = this@with.destination,
-          note = this@with.note.takeUnless { it.all { it == null } },
+          note = this@with.note.takeIf { it.isNotEmpty() },
           usageInstruction = this@with.usageInstruction?.value,
           _usageInstruction = this@with.usageInstruction?.toElement(),
-          eventHistory = this@with.eventHistory.takeUnless { it.all { it == null } },
+          eventHistory = this@with.eventHistory.takeIf { it.isNotEmpty() },
         )
       }
   }

@@ -78,12 +78,11 @@ internal data class CarePlanActivitySurrogate(
       with(model) {
         CarePlanActivitySurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          outcomeCodeableConcept =
-            this@with.outcomeCodeableConcept.takeUnless { it.all { it == null } },
-          outcomeReference = this@with.outcomeReference.takeUnless { it.all { it == null } },
-          progress = this@with.progress.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
+          outcomeCodeableConcept = this@with.outcomeCodeableConcept.takeIf { it.isNotEmpty() },
+          outcomeReference = this@with.outcomeReference.takeIf { it.isNotEmpty() },
+          progress = this@with.progress.takeIf { it.isNotEmpty() },
           reference = this@with.reference,
           detail = this@with.detail,
         )
@@ -128,7 +127,7 @@ internal data class CarePlanActivityDetailSurrogate(
       kind =
         this@CarePlanActivityDetailSurrogate.kind?.let {
           Enumeration.of(
-            com.google.fhir.model.r4b.CarePlan.CarePlanActivityKind.fromCode(it!!),
+            CarePlan.CarePlanActivityKind.fromCode(it),
             this@CarePlanActivityDetailSurrogate._kind,
           )
         },
@@ -170,9 +169,7 @@ internal data class CarePlanActivityDetailSurrogate(
       goal = this@CarePlanActivityDetailSurrogate.goal ?: mutableListOf(),
       status =
         Enumeration.of(
-          com.google.fhir.model.r4b.CarePlan.CarePlanActivityStatus.fromCode(
-            this@CarePlanActivityDetailSurrogate.status!!
-          ),
+          CarePlan.CarePlanActivityStatus.fromCode(this@CarePlanActivityDetailSurrogate.status!!),
           this@CarePlanActivityDetailSurrogate._status,
         ),
       statusReason = this@CarePlanActivityDetailSurrogate.statusReason,
@@ -199,8 +196,8 @@ internal data class CarePlanActivityDetailSurrogate(
       with(model) {
         CarePlanActivityDetailSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           kind = this@with.kind?.value?.getCode(),
           _kind = this@with.kind?.toElement(),
           instantiatesCanonical =
@@ -226,9 +223,9 @@ internal data class CarePlanActivityDetailSurrogate(
               ?.map { it ?: Element() }
               ?.toMutableList(),
           code = this@with.code,
-          reasonCode = this@with.reasonCode.takeUnless { it.all { it == null } },
-          reasonReference = this@with.reasonReference.takeUnless { it.all { it == null } },
-          goal = this@with.goal.takeUnless { it.all { it == null } },
+          reasonCode = this@with.reasonCode.takeIf { it.isNotEmpty() },
+          reasonReference = this@with.reasonReference.takeIf { it.isNotEmpty() },
+          goal = this@with.goal.takeIf { it.isNotEmpty() },
           status = this@with.status.value?.getCode(),
           _status = this@with.status.toElement(),
           statusReason = this@with.statusReason,
@@ -236,7 +233,7 @@ internal data class CarePlanActivityDetailSurrogate(
           _doNotPerform = this@with.doNotPerform?.toElement(),
           scheduled = this@with.scheduled,
           location = this@with.location,
-          performer = this@with.performer.takeUnless { it.all { it == null } },
+          performer = this@with.performer.takeIf { it.isNotEmpty() },
           product = this@with.product,
           dailyAmount = this@with.dailyAmount,
           quantity = this@with.quantity,
@@ -395,16 +392,12 @@ internal data class CarePlanSurrogate(
       partOf = this@CarePlanSurrogate.partOf ?: mutableListOf(),
       status =
         Enumeration.of(
-          com.google.fhir.model.r4b.CarePlan.RequestStatus.fromCode(
-            this@CarePlanSurrogate.status!!
-          ),
+          CarePlan.RequestStatus.fromCode(this@CarePlanSurrogate.status!!),
           this@CarePlanSurrogate._status,
         ),
       intent =
         Enumeration.of(
-          com.google.fhir.model.r4b.CarePlan.CarePlanIntent.fromCode(
-            this@CarePlanSurrogate.intent!!
-          ),
+          CarePlan.CarePlanIntent.fromCode(this@CarePlanSurrogate.intent!!),
           this@CarePlanSurrogate._intent,
         ),
       category = this@CarePlanSurrogate.category ?: mutableListOf(),
@@ -440,10 +433,10 @@ internal data class CarePlanSurrogate(
           language = this@with.language?.value,
           _language = this@with.language?.toElement(),
           text = this@with.text,
-          contained = this@with.contained.takeUnless { it.all { it == null } },
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          contained = this@with.contained.takeIf { it.isNotEmpty() },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
+          identifier = this@with.identifier.takeIf { it.isNotEmpty() },
           instantiatesCanonical =
             this@with.instantiatesCanonical
               .map { it.value }
@@ -466,14 +459,14 @@ internal data class CarePlanSurrogate(
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
               ?.toMutableList(),
-          basedOn = this@with.basedOn.takeUnless { it.all { it == null } },
-          replaces = this@with.replaces.takeUnless { it.all { it == null } },
-          partOf = this@with.partOf.takeUnless { it.all { it == null } },
+          basedOn = this@with.basedOn.takeIf { it.isNotEmpty() },
+          replaces = this@with.replaces.takeIf { it.isNotEmpty() },
+          partOf = this@with.partOf.takeIf { it.isNotEmpty() },
           status = this@with.status.value?.getCode(),
           _status = this@with.status.toElement(),
           intent = this@with.intent.value?.getCode(),
           _intent = this@with.intent.toElement(),
-          category = this@with.category.takeUnless { it.all { it == null } },
+          category = this@with.category.takeIf { it.isNotEmpty() },
           title = this@with.title?.value,
           _title = this@with.title?.toElement(),
           description = this@with.description?.value,
@@ -484,13 +477,13 @@ internal data class CarePlanSurrogate(
           created = this@with.created?.value?.toString(),
           _created = this@with.created?.toElement(),
           author = this@with.author,
-          contributor = this@with.contributor.takeUnless { it.all { it == null } },
-          careTeam = this@with.careTeam.takeUnless { it.all { it == null } },
-          addresses = this@with.addresses.takeUnless { it.all { it == null } },
-          supportingInfo = this@with.supportingInfo.takeUnless { it.all { it == null } },
-          goal = this@with.goal.takeUnless { it.all { it == null } },
-          activity = this@with.activity.takeUnless { it.all { it == null } },
-          note = this@with.note.takeUnless { it.all { it == null } },
+          contributor = this@with.contributor.takeIf { it.isNotEmpty() },
+          careTeam = this@with.careTeam.takeIf { it.isNotEmpty() },
+          addresses = this@with.addresses.takeIf { it.isNotEmpty() },
+          supportingInfo = this@with.supportingInfo.takeIf { it.isNotEmpty() },
+          goal = this@with.goal.takeIf { it.isNotEmpty() },
+          activity = this@with.activity.takeIf { it.isNotEmpty() },
+          note = this@with.note.takeIf { it.isNotEmpty() },
         )
       }
   }

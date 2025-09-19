@@ -51,7 +51,7 @@ internal data class CodeableReferenceSurrogate(
       with(model) {
         CodeableReferenceSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
           concept = this@with.concept,
           reference = this@with.reference,
         )

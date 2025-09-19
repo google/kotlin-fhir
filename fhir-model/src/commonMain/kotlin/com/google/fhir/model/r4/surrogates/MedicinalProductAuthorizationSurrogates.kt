@@ -81,11 +81,11 @@ internal data class MedicinalProductAuthorizationJurisdictionalAuthorizationSurr
       with(model) {
         MedicinalProductAuthorizationJurisdictionalAuthorizationSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
+          identifier = this@with.identifier.takeIf { it.isNotEmpty() },
           country = this@with.country,
-          jurisdiction = this@with.jurisdiction.takeUnless { it.all { it == null } },
+          jurisdiction = this@with.jurisdiction.takeIf { it.isNotEmpty() },
           legalStatusOfSupply = this@with.legalStatusOfSupply,
           validityPeriod = this@with.validityPeriod,
         )
@@ -123,12 +123,12 @@ internal data class MedicinalProductAuthorizationProcedureSurrogate(
       with(model) {
         MedicinalProductAuthorizationProcedureSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           identifier = this@with.identifier,
           type = this@with.type,
           date = this@with.date,
-          application = this@with.application.takeUnless { it.all { it == null } },
+          application = this@with.application.takeIf { it.isNotEmpty() },
         )
       }
   }
@@ -271,13 +271,13 @@ internal data class MedicinalProductAuthorizationSurrogate(
           language = this@with.language?.value,
           _language = this@with.language?.toElement(),
           text = this@with.text,
-          contained = this@with.contained.takeUnless { it.all { it == null } },
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          contained = this@with.contained.takeIf { it.isNotEmpty() },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
+          identifier = this@with.identifier.takeIf { it.isNotEmpty() },
           subject = this@with.subject,
-          country = this@with.country.takeUnless { it.all { it == null } },
-          jurisdiction = this@with.jurisdiction.takeUnless { it.all { it == null } },
+          country = this@with.country.takeIf { it.isNotEmpty() },
+          jurisdiction = this@with.jurisdiction.takeIf { it.isNotEmpty() },
           status = this@with.status,
           statusDate = this@with.statusDate?.value?.toString(),
           _statusDate = this@with.statusDate?.toElement(),
@@ -291,7 +291,7 @@ internal data class MedicinalProductAuthorizationSurrogate(
           _internationalBirthDate = this@with.internationalBirthDate?.toElement(),
           legalBasis = this@with.legalBasis,
           jurisdictionalAuthorization =
-            this@with.jurisdictionalAuthorization.takeUnless { it.all { it == null } },
+            this@with.jurisdictionalAuthorization.takeIf { it.isNotEmpty() },
           holder = this@with.holder,
           regulator = this@with.regulator,
           procedure = this@with.procedure,

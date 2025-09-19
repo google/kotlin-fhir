@@ -68,8 +68,8 @@ internal data class ConditionParticipantSurrogate(
       with(model) {
         ConditionParticipantSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           function = this@with.function,
           actor = this@with.actor,
         )
@@ -101,10 +101,10 @@ internal data class ConditionStageSurrogate(
       with(model) {
         ConditionStageSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           summary = this@with.summary,
-          assessment = this@with.assessment.takeUnless { it.all { it == null } },
+          assessment = this@with.assessment.takeIf { it.isNotEmpty() },
           type = this@with.type,
         )
       }
@@ -267,26 +267,26 @@ internal data class ConditionSurrogate(
           language = this@with.language?.value,
           _language = this@with.language?.toElement(),
           text = this@with.text,
-          contained = this@with.contained.takeUnless { it.all { it == null } },
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          contained = this@with.contained.takeIf { it.isNotEmpty() },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
+          identifier = this@with.identifier.takeIf { it.isNotEmpty() },
           clinicalStatus = this@with.clinicalStatus,
           verificationStatus = this@with.verificationStatus,
-          category = this@with.category.takeUnless { it.all { it == null } },
+          category = this@with.category.takeIf { it.isNotEmpty() },
           severity = this@with.severity,
           code = this@with.code,
-          bodySite = this@with.bodySite.takeUnless { it.all { it == null } },
+          bodySite = this@with.bodySite.takeIf { it.isNotEmpty() },
           subject = this@with.subject,
           encounter = this@with.encounter,
           onset = this@with.onset,
           abatement = this@with.abatement,
           recordedDate = this@with.recordedDate?.value?.toString(),
           _recordedDate = this@with.recordedDate?.toElement(),
-          participant = this@with.participant.takeUnless { it.all { it == null } },
-          stage = this@with.stage.takeUnless { it.all { it == null } },
-          evidence = this@with.evidence.takeUnless { it.all { it == null } },
-          note = this@with.note.takeUnless { it.all { it == null } },
+          participant = this@with.participant.takeIf { it.isNotEmpty() },
+          stage = this@with.stage.takeIf { it.isNotEmpty() },
+          evidence = this@with.evidence.takeIf { it.isNotEmpty() },
+          note = this@with.note.takeIf { it.isNotEmpty() },
         )
       }
   }

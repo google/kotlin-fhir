@@ -65,8 +65,8 @@ internal data class CommunicationPayloadSurrogate(
       with(model) {
         CommunicationPayloadSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           content = this@with.content,
         )
       }
@@ -88,7 +88,7 @@ internal data class CommunicationPayloadContentSurrogate(
       ),
       this@CommunicationPayloadContentSurrogate.contentAttachment,
       this@CommunicationPayloadContentSurrogate.contentReference,
-    )!! !!
+    )!!
 
   public companion object {
     public fun fromModel(
@@ -200,9 +200,7 @@ internal data class CommunicationSurrogate(
       inResponseTo = this@CommunicationSurrogate.inResponseTo ?: mutableListOf(),
       status =
         Enumeration.of(
-          com.google.fhir.model.r4.Communication.EventStatus.fromCode(
-            this@CommunicationSurrogate.status!!
-          ),
+          Communication.EventStatus.fromCode(this@CommunicationSurrogate.status!!),
           this@CommunicationSurrogate._status,
         ),
       statusReason = this@CommunicationSurrogate.statusReason,
@@ -210,7 +208,7 @@ internal data class CommunicationSurrogate(
       priority =
         this@CommunicationSurrogate.priority?.let {
           Enumeration.of(
-            com.google.fhir.model.r4.Communication.RequestPriority.fromCode(it!!),
+            Communication.RequestPriority.fromCode(it),
             this@CommunicationSurrogate._priority,
           )
         },
@@ -248,10 +246,10 @@ internal data class CommunicationSurrogate(
           language = this@with.language?.value,
           _language = this@with.language?.toElement(),
           text = this@with.text,
-          contained = this@with.contained.takeUnless { it.all { it == null } },
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          contained = this@with.contained.takeIf { it.isNotEmpty() },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
+          identifier = this@with.identifier.takeIf { it.isNotEmpty() },
           instantiatesCanonical =
             this@with.instantiatesCanonical
               .map { it.value }
@@ -274,30 +272,30 @@ internal data class CommunicationSurrogate(
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
               ?.toMutableList(),
-          basedOn = this@with.basedOn.takeUnless { it.all { it == null } },
-          partOf = this@with.partOf.takeUnless { it.all { it == null } },
-          inResponseTo = this@with.inResponseTo.takeUnless { it.all { it == null } },
+          basedOn = this@with.basedOn.takeIf { it.isNotEmpty() },
+          partOf = this@with.partOf.takeIf { it.isNotEmpty() },
+          inResponseTo = this@with.inResponseTo.takeIf { it.isNotEmpty() },
           status = this@with.status.value?.getCode(),
           _status = this@with.status.toElement(),
           statusReason = this@with.statusReason,
-          category = this@with.category.takeUnless { it.all { it == null } },
+          category = this@with.category.takeIf { it.isNotEmpty() },
           priority = this@with.priority?.value?.getCode(),
           _priority = this@with.priority?.toElement(),
-          medium = this@with.medium.takeUnless { it.all { it == null } },
+          medium = this@with.medium.takeIf { it.isNotEmpty() },
           subject = this@with.subject,
           topic = this@with.topic,
-          about = this@with.about.takeUnless { it.all { it == null } },
+          about = this@with.about.takeIf { it.isNotEmpty() },
           encounter = this@with.encounter,
           sent = this@with.sent?.value?.toString(),
           _sent = this@with.sent?.toElement(),
           received = this@with.received?.value?.toString(),
           _received = this@with.received?.toElement(),
-          recipient = this@with.recipient.takeUnless { it.all { it == null } },
+          recipient = this@with.recipient.takeIf { it.isNotEmpty() },
           sender = this@with.sender,
-          reasonCode = this@with.reasonCode.takeUnless { it.all { it == null } },
-          reasonReference = this@with.reasonReference.takeUnless { it.all { it == null } },
-          payload = this@with.payload.takeUnless { it.all { it == null } },
-          note = this@with.note.takeUnless { it.all { it == null } },
+          reasonCode = this@with.reasonCode.takeIf { it.isNotEmpty() },
+          reasonReference = this@with.reasonReference.takeIf { it.isNotEmpty() },
+          payload = this@with.payload.takeIf { it.isNotEmpty() },
+          note = this@with.note.takeIf { it.isNotEmpty() },
         )
       }
   }

@@ -69,9 +69,9 @@ internal data class CareTeamParticipantSurrogate(
       with(model) {
         CareTeamParticipantSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          role = this@with.role.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
+          role = this@with.role.takeIf { it.isNotEmpty() },
           member = this@with.member,
           onBehalfOf = this@with.onBehalfOf,
           period = this@with.period,
@@ -122,10 +122,7 @@ internal data class CareTeamSurrogate(
       identifier = this@CareTeamSurrogate.identifier ?: mutableListOf(),
       status =
         this@CareTeamSurrogate.status?.let {
-          Enumeration.of(
-            com.google.fhir.model.r4.CareTeam.CareTeamStatus.fromCode(it!!),
-            this@CareTeamSurrogate._status,
-          )
+          Enumeration.of(CareTeam.CareTeamStatus.fromCode(it), this@CareTeamSurrogate._status)
         },
       category = this@CareTeamSurrogate.category ?: mutableListOf(),
       name = R4String.of(this@CareTeamSurrogate.name, this@CareTeamSurrogate._name),
@@ -151,25 +148,24 @@ internal data class CareTeamSurrogate(
           language = this@with.language?.value,
           _language = this@with.language?.toElement(),
           text = this@with.text,
-          contained = this@with.contained.takeUnless { it.all { it == null } },
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
-          identifier = this@with.identifier.takeUnless { it.all { it == null } },
+          contained = this@with.contained.takeIf { it.isNotEmpty() },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
+          identifier = this@with.identifier.takeIf { it.isNotEmpty() },
           status = this@with.status?.value?.getCode(),
           _status = this@with.status?.toElement(),
-          category = this@with.category.takeUnless { it.all { it == null } },
+          category = this@with.category.takeIf { it.isNotEmpty() },
           name = this@with.name?.value,
           _name = this@with.name?.toElement(),
           subject = this@with.subject,
           encounter = this@with.encounter,
           period = this@with.period,
-          participant = this@with.participant.takeUnless { it.all { it == null } },
-          reasonCode = this@with.reasonCode.takeUnless { it.all { it == null } },
-          reasonReference = this@with.reasonReference.takeUnless { it.all { it == null } },
-          managingOrganization =
-            this@with.managingOrganization.takeUnless { it.all { it == null } },
-          telecom = this@with.telecom.takeUnless { it.all { it == null } },
-          note = this@with.note.takeUnless { it.all { it == null } },
+          participant = this@with.participant.takeIf { it.isNotEmpty() },
+          reasonCode = this@with.reasonCode.takeIf { it.isNotEmpty() },
+          reasonReference = this@with.reasonReference.takeIf { it.isNotEmpty() },
+          managingOrganization = this@with.managingOrganization.takeIf { it.isNotEmpty() },
+          telecom = this@with.telecom.takeIf { it.isNotEmpty() },
+          note = this@with.note.takeIf { it.isNotEmpty() },
         )
       }
   }

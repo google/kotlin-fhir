@@ -55,7 +55,7 @@ internal data class LinkageItemSurrogate(
       modifierExtension = this@LinkageItemSurrogate.modifierExtension ?: mutableListOf(),
       type =
         Enumeration.of(
-          com.google.fhir.model.r4b.Linkage.LinkageType.fromCode(this@LinkageItemSurrogate.type!!),
+          Linkage.LinkageType.fromCode(this@LinkageItemSurrogate.type!!),
           this@LinkageItemSurrogate._type,
         ),
       resource = this@LinkageItemSurrogate.resource,
@@ -66,8 +66,8 @@ internal data class LinkageItemSurrogate(
       with(model) {
         LinkageItemSurrogate(
           id = this@with.id,
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           type = this@with.type.value?.getCode(),
           _type = this@with.type.toElement(),
           resource = this@with.resource,
@@ -120,13 +120,13 @@ internal data class LinkageSurrogate(
           language = this@with.language?.value,
           _language = this@with.language?.toElement(),
           text = this@with.text,
-          contained = this@with.contained.takeUnless { it.all { it == null } },
-          extension = this@with.extension.takeUnless { it.all { it == null } },
-          modifierExtension = this@with.modifierExtension.takeUnless { it.all { it == null } },
+          contained = this@with.contained.takeIf { it.isNotEmpty() },
+          extension = this@with.extension.takeIf { it.isNotEmpty() },
+          modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           active = this@with.active?.value,
           _active = this@with.active?.toElement(),
           author = this@with.author,
-          item = this@with.item.takeUnless { it.all { it == null } },
+          item = this@with.item.takeIf { it.isNotEmpty() },
         )
       }
   }
