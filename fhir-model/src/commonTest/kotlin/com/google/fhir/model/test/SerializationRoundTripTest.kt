@@ -35,7 +35,7 @@ class SerializationRoundTripTest {
       )
       .forEach {
         val exampleJson = prettyPrintJson(it)
-        val domainResource = jsonR4.decodeFromString<com.google.fhir.model.r4.Resource>(exampleJson)
+        val domainResource = jsonR4.decodeFromString(exampleJson)
         val reserializedString = jsonR4.encodeToString(domainResource)
         assertEqualsIgnoringZeros(exampleJson, reserializedString)
       }
@@ -50,8 +50,7 @@ class SerializationRoundTripTest {
       )
       .forEach {
         val exampleJson = prettyPrintJson(it)
-        val domainResource =
-          jsonR4B.decodeFromString<com.google.fhir.model.r4b.Resource>(exampleJson)
+        val domainResource = jsonR4B.decodeFromString(exampleJson)
         val reserializedString = jsonR4B.encodeToString(domainResource)
         assertEqualsIgnoringZeros(exampleJson, reserializedString)
       }
@@ -66,7 +65,7 @@ class SerializationRoundTripTest {
       )
       .forEach {
         val exampleJson = prettyPrintJson(it)
-        val domainResource = jsonR5.decodeFromString<com.google.fhir.model.r5.Resource>(exampleJson)
+        val domainResource = jsonR5.decodeFromString(exampleJson)
         val reserializedString = jsonR5.encodeToString(domainResource)
         assertEqualsIgnoringZeros(exampleJson, reserializedString)
       }
