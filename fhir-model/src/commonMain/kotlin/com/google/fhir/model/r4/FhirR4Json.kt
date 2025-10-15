@@ -14,24 +14,30 @@
  * limitations under the License.
  */
 
-package com.google.fhir.model.r4b
+package com.google.fhir.model.r4
 
+import kotlin.String
+import kotlin.Unit
+import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonBuilder
 import kotlinx.serialization.modules.SerializersModule
 
-public fun JsonBuilder.configureR4b() {
-  classDiscriminator = "resourceType"
-  serializersModule = serializersModuleR4b
+public class FhirR4Json(`init`: JsonBuilder.() -> Unit = {}) {
+  private val json: Json = Json {
+    prettyPrint = true
+    classDiscriminator = "resourceType"
+    serializersModule = serializersModuleR4
+    init()
+  }
+
+  public fun encodeToString(resource: Resource): String = json.encodeToString(resource)
+
+  public fun decodeFromString(string: String): Resource = json.decodeFromString<Resource>(string)
 }
 
-private val serializersModuleR4b: SerializersModule = SerializersModule {
+private val serializersModuleR4: SerializersModule = SerializersModule {
   polymorphic(Resource::class, Account::class, Account.serializer())
   polymorphic(Resource::class, ActivityDefinition::class, ActivityDefinition.serializer())
-  polymorphic(
-    Resource::class,
-    AdministrableProductDefinition::class,
-    AdministrableProductDefinition.serializer(),
-  )
   polymorphic(Resource::class, AdverseEvent::class, AdverseEvent.serializer())
   polymorphic(Resource::class, AllergyIntolerance::class, AllergyIntolerance.serializer())
   polymorphic(Resource::class, Appointment::class, Appointment.serializer())
@@ -52,11 +58,9 @@ private val serializersModuleR4b: SerializersModule = SerializersModule {
   polymorphic(Resource::class, CatalogEntry::class, CatalogEntry.serializer())
   polymorphic(Resource::class, ChargeItem::class, ChargeItem.serializer())
   polymorphic(Resource::class, ChargeItemDefinition::class, ChargeItemDefinition.serializer())
-  polymorphic(Resource::class, Citation::class, Citation.serializer())
   polymorphic(Resource::class, Claim::class, Claim.serializer())
   polymorphic(Resource::class, ClaimResponse::class, ClaimResponse.serializer())
   polymorphic(Resource::class, ClinicalImpression::class, ClinicalImpression.serializer())
-  polymorphic(Resource::class, ClinicalUseDefinition::class, ClinicalUseDefinition.serializer())
   polymorphic(Resource::class, CodeSystem::class, CodeSystem.serializer())
   polymorphic(Resource::class, Communication::class, Communication.serializer())
   polymorphic(Resource::class, CommunicationRequest::class, CommunicationRequest.serializer())
@@ -86,6 +90,7 @@ private val serializersModuleR4b: SerializersModule = SerializersModule {
   polymorphic(Resource::class, DiagnosticReport::class, DiagnosticReport.serializer())
   polymorphic(Resource::class, DocumentManifest::class, DocumentManifest.serializer())
   polymorphic(Resource::class, DocumentReference::class, DocumentReference.serializer())
+  polymorphic(Resource::class, EffectEvidenceSynthesis::class, EffectEvidenceSynthesis.serializer())
   polymorphic(Resource::class, Encounter::class, Encounter.serializer())
   polymorphic(Resource::class, Endpoint::class, Endpoint.serializer())
   polymorphic(Resource::class, EnrollmentRequest::class, EnrollmentRequest.serializer())
@@ -93,7 +98,6 @@ private val serializersModuleR4b: SerializersModule = SerializersModule {
   polymorphic(Resource::class, EpisodeOfCare::class, EpisodeOfCare.serializer())
   polymorphic(Resource::class, EventDefinition::class, EventDefinition.serializer())
   polymorphic(Resource::class, Evidence::class, Evidence.serializer())
-  polymorphic(Resource::class, EvidenceReport::class, EvidenceReport.serializer())
   polymorphic(Resource::class, EvidenceVariable::class, EvidenceVariable.serializer())
   polymorphic(Resource::class, ExampleScenario::class, ExampleScenario.serializer())
   polymorphic(Resource::class, ExplanationOfBenefit::class, ExplanationOfBenefit.serializer())
@@ -113,18 +117,12 @@ private val serializersModuleR4b: SerializersModule = SerializersModule {
     ImmunizationRecommendation.serializer(),
   )
   polymorphic(Resource::class, ImplementationGuide::class, ImplementationGuide.serializer())
-  polymorphic(Resource::class, Ingredient::class, Ingredient.serializer())
   polymorphic(Resource::class, InsurancePlan::class, InsurancePlan.serializer())
   polymorphic(Resource::class, Invoice::class, Invoice.serializer())
   polymorphic(Resource::class, Library::class, Library.serializer())
   polymorphic(Resource::class, Linkage::class, Linkage.serializer())
   polymorphic(Resource::class, List::class, List.serializer())
   polymorphic(Resource::class, Location::class, Location.serializer())
-  polymorphic(
-    Resource::class,
-    ManufacturedItemDefinition::class,
-    ManufacturedItemDefinition.serializer(),
-  )
   polymorphic(Resource::class, Measure::class, Measure.serializer())
   polymorphic(Resource::class, MeasureReport::class, MeasureReport.serializer())
   polymorphic(Resource::class, Media::class, Media.serializer())
@@ -138,28 +136,63 @@ private val serializersModuleR4b: SerializersModule = SerializersModule {
   polymorphic(Resource::class, MedicationKnowledge::class, MedicationKnowledge.serializer())
   polymorphic(Resource::class, MedicationRequest::class, MedicationRequest.serializer())
   polymorphic(Resource::class, MedicationStatement::class, MedicationStatement.serializer())
+  polymorphic(Resource::class, MedicinalProduct::class, MedicinalProduct.serializer())
   polymorphic(
     Resource::class,
-    MedicinalProductDefinition::class,
-    MedicinalProductDefinition.serializer(),
+    MedicinalProductAuthorization::class,
+    MedicinalProductAuthorization.serializer(),
+  )
+  polymorphic(
+    Resource::class,
+    MedicinalProductContraindication::class,
+    MedicinalProductContraindication.serializer(),
+  )
+  polymorphic(
+    Resource::class,
+    MedicinalProductIndication::class,
+    MedicinalProductIndication.serializer(),
+  )
+  polymorphic(
+    Resource::class,
+    MedicinalProductIngredient::class,
+    MedicinalProductIngredient.serializer(),
+  )
+  polymorphic(
+    Resource::class,
+    MedicinalProductInteraction::class,
+    MedicinalProductInteraction.serializer(),
+  )
+  polymorphic(
+    Resource::class,
+    MedicinalProductManufactured::class,
+    MedicinalProductManufactured.serializer(),
+  )
+  polymorphic(
+    Resource::class,
+    MedicinalProductPackaged::class,
+    MedicinalProductPackaged.serializer(),
+  )
+  polymorphic(
+    Resource::class,
+    MedicinalProductPharmaceutical::class,
+    MedicinalProductPharmaceutical.serializer(),
+  )
+  polymorphic(
+    Resource::class,
+    MedicinalProductUndesirableEffect::class,
+    MedicinalProductUndesirableEffect.serializer(),
   )
   polymorphic(Resource::class, MessageDefinition::class, MessageDefinition.serializer())
   polymorphic(Resource::class, MessageHeader::class, MessageHeader.serializer())
   polymorphic(Resource::class, MolecularSequence::class, MolecularSequence.serializer())
   polymorphic(Resource::class, NamingSystem::class, NamingSystem.serializer())
   polymorphic(Resource::class, NutritionOrder::class, NutritionOrder.serializer())
-  polymorphic(Resource::class, NutritionProduct::class, NutritionProduct.serializer())
   polymorphic(Resource::class, Observation::class, Observation.serializer())
   polymorphic(Resource::class, ObservationDefinition::class, ObservationDefinition.serializer())
   polymorphic(Resource::class, OperationDefinition::class, OperationDefinition.serializer())
   polymorphic(Resource::class, OperationOutcome::class, OperationOutcome.serializer())
   polymorphic(Resource::class, Organization::class, Organization.serializer())
   polymorphic(Resource::class, OrganizationAffiliation::class, OrganizationAffiliation.serializer())
-  polymorphic(
-    Resource::class,
-    PackagedProductDefinition::class,
-    PackagedProductDefinition.serializer(),
-  )
   polymorphic(Resource::class, Parameters::class, Parameters.serializer())
   polymorphic(Resource::class, Patient::class, Patient.serializer())
   polymorphic(Resource::class, PaymentNotice::class, PaymentNotice.serializer())
@@ -172,7 +205,6 @@ private val serializersModuleR4b: SerializersModule = SerializersModule {
   polymorphic(Resource::class, Provenance::class, Provenance.serializer())
   polymorphic(Resource::class, Questionnaire::class, Questionnaire.serializer())
   polymorphic(Resource::class, QuestionnaireResponse::class, QuestionnaireResponse.serializer())
-  polymorphic(Resource::class, RegulatedAuthorization::class, RegulatedAuthorization.serializer())
   polymorphic(Resource::class, RelatedPerson::class, RelatedPerson.serializer())
   polymorphic(Resource::class, RequestGroup::class, RequestGroup.serializer())
   polymorphic(Resource::class, ResearchDefinition::class, ResearchDefinition.serializer())
@@ -184,6 +216,7 @@ private val serializersModuleR4b: SerializersModule = SerializersModule {
   polymorphic(Resource::class, ResearchStudy::class, ResearchStudy.serializer())
   polymorphic(Resource::class, ResearchSubject::class, ResearchSubject.serializer())
   polymorphic(Resource::class, RiskAssessment::class, RiskAssessment.serializer())
+  polymorphic(Resource::class, RiskEvidenceSynthesis::class, RiskEvidenceSynthesis.serializer())
   polymorphic(Resource::class, Schedule::class, Schedule.serializer())
   polymorphic(Resource::class, SearchParameter::class, SearchParameter.serializer())
   polymorphic(Resource::class, ServiceRequest::class, ServiceRequest.serializer())
@@ -193,10 +226,17 @@ private val serializersModuleR4b: SerializersModule = SerializersModule {
   polymorphic(Resource::class, StructureDefinition::class, StructureDefinition.serializer())
   polymorphic(Resource::class, StructureMap::class, StructureMap.serializer())
   polymorphic(Resource::class, Subscription::class, Subscription.serializer())
-  polymorphic(Resource::class, SubscriptionStatus::class, SubscriptionStatus.serializer())
-  polymorphic(Resource::class, SubscriptionTopic::class, SubscriptionTopic.serializer())
   polymorphic(Resource::class, Substance::class, Substance.serializer())
-  polymorphic(Resource::class, SubstanceDefinition::class, SubstanceDefinition.serializer())
+  polymorphic(Resource::class, SubstanceNucleicAcid::class, SubstanceNucleicAcid.serializer())
+  polymorphic(Resource::class, SubstancePolymer::class, SubstancePolymer.serializer())
+  polymorphic(Resource::class, SubstanceProtein::class, SubstanceProtein.serializer())
+  polymorphic(
+    Resource::class,
+    SubstanceReferenceInformation::class,
+    SubstanceReferenceInformation.serializer(),
+  )
+  polymorphic(Resource::class, SubstanceSourceMaterial::class, SubstanceSourceMaterial.serializer())
+  polymorphic(Resource::class, SubstanceSpecification::class, SubstanceSpecification.serializer())
   polymorphic(Resource::class, SupplyDelivery::class, SupplyDelivery.serializer())
   polymorphic(Resource::class, SupplyRequest::class, SupplyRequest.serializer())
   polymorphic(Resource::class, Task::class, Task.serializer())

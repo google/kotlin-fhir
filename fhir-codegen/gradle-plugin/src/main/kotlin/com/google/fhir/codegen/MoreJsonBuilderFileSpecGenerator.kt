@@ -22,7 +22,11 @@ import com.squareup.kotlinpoet.CodeBlock
 import com.squareup.kotlinpoet.FileSpec
 import com.squareup.kotlinpoet.FunSpec
 import com.squareup.kotlinpoet.KModifier
+import com.squareup.kotlinpoet.LambdaTypeName
+import com.squareup.kotlinpoet.ParameterSpec
 import com.squareup.kotlinpoet.PropertySpec
+import com.squareup.kotlinpoet.TypeSpec
+import com.squareup.kotlinpoet.asTypeName
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonBuilder
 import kotlinx.serialization.modules.SerializersModule
@@ -39,14 +43,57 @@ object MoreJsonBuilderFileSpecGenerator {
   fun generate(packageName: String, subclasses: List<ClassName>): FileSpec {
     val baseClass = ClassName(packageName, "Resource")
     val fhirVersion = packageName.substringAfterLast('.').capitalized()
-    val funName = "configure${fhirVersion}"
+    val className = ClassName(packageName, "Fhir${fhirVersion}Json")
     val serializersModuleName = "serializersModule${fhirVersion}"
-    return FileSpec.builder(packageName, "MoreJsonBuilder")
-      .addFunction(
-        FunSpec.builder(funName)
-          .receiver(JsonBuilder::class)
-          .addStatement("classDiscriminator = \"resourceType\"")
-          .addStatement("serializersModule = $serializersModuleName")
+    return FileSpec.builder(className)
+      .addType(
+        TypeSpec.classBuilder(className)
+          .primaryConstructor(
+            FunSpec.constructorBuilder()
+              .addParameter(
+                ParameterSpec.builder(
+                    "init",
+                    LambdaTypeName.get(
+                      receiver = JsonBuilder::class.asTypeName(),
+                      returnType = Unit::class.asTypeName(),
+                    ),
+                  )
+                  .defaultValue("{}")
+                  .build()
+              )
+              .build()
+          )
+          .addProperty(
+            PropertySpec.builder("json", Json::class)
+              .addModifiers(KModifier.PRIVATE)
+              .initializer(
+                CodeBlock.builder()
+                  .addStatement("%T {", Json::class)
+                  .indent()
+                  .addStatement("prettyPrint = true")
+                  .addStatement("classDiscriminator = \"resourceType\"")
+                  .addStatement("serializersModule = $serializersModuleName")
+                  .addStatement("init()")
+                  .unindent()
+                  .addStatement("}")
+                  .build()
+              )
+              .build()
+          )
+          .addFunction(
+            FunSpec.builder("encodeToString")
+              .addParameter("resource", baseClass)
+              .returns(String::class)
+              .addStatement("return json.encodeToString(resource)")
+              .build()
+          )
+          .addFunction(
+            FunSpec.builder("decodeFromString")
+              .addParameter("string", String::class)
+              .returns(baseClass)
+              .addStatement("return json.decodeFromString<${baseClass.simpleName}>(string)")
+              .build()
+          )
           .build()
       )
       .addProperty(

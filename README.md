@@ -547,93 +547,37 @@ fun main() {
 
 ### Serialization and deserialization
 
-To serialize and deserialize FHIR resources, first set up
-[kotlinx.serialization](https://github.com/Kotlin/kotlinx.serialization)'s `Json` object with the
-extension function `configure<FHIR_VERSION>()` provided by the Kotlin FHIR library for the specific
-FHIR version:
+To serialize and deserialize FHIR resources, use the provided `Fhir<FHIR_VERSION>Json` class in the
+corresponding version-specific package:
 
 ```kotlin
-import com.google.fhir.model.r4.configureR4  // or com.google.fhir.model.r4b.configureR4b or com.google.fhir.model.r5.configureR5
-import kotlinx.serialization.json.Json
+import com.google.fhir.model.r4.FhirR4Json  // or com.google.fhir.model.r4b.FhirR4bJson or com.google.fhir.model.r5.FhirR5Json
 
 fun main() {
-    val json = Json {
-        configureR4()  // or configureR4b() or configureR5()
-    }
+    val jsonR4 = FhirR4Json()
+    val jsonR4 = FhirR4Json({ ignoreUnknownKeys = true })  // optional lambda to configure the Json object
 }
 ```
 
-> **Note:** The `Json` object can only be configured to work with a specific FHIR version at a time.
-> Use different `Json` objects for working with multiple FHIR versions.
+This class configures [kotlinx.serialization](https://github.com/Kotlin/kotlinx.serialization)'s
+`Json` object to handle serialization and deserialization for FHIR resources. It takes an optional
+initializer function for the user to customize the `Json` object even further. For more details, see
+[Kotlin Serialization Guide](https://github.com/Kotlin/kotlinx.serialization/blob/master/docs/json.md#json-configuration).
 
-Once the `Json` object is correctly configured, it can be used to serialize and deserialize FHIR
-resources of the specific version. In the following example, we first serialize the previously
-created patient resource in FHIR R4 to a JSON string, and then deserialize it back into a new
-patient object:
+Once this is correctly configured, use `encodeToString` and `decodeFromString` functions to
+serialize and deserialize:
 
 ```kotlin
 import com.google.fhir.model.r4.Patient
 import com.google.fhir.model.r4.Resource
 
 fun main() {
-    val jsonString = json.encodeToString<Resource>(patient)  // Serialization
-    val reconstructedPatient = json.decodeFromString<Resource>(jsonString)  // Deserialization
+    val jsonString = jsonR4.encodeToString(patient)  // Serialization
+    val reconstructedPatient = jsonR4.decodeFromString(jsonString)  // Deserialization
     
     check(reconstructedPatient is Patient)
 }
 ```
-
-#### Polymorphism
-
-In the example above, notice the type parameter `<Resource>` in the serialization and
-deserialization function calls <code>encodeToString<b>\<Resource\></b></code> and
-<code>decodeFromString<b>\<Resource\></b></code>. This is a critical detail.
-
-To allow the `kotlinx.serialization` library to determine the resource type at runtime during
-_deserialization_, the Kotlin FHIR library uses the `resourceType` JSON property as the
-[JSON class discriminator](https://github.com/Kotlin/kotlinx.serialization/blob/master/docs/json.md#class-discriminator-for-polymorphism).
-This serves as a hint to the `kotlinx.serialization` library so it can dynamically select the
-correct FHIR resource type, or subclass, to instantiate based on the JSON content at runtime.[^5]
-
-[^5]: If the resource type is known at compile time, it is safe to use a more specific type
-parameter while deserializing, such as `decodeFromString<Patient>(jsonString)`, provided that the
-`Json` object is configured with `ignoreUnknownKeys = true`. The `ignoreUnknownKeys` option is
-critical because with the more specific type parameter the `kotlinx.serialization` library knows the
-specific type to instantiate and no longer uses the `resourceType` JSON property as a
-[JSON class discriminator](https://github.com/Kotlin/kotlinx.serialization/blob/master/docs/json.md#class-discriminator-for-polymorphism)
-as is the case when the type parameter `<Resource>` is used. Instead, it will attempt to map the
-`resourceType` JSON property to a regular field in the specified class (e.g., `Patient`). As a
-result, without `ignoreUnknownKeys = true` an error will occur since the target class does not have
-a corresponding field for the `resourceType` property.
-
-However, during _serialization_, it is possible to call the `encodeToString` function without the
-type parameter, or with the type parameter of the specific resource type if it is known at compile
-time, e.g. `encodeToString<Patient>`. But this would be a mistake, since the `kotlinx.serialization`
-library would not treat the serialization as polymorphic in these cases. As a result, it would not
-include the `resourceType` property in the serialized result, generating malformed FHIR JSON.
-Therefore, when serializing FHIR resources, always make sure to include the `<Resource>` type
-parameter like this: <code>encodeToString<b>\<Resource\></b></code>.
-
-```kotlin
-import com.google.fhir.model.r4.Resource
-
-fun main() {
-    // ✅ DO: 
-    val validPatient = json.encodeToString<Resource>(patient)
-    
-    // ⛔ DON'T:
-    // val invalidPatient = json.encodeToString<Patient>(patient)
-}
-```
-
-> ⚠️ **Warning:** `encodeToString` function must be called with the type parameter `<Resource>`.
-> Failing to do so will result in malformed FHIR JSON.
-
-To summarize, we recommend always using the type parameter `<Resource>` when calling
-`encodeToString` and `decodeFromString` to serialize and deserialize FHIR resources:
-<code>encodeToString<b>\<Resource\></b></code> and <code>decodeFromString<b>\<Resource\></b></code>.
-To learn more about polymorphism in serialization in Kotlin, see the
-[Kotlin Serialization Guide](https://github.com/Kotlin/kotlinx.serialization/blob/master/docs/polymorphism.md).
 
 ## Developer Guide
 

@@ -16,22 +16,12 @@
 
 package com.google.fhir.model.test
 
-import com.google.fhir.model.r4.configureR4
-import com.google.fhir.model.r4b.configureR4b
-import com.google.fhir.model.r5.configureR5
-import kotlinx.serialization.json.Json
+import com.google.fhir.model.r4.FhirR4Json
+import com.google.fhir.model.r4b.FhirR4bJson
+import com.google.fhir.model.r5.FhirR5Json
 
-val jsonR4 = Json {
-  prettyPrint = true
-  configureR4()
-}
+val jsonR4 = FhirR4Json()
 
-val jsonR4B = Json {
-  prettyPrint = true
-  configureR4b()
-}
+val jsonR4B = FhirR4bJson()
 
-val jsonR5 = Json {
-  prettyPrint = true
-  configureR5()
-}
+val jsonR5 = FhirR5Json()

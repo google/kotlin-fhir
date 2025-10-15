@@ -29,8 +29,8 @@ class EqualityTest {
         }
       )
       .forEach { exampleJson ->
-        val firstResource = jsonR4.decodeFromString<com.google.fhir.model.r4.Resource>(exampleJson)
-        val secondResource = jsonR4.decodeFromString<com.google.fhir.model.r4.Resource>(exampleJson)
+        val firstResource = jsonR4.decodeFromString(exampleJson)
+        val secondResource = jsonR4.decodeFromString(exampleJson)
         assertEquals(firstResource, secondResource)
       }
   }
@@ -43,10 +43,8 @@ class EqualityTest {
         }
       )
       .forEach { exampleJson ->
-        val firstResource =
-          jsonR4B.decodeFromString<com.google.fhir.model.r4b.Resource>(exampleJson)
-        val secondResource =
-          jsonR4B.decodeFromString<com.google.fhir.model.r4b.Resource>(exampleJson)
+        val firstResource = jsonR4B.decodeFromString(exampleJson)
+        val secondResource = jsonR4B.decodeFromString(exampleJson)
         assertEquals(firstResource, secondResource)
       }
   }
@@ -59,8 +57,8 @@ class EqualityTest {
         }
       )
       .forEach { exampleJson ->
-        val firstResource = jsonR5.decodeFromString<com.google.fhir.model.r5.Resource>(exampleJson)
-        val secondResource = jsonR5.decodeFromString<com.google.fhir.model.r5.Resource>(exampleJson)
+        val firstResource = jsonR5.decodeFromString(exampleJson)
+        val secondResource = jsonR5.decodeFromString(exampleJson)
         assertEquals(firstResource, secondResource)
       }
   }
