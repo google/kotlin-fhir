@@ -220,7 +220,7 @@ internal data class BiologicallyDerivedProductStorageSurrogate(
           modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           description = this@with.description?.value,
           _description = this@with.description?.toElement(),
-          temperature = this@with.temperature?.value,
+          temperature = this@with.temperature?.value?.toString()?.toDouble(),
           _temperature = this@with.temperature?.toElement(),
           scale = this@with.scale?.value?.getCode(),
           _scale = this@with.scale?.toElement(),

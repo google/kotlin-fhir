@@ -124,7 +124,7 @@ internal data class AttachmentSurrogate(
           _width = this@with.width?.toElement(),
           frames = this@with.frames?.value,
           _frames = this@with.frames?.toElement(),
-          duration = this@with.duration?.value,
+          duration = this@with.duration?.value?.toString()?.toDouble(),
           _duration = this@with.duration?.toElement(),
           pages = this@with.pages?.value,
           _pages = this@with.pages?.toElement(),

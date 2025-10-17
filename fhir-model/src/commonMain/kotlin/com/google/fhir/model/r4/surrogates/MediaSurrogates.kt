@@ -200,7 +200,7 @@ internal data class MediaSurrogate(
           _width = this@with.width?.toElement(),
           frames = this@with.frames?.value,
           _frames = this@with.frames?.toElement(),
-          duration = this@with.duration?.value,
+          duration = this@with.duration?.value?.toString()?.toDouble(),
           _duration = this@with.duration?.toElement(),
           content = this@with.content,
           note = this@with.note.takeIf { it.isNotEmpty() },

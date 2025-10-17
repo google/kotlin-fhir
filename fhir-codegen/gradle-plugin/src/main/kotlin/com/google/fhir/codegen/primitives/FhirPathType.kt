@@ -133,7 +133,8 @@ enum class FhirPathType(
     fhirTypeCodes = listOf("decimal"),
     typeInSurrogateClass = Double::class.asClassName(),
   ) {
-    override fun getTypeInModelClass(packageName: String) = Double::class.asClassName()
+    override fun getTypeInModelClass(packageName: String) =
+      ClassName("com.ionspin.kotlin.bignum.decimal", "BigDecimal")
 
     override fun addCodeToConvertPropertyInSurrogateToPropertyInModel(
       codeBlock: CodeBlock.Builder,
@@ -153,7 +154,7 @@ enum class FhirPathType(
     }
 
     override fun addCodeToConvertTypeInModelToTypeInSurrogate(codeBlock: CodeBlock.Builder) {
-      codeBlock.add(".value")
+      codeBlock.add(".value?.toString()?.toDouble()")
     }
   },
   STRING(

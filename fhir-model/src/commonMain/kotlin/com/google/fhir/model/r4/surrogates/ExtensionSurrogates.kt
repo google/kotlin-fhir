@@ -263,7 +263,7 @@ internal data class ExtensionValueSurrogate(
           _valueDate = this@with.asDate()?.value?.toElement(),
           valueDateTime = this@with.asDateTime()?.value?.value?.toString(),
           _valueDateTime = this@with.asDateTime()?.value?.toElement(),
-          valueDecimal = this@with.asDecimal()?.value?.value,
+          valueDecimal = this@with.asDecimal()?.value?.value?.toString()?.toDouble(),
           _valueDecimal = this@with.asDecimal()?.value?.toElement(),
           valueId = this@with.asId()?.value?.value,
           _valueId = this@with.asId()?.value?.toElement(),

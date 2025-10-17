@@ -218,7 +218,7 @@ internal data class ImagingSelectionInstanceImageRegion2DSurrogate(
           _regionType = this@with.regionType.toElement(),
           coordinate =
             this@with.coordinate
-              .map { it.value }
+              .map { it.value?.toString()?.toDouble() }
               .toMutableList()
               .takeUnless { it.all { it == null } },
           _coordinate =
@@ -290,7 +290,7 @@ internal data class ImagingSelectionInstanceImageRegion3DSurrogate(
           _regionType = this@with.regionType.toElement(),
           coordinate =
             this@with.coordinate
-              .map { it.value }
+              .map { it.value?.toString()?.toDouble() }
               .toMutableList()
               .takeUnless { it.all { it == null } },
           _coordinate =

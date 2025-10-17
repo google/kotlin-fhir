@@ -172,7 +172,7 @@ internal data class RiskEvidenceSynthesisRiskEstimateSurrogate(
           description = this@with.description?.value,
           _description = this@with.description?.toElement(),
           type = this@with.type,
-          `value` = this@with.`value`?.value,
+          `value` = this@with.`value`?.value?.toString()?.toDouble(),
           _value = this@with.`value`?.toElement(),
           unitOfMeasure = this@with.unitOfMeasure,
           denominatorCount = this@with.denominatorCount?.value,
@@ -235,11 +235,11 @@ internal data class RiskEvidenceSynthesisRiskEstimatePrecisionEstimateSurrogate(
           extension = this@with.extension.takeIf { it.isNotEmpty() },
           modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           type = this@with.type,
-          level = this@with.level?.value,
+          level = this@with.level?.value?.toString()?.toDouble(),
           _level = this@with.level?.toElement(),
-          from = this@with.from?.value,
+          from = this@with.from?.value?.toString()?.toDouble(),
           _from = this@with.from?.toElement(),
-          to = this@with.to?.value,
+          to = this@with.to?.value?.toString()?.toDouble(),
           _to = this@with.to?.toElement(),
         )
       }

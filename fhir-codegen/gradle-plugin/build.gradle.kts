@@ -9,11 +9,12 @@ kotlin {
 }
 
 dependencies {
+    api(libs.bignum)
+    api(libs.kotlinx.datetime)
     implementation(gradleApi())
     implementation(gradleKotlinDsl())
     implementation(libs.kotlinx.serialization.json)
     implementation(libs.kotlin.poet)
-    api(libs.kotlinx.datetime)
 }
 
 configure<GradlePluginDevelopmentExtension> {

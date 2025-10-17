@@ -164,7 +164,7 @@ internal data class ClaimResponseItemAdjudicationSurrogate(
           category = this@with.category,
           reason = this@with.reason,
           amount = this@with.amount,
-          `value` = this@with.`value`?.value,
+          `value` = this@with.`value`?.value?.toString()?.toDouble(),
           _value = this@with.`value`?.toElement(),
         )
       }
@@ -476,7 +476,7 @@ internal data class ClaimResponseAddItemSurrogate(
           location = this@with.location,
           quantity = this@with.quantity,
           unitPrice = this@with.unitPrice,
-          factor = this@with.factor?.value,
+          factor = this@with.factor?.value?.toString()?.toDouble(),
           _factor = this@with.factor?.toElement(),
           net = this@with.net,
           bodySite = this@with.bodySite,
@@ -563,7 +563,7 @@ internal data class ClaimResponseAddItemDetailSurrogate(
           modifier = this@with.modifier.takeIf { it.isNotEmpty() },
           quantity = this@with.quantity,
           unitPrice = this@with.unitPrice,
-          factor = this@with.factor?.value,
+          factor = this@with.factor?.value?.toString()?.toDouble(),
           _factor = this@with.factor?.toElement(),
           net = this@with.net,
           noteNumber =
@@ -653,7 +653,7 @@ internal data class ClaimResponseAddItemDetailSubDetailSurrogate(
           modifier = this@with.modifier.takeIf { it.isNotEmpty() },
           quantity = this@with.quantity,
           unitPrice = this@with.unitPrice,
-          factor = this@with.factor?.value,
+          factor = this@with.factor?.value?.toString()?.toDouble(),
           _factor = this@with.factor?.toElement(),
           net = this@with.net,
           noteNumber =

@@ -75,7 +75,7 @@ internal data class DistanceSurrogate(
         DistanceSurrogate(
           id = this@with.id,
           extension = this@with.extension.takeIf { it.isNotEmpty() },
-          `value` = this@with.`value`?.value,
+          `value` = this@with.`value`?.value?.toString()?.toDouble(),
           _value = this@with.`value`?.toElement(),
           comparator = this@with.comparator?.value?.getCode(),
           _comparator = this@with.comparator?.toElement(),

@@ -836,7 +836,7 @@ internal data class ValueSetExpansionParameterValueSurrogate(
           _valueBoolean = this@with.asBoolean()?.value?.toElement(),
           valueInteger = this@with.asInteger()?.value?.value,
           _valueInteger = this@with.asInteger()?.value?.toElement(),
-          valueDecimal = this@with.asDecimal()?.value?.value,
+          valueDecimal = this@with.asDecimal()?.value?.value?.toString()?.toDouble(),
           _valueDecimal = this@with.asDecimal()?.value?.toElement(),
           valueUri = this@with.asUri()?.value?.value,
           _valueUri = this@with.asUri()?.value?.toElement(),
@@ -911,7 +911,7 @@ internal data class ValueSetExpansionContainsPropertyValueSurrogate(
           _valueBoolean = this@with.asBoolean()?.value?.toElement(),
           valueDateTime = this@with.asDateTime()?.value?.value?.toString(),
           _valueDateTime = this@with.asDateTime()?.value?.toElement(),
-          valueDecimal = this@with.asDecimal()?.value?.value,
+          valueDecimal = this@with.asDecimal()?.value?.value?.toString()?.toDouble(),
           _valueDecimal = this@with.asDecimal()?.value?.toElement(),
         )
       }
@@ -982,7 +982,7 @@ internal data class ValueSetExpansionContainsPropertySubPropertyValueSurrogate(
           _valueBoolean = this@with.asBoolean()?.value?.toElement(),
           valueDateTime = this@with.asDateTime()?.value?.value?.toString(),
           _valueDateTime = this@with.asDateTime()?.value?.toElement(),
-          valueDecimal = this@with.asDecimal()?.value?.value,
+          valueDecimal = this@with.asDecimal()?.value?.value?.toString()?.toDouble(),
           _valueDecimal = this@with.asDecimal()?.value?.toElement(),
         )
       }

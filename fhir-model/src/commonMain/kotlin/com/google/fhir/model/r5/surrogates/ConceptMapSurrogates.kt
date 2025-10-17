@@ -705,7 +705,7 @@ internal data class ConceptMapGroupElementTargetPropertyValueSurrogate(
           _valueBoolean = this@with.asBoolean()?.value?.toElement(),
           valueDateTime = this@with.asDateTime()?.value?.value?.toString(),
           _valueDateTime = this@with.asDateTime()?.value?.toElement(),
-          valueDecimal = this@with.asDecimal()?.value?.value,
+          valueDecimal = this@with.asDecimal()?.value?.value?.toString()?.toDouble(),
           _valueDecimal = this@with.asDecimal()?.value?.toElement(),
           valueCode = this@with.asCode()?.value?.value,
           _valueCode = this@with.asCode()?.value?.toElement(),

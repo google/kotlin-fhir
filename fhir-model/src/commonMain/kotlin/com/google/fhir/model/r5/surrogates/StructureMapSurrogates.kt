@@ -742,7 +742,7 @@ internal data class StructureMapGroupRuleTargetParameterValueSurrogate(
           _valueBoolean = this@with.asBoolean()?.value?.toElement(),
           valueInteger = this@with.asInteger()?.value?.value,
           _valueInteger = this@with.asInteger()?.value?.toElement(),
-          valueDecimal = this@with.asDecimal()?.value?.value,
+          valueDecimal = this@with.asDecimal()?.value?.value?.toString()?.toDouble(),
           _valueDecimal = this@with.asDecimal()?.value?.toElement(),
           valueDate = this@with.asDate()?.value?.value?.toString(),
           _valueDate = this@with.asDate()?.value?.toElement(),

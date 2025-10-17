@@ -6,6 +6,7 @@ androidx-test-espresso = "3.5.1"
 androidx-test-junit = "1.2.1"
 androidx-test-rules = "1.6.1"
 androidx-test-runner = "1.6.2"
+bignum = "0.3.10"
 kotlin = "2.1.21"
 kotlin-poet = "2.0.0"
 kotlinx-datetime = "0.7.1"
@@ -18,10 +19,12 @@ androidx-test-espresso = { module = "androidx.test.espresso:espresso-core", vers
 androidx-test-junit = { group = "androidx.test.ext", name = "junit", version.ref = "androidx-test-junit" }
 androidx-test-rules = { module = "androidx.test:rules", version.ref = "androidx-test-rules" }
 androidx-test-runner = { module = "androidx.test:runner", version.ref = "androidx-test-runner" }
+bignum = { group = "com.ionspin.kotlin", name = "bignum", version.ref = "bignum"}
 kotlin-poet = { module = "com.squareup:kotlinpoet", version.ref = "kotlin-poet" }
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
 kotlinx-datetime = { group = "org.jetbrains.kotlinx", name = "kotlinx-datetime", version.ref = "kotlinx-datetime" }
 kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlinx-serialization-json" }
+
 
 [plugins]
 android-library = { id = "com.android.library", version.ref = "android-gradle-plugin" }

@@ -94,7 +94,7 @@ internal data class RiskAssessmentPredictionSurrogate(
           outcome = this@with.outcome,
           probability = this@with.probability,
           qualitativeRisk = this@with.qualitativeRisk,
-          relativeRisk = this@with.relativeRisk?.value,
+          relativeRisk = this@with.relativeRisk?.value?.toString()?.toDouble(),
           _relativeRisk = this@with.relativeRisk?.toElement(),
           `when` = this@with.`when`,
           rationale = this@with.rationale?.value,
@@ -152,7 +152,7 @@ internal data class RiskAssessmentPredictionProbabilitySurrogate(
     ): RiskAssessmentPredictionProbabilitySurrogate =
       with(model) {
         RiskAssessmentPredictionProbabilitySurrogate(
-          probabilityDecimal = this@with.asDecimal()?.value?.value,
+          probabilityDecimal = this@with.asDecimal()?.value?.value?.toString()?.toDouble(),
           _probabilityDecimal = this@with.asDecimal()?.value?.toElement(),
           probabilityRange = this@with.asRange()?.value,
         )
