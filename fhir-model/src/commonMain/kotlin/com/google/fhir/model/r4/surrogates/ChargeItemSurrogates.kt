@@ -313,7 +313,7 @@ internal data class ChargeItemSurrogate(
           costCenter = this@with.costCenter,
           quantity = this@with.quantity,
           bodysite = this@with.bodysite.takeIf { it.isNotEmpty() },
-          factorOverride = this@with.factorOverride?.value,
+          factorOverride = this@with.factorOverride?.value?.toString()?.toDouble(),
           _factorOverride = this@with.factorOverride?.toElement(),
           priceOverride = this@with.priceOverride,
           overrideReason = this@with.overrideReason?.value,

@@ -218,7 +218,7 @@ internal data class EffectEvidenceSynthesisEffectEstimateSurrogate(
           _description = this@with.description?.toElement(),
           type = this@with.type,
           variantState = this@with.variantState,
-          `value` = this@with.`value`?.value,
+          `value` = this@with.`value`?.value?.toString()?.toDouble(),
           _value = this@with.`value`?.toElement(),
           unitOfMeasure = this@with.unitOfMeasure,
           precisionEstimate = this@with.precisionEstimate.takeIf { it.isNotEmpty() },
@@ -277,11 +277,11 @@ internal data class EffectEvidenceSynthesisEffectEstimatePrecisionEstimateSurrog
           extension = this@with.extension.takeIf { it.isNotEmpty() },
           modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           type = this@with.type,
-          level = this@with.level?.value,
+          level = this@with.level?.value?.toString()?.toDouble(),
           _level = this@with.level?.toElement(),
-          from = this@with.from?.value,
+          from = this@with.from?.value?.toString()?.toDouble(),
           _from = this@with.from?.toElement(),
-          to = this@with.to?.value,
+          to = this@with.to?.value?.toString()?.toDouble(),
           _to = this@with.to?.toElement(),
         )
       }

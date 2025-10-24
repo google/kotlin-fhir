@@ -90,11 +90,11 @@ internal data class LocationPositionSurrogate(
           id = this@with.id,
           extension = this@with.extension.takeIf { it.isNotEmpty() },
           modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
-          longitude = this@with.longitude.value,
+          longitude = this@with.longitude.value?.toString()?.toDouble(),
           _longitude = this@with.longitude.toElement(),
-          latitude = this@with.latitude.value,
+          latitude = this@with.latitude.value?.toString()?.toDouble(),
           _latitude = this@with.latitude.toElement(),
-          altitude = this@with.altitude?.value,
+          altitude = this@with.altitude?.value?.toString()?.toDouble(),
           _altitude = this@with.altitude?.toElement(),
         )
       }

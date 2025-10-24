@@ -115,6 +115,7 @@ kotlin {
             // task above.
             kotlin.setSrcDirs(listOf(file("src/commonMain/kotlin")))
             dependencies {
+                api(libs.bignum)
                 api(libs.kotlinx.datetime)
                 implementation(libs.kotlinx.serialization.json)
             }

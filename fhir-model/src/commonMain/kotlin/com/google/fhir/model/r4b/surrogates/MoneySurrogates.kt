@@ -60,7 +60,7 @@ internal data class MoneySurrogate(
         MoneySurrogate(
           id = this@with.id,
           extension = this@with.extension.takeIf { it.isNotEmpty() },
-          `value` = this@with.`value`?.value,
+          `value` = this@with.`value`?.value?.toString()?.toDouble(),
           _value = this@with.`value`?.toElement(),
           currency = this@with.currency?.value?.getCode(),
           _currency = this@with.currency?.toElement(),

@@ -299,7 +299,7 @@ internal data class EvidenceStatisticAttributeEstimateSurrogate(
           note = this@with.note.takeIf { it.isNotEmpty() },
           type = this@with.type,
           quantity = this@with.quantity,
-          level = this@with.level?.value,
+          level = this@with.level?.value?.toString()?.toDouble(),
           _level = this@with.level?.toElement(),
           range = this@with.range,
           attributeEstimate = this@with.attributeEstimate.takeIf { it.isNotEmpty() },

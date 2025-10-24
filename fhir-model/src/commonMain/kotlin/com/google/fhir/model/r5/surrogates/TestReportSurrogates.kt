@@ -557,7 +557,7 @@ internal data class TestReportSurrogate(
           _testScript = this@with.testScript.toElement(),
           result = this@with.result.value?.getCode(),
           _result = this@with.result.toElement(),
-          score = this@with.score?.value,
+          score = this@with.score?.value?.toString()?.toDouble(),
           _score = this@with.score?.toElement(),
           tester = this@with.tester?.value,
           _tester = this@with.tester?.toElement(),

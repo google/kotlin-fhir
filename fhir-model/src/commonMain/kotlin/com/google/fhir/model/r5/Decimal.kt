@@ -18,6 +18,8 @@
 
 package com.google.fhir.model.r5
 
+import com.ionspin.kotlin.bignum.decimal.BigDecimal
+import com.ionspin.kotlin.bignum.decimal.toBigDecimal
 import kotlin.Double
 import kotlin.String
 import kotlin.Suppress
@@ -41,7 +43,7 @@ public data class Decimal(
    */
   override var extension: MutableList<Extension> = mutableListOf(),
   /** The actual value */
-  public var `value`: Double? = null,
+  public var `value`: BigDecimal? = null,
 ) : PrimitiveType() {
   public fun toElement(): Element? {
     if (id != null || extension.isNotEmpty()) {
@@ -53,7 +55,7 @@ public data class Decimal(
   public companion object {
     public fun of(`value`: Double?, element: Element?): Decimal? =
       if (value != null || element?.id != null || element?.extension?.isEmpty() == false) {
-        Decimal(element?.id, element?.extension ?: mutableListOf(), value)
+        Decimal(element?.id, element?.extension ?: mutableListOf(), value?.toBigDecimal())
       } else {
         null
       }

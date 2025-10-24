@@ -331,21 +331,21 @@ internal data class MolecularSequenceQualitySurrogate(
           _end = this@with.end?.toElement(),
           score = this@with.score,
           method = this@with.method,
-          truthTP = this@with.truthTP?.value,
+          truthTP = this@with.truthTP?.value?.toString()?.toDouble(),
           _truthTP = this@with.truthTP?.toElement(),
-          queryTP = this@with.queryTP?.value,
+          queryTP = this@with.queryTP?.value?.toString()?.toDouble(),
           _queryTP = this@with.queryTP?.toElement(),
-          truthFN = this@with.truthFN?.value,
+          truthFN = this@with.truthFN?.value?.toString()?.toDouble(),
           _truthFN = this@with.truthFN?.toElement(),
-          queryFP = this@with.queryFP?.value,
+          queryFP = this@with.queryFP?.value?.toString()?.toDouble(),
           _queryFP = this@with.queryFP?.toElement(),
-          gtFP = this@with.gtFP?.value,
+          gtFP = this@with.gtFP?.value?.toString()?.toDouble(),
           _gtFP = this@with.gtFP?.toElement(),
-          precision = this@with.precision?.value,
+          precision = this@with.precision?.value?.toString()?.toDouble(),
           _precision = this@with.precision?.toElement(),
-          recall = this@with.recall?.value,
+          recall = this@with.recall?.value?.toString()?.toDouble(),
           _recall = this@with.recall?.toElement(),
-          fScore = this@with.fScore?.value,
+          fScore = this@with.fScore?.value?.toString()?.toDouble(),
           _fScore = this@with.fScore?.toElement(),
           roc = this@with.roc,
         )
@@ -536,7 +536,7 @@ internal data class MolecularSequenceQualityRocSurrogate(
               ?.toMutableList(),
           precision =
             this@with.precision
-              .map { it.value }
+              .map { it.value?.toString()?.toDouble() }
               .toMutableList()
               .takeUnless { it.all { it == null } },
           _precision =
@@ -547,7 +547,7 @@ internal data class MolecularSequenceQualityRocSurrogate(
               ?.toMutableList(),
           sensitivity =
             this@with.sensitivity
-              .map { it.value }
+              .map { it.value?.toString()?.toDouble() }
               .toMutableList()
               .takeUnless { it.all { it == null } },
           _sensitivity =
@@ -558,7 +558,7 @@ internal data class MolecularSequenceQualityRocSurrogate(
               ?.toMutableList(),
           fMeasure =
             this@with.fMeasure
-              .map { it.value }
+              .map { it.value?.toString()?.toDouble() }
               .toMutableList()
               .takeUnless { it.all { it == null } },
           _fMeasure =

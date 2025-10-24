@@ -383,7 +383,7 @@ internal data class QuestionnaireItemEnableWhenAnswerSurrogate(
         QuestionnaireItemEnableWhenAnswerSurrogate(
           answerBoolean = this@with.asBoolean()?.value?.value,
           _answerBoolean = this@with.asBoolean()?.value?.toElement(),
-          answerDecimal = this@with.asDecimal()?.value?.value,
+          answerDecimal = this@with.asDecimal()?.value?.value?.toString()?.toDouble(),
           _answerDecimal = this@with.asDecimal()?.value?.toElement(),
           answerInteger = this@with.asInteger()?.value?.value,
           _answerInteger = this@with.asInteger()?.value?.toElement(),
@@ -530,7 +530,7 @@ internal data class QuestionnaireItemInitialValueSurrogate(
         QuestionnaireItemInitialValueSurrogate(
           valueBoolean = this@with.asBoolean()?.value?.value,
           _valueBoolean = this@with.asBoolean()?.value?.toElement(),
-          valueDecimal = this@with.asDecimal()?.value?.value,
+          valueDecimal = this@with.asDecimal()?.value?.value?.toString()?.toDouble(),
           _valueDecimal = this@with.asDecimal()?.value?.toElement(),
           valueInteger = this@with.asInteger()?.value?.value,
           _valueInteger = this@with.asInteger()?.value?.toElement(),

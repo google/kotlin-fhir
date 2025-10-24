@@ -160,7 +160,7 @@ internal data class BundleEntrySearchSurrogate(
           modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           mode = this@with.mode?.value?.getCode(),
           _mode = this@with.mode?.toElement(),
-          score = this@with.score?.value,
+          score = this@with.score?.value?.toString()?.toDouble(),
           _score = this@with.score?.toElement(),
         )
       }

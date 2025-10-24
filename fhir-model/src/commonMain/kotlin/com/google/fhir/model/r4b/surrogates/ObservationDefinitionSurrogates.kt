@@ -92,7 +92,7 @@ internal data class ObservationDefinitionQuantitativeDetailsSurrogate(
           modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           customaryUnit = this@with.customaryUnit,
           unit = this@with.unit,
-          conversionFactor = this@with.conversionFactor?.value,
+          conversionFactor = this@with.conversionFactor?.value?.toString()?.toDouble(),
           _conversionFactor = this@with.conversionFactor?.toElement(),
           decimalPrecision = this@with.decimalPrecision?.value,
           _decimalPrecision = this@with.decimalPrecision?.toElement(),

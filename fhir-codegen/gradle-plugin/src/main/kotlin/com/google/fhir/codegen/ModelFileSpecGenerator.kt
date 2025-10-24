@@ -39,6 +39,7 @@ import com.squareup.kotlinpoet.CodeBlock
 import com.squareup.kotlinpoet.FileSpec
 import com.squareup.kotlinpoet.FunSpec
 import com.squareup.kotlinpoet.KModifier
+import com.squareup.kotlinpoet.MemberName
 import com.squareup.kotlinpoet.ParameterSpec
 import com.squareup.kotlinpoet.PropertySpec
 import com.squareup.kotlinpoet.TypeName
@@ -179,10 +180,10 @@ class ModelFileSpecGenerator(val codegenContext: CodegenContext) {
             addType(
               TypeSpec.companionObjectBuilder()
                 .apply {
-                  if (structureDefinitionName == "xhtml") {
-                    addOfFunctionForXhtml(modelClassName, valueType)
-                  } else {
-                    addOfFunction(modelClassName, valueType)
+                  when (structureDefinitionName) {
+                    "xhtml" -> addOfFunctionForXhtml(modelClassName, valueType)
+                    "decimal" -> addOfFunctionForDecimal(modelClassName)
+                    else -> addOfFunction(modelClassName, valueType)
                   }
                 }
                 .build()
@@ -593,6 +594,32 @@ private fun TypeSpec.Builder.addOfFunctionForXhtml(
 }
 
 /**
+ * Adds an `of` function in the companion object in the `Decimal` class to return a FHIR primitive
+ * data type object from a Kotlin primitive string value and a FHIR `Element`.
+ *
+ * The generated function is useful for merging the two fields in the surrogate class representing
+ * the two JSON properties into a single field in the data class.
+ *
+ * The generated function is a special case of the `of` function for primitive types since the
+ * `Decimal` class has type `BigDecimal` in the model but `Double` in the surrogate class.
+ */
+private fun TypeSpec.Builder.addOfFunctionForDecimal(className: ClassName): TypeSpec.Builder {
+  addFunction(
+    FunSpec.builder("of")
+      .addParameter("value", Double::class.asTypeName().copy(nullable = true))
+      .addParameter("element", ClassName(className.packageName, "Element").copy(nullable = true))
+      .addCode(
+        "return if (value != null || element?.id != null || element?.extension?.isEmpty() == false) { %T(element?.id, element?.extension ?: mutableListOf(), value?.%M()) } else { null }",
+        className,
+        MemberName("com.ionspin.kotlin.bignum.decimal", "toBigDecimal"),
+      )
+      .returns(className.copy(nullable = true))
+      .build()
+  )
+  return this
+}
+
+/**
  * Adds a `from` function to return a sealed interface object from a list of parameters
  * corresponding to JSON properties of each data type in the surrogate class.
  *
@@ -669,8 +696,7 @@ private fun TypeSpec.Builder.addDataTypeFunction(type: Type, sealedInterfaceClas
 fun ParameterSpec.Builder.setDefaultValue(element: Element) = apply {
   if (element.id == "xhtml.extension") {
     // The cardinality of this element in the base class is 0..*, but it is overridden in xhtml to
-    // be
-    // 0..0. Therefore, using the cardinality defined here would result in an compilation error.
+    // be 0..0. Therefore, using the cardinality defined here would result in an compilation error.
     // TODO: Deprecate this element in the generated Xhtml class, possibly with @Deprecated
     // annotation.
     defaultValue("mutableListOf()")

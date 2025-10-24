@@ -877,7 +877,7 @@ internal data class StructureMapGroupRuleSourceDefaultValueSurrogate(
           _defaultValueDate = this@with.asDate()?.value?.toElement(),
           defaultValueDateTime = this@with.asDateTime()?.value?.value?.toString(),
           _defaultValueDateTime = this@with.asDateTime()?.value?.toElement(),
-          defaultValueDecimal = this@with.asDecimal()?.value?.value,
+          defaultValueDecimal = this@with.asDecimal()?.value?.value?.toString()?.toDouble(),
           _defaultValueDecimal = this@with.asDecimal()?.value?.toElement(),
           defaultValueId = this@with.asId()?.value?.value,
           _defaultValueId = this@with.asId()?.value?.toElement(),
@@ -990,7 +990,7 @@ internal data class StructureMapGroupRuleTargetParameterValueSurrogate(
           _valueBoolean = this@with.asBoolean()?.value?.toElement(),
           valueInteger = this@with.asInteger()?.value?.value,
           _valueInteger = this@with.asInteger()?.value?.toElement(),
-          valueDecimal = this@with.asDecimal()?.value?.value,
+          valueDecimal = this@with.asDecimal()?.value?.value?.toString()?.toDouble(),
           _valueDecimal = this@with.asDecimal()?.value?.toElement(),
         )
       }

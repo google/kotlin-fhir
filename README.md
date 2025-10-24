@@ -21,8 +21,9 @@ Kotlin FHIR is a lean and fast implementation of the
 
 [^1]: No dependencies on logging, XML, or networking libraries or any platform-specific
 dependencies. Only essential Kotlin Multiplatform dependencies are included, e.g.,
-[`kotlinx.serialization`](https://github.com/Kotlin/kotlinx.serialization) and
-[`kotlix.datetime`](https://github.com/Kotlin/kotlinx-datetime).
+[`kotlinx.serialization`](https://github.com/Kotlin/kotlinx.serialization),
+[`kotlix.datetime`](https://github.com/Kotlin/kotlinx-datetime), and
+[Kotlin Multiplatform BigNum](https://github.com/ionspin/kotlin-multiplatform-bignum).
 
 [^2]: Using [KotlinPoet](https://square.github.io/kotlinpoet/).
 
@@ -86,11 +87,15 @@ follows:
 | System.String                                                               | kotlin.String                                                               |
 | System.Integer                                                              | kotlin.Int                                                                  |
 | System.Long                                                                 | kotlin.Long                                                                 |
-| System.Decimal                                                              | kotlin.Double                                                               |
+| System.Decimal                                                              | com.ionspin.kotlin.bignum.decimal.BigDecimal                                |
 | System.Date                                                                 | FhirDate                                                                    |
 | System.Time                                                                 | kotlinx.datetime.LocalTime                                                  |
 | System.DateTime                                                             | FhirDateTime                                                                |
 
+> **Note:** [Kotlin Multiplatform BigNum](https://github.com/ionspin/kotlin-multiplatform-bignum)
+> library's `BigDecimal` is used to preserve and respect the precision of decimal values as required
+> by the specification. See the notes section in [Datatypes](https://hl7.org/fhir/datatypes.html).
+>
 > **Note:**  The `System.Date` and `System.DateTime` types are mapped to sealed interfaces
 > `FhirDate` and `FhirDateTime` specifically generated to handle partial dates in FHIR. They are
 > implemented using `LocalDate`, `LocalDateTime` and `UtcOffset` classes in the `kotlinx-datetime`

@@ -70,7 +70,7 @@ internal data class MonetaryComponentSurrogate(
           type = this@with.type.value?.getCode(),
           _type = this@with.type.toElement(),
           code = this@with.code,
-          factor = this@with.factor?.value,
+          factor = this@with.factor?.value?.toString()?.toDouble(),
           _factor = this@with.factor?.toElement(),
           amount = this@with.amount,
         )
