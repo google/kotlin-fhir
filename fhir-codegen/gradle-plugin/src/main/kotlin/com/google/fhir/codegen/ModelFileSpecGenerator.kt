@@ -595,7 +595,7 @@ private fun TypeSpec.Builder.addOfFunctionForXhtml(
 
 /**
  * Adds an `of` function in the companion object in the `Decimal` class to return a FHIR primitive
- * date type object from a Kotlin primitive string value and a FHIR `Element`.
+ * data type object from a Kotlin primitive string value and a FHIR `Element`.
  *
  * The generated function is useful for merging the two fields in the surrogate class representing
  * the two JSON properties into a single field in the data class.
