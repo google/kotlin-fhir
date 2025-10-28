@@ -127,14 +127,8 @@ kotlin {
             }
         }
         val androidMain by getting
-        val androidInstrumentedTest by getting {
+        val androidUnitTest by getting {
             dependsOn(commonTest)
-            dependencies {
-                implementation(libs.androidx.test.espresso)
-                implementation(libs.androidx.test.junit)
-                implementation(libs.androidx.test.rules)
-                implementation(libs.androidx.test.runner)
-            }
         }
         val jvmMain by getting
         val jvmTest by getting
