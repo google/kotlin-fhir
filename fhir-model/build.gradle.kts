@@ -4,6 +4,7 @@ import org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpackConfig
 
 plugins {
     alias(libs.plugins.android.library)
+    alias(libs.plugins.kotest)
     alias(libs.plugins.kotlin.multiplatform)
     alias(libs.plugins.kotlinx.serialization)
     alias(libs.plugins.maven.publish)
@@ -122,6 +123,8 @@ kotlin {
         }
         val commonTest by getting {
             dependencies {
+                implementation(libs.kotest.assertions.json)
+                implementation(libs.kotest.framework.engine)
                 implementation(libs.kotlin.test)
                 implementation(libs.kotlinx.serialization.json)
             }
@@ -131,7 +134,11 @@ kotlin {
             dependsOn(commonTest)
         }
         val jvmMain by getting
-        val jvmTest by getting
+        val jvmTest by getting {
+            dependencies {
+                implementation(libs.kotest.runner.junit5)
+            }
+        }
         val jsMain by getting
         val jsTest by getting
     }
@@ -143,7 +150,6 @@ android {
     defaultConfig {
         minSdk = libs.versions.android.minSdk.get().toInt()
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        testInstrumentationRunnerArguments["jvmArgs"] = "-Xmx4g"
     }
     sourceSets {
         getByName("androidTest") {
@@ -157,6 +163,11 @@ android {
 tasks.withType<Test>().configureEach {
     // Allow tests to access third_party
     systemProperty("projectRootDir", project.rootDir.absolutePath)
+}
+
+tasks.named<Test>("jvmTest") {
+    maxHeapSize = "4g"
+    useJUnitPlatform()
 }
 
 // publishing prep

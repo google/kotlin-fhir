@@ -16,77 +16,58 @@
 
 package com.google.fhir.model.test
 
-import kotlin.test.Test
+import io.kotest.core.spec.style.FunSpec
 import kotlin.test.assertEquals
 
-class EqualityTest {
-
-  @Test
-  fun deserializingSameR4Json_shouldProduceEqualObjects() {
-    loadR4Examples(
-        fileNameFilter = {
-          return@loadR4Examples (filterFileName(it) && !exclusionListR4.contains(it))
+open class EqualityTest :
+  FunSpec({
+    listOf(
+        EqualityTestSuite("R4", ::loadR4Examples, exclusionListR4, jsonR4::decodeFromString),
+        EqualityTestSuite("R4B", ::loadR4BExamples, exclusionListR4B, jsonR4B::decodeFromString),
+        EqualityTestSuite("R5", ::loadR5Examples, exclusionListR5, jsonR5::decodeFromString),
+      )
+      .forEach { testSuite ->
+        context("${testSuite.fhirVersion} resources should be equal") {
+          testSuite
+            .exampleLoader { filterFileName(it) && !testSuite.exclusionList.contains(it) }
+            .forEach { (fileName, json) ->
+              test(fileName) {
+                val firstResource = testSuite.decodeFunction(json)
+                val secondResource = testSuite.decodeFunction(json)
+                assertEquals(firstResource, secondResource)
+              }
+            }
         }
-      )
-      .forEach { exampleJson ->
-        val firstResource = jsonR4.decodeFromString(exampleJson)
-        val secondResource = jsonR4.decodeFromString(exampleJson)
-        assertEquals(firstResource, secondResource)
       }
-  }
+  })
 
-  @Test
-  fun deserializingSameR4BJson_shouldProduceEqualObjects() {
-    loadR4BExamples(
-        fileNameFilter = {
-          return@loadR4BExamples (filterFileName(it) && !exclusionListR4B.contains(it))
-        }
-      )
-      .forEach { exampleJson ->
-        val firstResource = jsonR4B.decodeFromString(exampleJson)
-        val secondResource = jsonR4B.decodeFromString(exampleJson)
-        assertEquals(firstResource, secondResource)
-      }
-  }
+private data class EqualityTestSuite(
+  val fhirVersion: String,
+  val exampleLoader: (filter: (String) -> Boolean) -> Sequence<FhirResourceJsonExample>,
+  val exclusionList: List<String>,
+  val decodeFunction: (String) -> Any,
+)
 
-  @Test
-  fun deserializingSameR5Json_shouldProduceEqualObjects() {
-    loadR5Examples(
-        fileNameFilter = {
-          return@loadR5Examples (filterFileName(it) && !exclusionListR5.contains(it))
-        }
-      )
-      .forEach { exampleJson ->
-        val firstResource = jsonR5.decodeFromString(exampleJson)
-        val secondResource = jsonR5.decodeFromString(exampleJson)
-        assertEquals(firstResource, secondResource)
-      }
-  }
+private val exclusionListR4 =
+  listOf(
+    // Invalid resources
+    "ActivityDefinition-administer-zika-virus-exposure-assessment.json",
+    "ImplementationGuide-fhir.json",
+    "Questionnaire-qs1.json",
+    "ig-r4.json",
+  )
 
-  companion object {
+private val exclusionListR4B =
+  listOf(
+    // Invalid resource
+    "Bundle-valuesets.json",
+    "CodeSystem-catalogType.json",
+    "ValueSet-catalogType.json",
+    "ActivityDefinition-administer-zika-virus-exposure-assessment.json",
+  )
 
-    private val exclusionListR4 =
-      listOf(
-        // Invalid resources
-        "ActivityDefinition-administer-zika-virus-exposure-assessment.json",
-        "ImplementationGuide-fhir.json",
-        "Questionnaire-qs1.json",
-        "ig-r4.json",
-      )
-
-    private val exclusionListR4B =
-      listOf(
-        // Invalid resource
-        "Bundle-valuesets.json",
-        "CodeSystem-catalogType.json",
-        "ValueSet-catalogType.json",
-        "ActivityDefinition-administer-zika-virus-exposure-assessment.json",
-      )
-
-    private val exclusionListR5 =
-      listOf(
-        // Unknown code 'text/CQL' for enum ExpressionLanguage; codes are case-sensitive
-        "ChargeItemDefinition-ebm.json"
-      )
-  }
-}
+private val exclusionListR5 =
+  listOf(
+    // Unknown code 'text/CQL' for enum ExpressionLanguage; codes are case-sensitive
+    "ChargeItemDefinition-ebm.json"
+  )
