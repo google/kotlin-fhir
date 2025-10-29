@@ -27,8 +27,10 @@ fun filterFileName(name: String): Boolean {
     name != "package.json"
 }
 
-expect fun loadR4Examples(fileNameFilter: (String) -> Boolean): Sequence<String>
+data class FhirResourceJsonExample(val fileName: String, val json: String)
 
-expect fun loadR4BExamples(fileNameFilter: (String) -> Boolean): Sequence<String>
+expect fun loadR4Examples(fileNameFilter: (String) -> Boolean): Sequence<FhirResourceJsonExample>
 
-expect fun loadR5Examples(fileNameFilter: (String) -> Boolean): Sequence<String>
+expect fun loadR4BExamples(fileNameFilter: (String) -> Boolean): Sequence<FhirResourceJsonExample>
+
+expect fun loadR5Examples(fileNameFilter: (String) -> Boolean): Sequence<FhirResourceJsonExample>

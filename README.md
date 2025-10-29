@@ -609,19 +609,21 @@ consistent formatting using the [`spotless`](https://github.com/diffplug/spotles
 
 ### Testing
 
-The library includes comprehensive **serialization round-trip and equality tests** for the example resources published in the
-following packages:
+The library includes comprehensive **serialization round-trip and equality tests** for the example
+resources published in the following packages:
 
 - [hl7.fhir.r4.examples](https://simplifier.net/packages/hl7.fhir.r4.examples) (5309 examples)
 - [hl7.fhir.r4b.examples](https://simplifier.net/packages/hl7.fhir.r4b.examples) (2840 examples)
 - [hl7.fhir.r5.examples](https://simplifier.net/packages/hl7.fhir.r5.examples) (2822 examples)
 
-For each JSON example of a FHIR resource in the referenced packages, two categories of tests are executed:
+For each JSON example of a FHIR resource in the referenced packages, three categories of tests are
+executed:
 
 1. Serialization round-trip test:
    - Deserialization: The JSON is parsed into its corresponding generated Kotlin resource class.
    - Serialization: That Kotlin object is then converted back into JSON.
-   - Verification: The regenerated JSON is compared character by character[^7] with the original to confirm exact fidelity.
+   - Verification: The regenerated JSON is compared character by character[^7] with the original to
+     confirm exact fidelity.
 2. Equality test:
    - First instance: Deserialize the JSON into a Kotlin resource object.
    - Second instance: Deserialize the same JSON into a separate Kotlin resource object.
