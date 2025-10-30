@@ -34,7 +34,7 @@ import com.google.fhir.model.r4.serializers.DoubleSerializer
 import com.google.fhir.model.r4.serializers.LocalTimeSerializer
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
@@ -47,14 +47,14 @@ internal data class MedicinalProductUndesirableEffectSurrogate(
   public var language: String? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: MutableList<Resource>? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var subject: MutableList<Reference>? = null,
+  public var contained: List<Resource>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
+  public var subject: List<Reference>? = null,
   public var symptomConditionEffect: CodeableConcept? = null,
   public var classification: CodeableConcept? = null,
   public var frequencyOfOccurrence: CodeableConcept? = null,
-  public var population: MutableList<Population>? = null,
+  public var population: List<Population>? = null,
 ) {
   public fun toModel(): MedicinalProductUndesirableEffect =
     MedicinalProductUndesirableEffect(
@@ -71,16 +71,16 @@ internal data class MedicinalProductUndesirableEffectSurrogate(
           this@MedicinalProductUndesirableEffectSurrogate._language,
         ),
       text = this@MedicinalProductUndesirableEffectSurrogate.text,
-      contained = this@MedicinalProductUndesirableEffectSurrogate.contained ?: mutableListOf(),
-      extension = this@MedicinalProductUndesirableEffectSurrogate.extension ?: mutableListOf(),
+      contained = this@MedicinalProductUndesirableEffectSurrogate.contained ?: listOf(),
+      extension = this@MedicinalProductUndesirableEffectSurrogate.extension ?: listOf(),
       modifierExtension =
-        this@MedicinalProductUndesirableEffectSurrogate.modifierExtension ?: mutableListOf(),
-      subject = this@MedicinalProductUndesirableEffectSurrogate.subject ?: mutableListOf(),
+        this@MedicinalProductUndesirableEffectSurrogate.modifierExtension ?: listOf(),
+      subject = this@MedicinalProductUndesirableEffectSurrogate.subject ?: listOf(),
       symptomConditionEffect =
         this@MedicinalProductUndesirableEffectSurrogate.symptomConditionEffect,
       classification = this@MedicinalProductUndesirableEffectSurrogate.classification,
       frequencyOfOccurrence = this@MedicinalProductUndesirableEffectSurrogate.frequencyOfOccurrence,
-      population = this@MedicinalProductUndesirableEffectSurrogate.population ?: mutableListOf(),
+      population = this@MedicinalProductUndesirableEffectSurrogate.population ?: listOf(),
     )
 
   public companion object {

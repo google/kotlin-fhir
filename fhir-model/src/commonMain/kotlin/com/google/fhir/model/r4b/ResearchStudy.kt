@@ -22,7 +22,7 @@ import com.google.fhir.model.r4b.serializers.ResearchStudyArmSerializer
 import com.google.fhir.model.r4b.serializers.ResearchStudyObjectiveSerializer
 import com.google.fhir.model.r4b.serializers.ResearchStudySerializer
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -43,12 +43,12 @@ public data class ResearchStudy(
    * The only time that a resource does not have an id is when it is being submitted to the server
    * using a create operation.
    */
-  override var id: kotlin.String? = null,
+  override val id: kotlin.String? = null,
   /**
    * The metadata about the resource. This is content that is maintained by the infrastructure.
    * Changes to the content might not always be associated with version changes to the resource.
    */
-  override var meta: Meta? = null,
+  override val meta: Meta? = null,
   /**
    * A reference to a set of rules that were followed when the resource was constructed, and which
    * must be understood when processing the content. Often, this is a reference to an implementation
@@ -62,7 +62,7 @@ public data class ResearchStudy(
    * to an implementation guide that defines these special rules as part of it's narrative along
    * with other profiles, value sets, etc.
    */
-  override var implicitRules: Uri? = null,
+  override val implicitRules: Uri? = null,
   /**
    * The base language in which the resource is written.
    *
@@ -74,7 +74,7 @@ public data class ResearchStudy(
    * language is specified, it should it also be specified on the div element in the html (see rules
    * in HTML5 for information about the relationship between xml:lang and the html lang attribute).
    */
-  override var language: Code? = null,
+  override val language: Code? = null,
   /**
    * A human-readable narrative that contains a summary of the resource and can be used to represent
    * the content of the resource to a human. The narrative need not encode all the structured data,
@@ -88,7 +88,7 @@ public data class ResearchStudy(
    * legacy systems where information is captured as a "text blob" or where text is additionally
    * entered raw or narrated and encoded information is added later.
    */
-  override var text: Narrative? = null,
+  override val text: Narrative? = null,
   /**
    * These resources do not have an independent existence apart from the resource that contains
    * them - they cannot be identified independently, and nor can they have their own independent
@@ -99,7 +99,7 @@ public data class ResearchStudy(
    * resources may have profiles and tags In their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: MutableList<Resource> = mutableListOf(),
+  override val contained: List<Resource> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and manageable, there is a strict set of
@@ -112,7 +112,7 @@ public data class ResearchStudy(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: MutableList<Extension> = mutableListOf(),
+  override val extension: List<Extension> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -131,53 +131,53 @@ public data class ResearchStudy(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: MutableList<Extension> = mutableListOf(),
+  override val modifierExtension: List<Extension> = listOf(),
   /** Identifiers assigned to this research study by the sponsor or other systems. */
-  public var identifier: MutableList<Identifier> = mutableListOf(),
+  public val identifier: List<Identifier> = listOf(),
   /** A short, descriptive user-friendly label for the study. */
-  public var title: String? = null,
+  public val title: String? = null,
   /** The set of steps expected to be performed as part of the execution of the study. */
-  public var protocol: MutableList<Reference> = mutableListOf(),
+  public val protocol: List<Reference> = listOf(),
   /** A larger research study of which this particular study is a component or step. */
-  public var partOf: MutableList<Reference> = mutableListOf(),
+  public val partOf: List<Reference> = listOf(),
   /** The current state of the study. */
-  public var status: Enumeration<ResearchStudyStatus>,
+  public val status: Enumeration<ResearchStudyStatus>,
   /**
    * The type of study based upon the intent of the study's activities. A classification of the
    * intent of the study.
    */
-  public var primaryPurposeType: CodeableConcept? = null,
+  public val primaryPurposeType: CodeableConcept? = null,
   /**
    * The stage in the progression of a therapy from initial experimental use in humans in clinical
    * trials to post-market evaluation.
    */
-  public var phase: CodeableConcept? = null,
+  public val phase: CodeableConcept? = null,
   /**
    * Codes categorizing the type of study such as investigational vs. observational, type of
    * blinding, type of randomization, safety vs. efficacy, etc.
    */
-  public var category: MutableList<CodeableConcept> = mutableListOf(),
+  public val category: List<CodeableConcept> = listOf(),
   /**
    * The medication(s), food(s), therapy(ies), device(s) or other concerns or interventions that the
    * study is seeking to gain more information about.
    */
-  public var focus: MutableList<CodeableConcept> = mutableListOf(),
+  public val focus: List<CodeableConcept> = listOf(),
   /**
    * The condition that is the focus of the study. For example, In a study to examine risk factors
    * for Lupus, might have as an inclusion criterion "healthy volunteer", but the target condition
    * code would be a Lupus SNOMED code.
    */
-  public var condition: MutableList<CodeableConcept> = mutableListOf(),
+  public val condition: List<CodeableConcept> = listOf(),
   /** Contact details to assist a user in learning more about or engaging with the study. */
-  public var contact: MutableList<ContactDetail> = mutableListOf(),
+  public val contact: List<ContactDetail> = listOf(),
   /** Citations, references and other related documents. */
-  public var relatedArtifact: MutableList<RelatedArtifact> = mutableListOf(),
+  public val relatedArtifact: List<RelatedArtifact> = listOf(),
   /** Key terms to aid in searching for or filtering the study. */
-  public var keyword: MutableList<CodeableConcept> = mutableListOf(),
+  public val keyword: List<CodeableConcept> = listOf(),
   /** Indicates a country, state or other region where the study is taking place. */
-  public var location: MutableList<CodeableConcept> = mutableListOf(),
+  public val location: List<CodeableConcept> = listOf(),
   /** A full description of how the study is being conducted. */
-  public var description: Markdown? = null,
+  public val description: Markdown? = null,
   /**
    * Reference to a Group that defines the criteria for and quantity of subjects participating in
    * the study. E.g. " 200 female Europeans between the ages of 20 and 45 with early onset
@@ -186,36 +186,36 @@ public data class ResearchStudy(
    * The Group referenced should not generally enumerate specific subjects. Subjects will be linked
    * to the study using the ResearchSubject resource.
    */
-  public var enrollment: MutableList<Reference> = mutableListOf(),
+  public val enrollment: List<Reference> = listOf(),
   /**
    * Identifies the start date and the expected (or actual, depending on status) end date for the
    * study.
    */
-  public var period: Period? = null,
+  public val period: Period? = null,
   /** An organization that initiates the investigation and is legally responsible for the study. */
-  public var sponsor: Reference? = null,
+  public val sponsor: Reference? = null,
   /**
    * A researcher in a study who oversees multiple aspects of the study, such as concept
    * development, protocol writing, protocol submission for IRB approval, participant recruitment,
    * informed consent, data collection, analysis, interpretation and presentation.
    */
-  public var principalInvestigator: Reference? = null,
+  public val principalInvestigator: Reference? = null,
   /** A facility in which study activities are conducted. */
-  public var site: MutableList<Reference> = mutableListOf(),
+  public val site: List<Reference> = listOf(),
   /** A description and/or code explaining the premature termination of the study. */
-  public var reasonStopped: CodeableConcept? = null,
+  public val reasonStopped: CodeableConcept? = null,
   /** Comments made about the study by the performer, subject or other participants. */
-  public var note: MutableList<Annotation> = mutableListOf(),
+  public val note: List<Annotation> = listOf(),
   /**
    * Describes an expected sequence of events for one of the participants of a study. E.g. Exposure
    * to drug A, wash-out, exposure to drug B, wash-out, follow-up.
    */
-  public var arm: MutableList<Arm> = mutableListOf(),
+  public val arm: List<Arm> = listOf(),
   /**
    * A goal that the study is aiming to achieve in terms of a scientific question to be answered by
    * the analysis of data collected during the study.
    */
-  public var objective: MutableList<Objective> = mutableListOf(),
+  public val objective: List<Objective> = listOf(),
 ) : DomainResource() {
   /**
    * Describes an expected sequence of events for one of the participants of a study. E.g. Exposure
@@ -227,7 +227,7 @@ public data class ResearchStudy(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and manageable, there is a strict set of
@@ -240,7 +240,7 @@ public data class ResearchStudy(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -259,16 +259,16 @@ public data class ResearchStudy(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /** Unique, human-readable label for this arm of the study. */
-    public var name: String,
+    public val name: String,
     /** Categorization of study arm, e.g. experimental, active comparator, placebo comparater. */
-    public var type: CodeableConcept? = null,
+    public val type: CodeableConcept? = null,
     /**
      * A succinct description of the path through the study that would be followed by a subject
      * adhering to this arm.
      */
-    public var description: String? = null,
+    public val description: String? = null,
   ) : BackboneElement()
 
   /**
@@ -281,7 +281,7 @@ public data class ResearchStudy(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and manageable, there is a strict set of
@@ -294,7 +294,7 @@ public data class ResearchStudy(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -313,11 +313,11 @@ public data class ResearchStudy(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /** Unique, human-readable label for this objective of the study. */
-    public var name: String? = null,
+    public val name: String? = null,
     /** The kind of study objective. */
-    public var type: CodeableConcept? = null,
+    public val type: CodeableConcept? = null,
   ) : BackboneElement()
 
   /** Codes that convey the current status of the research study. */

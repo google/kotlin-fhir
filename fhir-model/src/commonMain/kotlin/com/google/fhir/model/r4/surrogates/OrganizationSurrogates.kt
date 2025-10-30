@@ -40,28 +40,28 @@ import com.google.fhir.model.r4.serializers.LocalTimeSerializer
 import kotlin.Boolean as KotlinBoolean
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class OrganizationContactSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var purpose: CodeableConcept? = null,
   public var name: HumanName? = null,
-  public var telecom: MutableList<ContactPoint>? = null,
+  public var telecom: List<ContactPoint>? = null,
   public var address: Address? = null,
 ) {
   public fun toModel(): Organization.Contact =
     Organization.Contact(
       id = this@OrganizationContactSurrogate.id,
-      extension = this@OrganizationContactSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@OrganizationContactSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@OrganizationContactSurrogate.extension ?: listOf(),
+      modifierExtension = this@OrganizationContactSurrogate.modifierExtension ?: listOf(),
       purpose = this@OrganizationContactSurrogate.purpose,
       name = this@OrganizationContactSurrogate.name,
-      telecom = this@OrganizationContactSurrogate.telecom ?: mutableListOf(),
+      telecom = this@OrganizationContactSurrogate.telecom ?: listOf(),
       address = this@OrganizationContactSurrogate.address,
     )
 
@@ -90,22 +90,22 @@ internal data class OrganizationSurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: MutableList<Resource>? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var identifier: MutableList<Identifier>? = null,
+  public var contained: List<Resource>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
+  public var identifier: List<Identifier>? = null,
   public var active: KotlinBoolean? = null,
   public var _active: Element? = null,
-  public var type: MutableList<CodeableConcept>? = null,
+  public var type: List<CodeableConcept>? = null,
   public var name: KotlinString? = null,
   public var _name: Element? = null,
-  public var alias: MutableList<KotlinString?>? = null,
-  public var _alias: MutableList<Element?>? = null,
-  public var telecom: MutableList<ContactPoint>? = null,
-  public var address: MutableList<Address>? = null,
+  public var alias: List<KotlinString?>? = null,
+  public var _alias: List<Element?>? = null,
+  public var telecom: List<ContactPoint>? = null,
+  public var address: List<Address>? = null,
   public var partOf: Reference? = null,
-  public var contact: MutableList<Organization.Contact>? = null,
-  public var endpoint: MutableList<Reference>? = null,
+  public var contact: List<Organization.Contact>? = null,
+  public var endpoint: List<Reference>? = null,
 ) {
   public fun toModel(): Organization =
     Organization(
@@ -115,16 +115,16 @@ internal data class OrganizationSurrogate(
         Uri.of(this@OrganizationSurrogate.implicitRules, this@OrganizationSurrogate._implicitRules),
       language = Code.of(this@OrganizationSurrogate.language, this@OrganizationSurrogate._language),
       text = this@OrganizationSurrogate.text,
-      contained = this@OrganizationSurrogate.contained ?: mutableListOf(),
-      extension = this@OrganizationSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@OrganizationSurrogate.modifierExtension ?: mutableListOf(),
-      identifier = this@OrganizationSurrogate.identifier ?: mutableListOf(),
+      contained = this@OrganizationSurrogate.contained ?: listOf(),
+      extension = this@OrganizationSurrogate.extension ?: listOf(),
+      modifierExtension = this@OrganizationSurrogate.modifierExtension ?: listOf(),
+      identifier = this@OrganizationSurrogate.identifier ?: listOf(),
       active = R4Boolean.of(this@OrganizationSurrogate.active, this@OrganizationSurrogate._active),
-      type = this@OrganizationSurrogate.type ?: mutableListOf(),
+      type = this@OrganizationSurrogate.type ?: listOf(),
       name = R4String.of(this@OrganizationSurrogate.name, this@OrganizationSurrogate._name),
       alias =
         if (this@OrganizationSurrogate.alias == null && this@OrganizationSurrogate._alias == null) {
-          mutableListOf()
+          listOf()
         } else {
           (this@OrganizationSurrogate.alias
               ?: List(this@OrganizationSurrogate._alias!!.size) { null })
@@ -133,13 +133,13 @@ internal data class OrganizationSurrogate(
                 ?: List(this@OrganizationSurrogate.alias!!.size) { null }
             )
             .map { (value, element) -> R4String.of(value, element)!! }
-            .toMutableList()
+            .toList()
         },
-      telecom = this@OrganizationSurrogate.telecom ?: mutableListOf(),
-      address = this@OrganizationSurrogate.address ?: mutableListOf(),
+      telecom = this@OrganizationSurrogate.telecom ?: listOf(),
+      address = this@OrganizationSurrogate.address ?: listOf(),
       partOf = this@OrganizationSurrogate.partOf,
-      contact = this@OrganizationSurrogate.contact ?: mutableListOf(),
-      endpoint = this@OrganizationSurrogate.endpoint ?: mutableListOf(),
+      contact = this@OrganizationSurrogate.contact ?: listOf(),
+      endpoint = this@OrganizationSurrogate.endpoint ?: listOf(),
     )
 
   public companion object {
@@ -162,14 +162,13 @@ internal data class OrganizationSurrogate(
           type = this@with.type.takeIf { it.isNotEmpty() },
           name = this@with.name?.value,
           _name = this@with.name?.toElement(),
-          alias =
-            this@with.alias.map { it.value }.toMutableList().takeUnless { it.all { it == null } },
+          alias = this@with.alias.map { it.value }.toList().takeUnless { it.all { it == null } },
           _alias =
             this@with.alias
               .map { it.toElement() }
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
-              ?.toMutableList(),
+              ?.toList(),
           telecom = this@with.telecom.takeIf { it.isNotEmpty() },
           address = this@with.address.takeIf { it.isNotEmpty() },
           partOf = this@with.partOf,

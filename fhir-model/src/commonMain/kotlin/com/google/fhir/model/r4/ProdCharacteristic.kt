@@ -20,7 +20,7 @@ package com.google.fhir.model.r4
 
 import com.google.fhir.model.r4.serializers.ProdCharacteristicSerializer
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 
 /**
@@ -34,7 +34,7 @@ public data class ProdCharacteristic(
    * Unique id for the element within a resource (for internal references). This may be any string
    * value that does not contain spaces.
    */
-  override var id: kotlin.String? = null,
+  override val id: kotlin.String? = null,
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * element. To make the use of extensions safe and manageable, there is a strict set of governance
@@ -47,7 +47,7 @@ public data class ProdCharacteristic(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: MutableList<Extension> = mutableListOf(),
+  override val extension: List<Extension> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * element and that modifies the understanding of the element in which it is contained and/or the
@@ -66,63 +66,63 @@ public data class ProdCharacteristic(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: MutableList<Extension> = mutableListOf(),
+  override val modifierExtension: List<Extension> = listOf(),
   /**
    * Where applicable, the height can be specified using a numerical value and its unit of
    * measurement The unit of measurement shall be specified in accordance with ISO 11240 and the
    * resulting terminology The symbol and the symbol identifier shall be used.
    */
-  public var height: Quantity? = null,
+  public val height: Quantity? = null,
   /**
    * Where applicable, the width can be specified using a numerical value and its unit of
    * measurement The unit of measurement shall be specified in accordance with ISO 11240 and the
    * resulting terminology The symbol and the symbol identifier shall be used.
    */
-  public var width: Quantity? = null,
+  public val width: Quantity? = null,
   /**
    * Where applicable, the depth can be specified using a numerical value and its unit of
    * measurement The unit of measurement shall be specified in accordance with ISO 11240 and the
    * resulting terminology The symbol and the symbol identifier shall be used.
    */
-  public var depth: Quantity? = null,
+  public val depth: Quantity? = null,
   /**
    * Where applicable, the weight can be specified using a numerical value and its unit of
    * measurement The unit of measurement shall be specified in accordance with ISO 11240 and the
    * resulting terminology The symbol and the symbol identifier shall be used.
    */
-  public var weight: Quantity? = null,
+  public val weight: Quantity? = null,
   /**
    * Where applicable, the nominal volume can be specified using a numerical value and its unit of
    * measurement The unit of measurement shall be specified in accordance with ISO 11240 and the
    * resulting terminology The symbol and the symbol identifier shall be used.
    */
-  public var nominalVolume: Quantity? = null,
+  public val nominalVolume: Quantity? = null,
   /**
    * Where applicable, the external diameter can be specified using a numerical value and its unit
    * of measurement The unit of measurement shall be specified in accordance with ISO 11240 and the
    * resulting terminology The symbol and the symbol identifier shall be used.
    */
-  public var externalDiameter: Quantity? = null,
+  public val externalDiameter: Quantity? = null,
   /**
    * Where applicable, the shape can be specified An appropriate controlled vocabulary shall be used
    * The term and the term identifier shall be used.
    */
-  public var shape: String? = null,
+  public val shape: String? = null,
   /**
    * Where applicable, the color can be specified An appropriate controlled vocabulary shall be used
    * The term and the term identifier shall be used.
    */
-  public var color: MutableList<String> = mutableListOf(),
+  public val color: List<String> = listOf(),
   /** Where applicable, the imprint can be specified as text. */
-  public var imprint: MutableList<String> = mutableListOf(),
+  public val imprint: List<String> = listOf(),
   /**
    * Where applicable, the image can be provided The format of the image attachment shall be
    * specified by regional implementations.
    */
-  public var image: MutableList<Attachment> = mutableListOf(),
+  public val image: List<Attachment> = listOf(),
   /**
    * Where applicable, the scoring can be specified An appropriate controlled vocabulary shall be
    * used The term and the term identifier shall be used.
    */
-  public var scoring: CodeableConcept? = null,
+  public val scoring: CodeableConcept? = null,
 ) : BackboneElement()

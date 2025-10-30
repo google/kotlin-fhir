@@ -20,7 +20,7 @@ package com.google.fhir.model.r4
 
 import com.google.fhir.model.r4.serializers.ContactDetailSerializer
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 
 /**
@@ -33,7 +33,7 @@ public data class ContactDetail(
    * Unique id for the element within a resource (for internal references). This may be any string
    * value that does not contain spaces.
    */
-  override var id: kotlin.String? = null,
+  override val id: kotlin.String? = null,
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * element. To make the use of extensions safe and manageable, there is a strict set of governance
@@ -46,13 +46,13 @@ public data class ContactDetail(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: MutableList<Extension> = mutableListOf(),
+  override val extension: List<Extension> = listOf(),
   /**
    * The name of an individual to contact.
    *
    * If there is no named individual, the telecom information is for the organization as a whole.
    */
-  public var name: String? = null,
+  public val name: String? = null,
   /** The contact details for the individual (if a name was provided) or the organization. */
-  public var telecom: MutableList<ContactPoint> = mutableListOf(),
+  public val telecom: List<ContactPoint> = listOf(),
 ) : Element()

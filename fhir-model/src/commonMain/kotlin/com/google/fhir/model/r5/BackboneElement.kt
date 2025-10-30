@@ -20,7 +20,7 @@ package com.google.fhir.model.r5
 
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 
 /**
  * BackboneElement Type: Base definition for all elements that are defined inside a resource - but
@@ -31,7 +31,7 @@ public sealed class BackboneElement : Element() {
    * Unique id for the element within a resource (for internal references). This may be any string
    * value that does not contain spaces.
    */
-  abstract override var id: String?
+  abstract override val id: String?
 
   /**
    * May be used to represent additional information that is not part of the basic definition of the
@@ -45,7 +45,7 @@ public sealed class BackboneElement : Element() {
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  abstract override var extension: MutableList<Extension>
+  abstract override val extension: List<Extension>
 
   /**
    * May be used to represent additional information that is not part of the basic definition of the
@@ -65,5 +65,5 @@ public sealed class BackboneElement : Element() {
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  public abstract var modifierExtension: MutableList<Extension>
+  public abstract val modifierExtension: List<Extension>
 }

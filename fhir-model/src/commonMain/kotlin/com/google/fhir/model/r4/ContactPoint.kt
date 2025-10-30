@@ -20,7 +20,7 @@ package com.google.fhir.model.r4
 
 import com.google.fhir.model.r4.serializers.ContactPointSerializer
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 
 /**
@@ -33,7 +33,7 @@ public data class ContactPoint(
    * Unique id for the element within a resource (for internal references). This may be any string
    * value that does not contain spaces.
    */
-  override var id: kotlin.String? = null,
+  override val id: kotlin.String? = null,
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * element. To make the use of extensions safe and manageable, there is a strict set of governance
@@ -46,12 +46,12 @@ public data class ContactPoint(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: MutableList<Extension> = mutableListOf(),
+  override val extension: List<Extension> = listOf(),
   /**
    * Telecommunications form for contact point - what communications system is required to make use
    * of the contact.
    */
-  public var system: Enumeration<ContactPointSystem>? = null,
+  public val system: Enumeration<ContactPointSystem>? = null,
   /**
    * The actual contact point details, in a form that is meaningful to the designated communication
    * system (i.e. phone number or email address).
@@ -59,14 +59,14 @@ public data class ContactPoint(
    * Additional text data such as phone extension numbers, or notes about use of the contact are
    * sometimes included in the value.
    */
-  public var `value`: String? = null,
+  public val `value`: String? = null,
   /**
    * Identifies the purpose for the contact point.
    *
    * Applications can assume that a contact is current unless it explicitly says that it is
    * temporary or old.
    */
-  public var use: Enumeration<ContactPointUse>? = null,
+  public val use: Enumeration<ContactPointUse>? = null,
   /**
    * Specifies a preferred order in which to use a set of contacts. ContactPoints with lower rank
    * values are more preferred than those with higher rank values.
@@ -74,9 +74,9 @@ public data class ContactPoint(
    * Note that rank does not necessarily follow the order in which the contacts are represented in
    * the instance.
    */
-  public var rank: PositiveInt? = null,
+  public val rank: PositiveInt? = null,
   /** Time period when the contact point was/is in use. */
-  public var period: Period? = null,
+  public val period: Period? = null,
 ) : Element() {
   /** Telecommunications form for contact point. */
   public enum class ContactPointSystem(

@@ -27,7 +27,7 @@ import com.google.fhir.model.r4.serializers.EffectEvidenceSynthesisSampleSizeSer
 import com.google.fhir.model.r4.serializers.EffectEvidenceSynthesisSerializer
 import com.google.fhir.model.r4.terminologies.PublicationStatus
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -46,12 +46,12 @@ public data class EffectEvidenceSynthesis(
    * The only time that a resource does not have an id is when it is being submitted to the server
    * using a create operation.
    */
-  override var id: kotlin.String? = null,
+  override val id: kotlin.String? = null,
   /**
    * The metadata about the resource. This is content that is maintained by the infrastructure.
    * Changes to the content might not always be associated with version changes to the resource.
    */
-  override var meta: Meta? = null,
+  override val meta: Meta? = null,
   /**
    * A reference to a set of rules that were followed when the resource was constructed, and which
    * must be understood when processing the content. Often, this is a reference to an implementation
@@ -65,7 +65,7 @@ public data class EffectEvidenceSynthesis(
    * to an implementation guide that defines these special rules as part of it's narrative along
    * with other profiles, value sets, etc.
    */
-  override var implicitRules: Uri? = null,
+  override val implicitRules: Uri? = null,
   /**
    * The base language in which the resource is written.
    *
@@ -77,7 +77,7 @@ public data class EffectEvidenceSynthesis(
    * language is specified, it should it also be specified on the div element in the html (see rules
    * in HTML5 for information about the relationship between xml:lang and the html lang attribute).
    */
-  override var language: Code? = null,
+  override val language: Code? = null,
   /**
    * A human-readable narrative that contains a summary of the resource and can be used to represent
    * the content of the resource to a human. The narrative need not encode all the structured data,
@@ -91,7 +91,7 @@ public data class EffectEvidenceSynthesis(
    * legacy systems where information is captured as a "text blob" or where text is additionally
    * entered raw or narrated and encoded information is added later.
    */
-  override var text: Narrative? = null,
+  override val text: Narrative? = null,
   /**
    * These resources do not have an independent existence apart from the resource that contains
    * them - they cannot be identified independently, and nor can they have their own independent
@@ -102,7 +102,7 @@ public data class EffectEvidenceSynthesis(
    * resources may have profiles and tags In their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: MutableList<Resource> = mutableListOf(),
+  override val contained: List<Resource> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and manageable, there is a strict set of
@@ -115,7 +115,7 @@ public data class EffectEvidenceSynthesis(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: MutableList<Extension> = mutableListOf(),
+  override val extension: List<Extension> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -134,7 +134,7 @@ public data class EffectEvidenceSynthesis(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: MutableList<Extension> = mutableListOf(),
+  override val modifierExtension: List<Extension> = listOf(),
   /**
    * An absolute URI that is used to identify this effect evidence synthesis when it is referenced
    * in a specification, model, design or an instance; also called its canonical identifier. This
@@ -154,7 +154,7 @@ public data class EffectEvidenceSynthesis(
    * change. Implementations can use the [meta.source](resource.html#meta) element to indicate where
    * the current master source of the resource can be found.
    */
-  public var url: Uri? = null,
+  public val url: Uri? = null,
   /**
    * A formal identifier that is used to identify this effect evidence synthesis when it is
    * represented in other formats, or referenced in a specification, model, design or an instance.
@@ -163,7 +163,7 @@ public data class EffectEvidenceSynthesis(
    * type, and can then identify this effect evidence synthesis outside of FHIR, where it is not
    * possible to use the logical URI.
    */
-  public var identifier: MutableList<Identifier> = mutableListOf(),
+  public val identifier: List<Identifier> = listOf(),
   /**
    * The identifier that is used to identify this version of the effect evidence synthesis when it
    * is referenced in a specification, model, design or instance. This is an arbitrary value managed
@@ -176,7 +176,7 @@ public data class EffectEvidenceSynthesis(
    * to a particular business version of the effect evidence synthesis with the format
    * [url]|[version].
    */
-  public var version: String? = null,
+  public val version: String? = null,
   /**
    * A natural language name identifying the effect evidence synthesis. This name should be usable
    * as an identifier for the module by machine processing applications such as code generation.
@@ -184,20 +184,20 @@ public data class EffectEvidenceSynthesis(
    * The name is not expected to be globally unique. The name should be a simple alphanumeric type
    * name to ensure that it is machine-processing friendly.
    */
-  public var name: String? = null,
+  public val name: String? = null,
   /**
    * A short, descriptive, user-friendly title for the effect evidence synthesis.
    *
    * This name does not need to be machine-processing friendly and may contain punctuation,
    * white-space, etc.
    */
-  public var title: String? = null,
+  public val title: String? = null,
   /**
    * The status of this effect evidence synthesis. Enables tracking the life-cycle of the content.
    *
    * Allows filtering of effect evidence synthesiss that are appropriate for use versus not.
    */
-  public var status: Enumeration<PublicationStatus>,
+  public val status: Enumeration<PublicationStatus>,
   /**
    * The date (and optionally time) when the effect evidence synthesis was published. The date must
    * change when the business version changes and it must change if the status code changes. In
@@ -209,7 +209,7 @@ public data class EffectEvidenceSynthesis(
    * added as extensions or be found by consulting Provenances associated with past versions of the
    * resource.
    */
-  public var date: DateTime? = null,
+  public val date: DateTime? = null,
   /**
    * The name of the organization or individual that published the effect evidence synthesis.
    *
@@ -220,13 +220,13 @@ public data class EffectEvidenceSynthesis(
    * point of contact for questions or issues with the effect evidence synthesis. This item SHOULD
    * be populated unless the information is available from context.
    */
-  public var publisher: String? = null,
+  public val publisher: String? = null,
   /**
    * Contact details to assist a user in finding and communicating with the publisher.
    *
    * May be a web site, an email address, a telephone number, etc.
    */
-  public var contact: MutableList<ContactDetail> = mutableListOf(),
+  public val contact: List<ContactDetail> = listOf(),
   /**
    * A free text natural language description of the effect evidence synthesis from a consumer's
    * perspective.
@@ -239,9 +239,9 @@ public data class EffectEvidenceSynthesis(
    * synthesis is presumed to be the predominant language in the place the effect evidence synthesis
    * was created).
    */
-  public var description: Markdown? = null,
+  public val description: Markdown? = null,
   /** A human-readable string to clarify or explain concepts about the resource. */
-  public var note: MutableList<Annotation> = mutableListOf(),
+  public val note: List<Annotation> = listOf(),
   /**
    * The content was developed with a focus and intent of supporting the contexts that are listed.
    * These contexts may be general categories (gender, age, ...) or may be references to specific
@@ -251,20 +251,20 @@ public data class EffectEvidenceSynthesis(
    * When multiple useContexts are specified, there is no expectation that all or any of the
    * contexts apply.
    */
-  public var useContext: MutableList<UsageContext> = mutableListOf(),
+  public val useContext: List<UsageContext> = listOf(),
   /**
    * A legal or geographic region in which the effect evidence synthesis is intended to be used.
    *
    * It may be possible for the effect evidence synthesis to be used in jurisdictions other than
    * those for which it was originally designed or intended.
    */
-  public var jurisdiction: MutableList<CodeableConcept> = mutableListOf(),
+  public val jurisdiction: List<CodeableConcept> = listOf(),
   /**
    * A copyright statement relating to the effect evidence synthesis and/or its contents. Copyright
    * statements are generally legal restrictions on the use and publishing of the effect evidence
    * synthesis.
    */
-  public var copyright: Markdown? = null,
+  public val copyright: Markdown? = null,
   /**
    * The date on which the resource content was approved by the publisher. Approval happens once
    * when the content is officially approved for usage.
@@ -272,14 +272,14 @@ public data class EffectEvidenceSynthesis(
    * The 'date' element may be more recent than the approval date because of minor changes or
    * editorial corrections.
    */
-  public var approvalDate: Date? = null,
+  public val approvalDate: Date? = null,
   /**
    * The date on which the resource content was last reviewed. Review happens periodically after
    * approval but does not change the original approval date.
    *
    * If specified, this date follows the original approval date.
    */
-  public var lastReviewDate: Date? = null,
+  public val lastReviewDate: Date? = null,
   /**
    * The period during which the effect evidence synthesis content was or is planned to be in active
    * use.
@@ -288,59 +288,59 @@ public data class EffectEvidenceSynthesis(
    * for usage and is independent of publication and review dates. For example, a measure intended
    * to be used for the year 2016 might be published in 2015.
    */
-  public var effectivePeriod: Period? = null,
+  public val effectivePeriod: Period? = null,
   /**
    * Descriptive topics related to the content of the EffectEvidenceSynthesis. Topics provide a
    * high-level categorization grouping types of EffectEvidenceSynthesiss that can be useful for
    * filtering and searching.
    */
-  public var topic: MutableList<CodeableConcept> = mutableListOf(),
+  public val topic: List<CodeableConcept> = listOf(),
   /**
    * An individiual or organization primarily involved in the creation and maintenance of the
    * content.
    */
-  public var author: MutableList<ContactDetail> = mutableListOf(),
+  public val author: List<ContactDetail> = listOf(),
   /** An individual or organization primarily responsible for internal coherence of the content. */
-  public var editor: MutableList<ContactDetail> = mutableListOf(),
+  public val editor: List<ContactDetail> = listOf(),
   /**
    * An individual or organization primarily responsible for review of some aspect of the content.
    */
-  public var reviewer: MutableList<ContactDetail> = mutableListOf(),
+  public val reviewer: List<ContactDetail> = listOf(),
   /**
    * An individual or organization responsible for officially endorsing the content for use in some
    * setting.
    */
-  public var endorser: MutableList<ContactDetail> = mutableListOf(),
+  public val endorser: List<ContactDetail> = listOf(),
   /**
    * Related artifacts such as additional documentation, justification, or bibliographic references.
    *
    * Each related artifact is either an attachment, or a reference to another resource, but not
    * both.
    */
-  public var relatedArtifact: MutableList<RelatedArtifact> = mutableListOf(),
+  public val relatedArtifact: List<RelatedArtifact> = listOf(),
   /** Type of synthesis eg meta-analysis. */
-  public var synthesisType: CodeableConcept? = null,
+  public val synthesisType: CodeableConcept? = null,
   /** Type of study eg randomized trial. */
-  public var studyType: CodeableConcept? = null,
+  public val studyType: CodeableConcept? = null,
   /** A reference to a EvidenceVariable resource that defines the population for the research. */
-  public var population: Reference,
+  public val population: Reference,
   /** A reference to a EvidenceVariable resource that defines the exposure for the research. */
-  public var exposure: Reference,
+  public val exposure: Reference,
   /**
    * A reference to a EvidenceVariable resource that defines the comparison exposure for the
    * research.
    */
-  public var exposureAlternative: Reference,
+  public val exposureAlternative: Reference,
   /** A reference to a EvidenceVariable resomece that defines the outcome for the research. */
-  public var outcome: Reference,
+  public val outcome: Reference,
   /** A description of the size of the sample involved in the synthesis. */
-  public var sampleSize: SampleSize? = null,
+  public val sampleSize: SampleSize? = null,
   /** A description of the results for each exposure considered in the effect estimate. */
-  public var resultsByExposure: MutableList<ResultsByExposure> = mutableListOf(),
+  public val resultsByExposure: List<ResultsByExposure> = listOf(),
   /** The estimated effect of the exposure variant. */
-  public var effectEstimate: MutableList<EffectEstimate> = mutableListOf(),
+  public val effectEstimate: List<EffectEstimate> = listOf(),
   /** A description of the certainty of the effect estimate. */
-  public var certainty: MutableList<Certainty> = mutableListOf(),
+  public val certainty: List<Certainty> = listOf(),
 ) : DomainResource() {
   /** A description of the size of the sample involved in the synthesis. */
   @Serializable(with = EffectEvidenceSynthesisSampleSizeSerializer::class)
@@ -349,7 +349,7 @@ public data class EffectEvidenceSynthesis(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and manageable, there is a strict set of
@@ -362,7 +362,7 @@ public data class EffectEvidenceSynthesis(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -381,13 +381,13 @@ public data class EffectEvidenceSynthesis(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /** Human-readable summary of sample size. */
-    public var description: String? = null,
+    public val description: String? = null,
     /** Number of studies included in this evidence synthesis. */
-    public var numberOfStudies: Integer? = null,
+    public val numberOfStudies: Integer? = null,
     /** Number of participants included in this evidence synthesis. */
-    public var numberOfParticipants: Integer? = null,
+    public val numberOfParticipants: Integer? = null,
   ) : BackboneElement()
 
   /** A description of the results for each exposure considered in the effect estimate. */
@@ -397,7 +397,7 @@ public data class EffectEvidenceSynthesis(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and manageable, there is a strict set of
@@ -410,7 +410,7 @@ public data class EffectEvidenceSynthesis(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -429,15 +429,15 @@ public data class EffectEvidenceSynthesis(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /** Human-readable summary of results by exposure state. */
-    public var description: String? = null,
+    public val description: String? = null,
     /** Whether these results are for the exposure state or alternative exposure state. */
-    public var exposureState: Enumeration<ExposureState>? = null,
+    public val exposureState: Enumeration<ExposureState>? = null,
     /** Used to define variant exposure states such as low-risk state. */
-    public var variantState: CodeableConcept? = null,
+    public val variantState: CodeableConcept? = null,
     /** Reference to a RiskEvidenceSynthesis resource. */
-    public var riskEvidenceSynthesis: Reference,
+    public val riskEvidenceSynthesis: Reference,
   ) : BackboneElement()
 
   /** The estimated effect of the exposure variant. */
@@ -447,7 +447,7 @@ public data class EffectEvidenceSynthesis(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and manageable, there is a strict set of
@@ -460,7 +460,7 @@ public data class EffectEvidenceSynthesis(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -479,19 +479,19 @@ public data class EffectEvidenceSynthesis(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /** Human-readable summary of effect estimate. */
-    public var description: String? = null,
+    public val description: String? = null,
     /** Examples include relative risk and mean difference. */
-    public var type: CodeableConcept? = null,
+    public val type: CodeableConcept? = null,
     /** Used to define variant exposure states such as low-risk state. */
-    public var variantState: CodeableConcept? = null,
+    public val variantState: CodeableConcept? = null,
     /** The point estimate of the effect estimate. */
-    public var `value`: Decimal? = null,
+    public val `value`: Decimal? = null,
     /** Specifies the UCUM unit for the outcome. */
-    public var unitOfMeasure: CodeableConcept? = null,
+    public val unitOfMeasure: CodeableConcept? = null,
     /** A description of the precision of the estimate for the effect. */
-    public var precisionEstimate: MutableList<PrecisionEstimate> = mutableListOf(),
+    public val precisionEstimate: List<PrecisionEstimate> = listOf(),
   ) : BackboneElement() {
     /** A description of the precision of the estimate for the effect. */
     @Serializable(with = EffectEvidenceSynthesisEffectEstimatePrecisionEstimateSerializer::class)
@@ -500,7 +500,7 @@ public data class EffectEvidenceSynthesis(
        * Unique id for the element within a resource (for internal references). This may be any
        * string value that does not contain spaces.
        */
-      override var id: kotlin.String? = null,
+      override val id: kotlin.String? = null,
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element. To make the use of extensions safe and manageable, there is a strict set of
@@ -513,7 +513,7 @@ public data class EffectEvidenceSynthesis(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: MutableList<Extension> = mutableListOf(),
+      override val extension: List<Extension> = listOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -532,15 +532,15 @@ public data class EffectEvidenceSynthesis(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: MutableList<Extension> = mutableListOf(),
+      override val modifierExtension: List<Extension> = listOf(),
       /** Examples include confidence interval and interquartile range. */
-      public var type: CodeableConcept? = null,
+      public val type: CodeableConcept? = null,
       /** Use 95 for a 95% confidence interval. */
-      public var level: Decimal? = null,
+      public val level: Decimal? = null,
       /** Lower bound of confidence interval. */
-      public var from: Decimal? = null,
+      public val from: Decimal? = null,
       /** Upper bound of confidence interval. */
-      public var to: Decimal? = null,
+      public val to: Decimal? = null,
     ) : BackboneElement()
   }
 
@@ -551,7 +551,7 @@ public data class EffectEvidenceSynthesis(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and manageable, there is a strict set of
@@ -564,7 +564,7 @@ public data class EffectEvidenceSynthesis(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -583,13 +583,13 @@ public data class EffectEvidenceSynthesis(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /** A rating of the certainty of the effect estimate. */
-    public var rating: MutableList<CodeableConcept> = mutableListOf(),
+    public val rating: List<CodeableConcept> = listOf(),
     /** A human-readable string to clarify or explain concepts about the resource. */
-    public var note: MutableList<Annotation> = mutableListOf(),
+    public val note: List<Annotation> = listOf(),
     /** A description of a component of the overall certainty. */
-    public var certaintySubcomponent: MutableList<CertaintySubcomponent> = mutableListOf(),
+    public val certaintySubcomponent: List<CertaintySubcomponent> = listOf(),
   ) : BackboneElement() {
     /** A description of a component of the overall certainty. */
     @Serializable(with = EffectEvidenceSynthesisCertaintyCertaintySubcomponentSerializer::class)
@@ -598,7 +598,7 @@ public data class EffectEvidenceSynthesis(
        * Unique id for the element within a resource (for internal references). This may be any
        * string value that does not contain spaces.
        */
-      override var id: kotlin.String? = null,
+      override val id: kotlin.String? = null,
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element. To make the use of extensions safe and manageable, there is a strict set of
@@ -611,7 +611,7 @@ public data class EffectEvidenceSynthesis(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: MutableList<Extension> = mutableListOf(),
+      override val extension: List<Extension> = listOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -630,13 +630,13 @@ public data class EffectEvidenceSynthesis(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: MutableList<Extension> = mutableListOf(),
+      override val modifierExtension: List<Extension> = listOf(),
       /** Type of subcomponent of certainty rating. */
-      public var type: CodeableConcept? = null,
+      public val type: CodeableConcept? = null,
       /** A rating of a subcomponent of rating certainty. */
-      public var rating: MutableList<CodeableConcept> = mutableListOf(),
+      public val rating: List<CodeableConcept> = listOf(),
       /** A human-readable string to clarify or explain concepts about the resource. */
-      public var note: MutableList<Annotation> = mutableListOf(),
+      public val note: List<Annotation> = listOf(),
     ) : BackboneElement()
   }
 

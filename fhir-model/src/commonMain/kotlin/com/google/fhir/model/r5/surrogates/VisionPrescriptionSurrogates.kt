@@ -44,15 +44,15 @@ import kotlin.Double
 import kotlin.Int
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class VisionPrescriptionLensSpecificationSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var product: CodeableConcept,
   public var eye: KotlinString? = null,
   public var _eye: Element? = null,
@@ -62,7 +62,7 @@ internal data class VisionPrescriptionLensSpecificationSurrogate(
   public var _cylinder: Element? = null,
   public var axis: Int? = null,
   public var _axis: Element? = null,
-  public var prism: MutableList<VisionPrescription.LensSpecification.Prism>? = null,
+  public var prism: List<VisionPrescription.LensSpecification.Prism>? = null,
   public var add: Double? = null,
   public var _add: Element? = null,
   public var power: Double? = null,
@@ -76,14 +76,14 @@ internal data class VisionPrescriptionLensSpecificationSurrogate(
   public var _color: Element? = null,
   public var brand: KotlinString? = null,
   public var _brand: Element? = null,
-  public var note: MutableList<Annotation>? = null,
+  public var note: List<Annotation>? = null,
 ) {
   public fun toModel(): VisionPrescription.LensSpecification =
     VisionPrescription.LensSpecification(
       id = this@VisionPrescriptionLensSpecificationSurrogate.id,
-      extension = this@VisionPrescriptionLensSpecificationSurrogate.extension ?: mutableListOf(),
+      extension = this@VisionPrescriptionLensSpecificationSurrogate.extension ?: listOf(),
       modifierExtension =
-        this@VisionPrescriptionLensSpecificationSurrogate.modifierExtension ?: mutableListOf(),
+        this@VisionPrescriptionLensSpecificationSurrogate.modifierExtension ?: listOf(),
       product = this@VisionPrescriptionLensSpecificationSurrogate.product,
       eye =
         Enumeration.of(
@@ -107,7 +107,7 @@ internal data class VisionPrescriptionLensSpecificationSurrogate(
           this@VisionPrescriptionLensSpecificationSurrogate.axis,
           this@VisionPrescriptionLensSpecificationSurrogate._axis,
         ),
-      prism = this@VisionPrescriptionLensSpecificationSurrogate.prism ?: mutableListOf(),
+      prism = this@VisionPrescriptionLensSpecificationSurrogate.prism ?: listOf(),
       add =
         Decimal.of(
           this@VisionPrescriptionLensSpecificationSurrogate.add,
@@ -139,7 +139,7 @@ internal data class VisionPrescriptionLensSpecificationSurrogate(
           this@VisionPrescriptionLensSpecificationSurrogate.brand,
           this@VisionPrescriptionLensSpecificationSurrogate._brand,
         ),
-      note = this@VisionPrescriptionLensSpecificationSurrogate.note ?: mutableListOf(),
+      note = this@VisionPrescriptionLensSpecificationSurrogate.note ?: listOf(),
     )
 
   public companion object {
@@ -183,8 +183,8 @@ internal data class VisionPrescriptionLensSpecificationSurrogate(
 @Serializable
 internal data class VisionPrescriptionLensSpecificationPrismSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var amount: Double? = null,
   public var _amount: Element? = null,
   public var base: KotlinString? = null,
@@ -193,10 +193,9 @@ internal data class VisionPrescriptionLensSpecificationPrismSurrogate(
   public fun toModel(): VisionPrescription.LensSpecification.Prism =
     VisionPrescription.LensSpecification.Prism(
       id = this@VisionPrescriptionLensSpecificationPrismSurrogate.id,
-      extension =
-        this@VisionPrescriptionLensSpecificationPrismSurrogate.extension ?: mutableListOf(),
+      extension = this@VisionPrescriptionLensSpecificationPrismSurrogate.extension ?: listOf(),
       modifierExtension =
-        this@VisionPrescriptionLensSpecificationPrismSurrogate.modifierExtension ?: mutableListOf(),
+        this@VisionPrescriptionLensSpecificationPrismSurrogate.modifierExtension ?: listOf(),
       amount =
         Decimal.of(
           this@VisionPrescriptionLensSpecificationPrismSurrogate.amount,
@@ -238,10 +237,10 @@ internal data class VisionPrescriptionSurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: MutableList<Resource>? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var identifier: MutableList<Identifier>? = null,
+  public var contained: List<Resource>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
+  public var identifier: List<Identifier>? = null,
   public var status: KotlinString? = null,
   public var _status: Element? = null,
   public var created: KotlinString? = null,
@@ -251,7 +250,7 @@ internal data class VisionPrescriptionSurrogate(
   public var dateWritten: KotlinString? = null,
   public var _dateWritten: Element? = null,
   public var prescriber: Reference,
-  public var lensSpecification: MutableList<VisionPrescription.LensSpecification>? = null,
+  public var lensSpecification: List<VisionPrescription.LensSpecification>? = null,
 ) {
   public fun toModel(): VisionPrescription =
     VisionPrescription(
@@ -268,10 +267,10 @@ internal data class VisionPrescriptionSurrogate(
           this@VisionPrescriptionSurrogate._language,
         ),
       text = this@VisionPrescriptionSurrogate.text,
-      contained = this@VisionPrescriptionSurrogate.contained ?: mutableListOf(),
-      extension = this@VisionPrescriptionSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@VisionPrescriptionSurrogate.modifierExtension ?: mutableListOf(),
-      identifier = this@VisionPrescriptionSurrogate.identifier ?: mutableListOf(),
+      contained = this@VisionPrescriptionSurrogate.contained ?: listOf(),
+      extension = this@VisionPrescriptionSurrogate.extension ?: listOf(),
+      modifierExtension = this@VisionPrescriptionSurrogate.modifierExtension ?: listOf(),
+      identifier = this@VisionPrescriptionSurrogate.identifier ?: listOf(),
       status =
         Enumeration.of(
           VisionPrescription.FinancialResourceStatusCodes.fromCode(
@@ -292,7 +291,7 @@ internal data class VisionPrescriptionSurrogate(
           this@VisionPrescriptionSurrogate._dateWritten,
         )!!,
       prescriber = this@VisionPrescriptionSurrogate.prescriber,
-      lensSpecification = this@VisionPrescriptionSurrogate.lensSpecification ?: mutableListOf(),
+      lensSpecification = this@VisionPrescriptionSurrogate.lensSpecification ?: listOf(),
     )
 
   public companion object {

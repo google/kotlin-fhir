@@ -48,15 +48,15 @@ import com.google.fhir.model.r4.terminologies.PublicationStatus
 import kotlin.Boolean as KotlinBoolean
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class StructureDefinitionMappingSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var identity: KotlinString? = null,
   public var _identity: Element? = null,
   public var uri: KotlinString? = null,
@@ -69,9 +69,8 @@ internal data class StructureDefinitionMappingSurrogate(
   public fun toModel(): StructureDefinition.Mapping =
     StructureDefinition.Mapping(
       id = this@StructureDefinitionMappingSurrogate.id,
-      extension = this@StructureDefinitionMappingSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@StructureDefinitionMappingSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@StructureDefinitionMappingSurrogate.extension ?: listOf(),
+      modifierExtension = this@StructureDefinitionMappingSurrogate.modifierExtension ?: listOf(),
       identity =
         Id.of(
           this@StructureDefinitionMappingSurrogate.identity,
@@ -117,8 +116,8 @@ internal data class StructureDefinitionMappingSurrogate(
 @Serializable
 internal data class StructureDefinitionContextSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var type: KotlinString? = null,
   public var _type: Element? = null,
   public var expression: KotlinString? = null,
@@ -127,9 +126,8 @@ internal data class StructureDefinitionContextSurrogate(
   public fun toModel(): StructureDefinition.Context =
     StructureDefinition.Context(
       id = this@StructureDefinitionContextSurrogate.id,
-      extension = this@StructureDefinitionContextSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@StructureDefinitionContextSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@StructureDefinitionContextSurrogate.extension ?: listOf(),
+      modifierExtension = this@StructureDefinitionContextSurrogate.modifierExtension ?: listOf(),
       type =
         Enumeration.of(
           StructureDefinition.ExtensionContextType.fromCode(
@@ -163,17 +161,16 @@ internal data class StructureDefinitionContextSurrogate(
 @Serializable
 internal data class StructureDefinitionSnapshotSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var element: MutableList<ElementDefinition>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
+  public var element: List<ElementDefinition>? = null,
 ) {
   public fun toModel(): StructureDefinition.Snapshot =
     StructureDefinition.Snapshot(
       id = this@StructureDefinitionSnapshotSurrogate.id,
-      extension = this@StructureDefinitionSnapshotSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@StructureDefinitionSnapshotSurrogate.modifierExtension ?: mutableListOf(),
-      element = this@StructureDefinitionSnapshotSurrogate.element ?: mutableListOf(),
+      extension = this@StructureDefinitionSnapshotSurrogate.extension ?: listOf(),
+      modifierExtension = this@StructureDefinitionSnapshotSurrogate.modifierExtension ?: listOf(),
+      element = this@StructureDefinitionSnapshotSurrogate.element ?: listOf(),
     )
 
   public companion object {
@@ -194,17 +191,17 @@ internal data class StructureDefinitionSnapshotSurrogate(
 @Serializable
 internal data class StructureDefinitionDifferentialSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var element: MutableList<ElementDefinition>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
+  public var element: List<ElementDefinition>? = null,
 ) {
   public fun toModel(): StructureDefinition.Differential =
     StructureDefinition.Differential(
       id = this@StructureDefinitionDifferentialSurrogate.id,
-      extension = this@StructureDefinitionDifferentialSurrogate.extension ?: mutableListOf(),
+      extension = this@StructureDefinitionDifferentialSurrogate.extension ?: listOf(),
       modifierExtension =
-        this@StructureDefinitionDifferentialSurrogate.modifierExtension ?: mutableListOf(),
-      element = this@StructureDefinitionDifferentialSurrogate.element ?: mutableListOf(),
+        this@StructureDefinitionDifferentialSurrogate.modifierExtension ?: listOf(),
+      element = this@StructureDefinitionDifferentialSurrogate.element ?: listOf(),
     )
 
   public companion object {
@@ -231,12 +228,12 @@ internal data class StructureDefinitionSurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: MutableList<Resource>? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var contained: List<Resource>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var url: KotlinString? = null,
   public var _url: Element? = null,
-  public var identifier: MutableList<Identifier>? = null,
+  public var identifier: List<Identifier>? = null,
   public var version: KotlinString? = null,
   public var _version: Element? = null,
   public var name: KotlinString? = null,
@@ -251,26 +248,26 @@ internal data class StructureDefinitionSurrogate(
   public var _date: Element? = null,
   public var publisher: KotlinString? = null,
   public var _publisher: Element? = null,
-  public var contact: MutableList<ContactDetail>? = null,
+  public var contact: List<ContactDetail>? = null,
   public var description: KotlinString? = null,
   public var _description: Element? = null,
-  public var useContext: MutableList<UsageContext>? = null,
-  public var jurisdiction: MutableList<CodeableConcept>? = null,
+  public var useContext: List<UsageContext>? = null,
+  public var jurisdiction: List<CodeableConcept>? = null,
   public var purpose: KotlinString? = null,
   public var _purpose: Element? = null,
   public var copyright: KotlinString? = null,
   public var _copyright: Element? = null,
-  public var keyword: MutableList<Coding>? = null,
+  public var keyword: List<Coding>? = null,
   public var fhirVersion: KotlinString? = null,
   public var _fhirVersion: Element? = null,
-  public var mapping: MutableList<StructureDefinition.Mapping>? = null,
+  public var mapping: List<StructureDefinition.Mapping>? = null,
   public var kind: KotlinString? = null,
   public var _kind: Element? = null,
   public var `abstract`: KotlinBoolean? = null,
   public var _abstract: Element? = null,
-  public var context: MutableList<StructureDefinition.Context>? = null,
-  public var contextInvariant: MutableList<KotlinString?>? = null,
-  public var _contextInvariant: MutableList<Element?>? = null,
+  public var context: List<StructureDefinition.Context>? = null,
+  public var contextInvariant: List<KotlinString?>? = null,
+  public var _contextInvariant: List<Element?>? = null,
   public var type: KotlinString? = null,
   public var _type: Element? = null,
   public var baseDefinition: KotlinString? = null,
@@ -295,11 +292,11 @@ internal data class StructureDefinitionSurrogate(
           this@StructureDefinitionSurrogate._language,
         ),
       text = this@StructureDefinitionSurrogate.text,
-      contained = this@StructureDefinitionSurrogate.contained ?: mutableListOf(),
-      extension = this@StructureDefinitionSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@StructureDefinitionSurrogate.modifierExtension ?: mutableListOf(),
+      contained = this@StructureDefinitionSurrogate.contained ?: listOf(),
+      extension = this@StructureDefinitionSurrogate.extension ?: listOf(),
+      modifierExtension = this@StructureDefinitionSurrogate.modifierExtension ?: listOf(),
       url = Uri.of(this@StructureDefinitionSurrogate.url, this@StructureDefinitionSurrogate._url)!!,
-      identifier = this@StructureDefinitionSurrogate.identifier ?: mutableListOf(),
+      identifier = this@StructureDefinitionSurrogate.identifier ?: listOf(),
       version =
         R4String.of(
           this@StructureDefinitionSurrogate.version,
@@ -335,14 +332,14 @@ internal data class StructureDefinitionSurrogate(
           this@StructureDefinitionSurrogate.publisher,
           this@StructureDefinitionSurrogate._publisher,
         ),
-      contact = this@StructureDefinitionSurrogate.contact ?: mutableListOf(),
+      contact = this@StructureDefinitionSurrogate.contact ?: listOf(),
       description =
         Markdown.of(
           this@StructureDefinitionSurrogate.description,
           this@StructureDefinitionSurrogate._description,
         ),
-      useContext = this@StructureDefinitionSurrogate.useContext ?: mutableListOf(),
-      jurisdiction = this@StructureDefinitionSurrogate.jurisdiction ?: mutableListOf(),
+      useContext = this@StructureDefinitionSurrogate.useContext ?: listOf(),
+      jurisdiction = this@StructureDefinitionSurrogate.jurisdiction ?: listOf(),
       purpose =
         Markdown.of(
           this@StructureDefinitionSurrogate.purpose,
@@ -353,12 +350,12 @@ internal data class StructureDefinitionSurrogate(
           this@StructureDefinitionSurrogate.copyright,
           this@StructureDefinitionSurrogate._copyright,
         ),
-      keyword = this@StructureDefinitionSurrogate.keyword ?: mutableListOf(),
+      keyword = this@StructureDefinitionSurrogate.keyword ?: listOf(),
       fhirVersion =
         this@StructureDefinitionSurrogate.fhirVersion?.let {
           Enumeration.of(FHIRVersion.fromCode(it), this@StructureDefinitionSurrogate._fhirVersion)
         },
-      mapping = this@StructureDefinitionSurrogate.mapping ?: mutableListOf(),
+      mapping = this@StructureDefinitionSurrogate.mapping ?: listOf(),
       kind =
         Enumeration.of(
           StructureDefinition.StructureDefinitionKind.fromCode(
@@ -371,13 +368,13 @@ internal data class StructureDefinitionSurrogate(
           this@StructureDefinitionSurrogate.`abstract`,
           this@StructureDefinitionSurrogate._abstract,
         )!!,
-      context = this@StructureDefinitionSurrogate.context ?: mutableListOf(),
+      context = this@StructureDefinitionSurrogate.context ?: listOf(),
       contextInvariant =
         if (
           this@StructureDefinitionSurrogate.contextInvariant == null &&
             this@StructureDefinitionSurrogate._contextInvariant == null
         ) {
-          mutableListOf()
+          listOf()
         } else {
           (this@StructureDefinitionSurrogate.contextInvariant
               ?: List(this@StructureDefinitionSurrogate._contextInvariant!!.size) { null })
@@ -386,7 +383,7 @@ internal data class StructureDefinitionSurrogate(
                 ?: List(this@StructureDefinitionSurrogate.contextInvariant!!.size) { null }
             )
             .map { (value, element) -> R4String.of(value, element)!! }
-            .toMutableList()
+            .toList()
         },
       type =
         Uri.of(this@StructureDefinitionSurrogate.type, this@StructureDefinitionSurrogate._type)!!,
@@ -458,14 +455,14 @@ internal data class StructureDefinitionSurrogate(
           contextInvariant =
             this@with.contextInvariant
               .map { it.value }
-              .toMutableList()
+              .toList()
               .takeUnless { it.all { it == null } },
           _contextInvariant =
             this@with.contextInvariant
               .map { it.toElement() }
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
-              ?.toMutableList(),
+              ?.toList(),
           type = this@with.type.value,
           _type = this@with.type.toElement(),
           baseDefinition = this@with.baseDefinition?.value,

@@ -34,7 +34,7 @@ import com.google.fhir.model.r5.serializers.DoubleSerializer
 import com.google.fhir.model.r5.serializers.LocalTimeSerializer
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
@@ -47,10 +47,10 @@ internal data class FormularyItemSurrogate(
   public var language: String? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: MutableList<Resource>? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var identifier: MutableList<Identifier>? = null,
+  public var contained: List<Resource>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
+  public var identifier: List<Identifier>? = null,
   public var code: CodeableConcept? = null,
   public var status: String? = null,
   public var _status: Element? = null,
@@ -67,10 +67,10 @@ internal data class FormularyItemSurrogate(
       language =
         Code.of(this@FormularyItemSurrogate.language, this@FormularyItemSurrogate._language),
       text = this@FormularyItemSurrogate.text,
-      contained = this@FormularyItemSurrogate.contained ?: mutableListOf(),
-      extension = this@FormularyItemSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@FormularyItemSurrogate.modifierExtension ?: mutableListOf(),
-      identifier = this@FormularyItemSurrogate.identifier ?: mutableListOf(),
+      contained = this@FormularyItemSurrogate.contained ?: listOf(),
+      extension = this@FormularyItemSurrogate.extension ?: listOf(),
+      modifierExtension = this@FormularyItemSurrogate.modifierExtension ?: listOf(),
+      identifier = this@FormularyItemSurrogate.identifier ?: listOf(),
       code = this@FormularyItemSurrogate.code,
       status =
         this@FormularyItemSurrogate.status?.let {

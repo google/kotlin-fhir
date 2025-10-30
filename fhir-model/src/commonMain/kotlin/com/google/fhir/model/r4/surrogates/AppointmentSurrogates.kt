@@ -43,16 +43,16 @@ import com.google.fhir.model.r4.serializers.LocalTimeSerializer
 import kotlin.Int
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class AppointmentParticipantSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var type: MutableList<CodeableConcept>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
+  public var type: List<CodeableConcept>? = null,
   public var actor: Reference? = null,
   public var required: KotlinString? = null,
   public var _required: Element? = null,
@@ -63,9 +63,9 @@ internal data class AppointmentParticipantSurrogate(
   public fun toModel(): Appointment.Participant =
     Appointment.Participant(
       id = this@AppointmentParticipantSurrogate.id,
-      extension = this@AppointmentParticipantSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@AppointmentParticipantSurrogate.modifierExtension ?: mutableListOf(),
-      type = this@AppointmentParticipantSurrogate.type ?: mutableListOf(),
+      extension = this@AppointmentParticipantSurrogate.extension ?: listOf(),
+      modifierExtension = this@AppointmentParticipantSurrogate.modifierExtension ?: listOf(),
+      type = this@AppointmentParticipantSurrogate.type ?: listOf(),
       actor = this@AppointmentParticipantSurrogate.actor,
       required =
         this@AppointmentParticipantSurrogate.required?.let {
@@ -110,40 +110,40 @@ internal data class AppointmentSurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: MutableList<Resource>? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var identifier: MutableList<Identifier>? = null,
+  public var contained: List<Resource>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
+  public var identifier: List<Identifier>? = null,
   public var status: KotlinString? = null,
   public var _status: Element? = null,
   public var cancelationReason: CodeableConcept? = null,
-  public var serviceCategory: MutableList<CodeableConcept>? = null,
-  public var serviceType: MutableList<CodeableConcept>? = null,
-  public var specialty: MutableList<CodeableConcept>? = null,
+  public var serviceCategory: List<CodeableConcept>? = null,
+  public var serviceType: List<CodeableConcept>? = null,
+  public var specialty: List<CodeableConcept>? = null,
   public var appointmentType: CodeableConcept? = null,
-  public var reasonCode: MutableList<CodeableConcept>? = null,
-  public var reasonReference: MutableList<Reference>? = null,
+  public var reasonCode: List<CodeableConcept>? = null,
+  public var reasonReference: List<Reference>? = null,
   public var priority: Int? = null,
   public var _priority: Element? = null,
   public var description: KotlinString? = null,
   public var _description: Element? = null,
-  public var supportingInformation: MutableList<Reference>? = null,
+  public var supportingInformation: List<Reference>? = null,
   public var start: KotlinString? = null,
   public var _start: Element? = null,
   public var end: KotlinString? = null,
   public var _end: Element? = null,
   public var minutesDuration: Int? = null,
   public var _minutesDuration: Element? = null,
-  public var slot: MutableList<Reference>? = null,
+  public var slot: List<Reference>? = null,
   public var created: KotlinString? = null,
   public var _created: Element? = null,
   public var comment: KotlinString? = null,
   public var _comment: Element? = null,
   public var patientInstruction: KotlinString? = null,
   public var _patientInstruction: Element? = null,
-  public var basedOn: MutableList<Reference>? = null,
-  public var participant: MutableList<Appointment.Participant>? = null,
-  public var requestedPeriod: MutableList<Period>? = null,
+  public var basedOn: List<Reference>? = null,
+  public var participant: List<Appointment.Participant>? = null,
+  public var requestedPeriod: List<Period>? = null,
 ) {
   public fun toModel(): Appointment =
     Appointment(
@@ -153,27 +153,27 @@ internal data class AppointmentSurrogate(
         Uri.of(this@AppointmentSurrogate.implicitRules, this@AppointmentSurrogate._implicitRules),
       language = Code.of(this@AppointmentSurrogate.language, this@AppointmentSurrogate._language),
       text = this@AppointmentSurrogate.text,
-      contained = this@AppointmentSurrogate.contained ?: mutableListOf(),
-      extension = this@AppointmentSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@AppointmentSurrogate.modifierExtension ?: mutableListOf(),
-      identifier = this@AppointmentSurrogate.identifier ?: mutableListOf(),
+      contained = this@AppointmentSurrogate.contained ?: listOf(),
+      extension = this@AppointmentSurrogate.extension ?: listOf(),
+      modifierExtension = this@AppointmentSurrogate.modifierExtension ?: listOf(),
+      identifier = this@AppointmentSurrogate.identifier ?: listOf(),
       status =
         Enumeration.of(
           Appointment.AppointmentStatus.fromCode(this@AppointmentSurrogate.status!!),
           this@AppointmentSurrogate._status,
         ),
       cancelationReason = this@AppointmentSurrogate.cancelationReason,
-      serviceCategory = this@AppointmentSurrogate.serviceCategory ?: mutableListOf(),
-      serviceType = this@AppointmentSurrogate.serviceType ?: mutableListOf(),
-      specialty = this@AppointmentSurrogate.specialty ?: mutableListOf(),
+      serviceCategory = this@AppointmentSurrogate.serviceCategory ?: listOf(),
+      serviceType = this@AppointmentSurrogate.serviceType ?: listOf(),
+      specialty = this@AppointmentSurrogate.specialty ?: listOf(),
       appointmentType = this@AppointmentSurrogate.appointmentType,
-      reasonCode = this@AppointmentSurrogate.reasonCode ?: mutableListOf(),
-      reasonReference = this@AppointmentSurrogate.reasonReference ?: mutableListOf(),
+      reasonCode = this@AppointmentSurrogate.reasonCode ?: listOf(),
+      reasonReference = this@AppointmentSurrogate.reasonReference ?: listOf(),
       priority =
         UnsignedInt.of(this@AppointmentSurrogate.priority, this@AppointmentSurrogate._priority),
       description =
         R4String.of(this@AppointmentSurrogate.description, this@AppointmentSurrogate._description),
-      supportingInformation = this@AppointmentSurrogate.supportingInformation ?: mutableListOf(),
+      supportingInformation = this@AppointmentSurrogate.supportingInformation ?: listOf(),
       start =
         Instant.of(
           FhirDateTime.fromString(this@AppointmentSurrogate.start),
@@ -189,7 +189,7 @@ internal data class AppointmentSurrogate(
           this@AppointmentSurrogate.minutesDuration,
           this@AppointmentSurrogate._minutesDuration,
         ),
-      slot = this@AppointmentSurrogate.slot ?: mutableListOf(),
+      slot = this@AppointmentSurrogate.slot ?: listOf(),
       created =
         DateTime.of(
           FhirDateTime.fromString(this@AppointmentSurrogate.created),
@@ -201,9 +201,9 @@ internal data class AppointmentSurrogate(
           this@AppointmentSurrogate.patientInstruction,
           this@AppointmentSurrogate._patientInstruction,
         ),
-      basedOn = this@AppointmentSurrogate.basedOn ?: mutableListOf(),
-      participant = this@AppointmentSurrogate.participant ?: mutableListOf(),
-      requestedPeriod = this@AppointmentSurrogate.requestedPeriod ?: mutableListOf(),
+      basedOn = this@AppointmentSurrogate.basedOn ?: listOf(),
+      participant = this@AppointmentSurrogate.participant ?: listOf(),
+      requestedPeriod = this@AppointmentSurrogate.requestedPeriod ?: listOf(),
     )
 
   public companion object {

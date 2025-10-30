@@ -39,25 +39,24 @@ import com.google.fhir.model.r4.serializers.DoubleSerializer
 import com.google.fhir.model.r4.serializers.LocalTimeSerializer
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class MedicinalProductPackagedBatchIdentifierSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var outerPackaging: Identifier,
   public var immediatePackaging: Identifier? = null,
 ) {
   public fun toModel(): MedicinalProductPackaged.BatchIdentifier =
     MedicinalProductPackaged.BatchIdentifier(
       id = this@MedicinalProductPackagedBatchIdentifierSurrogate.id,
-      extension =
-        this@MedicinalProductPackagedBatchIdentifierSurrogate.extension ?: mutableListOf(),
+      extension = this@MedicinalProductPackagedBatchIdentifierSurrogate.extension ?: listOf(),
       modifierExtension =
-        this@MedicinalProductPackagedBatchIdentifierSurrogate.modifierExtension ?: mutableListOf(),
+        this@MedicinalProductPackagedBatchIdentifierSurrogate.modifierExtension ?: listOf(),
       outerPackaging = this@MedicinalProductPackagedBatchIdentifierSurrogate.outerPackaging,
       immediatePackaging = this@MedicinalProductPackagedBatchIdentifierSurrogate.immediatePackaging,
     )
@@ -81,46 +80,44 @@ internal data class MedicinalProductPackagedBatchIdentifierSurrogate(
 @Serializable
 internal data class MedicinalProductPackagedPackageItemSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var identifier: MutableList<Identifier>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
+  public var identifier: List<Identifier>? = null,
   public var type: CodeableConcept,
   public var quantity: Quantity,
-  public var material: MutableList<CodeableConcept>? = null,
-  public var alternateMaterial: MutableList<CodeableConcept>? = null,
-  public var device: MutableList<Reference>? = null,
-  public var manufacturedItem: MutableList<Reference>? = null,
-  public var packageItem: MutableList<MedicinalProductPackaged.PackageItem>? = null,
+  public var material: List<CodeableConcept>? = null,
+  public var alternateMaterial: List<CodeableConcept>? = null,
+  public var device: List<Reference>? = null,
+  public var manufacturedItem: List<Reference>? = null,
+  public var packageItem: List<MedicinalProductPackaged.PackageItem>? = null,
   public var physicalCharacteristics: ProdCharacteristic? = null,
-  public var otherCharacteristics: MutableList<CodeableConcept>? = null,
-  public var shelfLifeStorage: MutableList<ProductShelfLife>? = null,
-  public var manufacturer: MutableList<Reference>? = null,
+  public var otherCharacteristics: List<CodeableConcept>? = null,
+  public var shelfLifeStorage: List<ProductShelfLife>? = null,
+  public var manufacturer: List<Reference>? = null,
 ) {
   public fun toModel(): MedicinalProductPackaged.PackageItem =
     MedicinalProductPackaged.PackageItem(
       id = this@MedicinalProductPackagedPackageItemSurrogate.id,
-      extension = this@MedicinalProductPackagedPackageItemSurrogate.extension ?: mutableListOf(),
+      extension = this@MedicinalProductPackagedPackageItemSurrogate.extension ?: listOf(),
       modifierExtension =
-        this@MedicinalProductPackagedPackageItemSurrogate.modifierExtension ?: mutableListOf(),
-      identifier = this@MedicinalProductPackagedPackageItemSurrogate.identifier ?: mutableListOf(),
+        this@MedicinalProductPackagedPackageItemSurrogate.modifierExtension ?: listOf(),
+      identifier = this@MedicinalProductPackagedPackageItemSurrogate.identifier ?: listOf(),
       type = this@MedicinalProductPackagedPackageItemSurrogate.type,
       quantity = this@MedicinalProductPackagedPackageItemSurrogate.quantity,
-      material = this@MedicinalProductPackagedPackageItemSurrogate.material ?: mutableListOf(),
+      material = this@MedicinalProductPackagedPackageItemSurrogate.material ?: listOf(),
       alternateMaterial =
-        this@MedicinalProductPackagedPackageItemSurrogate.alternateMaterial ?: mutableListOf(),
-      device = this@MedicinalProductPackagedPackageItemSurrogate.device ?: mutableListOf(),
+        this@MedicinalProductPackagedPackageItemSurrogate.alternateMaterial ?: listOf(),
+      device = this@MedicinalProductPackagedPackageItemSurrogate.device ?: listOf(),
       manufacturedItem =
-        this@MedicinalProductPackagedPackageItemSurrogate.manufacturedItem ?: mutableListOf(),
-      packageItem =
-        this@MedicinalProductPackagedPackageItemSurrogate.packageItem ?: mutableListOf(),
+        this@MedicinalProductPackagedPackageItemSurrogate.manufacturedItem ?: listOf(),
+      packageItem = this@MedicinalProductPackagedPackageItemSurrogate.packageItem ?: listOf(),
       physicalCharacteristics =
         this@MedicinalProductPackagedPackageItemSurrogate.physicalCharacteristics,
       otherCharacteristics =
-        this@MedicinalProductPackagedPackageItemSurrogate.otherCharacteristics ?: mutableListOf(),
+        this@MedicinalProductPackagedPackageItemSurrogate.otherCharacteristics ?: listOf(),
       shelfLifeStorage =
-        this@MedicinalProductPackagedPackageItemSurrogate.shelfLifeStorage ?: mutableListOf(),
-      manufacturer =
-        this@MedicinalProductPackagedPackageItemSurrogate.manufacturer ?: mutableListOf(),
+        this@MedicinalProductPackagedPackageItemSurrogate.shelfLifeStorage ?: listOf(),
+      manufacturer = this@MedicinalProductPackagedPackageItemSurrogate.manufacturer ?: listOf(),
     )
 
   public companion object {
@@ -158,19 +155,19 @@ internal data class MedicinalProductPackagedSurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: MutableList<Resource>? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var identifier: MutableList<Identifier>? = null,
-  public var subject: MutableList<Reference>? = null,
+  public var contained: List<Resource>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
+  public var identifier: List<Identifier>? = null,
+  public var subject: List<Reference>? = null,
   public var description: KotlinString? = null,
   public var _description: Element? = null,
   public var legalStatusOfSupply: CodeableConcept? = null,
-  public var marketingStatus: MutableList<MarketingStatus>? = null,
+  public var marketingStatus: List<MarketingStatus>? = null,
   public var marketingAuthorization: Reference? = null,
-  public var manufacturer: MutableList<Reference>? = null,
-  public var batchIdentifier: MutableList<MedicinalProductPackaged.BatchIdentifier>? = null,
-  public var packageItem: MutableList<MedicinalProductPackaged.PackageItem>? = null,
+  public var manufacturer: List<Reference>? = null,
+  public var batchIdentifier: List<MedicinalProductPackaged.BatchIdentifier>? = null,
+  public var packageItem: List<MedicinalProductPackaged.PackageItem>? = null,
 ) {
   public fun toModel(): MedicinalProductPackaged =
     MedicinalProductPackaged(
@@ -187,23 +184,22 @@ internal data class MedicinalProductPackagedSurrogate(
           this@MedicinalProductPackagedSurrogate._language,
         ),
       text = this@MedicinalProductPackagedSurrogate.text,
-      contained = this@MedicinalProductPackagedSurrogate.contained ?: mutableListOf(),
-      extension = this@MedicinalProductPackagedSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@MedicinalProductPackagedSurrogate.modifierExtension ?: mutableListOf(),
-      identifier = this@MedicinalProductPackagedSurrogate.identifier ?: mutableListOf(),
-      subject = this@MedicinalProductPackagedSurrogate.subject ?: mutableListOf(),
+      contained = this@MedicinalProductPackagedSurrogate.contained ?: listOf(),
+      extension = this@MedicinalProductPackagedSurrogate.extension ?: listOf(),
+      modifierExtension = this@MedicinalProductPackagedSurrogate.modifierExtension ?: listOf(),
+      identifier = this@MedicinalProductPackagedSurrogate.identifier ?: listOf(),
+      subject = this@MedicinalProductPackagedSurrogate.subject ?: listOf(),
       description =
         R4String.of(
           this@MedicinalProductPackagedSurrogate.description,
           this@MedicinalProductPackagedSurrogate._description,
         ),
       legalStatusOfSupply = this@MedicinalProductPackagedSurrogate.legalStatusOfSupply,
-      marketingStatus = this@MedicinalProductPackagedSurrogate.marketingStatus ?: mutableListOf(),
+      marketingStatus = this@MedicinalProductPackagedSurrogate.marketingStatus ?: listOf(),
       marketingAuthorization = this@MedicinalProductPackagedSurrogate.marketingAuthorization,
-      manufacturer = this@MedicinalProductPackagedSurrogate.manufacturer ?: mutableListOf(),
-      batchIdentifier = this@MedicinalProductPackagedSurrogate.batchIdentifier ?: mutableListOf(),
-      packageItem = this@MedicinalProductPackagedSurrogate.packageItem ?: mutableListOf(),
+      manufacturer = this@MedicinalProductPackagedSurrogate.manufacturer ?: listOf(),
+      batchIdentifier = this@MedicinalProductPackagedSurrogate.batchIdentifier ?: listOf(),
+      packageItem = this@MedicinalProductPackagedSurrogate.packageItem ?: listOf(),
     )
 
   public companion object {

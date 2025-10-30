@@ -32,14 +32,14 @@ import com.google.fhir.model.r5.serializers.DoubleSerializer
 import com.google.fhir.model.r5.serializers.LocalTimeSerializer
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class IdentifierSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
   public var use: KotlinString? = null,
   public var _use: Element? = null,
   public var type: CodeableConcept? = null,
@@ -53,7 +53,7 @@ internal data class IdentifierSurrogate(
   public fun toModel(): Identifier =
     Identifier(
       id = this@IdentifierSurrogate.id,
-      extension = this@IdentifierSurrogate.extension ?: mutableListOf(),
+      extension = this@IdentifierSurrogate.extension ?: listOf(),
       use =
         this@IdentifierSurrogate.use?.let {
           Enumeration.of(Identifier.IdentifierUse.fromCode(it), this@IdentifierSurrogate._use)

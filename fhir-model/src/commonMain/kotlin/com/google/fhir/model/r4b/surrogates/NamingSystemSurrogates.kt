@@ -43,15 +43,15 @@ import com.google.fhir.model.r4b.terminologies.PublicationStatus
 import kotlin.Boolean as KotlinBoolean
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class NamingSystemUniqueIdSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var type: KotlinString? = null,
   public var _type: Element? = null,
   public var `value`: KotlinString? = null,
@@ -65,8 +65,8 @@ internal data class NamingSystemUniqueIdSurrogate(
   public fun toModel(): NamingSystem.UniqueId =
     NamingSystem.UniqueId(
       id = this@NamingSystemUniqueIdSurrogate.id,
-      extension = this@NamingSystemUniqueIdSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@NamingSystemUniqueIdSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@NamingSystemUniqueIdSurrogate.extension ?: listOf(),
+      modifierExtension = this@NamingSystemUniqueIdSurrogate.modifierExtension ?: listOf(),
       type =
         Enumeration.of(
           NamingSystem.NamingSystemIdentifierType.fromCode(
@@ -122,9 +122,9 @@ internal data class NamingSystemSurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: MutableList<Resource>? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var contained: List<Resource>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var name: KotlinString? = null,
   public var _name: Element? = null,
   public var status: KotlinString? = null,
@@ -135,17 +135,17 @@ internal data class NamingSystemSurrogate(
   public var _date: Element? = null,
   public var publisher: KotlinString? = null,
   public var _publisher: Element? = null,
-  public var contact: MutableList<ContactDetail>? = null,
+  public var contact: List<ContactDetail>? = null,
   public var responsible: KotlinString? = null,
   public var _responsible: Element? = null,
   public var type: CodeableConcept? = null,
   public var description: KotlinString? = null,
   public var _description: Element? = null,
-  public var useContext: MutableList<UsageContext>? = null,
-  public var jurisdiction: MutableList<CodeableConcept>? = null,
+  public var useContext: List<UsageContext>? = null,
+  public var jurisdiction: List<CodeableConcept>? = null,
   public var usage: KotlinString? = null,
   public var _usage: Element? = null,
-  public var uniqueId: MutableList<NamingSystem.UniqueId>? = null,
+  public var uniqueId: List<NamingSystem.UniqueId>? = null,
 ) {
   public fun toModel(): NamingSystem =
     NamingSystem(
@@ -155,9 +155,9 @@ internal data class NamingSystemSurrogate(
         Uri.of(this@NamingSystemSurrogate.implicitRules, this@NamingSystemSurrogate._implicitRules),
       language = Code.of(this@NamingSystemSurrogate.language, this@NamingSystemSurrogate._language),
       text = this@NamingSystemSurrogate.text,
-      contained = this@NamingSystemSurrogate.contained ?: mutableListOf(),
-      extension = this@NamingSystemSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@NamingSystemSurrogate.modifierExtension ?: mutableListOf(),
+      contained = this@NamingSystemSurrogate.contained ?: listOf(),
+      extension = this@NamingSystemSurrogate.extension ?: listOf(),
+      modifierExtension = this@NamingSystemSurrogate.modifierExtension ?: listOf(),
       name = R4bString.of(this@NamingSystemSurrogate.name, this@NamingSystemSurrogate._name)!!,
       status =
         Enumeration.of(
@@ -176,7 +176,7 @@ internal data class NamingSystemSurrogate(
         )!!,
       publisher =
         R4bString.of(this@NamingSystemSurrogate.publisher, this@NamingSystemSurrogate._publisher),
-      contact = this@NamingSystemSurrogate.contact ?: mutableListOf(),
+      contact = this@NamingSystemSurrogate.contact ?: listOf(),
       responsible =
         R4bString.of(
           this@NamingSystemSurrogate.responsible,
@@ -188,10 +188,10 @@ internal data class NamingSystemSurrogate(
           this@NamingSystemSurrogate.description,
           this@NamingSystemSurrogate._description,
         ),
-      useContext = this@NamingSystemSurrogate.useContext ?: mutableListOf(),
-      jurisdiction = this@NamingSystemSurrogate.jurisdiction ?: mutableListOf(),
+      useContext = this@NamingSystemSurrogate.useContext ?: listOf(),
+      jurisdiction = this@NamingSystemSurrogate.jurisdiction ?: listOf(),
       usage = R4bString.of(this@NamingSystemSurrogate.usage, this@NamingSystemSurrogate._usage),
-      uniqueId = this@NamingSystemSurrogate.uniqueId ?: mutableListOf(),
+      uniqueId = this@NamingSystemSurrogate.uniqueId ?: listOf(),
     )
 
   public companion object {

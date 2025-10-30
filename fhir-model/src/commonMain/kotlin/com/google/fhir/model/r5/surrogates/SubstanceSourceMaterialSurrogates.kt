@@ -34,15 +34,15 @@ import com.google.fhir.model.r5.serializers.DoubleSerializer
 import com.google.fhir.model.r5.serializers.LocalTimeSerializer
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class SubstanceSourceMaterialFractionDescriptionSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var fraction: KotlinString? = null,
   public var _fraction: Element? = null,
   public var materialType: CodeableConcept? = null,
@@ -50,11 +50,9 @@ internal data class SubstanceSourceMaterialFractionDescriptionSurrogate(
   public fun toModel(): SubstanceSourceMaterial.FractionDescription =
     SubstanceSourceMaterial.FractionDescription(
       id = this@SubstanceSourceMaterialFractionDescriptionSurrogate.id,
-      extension =
-        this@SubstanceSourceMaterialFractionDescriptionSurrogate.extension ?: mutableListOf(),
+      extension = this@SubstanceSourceMaterialFractionDescriptionSurrogate.extension ?: listOf(),
       modifierExtension =
-        this@SubstanceSourceMaterialFractionDescriptionSurrogate.modifierExtension
-          ?: mutableListOf(),
+        this@SubstanceSourceMaterialFractionDescriptionSurrogate.modifierExtension ?: listOf(),
       fraction =
         R5String.of(
           this@SubstanceSourceMaterialFractionDescriptionSurrogate.fraction,
@@ -83,24 +81,24 @@ internal data class SubstanceSourceMaterialFractionDescriptionSurrogate(
 @Serializable
 internal data class SubstanceSourceMaterialOrganismSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var family: CodeableConcept? = null,
   public var genus: CodeableConcept? = null,
   public var species: CodeableConcept? = null,
   public var intraspecificType: CodeableConcept? = null,
   public var intraspecificDescription: KotlinString? = null,
   public var _intraspecificDescription: Element? = null,
-  public var author: MutableList<SubstanceSourceMaterial.Organism.Author>? = null,
+  public var author: List<SubstanceSourceMaterial.Organism.Author>? = null,
   public var hybrid: SubstanceSourceMaterial.Organism.Hybrid? = null,
   public var organismGeneral: SubstanceSourceMaterial.Organism.OrganismGeneral? = null,
 ) {
   public fun toModel(): SubstanceSourceMaterial.Organism =
     SubstanceSourceMaterial.Organism(
       id = this@SubstanceSourceMaterialOrganismSurrogate.id,
-      extension = this@SubstanceSourceMaterialOrganismSurrogate.extension ?: mutableListOf(),
+      extension = this@SubstanceSourceMaterialOrganismSurrogate.extension ?: listOf(),
       modifierExtension =
-        this@SubstanceSourceMaterialOrganismSurrogate.modifierExtension ?: mutableListOf(),
+        this@SubstanceSourceMaterialOrganismSurrogate.modifierExtension ?: listOf(),
       family = this@SubstanceSourceMaterialOrganismSurrogate.family,
       genus = this@SubstanceSourceMaterialOrganismSurrogate.genus,
       species = this@SubstanceSourceMaterialOrganismSurrogate.species,
@@ -110,7 +108,7 @@ internal data class SubstanceSourceMaterialOrganismSurrogate(
           this@SubstanceSourceMaterialOrganismSurrogate.intraspecificDescription,
           this@SubstanceSourceMaterialOrganismSurrogate._intraspecificDescription,
         ),
-      author = this@SubstanceSourceMaterialOrganismSurrogate.author ?: mutableListOf(),
+      author = this@SubstanceSourceMaterialOrganismSurrogate.author ?: listOf(),
       hybrid = this@SubstanceSourceMaterialOrganismSurrogate.hybrid,
       organismGeneral = this@SubstanceSourceMaterialOrganismSurrogate.organismGeneral,
     )
@@ -141,8 +139,8 @@ internal data class SubstanceSourceMaterialOrganismSurrogate(
 @Serializable
 internal data class SubstanceSourceMaterialOrganismAuthorSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var authorType: CodeableConcept? = null,
   public var authorDescription: KotlinString? = null,
   public var _authorDescription: Element? = null,
@@ -150,9 +148,9 @@ internal data class SubstanceSourceMaterialOrganismAuthorSurrogate(
   public fun toModel(): SubstanceSourceMaterial.Organism.Author =
     SubstanceSourceMaterial.Organism.Author(
       id = this@SubstanceSourceMaterialOrganismAuthorSurrogate.id,
-      extension = this@SubstanceSourceMaterialOrganismAuthorSurrogate.extension ?: mutableListOf(),
+      extension = this@SubstanceSourceMaterialOrganismAuthorSurrogate.extension ?: listOf(),
       modifierExtension =
-        this@SubstanceSourceMaterialOrganismAuthorSurrogate.modifierExtension ?: mutableListOf(),
+        this@SubstanceSourceMaterialOrganismAuthorSurrogate.modifierExtension ?: listOf(),
       authorType = this@SubstanceSourceMaterialOrganismAuthorSurrogate.authorType,
       authorDescription =
         R5String.of(
@@ -181,8 +179,8 @@ internal data class SubstanceSourceMaterialOrganismAuthorSurrogate(
 @Serializable
 internal data class SubstanceSourceMaterialOrganismHybridSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var maternalOrganismId: KotlinString? = null,
   public var _maternalOrganismId: Element? = null,
   public var maternalOrganismName: KotlinString? = null,
@@ -196,9 +194,9 @@ internal data class SubstanceSourceMaterialOrganismHybridSurrogate(
   public fun toModel(): SubstanceSourceMaterial.Organism.Hybrid =
     SubstanceSourceMaterial.Organism.Hybrid(
       id = this@SubstanceSourceMaterialOrganismHybridSurrogate.id,
-      extension = this@SubstanceSourceMaterialOrganismHybridSurrogate.extension ?: mutableListOf(),
+      extension = this@SubstanceSourceMaterialOrganismHybridSurrogate.extension ?: listOf(),
       modifierExtension =
-        this@SubstanceSourceMaterialOrganismHybridSurrogate.modifierExtension ?: mutableListOf(),
+        this@SubstanceSourceMaterialOrganismHybridSurrogate.modifierExtension ?: listOf(),
       maternalOrganismId =
         R5String.of(
           this@SubstanceSourceMaterialOrganismHybridSurrogate.maternalOrganismId,
@@ -248,8 +246,8 @@ internal data class SubstanceSourceMaterialOrganismHybridSurrogate(
 @Serializable
 internal data class SubstanceSourceMaterialOrganismOrganismGeneralSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var kingdom: CodeableConcept? = null,
   public var phylum: CodeableConcept? = null,
   public var `class`: CodeableConcept? = null,
@@ -259,10 +257,9 @@ internal data class SubstanceSourceMaterialOrganismOrganismGeneralSurrogate(
     SubstanceSourceMaterial.Organism.OrganismGeneral(
       id = this@SubstanceSourceMaterialOrganismOrganismGeneralSurrogate.id,
       extension =
-        this@SubstanceSourceMaterialOrganismOrganismGeneralSurrogate.extension ?: mutableListOf(),
+        this@SubstanceSourceMaterialOrganismOrganismGeneralSurrogate.extension ?: listOf(),
       modifierExtension =
-        this@SubstanceSourceMaterialOrganismOrganismGeneralSurrogate.modifierExtension
-          ?: mutableListOf(),
+        this@SubstanceSourceMaterialOrganismOrganismGeneralSurrogate.modifierExtension ?: listOf(),
       kingdom = this@SubstanceSourceMaterialOrganismOrganismGeneralSurrogate.kingdom,
       phylum = this@SubstanceSourceMaterialOrganismOrganismGeneralSurrogate.phylum,
       `class` = this@SubstanceSourceMaterialOrganismOrganismGeneralSurrogate.`class`,
@@ -290,17 +287,17 @@ internal data class SubstanceSourceMaterialOrganismOrganismGeneralSurrogate(
 @Serializable
 internal data class SubstanceSourceMaterialPartDescriptionSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var part: CodeableConcept? = null,
   public var partLocation: CodeableConcept? = null,
 ) {
   public fun toModel(): SubstanceSourceMaterial.PartDescription =
     SubstanceSourceMaterial.PartDescription(
       id = this@SubstanceSourceMaterialPartDescriptionSurrogate.id,
-      extension = this@SubstanceSourceMaterialPartDescriptionSurrogate.extension ?: mutableListOf(),
+      extension = this@SubstanceSourceMaterialPartDescriptionSurrogate.extension ?: listOf(),
       modifierExtension =
-        this@SubstanceSourceMaterialPartDescriptionSurrogate.modifierExtension ?: mutableListOf(),
+        this@SubstanceSourceMaterialPartDescriptionSurrogate.modifierExtension ?: listOf(),
       part = this@SubstanceSourceMaterialPartDescriptionSurrogate.part,
       partLocation = this@SubstanceSourceMaterialPartDescriptionSurrogate.partLocation,
     )
@@ -330,25 +327,25 @@ internal data class SubstanceSourceMaterialSurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: MutableList<Resource>? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var contained: List<Resource>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var sourceMaterialClass: CodeableConcept? = null,
   public var sourceMaterialType: CodeableConcept? = null,
   public var sourceMaterialState: CodeableConcept? = null,
   public var organismId: Identifier? = null,
   public var organismName: KotlinString? = null,
   public var _organismName: Element? = null,
-  public var parentSubstanceId: MutableList<Identifier>? = null,
-  public var parentSubstanceName: MutableList<KotlinString?>? = null,
-  public var _parentSubstanceName: MutableList<Element?>? = null,
-  public var countryOfOrigin: MutableList<CodeableConcept>? = null,
-  public var geographicalLocation: MutableList<KotlinString?>? = null,
-  public var _geographicalLocation: MutableList<Element?>? = null,
+  public var parentSubstanceId: List<Identifier>? = null,
+  public var parentSubstanceName: List<KotlinString?>? = null,
+  public var _parentSubstanceName: List<Element?>? = null,
+  public var countryOfOrigin: List<CodeableConcept>? = null,
+  public var geographicalLocation: List<KotlinString?>? = null,
+  public var _geographicalLocation: List<Element?>? = null,
   public var developmentStage: CodeableConcept? = null,
-  public var fractionDescription: MutableList<SubstanceSourceMaterial.FractionDescription>? = null,
+  public var fractionDescription: List<SubstanceSourceMaterial.FractionDescription>? = null,
   public var organism: SubstanceSourceMaterial.Organism? = null,
-  public var partDescription: MutableList<SubstanceSourceMaterial.PartDescription>? = null,
+  public var partDescription: List<SubstanceSourceMaterial.PartDescription>? = null,
 ) {
   public fun toModel(): SubstanceSourceMaterial =
     SubstanceSourceMaterial(
@@ -365,10 +362,9 @@ internal data class SubstanceSourceMaterialSurrogate(
           this@SubstanceSourceMaterialSurrogate._language,
         ),
       text = this@SubstanceSourceMaterialSurrogate.text,
-      contained = this@SubstanceSourceMaterialSurrogate.contained ?: mutableListOf(),
-      extension = this@SubstanceSourceMaterialSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@SubstanceSourceMaterialSurrogate.modifierExtension ?: mutableListOf(),
+      contained = this@SubstanceSourceMaterialSurrogate.contained ?: listOf(),
+      extension = this@SubstanceSourceMaterialSurrogate.extension ?: listOf(),
+      modifierExtension = this@SubstanceSourceMaterialSurrogate.modifierExtension ?: listOf(),
       sourceMaterialClass = this@SubstanceSourceMaterialSurrogate.sourceMaterialClass,
       sourceMaterialType = this@SubstanceSourceMaterialSurrogate.sourceMaterialType,
       sourceMaterialState = this@SubstanceSourceMaterialSurrogate.sourceMaterialState,
@@ -378,14 +374,13 @@ internal data class SubstanceSourceMaterialSurrogate(
           this@SubstanceSourceMaterialSurrogate.organismName,
           this@SubstanceSourceMaterialSurrogate._organismName,
         ),
-      parentSubstanceId =
-        this@SubstanceSourceMaterialSurrogate.parentSubstanceId ?: mutableListOf(),
+      parentSubstanceId = this@SubstanceSourceMaterialSurrogate.parentSubstanceId ?: listOf(),
       parentSubstanceName =
         if (
           this@SubstanceSourceMaterialSurrogate.parentSubstanceName == null &&
             this@SubstanceSourceMaterialSurrogate._parentSubstanceName == null
         ) {
-          mutableListOf()
+          listOf()
         } else {
           (this@SubstanceSourceMaterialSurrogate.parentSubstanceName
               ?: List(this@SubstanceSourceMaterialSurrogate._parentSubstanceName!!.size) { null })
@@ -394,15 +389,15 @@ internal data class SubstanceSourceMaterialSurrogate(
                 ?: List(this@SubstanceSourceMaterialSurrogate.parentSubstanceName!!.size) { null }
             )
             .map { (value, element) -> R5String.of(value, element)!! }
-            .toMutableList()
+            .toList()
         },
-      countryOfOrigin = this@SubstanceSourceMaterialSurrogate.countryOfOrigin ?: mutableListOf(),
+      countryOfOrigin = this@SubstanceSourceMaterialSurrogate.countryOfOrigin ?: listOf(),
       geographicalLocation =
         if (
           this@SubstanceSourceMaterialSurrogate.geographicalLocation == null &&
             this@SubstanceSourceMaterialSurrogate._geographicalLocation == null
         ) {
-          mutableListOf()
+          listOf()
         } else {
           (this@SubstanceSourceMaterialSurrogate.geographicalLocation
               ?: List(this@SubstanceSourceMaterialSurrogate._geographicalLocation!!.size) { null })
@@ -411,13 +406,12 @@ internal data class SubstanceSourceMaterialSurrogate(
                 ?: List(this@SubstanceSourceMaterialSurrogate.geographicalLocation!!.size) { null }
             )
             .map { (value, element) -> R5String.of(value, element)!! }
-            .toMutableList()
+            .toList()
         },
       developmentStage = this@SubstanceSourceMaterialSurrogate.developmentStage,
-      fractionDescription =
-        this@SubstanceSourceMaterialSurrogate.fractionDescription ?: mutableListOf(),
+      fractionDescription = this@SubstanceSourceMaterialSurrogate.fractionDescription ?: listOf(),
       organism = this@SubstanceSourceMaterialSurrogate.organism,
-      partDescription = this@SubstanceSourceMaterialSurrogate.partDescription ?: mutableListOf(),
+      partDescription = this@SubstanceSourceMaterialSurrogate.partDescription ?: listOf(),
     )
 
   public companion object {
@@ -444,26 +438,26 @@ internal data class SubstanceSourceMaterialSurrogate(
           parentSubstanceName =
             this@with.parentSubstanceName
               .map { it.value }
-              .toMutableList()
+              .toList()
               .takeUnless { it.all { it == null } },
           _parentSubstanceName =
             this@with.parentSubstanceName
               .map { it.toElement() }
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
-              ?.toMutableList(),
+              ?.toList(),
           countryOfOrigin = this@with.countryOfOrigin.takeIf { it.isNotEmpty() },
           geographicalLocation =
             this@with.geographicalLocation
               .map { it.value }
-              .toMutableList()
+              .toList()
               .takeUnless { it.all { it == null } },
           _geographicalLocation =
             this@with.geographicalLocation
               .map { it.toElement() }
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
-              ?.toMutableList(),
+              ?.toList(),
           developmentStage = this@with.developmentStage,
           fractionDescription = this@with.fractionDescription.takeIf { it.isNotEmpty() },
           organism = this@with.organism,

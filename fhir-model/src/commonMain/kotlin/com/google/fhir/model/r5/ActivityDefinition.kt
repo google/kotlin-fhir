@@ -29,7 +29,7 @@ import com.google.fhir.model.r5.serializers.ActivityDefinitionVersionAlgorithmSe
 import com.google.fhir.model.r5.terminologies.PublicationStatus
 import com.google.fhir.model.r5.terminologies.RequestResourceTypes
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -48,12 +48,12 @@ public data class ActivityDefinition(
    * like the create and conditional update. Otherwise, the use of the resouce id depends on the
    * given use case.
    */
-  override var id: kotlin.String? = null,
+  override val id: kotlin.String? = null,
   /**
    * The metadata about the resource. This is content that is maintained by the infrastructure.
    * Changes to the content might not always be associated with version changes to the resource.
    */
-  override var meta: Meta? = null,
+  override val meta: Meta? = null,
   /**
    * A reference to a set of rules that were followed when the resource was constructed, and which
    * must be understood when processing the content. Often, this is a reference to an implementation
@@ -67,7 +67,7 @@ public data class ActivityDefinition(
    * to an implementation guide that defines these special rules as part of its narrative along with
    * other profiles, value sets, etc.
    */
-  override var implicitRules: Uri? = null,
+  override val implicitRules: Uri? = null,
   /**
    * The base language in which the resource is written.
    *
@@ -79,7 +79,7 @@ public data class ActivityDefinition(
    * language is specified, it should it also be specified on the div element in the html (see rules
    * in HTML5 for information about the relationship between xml:lang and the html lang attribute).
    */
-  override var language: Code? = null,
+  override val language: Code? = null,
   /**
    * A human-readable narrative that contains a summary of the resource and can be used to represent
    * the content of the resource to a human. The narrative need not encode all the structured data,
@@ -93,7 +93,7 @@ public data class ActivityDefinition(
    * legacy systems where information is captured as a "text blob" or where text is additionally
    * entered raw or narrated and encoded information is added later.
    */
-  override var text: Narrative? = null,
+  override val text: Narrative? = null,
   /**
    * These resources do not have an independent existence apart from the resource that contains
    * them - they cannot be identified independently, nor can they have their own independent
@@ -105,7 +105,7 @@ public data class ActivityDefinition(
    * resources may have profiles and tags in their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: MutableList<Resource> = mutableListOf(),
+  override val contained: List<Resource> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and managable, there is a strict set of governance
@@ -118,7 +118,7 @@ public data class ActivityDefinition(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: MutableList<Extension> = mutableListOf(),
+  override val extension: List<Extension> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -137,7 +137,7 @@ public data class ActivityDefinition(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: MutableList<Extension> = mutableListOf(),
+  override val modifierExtension: List<Extension> = listOf(),
   /**
    * An absolute URI that is used to identify this activity definition when it is referenced in a
    * specification, model, design or an instance; also called its canonical identifier. This SHOULD
@@ -157,7 +157,7 @@ public data class ActivityDefinition(
    * change. Implementations can use the [meta.source](resource.html#meta) element to indicate where
    * the current master source of the resource can be found.
    */
-  public var url: Uri? = null,
+  public val url: Uri? = null,
   /**
    * A formal identifier that is used to identify this activity definition when it is represented in
    * other formats, or referenced in a specification, model, design or an instance.
@@ -166,7 +166,7 @@ public data class ActivityDefinition(
    * type, and can then identify this activity definition outside of FHIR, where it is not possible
    * to use the logical URI.
    */
-  public var identifier: MutableList<Identifier> = mutableListOf(),
+  public val identifier: List<Identifier> = listOf(),
   /**
    * The identifier that is used to identify this version of the activity definition when it is
    * referenced in a specification, model, design or instance. This is an arbitrary value managed by
@@ -183,7 +183,7 @@ public data class ActivityDefinition(
    * to a particular business version of the activity definition with the format [url]|[version].
    * The version SHOULD NOT contain a '#' - see [Business Version](resource.html#bv-format).
    */
-  public var version: String? = null,
+  public val version: String? = null,
   /**
    * Indicates the mechanism used to compare versions to determine which is more current.
    *
@@ -192,7 +192,7 @@ public data class ActivityDefinition(
    * positive number if version2 and a 0 if the version ordering can't be successfully be
    * determined.
    */
-  public var versionAlgorithm: VersionAlgorithm? = null,
+  public val versionAlgorithm: VersionAlgorithm? = null,
   /**
    * A natural language name identifying the activity definition. This name should be usable as an
    * identifier for the module by machine processing applications such as code generation.
@@ -200,19 +200,19 @@ public data class ActivityDefinition(
    * The name is not expected to be globally unique. The name should be a simple alphanumeric type
    * name to ensure that it is machine-processing friendly.
    */
-  public var name: String? = null,
+  public val name: String? = null,
   /**
    * A short, descriptive, user-friendly title for the activity definition.
    *
    * This name does not need to be machine-processing friendly and may contain punctuation,
    * white-space, etc.
    */
-  public var title: String? = null,
+  public val title: String? = null,
   /**
    * An explanatory or alternate title for the activity definition giving additional information
    * about its content.
    */
-  public var subtitle: String? = null,
+  public val subtitle: String? = null,
   /**
    * The status of this activity definition. Enables tracking the life-cycle of the content.
    *
@@ -221,14 +221,14 @@ public data class ActivityDefinition(
    * See guidance around (not) making local changes to elements
    * [here](canonicalresource.html#localization).
    */
-  public var status: Enumeration<PublicationStatus>,
+  public val status: Enumeration<PublicationStatus>,
   /**
    * A Boolean value to indicate that this activity definition is authored for testing purposes (or
    * education/evaluation/marketing) and is not intended to be used for genuine usage.
    *
    * Allows filtering of activity definitions that are appropriate for use versus not.
    */
-  public var experimental: Boolean? = null,
+  public val experimental: Boolean? = null,
   /**
    * A code, group definition, or canonical reference that describes or identifies the intended
    * subject of the activity being defined. Canonical references are allowed to support the
@@ -240,7 +240,7 @@ public data class ActivityDefinition(
    * pharmaceutical quality use cases. To ensure as much backwards-compatibility as possible, it is
    * recommended to only use the new canonical type with these use cases.
    */
-  public var subject: Subject? = null,
+  public val subject: Subject? = null,
   /**
    * The date (and optionally time) when the activity definition was last significantly changed. The
    * date must change when the business version changes and it must change if the status code
@@ -256,7 +256,7 @@ public data class ActivityDefinition(
    * See guidance around (not) making local changes to elements
    * [here](canonicalresource.html#localization).
    */
-  public var date: DateTime? = null,
+  public val date: DateTime? = null,
   /**
    * The name of the organization or individual responsible for the release and ongoing maintenance
    * of the activity definition.
@@ -268,7 +268,7 @@ public data class ActivityDefinition(
    * contact for questions or issues with the activity definition. This item SHOULD be populated
    * unless the information is available from context.
    */
-  public var publisher: String? = null,
+  public val publisher: String? = null,
   /**
    * Contact details to assist a user in finding and communicating with the publisher.
    *
@@ -277,7 +277,7 @@ public data class ActivityDefinition(
    * See guidance around (not) making local changes to elements
    * [here](canonicalresource.html#localization).
    */
-  public var contact: MutableList<ContactDetail> = mutableListOf(),
+  public val contact: List<ContactDetail> = listOf(),
   /**
    * A free text natural language description of the activity definition from a consumer's
    * perspective.
@@ -289,7 +289,7 @@ public data class ActivityDefinition(
    * the language of the activity definition is presumed to be the predominant language in the place
    * the activity definition was created).
    */
-  public var description: Markdown? = null,
+  public val description: Markdown? = null,
   /**
    * The content was developed with a focus and intent of supporting the contexts that are listed.
    * These contexts may be general categories (gender, age, ...) or may be references to specific
@@ -299,7 +299,7 @@ public data class ActivityDefinition(
    * When multiple useContexts are specified, there is no expectation that all or any of the
    * contexts apply.
    */
-  public var useContext: MutableList<UsageContext> = mutableListOf(),
+  public val useContext: List<UsageContext> = listOf(),
   /**
    * A legal or geographic region in which the activity definition is intended to be used.
    *
@@ -311,7 +311,7 @@ public data class ActivityDefinition(
    * http://terminology.hl7.org/CodeSystem/usage-context-type#jurisdiction and
    * useContext.valueCodeableConcept indicating the jurisdiction.)
    */
-  public var jurisdiction: MutableList<CodeableConcept> = mutableListOf(),
+  public val jurisdiction: List<CodeableConcept> = listOf(),
   /**
    * Explanation of why this activity definition is needed and why it has been designed as it has.
    *
@@ -320,9 +320,9 @@ public data class ActivityDefinition(
    * may be used to point to source materials or specifications that drove the structure of this
    * activity definition.
    */
-  public var purpose: Markdown? = null,
+  public val purpose: Markdown? = null,
   /** A detailed description of how the activity definition is used from a clinical perspective. */
-  public var usage: Markdown? = null,
+  public val usage: Markdown? = null,
   /**
    * A copyright statement relating to the activity definition and/or its contents. Copyright
    * statements are generally legal restrictions on the use and publishing of the activity
@@ -331,7 +331,7 @@ public data class ActivityDefinition(
    * The short copyright declaration (e.g. (c) '2015+ xyz organization' should be sent in the
    * copyrightLabel element.
    */
-  public var copyright: Markdown? = null,
+  public val copyright: Markdown? = null,
   /**
    * A short string (<50 characters), suitable for inclusion in a page footer that identifies the
    * copyright holder, effective period, and optionally whether rights are resctricted. (e.g. 'All
@@ -341,7 +341,7 @@ public data class ActivityDefinition(
    * rendering the notation. Full details about licensing, restrictions, warrantees, etc. goes in
    * the more general 'copyright' element.
    */
-  public var copyrightLabel: String? = null,
+  public val copyrightLabel: String? = null,
   /**
    * The date on which the resource content was approved by the publisher. Approval happens once
    * when the content is officially approved for usage.
@@ -352,7 +352,7 @@ public data class ActivityDefinition(
    * See guidance around (not) making local changes to elements
    * [here](canonicalresource.html#localization).
    */
-  public var approvalDate: Date? = null,
+  public val approvalDate: Date? = null,
   /**
    * The date on which the resource content was last reviewed. Review happens periodically after
    * approval but does not change the original approval date.
@@ -362,7 +362,7 @@ public data class ActivityDefinition(
    * See guidance around (not) making local changes to elements
    * [here](canonicalresource.html#localization).
    */
-  public var lastReviewDate: Date? = null,
+  public val lastReviewDate: Date? = null,
   /**
    * The period during which the activity definition content was or is planned to be in active use.
    *
@@ -373,7 +373,7 @@ public data class ActivityDefinition(
    * See guidance around (not) making local changes to elements
    * [here](canonicalresource.html#localization).
    */
-  public var effectivePeriod: Period? = null,
+  public val effectivePeriod: Period? = null,
   /**
    * Descriptive topics related to the content of the activity. Topics provide a high-level
    * categorization of the activity that can be useful for filtering and searching.
@@ -383,14 +383,14 @@ public data class ActivityDefinition(
    * http://terminology.hl7.org/CodeSystem/usage-context-type#topic and
    * useContext.valueCodeableConcept indicating the topic)
    */
-  public var topic: MutableList<CodeableConcept> = mutableListOf(),
+  public val topic: List<CodeableConcept> = listOf(),
   /**
    * An individiual or organization primarily involved in the creation and maintenance of the
    * content.
    */
-  public var author: MutableList<ContactDetail> = mutableListOf(),
+  public val author: List<ContactDetail> = listOf(),
   /** An individual or organization primarily responsible for internal coherence of the content. */
-  public var editor: MutableList<ContactDetail> = mutableListOf(),
+  public val editor: List<ContactDetail> = listOf(),
   /**
    * An individual or organization asserted by the publisher to be primarily responsible for review
    * of some aspect of the content.
@@ -398,7 +398,7 @@ public data class ActivityDefinition(
    * See guidance around (not) making local changes to elements
    * [here](canonicalresource.html#localization).
    */
-  public var reviewer: MutableList<ContactDetail> = mutableListOf(),
+  public val reviewer: List<ContactDetail> = listOf(),
   /**
    * An individual or organization asserted by the publisher to be responsible for officially
    * endorsing the content for use in some setting.
@@ -406,18 +406,18 @@ public data class ActivityDefinition(
    * See guidance around (not) making local changes to elements
    * [here](canonicalresource.html#localization).
    */
-  public var endorser: MutableList<ContactDetail> = mutableListOf(),
+  public val endorser: List<ContactDetail> = listOf(),
   /**
    * Related artifacts such as additional documentation, justification, or bibliographic references.
    *
    * Each related artifact is either an attachment, or a reference to another resource, but not
    * both.
    */
-  public var relatedArtifact: MutableList<RelatedArtifact> = mutableListOf(),
+  public val relatedArtifact: List<RelatedArtifact> = listOf(),
   /**
    * A reference to a Library resource containing any formal logic used by the activity definition.
    */
-  public var library: MutableList<Canonical> = mutableListOf(),
+  public val library: List<Canonical> = listOf(),
   /**
    * A description of the kind of resource the activity definition is representing. For example, a
    * MedicationRequest, a ServiceRequest, or a CommunicationRequest.
@@ -428,23 +428,23 @@ public data class ActivityDefinition(
    * Task resource with the focus of the task set to the event resource to be created. Note that the
    * kind of resource to be created may determine what types of extensions are permitted.
    */
-  public var kind: Enumeration<RequestResourceTypes>? = null,
+  public val kind: Enumeration<RequestResourceTypes>? = null,
   /** A profile to which the target of the activity definition is expected to conform. */
-  public var profile: Canonical? = null,
+  public val profile: Canonical? = null,
   /**
    * Detailed description of the type of activity; e.g. What lab test, what procedure, what kind of
    * encounter.
    *
    * Tends to be less relevant for activities involving particular products.
    */
-  public var code: CodeableConcept? = null,
+  public val code: CodeableConcept? = null,
   /**
    * Indicates the level of authority/intentionality associated with the activity and where the
    * request should fit into the workflow chain.
    */
-  public var intent: Enumeration<RequestIntent>? = null,
+  public val intent: Enumeration<RequestIntent>? = null,
   /** Indicates how quickly the activity should be addressed with respect to other requests. */
-  public var priority: Enumeration<RequestPriority>? = null,
+  public val priority: Enumeration<RequestPriority>? = null,
   /**
    * Set this to true if the definition is to indicate that a particular activity should NOT be
    * performed. If true, this element should be interpreted to reinforce a negative coding. For
@@ -455,7 +455,7 @@ public data class ActivityDefinition(
    * order in progress. That should be done with the "remove" type of a PlanDefinition or
    * RequestOrchestration.
    */
-  public var doNotPerform: Boolean? = null,
+  public val doNotPerform: Boolean? = null,
   /**
    * The timing or frequency upon which the described activity is to occur.
    *
@@ -470,51 +470,51 @@ public data class ActivityDefinition(
    * for the expected timing of the resulting activity. When the timing is a Timing, it is
    * establishing a schedule for the timing of the resulting activity.
    */
-  public var timing: Timing? = null,
+  public val timing: Timing? = null,
   /**
    * If a CodeableConcept is present, it indicates the pre-condition for performing the service. For
    * example "pain", "on flare-up", etc.
    */
-  public var asNeeded: AsNeeded? = null,
+  public val asNeeded: AsNeeded? = null,
   /**
    * Identifies the facility where the activity will occur; e.g. home, hospital, specific clinic,
    * etc.
    *
    * May reference a specific clinical location or may just identify a type of location.
    */
-  public var location: CodeableReference? = null,
+  public val location: CodeableReference? = null,
   /** Indicates who should participate in performing the action described. */
-  public var participant: MutableList<Participant> = mutableListOf(),
+  public val participant: List<Participant> = listOf(),
   /** Identifies the food, drug or other product being consumed or supplied in the activity. */
-  public var product: Product? = null,
+  public val product: Product? = null,
   /** Identifies the quantity expected to be consumed at once (per dose, per meal, etc.). */
-  public var quantity: Quantity? = null,
+  public val quantity: Quantity? = null,
   /**
    * Provides detailed dosage instructions in the same way that they are described for
    * MedicationRequest resources.
    *
    * If a dosage instruction is used, the definition should not specify timing or quantity.
    */
-  public var dosage: MutableList<Dosage> = mutableListOf(),
+  public val dosage: List<Dosage> = listOf(),
   /**
    * Indicates the sites on the subject's body where the procedure should be performed (I.e. the
    * target sites).
    *
    * Only used if not implicit in the code found in ServiceRequest.type.
    */
-  public var bodySite: MutableList<CodeableConcept> = mutableListOf(),
+  public val bodySite: List<CodeableConcept> = listOf(),
   /**
    * Defines specimen requirements for the action to be performed, such as required specimens for a
    * lab test.
    */
-  public var specimenRequirement: MutableList<Canonical> = mutableListOf(),
+  public val specimenRequirement: List<Canonical> = listOf(),
   /**
    * Defines observation requirements for the action to be performed, such as body weight or surface
    * area.
    */
-  public var observationRequirement: MutableList<Canonical> = mutableListOf(),
+  public val observationRequirement: List<Canonical> = listOf(),
   /** Defines the observations that are expected to be produced by the action. */
-  public var observationResultRequirement: MutableList<Canonical> = mutableListOf(),
+  public val observationResultRequirement: List<Canonical> = listOf(),
   /**
    * A reference to a StructureMap resource that defines a transform that can be executed to produce
    * the intent resource using the ActivityDefinition instance as the input.
@@ -522,7 +522,7 @@ public data class ActivityDefinition(
    * Note that if both a transform and dynamic values are specified, the dynamic values will be
    * applied to the result of the transform.
    */
-  public var transform: Canonical? = null,
+  public val transform: Canonical? = null,
   /**
    * Dynamic values that will be evaluated to produce values for elements of the resulting resource.
    * For example, if the dosage of a medication must be computed based on the patient's weight, a
@@ -533,7 +533,7 @@ public data class ActivityDefinition(
    * Note that if both a transform and dynamic values are specified, the dynamic values will be
    * applied to the result of the transform.
    */
-  public var dynamicValue: MutableList<DynamicValue> = mutableListOf(),
+  public val dynamicValue: List<DynamicValue> = listOf(),
 ) : DomainResource() {
   /** Indicates who should participate in performing the action described. */
   @Serializable(with = ActivityDefinitionParticipantSerializer::class)
@@ -542,7 +542,7 @@ public data class ActivityDefinition(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -555,7 +555,7 @@ public data class ActivityDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -574,22 +574,22 @@ public data class ActivityDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /** The type of participant in the action. */
-    public var type: Enumeration<ActionParticipantType>? = null,
+    public val type: Enumeration<ActionParticipantType>? = null,
     /** The type of participant in the action. */
-    public var typeCanonical: Canonical? = null,
+    public val typeCanonical: Canonical? = null,
     /**
      * The type of participant in the action.
      *
      * When this element is a reference, it SHOULD be a reference to a definitional resource (for
      * example, a location type, rather than a specific location).
      */
-    public var typeReference: Reference? = null,
+    public val typeReference: Reference? = null,
     /** The role the participant should play in performing the described action. */
-    public var role: CodeableConcept? = null,
+    public val role: CodeableConcept? = null,
     /** Indicates how the actor will be involved in the action - author, reviewer, witness, etc. */
-    public var function: CodeableConcept? = null,
+    public val function: CodeableConcept? = null,
   ) : BackboneElement()
 
   /**
@@ -604,7 +604,7 @@ public data class ActivityDefinition(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -617,7 +617,7 @@ public data class ActivityDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -636,7 +636,7 @@ public data class ActivityDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /**
      * The path to the element to be customized. This is the path on the resource that will hold the
      * result of the calculation defined by the expression. The specified path SHALL be a FHIRPath
@@ -649,14 +649,14 @@ public data class ActivityDefinition(
      * The path attribute contains a [Simple FHIRPath Subset](fhirpath.html#simple) that allows path
      * traversal, but not calculation.
      */
-    public var path: String,
+    public val path: String,
     /**
      * An expression specifying the value of the customized element.
      *
      * The expression may be inlined, or may be a reference to a named expression within a logic
      * library referenced by the library element.
      */
-    public var expression: Expression,
+    public val expression: Expression,
   ) : BackboneElement()
 
   @Serializable(with = ActivityDefinitionVersionAlgorithmSerializer::class)

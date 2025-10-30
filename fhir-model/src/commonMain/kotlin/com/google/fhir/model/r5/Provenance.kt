@@ -24,7 +24,7 @@ import com.google.fhir.model.r5.serializers.ProvenanceOccurredSerializer
 import com.google.fhir.model.r5.serializers.ProvenanceSerializer
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -49,12 +49,12 @@ public data class Provenance(
    * like the create and conditional update. Otherwise, the use of the resouce id depends on the
    * given use case.
    */
-  override var id: String? = null,
+  override val id: String? = null,
   /**
    * The metadata about the resource. This is content that is maintained by the infrastructure.
    * Changes to the content might not always be associated with version changes to the resource.
    */
-  override var meta: Meta? = null,
+  override val meta: Meta? = null,
   /**
    * A reference to a set of rules that were followed when the resource was constructed, and which
    * must be understood when processing the content. Often, this is a reference to an implementation
@@ -68,7 +68,7 @@ public data class Provenance(
    * to an implementation guide that defines these special rules as part of its narrative along with
    * other profiles, value sets, etc.
    */
-  override var implicitRules: Uri? = null,
+  override val implicitRules: Uri? = null,
   /**
    * The base language in which the resource is written.
    *
@@ -80,7 +80,7 @@ public data class Provenance(
    * language is specified, it should it also be specified on the div element in the html (see rules
    * in HTML5 for information about the relationship between xml:lang and the html lang attribute).
    */
-  override var language: Code? = null,
+  override val language: Code? = null,
   /**
    * A human-readable narrative that contains a summary of the resource and can be used to represent
    * the content of the resource to a human. The narrative need not encode all the structured data,
@@ -94,7 +94,7 @@ public data class Provenance(
    * legacy systems where information is captured as a "text blob" or where text is additionally
    * entered raw or narrated and encoded information is added later.
    */
-  override var text: Narrative? = null,
+  override val text: Narrative? = null,
   /**
    * These resources do not have an independent existence apart from the resource that contains
    * them - they cannot be identified independently, nor can they have their own independent
@@ -106,7 +106,7 @@ public data class Provenance(
    * resources may have profiles and tags in their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: MutableList<Resource> = mutableListOf(),
+  override val contained: List<Resource> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and managable, there is a strict set of governance
@@ -119,7 +119,7 @@ public data class Provenance(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: MutableList<Extension> = mutableListOf(),
+  override val extension: List<Extension> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -138,7 +138,7 @@ public data class Provenance(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: MutableList<Extension> = mutableListOf(),
+  override val modifierExtension: List<Extension> = listOf(),
   /**
    * The Reference(s) that were generated or updated by the activity described in this resource. A
    * provenance can point to more than one target if multiple resources were created/updated by the
@@ -151,21 +151,21 @@ public data class Provenance(
    * then the provenance, or it may submit both using a single transaction. See the notes on
    * transaction for further discussion.
    */
-  public var target: MutableList<Reference> = mutableListOf(),
+  public val target: List<Reference> = listOf(),
   /**
    * The period during which the activity occurred.
    *
    * The period can be a little arbitrary; where possible, the time should correspond to human
    * assessment of the activity time.
    */
-  public var occurred: Occurred? = null,
+  public val occurred: Occurred? = null,
   /**
    * The instant of time at which the activity was recorded.
    *
    * This can be a little different from the time stamp on the resource if there is a delay between
    * recording the event and updating the provenance and target resource.
    */
-  public var recorded: Instant? = null,
+  public val recorded: Instant? = null,
   /**
    * Policy or plan the activity was defined by. Typically, a single activity may have multiple
    * applicable policy documents, such as patient consent, guarantor funding, etc.
@@ -174,33 +174,33 @@ public data class Provenance(
    * placed into the policy element Where a policy engine (e.g. XACML) holds policy logic, the
    * unique policy identifier is placed into the policy element.
    */
-  public var policy: MutableList<Uri> = mutableListOf(),
+  public val policy: List<Uri> = listOf(),
   /** Where the activity occurred, if relevant. */
-  public var location: Reference? = null,
+  public val location: Reference? = null,
   /** The authorization (e.g., PurposeOfUse) that was used during the event being recorded. */
-  public var authorization: MutableList<CodeableReference> = mutableListOf(),
+  public val authorization: List<CodeableReference> = listOf(),
   /**
    * An activity is something that occurs over a period of time and acts upon or with entities; it
    * may include consuming, processing, transforming, modifying, relocating, using, or generating
    * entities.
    */
-  public var activity: CodeableConcept? = null,
+  public val activity: CodeableConcept? = null,
   /**
    * Allows tracing of authorizatino for the events and tracking whether proposals/recommendations
    * were acted upon.
    */
-  public var basedOn: MutableList<Reference> = mutableListOf(),
+  public val basedOn: List<Reference> = listOf(),
   /**
    * The patient element is available to enable deterministic tracking of activities that involve
    * the patient as the subject of the data used in an activity.
    */
-  public var patient: Reference? = null,
+  public val patient: Reference? = null,
   /**
    * This will typically be the encounter the event occurred, but some events may be initiated prior
    * to or after the official completion of an encounter but still be tied to the context of the
    * encounter (e.g. pre-admission lab tests).
    */
-  public var encounter: Reference? = null,
+  public val encounter: Reference? = null,
   /**
    * An actor taking a role in an activity for which it can be assigned some degree of
    * responsibility for the activity taking place.
@@ -208,14 +208,14 @@ public data class Provenance(
    * Several agents may be associated (i.e. has some responsibility for an activity) with an
    * activity and vice-versa.
    */
-  public var agent: MutableList<Agent> = mutableListOf(),
+  public val agent: List<Agent> = listOf(),
   /** An entity used in this activity. */
-  public var entity: MutableList<Entity> = mutableListOf(),
+  public val entity: List<Entity> = listOf(),
   /**
    * A digital signature on the target Reference(s). The signer should match a Provenance.agent. The
    * purpose of the signature is indicated.
    */
-  public var signature: MutableList<Signature> = mutableListOf(),
+  public val signature: List<Signature> = listOf(),
 ) : DomainResource() {
   /**
    * An actor taking a role in an activity for which it can be assigned some degree of
@@ -227,7 +227,7 @@ public data class Provenance(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: String? = null,
+    override val id: String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -240,7 +240,7 @@ public data class Provenance(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -259,27 +259,27 @@ public data class Provenance(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /**
      * The Functional Role of the agent with respect to the activity.
      *
      * For example: assembler, author, prescriber, signer, investigator, etc.
      */
-    public var type: CodeableConcept? = null,
+    public val type: CodeableConcept? = null,
     /**
      * The structural roles of the agent indicating the agent's competency. The security role
      * enabling the agent with respect to the activity.
      *
      * For example: Chief-of-Radiology, Nurse, Physician, Medical-Student, etc.
      */
-    public var role: MutableList<CodeableConcept> = mutableListOf(),
+    public val role: List<CodeableConcept> = listOf(),
     /** Indicates who or what performed in the event. */
-    public var who: Reference,
+    public val who: Reference,
     /**
      * The agent that delegated authority to perform the activity performed by the agent.who
      * element.
      */
-    public var onBehalfOf: Reference? = null,
+    public val onBehalfOf: Reference? = null,
   ) : BackboneElement()
 
   /** An entity used in this activity. */
@@ -289,7 +289,7 @@ public data class Provenance(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: String? = null,
+    override val id: String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -302,7 +302,7 @@ public data class Provenance(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -321,15 +321,15 @@ public data class Provenance(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /** How the entity was used during the activity. */
-    public var role: Enumeration<ProvenanceEntityRole>,
+    public val role: Enumeration<ProvenanceEntityRole>,
     /**
      * Identity of the Entity used. May be a logical or physical uri and maybe absolute or relative.
      *
      * whatIdentity should be used for entities that are not a Resource type.
      */
-    public var what: Reference,
+    public val what: Reference,
     /**
      * The entity is attributed to an agent to express the agent's responsibility for that entity,
      * possibly along with other agents. This description can be understood as shorthand for saying
@@ -344,7 +344,7 @@ public data class Provenance(
      * server. Thus it explains the Provenance of that Entity's use in the context of this
      * Provenance activity.
      */
-    public var agent: MutableList<Agent> = mutableListOf(),
+    public val agent: List<Agent> = listOf(),
   ) : BackboneElement()
 
   @Serializable(with = ProvenanceOccurredSerializer::class)

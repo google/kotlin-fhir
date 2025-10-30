@@ -28,14 +28,14 @@ import com.google.fhir.model.r5.serializers.DoubleSerializer
 import com.google.fhir.model.r5.serializers.LocalTimeSerializer
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class NarrativeSurrogate(
   public var id: String? = null,
-  public var extension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
   public var status: String? = null,
   public var _status: Element? = null,
   public var div: String? = null,
@@ -44,7 +44,7 @@ internal data class NarrativeSurrogate(
   public fun toModel(): Narrative =
     Narrative(
       id = this@NarrativeSurrogate.id,
-      extension = this@NarrativeSurrogate.extension ?: mutableListOf(),
+      extension = this@NarrativeSurrogate.extension ?: listOf(),
       status =
         Enumeration.of(
           Narrative.NarrativeStatus.fromCode(this@NarrativeSurrogate.status!!),

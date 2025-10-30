@@ -43,15 +43,15 @@ import kotlin.Boolean as KotlinBoolean
 import kotlin.Int
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class GroupCharacteristicSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var code: CodeableConcept,
   public var `value`: Group.Characteristic.Value,
   public var exclude: KotlinBoolean? = null,
@@ -61,8 +61,8 @@ internal data class GroupCharacteristicSurrogate(
   public fun toModel(): Group.Characteristic =
     Group.Characteristic(
       id = this@GroupCharacteristicSurrogate.id,
-      extension = this@GroupCharacteristicSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@GroupCharacteristicSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@GroupCharacteristicSurrogate.extension ?: listOf(),
+      modifierExtension = this@GroupCharacteristicSurrogate.modifierExtension ?: listOf(),
       code = this@GroupCharacteristicSurrogate.code,
       `value` = this@GroupCharacteristicSurrogate.`value`,
       exclude =
@@ -93,8 +93,8 @@ internal data class GroupCharacteristicSurrogate(
 @Serializable
 internal data class GroupMemberSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var entity: Reference,
   public var period: Period? = null,
   public var inactive: KotlinBoolean? = null,
@@ -103,8 +103,8 @@ internal data class GroupMemberSurrogate(
   public fun toModel(): Group.Member =
     Group.Member(
       id = this@GroupMemberSurrogate.id,
-      extension = this@GroupMemberSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@GroupMemberSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@GroupMemberSurrogate.extension ?: listOf(),
+      modifierExtension = this@GroupMemberSurrogate.modifierExtension ?: listOf(),
       entity = this@GroupMemberSurrogate.entity,
       period = this@GroupMemberSurrogate.period,
       inactive =
@@ -172,10 +172,10 @@ internal data class GroupSurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: MutableList<Resource>? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var identifier: MutableList<Identifier>? = null,
+  public var contained: List<Resource>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
+  public var identifier: List<Identifier>? = null,
   public var active: KotlinBoolean? = null,
   public var _active: Element? = null,
   public var type: KotlinString? = null,
@@ -188,8 +188,8 @@ internal data class GroupSurrogate(
   public var quantity: Int? = null,
   public var _quantity: Element? = null,
   public var managingEntity: Reference? = null,
-  public var characteristic: MutableList<Group.Characteristic>? = null,
-  public var member: MutableList<Group.Member>? = null,
+  public var characteristic: List<Group.Characteristic>? = null,
+  public var member: List<Group.Member>? = null,
 ) {
   public fun toModel(): Group =
     Group(
@@ -198,10 +198,10 @@ internal data class GroupSurrogate(
       implicitRules = Uri.of(this@GroupSurrogate.implicitRules, this@GroupSurrogate._implicitRules),
       language = Code.of(this@GroupSurrogate.language, this@GroupSurrogate._language),
       text = this@GroupSurrogate.text,
-      contained = this@GroupSurrogate.contained ?: mutableListOf(),
-      extension = this@GroupSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@GroupSurrogate.modifierExtension ?: mutableListOf(),
-      identifier = this@GroupSurrogate.identifier ?: mutableListOf(),
+      contained = this@GroupSurrogate.contained ?: listOf(),
+      extension = this@GroupSurrogate.extension ?: listOf(),
+      modifierExtension = this@GroupSurrogate.modifierExtension ?: listOf(),
+      identifier = this@GroupSurrogate.identifier ?: listOf(),
       active = R4Boolean.of(this@GroupSurrogate.active, this@GroupSurrogate._active),
       type =
         Enumeration.of(
@@ -213,8 +213,8 @@ internal data class GroupSurrogate(
       name = R4String.of(this@GroupSurrogate.name, this@GroupSurrogate._name),
       quantity = UnsignedInt.of(this@GroupSurrogate.quantity, this@GroupSurrogate._quantity),
       managingEntity = this@GroupSurrogate.managingEntity,
-      characteristic = this@GroupSurrogate.characteristic ?: mutableListOf(),
-      member = this@GroupSurrogate.member ?: mutableListOf(),
+      characteristic = this@GroupSurrogate.characteristic ?: listOf(),
+      member = this@GroupSurrogate.member ?: listOf(),
     )
 
   public companion object {

@@ -41,7 +41,7 @@ import com.google.fhir.model.r5.serializers.TestScriptVariableSerializer
 import com.google.fhir.model.r5.serializers.TestScriptVersionAlgorithmSerializer
 import com.google.fhir.model.r5.terminologies.PublicationStatus
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -60,12 +60,12 @@ public data class TestScript(
    * like the create and conditional update. Otherwise, the use of the resouce id depends on the
    * given use case.
    */
-  override var id: kotlin.String? = null,
+  override val id: kotlin.String? = null,
   /**
    * The metadata about the resource. This is content that is maintained by the infrastructure.
    * Changes to the content might not always be associated with version changes to the resource.
    */
-  override var meta: Meta? = null,
+  override val meta: Meta? = null,
   /**
    * A reference to a set of rules that were followed when the resource was constructed, and which
    * must be understood when processing the content. Often, this is a reference to an implementation
@@ -79,7 +79,7 @@ public data class TestScript(
    * to an implementation guide that defines these special rules as part of its narrative along with
    * other profiles, value sets, etc.
    */
-  override var implicitRules: Uri? = null,
+  override val implicitRules: Uri? = null,
   /**
    * The base language in which the resource is written.
    *
@@ -91,7 +91,7 @@ public data class TestScript(
    * language is specified, it should it also be specified on the div element in the html (see rules
    * in HTML5 for information about the relationship between xml:lang and the html lang attribute).
    */
-  override var language: Code? = null,
+  override val language: Code? = null,
   /**
    * A human-readable narrative that contains a summary of the resource and can be used to represent
    * the content of the resource to a human. The narrative need not encode all the structured data,
@@ -105,7 +105,7 @@ public data class TestScript(
    * legacy systems where information is captured as a "text blob" or where text is additionally
    * entered raw or narrated and encoded information is added later.
    */
-  override var text: Narrative? = null,
+  override val text: Narrative? = null,
   /**
    * These resources do not have an independent existence apart from the resource that contains
    * them - they cannot be identified independently, nor can they have their own independent
@@ -117,7 +117,7 @@ public data class TestScript(
    * resources may have profiles and tags in their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: MutableList<Resource> = mutableListOf(),
+  override val contained: List<Resource> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and managable, there is a strict set of governance
@@ -130,7 +130,7 @@ public data class TestScript(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: MutableList<Extension> = mutableListOf(),
+  override val extension: List<Extension> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -149,7 +149,7 @@ public data class TestScript(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: MutableList<Extension> = mutableListOf(),
+  override val modifierExtension: List<Extension> = listOf(),
   /**
    * An absolute URI that is used to identify this test script when it is referenced in a
    * specification, model, design or an instance; also called its canonical identifier. This SHOULD
@@ -168,7 +168,7 @@ public data class TestScript(
    * change. Implementations can use the [meta.source](resource.html#meta) element to indicate where
    * the current master source of the resource can be found.
    */
-  public var url: Uri? = null,
+  public val url: Uri? = null,
   /**
    * A formal identifier that is used to identify this test script when it is represented in other
    * formats, or referenced in a specification, model, design or an instance.
@@ -177,7 +177,7 @@ public data class TestScript(
    * type, and can then identify this test script outside of FHIR, where it is not possible to use
    * the logical URI.
    */
-  public var identifier: MutableList<Identifier> = mutableListOf(),
+  public val identifier: List<Identifier> = listOf(),
   /**
    * The identifier that is used to identify this version of the test script when it is referenced
    * in a specification, model, design or instance. This is an arbitrary value managed by the test
@@ -190,7 +190,7 @@ public data class TestScript(
    * particular business version of the test script with the format [url]|[version]. The version
    * SHOULD NOT contain a '#' - see [Business Version](resource.html#bv-format).
    */
-  public var version: String? = null,
+  public val version: String? = null,
   /**
    * Indicates the mechanism used to compare versions to determine which is more current.
    *
@@ -199,7 +199,7 @@ public data class TestScript(
    * positive number if version2 and a 0 if the version ordering can't be successfully be
    * determined.
    */
-  public var versionAlgorithm: VersionAlgorithm? = null,
+  public val versionAlgorithm: VersionAlgorithm? = null,
   /**
    * A natural language name identifying the test script. This name should be usable as an
    * identifier for the module by machine processing applications such as code generation.
@@ -207,14 +207,14 @@ public data class TestScript(
    * The name is not expected to be globally unique. The name should be a simple alphanumeric type
    * name to ensure that it is machine-processing friendly.
    */
-  public var name: String,
+  public val name: String,
   /**
    * A short, descriptive, user-friendly title for the test script.
    *
    * This name does not need to be machine-processing friendly and may contain punctuation,
    * white-space, etc.
    */
-  public var title: String? = null,
+  public val title: String? = null,
   /**
    * The status of this test script. Enables tracking the life-cycle of the content.
    *
@@ -223,14 +223,14 @@ public data class TestScript(
    * See guidance around (not) making local changes to elements
    * [here](canonicalresource.html#localization).
    */
-  public var status: Enumeration<PublicationStatus>,
+  public val status: Enumeration<PublicationStatus>,
   /**
    * A Boolean value to indicate that this test script is authored for testing purposes (or
    * education/evaluation/marketing) and is not intended to be used for genuine usage.
    *
    * Allows filtering of test scripts that are appropriate for use versus not.
    */
-  public var experimental: Boolean? = null,
+  public val experimental: Boolean? = null,
   /**
    * The date (and optionally time) when the test script was last significantly changed. The date
    * must change when the business version changes and it must change if the status code changes. In
@@ -244,7 +244,7 @@ public data class TestScript(
    * See guidance around (not) making local changes to elements
    * [here](canonicalresource.html#localization).
    */
-  public var date: DateTime? = null,
+  public val date: DateTime? = null,
   /**
    * The name of the organization or individual responsible for the release and ongoing maintenance
    * of the test script.
@@ -256,7 +256,7 @@ public data class TestScript(
    * issues with the test script. This item SHOULD be populated unless the information is available
    * from context.
    */
-  public var publisher: String? = null,
+  public val publisher: String? = null,
   /**
    * Contact details to assist a user in finding and communicating with the publisher.
    *
@@ -265,7 +265,7 @@ public data class TestScript(
    * See guidance around (not) making local changes to elements
    * [here](canonicalresource.html#localization).
    */
-  public var contact: MutableList<ContactDetail> = mutableListOf(),
+  public val contact: List<ContactDetail> = listOf(),
   /**
    * A free text natural language description of the test script from a consumer's perspective.
    *
@@ -276,7 +276,7 @@ public data class TestScript(
    * language of the test script is presumed to be the predominant language in the place the test
    * script was created).
    */
-  public var description: Markdown? = null,
+  public val description: Markdown? = null,
   /**
    * The content was developed with a focus and intent of supporting the contexts that are listed.
    * These contexts may be general categories (gender, age, ...) or may be references to specific
@@ -286,7 +286,7 @@ public data class TestScript(
    * When multiple useContexts are specified, there is no expectation that all or any of the
    * contexts apply.
    */
-  public var useContext: MutableList<UsageContext> = mutableListOf(),
+  public val useContext: List<UsageContext> = listOf(),
   /**
    * A legal or geographic region in which the test script is intended to be used.
    *
@@ -298,7 +298,7 @@ public data class TestScript(
    * http://terminology.hl7.org/CodeSystem/usage-context-type#jurisdiction and
    * useContext.valueCodeableConcept indicating the jurisdiction.)
    */
-  public var jurisdiction: MutableList<CodeableConcept> = mutableListOf(),
+  public val jurisdiction: List<CodeableConcept> = listOf(),
   /**
    * Explanation of why this test script is needed and why it has been designed as it has.
    *
@@ -306,12 +306,12 @@ public data class TestScript(
    * of ''why'' the resource is either needed or ''why'' it is defined as it is. This may be used to
    * point to source materials or specifications that drove the structure of this test script.
    */
-  public var purpose: Markdown? = null,
+  public val purpose: Markdown? = null,
   /**
    * A copyright statement relating to the test script and/or its contents. Copyright statements are
    * generally legal restrictions on the use and publishing of the test script.
    */
-  public var copyright: Markdown? = null,
+  public val copyright: Markdown? = null,
   /**
    * A short string (<50 characters), suitable for inclusion in a page footer that identifies the
    * copyright holder, effective period, and optionally whether rights are resctricted. (e.g. 'All
@@ -321,7 +321,7 @@ public data class TestScript(
    * rendering the notation. Full details about licensing, restrictions, warrantees, etc. goes in
    * the more general 'copyright' element.
    */
-  public var copyrightLabel: String? = null,
+  public val copyrightLabel: String? = null,
   /**
    * An abstract server used in operations within this test script in the origin element.
    *
@@ -329,7 +329,7 @@ public data class TestScript(
    * script. Test engines could then use the origin-profile mapping to offer a filtered list of test
    * systems that can serve as the sender for the interaction.
    */
-  public var origin: MutableList<Origin> = mutableListOf(),
+  public val origin: List<Origin> = listOf(),
   /**
    * An abstract server used in operations within this test script in the destination element.
    *
@@ -337,28 +337,28 @@ public data class TestScript(
    * the script. Test engines could then use the destination-profile mapping to offer a filtered
    * list of test systems that can serve as the receiver for the interaction.
    */
-  public var destination: MutableList<Destination> = mutableListOf(),
+  public val destination: List<Destination> = listOf(),
   /**
    * The required capability must exist and are assumed to function correctly on the FHIR server
    * being tested.
    */
-  public var metadata: Metadata? = null,
+  public val metadata: Metadata? = null,
   /**
    * The scope indicates a conformance artifact that is tested by the test(s) within this test case
    * and the expectation of the test outcome(s) as well as the intended test phase inclusion.
    */
-  public var scope: MutableList<Scope> = mutableListOf(),
+  public val scope: List<Scope> = listOf(),
   /**
    * Fixture in the test script - by reference (uri). All fixtures are required for the test script
    * to execute.
    */
-  public var fixture: MutableList<Fixture> = mutableListOf(),
+  public val fixture: List<Fixture> = listOf(),
   /**
    * Reference to the profile to be used for validation.
    *
    * See the [Resource List](resourcelist.html) for complete list of resource types.
    */
-  public var profile: MutableList<Canonical> = mutableListOf(),
+  public val profile: List<Canonical> = listOf(),
   /**
    * Variable is set based either on element value in response body or on header field value in the
    * response headers.
@@ -375,16 +375,16 @@ public data class TestScript(
    * operation calls and in "assert.value" during assertion evaluations. See example
    * testscript-search.xml.
    */
-  public var variable: MutableList<Variable> = mutableListOf(),
+  public val variable: List<Variable> = listOf(),
   /** A series of required setup operations before tests are executed. */
-  public var setup: Setup? = null,
+  public val setup: Setup? = null,
   /** A test in this script. */
-  public var test: MutableList<Test> = mutableListOf(),
+  public val test: List<Test> = listOf(),
   /**
    * A series of operations required to clean up after all the tests are executed (successfully or
    * otherwise).
    */
-  public var teardown: Teardown? = null,
+  public val teardown: Teardown? = null,
 ) : DomainResource() {
   /** An abstract server used in operations within this test script in the origin element. */
   @Serializable(with = TestScriptOriginSerializer::class)
@@ -393,7 +393,7 @@ public data class TestScript(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -406,7 +406,7 @@ public data class TestScript(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -425,7 +425,7 @@ public data class TestScript(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /**
      * Abstract name given to an origin server in this test script. The name is provided as a number
      * starting at 1.
@@ -439,20 +439,20 @@ public data class TestScript(
      *
      * The origin indices provided elsewhere in the test script must be one of these origin indices.
      */
-    public var index: Integer,
+    public val index: Integer,
     /**
      * The type of origin profile the test system supports.
      *
      * Must be a "sender"/"client" profile.
      */
-    public var profile: Coding,
+    public val profile: Coding,
     /**
      * The explicit url path of the origin server used in this test script.
      *
      * If provided, the test engine is not expected to prompt for or accept external input of this
      * value.
      */
-    public var url: Url? = null,
+    public val url: Url? = null,
   ) : BackboneElement()
 
   /** An abstract server used in operations within this test script in the destination element. */
@@ -462,7 +462,7 @@ public data class TestScript(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -475,7 +475,7 @@ public data class TestScript(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -494,7 +494,7 @@ public data class TestScript(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /**
      * Abstract name given to a destination server in this test script. The name is provided as a
      * number starting at 1.
@@ -509,20 +509,20 @@ public data class TestScript(
      * The destination indices provided elsewhere in the test script must be one of these
      * destination indices.
      */
-    public var index: Integer,
+    public val index: Integer,
     /**
      * The type of destination profile the test system supports.
      *
      * Must be a "receiver"/"server" profile.
      */
-    public var profile: Coding,
+    public val profile: Coding,
     /**
      * The explicit url path of the destination server used in this test script.
      *
      * If provided, the test engine is not expected to prompt for or accept external input of this
      * value.
      */
-    public var url: Url? = null,
+    public val url: Url? = null,
   ) : BackboneElement()
 
   /**
@@ -535,7 +535,7 @@ public data class TestScript(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -548,7 +548,7 @@ public data class TestScript(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -567,9 +567,9 @@ public data class TestScript(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /** A link to the FHIR specification that this test is covering. */
-    public var link: MutableList<Link> = mutableListOf(),
+    public val link: List<Link> = listOf(),
     /**
      * Capabilities that must exist and are assumed to function correctly on the FHIR server being
      * tested.
@@ -585,7 +585,7 @@ public data class TestScript(
      * whose "metadata.capabilities.validated" flag is true are the primary focus of the test
      * script.
      */
-    public var capability: MutableList<Capability> = mutableListOf(),
+    public val capability: List<Capability> = listOf(),
   ) : BackboneElement() {
     /** A link to the FHIR specification that this test is covering. */
     @Serializable(with = TestScriptMetadataLinkSerializer::class)
@@ -594,7 +594,7 @@ public data class TestScript(
        * Unique id for the element within a resource (for internal references). This may be any
        * string value that does not contain spaces.
        */
-      override var id: kotlin.String? = null,
+      override val id: kotlin.String? = null,
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -607,7 +607,7 @@ public data class TestScript(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: MutableList<Extension> = mutableListOf(),
+      override val extension: List<Extension> = listOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -626,11 +626,11 @@ public data class TestScript(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: MutableList<Extension> = mutableListOf(),
+      override val modifierExtension: List<Extension> = listOf(),
       /** URL to a particular requirement or feature within the FHIR specification. */
-      public var url: Uri,
+      public val url: Uri,
       /** Short description of the link. */
-      public var description: String? = null,
+      public val description: String? = null,
     ) : BackboneElement()
 
     /**
@@ -643,7 +643,7 @@ public data class TestScript(
        * Unique id for the element within a resource (for internal references). This may be any
        * string value that does not contain spaces.
        */
-      override var id: kotlin.String? = null,
+      override val id: kotlin.String? = null,
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -656,7 +656,7 @@ public data class TestScript(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: MutableList<Extension> = mutableListOf(),
+      override val extension: List<Extension> = listOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -675,30 +675,30 @@ public data class TestScript(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: MutableList<Extension> = mutableListOf(),
+      override val modifierExtension: List<Extension> = listOf(),
       /**
        * Whether or not the test execution will require the given capabilities of the server in
        * order for this test script to execute.
        */
-      public var required: Boolean,
+      public val required: Boolean,
       /**
        * Whether or not the test execution will validate the given capabilities of the server in
        * order for this test script to execute.
        */
-      public var validated: Boolean,
+      public val validated: Boolean,
       /**
        * Description of the capabilities that this test script is requiring the server to support.
        */
-      public var description: String? = null,
+      public val description: String? = null,
       /** Which origin server these requirements apply to. */
-      public var origin: MutableList<Integer> = mutableListOf(),
+      public val origin: List<Integer> = listOf(),
       /** Which server these requirements apply to. */
-      public var destination: Integer? = null,
+      public val destination: Integer? = null,
       /**
        * Links to the FHIR specification that describes this interaction and the resources involved
        * in more detail.
        */
-      public var link: MutableList<Uri> = mutableListOf(),
+      public val link: List<Uri> = listOf(),
       /**
        * Minimum capabilities required of server for test script to execute successfully. If server
        * does not meet at a minimum the referenced capability statement, then all tests in this
@@ -707,7 +707,7 @@ public data class TestScript(
        * The conformance statement of the server has to contain at a minimum the contents of the
        * reference pointed to by this element.
        */
-      public var capabilities: Canonical,
+      public val capabilities: Canonical,
     ) : BackboneElement()
   }
 
@@ -721,7 +721,7 @@ public data class TestScript(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -734,7 +734,7 @@ public data class TestScript(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -753,25 +753,25 @@ public data class TestScript(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /**
      * The specific conformance artifact being tested. The canonical reference can be
      * version-specific.
      */
-    public var artifact: Canonical,
+    public val artifact: Canonical,
     /**
      * The expectation of whether the test must pass for the system to be considered conformant with
      * the artifact: required - all tests are expected to pass, optional - all test are expected to
      * pass but non-pass status may be allowed, strict - all tests are expected to pass and warnings
      * are treated as a failure.
      */
-    public var conformance: CodeableConcept? = null,
+    public val conformance: CodeableConcept? = null,
     /**
      * The phase of testing for this artifact: unit - development / implementation phase,
      * integration - internal system to system phase, production - live system to system phase
      * (Note, this may involve pii/phi data).
      */
-    public var phase: CodeableConcept? = null,
+    public val phase: CodeableConcept? = null,
   ) : BackboneElement()
 
   /**
@@ -784,7 +784,7 @@ public data class TestScript(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -797,7 +797,7 @@ public data class TestScript(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -816,26 +816,26 @@ public data class TestScript(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /**
      * Whether or not to implicitly create the fixture during setup. If true, the fixture is
      * automatically created on each server being tested during setup, therefore no create operation
      * is required for this fixture in the TestScript.setup section.
      */
-    public var autocreate: Boolean,
+    public val autocreate: Boolean,
     /**
      * Whether or not to implicitly delete the fixture during teardown. If true, the fixture is
      * automatically deleted on each server being tested during teardown, therefore no delete
      * operation is required for this fixture in the TestScript.teardown section.
      */
-    public var autodelete: Boolean,
+    public val autodelete: Boolean,
     /**
      * Reference to the resource (containing the contents of the resource needed for operations).
      * This is allowed to be a Parameters resource.
      *
      * See the [Resource List](resourcelist.html) for complete list of resource types.
      */
-    public var resource: Reference? = null,
+    public val resource: Reference? = null,
   ) : BackboneElement()
 
   /**
@@ -848,7 +848,7 @@ public data class TestScript(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -861,7 +861,7 @@ public data class TestScript(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -880,7 +880,7 @@ public data class TestScript(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /**
      * Descriptive name for this variable.
      *
@@ -888,7 +888,7 @@ public data class TestScript(
      * "operation.requestHeader.value", and "operation.url" elements. These placeholders would need
      * to be replaced by the variable value before the operation is executed.
      */
-    public var name: String,
+    public val name: String,
     /**
      * A default, hard-coded, or user-defined value for this variable.
      *
@@ -896,9 +896,9 @@ public data class TestScript(
      * or as an override value. Test engines can optionally use this as a placeholder for
      * user-defined execution time values.
      */
-    public var defaultValue: String? = null,
+    public val defaultValue: String? = null,
     /** A free text natural language description of the variable and its purpose. */
-    public var description: String? = null,
+    public val description: String? = null,
     /**
      * The FHIRPath expression for a specific value to evaluate against the fixture body. When
      * variables are defined, only one of either expression, headerField or path must be specified.
@@ -908,7 +908,7 @@ public data class TestScript(
      * evaluated against the fixture body that sourceId is pointing to. It is an error to define any
      * combination of expression, headerField and path.
      */
-    public var expression: String? = null,
+    public val expression: String? = null,
     /**
      * Will be used to grab the HTTP header field value from the headers that sourceId is pointing
      * to.
@@ -918,11 +918,11 @@ public data class TestScript(
      * fixture body that sourceId is pointing to. It is an error to define both headerField and
      * path.
      */
-    public var headerField: String? = null,
+    public val headerField: String? = null,
     /**
      * Displayable text string with hint help information to the user when entering a default value.
      */
-    public var hint: String? = null,
+    public val hint: String? = null,
     /**
      * XPath or JSONPath to evaluate against the fixture body. When variables are defined, only one
      * of either expression, headerField or path must be specified.
@@ -932,7 +932,7 @@ public data class TestScript(
      * evaluated against the fixture body that sourceId is pointing to. It is an error to define any
      * combination of expression, headerField and path.
      */
-    public var path: String? = null,
+    public val path: String? = null,
     /**
      * Fixture to evaluate the XPath/JSONPath expression or the headerField against within this
      * variable.
@@ -940,7 +940,7 @@ public data class TestScript(
      * This can be a statically defined fixture (at the top of the TestScript) or a dynamically set
      * fixture created by responseId of the `action.operation` element.
      */
-    public var sourceId: Id? = null,
+    public val sourceId: Id? = null,
   ) : BackboneElement()
 
   /** A series of required setup operations before tests are executed. */
@@ -950,7 +950,7 @@ public data class TestScript(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -963,7 +963,7 @@ public data class TestScript(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -982,14 +982,14 @@ public data class TestScript(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /**
      * Action would contain either an operation or an assertion.
      *
      * An action should contain either an operation or an assertion but not both. It can contain any
      * number of variables.
      */
-    public var action: MutableList<Action> = mutableListOf(),
+    public val action: List<Action> = listOf(),
   ) : BackboneElement() {
     /** Action would contain either an operation or an assertion. */
     @Serializable(with = TestScriptSetupActionSerializer::class)
@@ -998,7 +998,7 @@ public data class TestScript(
        * Unique id for the element within a resource (for internal references). This may be any
        * string value that does not contain spaces.
        */
-      override var id: kotlin.String? = null,
+      override val id: kotlin.String? = null,
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -1011,7 +1011,7 @@ public data class TestScript(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: MutableList<Extension> = mutableListOf(),
+      override val extension: List<Extension> = listOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -1030,9 +1030,9 @@ public data class TestScript(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: MutableList<Extension> = mutableListOf(),
+      override val modifierExtension: List<Extension> = listOf(),
       /** The operation to perform. */
-      public var operation: Operation? = null,
+      public val operation: Operation? = null,
       /**
        * Evaluates the results of previous operations to determine if the server under test behaves
        * appropriately.
@@ -1040,7 +1040,7 @@ public data class TestScript(
        * In order to evaluate an assertion, the request, response, and results of the most recently
        * executed operation must always be maintained by the test engine.
        */
-      public var assert: Assert? = null,
+      public val assert: Assert? = null,
     ) : BackboneElement() {
       /** The operation to perform. */
       @Serializable(with = TestScriptSetupActionOperationSerializer::class)
@@ -1049,7 +1049,7 @@ public data class TestScript(
          * Unique id for the element within a resource (for internal references). This may be any
          * string value that does not contain spaces.
          */
-        override var id: kotlin.String? = null,
+        override val id: kotlin.String? = null,
         /**
          * May be used to represent additional information that is not part of the basic definition
          * of the element. To make the use of extensions safe and managable, there is a strict set
@@ -1062,7 +1062,7 @@ public data class TestScript(
          * extensions. The use of extensions is what allows the FHIR specification to retain a core
          * level of simplicity for everyone.
          */
-        override var extension: MutableList<Extension> = mutableListOf(),
+        override val extension: List<Extension> = listOf(),
         /**
          * May be used to represent additional information that is not part of the basic definition
          * of the element and that modifies the understanding of the element in which it is
@@ -1081,13 +1081,13 @@ public data class TestScript(
          * extensions. The use of extensions is what allows the FHIR specification to retain a core
          * level of simplicity for everyone.
          */
-        override var modifierExtension: MutableList<Extension> = mutableListOf(),
+        override val modifierExtension: List<Extension> = listOf(),
         /**
          * Server interaction or operation type.
          *
          * See the list of [server interactions](http.html).
          */
-        public var type: Coding? = null,
+        public val type: Coding? = null,
         /**
          * The type of the FHIR resource. See the [resource list](resourcelist.html). Data type of
          * uri is needed when non-HL7 artifacts are identified.
@@ -1102,19 +1102,19 @@ public data class TestScript(
          * and used to construct the url. For "vread" and "history" operations, the versionId value
          * will also be used.
          */
-        public var resource: Uri? = null,
+        public val resource: Uri? = null,
         /**
          * The label would be used for tracking/logging purposes by test engines.
          *
          * This has no impact on the verification itself.
          */
-        public var label: String? = null,
+        public val label: String? = null,
         /**
          * The description would be used by test engines for tracking and reporting purposes.
          *
          * This has no impact on the verification itself.
          */
-        public var description: String? = null,
+        public val description: String? = null,
         /**
          * The mime-type to use for RESTful operation in the 'Accept' header.
          *
@@ -1122,7 +1122,7 @@ public data class TestScript(
          * value. If you'd like to explicitly set the 'Accept' to some other value then use the
          * 'requestHeader' element.
          */
-        public var accept: Code? = null,
+        public val accept: Code? = null,
         /**
          * The mime-type to use for RESTful operation in the 'Content-Type' header.
          *
@@ -1130,7 +1130,7 @@ public data class TestScript(
          * corresponding value. If you'd like to explicitly set the 'Content-Type' to some other
          * value then use the 'requestHeader' element.
          */
-        public var contentType: Code? = null,
+        public val contentType: Code? = null,
         /**
          * The server where the request message is destined for. Must be one of the server numbers
          * listed in TestScript.destination section.
@@ -1139,13 +1139,13 @@ public data class TestScript(
          * undefined, test engine will report an error as it cannot determine what destination to
          * use for the exchange.
          */
-        public var destination: Integer? = null,
+        public val destination: Integer? = null,
         /**
          * Whether or not to implicitly send the request url in encoded format. The default is true
          * to match the standard RESTful client behavior. Set to false when communicating with a
          * server that does not support encoded url paths.
          */
-        public var encodeRequestUrl: Boolean,
+        public val encodeRequestUrl: Boolean,
         /**
          * The HTTP method the test engine MUST use for this operation regardless of any other
          * operation details.
@@ -1153,7 +1153,7 @@ public data class TestScript(
          * The primary purpose of the explicit HTTP method is support of HTTP POST method invocation
          * of the FHIR search. Other uses will include support of negative testing.
          */
-        public var method: Enumeration<TestScriptRequestMethodCode>? = null,
+        public val method: Enumeration<TestScriptRequestMethodCode>? = null,
         /**
          * The server where the request message originates from. Must be one of the server numbers
          * listed in TestScript.origin section.
@@ -1161,7 +1161,7 @@ public data class TestScript(
          * If absent, test engine will send the message. When present, test engine will not send the
          * request message but will wait for the request message to be sent from this origin server.
          */
-        public var origin: Integer? = null,
+        public val origin: Integer? = null,
         /**
          * Path plus parameters after [type]. Used to set parts of the request URL explicitly.
          *
@@ -1182,7 +1182,7 @@ public data class TestScript(
          * {?_format=[mime-type]} Test engines do have to look for placeholders (${}) and replace
          * the variable placeholders with the variable values at runtime before sending the request.
          */
-        public var params: String? = null,
+        public val params: String? = null,
         /**
          * Header elements would be used to set HTTP headers.
          *
@@ -1192,7 +1192,7 @@ public data class TestScript(
          * [Conditional Create using "If-None-Exist"](http.html#2.1.0.11). See
          * [Invalid "Content-Type" header](http.html#2.1.0.13.1) for negative testing. - etc.
          */
-        public var requestHeader: MutableList<RequestHeader> = mutableListOf(),
+        public val requestHeader: List<RequestHeader> = listOf(),
         /**
          * The fixture id (maybe new) to map to the request.
          *
@@ -1203,7 +1203,7 @@ public data class TestScript(
          * path and/or headerField is specified, direction is equal to request, and the requestId in
          * not specified.
          */
-        public var requestId: Id? = null,
+        public val requestId: Id? = null,
         /**
          * The fixture id (maybe new) to map to the response.
          *
@@ -1214,9 +1214,9 @@ public data class TestScript(
          * assertions when assertion path and/or headerField is specified and the responseId is not
          * specified.
          */
-        public var responseId: Id? = null,
+        public val responseId: Id? = null,
         /** The id of the fixture used as the body of a PUT or POST request. */
-        public var sourceId: Id? = null,
+        public val sourceId: Id? = null,
         /**
          * Id of fixture used for extracting the [id], [type], and [vid] for GET requests.
          *
@@ -1230,7 +1230,7 @@ public data class TestScript(
          * and used to construct the url. For "vread" and "history" operations, the versionId value
          * will also be used.
          */
-        public var targetId: Id? = null,
+        public val targetId: Id? = null,
         /**
          * Complete request URL.
          *
@@ -1240,7 +1240,7 @@ public data class TestScript(
          * Test engines do have to look for placeholders (${}) and replace the variable placeholders
          * with the variable values at runtime before sending the request.
          */
-        public var url: String? = null,
+        public val url: String? = null,
       ) : BackboneElement() {
         /** Header elements would be used to set HTTP headers. */
         @Serializable(with = TestScriptSetupActionOperationRequestHeaderSerializer::class)
@@ -1249,7 +1249,7 @@ public data class TestScript(
            * Unique id for the element within a resource (for internal references). This may be any
            * string value that does not contain spaces.
            */
-          override var id: kotlin.String? = null,
+          override val id: kotlin.String? = null,
           /**
            * May be used to represent additional information that is not part of the basic
            * definition of the element. To make the use of extensions safe and managable, there is a
@@ -1262,7 +1262,7 @@ public data class TestScript(
            * defines the extensions. The use of extensions is what allows the FHIR specification to
            * retain a core level of simplicity for everyone.
            */
-          override var extension: MutableList<Extension> = mutableListOf(),
+          override val extension: List<Extension> = listOf(),
           /**
            * May be used to represent additional information that is not part of the basic
            * definition of the element and that modifies the understanding of the element in which
@@ -1281,13 +1281,13 @@ public data class TestScript(
            * defines the extensions. The use of extensions is what allows the FHIR specification to
            * retain a core level of simplicity for everyone.
            */
-          override var modifierExtension: MutableList<Extension> = mutableListOf(),
+          override val modifierExtension: List<Extension> = listOf(),
           /**
            * The HTTP header field e.g. "Accept".
            *
            * If header element is specified, then field is required.
            */
-          public var `field`: String,
+          public val `field`: String,
           /**
            * The value of the header e.g. "application/fhir+xml".
            *
@@ -1296,7 +1296,7 @@ public data class TestScript(
            * headers "as-is". Test engines do have to look for placeholders (${}) and replace the
            * variable placeholders with the variable values at runtime before sending the request.
            */
-          public var `value`: String,
+          public val `value`: String,
         ) : BackboneElement()
       }
 
@@ -1310,7 +1310,7 @@ public data class TestScript(
          * Unique id for the element within a resource (for internal references). This may be any
          * string value that does not contain spaces.
          */
-        override var id: kotlin.String? = null,
+        override val id: kotlin.String? = null,
         /**
          * May be used to represent additional information that is not part of the basic definition
          * of the element. To make the use of extensions safe and managable, there is a strict set
@@ -1323,7 +1323,7 @@ public data class TestScript(
          * extensions. The use of extensions is what allows the FHIR specification to retain a core
          * level of simplicity for everyone.
          */
-        override var extension: MutableList<Extension> = mutableListOf(),
+        override val extension: List<Extension> = listOf(),
         /**
          * May be used to represent additional information that is not part of the basic definition
          * of the element and that modifies the understanding of the element in which it is
@@ -1342,19 +1342,19 @@ public data class TestScript(
          * extensions. The use of extensions is what allows the FHIR specification to retain a core
          * level of simplicity for everyone.
          */
-        override var modifierExtension: MutableList<Extension> = mutableListOf(),
+        override val modifierExtension: List<Extension> = listOf(),
         /**
          * The label would be used for tracking/logging purposes by test engines.
          *
          * This has no impact on the verification itself.
          */
-        public var label: String? = null,
+        public val label: String? = null,
         /**
          * The description would be used by test engines for tracking and reporting purposes.
          *
          * This has no impact on the verification itself.
          */
-        public var description: String? = null,
+        public val description: String? = null,
         /**
          * The direction to use for the assertion.
          *
@@ -1362,12 +1362,12 @@ public data class TestScript(
          * assert is against the received response message. If the direction is specified as
          * "request", then the processing of this assert is against the sent request message.
          */
-        public var direction: Enumeration<AssertionDirectionType>? = null,
+        public val direction: Enumeration<AssertionDirectionType>? = null,
         /**
          * Id of the source fixture used as the contents to be evaluated by either the
          * "source/expression" or "sourceId/path" definition.
          */
-        public var compareToSourceId: String? = null,
+        public val compareToSourceId: String? = null,
         /**
          * The FHIRPath expression for a specific value to evaluate against the source fixture. When
          * compareToSourceId is defined, either compareToSourceExpression or compareToSourcePath
@@ -1377,7 +1377,7 @@ public data class TestScript(
          * Ignored if "assert.value" is used. The evaluation will be done before the assertion is
          * evaluated.
          */
-        public var compareToSourceExpression: String? = null,
+        public val compareToSourceExpression: String? = null,
         /**
          * XPath or JSONPath expression to evaluate against the source fixture. When
          * compareToSourceId is defined, either compareToSourceExpression or compareToSourcePath
@@ -1387,7 +1387,7 @@ public data class TestScript(
          * to. Ignored if "assert.value" is used. The evaluation will be done before the assertion
          * is evaluated.
          */
-        public var compareToSourcePath: String? = null,
+        public val compareToSourcePath: String? = null,
         /**
          * The mime-type contents to compare against the request or response message 'Content-Type'
          * header.
@@ -1398,7 +1398,7 @@ public data class TestScript(
          * operation's headers). If you'd like to have more control over the string, then use
          * 'assert.headerField' instead.
          */
-        public var contentType: Code? = null,
+        public val contentType: Code? = null,
         /**
          * The default manual completion outcome applied to this assertion.
          *
@@ -1406,7 +1406,7 @@ public data class TestScript(
          * external review of the defined assert condition. The defaultManualCompletion defines the
          * default manual completion outcome applied if one of the enumerated values is not applied.
          */
-        public var defaultManualCompletion: Enumeration<AssertionManualCompletionType>? = null,
+        public val defaultManualCompletion: Enumeration<AssertionManualCompletionType>? = null,
         /**
          * The FHIRPath expression to be evaluated against the request or response message
          * contents - HTTP headers and payload.
@@ -1422,7 +1422,7 @@ public data class TestScript(
          * expression, the assert.value element is not used. See
          * [Testing FHIR Use Expressions](testing.html#expressions).
          */
-        public var expression: String? = null,
+        public val expression: String? = null,
         /**
          * The HTTP header field name e.g. 'Location'.
          *
@@ -1431,7 +1431,7 @@ public data class TestScript(
          * headers. Test engines are to keep track of the last operation's response body and
          * response headers.
          */
-        public var headerField: String? = null,
+        public val headerField: String? = null,
         /**
          * The ID of a fixture. Asserts that the response contains at a minimum the fixture
          * specified by minimumId.
@@ -1443,13 +1443,13 @@ public data class TestScript(
          * See [Testing FHIR Use minimumId](testing.html##minimumId) for a more complete description
          * of the test engine's comparison logic.
          */
-        public var minimumId: String? = null,
+        public val minimumId: String? = null,
         /**
          * Whether or not the test execution performs validation on the bundle navigation links.
          *
          * Asserts that the Bundle contains first, last, and next links.
          */
-        public var navigationLinks: Boolean? = null,
+        public val navigationLinks: Boolean? = null,
         /**
          * The operator type defines the conditional behavior of the assert.
          *
@@ -1457,7 +1457,7 @@ public data class TestScript(
          * specified, then the default conditional behavior is implemented as defined in
          * [Testing FHIR Assertions](testing.html#assertion-table).
          */
-        public var `operator`: Enumeration<AssertionOperatorType>? = null,
+        public val `operator`: Enumeration<AssertionOperatorType>? = null,
         /**
          * The XPath or JSONPath expression to be evaluated against the fixture representing the
          * response received from server.
@@ -1468,7 +1468,7 @@ public data class TestScript(
          * operation. Test engines are to store the request and response body and headers of the
          * last operation at all times for subsequent assertions.
          */
-        public var path: String? = null,
+        public val path: String? = null,
         /**
          * The request method or HTTP operation code to compare against that used by the client
          * system under test.
@@ -1476,14 +1476,14 @@ public data class TestScript(
          * If "requestMethod" is specified then it will be used in place of "value". The
          * "requestMethod" will evaluate against the last operation's request HTTP operation.
          */
-        public var requestMethod: Enumeration<TestScriptRequestMethodCode>? = null,
+        public val requestMethod: Enumeration<TestScriptRequestMethodCode>? = null,
         /**
          * The value to use in a comparison against the request URL path string.
          *
          * If "requestURL" is specified then it will be used in place of "value". The "requestURL"
          * will evaluate against the last operation's full request URL path string.
          */
-        public var requestURL: String? = null,
+        public val requestURL: String? = null,
         /**
          * The type of the resource. See the [resource list](resourcelist.html).
          *
@@ -1491,7 +1491,7 @@ public data class TestScript(
          * See the [Resource List](resourcelist.html) for complete list of resource types; e.g.
          * <assert > <resourceType value="Patient" </assert>.
          */
-        public var resource: Uri? = null,
+        public val resource: Uri? = null,
         /**
          * continue | switchingProtocols | okay | created | accepted | nonAuthoritativeInformation |
          * noContent | resetContent | partialContent | multipleChoices | movedPermanently | found |
@@ -1507,7 +1507,7 @@ public data class TestScript(
          * you need more control, then use "assert.responseCode" e.g. <assert> <contentType
          * value="json" /> <response value="okay"/> </assert>.
          */
-        public var response: Enumeration<AssertionResponseTypes>? = null,
+        public val response: Enumeration<AssertionResponseTypes>? = null,
         /**
          * The value of the HTTP response code to be tested.
          *
@@ -1517,28 +1517,28 @@ public data class TestScript(
          * expected to be a numeric value. If "fixture" is not specified, then the "responseBodyId"
          * value of the last operation is assumed.
          */
-        public var responseCode: String? = null,
+        public val responseCode: String? = null,
         /**
          * Fixture to evaluate the XPath/JSONPath expression or the headerField against.
          *
          * This can be a statically defined fixture (at the top of the testscript) or a dynamically
          * set fixture created by responseId of the action.operation element.
          */
-        public var sourceId: Id? = null,
+        public val sourceId: Id? = null,
         /**
          * Whether or not the current test execution will stop on failure for this assert.
          *
          * If this element is specified and it is true, then assertion failures should not stop the
          * current test execution from proceeding.
          */
-        public var stopTestOnFail: Boolean,
+        public val stopTestOnFail: Boolean,
         /**
          * The ID of the Profile to validate against.
          *
          * The ID of a Profile fixture. Asserts that the response is valid according to the Profile
          * specified by validateProfileId.
          */
-        public var validateProfileId: Id? = null,
+        public val validateProfileId: Id? = null,
         /**
          * The value to compare to.
          *
@@ -1546,7 +1546,7 @@ public data class TestScript(
          * do have to look for placeholders (${}) and replace the variable placeholders with the
          * variable values at runtime before comparing this value to the actual value.
          */
-        public var `value`: String? = null,
+        public val `value`: String? = null,
         /**
          * Whether or not the test execution will produce a warning only on error for this assert.
          *
@@ -1556,7 +1556,7 @@ public data class TestScript(
          * something is optional (maybe a response header for example), but a server doesn’t do it,
          * we could choose to issue a warning.
          */
-        public var warningOnly: Boolean,
+        public val warningOnly: Boolean,
         /**
          * Links or references providing traceability to the testing requirements for this assert.
          *
@@ -1564,7 +1564,7 @@ public data class TestScript(
          * defined test requirements and documentation. These links provide traceability from the
          * executable/executed TestScript and TestReport tests to these requirements.
          */
-        public var requirement: MutableList<Requirement> = mutableListOf(),
+        public val requirement: List<Requirement> = listOf(),
       ) : BackboneElement() {
         /**
          * Links or references providing traceability to the testing requirements for this assert.
@@ -1575,7 +1575,7 @@ public data class TestScript(
            * Unique id for the element within a resource (for internal references). This may be any
            * string value that does not contain spaces.
            */
-          override var id: kotlin.String? = null,
+          override val id: kotlin.String? = null,
           /**
            * May be used to represent additional information that is not part of the basic
            * definition of the element. To make the use of extensions safe and managable, there is a
@@ -1588,7 +1588,7 @@ public data class TestScript(
            * defines the extensions. The use of extensions is what allows the FHIR specification to
            * retain a core level of simplicity for everyone.
            */
-          override var extension: MutableList<Extension> = mutableListOf(),
+          override val extension: List<Extension> = listOf(),
           /**
            * May be used to represent additional information that is not part of the basic
            * definition of the element and that modifies the understanding of the element in which
@@ -1607,9 +1607,9 @@ public data class TestScript(
            * defines the extensions. The use of extensions is what allows the FHIR specification to
            * retain a core level of simplicity for everyone.
            */
-          override var modifierExtension: MutableList<Extension> = mutableListOf(),
+          override val modifierExtension: List<Extension> = listOf(),
           /** Link or reference providing traceability to the testing requirement for this test. */
-          public var link: Link? = null,
+          public val link: Link? = null,
         ) : BackboneElement() {
           @Serializable(with = TestScriptSetupActionAssertRequirementLinkSerializer::class)
           public sealed interface Link {
@@ -1645,7 +1645,7 @@ public data class TestScript(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -1658,7 +1658,7 @@ public data class TestScript(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -1677,18 +1677,18 @@ public data class TestScript(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /** The name of this test used for tracking/logging purposes by test engines. */
-    public var name: String? = null,
+    public val name: String? = null,
     /** A short description of the test used by test engines for tracking and reporting purposes. */
-    public var description: String? = null,
+    public val description: String? = null,
     /**
      * Action would contain either an operation or an assertion.
      *
      * An action should contain either an operation or an assertion but not both. It can contain any
      * number of variables.
      */
-    public var action: MutableList<Action> = mutableListOf(),
+    public val action: List<Action> = listOf(),
   ) : BackboneElement() {
     /** Action would contain either an operation or an assertion. */
     @Serializable(with = TestScriptTestActionSerializer::class)
@@ -1697,7 +1697,7 @@ public data class TestScript(
        * Unique id for the element within a resource (for internal references). This may be any
        * string value that does not contain spaces.
        */
-      override var id: kotlin.String? = null,
+      override val id: kotlin.String? = null,
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -1710,7 +1710,7 @@ public data class TestScript(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: MutableList<Extension> = mutableListOf(),
+      override val extension: List<Extension> = listOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -1729,9 +1729,9 @@ public data class TestScript(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: MutableList<Extension> = mutableListOf(),
+      override val modifierExtension: List<Extension> = listOf(),
       /** An operation would involve a REST request to a server. */
-      public var operation: Setup.Action.Operation? = null,
+      public val operation: Setup.Action.Operation? = null,
       /**
        * Evaluates the results of previous operations to determine if the server under test behaves
        * appropriately.
@@ -1739,7 +1739,7 @@ public data class TestScript(
        * In order to evaluate an assertion, the request, response, and results of the most recently
        * executed operation must always be maintained by the test engine.
        */
-      public var assert: Setup.Action.Assert? = null,
+      public val assert: Setup.Action.Assert? = null,
     ) : BackboneElement()
   }
 
@@ -1753,7 +1753,7 @@ public data class TestScript(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -1766,7 +1766,7 @@ public data class TestScript(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -1785,14 +1785,14 @@ public data class TestScript(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /**
      * The teardown action will only contain an operation.
      *
      * An action should contain either an operation or an assertion but not both. It can contain any
      * number of variables.
      */
-    public var action: MutableList<Action> = mutableListOf(),
+    public val action: List<Action> = listOf(),
   ) : BackboneElement() {
     /** The teardown action will only contain an operation. */
     @Serializable(with = TestScriptTeardownActionSerializer::class)
@@ -1801,7 +1801,7 @@ public data class TestScript(
        * Unique id for the element within a resource (for internal references). This may be any
        * string value that does not contain spaces.
        */
-      override var id: kotlin.String? = null,
+      override val id: kotlin.String? = null,
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -1814,7 +1814,7 @@ public data class TestScript(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: MutableList<Extension> = mutableListOf(),
+      override val extension: List<Extension> = listOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -1833,9 +1833,9 @@ public data class TestScript(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: MutableList<Extension> = mutableListOf(),
+      override val modifierExtension: List<Extension> = listOf(),
       /** An operation would involve a REST request to a server. */
-      public var operation: Setup.Action.Operation,
+      public val operation: Setup.Action.Operation,
     ) : BackboneElement()
   }
 

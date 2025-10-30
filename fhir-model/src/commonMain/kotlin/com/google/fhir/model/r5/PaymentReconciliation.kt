@@ -24,7 +24,7 @@ import com.google.fhir.model.r5.serializers.PaymentReconciliationProcessNoteSeri
 import com.google.fhir.model.r5.serializers.PaymentReconciliationSerializer
 import com.google.fhir.model.r5.terminologies.NoteType
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -43,12 +43,12 @@ public data class PaymentReconciliation(
    * like the create and conditional update. Otherwise, the use of the resouce id depends on the
    * given use case.
    */
-  override var id: kotlin.String? = null,
+  override val id: kotlin.String? = null,
   /**
    * The metadata about the resource. This is content that is maintained by the infrastructure.
    * Changes to the content might not always be associated with version changes to the resource.
    */
-  override var meta: Meta? = null,
+  override val meta: Meta? = null,
   /**
    * A reference to a set of rules that were followed when the resource was constructed, and which
    * must be understood when processing the content. Often, this is a reference to an implementation
@@ -62,7 +62,7 @@ public data class PaymentReconciliation(
    * to an implementation guide that defines these special rules as part of its narrative along with
    * other profiles, value sets, etc.
    */
-  override var implicitRules: Uri? = null,
+  override val implicitRules: Uri? = null,
   /**
    * The base language in which the resource is written.
    *
@@ -74,7 +74,7 @@ public data class PaymentReconciliation(
    * language is specified, it should it also be specified on the div element in the html (see rules
    * in HTML5 for information about the relationship between xml:lang and the html lang attribute).
    */
-  override var language: Code? = null,
+  override val language: Code? = null,
   /**
    * A human-readable narrative that contains a summary of the resource and can be used to represent
    * the content of the resource to a human. The narrative need not encode all the structured data,
@@ -88,7 +88,7 @@ public data class PaymentReconciliation(
    * legacy systems where information is captured as a "text blob" or where text is additionally
    * entered raw or narrated and encoded information is added later.
    */
-  override var text: Narrative? = null,
+  override val text: Narrative? = null,
   /**
    * These resources do not have an independent existence apart from the resource that contains
    * them - they cannot be identified independently, nor can they have their own independent
@@ -100,7 +100,7 @@ public data class PaymentReconciliation(
    * resources may have profiles and tags in their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: MutableList<Resource> = mutableListOf(),
+  override val contained: List<Resource> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and managable, there is a strict set of governance
@@ -113,7 +113,7 @@ public data class PaymentReconciliation(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: MutableList<Extension> = mutableListOf(),
+  override val extension: List<Extension> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -132,43 +132,43 @@ public data class PaymentReconciliation(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: MutableList<Extension> = mutableListOf(),
+  override val modifierExtension: List<Extension> = listOf(),
   /** A unique identifier assigned to this payment reconciliation. */
-  public var identifier: MutableList<Identifier> = mutableListOf(),
+  public val identifier: List<Identifier> = listOf(),
   /** Code to indicate the nature of the payment such as payment, adjustment. */
-  public var type: CodeableConcept,
+  public val type: CodeableConcept,
   /**
    * The status of the resource instance.
    *
    * This element is labeled as a modifier because the status contains codes that mark the resource
    * as not currently valid.
    */
-  public var status: Enumeration<FinancialResourceStatusCodes>,
+  public val status: Enumeration<FinancialResourceStatusCodes>,
   /**
    * The workflow or activity which gave rise to or during which the payment ocurred such as a
    * kiosk, deposit on account, periodic payment etc.
    */
-  public var kind: CodeableConcept? = null,
+  public val kind: CodeableConcept? = null,
   /**
    * The period of time for which payments have been gathered into this bulk payment for settlement.
    */
-  public var period: Period? = null,
+  public val period: Period? = null,
   /** The date when the resource was created. */
-  public var created: DateTime,
+  public val created: DateTime,
   /** Payment enterer if not the actual payment issuer. */
-  public var enterer: Reference? = null,
+  public val enterer: Reference? = null,
   /** The type of the source such as patient or insurance. */
-  public var issuerType: CodeableConcept? = null,
+  public val issuerType: CodeableConcept? = null,
   /**
    * The party who generated the payment.
    *
    * This party is also responsible for the reconciliation.
    */
-  public var paymentIssuer: Reference? = null,
+  public val paymentIssuer: Reference? = null,
   /** Original request resource reference. */
-  public var request: Reference? = null,
+  public val request: Reference? = null,
   /** The practitioner who is responsible for the services rendered to the patient. */
-  public var requestor: Reference? = null,
+  public val requestor: Reference? = null,
   /**
    * The outcome of a request for a reconciliation.
    *
@@ -177,61 +177,61 @@ public data class PaymentReconciliation(
    * the adjudication has been undertaken (partial) or that all of the adjudication has been
    * undertaken (complete).
    */
-  public var outcome: Enumeration<PaymentOutcome>? = null,
+  public val outcome: Enumeration<PaymentOutcome>? = null,
   /** A human readable description of the status of the request for the reconciliation. */
-  public var disposition: String? = null,
+  public val disposition: String? = null,
   /** The date of payment as indicated on the financial instrument. */
-  public var date: Date,
+  public val date: Date,
   /**
    * The location of the site or device for electronic transfers or physical location for cash
    * payments.
    */
-  public var location: Reference? = null,
+  public val location: Reference? = null,
   /** The means of payment such as check, card cash, or electronic funds transfer. */
-  public var method: CodeableConcept? = null,
+  public val method: CodeableConcept? = null,
   /** The card brand such as debit, Visa, Amex etc. used if a card is the method of payment. */
-  public var cardBrand: String? = null,
+  public val cardBrand: String? = null,
   /**
    * A portion of the account number, often the last 4 digits, used for verification not charging
    * purposes.
    */
-  public var accountNumber: String? = null,
+  public val accountNumber: String? = null,
   /** The year and month (YYYY-MM) when the instrument, typically card, expires. */
-  public var expirationDate: Date? = null,
+  public val expirationDate: Date? = null,
   /** The name of the card processor, etf processor, bank for checks. */
-  public var processor: String? = null,
+  public val processor: String? = null,
   /** The check number, eft reference, car processor reference. */
-  public var referenceNumber: String? = null,
+  public val referenceNumber: String? = null,
   /** An alphanumeric issued by the processor to confirm the successful issuance of payment. */
-  public var authorization: String? = null,
+  public val authorization: String? = null,
   /**
    * The amount offered by the issuer, typically applies to cash when the issuer provides an amount
    * in bank note denominations equal to or excess of the amount actually being paid.
    */
-  public var tenderedAmount: Money? = null,
+  public val tenderedAmount: Money? = null,
   /**
    * The amount returned by the receiver which is excess to the amount payable, often referred to as
    * 'change'.
    */
-  public var returnedAmount: Money? = null,
+  public val returnedAmount: Money? = null,
   /** Total payment amount as indicated on the financial instrument. */
-  public var amount: Money,
+  public val amount: Money,
   /**
    * Issuer's unique identifier for the payment instrument.
    *
    * For example: EFT number or check number.
    */
-  public var paymentIdentifier: Identifier? = null,
+  public val paymentIdentifier: Identifier? = null,
   /** Distribution of the payment amount for a previously acknowledged payable. */
-  public var allocation: MutableList<Allocation> = mutableListOf(),
+  public val allocation: List<Allocation> = listOf(),
   /**
    * A code for the form to be used for printing the content.
    *
    * May be needed to identify specific jurisdictional forms.
    */
-  public var formCode: CodeableConcept? = null,
+  public val formCode: CodeableConcept? = null,
   /** A note that describes or explains the processing in a human readable form. */
-  public var processNote: MutableList<ProcessNote> = mutableListOf(),
+  public val processNote: List<ProcessNote> = listOf(),
 ) : DomainResource() {
   /** Distribution of the payment amount for a previously acknowledged payable. */
   @Serializable(with = PaymentReconciliationAllocationSerializer::class)
@@ -240,7 +240,7 @@ public data class PaymentReconciliation(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -253,7 +253,7 @@ public data class PaymentReconciliation(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -272,48 +272,48 @@ public data class PaymentReconciliation(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /** Unique identifier for the current payment item for the referenced payable. */
-    public var identifier: Identifier? = null,
+    public val identifier: Identifier? = null,
     /** Unique identifier for the prior payment item for the referenced payable. */
-    public var predecessor: Identifier? = null,
+    public val predecessor: Identifier? = null,
     /** Specific resource to which the payment/adjustment/advance applies. */
-    public var target: Reference? = null,
+    public val target: Reference? = null,
     /**
      * Identifies the claim line item, encounter or other sub-element being paid. Note payment may
      * be partial, that is not match the then outstanding balance or amount incurred.
      */
-    public var targetItem: TargetItem? = null,
+    public val targetItem: TargetItem? = null,
     /**
      * The Encounter to which this payment applies, may be completed by the receiver, used for
      * search.
      */
-    public var encounter: Reference? = null,
+    public val encounter: Reference? = null,
     /**
      * The Account to which this payment applies, may be completed by the receiver, used for search.
      */
-    public var account: Reference? = null,
+    public val account: Reference? = null,
     /**
      * Code to indicate the nature of the payment.
      *
      * For example: payment, adjustment, funds advance, etc.
      */
-    public var type: CodeableConcept? = null,
+    public val type: CodeableConcept? = null,
     /** The party which submitted the claim or financial transaction. */
-    public var submitter: Reference? = null,
+    public val submitter: Reference? = null,
     /** A resource, such as a ClaimResponse, which contains a commitment to payment. */
-    public var response: Reference? = null,
+    public val response: Reference? = null,
     /** The date from the response resource containing a commitment to pay. */
-    public var date: Date? = null,
+    public val date: Date? = null,
     /**
      * A reference to the individual who is responsible for inquiries regarding the response and its
      * payment.
      */
-    public var responsible: Reference? = null,
+    public val responsible: Reference? = null,
     /** The party which is receiving the payment. */
-    public var payee: Reference? = null,
+    public val payee: Reference? = null,
     /** The monetary amount allocated from the total payment to the payable. */
-    public var amount: Money? = null,
+    public val amount: Money? = null,
   ) : BackboneElement() {
     @Serializable(with = PaymentReconciliationAllocationTargetItemSerializer::class)
     public sealed interface TargetItem {
@@ -353,7 +353,7 @@ public data class PaymentReconciliation(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -366,7 +366,7 @@ public data class PaymentReconciliation(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -385,11 +385,11 @@ public data class PaymentReconciliation(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /** The business purpose of the note text. */
-    public var type: Enumeration<NoteType>? = null,
+    public val type: Enumeration<NoteType>? = null,
     /** The explanation or description associated with the processing. */
-    public var text: String? = null,
+    public val text: String? = null,
   ) : BackboneElement()
 
   /** This value set includes Status codes. */

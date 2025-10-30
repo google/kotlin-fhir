@@ -31,17 +31,17 @@ import com.google.fhir.model.r5.serializers.DoubleSerializer
 import com.google.fhir.model.r5.serializers.LocalTimeSerializer
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class ExtendedContactDetailSurrogate(
   public var id: String? = null,
-  public var extension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
   public var purpose: CodeableConcept? = null,
-  public var name: MutableList<HumanName>? = null,
-  public var telecom: MutableList<ContactPoint>? = null,
+  public var name: List<HumanName>? = null,
+  public var telecom: List<ContactPoint>? = null,
   public var address: Address? = null,
   public var organization: Reference? = null,
   public var period: Period? = null,
@@ -49,10 +49,10 @@ internal data class ExtendedContactDetailSurrogate(
   public fun toModel(): ExtendedContactDetail =
     ExtendedContactDetail(
       id = this@ExtendedContactDetailSurrogate.id,
-      extension = this@ExtendedContactDetailSurrogate.extension ?: mutableListOf(),
+      extension = this@ExtendedContactDetailSurrogate.extension ?: listOf(),
       purpose = this@ExtendedContactDetailSurrogate.purpose,
-      name = this@ExtendedContactDetailSurrogate.name ?: mutableListOf(),
-      telecom = this@ExtendedContactDetailSurrogate.telecom ?: mutableListOf(),
+      name = this@ExtendedContactDetailSurrogate.name ?: listOf(),
+      telecom = this@ExtendedContactDetailSurrogate.telecom ?: listOf(),
       address = this@ExtendedContactDetailSurrogate.address,
       organization = this@ExtendedContactDetailSurrogate.organization,
       period = this@ExtendedContactDetailSurrogate.period,

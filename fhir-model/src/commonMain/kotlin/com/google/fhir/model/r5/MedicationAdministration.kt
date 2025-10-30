@@ -24,7 +24,7 @@ import com.google.fhir.model.r5.serializers.MedicationAdministrationOccurenceSer
 import com.google.fhir.model.r5.serializers.MedicationAdministrationPerformerSerializer
 import com.google.fhir.model.r5.serializers.MedicationAdministrationSerializer
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -46,12 +46,12 @@ public data class MedicationAdministration(
    * like the create and conditional update. Otherwise, the use of the resouce id depends on the
    * given use case.
    */
-  override var id: kotlin.String? = null,
+  override val id: kotlin.String? = null,
   /**
    * The metadata about the resource. This is content that is maintained by the infrastructure.
    * Changes to the content might not always be associated with version changes to the resource.
    */
-  override var meta: Meta? = null,
+  override val meta: Meta? = null,
   /**
    * A reference to a set of rules that were followed when the resource was constructed, and which
    * must be understood when processing the content. Often, this is a reference to an implementation
@@ -65,7 +65,7 @@ public data class MedicationAdministration(
    * to an implementation guide that defines these special rules as part of its narrative along with
    * other profiles, value sets, etc.
    */
-  override var implicitRules: Uri? = null,
+  override val implicitRules: Uri? = null,
   /**
    * The base language in which the resource is written.
    *
@@ -77,7 +77,7 @@ public data class MedicationAdministration(
    * language is specified, it should it also be specified on the div element in the html (see rules
    * in HTML5 for information about the relationship between xml:lang and the html lang attribute).
    */
-  override var language: Code? = null,
+  override val language: Code? = null,
   /**
    * A human-readable narrative that contains a summary of the resource and can be used to represent
    * the content of the resource to a human. The narrative need not encode all the structured data,
@@ -91,7 +91,7 @@ public data class MedicationAdministration(
    * legacy systems where information is captured as a "text blob" or where text is additionally
    * entered raw or narrated and encoded information is added later.
    */
-  override var text: Narrative? = null,
+  override val text: Narrative? = null,
   /**
    * These resources do not have an independent existence apart from the resource that contains
    * them - they cannot be identified independently, nor can they have their own independent
@@ -103,7 +103,7 @@ public data class MedicationAdministration(
    * resources may have profiles and tags in their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: MutableList<Resource> = mutableListOf(),
+  override val contained: List<Resource> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and managable, there is a strict set of governance
@@ -116,7 +116,7 @@ public data class MedicationAdministration(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: MutableList<Extension> = mutableListOf(),
+  override val extension: List<Extension> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -135,7 +135,7 @@ public data class MedicationAdministration(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: MutableList<Extension> = mutableListOf(),
+  override val modifierExtension: List<Extension> = listOf(),
   /**
    * Identifiers associated with this Medication Administration that are defined by business
    * processes and/or used to refer to it when a direct URL reference to the resource itself is not
@@ -144,15 +144,15 @@ public data class MedicationAdministration(
    *
    * This is a business identifier, not a resource identifier.
    */
-  public var identifier: MutableList<Identifier> = mutableListOf(),
+  public val identifier: List<Identifier> = listOf(),
   /** A plan that is fulfilled in whole or in part by this MedicationAdministration. */
-  public var basedOn: MutableList<Reference> = mutableListOf(),
+  public val basedOn: List<Reference> = listOf(),
   /**
    * A larger event of which this particular event is a component or step.
    *
    * MedicationDispense will be used to indicate waste.
    */
-  public var partOf: MutableList<Reference> = mutableListOf(),
+  public val partOf: List<Reference> = listOf(),
   /**
    * Will generally be set to show that the administration has been completed. For some long running
    * administrations such as infusions, it is possible for an administration to be started but not
@@ -161,14 +161,14 @@ public data class MedicationAdministration(
    * This element is labeled as a modifier because the status contains codes that mark the resource
    * as not currently valid.
    */
-  public var status: Enumeration<MedicationAdministrationStatusCodes>,
+  public val status: Enumeration<MedicationAdministrationStatusCodes>,
   /** A code indicating why the administration was not performed. */
-  public var statusReason: MutableList<CodeableConcept> = mutableListOf(),
+  public val statusReason: List<CodeableConcept> = listOf(),
   /**
    * The type of medication administration (for example, drug classification like ATC, where meds
    * would be administered, legal category of the medication).
    */
-  public var category: MutableList<CodeableConcept> = mutableListOf(),
+  public val category: List<CodeableConcept> = listOf(),
   /**
    * Identifies the medication that was administered. This is either a link to a resource
    * representing the details of the medication or a simple attribute carrying a code that
@@ -178,14 +178,14 @@ public data class MedicationAdministration(
    * information is required, then the use of the medication resource is recommended. For example,
    * if you require form or lot number, then you must reference the Medication resource.
    */
-  public var medication: CodeableReference,
+  public val medication: CodeableReference,
   /** The person or animal or group receiving the medication. */
-  public var subject: Reference,
+  public val subject: Reference,
   /**
    * The visit, admission, or other contact between patient and health care provider during which
    * the medication administration was performed.
    */
-  public var encounter: Reference? = null,
+  public val encounter: Reference? = null,
   /**
    * Additional information (for example, patient height and weight) that supports the
    * administration of the medication. This attribute can be used to provide documentation of
@@ -193,49 +193,49 @@ public data class MedicationAdministration(
    * the dose says "give "x" if the heartrate exceeds "y"", then the heart rate can be included
    * using this attribute.
    */
-  public var supportingInformation: MutableList<Reference> = mutableListOf(),
+  public val supportingInformation: List<Reference> = listOf(),
   /**
    * A specific date/time or interval of time during which the administration took place (or did not
    * take place). For many administrations, such as swallowing a tablet the use of dateTime is more
    * appropriate.
    */
-  public var occurence: Occurence,
+  public val occurence: Occurence,
   /**
    * The date the occurrence of the MedicationAdministration was first captured in the record -
    * potentially significantly after the occurrence of the event.
    */
-  public var recorded: DateTime? = null,
+  public val recorded: DateTime? = null,
   /** An indication that the full dose was not administered. */
-  public var isSubPotent: Boolean? = null,
+  public val isSubPotent: Boolean? = null,
   /** The reason or reasons why the full dose was not administered. */
-  public var subPotentReason: MutableList<CodeableConcept> = mutableListOf(),
+  public val subPotentReason: List<CodeableConcept> = listOf(),
   /**
    * The performer of the medication treatment. For devices this is the device that performed the
    * administration of the medication. An IV Pump would be an example of a device that is performing
    * the administration. Both the IV Pump and the practitioner that set the rate or bolus on the
    * pump can be listed as performers.
    */
-  public var performer: MutableList<Performer> = mutableListOf(),
+  public val performer: List<Performer> = listOf(),
   /** A code, Condition or observation that supports why the medication was administered. */
-  public var reason: MutableList<CodeableReference> = mutableListOf(),
+  public val reason: List<CodeableReference> = listOf(),
   /**
    * The original request, instruction or authority to perform the administration.
    *
    * This is a reference to the MedicationRequest where the intent is either order or
    * instance-order. It should not reference MedicationRequests where the intent is any other value.
    */
-  public var request: Reference? = null,
+  public val request: Reference? = null,
   /**
    * The device that is to be used for the administration of the medication (for example, PCA Pump).
    */
-  public var device: MutableList<CodeableReference> = mutableListOf(),
+  public val device: List<CodeableReference> = listOf(),
   /**
    * Extra information about the medication administration that is not conveyed by the other
    * attributes.
    */
-  public var note: MutableList<Annotation> = mutableListOf(),
+  public val note: List<Annotation> = listOf(),
   /** Describes the medication dosage information details e.g. dose, rate, site, route, etc. */
-  public var dosage: Dosage? = null,
+  public val dosage: Dosage? = null,
   /**
    * A summary of the events of interest that have occurred, such as when the administration was
    * verified.
@@ -247,7 +247,7 @@ public data class MedicationAdministration(
    * that points to this version using _revinclude All Provenances should have some historical
    * version of this Request as their subject.
    */
-  public var eventHistory: MutableList<Reference> = mutableListOf(),
+  public val eventHistory: List<Reference> = listOf(),
 ) : DomainResource() {
   /**
    * The performer of the medication treatment. For devices this is the device that performed the
@@ -261,7 +261,7 @@ public data class MedicationAdministration(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -274,7 +274,7 @@ public data class MedicationAdministration(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -293,11 +293,11 @@ public data class MedicationAdministration(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /** Distinguishes the type of involvement of the performer in the medication administration. */
-    public var function: CodeableConcept? = null,
+    public val function: CodeableConcept? = null,
     /** Indicates who or what performed the medication administration. */
-    public var actor: CodeableReference,
+    public val actor: CodeableReference,
   ) : BackboneElement()
 
   /** Describes the medication dosage information details e.g. dose, rate, site, route, etc. */
@@ -307,7 +307,7 @@ public data class MedicationAdministration(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -320,7 +320,7 @@ public data class MedicationAdministration(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -339,7 +339,7 @@ public data class MedicationAdministration(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /**
      * Free text dosage can be used for cases where the dosage administered is too complex to code.
      * When coded dosage is present, the free text dosage may still be present for display to
@@ -347,7 +347,7 @@ public data class MedicationAdministration(
      *
      * The dosage instructions should reflect the dosage of the medication that was administered.
      */
-    public var text: String? = null,
+    public val text: String? = null,
     /**
      * A coded specification of the anatomic site where the medication first entered the body. For
      * example, "left arm".
@@ -357,12 +357,12 @@ public data class MedicationAdministration(
      * [http://hl7.org/fhir/StructureDefinition/bodySite](http://hl7.org/fhir/extensions/StructureDefinition-bodySite.html).
      * May be a summary code, or a reference to a very precise definition of the location, or both.
      */
-    public var site: CodeableConcept? = null,
+    public val site: CodeableConcept? = null,
     /**
      * A code specifying the route or physiological path of administration of a therapeutic agent
      * into or onto the patient. For example, topical, intravenous, etc.
      */
-    public var route: CodeableConcept? = null,
+    public val route: CodeableConcept? = null,
     /**
      * A coded value indicating the method by which the medication is intended to be or was
      * introduced into or on the body. This attribute will most often NOT be populated. It is most
@@ -376,7 +376,7 @@ public data class MedicationAdministration(
      * method code, then this attribute will not be populated often; if there is no pre-coordination
      * then method code may be used frequently.
      */
-    public var method: CodeableConcept? = null,
+    public val method: CodeableConcept? = null,
     /**
      * The amount of the medication given at one administration event. Use this value when the
      * administration is essentially an instantaneous event such as a swallowing a tablet or giving
@@ -385,7 +385,7 @@ public data class MedicationAdministration(
      * If the administration is not instantaneous (rate is present), this can be specified to convey
      * the total amount administered over period of time of a single administration.
      */
-    public var dose: Quantity? = null,
+    public val dose: Quantity? = null,
     /**
      * Identifies the speed with which the medication was or will be introduced into the patient.
      * Typically, the rate for an infusion e.g. 100 ml per 1 hour or 100 ml/hr. May also be
@@ -398,7 +398,7 @@ public data class MedicationAdministration(
      * Typically, the MedicationAdministration.dosage.rate element is not used to convey an average
      * rate.
      */
-    public var rate: Rate? = null,
+    public val rate: Rate? = null,
   ) : BackboneElement() {
     @Serializable(with = MedicationAdministrationDosageRateSerializer::class)
     public sealed interface Rate {

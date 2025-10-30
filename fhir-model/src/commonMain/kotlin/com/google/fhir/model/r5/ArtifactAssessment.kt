@@ -23,7 +23,7 @@ import com.google.fhir.model.r5.serializers.ArtifactAssessmentCiteAsSerializer
 import com.google.fhir.model.r5.serializers.ArtifactAssessmentContentSerializer
 import com.google.fhir.model.r5.serializers.ArtifactAssessmentSerializer
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -42,12 +42,12 @@ public data class ArtifactAssessment(
    * like the create and conditional update. Otherwise, the use of the resouce id depends on the
    * given use case.
    */
-  override var id: kotlin.String? = null,
+  override val id: kotlin.String? = null,
   /**
    * The metadata about the resource. This is content that is maintained by the infrastructure.
    * Changes to the content might not always be associated with version changes to the resource.
    */
-  override var meta: Meta? = null,
+  override val meta: Meta? = null,
   /**
    * A reference to a set of rules that were followed when the resource was constructed, and which
    * must be understood when processing the content. Often, this is a reference to an implementation
@@ -61,7 +61,7 @@ public data class ArtifactAssessment(
    * to an implementation guide that defines these special rules as part of its narrative along with
    * other profiles, value sets, etc.
    */
-  override var implicitRules: Uri? = null,
+  override val implicitRules: Uri? = null,
   /**
    * The base language in which the resource is written.
    *
@@ -73,7 +73,7 @@ public data class ArtifactAssessment(
    * language is specified, it should it also be specified on the div element in the html (see rules
    * in HTML5 for information about the relationship between xml:lang and the html lang attribute).
    */
-  override var language: Code? = null,
+  override val language: Code? = null,
   /**
    * A human-readable narrative that contains a summary of the resource and can be used to represent
    * the content of the resource to a human. The narrative need not encode all the structured data,
@@ -87,7 +87,7 @@ public data class ArtifactAssessment(
    * legacy systems where information is captured as a "text blob" or where text is additionally
    * entered raw or narrated and encoded information is added later.
    */
-  override var text: Narrative? = null,
+  override val text: Narrative? = null,
   /**
    * These resources do not have an independent existence apart from the resource that contains
    * them - they cannot be identified independently, nor can they have their own independent
@@ -99,7 +99,7 @@ public data class ArtifactAssessment(
    * resources may have profiles and tags in their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: MutableList<Resource> = mutableListOf(),
+  override val contained: List<Resource> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and managable, there is a strict set of governance
@@ -112,7 +112,7 @@ public data class ArtifactAssessment(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: MutableList<Extension> = mutableListOf(),
+  override val extension: List<Extension> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -131,7 +131,7 @@ public data class ArtifactAssessment(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: MutableList<Extension> = mutableListOf(),
+  override val modifierExtension: List<Extension> = listOf(),
   /**
    * A formal identifier that is used to identify this artifact assessment when it is represented in
    * other formats, or referenced in a specification, model, design or an instance.
@@ -140,13 +140,13 @@ public data class ArtifactAssessment(
    * type, and can then identify this activity definition outside of FHIR, where it is not possible
    * to use the logical URI.
    */
-  public var identifier: MutableList<Identifier> = mutableListOf(),
+  public val identifier: List<Identifier> = listOf(),
   /** A short title for the assessment for use in displaying and selecting. */
-  public var title: String? = null,
+  public val title: String? = null,
   /**
    * Display of or reference to the bibliographic citation of the comment, classifier, or rating.
    */
-  public var citeAs: CiteAs? = null,
+  public val citeAs: CiteAs? = null,
   /**
    * The date (and optionally time) when the artifact assessment was published. The date must change
    * when the disposition changes and it must change if the workflow status code changes. In
@@ -158,13 +158,13 @@ public data class ArtifactAssessment(
    * added as extensions or be found by consulting Provenances associated with past versions of the
    * resource.
    */
-  public var date: DateTime? = null,
+  public val date: DateTime? = null,
   /**
    * A copyright statement relating to the artifact assessment and/or its contents. Copyright
    * statements are generally legal restrictions on the use and publishing of the artifact
    * assessment.
    */
-  public var copyright: Markdown? = null,
+  public val copyright: Markdown? = null,
   /**
    * The date on which the resource content was approved by the publisher. Approval happens once
    * when the content is officially approved for usage.
@@ -172,25 +172,25 @@ public data class ArtifactAssessment(
    * The 'date' element may be more recent than the approval date because of minor changes or
    * editorial corrections.
    */
-  public var approvalDate: Date? = null,
+  public val approvalDate: Date? = null,
   /**
    * The date on which the resource content was last reviewed. Review happens periodically after
    * approval but does not change the original approval date.
    *
    * If specified, this date follows the original approval date.
    */
-  public var lastReviewDate: Date? = null,
+  public val lastReviewDate: Date? = null,
   /**
    * A reference to a resource, canonical resource, or non-FHIR resource which the comment or
    * assessment is about.
    */
-  public var artifact: Artifact,
+  public val artifact: Artifact,
   /** A component comment, classifier, or rating of the artifact. */
-  public var content: MutableList<Content> = mutableListOf(),
+  public val content: List<Content> = listOf(),
   /** Indicates the workflow status of the comment or change request. */
-  public var workflowStatus: Enumeration<ArtifactAssessmentWorkflowStatus>? = null,
+  public val workflowStatus: Enumeration<ArtifactAssessmentWorkflowStatus>? = null,
   /** Indicates the disposition of the responsible party to the comment or change request. */
-  public var disposition: Enumeration<ArtifactAssessmentDisposition>? = null,
+  public val disposition: Enumeration<ArtifactAssessmentDisposition>? = null,
 ) : DomainResource() {
   /** A component comment, classifier, or rating of the artifact. */
   @Serializable(with = ArtifactAssessmentContentSerializer::class)
@@ -199,7 +199,7 @@ public data class ArtifactAssessment(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -212,7 +212,7 @@ public data class ArtifactAssessment(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -231,19 +231,19 @@ public data class ArtifactAssessment(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /** The type of information this component of the content represents. */
-    public var informationType: Enumeration<ArtifactAssessmentInformationType>? = null,
+    public val informationType: Enumeration<ArtifactAssessmentInformationType>? = null,
     /** A brief summary of the content of this component. */
-    public var summary: Markdown? = null,
+    public val summary: Markdown? = null,
     /** Indicates what type of content this component represents. */
-    public var type: CodeableConcept? = null,
+    public val type: CodeableConcept? = null,
     /** Represents a rating, classifier, or assessment of the artifact. */
-    public var classifier: MutableList<CodeableConcept> = mutableListOf(),
+    public val classifier: List<CodeableConcept> = listOf(),
     /** A quantitative rating of the artifact. */
-    public var quantity: Quantity? = null,
+    public val quantity: Quantity? = null,
     /** Indicates who or what authored the content. */
-    public var author: Reference? = null,
+    public val author: Reference? = null,
     /**
      * A URI that points to what the comment is about, such as a line of text in the CQL, or a
      * specific element in a resource.
@@ -251,16 +251,16 @@ public data class ArtifactAssessment(
      * The target element is used to point the comment to aspect of the artifact, such as a text
      * range within a CQL library (e.g. #content?0:0-120:80).
      */
-    public var path: MutableList<Uri> = mutableListOf(),
+    public val path: List<Uri> = listOf(),
     /**
      * Additional related artifacts that provide supporting documentation, additional evidence, or
      * further information related to the content.
      */
-    public var relatedArtifact: MutableList<RelatedArtifact> = mutableListOf(),
+    public val relatedArtifact: List<RelatedArtifact> = listOf(),
     /** Acceptable to publicly share the comment, classifier or rating. */
-    public var freeToShare: Boolean? = null,
+    public val freeToShare: Boolean? = null,
     /** If the informationType is container, the components of the content. */
-    public var component: MutableList<Content> = mutableListOf(),
+    public val component: List<Content> = listOf(),
   ) : BackboneElement()
 
   @Serializable(with = ArtifactAssessmentCiteAsSerializer::class)

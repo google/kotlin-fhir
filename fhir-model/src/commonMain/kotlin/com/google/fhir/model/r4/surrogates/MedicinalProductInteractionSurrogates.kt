@@ -34,23 +34,23 @@ import com.google.fhir.model.r4.serializers.DoubleSerializer
 import com.google.fhir.model.r4.serializers.LocalTimeSerializer
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class MedicinalProductInteractionInteractantSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var item: MedicinalProductInteraction.Interactant.Item,
 ) {
   public fun toModel(): MedicinalProductInteraction.Interactant =
     MedicinalProductInteraction.Interactant(
       id = this@MedicinalProductInteractionInteractantSurrogate.id,
-      extension = this@MedicinalProductInteractionInteractantSurrogate.extension ?: mutableListOf(),
+      extension = this@MedicinalProductInteractionInteractantSurrogate.extension ?: listOf(),
       modifierExtension =
-        this@MedicinalProductInteractionInteractantSurrogate.modifierExtension ?: mutableListOf(),
+        this@MedicinalProductInteractionInteractantSurrogate.modifierExtension ?: listOf(),
       item = this@MedicinalProductInteractionInteractantSurrogate.item,
     )
 
@@ -102,13 +102,13 @@ internal data class MedicinalProductInteractionSurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: MutableList<Resource>? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var subject: MutableList<Reference>? = null,
+  public var contained: List<Resource>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
+  public var subject: List<Reference>? = null,
   public var description: KotlinString? = null,
   public var _description: Element? = null,
-  public var interactant: MutableList<MedicinalProductInteraction.Interactant>? = null,
+  public var interactant: List<MedicinalProductInteraction.Interactant>? = null,
   public var type: CodeableConcept? = null,
   public var effect: CodeableConcept? = null,
   public var incidence: CodeableConcept? = null,
@@ -129,17 +129,16 @@ internal data class MedicinalProductInteractionSurrogate(
           this@MedicinalProductInteractionSurrogate._language,
         ),
       text = this@MedicinalProductInteractionSurrogate.text,
-      contained = this@MedicinalProductInteractionSurrogate.contained ?: mutableListOf(),
-      extension = this@MedicinalProductInteractionSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@MedicinalProductInteractionSurrogate.modifierExtension ?: mutableListOf(),
-      subject = this@MedicinalProductInteractionSurrogate.subject ?: mutableListOf(),
+      contained = this@MedicinalProductInteractionSurrogate.contained ?: listOf(),
+      extension = this@MedicinalProductInteractionSurrogate.extension ?: listOf(),
+      modifierExtension = this@MedicinalProductInteractionSurrogate.modifierExtension ?: listOf(),
+      subject = this@MedicinalProductInteractionSurrogate.subject ?: listOf(),
       description =
         R4String.of(
           this@MedicinalProductInteractionSurrogate.description,
           this@MedicinalProductInteractionSurrogate._description,
         ),
-      interactant = this@MedicinalProductInteractionSurrogate.interactant ?: mutableListOf(),
+      interactant = this@MedicinalProductInteractionSurrogate.interactant ?: listOf(),
       type = this@MedicinalProductInteractionSurrogate.type,
       effect = this@MedicinalProductInteractionSurrogate.effect,
       incidence = this@MedicinalProductInteractionSurrogate.incidence,

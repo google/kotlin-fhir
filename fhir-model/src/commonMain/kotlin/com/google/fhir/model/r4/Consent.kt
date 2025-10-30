@@ -27,7 +27,7 @@ import com.google.fhir.model.r4.serializers.ConsentSourceSerializer
 import com.google.fhir.model.r4.serializers.ConsentVerificationSerializer
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -46,12 +46,12 @@ public data class Consent(
    * The only time that a resource does not have an id is when it is being submitted to the server
    * using a create operation.
    */
-  override var id: String? = null,
+  override val id: String? = null,
   /**
    * The metadata about the resource. This is content that is maintained by the infrastructure.
    * Changes to the content might not always be associated with version changes to the resource.
    */
-  override var meta: Meta? = null,
+  override val meta: Meta? = null,
   /**
    * A reference to a set of rules that were followed when the resource was constructed, and which
    * must be understood when processing the content. Often, this is a reference to an implementation
@@ -65,7 +65,7 @@ public data class Consent(
    * to an implementation guide that defines these special rules as part of it's narrative along
    * with other profiles, value sets, etc.
    */
-  override var implicitRules: Uri? = null,
+  override val implicitRules: Uri? = null,
   /**
    * The base language in which the resource is written.
    *
@@ -77,7 +77,7 @@ public data class Consent(
    * language is specified, it should it also be specified on the div element in the html (see rules
    * in HTML5 for information about the relationship between xml:lang and the html lang attribute).
    */
-  override var language: Code? = null,
+  override val language: Code? = null,
   /**
    * A human-readable narrative that contains a summary of the resource and can be used to represent
    * the content of the resource to a human. The narrative need not encode all the structured data,
@@ -91,7 +91,7 @@ public data class Consent(
    * legacy systems where information is captured as a "text blob" or where text is additionally
    * entered raw or narrated and encoded information is added later.
    */
-  override var text: Narrative? = null,
+  override val text: Narrative? = null,
   /**
    * These resources do not have an independent existence apart from the resource that contains
    * them - they cannot be identified independently, and nor can they have their own independent
@@ -102,7 +102,7 @@ public data class Consent(
    * resources may have profiles and tags In their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: MutableList<Resource> = mutableListOf(),
+  override val contained: List<Resource> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and manageable, there is a strict set of
@@ -115,7 +115,7 @@ public data class Consent(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: MutableList<Extension> = mutableListOf(),
+  override val extension: List<Extension> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -134,7 +134,7 @@ public data class Consent(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: MutableList<Extension> = mutableListOf(),
+  override val modifierExtension: List<Extension> = listOf(),
   /**
    * Unique identifier for this copy of the Consent Statement.
    *
@@ -142,38 +142,38 @@ public data class Consent(
    * elsewhere as the identifier for a consent record (e.g. a CDA consent document) then the consent
    * details are expected to be the same.
    */
-  public var identifier: MutableList<Identifier> = mutableListOf(),
+  public val identifier: List<Identifier> = listOf(),
   /**
    * Indicates the current state of this consent.
    *
    * This element is labeled as a modifier because the status contains the codes rejected and
    * entered-in-error that mark the Consent as not currently valid.
    */
-  public var status: Enumeration<ConsentState>,
+  public val status: Enumeration<ConsentState>,
   /**
    * A selector of the type of consent being presented: ADR, Privacy, Treatment, Research. This list
    * is now extensible.
    */
-  public var scope: CodeableConcept,
+  public val scope: CodeableConcept,
   /**
    * A classification of the type of consents found in the statement. This element supports indexing
    * and retrieval of consent statements.
    */
-  public var category: MutableList<CodeableConcept> = mutableListOf(),
+  public val category: List<CodeableConcept> = listOf(),
   /**
    * The patient/healthcare consumer to whom this consent applies.
    *
    * Commonly, the patient the consent pertains to is the author, but for young and old people, it
    * may be some other person.
    */
-  public var patient: Reference? = null,
+  public val patient: Reference? = null,
   /**
    * When this Consent was issued / created / indexed.
    *
    * This is not the time of the original consent, but the time that this statement was made or
    * derived.
    */
-  public var dateTime: DateTime? = null,
+  public val dateTime: DateTime? = null,
   /**
    * Either the Grantor, which is the entity responsible for granting the rights listed in a Consent
    * Directive or the Grantee, which is the entity responsible for complying with the Consent
@@ -183,9 +183,9 @@ public data class Consent(
    * Commonly, the patient the consent pertains to is the consentor, but particularly for young and
    * old people, it may be some other person - e.g. a legal guardian.
    */
-  public var performer: MutableList<Reference> = mutableListOf(),
+  public val performer: List<Reference> = listOf(),
   /** The organization that manages the consent, and the framework within which it is executed. */
-  public var organization: MutableList<Reference> = mutableListOf(),
+  public val organization: List<Reference> = listOf(),
   /**
    * The source on which this consent statement is based. The source might be a scanned original
    * paper form, or a reference to a consent that links back to such a source, a reference to a
@@ -195,29 +195,29 @@ public data class Consent(
    * consent repository (DocumentReference), or simply by an identifier (Identifier), e.g. a CDA
    * document id.
    */
-  public var source: Source? = null,
+  public val source: Source? = null,
   /**
    * The references to the policies that are included in this consent scope. Policies may be
    * organizational, but are often defined jurisdictionally, or in law.
    */
-  public var policy: MutableList<Policy> = mutableListOf(),
+  public val policy: List<Policy> = listOf(),
   /**
    * A reference to the specific base computable regulation or policy.
    *
    * If the policyRule is absent, computable consent would need to be constructed from the elements
    * of the Consent resource.
    */
-  public var policyRule: CodeableConcept? = null,
+  public val policyRule: CodeableConcept? = null,
   /**
    * Whether a treatment instruction (e.g. artificial respiration yes or no) was verified with the
    * patient, his/her family or another authorized person.
    */
-  public var verification: MutableList<Verification> = mutableListOf(),
+  public val verification: List<Verification> = listOf(),
   /**
    * An exception to the base policy of this consent. An exception can be an addition or removal of
    * access permissions.
    */
-  public var provision: Provision? = null,
+  public val provision: Provision? = null,
 ) : DomainResource() {
   /**
    * The references to the policies that are included in this consent scope. Policies may be
@@ -229,7 +229,7 @@ public data class Consent(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: String? = null,
+    override val id: String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and manageable, there is a strict set of
@@ -242,7 +242,7 @@ public data class Consent(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -261,12 +261,12 @@ public data class Consent(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /**
      * Entity or Organization having regulatory jurisdiction or accountability for enforcing
      * policies pertaining to Consent Directives.
      */
-    public var authority: Uri? = null,
+    public val authority: Uri? = null,
     /**
      * The references to the policies that are included in this consent scope. Policies may be
      * organizational, but are often defined jurisdictionally, or in law.
@@ -274,7 +274,7 @@ public data class Consent(
      * This element is for discoverability / documentation and does not modify or qualify the policy
      * rules.
      */
-    public var uri: Uri? = null,
+    public val uri: Uri? = null,
   ) : BackboneElement()
 
   /**
@@ -287,7 +287,7 @@ public data class Consent(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: String? = null,
+    override val id: String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and manageable, there is a strict set of
@@ -300,7 +300,7 @@ public data class Consent(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -319,13 +319,13 @@ public data class Consent(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /** Has the instruction been verified. */
-    public var verified: Boolean,
+    public val verified: Boolean,
     /** Who verified the instruction (Patient, Relative or other Authorized Person). */
-    public var verifiedWith: Reference? = null,
+    public val verifiedWith: Reference? = null,
     /** Date verification was collected. */
-    public var verificationDate: DateTime? = null,
+    public val verificationDate: DateTime? = null,
   ) : BackboneElement()
 
   /**
@@ -338,7 +338,7 @@ public data class Consent(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: String? = null,
+    override val id: String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and manageable, there is a strict set of
@@ -351,7 +351,7 @@ public data class Consent(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -370,19 +370,19 @@ public data class Consent(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /**
      * Action to take - permit or deny - when the rule conditions are met. Not permitted in root
      * rule, required in all nested rules.
      */
-    public var type: Enumeration<ConsentProvisionType>? = null,
+    public val type: Enumeration<ConsentProvisionType>? = null,
     /** The timeframe in this rule is valid. */
-    public var period: Period? = null,
+    public val period: Period? = null,
     /**
      * Who or what is controlled by this rule. Use group to identify a set of actors by some
      * property they share (e.g. 'admitting officers').
      */
-    public var actor: MutableList<Actor> = mutableListOf(),
+    public val actor: List<Actor> = listOf(),
     /**
      * Actions controlled by this Rule.
      *
@@ -390,7 +390,7 @@ public data class Consent(
      * element). At present, the only action in the understood and tested scope of this resource is
      * 'read'.
      */
-    public var action: MutableList<CodeableConcept> = mutableListOf(),
+    public val action: List<CodeableConcept> = listOf(),
     /**
      * A security label, comprised of 0..* security label fields (Privacy tags), which define which
      * resources are controlled by this exception.
@@ -400,14 +400,14 @@ public data class Consent(
      * security labels, subsumption logic applies. When the purpose of use tag is on the data,
      * access request purpose of use shall not conflict.
      */
-    public var securityLabel: MutableList<Coding> = mutableListOf(),
+    public val securityLabel: List<Coding> = listOf(),
     /**
      * The context of the activities a user is taking - why the user is accessing the data - that
      * are controlled by this rule.
      *
      * When the purpose of use tag is on the data, access request purpose of use shall not conflict.
      */
-    public var purpose: MutableList<Coding> = mutableListOf(),
+    public val purpose: List<Coding> = listOf(),
     /**
      * The class of information covered by this rule. The type can be a FHIR resource type, a
      * profile on a type, or a CDA document, or some other type that indicates what sort of
@@ -417,24 +417,24 @@ public data class Consent(
      * refer to profiles or document types defined in a standard or an implementation guide
      * somewhere.
      */
-    public var `class`: MutableList<Coding> = mutableListOf(),
+    public val `class`: List<Coding> = listOf(),
     /**
      * If this code is found in an instance, then the rule applies.
      *
      * Typical use of this is a Document code with class = CDA.
      */
-    public var code: MutableList<CodeableConcept> = mutableListOf(),
+    public val code: List<CodeableConcept> = listOf(),
     /**
      * Clinical or Operational Relevant period of time that bounds the data controlled by this rule.
      *
      * This has a different sense to the Consent.period - that is when the consent agreement holds.
      * This is the time period of the data that is controlled by the agreement.
      */
-    public var dataPeriod: Period? = null,
+    public val dataPeriod: Period? = null,
     /** The resources controlled by this rule if specific resources are referenced. */
-    public var `data`: MutableList<Data> = mutableListOf(),
+    public val `data`: List<Data> = listOf(),
     /** Rules which provide exceptions to the base rule or subrules. */
-    public var provision: MutableList<Provision> = mutableListOf(),
+    public val provision: List<Provision> = listOf(),
   ) : BackboneElement() {
     /**
      * Who or what is controlled by this rule. Use group to identify a set of actors by some
@@ -446,7 +446,7 @@ public data class Consent(
        * Unique id for the element within a resource (for internal references). This may be any
        * string value that does not contain spaces.
        */
-      override var id: String? = null,
+      override val id: String? = null,
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element. To make the use of extensions safe and manageable, there is a strict set of
@@ -459,7 +459,7 @@ public data class Consent(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: MutableList<Extension> = mutableListOf(),
+      override val extension: List<Extension> = listOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -478,16 +478,16 @@ public data class Consent(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: MutableList<Extension> = mutableListOf(),
+      override val modifierExtension: List<Extension> = listOf(),
       /**
        * How the individual is involved in the resources content that is described in the exception.
        */
-      public var role: CodeableConcept,
+      public val role: CodeableConcept,
       /**
        * The resource that identifies the actor. To identify actors by type, use group to identify a
        * set of actors by some property they share (e.g. 'admitting officers').
        */
-      public var reference: Reference,
+      public val reference: Reference,
     ) : BackboneElement()
 
     /** The resources controlled by this rule if specific resources are referenced. */
@@ -497,7 +497,7 @@ public data class Consent(
        * Unique id for the element within a resource (for internal references). This may be any
        * string value that does not contain spaces.
        */
-      override var id: String? = null,
+      override val id: String? = null,
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element. To make the use of extensions safe and manageable, there is a strict set of
@@ -510,7 +510,7 @@ public data class Consent(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: MutableList<Extension> = mutableListOf(),
+      override val extension: List<Extension> = listOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -529,14 +529,14 @@ public data class Consent(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: MutableList<Extension> = mutableListOf(),
+      override val modifierExtension: List<Extension> = listOf(),
       /** How the resource reference is interpreted when testing consent restrictions. */
-      public var meaning: Enumeration<ConsentDataMeaning>,
+      public val meaning: Enumeration<ConsentDataMeaning>,
       /**
        * A reference to a specific resource that defines which resources are covered by this
        * consent.
        */
-      public var reference: Reference,
+      public val reference: Reference,
     ) : BackboneElement()
   }
 

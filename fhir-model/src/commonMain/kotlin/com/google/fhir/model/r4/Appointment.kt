@@ -21,7 +21,7 @@ package com.google.fhir.model.r4
 import com.google.fhir.model.r4.serializers.AppointmentParticipantSerializer
 import com.google.fhir.model.r4.serializers.AppointmentSerializer
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -39,12 +39,12 @@ public data class Appointment(
    * The only time that a resource does not have an id is when it is being submitted to the server
    * using a create operation.
    */
-  override var id: kotlin.String? = null,
+  override val id: kotlin.String? = null,
   /**
    * The metadata about the resource. This is content that is maintained by the infrastructure.
    * Changes to the content might not always be associated with version changes to the resource.
    */
-  override var meta: Meta? = null,
+  override val meta: Meta? = null,
   /**
    * A reference to a set of rules that were followed when the resource was constructed, and which
    * must be understood when processing the content. Often, this is a reference to an implementation
@@ -58,7 +58,7 @@ public data class Appointment(
    * to an implementation guide that defines these special rules as part of it's narrative along
    * with other profiles, value sets, etc.
    */
-  override var implicitRules: Uri? = null,
+  override val implicitRules: Uri? = null,
   /**
    * The base language in which the resource is written.
    *
@@ -70,7 +70,7 @@ public data class Appointment(
    * language is specified, it should it also be specified on the div element in the html (see rules
    * in HTML5 for information about the relationship between xml:lang and the html lang attribute).
    */
-  override var language: Code? = null,
+  override val language: Code? = null,
   /**
    * A human-readable narrative that contains a summary of the resource and can be used to represent
    * the content of the resource to a human. The narrative need not encode all the structured data,
@@ -84,7 +84,7 @@ public data class Appointment(
    * legacy systems where information is captured as a "text blob" or where text is additionally
    * entered raw or narrated and encoded information is added later.
    */
-  override var text: Narrative? = null,
+  override val text: Narrative? = null,
   /**
    * These resources do not have an independent existence apart from the resource that contains
    * them - they cannot be identified independently, and nor can they have their own independent
@@ -95,7 +95,7 @@ public data class Appointment(
    * resources may have profiles and tags In their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: MutableList<Resource> = mutableListOf(),
+  override val contained: List<Resource> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and manageable, there is a strict set of
@@ -108,7 +108,7 @@ public data class Appointment(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: MutableList<Extension> = mutableListOf(),
+  override val extension: List<Extension> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -127,13 +127,13 @@ public data class Appointment(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: MutableList<Extension> = mutableListOf(),
+  override val modifierExtension: List<Extension> = listOf(),
   /**
    * This records identifiers associated with this appointment concern that are defined by business
    * processes and/or used to refer to it when a direct URL reference to the resource itself is not
    * appropriate (e.g. in CDA documents, or in written / printed documentation).
    */
-  public var identifier: MutableList<Identifier> = mutableListOf(),
+  public val identifier: List<Identifier> = listOf(),
   /**
    * The overall status of the Appointment. Each of the participants has their own participation
    * status which indicates their involvement in the process, however this status indicates the
@@ -146,41 +146,41 @@ public data class Appointment(
    * This element is labeled as a modifier because the status contains the code entered-in-error
    * that mark the Appointment as not currently valid.
    */
-  public var status: Enumeration<AppointmentStatus>,
+  public val status: Enumeration<AppointmentStatus>,
   /**
    * The coded reason for the appointment being cancelled. This is often used in
    * reporting/billing/futher processing to determine if further actions are required, or specific
    * fees apply.
    */
-  public var cancelationReason: CodeableConcept? = null,
+  public val cancelationReason: CodeableConcept? = null,
   /** A broad categorization of the service that is to be performed during this appointment. */
-  public var serviceCategory: MutableList<CodeableConcept> = mutableListOf(),
+  public val serviceCategory: List<CodeableConcept> = listOf(),
   /**
    * The specific service that is to be performed during this appointment.
    *
    * For a provider to provider appointment the code "FOLLOWUP" may be appropriate, as this is
    * expected to be discussing some patient that was seen in the past.
    */
-  public var serviceType: MutableList<CodeableConcept> = mutableListOf(),
+  public val serviceType: List<CodeableConcept> = listOf(),
   /**
    * The specialty of a practitioner that would be required to perform the service requested in this
    * appointment.
    */
-  public var specialty: MutableList<CodeableConcept> = mutableListOf(),
+  public val specialty: List<CodeableConcept> = listOf(),
   /** The style of appointment or patient that has been booked in the slot (not service type). */
-  public var appointmentType: CodeableConcept? = null,
+  public val appointmentType: CodeableConcept? = null,
   /**
    * The coded reason that this appointment is being scheduled. This is more clinical than
    * administrative.
    */
-  public var reasonCode: MutableList<CodeableConcept> = mutableListOf(),
+  public val reasonCode: List<CodeableConcept> = listOf(),
   /**
    * Reason the appointment has been scheduled to take place, as specified using information from
    * another resource. When the patient arrives and the encounter begins it may be used as the
    * admission diagnosis. The indication will typically be a Condition (with other resources
    * referenced in the evidence.detail), or a Procedure.
    */
-  public var reasonReference: MutableList<Reference> = mutableListOf(),
+  public val reasonReference: List<Reference> = listOf(),
   /**
    * The priority of the appointment. Can be used to make informed decisions if needing to
    * re-prioritize appointments. (The iCal Standard specifies 0 as undefined, 1 as highest, 9 as
@@ -191,19 +191,19 @@ public data class Appointment(
    * Using an extension to record a CodeableConcept for named values may be tested at a future
    * connectathon.
    */
-  public var priority: UnsignedInt? = null,
+  public val priority: UnsignedInt? = null,
   /**
    * The brief description of the appointment as would be shown on a subject line in a meeting
    * request, or appointment list. Detailed or expanded information should be put in the comment
    * field.
    */
-  public var description: String? = null,
+  public val description: String? = null,
   /** Additional information to support the appointment provided when making the appointment. */
-  public var supportingInformation: MutableList<Reference> = mutableListOf(),
+  public val supportingInformation: List<Reference> = listOf(),
   /** Date/Time that the appointment is to take place. */
-  public var start: Instant? = null,
+  public val start: Instant? = null,
   /** Date/Time that the appointment is to conclude. */
-  public var end: Instant? = null,
+  public val end: Instant? = null,
   /**
    * Number of minutes that the appointment is to take. This can be less than the duration between
    * the start and end times. For example, where the actual time of appointment is only an estimate
@@ -211,9 +211,9 @@ public data class Appointment(
    * for example, a planned 15 minute break in the middle of a long appointment, the duration may be
    * 15 minutes less than the difference between the start and end.
    */
-  public var minutesDuration: PositiveInt? = null,
+  public val minutesDuration: PositiveInt? = null,
   /** The slots from the participants' schedules that will be filled by the appointment. */
-  public var slot: MutableList<Reference> = mutableListOf(),
+  public val slot: List<Reference> = listOf(),
   /**
    * The date that this appointment was initially created. This could be different to the
    * meta.lastModified value on the initial entry, as this could have been before the resource was
@@ -222,7 +222,7 @@ public data class Appointment(
    * This property is required for many use cases where the age of an appointment is considered in
    * processing workflows for scheduling and billing of appointments.
    */
-  public var created: DateTime? = null,
+  public val created: DateTime? = null,
   /**
    * Additional comments about the appointment.
    *
@@ -233,20 +233,20 @@ public data class Appointment(
    * used to provide additional guidance on the details of the appointment request, including any
    * restrictions on when to book it.
    */
-  public var comment: String? = null,
+  public val comment: String? = null,
   /**
    * While Appointment.comment contains information for internal use,
    * Appointment.patientInstructions is used to capture patient facing information about the
    * Appointment (e.g. please bring your referral or fast from 8pm night before).
    */
-  public var patientInstruction: String? = null,
+  public val patientInstruction: String? = null,
   /**
    * The service request this appointment is allocated to assess (e.g. incoming referral or
    * procedure request).
    */
-  public var basedOn: MutableList<Reference> = mutableListOf(),
+  public val basedOn: List<Reference> = listOf(),
   /** List of participants involved in the appointment. */
-  public var participant: MutableList<Participant> = mutableListOf(),
+  public val participant: List<Participant> = listOf(),
   /**
    * A set of date ranges (potentially including times) that the appointment is preferred to be
    * scheduled within.
@@ -257,7 +257,7 @@ public data class Appointment(
    *
    * This does not introduce a capacity for recurring appointments.
    */
-  public var requestedPeriod: MutableList<Period> = mutableListOf(),
+  public val requestedPeriod: List<Period> = listOf(),
 ) : DomainResource() {
   /** List of participants involved in the appointment. */
   @Serializable(with = AppointmentParticipantSerializer::class)
@@ -266,7 +266,7 @@ public data class Appointment(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and manageable, there is a strict set of
@@ -279,7 +279,7 @@ public data class Appointment(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -298,7 +298,7 @@ public data class Appointment(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /**
      * Role of participant in the appointment.
      *
@@ -311,19 +311,19 @@ public data class Appointment(
      * This value SHALL be the same when creating an AppointmentResponse so that they can be
      * matched, and subsequently update the Appointment.
      */
-    public var type: MutableList<CodeableConcept> = mutableListOf(),
+    public val type: List<CodeableConcept> = listOf(),
     /** A Person, Location/HealthcareService or Device that is participating in the appointment. */
-    public var actor: Reference? = null,
+    public val actor: Reference? = null,
     /**
      * Whether this participant is required to be present at the meeting. This covers a use-case
      * where two doctors need to meet to discuss the results for a specific patient, and the patient
      * is not required to be present.
      */
-    public var required: Enumeration<ParticipantRequired>? = null,
+    public val required: Enumeration<ParticipantRequired>? = null,
     /** Participation status of the actor. */
-    public var status: Enumeration<ParticipationStatus>,
+    public val status: Enumeration<ParticipationStatus>,
     /** Participation period of the actor. */
-    public var period: Period? = null,
+    public val period: Period? = null,
   ) : BackboneElement()
 
   /** Is the Participant required to attend the appointment. */

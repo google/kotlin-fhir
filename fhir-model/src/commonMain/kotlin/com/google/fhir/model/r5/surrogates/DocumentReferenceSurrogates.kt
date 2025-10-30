@@ -46,15 +46,15 @@ import com.google.fhir.model.r5.serializers.LocalTimeSerializer
 import com.google.fhir.model.r5.terminologies.DocumentReferenceStatus
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class DocumentReferenceAttesterSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var mode: CodeableConcept,
   public var time: KotlinString? = null,
   public var _time: Element? = null,
@@ -63,9 +63,8 @@ internal data class DocumentReferenceAttesterSurrogate(
   public fun toModel(): DocumentReference.Attester =
     DocumentReference.Attester(
       id = this@DocumentReferenceAttesterSurrogate.id,
-      extension = this@DocumentReferenceAttesterSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@DocumentReferenceAttesterSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@DocumentReferenceAttesterSurrogate.extension ?: listOf(),
+      modifierExtension = this@DocumentReferenceAttesterSurrogate.modifierExtension ?: listOf(),
       mode = this@DocumentReferenceAttesterSurrogate.mode,
       time =
         DateTime.of(
@@ -94,17 +93,16 @@ internal data class DocumentReferenceAttesterSurrogate(
 @Serializable
 internal data class DocumentReferenceRelatesToSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var code: CodeableConcept,
   public var target: Reference,
 ) {
   public fun toModel(): DocumentReference.RelatesTo =
     DocumentReference.RelatesTo(
       id = this@DocumentReferenceRelatesToSurrogate.id,
-      extension = this@DocumentReferenceRelatesToSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@DocumentReferenceRelatesToSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@DocumentReferenceRelatesToSurrogate.extension ?: listOf(),
+      modifierExtension = this@DocumentReferenceRelatesToSurrogate.modifierExtension ?: listOf(),
       code = this@DocumentReferenceRelatesToSurrogate.code,
       target = this@DocumentReferenceRelatesToSurrogate.target,
     )
@@ -126,19 +124,18 @@ internal data class DocumentReferenceRelatesToSurrogate(
 @Serializable
 internal data class DocumentReferenceContentSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var attachment: Attachment,
-  public var profile: MutableList<DocumentReference.Content.Profile>? = null,
+  public var profile: List<DocumentReference.Content.Profile>? = null,
 ) {
   public fun toModel(): DocumentReference.Content =
     DocumentReference.Content(
       id = this@DocumentReferenceContentSurrogate.id,
-      extension = this@DocumentReferenceContentSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@DocumentReferenceContentSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@DocumentReferenceContentSurrogate.extension ?: listOf(),
+      modifierExtension = this@DocumentReferenceContentSurrogate.modifierExtension ?: listOf(),
       attachment = this@DocumentReferenceContentSurrogate.attachment,
-      profile = this@DocumentReferenceContentSurrogate.profile ?: mutableListOf(),
+      profile = this@DocumentReferenceContentSurrogate.profile ?: listOf(),
     )
 
   public companion object {
@@ -158,16 +155,16 @@ internal data class DocumentReferenceContentSurrogate(
 @Serializable
 internal data class DocumentReferenceContentProfileSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var `value`: DocumentReference.Content.Profile.Value,
 ) {
   public fun toModel(): DocumentReference.Content.Profile =
     DocumentReference.Content.Profile(
       id = this@DocumentReferenceContentProfileSurrogate.id,
-      extension = this@DocumentReferenceContentProfileSurrogate.extension ?: mutableListOf(),
+      extension = this@DocumentReferenceContentProfileSurrogate.extension ?: listOf(),
       modifierExtension =
-        this@DocumentReferenceContentProfileSurrogate.modifierExtension ?: mutableListOf(),
+        this@DocumentReferenceContentProfileSurrogate.modifierExtension ?: listOf(),
       `value` = this@DocumentReferenceContentProfileSurrogate.`value`,
     )
 
@@ -232,37 +229,37 @@ internal data class DocumentReferenceSurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: MutableList<Resource>? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var identifier: MutableList<Identifier>? = null,
+  public var contained: List<Resource>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
+  public var identifier: List<Identifier>? = null,
   public var version: KotlinString? = null,
   public var _version: Element? = null,
-  public var basedOn: MutableList<Reference>? = null,
+  public var basedOn: List<Reference>? = null,
   public var status: KotlinString? = null,
   public var _status: Element? = null,
   public var docStatus: KotlinString? = null,
   public var _docStatus: Element? = null,
-  public var modality: MutableList<CodeableConcept>? = null,
+  public var modality: List<CodeableConcept>? = null,
   public var type: CodeableConcept? = null,
-  public var category: MutableList<CodeableConcept>? = null,
+  public var category: List<CodeableConcept>? = null,
   public var subject: Reference? = null,
-  public var context: MutableList<Reference>? = null,
-  public var event: MutableList<CodeableReference>? = null,
-  public var bodySite: MutableList<CodeableReference>? = null,
+  public var context: List<Reference>? = null,
+  public var event: List<CodeableReference>? = null,
+  public var bodySite: List<CodeableReference>? = null,
   public var facilityType: CodeableConcept? = null,
   public var practiceSetting: CodeableConcept? = null,
   public var period: Period? = null,
   public var date: KotlinString? = null,
   public var _date: Element? = null,
-  public var author: MutableList<Reference>? = null,
-  public var attester: MutableList<DocumentReference.Attester>? = null,
+  public var author: List<Reference>? = null,
+  public var attester: List<DocumentReference.Attester>? = null,
   public var custodian: Reference? = null,
-  public var relatesTo: MutableList<DocumentReference.RelatesTo>? = null,
+  public var relatesTo: List<DocumentReference.RelatesTo>? = null,
   public var description: KotlinString? = null,
   public var _description: Element? = null,
-  public var securityLabel: MutableList<CodeableConcept>? = null,
-  public var content: MutableList<DocumentReference.Content>? = null,
+  public var securityLabel: List<CodeableConcept>? = null,
+  public var content: List<DocumentReference.Content>? = null,
 ) {
   public fun toModel(): DocumentReference =
     DocumentReference(
@@ -279,16 +276,16 @@ internal data class DocumentReferenceSurrogate(
           this@DocumentReferenceSurrogate._language,
         ),
       text = this@DocumentReferenceSurrogate.text,
-      contained = this@DocumentReferenceSurrogate.contained ?: mutableListOf(),
-      extension = this@DocumentReferenceSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@DocumentReferenceSurrogate.modifierExtension ?: mutableListOf(),
-      identifier = this@DocumentReferenceSurrogate.identifier ?: mutableListOf(),
+      contained = this@DocumentReferenceSurrogate.contained ?: listOf(),
+      extension = this@DocumentReferenceSurrogate.extension ?: listOf(),
+      modifierExtension = this@DocumentReferenceSurrogate.modifierExtension ?: listOf(),
+      identifier = this@DocumentReferenceSurrogate.identifier ?: listOf(),
       version =
         R5String.of(
           this@DocumentReferenceSurrogate.version,
           this@DocumentReferenceSurrogate._version,
         ),
-      basedOn = this@DocumentReferenceSurrogate.basedOn ?: mutableListOf(),
+      basedOn = this@DocumentReferenceSurrogate.basedOn ?: listOf(),
       status =
         Enumeration.of(
           DocumentReferenceStatus.fromCode(this@DocumentReferenceSurrogate.status!!),
@@ -301,13 +298,13 @@ internal data class DocumentReferenceSurrogate(
             this@DocumentReferenceSurrogate._docStatus,
           )
         },
-      modality = this@DocumentReferenceSurrogate.modality ?: mutableListOf(),
+      modality = this@DocumentReferenceSurrogate.modality ?: listOf(),
       type = this@DocumentReferenceSurrogate.type,
-      category = this@DocumentReferenceSurrogate.category ?: mutableListOf(),
+      category = this@DocumentReferenceSurrogate.category ?: listOf(),
       subject = this@DocumentReferenceSurrogate.subject,
-      context = this@DocumentReferenceSurrogate.context ?: mutableListOf(),
-      event = this@DocumentReferenceSurrogate.event ?: mutableListOf(),
-      bodySite = this@DocumentReferenceSurrogate.bodySite ?: mutableListOf(),
+      context = this@DocumentReferenceSurrogate.context ?: listOf(),
+      event = this@DocumentReferenceSurrogate.event ?: listOf(),
+      bodySite = this@DocumentReferenceSurrogate.bodySite ?: listOf(),
       facilityType = this@DocumentReferenceSurrogate.facilityType,
       practiceSetting = this@DocumentReferenceSurrogate.practiceSetting,
       period = this@DocumentReferenceSurrogate.period,
@@ -316,17 +313,17 @@ internal data class DocumentReferenceSurrogate(
           FhirDateTime.fromString(this@DocumentReferenceSurrogate.date),
           this@DocumentReferenceSurrogate._date,
         ),
-      author = this@DocumentReferenceSurrogate.author ?: mutableListOf(),
-      attester = this@DocumentReferenceSurrogate.attester ?: mutableListOf(),
+      author = this@DocumentReferenceSurrogate.author ?: listOf(),
+      attester = this@DocumentReferenceSurrogate.attester ?: listOf(),
       custodian = this@DocumentReferenceSurrogate.custodian,
-      relatesTo = this@DocumentReferenceSurrogate.relatesTo ?: mutableListOf(),
+      relatesTo = this@DocumentReferenceSurrogate.relatesTo ?: listOf(),
       description =
         Markdown.of(
           this@DocumentReferenceSurrogate.description,
           this@DocumentReferenceSurrogate._description,
         ),
-      securityLabel = this@DocumentReferenceSurrogate.securityLabel ?: mutableListOf(),
-      content = this@DocumentReferenceSurrogate.content ?: mutableListOf(),
+      securityLabel = this@DocumentReferenceSurrogate.securityLabel ?: listOf(),
+      content = this@DocumentReferenceSurrogate.content ?: listOf(),
     )
 
   public companion object {

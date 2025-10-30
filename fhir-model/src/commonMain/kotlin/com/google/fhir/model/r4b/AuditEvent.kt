@@ -26,7 +26,7 @@ import com.google.fhir.model.r4b.serializers.AuditEventEntitySerializer
 import com.google.fhir.model.r4b.serializers.AuditEventSerializer
 import com.google.fhir.model.r4b.serializers.AuditEventSourceSerializer
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -44,12 +44,12 @@ public data class AuditEvent(
    * The only time that a resource does not have an id is when it is being submitted to the server
    * using a create operation.
    */
-  override var id: kotlin.String? = null,
+  override val id: kotlin.String? = null,
   /**
    * The metadata about the resource. This is content that is maintained by the infrastructure.
    * Changes to the content might not always be associated with version changes to the resource.
    */
-  override var meta: Meta? = null,
+  override val meta: Meta? = null,
   /**
    * A reference to a set of rules that were followed when the resource was constructed, and which
    * must be understood when processing the content. Often, this is a reference to an implementation
@@ -63,7 +63,7 @@ public data class AuditEvent(
    * to an implementation guide that defines these special rules as part of it's narrative along
    * with other profiles, value sets, etc.
    */
-  override var implicitRules: Uri? = null,
+  override val implicitRules: Uri? = null,
   /**
    * The base language in which the resource is written.
    *
@@ -75,7 +75,7 @@ public data class AuditEvent(
    * language is specified, it should it also be specified on the div element in the html (see rules
    * in HTML5 for information about the relationship between xml:lang and the html lang attribute).
    */
-  override var language: Code? = null,
+  override val language: Code? = null,
   /**
    * A human-readable narrative that contains a summary of the resource and can be used to represent
    * the content of the resource to a human. The narrative need not encode all the structured data,
@@ -89,7 +89,7 @@ public data class AuditEvent(
    * legacy systems where information is captured as a "text blob" or where text is additionally
    * entered raw or narrated and encoded information is added later.
    */
-  override var text: Narrative? = null,
+  override val text: Narrative? = null,
   /**
    * These resources do not have an independent existence apart from the resource that contains
    * them - they cannot be identified independently, and nor can they have their own independent
@@ -100,7 +100,7 @@ public data class AuditEvent(
    * resources may have profiles and tags In their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: MutableList<Resource> = mutableListOf(),
+  override val contained: List<Resource> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and manageable, there is a strict set of
@@ -113,7 +113,7 @@ public data class AuditEvent(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: MutableList<Extension> = mutableListOf(),
+  override val extension: List<Extension> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -132,30 +132,30 @@ public data class AuditEvent(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: MutableList<Extension> = mutableListOf(),
+  override val modifierExtension: List<Extension> = listOf(),
   /**
    * Identifier for a family of the event. For example, a menu item, program, rule, policy, function
    * code, application name or URL. It identifies the performed function.
    */
-  public var type: Coding,
+  public val type: Coding,
   /** Identifier for the category of event. */
-  public var subtype: MutableList<Coding> = mutableListOf(),
+  public val subtype: List<Coding> = listOf(),
   /** Indicator for type of action performed during the event that generated the audit. */
-  public var action: Enumeration<AuditEventAction>? = null,
+  public val action: Enumeration<AuditEventAction>? = null,
   /**
    * The period during which the activity occurred.
    *
    * The period can be a little arbitrary; where possible, the time should correspond to human
    * assessment of the activity time.
    */
-  public var period: Period? = null,
+  public val period: Period? = null,
   /**
    * The time when the event was recorded.
    *
    * In a distributed system, some sort of common time base (e.g. an NTP [RFC1305] server) is a good
    * implementation tactic.
    */
-  public var recorded: Instant,
+  public val recorded: Instant,
   /**
    * Indicates whether the event succeeded or failed.
    *
@@ -163,9 +163,9 @@ public data class AuditEvent(
    * a radiological study. For the purpose of establishing accountability, these distinctions are
    * not relevant.
    */
-  public var outcome: Enumeration<AuditEventOutcome>? = null,
+  public val outcome: Enumeration<AuditEventOutcome>? = null,
   /** A free text description of the outcome of the event. */
-  public var outcomeDesc: String? = null,
+  public val outcomeDesc: String? = null,
   /**
    * The purposeOfUse (reason) that was used during the event being recorded.
    *
@@ -173,7 +173,7 @@ public data class AuditEvent(
    * AuditEvent.purposeOfEvent. For example, during a machine-to-machine transfer it might not be
    * obvious to the audit system who caused the event, but it does know why.
    */
-  public var purposeOfEvent: MutableList<CodeableConcept> = mutableListOf(),
+  public val purposeOfEvent: List<CodeableConcept> = listOf(),
   /**
    * An actor taking an active role in the event or activity that is logged.
    *
@@ -183,7 +183,7 @@ public data class AuditEvent(
    * For example, an activity may be initiated by one user for other users or involve more than one
    * user. However, only one user may be the initiator/requestor for the activity.
    */
-  public var agent: MutableList<Agent> = mutableListOf(),
+  public val agent: List<Agent> = listOf(),
   /**
    * The system that is reporting the event.
    *
@@ -193,7 +193,7 @@ public data class AuditEvent(
    * processes, and database server threads in an n-tier distributed application. Passive event
    * participants (e.g. low-level network transports) need not be identified.
    */
-  public var source: Source,
+  public val source: Source,
   /**
    * Specific instances of data or objects that have been accessed.
    *
@@ -201,7 +201,7 @@ public data class AuditEvent(
    * identification are sufficient to document the entire auditable event. Because events may have
    * more than one entity, this group can be a repeating set of values.
    */
-  public var entity: MutableList<Entity> = mutableListOf(),
+  public val entity: List<Entity> = listOf(),
 ) : DomainResource() {
   /** An actor taking an active role in the event or activity that is logged. */
   @Serializable(with = AuditEventAgentSerializer::class)
@@ -210,7 +210,7 @@ public data class AuditEvent(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and manageable, there is a strict set of
@@ -223,7 +223,7 @@ public data class AuditEvent(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -242,30 +242,30 @@ public data class AuditEvent(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /** Specification of the participation type the user plays when performing the event. */
-    public var type: CodeableConcept? = null,
+    public val type: CodeableConcept? = null,
     /**
      * The security role that the user was acting under, that come from local codes defined by the
      * access control security system (e.g. RBAC, ABAC) used in the local context.
      *
      * Should be roles relevant to the event. Should not be an exhaustive list of roles.
      */
-    public var role: MutableList<CodeableConcept> = mutableListOf(),
+    public val role: List<CodeableConcept> = listOf(),
     /**
      * Reference to who this agent is that was involved in the event.
      *
      * Where a User ID is available it will go into who.identifier.
      */
-    public var who: Reference? = null,
+    public val who: Reference? = null,
     /**
      * Alternative agent Identifier. For a human, this should be a user identifier text string from
      * authentication system. This identifier would be one known to a common authentication system
      * (e.g. single sign-on), if available.
      */
-    public var altId: String? = null,
+    public val altId: String? = null,
     /** Human-meaningful name for the agent. */
-    public var name: String? = null,
+    public val name: String? = null,
     /**
      * Indicator that the user is or is not the requestor, or initiator, for the event being
      * audited.
@@ -273,9 +273,9 @@ public data class AuditEvent(
      * There can only be one initiator. If the initiator is not clear, then do not choose any one
      * agent as the initiator.
      */
-    public var requestor: Boolean,
+    public val requestor: Boolean,
     /** Where the event occurred. */
-    public var location: Reference? = null,
+    public val location: Reference? = null,
     /**
      * The policy or plan that authorized the activity being recorded. Typically, a single activity
      * may have multiple applicable policies, such as patient consent, guarantor funding, etc. The
@@ -285,13 +285,13 @@ public data class AuditEvent(
      * placed into the policy element Where a policy engine (e.g. XACML) holds policy logic, the
      * unique policy identifier is placed into the policy element.
      */
-    public var policy: MutableList<Uri> = mutableListOf(),
+    public val policy: List<Uri> = listOf(),
     /** Type of media involved. Used when the event is about exporting/importing onto media. */
-    public var media: Coding? = null,
+    public val media: Coding? = null,
     /**
      * Logical network location for application activity, if the activity has a network location.
      */
-    public var network: Network? = null,
+    public val network: Network? = null,
     /**
      * The reason (purpose of use), specific to this agent, that was used during the event being
      * recorded.
@@ -300,7 +300,7 @@ public data class AuditEvent(
      * AuditEvent.purposeOfEvent. For example, during a machine-to-machine transfer it might not be
      * obvious to the audit system who caused the event, but it does know why.
      */
-    public var purposeOfUse: MutableList<CodeableConcept> = mutableListOf(),
+    public val purposeOfUse: List<CodeableConcept> = listOf(),
   ) : BackboneElement() {
     /**
      * Logical network location for application activity, if the activity has a network location.
@@ -311,7 +311,7 @@ public data class AuditEvent(
        * Unique id for the element within a resource (for internal references). This may be any
        * string value that does not contain spaces.
        */
-      override var id: kotlin.String? = null,
+      override val id: kotlin.String? = null,
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element. To make the use of extensions safe and manageable, there is a strict set of
@@ -324,7 +324,7 @@ public data class AuditEvent(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: MutableList<Extension> = mutableListOf(),
+      override val extension: List<Extension> = listOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -343,15 +343,15 @@ public data class AuditEvent(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: MutableList<Extension> = mutableListOf(),
+      override val modifierExtension: List<Extension> = listOf(),
       /**
        * An identifier for the network access point of the user device for the audit event.
        *
        * This could be a device id, IP address or some other identifier associated with a device.
        */
-      public var address: String? = null,
+      public val address: String? = null,
       /** An identifier for the type of network access point that originated the audit event. */
-      public var type: Enumeration<AuditEventAgentNetworkType>? = null,
+      public val type: Enumeration<AuditEventAgentNetworkType>? = null,
     ) : BackboneElement()
   }
 
@@ -362,7 +362,7 @@ public data class AuditEvent(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and manageable, there is a strict set of
@@ -375,7 +375,7 @@ public data class AuditEvent(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -394,16 +394,16 @@ public data class AuditEvent(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /**
      * Logical source location within the healthcare enterprise network. For example, a hospital or
      * other provider location within a multi-entity provider group.
      */
-    public var site: String? = null,
+    public val site: String? = null,
     /** Identifier of the source where the event was detected. */
-    public var observer: Reference,
+    public val observer: Reference,
     /** Code specifying the type of source where event originated. */
-    public var type: MutableList<Coding> = mutableListOf(),
+    public val type: List<Coding> = listOf(),
   ) : BackboneElement()
 
   /** Specific instances of data or objects that have been accessed. */
@@ -413,7 +413,7 @@ public data class AuditEvent(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and manageable, there is a strict set of
@@ -426,7 +426,7 @@ public data class AuditEvent(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -445,30 +445,30 @@ public data class AuditEvent(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /** Identifies a specific instance of the entity. The reference should be version specific. */
-    public var what: Reference? = null,
+    public val what: Reference? = null,
     /**
      * The type of the object that was involved in this audit event.
      *
      * This value is distinct from the user's role or any user relationship to the entity.
      */
-    public var type: Coding? = null,
+    public val type: Coding? = null,
     /** Code representing the role the entity played in the event being audited. */
-    public var role: Coding? = null,
+    public val role: Coding? = null,
     /**
      * Identifier for the data life-cycle stage for the entity.
      *
      * This can be used to provide an audit trail for data, over time, as it passes through the
      * system.
      */
-    public var lifecycle: Coding? = null,
+    public val lifecycle: Coding? = null,
     /**
      * Security labels for the identified entity.
      *
      * Copied from entity meta security tags.
      */
-    public var securityLabel: MutableList<Coding> = mutableListOf(),
+    public val securityLabel: List<Coding> = listOf(),
     /**
      * A name of the entity in the audit event.
      *
@@ -476,9 +476,9 @@ public data class AuditEvent(
      * example, where multiple synonymous entity identifiers (patient number, medical record number,
      * encounter number, etc.) have been used.
      */
-    public var name: String? = null,
+    public val name: String? = null,
     /** Text that describes the entity in more detail. */
-    public var description: String? = null,
+    public val description: String? = null,
     /**
      * The query parameters for a query-type entities.
      *
@@ -490,9 +490,9 @@ public data class AuditEvent(
      * auditing an Oracle network database access, the Oracle formats must be understood as they
      * will be simply encoded in the base64binary blob.
      */
-    public var query: Base64Binary? = null,
+    public val query: Base64Binary? = null,
     /** Tagged value pairs for conveying additional information about the entity. */
-    public var detail: MutableList<Detail> = mutableListOf(),
+    public val detail: List<Detail> = listOf(),
   ) : BackboneElement() {
     /** Tagged value pairs for conveying additional information about the entity. */
     @Serializable(with = AuditEventEntityDetailSerializer::class)
@@ -501,7 +501,7 @@ public data class AuditEvent(
        * Unique id for the element within a resource (for internal references). This may be any
        * string value that does not contain spaces.
        */
-      override var id: kotlin.String? = null,
+      override val id: kotlin.String? = null,
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element. To make the use of extensions safe and manageable, there is a strict set of
@@ -514,7 +514,7 @@ public data class AuditEvent(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: MutableList<Extension> = mutableListOf(),
+      override val extension: List<Extension> = listOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -533,9 +533,9 @@ public data class AuditEvent(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: MutableList<Extension> = mutableListOf(),
+      override val modifierExtension: List<Extension> = listOf(),
       /** The type of extra detail provided in the value. */
-      public var type: String,
+      public val type: String,
       /**
        * The value of the extra detail.
        *
@@ -549,7 +549,7 @@ public data class AuditEvent(
        * database access, the Oracle formats must be understood as they will be simply encoded in
        * the base64binary blob.
        */
-      public var `value`: Value,
+      public val `value`: Value,
     ) : BackboneElement() {
       @Serializable(with = AuditEventEntityDetailValueSerializer::class)
       public sealed interface Value {

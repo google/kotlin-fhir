@@ -42,23 +42,23 @@ import com.google.fhir.model.r5.serializers.DoubleSerializer
 import com.google.fhir.model.r5.serializers.LocalTimeSerializer
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class ConditionParticipantSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var function: CodeableConcept? = null,
   public var actor: Reference,
 ) {
   public fun toModel(): Condition.Participant =
     Condition.Participant(
       id = this@ConditionParticipantSurrogate.id,
-      extension = this@ConditionParticipantSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@ConditionParticipantSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@ConditionParticipantSurrogate.extension ?: listOf(),
+      modifierExtension = this@ConditionParticipantSurrogate.modifierExtension ?: listOf(),
       function = this@ConditionParticipantSurrogate.function,
       actor = this@ConditionParticipantSurrogate.actor,
     )
@@ -80,19 +80,19 @@ internal data class ConditionParticipantSurrogate(
 @Serializable
 internal data class ConditionStageSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var summary: CodeableConcept? = null,
-  public var assessment: MutableList<Reference>? = null,
+  public var assessment: List<Reference>? = null,
   public var type: CodeableConcept? = null,
 ) {
   public fun toModel(): Condition.Stage =
     Condition.Stage(
       id = this@ConditionStageSurrogate.id,
-      extension = this@ConditionStageSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@ConditionStageSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@ConditionStageSurrogate.extension ?: listOf(),
+      modifierExtension = this@ConditionStageSurrogate.modifierExtension ?: listOf(),
       summary = this@ConditionStageSurrogate.summary,
-      assessment = this@ConditionStageSurrogate.assessment ?: mutableListOf(),
+      assessment = this@ConditionStageSurrogate.assessment ?: listOf(),
       type = this@ConditionStageSurrogate.type,
     )
 
@@ -202,26 +202,26 @@ internal data class ConditionSurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: MutableList<Resource>? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var identifier: MutableList<Identifier>? = null,
+  public var contained: List<Resource>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
+  public var identifier: List<Identifier>? = null,
   public var clinicalStatus: CodeableConcept,
   public var verificationStatus: CodeableConcept? = null,
-  public var category: MutableList<CodeableConcept>? = null,
+  public var category: List<CodeableConcept>? = null,
   public var severity: CodeableConcept? = null,
   public var code: CodeableConcept? = null,
-  public var bodySite: MutableList<CodeableConcept>? = null,
+  public var bodySite: List<CodeableConcept>? = null,
   public var subject: Reference,
   public var encounter: Reference? = null,
   public var onset: Condition.Onset? = null,
   public var abatement: Condition.Abatement? = null,
   public var recordedDate: KotlinString? = null,
   public var _recordedDate: Element? = null,
-  public var participant: MutableList<Condition.Participant>? = null,
-  public var stage: MutableList<Condition.Stage>? = null,
-  public var evidence: MutableList<CodeableReference>? = null,
-  public var note: MutableList<Annotation>? = null,
+  public var participant: List<Condition.Participant>? = null,
+  public var stage: List<Condition.Stage>? = null,
+  public var evidence: List<CodeableReference>? = null,
+  public var note: List<Annotation>? = null,
 ) {
   public fun toModel(): Condition =
     Condition(
@@ -231,16 +231,16 @@ internal data class ConditionSurrogate(
         Uri.of(this@ConditionSurrogate.implicitRules, this@ConditionSurrogate._implicitRules),
       language = Code.of(this@ConditionSurrogate.language, this@ConditionSurrogate._language),
       text = this@ConditionSurrogate.text,
-      contained = this@ConditionSurrogate.contained ?: mutableListOf(),
-      extension = this@ConditionSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@ConditionSurrogate.modifierExtension ?: mutableListOf(),
-      identifier = this@ConditionSurrogate.identifier ?: mutableListOf(),
+      contained = this@ConditionSurrogate.contained ?: listOf(),
+      extension = this@ConditionSurrogate.extension ?: listOf(),
+      modifierExtension = this@ConditionSurrogate.modifierExtension ?: listOf(),
+      identifier = this@ConditionSurrogate.identifier ?: listOf(),
       clinicalStatus = this@ConditionSurrogate.clinicalStatus,
       verificationStatus = this@ConditionSurrogate.verificationStatus,
-      category = this@ConditionSurrogate.category ?: mutableListOf(),
+      category = this@ConditionSurrogate.category ?: listOf(),
       severity = this@ConditionSurrogate.severity,
       code = this@ConditionSurrogate.code,
-      bodySite = this@ConditionSurrogate.bodySite ?: mutableListOf(),
+      bodySite = this@ConditionSurrogate.bodySite ?: listOf(),
       subject = this@ConditionSurrogate.subject,
       encounter = this@ConditionSurrogate.encounter,
       onset = this@ConditionSurrogate.onset,
@@ -250,10 +250,10 @@ internal data class ConditionSurrogate(
           FhirDateTime.fromString(this@ConditionSurrogate.recordedDate),
           this@ConditionSurrogate._recordedDate,
         ),
-      participant = this@ConditionSurrogate.participant ?: mutableListOf(),
-      stage = this@ConditionSurrogate.stage ?: mutableListOf(),
-      evidence = this@ConditionSurrogate.evidence ?: mutableListOf(),
-      note = this@ConditionSurrogate.note ?: mutableListOf(),
+      participant = this@ConditionSurrogate.participant ?: listOf(),
+      stage = this@ConditionSurrogate.stage ?: listOf(),
+      evidence = this@ConditionSurrogate.evidence ?: listOf(),
+      note = this@ConditionSurrogate.note ?: listOf(),
     )
 
   public companion object {

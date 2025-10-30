@@ -21,7 +21,7 @@ package com.google.fhir.model.r5
 import com.google.fhir.model.r5.serializers.VirtualServiceDetailAddressSerializer
 import com.google.fhir.model.r5.serializers.VirtualServiceDetailSerializer
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 
 /** VirtualServiceDetail Type: Virtual Service Contact Details. */
@@ -31,7 +31,7 @@ public data class VirtualServiceDetail(
    * Unique id for the element within a resource (for internal references). This may be any string
    * value that does not contain spaces.
    */
-  override var id: kotlin.String? = null,
+  override val id: kotlin.String? = null,
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * element. To make the use of extensions safe and managable, there is a strict set of governance
@@ -44,7 +44,7 @@ public data class VirtualServiceDetail(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: MutableList<Extension> = mutableListOf(),
+  override val extension: List<Extension> = listOf(),
   /**
    * The type of virtual service to connect to (i.e. Teams, Zoom, Specific VMR technology,
    * WhatsApp).
@@ -54,20 +54,20 @@ public data class VirtualServiceDetail(
    *
    * Some profiles could be used for specific types to define what the other values could/should be.
    */
-  public var channelType: Coding? = null,
+  public val channelType: Coding? = null,
   /**
    * What address or number needs to be used for a user to connect to the virtual service to join.
    * The channelType informs as to which datatype is appropriate to use (requires knowledge of the
    * specific type).
    */
-  public var address: Address? = null,
+  public val address: Address? = null,
   /**
    * Address to see alternative connection details.
    *
    * This web address can be used to provide additional details on the call, such as
    * alternative/regional call in numbers, or other associated services.
    */
-  public var additionalInfo: MutableList<Url> = mutableListOf(),
+  public val additionalInfo: List<Url> = listOf(),
   /**
    * Maximum number of participants supported by the virtual service.
    *
@@ -76,7 +76,7 @@ public data class VirtualServiceDetail(
    *
    * Typically on-demand services might not have these restrictions.
    */
-  public var maxParticipants: PositiveInt? = null,
+  public val maxParticipants: PositiveInt? = null,
   /**
    * Session Key required by the virtual service.
    *
@@ -85,7 +85,7 @@ public data class VirtualServiceDetail(
    * This could be in cases where a shared number is used, and a session key is added to put into a
    * private line, or to identify the participant in a call.
    */
-  public var sessionKey: String? = null,
+  public val sessionKey: String? = null,
 ) : DataType() {
   @Serializable(with = VirtualServiceDetailAddressSerializer::class)
   public sealed interface Address {

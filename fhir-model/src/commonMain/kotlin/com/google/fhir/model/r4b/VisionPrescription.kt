@@ -22,7 +22,7 @@ import com.google.fhir.model.r4b.serializers.VisionPrescriptionLensSpecification
 import com.google.fhir.model.r4b.serializers.VisionPrescriptionLensSpecificationSerializer
 import com.google.fhir.model.r4b.serializers.VisionPrescriptionSerializer
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -37,12 +37,12 @@ public data class VisionPrescription(
    * The only time that a resource does not have an id is when it is being submitted to the server
    * using a create operation.
    */
-  override var id: kotlin.String? = null,
+  override val id: kotlin.String? = null,
   /**
    * The metadata about the resource. This is content that is maintained by the infrastructure.
    * Changes to the content might not always be associated with version changes to the resource.
    */
-  override var meta: Meta? = null,
+  override val meta: Meta? = null,
   /**
    * A reference to a set of rules that were followed when the resource was constructed, and which
    * must be understood when processing the content. Often, this is a reference to an implementation
@@ -56,7 +56,7 @@ public data class VisionPrescription(
    * to an implementation guide that defines these special rules as part of it's narrative along
    * with other profiles, value sets, etc.
    */
-  override var implicitRules: Uri? = null,
+  override val implicitRules: Uri? = null,
   /**
    * The base language in which the resource is written.
    *
@@ -68,7 +68,7 @@ public data class VisionPrescription(
    * language is specified, it should it also be specified on the div element in the html (see rules
    * in HTML5 for information about the relationship between xml:lang and the html lang attribute).
    */
-  override var language: Code? = null,
+  override val language: Code? = null,
   /**
    * A human-readable narrative that contains a summary of the resource and can be used to represent
    * the content of the resource to a human. The narrative need not encode all the structured data,
@@ -82,7 +82,7 @@ public data class VisionPrescription(
    * legacy systems where information is captured as a "text blob" or where text is additionally
    * entered raw or narrated and encoded information is added later.
    */
-  override var text: Narrative? = null,
+  override val text: Narrative? = null,
   /**
    * These resources do not have an independent existence apart from the resource that contains
    * them - they cannot be identified independently, and nor can they have their own independent
@@ -93,7 +93,7 @@ public data class VisionPrescription(
    * resources may have profiles and tags In their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: MutableList<Resource> = mutableListOf(),
+  override val contained: List<Resource> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and manageable, there is a strict set of
@@ -106,7 +106,7 @@ public data class VisionPrescription(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: MutableList<Extension> = mutableListOf(),
+  override val extension: List<Extension> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -125,39 +125,39 @@ public data class VisionPrescription(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: MutableList<Extension> = mutableListOf(),
+  override val modifierExtension: List<Extension> = listOf(),
   /** A unique identifier assigned to this vision prescription. */
-  public var identifier: MutableList<Identifier> = mutableListOf(),
+  public val identifier: List<Identifier> = listOf(),
   /**
    * The status of the resource instance.
    *
    * This element is labeled as a modifier because the status contains codes that mark the resource
    * as not currently valid.
    */
-  public var status: Enumeration<FinancialResourceStatusCodes>,
+  public val status: Enumeration<FinancialResourceStatusCodes>,
   /** The date this resource was created. */
-  public var created: DateTime,
+  public val created: DateTime,
   /** A resource reference to the person to whom the vision prescription applies. */
-  public var patient: Reference,
+  public val patient: Reference,
   /**
    * A reference to a resource that identifies the particular occurrence of contact between patient
    * and health care provider during which the prescription was issued.
    */
-  public var encounter: Reference? = null,
+  public val encounter: Reference? = null,
   /**
    * The date (and perhaps time) when the prescription was written.
    *
    * Jurisdictions determine the valid lifetime of a prescription. Typically vision prescriptions
    * are valid for two years from the date written.
    */
-  public var dateWritten: DateTime,
+  public val dateWritten: DateTime,
   /** The healthcare professional responsible for authorizing the prescription. */
-  public var prescriber: Reference,
+  public val prescriber: Reference,
   /**
    * Contain the details of the individual lens specifications and serves as the authorization for
    * the fullfillment by certified professionals.
    */
-  public var lensSpecification: MutableList<LensSpecification> = mutableListOf(),
+  public val lensSpecification: List<LensSpecification> = listOf(),
 ) : DomainResource() {
   /**
    * Contain the details of the individual lens specifications and serves as the authorization for
@@ -169,7 +169,7 @@ public data class VisionPrescription(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and manageable, there is a strict set of
@@ -182,7 +182,7 @@ public data class VisionPrescription(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -201,49 +201,49 @@ public data class VisionPrescription(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /** Identifies the type of vision correction product which is required for the patient. */
-    public var product: CodeableConcept,
+    public val product: CodeableConcept,
     /**
      * The eye for which the lens specification applies.
      *
      * May also appear as OD (oculus dexter) for the right eye and OS (oculus siniter) for the left
      * eye.
      */
-    public var eye: Enumeration<VisionEyes>,
+    public val eye: Enumeration<VisionEyes>,
     /**
      * Lens power measured in dioptres (0.25 units).
      *
      * The value is negative for near-sighted and positive for far sighted. Often insurance will not
      * cover a lens with power between +75 and -75.
      */
-    public var sphere: Decimal? = null,
+    public val sphere: Decimal? = null,
     /** Power adjustment for astigmatism measured in dioptres (0.25 units). */
-    public var cylinder: Decimal? = null,
+    public val cylinder: Decimal? = null,
     /**
      * Adjustment for astigmatism measured in integer degrees.
      *
      * The limits are +180 and -180 degrees.
      */
-    public var axis: Integer? = null,
+    public val axis: Integer? = null,
     /** Allows for adjustment on two axis. */
-    public var prism: MutableList<Prism> = mutableListOf(),
+    public val prism: List<Prism> = listOf(),
     /** Power adjustment for multifocal lenses measured in dioptres (0.25 units). */
-    public var add: Decimal? = null,
+    public val add: Decimal? = null,
     /** Contact lens power measured in dioptres (0.25 units). */
-    public var power: Decimal? = null,
+    public val power: Decimal? = null,
     /** Back curvature measured in millimetres. */
-    public var backCurve: Decimal? = null,
+    public val backCurve: Decimal? = null,
     /** Contact lens diameter measured in millimetres. */
-    public var diameter: Decimal? = null,
+    public val diameter: Decimal? = null,
     /** The recommended maximum wear period for the lens. */
-    public var duration: Quantity? = null,
+    public val duration: Quantity? = null,
     /** Special color or pattern. */
-    public var color: String? = null,
+    public val color: String? = null,
     /** Brand recommendations or restrictions. */
-    public var brand: String? = null,
+    public val brand: String? = null,
     /** Notes for special requirements such as coatings and lens materials. */
-    public var note: MutableList<Annotation> = mutableListOf(),
+    public val note: List<Annotation> = listOf(),
   ) : BackboneElement() {
     /** Allows for adjustment on two axis. */
     @Serializable(with = VisionPrescriptionLensSpecificationPrismSerializer::class)
@@ -252,7 +252,7 @@ public data class VisionPrescription(
        * Unique id for the element within a resource (for internal references). This may be any
        * string value that does not contain spaces.
        */
-      override var id: kotlin.String? = null,
+      override val id: kotlin.String? = null,
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element. To make the use of extensions safe and manageable, there is a strict set of
@@ -265,7 +265,7 @@ public data class VisionPrescription(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: MutableList<Extension> = mutableListOf(),
+      override val extension: List<Extension> = listOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -284,11 +284,11 @@ public data class VisionPrescription(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: MutableList<Extension> = mutableListOf(),
+      override val modifierExtension: List<Extension> = listOf(),
       /** Amount of prism to compensate for eye alignment in fractional units. */
-      public var amount: Decimal,
+      public val amount: Decimal,
       /** The relative base, or reference lens edge, for the prism. */
-      public var base: Enumeration<VisionBase>,
+      public val base: Enumeration<VisionBase>,
     ) : BackboneElement()
   }
 

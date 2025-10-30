@@ -26,7 +26,7 @@ import com.google.fhir.model.r5.serializers.DocumentReferenceRelatesToSerializer
 import com.google.fhir.model.r5.serializers.DocumentReferenceSerializer
 import com.google.fhir.model.r5.terminologies.DocumentReferenceStatus
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -50,12 +50,12 @@ public data class DocumentReference(
    * like the create and conditional update. Otherwise, the use of the resouce id depends on the
    * given use case.
    */
-  override var id: kotlin.String? = null,
+  override val id: kotlin.String? = null,
   /**
    * The metadata about the resource. This is content that is maintained by the infrastructure.
    * Changes to the content might not always be associated with version changes to the resource.
    */
-  override var meta: Meta? = null,
+  override val meta: Meta? = null,
   /**
    * A reference to a set of rules that were followed when the resource was constructed, and which
    * must be understood when processing the content. Often, this is a reference to an implementation
@@ -69,7 +69,7 @@ public data class DocumentReference(
    * to an implementation guide that defines these special rules as part of its narrative along with
    * other profiles, value sets, etc.
    */
-  override var implicitRules: Uri? = null,
+  override val implicitRules: Uri? = null,
   /**
    * The base language in which the resource is written.
    *
@@ -81,7 +81,7 @@ public data class DocumentReference(
    * language is specified, it should it also be specified on the div element in the html (see rules
    * in HTML5 for information about the relationship between xml:lang and the html lang attribute).
    */
-  override var language: Code? = null,
+  override val language: Code? = null,
   /**
    * A human-readable narrative that contains a summary of the resource and can be used to represent
    * the content of the resource to a human. The narrative need not encode all the structured data,
@@ -95,7 +95,7 @@ public data class DocumentReference(
    * legacy systems where information is captured as a "text blob" or where text is additionally
    * entered raw or narrated and encoded information is added later.
    */
-  override var text: Narrative? = null,
+  override val text: Narrative? = null,
   /**
    * These resources do not have an independent existence apart from the resource that contains
    * them - they cannot be identified independently, nor can they have their own independent
@@ -107,7 +107,7 @@ public data class DocumentReference(
    * resources may have profiles and tags in their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: MutableList<Resource> = mutableListOf(),
+  override val contained: List<Resource> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and managable, there is a strict set of governance
@@ -120,7 +120,7 @@ public data class DocumentReference(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: MutableList<Extension> = mutableListOf(),
+  override val extension: List<Extension> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -139,7 +139,7 @@ public data class DocumentReference(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: MutableList<Extension> = mutableListOf(),
+  override val modifierExtension: List<Extension> = listOf(),
   /**
    * Other business identifiers associated with the document, including version independent
    * identifiers.
@@ -148,7 +148,7 @@ public data class DocumentReference(
    * corresponding to the format of the document. (e.g. for a DICOM standard document, a
    * 64-character numeric UID; for an HL7 CDA format, the CDA Document Id root and extension).
    */
-  public var identifier: MutableList<Identifier> = mutableListOf(),
+  public val identifier: List<Identifier> = listOf(),
   /**
    * An explicitly assigned identifer of a variation of the content in the DocumentReference.
    *
@@ -157,9 +157,9 @@ public data class DocumentReference(
    * would remain constant if the resources were moved to a new server, and all got new individual
    * resource versions, for example.
    */
-  public var version: String? = null,
+  public val version: String? = null,
   /** A procedure that is fulfilled in whole or in part by the creation of this media. */
-  public var basedOn: MutableList<Reference> = mutableListOf(),
+  public val basedOn: List<Reference> = listOf(),
   /**
    * The status of this document reference.
    *
@@ -169,15 +169,15 @@ public data class DocumentReference(
    * This element is labeled as a modifier because the status contains the codes that mark the
    * document or reference as not currently valid.
    */
-  public var status: Enumeration<DocumentReferenceStatus>,
+  public val status: Enumeration<DocumentReferenceStatus>,
   /**
    * The status of the underlying document.
    *
    * The document that is pointed to might be in various lifecycle states.
    */
-  public var docStatus: Enumeration<CompositionStatus>? = null,
+  public val docStatus: Enumeration<CompositionStatus>? = null,
   /** Imaging modality used. This may include both acquisition and non-acquisition modalities. */
-  public var modality: MutableList<CodeableConcept> = mutableListOf(),
+  public val modality: List<CodeableConcept> = listOf(),
   /**
    * Specifies the particular kind of document referenced (e.g. History and Physical, Discharge
    * Summary, Progress Note). This usually equates to the purpose of making the document referenced.
@@ -185,7 +185,7 @@ public data class DocumentReference(
    * Key metadata element describing the document that describes he exact type of document. Helps
    * humans to assess whether the document is of interest when viewing a list of documents.
    */
-  public var type: CodeableConcept? = null,
+  public val type: CodeableConcept? = null,
   /**
    * A categorization for the type of document referenced - helps for indexing and searching. This
    * may be implied by or derived from the code specified in the DocumentReference.type.
@@ -194,17 +194,17 @@ public data class DocumentReference(
    * broader perspective that groups similar documents based on how they would be used. This is a
    * primary key used in searching.
    */
-  public var category: MutableList<CodeableConcept> = mutableListOf(),
+  public val category: List<CodeableConcept> = listOf(),
   /**
    * Who or what the document is about. The document can be about a person, (patient or healthcare
    * practitioner), a device (e.g. a machine) or even a group of subjects (such as a document about
    * a herd of farm animals, or a set of patients that share a common exposure).
    */
-  public var subject: Reference? = null,
+  public val subject: Reference? = null,
   /**
    * Describes the clinical encounter or type of care that the document content is associated with.
    */
-  public var context: MutableList<Reference> = mutableListOf(),
+  public val context: List<Reference> = listOf(),
   /**
    * This list of codes represents the main clinical acts, such as a colonoscopy or an appendectomy,
    * being documented. In some cases, the event is inherent in the type Code, such as a "History and
@@ -216,11 +216,11 @@ public data class DocumentReference(
    * included, they shall not conflict with the values inherent in the class or type elements as
    * such a conflict would create an ambiguous situation.
    */
-  public var event: MutableList<CodeableReference> = mutableListOf(),
+  public val event: List<CodeableReference> = listOf(),
   /** The anatomic structures included in the document. */
-  public var bodySite: MutableList<CodeableReference> = mutableListOf(),
+  public val bodySite: List<CodeableReference> = listOf(),
   /** The kind of facility where the patient was seen. */
-  public var facilityType: CodeableConcept? = null,
+  public val facilityType: CodeableConcept? = null,
   /**
    * This property may convey specifics about the practice setting where the content was created,
    * often reflecting the clinical specialty.
@@ -229,27 +229,27 @@ public data class DocumentReference(
    * practice. Recommend the use of the classification system for Practice Setting, such as that
    * described by the Subject Matter Domain in LOINC.
    */
-  public var practiceSetting: CodeableConcept? = null,
+  public val practiceSetting: CodeableConcept? = null,
   /** The time period over which the service that is described by the document was provided. */
-  public var period: Period? = null,
+  public val period: Period? = null,
   /**
    * When the document reference was created.
    *
    * Referencing/indexing time is used for tracking, organizing versions and searching.
    */
-  public var date: Instant? = null,
+  public val date: Instant? = null,
   /**
    * Identifies who is responsible for adding the information to the document.
    *
    * Not necessarily who did the actual data entry (i.e. typist) or who was the source (informant).
    */
-  public var author: MutableList<Reference> = mutableListOf(),
+  public val author: List<Reference> = listOf(),
   /**
    * A participant who has authenticated the accuracy of the document.
    *
    * Only list each attester once.
    */
-  public var attester: MutableList<Attester> = mutableListOf(),
+  public val attester: List<Attester> = listOf(),
   /**
    * Identifies the organization or group who is responsible for ongoing maintenance of and access
    * to the document.
@@ -259,20 +259,20 @@ public data class DocumentReference(
    * (URL, disk drive, or server) of the document, which is the technical location of the document,
    * which host may be delegated to the management of some other organization.
    */
-  public var custodian: Reference? = null,
+  public val custodian: Reference? = null,
   /**
    * Relationships that this document has with other document references that already exist.
    *
    * This element is labeled as a modifier because documents that append to other documents are
    * incomplete on their own.
    */
-  public var relatesTo: MutableList<RelatesTo> = mutableListOf(),
+  public val relatesTo: List<RelatesTo> = listOf(),
   /**
    * Human-readable description of the source document.
    *
    * What the document is about, a terse summary of the document.
    */
-  public var description: Markdown? = null,
+  public val description: Markdown? = null,
   /**
    * A set of Security-Tag codes specifying the level of privacy/security of the Document found at
    * DocumentReference.content.attachment.url. Note that DocumentReference.meta.security contains
@@ -295,7 +295,7 @@ public data class DocumentReference(
    * to Confidentiality, Sensitivity, Integrity, and Handling Caveats. Some values would come from a
    * local vocabulary as they are related to workflow roles and special projects.
    */
-  public var securityLabel: MutableList<CodeableConcept> = mutableListOf(),
+  public val securityLabel: List<CodeableConcept> = listOf(),
   /**
    * The document and format referenced. If there are multiple content element repetitions, these
    * must all represent the same document in different format, or attachment metadata.
@@ -303,7 +303,7 @@ public data class DocumentReference(
    * content element shall not contain different versions of the same content. For version handling
    * use multiple DocumentReference with .relatesTo.
    */
-  public var content: MutableList<Content> = mutableListOf(),
+  public val content: List<Content> = listOf(),
 ) : DomainResource() {
   /** A participant who has authenticated the accuracy of the document. */
   @Serializable(with = DocumentReferenceAttesterSerializer::class)
@@ -312,7 +312,7 @@ public data class DocumentReference(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -325,7 +325,7 @@ public data class DocumentReference(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -344,13 +344,13 @@ public data class DocumentReference(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /** The type of attestation the authenticator offers. */
-    public var mode: CodeableConcept,
+    public val mode: CodeableConcept,
     /** When the document was attested by the party. */
-    public var time: DateTime? = null,
+    public val time: DateTime? = null,
     /** Who attested the document in the specified way. */
-    public var party: Reference? = null,
+    public val party: Reference? = null,
   ) : BackboneElement()
 
   /** Relationships that this document has with other document references that already exist. */
@@ -360,7 +360,7 @@ public data class DocumentReference(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -373,7 +373,7 @@ public data class DocumentReference(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -392,16 +392,16 @@ public data class DocumentReference(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /**
      * The type of relationship that this document has with anther document.
      *
      * If this document appends another document, then the document cannot be fully understood
      * without also accessing the referenced document.
      */
-    public var code: CodeableConcept,
+    public val code: CodeableConcept,
     /** The target document of this relationship. */
-    public var target: Reference,
+    public val target: Reference,
   ) : BackboneElement()
 
   /**
@@ -414,7 +414,7 @@ public data class DocumentReference(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -427,7 +427,7 @@ public data class DocumentReference(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -446,12 +446,12 @@ public data class DocumentReference(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /**
      * The document or URL of the document along with critical metadata to prove content has
      * integrity.
      */
-    public var attachment: Attachment,
+    public val attachment: Attachment,
     /**
      * An identifier of the document constraints, encoding, structure, and template that the
      * document conforms to beyond the base format indicated in the mimeType.
@@ -462,7 +462,7 @@ public data class DocumentReference(
      * For FHIR content, .profile should indicate the structureDefinition profile canonical URI(s)
      * that the content complies with.
      */
-    public var profile: MutableList<Profile> = mutableListOf(),
+    public val profile: List<Profile> = listOf(),
   ) : BackboneElement() {
     /**
      * An identifier of the document constraints, encoding, structure, and template that the
@@ -474,7 +474,7 @@ public data class DocumentReference(
        * Unique id for the element within a resource (for internal references). This may be any
        * string value that does not contain spaces.
        */
-      override var id: kotlin.String? = null,
+      override val id: kotlin.String? = null,
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -487,7 +487,7 @@ public data class DocumentReference(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: MutableList<Extension> = mutableListOf(),
+      override val extension: List<Extension> = listOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -506,9 +506,9 @@ public data class DocumentReference(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: MutableList<Extension> = mutableListOf(),
+      override val modifierExtension: List<Extension> = listOf(),
       /** Code|uri|canonical. */
-      public var `value`: Value,
+      public val `value`: Value,
     ) : BackboneElement() {
       @Serializable(with = DocumentReferenceContentProfileValueSerializer::class)
       public sealed interface Value {

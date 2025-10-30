@@ -39,7 +39,7 @@ import com.google.fhir.model.r5.serializers.DoubleSerializer
 import com.google.fhir.model.r5.serializers.LocalTimeSerializer
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
@@ -52,10 +52,10 @@ internal data class ImmunizationEvaluationSurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: MutableList<Resource>? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var identifier: MutableList<Identifier>? = null,
+  public var contained: List<Resource>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
+  public var identifier: List<Identifier>? = null,
   public var status: KotlinString? = null,
   public var _status: Element? = null,
   public var patient: Reference,
@@ -65,7 +65,7 @@ internal data class ImmunizationEvaluationSurrogate(
   public var targetDisease: CodeableConcept,
   public var immunizationEvent: Reference,
   public var doseStatus: CodeableConcept,
-  public var doseStatusReason: MutableList<CodeableConcept>? = null,
+  public var doseStatusReason: List<CodeableConcept>? = null,
   public var description: KotlinString? = null,
   public var _description: Element? = null,
   public var series: KotlinString? = null,
@@ -90,10 +90,10 @@ internal data class ImmunizationEvaluationSurrogate(
           this@ImmunizationEvaluationSurrogate._language,
         ),
       text = this@ImmunizationEvaluationSurrogate.text,
-      contained = this@ImmunizationEvaluationSurrogate.contained ?: mutableListOf(),
-      extension = this@ImmunizationEvaluationSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@ImmunizationEvaluationSurrogate.modifierExtension ?: mutableListOf(),
-      identifier = this@ImmunizationEvaluationSurrogate.identifier ?: mutableListOf(),
+      contained = this@ImmunizationEvaluationSurrogate.contained ?: listOf(),
+      extension = this@ImmunizationEvaluationSurrogate.extension ?: listOf(),
+      modifierExtension = this@ImmunizationEvaluationSurrogate.modifierExtension ?: listOf(),
+      identifier = this@ImmunizationEvaluationSurrogate.identifier ?: listOf(),
       status =
         Enumeration.of(
           ImmunizationEvaluation.ImmunizationEvaluationStatusCodes.fromCode(
@@ -111,7 +111,7 @@ internal data class ImmunizationEvaluationSurrogate(
       targetDisease = this@ImmunizationEvaluationSurrogate.targetDisease,
       immunizationEvent = this@ImmunizationEvaluationSurrogate.immunizationEvent,
       doseStatus = this@ImmunizationEvaluationSurrogate.doseStatus,
-      doseStatusReason = this@ImmunizationEvaluationSurrogate.doseStatusReason ?: mutableListOf(),
+      doseStatusReason = this@ImmunizationEvaluationSurrogate.doseStatusReason ?: listOf(),
       description =
         Markdown.of(
           this@ImmunizationEvaluationSurrogate.description,

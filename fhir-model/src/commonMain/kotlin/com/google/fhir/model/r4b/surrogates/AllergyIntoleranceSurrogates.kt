@@ -42,17 +42,17 @@ import com.google.fhir.model.r4b.serializers.DoubleSerializer
 import com.google.fhir.model.r4b.serializers.LocalTimeSerializer
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class AllergyIntoleranceReactionSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var substance: CodeableConcept? = null,
-  public var manifestation: MutableList<CodeableConcept>? = null,
+  public var manifestation: List<CodeableConcept>? = null,
   public var description: KotlinString? = null,
   public var _description: Element? = null,
   public var onset: KotlinString? = null,
@@ -60,16 +60,15 @@ internal data class AllergyIntoleranceReactionSurrogate(
   public var severity: KotlinString? = null,
   public var _severity: Element? = null,
   public var exposureRoute: CodeableConcept? = null,
-  public var note: MutableList<Annotation>? = null,
+  public var note: List<Annotation>? = null,
 ) {
   public fun toModel(): AllergyIntolerance.Reaction =
     AllergyIntolerance.Reaction(
       id = this@AllergyIntoleranceReactionSurrogate.id,
-      extension = this@AllergyIntoleranceReactionSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@AllergyIntoleranceReactionSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@AllergyIntoleranceReactionSurrogate.extension ?: listOf(),
+      modifierExtension = this@AllergyIntoleranceReactionSurrogate.modifierExtension ?: listOf(),
       substance = this@AllergyIntoleranceReactionSurrogate.substance,
-      manifestation = this@AllergyIntoleranceReactionSurrogate.manifestation ?: mutableListOf(),
+      manifestation = this@AllergyIntoleranceReactionSurrogate.manifestation ?: listOf(),
       description =
         R4bString.of(
           this@AllergyIntoleranceReactionSurrogate.description,
@@ -88,7 +87,7 @@ internal data class AllergyIntoleranceReactionSurrogate(
           )
         },
       exposureRoute = this@AllergyIntoleranceReactionSurrogate.exposureRoute,
-      note = this@AllergyIntoleranceReactionSurrogate.note ?: mutableListOf(),
+      note = this@AllergyIntoleranceReactionSurrogate.note ?: listOf(),
     )
 
   public companion object {
@@ -163,16 +162,16 @@ internal data class AllergyIntoleranceSurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: MutableList<Resource>? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var identifier: MutableList<Identifier>? = null,
+  public var contained: List<Resource>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
+  public var identifier: List<Identifier>? = null,
   public var clinicalStatus: CodeableConcept? = null,
   public var verificationStatus: CodeableConcept? = null,
   public var type: KotlinString? = null,
   public var _type: Element? = null,
-  public var category: MutableList<KotlinString?>? = null,
-  public var _category: MutableList<Element?>? = null,
+  public var category: List<KotlinString?>? = null,
+  public var _category: List<Element?>? = null,
   public var criticality: KotlinString? = null,
   public var _criticality: Element? = null,
   public var code: CodeableConcept? = null,
@@ -185,8 +184,8 @@ internal data class AllergyIntoleranceSurrogate(
   public var asserter: Reference? = null,
   public var lastOccurrence: KotlinString? = null,
   public var _lastOccurrence: Element? = null,
-  public var note: MutableList<Annotation>? = null,
-  public var reaction: MutableList<AllergyIntolerance.Reaction>? = null,
+  public var note: List<Annotation>? = null,
+  public var reaction: List<AllergyIntolerance.Reaction>? = null,
 ) {
   public fun toModel(): AllergyIntolerance =
     AllergyIntolerance(
@@ -203,10 +202,10 @@ internal data class AllergyIntoleranceSurrogate(
           this@AllergyIntoleranceSurrogate._language,
         ),
       text = this@AllergyIntoleranceSurrogate.text,
-      contained = this@AllergyIntoleranceSurrogate.contained ?: mutableListOf(),
-      extension = this@AllergyIntoleranceSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@AllergyIntoleranceSurrogate.modifierExtension ?: mutableListOf(),
-      identifier = this@AllergyIntoleranceSurrogate.identifier ?: mutableListOf(),
+      contained = this@AllergyIntoleranceSurrogate.contained ?: listOf(),
+      extension = this@AllergyIntoleranceSurrogate.extension ?: listOf(),
+      modifierExtension = this@AllergyIntoleranceSurrogate.modifierExtension ?: listOf(),
+      identifier = this@AllergyIntoleranceSurrogate.identifier ?: listOf(),
       clinicalStatus = this@AllergyIntoleranceSurrogate.clinicalStatus,
       verificationStatus = this@AllergyIntoleranceSurrogate.verificationStatus,
       type =
@@ -221,7 +220,7 @@ internal data class AllergyIntoleranceSurrogate(
           this@AllergyIntoleranceSurrogate.category == null &&
             this@AllergyIntoleranceSurrogate._category == null
         ) {
-          mutableListOf()
+          listOf()
         } else {
           (this@AllergyIntoleranceSurrogate.category
               ?: List(this@AllergyIntoleranceSurrogate._category!!.size) { null })
@@ -235,7 +234,7 @@ internal data class AllergyIntoleranceSurrogate(
                 element,
               )
             }
-            .toMutableList()
+            .toList()
         },
       criticality =
         this@AllergyIntoleranceSurrogate.criticality?.let {
@@ -260,8 +259,8 @@ internal data class AllergyIntoleranceSurrogate(
           FhirDateTime.fromString(this@AllergyIntoleranceSurrogate.lastOccurrence),
           this@AllergyIntoleranceSurrogate._lastOccurrence,
         ),
-      note = this@AllergyIntoleranceSurrogate.note ?: mutableListOf(),
-      reaction = this@AllergyIntoleranceSurrogate.reaction ?: mutableListOf(),
+      note = this@AllergyIntoleranceSurrogate.note ?: listOf(),
+      reaction = this@AllergyIntoleranceSurrogate.reaction ?: listOf(),
     )
 
   public companion object {
@@ -286,14 +285,14 @@ internal data class AllergyIntoleranceSurrogate(
           category =
             this@with.category
               .map { it.value?.getCode() }
-              .toMutableList()
+              .toList()
               .takeUnless { it.all { it == null } },
           _category =
             this@with.category
               .map { it.toElement() }
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
-              ?.toMutableList(),
+              ?.toList(),
           criticality = this@with.criticality?.value?.getCode(),
           _criticality = this@with.criticality?.toElement(),
           code = this@with.code,

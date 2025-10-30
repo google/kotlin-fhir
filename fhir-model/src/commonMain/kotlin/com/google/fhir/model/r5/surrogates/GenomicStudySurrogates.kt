@@ -42,18 +42,18 @@ import com.google.fhir.model.r5.serializers.DoubleSerializer
 import com.google.fhir.model.r5.serializers.LocalTimeSerializer
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class GenomicStudyAnalysisSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var identifier: MutableList<Identifier>? = null,
-  public var methodType: MutableList<CodeableConcept>? = null,
-  public var changeType: MutableList<CodeableConcept>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
+  public var identifier: List<Identifier>? = null,
+  public var methodType: List<CodeableConcept>? = null,
+  public var changeType: List<CodeableConcept>? = null,
   public var genomeBuild: CodeableConcept? = null,
   public var instantiatesCanonical: KotlinString? = null,
   public var _instantiatesCanonical: Element? = null,
@@ -61,27 +61,27 @@ internal data class GenomicStudyAnalysisSurrogate(
   public var _instantiatesUri: Element? = null,
   public var title: KotlinString? = null,
   public var _title: Element? = null,
-  public var focus: MutableList<Reference>? = null,
-  public var specimen: MutableList<Reference>? = null,
+  public var focus: List<Reference>? = null,
+  public var specimen: List<Reference>? = null,
   public var date: KotlinString? = null,
   public var _date: Element? = null,
-  public var note: MutableList<Annotation>? = null,
+  public var note: List<Annotation>? = null,
   public var protocolPerformed: Reference? = null,
-  public var regionsStudied: MutableList<Reference>? = null,
-  public var regionsCalled: MutableList<Reference>? = null,
-  public var input: MutableList<GenomicStudy.Analysis.Input>? = null,
-  public var output: MutableList<GenomicStudy.Analysis.Output>? = null,
-  public var performer: MutableList<GenomicStudy.Analysis.Performer>? = null,
-  public var device: MutableList<GenomicStudy.Analysis.Device>? = null,
+  public var regionsStudied: List<Reference>? = null,
+  public var regionsCalled: List<Reference>? = null,
+  public var input: List<GenomicStudy.Analysis.Input>? = null,
+  public var output: List<GenomicStudy.Analysis.Output>? = null,
+  public var performer: List<GenomicStudy.Analysis.Performer>? = null,
+  public var device: List<GenomicStudy.Analysis.Device>? = null,
 ) {
   public fun toModel(): GenomicStudy.Analysis =
     GenomicStudy.Analysis(
       id = this@GenomicStudyAnalysisSurrogate.id,
-      extension = this@GenomicStudyAnalysisSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@GenomicStudyAnalysisSurrogate.modifierExtension ?: mutableListOf(),
-      identifier = this@GenomicStudyAnalysisSurrogate.identifier ?: mutableListOf(),
-      methodType = this@GenomicStudyAnalysisSurrogate.methodType ?: mutableListOf(),
-      changeType = this@GenomicStudyAnalysisSurrogate.changeType ?: mutableListOf(),
+      extension = this@GenomicStudyAnalysisSurrogate.extension ?: listOf(),
+      modifierExtension = this@GenomicStudyAnalysisSurrogate.modifierExtension ?: listOf(),
+      identifier = this@GenomicStudyAnalysisSurrogate.identifier ?: listOf(),
+      methodType = this@GenomicStudyAnalysisSurrogate.methodType ?: listOf(),
+      changeType = this@GenomicStudyAnalysisSurrogate.changeType ?: listOf(),
       genomeBuild = this@GenomicStudyAnalysisSurrogate.genomeBuild,
       instantiatesCanonical =
         Canonical.of(
@@ -98,21 +98,21 @@ internal data class GenomicStudyAnalysisSurrogate(
           this@GenomicStudyAnalysisSurrogate.title,
           this@GenomicStudyAnalysisSurrogate._title,
         ),
-      focus = this@GenomicStudyAnalysisSurrogate.focus ?: mutableListOf(),
-      specimen = this@GenomicStudyAnalysisSurrogate.specimen ?: mutableListOf(),
+      focus = this@GenomicStudyAnalysisSurrogate.focus ?: listOf(),
+      specimen = this@GenomicStudyAnalysisSurrogate.specimen ?: listOf(),
       date =
         DateTime.of(
           FhirDateTime.fromString(this@GenomicStudyAnalysisSurrogate.date),
           this@GenomicStudyAnalysisSurrogate._date,
         ),
-      note = this@GenomicStudyAnalysisSurrogate.note ?: mutableListOf(),
+      note = this@GenomicStudyAnalysisSurrogate.note ?: listOf(),
       protocolPerformed = this@GenomicStudyAnalysisSurrogate.protocolPerformed,
-      regionsStudied = this@GenomicStudyAnalysisSurrogate.regionsStudied ?: mutableListOf(),
-      regionsCalled = this@GenomicStudyAnalysisSurrogate.regionsCalled ?: mutableListOf(),
-      input = this@GenomicStudyAnalysisSurrogate.input ?: mutableListOf(),
-      output = this@GenomicStudyAnalysisSurrogate.output ?: mutableListOf(),
-      performer = this@GenomicStudyAnalysisSurrogate.performer ?: mutableListOf(),
-      device = this@GenomicStudyAnalysisSurrogate.device ?: mutableListOf(),
+      regionsStudied = this@GenomicStudyAnalysisSurrogate.regionsStudied ?: listOf(),
+      regionsCalled = this@GenomicStudyAnalysisSurrogate.regionsCalled ?: listOf(),
+      input = this@GenomicStudyAnalysisSurrogate.input ?: listOf(),
+      output = this@GenomicStudyAnalysisSurrogate.output ?: listOf(),
+      performer = this@GenomicStudyAnalysisSurrogate.performer ?: listOf(),
+      device = this@GenomicStudyAnalysisSurrogate.device ?: listOf(),
     )
 
   public companion object {
@@ -152,8 +152,8 @@ internal data class GenomicStudyAnalysisSurrogate(
 @Serializable
 internal data class GenomicStudyAnalysisInputSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var `file`: Reference? = null,
   public var type: CodeableConcept? = null,
   public var generatedBy: GenomicStudy.Analysis.Input.GeneratedBy? = null,
@@ -161,9 +161,8 @@ internal data class GenomicStudyAnalysisInputSurrogate(
   public fun toModel(): GenomicStudy.Analysis.Input =
     GenomicStudy.Analysis.Input(
       id = this@GenomicStudyAnalysisInputSurrogate.id,
-      extension = this@GenomicStudyAnalysisInputSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@GenomicStudyAnalysisInputSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@GenomicStudyAnalysisInputSurrogate.extension ?: listOf(),
+      modifierExtension = this@GenomicStudyAnalysisInputSurrogate.modifierExtension ?: listOf(),
       `file` = this@GenomicStudyAnalysisInputSurrogate.`file`,
       type = this@GenomicStudyAnalysisInputSurrogate.type,
       generatedBy = this@GenomicStudyAnalysisInputSurrogate.generatedBy,
@@ -187,17 +186,16 @@ internal data class GenomicStudyAnalysisInputSurrogate(
 @Serializable
 internal data class GenomicStudyAnalysisOutputSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var `file`: Reference? = null,
   public var type: CodeableConcept? = null,
 ) {
   public fun toModel(): GenomicStudy.Analysis.Output =
     GenomicStudy.Analysis.Output(
       id = this@GenomicStudyAnalysisOutputSurrogate.id,
-      extension = this@GenomicStudyAnalysisOutputSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@GenomicStudyAnalysisOutputSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@GenomicStudyAnalysisOutputSurrogate.extension ?: listOf(),
+      modifierExtension = this@GenomicStudyAnalysisOutputSurrogate.modifierExtension ?: listOf(),
       `file` = this@GenomicStudyAnalysisOutputSurrogate.`file`,
       type = this@GenomicStudyAnalysisOutputSurrogate.type,
     )
@@ -219,17 +217,16 @@ internal data class GenomicStudyAnalysisOutputSurrogate(
 @Serializable
 internal data class GenomicStudyAnalysisPerformerSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var actor: Reference? = null,
   public var role: CodeableConcept? = null,
 ) {
   public fun toModel(): GenomicStudy.Analysis.Performer =
     GenomicStudy.Analysis.Performer(
       id = this@GenomicStudyAnalysisPerformerSurrogate.id,
-      extension = this@GenomicStudyAnalysisPerformerSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@GenomicStudyAnalysisPerformerSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@GenomicStudyAnalysisPerformerSurrogate.extension ?: listOf(),
+      modifierExtension = this@GenomicStudyAnalysisPerformerSurrogate.modifierExtension ?: listOf(),
       actor = this@GenomicStudyAnalysisPerformerSurrogate.actor,
       role = this@GenomicStudyAnalysisPerformerSurrogate.role,
     )
@@ -253,17 +250,16 @@ internal data class GenomicStudyAnalysisPerformerSurrogate(
 @Serializable
 internal data class GenomicStudyAnalysisDeviceSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var device: Reference? = null,
   public var function: CodeableConcept? = null,
 ) {
   public fun toModel(): GenomicStudy.Analysis.Device =
     GenomicStudy.Analysis.Device(
       id = this@GenomicStudyAnalysisDeviceSurrogate.id,
-      extension = this@GenomicStudyAnalysisDeviceSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@GenomicStudyAnalysisDeviceSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@GenomicStudyAnalysisDeviceSurrogate.extension ?: listOf(),
+      modifierExtension = this@GenomicStudyAnalysisDeviceSurrogate.modifierExtension ?: listOf(),
       device = this@GenomicStudyAnalysisDeviceSurrogate.device,
       function = this@GenomicStudyAnalysisDeviceSurrogate.function,
     )
@@ -315,29 +311,29 @@ internal data class GenomicStudySurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: MutableList<Resource>? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var identifier: MutableList<Identifier>? = null,
+  public var contained: List<Resource>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
+  public var identifier: List<Identifier>? = null,
   public var status: KotlinString? = null,
   public var _status: Element? = null,
-  public var type: MutableList<CodeableConcept>? = null,
+  public var type: List<CodeableConcept>? = null,
   public var subject: Reference,
   public var encounter: Reference? = null,
   public var startDate: KotlinString? = null,
   public var _startDate: Element? = null,
-  public var basedOn: MutableList<Reference>? = null,
+  public var basedOn: List<Reference>? = null,
   public var referrer: Reference? = null,
-  public var interpreter: MutableList<Reference>? = null,
-  public var reason: MutableList<CodeableReference>? = null,
+  public var interpreter: List<Reference>? = null,
+  public var reason: List<CodeableReference>? = null,
   public var instantiatesCanonical: KotlinString? = null,
   public var _instantiatesCanonical: Element? = null,
   public var instantiatesUri: KotlinString? = null,
   public var _instantiatesUri: Element? = null,
-  public var note: MutableList<Annotation>? = null,
+  public var note: List<Annotation>? = null,
   public var description: KotlinString? = null,
   public var _description: Element? = null,
-  public var analysis: MutableList<GenomicStudy.Analysis>? = null,
+  public var analysis: List<GenomicStudy.Analysis>? = null,
 ) {
   public fun toModel(): GenomicStudy =
     GenomicStudy(
@@ -347,16 +343,16 @@ internal data class GenomicStudySurrogate(
         Uri.of(this@GenomicStudySurrogate.implicitRules, this@GenomicStudySurrogate._implicitRules),
       language = Code.of(this@GenomicStudySurrogate.language, this@GenomicStudySurrogate._language),
       text = this@GenomicStudySurrogate.text,
-      contained = this@GenomicStudySurrogate.contained ?: mutableListOf(),
-      extension = this@GenomicStudySurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@GenomicStudySurrogate.modifierExtension ?: mutableListOf(),
-      identifier = this@GenomicStudySurrogate.identifier ?: mutableListOf(),
+      contained = this@GenomicStudySurrogate.contained ?: listOf(),
+      extension = this@GenomicStudySurrogate.extension ?: listOf(),
+      modifierExtension = this@GenomicStudySurrogate.modifierExtension ?: listOf(),
+      identifier = this@GenomicStudySurrogate.identifier ?: listOf(),
       status =
         Enumeration.of(
           GenomicStudy.GenomicStudyStatus.fromCode(this@GenomicStudySurrogate.status!!),
           this@GenomicStudySurrogate._status,
         ),
-      type = this@GenomicStudySurrogate.type ?: mutableListOf(),
+      type = this@GenomicStudySurrogate.type ?: listOf(),
       subject = this@GenomicStudySurrogate.subject,
       encounter = this@GenomicStudySurrogate.encounter,
       startDate =
@@ -364,10 +360,10 @@ internal data class GenomicStudySurrogate(
           FhirDateTime.fromString(this@GenomicStudySurrogate.startDate),
           this@GenomicStudySurrogate._startDate,
         ),
-      basedOn = this@GenomicStudySurrogate.basedOn ?: mutableListOf(),
+      basedOn = this@GenomicStudySurrogate.basedOn ?: listOf(),
       referrer = this@GenomicStudySurrogate.referrer,
-      interpreter = this@GenomicStudySurrogate.interpreter ?: mutableListOf(),
-      reason = this@GenomicStudySurrogate.reason ?: mutableListOf(),
+      interpreter = this@GenomicStudySurrogate.interpreter ?: listOf(),
+      reason = this@GenomicStudySurrogate.reason ?: listOf(),
       instantiatesCanonical =
         Canonical.of(
           this@GenomicStudySurrogate.instantiatesCanonical,
@@ -378,13 +374,13 @@ internal data class GenomicStudySurrogate(
           this@GenomicStudySurrogate.instantiatesUri,
           this@GenomicStudySurrogate._instantiatesUri,
         ),
-      note = this@GenomicStudySurrogate.note ?: mutableListOf(),
+      note = this@GenomicStudySurrogate.note ?: listOf(),
       description =
         Markdown.of(
           this@GenomicStudySurrogate.description,
           this@GenomicStudySurrogate._description,
         ),
-      analysis = this@GenomicStudySurrogate.analysis ?: mutableListOf(),
+      analysis = this@GenomicStudySurrogate.analysis ?: listOf(),
     )
 
   public companion object {

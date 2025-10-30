@@ -20,7 +20,7 @@ package com.google.fhir.model.r5
 
 import com.google.fhir.model.r5.serializers.CodeableConceptSerializer
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 
 /**
@@ -33,7 +33,7 @@ public data class CodeableConcept(
    * Unique id for the element within a resource (for internal references). This may be any string
    * value that does not contain spaces.
    */
-  override var id: kotlin.String? = null,
+  override val id: kotlin.String? = null,
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * element. To make the use of extensions safe and managable, there is a strict set of governance
@@ -46,7 +46,7 @@ public data class CodeableConcept(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: MutableList<Extension> = mutableListOf(),
+  override val extension: List<Extension> = listOf(),
   /**
    * A reference to a code defined by a terminology system.
    *
@@ -55,12 +55,12 @@ public data class CodeableConcept(
    * of codings is undefined and SHALL NOT be used to infer meaning. Generally, at most only one of
    * the coding values will be labeled as UserSelected = true.
    */
-  public var coding: MutableList<Coding> = mutableListOf(),
+  public val coding: List<Coding> = listOf(),
   /**
    * A human language representation of the concept as seen/selected/uttered by the user who entered
    * the data and/or which represents the intended meaning of the user.
    *
    * Very often the text is the same as a displayName of one of the codings.
    */
-  public var text: String? = null,
+  public val text: String? = null,
 ) : DataType()

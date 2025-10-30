@@ -39,32 +39,32 @@ import com.google.fhir.model.r4.serializers.DoubleSerializer
 import com.google.fhir.model.r4.serializers.LocalTimeSerializer
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class MedicinalProductNameSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var productName: KotlinString? = null,
   public var _productName: Element? = null,
-  public var namePart: MutableList<MedicinalProduct.Name.NamePart>? = null,
-  public var countryLanguage: MutableList<MedicinalProduct.Name.CountryLanguage>? = null,
+  public var namePart: List<MedicinalProduct.Name.NamePart>? = null,
+  public var countryLanguage: List<MedicinalProduct.Name.CountryLanguage>? = null,
 ) {
   public fun toModel(): MedicinalProduct.Name =
     MedicinalProduct.Name(
       id = this@MedicinalProductNameSurrogate.id,
-      extension = this@MedicinalProductNameSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@MedicinalProductNameSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@MedicinalProductNameSurrogate.extension ?: listOf(),
+      modifierExtension = this@MedicinalProductNameSurrogate.modifierExtension ?: listOf(),
       productName =
         R4String.of(
           this@MedicinalProductNameSurrogate.productName,
           this@MedicinalProductNameSurrogate._productName,
         )!!,
-      namePart = this@MedicinalProductNameSurrogate.namePart ?: mutableListOf(),
-      countryLanguage = this@MedicinalProductNameSurrogate.countryLanguage ?: mutableListOf(),
+      namePart = this@MedicinalProductNameSurrogate.namePart ?: listOf(),
+      countryLanguage = this@MedicinalProductNameSurrogate.countryLanguage ?: listOf(),
     )
 
   public companion object {
@@ -86,8 +86,8 @@ internal data class MedicinalProductNameSurrogate(
 @Serializable
 internal data class MedicinalProductNameNamePartSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var part: KotlinString? = null,
   public var _part: Element? = null,
   public var type: Coding,
@@ -95,9 +95,8 @@ internal data class MedicinalProductNameNamePartSurrogate(
   public fun toModel(): MedicinalProduct.Name.NamePart =
     MedicinalProduct.Name.NamePart(
       id = this@MedicinalProductNameNamePartSurrogate.id,
-      extension = this@MedicinalProductNameNamePartSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@MedicinalProductNameNamePartSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@MedicinalProductNameNamePartSurrogate.extension ?: listOf(),
+      modifierExtension = this@MedicinalProductNameNamePartSurrogate.modifierExtension ?: listOf(),
       part =
         R4String.of(
           this@MedicinalProductNameNamePartSurrogate.part,
@@ -126,8 +125,8 @@ internal data class MedicinalProductNameNamePartSurrogate(
 @Serializable
 internal data class MedicinalProductNameCountryLanguageSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var country: CodeableConcept,
   public var jurisdiction: CodeableConcept? = null,
   public var language: CodeableConcept,
@@ -135,9 +134,9 @@ internal data class MedicinalProductNameCountryLanguageSurrogate(
   public fun toModel(): MedicinalProduct.Name.CountryLanguage =
     MedicinalProduct.Name.CountryLanguage(
       id = this@MedicinalProductNameCountryLanguageSurrogate.id,
-      extension = this@MedicinalProductNameCountryLanguageSurrogate.extension ?: mutableListOf(),
+      extension = this@MedicinalProductNameCountryLanguageSurrogate.extension ?: listOf(),
       modifierExtension =
-        this@MedicinalProductNameCountryLanguageSurrogate.modifierExtension ?: mutableListOf(),
+        this@MedicinalProductNameCountryLanguageSurrogate.modifierExtension ?: listOf(),
       country = this@MedicinalProductNameCountryLanguageSurrogate.country,
       jurisdiction = this@MedicinalProductNameCountryLanguageSurrogate.jurisdiction,
       language = this@MedicinalProductNameCountryLanguageSurrogate.language,
@@ -163,24 +162,23 @@ internal data class MedicinalProductNameCountryLanguageSurrogate(
 @Serializable
 internal data class MedicinalProductManufacturingBusinessOperationSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var operationType: CodeableConcept? = null,
   public var authorisationReferenceNumber: Identifier? = null,
   public var effectiveDate: KotlinString? = null,
   public var _effectiveDate: Element? = null,
   public var confidentialityIndicator: CodeableConcept? = null,
-  public var manufacturer: MutableList<Reference>? = null,
+  public var manufacturer: List<Reference>? = null,
   public var regulator: Reference? = null,
 ) {
   public fun toModel(): MedicinalProduct.ManufacturingBusinessOperation =
     MedicinalProduct.ManufacturingBusinessOperation(
       id = this@MedicinalProductManufacturingBusinessOperationSurrogate.id,
       extension =
-        this@MedicinalProductManufacturingBusinessOperationSurrogate.extension ?: mutableListOf(),
+        this@MedicinalProductManufacturingBusinessOperationSurrogate.extension ?: listOf(),
       modifierExtension =
-        this@MedicinalProductManufacturingBusinessOperationSurrogate.modifierExtension
-          ?: mutableListOf(),
+        this@MedicinalProductManufacturingBusinessOperationSurrogate.modifierExtension ?: listOf(),
       operationType = this@MedicinalProductManufacturingBusinessOperationSurrogate.operationType,
       authorisationReferenceNumber =
         this@MedicinalProductManufacturingBusinessOperationSurrogate.authorisationReferenceNumber,
@@ -194,8 +192,7 @@ internal data class MedicinalProductManufacturingBusinessOperationSurrogate(
       confidentialityIndicator =
         this@MedicinalProductManufacturingBusinessOperationSurrogate.confidentialityIndicator,
       manufacturer =
-        this@MedicinalProductManufacturingBusinessOperationSurrogate.manufacturer
-          ?: mutableListOf(),
+        this@MedicinalProductManufacturingBusinessOperationSurrogate.manufacturer ?: listOf(),
       regulator = this@MedicinalProductManufacturingBusinessOperationSurrogate.regulator,
     )
 
@@ -223,9 +220,9 @@ internal data class MedicinalProductManufacturingBusinessOperationSurrogate(
 @Serializable
 internal data class MedicinalProductSpecialDesignationSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var identifier: MutableList<Identifier>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
+  public var identifier: List<Identifier>? = null,
   public var type: CodeableConcept? = null,
   public var intendedUse: CodeableConcept? = null,
   public var indication: MedicinalProduct.SpecialDesignation.Indication? = null,
@@ -237,10 +234,10 @@ internal data class MedicinalProductSpecialDesignationSurrogate(
   public fun toModel(): MedicinalProduct.SpecialDesignation =
     MedicinalProduct.SpecialDesignation(
       id = this@MedicinalProductSpecialDesignationSurrogate.id,
-      extension = this@MedicinalProductSpecialDesignationSurrogate.extension ?: mutableListOf(),
+      extension = this@MedicinalProductSpecialDesignationSurrogate.extension ?: listOf(),
       modifierExtension =
-        this@MedicinalProductSpecialDesignationSurrogate.modifierExtension ?: mutableListOf(),
-      identifier = this@MedicinalProductSpecialDesignationSurrogate.identifier ?: mutableListOf(),
+        this@MedicinalProductSpecialDesignationSurrogate.modifierExtension ?: listOf(),
+      identifier = this@MedicinalProductSpecialDesignationSurrogate.identifier ?: listOf(),
       type = this@MedicinalProductSpecialDesignationSurrogate.type,
       intendedUse = this@MedicinalProductSpecialDesignationSurrogate.intendedUse,
       indication = this@MedicinalProductSpecialDesignationSurrogate.indication,
@@ -308,32 +305,32 @@ internal data class MedicinalProductSurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: MutableList<Resource>? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var identifier: MutableList<Identifier>? = null,
+  public var contained: List<Resource>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
+  public var identifier: List<Identifier>? = null,
   public var type: CodeableConcept? = null,
   public var domain: Coding? = null,
   public var combinedPharmaceuticalDoseForm: CodeableConcept? = null,
   public var legalStatusOfSupply: CodeableConcept? = null,
   public var additionalMonitoringIndicator: CodeableConcept? = null,
-  public var specialMeasures: MutableList<KotlinString?>? = null,
-  public var _specialMeasures: MutableList<Element?>? = null,
+  public var specialMeasures: List<KotlinString?>? = null,
+  public var _specialMeasures: List<Element?>? = null,
   public var paediatricUseIndicator: CodeableConcept? = null,
-  public var productClassification: MutableList<CodeableConcept>? = null,
-  public var marketingStatus: MutableList<MarketingStatus>? = null,
-  public var pharmaceuticalProduct: MutableList<Reference>? = null,
-  public var packagedMedicinalProduct: MutableList<Reference>? = null,
-  public var attachedDocument: MutableList<Reference>? = null,
-  public var masterFile: MutableList<Reference>? = null,
-  public var contact: MutableList<Reference>? = null,
-  public var clinicalTrial: MutableList<Reference>? = null,
-  public var name: MutableList<MedicinalProduct.Name>? = null,
-  public var crossReference: MutableList<Identifier>? = null,
+  public var productClassification: List<CodeableConcept>? = null,
+  public var marketingStatus: List<MarketingStatus>? = null,
+  public var pharmaceuticalProduct: List<Reference>? = null,
+  public var packagedMedicinalProduct: List<Reference>? = null,
+  public var attachedDocument: List<Reference>? = null,
+  public var masterFile: List<Reference>? = null,
+  public var contact: List<Reference>? = null,
+  public var clinicalTrial: List<Reference>? = null,
+  public var name: List<MedicinalProduct.Name>? = null,
+  public var crossReference: List<Identifier>? = null,
   public var manufacturingBusinessOperation:
-    MutableList<MedicinalProduct.ManufacturingBusinessOperation>? =
+    List<MedicinalProduct.ManufacturingBusinessOperation>? =
     null,
-  public var specialDesignation: MutableList<MedicinalProduct.SpecialDesignation>? = null,
+  public var specialDesignation: List<MedicinalProduct.SpecialDesignation>? = null,
 ) {
   public fun toModel(): MedicinalProduct =
     MedicinalProduct(
@@ -347,10 +344,10 @@ internal data class MedicinalProductSurrogate(
       language =
         Code.of(this@MedicinalProductSurrogate.language, this@MedicinalProductSurrogate._language),
       text = this@MedicinalProductSurrogate.text,
-      contained = this@MedicinalProductSurrogate.contained ?: mutableListOf(),
-      extension = this@MedicinalProductSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@MedicinalProductSurrogate.modifierExtension ?: mutableListOf(),
-      identifier = this@MedicinalProductSurrogate.identifier ?: mutableListOf(),
+      contained = this@MedicinalProductSurrogate.contained ?: listOf(),
+      extension = this@MedicinalProductSurrogate.extension ?: listOf(),
+      modifierExtension = this@MedicinalProductSurrogate.modifierExtension ?: listOf(),
+      identifier = this@MedicinalProductSurrogate.identifier ?: listOf(),
       type = this@MedicinalProductSurrogate.type,
       domain = this@MedicinalProductSurrogate.domain,
       combinedPharmaceuticalDoseForm =
@@ -362,7 +359,7 @@ internal data class MedicinalProductSurrogate(
           this@MedicinalProductSurrogate.specialMeasures == null &&
             this@MedicinalProductSurrogate._specialMeasures == null
         ) {
-          mutableListOf()
+          listOf()
         } else {
           (this@MedicinalProductSurrogate.specialMeasures
               ?: List(this@MedicinalProductSurrogate._specialMeasures!!.size) { null })
@@ -371,25 +368,23 @@ internal data class MedicinalProductSurrogate(
                 ?: List(this@MedicinalProductSurrogate.specialMeasures!!.size) { null }
             )
             .map { (value, element) -> R4String.of(value, element)!! }
-            .toMutableList()
+            .toList()
         },
       paediatricUseIndicator = this@MedicinalProductSurrogate.paediatricUseIndicator,
-      productClassification =
-        this@MedicinalProductSurrogate.productClassification ?: mutableListOf(),
-      marketingStatus = this@MedicinalProductSurrogate.marketingStatus ?: mutableListOf(),
-      pharmaceuticalProduct =
-        this@MedicinalProductSurrogate.pharmaceuticalProduct ?: mutableListOf(),
+      productClassification = this@MedicinalProductSurrogate.productClassification ?: listOf(),
+      marketingStatus = this@MedicinalProductSurrogate.marketingStatus ?: listOf(),
+      pharmaceuticalProduct = this@MedicinalProductSurrogate.pharmaceuticalProduct ?: listOf(),
       packagedMedicinalProduct =
-        this@MedicinalProductSurrogate.packagedMedicinalProduct ?: mutableListOf(),
-      attachedDocument = this@MedicinalProductSurrogate.attachedDocument ?: mutableListOf(),
-      masterFile = this@MedicinalProductSurrogate.masterFile ?: mutableListOf(),
-      contact = this@MedicinalProductSurrogate.contact ?: mutableListOf(),
-      clinicalTrial = this@MedicinalProductSurrogate.clinicalTrial ?: mutableListOf(),
-      name = this@MedicinalProductSurrogate.name ?: mutableListOf(),
-      crossReference = this@MedicinalProductSurrogate.crossReference ?: mutableListOf(),
+        this@MedicinalProductSurrogate.packagedMedicinalProduct ?: listOf(),
+      attachedDocument = this@MedicinalProductSurrogate.attachedDocument ?: listOf(),
+      masterFile = this@MedicinalProductSurrogate.masterFile ?: listOf(),
+      contact = this@MedicinalProductSurrogate.contact ?: listOf(),
+      clinicalTrial = this@MedicinalProductSurrogate.clinicalTrial ?: listOf(),
+      name = this@MedicinalProductSurrogate.name ?: listOf(),
+      crossReference = this@MedicinalProductSurrogate.crossReference ?: listOf(),
       manufacturingBusinessOperation =
-        this@MedicinalProductSurrogate.manufacturingBusinessOperation ?: mutableListOf(),
-      specialDesignation = this@MedicinalProductSurrogate.specialDesignation ?: mutableListOf(),
+        this@MedicinalProductSurrogate.manufacturingBusinessOperation ?: listOf(),
+      specialDesignation = this@MedicinalProductSurrogate.specialDesignation ?: listOf(),
     )
 
   public companion object {
@@ -415,14 +410,14 @@ internal data class MedicinalProductSurrogate(
           specialMeasures =
             this@with.specialMeasures
               .map { it.value }
-              .toMutableList()
+              .toList()
               .takeUnless { it.all { it == null } },
           _specialMeasures =
             this@with.specialMeasures
               .map { it.toElement() }
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
-              ?.toMutableList(),
+              ?.toList(),
           paediatricUseIndicator = this@with.paediatricUseIndicator,
           productClassification = this@with.productClassification.takeIf { it.isNotEmpty() },
           marketingStatus = this@with.marketingStatus.takeIf { it.isNotEmpty() },

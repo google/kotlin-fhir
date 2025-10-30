@@ -44,15 +44,15 @@ import com.google.fhir.model.r5.serializers.LocalTimeSerializer
 import kotlin.Double
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class RiskAssessmentPredictionSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var outcome: CodeableConcept? = null,
   public var probability: RiskAssessment.Prediction.Probability? = null,
   public var qualitativeRisk: CodeableConcept? = null,
@@ -65,9 +65,8 @@ internal data class RiskAssessmentPredictionSurrogate(
   public fun toModel(): RiskAssessment.Prediction =
     RiskAssessment.Prediction(
       id = this@RiskAssessmentPredictionSurrogate.id,
-      extension = this@RiskAssessmentPredictionSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@RiskAssessmentPredictionSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@RiskAssessmentPredictionSurrogate.extension ?: listOf(),
+      modifierExtension = this@RiskAssessmentPredictionSurrogate.modifierExtension ?: listOf(),
       outcome = this@RiskAssessmentPredictionSurrogate.outcome,
       probability = this@RiskAssessmentPredictionSurrogate.probability,
       qualitativeRisk = this@RiskAssessmentPredictionSurrogate.qualitativeRisk,
@@ -193,10 +192,10 @@ internal data class RiskAssessmentSurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: MutableList<Resource>? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var identifier: MutableList<Identifier>? = null,
+  public var contained: List<Resource>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
+  public var identifier: List<Identifier>? = null,
   public var basedOn: Reference? = null,
   public var parent: Reference? = null,
   public var status: KotlinString? = null,
@@ -208,12 +207,12 @@ internal data class RiskAssessmentSurrogate(
   public var occurrence: RiskAssessment.Occurrence? = null,
   public var condition: Reference? = null,
   public var performer: Reference? = null,
-  public var reason: MutableList<CodeableReference>? = null,
-  public var basis: MutableList<Reference>? = null,
-  public var prediction: MutableList<RiskAssessment.Prediction>? = null,
+  public var reason: List<CodeableReference>? = null,
+  public var basis: List<Reference>? = null,
+  public var prediction: List<RiskAssessment.Prediction>? = null,
   public var mitigation: KotlinString? = null,
   public var _mitigation: Element? = null,
-  public var note: MutableList<Annotation>? = null,
+  public var note: List<Annotation>? = null,
 ) {
   public fun toModel(): RiskAssessment =
     RiskAssessment(
@@ -227,10 +226,10 @@ internal data class RiskAssessmentSurrogate(
       language =
         Code.of(this@RiskAssessmentSurrogate.language, this@RiskAssessmentSurrogate._language),
       text = this@RiskAssessmentSurrogate.text,
-      contained = this@RiskAssessmentSurrogate.contained ?: mutableListOf(),
-      extension = this@RiskAssessmentSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@RiskAssessmentSurrogate.modifierExtension ?: mutableListOf(),
-      identifier = this@RiskAssessmentSurrogate.identifier ?: mutableListOf(),
+      contained = this@RiskAssessmentSurrogate.contained ?: listOf(),
+      extension = this@RiskAssessmentSurrogate.extension ?: listOf(),
+      modifierExtension = this@RiskAssessmentSurrogate.modifierExtension ?: listOf(),
+      identifier = this@RiskAssessmentSurrogate.identifier ?: listOf(),
       basedOn = this@RiskAssessmentSurrogate.basedOn,
       parent = this@RiskAssessmentSurrogate.parent,
       status =
@@ -245,15 +244,15 @@ internal data class RiskAssessmentSurrogate(
       occurrence = this@RiskAssessmentSurrogate.occurrence,
       condition = this@RiskAssessmentSurrogate.condition,
       performer = this@RiskAssessmentSurrogate.performer,
-      reason = this@RiskAssessmentSurrogate.reason ?: mutableListOf(),
-      basis = this@RiskAssessmentSurrogate.basis ?: mutableListOf(),
-      prediction = this@RiskAssessmentSurrogate.prediction ?: mutableListOf(),
+      reason = this@RiskAssessmentSurrogate.reason ?: listOf(),
+      basis = this@RiskAssessmentSurrogate.basis ?: listOf(),
+      prediction = this@RiskAssessmentSurrogate.prediction ?: listOf(),
       mitigation =
         R5String.of(
           this@RiskAssessmentSurrogate.mitigation,
           this@RiskAssessmentSurrogate._mitigation,
         ),
-      note = this@RiskAssessmentSurrogate.note ?: mutableListOf(),
+      note = this@RiskAssessmentSurrogate.note ?: listOf(),
     )
 
   public companion object {

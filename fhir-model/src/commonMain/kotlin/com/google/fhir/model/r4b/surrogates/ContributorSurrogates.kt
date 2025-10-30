@@ -29,31 +29,31 @@ import com.google.fhir.model.r4b.serializers.DoubleSerializer
 import com.google.fhir.model.r4b.serializers.LocalTimeSerializer
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class ContributorSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
   public var type: KotlinString? = null,
   public var _type: Element? = null,
   public var name: KotlinString? = null,
   public var _name: Element? = null,
-  public var contact: MutableList<ContactDetail>? = null,
+  public var contact: List<ContactDetail>? = null,
 ) {
   public fun toModel(): Contributor =
     Contributor(
       id = this@ContributorSurrogate.id,
-      extension = this@ContributorSurrogate.extension ?: mutableListOf(),
+      extension = this@ContributorSurrogate.extension ?: listOf(),
       type =
         Enumeration.of(
           Contributor.ContributorType.fromCode(this@ContributorSurrogate.type!!),
           this@ContributorSurrogate._type,
         ),
       name = R4bString.of(this@ContributorSurrogate.name, this@ContributorSurrogate._name)!!,
-      contact = this@ContributorSurrogate.contact ?: mutableListOf(),
+      contact = this@ContributorSurrogate.contact ?: listOf(),
     )
 
   public companion object {

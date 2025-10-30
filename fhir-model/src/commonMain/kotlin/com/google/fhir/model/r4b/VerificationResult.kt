@@ -23,7 +23,7 @@ import com.google.fhir.model.r4b.serializers.VerificationResultPrimarySourceSeri
 import com.google.fhir.model.r4b.serializers.VerificationResultSerializer
 import com.google.fhir.model.r4b.serializers.VerificationResultValidatorSerializer
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -38,12 +38,12 @@ public data class VerificationResult(
    * The only time that a resource does not have an id is when it is being submitted to the server
    * using a create operation.
    */
-  override var id: kotlin.String? = null,
+  override val id: kotlin.String? = null,
   /**
    * The metadata about the resource. This is content that is maintained by the infrastructure.
    * Changes to the content might not always be associated with version changes to the resource.
    */
-  override var meta: Meta? = null,
+  override val meta: Meta? = null,
   /**
    * A reference to a set of rules that were followed when the resource was constructed, and which
    * must be understood when processing the content. Often, this is a reference to an implementation
@@ -57,7 +57,7 @@ public data class VerificationResult(
    * to an implementation guide that defines these special rules as part of it's narrative along
    * with other profiles, value sets, etc.
    */
-  override var implicitRules: Uri? = null,
+  override val implicitRules: Uri? = null,
   /**
    * The base language in which the resource is written.
    *
@@ -69,7 +69,7 @@ public data class VerificationResult(
    * language is specified, it should it also be specified on the div element in the html (see rules
    * in HTML5 for information about the relationship between xml:lang and the html lang attribute).
    */
-  override var language: Code? = null,
+  override val language: Code? = null,
   /**
    * A human-readable narrative that contains a summary of the resource and can be used to represent
    * the content of the resource to a human. The narrative need not encode all the structured data,
@@ -83,7 +83,7 @@ public data class VerificationResult(
    * legacy systems where information is captured as a "text blob" or where text is additionally
    * entered raw or narrated and encoded information is added later.
    */
-  override var text: Narrative? = null,
+  override val text: Narrative? = null,
   /**
    * These resources do not have an independent existence apart from the resource that contains
    * them - they cannot be identified independently, and nor can they have their own independent
@@ -94,7 +94,7 @@ public data class VerificationResult(
    * resources may have profiles and tags In their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: MutableList<Resource> = mutableListOf(),
+  override val contained: List<Resource> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and manageable, there is a strict set of
@@ -107,7 +107,7 @@ public data class VerificationResult(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: MutableList<Extension> = mutableListOf(),
+  override val extension: List<Extension> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -126,41 +126,41 @@ public data class VerificationResult(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: MutableList<Extension> = mutableListOf(),
+  override val modifierExtension: List<Extension> = listOf(),
   /** A resource that was validated. */
-  public var target: MutableList<Reference> = mutableListOf(),
+  public val target: List<Reference> = listOf(),
   /** The fhirpath location(s) within the resource that was validated. */
-  public var targetLocation: MutableList<String> = mutableListOf(),
+  public val targetLocation: List<String> = listOf(),
   /** The frequency with which the target must be validated (none; initial; periodic). */
-  public var need: CodeableConcept? = null,
+  public val need: CodeableConcept? = null,
   /**
    * The validation status of the target (attested; validated; in process; requires revalidation;
    * validation failed; revalidation failed).
    */
-  public var status: Enumeration<Status>,
+  public val status: Enumeration<Status>,
   /** When the validation status was updated. */
-  public var statusDate: DateTime? = null,
+  public val statusDate: DateTime? = null,
   /** What the target is validated against (nothing; primary source; multiple sources). */
-  public var validationType: CodeableConcept? = null,
+  public val validationType: CodeableConcept? = null,
   /**
    * The primary process by which the target is validated (edit check; value set; primary source;
    * multiple sources; standalone; in context).
    */
-  public var validationProcess: MutableList<CodeableConcept> = mutableListOf(),
+  public val validationProcess: List<CodeableConcept> = listOf(),
   /** Frequency of revalidation. */
-  public var frequency: Timing? = null,
+  public val frequency: Timing? = null,
   /** The date/time validation was last completed (including failed validations). */
-  public var lastPerformed: DateTime? = null,
+  public val lastPerformed: DateTime? = null,
   /** The date when target is next validated, if appropriate. */
-  public var nextScheduled: Date? = null,
+  public val nextScheduled: Date? = null,
   /** The result if validation fails (fatal; warning; record only; none). */
-  public var failureAction: CodeableConcept? = null,
+  public val failureAction: CodeableConcept? = null,
   /** Information about the primary source(s) involved in validation. */
-  public var primarySource: MutableList<PrimarySource> = mutableListOf(),
+  public val primarySource: List<PrimarySource> = listOf(),
   /** Information about the entity attesting to information. */
-  public var attestation: Attestation? = null,
+  public val attestation: Attestation? = null,
   /** Information about the entity validating information. */
-  public var validator: MutableList<Validator> = mutableListOf(),
+  public val validator: List<Validator> = listOf(),
 ) : DomainResource() {
   /** Information about the primary source(s) involved in validation. */
   @Serializable(with = VerificationResultPrimarySourceSerializer::class)
@@ -169,7 +169,7 @@ public data class VerificationResult(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and manageable, there is a strict set of
@@ -182,7 +182,7 @@ public data class VerificationResult(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -201,31 +201,31 @@ public data class VerificationResult(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /** Reference to the primary source. */
-    public var who: Reference? = null,
+    public val who: Reference? = null,
     /**
      * Type of primary source (License Board; Primary Education; Continuing Education; Postal
      * Service; Relationship owner; Registration Authority; legal source; issuing source;
      * authoritative source).
      */
-    public var type: MutableList<CodeableConcept> = mutableListOf(),
+    public val type: List<CodeableConcept> = listOf(),
     /** Method for communicating with the primary source (manual; API; Push). */
-    public var communicationMethod: MutableList<CodeableConcept> = mutableListOf(),
+    public val communicationMethod: List<CodeableConcept> = listOf(),
     /**
      * Status of the validation of the target against the primary source (successful; failed;
      * unknown).
      */
-    public var validationStatus: CodeableConcept? = null,
+    public val validationStatus: CodeableConcept? = null,
     /** When the target was validated against the primary source. */
-    public var validationDate: DateTime? = null,
+    public val validationDate: DateTime? = null,
     /** Ability of the primary source to push updates/alerts (yes; no; undetermined). */
-    public var canPushUpdates: CodeableConcept? = null,
+    public val canPushUpdates: CodeableConcept? = null,
     /**
      * Type of alerts/updates the primary source can send (specific requested changes; any changes;
      * as defined by source).
      */
-    public var pushTypeAvailable: MutableList<CodeableConcept> = mutableListOf(),
+    public val pushTypeAvailable: List<CodeableConcept> = listOf(),
   ) : BackboneElement()
 
   /** Information about the entity attesting to information. */
@@ -235,7 +235,7 @@ public data class VerificationResult(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and manageable, there is a strict set of
@@ -248,7 +248,7 @@ public data class VerificationResult(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -267,29 +267,29 @@ public data class VerificationResult(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /** The individual or organization attesting to information. */
-    public var who: Reference? = null,
+    public val who: Reference? = null,
     /** When the who is asserting on behalf of another (organization or individual). */
-    public var onBehalfOf: Reference? = null,
+    public val onBehalfOf: Reference? = null,
     /** The method by which attested information was submitted/retrieved (manual; API; Push). */
-    public var communicationMethod: CodeableConcept? = null,
+    public val communicationMethod: CodeableConcept? = null,
     /** The date the information was attested to. */
-    public var date: Date? = null,
+    public val date: Date? = null,
     /** A digital identity certificate associated with the attestation source. */
-    public var sourceIdentityCertificate: String? = null,
+    public val sourceIdentityCertificate: String? = null,
     /**
      * A digital identity certificate associated with the proxy entity submitting attested
      * information on behalf of the attestation source.
      */
-    public var proxyIdentityCertificate: String? = null,
+    public val proxyIdentityCertificate: String? = null,
     /**
      * Signed assertion by the proxy entity indicating that they have the right to submit attested
      * information on behalf of the attestation source.
      */
-    public var proxySignature: Signature? = null,
+    public val proxySignature: Signature? = null,
     /** Signed assertion by the attestation source that they have attested to the information. */
-    public var sourceSignature: Signature? = null,
+    public val sourceSignature: Signature? = null,
   ) : BackboneElement()
 
   /** Information about the entity validating information. */
@@ -299,7 +299,7 @@ public data class VerificationResult(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and manageable, there is a strict set of
@@ -312,7 +312,7 @@ public data class VerificationResult(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -331,13 +331,13 @@ public data class VerificationResult(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /** Reference to the organization validating information. */
-    public var organization: Reference,
+    public val organization: Reference,
     /** A digital identity certificate associated with the validator. */
-    public var identityCertificate: String? = null,
+    public val identityCertificate: String? = null,
     /** Signed assertion by the validator that they have validated the information. */
-    public var attestationSignature: Signature? = null,
+    public val attestationSignature: Signature? = null,
   ) : BackboneElement()
 
   /** The validation status of the target */

@@ -31,14 +31,14 @@ import com.google.fhir.model.r4b.serializers.LocalTimeSerializer
 import kotlin.Boolean as KotlinBoolean
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class CodingSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
   public var system: KotlinString? = null,
   public var _system: Element? = null,
   public var version: KotlinString? = null,
@@ -53,7 +53,7 @@ internal data class CodingSurrogate(
   public fun toModel(): Coding =
     Coding(
       id = this@CodingSurrogate.id,
-      extension = this@CodingSurrogate.extension ?: mutableListOf(),
+      extension = this@CodingSurrogate.extension ?: listOf(),
       system = Uri.of(this@CodingSurrogate.system, this@CodingSurrogate._system),
       version = R4bString.of(this@CodingSurrogate.version, this@CodingSurrogate._version),
       code = Code.of(this@CodingSurrogate.code, this@CodingSurrogate._code),

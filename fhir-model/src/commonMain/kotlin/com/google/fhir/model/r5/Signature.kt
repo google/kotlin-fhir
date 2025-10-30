@@ -21,7 +21,7 @@ package com.google.fhir.model.r5
 import com.google.fhir.model.r5.serializers.SignatureSerializer
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 
 /**
@@ -36,7 +36,7 @@ public data class Signature(
    * Unique id for the element within a resource (for internal references). This may be any string
    * value that does not contain spaces.
    */
-  override var id: String? = null,
+  override val id: String? = null,
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * element. To make the use of extensions safe and managable, there is a strict set of governance
@@ -49,7 +49,7 @@ public data class Signature(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: MutableList<Extension> = mutableListOf(),
+  override val extension: List<Extension> = listOf(),
   /**
    * An indication of the reason that the entity signed this document. This may be explicitly
    * included as part of the signature information and can be used when determining accountability
@@ -58,27 +58,27 @@ public data class Signature(
    * Examples include attesting to: authorship, correct transcription, and witness of specific
    * event. Also known as a &quot;Commitment Type Indication&quot;.
    */
-  public var type: MutableList<Coding> = mutableListOf(),
+  public val type: List<Coding> = listOf(),
   /**
    * When the digital signature was signed.
    *
    * This should agree with the information in the signature.
    */
-  public var `when`: Instant? = null,
+  public val `when`: Instant? = null,
   /**
    * A reference to an application-usable description of the identity that signed (e.g. the
    * signature used their private key).
    *
    * This should agree with the information in the signature.
    */
-  public var who: Reference? = null,
+  public val who: Reference? = null,
   /**
    * A reference to an application-usable description of the identity that is represented by the
    * signature.
    *
    * The party that can't sign. For example a child.
    */
-  public var onBehalfOf: Reference? = null,
+  public val onBehalfOf: Reference? = null,
   /**
    * A mime type that indicates the technical format of the target resources signed by the
    * signature.
@@ -86,13 +86,13 @@ public data class Signature(
    * "xml", "json" and "ttl" are allowed, which describe the simple encodings described in the
    * specification (and imply appropriate bundle support). Otherwise, mime types are legal here.
    */
-  public var targetFormat: Code? = null,
+  public val targetFormat: Code? = null,
   /**
    * A mime type that indicates the technical format of the signature. Important mime types are
    * application/signature+xml for X ML DigSig, application/jose for JWS, and image&#47;* for a
    * graphical image of a signature, etc.
    */
-  public var sigFormat: Code? = null,
+  public val sigFormat: Code? = null,
   /**
    * The base64 encoding of the Signature content. When signature is not recorded electronically
    * this element would be empty.
@@ -101,5 +101,5 @@ public data class Signature(
    * signature is of the XML form of the Resource(s) using XML-Signature (XMLDIG) "Detached
    * Signature" form.
    */
-  public var `data`: Base64Binary? = null,
+  public val `data`: Base64Binary? = null,
 ) : DataType()

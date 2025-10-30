@@ -84,7 +84,7 @@ import kotlin.Double
 import kotlin.Int
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.datetime.LocalTime
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
@@ -92,25 +92,25 @@ import kotlinx.serialization.UseSerializers
 @Serializable
 internal data class TaskRestrictionSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var repetitions: Int? = null,
   public var _repetitions: Element? = null,
   public var period: Period? = null,
-  public var recipient: MutableList<Reference>? = null,
+  public var recipient: List<Reference>? = null,
 ) {
   public fun toModel(): Task.Restriction =
     Task.Restriction(
       id = this@TaskRestrictionSurrogate.id,
-      extension = this@TaskRestrictionSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@TaskRestrictionSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@TaskRestrictionSurrogate.extension ?: listOf(),
+      modifierExtension = this@TaskRestrictionSurrogate.modifierExtension ?: listOf(),
       repetitions =
         PositiveInt.of(
           this@TaskRestrictionSurrogate.repetitions,
           this@TaskRestrictionSurrogate._repetitions,
         ),
       period = this@TaskRestrictionSurrogate.period,
-      recipient = this@TaskRestrictionSurrogate.recipient ?: mutableListOf(),
+      recipient = this@TaskRestrictionSurrogate.recipient ?: listOf(),
     )
 
   public companion object {
@@ -132,16 +132,16 @@ internal data class TaskRestrictionSurrogate(
 @Serializable
 internal data class TaskInputSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var type: CodeableConcept,
   public var `value`: Task.Input.Value,
 ) {
   public fun toModel(): Task.Input =
     Task.Input(
       id = this@TaskInputSurrogate.id,
-      extension = this@TaskInputSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@TaskInputSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@TaskInputSurrogate.extension ?: listOf(),
+      modifierExtension = this@TaskInputSurrogate.modifierExtension ?: listOf(),
       type = this@TaskInputSurrogate.type,
       `value` = this@TaskInputSurrogate.`value`,
     )
@@ -163,16 +163,16 @@ internal data class TaskInputSurrogate(
 @Serializable
 internal data class TaskOutputSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var type: CodeableConcept,
   public var `value`: Task.Output.Value,
 ) {
   public fun toModel(): Task.Output =
     Task.Output(
       id = this@TaskOutputSurrogate.id,
-      extension = this@TaskOutputSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@TaskOutputSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@TaskOutputSurrogate.extension ?: listOf(),
+      modifierExtension = this@TaskOutputSurrogate.modifierExtension ?: listOf(),
       type = this@TaskOutputSurrogate.type,
       `value` = this@TaskOutputSurrogate.`value`,
     )
@@ -680,17 +680,17 @@ internal data class TaskSurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: MutableList<Resource>? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var identifier: MutableList<Identifier>? = null,
+  public var contained: List<Resource>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
+  public var identifier: List<Identifier>? = null,
   public var instantiatesCanonical: KotlinString? = null,
   public var _instantiatesCanonical: Element? = null,
   public var instantiatesUri: KotlinString? = null,
   public var _instantiatesUri: Element? = null,
-  public var basedOn: MutableList<Reference>? = null,
+  public var basedOn: List<Reference>? = null,
   public var groupIdentifier: Identifier? = null,
-  public var partOf: MutableList<Reference>? = null,
+  public var partOf: List<Reference>? = null,
   public var status: KotlinString? = null,
   public var _status: Element? = null,
   public var statusReason: CodeableConcept? = null,
@@ -711,17 +711,17 @@ internal data class TaskSurrogate(
   public var lastModified: KotlinString? = null,
   public var _lastModified: Element? = null,
   public var requester: Reference? = null,
-  public var performerType: MutableList<CodeableConcept>? = null,
+  public var performerType: List<CodeableConcept>? = null,
   public var owner: Reference? = null,
   public var location: Reference? = null,
   public var reasonCode: CodeableConcept? = null,
   public var reasonReference: Reference? = null,
-  public var insurance: MutableList<Reference>? = null,
-  public var note: MutableList<Annotation>? = null,
-  public var relevantHistory: MutableList<Reference>? = null,
+  public var insurance: List<Reference>? = null,
+  public var note: List<Annotation>? = null,
+  public var relevantHistory: List<Reference>? = null,
   public var restriction: Task.Restriction? = null,
-  public var input: MutableList<Task.Input>? = null,
-  public var output: MutableList<Task.Output>? = null,
+  public var input: List<Task.Input>? = null,
+  public var output: List<Task.Output>? = null,
 ) {
   public fun toModel(): Task =
     Task(
@@ -730,10 +730,10 @@ internal data class TaskSurrogate(
       implicitRules = Uri.of(this@TaskSurrogate.implicitRules, this@TaskSurrogate._implicitRules),
       language = Code.of(this@TaskSurrogate.language, this@TaskSurrogate._language),
       text = this@TaskSurrogate.text,
-      contained = this@TaskSurrogate.contained ?: mutableListOf(),
-      extension = this@TaskSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@TaskSurrogate.modifierExtension ?: mutableListOf(),
-      identifier = this@TaskSurrogate.identifier ?: mutableListOf(),
+      contained = this@TaskSurrogate.contained ?: listOf(),
+      extension = this@TaskSurrogate.extension ?: listOf(),
+      modifierExtension = this@TaskSurrogate.modifierExtension ?: listOf(),
+      identifier = this@TaskSurrogate.identifier ?: listOf(),
       instantiatesCanonical =
         Canonical.of(
           this@TaskSurrogate.instantiatesCanonical,
@@ -741,9 +741,9 @@ internal data class TaskSurrogate(
         ),
       instantiatesUri =
         Uri.of(this@TaskSurrogate.instantiatesUri, this@TaskSurrogate._instantiatesUri),
-      basedOn = this@TaskSurrogate.basedOn ?: mutableListOf(),
+      basedOn = this@TaskSurrogate.basedOn ?: listOf(),
       groupIdentifier = this@TaskSurrogate.groupIdentifier,
-      partOf = this@TaskSurrogate.partOf ?: mutableListOf(),
+      partOf = this@TaskSurrogate.partOf ?: listOf(),
       status =
         Enumeration.of(
           Task.TaskStatus.fromCode(this@TaskSurrogate.status!!),
@@ -777,17 +777,17 @@ internal data class TaskSurrogate(
           this@TaskSurrogate._lastModified,
         ),
       requester = this@TaskSurrogate.requester,
-      performerType = this@TaskSurrogate.performerType ?: mutableListOf(),
+      performerType = this@TaskSurrogate.performerType ?: listOf(),
       owner = this@TaskSurrogate.owner,
       location = this@TaskSurrogate.location,
       reasonCode = this@TaskSurrogate.reasonCode,
       reasonReference = this@TaskSurrogate.reasonReference,
-      insurance = this@TaskSurrogate.insurance ?: mutableListOf(),
-      note = this@TaskSurrogate.note ?: mutableListOf(),
-      relevantHistory = this@TaskSurrogate.relevantHistory ?: mutableListOf(),
+      insurance = this@TaskSurrogate.insurance ?: listOf(),
+      note = this@TaskSurrogate.note ?: listOf(),
+      relevantHistory = this@TaskSurrogate.relevantHistory ?: listOf(),
       restriction = this@TaskSurrogate.restriction,
-      input = this@TaskSurrogate.input ?: mutableListOf(),
-      output = this@TaskSurrogate.output ?: mutableListOf(),
+      input = this@TaskSurrogate.input ?: listOf(),
+      output = this@TaskSurrogate.output ?: listOf(),
     )
 
   public companion object {

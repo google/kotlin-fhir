@@ -48,24 +48,24 @@ import com.google.fhir.model.r5.serializers.LocalTimeSerializer
 import kotlin.Boolean as KotlinBoolean
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class FamilyMemberHistoryParticipantSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var function: CodeableConcept? = null,
   public var actor: Reference,
 ) {
   public fun toModel(): FamilyMemberHistory.Participant =
     FamilyMemberHistory.Participant(
       id = this@FamilyMemberHistoryParticipantSurrogate.id,
-      extension = this@FamilyMemberHistoryParticipantSurrogate.extension ?: mutableListOf(),
+      extension = this@FamilyMemberHistoryParticipantSurrogate.extension ?: listOf(),
       modifierExtension =
-        this@FamilyMemberHistoryParticipantSurrogate.modifierExtension ?: mutableListOf(),
+        this@FamilyMemberHistoryParticipantSurrogate.modifierExtension ?: listOf(),
       function = this@FamilyMemberHistoryParticipantSurrogate.function,
       actor = this@FamilyMemberHistoryParticipantSurrogate.actor,
     )
@@ -89,21 +89,20 @@ internal data class FamilyMemberHistoryParticipantSurrogate(
 @Serializable
 internal data class FamilyMemberHistoryConditionSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var code: CodeableConcept,
   public var outcome: CodeableConcept? = null,
   public var contributedToDeath: KotlinBoolean? = null,
   public var _contributedToDeath: Element? = null,
   public var onset: FamilyMemberHistory.Condition.Onset? = null,
-  public var note: MutableList<Annotation>? = null,
+  public var note: List<Annotation>? = null,
 ) {
   public fun toModel(): FamilyMemberHistory.Condition =
     FamilyMemberHistory.Condition(
       id = this@FamilyMemberHistoryConditionSurrogate.id,
-      extension = this@FamilyMemberHistoryConditionSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@FamilyMemberHistoryConditionSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@FamilyMemberHistoryConditionSurrogate.extension ?: listOf(),
+      modifierExtension = this@FamilyMemberHistoryConditionSurrogate.modifierExtension ?: listOf(),
       code = this@FamilyMemberHistoryConditionSurrogate.code,
       outcome = this@FamilyMemberHistoryConditionSurrogate.outcome,
       contributedToDeath =
@@ -112,7 +111,7 @@ internal data class FamilyMemberHistoryConditionSurrogate(
           this@FamilyMemberHistoryConditionSurrogate._contributedToDeath,
         ),
       onset = this@FamilyMemberHistoryConditionSurrogate.onset,
-      note = this@FamilyMemberHistoryConditionSurrogate.note ?: mutableListOf(),
+      note = this@FamilyMemberHistoryConditionSurrogate.note ?: listOf(),
     )
 
   public companion object {
@@ -138,21 +137,20 @@ internal data class FamilyMemberHistoryConditionSurrogate(
 @Serializable
 internal data class FamilyMemberHistoryProcedureSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var code: CodeableConcept,
   public var outcome: CodeableConcept? = null,
   public var contributedToDeath: KotlinBoolean? = null,
   public var _contributedToDeath: Element? = null,
   public var performed: FamilyMemberHistory.Procedure.Performed? = null,
-  public var note: MutableList<Annotation>? = null,
+  public var note: List<Annotation>? = null,
 ) {
   public fun toModel(): FamilyMemberHistory.Procedure =
     FamilyMemberHistory.Procedure(
       id = this@FamilyMemberHistoryProcedureSurrogate.id,
-      extension = this@FamilyMemberHistoryProcedureSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@FamilyMemberHistoryProcedureSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@FamilyMemberHistoryProcedureSurrogate.extension ?: listOf(),
+      modifierExtension = this@FamilyMemberHistoryProcedureSurrogate.modifierExtension ?: listOf(),
       code = this@FamilyMemberHistoryProcedureSurrogate.code,
       outcome = this@FamilyMemberHistoryProcedureSurrogate.outcome,
       contributedToDeath =
@@ -161,7 +159,7 @@ internal data class FamilyMemberHistoryProcedureSurrogate(
           this@FamilyMemberHistoryProcedureSurrogate._contributedToDeath,
         ),
       performed = this@FamilyMemberHistoryProcedureSurrogate.performed,
-      note = this@FamilyMemberHistoryProcedureSurrogate.note ?: mutableListOf(),
+      note = this@FamilyMemberHistoryProcedureSurrogate.note ?: listOf(),
     )
 
   public companion object {
@@ -386,21 +384,21 @@ internal data class FamilyMemberHistorySurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: MutableList<Resource>? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var identifier: MutableList<Identifier>? = null,
-  public var instantiatesCanonical: MutableList<KotlinString?>? = null,
-  public var _instantiatesCanonical: MutableList<Element?>? = null,
-  public var instantiatesUri: MutableList<KotlinString?>? = null,
-  public var _instantiatesUri: MutableList<Element?>? = null,
+  public var contained: List<Resource>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
+  public var identifier: List<Identifier>? = null,
+  public var instantiatesCanonical: List<KotlinString?>? = null,
+  public var _instantiatesCanonical: List<Element?>? = null,
+  public var instantiatesUri: List<KotlinString?>? = null,
+  public var _instantiatesUri: List<Element?>? = null,
   public var status: KotlinString? = null,
   public var _status: Element? = null,
   public var dataAbsentReason: CodeableConcept? = null,
   public var patient: Reference,
   public var date: KotlinString? = null,
   public var _date: Element? = null,
-  public var participant: MutableList<FamilyMemberHistory.Participant>? = null,
+  public var participant: List<FamilyMemberHistory.Participant>? = null,
   public var name: KotlinString? = null,
   public var _name: Element? = null,
   public var relationship: CodeableConcept,
@@ -410,10 +408,10 @@ internal data class FamilyMemberHistorySurrogate(
   public var estimatedAge: KotlinBoolean? = null,
   public var _estimatedAge: Element? = null,
   public var deceased: FamilyMemberHistory.Deceased? = null,
-  public var reason: MutableList<CodeableReference>? = null,
-  public var note: MutableList<Annotation>? = null,
-  public var condition: MutableList<FamilyMemberHistory.Condition>? = null,
-  public var procedure: MutableList<FamilyMemberHistory.Procedure>? = null,
+  public var reason: List<CodeableReference>? = null,
+  public var note: List<Annotation>? = null,
+  public var condition: List<FamilyMemberHistory.Condition>? = null,
+  public var procedure: List<FamilyMemberHistory.Procedure>? = null,
 ) {
   public fun toModel(): FamilyMemberHistory =
     FamilyMemberHistory(
@@ -430,16 +428,16 @@ internal data class FamilyMemberHistorySurrogate(
           this@FamilyMemberHistorySurrogate._language,
         ),
       text = this@FamilyMemberHistorySurrogate.text,
-      contained = this@FamilyMemberHistorySurrogate.contained ?: mutableListOf(),
-      extension = this@FamilyMemberHistorySurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@FamilyMemberHistorySurrogate.modifierExtension ?: mutableListOf(),
-      identifier = this@FamilyMemberHistorySurrogate.identifier ?: mutableListOf(),
+      contained = this@FamilyMemberHistorySurrogate.contained ?: listOf(),
+      extension = this@FamilyMemberHistorySurrogate.extension ?: listOf(),
+      modifierExtension = this@FamilyMemberHistorySurrogate.modifierExtension ?: listOf(),
+      identifier = this@FamilyMemberHistorySurrogate.identifier ?: listOf(),
       instantiatesCanonical =
         if (
           this@FamilyMemberHistorySurrogate.instantiatesCanonical == null &&
             this@FamilyMemberHistorySurrogate._instantiatesCanonical == null
         ) {
-          mutableListOf()
+          listOf()
         } else {
           (this@FamilyMemberHistorySurrogate.instantiatesCanonical
               ?: List(this@FamilyMemberHistorySurrogate._instantiatesCanonical!!.size) { null })
@@ -448,14 +446,14 @@ internal data class FamilyMemberHistorySurrogate(
                 ?: List(this@FamilyMemberHistorySurrogate.instantiatesCanonical!!.size) { null }
             )
             .map { (value, element) -> Canonical.of(value, element)!! }
-            .toMutableList()
+            .toList()
         },
       instantiatesUri =
         if (
           this@FamilyMemberHistorySurrogate.instantiatesUri == null &&
             this@FamilyMemberHistorySurrogate._instantiatesUri == null
         ) {
-          mutableListOf()
+          listOf()
         } else {
           (this@FamilyMemberHistorySurrogate.instantiatesUri
               ?: List(this@FamilyMemberHistorySurrogate._instantiatesUri!!.size) { null })
@@ -464,7 +462,7 @@ internal data class FamilyMemberHistorySurrogate(
                 ?: List(this@FamilyMemberHistorySurrogate.instantiatesUri!!.size) { null }
             )
             .map { (value, element) -> Uri.of(value, element)!! }
-            .toMutableList()
+            .toList()
         },
       status =
         Enumeration.of(
@@ -480,7 +478,7 @@ internal data class FamilyMemberHistorySurrogate(
           FhirDateTime.fromString(this@FamilyMemberHistorySurrogate.date),
           this@FamilyMemberHistorySurrogate._date,
         ),
-      participant = this@FamilyMemberHistorySurrogate.participant ?: mutableListOf(),
+      participant = this@FamilyMemberHistorySurrogate.participant ?: listOf(),
       name =
         R5String.of(
           this@FamilyMemberHistorySurrogate.name,
@@ -496,10 +494,10 @@ internal data class FamilyMemberHistorySurrogate(
           this@FamilyMemberHistorySurrogate._estimatedAge,
         ),
       deceased = this@FamilyMemberHistorySurrogate.deceased,
-      reason = this@FamilyMemberHistorySurrogate.reason ?: mutableListOf(),
-      note = this@FamilyMemberHistorySurrogate.note ?: mutableListOf(),
-      condition = this@FamilyMemberHistorySurrogate.condition ?: mutableListOf(),
-      procedure = this@FamilyMemberHistorySurrogate.procedure ?: mutableListOf(),
+      reason = this@FamilyMemberHistorySurrogate.reason ?: listOf(),
+      note = this@FamilyMemberHistorySurrogate.note ?: listOf(),
+      condition = this@FamilyMemberHistorySurrogate.condition ?: listOf(),
+      procedure = this@FamilyMemberHistorySurrogate.procedure ?: listOf(),
     )
 
   public companion object {
@@ -520,25 +518,25 @@ internal data class FamilyMemberHistorySurrogate(
           instantiatesCanonical =
             this@with.instantiatesCanonical
               .map { it.value }
-              .toMutableList()
+              .toList()
               .takeUnless { it.all { it == null } },
           _instantiatesCanonical =
             this@with.instantiatesCanonical
               .map { it.toElement() }
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
-              ?.toMutableList(),
+              ?.toList(),
           instantiatesUri =
             this@with.instantiatesUri
               .map { it.value }
-              .toMutableList()
+              .toList()
               .takeUnless { it.all { it == null } },
           _instantiatesUri =
             this@with.instantiatesUri
               .map { it.toElement() }
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
-              ?.toMutableList(),
+              ?.toList(),
           status = this@with.status.value?.getCode(),
           _status = this@with.status.toElement(),
           dataAbsentReason = this@with.dataAbsentReason,

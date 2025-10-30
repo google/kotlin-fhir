@@ -52,15 +52,15 @@ import com.google.fhir.model.r5.terminologies.PublicationStatus
 import kotlin.Boolean as KotlinBoolean
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class SpecimenDefinitionTypeTestedSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var isDerived: KotlinBoolean? = null,
   public var _isDerived: Element? = null,
   public var type: CodeableConcept? = null,
@@ -72,16 +72,15 @@ internal data class SpecimenDefinitionTypeTestedSurrogate(
   public var retentionTime: Duration? = null,
   public var singleUse: KotlinBoolean? = null,
   public var _singleUse: Element? = null,
-  public var rejectionCriterion: MutableList<CodeableConcept>? = null,
-  public var handling: MutableList<SpecimenDefinition.TypeTested.Handling>? = null,
-  public var testingDestination: MutableList<CodeableConcept>? = null,
+  public var rejectionCriterion: List<CodeableConcept>? = null,
+  public var handling: List<SpecimenDefinition.TypeTested.Handling>? = null,
+  public var testingDestination: List<CodeableConcept>? = null,
 ) {
   public fun toModel(): SpecimenDefinition.TypeTested =
     SpecimenDefinition.TypeTested(
       id = this@SpecimenDefinitionTypeTestedSurrogate.id,
-      extension = this@SpecimenDefinitionTypeTestedSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@SpecimenDefinitionTypeTestedSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@SpecimenDefinitionTypeTestedSurrogate.extension ?: listOf(),
+      modifierExtension = this@SpecimenDefinitionTypeTestedSurrogate.modifierExtension ?: listOf(),
       isDerived =
         R5Boolean.of(
           this@SpecimenDefinitionTypeTestedSurrogate.isDerived,
@@ -108,10 +107,9 @@ internal data class SpecimenDefinitionTypeTestedSurrogate(
           this@SpecimenDefinitionTypeTestedSurrogate._singleUse,
         ),
       rejectionCriterion =
-        this@SpecimenDefinitionTypeTestedSurrogate.rejectionCriterion ?: mutableListOf(),
-      handling = this@SpecimenDefinitionTypeTestedSurrogate.handling ?: mutableListOf(),
-      testingDestination =
-        this@SpecimenDefinitionTypeTestedSurrogate.testingDestination ?: mutableListOf(),
+        this@SpecimenDefinitionTypeTestedSurrogate.rejectionCriterion ?: listOf(),
+      handling = this@SpecimenDefinitionTypeTestedSurrogate.handling ?: listOf(),
+      testingDestination = this@SpecimenDefinitionTypeTestedSurrogate.testingDestination ?: listOf(),
     )
 
   public companion object {
@@ -145,8 +143,8 @@ internal data class SpecimenDefinitionTypeTestedSurrogate(
 @Serializable
 internal data class SpecimenDefinitionTypeTestedContainerSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var material: CodeableConcept? = null,
   public var type: CodeableConcept? = null,
   public var cap: CodeableConcept? = null,
@@ -154,16 +152,16 @@ internal data class SpecimenDefinitionTypeTestedContainerSurrogate(
   public var _description: Element? = null,
   public var capacity: Quantity? = null,
   public var minimumVolume: SpecimenDefinition.TypeTested.Container.MinimumVolume? = null,
-  public var additive: MutableList<SpecimenDefinition.TypeTested.Container.Additive>? = null,
+  public var additive: List<SpecimenDefinition.TypeTested.Container.Additive>? = null,
   public var preparation: KotlinString? = null,
   public var _preparation: Element? = null,
 ) {
   public fun toModel(): SpecimenDefinition.TypeTested.Container =
     SpecimenDefinition.TypeTested.Container(
       id = this@SpecimenDefinitionTypeTestedContainerSurrogate.id,
-      extension = this@SpecimenDefinitionTypeTestedContainerSurrogate.extension ?: mutableListOf(),
+      extension = this@SpecimenDefinitionTypeTestedContainerSurrogate.extension ?: listOf(),
       modifierExtension =
-        this@SpecimenDefinitionTypeTestedContainerSurrogate.modifierExtension ?: mutableListOf(),
+        this@SpecimenDefinitionTypeTestedContainerSurrogate.modifierExtension ?: listOf(),
       material = this@SpecimenDefinitionTypeTestedContainerSurrogate.material,
       type = this@SpecimenDefinitionTypeTestedContainerSurrogate.type,
       cap = this@SpecimenDefinitionTypeTestedContainerSurrogate.cap,
@@ -174,7 +172,7 @@ internal data class SpecimenDefinitionTypeTestedContainerSurrogate(
         ),
       capacity = this@SpecimenDefinitionTypeTestedContainerSurrogate.capacity,
       minimumVolume = this@SpecimenDefinitionTypeTestedContainerSurrogate.minimumVolume,
-      additive = this@SpecimenDefinitionTypeTestedContainerSurrogate.additive ?: mutableListOf(),
+      additive = this@SpecimenDefinitionTypeTestedContainerSurrogate.additive ?: listOf(),
       preparation =
         Markdown.of(
           this@SpecimenDefinitionTypeTestedContainerSurrogate.preparation,
@@ -209,18 +207,16 @@ internal data class SpecimenDefinitionTypeTestedContainerSurrogate(
 @Serializable
 internal data class SpecimenDefinitionTypeTestedContainerAdditiveSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var additive: SpecimenDefinition.TypeTested.Container.Additive.Additive,
 ) {
   public fun toModel(): SpecimenDefinition.TypeTested.Container.Additive =
     SpecimenDefinition.TypeTested.Container.Additive(
       id = this@SpecimenDefinitionTypeTestedContainerAdditiveSurrogate.id,
-      extension =
-        this@SpecimenDefinitionTypeTestedContainerAdditiveSurrogate.extension ?: mutableListOf(),
+      extension = this@SpecimenDefinitionTypeTestedContainerAdditiveSurrogate.extension ?: listOf(),
       modifierExtension =
-        this@SpecimenDefinitionTypeTestedContainerAdditiveSurrogate.modifierExtension
-          ?: mutableListOf(),
+        this@SpecimenDefinitionTypeTestedContainerAdditiveSurrogate.modifierExtension ?: listOf(),
       additive = this@SpecimenDefinitionTypeTestedContainerAdditiveSurrogate.additive,
     )
 
@@ -242,8 +238,8 @@ internal data class SpecimenDefinitionTypeTestedContainerAdditiveSurrogate(
 @Serializable
 internal data class SpecimenDefinitionTypeTestedHandlingSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var temperatureQualifier: CodeableConcept? = null,
   public var temperatureRange: Range? = null,
   public var maxDuration: Duration? = null,
@@ -253,9 +249,9 @@ internal data class SpecimenDefinitionTypeTestedHandlingSurrogate(
   public fun toModel(): SpecimenDefinition.TypeTested.Handling =
     SpecimenDefinition.TypeTested.Handling(
       id = this@SpecimenDefinitionTypeTestedHandlingSurrogate.id,
-      extension = this@SpecimenDefinitionTypeTestedHandlingSurrogate.extension ?: mutableListOf(),
+      extension = this@SpecimenDefinitionTypeTestedHandlingSurrogate.extension ?: listOf(),
       modifierExtension =
-        this@SpecimenDefinitionTypeTestedHandlingSurrogate.modifierExtension ?: mutableListOf(),
+        this@SpecimenDefinitionTypeTestedHandlingSurrogate.modifierExtension ?: listOf(),
       temperatureQualifier =
         this@SpecimenDefinitionTypeTestedHandlingSurrogate.temperatureQualifier,
       temperatureRange = this@SpecimenDefinitionTypeTestedHandlingSurrogate.temperatureRange,
@@ -399,9 +395,9 @@ internal data class SpecimenDefinitionSurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: MutableList<Resource>? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var contained: List<Resource>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var url: KotlinString? = null,
   public var _url: Element? = null,
   public var identifier: Identifier? = null,
@@ -412,10 +408,10 @@ internal data class SpecimenDefinitionSurrogate(
   public var _name: Element? = null,
   public var title: KotlinString? = null,
   public var _title: Element? = null,
-  public var derivedFromCanonical: MutableList<KotlinString?>? = null,
-  public var _derivedFromCanonical: MutableList<Element?>? = null,
-  public var derivedFromUri: MutableList<KotlinString?>? = null,
-  public var _derivedFromUri: MutableList<Element?>? = null,
+  public var derivedFromCanonical: List<KotlinString?>? = null,
+  public var _derivedFromCanonical: List<Element?>? = null,
+  public var derivedFromUri: List<KotlinString?>? = null,
+  public var _derivedFromUri: List<Element?>? = null,
   public var status: KotlinString? = null,
   public var _status: Element? = null,
   public var experimental: KotlinBoolean? = null,
@@ -425,11 +421,11 @@ internal data class SpecimenDefinitionSurrogate(
   public var _date: Element? = null,
   public var publisher: KotlinString? = null,
   public var _publisher: Element? = null,
-  public var contact: MutableList<ContactDetail>? = null,
+  public var contact: List<ContactDetail>? = null,
   public var description: KotlinString? = null,
   public var _description: Element? = null,
-  public var useContext: MutableList<UsageContext>? = null,
-  public var jurisdiction: MutableList<CodeableConcept>? = null,
+  public var useContext: List<UsageContext>? = null,
+  public var jurisdiction: List<CodeableConcept>? = null,
   public var purpose: KotlinString? = null,
   public var _purpose: Element? = null,
   public var copyright: KotlinString? = null,
@@ -442,11 +438,11 @@ internal data class SpecimenDefinitionSurrogate(
   public var _lastReviewDate: Element? = null,
   public var effectivePeriod: Period? = null,
   public var typeCollected: CodeableConcept? = null,
-  public var patientPreparation: MutableList<CodeableConcept>? = null,
+  public var patientPreparation: List<CodeableConcept>? = null,
   public var timeAspect: KotlinString? = null,
   public var _timeAspect: Element? = null,
-  public var collection: MutableList<CodeableConcept>? = null,
-  public var typeTested: MutableList<SpecimenDefinition.TypeTested>? = null,
+  public var collection: List<CodeableConcept>? = null,
+  public var typeTested: List<SpecimenDefinition.TypeTested>? = null,
 ) {
   public fun toModel(): SpecimenDefinition =
     SpecimenDefinition(
@@ -463,9 +459,9 @@ internal data class SpecimenDefinitionSurrogate(
           this@SpecimenDefinitionSurrogate._language,
         ),
       text = this@SpecimenDefinitionSurrogate.text,
-      contained = this@SpecimenDefinitionSurrogate.contained ?: mutableListOf(),
-      extension = this@SpecimenDefinitionSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@SpecimenDefinitionSurrogate.modifierExtension ?: mutableListOf(),
+      contained = this@SpecimenDefinitionSurrogate.contained ?: listOf(),
+      extension = this@SpecimenDefinitionSurrogate.extension ?: listOf(),
+      modifierExtension = this@SpecimenDefinitionSurrogate.modifierExtension ?: listOf(),
       url = Uri.of(this@SpecimenDefinitionSurrogate.url, this@SpecimenDefinitionSurrogate._url),
       identifier = this@SpecimenDefinitionSurrogate.identifier,
       version =
@@ -486,7 +482,7 @@ internal data class SpecimenDefinitionSurrogate(
           this@SpecimenDefinitionSurrogate.derivedFromCanonical == null &&
             this@SpecimenDefinitionSurrogate._derivedFromCanonical == null
         ) {
-          mutableListOf()
+          listOf()
         } else {
           (this@SpecimenDefinitionSurrogate.derivedFromCanonical
               ?: List(this@SpecimenDefinitionSurrogate._derivedFromCanonical!!.size) { null })
@@ -495,14 +491,14 @@ internal data class SpecimenDefinitionSurrogate(
                 ?: List(this@SpecimenDefinitionSurrogate.derivedFromCanonical!!.size) { null }
             )
             .map { (value, element) -> Canonical.of(value, element)!! }
-            .toMutableList()
+            .toList()
         },
       derivedFromUri =
         if (
           this@SpecimenDefinitionSurrogate.derivedFromUri == null &&
             this@SpecimenDefinitionSurrogate._derivedFromUri == null
         ) {
-          mutableListOf()
+          listOf()
         } else {
           (this@SpecimenDefinitionSurrogate.derivedFromUri
               ?: List(this@SpecimenDefinitionSurrogate._derivedFromUri!!.size) { null })
@@ -511,7 +507,7 @@ internal data class SpecimenDefinitionSurrogate(
                 ?: List(this@SpecimenDefinitionSurrogate.derivedFromUri!!.size) { null }
             )
             .map { (value, element) -> Uri.of(value, element)!! }
-            .toMutableList()
+            .toList()
         },
       status =
         Enumeration.of(
@@ -534,14 +530,14 @@ internal data class SpecimenDefinitionSurrogate(
           this@SpecimenDefinitionSurrogate.publisher,
           this@SpecimenDefinitionSurrogate._publisher,
         ),
-      contact = this@SpecimenDefinitionSurrogate.contact ?: mutableListOf(),
+      contact = this@SpecimenDefinitionSurrogate.contact ?: listOf(),
       description =
         Markdown.of(
           this@SpecimenDefinitionSurrogate.description,
           this@SpecimenDefinitionSurrogate._description,
         ),
-      useContext = this@SpecimenDefinitionSurrogate.useContext ?: mutableListOf(),
-      jurisdiction = this@SpecimenDefinitionSurrogate.jurisdiction ?: mutableListOf(),
+      useContext = this@SpecimenDefinitionSurrogate.useContext ?: listOf(),
+      jurisdiction = this@SpecimenDefinitionSurrogate.jurisdiction ?: listOf(),
       purpose =
         Markdown.of(
           this@SpecimenDefinitionSurrogate.purpose,
@@ -569,14 +565,14 @@ internal data class SpecimenDefinitionSurrogate(
         ),
       effectivePeriod = this@SpecimenDefinitionSurrogate.effectivePeriod,
       typeCollected = this@SpecimenDefinitionSurrogate.typeCollected,
-      patientPreparation = this@SpecimenDefinitionSurrogate.patientPreparation ?: mutableListOf(),
+      patientPreparation = this@SpecimenDefinitionSurrogate.patientPreparation ?: listOf(),
       timeAspect =
         R5String.of(
           this@SpecimenDefinitionSurrogate.timeAspect,
           this@SpecimenDefinitionSurrogate._timeAspect,
         ),
-      collection = this@SpecimenDefinitionSurrogate.collection ?: mutableListOf(),
-      typeTested = this@SpecimenDefinitionSurrogate.typeTested ?: mutableListOf(),
+      collection = this@SpecimenDefinitionSurrogate.collection ?: listOf(),
+      typeTested = this@SpecimenDefinitionSurrogate.typeTested ?: listOf(),
     )
 
   public companion object {
@@ -606,25 +602,22 @@ internal data class SpecimenDefinitionSurrogate(
           derivedFromCanonical =
             this@with.derivedFromCanonical
               .map { it.value }
-              .toMutableList()
+              .toList()
               .takeUnless { it.all { it == null } },
           _derivedFromCanonical =
             this@with.derivedFromCanonical
               .map { it.toElement() }
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
-              ?.toMutableList(),
+              ?.toList(),
           derivedFromUri =
-            this@with.derivedFromUri
-              .map { it.value }
-              .toMutableList()
-              .takeUnless { it.all { it == null } },
+            this@with.derivedFromUri.map { it.value }.toList().takeUnless { it.all { it == null } },
           _derivedFromUri =
             this@with.derivedFromUri
               .map { it.toElement() }
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
-              ?.toMutableList(),
+              ?.toList(),
           status = this@with.status.value?.getCode(),
           _status = this@with.status.toElement(),
           experimental = this@with.experimental?.value,

@@ -31,14 +31,14 @@ import com.google.fhir.model.r5.serializers.LocalTimeSerializer
 import kotlin.Double
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class MonetaryComponentSurrogate(
   public var id: String? = null,
-  public var extension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
   public var type: String? = null,
   public var _type: Element? = null,
   public var code: CodeableConcept? = null,
@@ -49,7 +49,7 @@ internal data class MonetaryComponentSurrogate(
   public fun toModel(): MonetaryComponent =
     MonetaryComponent(
       id = this@MonetaryComponentSurrogate.id,
-      extension = this@MonetaryComponentSurrogate.extension ?: mutableListOf(),
+      extension = this@MonetaryComponentSurrogate.extension ?: listOf(),
       type =
         Enumeration.of(
           MonetaryComponent.PriceComponentType.fromCode(this@MonetaryComponentSurrogate.type!!),

@@ -38,7 +38,7 @@ import com.google.fhir.model.r4.serializers.LocalTimeSerializer
 import kotlin.Boolean as KotlinBoolean
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
@@ -51,18 +51,18 @@ internal data class BodyStructureSurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: MutableList<Resource>? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var identifier: MutableList<Identifier>? = null,
+  public var contained: List<Resource>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
+  public var identifier: List<Identifier>? = null,
   public var active: KotlinBoolean? = null,
   public var _active: Element? = null,
   public var morphology: CodeableConcept? = null,
   public var location: CodeableConcept? = null,
-  public var locationQualifier: MutableList<CodeableConcept>? = null,
+  public var locationQualifier: List<CodeableConcept>? = null,
   public var description: KotlinString? = null,
   public var _description: Element? = null,
-  public var image: MutableList<Attachment>? = null,
+  public var image: List<Attachment>? = null,
   public var patient: Reference,
 ) {
   public fun toModel(): BodyStructure =
@@ -77,21 +77,21 @@ internal data class BodyStructureSurrogate(
       language =
         Code.of(this@BodyStructureSurrogate.language, this@BodyStructureSurrogate._language),
       text = this@BodyStructureSurrogate.text,
-      contained = this@BodyStructureSurrogate.contained ?: mutableListOf(),
-      extension = this@BodyStructureSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@BodyStructureSurrogate.modifierExtension ?: mutableListOf(),
-      identifier = this@BodyStructureSurrogate.identifier ?: mutableListOf(),
+      contained = this@BodyStructureSurrogate.contained ?: listOf(),
+      extension = this@BodyStructureSurrogate.extension ?: listOf(),
+      modifierExtension = this@BodyStructureSurrogate.modifierExtension ?: listOf(),
+      identifier = this@BodyStructureSurrogate.identifier ?: listOf(),
       active =
         R4Boolean.of(this@BodyStructureSurrogate.active, this@BodyStructureSurrogate._active),
       morphology = this@BodyStructureSurrogate.morphology,
       location = this@BodyStructureSurrogate.location,
-      locationQualifier = this@BodyStructureSurrogate.locationQualifier ?: mutableListOf(),
+      locationQualifier = this@BodyStructureSurrogate.locationQualifier ?: listOf(),
       description =
         R4String.of(
           this@BodyStructureSurrogate.description,
           this@BodyStructureSurrogate._description,
         ),
-      image = this@BodyStructureSurrogate.image ?: mutableListOf(),
+      image = this@BodyStructureSurrogate.image ?: listOf(),
       patient = this@BodyStructureSurrogate.patient,
     )
 

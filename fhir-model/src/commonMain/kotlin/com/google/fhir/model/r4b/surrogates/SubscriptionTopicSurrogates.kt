@@ -47,21 +47,21 @@ import com.google.fhir.model.r4b.terminologies.PublicationStatus
 import kotlin.Boolean as KotlinBoolean
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class SubscriptionTopicResourceTriggerSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var description: KotlinString? = null,
   public var _description: Element? = null,
   public var resource: KotlinString? = null,
   public var _resource: Element? = null,
-  public var supportedInteraction: MutableList<KotlinString?>? = null,
-  public var _supportedInteraction: MutableList<Element?>? = null,
+  public var supportedInteraction: List<KotlinString?>? = null,
+  public var _supportedInteraction: List<Element?>? = null,
   public var queryCriteria: SubscriptionTopic.ResourceTrigger.QueryCriteria? = null,
   public var fhirPathCriteria: KotlinString? = null,
   public var _fhirPathCriteria: Element? = null,
@@ -69,9 +69,9 @@ internal data class SubscriptionTopicResourceTriggerSurrogate(
   public fun toModel(): SubscriptionTopic.ResourceTrigger =
     SubscriptionTopic.ResourceTrigger(
       id = this@SubscriptionTopicResourceTriggerSurrogate.id,
-      extension = this@SubscriptionTopicResourceTriggerSurrogate.extension ?: mutableListOf(),
+      extension = this@SubscriptionTopicResourceTriggerSurrogate.extension ?: listOf(),
       modifierExtension =
-        this@SubscriptionTopicResourceTriggerSurrogate.modifierExtension ?: mutableListOf(),
+        this@SubscriptionTopicResourceTriggerSurrogate.modifierExtension ?: listOf(),
       description =
         Markdown.of(
           this@SubscriptionTopicResourceTriggerSurrogate.description,
@@ -87,7 +87,7 @@ internal data class SubscriptionTopicResourceTriggerSurrogate(
           this@SubscriptionTopicResourceTriggerSurrogate.supportedInteraction == null &&
             this@SubscriptionTopicResourceTriggerSurrogate._supportedInteraction == null
         ) {
-          mutableListOf()
+          listOf()
         } else {
           (this@SubscriptionTopicResourceTriggerSurrogate.supportedInteraction
               ?: List(this@SubscriptionTopicResourceTriggerSurrogate._supportedInteraction!!.size) {
@@ -107,7 +107,7 @@ internal data class SubscriptionTopicResourceTriggerSurrogate(
                 element,
               )
             }
-            .toMutableList()
+            .toList()
         },
       queryCriteria = this@SubscriptionTopicResourceTriggerSurrogate.queryCriteria,
       fhirPathCriteria =
@@ -133,14 +133,14 @@ internal data class SubscriptionTopicResourceTriggerSurrogate(
           supportedInteraction =
             this@with.supportedInteraction
               .map { it.value?.getCode() }
-              .toMutableList()
+              .toList()
               .takeUnless { it.all { it == null } },
           _supportedInteraction =
             this@with.supportedInteraction
               .map { it.toElement() }
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
-              ?.toMutableList(),
+              ?.toList(),
           queryCriteria = this@with.queryCriteria,
           fhirPathCriteria = this@with.fhirPathCriteria?.value,
           _fhirPathCriteria = this@with.fhirPathCriteria?.toElement(),
@@ -152,8 +152,8 @@ internal data class SubscriptionTopicResourceTriggerSurrogate(
 @Serializable
 internal data class SubscriptionTopicResourceTriggerQueryCriteriaSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var previous: KotlinString? = null,
   public var _previous: Element? = null,
   public var resultForCreate: KotlinString? = null,
@@ -168,11 +168,9 @@ internal data class SubscriptionTopicResourceTriggerQueryCriteriaSurrogate(
   public fun toModel(): SubscriptionTopic.ResourceTrigger.QueryCriteria =
     SubscriptionTopic.ResourceTrigger.QueryCriteria(
       id = this@SubscriptionTopicResourceTriggerQueryCriteriaSurrogate.id,
-      extension =
-        this@SubscriptionTopicResourceTriggerQueryCriteriaSurrogate.extension ?: mutableListOf(),
+      extension = this@SubscriptionTopicResourceTriggerQueryCriteriaSurrogate.extension ?: listOf(),
       modifierExtension =
-        this@SubscriptionTopicResourceTriggerQueryCriteriaSurrogate.modifierExtension
-          ?: mutableListOf(),
+        this@SubscriptionTopicResourceTriggerQueryCriteriaSurrogate.modifierExtension ?: listOf(),
       previous =
         R4bString.of(
           this@SubscriptionTopicResourceTriggerQueryCriteriaSurrogate.previous,
@@ -231,8 +229,8 @@ internal data class SubscriptionTopicResourceTriggerQueryCriteriaSurrogate(
 @Serializable
 internal data class SubscriptionTopicEventTriggerSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var description: KotlinString? = null,
   public var _description: Element? = null,
   public var event: CodeableConcept,
@@ -242,9 +240,8 @@ internal data class SubscriptionTopicEventTriggerSurrogate(
   public fun toModel(): SubscriptionTopic.EventTrigger =
     SubscriptionTopic.EventTrigger(
       id = this@SubscriptionTopicEventTriggerSurrogate.id,
-      extension = this@SubscriptionTopicEventTriggerSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@SubscriptionTopicEventTriggerSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@SubscriptionTopicEventTriggerSurrogate.extension ?: listOf(),
+      modifierExtension = this@SubscriptionTopicEventTriggerSurrogate.modifierExtension ?: listOf(),
       description =
         Markdown.of(
           this@SubscriptionTopicEventTriggerSurrogate.description,
@@ -280,8 +277,8 @@ internal data class SubscriptionTopicEventTriggerSurrogate(
 @Serializable
 internal data class SubscriptionTopicCanFilterBySurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var description: KotlinString? = null,
   public var _description: Element? = null,
   public var resource: KotlinString? = null,
@@ -290,15 +287,14 @@ internal data class SubscriptionTopicCanFilterBySurrogate(
   public var _filterParameter: Element? = null,
   public var filterDefinition: KotlinString? = null,
   public var _filterDefinition: Element? = null,
-  public var modifier: MutableList<KotlinString?>? = null,
-  public var _modifier: MutableList<Element?>? = null,
+  public var modifier: List<KotlinString?>? = null,
+  public var _modifier: List<Element?>? = null,
 ) {
   public fun toModel(): SubscriptionTopic.CanFilterBy =
     SubscriptionTopic.CanFilterBy(
       id = this@SubscriptionTopicCanFilterBySurrogate.id,
-      extension = this@SubscriptionTopicCanFilterBySurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@SubscriptionTopicCanFilterBySurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@SubscriptionTopicCanFilterBySurrogate.extension ?: listOf(),
+      modifierExtension = this@SubscriptionTopicCanFilterBySurrogate.modifierExtension ?: listOf(),
       description =
         Markdown.of(
           this@SubscriptionTopicCanFilterBySurrogate.description,
@@ -324,7 +320,7 @@ internal data class SubscriptionTopicCanFilterBySurrogate(
           this@SubscriptionTopicCanFilterBySurrogate.modifier == null &&
             this@SubscriptionTopicCanFilterBySurrogate._modifier == null
         ) {
-          mutableListOf()
+          listOf()
         } else {
           (this@SubscriptionTopicCanFilterBySurrogate.modifier
               ?: List(this@SubscriptionTopicCanFilterBySurrogate._modifier!!.size) { null })
@@ -338,7 +334,7 @@ internal data class SubscriptionTopicCanFilterBySurrogate(
                 element,
               )
             }
-            .toMutableList()
+            .toList()
         },
     )
 
@@ -362,14 +358,14 @@ internal data class SubscriptionTopicCanFilterBySurrogate(
           modifier =
             this@with.modifier
               .map { it.value?.getCode() }
-              .toMutableList()
+              .toList()
               .takeUnless { it.all { it == null } },
           _modifier =
             this@with.modifier
               .map { it.toElement() }
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
-              ?.toMutableList(),
+              ?.toList(),
         )
       }
   }
@@ -378,21 +374,21 @@ internal data class SubscriptionTopicCanFilterBySurrogate(
 @Serializable
 internal data class SubscriptionTopicNotificationShapeSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var resource: KotlinString? = null,
   public var _resource: Element? = null,
-  public var include: MutableList<KotlinString?>? = null,
-  public var _include: MutableList<Element?>? = null,
-  public var revInclude: MutableList<KotlinString?>? = null,
-  public var _revInclude: MutableList<Element?>? = null,
+  public var include: List<KotlinString?>? = null,
+  public var _include: List<Element?>? = null,
+  public var revInclude: List<KotlinString?>? = null,
+  public var _revInclude: List<Element?>? = null,
 ) {
   public fun toModel(): SubscriptionTopic.NotificationShape =
     SubscriptionTopic.NotificationShape(
       id = this@SubscriptionTopicNotificationShapeSurrogate.id,
-      extension = this@SubscriptionTopicNotificationShapeSurrogate.extension ?: mutableListOf(),
+      extension = this@SubscriptionTopicNotificationShapeSurrogate.extension ?: listOf(),
       modifierExtension =
-        this@SubscriptionTopicNotificationShapeSurrogate.modifierExtension ?: mutableListOf(),
+        this@SubscriptionTopicNotificationShapeSurrogate.modifierExtension ?: listOf(),
       resource =
         Uri.of(
           this@SubscriptionTopicNotificationShapeSurrogate.resource,
@@ -403,7 +399,7 @@ internal data class SubscriptionTopicNotificationShapeSurrogate(
           this@SubscriptionTopicNotificationShapeSurrogate.include == null &&
             this@SubscriptionTopicNotificationShapeSurrogate._include == null
         ) {
-          mutableListOf()
+          listOf()
         } else {
           (this@SubscriptionTopicNotificationShapeSurrogate.include
               ?: List(this@SubscriptionTopicNotificationShapeSurrogate._include!!.size) { null })
@@ -412,14 +408,14 @@ internal data class SubscriptionTopicNotificationShapeSurrogate(
                 ?: List(this@SubscriptionTopicNotificationShapeSurrogate.include!!.size) { null }
             )
             .map { (value, element) -> R4bString.of(value, element)!! }
-            .toMutableList()
+            .toList()
         },
       revInclude =
         if (
           this@SubscriptionTopicNotificationShapeSurrogate.revInclude == null &&
             this@SubscriptionTopicNotificationShapeSurrogate._revInclude == null
         ) {
-          mutableListOf()
+          listOf()
         } else {
           (this@SubscriptionTopicNotificationShapeSurrogate.revInclude
               ?: List(this@SubscriptionTopicNotificationShapeSurrogate._revInclude!!.size) { null })
@@ -428,7 +424,7 @@ internal data class SubscriptionTopicNotificationShapeSurrogate(
                 ?: List(this@SubscriptionTopicNotificationShapeSurrogate.revInclude!!.size) { null }
             )
             .map { (value, element) -> R4bString.of(value, element)!! }
-            .toMutableList()
+            .toList()
         },
     )
 
@@ -444,24 +440,21 @@ internal data class SubscriptionTopicNotificationShapeSurrogate(
           resource = this@with.resource.value,
           _resource = this@with.resource.toElement(),
           include =
-            this@with.include.map { it.value }.toMutableList().takeUnless { it.all { it == null } },
+            this@with.include.map { it.value }.toList().takeUnless { it.all { it == null } },
           _include =
             this@with.include
               .map { it.toElement() }
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
-              ?.toMutableList(),
+              ?.toList(),
           revInclude =
-            this@with.revInclude
-              .map { it.value }
-              .toMutableList()
-              .takeUnless { it.all { it == null } },
+            this@with.revInclude.map { it.value }.toList().takeUnless { it.all { it == null } },
           _revInclude =
             this@with.revInclude
               .map { it.toElement() }
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
-              ?.toMutableList(),
+              ?.toList(),
         )
       }
   }
@@ -476,18 +469,18 @@ internal data class SubscriptionTopicSurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: MutableList<Resource>? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var contained: List<Resource>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var url: KotlinString? = null,
   public var _url: Element? = null,
-  public var identifier: MutableList<Identifier>? = null,
+  public var identifier: List<Identifier>? = null,
   public var version: KotlinString? = null,
   public var _version: Element? = null,
   public var title: KotlinString? = null,
   public var _title: Element? = null,
-  public var derivedFrom: MutableList<KotlinString?>? = null,
-  public var _derivedFrom: MutableList<Element?>? = null,
+  public var derivedFrom: List<KotlinString?>? = null,
+  public var _derivedFrom: List<Element?>? = null,
   public var status: KotlinString? = null,
   public var _status: Element? = null,
   public var experimental: KotlinBoolean? = null,
@@ -496,11 +489,11 @@ internal data class SubscriptionTopicSurrogate(
   public var _date: Element? = null,
   public var publisher: KotlinString? = null,
   public var _publisher: Element? = null,
-  public var contact: MutableList<ContactDetail>? = null,
+  public var contact: List<ContactDetail>? = null,
   public var description: KotlinString? = null,
   public var _description: Element? = null,
-  public var useContext: MutableList<UsageContext>? = null,
-  public var jurisdiction: MutableList<CodeableConcept>? = null,
+  public var useContext: List<UsageContext>? = null,
+  public var jurisdiction: List<CodeableConcept>? = null,
   public var purpose: KotlinString? = null,
   public var _purpose: Element? = null,
   public var copyright: KotlinString? = null,
@@ -510,10 +503,10 @@ internal data class SubscriptionTopicSurrogate(
   public var lastReviewDate: KotlinString? = null,
   public var _lastReviewDate: Element? = null,
   public var effectivePeriod: Period? = null,
-  public var resourceTrigger: MutableList<SubscriptionTopic.ResourceTrigger>? = null,
-  public var eventTrigger: MutableList<SubscriptionTopic.EventTrigger>? = null,
-  public var canFilterBy: MutableList<SubscriptionTopic.CanFilterBy>? = null,
-  public var notificationShape: MutableList<SubscriptionTopic.NotificationShape>? = null,
+  public var resourceTrigger: List<SubscriptionTopic.ResourceTrigger>? = null,
+  public var eventTrigger: List<SubscriptionTopic.EventTrigger>? = null,
+  public var canFilterBy: List<SubscriptionTopic.CanFilterBy>? = null,
+  public var notificationShape: List<SubscriptionTopic.NotificationShape>? = null,
 ) {
   public fun toModel(): SubscriptionTopic =
     SubscriptionTopic(
@@ -530,11 +523,11 @@ internal data class SubscriptionTopicSurrogate(
           this@SubscriptionTopicSurrogate._language,
         ),
       text = this@SubscriptionTopicSurrogate.text,
-      contained = this@SubscriptionTopicSurrogate.contained ?: mutableListOf(),
-      extension = this@SubscriptionTopicSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@SubscriptionTopicSurrogate.modifierExtension ?: mutableListOf(),
+      contained = this@SubscriptionTopicSurrogate.contained ?: listOf(),
+      extension = this@SubscriptionTopicSurrogate.extension ?: listOf(),
+      modifierExtension = this@SubscriptionTopicSurrogate.modifierExtension ?: listOf(),
       url = Uri.of(this@SubscriptionTopicSurrogate.url, this@SubscriptionTopicSurrogate._url)!!,
-      identifier = this@SubscriptionTopicSurrogate.identifier ?: mutableListOf(),
+      identifier = this@SubscriptionTopicSurrogate.identifier ?: listOf(),
       version =
         R4bString.of(
           this@SubscriptionTopicSurrogate.version,
@@ -547,7 +540,7 @@ internal data class SubscriptionTopicSurrogate(
           this@SubscriptionTopicSurrogate.derivedFrom == null &&
             this@SubscriptionTopicSurrogate._derivedFrom == null
         ) {
-          mutableListOf()
+          listOf()
         } else {
           (this@SubscriptionTopicSurrogate.derivedFrom
               ?: List(this@SubscriptionTopicSurrogate._derivedFrom!!.size) { null })
@@ -556,7 +549,7 @@ internal data class SubscriptionTopicSurrogate(
                 ?: List(this@SubscriptionTopicSurrogate.derivedFrom!!.size) { null }
             )
             .map { (value, element) -> Canonical.of(value, element)!! }
-            .toMutableList()
+            .toList()
         },
       status =
         Enumeration.of(
@@ -578,14 +571,14 @@ internal data class SubscriptionTopicSurrogate(
           this@SubscriptionTopicSurrogate.publisher,
           this@SubscriptionTopicSurrogate._publisher,
         ),
-      contact = this@SubscriptionTopicSurrogate.contact ?: mutableListOf(),
+      contact = this@SubscriptionTopicSurrogate.contact ?: listOf(),
       description =
         Markdown.of(
           this@SubscriptionTopicSurrogate.description,
           this@SubscriptionTopicSurrogate._description,
         ),
-      useContext = this@SubscriptionTopicSurrogate.useContext ?: mutableListOf(),
-      jurisdiction = this@SubscriptionTopicSurrogate.jurisdiction ?: mutableListOf(),
+      useContext = this@SubscriptionTopicSurrogate.useContext ?: listOf(),
+      jurisdiction = this@SubscriptionTopicSurrogate.jurisdiction ?: listOf(),
       purpose =
         Markdown.of(
           this@SubscriptionTopicSurrogate.purpose,
@@ -607,10 +600,10 @@ internal data class SubscriptionTopicSurrogate(
           this@SubscriptionTopicSurrogate._lastReviewDate,
         ),
       effectivePeriod = this@SubscriptionTopicSurrogate.effectivePeriod,
-      resourceTrigger = this@SubscriptionTopicSurrogate.resourceTrigger ?: mutableListOf(),
-      eventTrigger = this@SubscriptionTopicSurrogate.eventTrigger ?: mutableListOf(),
-      canFilterBy = this@SubscriptionTopicSurrogate.canFilterBy ?: mutableListOf(),
-      notificationShape = this@SubscriptionTopicSurrogate.notificationShape ?: mutableListOf(),
+      resourceTrigger = this@SubscriptionTopicSurrogate.resourceTrigger ?: listOf(),
+      eventTrigger = this@SubscriptionTopicSurrogate.eventTrigger ?: listOf(),
+      canFilterBy = this@SubscriptionTopicSurrogate.canFilterBy ?: listOf(),
+      notificationShape = this@SubscriptionTopicSurrogate.notificationShape ?: listOf(),
     )
 
   public companion object {
@@ -635,16 +628,13 @@ internal data class SubscriptionTopicSurrogate(
           title = this@with.title?.value,
           _title = this@with.title?.toElement(),
           derivedFrom =
-            this@with.derivedFrom
-              .map { it.value }
-              .toMutableList()
-              .takeUnless { it.all { it == null } },
+            this@with.derivedFrom.map { it.value }.toList().takeUnless { it.all { it == null } },
           _derivedFrom =
             this@with.derivedFrom
               .map { it.toElement() }
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
-              ?.toMutableList(),
+              ?.toList(),
           status = this@with.status.value?.getCode(),
           _status = this@with.status.toElement(),
           experimental = this@with.experimental?.value,

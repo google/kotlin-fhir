@@ -40,27 +40,25 @@ import kotlin.Boolean as KotlinBoolean
 import kotlin.Int
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class SubstancePolymerMonomerSetSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var ratioType: CodeableConcept? = null,
-  public var startingMaterial: MutableList<SubstancePolymer.MonomerSet.StartingMaterial>? = null,
+  public var startingMaterial: List<SubstancePolymer.MonomerSet.StartingMaterial>? = null,
 ) {
   public fun toModel(): SubstancePolymer.MonomerSet =
     SubstancePolymer.MonomerSet(
       id = this@SubstancePolymerMonomerSetSurrogate.id,
-      extension = this@SubstancePolymerMonomerSetSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@SubstancePolymerMonomerSetSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@SubstancePolymerMonomerSetSurrogate.extension ?: listOf(),
+      modifierExtension = this@SubstancePolymerMonomerSetSurrogate.modifierExtension ?: listOf(),
       ratioType = this@SubstancePolymerMonomerSetSurrogate.ratioType,
-      startingMaterial =
-        this@SubstancePolymerMonomerSetSurrogate.startingMaterial ?: mutableListOf(),
+      startingMaterial = this@SubstancePolymerMonomerSetSurrogate.startingMaterial ?: listOf(),
     )
 
   public companion object {
@@ -80,8 +78,8 @@ internal data class SubstancePolymerMonomerSetSurrogate(
 @Serializable
 internal data class SubstancePolymerMonomerSetStartingMaterialSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var code: CodeableConcept? = null,
   public var category: CodeableConcept? = null,
   public var isDefining: KotlinBoolean? = null,
@@ -91,11 +89,9 @@ internal data class SubstancePolymerMonomerSetStartingMaterialSurrogate(
   public fun toModel(): SubstancePolymer.MonomerSet.StartingMaterial =
     SubstancePolymer.MonomerSet.StartingMaterial(
       id = this@SubstancePolymerMonomerSetStartingMaterialSurrogate.id,
-      extension =
-        this@SubstancePolymerMonomerSetStartingMaterialSurrogate.extension ?: mutableListOf(),
+      extension = this@SubstancePolymerMonomerSetStartingMaterialSurrogate.extension ?: listOf(),
       modifierExtension =
-        this@SubstancePolymerMonomerSetStartingMaterialSurrogate.modifierExtension
-          ?: mutableListOf(),
+        this@SubstancePolymerMonomerSetStartingMaterialSurrogate.modifierExtension ?: listOf(),
       code = this@SubstancePolymerMonomerSetStartingMaterialSurrogate.code,
       category = this@SubstancePolymerMonomerSetStartingMaterialSurrogate.category,
       isDefining =
@@ -128,25 +124,25 @@ internal data class SubstancePolymerMonomerSetStartingMaterialSurrogate(
 @Serializable
 internal data class SubstancePolymerRepeatSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var averageMolecularFormula: KotlinString? = null,
   public var _averageMolecularFormula: Element? = null,
   public var repeatUnitAmountType: CodeableConcept? = null,
-  public var repeatUnit: MutableList<SubstancePolymer.Repeat.RepeatUnit>? = null,
+  public var repeatUnit: List<SubstancePolymer.Repeat.RepeatUnit>? = null,
 ) {
   public fun toModel(): SubstancePolymer.Repeat =
     SubstancePolymer.Repeat(
       id = this@SubstancePolymerRepeatSurrogate.id,
-      extension = this@SubstancePolymerRepeatSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@SubstancePolymerRepeatSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@SubstancePolymerRepeatSurrogate.extension ?: listOf(),
+      modifierExtension = this@SubstancePolymerRepeatSurrogate.modifierExtension ?: listOf(),
       averageMolecularFormula =
         R5String.of(
           this@SubstancePolymerRepeatSurrogate.averageMolecularFormula,
           this@SubstancePolymerRepeatSurrogate._averageMolecularFormula,
         ),
       repeatUnitAmountType = this@SubstancePolymerRepeatSurrogate.repeatUnitAmountType,
-      repeatUnit = this@SubstancePolymerRepeatSurrogate.repeatUnit ?: mutableListOf(),
+      repeatUnit = this@SubstancePolymerRepeatSurrogate.repeatUnit ?: listOf(),
     )
 
   public companion object {
@@ -168,26 +164,26 @@ internal data class SubstancePolymerRepeatSurrogate(
 @Serializable
 internal data class SubstancePolymerRepeatRepeatUnitSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var unit: KotlinString? = null,
   public var _unit: Element? = null,
   public var orientation: CodeableConcept? = null,
   public var amount: Int? = null,
   public var _amount: Element? = null,
   public var degreeOfPolymerisation:
-    MutableList<SubstancePolymer.Repeat.RepeatUnit.DegreeOfPolymerisation>? =
+    List<SubstancePolymer.Repeat.RepeatUnit.DegreeOfPolymerisation>? =
     null,
   public var structuralRepresentation:
-    MutableList<SubstancePolymer.Repeat.RepeatUnit.StructuralRepresentation>? =
+    List<SubstancePolymer.Repeat.RepeatUnit.StructuralRepresentation>? =
     null,
 ) {
   public fun toModel(): SubstancePolymer.Repeat.RepeatUnit =
     SubstancePolymer.Repeat.RepeatUnit(
       id = this@SubstancePolymerRepeatRepeatUnitSurrogate.id,
-      extension = this@SubstancePolymerRepeatRepeatUnitSurrogate.extension ?: mutableListOf(),
+      extension = this@SubstancePolymerRepeatRepeatUnitSurrogate.extension ?: listOf(),
       modifierExtension =
-        this@SubstancePolymerRepeatRepeatUnitSurrogate.modifierExtension ?: mutableListOf(),
+        this@SubstancePolymerRepeatRepeatUnitSurrogate.modifierExtension ?: listOf(),
       unit =
         R5String.of(
           this@SubstancePolymerRepeatRepeatUnitSurrogate.unit,
@@ -200,9 +196,9 @@ internal data class SubstancePolymerRepeatRepeatUnitSurrogate(
           this@SubstancePolymerRepeatRepeatUnitSurrogate._amount,
         ),
       degreeOfPolymerisation =
-        this@SubstancePolymerRepeatRepeatUnitSurrogate.degreeOfPolymerisation ?: mutableListOf(),
+        this@SubstancePolymerRepeatRepeatUnitSurrogate.degreeOfPolymerisation ?: listOf(),
       structuralRepresentation =
-        this@SubstancePolymerRepeatRepeatUnitSurrogate.structuralRepresentation ?: mutableListOf(),
+        this@SubstancePolymerRepeatRepeatUnitSurrogate.structuralRepresentation ?: listOf(),
     )
 
   public companion object {
@@ -229,8 +225,8 @@ internal data class SubstancePolymerRepeatRepeatUnitSurrogate(
 @Serializable
 internal data class SubstancePolymerRepeatRepeatUnitDegreeOfPolymerisationSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var type: CodeableConcept? = null,
   public var average: Int? = null,
   public var _average: Element? = null,
@@ -243,11 +239,10 @@ internal data class SubstancePolymerRepeatRepeatUnitDegreeOfPolymerisationSurrog
     SubstancePolymer.Repeat.RepeatUnit.DegreeOfPolymerisation(
       id = this@SubstancePolymerRepeatRepeatUnitDegreeOfPolymerisationSurrogate.id,
       extension =
-        this@SubstancePolymerRepeatRepeatUnitDegreeOfPolymerisationSurrogate.extension
-          ?: mutableListOf(),
+        this@SubstancePolymerRepeatRepeatUnitDegreeOfPolymerisationSurrogate.extension ?: listOf(),
       modifierExtension =
         this@SubstancePolymerRepeatRepeatUnitDegreeOfPolymerisationSurrogate.modifierExtension
-          ?: mutableListOf(),
+          ?: listOf(),
       type = this@SubstancePolymerRepeatRepeatUnitDegreeOfPolymerisationSurrogate.type,
       average =
         Integer.of(
@@ -290,8 +285,8 @@ internal data class SubstancePolymerRepeatRepeatUnitDegreeOfPolymerisationSurrog
 @Serializable
 internal data class SubstancePolymerRepeatRepeatUnitStructuralRepresentationSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var type: CodeableConcept? = null,
   public var representation: KotlinString? = null,
   public var _representation: Element? = null,
@@ -303,10 +298,10 @@ internal data class SubstancePolymerRepeatRepeatUnitStructuralRepresentationSurr
       id = this@SubstancePolymerRepeatRepeatUnitStructuralRepresentationSurrogate.id,
       extension =
         this@SubstancePolymerRepeatRepeatUnitStructuralRepresentationSurrogate.extension
-          ?: mutableListOf(),
+          ?: listOf(),
       modifierExtension =
         this@SubstancePolymerRepeatRepeatUnitStructuralRepresentationSurrogate.modifierExtension
-          ?: mutableListOf(),
+          ?: listOf(),
       type = this@SubstancePolymerRepeatRepeatUnitStructuralRepresentationSurrogate.type,
       representation =
         R5String.of(
@@ -345,17 +340,17 @@ internal data class SubstancePolymerSurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: MutableList<Resource>? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var contained: List<Resource>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var identifier: Identifier? = null,
   public var `class`: CodeableConcept? = null,
   public var geometry: CodeableConcept? = null,
-  public var copolymerConnectivity: MutableList<CodeableConcept>? = null,
+  public var copolymerConnectivity: List<CodeableConcept>? = null,
   public var modification: KotlinString? = null,
   public var _modification: Element? = null,
-  public var monomerSet: MutableList<SubstancePolymer.MonomerSet>? = null,
-  public var repeat: MutableList<SubstancePolymer.Repeat>? = null,
+  public var monomerSet: List<SubstancePolymer.MonomerSet>? = null,
+  public var repeat: List<SubstancePolymer.Repeat>? = null,
 ) {
   public fun toModel(): SubstancePolymer =
     SubstancePolymer(
@@ -369,21 +364,20 @@ internal data class SubstancePolymerSurrogate(
       language =
         Code.of(this@SubstancePolymerSurrogate.language, this@SubstancePolymerSurrogate._language),
       text = this@SubstancePolymerSurrogate.text,
-      contained = this@SubstancePolymerSurrogate.contained ?: mutableListOf(),
-      extension = this@SubstancePolymerSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@SubstancePolymerSurrogate.modifierExtension ?: mutableListOf(),
+      contained = this@SubstancePolymerSurrogate.contained ?: listOf(),
+      extension = this@SubstancePolymerSurrogate.extension ?: listOf(),
+      modifierExtension = this@SubstancePolymerSurrogate.modifierExtension ?: listOf(),
       identifier = this@SubstancePolymerSurrogate.identifier,
       `class` = this@SubstancePolymerSurrogate.`class`,
       geometry = this@SubstancePolymerSurrogate.geometry,
-      copolymerConnectivity =
-        this@SubstancePolymerSurrogate.copolymerConnectivity ?: mutableListOf(),
+      copolymerConnectivity = this@SubstancePolymerSurrogate.copolymerConnectivity ?: listOf(),
       modification =
         R5String.of(
           this@SubstancePolymerSurrogate.modification,
           this@SubstancePolymerSurrogate._modification,
         ),
-      monomerSet = this@SubstancePolymerSurrogate.monomerSet ?: mutableListOf(),
-      repeat = this@SubstancePolymerSurrogate.repeat ?: mutableListOf(),
+      monomerSet = this@SubstancePolymerSurrogate.monomerSet ?: listOf(),
+      repeat = this@SubstancePolymerSurrogate.repeat ?: listOf(),
     )
 
   public companion object {

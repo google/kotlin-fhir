@@ -43,15 +43,15 @@ import kotlin.Double
 import kotlin.Int
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class BiologicallyDerivedProductCollectionSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var collector: Reference? = null,
   public var source: Reference? = null,
   public var collected: BiologicallyDerivedProduct.Collection.Collected? = null,
@@ -59,9 +59,9 @@ internal data class BiologicallyDerivedProductCollectionSurrogate(
   public fun toModel(): BiologicallyDerivedProduct.Collection =
     BiologicallyDerivedProduct.Collection(
       id = this@BiologicallyDerivedProductCollectionSurrogate.id,
-      extension = this@BiologicallyDerivedProductCollectionSurrogate.extension ?: mutableListOf(),
+      extension = this@BiologicallyDerivedProductCollectionSurrogate.extension ?: listOf(),
       modifierExtension =
-        this@BiologicallyDerivedProductCollectionSurrogate.modifierExtension ?: mutableListOf(),
+        this@BiologicallyDerivedProductCollectionSurrogate.modifierExtension ?: listOf(),
       collector = this@BiologicallyDerivedProductCollectionSurrogate.collector,
       source = this@BiologicallyDerivedProductCollectionSurrogate.source,
       collected = this@BiologicallyDerivedProductCollectionSurrogate.collected,
@@ -87,8 +87,8 @@ internal data class BiologicallyDerivedProductCollectionSurrogate(
 @Serializable
 internal data class BiologicallyDerivedProductProcessingSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var description: KotlinString? = null,
   public var _description: Element? = null,
   public var procedure: CodeableConcept? = null,
@@ -98,9 +98,9 @@ internal data class BiologicallyDerivedProductProcessingSurrogate(
   public fun toModel(): BiologicallyDerivedProduct.Processing =
     BiologicallyDerivedProduct.Processing(
       id = this@BiologicallyDerivedProductProcessingSurrogate.id,
-      extension = this@BiologicallyDerivedProductProcessingSurrogate.extension ?: mutableListOf(),
+      extension = this@BiologicallyDerivedProductProcessingSurrogate.extension ?: listOf(),
       modifierExtension =
-        this@BiologicallyDerivedProductProcessingSurrogate.modifierExtension ?: mutableListOf(),
+        this@BiologicallyDerivedProductProcessingSurrogate.modifierExtension ?: listOf(),
       description =
         R4bString.of(
           this@BiologicallyDerivedProductProcessingSurrogate.description,
@@ -133,8 +133,8 @@ internal data class BiologicallyDerivedProductProcessingSurrogate(
 @Serializable
 internal data class BiologicallyDerivedProductManipulationSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var description: KotlinString? = null,
   public var _description: Element? = null,
   public var time: BiologicallyDerivedProduct.Manipulation.Time? = null,
@@ -142,9 +142,9 @@ internal data class BiologicallyDerivedProductManipulationSurrogate(
   public fun toModel(): BiologicallyDerivedProduct.Manipulation =
     BiologicallyDerivedProduct.Manipulation(
       id = this@BiologicallyDerivedProductManipulationSurrogate.id,
-      extension = this@BiologicallyDerivedProductManipulationSurrogate.extension ?: mutableListOf(),
+      extension = this@BiologicallyDerivedProductManipulationSurrogate.extension ?: listOf(),
       modifierExtension =
-        this@BiologicallyDerivedProductManipulationSurrogate.modifierExtension ?: mutableListOf(),
+        this@BiologicallyDerivedProductManipulationSurrogate.modifierExtension ?: listOf(),
       description =
         R4bString.of(
           this@BiologicallyDerivedProductManipulationSurrogate.description,
@@ -173,8 +173,8 @@ internal data class BiologicallyDerivedProductManipulationSurrogate(
 @Serializable
 internal data class BiologicallyDerivedProductStorageSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var description: KotlinString? = null,
   public var _description: Element? = null,
   public var temperature: Double? = null,
@@ -186,9 +186,9 @@ internal data class BiologicallyDerivedProductStorageSurrogate(
   public fun toModel(): BiologicallyDerivedProduct.Storage =
     BiologicallyDerivedProduct.Storage(
       id = this@BiologicallyDerivedProductStorageSurrogate.id,
-      extension = this@BiologicallyDerivedProductStorageSurrogate.extension ?: mutableListOf(),
+      extension = this@BiologicallyDerivedProductStorageSurrogate.extension ?: listOf(),
       modifierExtension =
-        this@BiologicallyDerivedProductStorageSurrogate.modifierExtension ?: mutableListOf(),
+        this@BiologicallyDerivedProductStorageSurrogate.modifierExtension ?: listOf(),
       description =
         R4bString.of(
           this@BiologicallyDerivedProductStorageSurrogate.description,
@@ -332,23 +332,23 @@ internal data class BiologicallyDerivedProductSurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: MutableList<Resource>? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var identifier: MutableList<Identifier>? = null,
+  public var contained: List<Resource>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
+  public var identifier: List<Identifier>? = null,
   public var productCategory: KotlinString? = null,
   public var _productCategory: Element? = null,
   public var productCode: CodeableConcept? = null,
   public var status: KotlinString? = null,
   public var _status: Element? = null,
-  public var request: MutableList<Reference>? = null,
+  public var request: List<Reference>? = null,
   public var quantity: Int? = null,
   public var _quantity: Element? = null,
-  public var parent: MutableList<Reference>? = null,
+  public var parent: List<Reference>? = null,
   public var collection: BiologicallyDerivedProduct.Collection? = null,
-  public var processing: MutableList<BiologicallyDerivedProduct.Processing>? = null,
+  public var processing: List<BiologicallyDerivedProduct.Processing>? = null,
   public var manipulation: BiologicallyDerivedProduct.Manipulation? = null,
-  public var storage: MutableList<BiologicallyDerivedProduct.Storage>? = null,
+  public var storage: List<BiologicallyDerivedProduct.Storage>? = null,
 ) {
   public fun toModel(): BiologicallyDerivedProduct =
     BiologicallyDerivedProduct(
@@ -365,11 +365,10 @@ internal data class BiologicallyDerivedProductSurrogate(
           this@BiologicallyDerivedProductSurrogate._language,
         ),
       text = this@BiologicallyDerivedProductSurrogate.text,
-      contained = this@BiologicallyDerivedProductSurrogate.contained ?: mutableListOf(),
-      extension = this@BiologicallyDerivedProductSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@BiologicallyDerivedProductSurrogate.modifierExtension ?: mutableListOf(),
-      identifier = this@BiologicallyDerivedProductSurrogate.identifier ?: mutableListOf(),
+      contained = this@BiologicallyDerivedProductSurrogate.contained ?: listOf(),
+      extension = this@BiologicallyDerivedProductSurrogate.extension ?: listOf(),
+      modifierExtension = this@BiologicallyDerivedProductSurrogate.modifierExtension ?: listOf(),
+      identifier = this@BiologicallyDerivedProductSurrogate.identifier ?: listOf(),
       productCategory =
         this@BiologicallyDerivedProductSurrogate.productCategory?.let {
           Enumeration.of(
@@ -385,17 +384,17 @@ internal data class BiologicallyDerivedProductSurrogate(
             this@BiologicallyDerivedProductSurrogate._status,
           )
         },
-      request = this@BiologicallyDerivedProductSurrogate.request ?: mutableListOf(),
+      request = this@BiologicallyDerivedProductSurrogate.request ?: listOf(),
       quantity =
         Integer.of(
           this@BiologicallyDerivedProductSurrogate.quantity,
           this@BiologicallyDerivedProductSurrogate._quantity,
         ),
-      parent = this@BiologicallyDerivedProductSurrogate.parent ?: mutableListOf(),
+      parent = this@BiologicallyDerivedProductSurrogate.parent ?: listOf(),
       collection = this@BiologicallyDerivedProductSurrogate.collection,
-      processing = this@BiologicallyDerivedProductSurrogate.processing ?: mutableListOf(),
+      processing = this@BiologicallyDerivedProductSurrogate.processing ?: listOf(),
       manipulation = this@BiologicallyDerivedProductSurrogate.manipulation,
-      storage = this@BiologicallyDerivedProductSurrogate.storage ?: mutableListOf(),
+      storage = this@BiologicallyDerivedProductSurrogate.storage ?: listOf(),
     )
 
   public companion object {

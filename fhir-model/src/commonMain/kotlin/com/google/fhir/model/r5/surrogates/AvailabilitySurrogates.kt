@@ -32,7 +32,7 @@ import com.google.fhir.model.r5.serializers.LocalTimeSerializer
 import kotlin.Boolean as KotlinBoolean
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.datetime.LocalTime
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
@@ -40,9 +40,9 @@ import kotlinx.serialization.UseSerializers
 @Serializable
 internal data class AvailabilityAvailableTimeSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var daysOfWeek: MutableList<KotlinString?>? = null,
-  public var _daysOfWeek: MutableList<Element?>? = null,
+  public var extension: List<Extension>? = null,
+  public var daysOfWeek: List<KotlinString?>? = null,
+  public var _daysOfWeek: List<Element?>? = null,
   public var allDay: KotlinBoolean? = null,
   public var _allDay: Element? = null,
   public var availableStartTime: LocalTime? = null,
@@ -53,13 +53,13 @@ internal data class AvailabilityAvailableTimeSurrogate(
   public fun toModel(): Availability.AvailableTime =
     Availability.AvailableTime(
       id = this@AvailabilityAvailableTimeSurrogate.id,
-      extension = this@AvailabilityAvailableTimeSurrogate.extension ?: mutableListOf(),
+      extension = this@AvailabilityAvailableTimeSurrogate.extension ?: listOf(),
       daysOfWeek =
         if (
           this@AvailabilityAvailableTimeSurrogate.daysOfWeek == null &&
             this@AvailabilityAvailableTimeSurrogate._daysOfWeek == null
         ) {
-          mutableListOf()
+          listOf()
         } else {
           (this@AvailabilityAvailableTimeSurrogate.daysOfWeek
               ?: List(this@AvailabilityAvailableTimeSurrogate._daysOfWeek!!.size) { null })
@@ -70,7 +70,7 @@ internal data class AvailabilityAvailableTimeSurrogate(
             .map { (value, element) ->
               Enumeration.of(value.let { Availability.DaysOfWeek.fromCode(it!!) }, element)
             }
-            .toMutableList()
+            .toList()
         },
       allDay =
         R5Boolean.of(
@@ -98,14 +98,14 @@ internal data class AvailabilityAvailableTimeSurrogate(
           daysOfWeek =
             this@with.daysOfWeek
               .map { it.value?.getCode() }
-              .toMutableList()
+              .toList()
               .takeUnless { it.all { it == null } },
           _daysOfWeek =
             this@with.daysOfWeek
               .map { it.toElement() }
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
-              ?.toMutableList(),
+              ?.toList(),
           allDay = this@with.allDay?.value,
           _allDay = this@with.allDay?.toElement(),
           availableStartTime = this@with.availableStartTime?.value,
@@ -120,7 +120,7 @@ internal data class AvailabilityAvailableTimeSurrogate(
 @Serializable
 internal data class AvailabilityNotAvailableTimeSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
   public var description: KotlinString? = null,
   public var _description: Element? = null,
   public var during: Period? = null,
@@ -128,7 +128,7 @@ internal data class AvailabilityNotAvailableTimeSurrogate(
   public fun toModel(): Availability.NotAvailableTime =
     Availability.NotAvailableTime(
       id = this@AvailabilityNotAvailableTimeSurrogate.id,
-      extension = this@AvailabilityNotAvailableTimeSurrogate.extension ?: mutableListOf(),
+      extension = this@AvailabilityNotAvailableTimeSurrogate.extension ?: listOf(),
       description =
         R5String.of(
           this@AvailabilityNotAvailableTimeSurrogate.description,
@@ -156,16 +156,16 @@ internal data class AvailabilityNotAvailableTimeSurrogate(
 @Serializable
 internal data class AvailabilitySurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var availableTime: MutableList<Availability.AvailableTime>? = null,
-  public var notAvailableTime: MutableList<Availability.NotAvailableTime>? = null,
+  public var extension: List<Extension>? = null,
+  public var availableTime: List<Availability.AvailableTime>? = null,
+  public var notAvailableTime: List<Availability.NotAvailableTime>? = null,
 ) {
   public fun toModel(): Availability =
     Availability(
       id = this@AvailabilitySurrogate.id,
-      extension = this@AvailabilitySurrogate.extension ?: mutableListOf(),
-      availableTime = this@AvailabilitySurrogate.availableTime ?: mutableListOf(),
-      notAvailableTime = this@AvailabilitySurrogate.notAvailableTime ?: mutableListOf(),
+      extension = this@AvailabilitySurrogate.extension ?: listOf(),
+      availableTime = this@AvailabilitySurrogate.availableTime ?: listOf(),
+      notAvailableTime = this@AvailabilitySurrogate.notAvailableTime ?: listOf(),
     )
 
   public companion object {

@@ -21,7 +21,7 @@ package com.google.fhir.model.r4
 import com.google.fhir.model.r4.serializers.OrganizationAffiliationSerializer
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -39,12 +39,12 @@ public data class OrganizationAffiliation(
    * The only time that a resource does not have an id is when it is being submitted to the server
    * using a create operation.
    */
-  override var id: String? = null,
+  override val id: String? = null,
   /**
    * The metadata about the resource. This is content that is maintained by the infrastructure.
    * Changes to the content might not always be associated with version changes to the resource.
    */
-  override var meta: Meta? = null,
+  override val meta: Meta? = null,
   /**
    * A reference to a set of rules that were followed when the resource was constructed, and which
    * must be understood when processing the content. Often, this is a reference to an implementation
@@ -58,7 +58,7 @@ public data class OrganizationAffiliation(
    * to an implementation guide that defines these special rules as part of it's narrative along
    * with other profiles, value sets, etc.
    */
-  override var implicitRules: Uri? = null,
+  override val implicitRules: Uri? = null,
   /**
    * The base language in which the resource is written.
    *
@@ -70,7 +70,7 @@ public data class OrganizationAffiliation(
    * language is specified, it should it also be specified on the div element in the html (see rules
    * in HTML5 for information about the relationship between xml:lang and the html lang attribute).
    */
-  override var language: Code? = null,
+  override val language: Code? = null,
   /**
    * A human-readable narrative that contains a summary of the resource and can be used to represent
    * the content of the resource to a human. The narrative need not encode all the structured data,
@@ -84,7 +84,7 @@ public data class OrganizationAffiliation(
    * legacy systems where information is captured as a "text blob" or where text is additionally
    * entered raw or narrated and encoded information is added later.
    */
-  override var text: Narrative? = null,
+  override val text: Narrative? = null,
   /**
    * These resources do not have an independent existence apart from the resource that contains
    * them - they cannot be identified independently, and nor can they have their own independent
@@ -95,7 +95,7 @@ public data class OrganizationAffiliation(
    * resources may have profiles and tags In their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: MutableList<Resource> = mutableListOf(),
+  override val contained: List<Resource> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and manageable, there is a strict set of
@@ -108,7 +108,7 @@ public data class OrganizationAffiliation(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: MutableList<Extension> = mutableListOf(),
+  override val extension: List<Extension> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -127,43 +127,43 @@ public data class OrganizationAffiliation(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: MutableList<Extension> = mutableListOf(),
+  override val modifierExtension: List<Extension> = listOf(),
   /** Business identifiers that are specific to this role. */
-  public var identifier: MutableList<Identifier> = mutableListOf(),
+  public val identifier: List<Identifier> = listOf(),
   /**
    * Whether this organization affiliation record is in active use.
    *
    * If this value is false, you may refer to the period to see when the role was in active use. If
    * there is no period specified, no inference can be made about when it was active.
    */
-  public var active: Boolean? = null,
+  public val active: Boolean? = null,
   /**
    * The period during which the participatingOrganization is affiliated with the primary
    * organization.
    */
-  public var period: Period? = null,
+  public val period: Period? = null,
   /** Organization where the role is available (primary organization/has members). */
-  public var organization: Reference? = null,
+  public val organization: Reference? = null,
   /**
    * The Participating Organization provides/performs the role(s) defined by the code to the Primary
    * Organization (e.g. providing services or is a member of).
    */
-  public var participatingOrganization: Reference? = null,
+  public val participatingOrganization: Reference? = null,
   /**
    * Health insurance provider network in which the participatingOrganization provides the role's
    * services (if defined) at the indicated locations (if defined).
    */
-  public var network: MutableList<Reference> = mutableListOf(),
+  public val network: List<Reference> = listOf(),
   /** Definition of the role the participatingOrganization plays in the association. */
-  public var code: MutableList<CodeableConcept> = mutableListOf(),
+  public val code: List<CodeableConcept> = listOf(),
   /** Specific specialty of the participatingOrganization in the context of the role. */
-  public var specialty: MutableList<CodeableConcept> = mutableListOf(),
+  public val specialty: List<CodeableConcept> = listOf(),
   /** The location(s) at which the role occurs. */
-  public var location: MutableList<Reference> = mutableListOf(),
+  public val location: List<Reference> = listOf(),
   /** Healthcare services provided through the role. */
-  public var healthcareService: MutableList<Reference> = mutableListOf(),
+  public val healthcareService: List<Reference> = listOf(),
   /** Contact details at the participatingOrganization relevant to this Affiliation. */
-  public var telecom: MutableList<ContactPoint> = mutableListOf(),
+  public val telecom: List<ContactPoint> = listOf(),
   /** Technical endpoints providing access to services operated for this role. */
-  public var endpoint: MutableList<Reference> = mutableListOf(),
+  public val endpoint: List<Reference> = listOf(),
 ) : DomainResource()

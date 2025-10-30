@@ -44,15 +44,15 @@ import com.google.fhir.model.r5.serializers.LocalTimeSerializer
 import kotlin.Int
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class SubscriptionFilterBySurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var resourceType: KotlinString? = null,
   public var _resourceType: Element? = null,
   public var filterParameter: KotlinString? = null,
@@ -67,8 +67,8 @@ internal data class SubscriptionFilterBySurrogate(
   public fun toModel(): Subscription.FilterBy =
     Subscription.FilterBy(
       id = this@SubscriptionFilterBySurrogate.id,
-      extension = this@SubscriptionFilterBySurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@SubscriptionFilterBySurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@SubscriptionFilterBySurrogate.extension ?: listOf(),
+      modifierExtension = this@SubscriptionFilterBySurrogate.modifierExtension ?: listOf(),
       resourceType =
         Uri.of(
           this@SubscriptionFilterBySurrogate.resourceType,
@@ -125,8 +125,8 @@ internal data class SubscriptionFilterBySurrogate(
 @Serializable
 internal data class SubscriptionParameterSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var name: KotlinString? = null,
   public var _name: Element? = null,
   public var `value`: KotlinString? = null,
@@ -135,8 +135,8 @@ internal data class SubscriptionParameterSurrogate(
   public fun toModel(): Subscription.Parameter =
     Subscription.Parameter(
       id = this@SubscriptionParameterSurrogate.id,
-      extension = this@SubscriptionParameterSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@SubscriptionParameterSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@SubscriptionParameterSurrogate.extension ?: listOf(),
+      modifierExtension = this@SubscriptionParameterSurrogate.modifierExtension ?: listOf(),
       name =
         R5String.of(
           this@SubscriptionParameterSurrogate.name,
@@ -174,27 +174,27 @@ internal data class SubscriptionSurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: MutableList<Resource>? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var identifier: MutableList<Identifier>? = null,
+  public var contained: List<Resource>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
+  public var identifier: List<Identifier>? = null,
   public var name: KotlinString? = null,
   public var _name: Element? = null,
   public var status: KotlinString? = null,
   public var _status: Element? = null,
   public var topic: KotlinString? = null,
   public var _topic: Element? = null,
-  public var contact: MutableList<ContactPoint>? = null,
+  public var contact: List<ContactPoint>? = null,
   public var end: KotlinString? = null,
   public var _end: Element? = null,
   public var managingEntity: Reference? = null,
   public var reason: KotlinString? = null,
   public var _reason: Element? = null,
-  public var filterBy: MutableList<Subscription.FilterBy>? = null,
+  public var filterBy: List<Subscription.FilterBy>? = null,
   public var channelType: Coding,
   public var endpoint: KotlinString? = null,
   public var _endpoint: Element? = null,
-  public var parameter: MutableList<Subscription.Parameter>? = null,
+  public var parameter: List<Subscription.Parameter>? = null,
   public var heartbeatPeriod: Int? = null,
   public var _heartbeatPeriod: Element? = null,
   public var timeout: Int? = null,
@@ -214,10 +214,10 @@ internal data class SubscriptionSurrogate(
         Uri.of(this@SubscriptionSurrogate.implicitRules, this@SubscriptionSurrogate._implicitRules),
       language = Code.of(this@SubscriptionSurrogate.language, this@SubscriptionSurrogate._language),
       text = this@SubscriptionSurrogate.text,
-      contained = this@SubscriptionSurrogate.contained ?: mutableListOf(),
-      extension = this@SubscriptionSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@SubscriptionSurrogate.modifierExtension ?: mutableListOf(),
-      identifier = this@SubscriptionSurrogate.identifier ?: mutableListOf(),
+      contained = this@SubscriptionSurrogate.contained ?: listOf(),
+      extension = this@SubscriptionSurrogate.extension ?: listOf(),
+      modifierExtension = this@SubscriptionSurrogate.modifierExtension ?: listOf(),
+      identifier = this@SubscriptionSurrogate.identifier ?: listOf(),
       name = R5String.of(this@SubscriptionSurrogate.name, this@SubscriptionSurrogate._name),
       status =
         Enumeration.of(
@@ -225,7 +225,7 @@ internal data class SubscriptionSurrogate(
           this@SubscriptionSurrogate._status,
         ),
       topic = Canonical.of(this@SubscriptionSurrogate.topic, this@SubscriptionSurrogate._topic)!!,
-      contact = this@SubscriptionSurrogate.contact ?: mutableListOf(),
+      contact = this@SubscriptionSurrogate.contact ?: listOf(),
       end =
         Instant.of(
           FhirDateTime.fromString(this@SubscriptionSurrogate.end),
@@ -233,10 +233,10 @@ internal data class SubscriptionSurrogate(
         ),
       managingEntity = this@SubscriptionSurrogate.managingEntity,
       reason = R5String.of(this@SubscriptionSurrogate.reason, this@SubscriptionSurrogate._reason),
-      filterBy = this@SubscriptionSurrogate.filterBy ?: mutableListOf(),
+      filterBy = this@SubscriptionSurrogate.filterBy ?: listOf(),
       channelType = this@SubscriptionSurrogate.channelType,
       endpoint = Url.of(this@SubscriptionSurrogate.endpoint, this@SubscriptionSurrogate._endpoint),
-      parameter = this@SubscriptionSurrogate.parameter ?: mutableListOf(),
+      parameter = this@SubscriptionSurrogate.parameter ?: listOf(),
       heartbeatPeriod =
         UnsignedInt.of(
           this@SubscriptionSurrogate.heartbeatPeriod,

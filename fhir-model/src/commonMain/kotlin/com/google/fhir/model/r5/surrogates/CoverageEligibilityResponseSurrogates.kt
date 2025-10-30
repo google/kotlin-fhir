@@ -46,24 +46,24 @@ import kotlin.Boolean as KotlinBoolean
 import kotlin.Int
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class CoverageEligibilityResponseEventSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var type: CodeableConcept,
   public var `when`: CoverageEligibilityResponse.Event.When,
 ) {
   public fun toModel(): CoverageEligibilityResponse.Event =
     CoverageEligibilityResponse.Event(
       id = this@CoverageEligibilityResponseEventSurrogate.id,
-      extension = this@CoverageEligibilityResponseEventSurrogate.extension ?: mutableListOf(),
+      extension = this@CoverageEligibilityResponseEventSurrogate.extension ?: listOf(),
       modifierExtension =
-        this@CoverageEligibilityResponseEventSurrogate.modifierExtension ?: mutableListOf(),
+        this@CoverageEligibilityResponseEventSurrogate.modifierExtension ?: listOf(),
       type = this@CoverageEligibilityResponseEventSurrogate.type,
       `when` = this@CoverageEligibilityResponseEventSurrogate.`when`,
     )
@@ -87,20 +87,20 @@ internal data class CoverageEligibilityResponseEventSurrogate(
 @Serializable
 internal data class CoverageEligibilityResponseInsuranceSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var coverage: Reference,
   public var inforce: KotlinBoolean? = null,
   public var _inforce: Element? = null,
   public var benefitPeriod: Period? = null,
-  public var item: MutableList<CoverageEligibilityResponse.Insurance.Item>? = null,
+  public var item: List<CoverageEligibilityResponse.Insurance.Item>? = null,
 ) {
   public fun toModel(): CoverageEligibilityResponse.Insurance =
     CoverageEligibilityResponse.Insurance(
       id = this@CoverageEligibilityResponseInsuranceSurrogate.id,
-      extension = this@CoverageEligibilityResponseInsuranceSurrogate.extension ?: mutableListOf(),
+      extension = this@CoverageEligibilityResponseInsuranceSurrogate.extension ?: listOf(),
       modifierExtension =
-        this@CoverageEligibilityResponseInsuranceSurrogate.modifierExtension ?: mutableListOf(),
+        this@CoverageEligibilityResponseInsuranceSurrogate.modifierExtension ?: listOf(),
       coverage = this@CoverageEligibilityResponseInsuranceSurrogate.coverage,
       inforce =
         R5Boolean.of(
@@ -108,7 +108,7 @@ internal data class CoverageEligibilityResponseInsuranceSurrogate(
           this@CoverageEligibilityResponseInsuranceSurrogate._inforce,
         ),
       benefitPeriod = this@CoverageEligibilityResponseInsuranceSurrogate.benefitPeriod,
-      item = this@CoverageEligibilityResponseInsuranceSurrogate.item ?: mutableListOf(),
+      item = this@CoverageEligibilityResponseInsuranceSurrogate.item ?: listOf(),
     )
 
   public companion object {
@@ -133,11 +133,11 @@ internal data class CoverageEligibilityResponseInsuranceSurrogate(
 @Serializable
 internal data class CoverageEligibilityResponseInsuranceItemSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var category: CodeableConcept? = null,
   public var productOrService: CodeableConcept? = null,
-  public var modifier: MutableList<CodeableConcept>? = null,
+  public var modifier: List<CodeableConcept>? = null,
   public var provider: Reference? = null,
   public var excluded: KotlinBoolean? = null,
   public var _excluded: Element? = null,
@@ -148,23 +148,22 @@ internal data class CoverageEligibilityResponseInsuranceItemSurrogate(
   public var network: CodeableConcept? = null,
   public var unit: CodeableConcept? = null,
   public var term: CodeableConcept? = null,
-  public var benefit: MutableList<CoverageEligibilityResponse.Insurance.Item.Benefit>? = null,
+  public var benefit: List<CoverageEligibilityResponse.Insurance.Item.Benefit>? = null,
   public var authorizationRequired: KotlinBoolean? = null,
   public var _authorizationRequired: Element? = null,
-  public var authorizationSupporting: MutableList<CodeableConcept>? = null,
+  public var authorizationSupporting: List<CodeableConcept>? = null,
   public var authorizationUrl: KotlinString? = null,
   public var _authorizationUrl: Element? = null,
 ) {
   public fun toModel(): CoverageEligibilityResponse.Insurance.Item =
     CoverageEligibilityResponse.Insurance.Item(
       id = this@CoverageEligibilityResponseInsuranceItemSurrogate.id,
-      extension =
-        this@CoverageEligibilityResponseInsuranceItemSurrogate.extension ?: mutableListOf(),
+      extension = this@CoverageEligibilityResponseInsuranceItemSurrogate.extension ?: listOf(),
       modifierExtension =
-        this@CoverageEligibilityResponseInsuranceItemSurrogate.modifierExtension ?: mutableListOf(),
+        this@CoverageEligibilityResponseInsuranceItemSurrogate.modifierExtension ?: listOf(),
       category = this@CoverageEligibilityResponseInsuranceItemSurrogate.category,
       productOrService = this@CoverageEligibilityResponseInsuranceItemSurrogate.productOrService,
-      modifier = this@CoverageEligibilityResponseInsuranceItemSurrogate.modifier ?: mutableListOf(),
+      modifier = this@CoverageEligibilityResponseInsuranceItemSurrogate.modifier ?: listOf(),
       provider = this@CoverageEligibilityResponseInsuranceItemSurrogate.provider,
       excluded =
         R5Boolean.of(
@@ -184,15 +183,14 @@ internal data class CoverageEligibilityResponseInsuranceItemSurrogate(
       network = this@CoverageEligibilityResponseInsuranceItemSurrogate.network,
       unit = this@CoverageEligibilityResponseInsuranceItemSurrogate.unit,
       term = this@CoverageEligibilityResponseInsuranceItemSurrogate.term,
-      benefit = this@CoverageEligibilityResponseInsuranceItemSurrogate.benefit ?: mutableListOf(),
+      benefit = this@CoverageEligibilityResponseInsuranceItemSurrogate.benefit ?: listOf(),
       authorizationRequired =
         R5Boolean.of(
           this@CoverageEligibilityResponseInsuranceItemSurrogate.authorizationRequired,
           this@CoverageEligibilityResponseInsuranceItemSurrogate._authorizationRequired,
         ),
       authorizationSupporting =
-        this@CoverageEligibilityResponseInsuranceItemSurrogate.authorizationSupporting
-          ?: mutableListOf(),
+        this@CoverageEligibilityResponseInsuranceItemSurrogate.authorizationSupporting ?: listOf(),
       authorizationUrl =
         Uri.of(
           this@CoverageEligibilityResponseInsuranceItemSurrogate.authorizationUrl,
@@ -236,8 +234,8 @@ internal data class CoverageEligibilityResponseInsuranceItemSurrogate(
 @Serializable
 internal data class CoverageEligibilityResponseInsuranceItemBenefitSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var type: CodeableConcept,
   public var allowed: CoverageEligibilityResponse.Insurance.Item.Benefit.Allowed? = null,
   public var used: CoverageEligibilityResponse.Insurance.Item.Benefit.Used? = null,
@@ -246,10 +244,9 @@ internal data class CoverageEligibilityResponseInsuranceItemBenefitSurrogate(
     CoverageEligibilityResponse.Insurance.Item.Benefit(
       id = this@CoverageEligibilityResponseInsuranceItemBenefitSurrogate.id,
       extension =
-        this@CoverageEligibilityResponseInsuranceItemBenefitSurrogate.extension ?: mutableListOf(),
+        this@CoverageEligibilityResponseInsuranceItemBenefitSurrogate.extension ?: listOf(),
       modifierExtension =
-        this@CoverageEligibilityResponseInsuranceItemBenefitSurrogate.modifierExtension
-          ?: mutableListOf(),
+        this@CoverageEligibilityResponseInsuranceItemBenefitSurrogate.modifierExtension ?: listOf(),
       type = this@CoverageEligibilityResponseInsuranceItemBenefitSurrogate.type,
       allowed = this@CoverageEligibilityResponseInsuranceItemBenefitSurrogate.allowed,
       used = this@CoverageEligibilityResponseInsuranceItemBenefitSurrogate.used,
@@ -275,25 +272,25 @@ internal data class CoverageEligibilityResponseInsuranceItemBenefitSurrogate(
 @Serializable
 internal data class CoverageEligibilityResponseErrorSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var code: CodeableConcept,
-  public var expression: MutableList<KotlinString?>? = null,
-  public var _expression: MutableList<Element?>? = null,
+  public var expression: List<KotlinString?>? = null,
+  public var _expression: List<Element?>? = null,
 ) {
   public fun toModel(): CoverageEligibilityResponse.Error =
     CoverageEligibilityResponse.Error(
       id = this@CoverageEligibilityResponseErrorSurrogate.id,
-      extension = this@CoverageEligibilityResponseErrorSurrogate.extension ?: mutableListOf(),
+      extension = this@CoverageEligibilityResponseErrorSurrogate.extension ?: listOf(),
       modifierExtension =
-        this@CoverageEligibilityResponseErrorSurrogate.modifierExtension ?: mutableListOf(),
+        this@CoverageEligibilityResponseErrorSurrogate.modifierExtension ?: listOf(),
       code = this@CoverageEligibilityResponseErrorSurrogate.code,
       expression =
         if (
           this@CoverageEligibilityResponseErrorSurrogate.expression == null &&
             this@CoverageEligibilityResponseErrorSurrogate._expression == null
         ) {
-          mutableListOf()
+          listOf()
         } else {
           (this@CoverageEligibilityResponseErrorSurrogate.expression
               ?: List(this@CoverageEligibilityResponseErrorSurrogate._expression!!.size) { null })
@@ -302,7 +299,7 @@ internal data class CoverageEligibilityResponseErrorSurrogate(
                 ?: List(this@CoverageEligibilityResponseErrorSurrogate.expression!!.size) { null }
             )
             .map { (value, element) -> R5String.of(value, element)!! }
-            .toMutableList()
+            .toList()
         },
     )
 
@@ -317,16 +314,13 @@ internal data class CoverageEligibilityResponseErrorSurrogate(
           modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           code = this@with.code,
           expression =
-            this@with.expression
-              .map { it.value }
-              .toMutableList()
-              .takeUnless { it.all { it == null } },
+            this@with.expression.map { it.value }.toList().takeUnless { it.all { it == null } },
           _expression =
             this@with.expression
               .map { it.toElement() }
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
-              ?.toMutableList(),
+              ?.toList(),
         )
       }
   }
@@ -473,16 +467,16 @@ internal data class CoverageEligibilityResponseSurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: MutableList<Resource>? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var identifier: MutableList<Identifier>? = null,
+  public var contained: List<Resource>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
+  public var identifier: List<Identifier>? = null,
   public var status: KotlinString? = null,
   public var _status: Element? = null,
-  public var purpose: MutableList<KotlinString?>? = null,
-  public var _purpose: MutableList<Element?>? = null,
+  public var purpose: List<KotlinString?>? = null,
+  public var _purpose: List<Element?>? = null,
   public var patient: Reference,
-  public var event: MutableList<CoverageEligibilityResponse.Event>? = null,
+  public var event: List<CoverageEligibilityResponse.Event>? = null,
   public var serviced: CoverageEligibilityResponse.Serviced? = null,
   public var created: KotlinString? = null,
   public var _created: Element? = null,
@@ -493,11 +487,11 @@ internal data class CoverageEligibilityResponseSurrogate(
   public var disposition: KotlinString? = null,
   public var _disposition: Element? = null,
   public var insurer: Reference,
-  public var insurance: MutableList<CoverageEligibilityResponse.Insurance>? = null,
+  public var insurance: List<CoverageEligibilityResponse.Insurance>? = null,
   public var preAuthRef: KotlinString? = null,
   public var _preAuthRef: Element? = null,
   public var form: CodeableConcept? = null,
-  public var error: MutableList<CoverageEligibilityResponse.Error>? = null,
+  public var error: List<CoverageEligibilityResponse.Error>? = null,
 ) {
   public fun toModel(): CoverageEligibilityResponse =
     CoverageEligibilityResponse(
@@ -514,11 +508,10 @@ internal data class CoverageEligibilityResponseSurrogate(
           this@CoverageEligibilityResponseSurrogate._language,
         ),
       text = this@CoverageEligibilityResponseSurrogate.text,
-      contained = this@CoverageEligibilityResponseSurrogate.contained ?: mutableListOf(),
-      extension = this@CoverageEligibilityResponseSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@CoverageEligibilityResponseSurrogate.modifierExtension ?: mutableListOf(),
-      identifier = this@CoverageEligibilityResponseSurrogate.identifier ?: mutableListOf(),
+      contained = this@CoverageEligibilityResponseSurrogate.contained ?: listOf(),
+      extension = this@CoverageEligibilityResponseSurrogate.extension ?: listOf(),
+      modifierExtension = this@CoverageEligibilityResponseSurrogate.modifierExtension ?: listOf(),
+      identifier = this@CoverageEligibilityResponseSurrogate.identifier ?: listOf(),
       status =
         Enumeration.of(
           CoverageEligibilityResponse.FinancialResourceStatusCodes.fromCode(
@@ -531,7 +524,7 @@ internal data class CoverageEligibilityResponseSurrogate(
           this@CoverageEligibilityResponseSurrogate.purpose == null &&
             this@CoverageEligibilityResponseSurrogate._purpose == null
         ) {
-          mutableListOf()
+          listOf()
         } else {
           (this@CoverageEligibilityResponseSurrogate.purpose
               ?: List(this@CoverageEligibilityResponseSurrogate._purpose!!.size) { null })
@@ -545,10 +538,10 @@ internal data class CoverageEligibilityResponseSurrogate(
                 element,
               )
             }
-            .toMutableList()
+            .toList()
         },
       patient = this@CoverageEligibilityResponseSurrogate.patient,
-      event = this@CoverageEligibilityResponseSurrogate.event ?: mutableListOf(),
+      event = this@CoverageEligibilityResponseSurrogate.event ?: listOf(),
       serviced = this@CoverageEligibilityResponseSurrogate.serviced,
       created =
         DateTime.of(
@@ -570,14 +563,14 @@ internal data class CoverageEligibilityResponseSurrogate(
           this@CoverageEligibilityResponseSurrogate._disposition,
         ),
       insurer = this@CoverageEligibilityResponseSurrogate.insurer,
-      insurance = this@CoverageEligibilityResponseSurrogate.insurance ?: mutableListOf(),
+      insurance = this@CoverageEligibilityResponseSurrogate.insurance ?: listOf(),
       preAuthRef =
         R5String.of(
           this@CoverageEligibilityResponseSurrogate.preAuthRef,
           this@CoverageEligibilityResponseSurrogate._preAuthRef,
         ),
       form = this@CoverageEligibilityResponseSurrogate.form,
-      error = this@CoverageEligibilityResponseSurrogate.error ?: mutableListOf(),
+      error = this@CoverageEligibilityResponseSurrogate.error ?: listOf(),
     )
 
   public companion object {
@@ -600,14 +593,14 @@ internal data class CoverageEligibilityResponseSurrogate(
           purpose =
             this@with.purpose
               .map { it.value?.getCode() }
-              .toMutableList()
+              .toList()
               .takeUnless { it.all { it == null } },
           _purpose =
             this@with.purpose
               .map { it.toElement() }
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
-              ?.toMutableList(),
+              ?.toList(),
           patient = this@with.patient,
           event = this@with.event.takeIf { it.isNotEmpty() },
           serviced = this@with.serviced,

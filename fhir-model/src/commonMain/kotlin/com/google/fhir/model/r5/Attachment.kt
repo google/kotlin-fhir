@@ -20,7 +20,7 @@ package com.google.fhir.model.r5
 
 import com.google.fhir.model.r5.serializers.AttachmentSerializer
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 
 /** Attachment Type: For referring to data content defined in other formats. */
@@ -30,7 +30,7 @@ public data class Attachment(
    * Unique id for the element within a resource (for internal references). This may be any string
    * value that does not contain spaces.
    */
-  override var id: kotlin.String? = null,
+  override val id: kotlin.String? = null,
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * element. To make the use of extensions safe and managable, there is a strict set of governance
@@ -43,21 +43,21 @@ public data class Attachment(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: MutableList<Extension> = mutableListOf(),
+  override val extension: List<Extension> = listOf(),
   /**
    * Identifies the type of the data in the attachment and allows a method to be chosen to interpret
    * or render the data. Includes mime type parameters such as charset where appropriate.
    */
-  public var contentType: Code? = null,
+  public val contentType: Code? = null,
   /** The human language of the content. The value can be any valid value according to BCP 47. */
-  public var language: Code? = null,
+  public val language: Code? = null,
   /**
    * The actual data of the attachment - a sequence of bytes, base64 encoded.
    *
    * The base64-encoded data SHALL be expressed in the same character set as the base resource XML
    * or JSON.
    */
-  public var `data`: Base64Binary? = null,
+  public val `data`: Base64Binary? = null,
   /**
    * A location where the data can be accessed.
    *
@@ -67,7 +67,7 @@ public data class Attachment(
    * are interpreted relative to the service url, like a resource reference, rather than relative to
    * the resource itself. If a URL is provided, it SHALL resolve to actual data.
    */
-  public var url: Url? = null,
+  public val url: Url? = null,
   /**
    * The number of bytes of data that make up this attachment (before base64 encoding, if that is
    * done).
@@ -75,7 +75,7 @@ public data class Attachment(
    * The number of bytes is redundant if the data is provided as a base64binary, but is useful if
    * the data is provided as a url reference.
    */
-  public var size: Integer64? = null,
+  public val size: Integer64? = null,
   /**
    * The calculated hash of the data using SHA-1. Represented using base64.
    *
@@ -85,19 +85,19 @@ public data class Attachment(
    * [Provenance.signature](provenance-definitions.html#Provenance.signature) for mechanism to
    * protect a resource with a digital signature.
    */
-  public var hash: Base64Binary? = null,
+  public val hash: Base64Binary? = null,
   /**
    * A label or set of text to display in place of the data.
    *
    * May sometimes be derived from the source filename.
    */
-  public var title: String? = null,
+  public val title: String? = null,
   /** The date that the attachment was first created. */
-  public var creation: DateTime? = null,
+  public val creation: DateTime? = null,
   /** Height of the image in pixels (photo/video). */
-  public var height: PositiveInt? = null,
+  public val height: PositiveInt? = null,
   /** Width of the image in pixels (photo/video). */
-  public var width: PositiveInt? = null,
+  public val width: PositiveInt? = null,
   /**
    * The number of frames in a photo. This is used with a multi-page fax, or an imaging acquisition
    * context that takes multiple slices in a single image, or an animated gif. If there is more than
@@ -107,13 +107,13 @@ public data class Attachment(
    * if the number of frames is not supplied, the value may be unknown. Applications should not
    * assume that there is only one frame unless it is explicitly stated.
    */
-  public var frames: PositiveInt? = null,
+  public val frames: PositiveInt? = null,
   /**
    * The duration of the recording in seconds - for audio and video.
    *
    * The duration might differ from occurrencePeriod if recording was paused.
    */
-  public var duration: Decimal? = null,
+  public val duration: Decimal? = null,
   /** The number of pages when printed. */
-  public var pages: PositiveInt? = null,
+  public val pages: PositiveInt? = null,
 ) : DataType()

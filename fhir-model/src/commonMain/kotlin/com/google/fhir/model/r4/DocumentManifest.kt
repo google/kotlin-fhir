@@ -22,7 +22,7 @@ import com.google.fhir.model.r4.serializers.DocumentManifestRelatedSerializer
 import com.google.fhir.model.r4.serializers.DocumentManifestSerializer
 import com.google.fhir.model.r4.terminologies.DocumentReferenceStatus
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -40,12 +40,12 @@ public data class DocumentManifest(
    * The only time that a resource does not have an id is when it is being submitted to the server
    * using a create operation.
    */
-  override var id: kotlin.String? = null,
+  override val id: kotlin.String? = null,
   /**
    * The metadata about the resource. This is content that is maintained by the infrastructure.
    * Changes to the content might not always be associated with version changes to the resource.
    */
-  override var meta: Meta? = null,
+  override val meta: Meta? = null,
   /**
    * A reference to a set of rules that were followed when the resource was constructed, and which
    * must be understood when processing the content. Often, this is a reference to an implementation
@@ -59,7 +59,7 @@ public data class DocumentManifest(
    * to an implementation guide that defines these special rules as part of it's narrative along
    * with other profiles, value sets, etc.
    */
-  override var implicitRules: Uri? = null,
+  override val implicitRules: Uri? = null,
   /**
    * The base language in which the resource is written.
    *
@@ -71,7 +71,7 @@ public data class DocumentManifest(
    * language is specified, it should it also be specified on the div element in the html (see rules
    * in HTML5 for information about the relationship between xml:lang and the html lang attribute).
    */
-  override var language: Code? = null,
+  override val language: Code? = null,
   /**
    * A human-readable narrative that contains a summary of the resource and can be used to represent
    * the content of the resource to a human. The narrative need not encode all the structured data,
@@ -85,7 +85,7 @@ public data class DocumentManifest(
    * legacy systems where information is captured as a "text blob" or where text is additionally
    * entered raw or narrated and encoded information is added later.
    */
-  override var text: Narrative? = null,
+  override val text: Narrative? = null,
   /**
    * These resources do not have an independent existence apart from the resource that contains
    * them - they cannot be identified independently, and nor can they have their own independent
@@ -96,7 +96,7 @@ public data class DocumentManifest(
    * resources may have profiles and tags In their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: MutableList<Resource> = mutableListOf(),
+  override val contained: List<Resource> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and manageable, there is a strict set of
@@ -109,7 +109,7 @@ public data class DocumentManifest(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: MutableList<Extension> = mutableListOf(),
+  override val extension: List<Extension> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -128,24 +128,24 @@ public data class DocumentManifest(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: MutableList<Extension> = mutableListOf(),
+  override val modifierExtension: List<Extension> = listOf(),
   /**
    * A single identifier that uniquely identifies this manifest. Principally used to refer to the
    * manifest in non-FHIR contexts.
    */
-  public var masterIdentifier: Identifier? = null,
+  public val masterIdentifier: Identifier? = null,
   /**
    * Other identifiers associated with the document manifest, including version independent
    * identifiers.
    */
-  public var identifier: MutableList<Identifier> = mutableListOf(),
+  public val identifier: List<Identifier> = listOf(),
   /**
    * The status of this document manifest.
    *
    * This element is labeled as a modifier because the status contains the codes that mark the
    * manifest as not currently valid.
    */
-  public var status: Enumeration<DocumentReferenceStatus>,
+  public val status: Enumeration<DocumentReferenceStatus>,
   /**
    * The code specifying the type of clinical activity that resulted in placing the associated
    * content into the DocumentManifest.
@@ -154,7 +154,7 @@ public data class DocumentManifest(
    * Prescription, etc.). The type of a set of documents may be the same as one of the documents in
    * it - especially if there is only one - but it may be wider.
    */
-  public var type: CodeableConcept? = null,
+  public val type: CodeableConcept? = null,
   /**
    * Who or what the set of documents is about. The documents can be about a person, (patient or
    * healthcare practitioner), a device (i.e. machine) or even a group of subjects (such as a
@@ -162,7 +162,7 @@ public data class DocumentManifest(
    * the documents cross more than one subject, then more than one subject is allowed here (unusual
    * use case).
    */
-  public var subject: Reference? = null,
+  public val subject: Reference? = null,
   /**
    * When the document manifest was created for submission to the server (not necessarily the same
    * thing as the actual resource last modified time, since it may be modified, replicated, etc.).
@@ -170,14 +170,14 @@ public data class DocumentManifest(
    * Creation time is used for tracking, organizing versions and searching. This is the creation
    * time of the document set, not the documents on which it is based.
    */
-  public var created: DateTime? = null,
+  public val created: DateTime? = null,
   /**
    * Identifies who is the author of the manifest. Manifest author is not necessarly the author of
    * the references included.
    *
    * Not necessarily who did the actual data entry (i.e. typist) or who was the source (informant).
    */
-  public var author: MutableList<Reference> = mutableListOf(),
+  public val author: List<Reference> = listOf(),
   /**
    * A patient, practitioner, or organization for which this set of documents is intended.
    *
@@ -185,9 +185,9 @@ public data class DocumentManifest(
    * This element is just a statement of intent. If the recipient is a person, and it is not known
    * whether the person is a patient or a practitioner, RelatedPerson would be the default choice.
    */
-  public var recipient: MutableList<Reference> = mutableListOf(),
+  public val recipient: List<Reference> = listOf(),
   /** Identifies the source system, application, or software that produced the document manifest. */
-  public var source: Uri? = null,
+  public val source: Uri? = null,
   /**
    * Human-readable description of the source document. This is sometimes known as the "title".
    *
@@ -195,7 +195,7 @@ public data class DocumentManifest(
    * case that records do not have a title and are collectively referred to by the display name of
    * Record code (e.g. a "consultation" or "progress note").
    */
-  public var description: String? = null,
+  public val description: String? = null,
   /**
    * The list of Resources that consist of the parts of this manifest.
    *
@@ -203,13 +203,13 @@ public data class DocumentManifest(
    * be a set of DocumentReference Resources. The reference is to "Any" to support EN 13606 usage,
    * where an extract is DocumentManifest that references List and Composition resources.
    */
-  public var content: MutableList<Reference> = mutableListOf(),
+  public val content: List<Reference> = listOf(),
   /**
    * Related identifiers or resources associated with the DocumentManifest.
    *
    * May be identifiers or resources that caused the DocumentManifest to be created.
    */
-  public var related: MutableList<Related> = mutableListOf(),
+  public val related: List<Related> = listOf(),
 ) : DomainResource() {
   /** Related identifiers or resources associated with the DocumentManifest. */
   @Serializable(with = DocumentManifestRelatedSerializer::class)
@@ -218,7 +218,7 @@ public data class DocumentManifest(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and manageable, there is a strict set of
@@ -231,7 +231,7 @@ public data class DocumentManifest(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -250,20 +250,20 @@ public data class DocumentManifest(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /**
      * Related identifier to this DocumentManifest. For example, Order numbers, accession numbers,
      * XDW workflow numbers.
      *
      * If both identifier and ref elements are present they shall refer to the same thing.
      */
-    public var identifier: Identifier? = null,
+    public val identifier: Identifier? = null,
     /**
      * Related Resource to this DocumentManifest. For example, Order, ServiceRequest, Procedure,
      * EligibilityRequest, etc.
      *
      * If both identifier and ref elements are present they shall refer to the same thing.
      */
-    public var ref: Reference? = null,
+    public val ref: Reference? = null,
   ) : BackboneElement()
 }

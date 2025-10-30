@@ -26,7 +26,7 @@ import com.google.fhir.model.r5.serializers.NutritionIntakeReportedSerializer
 import com.google.fhir.model.r5.serializers.NutritionIntakeSerializer
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -50,12 +50,12 @@ public data class NutritionIntake(
    * like the create and conditional update. Otherwise, the use of the resouce id depends on the
    * given use case.
    */
-  override var id: String? = null,
+  override val id: String? = null,
   /**
    * The metadata about the resource. This is content that is maintained by the infrastructure.
    * Changes to the content might not always be associated with version changes to the resource.
    */
-  override var meta: Meta? = null,
+  override val meta: Meta? = null,
   /**
    * A reference to a set of rules that were followed when the resource was constructed, and which
    * must be understood when processing the content. Often, this is a reference to an implementation
@@ -69,7 +69,7 @@ public data class NutritionIntake(
    * to an implementation guide that defines these special rules as part of its narrative along with
    * other profiles, value sets, etc.
    */
-  override var implicitRules: Uri? = null,
+  override val implicitRules: Uri? = null,
   /**
    * The base language in which the resource is written.
    *
@@ -81,7 +81,7 @@ public data class NutritionIntake(
    * language is specified, it should it also be specified on the div element in the html (see rules
    * in HTML5 for information about the relationship between xml:lang and the html lang attribute).
    */
-  override var language: Code? = null,
+  override val language: Code? = null,
   /**
    * A human-readable narrative that contains a summary of the resource and can be used to represent
    * the content of the resource to a human. The narrative need not encode all the structured data,
@@ -95,7 +95,7 @@ public data class NutritionIntake(
    * legacy systems where information is captured as a "text blob" or where text is additionally
    * entered raw or narrated and encoded information is added later.
    */
-  override var text: Narrative? = null,
+  override val text: Narrative? = null,
   /**
    * These resources do not have an independent existence apart from the resource that contains
    * them - they cannot be identified independently, nor can they have their own independent
@@ -107,7 +107,7 @@ public data class NutritionIntake(
    * resources may have profiles and tags in their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: MutableList<Resource> = mutableListOf(),
+  override val contained: List<Resource> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and managable, there is a strict set of governance
@@ -120,7 +120,7 @@ public data class NutritionIntake(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: MutableList<Extension> = mutableListOf(),
+  override val extension: List<Extension> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -139,7 +139,7 @@ public data class NutritionIntake(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: MutableList<Extension> = mutableListOf(),
+  override val modifierExtension: List<Extension> = listOf(),
   /**
    * Identifiers associated with this Nutrition Intake that are defined by business processes and/or
    * used to refer to it when a direct URL reference to the resource itself is not appropriate. They
@@ -148,15 +148,15 @@ public data class NutritionIntake(
    *
    * This is a business identifier, not a resource identifier.
    */
-  public var identifier: MutableList<Identifier> = mutableListOf(),
+  public val identifier: List<Identifier> = listOf(),
   /** Instantiates FHIR protocol or definition. */
-  public var instantiatesCanonical: MutableList<Canonical> = mutableListOf(),
+  public val instantiatesCanonical: List<Canonical> = listOf(),
   /** Instantiates external protocol or definition. */
-  public var instantiatesUri: MutableList<Uri> = mutableListOf(),
+  public val instantiatesUri: List<Uri> = listOf(),
   /** A plan, proposal or order that is fulfilled in whole or in part by this event. */
-  public var basedOn: MutableList<Reference> = mutableListOf(),
+  public val basedOn: List<Reference> = listOf(),
   /** A larger event of which this particular event is a component or step. */
-  public var partOf: MutableList<Reference> = mutableListOf(),
+  public val partOf: List<Reference> = listOf(),
   /**
    * A code representing the patient or other source's judgment about the state of the intake that
    * this assertion is about. Generally, this will be active or completed.
@@ -170,7 +170,7 @@ public data class NutritionIntake(
    * This element is labeled as a modifier because the status contains codes that mark the resource
    * as not currently valid.
    */
-  public var status: Enumeration<EventStatus>,
+  public val status: Enumeration<EventStatus>,
   /**
    * Captures the reason for the current state of the NutritionIntake.
    *
@@ -178,13 +178,13 @@ public data class NutritionIntake(
    * "cancelled" or "entered-in-error". The reason for performing the event at all is captured in
    * reasonCode, not here.
    */
-  public var statusReason: MutableList<CodeableConcept> = mutableListOf(),
+  public val statusReason: List<CodeableConcept> = listOf(),
   /** Overall type of nutrition intake. */
-  public var code: CodeableConcept? = null,
+  public val code: CodeableConcept? = null,
   /** The person, animal or group who is/was consuming the food or fluid. */
-  public var subject: Reference,
+  public val subject: Reference,
   /** The encounter that establishes the context for this NutritionIntake. */
-  public var encounter: Reference? = null,
+  public val encounter: Reference? = null,
   /**
    * The interval of time during which it is being asserted that the patient is/was consuming the
    * food or fluid.
@@ -196,41 +196,41 @@ public data class NutritionIntake(
    * The date/time attribute supports a variety of dates - year, year/month and exact date. If
    * something more than this is required, this should be conveyed as text.
    */
-  public var occurrence: Occurrence? = null,
+  public val occurrence: Occurrence? = null,
   /** The date when the Nutrition Intake was asserted by the information source. */
-  public var recorded: DateTime? = null,
+  public val recorded: DateTime? = null,
   /**
    * The person or organization that provided the information about the consumption of this food or
    * fluid. Note: Use derivedFrom when a NutritionIntake is derived from other resources.
    */
-  public var reported: Reported? = null,
+  public val reported: Reported? = null,
   /** What food or fluid product or item was consumed. */
-  public var consumedItem: MutableList<ConsumedItem> = mutableListOf(),
+  public val consumedItem: List<ConsumedItem> = listOf(),
   /**
    * Total nutrient amounts for the whole meal, product, serving, etc.
    *
    * Individual item nutrients are not currently included in the resource and will likely end up as
    * a reference in nutritionProduct to represent the individual items.
    */
-  public var ingredientLabel: MutableList<IngredientLabel> = mutableListOf(),
+  public val ingredientLabel: List<IngredientLabel> = listOf(),
   /** Who performed the intake and how they were involved. */
-  public var performer: MutableList<Performer> = mutableListOf(),
+  public val performer: List<Performer> = listOf(),
   /** Where the intake occurred. */
-  public var location: Reference? = null,
+  public val location: Reference? = null,
   /**
    * Allows linking the NutritionIntake to the underlying NutritionOrder, or to other information,
    * such as AllergyIntolerance, that supports or is used to derive the NutritionIntake.
    *
    * Likely references would be to AllergyIntolerance, Observation or QuestionnaireAnswers.
    */
-  public var derivedFrom: MutableList<Reference> = mutableListOf(),
+  public val derivedFrom: List<Reference> = listOf(),
   /** A reason, Condition or observation for why the food or fluid is /was consumed. */
-  public var reason: MutableList<CodeableReference> = mutableListOf(),
+  public val reason: List<CodeableReference> = listOf(),
   /**
    * Provides extra information about the Nutrition Intake that is not conveyed by the other
    * attributes.
    */
-  public var note: MutableList<Annotation> = mutableListOf(),
+  public val note: List<Annotation> = listOf(),
 ) : DomainResource() {
   /** What food or fluid product or item was consumed. */
   @Serializable(with = NutritionIntakeConsumedItemSerializer::class)
@@ -239,7 +239,7 @@ public data class NutritionIntake(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: String? = null,
+    override val id: String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -252,7 +252,7 @@ public data class NutritionIntake(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -271,9 +271,9 @@ public data class NutritionIntake(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /** Indicates what a category of item that was consumed: e.g., food, fluid, enteral, etc. */
-    public var type: CodeableConcept,
+    public val type: CodeableConcept,
     /**
      * Identifies the food or fluid product that was consumed. This is potentially a link to a
      * resource representing the details of the food product (TBD) or a simple attribute carrying a
@@ -282,22 +282,22 @@ public data class NutritionIntake(
      * If only a code is specified, then it needs to be a code for a specific product. If more
      * information is required, then the use of a new nutritionProduct resource is recommended.
      */
-    public var nutritionProduct: CodeableReference,
+    public val nutritionProduct: CodeableReference,
     /** Scheduled frequency of consumption. */
-    public var schedule: Timing? = null,
+    public val schedule: Timing? = null,
     /** Quantity of the specified food. */
-    public var amount: Quantity? = null,
+    public val amount: Quantity? = null,
     /** Rate at which enteral feeding was administered. */
-    public var rate: Quantity? = null,
+    public val rate: Quantity? = null,
     /**
      * Indicator when a patient is in a setting where it is helpful to know if food was not
      * consumed, such as it was refused, held (as in tube feedings), or otherwise not provided. If a
      * consumption is being recorded from an app, such as MyFitnessPal, this indicator will likely
      * not be used.
      */
-    public var notConsumed: Boolean? = null,
+    public val notConsumed: Boolean? = null,
     /** Document the reason the food or fluid was not consumed, such as refused, held, etc. */
-    public var notConsumedReason: CodeableConcept? = null,
+    public val notConsumedReason: CodeableConcept? = null,
   ) : BackboneElement()
 
   /** Total nutrient amounts for the whole meal, product, serving, etc. */
@@ -307,7 +307,7 @@ public data class NutritionIntake(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: String? = null,
+    override val id: String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -320,7 +320,7 @@ public data class NutritionIntake(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -339,14 +339,14 @@ public data class NutritionIntake(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /**
      * Total nutrient consumed. This could be a macronutrient (protein, fat, carbohydrate), or a
      * vitamin and mineral.
      */
-    public var nutrient: CodeableReference,
+    public val nutrient: CodeableReference,
     /** Total amount of nutrient consumed. */
-    public var amount: Quantity,
+    public val amount: Quantity,
   ) : BackboneElement()
 
   /** Who performed the intake and how they were involved. */
@@ -356,7 +356,7 @@ public data class NutritionIntake(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: String? = null,
+    override val id: String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -369,7 +369,7 @@ public data class NutritionIntake(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -388,11 +388,11 @@ public data class NutritionIntake(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /** Type of performer. */
-    public var function: CodeableConcept? = null,
+    public val function: CodeableConcept? = null,
     /** Who performed the intake. */
-    public var actor: Reference,
+    public val actor: Reference,
   ) : BackboneElement()
 
   @Serializable(with = NutritionIntakeOccurrenceSerializer::class)

@@ -36,7 +36,7 @@ import com.google.fhir.model.r4.serializers.DoubleSerializer
 import com.google.fhir.model.r4.serializers.LocalTimeSerializer
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
@@ -49,10 +49,10 @@ internal data class BasicSurrogate(
   public var language: String? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: MutableList<Resource>? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var identifier: MutableList<Identifier>? = null,
+  public var contained: List<Resource>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
+  public var identifier: List<Identifier>? = null,
   public var code: CodeableConcept,
   public var subject: Reference? = null,
   public var created: String? = null,
@@ -66,10 +66,10 @@ internal data class BasicSurrogate(
       implicitRules = Uri.of(this@BasicSurrogate.implicitRules, this@BasicSurrogate._implicitRules),
       language = Code.of(this@BasicSurrogate.language, this@BasicSurrogate._language),
       text = this@BasicSurrogate.text,
-      contained = this@BasicSurrogate.contained ?: mutableListOf(),
-      extension = this@BasicSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@BasicSurrogate.modifierExtension ?: mutableListOf(),
-      identifier = this@BasicSurrogate.identifier ?: mutableListOf(),
+      contained = this@BasicSurrogate.contained ?: listOf(),
+      extension = this@BasicSurrogate.extension ?: listOf(),
+      modifierExtension = this@BasicSurrogate.modifierExtension ?: listOf(),
+      identifier = this@BasicSurrogate.identifier ?: listOf(),
       code = this@BasicSurrogate.code,
       subject = this@BasicSurrogate.subject,
       created =

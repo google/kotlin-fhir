@@ -37,28 +37,28 @@ import com.google.fhir.model.r5.serializers.DoubleSerializer
 import com.google.fhir.model.r5.serializers.LocalTimeSerializer
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class SubstanceReferenceInformationGeneSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var geneSequenceOrigin: CodeableConcept? = null,
   public var gene: CodeableConcept? = null,
-  public var source: MutableList<Reference>? = null,
+  public var source: List<Reference>? = null,
 ) {
   public fun toModel(): SubstanceReferenceInformation.Gene =
     SubstanceReferenceInformation.Gene(
       id = this@SubstanceReferenceInformationGeneSurrogate.id,
-      extension = this@SubstanceReferenceInformationGeneSurrogate.extension ?: mutableListOf(),
+      extension = this@SubstanceReferenceInformationGeneSurrogate.extension ?: listOf(),
       modifierExtension =
-        this@SubstanceReferenceInformationGeneSurrogate.modifierExtension ?: mutableListOf(),
+        this@SubstanceReferenceInformationGeneSurrogate.modifierExtension ?: listOf(),
       geneSequenceOrigin = this@SubstanceReferenceInformationGeneSurrogate.geneSequenceOrigin,
       gene = this@SubstanceReferenceInformationGeneSurrogate.gene,
-      source = this@SubstanceReferenceInformationGeneSurrogate.source ?: mutableListOf(),
+      source = this@SubstanceReferenceInformationGeneSurrogate.source ?: listOf(),
     )
 
   public companion object {
@@ -81,22 +81,21 @@ internal data class SubstanceReferenceInformationGeneSurrogate(
 @Serializable
 internal data class SubstanceReferenceInformationGeneElementSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var type: CodeableConcept? = null,
   public var element: Identifier? = null,
-  public var source: MutableList<Reference>? = null,
+  public var source: List<Reference>? = null,
 ) {
   public fun toModel(): SubstanceReferenceInformation.GeneElement =
     SubstanceReferenceInformation.GeneElement(
       id = this@SubstanceReferenceInformationGeneElementSurrogate.id,
-      extension =
-        this@SubstanceReferenceInformationGeneElementSurrogate.extension ?: mutableListOf(),
+      extension = this@SubstanceReferenceInformationGeneElementSurrogate.extension ?: listOf(),
       modifierExtension =
-        this@SubstanceReferenceInformationGeneElementSurrogate.modifierExtension ?: mutableListOf(),
+        this@SubstanceReferenceInformationGeneElementSurrogate.modifierExtension ?: listOf(),
       type = this@SubstanceReferenceInformationGeneElementSurrogate.type,
       element = this@SubstanceReferenceInformationGeneElementSurrogate.element,
-      source = this@SubstanceReferenceInformationGeneElementSurrogate.source ?: mutableListOf(),
+      source = this@SubstanceReferenceInformationGeneElementSurrogate.source ?: listOf(),
     )
 
   public companion object {
@@ -119,8 +118,8 @@ internal data class SubstanceReferenceInformationGeneElementSurrogate(
 @Serializable
 internal data class SubstanceReferenceInformationTargetSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var target: Identifier? = null,
   public var type: CodeableConcept? = null,
   public var interaction: CodeableConcept? = null,
@@ -128,14 +127,14 @@ internal data class SubstanceReferenceInformationTargetSurrogate(
   public var organismType: CodeableConcept? = null,
   public var amount: SubstanceReferenceInformation.Target.Amount? = null,
   public var amountType: CodeableConcept? = null,
-  public var source: MutableList<Reference>? = null,
+  public var source: List<Reference>? = null,
 ) {
   public fun toModel(): SubstanceReferenceInformation.Target =
     SubstanceReferenceInformation.Target(
       id = this@SubstanceReferenceInformationTargetSurrogate.id,
-      extension = this@SubstanceReferenceInformationTargetSurrogate.extension ?: mutableListOf(),
+      extension = this@SubstanceReferenceInformationTargetSurrogate.extension ?: listOf(),
       modifierExtension =
-        this@SubstanceReferenceInformationTargetSurrogate.modifierExtension ?: mutableListOf(),
+        this@SubstanceReferenceInformationTargetSurrogate.modifierExtension ?: listOf(),
       target = this@SubstanceReferenceInformationTargetSurrogate.target,
       type = this@SubstanceReferenceInformationTargetSurrogate.type,
       interaction = this@SubstanceReferenceInformationTargetSurrogate.interaction,
@@ -143,7 +142,7 @@ internal data class SubstanceReferenceInformationTargetSurrogate(
       organismType = this@SubstanceReferenceInformationTargetSurrogate.organismType,
       amount = this@SubstanceReferenceInformationTargetSurrogate.amount,
       amountType = this@SubstanceReferenceInformationTargetSurrogate.amountType,
-      source = this@SubstanceReferenceInformationTargetSurrogate.source ?: mutableListOf(),
+      source = this@SubstanceReferenceInformationTargetSurrogate.source ?: listOf(),
     )
 
   public companion object {
@@ -209,14 +208,14 @@ internal data class SubstanceReferenceInformationSurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: MutableList<Resource>? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var contained: List<Resource>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var comment: KotlinString? = null,
   public var _comment: Element? = null,
-  public var gene: MutableList<SubstanceReferenceInformation.Gene>? = null,
-  public var geneElement: MutableList<SubstanceReferenceInformation.GeneElement>? = null,
-  public var target: MutableList<SubstanceReferenceInformation.Target>? = null,
+  public var gene: List<SubstanceReferenceInformation.Gene>? = null,
+  public var geneElement: List<SubstanceReferenceInformation.GeneElement>? = null,
+  public var target: List<SubstanceReferenceInformation.Target>? = null,
 ) {
   public fun toModel(): SubstanceReferenceInformation =
     SubstanceReferenceInformation(
@@ -233,18 +232,17 @@ internal data class SubstanceReferenceInformationSurrogate(
           this@SubstanceReferenceInformationSurrogate._language,
         ),
       text = this@SubstanceReferenceInformationSurrogate.text,
-      contained = this@SubstanceReferenceInformationSurrogate.contained ?: mutableListOf(),
-      extension = this@SubstanceReferenceInformationSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@SubstanceReferenceInformationSurrogate.modifierExtension ?: mutableListOf(),
+      contained = this@SubstanceReferenceInformationSurrogate.contained ?: listOf(),
+      extension = this@SubstanceReferenceInformationSurrogate.extension ?: listOf(),
+      modifierExtension = this@SubstanceReferenceInformationSurrogate.modifierExtension ?: listOf(),
       comment =
         R5String.of(
           this@SubstanceReferenceInformationSurrogate.comment,
           this@SubstanceReferenceInformationSurrogate._comment,
         ),
-      gene = this@SubstanceReferenceInformationSurrogate.gene ?: mutableListOf(),
-      geneElement = this@SubstanceReferenceInformationSurrogate.geneElement ?: mutableListOf(),
-      target = this@SubstanceReferenceInformationSurrogate.target ?: mutableListOf(),
+      gene = this@SubstanceReferenceInformationSurrogate.gene ?: listOf(),
+      geneElement = this@SubstanceReferenceInformationSurrogate.geneElement ?: listOf(),
+      target = this@SubstanceReferenceInformationSurrogate.target ?: listOf(),
     )
 
   public companion object {

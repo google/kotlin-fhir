@@ -51,15 +51,15 @@ import kotlin.Boolean as KotlinBoolean
 import kotlin.Int
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class DeviceUdiCarrierSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var deviceIdentifier: KotlinString? = null,
   public var _deviceIdentifier: Element? = null,
   public var issuer: KotlinString? = null,
@@ -76,8 +76,8 @@ internal data class DeviceUdiCarrierSurrogate(
   public fun toModel(): Device.UdiCarrier =
     Device.UdiCarrier(
       id = this@DeviceUdiCarrierSurrogate.id,
-      extension = this@DeviceUdiCarrierSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@DeviceUdiCarrierSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@DeviceUdiCarrierSurrogate.extension ?: listOf(),
+      modifierExtension = this@DeviceUdiCarrierSurrogate.modifierExtension ?: listOf(),
       deviceIdentifier =
         R5String.of(
           this@DeviceUdiCarrierSurrogate.deviceIdentifier,
@@ -136,8 +136,8 @@ internal data class DeviceUdiCarrierSurrogate(
 @Serializable
 internal data class DeviceNameSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var `value`: KotlinString? = null,
   public var _value: Element? = null,
   public var type: KotlinString? = null,
@@ -148,8 +148,8 @@ internal data class DeviceNameSurrogate(
   public fun toModel(): Device.Name =
     Device.Name(
       id = this@DeviceNameSurrogate.id,
-      extension = this@DeviceNameSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@DeviceNameSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@DeviceNameSurrogate.extension ?: listOf(),
+      modifierExtension = this@DeviceNameSurrogate.modifierExtension ?: listOf(),
       `value` = R5String.of(this@DeviceNameSurrogate.`value`, this@DeviceNameSurrogate._value)!!,
       type =
         Enumeration.of(
@@ -180,8 +180,8 @@ internal data class DeviceNameSurrogate(
 @Serializable
 internal data class DeviceVersionSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var type: CodeableConcept? = null,
   public var component: Identifier? = null,
   public var installDate: KotlinString? = null,
@@ -192,8 +192,8 @@ internal data class DeviceVersionSurrogate(
   public fun toModel(): Device.Version =
     Device.Version(
       id = this@DeviceVersionSurrogate.id,
-      extension = this@DeviceVersionSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@DeviceVersionSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@DeviceVersionSurrogate.extension ?: listOf(),
+      modifierExtension = this@DeviceVersionSurrogate.modifierExtension ?: listOf(),
       type = this@DeviceVersionSurrogate.type,
       component = this@DeviceVersionSurrogate.component,
       installDate =
@@ -226,8 +226,8 @@ internal data class DeviceVersionSurrogate(
 @Serializable
 internal data class DeviceConformsToSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var category: CodeableConcept? = null,
   public var specification: CodeableConcept,
   public var version: KotlinString? = null,
@@ -236,8 +236,8 @@ internal data class DeviceConformsToSurrogate(
   public fun toModel(): Device.ConformsTo =
     Device.ConformsTo(
       id = this@DeviceConformsToSurrogate.id,
-      extension = this@DeviceConformsToSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@DeviceConformsToSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@DeviceConformsToSurrogate.extension ?: listOf(),
+      modifierExtension = this@DeviceConformsToSurrogate.modifierExtension ?: listOf(),
       category = this@DeviceConformsToSurrogate.category,
       specification = this@DeviceConformsToSurrogate.specification,
       version =
@@ -263,16 +263,16 @@ internal data class DeviceConformsToSurrogate(
 @Serializable
 internal data class DevicePropertySurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var type: CodeableConcept,
   public var `value`: Device.Property.Value,
 ) {
   public fun toModel(): Device.Property =
     Device.Property(
       id = this@DevicePropertySurrogate.id,
-      extension = this@DevicePropertySurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@DevicePropertySurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@DevicePropertySurrogate.extension ?: listOf(),
+      modifierExtension = this@DevicePropertySurrogate.modifierExtension ?: listOf(),
       type = this@DevicePropertySurrogate.type,
       `value` = this@DevicePropertySurrogate.`value`,
     )
@@ -352,14 +352,14 @@ internal data class DeviceSurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: MutableList<Resource>? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var identifier: MutableList<Identifier>? = null,
+  public var contained: List<Resource>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
+  public var identifier: List<Identifier>? = null,
   public var displayName: KotlinString? = null,
   public var _displayName: Element? = null,
   public var definition: CodeableReference? = null,
-  public var udiCarrier: MutableList<Device.UdiCarrier>? = null,
+  public var udiCarrier: List<Device.UdiCarrier>? = null,
   public var status: KotlinString? = null,
   public var _status: Element? = null,
   public var availabilityStatus: CodeableConcept? = null,
@@ -374,28 +374,28 @@ internal data class DeviceSurrogate(
   public var _lotNumber: Element? = null,
   public var serialNumber: KotlinString? = null,
   public var _serialNumber: Element? = null,
-  public var name: MutableList<Device.Name>? = null,
+  public var name: List<Device.Name>? = null,
   public var modelNumber: KotlinString? = null,
   public var _modelNumber: Element? = null,
   public var partNumber: KotlinString? = null,
   public var _partNumber: Element? = null,
-  public var category: MutableList<CodeableConcept>? = null,
-  public var type: MutableList<CodeableConcept>? = null,
-  public var version: MutableList<Device.Version>? = null,
-  public var conformsTo: MutableList<Device.ConformsTo>? = null,
-  public var `property`: MutableList<Device.Property>? = null,
+  public var category: List<CodeableConcept>? = null,
+  public var type: List<CodeableConcept>? = null,
+  public var version: List<Device.Version>? = null,
+  public var conformsTo: List<Device.ConformsTo>? = null,
+  public var `property`: List<Device.Property>? = null,
   public var mode: CodeableConcept? = null,
   public var cycle: Count? = null,
   public var duration: Duration? = null,
   public var owner: Reference? = null,
-  public var contact: MutableList<ContactPoint>? = null,
+  public var contact: List<ContactPoint>? = null,
   public var location: Reference? = null,
   public var url: KotlinString? = null,
   public var _url: Element? = null,
-  public var endpoint: MutableList<Reference>? = null,
-  public var gateway: MutableList<CodeableReference>? = null,
-  public var note: MutableList<Annotation>? = null,
-  public var safety: MutableList<CodeableConcept>? = null,
+  public var endpoint: List<Reference>? = null,
+  public var gateway: List<CodeableReference>? = null,
+  public var note: List<Annotation>? = null,
+  public var safety: List<CodeableConcept>? = null,
   public var parent: Reference? = null,
 ) {
   public fun toModel(): Device =
@@ -406,14 +406,14 @@ internal data class DeviceSurrogate(
         Uri.of(this@DeviceSurrogate.implicitRules, this@DeviceSurrogate._implicitRules),
       language = Code.of(this@DeviceSurrogate.language, this@DeviceSurrogate._language),
       text = this@DeviceSurrogate.text,
-      contained = this@DeviceSurrogate.contained ?: mutableListOf(),
-      extension = this@DeviceSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@DeviceSurrogate.modifierExtension ?: mutableListOf(),
-      identifier = this@DeviceSurrogate.identifier ?: mutableListOf(),
+      contained = this@DeviceSurrogate.contained ?: listOf(),
+      extension = this@DeviceSurrogate.extension ?: listOf(),
+      modifierExtension = this@DeviceSurrogate.modifierExtension ?: listOf(),
+      identifier = this@DeviceSurrogate.identifier ?: listOf(),
       displayName =
         R5String.of(this@DeviceSurrogate.displayName, this@DeviceSurrogate._displayName),
       definition = this@DeviceSurrogate.definition,
-      udiCarrier = this@DeviceSurrogate.udiCarrier ?: mutableListOf(),
+      udiCarrier = this@DeviceSurrogate.udiCarrier ?: listOf(),
       status =
         this@DeviceSurrogate.status?.let {
           Enumeration.of(Device.FHIRDeviceStatus.fromCode(it), this@DeviceSurrogate._status)
@@ -435,26 +435,26 @@ internal data class DeviceSurrogate(
       lotNumber = R5String.of(this@DeviceSurrogate.lotNumber, this@DeviceSurrogate._lotNumber),
       serialNumber =
         R5String.of(this@DeviceSurrogate.serialNumber, this@DeviceSurrogate._serialNumber),
-      name = this@DeviceSurrogate.name ?: mutableListOf(),
+      name = this@DeviceSurrogate.name ?: listOf(),
       modelNumber =
         R5String.of(this@DeviceSurrogate.modelNumber, this@DeviceSurrogate._modelNumber),
       partNumber = R5String.of(this@DeviceSurrogate.partNumber, this@DeviceSurrogate._partNumber),
-      category = this@DeviceSurrogate.category ?: mutableListOf(),
-      type = this@DeviceSurrogate.type ?: mutableListOf(),
-      version = this@DeviceSurrogate.version ?: mutableListOf(),
-      conformsTo = this@DeviceSurrogate.conformsTo ?: mutableListOf(),
-      `property` = this@DeviceSurrogate.`property` ?: mutableListOf(),
+      category = this@DeviceSurrogate.category ?: listOf(),
+      type = this@DeviceSurrogate.type ?: listOf(),
+      version = this@DeviceSurrogate.version ?: listOf(),
+      conformsTo = this@DeviceSurrogate.conformsTo ?: listOf(),
+      `property` = this@DeviceSurrogate.`property` ?: listOf(),
       mode = this@DeviceSurrogate.mode,
       cycle = this@DeviceSurrogate.cycle,
       duration = this@DeviceSurrogate.duration,
       owner = this@DeviceSurrogate.owner,
-      contact = this@DeviceSurrogate.contact ?: mutableListOf(),
+      contact = this@DeviceSurrogate.contact ?: listOf(),
       location = this@DeviceSurrogate.location,
       url = Uri.of(this@DeviceSurrogate.url, this@DeviceSurrogate._url),
-      endpoint = this@DeviceSurrogate.endpoint ?: mutableListOf(),
-      gateway = this@DeviceSurrogate.gateway ?: mutableListOf(),
-      note = this@DeviceSurrogate.note ?: mutableListOf(),
-      safety = this@DeviceSurrogate.safety ?: mutableListOf(),
+      endpoint = this@DeviceSurrogate.endpoint ?: listOf(),
+      gateway = this@DeviceSurrogate.gateway ?: listOf(),
+      note = this@DeviceSurrogate.note ?: listOf(),
+      safety = this@DeviceSurrogate.safety ?: listOf(),
       parent = this@DeviceSurrogate.parent,
     )
 

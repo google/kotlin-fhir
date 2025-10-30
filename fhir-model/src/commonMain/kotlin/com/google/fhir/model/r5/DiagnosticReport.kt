@@ -23,7 +23,7 @@ import com.google.fhir.model.r5.serializers.DiagnosticReportMediaSerializer
 import com.google.fhir.model.r5.serializers.DiagnosticReportSerializer
 import com.google.fhir.model.r5.serializers.DiagnosticReportSupportingInfoSerializer
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -46,12 +46,12 @@ public data class DiagnosticReport(
    * like the create and conditional update. Otherwise, the use of the resouce id depends on the
    * given use case.
    */
-  override var id: kotlin.String? = null,
+  override val id: kotlin.String? = null,
   /**
    * The metadata about the resource. This is content that is maintained by the infrastructure.
    * Changes to the content might not always be associated with version changes to the resource.
    */
-  override var meta: Meta? = null,
+  override val meta: Meta? = null,
   /**
    * A reference to a set of rules that were followed when the resource was constructed, and which
    * must be understood when processing the content. Often, this is a reference to an implementation
@@ -65,7 +65,7 @@ public data class DiagnosticReport(
    * to an implementation guide that defines these special rules as part of its narrative along with
    * other profiles, value sets, etc.
    */
-  override var implicitRules: Uri? = null,
+  override val implicitRules: Uri? = null,
   /**
    * The base language in which the resource is written.
    *
@@ -77,7 +77,7 @@ public data class DiagnosticReport(
    * language is specified, it should it also be specified on the div element in the html (see rules
    * in HTML5 for information about the relationship between xml:lang and the html lang attribute).
    */
-  override var language: Code? = null,
+  override val language: Code? = null,
   /**
    * A human-readable narrative that contains a summary of the resource and can be used to represent
    * the content of the resource to a human. The narrative need not encode all the structured data,
@@ -91,7 +91,7 @@ public data class DiagnosticReport(
    * legacy systems where information is captured as a "text blob" or where text is additionally
    * entered raw or narrated and encoded information is added later.
    */
-  override var text: Narrative? = null,
+  override val text: Narrative? = null,
   /**
    * These resources do not have an independent existence apart from the resource that contains
    * them - they cannot be identified independently, nor can they have their own independent
@@ -103,7 +103,7 @@ public data class DiagnosticReport(
    * resources may have profiles and tags in their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: MutableList<Resource> = mutableListOf(),
+  override val contained: List<Resource> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and managable, there is a strict set of governance
@@ -116,7 +116,7 @@ public data class DiagnosticReport(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: MutableList<Extension> = mutableListOf(),
+  override val extension: List<Extension> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -135,13 +135,13 @@ public data class DiagnosticReport(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: MutableList<Extension> = mutableListOf(),
+  override val modifierExtension: List<Extension> = listOf(),
   /**
    * Identifiers assigned to this report by the performer or other systems.
    *
    * Usually assigned by the Information System of the diagnostic service provider (filler id).
    */
-  public var identifier: MutableList<Identifier> = mutableListOf(),
+  public val identifier: List<Identifier> = listOf(),
   /**
    * Details concerning a service requested.
    *
@@ -149,9 +149,9 @@ public data class DiagnosticReport(
    * test requests may be represented using a single test result resource. Note that there are also
    * cases where one request leads to multiple reports.
    */
-  public var basedOn: MutableList<Reference> = mutableListOf(),
+  public val basedOn: List<Reference> = listOf(),
   /** The status of the diagnostic report. */
-  public var status: Enumeration<DiagnosticReportStatus>,
+  public val status: Enumeration<DiagnosticReportStatus>,
   /**
    * A code that classifies the clinical discipline, department or diagnostic service that created
    * the report (e.g. cardiology, biochemistry, hematology, MRI). This is used for searching,
@@ -161,14 +161,14 @@ public data class DiagnosticReport(
    * is defined by the category concepts in the value set. More fine-grained filtering can be
    * performed using the metadata and/or terminology hierarchy in DiagnosticReport.code.
    */
-  public var category: MutableList<CodeableConcept> = mutableListOf(),
+  public val category: List<CodeableConcept> = listOf(),
   /** A code or name that describes this diagnostic report. */
-  public var code: CodeableConcept,
+  public val code: CodeableConcept,
   /**
    * The subject of the report. Usually, but not always, this is a patient. However, diagnostic
    * services also perform analyses on specimens collected from a variety of other sources.
    */
-  public var subject: Reference? = null,
+  public val subject: Reference? = null,
   /**
    * The healthcare event (e.g. a patient and healthcare provider interaction) which this
    * DiagnosticReport is about.
@@ -177,7 +177,7 @@ public data class DiagnosticReport(
    * initiated prior to or after the official completion of an encounter but still be tied to the
    * context of the encounter (e.g. pre-admission laboratory tests).
    */
-  public var encounter: Reference? = null,
+  public val encounter: Reference? = null,
   /**
    * The time or time-period the observed values are related to. When the subject of the report is a
    * patient, this is usually either the time of the procedure or of specimen collection(s), but
@@ -189,7 +189,7 @@ public data class DiagnosticReport(
    * relationship between the specimens and the diagnostically relevant time is not always
    * automatic.
    */
-  public var effective: Effective? = null,
+  public val effective: Effective? = null,
   /**
    * The date and time that this version of the report was made available to providers, typically
    * after the report was reviewed and verified.
@@ -197,21 +197,21 @@ public data class DiagnosticReport(
    * May be different from the update time of the resource itself, because that is the status of the
    * record (potentially a secondary copy), not the actual release time of the report.
    */
-  public var issued: Instant? = null,
+  public val issued: Instant? = null,
   /**
    * The diagnostic service that is responsible for issuing the report.
    *
    * This is not necessarily the source of the atomic data items or the entity that interpreted the
    * results. It is the entity that takes responsibility for the clinical report.
    */
-  public var performer: MutableList<Reference> = mutableListOf(),
+  public val performer: List<Reference> = listOf(),
   /**
    * The practitioner or organization that is responsible for the report's conclusions and
    * interpretations.
    *
    * Might not be the same entity that takes responsibility for the clinical report.
    */
-  public var resultsInterpreter: MutableList<Reference> = mutableListOf(),
+  public val resultsInterpreter: List<Reference> = listOf(),
   /**
    * Details about the specimens on which this diagnostic report is based.
    *
@@ -219,13 +219,13 @@ public data class DiagnosticReport(
    * additional data may be redundant. If there are multiple specimens, these may be represented per
    * observation or group.
    */
-  public var specimen: MutableList<Reference> = mutableListOf(),
+  public val specimen: List<Reference> = listOf(),
   /**
    * [Observations](observation.html) that are part of this diagnostic report.
    *
    * Observations can contain observations.
    */
-  public var result: MutableList<Reference> = mutableListOf(),
+  public val result: List<Reference> = listOf(),
   /**
    * Comments about the diagnostic report.
    *
@@ -233,7 +233,7 @@ public data class DiagnosticReport(
    * unexpected or unreliable results values contained within the diagnostic report, or information
    * about its source when relevant to its interpretation.
    */
-  public var note: MutableList<Annotation> = mutableListOf(),
+  public val note: List<Annotation> = listOf(),
   /**
    * One or more links to full details of any study performed during the diagnostic investigation.
    * An ImagingStudy might comprise a set of radiologic images obtained via a procedure that are
@@ -249,18 +249,18 @@ public data class DiagnosticReport(
    * also be found in one of the imaging study resources. However, each caters to different types of
    * displays for different types of purposes. Neither, either, or both may be provided.
    */
-  public var study: MutableList<Reference> = mutableListOf(),
+  public val study: List<Reference> = listOf(),
   /**
    * This backbone element contains supporting information that was used in the creation of the
    * report not included in the results already included in the report.
    */
-  public var supportingInfo: MutableList<SupportingInfo> = mutableListOf(),
+  public val supportingInfo: List<SupportingInfo> = listOf(),
   /**
    * A list of key images or data associated with this report. The images or data are generally
    * created during the diagnostic process, and may be directly of the patient, or of treated
    * specimens (i.e. slides of interest).
    */
-  public var media: MutableList<Media> = mutableListOf(),
+  public val media: List<Media> = listOf(),
   /**
    * Reference to a Composition resource instance that provides structure for organizing the
    * contents of the DiagnosticReport.
@@ -269,24 +269,24 @@ public data class DiagnosticReport(
    * contents referenced in the DiagnosticReport) - e.g., to order the sections of an anatomic
    * pathology structured report.
    */
-  public var composition: Reference? = null,
+  public val composition: Reference? = null,
   /**
    * Concise and clinically contextualized summary conclusion (interpretation/impression) of the
    * diagnostic report.
    */
-  public var conclusion: Markdown? = null,
+  public val conclusion: Markdown? = null,
   /**
    * One or more codes that represent the summary conclusion (interpretation/impression) of the
    * diagnostic report.
    */
-  public var conclusionCode: MutableList<CodeableConcept> = mutableListOf(),
+  public val conclusionCode: List<CodeableConcept> = listOf(),
   /**
    * Rich text representation of the entire result as issued by the diagnostic service. Multiple
    * formats are allowed but they SHALL be semantically equivalent.
    *
    * "application/pdf" is recommended as the most reliable and interoperable in this context.
    */
-  public var presentedForm: MutableList<Attachment> = mutableListOf(),
+  public val presentedForm: List<Attachment> = listOf(),
 ) : DomainResource() {
   /**
    * This backbone element contains supporting information that was used in the creation of the
@@ -298,7 +298,7 @@ public data class DiagnosticReport(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -311,7 +311,7 @@ public data class DiagnosticReport(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -330,11 +330,11 @@ public data class DiagnosticReport(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /** The code value for the role of the supporting information in the diagnostic report. */
-    public var type: CodeableConcept,
+    public val type: CodeableConcept,
     /** The reference for the supporting information in the diagnostic report. */
-    public var reference: Reference,
+    public val reference: Reference,
   ) : BackboneElement()
 
   /**
@@ -348,7 +348,7 @@ public data class DiagnosticReport(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -361,7 +361,7 @@ public data class DiagnosticReport(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -380,7 +380,7 @@ public data class DiagnosticReport(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /**
      * A comment about the image or data. Typically, this is used to provide an explanation for why
      * the image or data is included, or to draw the viewer's attention to important features.
@@ -389,9 +389,9 @@ public data class DiagnosticReport(
      * include additional discussion of the image or data contents or in other sections such as the
      * conclusion.
      */
-    public var comment: String? = null,
+    public val comment: String? = null,
     /** Reference to the image or data source. */
-    public var link: Reference,
+    public val link: Reference,
   ) : BackboneElement()
 
   @Serializable(with = DiagnosticReportEffectiveSerializer::class)

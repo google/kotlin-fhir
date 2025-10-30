@@ -20,7 +20,7 @@ package com.google.fhir.model.r4
 
 import com.google.fhir.model.r4.serializers.AddressSerializer
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 
 /**
@@ -35,7 +35,7 @@ public data class Address(
    * Unique id for the element within a resource (for internal references). This may be any string
    * value that does not contain spaces.
    */
-  override var id: kotlin.String? = null,
+  override val id: kotlin.String? = null,
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * element. To make the use of extensions safe and manageable, there is a strict set of governance
@@ -48,14 +48,14 @@ public data class Address(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: MutableList<Extension> = mutableListOf(),
+  override val extension: List<Extension> = listOf(),
   /**
    * The purpose of this address.
    *
    * Applications can assume that an address is current unless it explicitly says that it is
    * temporary or old.
    */
-  public var use: Enumeration<AddressUse>? = null,
+  public val use: Enumeration<AddressUse>? = null,
   /**
    * Distinguishes between physical addresses (those you can visit) and mailing addresses (e.g. PO
    * Boxes and care-of addresses). Most addresses are both.
@@ -66,7 +66,7 @@ public data class Address(
    * addresses are often used as proxies for physical locations (also see the
    * [Location](location.html#) resource).
    */
-  public var type: Enumeration<AddressType>? = null,
+  public val type: Enumeration<AddressType>? = null,
   /**
    * Specifies the entire address as it should be displayed e.g. on a postal label. This may be
    * provided instead of or as well as the specific parts.
@@ -75,36 +75,36 @@ public data class Address(
    * that when both text and parts are present, no content is included in the text that isn't found
    * in a part.
    */
-  public var text: String? = null,
+  public val text: String? = null,
   /**
    * This component contains the house number, apartment number, street name, street direction, P.O.
    * Box number, delivery hints, and similar address information.
    */
-  public var line: MutableList<String> = mutableListOf(),
+  public val line: List<String> = listOf(),
   /** The name of the city, town, suburb, village or other community or delivery center. */
-  public var city: String? = null,
+  public val city: String? = null,
   /**
    * The name of the administrative area (county).
    *
    * District is sometimes known as county, but in some regions 'county' is used in place of city
    * (municipality), so county name should be conveyed in city instead.
    */
-  public var district: String? = null,
+  public val district: String? = null,
   /**
    * Sub-unit of a country with limited sovereignty in a federally organized country. A code may be
    * used if codes are in common use (e.g. US 2 letter state codes).
    */
-  public var state: String? = null,
+  public val state: String? = null,
   /** A postal code designating a region defined by the postal service. */
-  public var postalCode: String? = null,
+  public val postalCode: String? = null,
   /**
    * Country - a nation as commonly understood or generally accepted.
    *
    * ISO 3166 3 letter codes can be used in place of a human readable country name.
    */
-  public var country: String? = null,
+  public val country: String? = null,
   /** Time period when address was/is in use. */
-  public var period: Period? = null,
+  public val period: Period? = null,
 ) : Element() {
   /** The use of an address. */
   public enum class AddressUse(

@@ -21,7 +21,7 @@ package com.google.fhir.model.r5
 import com.google.fhir.model.r5.serializers.ExtendedContactDetailSerializer
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 
 /**
@@ -34,7 +34,7 @@ public data class ExtendedContactDetail(
    * Unique id for the element within a resource (for internal references). This may be any string
    * value that does not contain spaces.
    */
-  override var id: String? = null,
+  override val id: String? = null,
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * element. To make the use of extensions safe and managable, there is a strict set of governance
@@ -47,38 +47,38 @@ public data class ExtendedContactDetail(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: MutableList<Extension> = mutableListOf(),
+  override val extension: List<Extension> = listOf(),
   /**
    * The purpose/type of contact.
    *
    * If no purpose is defined, then these contact details may be used for any purpose.
    */
-  public var purpose: CodeableConcept? = null,
+  public val purpose: CodeableConcept? = null,
   /**
    * The name of an individual to contact, some types of contact detail are usually blank.
    *
    * If there is no named individual, the telecom/address information is not generally monitored by
    * a specific individual.
    */
-  public var name: MutableList<HumanName> = mutableListOf(),
+  public val name: List<HumanName> = listOf(),
   /** The contact details application for the purpose defined. */
-  public var telecom: MutableList<ContactPoint> = mutableListOf(),
+  public val telecom: List<ContactPoint> = listOf(),
   /**
    * Address for the contact.
    *
    * More than 1 address would be for different purposes, and thus should be entered as a different
    * entry,.
    */
-  public var address: Address? = null,
+  public val address: Address? = null,
   /**
    * This contact detail is handled/monitored by a specific organization. If the name is provided in
    * the contact, then it is referring to the named individual within this organization.
    */
-  public var organization: Reference? = null,
+  public val organization: Reference? = null,
   /**
    * Period that this contact was valid for usage.
    *
    * If the details have multiple periods, then enter in a new ExtendedContact with the new period.
    */
-  public var period: Period? = null,
+  public val period: Period? = null,
 ) : DataType()

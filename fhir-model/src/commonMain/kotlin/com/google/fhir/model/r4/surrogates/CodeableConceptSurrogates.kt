@@ -28,23 +28,23 @@ import com.google.fhir.model.r4.serializers.DoubleSerializer
 import com.google.fhir.model.r4.serializers.LocalTimeSerializer
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class CodeableConceptSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var coding: MutableList<Coding>? = null,
+  public var extension: List<Extension>? = null,
+  public var coding: List<Coding>? = null,
   public var text: KotlinString? = null,
   public var _text: Element? = null,
 ) {
   public fun toModel(): CodeableConcept =
     CodeableConcept(
       id = this@CodeableConceptSurrogate.id,
-      extension = this@CodeableConceptSurrogate.extension ?: mutableListOf(),
-      coding = this@CodeableConceptSurrogate.coding ?: mutableListOf(),
+      extension = this@CodeableConceptSurrogate.extension ?: listOf(),
+      coding = this@CodeableConceptSurrogate.coding ?: listOf(),
       text = R4String.of(this@CodeableConceptSurrogate.text, this@CodeableConceptSurrogate._text),
     )
 

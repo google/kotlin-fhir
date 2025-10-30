@@ -24,7 +24,7 @@ import com.google.fhir.model.r4b.serializers.GoalTargetDetailSerializer
 import com.google.fhir.model.r4b.serializers.GoalTargetDueSerializer
 import com.google.fhir.model.r4b.serializers.GoalTargetSerializer
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -43,12 +43,12 @@ public data class Goal(
    * The only time that a resource does not have an id is when it is being submitted to the server
    * using a create operation.
    */
-  override var id: kotlin.String? = null,
+  override val id: kotlin.String? = null,
   /**
    * The metadata about the resource. This is content that is maintained by the infrastructure.
    * Changes to the content might not always be associated with version changes to the resource.
    */
-  override var meta: Meta? = null,
+  override val meta: Meta? = null,
   /**
    * A reference to a set of rules that were followed when the resource was constructed, and which
    * must be understood when processing the content. Often, this is a reference to an implementation
@@ -62,7 +62,7 @@ public data class Goal(
    * to an implementation guide that defines these special rules as part of it's narrative along
    * with other profiles, value sets, etc.
    */
-  override var implicitRules: Uri? = null,
+  override val implicitRules: Uri? = null,
   /**
    * The base language in which the resource is written.
    *
@@ -74,7 +74,7 @@ public data class Goal(
    * language is specified, it should it also be specified on the div element in the html (see rules
    * in HTML5 for information about the relationship between xml:lang and the html lang attribute).
    */
-  override var language: Code? = null,
+  override val language: Code? = null,
   /**
    * A human-readable narrative that contains a summary of the resource and can be used to represent
    * the content of the resource to a human. The narrative need not encode all the structured data,
@@ -88,7 +88,7 @@ public data class Goal(
    * legacy systems where information is captured as a "text blob" or where text is additionally
    * entered raw or narrated and encoded information is added later.
    */
-  override var text: Narrative? = null,
+  override val text: Narrative? = null,
   /**
    * These resources do not have an independent existence apart from the resource that contains
    * them - they cannot be identified independently, and nor can they have their own independent
@@ -99,7 +99,7 @@ public data class Goal(
    * resources may have profiles and tags In their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: MutableList<Resource> = mutableListOf(),
+  override val contained: List<Resource> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and manageable, there is a strict set of
@@ -112,7 +112,7 @@ public data class Goal(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: MutableList<Extension> = mutableListOf(),
+  override val extension: List<Extension> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -131,7 +131,7 @@ public data class Goal(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: MutableList<Extension> = mutableListOf(),
+  override val modifierExtension: List<Extension> = listOf(),
   /**
    * Business identifiers assigned to this goal by the performer or other systems which remain
    * constant as the resource is updated and propagates from server to server.
@@ -143,18 +143,18 @@ public data class Goal(
    * resource types. For example, multiple Patient and a Person resource instance might share the
    * same social insurance number.
    */
-  public var identifier: MutableList<Identifier> = mutableListOf(),
+  public val identifier: List<Identifier> = listOf(),
   /**
    * The state of the goal throughout its lifecycle.
    *
    * This element is labeled as a modifier because the lifecycleStatus contains codes that mark the
    * resource as not currently valid.
    */
-  public var lifecycleStatus: Enumeration<GoalLifecycleStatus>,
+  public val lifecycleStatus: Enumeration<GoalLifecycleStatus>,
   /** Describes the progression, or lack thereof, towards the goal against the target. */
-  public var achievementStatus: CodeableConcept? = null,
+  public val achievementStatus: CodeableConcept? = null,
   /** Indicates a category the goal falls within. */
-  public var category: MutableList<CodeableConcept> = mutableListOf(),
+  public val category: List<CodeableConcept> = listOf(),
   /**
    * Identifies the mutually agreed level of importance associated with reaching/sustaining the
    * goal.
@@ -166,64 +166,64 @@ public data class Goal(
    * The ordinal extension on Coding can be used to convey a numerically comparable ranking to
    * priority. (Keep in mind that different coding systems may use a "low value=important".
    */
-  public var priority: CodeableConcept? = null,
+  public val priority: CodeableConcept? = null,
   /**
    * Human-readable and/or coded description of a specific desired objective of care, such as
    * "control blood pressure" or "negotiate an obstacle course" or "dance with child at wedding".
    *
    * If no code is available, use CodeableConcept.text.
    */
-  public var description: CodeableConcept,
+  public val description: CodeableConcept,
   /** Identifies the patient, group or organization for whom the goal is being established. */
-  public var subject: Reference,
+  public val subject: Reference,
   /** The date or event after which the goal should begin being pursued. */
-  public var start: Start? = null,
+  public val start: Start? = null,
   /**
    * Indicates what should be done by when.
    *
    * When multiple targets are present for a single goal instance, all targets must be met for the
    * overall goal to be met.
    */
-  public var target: MutableList<Target> = mutableListOf(),
+  public val target: List<Target> = listOf(),
   /**
    * Identifies when the current status. I.e. When initially created, when achieved, when cancelled,
    * etc.
    *
    * To see the date for past statuses, query history.
    */
-  public var statusDate: Date? = null,
+  public val statusDate: Date? = null,
   /**
    * Captures the reason for the current status.
    *
    * This will typically be captured for statuses such as rejected, on-hold or cancelled, but could
    * be present for others.
    */
-  public var statusReason: String? = null,
+  public val statusReason: String? = null,
   /**
    * Indicates whose goal this is - patient goal, practitioner goal, etc.
    *
    * This is the individual responsible for establishing the goal, not necessarily who recorded it.
    * (For that, use the Provenance resource.).
    */
-  public var expressedBy: Reference? = null,
+  public val expressedBy: Reference? = null,
   /**
    * The identified conditions and other health record elements that are intended to be addressed by
    * the goal.
    */
-  public var addresses: MutableList<Reference> = mutableListOf(),
+  public val addresses: List<Reference> = listOf(),
   /**
    * Any comments related to the goal.
    *
    * May be used for progress notes, concerns or other related information that doesn't actually
    * describe the goal itself.
    */
-  public var note: MutableList<Annotation> = mutableListOf(),
+  public val note: List<Annotation> = listOf(),
   /**
    * Identifies the change (or lack of change) at the point when the status of the goal is assessed.
    *
    * Note that this should not duplicate the goal status.
    */
-  public var outcomeCode: MutableList<CodeableConcept> = mutableListOf(),
+  public val outcomeCode: List<CodeableConcept> = listOf(),
   /**
    * Details of what's changed (or not changed).
    *
@@ -232,7 +232,7 @@ public data class Goal(
    * then the care plan’s activity outcome could be calories consumed whereas goal outcome is an
    * observation for the actual body weight measured.
    */
-  public var outcomeReference: MutableList<Reference> = mutableListOf(),
+  public val outcomeReference: List<Reference> = listOf(),
 ) : DomainResource() {
   /** Indicates what should be done by when. */
   @Serializable(with = GoalTargetSerializer::class)
@@ -241,7 +241,7 @@ public data class Goal(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and manageable, there is a strict set of
@@ -254,7 +254,7 @@ public data class Goal(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -273,12 +273,12 @@ public data class Goal(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /**
      * The parameter whose value is being tracked, e.g. body weight, blood pressure, or hemoglobin
      * A1c level.
      */
-    public var measure: CodeableConcept? = null,
+    public val measure: CodeableConcept? = null,
     /**
      * The target value of the focus to be achieved to signify the fulfillment of the goal, e.g. 150
      * pounds, 7.0%. Either the high or low or both values of the range can be specified. When a low
@@ -289,9 +289,9 @@ public data class Goal(
      * A CodeableConcept with just a text would be used instead of a string if the field was usually
      * coded, or if the type associated with the Goal.target.measure defines a coded value.
      */
-    public var detail: Detail? = null,
+    public val detail: Detail? = null,
     /** Indicates either the date or the duration after start by which the goal should be met. */
-    public var due: Due? = null,
+    public val due: Due? = null,
   ) : BackboneElement() {
     @Serializable(with = GoalTargetDetailSerializer::class)
     public sealed interface Detail {

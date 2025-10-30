@@ -81,7 +81,7 @@ import kotlin.Double
 import kotlin.Int
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.datetime.LocalTime
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
@@ -332,14 +332,14 @@ internal data class ExtensionValueSurrogate(
 @Serializable
 internal data class ExtensionSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
   public var url: KotlinString,
   public var `value`: Extension.Value? = null,
 ) {
   public fun toModel(): Extension =
     Extension(
       id = this@ExtensionSurrogate.id,
-      extension = this@ExtensionSurrogate.extension ?: mutableListOf(),
+      extension = this@ExtensionSurrogate.extension ?: listOf(),
       url = this@ExtensionSurrogate.url,
       `value` = this@ExtensionSurrogate.`value`,
     )

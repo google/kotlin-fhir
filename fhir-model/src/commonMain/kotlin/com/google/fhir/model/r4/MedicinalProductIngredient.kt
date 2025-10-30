@@ -24,7 +24,7 @@ import com.google.fhir.model.r4.serializers.MedicinalProductIngredientSpecifiedS
 import com.google.fhir.model.r4.serializers.MedicinalProductIngredientSpecifiedSubstanceStrengthSerializer
 import com.google.fhir.model.r4.serializers.MedicinalProductIngredientSubstanceSerializer
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -39,12 +39,12 @@ public data class MedicinalProductIngredient(
    * The only time that a resource does not have an id is when it is being submitted to the server
    * using a create operation.
    */
-  override var id: kotlin.String? = null,
+  override val id: kotlin.String? = null,
   /**
    * The metadata about the resource. This is content that is maintained by the infrastructure.
    * Changes to the content might not always be associated with version changes to the resource.
    */
-  override var meta: Meta? = null,
+  override val meta: Meta? = null,
   /**
    * A reference to a set of rules that were followed when the resource was constructed, and which
    * must be understood when processing the content. Often, this is a reference to an implementation
@@ -58,7 +58,7 @@ public data class MedicinalProductIngredient(
    * to an implementation guide that defines these special rules as part of it's narrative along
    * with other profiles, value sets, etc.
    */
-  override var implicitRules: Uri? = null,
+  override val implicitRules: Uri? = null,
   /**
    * The base language in which the resource is written.
    *
@@ -70,7 +70,7 @@ public data class MedicinalProductIngredient(
    * language is specified, it should it also be specified on the div element in the html (see rules
    * in HTML5 for information about the relationship between xml:lang and the html lang attribute).
    */
-  override var language: Code? = null,
+  override val language: Code? = null,
   /**
    * A human-readable narrative that contains a summary of the resource and can be used to represent
    * the content of the resource to a human. The narrative need not encode all the structured data,
@@ -84,7 +84,7 @@ public data class MedicinalProductIngredient(
    * legacy systems where information is captured as a "text blob" or where text is additionally
    * entered raw or narrated and encoded information is added later.
    */
-  override var text: Narrative? = null,
+  override val text: Narrative? = null,
   /**
    * These resources do not have an independent existence apart from the resource that contains
    * them - they cannot be identified independently, and nor can they have their own independent
@@ -95,7 +95,7 @@ public data class MedicinalProductIngredient(
    * resources may have profiles and tags In their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: MutableList<Resource> = mutableListOf(),
+  override val contained: List<Resource> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and manageable, there is a strict set of
@@ -108,7 +108,7 @@ public data class MedicinalProductIngredient(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: MutableList<Extension> = mutableListOf(),
+  override val extension: List<Extension> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -127,22 +127,22 @@ public data class MedicinalProductIngredient(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: MutableList<Extension> = mutableListOf(),
+  override val modifierExtension: List<Extension> = listOf(),
   /**
    * The identifier(s) of this Ingredient that are assigned by business processes and/or used to
    * refer to it when a direct URL reference to the resource itself is not appropriate.
    */
-  public var identifier: Identifier? = null,
+  public val identifier: Identifier? = null,
   /** Ingredient role e.g. Active ingredient, excipient. */
-  public var role: CodeableConcept,
+  public val role: CodeableConcept,
   /** If the ingredient is a known or suspected allergen. */
-  public var allergenicIndicator: Boolean? = null,
+  public val allergenicIndicator: Boolean? = null,
   /** Manufacturer of this Ingredient. */
-  public var manufacturer: MutableList<Reference> = mutableListOf(),
+  public val manufacturer: List<Reference> = listOf(),
   /** A specified substance that comprises this ingredient. */
-  public var specifiedSubstance: MutableList<SpecifiedSubstance> = mutableListOf(),
+  public val specifiedSubstance: List<SpecifiedSubstance> = listOf(),
   /** The ingredient substance. */
-  public var substance: Substance? = null,
+  public val substance: Substance? = null,
 ) : DomainResource() {
   /** A specified substance that comprises this ingredient. */
   @Serializable(with = MedicinalProductIngredientSpecifiedSubstanceSerializer::class)
@@ -151,7 +151,7 @@ public data class MedicinalProductIngredient(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and manageable, there is a strict set of
@@ -164,7 +164,7 @@ public data class MedicinalProductIngredient(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -183,18 +183,18 @@ public data class MedicinalProductIngredient(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /** The specified substance. */
-    public var code: CodeableConcept,
+    public val code: CodeableConcept,
     /** The group of specified substance, e.g. group 1 to 4. */
-    public var group: CodeableConcept,
+    public val group: CodeableConcept,
     /** Confidentiality level of the specified substance as the ingredient. */
-    public var confidentiality: CodeableConcept? = null,
+    public val confidentiality: CodeableConcept? = null,
     /**
      * Quantity of the substance or specified substance present in the manufactured item or
      * pharmaceutical product.
      */
-    public var strength: MutableList<Strength> = mutableListOf(),
+    public val strength: List<Strength> = listOf(),
   ) : BackboneElement() {
     /**
      * Quantity of the substance or specified substance present in the manufactured item or
@@ -206,7 +206,7 @@ public data class MedicinalProductIngredient(
        * Unique id for the element within a resource (for internal references). This may be any
        * string value that does not contain spaces.
        */
-      override var id: kotlin.String? = null,
+      override val id: kotlin.String? = null,
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element. To make the use of extensions safe and manageable, there is a strict set of
@@ -219,7 +219,7 @@ public data class MedicinalProductIngredient(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: MutableList<Extension> = mutableListOf(),
+      override val extension: List<Extension> = listOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -238,31 +238,31 @@ public data class MedicinalProductIngredient(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: MutableList<Extension> = mutableListOf(),
+      override val modifierExtension: List<Extension> = listOf(),
       /**
        * The quantity of substance in the unit of presentation, or in the volume (or mass) of the
        * single pharmaceutical product or manufactured item.
        */
-      public var presentation: Ratio,
+      public val presentation: Ratio,
       /**
        * A lower limit for the quantity of substance in the unit of presentation. For use when there
        * is a range of strengths, this is the lower limit, with the presentation attribute becoming
        * the upper limit.
        */
-      public var presentationLowLimit: Ratio? = null,
+      public val presentationLowLimit: Ratio? = null,
       /** The strength per unitary volume (or mass). */
-      public var concentration: Ratio? = null,
+      public val concentration: Ratio? = null,
       /**
        * A lower limit for the strength per unitary volume (or mass), for when there is a range. The
        * concentration attribute then becomes the upper limit.
        */
-      public var concentrationLowLimit: Ratio? = null,
+      public val concentrationLowLimit: Ratio? = null,
       /** For when strength is measured at a particular point or distance. */
-      public var measurementPoint: String? = null,
+      public val measurementPoint: String? = null,
       /** The country or countries for which the strength range applies. */
-      public var country: MutableList<CodeableConcept> = mutableListOf(),
+      public val country: List<CodeableConcept> = listOf(),
       /** Strength expressed in terms of a reference substance. */
-      public var referenceStrength: MutableList<ReferenceStrength> = mutableListOf(),
+      public val referenceStrength: List<ReferenceStrength> = listOf(),
     ) : BackboneElement() {
       /** Strength expressed in terms of a reference substance. */
       @Serializable(
@@ -274,7 +274,7 @@ public data class MedicinalProductIngredient(
          * Unique id for the element within a resource (for internal references). This may be any
          * string value that does not contain spaces.
          */
-        override var id: kotlin.String? = null,
+        override val id: kotlin.String? = null,
         /**
          * May be used to represent additional information that is not part of the basic definition
          * of the element. To make the use of extensions safe and manageable, there is a strict set
@@ -287,7 +287,7 @@ public data class MedicinalProductIngredient(
          * extensions. The use of extensions is what allows the FHIR specification to retain a core
          * level of simplicity for everyone.
          */
-        override var extension: MutableList<Extension> = mutableListOf(),
+        override val extension: List<Extension> = listOf(),
         /**
          * May be used to represent additional information that is not part of the basic definition
          * of the element and that modifies the understanding of the element in which it is
@@ -306,17 +306,17 @@ public data class MedicinalProductIngredient(
          * extensions. The use of extensions is what allows the FHIR specification to retain a core
          * level of simplicity for everyone.
          */
-        override var modifierExtension: MutableList<Extension> = mutableListOf(),
+        override val modifierExtension: List<Extension> = listOf(),
         /** Relevant reference substance. */
-        public var substance: CodeableConcept? = null,
+        public val substance: CodeableConcept? = null,
         /** Strength expressed in terms of a reference substance. */
-        public var strength: Ratio,
+        public val strength: Ratio,
         /** Strength expressed in terms of a reference substance. */
-        public var strengthLowLimit: Ratio? = null,
+        public val strengthLowLimit: Ratio? = null,
         /** For when strength is measured at a particular point or distance. */
-        public var measurementPoint: String? = null,
+        public val measurementPoint: String? = null,
         /** The country or countries for which the strength range applies. */
-        public var country: MutableList<CodeableConcept> = mutableListOf(),
+        public val country: List<CodeableConcept> = listOf(),
       ) : BackboneElement()
     }
   }
@@ -328,7 +328,7 @@ public data class MedicinalProductIngredient(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and manageable, there is a strict set of
@@ -341,7 +341,7 @@ public data class MedicinalProductIngredient(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -360,13 +360,13 @@ public data class MedicinalProductIngredient(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /** The ingredient substance. */
-    public var code: CodeableConcept,
+    public val code: CodeableConcept,
     /**
      * Quantity of the substance or specified substance present in the manufactured item or
      * pharmaceutical product.
      */
-    public var strength: MutableList<SpecifiedSubstance.Strength> = mutableListOf(),
+    public val strength: List<SpecifiedSubstance.Strength> = listOf(),
   ) : BackboneElement()
 }

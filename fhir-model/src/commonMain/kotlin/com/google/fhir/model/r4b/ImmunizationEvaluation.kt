@@ -22,7 +22,7 @@ import com.google.fhir.model.r4b.serializers.ImmunizationEvaluationDoseNumberSer
 import com.google.fhir.model.r4b.serializers.ImmunizationEvaluationSerializer
 import com.google.fhir.model.r4b.serializers.ImmunizationEvaluationSeriesDosesSerializer
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -40,12 +40,12 @@ public data class ImmunizationEvaluation(
    * The only time that a resource does not have an id is when it is being submitted to the server
    * using a create operation.
    */
-  override var id: kotlin.String? = null,
+  override val id: kotlin.String? = null,
   /**
    * The metadata about the resource. This is content that is maintained by the infrastructure.
    * Changes to the content might not always be associated with version changes to the resource.
    */
-  override var meta: Meta? = null,
+  override val meta: Meta? = null,
   /**
    * A reference to a set of rules that were followed when the resource was constructed, and which
    * must be understood when processing the content. Often, this is a reference to an implementation
@@ -59,7 +59,7 @@ public data class ImmunizationEvaluation(
    * to an implementation guide that defines these special rules as part of it's narrative along
    * with other profiles, value sets, etc.
    */
-  override var implicitRules: Uri? = null,
+  override val implicitRules: Uri? = null,
   /**
    * The base language in which the resource is written.
    *
@@ -71,7 +71,7 @@ public data class ImmunizationEvaluation(
    * language is specified, it should it also be specified on the div element in the html (see rules
    * in HTML5 for information about the relationship between xml:lang and the html lang attribute).
    */
-  override var language: Code? = null,
+  override val language: Code? = null,
   /**
    * A human-readable narrative that contains a summary of the resource and can be used to represent
    * the content of the resource to a human. The narrative need not encode all the structured data,
@@ -85,7 +85,7 @@ public data class ImmunizationEvaluation(
    * legacy systems where information is captured as a "text blob" or where text is additionally
    * entered raw or narrated and encoded information is added later.
    */
-  override var text: Narrative? = null,
+  override val text: Narrative? = null,
   /**
    * These resources do not have an independent existence apart from the resource that contains
    * them - they cannot be identified independently, and nor can they have their own independent
@@ -96,7 +96,7 @@ public data class ImmunizationEvaluation(
    * resources may have profiles and tags In their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: MutableList<Resource> = mutableListOf(),
+  override val contained: List<Resource> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and manageable, there is a strict set of
@@ -109,7 +109,7 @@ public data class ImmunizationEvaluation(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: MutableList<Extension> = mutableListOf(),
+  override val extension: List<Extension> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -128,49 +128,49 @@ public data class ImmunizationEvaluation(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: MutableList<Extension> = mutableListOf(),
+  override val modifierExtension: List<Extension> = listOf(),
   /** A unique identifier assigned to this immunization evaluation record. */
-  public var identifier: MutableList<Identifier> = mutableListOf(),
+  public val identifier: List<Identifier> = listOf(),
   /** Indicates the current status of the evaluation of the vaccination administration event. */
-  public var status: Enumeration<ImmunizationEvaluationStatusCodes>,
+  public val status: Enumeration<ImmunizationEvaluationStatusCodes>,
   /** The individual for whom the evaluation is being done. */
-  public var patient: Reference,
+  public val patient: Reference,
   /** The date the evaluation of the vaccine administration event was performed. */
-  public var date: DateTime? = null,
+  public val date: DateTime? = null,
   /** Indicates the authority who published the protocol (e.g. ACIP). */
-  public var authority: Reference? = null,
+  public val authority: Reference? = null,
   /** The vaccine preventable disease the dose is being evaluated against. */
-  public var targetDisease: CodeableConcept,
+  public val targetDisease: CodeableConcept,
   /** The vaccine administration event being evaluated. */
-  public var immunizationEvent: Reference,
+  public val immunizationEvent: Reference,
   /** Indicates if the dose is valid or not valid with respect to the published recommendations. */
-  public var doseStatus: CodeableConcept,
+  public val doseStatus: CodeableConcept,
   /**
    * Provides an explanation as to why the vaccine administration event is valid or not relative to
    * the published recommendations.
    */
-  public var doseStatusReason: MutableList<CodeableConcept> = mutableListOf(),
+  public val doseStatusReason: List<CodeableConcept> = listOf(),
   /** Additional information about the evaluation. */
-  public var description: String? = null,
+  public val description: String? = null,
   /**
    * One possible path to achieve presumed immunity against a disease - within the context of an
    * authority.
    */
-  public var series: String? = null,
+  public val series: String? = null,
   /**
    * Nominal position in a series.
    *
    * The use of an integer is preferred if known. A string should only be used in cases where an
    * integer is not available (such as when documenting a recurring booster dose).
    */
-  public var doseNumber: DoseNumber? = null,
+  public val doseNumber: DoseNumber? = null,
   /**
    * The recommended number of doses to achieve immunity.
    *
    * The use of an integer is preferred if known. A string should only be used in cases where an
    * integer is not available (such as when documenting a recurring booster dose).
    */
-  public var seriesDoses: SeriesDoses? = null,
+  public val seriesDoses: SeriesDoses? = null,
 ) : DomainResource() {
   @Serializable(with = ImmunizationEvaluationDoseNumberSerializer::class)
   public sealed interface DoseNumber {

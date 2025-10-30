@@ -20,7 +20,7 @@ package com.google.fhir.model.r5
 
 import com.google.fhir.model.r5.serializers.CodingSerializer
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 
 /** Coding Type: A reference to a code defined by a terminology system. */
@@ -30,7 +30,7 @@ public data class Coding(
    * Unique id for the element within a resource (for internal references). This may be any string
    * value that does not contain spaces.
    */
-  override var id: kotlin.String? = null,
+  override val id: kotlin.String? = null,
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * element. To make the use of extensions safe and managable, there is a strict set of governance
@@ -43,7 +43,7 @@ public data class Coding(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: MutableList<Extension> = mutableListOf(),
+  override val extension: List<Extension> = listOf(),
   /**
    * The identification of the code system that defines the meaning of the symbol in the code.
    *
@@ -52,7 +52,7 @@ public data class Coding(
    * defined special URIs or it should be an absolute reference to some definition that establishes
    * the system clearly and unambiguously.
    */
-  public var system: Uri? = null,
+  public val system: Uri? = null,
   /**
    * The version of the code system which was used when choosing this code. Note that a
    * well-maintained code system does not need the version reported, because the meaning of codes is
@@ -63,16 +63,16 @@ public data class Coding(
    * system versions, the recommendation is to use the date (expressed in FHIR date format) on which
    * that version was officially published as the version date.
    */
-  public var version: String? = null,
+  public val version: String? = null,
   /**
    * A symbol in syntax defined by the system. The symbol may be a predefined code or an expression
    * in a syntax defined by the coding system (e.g. post-coordination).
    */
-  public var code: Code? = null,
+  public val code: Code? = null,
   /**
    * A representation of the meaning of the code in the system, following the rules of the system.
    */
-  public var display: String? = null,
+  public val display: String? = null,
   /**
    * Indicates that this coding was chosen by a user directly - e.g. off a pick list of available
    * items (codes or displays).
@@ -82,5 +82,5 @@ public data class Coding(
    * trading partner agreement may be needed to clarify the use of this element and its consequences
    * more completely.
    */
-  public var userSelected: Boolean? = null,
+  public val userSelected: Boolean? = null,
 ) : DataType()

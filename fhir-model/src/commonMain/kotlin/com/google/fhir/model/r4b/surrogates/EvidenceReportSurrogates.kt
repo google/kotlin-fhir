@@ -47,25 +47,25 @@ import com.google.fhir.model.r4b.terminologies.PublicationStatus
 import kotlin.Boolean as KotlinBoolean
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class EvidenceReportSubjectSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var characteristic: MutableList<EvidenceReport.Subject.Characteristic>? = null,
-  public var note: MutableList<Annotation>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
+  public var characteristic: List<EvidenceReport.Subject.Characteristic>? = null,
+  public var note: List<Annotation>? = null,
 ) {
   public fun toModel(): EvidenceReport.Subject =
     EvidenceReport.Subject(
       id = this@EvidenceReportSubjectSurrogate.id,
-      extension = this@EvidenceReportSubjectSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@EvidenceReportSubjectSurrogate.modifierExtension ?: mutableListOf(),
-      characteristic = this@EvidenceReportSubjectSurrogate.characteristic ?: mutableListOf(),
-      note = this@EvidenceReportSubjectSurrogate.note ?: mutableListOf(),
+      extension = this@EvidenceReportSubjectSurrogate.extension ?: listOf(),
+      modifierExtension = this@EvidenceReportSubjectSurrogate.modifierExtension ?: listOf(),
+      characteristic = this@EvidenceReportSubjectSurrogate.characteristic ?: listOf(),
+      note = this@EvidenceReportSubjectSurrogate.note ?: listOf(),
     )
 
   public companion object {
@@ -85,8 +85,8 @@ internal data class EvidenceReportSubjectSurrogate(
 @Serializable
 internal data class EvidenceReportSubjectCharacteristicSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var code: CodeableConcept,
   public var `value`: EvidenceReport.Subject.Characteristic.Value,
   public var exclude: KotlinBoolean? = null,
@@ -96,9 +96,9 @@ internal data class EvidenceReportSubjectCharacteristicSurrogate(
   public fun toModel(): EvidenceReport.Subject.Characteristic =
     EvidenceReport.Subject.Characteristic(
       id = this@EvidenceReportSubjectCharacteristicSurrogate.id,
-      extension = this@EvidenceReportSubjectCharacteristicSurrogate.extension ?: mutableListOf(),
+      extension = this@EvidenceReportSubjectCharacteristicSurrogate.extension ?: listOf(),
       modifierExtension =
-        this@EvidenceReportSubjectCharacteristicSurrogate.modifierExtension ?: mutableListOf(),
+        this@EvidenceReportSubjectCharacteristicSurrogate.modifierExtension ?: listOf(),
       code = this@EvidenceReportSubjectCharacteristicSurrogate.code,
       `value` = this@EvidenceReportSubjectCharacteristicSurrogate.`value`,
       exclude =
@@ -131,8 +131,8 @@ internal data class EvidenceReportSubjectCharacteristicSurrogate(
 @Serializable
 internal data class EvidenceReportRelatesToSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var code: KotlinString? = null,
   public var _code: Element? = null,
   public var target: EvidenceReport.RelatesTo.Target,
@@ -140,9 +140,8 @@ internal data class EvidenceReportRelatesToSurrogate(
   public fun toModel(): EvidenceReport.RelatesTo =
     EvidenceReport.RelatesTo(
       id = this@EvidenceReportRelatesToSurrogate.id,
-      extension = this@EvidenceReportRelatesToSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@EvidenceReportRelatesToSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@EvidenceReportRelatesToSurrogate.extension ?: listOf(),
+      modifierExtension = this@EvidenceReportRelatesToSurrogate.modifierExtension ?: listOf(),
       code =
         Enumeration.of(
           EvidenceReport.ReportRelationshipType.fromCode(
@@ -171,28 +170,28 @@ internal data class EvidenceReportRelatesToSurrogate(
 @Serializable
 internal data class EvidenceReportSectionSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var title: KotlinString? = null,
   public var _title: Element? = null,
   public var focus: CodeableConcept? = null,
   public var focusReference: Reference? = null,
-  public var author: MutableList<Reference>? = null,
+  public var author: List<Reference>? = null,
   public var text: Narrative? = null,
   public var mode: KotlinString? = null,
   public var _mode: Element? = null,
   public var orderedBy: CodeableConcept? = null,
-  public var entryClassifier: MutableList<CodeableConcept>? = null,
-  public var entryReference: MutableList<Reference>? = null,
-  public var entryQuantity: MutableList<Quantity>? = null,
+  public var entryClassifier: List<CodeableConcept>? = null,
+  public var entryReference: List<Reference>? = null,
+  public var entryQuantity: List<Quantity>? = null,
   public var emptyReason: CodeableConcept? = null,
-  public var section: MutableList<EvidenceReport.Section>? = null,
+  public var section: List<EvidenceReport.Section>? = null,
 ) {
   public fun toModel(): EvidenceReport.Section =
     EvidenceReport.Section(
       id = this@EvidenceReportSectionSurrogate.id,
-      extension = this@EvidenceReportSectionSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@EvidenceReportSectionSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@EvidenceReportSectionSurrogate.extension ?: listOf(),
+      modifierExtension = this@EvidenceReportSectionSurrogate.modifierExtension ?: listOf(),
       title =
         R4bString.of(
           this@EvidenceReportSectionSurrogate.title,
@@ -200,7 +199,7 @@ internal data class EvidenceReportSectionSurrogate(
         ),
       focus = this@EvidenceReportSectionSurrogate.focus,
       focusReference = this@EvidenceReportSectionSurrogate.focusReference,
-      author = this@EvidenceReportSectionSurrogate.author ?: mutableListOf(),
+      author = this@EvidenceReportSectionSurrogate.author ?: listOf(),
       text = this@EvidenceReportSectionSurrogate.text,
       mode =
         this@EvidenceReportSectionSurrogate.mode?.let {
@@ -210,11 +209,11 @@ internal data class EvidenceReportSectionSurrogate(
           )
         },
       orderedBy = this@EvidenceReportSectionSurrogate.orderedBy,
-      entryClassifier = this@EvidenceReportSectionSurrogate.entryClassifier ?: mutableListOf(),
-      entryReference = this@EvidenceReportSectionSurrogate.entryReference ?: mutableListOf(),
-      entryQuantity = this@EvidenceReportSectionSurrogate.entryQuantity ?: mutableListOf(),
+      entryClassifier = this@EvidenceReportSectionSurrogate.entryClassifier ?: listOf(),
+      entryReference = this@EvidenceReportSectionSurrogate.entryReference ?: listOf(),
+      entryQuantity = this@EvidenceReportSectionSurrogate.entryQuantity ?: listOf(),
       emptyReason = this@EvidenceReportSectionSurrogate.emptyReason,
-      section = this@EvidenceReportSectionSurrogate.section ?: mutableListOf(),
+      section = this@EvidenceReportSectionSurrogate.section ?: listOf(),
     )
 
   public companion object {
@@ -341,30 +340,30 @@ internal data class EvidenceReportSurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: MutableList<Resource>? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var contained: List<Resource>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var url: KotlinString? = null,
   public var _url: Element? = null,
   public var status: KotlinString? = null,
   public var _status: Element? = null,
-  public var useContext: MutableList<UsageContext>? = null,
-  public var identifier: MutableList<Identifier>? = null,
-  public var relatedIdentifier: MutableList<Identifier>? = null,
+  public var useContext: List<UsageContext>? = null,
+  public var identifier: List<Identifier>? = null,
+  public var relatedIdentifier: List<Identifier>? = null,
   public var citeAs: EvidenceReport.CiteAs? = null,
   public var type: CodeableConcept? = null,
-  public var note: MutableList<Annotation>? = null,
-  public var relatedArtifact: MutableList<RelatedArtifact>? = null,
+  public var note: List<Annotation>? = null,
+  public var relatedArtifact: List<RelatedArtifact>? = null,
   public var subject: EvidenceReport.Subject,
   public var publisher: KotlinString? = null,
   public var _publisher: Element? = null,
-  public var contact: MutableList<ContactDetail>? = null,
-  public var author: MutableList<ContactDetail>? = null,
-  public var editor: MutableList<ContactDetail>? = null,
-  public var reviewer: MutableList<ContactDetail>? = null,
-  public var endorser: MutableList<ContactDetail>? = null,
-  public var relatesTo: MutableList<EvidenceReport.RelatesTo>? = null,
-  public var section: MutableList<EvidenceReport.Section>? = null,
+  public var contact: List<ContactDetail>? = null,
+  public var author: List<ContactDetail>? = null,
+  public var editor: List<ContactDetail>? = null,
+  public var reviewer: List<ContactDetail>? = null,
+  public var endorser: List<ContactDetail>? = null,
+  public var relatesTo: List<EvidenceReport.RelatesTo>? = null,
+  public var section: List<EvidenceReport.Section>? = null,
 ) {
   public fun toModel(): EvidenceReport =
     EvidenceReport(
@@ -378,35 +377,35 @@ internal data class EvidenceReportSurrogate(
       language =
         Code.of(this@EvidenceReportSurrogate.language, this@EvidenceReportSurrogate._language),
       text = this@EvidenceReportSurrogate.text,
-      contained = this@EvidenceReportSurrogate.contained ?: mutableListOf(),
-      extension = this@EvidenceReportSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@EvidenceReportSurrogate.modifierExtension ?: mutableListOf(),
+      contained = this@EvidenceReportSurrogate.contained ?: listOf(),
+      extension = this@EvidenceReportSurrogate.extension ?: listOf(),
+      modifierExtension = this@EvidenceReportSurrogate.modifierExtension ?: listOf(),
       url = Uri.of(this@EvidenceReportSurrogate.url, this@EvidenceReportSurrogate._url),
       status =
         Enumeration.of(
           PublicationStatus.fromCode(this@EvidenceReportSurrogate.status!!),
           this@EvidenceReportSurrogate._status,
         ),
-      useContext = this@EvidenceReportSurrogate.useContext ?: mutableListOf(),
-      identifier = this@EvidenceReportSurrogate.identifier ?: mutableListOf(),
-      relatedIdentifier = this@EvidenceReportSurrogate.relatedIdentifier ?: mutableListOf(),
+      useContext = this@EvidenceReportSurrogate.useContext ?: listOf(),
+      identifier = this@EvidenceReportSurrogate.identifier ?: listOf(),
+      relatedIdentifier = this@EvidenceReportSurrogate.relatedIdentifier ?: listOf(),
       citeAs = this@EvidenceReportSurrogate.citeAs,
       type = this@EvidenceReportSurrogate.type,
-      note = this@EvidenceReportSurrogate.note ?: mutableListOf(),
-      relatedArtifact = this@EvidenceReportSurrogate.relatedArtifact ?: mutableListOf(),
+      note = this@EvidenceReportSurrogate.note ?: listOf(),
+      relatedArtifact = this@EvidenceReportSurrogate.relatedArtifact ?: listOf(),
       subject = this@EvidenceReportSurrogate.subject,
       publisher =
         R4bString.of(
           this@EvidenceReportSurrogate.publisher,
           this@EvidenceReportSurrogate._publisher,
         ),
-      contact = this@EvidenceReportSurrogate.contact ?: mutableListOf(),
-      author = this@EvidenceReportSurrogate.author ?: mutableListOf(),
-      editor = this@EvidenceReportSurrogate.editor ?: mutableListOf(),
-      reviewer = this@EvidenceReportSurrogate.reviewer ?: mutableListOf(),
-      endorser = this@EvidenceReportSurrogate.endorser ?: mutableListOf(),
-      relatesTo = this@EvidenceReportSurrogate.relatesTo ?: mutableListOf(),
-      section = this@EvidenceReportSurrogate.section ?: mutableListOf(),
+      contact = this@EvidenceReportSurrogate.contact ?: listOf(),
+      author = this@EvidenceReportSurrogate.author ?: listOf(),
+      editor = this@EvidenceReportSurrogate.editor ?: listOf(),
+      reviewer = this@EvidenceReportSurrogate.reviewer ?: listOf(),
+      endorser = this@EvidenceReportSurrogate.endorser ?: listOf(),
+      relatesTo = this@EvidenceReportSurrogate.relatesTo ?: listOf(),
+      section = this@EvidenceReportSurrogate.section ?: listOf(),
     )
 
   public companion object {

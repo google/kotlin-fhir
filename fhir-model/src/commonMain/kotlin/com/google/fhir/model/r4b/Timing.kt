@@ -23,7 +23,7 @@ import com.google.fhir.model.r4b.serializers.TimingRepeatSerializer
 import com.google.fhir.model.r4b.serializers.TimingSerializer
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 
 /**
@@ -39,7 +39,7 @@ public data class Timing(
    * Unique id for the element within a resource (for internal references). This may be any string
    * value that does not contain spaces.
    */
-  override var id: String? = null,
+  override val id: String? = null,
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * element. To make the use of extensions safe and manageable, there is a strict set of governance
@@ -52,7 +52,7 @@ public data class Timing(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: MutableList<Extension> = mutableListOf(),
+  override val extension: List<Extension> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * element and that modifies the understanding of the element in which it is contained and/or the
@@ -71,11 +71,11 @@ public data class Timing(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: MutableList<Extension> = mutableListOf(),
+  override val modifierExtension: List<Extension> = listOf(),
   /** Identifies specific times when the event occurs. */
-  public var event: MutableList<DateTime> = mutableListOf(),
+  public val event: List<DateTime> = listOf(),
   /** A set of rules that describe when the event is scheduled. */
-  public var repeat: Repeat? = null,
+  public val repeat: Repeat? = null,
   /**
    * A code for the timing schedule (or just text in code.text). Some codes such as BID are
    * ubiquitous, but many institutions define their own additional codes. If a code is provided, the
@@ -89,7 +89,7 @@ public data class Timing(
    * in place of the HL7-defined BID code and/or a structured representation should be used (in this
    * case, specifying the two event times).
    */
-  public var code: CodeableConcept? = null,
+  public val code: CodeableConcept? = null,
 ) : BackboneElement() {
   /** A set of rules that describe when the event is scheduled. */
   @Serializable(with = TimingRepeatSerializer::class)
@@ -98,7 +98,7 @@ public data class Timing(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: String? = null,
+    override val id: String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and manageable, there is a strict set of
@@ -111,12 +111,12 @@ public data class Timing(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * Either a duration for the length of the timing schedule, a range of possible length, or outer
      * bounds for start and/or end limits of the timing schedule.
      */
-    public var bounds: Bounds? = null,
+    public val bounds: Bounds? = null,
     /**
      * A total count of the desired number of repetitions across the duration of the entire timing
      * specification. If countMax is present, this element indicates the lower bound of the allowed
@@ -125,12 +125,12 @@ public data class Timing(
      * If you have both bounds and count, then this should be understood as within the bounds
      * period, until count times happens.
      */
-    public var count: PositiveInt? = null,
+    public val count: PositiveInt? = null,
     /**
      * If present, indicates that the count is a range - so to perform the action between [count]
      * and [countMax] times.
      */
-    public var countMax: PositiveInt? = null,
+    public val countMax: PositiveInt? = null,
     /**
      * How long this thing happens for when it happens. If durationMax is present, this element
      * indicates the lower bound of the allowed range of the duration.
@@ -139,7 +139,7 @@ public data class Timing(
      * the duration is implicit in the specified quantity and rate). For others, it's part of the
      * timing specification (e.g. exercise).
      */
-    public var duration: Decimal? = null,
+    public val duration: Decimal? = null,
     /**
      * If present, indicates that the duration is a range - so to perform the action between
      * [duration] and [durationMax] time length.
@@ -148,32 +148,32 @@ public data class Timing(
      * the duration is implicit in the specified quantity and rate). For others, it's part of the
      * timing specification (e.g. exercise).
      */
-    public var durationMax: Decimal? = null,
+    public val durationMax: Decimal? = null,
     /** The units of time for the duration, in UCUM units. */
-    public var durationUnit: Enumeration<UnitsOfTime>? = null,
+    public val durationUnit: Enumeration<UnitsOfTime>? = null,
     /**
      * The number of times to repeat the action within the specified period. If frequencyMax is
      * present, this element indicates the lower bound of the allowed range of the frequency.
      */
-    public var frequency: PositiveInt? = null,
+    public val frequency: PositiveInt? = null,
     /**
      * If present, indicates that the frequency is a range - so to repeat between [frequency] and
      * [frequencyMax] times within the period or period range.
      */
-    public var frequencyMax: PositiveInt? = null,
+    public val frequencyMax: PositiveInt? = null,
     /**
      * Indicates the duration of time over which repetitions are to occur; e.g. to express "3 times
      * per day", 3 would be the frequency and "1 day" would be the period. If periodMax is present,
      * this element indicates the lower bound of the allowed range of the period length.
      */
-    public var period: Decimal? = null,
+    public val period: Decimal? = null,
     /**
      * If present, indicates that the period is a range from [period] to [periodMax], allowing
      * expressing concepts such as "do this once every 3-5 days.
      */
-    public var periodMax: Decimal? = null,
+    public val periodMax: Decimal? = null,
     /** The units of time for the period in UCUM units. */
-    public var periodUnit: Enumeration<UnitsOfTime>? = null,
+    public val periodUnit: Enumeration<UnitsOfTime>? = null,
     /**
      * If one or more days of week is provided, then the action happens only on the specified
      * day(s).
@@ -181,7 +181,7 @@ public data class Timing(
      * If no days are specified, the action is assumed to happen every day as otherwise specified.
      * The elements frequency and period cannot be used as well as dayOfWeek.
      */
-    public var dayOfWeek: MutableList<Enumeration<DaysOfWeek>> = mutableListOf(),
+    public val dayOfWeek: List<Enumeration<DaysOfWeek>> = listOf(),
     /**
      * Specified time of day for action to take place.
      *
@@ -189,19 +189,19 @@ public data class Timing(
      * by dayofWeek) on the specified times. The elements when, frequency and period cannot be used
      * as well as timeOfDay.
      */
-    public var timeOfDay: MutableList<Time> = mutableListOf(),
+    public val timeOfDay: List<Time> = listOf(),
     /**
      * An approximate time period during the day, potentially linked to an event of daily living
      * that indicates when the action should occur.
      *
      * When more than one event is listed, the event is tied to the union of the specified events.
      */
-    public var `when`: MutableList<Enumeration<EventTiming>> = mutableListOf(),
+    public val `when`: List<Enumeration<EventTiming>> = listOf(),
     /**
      * The number of minutes from the event. If the event code does not indicate whether the minutes
      * is before or after the event, then the offset is assumed to be after the event.
      */
-    public var offset: UnsignedInt? = null,
+    public val offset: UnsignedInt? = null,
   ) : Element() {
     @Serializable(with = TimingRepeatBoundsSerializer::class)
     public sealed interface Bounds {

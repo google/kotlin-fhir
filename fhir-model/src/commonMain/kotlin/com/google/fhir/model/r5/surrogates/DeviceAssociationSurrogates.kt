@@ -35,27 +35,26 @@ import com.google.fhir.model.r5.serializers.DoubleSerializer
 import com.google.fhir.model.r5.serializers.LocalTimeSerializer
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class DeviceAssociationOperationSurrogate(
   public var id: String? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var status: CodeableConcept,
-  public var `operator`: MutableList<Reference>? = null,
+  public var `operator`: List<Reference>? = null,
   public var period: Period? = null,
 ) {
   public fun toModel(): DeviceAssociation.Operation =
     DeviceAssociation.Operation(
       id = this@DeviceAssociationOperationSurrogate.id,
-      extension = this@DeviceAssociationOperationSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@DeviceAssociationOperationSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@DeviceAssociationOperationSurrogate.extension ?: listOf(),
+      modifierExtension = this@DeviceAssociationOperationSurrogate.modifierExtension ?: listOf(),
       status = this@DeviceAssociationOperationSurrogate.status,
-      `operator` = this@DeviceAssociationOperationSurrogate.`operator` ?: mutableListOf(),
+      `operator` = this@DeviceAssociationOperationSurrogate.`operator` ?: listOf(),
       period = this@DeviceAssociationOperationSurrogate.period,
     )
 
@@ -83,18 +82,18 @@ internal data class DeviceAssociationSurrogate(
   public var language: String? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: MutableList<Resource>? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var identifier: MutableList<Identifier>? = null,
+  public var contained: List<Resource>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
+  public var identifier: List<Identifier>? = null,
   public var device: Reference,
-  public var category: MutableList<CodeableConcept>? = null,
+  public var category: List<CodeableConcept>? = null,
   public var status: CodeableConcept,
-  public var statusReason: MutableList<CodeableConcept>? = null,
+  public var statusReason: List<CodeableConcept>? = null,
   public var subject: Reference? = null,
   public var bodyStructure: Reference? = null,
   public var period: Period? = null,
-  public var operation: MutableList<DeviceAssociation.Operation>? = null,
+  public var operation: List<DeviceAssociation.Operation>? = null,
 ) {
   public fun toModel(): DeviceAssociation =
     DeviceAssociation(
@@ -111,18 +110,18 @@ internal data class DeviceAssociationSurrogate(
           this@DeviceAssociationSurrogate._language,
         ),
       text = this@DeviceAssociationSurrogate.text,
-      contained = this@DeviceAssociationSurrogate.contained ?: mutableListOf(),
-      extension = this@DeviceAssociationSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@DeviceAssociationSurrogate.modifierExtension ?: mutableListOf(),
-      identifier = this@DeviceAssociationSurrogate.identifier ?: mutableListOf(),
+      contained = this@DeviceAssociationSurrogate.contained ?: listOf(),
+      extension = this@DeviceAssociationSurrogate.extension ?: listOf(),
+      modifierExtension = this@DeviceAssociationSurrogate.modifierExtension ?: listOf(),
+      identifier = this@DeviceAssociationSurrogate.identifier ?: listOf(),
       device = this@DeviceAssociationSurrogate.device,
-      category = this@DeviceAssociationSurrogate.category ?: mutableListOf(),
+      category = this@DeviceAssociationSurrogate.category ?: listOf(),
       status = this@DeviceAssociationSurrogate.status,
-      statusReason = this@DeviceAssociationSurrogate.statusReason ?: mutableListOf(),
+      statusReason = this@DeviceAssociationSurrogate.statusReason ?: listOf(),
       subject = this@DeviceAssociationSurrogate.subject,
       bodyStructure = this@DeviceAssociationSurrogate.bodyStructure,
       period = this@DeviceAssociationSurrogate.period,
-      operation = this@DeviceAssociationSurrogate.operation ?: mutableListOf(),
+      operation = this@DeviceAssociationSurrogate.operation ?: listOf(),
     )
 
   public companion object {

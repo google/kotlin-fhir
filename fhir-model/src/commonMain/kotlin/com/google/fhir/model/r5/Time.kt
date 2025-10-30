@@ -20,13 +20,13 @@ package com.google.fhir.model.r5
 
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.datetime.LocalTime
 
 /** time Type: A time during the day, with no date specified */
 public data class Time(
   /** unique id for the element within a resource (for internal references) */
-  override var id: String? = null,
+  override val id: String? = null,
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and managable, there is a strict set of governance
@@ -39,9 +39,9 @@ public data class Time(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: MutableList<Extension> = mutableListOf(),
+  override val extension: List<Extension> = listOf(),
   /** The actual value */
-  public var `value`: LocalTime? = null,
+  public val `value`: LocalTime? = null,
 ) : PrimitiveType() {
   public fun toElement(): Element? {
     if (id != null || extension.isNotEmpty()) {

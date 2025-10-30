@@ -46,26 +46,25 @@ import com.google.fhir.model.r5.serializers.LocalTimeSerializer
 import kotlin.Boolean as KotlinBoolean
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class NutritionProductNutrientSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var item: CodeableReference? = null,
-  public var amount: MutableList<Ratio>? = null,
+  public var amount: List<Ratio>? = null,
 ) {
   public fun toModel(): NutritionProduct.Nutrient =
     NutritionProduct.Nutrient(
       id = this@NutritionProductNutrientSurrogate.id,
-      extension = this@NutritionProductNutrientSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@NutritionProductNutrientSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@NutritionProductNutrientSurrogate.extension ?: listOf(),
+      modifierExtension = this@NutritionProductNutrientSurrogate.modifierExtension ?: listOf(),
       item = this@NutritionProductNutrientSurrogate.item,
-      amount = this@NutritionProductNutrientSurrogate.amount ?: mutableListOf(),
+      amount = this@NutritionProductNutrientSurrogate.amount ?: listOf(),
     )
 
   public companion object {
@@ -85,19 +84,18 @@ internal data class NutritionProductNutrientSurrogate(
 @Serializable
 internal data class NutritionProductIngredientSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var item: CodeableReference,
-  public var amount: MutableList<Ratio>? = null,
+  public var amount: List<Ratio>? = null,
 ) {
   public fun toModel(): NutritionProduct.Ingredient =
     NutritionProduct.Ingredient(
       id = this@NutritionProductIngredientSurrogate.id,
-      extension = this@NutritionProductIngredientSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@NutritionProductIngredientSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@NutritionProductIngredientSurrogate.extension ?: listOf(),
+      modifierExtension = this@NutritionProductIngredientSurrogate.modifierExtension ?: listOf(),
       item = this@NutritionProductIngredientSurrogate.item,
-      amount = this@NutritionProductIngredientSurrogate.amount ?: mutableListOf(),
+      amount = this@NutritionProductIngredientSurrogate.amount ?: listOf(),
     )
 
   public companion object {
@@ -117,17 +115,17 @@ internal data class NutritionProductIngredientSurrogate(
 @Serializable
 internal data class NutritionProductCharacteristicSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var type: CodeableConcept,
   public var `value`: NutritionProduct.Characteristic.Value,
 ) {
   public fun toModel(): NutritionProduct.Characteristic =
     NutritionProduct.Characteristic(
       id = this@NutritionProductCharacteristicSurrogate.id,
-      extension = this@NutritionProductCharacteristicSurrogate.extension ?: mutableListOf(),
+      extension = this@NutritionProductCharacteristicSurrogate.extension ?: listOf(),
       modifierExtension =
-        this@NutritionProductCharacteristicSurrogate.modifierExtension ?: mutableListOf(),
+        this@NutritionProductCharacteristicSurrogate.modifierExtension ?: listOf(),
       type = this@NutritionProductCharacteristicSurrogate.type,
       `value` = this@NutritionProductCharacteristicSurrogate.`value`,
     )
@@ -151,10 +149,10 @@ internal data class NutritionProductCharacteristicSurrogate(
 @Serializable
 internal data class NutritionProductInstanceSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var quantity: Quantity? = null,
-  public var identifier: MutableList<Identifier>? = null,
+  public var identifier: List<Identifier>? = null,
   public var name: KotlinString? = null,
   public var _name: Element? = null,
   public var lotNumber: KotlinString? = null,
@@ -168,11 +166,10 @@ internal data class NutritionProductInstanceSurrogate(
   public fun toModel(): NutritionProduct.Instance =
     NutritionProduct.Instance(
       id = this@NutritionProductInstanceSurrogate.id,
-      extension = this@NutritionProductInstanceSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@NutritionProductInstanceSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@NutritionProductInstanceSurrogate.extension ?: listOf(),
+      modifierExtension = this@NutritionProductInstanceSurrogate.modifierExtension ?: listOf(),
       quantity = this@NutritionProductInstanceSurrogate.quantity,
-      identifier = this@NutritionProductInstanceSurrogate.identifier ?: mutableListOf(),
+      identifier = this@NutritionProductInstanceSurrogate.identifier ?: listOf(),
       name =
         R5String.of(
           this@NutritionProductInstanceSurrogate.name,
@@ -279,20 +276,20 @@ internal data class NutritionProductSurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: MutableList<Resource>? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var contained: List<Resource>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var code: CodeableConcept? = null,
   public var status: KotlinString? = null,
   public var _status: Element? = null,
-  public var category: MutableList<CodeableConcept>? = null,
-  public var manufacturer: MutableList<Reference>? = null,
-  public var nutrient: MutableList<NutritionProduct.Nutrient>? = null,
-  public var ingredient: MutableList<NutritionProduct.Ingredient>? = null,
-  public var knownAllergen: MutableList<CodeableReference>? = null,
-  public var characteristic: MutableList<NutritionProduct.Characteristic>? = null,
-  public var instance: MutableList<NutritionProduct.Instance>? = null,
-  public var note: MutableList<Annotation>? = null,
+  public var category: List<CodeableConcept>? = null,
+  public var manufacturer: List<Reference>? = null,
+  public var nutrient: List<NutritionProduct.Nutrient>? = null,
+  public var ingredient: List<NutritionProduct.Ingredient>? = null,
+  public var knownAllergen: List<CodeableReference>? = null,
+  public var characteristic: List<NutritionProduct.Characteristic>? = null,
+  public var instance: List<NutritionProduct.Instance>? = null,
+  public var note: List<Annotation>? = null,
 ) {
   public fun toModel(): NutritionProduct =
     NutritionProduct(
@@ -306,23 +303,23 @@ internal data class NutritionProductSurrogate(
       language =
         Code.of(this@NutritionProductSurrogate.language, this@NutritionProductSurrogate._language),
       text = this@NutritionProductSurrogate.text,
-      contained = this@NutritionProductSurrogate.contained ?: mutableListOf(),
-      extension = this@NutritionProductSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@NutritionProductSurrogate.modifierExtension ?: mutableListOf(),
+      contained = this@NutritionProductSurrogate.contained ?: listOf(),
+      extension = this@NutritionProductSurrogate.extension ?: listOf(),
+      modifierExtension = this@NutritionProductSurrogate.modifierExtension ?: listOf(),
       code = this@NutritionProductSurrogate.code,
       status =
         Enumeration.of(
           NutritionProduct.NutritionProductStatus.fromCode(this@NutritionProductSurrogate.status!!),
           this@NutritionProductSurrogate._status,
         ),
-      category = this@NutritionProductSurrogate.category ?: mutableListOf(),
-      manufacturer = this@NutritionProductSurrogate.manufacturer ?: mutableListOf(),
-      nutrient = this@NutritionProductSurrogate.nutrient ?: mutableListOf(),
-      ingredient = this@NutritionProductSurrogate.ingredient ?: mutableListOf(),
-      knownAllergen = this@NutritionProductSurrogate.knownAllergen ?: mutableListOf(),
-      characteristic = this@NutritionProductSurrogate.characteristic ?: mutableListOf(),
-      instance = this@NutritionProductSurrogate.instance ?: mutableListOf(),
-      note = this@NutritionProductSurrogate.note ?: mutableListOf(),
+      category = this@NutritionProductSurrogate.category ?: listOf(),
+      manufacturer = this@NutritionProductSurrogate.manufacturer ?: listOf(),
+      nutrient = this@NutritionProductSurrogate.nutrient ?: listOf(),
+      ingredient = this@NutritionProductSurrogate.ingredient ?: listOf(),
+      knownAllergen = this@NutritionProductSurrogate.knownAllergen ?: listOf(),
+      characteristic = this@NutritionProductSurrogate.characteristic ?: listOf(),
+      instance = this@NutritionProductSurrogate.instance ?: listOf(),
+      note = this@NutritionProductSurrogate.note ?: listOf(),
     )
 
   public companion object {

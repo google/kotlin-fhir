@@ -44,7 +44,7 @@ import kotlin.Boolean as KotlinBoolean
 import kotlin.Int
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
@@ -57,10 +57,10 @@ internal data class AppointmentResponseSurrogate(
   public var language: String? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: MutableList<Resource>? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var identifier: MutableList<Identifier>? = null,
+  public var contained: List<Resource>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
+  public var identifier: List<Identifier>? = null,
   public var appointment: Reference,
   public var proposedNewTime: KotlinBoolean? = null,
   public var _proposedNewTime: Element? = null,
@@ -68,7 +68,7 @@ internal data class AppointmentResponseSurrogate(
   public var _start: Element? = null,
   public var end: String? = null,
   public var _end: Element? = null,
-  public var participantType: MutableList<CodeableConcept>? = null,
+  public var participantType: List<CodeableConcept>? = null,
   public var actor: Reference? = null,
   public var participantStatus: String? = null,
   public var _participantStatus: Element? = null,
@@ -96,10 +96,10 @@ internal data class AppointmentResponseSurrogate(
           this@AppointmentResponseSurrogate._language,
         ),
       text = this@AppointmentResponseSurrogate.text,
-      contained = this@AppointmentResponseSurrogate.contained ?: mutableListOf(),
-      extension = this@AppointmentResponseSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@AppointmentResponseSurrogate.modifierExtension ?: mutableListOf(),
-      identifier = this@AppointmentResponseSurrogate.identifier ?: mutableListOf(),
+      contained = this@AppointmentResponseSurrogate.contained ?: listOf(),
+      extension = this@AppointmentResponseSurrogate.extension ?: listOf(),
+      modifierExtension = this@AppointmentResponseSurrogate.modifierExtension ?: listOf(),
+      identifier = this@AppointmentResponseSurrogate.identifier ?: listOf(),
       appointment = this@AppointmentResponseSurrogate.appointment,
       proposedNewTime =
         R5Boolean.of(
@@ -116,7 +116,7 @@ internal data class AppointmentResponseSurrogate(
           FhirDateTime.fromString(this@AppointmentResponseSurrogate.end),
           this@AppointmentResponseSurrogate._end,
         ),
-      participantType = this@AppointmentResponseSurrogate.participantType ?: mutableListOf(),
+      participantType = this@AppointmentResponseSurrogate.participantType ?: listOf(),
       actor = this@AppointmentResponseSurrogate.actor,
       participantStatus =
         Enumeration.of(

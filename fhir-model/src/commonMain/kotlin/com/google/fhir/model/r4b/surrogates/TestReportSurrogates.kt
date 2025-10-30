@@ -40,15 +40,15 @@ import com.google.fhir.model.r4b.serializers.LocalTimeSerializer
 import kotlin.Double
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class TestReportParticipantSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var type: KotlinString? = null,
   public var _type: Element? = null,
   public var uri: KotlinString? = null,
@@ -59,8 +59,8 @@ internal data class TestReportParticipantSurrogate(
   public fun toModel(): TestReport.Participant =
     TestReport.Participant(
       id = this@TestReportParticipantSurrogate.id,
-      extension = this@TestReportParticipantSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@TestReportParticipantSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@TestReportParticipantSurrogate.extension ?: listOf(),
+      modifierExtension = this@TestReportParticipantSurrogate.modifierExtension ?: listOf(),
       type =
         Enumeration.of(
           TestReport.TestReportParticipantType.fromCode(this@TestReportParticipantSurrogate.type!!),
@@ -96,16 +96,16 @@ internal data class TestReportParticipantSurrogate(
 @Serializable
 internal data class TestReportSetupSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var action: MutableList<TestReport.Setup.Action>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
+  public var action: List<TestReport.Setup.Action>? = null,
 ) {
   public fun toModel(): TestReport.Setup =
     TestReport.Setup(
       id = this@TestReportSetupSurrogate.id,
-      extension = this@TestReportSetupSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@TestReportSetupSurrogate.modifierExtension ?: mutableListOf(),
-      action = this@TestReportSetupSurrogate.action ?: mutableListOf(),
+      extension = this@TestReportSetupSurrogate.extension ?: listOf(),
+      modifierExtension = this@TestReportSetupSurrogate.modifierExtension ?: listOf(),
+      action = this@TestReportSetupSurrogate.action ?: listOf(),
     )
 
   public companion object {
@@ -124,16 +124,16 @@ internal data class TestReportSetupSurrogate(
 @Serializable
 internal data class TestReportSetupActionSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var operation: TestReport.Setup.Action.Operation? = null,
   public var assert: TestReport.Setup.Action.Assert? = null,
 ) {
   public fun toModel(): TestReport.Setup.Action =
     TestReport.Setup.Action(
       id = this@TestReportSetupActionSurrogate.id,
-      extension = this@TestReportSetupActionSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@TestReportSetupActionSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@TestReportSetupActionSurrogate.extension ?: listOf(),
+      modifierExtension = this@TestReportSetupActionSurrogate.modifierExtension ?: listOf(),
       operation = this@TestReportSetupActionSurrogate.operation,
       assert = this@TestReportSetupActionSurrogate.assert,
     )
@@ -155,8 +155,8 @@ internal data class TestReportSetupActionSurrogate(
 @Serializable
 internal data class TestReportSetupActionOperationSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var result: KotlinString? = null,
   public var _result: Element? = null,
   public var message: KotlinString? = null,
@@ -167,9 +167,9 @@ internal data class TestReportSetupActionOperationSurrogate(
   public fun toModel(): TestReport.Setup.Action.Operation =
     TestReport.Setup.Action.Operation(
       id = this@TestReportSetupActionOperationSurrogate.id,
-      extension = this@TestReportSetupActionOperationSurrogate.extension ?: mutableListOf(),
+      extension = this@TestReportSetupActionOperationSurrogate.extension ?: listOf(),
       modifierExtension =
-        this@TestReportSetupActionOperationSurrogate.modifierExtension ?: mutableListOf(),
+        this@TestReportSetupActionOperationSurrogate.modifierExtension ?: listOf(),
       result =
         Enumeration.of(
           TestReport.TestReportActionResult.fromCode(
@@ -212,8 +212,8 @@ internal data class TestReportSetupActionOperationSurrogate(
 @Serializable
 internal data class TestReportSetupActionAssertSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var result: KotlinString? = null,
   public var _result: Element? = null,
   public var message: KotlinString? = null,
@@ -224,9 +224,8 @@ internal data class TestReportSetupActionAssertSurrogate(
   public fun toModel(): TestReport.Setup.Action.Assert =
     TestReport.Setup.Action.Assert(
       id = this@TestReportSetupActionAssertSurrogate.id,
-      extension = this@TestReportSetupActionAssertSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@TestReportSetupActionAssertSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@TestReportSetupActionAssertSurrogate.extension ?: listOf(),
+      modifierExtension = this@TestReportSetupActionAssertSurrogate.modifierExtension ?: listOf(),
       result =
         Enumeration.of(
           TestReport.TestReportActionResult.fromCode(
@@ -269,26 +268,26 @@ internal data class TestReportSetupActionAssertSurrogate(
 @Serializable
 internal data class TestReportTestSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var name: KotlinString? = null,
   public var _name: Element? = null,
   public var description: KotlinString? = null,
   public var _description: Element? = null,
-  public var action: MutableList<TestReport.Test.Action>? = null,
+  public var action: List<TestReport.Test.Action>? = null,
 ) {
   public fun toModel(): TestReport.Test =
     TestReport.Test(
       id = this@TestReportTestSurrogate.id,
-      extension = this@TestReportTestSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@TestReportTestSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@TestReportTestSurrogate.extension ?: listOf(),
+      modifierExtension = this@TestReportTestSurrogate.modifierExtension ?: listOf(),
       name = R4bString.of(this@TestReportTestSurrogate.name, this@TestReportTestSurrogate._name),
       description =
         R4bString.of(
           this@TestReportTestSurrogate.description,
           this@TestReportTestSurrogate._description,
         ),
-      action = this@TestReportTestSurrogate.action ?: mutableListOf(),
+      action = this@TestReportTestSurrogate.action ?: listOf(),
     )
 
   public companion object {
@@ -311,16 +310,16 @@ internal data class TestReportTestSurrogate(
 @Serializable
 internal data class TestReportTestActionSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var operation: TestReport.Setup.Action.Operation? = null,
   public var assert: TestReport.Setup.Action.Assert? = null,
 ) {
   public fun toModel(): TestReport.Test.Action =
     TestReport.Test.Action(
       id = this@TestReportTestActionSurrogate.id,
-      extension = this@TestReportTestActionSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@TestReportTestActionSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@TestReportTestActionSurrogate.extension ?: listOf(),
+      modifierExtension = this@TestReportTestActionSurrogate.modifierExtension ?: listOf(),
       operation = this@TestReportTestActionSurrogate.operation,
       assert = this@TestReportTestActionSurrogate.assert,
     )
@@ -342,16 +341,16 @@ internal data class TestReportTestActionSurrogate(
 @Serializable
 internal data class TestReportTeardownSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var action: MutableList<TestReport.Teardown.Action>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
+  public var action: List<TestReport.Teardown.Action>? = null,
 ) {
   public fun toModel(): TestReport.Teardown =
     TestReport.Teardown(
       id = this@TestReportTeardownSurrogate.id,
-      extension = this@TestReportTeardownSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@TestReportTeardownSurrogate.modifierExtension ?: mutableListOf(),
-      action = this@TestReportTeardownSurrogate.action ?: mutableListOf(),
+      extension = this@TestReportTeardownSurrogate.extension ?: listOf(),
+      modifierExtension = this@TestReportTeardownSurrogate.modifierExtension ?: listOf(),
+      action = this@TestReportTeardownSurrogate.action ?: listOf(),
     )
 
   public companion object {
@@ -370,16 +369,15 @@ internal data class TestReportTeardownSurrogate(
 @Serializable
 internal data class TestReportTeardownActionSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var operation: TestReport.Setup.Action.Operation,
 ) {
   public fun toModel(): TestReport.Teardown.Action =
     TestReport.Teardown.Action(
       id = this@TestReportTeardownActionSurrogate.id,
-      extension = this@TestReportTeardownActionSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@TestReportTeardownActionSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@TestReportTeardownActionSurrogate.extension ?: listOf(),
+      modifierExtension = this@TestReportTeardownActionSurrogate.modifierExtension ?: listOf(),
       operation = this@TestReportTeardownActionSurrogate.operation,
     )
 
@@ -405,9 +403,9 @@ internal data class TestReportSurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: MutableList<Resource>? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var contained: List<Resource>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var identifier: Identifier? = null,
   public var name: KotlinString? = null,
   public var _name: Element? = null,
@@ -422,9 +420,9 @@ internal data class TestReportSurrogate(
   public var _tester: Element? = null,
   public var issued: KotlinString? = null,
   public var _issued: Element? = null,
-  public var participant: MutableList<TestReport.Participant>? = null,
+  public var participant: List<TestReport.Participant>? = null,
   public var setup: TestReport.Setup? = null,
-  public var test: MutableList<TestReport.Test>? = null,
+  public var test: List<TestReport.Test>? = null,
   public var teardown: TestReport.Teardown? = null,
 ) {
   public fun toModel(): TestReport =
@@ -435,9 +433,9 @@ internal data class TestReportSurrogate(
         Uri.of(this@TestReportSurrogate.implicitRules, this@TestReportSurrogate._implicitRules),
       language = Code.of(this@TestReportSurrogate.language, this@TestReportSurrogate._language),
       text = this@TestReportSurrogate.text,
-      contained = this@TestReportSurrogate.contained ?: mutableListOf(),
-      extension = this@TestReportSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@TestReportSurrogate.modifierExtension ?: mutableListOf(),
+      contained = this@TestReportSurrogate.contained ?: listOf(),
+      extension = this@TestReportSurrogate.extension ?: listOf(),
+      modifierExtension = this@TestReportSurrogate.modifierExtension ?: listOf(),
       identifier = this@TestReportSurrogate.identifier,
       name = R4bString.of(this@TestReportSurrogate.name, this@TestReportSurrogate._name),
       status =
@@ -458,9 +456,9 @@ internal data class TestReportSurrogate(
           FhirDateTime.fromString(this@TestReportSurrogate.issued),
           this@TestReportSurrogate._issued,
         ),
-      participant = this@TestReportSurrogate.participant ?: mutableListOf(),
+      participant = this@TestReportSurrogate.participant ?: listOf(),
       setup = this@TestReportSurrogate.setup,
-      test = this@TestReportSurrogate.test ?: mutableListOf(),
+      test = this@TestReportSurrogate.test ?: listOf(),
       teardown = this@TestReportSurrogate.teardown,
     )
 

@@ -22,12 +22,12 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 
 /** string Type: A sequence of Unicode characters */
 public open class String(
   /** unique id for the element within a resource (for internal references) */
-  open override var id: kotlin.String? = null,
+  open override val id: kotlin.String? = null,
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and managable, there is a strict set of governance
@@ -40,9 +40,9 @@ public open class String(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  open override var extension: MutableList<Extension> = mutableListOf(),
+  open override val extension: List<Extension> = listOf(),
   /** The actual value */
-  public open var `value`: kotlin.String? = null,
+  public open val `value`: kotlin.String? = null,
 ) : PrimitiveType() {
   override fun equals(other: Any?): Boolean {
     if (this === other) return true

@@ -337,15 +337,9 @@ internal fun Type.getTypeName(enclosingClassName: ClassName): ClassName {
  * - Otherwise, do nothing.
  */
 private fun TypeName.withCardinalityInModel(element: Element): TypeName {
-  return if (element.max == "*") {
-    ClassName("kotlin.collections", "MutableList").parameterizedBy(this)
-  } else if (
-    element.id.substringAfterLast('.') == "extension" ||
-      element.id.substringAfterLast('.') == "modifierExtension"
-  ) {
-    // TODO: Check if this is still needed
-    // This is to fix the definition in XHTML
-    ClassName("kotlin.collections", "MutableList").parameterizedBy(this)
+  return if (element.max == "*" || element.id == "xhtml.extension") {
+    // The extension field of XHTML needs to be a list despite the cardinality of 0..0.
+    ClassName("kotlin.collections", "List").parameterizedBy(this)
   } else if (element.min == 0) {
     this.copy(nullable = true)
   } else {
@@ -360,15 +354,9 @@ private fun TypeName.withCardinalityInModel(element: Element): TypeName {
  * - Otherwise, do nothing.
  */
 private fun TypeName.withCardinalityInSurrogate(element: Element): TypeName {
-  return if (element.max == "*") {
-    ClassName("kotlin.collections", "MutableList").parameterizedBy(this).copy(nullable = true)
-  } else if (
-    element.id.substringAfterLast('.') == "extension" ||
-      element.id.substringAfterLast('.') == "modifierExtension"
-  ) {
-    // TODO: Check if this is still needed
-    // This is to fix the definition in XHTML
-    ClassName("kotlin.collections", "MutableList").parameterizedBy(this).copy(nullable = true)
+  return if (element.max == "*" || element.id == "xhtml.extension") {
+    // The extension field of XHTML needs to be a list despite the cardinality of 0..0.
+    ClassName("kotlin.collections", "List").parameterizedBy(this).copy(nullable = true)
   } else if (element.min == 0) {
     this.copy(nullable = true)
   } else if (element.type != null && element.type.size > 1) {
@@ -387,7 +375,7 @@ internal fun Element.getDefaultValueInSurrogate(): String? {
     // cardinality of 0..0.
     // TODO: Deprecate this element in the generated Xhtml class, possibly with @Deprecated
     // annotation.
-    return "mutableListOf()"
+    return "listOf()"
   }
   if (max == "*") {
     // Whilst the default value for repeated elements is empty list in the model class, it is null

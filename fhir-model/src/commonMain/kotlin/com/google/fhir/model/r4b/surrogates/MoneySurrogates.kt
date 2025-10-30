@@ -30,14 +30,14 @@ import com.google.fhir.model.r4b.terminologies.Currencies
 import kotlin.Double
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class MoneySurrogate(
   public var id: String? = null,
-  public var extension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
   public var `value`: Double? = null,
   public var _value: Element? = null,
   public var currency: String? = null,
@@ -46,7 +46,7 @@ internal data class MoneySurrogate(
   public fun toModel(): Money =
     Money(
       id = this@MoneySurrogate.id,
-      extension = this@MoneySurrogate.extension ?: mutableListOf(),
+      extension = this@MoneySurrogate.extension ?: listOf(),
       `value` = Decimal.of(this@MoneySurrogate.`value`, this@MoneySurrogate._value),
       currency =
         this@MoneySurrogate.currency?.let {

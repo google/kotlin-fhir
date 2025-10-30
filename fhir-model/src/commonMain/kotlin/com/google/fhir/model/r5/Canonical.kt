@@ -20,12 +20,12 @@ package com.google.fhir.model.r5
 
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 
 /** canonical type: A URI that is a reference to a canonical URL on a FHIR resource */
 public data class Canonical(
   /** unique id for the element within a resource (for internal references) */
-  override var id: String? = null,
+  override val id: String? = null,
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and managable, there is a strict set of governance
@@ -38,9 +38,9 @@ public data class Canonical(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: MutableList<Extension> = mutableListOf(),
+  override val extension: List<Extension> = listOf(),
   /** Primitive value for canonical */
-  override var `value`: String? = null,
+  override val `value`: String? = null,
 ) : Uri(id, extension, `value`) {
   override fun toElement(): Element? {
     if (id != null || extension.isNotEmpty()) {

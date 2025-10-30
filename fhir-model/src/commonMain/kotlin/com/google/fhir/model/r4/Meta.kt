@@ -21,7 +21,7 @@ package com.google.fhir.model.r4
 import com.google.fhir.model.r4.serializers.MetaSerializer
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 
 /**
@@ -35,7 +35,7 @@ public data class Meta(
    * Unique id for the element within a resource (for internal references). This may be any string
    * value that does not contain spaces.
    */
-  override var id: String? = null,
+  override val id: String? = null,
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * element. To make the use of extensions safe and manageable, there is a strict set of governance
@@ -48,7 +48,7 @@ public data class Meta(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: MutableList<Extension> = mutableListOf(),
+  override val extension: List<Extension> = listOf(),
   /**
    * The version specific identifier, as it appears in the version portion of the URL. This value
    * changes when the resource is created, updated, or deleted.
@@ -56,7 +56,7 @@ public data class Meta(
    * The server assigns this value, and ignores what the client specifies, except in the case that
    * the server is imposing version integrity on updates/deletes.
    */
-  public var versionId: Id? = null,
+  public val versionId: Id? = null,
   /**
    * When the resource last changed - e.g. when the version changed.
    *
@@ -64,7 +64,7 @@ public data class Meta(
    * resource manager sets this value; what a client provides is irrelevant. This is equivalent to
    * the HTTP Last-Modified and SHOULD have the same value on a [read](http.html#read) interaction.
    */
-  public var lastUpdated: Instant? = null,
+  public val lastUpdated: Instant? = null,
   /**
    * A uri that identifies the source system of the resource. This provides a minimal amount of
    * [Provenance](provenance.html#) information that can be used to track or differentiate the
@@ -79,7 +79,7 @@ public data class Meta(
    * This element can be used to indicate where the current master source of a resource that has a
    * canonical URL if the resource is no longer hosted at the canonical URL.
    */
-  public var source: Uri? = null,
+  public val source: Uri? = null,
   /**
    * A list of profiles (references to [StructureDefinition](structuredefinition.html#) resources)
    * that this resource claims to conform to. The URL is a reference to
@@ -88,7 +88,7 @@ public data class Meta(
    * It is up to the server and/or other infrastructure of policy to determine whether/how these
    * claims are verified and/or updated over time. The list of profile URLs is a set.
    */
-  public var profile: MutableList<Canonical> = mutableListOf(),
+  public val profile: List<Canonical> = listOf(),
   /**
    * Security labels applied to this resource. These tags connect specific resources to the overall
    * security policy and infrastructure.
@@ -97,7 +97,7 @@ public data class Meta(
    * list of security labels is a set. Uniqueness is based the system/code, and version and display
    * are ignored.
    */
-  public var security: MutableList<Coding> = mutableListOf(),
+  public val security: List<Coding> = listOf(),
   /**
    * Tags applied to this resource. Tags are intended to be used to identify and relate resources to
    * process and workflow, and applications are not required to consider the tags when interpreting
@@ -106,5 +106,5 @@ public data class Meta(
    * The tags can be updated without changing the stated version of the resource. The list of tags
    * is a set. Uniqueness is based the system/code, and version and display are ignored.
    */
-  public var tag: MutableList<Coding> = mutableListOf(),
+  public val tag: List<Coding> = listOf(),
 ) : Element()

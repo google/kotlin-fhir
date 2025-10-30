@@ -40,7 +40,7 @@ import com.google.fhir.model.r4b.serializers.DoubleSerializer
 import com.google.fhir.model.r4b.serializers.LocalTimeSerializer
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
@@ -53,25 +53,25 @@ internal data class EndpointSurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: MutableList<Resource>? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var identifier: MutableList<Identifier>? = null,
+  public var contained: List<Resource>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
+  public var identifier: List<Identifier>? = null,
   public var status: KotlinString? = null,
   public var _status: Element? = null,
   public var connectionType: Coding,
   public var name: KotlinString? = null,
   public var _name: Element? = null,
   public var managingOrganization: Reference? = null,
-  public var contact: MutableList<ContactPoint>? = null,
+  public var contact: List<ContactPoint>? = null,
   public var period: Period? = null,
-  public var payloadType: MutableList<CodeableConcept>? = null,
-  public var payloadMimeType: MutableList<KotlinString?>? = null,
-  public var _payloadMimeType: MutableList<Element?>? = null,
+  public var payloadType: List<CodeableConcept>? = null,
+  public var payloadMimeType: List<KotlinString?>? = null,
+  public var _payloadMimeType: List<Element?>? = null,
   public var address: KotlinString? = null,
   public var _address: Element? = null,
-  public var `header`: MutableList<KotlinString?>? = null,
-  public var _header: MutableList<Element?>? = null,
+  public var `header`: List<KotlinString?>? = null,
+  public var _header: List<Element?>? = null,
 ) {
   public fun toModel(): Endpoint =
     Endpoint(
@@ -81,10 +81,10 @@ internal data class EndpointSurrogate(
         Uri.of(this@EndpointSurrogate.implicitRules, this@EndpointSurrogate._implicitRules),
       language = Code.of(this@EndpointSurrogate.language, this@EndpointSurrogate._language),
       text = this@EndpointSurrogate.text,
-      contained = this@EndpointSurrogate.contained ?: mutableListOf(),
-      extension = this@EndpointSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@EndpointSurrogate.modifierExtension ?: mutableListOf(),
-      identifier = this@EndpointSurrogate.identifier ?: mutableListOf(),
+      contained = this@EndpointSurrogate.contained ?: listOf(),
+      extension = this@EndpointSurrogate.extension ?: listOf(),
+      modifierExtension = this@EndpointSurrogate.modifierExtension ?: listOf(),
+      identifier = this@EndpointSurrogate.identifier ?: listOf(),
       status =
         Enumeration.of(
           Endpoint.EndpointStatus.fromCode(this@EndpointSurrogate.status!!),
@@ -93,15 +93,15 @@ internal data class EndpointSurrogate(
       connectionType = this@EndpointSurrogate.connectionType,
       name = R4bString.of(this@EndpointSurrogate.name, this@EndpointSurrogate._name),
       managingOrganization = this@EndpointSurrogate.managingOrganization,
-      contact = this@EndpointSurrogate.contact ?: mutableListOf(),
+      contact = this@EndpointSurrogate.contact ?: listOf(),
       period = this@EndpointSurrogate.period,
-      payloadType = this@EndpointSurrogate.payloadType ?: mutableListOf(),
+      payloadType = this@EndpointSurrogate.payloadType ?: listOf(),
       payloadMimeType =
         if (
           this@EndpointSurrogate.payloadMimeType == null &&
             this@EndpointSurrogate._payloadMimeType == null
         ) {
-          mutableListOf()
+          listOf()
         } else {
           (this@EndpointSurrogate.payloadMimeType
               ?: List(this@EndpointSurrogate._payloadMimeType!!.size) { null })
@@ -110,12 +110,12 @@ internal data class EndpointSurrogate(
                 ?: List(this@EndpointSurrogate.payloadMimeType!!.size) { null }
             )
             .map { (value, element) -> Code.of(value, element)!! }
-            .toMutableList()
+            .toList()
         },
       address = Url.of(this@EndpointSurrogate.address, this@EndpointSurrogate._address)!!,
       `header` =
         if (this@EndpointSurrogate.`header` == null && this@EndpointSurrogate._header == null) {
-          mutableListOf()
+          listOf()
         } else {
           (this@EndpointSurrogate.`header` ?: List(this@EndpointSurrogate._header!!.size) { null })
             .zip(
@@ -123,7 +123,7 @@ internal data class EndpointSurrogate(
                 ?: List(this@EndpointSurrogate.`header`!!.size) { null }
             )
             .map { (value, element) -> R4bString.of(value, element)!! }
-            .toMutableList()
+            .toList()
         },
     )
 
@@ -154,27 +154,24 @@ internal data class EndpointSurrogate(
           payloadMimeType =
             this@with.payloadMimeType
               .map { it.value }
-              .toMutableList()
+              .toList()
               .takeUnless { it.all { it == null } },
           _payloadMimeType =
             this@with.payloadMimeType
               .map { it.toElement() }
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
-              ?.toMutableList(),
+              ?.toList(),
           address = this@with.address.value,
           _address = this@with.address.toElement(),
           `header` =
-            this@with.`header`
-              .map { it.value }
-              .toMutableList()
-              .takeUnless { it.all { it == null } },
+            this@with.`header`.map { it.value }.toList().takeUnless { it.all { it == null } },
           _header =
             this@with.`header`
               .map { it.toElement() }
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
-              ?.toMutableList(),
+              ?.toList(),
         )
       }
   }

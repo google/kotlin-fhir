@@ -23,7 +23,7 @@ import com.google.fhir.model.r4.serializers.DetectedIssueIdentifiedSerializer
 import com.google.fhir.model.r4.serializers.DetectedIssueMitigationSerializer
 import com.google.fhir.model.r4.serializers.DetectedIssueSerializer
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -42,12 +42,12 @@ public data class DetectedIssue(
    * The only time that a resource does not have an id is when it is being submitted to the server
    * using a create operation.
    */
-  override var id: kotlin.String? = null,
+  override val id: kotlin.String? = null,
   /**
    * The metadata about the resource. This is content that is maintained by the infrastructure.
    * Changes to the content might not always be associated with version changes to the resource.
    */
-  override var meta: Meta? = null,
+  override val meta: Meta? = null,
   /**
    * A reference to a set of rules that were followed when the resource was constructed, and which
    * must be understood when processing the content. Often, this is a reference to an implementation
@@ -61,7 +61,7 @@ public data class DetectedIssue(
    * to an implementation guide that defines these special rules as part of it's narrative along
    * with other profiles, value sets, etc.
    */
-  override var implicitRules: Uri? = null,
+  override val implicitRules: Uri? = null,
   /**
    * The base language in which the resource is written.
    *
@@ -73,7 +73,7 @@ public data class DetectedIssue(
    * language is specified, it should it also be specified on the div element in the html (see rules
    * in HTML5 for information about the relationship between xml:lang and the html lang attribute).
    */
-  override var language: Code? = null,
+  override val language: Code? = null,
   /**
    * A human-readable narrative that contains a summary of the resource and can be used to represent
    * the content of the resource to a human. The narrative need not encode all the structured data,
@@ -87,7 +87,7 @@ public data class DetectedIssue(
    * legacy systems where information is captured as a "text blob" or where text is additionally
    * entered raw or narrated and encoded information is added later.
    */
-  override var text: Narrative? = null,
+  override val text: Narrative? = null,
   /**
    * These resources do not have an independent existence apart from the resource that contains
    * them - they cannot be identified independently, and nor can they have their own independent
@@ -98,7 +98,7 @@ public data class DetectedIssue(
    * resources may have profiles and tags In their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: MutableList<Resource> = mutableListOf(),
+  override val contained: List<Resource> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and manageable, there is a strict set of
@@ -111,7 +111,7 @@ public data class DetectedIssue(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: MutableList<Extension> = mutableListOf(),
+  override val extension: List<Extension> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -130,32 +130,32 @@ public data class DetectedIssue(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: MutableList<Extension> = mutableListOf(),
+  override val modifierExtension: List<Extension> = listOf(),
   /** Business identifier associated with the detected issue record. */
-  public var identifier: MutableList<Identifier> = mutableListOf(),
+  public val identifier: List<Identifier> = listOf(),
   /**
    * Indicates the status of the detected issue.
    *
    * This element is labeled as a modifier because the status contains the codes cancelled and
    * entered-in-error that mark the issue as not currently valid.
    */
-  public var status: Enumeration<ObservationStatus>,
+  public val status: Enumeration<ObservationStatus>,
   /** Identifies the general type of issue identified. */
-  public var code: CodeableConcept? = null,
+  public val code: CodeableConcept? = null,
   /**
    * Indicates the degree of importance associated with the identified issue based on the potential
    * impact on the patient.
    */
-  public var severity: Enumeration<DetectedIssueSeverity>? = null,
+  public val severity: Enumeration<DetectedIssueSeverity>? = null,
   /** Indicates the patient whose record the detected issue is associated with. */
-  public var patient: Reference? = null,
+  public val patient: Reference? = null,
   /** The date or period when the detected issue was initially identified. */
-  public var identified: Identified? = null,
+  public val identified: Identified? = null,
   /**
    * Individual or device responsible for the issue being raised. For example, a decision support
    * application or a pharmacist conducting a medication review.
    */
-  public var author: Reference? = null,
+  public val author: Reference? = null,
   /**
    * Indicates the resource representing the current activity or proposed activity that is
    * potentially problematic.
@@ -164,30 +164,30 @@ public data class DetectedIssue(
    * DetectedIssue.type; e.g. For drug-drug, there would be more than one. For timing, there would
    * typically only be one.
    */
-  public var implicated: MutableList<Reference> = mutableListOf(),
+  public val implicated: List<Reference> = listOf(),
   /**
    * Supporting evidence or manifestations that provide the basis for identifying the detected issue
    * such as a GuidanceResponse or MeasureReport.
    */
-  public var evidence: MutableList<Evidence> = mutableListOf(),
+  public val evidence: List<Evidence> = listOf(),
   /**
    * A textual explanation of the detected issue.
    *
    * Should focus on information not covered elsewhere as discrete data - no need to duplicate the
    * narrative.
    */
-  public var detail: String? = null,
+  public val detail: String? = null,
   /**
    * The literature, knowledge-base or similar reference that describes the propensity for the
    * detected issue identified.
    */
-  public var reference: Uri? = null,
+  public val reference: Uri? = null,
   /**
    * Indicates an action that has been taken or is committed to reduce or eliminate the likelihood
    * of the risk identified by the detected issue from manifesting. Can also reflect an observation
    * of known mitigating factors that may reduce/eliminate the need for any action.
    */
-  public var mitigation: MutableList<Mitigation> = mutableListOf(),
+  public val mitigation: List<Mitigation> = listOf(),
 ) : DomainResource() {
   /**
    * Supporting evidence or manifestations that provide the basis for identifying the detected issue
@@ -199,7 +199,7 @@ public data class DetectedIssue(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and manageable, there is a strict set of
@@ -212,7 +212,7 @@ public data class DetectedIssue(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -231,14 +231,14 @@ public data class DetectedIssue(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /** A manifestation that led to the recording of this detected issue. */
-    public var code: MutableList<CodeableConcept> = mutableListOf(),
+    public val code: List<CodeableConcept> = listOf(),
     /**
      * Links to resources that constitute evidence for the detected issue such as a GuidanceResponse
      * or MeasureReport.
      */
-    public var detail: MutableList<Reference> = mutableListOf(),
+    public val detail: List<Reference> = listOf(),
   ) : BackboneElement()
 
   /**
@@ -252,7 +252,7 @@ public data class DetectedIssue(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and manageable, there is a strict set of
@@ -265,7 +265,7 @@ public data class DetectedIssue(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -284,25 +284,25 @@ public data class DetectedIssue(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /**
      * Describes the action that was taken or the observation that was made that reduces/eliminates
      * the risk associated with the identified issue.
      *
      * The "text" component can be used for detail or when no appropriate code exists.
      */
-    public var action: CodeableConcept,
+    public val action: CodeableConcept,
     /**
      * Indicates when the mitigating action was documented.
      *
      * This might not be the same as when the mitigating step was actually taken.
      */
-    public var date: DateTime? = null,
+    public val date: DateTime? = null,
     /**
      * Identifies the practitioner who determined the mitigation and takes responsibility for the
      * mitigation step occurring.
      */
-    public var author: Reference? = null,
+    public val author: Reference? = null,
   ) : BackboneElement()
 
   @Serializable(with = DetectedIssueIdentifiedSerializer::class)

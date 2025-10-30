@@ -41,15 +41,15 @@ import com.google.fhir.model.r4.terminologies.PublicationStatus
 import kotlin.Boolean as KotlinBoolean
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class CatalogEntryRelatedEntrySurrogate(
   public var id: String? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var relationtype: String? = null,
   public var _relationtype: Element? = null,
   public var item: Reference,
@@ -57,9 +57,8 @@ internal data class CatalogEntryRelatedEntrySurrogate(
   public fun toModel(): CatalogEntry.RelatedEntry =
     CatalogEntry.RelatedEntry(
       id = this@CatalogEntryRelatedEntrySurrogate.id,
-      extension = this@CatalogEntryRelatedEntrySurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@CatalogEntryRelatedEntrySurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@CatalogEntryRelatedEntrySurrogate.extension ?: listOf(),
+      modifierExtension = this@CatalogEntryRelatedEntrySurrogate.modifierExtension ?: listOf(),
       relationtype =
         Enumeration.of(
           CatalogEntry.CatalogEntryRelationType.fromCode(
@@ -94,16 +93,16 @@ internal data class CatalogEntrySurrogate(
   public var language: String? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: MutableList<Resource>? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var identifier: MutableList<Identifier>? = null,
+  public var contained: List<Resource>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
+  public var identifier: List<Identifier>? = null,
   public var type: CodeableConcept? = null,
   public var orderable: KotlinBoolean? = null,
   public var _orderable: Element? = null,
   public var referencedItem: Reference,
-  public var additionalIdentifier: MutableList<Identifier>? = null,
-  public var classification: MutableList<CodeableConcept>? = null,
+  public var additionalIdentifier: List<Identifier>? = null,
+  public var classification: List<CodeableConcept>? = null,
   public var status: String? = null,
   public var _status: Element? = null,
   public var validityPeriod: Period? = null,
@@ -111,9 +110,9 @@ internal data class CatalogEntrySurrogate(
   public var _validTo: Element? = null,
   public var lastUpdated: String? = null,
   public var _lastUpdated: Element? = null,
-  public var additionalCharacteristic: MutableList<CodeableConcept>? = null,
-  public var additionalClassification: MutableList<CodeableConcept>? = null,
-  public var relatedEntry: MutableList<CatalogEntry.RelatedEntry>? = null,
+  public var additionalCharacteristic: List<CodeableConcept>? = null,
+  public var additionalClassification: List<CodeableConcept>? = null,
+  public var relatedEntry: List<CatalogEntry.RelatedEntry>? = null,
 ) {
   public fun toModel(): CatalogEntry =
     CatalogEntry(
@@ -123,16 +122,16 @@ internal data class CatalogEntrySurrogate(
         Uri.of(this@CatalogEntrySurrogate.implicitRules, this@CatalogEntrySurrogate._implicitRules),
       language = Code.of(this@CatalogEntrySurrogate.language, this@CatalogEntrySurrogate._language),
       text = this@CatalogEntrySurrogate.text,
-      contained = this@CatalogEntrySurrogate.contained ?: mutableListOf(),
-      extension = this@CatalogEntrySurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@CatalogEntrySurrogate.modifierExtension ?: mutableListOf(),
-      identifier = this@CatalogEntrySurrogate.identifier ?: mutableListOf(),
+      contained = this@CatalogEntrySurrogate.contained ?: listOf(),
+      extension = this@CatalogEntrySurrogate.extension ?: listOf(),
+      modifierExtension = this@CatalogEntrySurrogate.modifierExtension ?: listOf(),
+      identifier = this@CatalogEntrySurrogate.identifier ?: listOf(),
       type = this@CatalogEntrySurrogate.type,
       orderable =
         R4Boolean.of(this@CatalogEntrySurrogate.orderable, this@CatalogEntrySurrogate._orderable)!!,
       referencedItem = this@CatalogEntrySurrogate.referencedItem,
-      additionalIdentifier = this@CatalogEntrySurrogate.additionalIdentifier ?: mutableListOf(),
-      classification = this@CatalogEntrySurrogate.classification ?: mutableListOf(),
+      additionalIdentifier = this@CatalogEntrySurrogate.additionalIdentifier ?: listOf(),
+      classification = this@CatalogEntrySurrogate.classification ?: listOf(),
       status =
         this@CatalogEntrySurrogate.status?.let {
           Enumeration.of(PublicationStatus.fromCode(it), this@CatalogEntrySurrogate._status)
@@ -148,11 +147,9 @@ internal data class CatalogEntrySurrogate(
           FhirDateTime.fromString(this@CatalogEntrySurrogate.lastUpdated),
           this@CatalogEntrySurrogate._lastUpdated,
         ),
-      additionalCharacteristic =
-        this@CatalogEntrySurrogate.additionalCharacteristic ?: mutableListOf(),
-      additionalClassification =
-        this@CatalogEntrySurrogate.additionalClassification ?: mutableListOf(),
-      relatedEntry = this@CatalogEntrySurrogate.relatedEntry ?: mutableListOf(),
+      additionalCharacteristic = this@CatalogEntrySurrogate.additionalCharacteristic ?: listOf(),
+      additionalClassification = this@CatalogEntrySurrogate.additionalClassification ?: listOf(),
+      relatedEntry = this@CatalogEntrySurrogate.relatedEntry ?: listOf(),
     )
 
   public companion object {

@@ -32,14 +32,17 @@ import kotlinx.serialization.json.JsonBuilder
 import kotlinx.serialization.modules.SerializersModule
 
 /**
- * Generates a [FileSpec] with utilities for configuring the [Json] object to serialize and
- * deserialize FHIR resources in this package.
+ * Generates a [FileSpec] for the JSON serialization API.
  *
- * The generated file includes an extension function for [JsonBuilder]. It configures the [Json]
- * object by registering polymorphic types for FHIR resource hierarchies and setting appropriate
- * class discriminators (e.g., "resourceType").
+ * The generated file includes a `Fhir<VERSION>Json` class. It configures kotlinx.serialization's
+ * [Json] object by registering polymorphic types for FHIR resource hierarchies and setting
+ * appropriate class discriminators (e.g., "resourceType").
+ *
+ * It exposes the following serialization API:
+ * - `encodeToString`
+ * - `decodeFromString`
  */
-object MoreJsonBuilderFileSpecGenerator {
+object FhirJsonFileSpecGenerator {
   fun generate(packageName: String, subclasses: List<ClassName>): FileSpec {
     val baseClass = ClassName(packageName, "Resource")
     val fhirVersion = packageName.substringAfterLast('.').capitalized()

@@ -23,7 +23,7 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 
 /** Base StructureDefinition for Element Type: Base definition for all elements in a resource. */
@@ -33,7 +33,7 @@ public open class Element(
    * Unique id for the element within a resource (for internal references). This may be any string
    * value that does not contain spaces.
    */
-  public open var id: String? = null,
+  public open val id: String? = null,
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * element. To make the use of extensions safe and manageable, there is a strict set of governance
@@ -46,7 +46,7 @@ public open class Element(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  public open var extension: MutableList<Extension> = mutableListOf(),
+  public open val extension: List<Extension> = listOf(),
 ) {
   override fun equals(other: Any?): Boolean {
     if (this === other) return true

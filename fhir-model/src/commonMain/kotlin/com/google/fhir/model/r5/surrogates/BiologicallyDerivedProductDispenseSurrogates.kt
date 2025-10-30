@@ -40,26 +40,24 @@ import com.google.fhir.model.r5.serializers.DoubleSerializer
 import com.google.fhir.model.r5.serializers.LocalTimeSerializer
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class BiologicallyDerivedProductDispensePerformerSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var function: CodeableConcept? = null,
   public var actor: Reference,
 ) {
   public fun toModel(): BiologicallyDerivedProductDispense.Performer =
     BiologicallyDerivedProductDispense.Performer(
       id = this@BiologicallyDerivedProductDispensePerformerSurrogate.id,
-      extension =
-        this@BiologicallyDerivedProductDispensePerformerSurrogate.extension ?: mutableListOf(),
+      extension = this@BiologicallyDerivedProductDispensePerformerSurrogate.extension ?: listOf(),
       modifierExtension =
-        this@BiologicallyDerivedProductDispensePerformerSurrogate.modifierExtension
-          ?: mutableListOf(),
+        this@BiologicallyDerivedProductDispensePerformerSurrogate.modifierExtension ?: listOf(),
       function = this@BiologicallyDerivedProductDispensePerformerSurrogate.function,
       actor = this@BiologicallyDerivedProductDispensePerformerSurrogate.actor,
     )
@@ -89,19 +87,19 @@ internal data class BiologicallyDerivedProductDispenseSurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: MutableList<Resource>? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var identifier: MutableList<Identifier>? = null,
-  public var basedOn: MutableList<Reference>? = null,
-  public var partOf: MutableList<Reference>? = null,
+  public var contained: List<Resource>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
+  public var identifier: List<Identifier>? = null,
+  public var basedOn: List<Reference>? = null,
+  public var partOf: List<Reference>? = null,
   public var status: KotlinString? = null,
   public var _status: Element? = null,
   public var originRelationshipType: CodeableConcept? = null,
   public var product: Reference,
   public var patient: Reference,
   public var matchStatus: CodeableConcept? = null,
-  public var performer: MutableList<BiologicallyDerivedProductDispense.Performer>? = null,
+  public var performer: List<BiologicallyDerivedProductDispense.Performer>? = null,
   public var location: Reference? = null,
   public var quantity: Quantity? = null,
   public var preparedDate: KotlinString? = null,
@@ -109,7 +107,7 @@ internal data class BiologicallyDerivedProductDispenseSurrogate(
   public var whenHandedOver: KotlinString? = null,
   public var _whenHandedOver: Element? = null,
   public var destination: Reference? = null,
-  public var note: MutableList<Annotation>? = null,
+  public var note: List<Annotation>? = null,
   public var usageInstruction: KotlinString? = null,
   public var _usageInstruction: Element? = null,
 ) {
@@ -128,13 +126,13 @@ internal data class BiologicallyDerivedProductDispenseSurrogate(
           this@BiologicallyDerivedProductDispenseSurrogate._language,
         ),
       text = this@BiologicallyDerivedProductDispenseSurrogate.text,
-      contained = this@BiologicallyDerivedProductDispenseSurrogate.contained ?: mutableListOf(),
-      extension = this@BiologicallyDerivedProductDispenseSurrogate.extension ?: mutableListOf(),
+      contained = this@BiologicallyDerivedProductDispenseSurrogate.contained ?: listOf(),
+      extension = this@BiologicallyDerivedProductDispenseSurrogate.extension ?: listOf(),
       modifierExtension =
-        this@BiologicallyDerivedProductDispenseSurrogate.modifierExtension ?: mutableListOf(),
-      identifier = this@BiologicallyDerivedProductDispenseSurrogate.identifier ?: mutableListOf(),
-      basedOn = this@BiologicallyDerivedProductDispenseSurrogate.basedOn ?: mutableListOf(),
-      partOf = this@BiologicallyDerivedProductDispenseSurrogate.partOf ?: mutableListOf(),
+        this@BiologicallyDerivedProductDispenseSurrogate.modifierExtension ?: listOf(),
+      identifier = this@BiologicallyDerivedProductDispenseSurrogate.identifier ?: listOf(),
+      basedOn = this@BiologicallyDerivedProductDispenseSurrogate.basedOn ?: listOf(),
+      partOf = this@BiologicallyDerivedProductDispenseSurrogate.partOf ?: listOf(),
       status =
         Enumeration.of(
           BiologicallyDerivedProductDispense.BiologicallyDerivedProductDispenseCodes.fromCode(
@@ -147,7 +145,7 @@ internal data class BiologicallyDerivedProductDispenseSurrogate(
       product = this@BiologicallyDerivedProductDispenseSurrogate.product,
       patient = this@BiologicallyDerivedProductDispenseSurrogate.patient,
       matchStatus = this@BiologicallyDerivedProductDispenseSurrogate.matchStatus,
-      performer = this@BiologicallyDerivedProductDispenseSurrogate.performer ?: mutableListOf(),
+      performer = this@BiologicallyDerivedProductDispenseSurrogate.performer ?: listOf(),
       location = this@BiologicallyDerivedProductDispenseSurrogate.location,
       quantity = this@BiologicallyDerivedProductDispenseSurrogate.quantity,
       preparedDate =
@@ -161,7 +159,7 @@ internal data class BiologicallyDerivedProductDispenseSurrogate(
           this@BiologicallyDerivedProductDispenseSurrogate._whenHandedOver,
         ),
       destination = this@BiologicallyDerivedProductDispenseSurrogate.destination,
-      note = this@BiologicallyDerivedProductDispenseSurrogate.note ?: mutableListOf(),
+      note = this@BiologicallyDerivedProductDispenseSurrogate.note ?: listOf(),
       usageInstruction =
         R5String.of(
           this@BiologicallyDerivedProductDispenseSurrogate.usageInstruction,

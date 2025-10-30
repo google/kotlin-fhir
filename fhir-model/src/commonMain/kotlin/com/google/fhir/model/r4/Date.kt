@@ -20,7 +20,7 @@ package com.google.fhir.model.r4
 
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 
 /**
  * Base StructureDefinition for date Type: A date or partial date (e.g. just year or year + month).
@@ -29,7 +29,7 @@ import kotlin.collections.MutableList
  */
 public data class Date(
   /** unique id for the element within a resource (for internal references) */
-  override var id: String? = null,
+  override val id: String? = null,
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and manageable, there is a strict set of
@@ -42,9 +42,9 @@ public data class Date(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: MutableList<Extension> = mutableListOf(),
+  override val extension: List<Extension> = listOf(),
   /** The actual value */
-  public var `value`: FhirDate? = null,
+  public val `value`: FhirDate? = null,
 ) : Element(id, extension) {
   public fun toElement(): Element? {
     if (id != null || extension.isNotEmpty()) {

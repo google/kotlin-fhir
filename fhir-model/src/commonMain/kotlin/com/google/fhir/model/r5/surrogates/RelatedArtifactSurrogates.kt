@@ -36,17 +36,17 @@ import com.google.fhir.model.r5.serializers.LocalTimeSerializer
 import com.google.fhir.model.r5.terminologies.PublicationStatus
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class RelatedArtifactSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
   public var type: KotlinString? = null,
   public var _type: Element? = null,
-  public var classifier: MutableList<CodeableConcept>? = null,
+  public var classifier: List<CodeableConcept>? = null,
   public var label: KotlinString? = null,
   public var _label: Element? = null,
   public var display: KotlinString? = null,
@@ -65,13 +65,13 @@ internal data class RelatedArtifactSurrogate(
   public fun toModel(): RelatedArtifact =
     RelatedArtifact(
       id = this@RelatedArtifactSurrogate.id,
-      extension = this@RelatedArtifactSurrogate.extension ?: mutableListOf(),
+      extension = this@RelatedArtifactSurrogate.extension ?: listOf(),
       type =
         Enumeration.of(
           RelatedArtifact.RelatedArtifactType.fromCode(this@RelatedArtifactSurrogate.type!!),
           this@RelatedArtifactSurrogate._type,
         ),
-      classifier = this@RelatedArtifactSurrogate.classifier ?: mutableListOf(),
+      classifier = this@RelatedArtifactSurrogate.classifier ?: listOf(),
       label =
         R5String.of(this@RelatedArtifactSurrogate.label, this@RelatedArtifactSurrogate._label),
       display =

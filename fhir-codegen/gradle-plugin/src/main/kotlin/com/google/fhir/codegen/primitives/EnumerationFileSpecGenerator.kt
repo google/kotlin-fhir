@@ -71,8 +71,7 @@ object EnumerationFileSpecGenerator {
                 ParameterSpec.builder(
                     name = "extension",
                     type =
-                      ClassName("kotlin.collections", "MutableList")
-                        .parameterizedBy(extensionClassName),
+                      ClassName("kotlin.collections", "List").parameterizedBy(extensionClassName),
                   )
                   .addKdoc(
                     """
@@ -83,7 +82,7 @@ object EnumerationFileSpecGenerator {
                       .trimIndent()
                       .sanitizeKDoc()
                   )
-                  .defaultValue("mutableListOf()")
+                  .defaultValue("listOf()")
                   .build()
               )
               .addParameter(
@@ -97,25 +96,21 @@ object EnumerationFileSpecGenerator {
           addProperty(
             PropertySpec.builder("id", STRING.copy(nullable = true))
               .initializer("id")
-              .mutable(true)
               .addModifiers(KModifier.OVERRIDE)
               .build()
           )
           addProperty(
             PropertySpec.builder(
                 name = "extension",
-                type =
-                  ClassName("kotlin.collections", "MutableList").parameterizedBy(extensionClassName),
+                type = ClassName("kotlin.collections", "List").parameterizedBy(extensionClassName),
               )
               .initializer("extension")
-              .mutable(true)
               .addModifiers(KModifier.OVERRIDE)
               .build()
           )
           addProperty(
             PropertySpec.builder("value", typeVariable.copy(nullable = true))
               .initializer("value")
-              .mutable(true)
               .build()
           )
           superclass(ClassName(packageName, baseClassName))
@@ -143,7 +138,7 @@ object EnumerationFileSpecGenerator {
                   )
                   .returns(ClassName("", "Enumeration").parameterizedBy(typeVariable))
                   .addStatement(
-                    "return Enumeration(element?.id, element?.extension ?: mutableListOf(), value = value)"
+                    "return Enumeration(element?.id, element?.extension ?: listOf(), value = value)"
                   )
                   .build()
               )

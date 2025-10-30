@@ -48,15 +48,15 @@ import kotlin.Boolean as KotlinBoolean
 import kotlin.Int
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class TestPlanDependencySurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var description: KotlinString? = null,
   public var _description: Element? = null,
   public var predecessor: Reference? = null,
@@ -64,8 +64,8 @@ internal data class TestPlanDependencySurrogate(
   public fun toModel(): TestPlan.Dependency =
     TestPlan.Dependency(
       id = this@TestPlanDependencySurrogate.id,
-      extension = this@TestPlanDependencySurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@TestPlanDependencySurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@TestPlanDependencySurrogate.extension ?: listOf(),
+      modifierExtension = this@TestPlanDependencySurrogate.modifierExtension ?: listOf(),
       description =
         Markdown.of(
           this@TestPlanDependencySurrogate.description,
@@ -92,31 +92,31 @@ internal data class TestPlanDependencySurrogate(
 @Serializable
 internal data class TestPlanTestCaseSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var sequence: Int? = null,
   public var _sequence: Element? = null,
-  public var scope: MutableList<Reference>? = null,
-  public var dependency: MutableList<TestPlan.TestCase.Dependency>? = null,
-  public var testRun: MutableList<TestPlan.TestCase.TestRun>? = null,
-  public var testData: MutableList<TestPlan.TestCase.TestData>? = null,
-  public var assertion: MutableList<TestPlan.TestCase.Assertion>? = null,
+  public var scope: List<Reference>? = null,
+  public var dependency: List<TestPlan.TestCase.Dependency>? = null,
+  public var testRun: List<TestPlan.TestCase.TestRun>? = null,
+  public var testData: List<TestPlan.TestCase.TestData>? = null,
+  public var assertion: List<TestPlan.TestCase.Assertion>? = null,
 ) {
   public fun toModel(): TestPlan.TestCase =
     TestPlan.TestCase(
       id = this@TestPlanTestCaseSurrogate.id,
-      extension = this@TestPlanTestCaseSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@TestPlanTestCaseSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@TestPlanTestCaseSurrogate.extension ?: listOf(),
+      modifierExtension = this@TestPlanTestCaseSurrogate.modifierExtension ?: listOf(),
       sequence =
         Integer.of(
           this@TestPlanTestCaseSurrogate.sequence,
           this@TestPlanTestCaseSurrogate._sequence,
         ),
-      scope = this@TestPlanTestCaseSurrogate.scope ?: mutableListOf(),
-      dependency = this@TestPlanTestCaseSurrogate.dependency ?: mutableListOf(),
-      testRun = this@TestPlanTestCaseSurrogate.testRun ?: mutableListOf(),
-      testData = this@TestPlanTestCaseSurrogate.testData ?: mutableListOf(),
-      assertion = this@TestPlanTestCaseSurrogate.assertion ?: mutableListOf(),
+      scope = this@TestPlanTestCaseSurrogate.scope ?: listOf(),
+      dependency = this@TestPlanTestCaseSurrogate.dependency ?: listOf(),
+      testRun = this@TestPlanTestCaseSurrogate.testRun ?: listOf(),
+      testData = this@TestPlanTestCaseSurrogate.testData ?: listOf(),
+      assertion = this@TestPlanTestCaseSurrogate.assertion ?: listOf(),
     )
 
   public companion object {
@@ -141,8 +141,8 @@ internal data class TestPlanTestCaseSurrogate(
 @Serializable
 internal data class TestPlanTestCaseDependencySurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var description: KotlinString? = null,
   public var _description: Element? = null,
   public var predecessor: Reference? = null,
@@ -150,9 +150,8 @@ internal data class TestPlanTestCaseDependencySurrogate(
   public fun toModel(): TestPlan.TestCase.Dependency =
     TestPlan.TestCase.Dependency(
       id = this@TestPlanTestCaseDependencySurrogate.id,
-      extension = this@TestPlanTestCaseDependencySurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@TestPlanTestCaseDependencySurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@TestPlanTestCaseDependencySurrogate.extension ?: listOf(),
+      modifierExtension = this@TestPlanTestCaseDependencySurrogate.modifierExtension ?: listOf(),
       description =
         Markdown.of(
           this@TestPlanTestCaseDependencySurrogate.description,
@@ -179,8 +178,8 @@ internal data class TestPlanTestCaseDependencySurrogate(
 @Serializable
 internal data class TestPlanTestCaseTestRunSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var narrative: KotlinString? = null,
   public var _narrative: Element? = null,
   public var script: TestPlan.TestCase.TestRun.Script? = null,
@@ -188,9 +187,8 @@ internal data class TestPlanTestCaseTestRunSurrogate(
   public fun toModel(): TestPlan.TestCase.TestRun =
     TestPlan.TestCase.TestRun(
       id = this@TestPlanTestCaseTestRunSurrogate.id,
-      extension = this@TestPlanTestCaseTestRunSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@TestPlanTestCaseTestRunSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@TestPlanTestCaseTestRunSurrogate.extension ?: listOf(),
+      modifierExtension = this@TestPlanTestCaseTestRunSurrogate.modifierExtension ?: listOf(),
       narrative =
         Markdown.of(
           this@TestPlanTestCaseTestRunSurrogate.narrative,
@@ -217,17 +215,16 @@ internal data class TestPlanTestCaseTestRunSurrogate(
 @Serializable
 internal data class TestPlanTestCaseTestRunScriptSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var language: CodeableConcept? = null,
   public var source: TestPlan.TestCase.TestRun.Script.Source? = null,
 ) {
   public fun toModel(): TestPlan.TestCase.TestRun.Script =
     TestPlan.TestCase.TestRun.Script(
       id = this@TestPlanTestCaseTestRunScriptSurrogate.id,
-      extension = this@TestPlanTestCaseTestRunScriptSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@TestPlanTestCaseTestRunScriptSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@TestPlanTestCaseTestRunScriptSurrogate.extension ?: listOf(),
+      modifierExtension = this@TestPlanTestCaseTestRunScriptSurrogate.modifierExtension ?: listOf(),
       language = this@TestPlanTestCaseTestRunScriptSurrogate.language,
       source = this@TestPlanTestCaseTestRunScriptSurrogate.source,
     )
@@ -251,8 +248,8 @@ internal data class TestPlanTestCaseTestRunScriptSurrogate(
 @Serializable
 internal data class TestPlanTestCaseTestDataSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var type: Coding,
   public var content: Reference? = null,
   public var source: TestPlan.TestCase.TestData.Source? = null,
@@ -260,9 +257,8 @@ internal data class TestPlanTestCaseTestDataSurrogate(
   public fun toModel(): TestPlan.TestCase.TestData =
     TestPlan.TestCase.TestData(
       id = this@TestPlanTestCaseTestDataSurrogate.id,
-      extension = this@TestPlanTestCaseTestDataSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@TestPlanTestCaseTestDataSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@TestPlanTestCaseTestDataSurrogate.extension ?: listOf(),
+      modifierExtension = this@TestPlanTestCaseTestDataSurrogate.modifierExtension ?: listOf(),
       type = this@TestPlanTestCaseTestDataSurrogate.type,
       content = this@TestPlanTestCaseTestDataSurrogate.content,
       source = this@TestPlanTestCaseTestDataSurrogate.source,
@@ -286,21 +282,20 @@ internal data class TestPlanTestCaseTestDataSurrogate(
 @Serializable
 internal data class TestPlanTestCaseAssertionSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var type: MutableList<CodeableConcept>? = null,
-  public var `object`: MutableList<CodeableReference>? = null,
-  public var result: MutableList<CodeableReference>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
+  public var type: List<CodeableConcept>? = null,
+  public var `object`: List<CodeableReference>? = null,
+  public var result: List<CodeableReference>? = null,
 ) {
   public fun toModel(): TestPlan.TestCase.Assertion =
     TestPlan.TestCase.Assertion(
       id = this@TestPlanTestCaseAssertionSurrogate.id,
-      extension = this@TestPlanTestCaseAssertionSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@TestPlanTestCaseAssertionSurrogate.modifierExtension ?: mutableListOf(),
-      type = this@TestPlanTestCaseAssertionSurrogate.type ?: mutableListOf(),
-      `object` = this@TestPlanTestCaseAssertionSurrogate.`object` ?: mutableListOf(),
-      result = this@TestPlanTestCaseAssertionSurrogate.result ?: mutableListOf(),
+      extension = this@TestPlanTestCaseAssertionSurrogate.extension ?: listOf(),
+      modifierExtension = this@TestPlanTestCaseAssertionSurrogate.modifierExtension ?: listOf(),
+      type = this@TestPlanTestCaseAssertionSurrogate.type ?: listOf(),
+      `object` = this@TestPlanTestCaseAssertionSurrogate.`object` ?: listOf(),
+      result = this@TestPlanTestCaseAssertionSurrogate.result ?: listOf(),
     )
 
   public companion object {
@@ -412,12 +407,12 @@ internal data class TestPlanSurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: MutableList<Resource>? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var contained: List<Resource>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var url: KotlinString? = null,
   public var _url: Element? = null,
-  public var identifier: MutableList<Identifier>? = null,
+  public var identifier: List<Identifier>? = null,
   public var version: KotlinString? = null,
   public var _version: Element? = null,
   public var versionAlgorithm: TestPlan.VersionAlgorithm? = null,
@@ -433,25 +428,25 @@ internal data class TestPlanSurrogate(
   public var _date: Element? = null,
   public var publisher: KotlinString? = null,
   public var _publisher: Element? = null,
-  public var contact: MutableList<ContactDetail>? = null,
+  public var contact: List<ContactDetail>? = null,
   public var description: KotlinString? = null,
   public var _description: Element? = null,
-  public var useContext: MutableList<UsageContext>? = null,
-  public var jurisdiction: MutableList<CodeableConcept>? = null,
+  public var useContext: List<UsageContext>? = null,
+  public var jurisdiction: List<CodeableConcept>? = null,
   public var purpose: KotlinString? = null,
   public var _purpose: Element? = null,
   public var copyright: KotlinString? = null,
   public var _copyright: Element? = null,
   public var copyrightLabel: KotlinString? = null,
   public var _copyrightLabel: Element? = null,
-  public var category: MutableList<CodeableConcept>? = null,
-  public var scope: MutableList<Reference>? = null,
+  public var category: List<CodeableConcept>? = null,
+  public var scope: List<Reference>? = null,
   public var testTools: KotlinString? = null,
   public var _testTools: Element? = null,
-  public var dependency: MutableList<TestPlan.Dependency>? = null,
+  public var dependency: List<TestPlan.Dependency>? = null,
   public var exitCriteria: KotlinString? = null,
   public var _exitCriteria: Element? = null,
-  public var testCase: MutableList<TestPlan.TestCase>? = null,
+  public var testCase: List<TestPlan.TestCase>? = null,
 ) {
   public fun toModel(): TestPlan =
     TestPlan(
@@ -461,11 +456,11 @@ internal data class TestPlanSurrogate(
         Uri.of(this@TestPlanSurrogate.implicitRules, this@TestPlanSurrogate._implicitRules),
       language = Code.of(this@TestPlanSurrogate.language, this@TestPlanSurrogate._language),
       text = this@TestPlanSurrogate.text,
-      contained = this@TestPlanSurrogate.contained ?: mutableListOf(),
-      extension = this@TestPlanSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@TestPlanSurrogate.modifierExtension ?: mutableListOf(),
+      contained = this@TestPlanSurrogate.contained ?: listOf(),
+      extension = this@TestPlanSurrogate.extension ?: listOf(),
+      modifierExtension = this@TestPlanSurrogate.modifierExtension ?: listOf(),
       url = Uri.of(this@TestPlanSurrogate.url, this@TestPlanSurrogate._url),
-      identifier = this@TestPlanSurrogate.identifier ?: mutableListOf(),
+      identifier = this@TestPlanSurrogate.identifier ?: listOf(),
       version = R5String.of(this@TestPlanSurrogate.version, this@TestPlanSurrogate._version),
       versionAlgorithm = this@TestPlanSurrogate.versionAlgorithm,
       name = R5String.of(this@TestPlanSurrogate.name, this@TestPlanSurrogate._name),
@@ -483,22 +478,22 @@ internal data class TestPlanSurrogate(
           this@TestPlanSurrogate._date,
         ),
       publisher = R5String.of(this@TestPlanSurrogate.publisher, this@TestPlanSurrogate._publisher),
-      contact = this@TestPlanSurrogate.contact ?: mutableListOf(),
+      contact = this@TestPlanSurrogate.contact ?: listOf(),
       description =
         Markdown.of(this@TestPlanSurrogate.description, this@TestPlanSurrogate._description),
-      useContext = this@TestPlanSurrogate.useContext ?: mutableListOf(),
-      jurisdiction = this@TestPlanSurrogate.jurisdiction ?: mutableListOf(),
+      useContext = this@TestPlanSurrogate.useContext ?: listOf(),
+      jurisdiction = this@TestPlanSurrogate.jurisdiction ?: listOf(),
       purpose = Markdown.of(this@TestPlanSurrogate.purpose, this@TestPlanSurrogate._purpose),
       copyright = Markdown.of(this@TestPlanSurrogate.copyright, this@TestPlanSurrogate._copyright),
       copyrightLabel =
         R5String.of(this@TestPlanSurrogate.copyrightLabel, this@TestPlanSurrogate._copyrightLabel),
-      category = this@TestPlanSurrogate.category ?: mutableListOf(),
-      scope = this@TestPlanSurrogate.scope ?: mutableListOf(),
+      category = this@TestPlanSurrogate.category ?: listOf(),
+      scope = this@TestPlanSurrogate.scope ?: listOf(),
       testTools = Markdown.of(this@TestPlanSurrogate.testTools, this@TestPlanSurrogate._testTools),
-      dependency = this@TestPlanSurrogate.dependency ?: mutableListOf(),
+      dependency = this@TestPlanSurrogate.dependency ?: listOf(),
       exitCriteria =
         Markdown.of(this@TestPlanSurrogate.exitCriteria, this@TestPlanSurrogate._exitCriteria),
-      testCase = this@TestPlanSurrogate.testCase ?: mutableListOf(),
+      testCase = this@TestPlanSurrogate.testCase ?: listOf(),
     )
 
   public companion object {

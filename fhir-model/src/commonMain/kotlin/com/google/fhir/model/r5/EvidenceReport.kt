@@ -28,7 +28,7 @@ import com.google.fhir.model.r5.serializers.EvidenceReportSubjectCharacteristicV
 import com.google.fhir.model.r5.serializers.EvidenceReportSubjectSerializer
 import com.google.fhir.model.r5.terminologies.PublicationStatus
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -48,12 +48,12 @@ public data class EvidenceReport(
    * like the create and conditional update. Otherwise, the use of the resouce id depends on the
    * given use case.
    */
-  override var id: kotlin.String? = null,
+  override val id: kotlin.String? = null,
   /**
    * The metadata about the resource. This is content that is maintained by the infrastructure.
    * Changes to the content might not always be associated with version changes to the resource.
    */
-  override var meta: Meta? = null,
+  override val meta: Meta? = null,
   /**
    * A reference to a set of rules that were followed when the resource was constructed, and which
    * must be understood when processing the content. Often, this is a reference to an implementation
@@ -67,7 +67,7 @@ public data class EvidenceReport(
    * to an implementation guide that defines these special rules as part of its narrative along with
    * other profiles, value sets, etc.
    */
-  override var implicitRules: Uri? = null,
+  override val implicitRules: Uri? = null,
   /**
    * The base language in which the resource is written.
    *
@@ -79,7 +79,7 @@ public data class EvidenceReport(
    * language is specified, it should it also be specified on the div element in the html (see rules
    * in HTML5 for information about the relationship between xml:lang and the html lang attribute).
    */
-  override var language: Code? = null,
+  override val language: Code? = null,
   /**
    * A human-readable narrative that contains a summary of the resource and can be used to represent
    * the content of the resource to a human. The narrative need not encode all the structured data,
@@ -93,7 +93,7 @@ public data class EvidenceReport(
    * legacy systems where information is captured as a "text blob" or where text is additionally
    * entered raw or narrated and encoded information is added later.
    */
-  override var text: Narrative? = null,
+  override val text: Narrative? = null,
   /**
    * These resources do not have an independent existence apart from the resource that contains
    * them - they cannot be identified independently, nor can they have their own independent
@@ -105,7 +105,7 @@ public data class EvidenceReport(
    * resources may have profiles and tags in their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: MutableList<Resource> = mutableListOf(),
+  override val contained: List<Resource> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and managable, there is a strict set of governance
@@ -118,7 +118,7 @@ public data class EvidenceReport(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: MutableList<Extension> = mutableListOf(),
+  override val extension: List<Extension> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -137,7 +137,7 @@ public data class EvidenceReport(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: MutableList<Extension> = mutableListOf(),
+  override val modifierExtension: List<Extension> = listOf(),
   /**
    * An absolute URI that is used to identify this EvidenceReport when it is referenced in a
    * specification, model, design or an instance; also called its canonical identifier. This SHOULD
@@ -148,7 +148,7 @@ public data class EvidenceReport(
    * Can be a urn:uuid: or a urn:oid: but real http: addresses are preferred. Multiple instances may
    * share the same URL if they have a distinct version.
    */
-  public var url: Uri? = null,
+  public val url: Uri? = null,
   /**
    * The status of this summary. Enables tracking the life-cycle of the content.
    *
@@ -157,7 +157,7 @@ public data class EvidenceReport(
    * See guidance around (not) making local changes to elements
    * [here](canonicalresource.html#localization).
    */
-  public var status: Enumeration<PublicationStatus>,
+  public val status: Enumeration<PublicationStatus>,
   /**
    * The content was developed with a focus and intent of supporting the contexts that are listed.
    * These contexts may be general categories (gender, age, ...) or may be references to specific
@@ -167,7 +167,7 @@ public data class EvidenceReport(
    * When multiple useContexts are specified, there is no expectation that all or any of the
    * contexts apply.
    */
-  public var useContext: MutableList<UsageContext> = mutableListOf(),
+  public val useContext: List<UsageContext> = listOf(),
   /**
    * A formal identifier that is used to identify this EvidenceReport when it is represented in
    * other formats, or referenced in a specification, model, design or an instance.
@@ -175,36 +175,36 @@ public data class EvidenceReport(
    * This element will contain unique identifiers that support de-duplication of EvidenceReports.
    * This identifier can be valid for only one EvidenceReport resource.
    */
-  public var identifier: MutableList<Identifier> = mutableListOf(),
+  public val identifier: List<Identifier> = listOf(),
   /**
    * A formal identifier that is used to identify things closely related to this EvidenceReport.
    *
    * May include trial registry identifiers, e.g. NCT04372602 from clinicaltrials.gov. This
    * identifier can be valid for multiple EvidenceReport resources.
    */
-  public var relatedIdentifier: MutableList<Identifier> = mutableListOf(),
+  public val relatedIdentifier: List<Identifier> = listOf(),
   /**
    * Citation Resource or display of suggested citation for this report.
    *
    * used for reports for which external citation is expected, such as use in support of scholarly
    * publications.
    */
-  public var citeAs: CiteAs? = null,
+  public val citeAs: CiteAs? = null,
   /**
    * Specifies the kind of report, such as grouping of classifiers, search results, or
    * human-compiled expression.
    */
-  public var type: CodeableConcept? = null,
+  public val type: CodeableConcept? = null,
   /** Used for footnotes and annotations. */
-  public var note: MutableList<Annotation> = mutableListOf(),
+  public val note: List<Annotation> = listOf(),
   /** Link, description or reference to artifact associated with the report. */
-  public var relatedArtifact: MutableList<RelatedArtifact> = mutableListOf(),
+  public val relatedArtifact: List<RelatedArtifact> = listOf(),
   /**
    * Specifies the subject or focus of the report. Answers "What is this report about?".
    *
    * May be used as an expression for search queries and search results
    */
-  public var subject: Subject,
+  public val subject: Subject,
   /**
    * The name of the organization or individual responsible for the release and ongoing maintenance
    * of the evidence report.
@@ -216,7 +216,7 @@ public data class EvidenceReport(
    * questions or issues with the evidence report. This item SHOULD be populated unless the
    * information is available from context.
    */
-  public var publisher: String? = null,
+  public val publisher: String? = null,
   /**
    * Contact details to assist a user in finding and communicating with the publisher.
    *
@@ -226,7 +226,7 @@ public data class EvidenceReport(
    * See guidance around (not) making local changes to elements
    * [here](canonicalresource.html#localization).
    */
-  public var contact: MutableList<ContactDetail> = mutableListOf(),
+  public val contact: List<ContactDetail> = listOf(),
   /**
    * An individiual, organization, or device primarily involved in the creation and maintenance of
    * the content.
@@ -234,7 +234,7 @@ public data class EvidenceReport(
    * Extensions to ContactDetail include: contactReference, contactAddress, and contributionTime
    * (see [Clinical Reasoning Module](clinicalreasoning-module.html)).
    */
-  public var author: MutableList<ContactDetail> = mutableListOf(),
+  public val author: List<ContactDetail> = listOf(),
   /**
    * An individiual, organization, or device primarily responsible for internal coherence of the
    * content.
@@ -242,7 +242,7 @@ public data class EvidenceReport(
    * Extensions to ContactDetail include: contactReference, contactAddress, and contributionTime
    * (see [Clinical Reasoning Module](clinicalreasoning-module.html)).
    */
-  public var editor: MutableList<ContactDetail> = mutableListOf(),
+  public val editor: List<ContactDetail> = listOf(),
   /**
    * An individiual, organization, or device primarily responsible for review of some aspect of the
    * content.
@@ -253,7 +253,7 @@ public data class EvidenceReport(
    * See guidance around (not) making local changes to elements
    * [here](canonicalresource.html#localization).
    */
-  public var reviewer: MutableList<ContactDetail> = mutableListOf(),
+  public val reviewer: List<ContactDetail> = listOf(),
   /**
    * An individiual, organization, or device responsible for officially endorsing the content for
    * use in some setting.
@@ -264,16 +264,16 @@ public data class EvidenceReport(
    * See guidance around (not) making local changes to elements
    * [here](canonicalresource.html#localization).
    */
-  public var endorser: MutableList<ContactDetail> = mutableListOf(),
+  public val endorser: List<ContactDetail> = listOf(),
   /**
    * Relationships that this composition has with other compositions or documents that already
    * exist.
    *
    * A document is a version specific composition.
    */
-  public var relatesTo: MutableList<RelatesTo> = mutableListOf(),
+  public val relatesTo: List<RelatesTo> = listOf(),
   /** The root of the sections that make up the composition. */
-  public var section: MutableList<Section> = mutableListOf(),
+  public val section: List<Section> = listOf(),
 ) : DomainResource() {
   /** Specifies the subject or focus of the report. Answers "What is this report about?". */
   @Serializable(with = EvidenceReportSubjectSerializer::class)
@@ -282,7 +282,7 @@ public data class EvidenceReport(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -295,7 +295,7 @@ public data class EvidenceReport(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -314,11 +314,11 @@ public data class EvidenceReport(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /** Characteristic. */
-    public var characteristic: MutableList<Characteristic> = mutableListOf(),
+    public val characteristic: List<Characteristic> = listOf(),
     /** Used for general notes and annotations not coded elsewhere. */
-    public var note: MutableList<Annotation> = mutableListOf(),
+    public val note: List<Annotation> = listOf(),
   ) : BackboneElement() {
     /** Characteristic. */
     @Serializable(with = EvidenceReportSubjectCharacteristicSerializer::class)
@@ -327,7 +327,7 @@ public data class EvidenceReport(
        * Unique id for the element within a resource (for internal references). This may be any
        * string value that does not contain spaces.
        */
-      override var id: kotlin.String? = null,
+      override val id: kotlin.String? = null,
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -340,7 +340,7 @@ public data class EvidenceReport(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: MutableList<Extension> = mutableListOf(),
+      override val extension: List<Extension> = listOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -359,24 +359,24 @@ public data class EvidenceReport(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: MutableList<Extension> = mutableListOf(),
+      override val modifierExtension: List<Extension> = listOf(),
       /**
        * Characteristic code.
        *
        * Example 1 is a Citation. Example 2 is a type of outcome. Example 3 is a specific outcome.
        */
-      public var code: CodeableConcept,
+      public val code: CodeableConcept,
       /**
        * Characteristic value.
        *
        * Example 1 is Citation #37. Example 2 is selecting clinical outcomes. Example 3 is 1-year
        * mortality.
        */
-      public var `value`: Value,
+      public val `value`: Value,
       /** Is used to express not the characteristic. */
-      public var exclude: Boolean? = null,
+      public val exclude: Boolean? = null,
       /** Timeframe for the characteristic. */
-      public var period: Period? = null,
+      public val period: Period? = null,
     ) : BackboneElement() {
       @Serializable(with = EvidenceReportSubjectCharacteristicValueSerializer::class)
       public sealed interface Value {
@@ -432,7 +432,7 @@ public data class EvidenceReport(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -445,7 +445,7 @@ public data class EvidenceReport(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -464,16 +464,16 @@ public data class EvidenceReport(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /**
      * The type of relationship that this composition has with anther composition or document.
      *
      * If this document appends another document, then the document cannot be fully understood
      * without also accessing the referenced document.
      */
-    public var code: Enumeration<ReportRelationshipType>,
+    public val code: Enumeration<ReportRelationshipType>,
     /** The target composition/document of this relationship. */
-    public var target: Target,
+    public val target: Target,
   ) : BackboneElement() {
     /** The target composition/document of this relationship. */
     @Serializable(with = EvidenceReportRelatesToTargetSerializer::class)
@@ -482,7 +482,7 @@ public data class EvidenceReport(
        * Unique id for the element within a resource (for internal references). This may be any
        * string value that does not contain spaces.
        */
-      override var id: kotlin.String? = null,
+      override val id: kotlin.String? = null,
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -495,7 +495,7 @@ public data class EvidenceReport(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: MutableList<Extension> = mutableListOf(),
+      override val extension: List<Extension> = listOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -514,15 +514,15 @@ public data class EvidenceReport(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: MutableList<Extension> = mutableListOf(),
+      override val modifierExtension: List<Extension> = listOf(),
       /** Target of the relationship URL. */
-      public var url: Uri? = null,
+      public val url: Uri? = null,
       /** Target of the relationship Identifier. */
-      public var identifier: Identifier? = null,
+      public val identifier: Identifier? = null,
       /** Target of the relationship Display. */
-      public var display: Markdown? = null,
+      public val display: Markdown? = null,
       /** Target of the relationship Resource reference. */
-      public var resource: Reference? = null,
+      public val resource: Reference? = null,
     ) : BackboneElement()
   }
 
@@ -533,7 +533,7 @@ public data class EvidenceReport(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -546,7 +546,7 @@ public data class EvidenceReport(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -565,7 +565,7 @@ public data class EvidenceReport(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /**
      * The label for this particular section. This will be part of the rendered content for the
      * document, and is often used to build a table of contents.
@@ -576,7 +576,7 @@ public data class EvidenceReport(
      * Typically, this is where a section has subsections that have their own adequately
      * distinguishing title, or documents that only have a single section.
      */
-    public var title: String? = null,
+    public val title: String? = null,
     /**
      * A code identifying the kind of content contained within the section. This should be
      * consistent with the section title.
@@ -588,17 +588,17 @@ public data class EvidenceReport(
      * meaning or interpretation of the resource that is the content of the section in the comments
      * for the section.code.
      */
-    public var focus: CodeableConcept? = null,
+    public val focus: CodeableConcept? = null,
     /**
      * A definitional Resource identifying the kind of content contained within the section. This
      * should be consistent with the section title.
      */
-    public var focusReference: Reference? = null,
+    public val focusReference: Reference? = null,
     /**
      * Identifies who is responsible for the information in this section, not necessarily who typed
      * it in.
      */
-    public var author: MutableList<Reference> = mutableListOf(),
+    public val author: List<Reference> = listOf(),
     /**
      * A human-readable narrative that contains the attested content of the section, used to
      * represent the content of the resource to a human. The narrative need not encode all the
@@ -607,7 +607,7 @@ public data class EvidenceReport(
      *
      * Document profiles may define what content should be represented in the narrative.
      */
-    public var text: Narrative? = null,
+    public val text: Narrative? = null,
     /**
      * How the entry list was prepared - whether it is a working list that is suitable for being
      * maintained on an ongoing basis, or if it represents a snapshot of a list of items from
@@ -617,7 +617,7 @@ public data class EvidenceReport(
      * This element is labeled as a modifier because a change list must not be misunderstood as a
      * complete list.
      */
-    public var mode: Enumeration<ListMode>? = null,
+    public val mode: Enumeration<ListMode>? = null,
     /**
      * Specifies the order applied to the items in the section entries.
      *
@@ -625,17 +625,17 @@ public data class EvidenceReport(
      * re-order based on their own preferences as well. If there is no order specified, the order is
      * unknown, though there may still be some order.
      */
-    public var orderedBy: CodeableConcept? = null,
+    public val orderedBy: CodeableConcept? = null,
     /** Specifies any type of classification of the evidence report. */
-    public var entryClassifier: MutableList<CodeableConcept> = mutableListOf(),
+    public val entryClassifier: List<CodeableConcept> = listOf(),
     /**
      * A reference to the actual resource from which the narrative in the section is derived.
      *
      * If there are no entries in the list, an emptyReason SHOULD be provided.
      */
-    public var entryReference: MutableList<Reference> = mutableListOf(),
+    public val entryReference: List<Reference> = listOf(),
     /** Quantity as content. */
-    public var entryQuantity: MutableList<Quantity> = mutableListOf(),
+    public val entryQuantity: List<Quantity> = listOf(),
     /**
      * If the section is empty, why the list is empty. An empty section typically has some text
      * explaining the empty reason.
@@ -645,14 +645,14 @@ public data class EvidenceReport(
      * suppressed, and not for when individual items are omitted - implementers may consider using a
      * text note or a flag on an entry in these cases.
      */
-    public var emptyReason: CodeableConcept? = null,
+    public val emptyReason: CodeableConcept? = null,
     /**
      * A nested sub-section within this section.
      *
      * Nested sections are primarily used to help human readers navigate to particular portions of
      * the document.
      */
-    public var section: MutableList<Section> = mutableListOf(),
+    public val section: List<Section> = listOf(),
   ) : BackboneElement()
 
   @Serializable(with = EvidenceReportCiteAsSerializer::class)

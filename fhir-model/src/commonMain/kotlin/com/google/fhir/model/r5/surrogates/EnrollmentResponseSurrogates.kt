@@ -37,7 +37,7 @@ import com.google.fhir.model.r5.serializers.DoubleSerializer
 import com.google.fhir.model.r5.serializers.LocalTimeSerializer
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
@@ -50,10 +50,10 @@ internal data class EnrollmentResponseSurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: MutableList<Resource>? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var identifier: MutableList<Identifier>? = null,
+  public var contained: List<Resource>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
+  public var identifier: List<Identifier>? = null,
   public var status: KotlinString? = null,
   public var _status: Element? = null,
   public var request: Reference? = null,
@@ -81,10 +81,10 @@ internal data class EnrollmentResponseSurrogate(
           this@EnrollmentResponseSurrogate._language,
         ),
       text = this@EnrollmentResponseSurrogate.text,
-      contained = this@EnrollmentResponseSurrogate.contained ?: mutableListOf(),
-      extension = this@EnrollmentResponseSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@EnrollmentResponseSurrogate.modifierExtension ?: mutableListOf(),
-      identifier = this@EnrollmentResponseSurrogate.identifier ?: mutableListOf(),
+      contained = this@EnrollmentResponseSurrogate.contained ?: listOf(),
+      extension = this@EnrollmentResponseSurrogate.extension ?: listOf(),
+      modifierExtension = this@EnrollmentResponseSurrogate.modifierExtension ?: listOf(),
+      identifier = this@EnrollmentResponseSurrogate.identifier ?: listOf(),
       status =
         this@EnrollmentResponseSurrogate.status?.let {
           Enumeration.of(

@@ -27,21 +27,21 @@ import com.google.fhir.model.r5.serializers.DoubleSerializer
 import com.google.fhir.model.r5.serializers.LocalTimeSerializer
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class CodeableReferenceSurrogate(
   public var id: String? = null,
-  public var extension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
   public var concept: CodeableConcept? = null,
   public var reference: Reference? = null,
 ) {
   public fun toModel(): CodeableReference =
     CodeableReference(
       id = this@CodeableReferenceSurrogate.id,
-      extension = this@CodeableReferenceSurrogate.extension ?: mutableListOf(),
+      extension = this@CodeableReferenceSurrogate.extension ?: listOf(),
       concept = this@CodeableReferenceSurrogate.concept,
       reference = this@CodeableReferenceSurrogate.reference,
     )

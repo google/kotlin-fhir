@@ -31,7 +31,7 @@ import com.google.fhir.model.r5.serializers.TestPlanTestCaseTestRunSerializer
 import com.google.fhir.model.r5.serializers.TestPlanVersionAlgorithmSerializer
 import com.google.fhir.model.r5.terminologies.PublicationStatus
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -47,12 +47,12 @@ public data class TestPlan(
    * like the create and conditional update. Otherwise, the use of the resouce id depends on the
    * given use case.
    */
-  override var id: kotlin.String? = null,
+  override val id: kotlin.String? = null,
   /**
    * The metadata about the resource. This is content that is maintained by the infrastructure.
    * Changes to the content might not always be associated with version changes to the resource.
    */
-  override var meta: Meta? = null,
+  override val meta: Meta? = null,
   /**
    * A reference to a set of rules that were followed when the resource was constructed, and which
    * must be understood when processing the content. Often, this is a reference to an implementation
@@ -66,7 +66,7 @@ public data class TestPlan(
    * to an implementation guide that defines these special rules as part of its narrative along with
    * other profiles, value sets, etc.
    */
-  override var implicitRules: Uri? = null,
+  override val implicitRules: Uri? = null,
   /**
    * The base language in which the resource is written.
    *
@@ -78,7 +78,7 @@ public data class TestPlan(
    * language is specified, it should it also be specified on the div element in the html (see rules
    * in HTML5 for information about the relationship between xml:lang and the html lang attribute).
    */
-  override var language: Code? = null,
+  override val language: Code? = null,
   /**
    * A human-readable narrative that contains a summary of the resource and can be used to represent
    * the content of the resource to a human. The narrative need not encode all the structured data,
@@ -92,7 +92,7 @@ public data class TestPlan(
    * legacy systems where information is captured as a "text blob" or where text is additionally
    * entered raw or narrated and encoded information is added later.
    */
-  override var text: Narrative? = null,
+  override val text: Narrative? = null,
   /**
    * These resources do not have an independent existence apart from the resource that contains
    * them - they cannot be identified independently, nor can they have their own independent
@@ -104,7 +104,7 @@ public data class TestPlan(
    * resources may have profiles and tags in their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: MutableList<Resource> = mutableListOf(),
+  override val contained: List<Resource> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and managable, there is a strict set of governance
@@ -117,7 +117,7 @@ public data class TestPlan(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: MutableList<Extension> = mutableListOf(),
+  override val extension: List<Extension> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -136,7 +136,7 @@ public data class TestPlan(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: MutableList<Extension> = mutableListOf(),
+  override val modifierExtension: List<Extension> = listOf(),
   /**
    * An absolute URI that is used to identify this test plan when it is referenced in a
    * specification, model, design or an instance; also called its canonical identifier. This SHOULD
@@ -155,7 +155,7 @@ public data class TestPlan(
    * change. Implementations can use the [meta.source](resource.html#meta) element to indicate where
    * the current master source of the resource can be found.
    */
-  public var url: Uri? = null,
+  public val url: Uri? = null,
   /**
    * A formal identifier that is used to identify this test plan when it is represented in other
    * formats, or referenced in a specification, model, design or an instance.
@@ -164,7 +164,7 @@ public data class TestPlan(
    * type, and can then identify this test plan outside of FHIR, where it is not possible to use the
    * logical URI.
    */
-  public var identifier: MutableList<Identifier> = mutableListOf(),
+  public val identifier: List<Identifier> = listOf(),
   /**
    * The identifier that is used to identify this version of the test plan when it is referenced in
    * a specification, model, design or instance. This is an arbitrary value managed by the test plan
@@ -177,7 +177,7 @@ public data class TestPlan(
    * particular business version of the test plan with the format [url]|[version]. The version
    * SHOULD NOT contain a '#' - see [Business Version](resource.html#bv-format).
    */
-  public var version: String? = null,
+  public val version: String? = null,
   /**
    * Indicates the mechanism used to compare versions to determine which is more current.
    *
@@ -186,7 +186,7 @@ public data class TestPlan(
    * positive number if version2 and a 0 if the version ordering can't be successfully be
    * determined.
    */
-  public var versionAlgorithm: VersionAlgorithm? = null,
+  public val versionAlgorithm: VersionAlgorithm? = null,
   /**
    * A natural language name identifying the test plan. This name should be usable as an identifier
    * for the module by machine processing applications such as code generation.
@@ -194,14 +194,14 @@ public data class TestPlan(
    * The name is not expected to be globally unique. The name should be a simple alphanumeric type
    * name to ensure that it is machine-processing friendly.
    */
-  public var name: String? = null,
+  public val name: String? = null,
   /**
    * A short, descriptive, user-friendly title for the test plan.
    *
    * This name does not need to be machine-processing friendly and may contain punctuation,
    * white-space, etc.
    */
-  public var title: String? = null,
+  public val title: String? = null,
   /**
    * The status of this test plan. Enables tracking the life-cycle of the content.
    *
@@ -210,14 +210,14 @@ public data class TestPlan(
    * See guidance around (not) making local changes to elements
    * [here](canonicalresource.html#localization).
    */
-  public var status: Enumeration<PublicationStatus>,
+  public val status: Enumeration<PublicationStatus>,
   /**
    * A Boolean value to indicate that this test plan is authored for testing purposes (or
    * education/evaluation/marketing) and is not intended to be used for genuine usage.
    *
    * Allows filtering of test plans that are appropriate for use versus not.
    */
-  public var experimental: Boolean? = null,
+  public val experimental: Boolean? = null,
   /**
    * The date (and optionally time) when the test plan was last significantly changed. The date must
    * change when the business version changes and it must change if the status code changes. In
@@ -231,7 +231,7 @@ public data class TestPlan(
    * See guidance around (not) making local changes to elements
    * [here](canonicalresource.html#localization).
    */
-  public var date: DateTime? = null,
+  public val date: DateTime? = null,
   /**
    * The name of the organization or individual responsible for the release and ongoing maintenance
    * of the test plan.
@@ -243,7 +243,7 @@ public data class TestPlan(
    * issues with the test plan. This item SHOULD be populated unless the information is available
    * from context.
    */
-  public var publisher: String? = null,
+  public val publisher: String? = null,
   /**
    * Contact details to assist a user in finding and communicating with the publisher.
    *
@@ -252,7 +252,7 @@ public data class TestPlan(
    * See guidance around (not) making local changes to elements
    * [here](canonicalresource.html#localization).
    */
-  public var contact: MutableList<ContactDetail> = mutableListOf(),
+  public val contact: List<ContactDetail> = listOf(),
   /**
    * A free text natural language description of the test plan from a consumer's perspective.
    *
@@ -263,7 +263,7 @@ public data class TestPlan(
    * language of the test plan is presumed to be the predominant language in the place the test plan
    * was created).
    */
-  public var description: Markdown? = null,
+  public val description: Markdown? = null,
   /**
    * The content was developed with a focus and intent of supporting the contexts that are listed.
    * These contexts may be general categories (gender, age, ...) or may be references to specific
@@ -273,7 +273,7 @@ public data class TestPlan(
    * When multiple useContexts are specified, there is no expectation that all or any of the
    * contexts apply.
    */
-  public var useContext: MutableList<UsageContext> = mutableListOf(),
+  public val useContext: List<UsageContext> = listOf(),
   /**
    * A legal or geographic region in which the test plan is intended to be used.
    *
@@ -285,7 +285,7 @@ public data class TestPlan(
    * http://terminology.hl7.org/CodeSystem/usage-context-type#jurisdiction and
    * useContext.valueCodeableConcept indicating the jurisdiction.)
    */
-  public var jurisdiction: MutableList<CodeableConcept> = mutableListOf(),
+  public val jurisdiction: List<CodeableConcept> = listOf(),
   /**
    * Explanation of why this test plan is needed and why it has been designed as it has.
    *
@@ -293,13 +293,13 @@ public data class TestPlan(
    * ''why'' the resource is either needed or ''why'' it is defined as it is. This may be used to
    * point to source materials or specifications that drove the structure of this test plan.
    */
-  public var purpose: Markdown? = null,
+  public val purpose: Markdown? = null,
   /**
    * A copyright statement relating to the test plan and/or its contents. Copyright statements are
    * generally legal restrictions on the use and publishing of the test plan. The short copyright
    * declaration (e.g. (c) '2015+ xyz organization' should be sent in the copyrightLabel element.
    */
-  public var copyright: Markdown? = null,
+  public val copyright: Markdown? = null,
   /**
    * A short string (<50 characters), suitable for inclusion in a page footer that identifies the
    * copyright holder, effective period, and optionally whether rights are resctricted. (e.g. 'All
@@ -309,24 +309,24 @@ public data class TestPlan(
    * rendering the notation. Full details about licensing, restrictions, warrantees, etc. goes in
    * the more general 'copyright' element.
    */
-  public var copyrightLabel: String? = null,
+  public val copyrightLabel: String? = null,
   /** The category of the Test Plan - can be acceptance, unit, performance, etc. */
-  public var category: MutableList<CodeableConcept> = mutableListOf(),
+  public val category: List<CodeableConcept> = listOf(),
   /**
    * What is being tested with this Test Plan - a conformance resource, or narrative criteria, or an
    * external reference...
    */
-  public var scope: MutableList<Reference> = mutableListOf(),
+  public val scope: List<Reference> = listOf(),
   /** A description of test tools to be used in the test plan. */
-  public var testTools: Markdown? = null,
+  public val testTools: Markdown? = null,
   /** The required criteria to execute the test plan - e.g. preconditions, previous tests... */
-  public var dependency: MutableList<Dependency> = mutableListOf(),
+  public val dependency: List<Dependency> = listOf(),
   /**
    * The threshold or criteria for the test plan to be considered successfully executed - narrative.
    */
-  public var exitCriteria: Markdown? = null,
+  public val exitCriteria: Markdown? = null,
   /** The individual test cases that are part of this plan, when they they are made explicit. */
-  public var testCase: MutableList<TestCase> = mutableListOf(),
+  public val testCase: List<TestCase> = listOf(),
 ) : DomainResource() {
   /** The required criteria to execute the test plan - e.g. preconditions, previous tests... */
   @Serializable(with = TestPlanDependencySerializer::class)
@@ -335,7 +335,7 @@ public data class TestPlan(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -348,7 +348,7 @@ public data class TestPlan(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -367,17 +367,17 @@ public data class TestPlan(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /**
      * A textual description of the criterium - what is needed for the dependency to be considered
      * met.
      */
-    public var description: Markdown? = null,
+    public val description: Markdown? = null,
     /**
      * Predecessor test plans - those that are expected to be successfully performed as a dependency
      * for the execution of this test plan.
      */
-    public var predecessor: Reference? = null,
+    public val predecessor: Reference? = null,
   ) : BackboneElement()
 
   /** The individual test cases that are part of this plan, when they they are made explicit. */
@@ -387,7 +387,7 @@ public data class TestPlan(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -400,7 +400,7 @@ public data class TestPlan(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -419,27 +419,27 @@ public data class TestPlan(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /**
      * Sequence of test case - an ordinal number that indicates the order for the present test case
      * in the test plan.
      */
-    public var sequence: Integer? = null,
+    public val sequence: Integer? = null,
     /**
      * The scope or artifact covered by the case, when the individual test case is associated with a
      * testable artifact.
      */
-    public var scope: MutableList<Reference> = mutableListOf(),
+    public val scope: List<Reference> = listOf(),
     /** The required criteria to execute the test case - e.g. preconditions, previous tests. */
-    public var dependency: MutableList<Dependency> = mutableListOf(),
+    public val dependency: List<Dependency> = listOf(),
     /** The actual test to be executed. */
-    public var testRun: MutableList<TestRun> = mutableListOf(),
+    public val testRun: List<TestRun> = listOf(),
     /** The test data used in the test case. */
-    public var testData: MutableList<TestData> = mutableListOf(),
+    public val testData: List<TestData> = listOf(),
     /**
      * The test assertions - the expectations of test results from the execution of the test case.
      */
-    public var assertion: MutableList<Assertion> = mutableListOf(),
+    public val assertion: List<Assertion> = listOf(),
   ) : BackboneElement() {
     /** The required criteria to execute the test case - e.g. preconditions, previous tests. */
     @Serializable(with = TestPlanTestCaseDependencySerializer::class)
@@ -448,7 +448,7 @@ public data class TestPlan(
        * Unique id for the element within a resource (for internal references). This may be any
        * string value that does not contain spaces.
        */
-      override var id: kotlin.String? = null,
+      override val id: kotlin.String? = null,
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -461,7 +461,7 @@ public data class TestPlan(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: MutableList<Extension> = mutableListOf(),
+      override val extension: List<Extension> = listOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -480,11 +480,11 @@ public data class TestPlan(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: MutableList<Extension> = mutableListOf(),
+      override val modifierExtension: List<Extension> = listOf(),
       /** Description of the criteria. */
-      public var description: Markdown? = null,
+      public val description: Markdown? = null,
       /** Link to predecessor test plans. */
-      public var predecessor: Reference? = null,
+      public val predecessor: Reference? = null,
     ) : BackboneElement()
 
     /** The actual test to be executed. */
@@ -494,7 +494,7 @@ public data class TestPlan(
        * Unique id for the element within a resource (for internal references). This may be any
        * string value that does not contain spaces.
        */
-      override var id: kotlin.String? = null,
+      override val id: kotlin.String? = null,
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -507,7 +507,7 @@ public data class TestPlan(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: MutableList<Extension> = mutableListOf(),
+      override val extension: List<Extension> = listOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -526,11 +526,11 @@ public data class TestPlan(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: MutableList<Extension> = mutableListOf(),
+      override val modifierExtension: List<Extension> = listOf(),
       /** The narrative description of the tests. */
-      public var narrative: Markdown? = null,
+      public val narrative: Markdown? = null,
       /** The test cases in a structured language e.g. gherkin, Postman, or FHIR TestScript. */
-      public var script: Script? = null,
+      public val script: Script? = null,
     ) : BackboneElement() {
       /** The test cases in a structured language e.g. gherkin, Postman, or FHIR TestScript. */
       @Serializable(with = TestPlanTestCaseTestRunScriptSerializer::class)
@@ -539,7 +539,7 @@ public data class TestPlan(
          * Unique id for the element within a resource (for internal references). This may be any
          * string value that does not contain spaces.
          */
-        override var id: kotlin.String? = null,
+        override val id: kotlin.String? = null,
         /**
          * May be used to represent additional information that is not part of the basic definition
          * of the element. To make the use of extensions safe and managable, there is a strict set
@@ -552,7 +552,7 @@ public data class TestPlan(
          * extensions. The use of extensions is what allows the FHIR specification to retain a core
          * level of simplicity for everyone.
          */
-        override var extension: MutableList<Extension> = mutableListOf(),
+        override val extension: List<Extension> = listOf(),
         /**
          * May be used to represent additional information that is not part of the basic definition
          * of the element and that modifies the understanding of the element in which it is
@@ -571,14 +571,14 @@ public data class TestPlan(
          * extensions. The use of extensions is what allows the FHIR specification to retain a core
          * level of simplicity for everyone.
          */
-        override var modifierExtension: MutableList<Extension> = mutableListOf(),
+        override val modifierExtension: List<Extension> = listOf(),
         /** The language for the test cases e.g. 'gherkin', 'testscript'. */
-        public var language: CodeableConcept? = null,
+        public val language: CodeableConcept? = null,
         /**
          * The actual content of the cases - references to TestScripts or externally defined
          * content.
          */
-        public var source: Source? = null,
+        public val source: Source? = null,
       ) : BackboneElement() {
         @Serializable(with = TestPlanTestCaseTestRunScriptSourceSerializer::class)
         public sealed interface Source {
@@ -612,7 +612,7 @@ public data class TestPlan(
        * Unique id for the element within a resource (for internal references). This may be any
        * string value that does not contain spaces.
        */
-      override var id: kotlin.String? = null,
+      override val id: kotlin.String? = null,
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -625,7 +625,7 @@ public data class TestPlan(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: MutableList<Extension> = mutableListOf(),
+      override val extension: List<Extension> = listOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -644,16 +644,16 @@ public data class TestPlan(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: MutableList<Extension> = mutableListOf(),
+      override val modifierExtension: List<Extension> = listOf(),
       /** The type of test data description, e.g. 'synthea'. */
-      public var type: Coding,
+      public val type: Coding,
       /** The actual test resources when they exist. */
-      public var content: Reference? = null,
+      public val content: Reference? = null,
       /**
        * Pointer to a definition of test resources - narrative or structured e.g. synthetic data
        * generation, etc.
        */
-      public var source: Source? = null,
+      public val source: Source? = null,
     ) : BackboneElement() {
       @Serializable(with = TestPlanTestCaseTestDataSourceSerializer::class)
       public sealed interface Source {
@@ -688,7 +688,7 @@ public data class TestPlan(
        * Unique id for the element within a resource (for internal references). This may be any
        * string value that does not contain spaces.
        */
-      override var id: kotlin.String? = null,
+      override val id: kotlin.String? = null,
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -701,7 +701,7 @@ public data class TestPlan(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: MutableList<Extension> = mutableListOf(),
+      override val extension: List<Extension> = listOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -720,16 +720,16 @@ public data class TestPlan(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: MutableList<Extension> = mutableListOf(),
+      override val modifierExtension: List<Extension> = listOf(),
       /**
        * The test assertion type - this can be used to group assertions as 'required' or 'optional',
        * or can be used for other classification of the assertion.
        */
-      public var type: MutableList<CodeableConcept> = mutableListOf(),
+      public val type: List<CodeableConcept> = listOf(),
       /** The focus or object of the assertion i.e. a resource. */
-      public var `object`: MutableList<CodeableReference> = mutableListOf(),
+      public val `object`: List<CodeableReference> = listOf(),
       /** The test assertion - the expected outcome from the test case execution. */
-      public var result: MutableList<CodeableReference> = mutableListOf(),
+      public val result: List<CodeableReference> = listOf(),
     ) : BackboneElement()
   }
 

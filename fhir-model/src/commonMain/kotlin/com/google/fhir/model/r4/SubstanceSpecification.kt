@@ -35,7 +35,7 @@ import com.google.fhir.model.r4.serializers.SubstanceSpecificationStructureIsoto
 import com.google.fhir.model.r4.serializers.SubstanceSpecificationStructureRepresentationSerializer
 import com.google.fhir.model.r4.serializers.SubstanceSpecificationStructureSerializer
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -53,12 +53,12 @@ public data class SubstanceSpecification(
    * The only time that a resource does not have an id is when it is being submitted to the server
    * using a create operation.
    */
-  override var id: kotlin.String? = null,
+  override val id: kotlin.String? = null,
   /**
    * The metadata about the resource. This is content that is maintained by the infrastructure.
    * Changes to the content might not always be associated with version changes to the resource.
    */
-  override var meta: Meta? = null,
+  override val meta: Meta? = null,
   /**
    * A reference to a set of rules that were followed when the resource was constructed, and which
    * must be understood when processing the content. Often, this is a reference to an implementation
@@ -72,7 +72,7 @@ public data class SubstanceSpecification(
    * to an implementation guide that defines these special rules as part of it's narrative along
    * with other profiles, value sets, etc.
    */
-  override var implicitRules: Uri? = null,
+  override val implicitRules: Uri? = null,
   /**
    * The base language in which the resource is written.
    *
@@ -84,7 +84,7 @@ public data class SubstanceSpecification(
    * language is specified, it should it also be specified on the div element in the html (see rules
    * in HTML5 for information about the relationship between xml:lang and the html lang attribute).
    */
-  override var language: com.google.fhir.model.r4.Code? = null,
+  override val language: com.google.fhir.model.r4.Code? = null,
   /**
    * A human-readable narrative that contains a summary of the resource and can be used to represent
    * the content of the resource to a human. The narrative need not encode all the structured data,
@@ -98,7 +98,7 @@ public data class SubstanceSpecification(
    * legacy systems where information is captured as a "text blob" or where text is additionally
    * entered raw or narrated and encoded information is added later.
    */
-  override var text: Narrative? = null,
+  override val text: Narrative? = null,
   /**
    * These resources do not have an independent existence apart from the resource that contains
    * them - they cannot be identified independently, and nor can they have their own independent
@@ -109,7 +109,7 @@ public data class SubstanceSpecification(
    * resources may have profiles and tags In their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: MutableList<Resource> = mutableListOf(),
+  override val contained: List<Resource> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and manageable, there is a strict set of
@@ -122,7 +122,7 @@ public data class SubstanceSpecification(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: MutableList<Extension> = mutableListOf(),
+  override val extension: List<Extension> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -141,45 +141,45 @@ public data class SubstanceSpecification(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: MutableList<Extension> = mutableListOf(),
+  override val modifierExtension: List<Extension> = listOf(),
   /** Identifier by which this substance is known. */
-  public var identifier: Identifier? = null,
+  public val identifier: Identifier? = null,
   /** High level categorization, e.g. polymer or nucleic acid. */
-  public var type: CodeableConcept? = null,
+  public val type: CodeableConcept? = null,
   /** Status of substance within the catalogue e.g. approved. */
-  public var status: CodeableConcept? = null,
+  public val status: CodeableConcept? = null,
   /** If the substance applies to only human or veterinary use. */
-  public var domain: CodeableConcept? = null,
+  public val domain: CodeableConcept? = null,
   /** Textual description of the substance. */
-  public var description: String? = null,
+  public val description: String? = null,
   /** Supporting literature. */
-  public var source: MutableList<Reference> = mutableListOf(),
+  public val source: List<Reference> = listOf(),
   /** Textual comment about this record of a substance. */
-  public var comment: String? = null,
+  public val comment: String? = null,
   /** Moiety, for structural modifications. */
-  public var moiety: MutableList<Moiety> = mutableListOf(),
+  public val moiety: List<Moiety> = listOf(),
   /** General specifications for this substance, including how it is related to other substances. */
-  public var `property`: MutableList<Property> = mutableListOf(),
+  public val `property`: List<Property> = listOf(),
   /** General information detailing this substance. */
-  public var referenceInformation: Reference? = null,
+  public val referenceInformation: Reference? = null,
   /** Structural information. */
-  public var structure: Structure? = null,
+  public val structure: Structure? = null,
   /** Codes associated with the substance. */
-  public var code: MutableList<Code> = mutableListOf(),
+  public val code: List<Code> = listOf(),
   /** Names applicable to this substance. */
-  public var name: MutableList<Name> = mutableListOf(),
+  public val name: List<Name> = listOf(),
   /** The molecular weight or weight range (for proteins, polymers or nucleic acids). */
-  public var molecularWeight: MutableList<Structure.Isotope.MolecularWeight> = mutableListOf(),
+  public val molecularWeight: List<Structure.Isotope.MolecularWeight> = listOf(),
   /** A link between this substance and another, with details of the relationship. */
-  public var relationship: MutableList<Relationship> = mutableListOf(),
+  public val relationship: List<Relationship> = listOf(),
   /** Data items specific to nucleic acids. */
-  public var nucleicAcid: Reference? = null,
+  public val nucleicAcid: Reference? = null,
   /** Data items specific to polymers. */
-  public var polymer: Reference? = null,
+  public val polymer: Reference? = null,
   /** Data items specific to proteins. */
-  public var protein: Reference? = null,
+  public val protein: Reference? = null,
   /** Material or taxonomic/anatomical source for the substance. */
-  public var sourceMaterial: Reference? = null,
+  public val sourceMaterial: Reference? = null,
 ) : DomainResource() {
   /** Moiety, for structural modifications. */
   @Serializable(with = SubstanceSpecificationMoietySerializer::class)
@@ -188,7 +188,7 @@ public data class SubstanceSpecification(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and manageable, there is a strict set of
@@ -201,7 +201,7 @@ public data class SubstanceSpecification(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -220,21 +220,21 @@ public data class SubstanceSpecification(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /** Role that the moiety is playing. */
-    public var role: CodeableConcept? = null,
+    public val role: CodeableConcept? = null,
     /** Identifier by which this moiety substance is known. */
-    public var identifier: Identifier? = null,
+    public val identifier: Identifier? = null,
     /** Textual name for this moiety substance. */
-    public var name: String? = null,
+    public val name: String? = null,
     /** Stereochemistry type. */
-    public var stereochemistry: CodeableConcept? = null,
+    public val stereochemistry: CodeableConcept? = null,
     /** Optical activity type. */
-    public var opticalActivity: CodeableConcept? = null,
+    public val opticalActivity: CodeableConcept? = null,
     /** Molecular formula. */
-    public var molecularFormula: String? = null,
+    public val molecularFormula: String? = null,
     /** Quantitative value for this moiety. */
-    public var amount: Amount? = null,
+    public val amount: Amount? = null,
   ) : BackboneElement() {
     @Serializable(with = SubstanceSpecificationMoietyAmountSerializer::class)
     public sealed interface Amount {
@@ -266,7 +266,7 @@ public data class SubstanceSpecification(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and manageable, there is a strict set of
@@ -279,7 +279,7 @@ public data class SubstanceSpecification(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -298,23 +298,23 @@ public data class SubstanceSpecification(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /** A category for this property, e.g. Physical, Chemical, Enzymatic. */
-    public var category: CodeableConcept? = null,
+    public val category: CodeableConcept? = null,
     /** Property type e.g. viscosity, pH, isoelectric point. */
-    public var code: CodeableConcept? = null,
+    public val code: CodeableConcept? = null,
     /**
      * Parameters that were used in the measurement of a property (e.g. for viscosity: measured at
      * 20C with a pH of 7.1).
      */
-    public var parameters: String? = null,
+    public val parameters: String? = null,
     /**
      * A substance upon which a defining property depends (e.g. for solubility: in water, in
      * alcohol).
      */
-    public var definingSubstance: DefiningSubstance? = null,
+    public val definingSubstance: DefiningSubstance? = null,
     /** Quantitative value for this property. */
-    public var amount: Amount? = null,
+    public val amount: Amount? = null,
   ) : BackboneElement() {
     @Serializable(with = SubstanceSpecificationPropertyDefiningSubstanceSerializer::class)
     public sealed interface DefiningSubstance {
@@ -371,7 +371,7 @@ public data class SubstanceSpecification(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and manageable, there is a strict set of
@@ -384,7 +384,7 @@ public data class SubstanceSpecification(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -403,28 +403,28 @@ public data class SubstanceSpecification(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /** Stereochemistry type. */
-    public var stereochemistry: CodeableConcept? = null,
+    public val stereochemistry: CodeableConcept? = null,
     /** Optical activity type. */
-    public var opticalActivity: CodeableConcept? = null,
+    public val opticalActivity: CodeableConcept? = null,
     /** Molecular formula. */
-    public var molecularFormula: String? = null,
+    public val molecularFormula: String? = null,
     /**
      * Specified per moiety according to the Hill system, i.e. first C, then H, then alphabetical,
      * each moiety separated by a dot.
      */
-    public var molecularFormulaByMoiety: String? = null,
+    public val molecularFormulaByMoiety: String? = null,
     /**
      * Applicable for single substances that contain a radionuclide or a non-natural isotopic ratio.
      */
-    public var isotope: MutableList<Isotope> = mutableListOf(),
+    public val isotope: List<Isotope> = listOf(),
     /** The molecular weight or weight range (for proteins, polymers or nucleic acids). */
-    public var molecularWeight: Isotope.MolecularWeight? = null,
+    public val molecularWeight: Isotope.MolecularWeight? = null,
     /** Supporting literature. */
-    public var source: MutableList<Reference> = mutableListOf(),
+    public val source: List<Reference> = listOf(),
     /** Molecular structural representation. */
-    public var representation: MutableList<Representation> = mutableListOf(),
+    public val representation: List<Representation> = listOf(),
   ) : BackboneElement() {
     /**
      * Applicable for single substances that contain a radionuclide or a non-natural isotopic ratio.
@@ -435,7 +435,7 @@ public data class SubstanceSpecification(
        * Unique id for the element within a resource (for internal references). This may be any
        * string value that does not contain spaces.
        */
-      override var id: kotlin.String? = null,
+      override val id: kotlin.String? = null,
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element. To make the use of extensions safe and manageable, there is a strict set of
@@ -448,7 +448,7 @@ public data class SubstanceSpecification(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: MutableList<Extension> = mutableListOf(),
+      override val extension: List<Extension> = listOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -467,17 +467,17 @@ public data class SubstanceSpecification(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: MutableList<Extension> = mutableListOf(),
+      override val modifierExtension: List<Extension> = listOf(),
       /** Substance identifier for each non-natural or radioisotope. */
-      public var identifier: Identifier? = null,
+      public val identifier: Identifier? = null,
       /** Substance name for each non-natural or radioisotope. */
-      public var name: CodeableConcept? = null,
+      public val name: CodeableConcept? = null,
       /** The type of isotopic substitution present in a single substance. */
-      public var substitution: CodeableConcept? = null,
+      public val substitution: CodeableConcept? = null,
       /** Half life - for a non-natural nuclide. */
-      public var halfLife: Quantity? = null,
+      public val halfLife: Quantity? = null,
       /** The molecular weight or weight range (for proteins, polymers or nucleic acids). */
-      public var molecularWeight: MolecularWeight? = null,
+      public val molecularWeight: MolecularWeight? = null,
     ) : BackboneElement() {
       /** The molecular weight or weight range (for proteins, polymers or nucleic acids). */
       @Serializable(with = SubstanceSpecificationStructureIsotopeMolecularWeightSerializer::class)
@@ -486,7 +486,7 @@ public data class SubstanceSpecification(
          * Unique id for the element within a resource (for internal references). This may be any
          * string value that does not contain spaces.
          */
-        override var id: kotlin.String? = null,
+        override val id: kotlin.String? = null,
         /**
          * May be used to represent additional information that is not part of the basic definition
          * of the element. To make the use of extensions safe and manageable, there is a strict set
@@ -499,7 +499,7 @@ public data class SubstanceSpecification(
          * extensions. The use of extensions is what allows the FHIR specification to retain a core
          * level of simplicity for everyone.
          */
-        override var extension: MutableList<Extension> = mutableListOf(),
+        override val extension: List<Extension> = listOf(),
         /**
          * May be used to represent additional information that is not part of the basic definition
          * of the element and that modifies the understanding of the element in which it is
@@ -518,20 +518,20 @@ public data class SubstanceSpecification(
          * extensions. The use of extensions is what allows the FHIR specification to retain a core
          * level of simplicity for everyone.
          */
-        override var modifierExtension: MutableList<Extension> = mutableListOf(),
+        override val modifierExtension: List<Extension> = listOf(),
         /** The method by which the molecular weight was determined. */
-        public var method: CodeableConcept? = null,
+        public val method: CodeableConcept? = null,
         /**
          * Type of molecular weight such as exact, average (also known as. number average), weight
          * average.
          */
-        public var type: CodeableConcept? = null,
+        public val type: CodeableConcept? = null,
         /**
          * Used to capture quantitative values for a variety of elements. If only limits are given,
          * the arithmetic mean would be the average. If only a single definite value for a given
          * element is given, it would be captured in this field.
          */
-        public var amount: Quantity? = null,
+        public val amount: Quantity? = null,
       ) : BackboneElement()
     }
 
@@ -542,7 +542,7 @@ public data class SubstanceSpecification(
        * Unique id for the element within a resource (for internal references). This may be any
        * string value that does not contain spaces.
        */
-      override var id: kotlin.String? = null,
+      override val id: kotlin.String? = null,
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element. To make the use of extensions safe and manageable, there is a strict set of
@@ -555,7 +555,7 @@ public data class SubstanceSpecification(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: MutableList<Extension> = mutableListOf(),
+      override val extension: List<Extension> = listOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -574,15 +574,15 @@ public data class SubstanceSpecification(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: MutableList<Extension> = mutableListOf(),
+      override val modifierExtension: List<Extension> = listOf(),
       /** The type of structure (e.g. Full, Partial, Representative). */
-      public var type: CodeableConcept? = null,
+      public val type: CodeableConcept? = null,
       /**
        * The structural representation as text string in a format e.g. InChI, SMILES, MOLFILE, CDX.
        */
-      public var representation: String? = null,
+      public val representation: String? = null,
       /** An attached file with the structural representation. */
-      public var attachment: Attachment? = null,
+      public val attachment: Attachment? = null,
     ) : BackboneElement()
   }
 
@@ -593,7 +593,7 @@ public data class SubstanceSpecification(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and manageable, there is a strict set of
@@ -606,7 +606,7 @@ public data class SubstanceSpecification(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -625,17 +625,17 @@ public data class SubstanceSpecification(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /** The specific code. */
-    public var code: CodeableConcept? = null,
+    public val code: CodeableConcept? = null,
     /** Status of the code assignment. */
-    public var status: CodeableConcept? = null,
+    public val status: CodeableConcept? = null,
     /** The date at which the code status is changed as part of the terminology maintenance. */
-    public var statusDate: DateTime? = null,
+    public val statusDate: DateTime? = null,
     /** Any comment can be provided in this field, if necessary. */
-    public var comment: String? = null,
+    public val comment: String? = null,
     /** Supporting literature. */
-    public var source: MutableList<Reference> = mutableListOf(),
+    public val source: List<Reference> = listOf(),
   ) : BackboneElement()
 
   /** Names applicable to this substance. */
@@ -645,7 +645,7 @@ public data class SubstanceSpecification(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and manageable, there is a strict set of
@@ -658,7 +658,7 @@ public data class SubstanceSpecification(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -677,32 +677,32 @@ public data class SubstanceSpecification(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /** The actual name. */
-    public var name: String,
+    public val name: String,
     /** Name type. */
-    public var type: CodeableConcept? = null,
+    public val type: CodeableConcept? = null,
     /** The status of the name. */
-    public var status: CodeableConcept? = null,
+    public val status: CodeableConcept? = null,
     /** If this is the preferred name for this substance. */
-    public var preferred: Boolean? = null,
+    public val preferred: Boolean? = null,
     /** Language of the name. */
-    public var language: MutableList<CodeableConcept> = mutableListOf(),
+    public val language: List<CodeableConcept> = listOf(),
     /**
      * The use context of this name for example if there is a different name a drug active
      * ingredient as opposed to a food colour additive.
      */
-    public var domain: MutableList<CodeableConcept> = mutableListOf(),
+    public val domain: List<CodeableConcept> = listOf(),
     /** The jurisdiction where this name applies. */
-    public var jurisdiction: MutableList<CodeableConcept> = mutableListOf(),
+    public val jurisdiction: List<CodeableConcept> = listOf(),
     /** A synonym of this name. */
-    public var synonym: MutableList<Name> = mutableListOf(),
+    public val synonym: List<Name> = listOf(),
     /** A translation for this name. */
-    public var translation: MutableList<Name> = mutableListOf(),
+    public val translation: List<Name> = listOf(),
     /** Details of the official nature of this name. */
-    public var official: MutableList<Official> = mutableListOf(),
+    public val official: List<Official> = listOf(),
     /** Supporting literature. */
-    public var source: MutableList<Reference> = mutableListOf(),
+    public val source: List<Reference> = listOf(),
   ) : BackboneElement() {
     /** Details of the official nature of this name. */
     @Serializable(with = SubstanceSpecificationNameOfficialSerializer::class)
@@ -711,7 +711,7 @@ public data class SubstanceSpecification(
        * Unique id for the element within a resource (for internal references). This may be any
        * string value that does not contain spaces.
        */
-      override var id: kotlin.String? = null,
+      override val id: kotlin.String? = null,
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element. To make the use of extensions safe and manageable, there is a strict set of
@@ -724,7 +724,7 @@ public data class SubstanceSpecification(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: MutableList<Extension> = mutableListOf(),
+      override val extension: List<Extension> = listOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -743,13 +743,13 @@ public data class SubstanceSpecification(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: MutableList<Extension> = mutableListOf(),
+      override val modifierExtension: List<Extension> = listOf(),
       /** Which authority uses this official name. */
-      public var authority: CodeableConcept? = null,
+      public val authority: CodeableConcept? = null,
       /** The status of the official name. */
-      public var status: CodeableConcept? = null,
+      public val status: CodeableConcept? = null,
       /** Date of official name change. */
-      public var date: DateTime? = null,
+      public val date: DateTime? = null,
     ) : BackboneElement()
   }
 
@@ -760,7 +760,7 @@ public data class SubstanceSpecification(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and manageable, there is a strict set of
@@ -773,7 +773,7 @@ public data class SubstanceSpecification(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -792,27 +792,27 @@ public data class SubstanceSpecification(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /** A pointer to another substance, as a resource or just a representational code. */
-    public var substance: Substance? = null,
+    public val substance: Substance? = null,
     /** For example "salt to parent", "active moiety", "starting material". */
-    public var relationship: CodeableConcept? = null,
+    public val relationship: CodeableConcept? = null,
     /**
      * For example where an enzyme strongly bonds with a particular substance, this is a defining
      * relationship for that enzyme, out of several possible substance relationships.
      */
-    public var isDefining: Boolean? = null,
+    public val isDefining: Boolean? = null,
     /**
      * A numeric factor for the relationship, for instance to express that the salt of a substance
      * has some percentage of the active substance in relation to some other.
      */
-    public var amount: Amount? = null,
+    public val amount: Amount? = null,
     /** For use when the numeric. */
-    public var amountRatioLowLimit: Ratio? = null,
+    public val amountRatioLowLimit: Ratio? = null,
     /** An operator for the amount, for example "average", "approximately", "less than". */
-    public var amountType: CodeableConcept? = null,
+    public val amountType: CodeableConcept? = null,
     /** Supporting literature. */
-    public var source: MutableList<Reference> = mutableListOf(),
+    public val source: List<Reference> = listOf(),
   ) : BackboneElement() {
     @Serializable(with = SubstanceSpecificationRelationshipSubstanceSerializer::class)
     public sealed interface Substance {

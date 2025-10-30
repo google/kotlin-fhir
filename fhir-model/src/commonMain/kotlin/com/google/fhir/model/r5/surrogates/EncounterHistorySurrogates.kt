@@ -40,24 +40,23 @@ import com.google.fhir.model.r5.serializers.DoubleSerializer
 import com.google.fhir.model.r5.serializers.LocalTimeSerializer
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class EncounterHistoryLocationSurrogate(
   public var id: String? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var location: Reference,
   public var form: CodeableConcept? = null,
 ) {
   public fun toModel(): EncounterHistory.Location =
     EncounterHistory.Location(
       id = this@EncounterHistoryLocationSurrogate.id,
-      extension = this@EncounterHistoryLocationSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@EncounterHistoryLocationSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@EncounterHistoryLocationSurrogate.extension ?: listOf(),
+      modifierExtension = this@EncounterHistoryLocationSurrogate.modifierExtension ?: listOf(),
       location = this@EncounterHistoryLocationSurrogate.location,
       form = this@EncounterHistoryLocationSurrogate.form,
     )
@@ -85,16 +84,16 @@ internal data class EncounterHistorySurrogate(
   public var language: String? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: MutableList<Resource>? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var contained: List<Resource>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var encounter: Reference? = null,
-  public var identifier: MutableList<Identifier>? = null,
+  public var identifier: List<Identifier>? = null,
   public var status: String? = null,
   public var _status: Element? = null,
   public var `class`: CodeableConcept,
-  public var type: MutableList<CodeableConcept>? = null,
-  public var serviceType: MutableList<CodeableReference>? = null,
+  public var type: List<CodeableConcept>? = null,
+  public var serviceType: List<CodeableReference>? = null,
   public var subject: Reference? = null,
   public var subjectStatus: CodeableConcept? = null,
   public var actualPeriod: Period? = null,
@@ -103,7 +102,7 @@ internal data class EncounterHistorySurrogate(
   public var plannedEndDate: String? = null,
   public var _plannedEndDate: Element? = null,
   public var length: Duration? = null,
-  public var location: MutableList<EncounterHistory.Location>? = null,
+  public var location: List<EncounterHistory.Location>? = null,
 ) {
   public fun toModel(): EncounterHistory =
     EncounterHistory(
@@ -117,19 +116,19 @@ internal data class EncounterHistorySurrogate(
       language =
         Code.of(this@EncounterHistorySurrogate.language, this@EncounterHistorySurrogate._language),
       text = this@EncounterHistorySurrogate.text,
-      contained = this@EncounterHistorySurrogate.contained ?: mutableListOf(),
-      extension = this@EncounterHistorySurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@EncounterHistorySurrogate.modifierExtension ?: mutableListOf(),
+      contained = this@EncounterHistorySurrogate.contained ?: listOf(),
+      extension = this@EncounterHistorySurrogate.extension ?: listOf(),
+      modifierExtension = this@EncounterHistorySurrogate.modifierExtension ?: listOf(),
       encounter = this@EncounterHistorySurrogate.encounter,
-      identifier = this@EncounterHistorySurrogate.identifier ?: mutableListOf(),
+      identifier = this@EncounterHistorySurrogate.identifier ?: listOf(),
       status =
         Enumeration.of(
           EncounterHistory.EncounterStatus.fromCode(this@EncounterHistorySurrogate.status!!),
           this@EncounterHistorySurrogate._status,
         ),
       `class` = this@EncounterHistorySurrogate.`class`,
-      type = this@EncounterHistorySurrogate.type ?: mutableListOf(),
-      serviceType = this@EncounterHistorySurrogate.serviceType ?: mutableListOf(),
+      type = this@EncounterHistorySurrogate.type ?: listOf(),
+      serviceType = this@EncounterHistorySurrogate.serviceType ?: listOf(),
       subject = this@EncounterHistorySurrogate.subject,
       subjectStatus = this@EncounterHistorySurrogate.subjectStatus,
       actualPeriod = this@EncounterHistorySurrogate.actualPeriod,
@@ -144,7 +143,7 @@ internal data class EncounterHistorySurrogate(
           this@EncounterHistorySurrogate._plannedEndDate,
         ),
       length = this@EncounterHistorySurrogate.length,
-      location = this@EncounterHistorySurrogate.location ?: mutableListOf(),
+      location = this@EncounterHistorySurrogate.location ?: listOf(),
     )
 
   public companion object {

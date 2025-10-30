@@ -39,26 +39,25 @@ import com.google.fhir.model.r5.serializers.DoubleSerializer
 import com.google.fhir.model.r5.serializers.LocalTimeSerializer
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class PermissionJustificationSurrogate(
   public var id: String? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var basis: MutableList<CodeableConcept>? = null,
-  public var evidence: MutableList<Reference>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
+  public var basis: List<CodeableConcept>? = null,
+  public var evidence: List<Reference>? = null,
 ) {
   public fun toModel(): Permission.Justification =
     Permission.Justification(
       id = this@PermissionJustificationSurrogate.id,
-      extension = this@PermissionJustificationSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@PermissionJustificationSurrogate.modifierExtension ?: mutableListOf(),
-      basis = this@PermissionJustificationSurrogate.basis ?: mutableListOf(),
-      evidence = this@PermissionJustificationSurrogate.evidence ?: mutableListOf(),
+      extension = this@PermissionJustificationSurrogate.extension ?: listOf(),
+      modifierExtension = this@PermissionJustificationSurrogate.modifierExtension ?: listOf(),
+      basis = this@PermissionJustificationSurrogate.basis ?: listOf(),
+      evidence = this@PermissionJustificationSurrogate.evidence ?: listOf(),
     )
 
   public companion object {
@@ -78,19 +77,19 @@ internal data class PermissionJustificationSurrogate(
 @Serializable
 internal data class PermissionRuleSurrogate(
   public var id: String? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var type: String? = null,
   public var _type: Element? = null,
-  public var `data`: MutableList<Permission.Rule.Data>? = null,
-  public var activity: MutableList<Permission.Rule.Activity>? = null,
-  public var limit: MutableList<CodeableConcept>? = null,
+  public var `data`: List<Permission.Rule.Data>? = null,
+  public var activity: List<Permission.Rule.Activity>? = null,
+  public var limit: List<CodeableConcept>? = null,
 ) {
   public fun toModel(): Permission.Rule =
     Permission.Rule(
       id = this@PermissionRuleSurrogate.id,
-      extension = this@PermissionRuleSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@PermissionRuleSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@PermissionRuleSurrogate.extension ?: listOf(),
+      modifierExtension = this@PermissionRuleSurrogate.modifierExtension ?: listOf(),
       type =
         this@PermissionRuleSurrogate.type?.let {
           Enumeration.of(
@@ -98,9 +97,9 @@ internal data class PermissionRuleSurrogate(
             this@PermissionRuleSurrogate._type,
           )
         },
-      `data` = this@PermissionRuleSurrogate.`data` ?: mutableListOf(),
-      activity = this@PermissionRuleSurrogate.activity ?: mutableListOf(),
-      limit = this@PermissionRuleSurrogate.limit ?: mutableListOf(),
+      `data` = this@PermissionRuleSurrogate.`data` ?: listOf(),
+      activity = this@PermissionRuleSurrogate.activity ?: listOf(),
+      limit = this@PermissionRuleSurrogate.limit ?: listOf(),
     )
 
   public companion object {
@@ -123,21 +122,21 @@ internal data class PermissionRuleSurrogate(
 @Serializable
 internal data class PermissionRuleDataSurrogate(
   public var id: String? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var resource: MutableList<Permission.Rule.Data.Resource>? = null,
-  public var security: MutableList<Coding>? = null,
-  public var period: MutableList<Period>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
+  public var resource: List<Permission.Rule.Data.Resource>? = null,
+  public var security: List<Coding>? = null,
+  public var period: List<Period>? = null,
   public var expression: Expression? = null,
 ) {
   public fun toModel(): Permission.Rule.Data =
     Permission.Rule.Data(
       id = this@PermissionRuleDataSurrogate.id,
-      extension = this@PermissionRuleDataSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@PermissionRuleDataSurrogate.modifierExtension ?: mutableListOf(),
-      resource = this@PermissionRuleDataSurrogate.resource ?: mutableListOf(),
-      security = this@PermissionRuleDataSurrogate.security ?: mutableListOf(),
-      period = this@PermissionRuleDataSurrogate.period ?: mutableListOf(),
+      extension = this@PermissionRuleDataSurrogate.extension ?: listOf(),
+      modifierExtension = this@PermissionRuleDataSurrogate.modifierExtension ?: listOf(),
+      resource = this@PermissionRuleDataSurrogate.resource ?: listOf(),
+      security = this@PermissionRuleDataSurrogate.security ?: listOf(),
+      period = this@PermissionRuleDataSurrogate.period ?: listOf(),
       expression = this@PermissionRuleDataSurrogate.expression,
     )
 
@@ -160,8 +159,8 @@ internal data class PermissionRuleDataSurrogate(
 @Serializable
 internal data class PermissionRuleDataResourceSurrogate(
   public var id: String? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var meaning: String? = null,
   public var _meaning: Element? = null,
   public var reference: Reference,
@@ -169,9 +168,8 @@ internal data class PermissionRuleDataResourceSurrogate(
   public fun toModel(): Permission.Rule.Data.Resource =
     Permission.Rule.Data.Resource(
       id = this@PermissionRuleDataResourceSurrogate.id,
-      extension = this@PermissionRuleDataResourceSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@PermissionRuleDataResourceSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@PermissionRuleDataResourceSurrogate.extension ?: listOf(),
+      modifierExtension = this@PermissionRuleDataResourceSurrogate.modifierExtension ?: listOf(),
       meaning =
         Enumeration.of(
           Permission.ConsentDataMeaning.fromCode(
@@ -202,20 +200,20 @@ internal data class PermissionRuleDataResourceSurrogate(
 @Serializable
 internal data class PermissionRuleActivitySurrogate(
   public var id: String? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var actor: MutableList<Reference>? = null,
-  public var action: MutableList<CodeableConcept>? = null,
-  public var purpose: MutableList<CodeableConcept>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
+  public var actor: List<Reference>? = null,
+  public var action: List<CodeableConcept>? = null,
+  public var purpose: List<CodeableConcept>? = null,
 ) {
   public fun toModel(): Permission.Rule.Activity =
     Permission.Rule.Activity(
       id = this@PermissionRuleActivitySurrogate.id,
-      extension = this@PermissionRuleActivitySurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@PermissionRuleActivitySurrogate.modifierExtension ?: mutableListOf(),
-      actor = this@PermissionRuleActivitySurrogate.actor ?: mutableListOf(),
-      action = this@PermissionRuleActivitySurrogate.action ?: mutableListOf(),
-      purpose = this@PermissionRuleActivitySurrogate.purpose ?: mutableListOf(),
+      extension = this@PermissionRuleActivitySurrogate.extension ?: listOf(),
+      modifierExtension = this@PermissionRuleActivitySurrogate.modifierExtension ?: listOf(),
+      actor = this@PermissionRuleActivitySurrogate.actor ?: listOf(),
+      action = this@PermissionRuleActivitySurrogate.action ?: listOf(),
+      purpose = this@PermissionRuleActivitySurrogate.purpose ?: listOf(),
     )
 
   public companion object {
@@ -242,19 +240,19 @@ internal data class PermissionSurrogate(
   public var language: String? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: MutableList<Resource>? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var contained: List<Resource>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var status: String? = null,
   public var _status: Element? = null,
   public var asserter: Reference? = null,
-  public var date: MutableList<String?>? = null,
-  public var _date: MutableList<Element?>? = null,
+  public var date: List<String?>? = null,
+  public var _date: List<Element?>? = null,
   public var validity: Period? = null,
   public var justification: Permission.Justification? = null,
   public var combining: String? = null,
   public var _combining: Element? = null,
-  public var rule: MutableList<Permission.Rule>? = null,
+  public var rule: List<Permission.Rule>? = null,
 ) {
   public fun toModel(): Permission =
     Permission(
@@ -264,9 +262,9 @@ internal data class PermissionSurrogate(
         Uri.of(this@PermissionSurrogate.implicitRules, this@PermissionSurrogate._implicitRules),
       language = Code.of(this@PermissionSurrogate.language, this@PermissionSurrogate._language),
       text = this@PermissionSurrogate.text,
-      contained = this@PermissionSurrogate.contained ?: mutableListOf(),
-      extension = this@PermissionSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@PermissionSurrogate.modifierExtension ?: mutableListOf(),
+      contained = this@PermissionSurrogate.contained ?: listOf(),
+      extension = this@PermissionSurrogate.extension ?: listOf(),
+      modifierExtension = this@PermissionSurrogate.modifierExtension ?: listOf(),
       status =
         Enumeration.of(
           Permission.PermissionStatus.fromCode(this@PermissionSurrogate.status!!),
@@ -275,14 +273,14 @@ internal data class PermissionSurrogate(
       asserter = this@PermissionSurrogate.asserter,
       date =
         if (this@PermissionSurrogate.date == null && this@PermissionSurrogate._date == null) {
-          mutableListOf()
+          listOf()
         } else {
           (this@PermissionSurrogate.date ?: List(this@PermissionSurrogate._date!!.size) { null })
             .zip(
               this@PermissionSurrogate._date ?: List(this@PermissionSurrogate.date!!.size) { null }
             )
             .map { (value, element) -> DateTime.of(FhirDateTime.fromString(value), element)!! }
-            .toMutableList()
+            .toList()
         },
       validity = this@PermissionSurrogate.validity,
       justification = this@PermissionSurrogate.justification,
@@ -291,7 +289,7 @@ internal data class PermissionSurrogate(
           Permission.PermissionRuleCombining.fromCode(this@PermissionSurrogate.combining!!),
           this@PermissionSurrogate._combining,
         ),
-      rule = this@PermissionSurrogate.rule ?: mutableListOf(),
+      rule = this@PermissionSurrogate.rule ?: listOf(),
     )
 
   public companion object {
@@ -314,14 +312,14 @@ internal data class PermissionSurrogate(
           date =
             this@with.date
               .map { it.value?.toString() }
-              .toMutableList()
+              .toList()
               .takeUnless { it.all { it == null } },
           _date =
             this@with.date
               .map { it.toElement() }
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
-              ?.toMutableList(),
+              ?.toList(),
           validity = this@with.validity,
           justification = this@with.justification,
           combining = this@with.combining.value?.getCode(),

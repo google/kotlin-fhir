@@ -29,7 +29,7 @@ import com.google.fhir.model.r5.serializers.SpecimenDefinitionTypeTestedSerializ
 import com.google.fhir.model.r5.serializers.SpecimenDefinitionVersionAlgorithmSerializer
 import com.google.fhir.model.r5.terminologies.PublicationStatus
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -45,12 +45,12 @@ public data class SpecimenDefinition(
    * like the create and conditional update. Otherwise, the use of the resouce id depends on the
    * given use case.
    */
-  override var id: kotlin.String? = null,
+  override val id: kotlin.String? = null,
   /**
    * The metadata about the resource. This is content that is maintained by the infrastructure.
    * Changes to the content might not always be associated with version changes to the resource.
    */
-  override var meta: Meta? = null,
+  override val meta: Meta? = null,
   /**
    * A reference to a set of rules that were followed when the resource was constructed, and which
    * must be understood when processing the content. Often, this is a reference to an implementation
@@ -64,7 +64,7 @@ public data class SpecimenDefinition(
    * to an implementation guide that defines these special rules as part of its narrative along with
    * other profiles, value sets, etc.
    */
-  override var implicitRules: Uri? = null,
+  override val implicitRules: Uri? = null,
   /**
    * The base language in which the resource is written.
    *
@@ -76,7 +76,7 @@ public data class SpecimenDefinition(
    * language is specified, it should it also be specified on the div element in the html (see rules
    * in HTML5 for information about the relationship between xml:lang and the html lang attribute).
    */
-  override var language: Code? = null,
+  override val language: Code? = null,
   /**
    * A human-readable narrative that contains a summary of the resource and can be used to represent
    * the content of the resource to a human. The narrative need not encode all the structured data,
@@ -90,7 +90,7 @@ public data class SpecimenDefinition(
    * legacy systems where information is captured as a "text blob" or where text is additionally
    * entered raw or narrated and encoded information is added later.
    */
-  override var text: Narrative? = null,
+  override val text: Narrative? = null,
   /**
    * These resources do not have an independent existence apart from the resource that contains
    * them - they cannot be identified independently, nor can they have their own independent
@@ -102,7 +102,7 @@ public data class SpecimenDefinition(
    * resources may have profiles and tags in their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: MutableList<Resource> = mutableListOf(),
+  override val contained: List<Resource> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and managable, there is a strict set of governance
@@ -115,7 +115,7 @@ public data class SpecimenDefinition(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: MutableList<Extension> = mutableListOf(),
+  override val extension: List<Extension> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -134,7 +134,7 @@ public data class SpecimenDefinition(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: MutableList<Extension> = mutableListOf(),
+  override val modifierExtension: List<Extension> = listOf(),
   /**
    * An absolute URL that is used to identify this SpecimenDefinition when it is referenced in a
    * specification, model, design or an instance. This SHALL be a URL, SHOULD be globally unique,
@@ -145,9 +145,9 @@ public data class SpecimenDefinition(
    * Can be a urn:uuid: or a urn:oid:, but real http: addresses are preferred. This is the URI that
    * will be used when making canonical references to this resource.
    */
-  public var url: Uri? = null,
+  public val url: Uri? = null,
   /** A business identifier assigned to this SpecimenDefinition. */
-  public var identifier: Identifier? = null,
+  public val identifier: Identifier? = null,
   /**
    * The identifier that is used to identify this version of the SpecimenDefinition when it is
    * referenced in a specification, model, design or instance. This is an arbitrary value managed by
@@ -156,7 +156,7 @@ public data class SpecimenDefinition(
    * There may be multiple different instances of a SpecimenDefinition that have the same identifier
    * but different versions.
    */
-  public var version: String? = null,
+  public val version: String? = null,
   /**
    * Indicates the mechanism used to compare versions to determine which is more current.
    *
@@ -165,7 +165,7 @@ public data class SpecimenDefinition(
    * positive number if version2 and a 0 if the version ordering can't be successfully be
    * determined.
    */
-  public var versionAlgorithm: VersionAlgorithm? = null,
+  public val versionAlgorithm: VersionAlgorithm? = null,
   /**
    * A natural language name identifying the {{title}}. This name should be usable as an identifier
    * for the module by machine processing applications such as code generation.
@@ -173,19 +173,19 @@ public data class SpecimenDefinition(
    * The name is not expected to be globally unique. The name should be a simple alphanumeric type
    * name to ensure that it is machine-processing friendly.
    */
-  public var name: String? = null,
+  public val name: String? = null,
   /** A short, descriptive, user-friendly title for the SpecimenDefinition. */
-  public var title: String? = null,
+  public val title: String? = null,
   /**
    * The canonical URL pointing to another FHIR-defined SpecimenDefinition that is adhered to in
    * whole or in part by this definition.
    */
-  public var derivedFromCanonical: MutableList<Canonical> = mutableListOf(),
+  public val derivedFromCanonical: List<Canonical> = listOf(),
   /**
    * The URL pointing to an externally-defined type of specimen, guideline or other definition that
    * is adhered to in whole or in part by this definition.
    */
-  public var derivedFromUri: MutableList<Uri> = mutableListOf(),
+  public val derivedFromUri: List<Uri> = listOf(),
   /**
    * The current state of theSpecimenDefinition.
    *
@@ -197,20 +197,20 @@ public data class SpecimenDefinition(
    * See guidance around (not) making local changes to elements
    * [here](canonicalresource.html#localization).
    */
-  public var status: Enumeration<PublicationStatus>,
+  public val status: Enumeration<PublicationStatus>,
   /**
    * A flag to indicate that this SpecimenDefinition is not authored for genuine usage.
    *
    * Allows filtering of SpecimenDefinition that are appropriate for use vs. not.
    */
-  public var experimental: Boolean? = null,
+  public val experimental: Boolean? = null,
   /**
    * A code or group definition that describes the intended subject from which this kind of specimen
    * is to be collected.
    *
    * Examples: person, animal, device, water ….
    */
-  public var subject: Subject? = null,
+  public val subject: Subject? = null,
   /**
    * For draft definitions, indicates the date of initial creation. For active definitions,
    * represents the date of activation. For withdrawn definitions, indicates the date of withdrawal.
@@ -218,12 +218,12 @@ public data class SpecimenDefinition(
    * See guidance around (not) making local changes to elements
    * [here](canonicalresource.html#localization).
    */
-  public var date: DateTime? = null,
+  public val date: DateTime? = null,
   /**
    * Helps establish the "authority/credibility" of the SpecimenDefinition. May also allow for
    * contact.
    */
-  public var publisher: String? = null,
+  public val publisher: String? = null,
   /**
    * Contact details to assist a user in finding and communicating with the publisher.
    *
@@ -232,7 +232,7 @@ public data class SpecimenDefinition(
    * See guidance around (not) making local changes to elements
    * [here](canonicalresource.html#localization).
    */
-  public var contact: MutableList<ContactDetail> = mutableListOf(),
+  public val contact: List<ContactDetail> = listOf(),
   /**
    * A free text natural language description of the SpecimenDefinition from the consumer's
    * perspective.
@@ -242,7 +242,7 @@ public data class SpecimenDefinition(
    * is not a rendering of the module as conveyed in the text field of the resource itself. This
    * item SHOULD be populated unless the information is available from context.
    */
-  public var description: Markdown? = null,
+  public val description: Markdown? = null,
   /**
    * The content was developed with a focus and intent of supporting the contexts that are listed.
    * These terms may be used to assist with indexing and searching of specimen definitions.
@@ -250,7 +250,7 @@ public data class SpecimenDefinition(
    * When multiple usageContexts are specified, there is no expectation for whether all or any of
    * the contexts apply.
    */
-  public var useContext: MutableList<UsageContext> = mutableListOf(),
+  public val useContext: List<UsageContext> = listOf(),
   /**
    * A jurisdiction in which the SpecimenDefinition is intended to be used.
    *
@@ -259,7 +259,7 @@ public data class SpecimenDefinition(
    * http://terminology.hl7.org/CodeSystem/usage-context-type#jurisdiction and
    * useContext.valueCodeableConcept indicating the jurisdiction.)
    */
-  public var jurisdiction: MutableList<CodeableConcept> = mutableListOf(),
+  public val jurisdiction: List<CodeableConcept> = listOf(),
   /**
    * Explains why this SpecimeDefinition is needed and why it has been designed as it has.
    *
@@ -268,13 +268,13 @@ public data class SpecimenDefinition(
    * may be used to point to source materials or specifications that drove the structure of this
    * SpecimenDefinition.
    */
-  public var purpose: Markdown? = null,
+  public val purpose: Markdown? = null,
   /**
    * Copyright statement relating to the SpecimenDefinition and/or its contents. Copyright
    * statements are generally legal restrictions on the use and publishing of the
    * SpecimenDefinition.
    */
-  public var copyright: Markdown? = null,
+  public val copyright: Markdown? = null,
   /**
    * A short string (<50 characters), suitable for inclusion in a page footer that identifies the
    * copyright holder, effective period, and optionally whether rights are resctricted. (e.g. 'All
@@ -284,7 +284,7 @@ public data class SpecimenDefinition(
    * rendering the notation. Full details about licensing, restrictions, warrantees, etc. goes in
    * the more general 'copyright' element.
    */
-  public var copyrightLabel: String? = null,
+  public val copyrightLabel: String? = null,
   /**
    * The date on which the asset content was approved by the publisher. Approval happens once when
    * the content is officially approved for usage.
@@ -295,7 +295,7 @@ public data class SpecimenDefinition(
    * See guidance around (not) making local changes to elements
    * [here](canonicalresource.html#localization).
    */
-  public var approvalDate: Date? = null,
+  public val approvalDate: Date? = null,
   /**
    * The date on which the asset content was last reviewed. Review happens periodically after that,
    * but doesn't change the original approval date.
@@ -305,7 +305,7 @@ public data class SpecimenDefinition(
    * See guidance around (not) making local changes to elements
    * [here](canonicalresource.html#localization).
    */
-  public var lastReviewDate: Date? = null,
+  public val lastReviewDate: Date? = null,
   /**
    * The period during which the SpecimenDefinition content was or is planned to be effective.
    *
@@ -315,17 +315,17 @@ public data class SpecimenDefinition(
    * See guidance around (not) making local changes to elements
    * [here](canonicalresource.html#localization).
    */
-  public var effectivePeriod: Period? = null,
+  public val effectivePeriod: Period? = null,
   /** The kind of material to be collected. */
-  public var typeCollected: CodeableConcept? = null,
+  public val typeCollected: CodeableConcept? = null,
   /** Preparation of the patient for specimen collection. */
-  public var patientPreparation: MutableList<CodeableConcept> = mutableListOf(),
+  public val patientPreparation: List<CodeableConcept> = listOf(),
   /** Time aspect of specimen collection (duration or offset). */
-  public var timeAspect: String? = null,
+  public val timeAspect: String? = null,
   /** The action to be performed for collecting the specimen. */
-  public var collection: MutableList<CodeableConcept> = mutableListOf(),
+  public val collection: List<CodeableConcept> = listOf(),
   /** Specimen conditioned in a container as expected by the testing laboratory. */
-  public var typeTested: MutableList<TypeTested> = mutableListOf(),
+  public val typeTested: List<TypeTested> = listOf(),
 ) : DomainResource() {
   /** Specimen conditioned in a container as expected by the testing laboratory. */
   @Serializable(with = SpecimenDefinitionTypeTestedSerializer::class)
@@ -334,7 +334,7 @@ public data class SpecimenDefinition(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -347,7 +347,7 @@ public data class SpecimenDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -366,33 +366,33 @@ public data class SpecimenDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /** Primary of secondary specimen. */
-    public var isDerived: Boolean? = null,
+    public val isDerived: Boolean? = null,
     /** The kind of specimen conditioned for testing expected by lab. */
-    public var type: CodeableConcept? = null,
+    public val type: CodeableConcept? = null,
     /** The preference for this type of conditioned specimen. */
-    public var preference: Enumeration<SpecimenContainedPreference>,
+    public val preference: Enumeration<SpecimenContainedPreference>,
     /** The specimen's container. */
-    public var container: Container? = null,
+    public val container: Container? = null,
     /** Requirements for delivery and special handling of this kind of conditioned specimen. */
-    public var requirement: Markdown? = null,
+    public val requirement: Markdown? = null,
     /**
      * The usual time that a specimen of this kind is retained after the ordered tests are
      * completed, for the purpose of additional testing.
      */
-    public var retentionTime: Duration? = null,
+    public val retentionTime: Duration? = null,
     /** Specimen can be used by only one test or panel if the value is "true". */
-    public var singleUse: Boolean? = null,
+    public val singleUse: Boolean? = null,
     /** Criterion for rejection of the specimen in its container by the laboratory. */
-    public var rejectionCriterion: MutableList<CodeableConcept> = mutableListOf(),
+    public val rejectionCriterion: List<CodeableConcept> = listOf(),
     /**
      * Set of instructions for preservation/transport of the specimen at a defined temperature
      * interval, prior the testing process.
      */
-    public var handling: MutableList<Handling> = mutableListOf(),
+    public val handling: List<Handling> = listOf(),
     /** Where the specimen will be tested: e.g., lab, sector, device or any combination of these. */
-    public var testingDestination: MutableList<CodeableConcept> = mutableListOf(),
+    public val testingDestination: List<CodeableConcept> = listOf(),
   ) : BackboneElement() {
     /** The specimen's container. */
     @Serializable(with = SpecimenDefinitionTypeTestedContainerSerializer::class)
@@ -401,7 +401,7 @@ public data class SpecimenDefinition(
        * Unique id for the element within a resource (for internal references). This may be any
        * string value that does not contain spaces.
        */
-      override var id: kotlin.String? = null,
+      override val id: kotlin.String? = null,
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -414,7 +414,7 @@ public data class SpecimenDefinition(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: MutableList<Extension> = mutableListOf(),
+      override val extension: List<Extension> = listOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -433,30 +433,30 @@ public data class SpecimenDefinition(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: MutableList<Extension> = mutableListOf(),
+      override val modifierExtension: List<Extension> = listOf(),
       /**
        * The type of material of the container.
        *
        * Examples: glass, plastic, metal.
        */
-      public var material: CodeableConcept? = null,
+      public val material: CodeableConcept? = null,
       /** The type of container used to contain this kind of specimen. */
-      public var type: CodeableConcept? = null,
+      public val type: CodeableConcept? = null,
       /** Color of container cap. */
-      public var cap: CodeableConcept? = null,
+      public val cap: CodeableConcept? = null,
       /** The textual description of the kind of container. */
-      public var description: Markdown? = null,
+      public val description: Markdown? = null,
       /** The capacity (volume or other measure) of this kind of container. */
-      public var capacity: Quantity? = null,
+      public val capacity: Quantity? = null,
       /** The minimum volume to be conditioned in the container. */
-      public var minimumVolume: MinimumVolume? = null,
+      public val minimumVolume: MinimumVolume? = null,
       /**
        * Substance introduced in the kind of container to preserve, maintain or enhance the
        * specimen. Examples: Formalin, Citrate, EDTA.
        */
-      public var additive: MutableList<Additive> = mutableListOf(),
+      public val additive: List<Additive> = listOf(),
       /** Special processing that should be applied to the container for this kind of specimen. */
-      public var preparation: Markdown? = null,
+      public val preparation: Markdown? = null,
     ) : BackboneElement() {
       /**
        * Substance introduced in the kind of container to preserve, maintain or enhance the
@@ -468,7 +468,7 @@ public data class SpecimenDefinition(
          * Unique id for the element within a resource (for internal references). This may be any
          * string value that does not contain spaces.
          */
-        override var id: kotlin.String? = null,
+        override val id: kotlin.String? = null,
         /**
          * May be used to represent additional information that is not part of the basic definition
          * of the element. To make the use of extensions safe and managable, there is a strict set
@@ -481,7 +481,7 @@ public data class SpecimenDefinition(
          * extensions. The use of extensions is what allows the FHIR specification to retain a core
          * level of simplicity for everyone.
          */
-        override var extension: MutableList<Extension> = mutableListOf(),
+        override val extension: List<Extension> = listOf(),
         /**
          * May be used to represent additional information that is not part of the basic definition
          * of the element and that modifies the understanding of the element in which it is
@@ -500,12 +500,12 @@ public data class SpecimenDefinition(
          * extensions. The use of extensions is what allows the FHIR specification to retain a core
          * level of simplicity for everyone.
          */
-        override var modifierExtension: MutableList<Extension> = mutableListOf(),
+        override val modifierExtension: List<Extension> = listOf(),
         /**
          * Substance introduced in the kind of container to preserve, maintain or enhance the
          * specimen. Examples: Formalin, Citrate, EDTA.
          */
-        public var additive: Additive,
+        public val additive: Additive,
       ) : BackboneElement() {
         @Serializable(with = SpecimenDefinitionTypeTestedContainerAdditiveAdditiveSerializer::class)
         public sealed interface Additive {
@@ -568,7 +568,7 @@ public data class SpecimenDefinition(
        * Unique id for the element within a resource (for internal references). This may be any
        * string value that does not contain spaces.
        */
-      override var id: kotlin.String? = null,
+      override val id: kotlin.String? = null,
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -581,7 +581,7 @@ public data class SpecimenDefinition(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: MutableList<Extension> = mutableListOf(),
+      override val extension: List<Extension> = listOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -600,21 +600,21 @@ public data class SpecimenDefinition(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: MutableList<Extension> = mutableListOf(),
+      override val modifierExtension: List<Extension> = listOf(),
       /**
        * It qualifies the interval of temperature, which characterizes an occurrence of handling.
        * Conditions that are not related to temperature may be handled in the instruction element.
        */
-      public var temperatureQualifier: CodeableConcept? = null,
+      public val temperatureQualifier: CodeableConcept? = null,
       /** The temperature interval for this set of handling instructions. */
-      public var temperatureRange: Range? = null,
+      public val temperatureRange: Range? = null,
       /** The maximum time interval of preservation of the specimen with these conditions. */
-      public var maxDuration: Duration? = null,
+      public val maxDuration: Duration? = null,
       /**
        * Additional textual instructions for the preservation or transport of the specimen. For
        * instance, 'Protect from light exposure'.
        */
-      public var instruction: Markdown? = null,
+      public val instruction: Markdown? = null,
     ) : BackboneElement()
   }
 

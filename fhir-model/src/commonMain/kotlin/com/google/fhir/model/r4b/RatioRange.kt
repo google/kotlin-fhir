@@ -21,7 +21,7 @@ package com.google.fhir.model.r4b
 import com.google.fhir.model.r4b.serializers.RatioRangeSerializer
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 
 /**
@@ -34,7 +34,7 @@ public data class RatioRange(
    * Unique id for the element within a resource (for internal references). This may be any string
    * value that does not contain spaces.
    */
-  override var id: String? = null,
+  override val id: String? = null,
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * element. To make the use of extensions safe and manageable, there is a strict set of governance
@@ -47,19 +47,19 @@ public data class RatioRange(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: MutableList<Extension> = mutableListOf(),
+  override val extension: List<Extension> = listOf(),
   /**
    * The value of the low limit numerator.
    *
    * If the low element is missing, the low boundary is not known.
    */
-  public var lowNumerator: Quantity? = null,
+  public val lowNumerator: Quantity? = null,
   /**
    * The value of the high limit numerator.
    *
    * If the high element is missing, the high boundary is not known.
    */
-  public var highNumerator: Quantity? = null,
+  public val highNumerator: Quantity? = null,
   /** The value of the denominator. */
-  public var denominator: Quantity? = null,
+  public val denominator: Quantity? = null,
 ) : Element()

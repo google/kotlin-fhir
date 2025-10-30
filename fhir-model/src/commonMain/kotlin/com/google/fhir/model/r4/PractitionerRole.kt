@@ -22,7 +22,7 @@ import com.google.fhir.model.r4.serializers.PractitionerRoleAvailableTimeSeriali
 import com.google.fhir.model.r4.serializers.PractitionerRoleNotAvailableSerializer
 import com.google.fhir.model.r4.serializers.PractitionerRoleSerializer
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -40,12 +40,12 @@ public data class PractitionerRole(
    * The only time that a resource does not have an id is when it is being submitted to the server
    * using a create operation.
    */
-  override var id: kotlin.String? = null,
+  override val id: kotlin.String? = null,
   /**
    * The metadata about the resource. This is content that is maintained by the infrastructure.
    * Changes to the content might not always be associated with version changes to the resource.
    */
-  override var meta: Meta? = null,
+  override val meta: Meta? = null,
   /**
    * A reference to a set of rules that were followed when the resource was constructed, and which
    * must be understood when processing the content. Often, this is a reference to an implementation
@@ -59,7 +59,7 @@ public data class PractitionerRole(
    * to an implementation guide that defines these special rules as part of it's narrative along
    * with other profiles, value sets, etc.
    */
-  override var implicitRules: Uri? = null,
+  override val implicitRules: Uri? = null,
   /**
    * The base language in which the resource is written.
    *
@@ -71,7 +71,7 @@ public data class PractitionerRole(
    * language is specified, it should it also be specified on the div element in the html (see rules
    * in HTML5 for information about the relationship between xml:lang and the html lang attribute).
    */
-  override var language: Code? = null,
+  override val language: Code? = null,
   /**
    * A human-readable narrative that contains a summary of the resource and can be used to represent
    * the content of the resource to a human. The narrative need not encode all the structured data,
@@ -85,7 +85,7 @@ public data class PractitionerRole(
    * legacy systems where information is captured as a "text blob" or where text is additionally
    * entered raw or narrated and encoded information is added later.
    */
-  override var text: Narrative? = null,
+  override val text: Narrative? = null,
   /**
    * These resources do not have an independent existence apart from the resource that contains
    * them - they cannot be identified independently, and nor can they have their own independent
@@ -96,7 +96,7 @@ public data class PractitionerRole(
    * resources may have profiles and tags In their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: MutableList<Resource> = mutableListOf(),
+  override val contained: List<Resource> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and manageable, there is a strict set of
@@ -109,7 +109,7 @@ public data class PractitionerRole(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: MutableList<Extension> = mutableListOf(),
+  override val extension: List<Extension> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -128,64 +128,64 @@ public data class PractitionerRole(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: MutableList<Extension> = mutableListOf(),
+  override val modifierExtension: List<Extension> = listOf(),
   /** Business Identifiers that are specific to a role/location. */
-  public var identifier: MutableList<Identifier> = mutableListOf(),
+  public val identifier: List<Identifier> = listOf(),
   /**
    * Whether this practitioner role record is in active use.
    *
    * If this value is false, you may refer to the period to see when the role was in active use. If
    * there is no period specified, no inference can be made about when it was active.
    */
-  public var active: Boolean? = null,
+  public val active: Boolean? = null,
   /**
    * The period during which the person is authorized to act as a practitioner in these role(s) for
    * the organization.
    */
-  public var period: Period? = null,
+  public val period: Period? = null,
   /** Practitioner that is able to provide the defined services for the organization. */
-  public var practitioner: Reference? = null,
+  public val practitioner: Reference? = null,
   /** The organization where the Practitioner performs the roles associated. */
-  public var organization: Reference? = null,
+  public val organization: Reference? = null,
   /**
    * Roles which this practitioner is authorized to perform for the organization.
    *
    * A person may have more than one role.
    */
-  public var code: MutableList<CodeableConcept> = mutableListOf(),
+  public val code: List<CodeableConcept> = listOf(),
   /** Specific specialty of the practitioner. */
-  public var specialty: MutableList<CodeableConcept> = mutableListOf(),
+  public val specialty: List<CodeableConcept> = listOf(),
   /** The location(s) at which this practitioner provides care. */
-  public var location: MutableList<Reference> = mutableListOf(),
+  public val location: List<Reference> = listOf(),
   /**
    * The list of healthcare services that this worker provides for this role's
    * Organization/Location(s).
    */
-  public var healthcareService: MutableList<Reference> = mutableListOf(),
+  public val healthcareService: List<Reference> = listOf(),
   /** Contact details that are specific to the role/location/service. */
-  public var telecom: MutableList<ContactPoint> = mutableListOf(),
+  public val telecom: List<ContactPoint> = listOf(),
   /**
    * A collection of times the practitioner is available or performing this role at the location
    * and/or healthcareservice.
    *
    * More detailed availability information may be provided in associated Schedule/Slot resources.
    */
-  public var availableTime: MutableList<AvailableTime> = mutableListOf(),
+  public val availableTime: List<AvailableTime> = listOf(),
   /**
    * The practitioner is not available or performing this role during this period of time due to the
    * provided reason.
    */
-  public var notAvailable: MutableList<NotAvailable> = mutableListOf(),
+  public val notAvailable: List<NotAvailable> = listOf(),
   /**
    * A description of site availability exceptions, e.g. public holiday availability. Succinctly
    * describing all possible exceptions to normal site availability as details in the available
    * Times and not available Times.
    */
-  public var availabilityExceptions: String? = null,
+  public val availabilityExceptions: String? = null,
   /**
    * Technical endpoints providing access to services operated for the practitioner with this role.
    */
-  public var endpoint: MutableList<Reference> = mutableListOf(),
+  public val endpoint: List<Reference> = listOf(),
 ) : DomainResource() {
   /**
    * A collection of times the practitioner is available or performing this role at the location
@@ -197,7 +197,7 @@ public data class PractitionerRole(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and manageable, there is a strict set of
@@ -210,7 +210,7 @@ public data class PractitionerRole(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -229,23 +229,23 @@ public data class PractitionerRole(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /** Indicates which days of the week are available between the start and end Times. */
-    public var daysOfWeek: MutableList<Enumeration<DaysOfWeek>> = mutableListOf(),
+    public val daysOfWeek: List<Enumeration<DaysOfWeek>> = listOf(),
     /** Is this always available? (hence times are irrelevant) e.g. 24 hour service. */
-    public var allDay: Boolean? = null,
+    public val allDay: Boolean? = null,
     /**
      * The opening time of day. Note: If the AllDay flag is set, then this time is ignored.
      *
      * The timezone is expected to be for where this HealthcareService is provided at.
      */
-    public var availableStartTime: Time? = null,
+    public val availableStartTime: Time? = null,
     /**
      * The closing time of day. Note: If the AllDay flag is set, then this time is ignored.
      *
      * The timezone is expected to be for where this HealthcareService is provided at.
      */
-    public var availableEndTime: Time? = null,
+    public val availableEndTime: Time? = null,
   ) : BackboneElement()
 
   /**
@@ -258,7 +258,7 @@ public data class PractitionerRole(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and manageable, there is a strict set of
@@ -271,7 +271,7 @@ public data class PractitionerRole(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -290,11 +290,11 @@ public data class PractitionerRole(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /** The reason that can be presented to the user as to why this time is not available. */
-    public var description: String,
+    public val description: String,
     /** Service is not available (seasonally or for a public holiday) from this date. */
-    public var during: Period? = null,
+    public val during: Period? = null,
   ) : BackboneElement()
 
   /** The days of the week. */

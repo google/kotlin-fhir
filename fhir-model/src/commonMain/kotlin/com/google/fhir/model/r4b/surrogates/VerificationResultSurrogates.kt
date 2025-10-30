@@ -41,34 +41,34 @@ import com.google.fhir.model.r4b.serializers.DoubleSerializer
 import com.google.fhir.model.r4b.serializers.LocalTimeSerializer
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class VerificationResultPrimarySourceSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var who: Reference? = null,
-  public var type: MutableList<CodeableConcept>? = null,
-  public var communicationMethod: MutableList<CodeableConcept>? = null,
+  public var type: List<CodeableConcept>? = null,
+  public var communicationMethod: List<CodeableConcept>? = null,
   public var validationStatus: CodeableConcept? = null,
   public var validationDate: KotlinString? = null,
   public var _validationDate: Element? = null,
   public var canPushUpdates: CodeableConcept? = null,
-  public var pushTypeAvailable: MutableList<CodeableConcept>? = null,
+  public var pushTypeAvailable: List<CodeableConcept>? = null,
 ) {
   public fun toModel(): VerificationResult.PrimarySource =
     VerificationResult.PrimarySource(
       id = this@VerificationResultPrimarySourceSurrogate.id,
-      extension = this@VerificationResultPrimarySourceSurrogate.extension ?: mutableListOf(),
+      extension = this@VerificationResultPrimarySourceSurrogate.extension ?: listOf(),
       modifierExtension =
-        this@VerificationResultPrimarySourceSurrogate.modifierExtension ?: mutableListOf(),
+        this@VerificationResultPrimarySourceSurrogate.modifierExtension ?: listOf(),
       who = this@VerificationResultPrimarySourceSurrogate.who,
-      type = this@VerificationResultPrimarySourceSurrogate.type ?: mutableListOf(),
+      type = this@VerificationResultPrimarySourceSurrogate.type ?: listOf(),
       communicationMethod =
-        this@VerificationResultPrimarySourceSurrogate.communicationMethod ?: mutableListOf(),
+        this@VerificationResultPrimarySourceSurrogate.communicationMethod ?: listOf(),
       validationStatus = this@VerificationResultPrimarySourceSurrogate.validationStatus,
       validationDate =
         DateTime.of(
@@ -77,7 +77,7 @@ internal data class VerificationResultPrimarySourceSurrogate(
         ),
       canPushUpdates = this@VerificationResultPrimarySourceSurrogate.canPushUpdates,
       pushTypeAvailable =
-        this@VerificationResultPrimarySourceSurrogate.pushTypeAvailable ?: mutableListOf(),
+        this@VerificationResultPrimarySourceSurrogate.pushTypeAvailable ?: listOf(),
     )
 
   public companion object {
@@ -105,8 +105,8 @@ internal data class VerificationResultPrimarySourceSurrogate(
 @Serializable
 internal data class VerificationResultAttestationSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var who: Reference? = null,
   public var onBehalfOf: Reference? = null,
   public var communicationMethod: CodeableConcept? = null,
@@ -122,9 +122,8 @@ internal data class VerificationResultAttestationSurrogate(
   public fun toModel(): VerificationResult.Attestation =
     VerificationResult.Attestation(
       id = this@VerificationResultAttestationSurrogate.id,
-      extension = this@VerificationResultAttestationSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@VerificationResultAttestationSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@VerificationResultAttestationSurrogate.extension ?: listOf(),
+      modifierExtension = this@VerificationResultAttestationSurrogate.modifierExtension ?: listOf(),
       who = this@VerificationResultAttestationSurrogate.who,
       onBehalfOf = this@VerificationResultAttestationSurrogate.onBehalfOf,
       communicationMethod = this@VerificationResultAttestationSurrogate.communicationMethod,
@@ -175,8 +174,8 @@ internal data class VerificationResultAttestationSurrogate(
 @Serializable
 internal data class VerificationResultValidatorSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var organization: Reference,
   public var identityCertificate: KotlinString? = null,
   public var _identityCertificate: Element? = null,
@@ -185,9 +184,8 @@ internal data class VerificationResultValidatorSurrogate(
   public fun toModel(): VerificationResult.Validator =
     VerificationResult.Validator(
       id = this@VerificationResultValidatorSurrogate.id,
-      extension = this@VerificationResultValidatorSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@VerificationResultValidatorSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@VerificationResultValidatorSurrogate.extension ?: listOf(),
+      modifierExtension = this@VerificationResultValidatorSurrogate.modifierExtension ?: listOf(),
       organization = this@VerificationResultValidatorSurrogate.organization,
       identityCertificate =
         R4bString.of(
@@ -224,28 +222,28 @@ internal data class VerificationResultSurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: MutableList<Resource>? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var target: MutableList<Reference>? = null,
-  public var targetLocation: MutableList<KotlinString?>? = null,
-  public var _targetLocation: MutableList<Element?>? = null,
+  public var contained: List<Resource>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
+  public var target: List<Reference>? = null,
+  public var targetLocation: List<KotlinString?>? = null,
+  public var _targetLocation: List<Element?>? = null,
   public var need: CodeableConcept? = null,
   public var status: KotlinString? = null,
   public var _status: Element? = null,
   public var statusDate: KotlinString? = null,
   public var _statusDate: Element? = null,
   public var validationType: CodeableConcept? = null,
-  public var validationProcess: MutableList<CodeableConcept>? = null,
+  public var validationProcess: List<CodeableConcept>? = null,
   public var frequency: Timing? = null,
   public var lastPerformed: KotlinString? = null,
   public var _lastPerformed: Element? = null,
   public var nextScheduled: KotlinString? = null,
   public var _nextScheduled: Element? = null,
   public var failureAction: CodeableConcept? = null,
-  public var primarySource: MutableList<VerificationResult.PrimarySource>? = null,
+  public var primarySource: List<VerificationResult.PrimarySource>? = null,
   public var attestation: VerificationResult.Attestation? = null,
-  public var validator: MutableList<VerificationResult.Validator>? = null,
+  public var validator: List<VerificationResult.Validator>? = null,
 ) {
   public fun toModel(): VerificationResult =
     VerificationResult(
@@ -262,16 +260,16 @@ internal data class VerificationResultSurrogate(
           this@VerificationResultSurrogate._language,
         ),
       text = this@VerificationResultSurrogate.text,
-      contained = this@VerificationResultSurrogate.contained ?: mutableListOf(),
-      extension = this@VerificationResultSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@VerificationResultSurrogate.modifierExtension ?: mutableListOf(),
-      target = this@VerificationResultSurrogate.target ?: mutableListOf(),
+      contained = this@VerificationResultSurrogate.contained ?: listOf(),
+      extension = this@VerificationResultSurrogate.extension ?: listOf(),
+      modifierExtension = this@VerificationResultSurrogate.modifierExtension ?: listOf(),
+      target = this@VerificationResultSurrogate.target ?: listOf(),
       targetLocation =
         if (
           this@VerificationResultSurrogate.targetLocation == null &&
             this@VerificationResultSurrogate._targetLocation == null
         ) {
-          mutableListOf()
+          listOf()
         } else {
           (this@VerificationResultSurrogate.targetLocation
               ?: List(this@VerificationResultSurrogate._targetLocation!!.size) { null })
@@ -280,7 +278,7 @@ internal data class VerificationResultSurrogate(
                 ?: List(this@VerificationResultSurrogate.targetLocation!!.size) { null }
             )
             .map { (value, element) -> R4bString.of(value, element)!! }
-            .toMutableList()
+            .toList()
         },
       need = this@VerificationResultSurrogate.need,
       status =
@@ -294,7 +292,7 @@ internal data class VerificationResultSurrogate(
           this@VerificationResultSurrogate._statusDate,
         ),
       validationType = this@VerificationResultSurrogate.validationType,
-      validationProcess = this@VerificationResultSurrogate.validationProcess ?: mutableListOf(),
+      validationProcess = this@VerificationResultSurrogate.validationProcess ?: listOf(),
       frequency = this@VerificationResultSurrogate.frequency,
       lastPerformed =
         DateTime.of(
@@ -307,9 +305,9 @@ internal data class VerificationResultSurrogate(
           this@VerificationResultSurrogate._nextScheduled,
         ),
       failureAction = this@VerificationResultSurrogate.failureAction,
-      primarySource = this@VerificationResultSurrogate.primarySource ?: mutableListOf(),
+      primarySource = this@VerificationResultSurrogate.primarySource ?: listOf(),
       attestation = this@VerificationResultSurrogate.attestation,
-      validator = this@VerificationResultSurrogate.validator ?: mutableListOf(),
+      validator = this@VerificationResultSurrogate.validator ?: listOf(),
     )
 
   public companion object {
@@ -328,16 +326,13 @@ internal data class VerificationResultSurrogate(
           modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           target = this@with.target.takeIf { it.isNotEmpty() },
           targetLocation =
-            this@with.targetLocation
-              .map { it.value }
-              .toMutableList()
-              .takeUnless { it.all { it == null } },
+            this@with.targetLocation.map { it.value }.toList().takeUnless { it.all { it == null } },
           _targetLocation =
             this@with.targetLocation
               .map { it.toElement() }
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
-              ?.toMutableList(),
+              ?.toList(),
           need = this@with.need,
           status = this@with.status.value?.getCode(),
           _status = this@with.status.toElement(),

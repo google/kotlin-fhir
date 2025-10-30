@@ -428,7 +428,7 @@ class SurrogateFileSpecGenerator(val codegenContext: CodegenContext) {
         if (element.typeIsEnumeratedCode(codegenContext.valueSetMap)) {
           val enumClass = element.getEnumClass(modelClassName, codegenContext.valueSetMap)
           add(
-            "if(this@%T.%N == null && this@%T.%N == null) { mutableListOf() } else { (this@%T.%N ?: List(this@%T.%N!!.size) { null }).zip(this@%T.%N ?: List(this@%T.%N!!.size) { null }).map{ (value, element) -> %T.of(value.let { %T.fromCode(it!!) }, element) }.toMutableList() }",
+            "if(this@%T.%N == null && this@%T.%N == null) { listOf() } else { (this@%T.%N ?: List(this@%T.%N!!.size) { null }).zip(this@%T.%N ?: List(this@%T.%N!!.size) { null }).map{ (value, element) -> %T.of(value.let { %T.fromCode(it!!) }, element) }.toList() }",
             surrogateClassName,
             propertyName,
             surrogateClassName,
@@ -446,7 +446,7 @@ class SurrogateFileSpecGenerator(val codegenContext: CodegenContext) {
           )
         } else {
           add(
-            "if(this@%T.%N == null && this@%T.%N == null) { mutableListOf() } else { (this@%T.%N ?: List(this@%T.%N!!.size) { null }).zip(this@%T.%N ?: List(this@%T.%N!!.size) { null }).map{ (value, element) -> %T.of(",
+            "if(this@%T.%N == null && this@%T.%N == null) { listOf() } else { (this@%T.%N ?: List(this@%T.%N!!.size) { null }).zip(this@%T.%N ?: List(this@%T.%N!!.size) { null }).map{ (value, element) -> %T.of(",
             surrogateClassName,
             propertyName,
             surrogateClassName,
@@ -466,11 +466,11 @@ class SurrogateFileSpecGenerator(val codegenContext: CodegenContext) {
             modelClassName.packageName,
             "value",
           )
-          add(", element)!! }.toMutableList() }")
+          add(", element)!! }.toList() }")
         }
       } else {
         // A list of complex type
-        add("this@%T.%N ?: mutableListOf()", surrogateClassName, propertyName)
+        add("this@%T.%N ?: listOf()", surrogateClassName, propertyName)
       }
     } else {
       // A single property - not a list or a choice of types
@@ -699,17 +699,17 @@ class SurrogateFileSpecGenerator(val codegenContext: CodegenContext) {
         val fhirPathType = FhirPathType.getFromFhirTypeCode(element.type?.single()?.code!!)!!
         if (element.typeIsEnumeratedCode(valueSetMap)) {
           add(
-            "%N = this@with.%N.map{ it.value?.getCode() }.toMutableList().takeUnless { it.all { it == null } },\n",
+            "%N = this@with.%N.map{ it.value?.getCode() }.toList().takeUnless { it.all { it == null } },\n",
             propertyName,
             propertyName,
           )
         } else {
           add("%N = this@with.%N.map{ it", propertyName, propertyName)
           fhirPathType.addCodeToConvertTypeInModelToTypeInSurrogate(this)
-          add(" }.toMutableList().takeUnless { it.all { it == null } },\n")
+          add(" }.toList().takeUnless { it.all { it == null } },\n")
         }
         add(
-          "%N = this@with.%N.map{ it.toElement() }.takeUnless { it.all { it == null } }?.map{ it ?: Element() }?.toMutableList(),\n",
+          "%N = this@with.%N.map{ it.toElement() }.takeUnless { it.all { it == null } }?.map{ it ?: Element() }?.toList(),\n",
           "_$propertyName",
           propertyName,
         )

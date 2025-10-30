@@ -57,20 +57,20 @@ import kotlin.Boolean as KotlinBoolean
 import kotlin.Int
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class EvidenceVariableCharacteristicSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var linkId: KotlinString? = null,
   public var _linkId: Element? = null,
   public var description: KotlinString? = null,
   public var _description: Element? = null,
-  public var note: MutableList<Annotation>? = null,
+  public var note: List<Annotation>? = null,
   public var exclude: KotlinBoolean? = null,
   public var _exclude: Element? = null,
   public var definitionReference: Reference? = null,
@@ -86,14 +86,14 @@ internal data class EvidenceVariableCharacteristicSurrogate(
     null,
   public var instances: EvidenceVariable.Characteristic.Instances? = null,
   public var duration: EvidenceVariable.Characteristic.Duration? = null,
-  public var timeFromEvent: MutableList<EvidenceVariable.Characteristic.TimeFromEvent>? = null,
+  public var timeFromEvent: List<EvidenceVariable.Characteristic.TimeFromEvent>? = null,
 ) {
   public fun toModel(): EvidenceVariable.Characteristic =
     EvidenceVariable.Characteristic(
       id = this@EvidenceVariableCharacteristicSurrogate.id,
-      extension = this@EvidenceVariableCharacteristicSurrogate.extension ?: mutableListOf(),
+      extension = this@EvidenceVariableCharacteristicSurrogate.extension ?: listOf(),
       modifierExtension =
-        this@EvidenceVariableCharacteristicSurrogate.modifierExtension ?: mutableListOf(),
+        this@EvidenceVariableCharacteristicSurrogate.modifierExtension ?: listOf(),
       linkId =
         Id.of(
           this@EvidenceVariableCharacteristicSurrogate.linkId,
@@ -104,7 +104,7 @@ internal data class EvidenceVariableCharacteristicSurrogate(
           this@EvidenceVariableCharacteristicSurrogate.description,
           this@EvidenceVariableCharacteristicSurrogate._description,
         ),
-      note = this@EvidenceVariableCharacteristicSurrogate.note ?: mutableListOf(),
+      note = this@EvidenceVariableCharacteristicSurrogate.note ?: listOf(),
       exclude =
         R5Boolean.of(
           this@EvidenceVariableCharacteristicSurrogate.exclude,
@@ -130,7 +130,7 @@ internal data class EvidenceVariableCharacteristicSurrogate(
         this@EvidenceVariableCharacteristicSurrogate.definitionByCombination,
       instances = this@EvidenceVariableCharacteristicSurrogate.instances,
       duration = this@EvidenceVariableCharacteristicSurrogate.duration,
-      timeFromEvent = this@EvidenceVariableCharacteristicSurrogate.timeFromEvent ?: mutableListOf(),
+      timeFromEvent = this@EvidenceVariableCharacteristicSurrogate.timeFromEvent ?: listOf(),
     )
 
   public companion object {
@@ -169,10 +169,10 @@ internal data class EvidenceVariableCharacteristicSurrogate(
 @Serializable
 internal data class EvidenceVariableCharacteristicDefinitionByTypeAndValueSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var type: CodeableConcept,
-  public var method: MutableList<CodeableConcept>? = null,
+  public var method: List<CodeableConcept>? = null,
   public var device: Reference? = null,
   public var `value`: EvidenceVariable.Characteristic.DefinitionByTypeAndValue.Value,
   public var offset: CodeableConcept? = null,
@@ -181,15 +181,13 @@ internal data class EvidenceVariableCharacteristicDefinitionByTypeAndValueSurrog
     EvidenceVariable.Characteristic.DefinitionByTypeAndValue(
       id = this@EvidenceVariableCharacteristicDefinitionByTypeAndValueSurrogate.id,
       extension =
-        this@EvidenceVariableCharacteristicDefinitionByTypeAndValueSurrogate.extension
-          ?: mutableListOf(),
+        this@EvidenceVariableCharacteristicDefinitionByTypeAndValueSurrogate.extension ?: listOf(),
       modifierExtension =
         this@EvidenceVariableCharacteristicDefinitionByTypeAndValueSurrogate.modifierExtension
-          ?: mutableListOf(),
+          ?: listOf(),
       type = this@EvidenceVariableCharacteristicDefinitionByTypeAndValueSurrogate.type,
       method =
-        this@EvidenceVariableCharacteristicDefinitionByTypeAndValueSurrogate.method
-          ?: mutableListOf(),
+        this@EvidenceVariableCharacteristicDefinitionByTypeAndValueSurrogate.method ?: listOf(),
       device = this@EvidenceVariableCharacteristicDefinitionByTypeAndValueSurrogate.device,
       `value` = this@EvidenceVariableCharacteristicDefinitionByTypeAndValueSurrogate.`value`,
       offset = this@EvidenceVariableCharacteristicDefinitionByTypeAndValueSurrogate.offset,
@@ -217,23 +215,22 @@ internal data class EvidenceVariableCharacteristicDefinitionByTypeAndValueSurrog
 @Serializable
 internal data class EvidenceVariableCharacteristicDefinitionByCombinationSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var code: KotlinString? = null,
   public var _code: Element? = null,
   public var threshold: Int? = null,
   public var _threshold: Element? = null,
-  public var characteristic: MutableList<EvidenceVariable.Characteristic>? = null,
+  public var characteristic: List<EvidenceVariable.Characteristic>? = null,
 ) {
   public fun toModel(): EvidenceVariable.Characteristic.DefinitionByCombination =
     EvidenceVariable.Characteristic.DefinitionByCombination(
       id = this@EvidenceVariableCharacteristicDefinitionByCombinationSurrogate.id,
       extension =
-        this@EvidenceVariableCharacteristicDefinitionByCombinationSurrogate.extension
-          ?: mutableListOf(),
+        this@EvidenceVariableCharacteristicDefinitionByCombinationSurrogate.extension ?: listOf(),
       modifierExtension =
         this@EvidenceVariableCharacteristicDefinitionByCombinationSurrogate.modifierExtension
-          ?: mutableListOf(),
+          ?: listOf(),
       code =
         Enumeration.of(
           EvidenceVariable.CharacteristicCombination.fromCode(
@@ -248,7 +245,7 @@ internal data class EvidenceVariableCharacteristicDefinitionByCombinationSurroga
         ),
       characteristic =
         this@EvidenceVariableCharacteristicDefinitionByCombinationSurrogate.characteristic
-          ?: mutableListOf(),
+          ?: listOf(),
     )
 
   public companion object {
@@ -273,11 +270,11 @@ internal data class EvidenceVariableCharacteristicDefinitionByCombinationSurroga
 @Serializable
 internal data class EvidenceVariableCharacteristicTimeFromEventSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var description: KotlinString? = null,
   public var _description: Element? = null,
-  public var note: MutableList<Annotation>? = null,
+  public var note: List<Annotation>? = null,
   public var event: EvidenceVariable.Characteristic.TimeFromEvent.Event? = null,
   public var quantity: Quantity? = null,
   public var range: Range? = null,
@@ -285,17 +282,15 @@ internal data class EvidenceVariableCharacteristicTimeFromEventSurrogate(
   public fun toModel(): EvidenceVariable.Characteristic.TimeFromEvent =
     EvidenceVariable.Characteristic.TimeFromEvent(
       id = this@EvidenceVariableCharacteristicTimeFromEventSurrogate.id,
-      extension =
-        this@EvidenceVariableCharacteristicTimeFromEventSurrogate.extension ?: mutableListOf(),
+      extension = this@EvidenceVariableCharacteristicTimeFromEventSurrogate.extension ?: listOf(),
       modifierExtension =
-        this@EvidenceVariableCharacteristicTimeFromEventSurrogate.modifierExtension
-          ?: mutableListOf(),
+        this@EvidenceVariableCharacteristicTimeFromEventSurrogate.modifierExtension ?: listOf(),
       description =
         Markdown.of(
           this@EvidenceVariableCharacteristicTimeFromEventSurrogate.description,
           this@EvidenceVariableCharacteristicTimeFromEventSurrogate._description,
         ),
-      note = this@EvidenceVariableCharacteristicTimeFromEventSurrogate.note ?: mutableListOf(),
+      note = this@EvidenceVariableCharacteristicTimeFromEventSurrogate.note ?: listOf(),
       event = this@EvidenceVariableCharacteristicTimeFromEventSurrogate.event,
       quantity = this@EvidenceVariableCharacteristicTimeFromEventSurrogate.quantity,
       range = this@EvidenceVariableCharacteristicTimeFromEventSurrogate.range,
@@ -324,8 +319,8 @@ internal data class EvidenceVariableCharacteristicTimeFromEventSurrogate(
 @Serializable
 internal data class EvidenceVariableCategorySurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var name: KotlinString? = null,
   public var _name: Element? = null,
   public var `value`: EvidenceVariable.Category.Value? = null,
@@ -333,9 +328,8 @@ internal data class EvidenceVariableCategorySurrogate(
   public fun toModel(): EvidenceVariable.Category =
     EvidenceVariable.Category(
       id = this@EvidenceVariableCategorySurrogate.id,
-      extension = this@EvidenceVariableCategorySurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@EvidenceVariableCategorySurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@EvidenceVariableCategorySurrogate.extension ?: listOf(),
+      modifierExtension = this@EvidenceVariableCategorySurrogate.modifierExtension ?: listOf(),
       name =
         R5String.of(
           this@EvidenceVariableCategorySurrogate.name,
@@ -561,12 +555,12 @@ internal data class EvidenceVariableSurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: MutableList<Resource>? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var contained: List<Resource>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var url: KotlinString? = null,
   public var _url: Element? = null,
-  public var identifier: MutableList<Identifier>? = null,
+  public var identifier: List<Identifier>? = null,
   public var version: KotlinString? = null,
   public var _version: Element? = null,
   public var versionAlgorithm: EvidenceVariable.VersionAlgorithm? = null,
@@ -584,11 +578,11 @@ internal data class EvidenceVariableSurrogate(
   public var _date: Element? = null,
   public var publisher: KotlinString? = null,
   public var _publisher: Element? = null,
-  public var contact: MutableList<ContactDetail>? = null,
+  public var contact: List<ContactDetail>? = null,
   public var description: KotlinString? = null,
   public var _description: Element? = null,
-  public var note: MutableList<Annotation>? = null,
-  public var useContext: MutableList<UsageContext>? = null,
+  public var note: List<Annotation>? = null,
+  public var useContext: List<UsageContext>? = null,
   public var purpose: KotlinString? = null,
   public var _purpose: Element? = null,
   public var copyright: KotlinString? = null,
@@ -600,17 +594,17 @@ internal data class EvidenceVariableSurrogate(
   public var lastReviewDate: KotlinString? = null,
   public var _lastReviewDate: Element? = null,
   public var effectivePeriod: Period? = null,
-  public var author: MutableList<ContactDetail>? = null,
-  public var editor: MutableList<ContactDetail>? = null,
-  public var reviewer: MutableList<ContactDetail>? = null,
-  public var endorser: MutableList<ContactDetail>? = null,
-  public var relatedArtifact: MutableList<RelatedArtifact>? = null,
+  public var author: List<ContactDetail>? = null,
+  public var editor: List<ContactDetail>? = null,
+  public var reviewer: List<ContactDetail>? = null,
+  public var endorser: List<ContactDetail>? = null,
+  public var relatedArtifact: List<RelatedArtifact>? = null,
   public var `actual`: KotlinBoolean? = null,
   public var _actual: Element? = null,
-  public var characteristic: MutableList<EvidenceVariable.Characteristic>? = null,
+  public var characteristic: List<EvidenceVariable.Characteristic>? = null,
   public var handling: KotlinString? = null,
   public var _handling: Element? = null,
-  public var category: MutableList<EvidenceVariable.Category>? = null,
+  public var category: List<EvidenceVariable.Category>? = null,
 ) {
   public fun toModel(): EvidenceVariable =
     EvidenceVariable(
@@ -624,11 +618,11 @@ internal data class EvidenceVariableSurrogate(
       language =
         Code.of(this@EvidenceVariableSurrogate.language, this@EvidenceVariableSurrogate._language),
       text = this@EvidenceVariableSurrogate.text,
-      contained = this@EvidenceVariableSurrogate.contained ?: mutableListOf(),
-      extension = this@EvidenceVariableSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@EvidenceVariableSurrogate.modifierExtension ?: mutableListOf(),
+      contained = this@EvidenceVariableSurrogate.contained ?: listOf(),
+      extension = this@EvidenceVariableSurrogate.extension ?: listOf(),
+      modifierExtension = this@EvidenceVariableSurrogate.modifierExtension ?: listOf(),
       url = Uri.of(this@EvidenceVariableSurrogate.url, this@EvidenceVariableSurrogate._url),
-      identifier = this@EvidenceVariableSurrogate.identifier ?: mutableListOf(),
+      identifier = this@EvidenceVariableSurrogate.identifier ?: listOf(),
       version =
         R5String.of(
           this@EvidenceVariableSurrogate.version,
@@ -663,14 +657,14 @@ internal data class EvidenceVariableSurrogate(
           this@EvidenceVariableSurrogate.publisher,
           this@EvidenceVariableSurrogate._publisher,
         ),
-      contact = this@EvidenceVariableSurrogate.contact ?: mutableListOf(),
+      contact = this@EvidenceVariableSurrogate.contact ?: listOf(),
       description =
         Markdown.of(
           this@EvidenceVariableSurrogate.description,
           this@EvidenceVariableSurrogate._description,
         ),
-      note = this@EvidenceVariableSurrogate.note ?: mutableListOf(),
-      useContext = this@EvidenceVariableSurrogate.useContext ?: mutableListOf(),
+      note = this@EvidenceVariableSurrogate.note ?: listOf(),
+      useContext = this@EvidenceVariableSurrogate.useContext ?: listOf(),
       purpose =
         Markdown.of(
           this@EvidenceVariableSurrogate.purpose,
@@ -697,17 +691,17 @@ internal data class EvidenceVariableSurrogate(
           this@EvidenceVariableSurrogate._lastReviewDate,
         ),
       effectivePeriod = this@EvidenceVariableSurrogate.effectivePeriod,
-      author = this@EvidenceVariableSurrogate.author ?: mutableListOf(),
-      editor = this@EvidenceVariableSurrogate.editor ?: mutableListOf(),
-      reviewer = this@EvidenceVariableSurrogate.reviewer ?: mutableListOf(),
-      endorser = this@EvidenceVariableSurrogate.endorser ?: mutableListOf(),
-      relatedArtifact = this@EvidenceVariableSurrogate.relatedArtifact ?: mutableListOf(),
+      author = this@EvidenceVariableSurrogate.author ?: listOf(),
+      editor = this@EvidenceVariableSurrogate.editor ?: listOf(),
+      reviewer = this@EvidenceVariableSurrogate.reviewer ?: listOf(),
+      endorser = this@EvidenceVariableSurrogate.endorser ?: listOf(),
+      relatedArtifact = this@EvidenceVariableSurrogate.relatedArtifact ?: listOf(),
       `actual` =
         R5Boolean.of(
           this@EvidenceVariableSurrogate.`actual`,
           this@EvidenceVariableSurrogate._actual,
         ),
-      characteristic = this@EvidenceVariableSurrogate.characteristic ?: mutableListOf(),
+      characteristic = this@EvidenceVariableSurrogate.characteristic ?: listOf(),
       handling =
         this@EvidenceVariableSurrogate.handling?.let {
           Enumeration.of(
@@ -715,7 +709,7 @@ internal data class EvidenceVariableSurrogate(
             this@EvidenceVariableSurrogate._handling,
           )
         },
-      category = this@EvidenceVariableSurrogate.category ?: mutableListOf(),
+      category = this@EvidenceVariableSurrogate.category ?: listOf(),
     )
 
   public companion object {

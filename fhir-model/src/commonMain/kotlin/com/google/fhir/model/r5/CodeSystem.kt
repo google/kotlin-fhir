@@ -28,7 +28,7 @@ import com.google.fhir.model.r5.serializers.CodeSystemSerializer
 import com.google.fhir.model.r5.serializers.CodeSystemVersionAlgorithmSerializer
 import com.google.fhir.model.r5.terminologies.PublicationStatus
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -47,12 +47,12 @@ public data class CodeSystem(
    * like the create and conditional update. Otherwise, the use of the resouce id depends on the
    * given use case.
    */
-  override var id: kotlin.String? = null,
+  override val id: kotlin.String? = null,
   /**
    * The metadata about the resource. This is content that is maintained by the infrastructure.
    * Changes to the content might not always be associated with version changes to the resource.
    */
-  override var meta: Meta? = null,
+  override val meta: Meta? = null,
   /**
    * A reference to a set of rules that were followed when the resource was constructed, and which
    * must be understood when processing the content. Often, this is a reference to an implementation
@@ -66,7 +66,7 @@ public data class CodeSystem(
    * to an implementation guide that defines these special rules as part of its narrative along with
    * other profiles, value sets, etc.
    */
-  override var implicitRules: Uri? = null,
+  override val implicitRules: Uri? = null,
   /**
    * The base language in which the resource is written.
    *
@@ -78,7 +78,7 @@ public data class CodeSystem(
    * language is specified, it should it also be specified on the div element in the html (see rules
    * in HTML5 for information about the relationship between xml:lang and the html lang attribute).
    */
-  override var language: Code? = null,
+  override val language: Code? = null,
   /**
    * A human-readable narrative that contains a summary of the resource and can be used to represent
    * the content of the resource to a human. The narrative need not encode all the structured data,
@@ -92,7 +92,7 @@ public data class CodeSystem(
    * legacy systems where information is captured as a "text blob" or where text is additionally
    * entered raw or narrated and encoded information is added later.
    */
-  override var text: Narrative? = null,
+  override val text: Narrative? = null,
   /**
    * These resources do not have an independent existence apart from the resource that contains
    * them - they cannot be identified independently, nor can they have their own independent
@@ -104,7 +104,7 @@ public data class CodeSystem(
    * resources may have profiles and tags in their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: MutableList<Resource> = mutableListOf(),
+  override val contained: List<Resource> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and managable, there is a strict set of governance
@@ -117,7 +117,7 @@ public data class CodeSystem(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: MutableList<Extension> = mutableListOf(),
+  override val extension: List<Extension> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -136,7 +136,7 @@ public data class CodeSystem(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: MutableList<Extension> = mutableListOf(),
+  override val modifierExtension: List<Extension> = listOf(),
   /**
    * An absolute URI that is used to identify this code system when it is referenced in a
    * specification, model, design or an instance; also called its canonical identifier. This SHOULD
@@ -156,7 +156,7 @@ public data class CodeSystem(
    * change. Implementations can use the [meta.source](resource.html#meta) element to indicate where
    * the current master source of the resource can be found.
    */
-  public var url: Uri? = null,
+  public val url: Uri? = null,
   /**
    * A formal identifier that is used to identify this code system when it is represented in other
    * formats, or referenced in a specification, model, design or an instance.
@@ -166,7 +166,7 @@ public data class CodeSystem(
    * the logical URI. Note that HL7 defines at least three identifiers for many of its code
    * systems - the FHIR canonical URL, the OID and the V2 Table 0396 mnemonic code.
    */
-  public var identifier: MutableList<Identifier> = mutableListOf(),
+  public val identifier: List<Identifier> = listOf(),
   /**
    * The identifier that is used to identify this version of the code system when it is referenced
    * in a specification, model, design or instance. This is an arbitrary value managed by the code
@@ -180,7 +180,7 @@ public data class CodeSystem(
    * particular business version of the code system with the format [url]|[version]. The version
    * SHOULD NOT contain a '#' - see [Business Version](resource.html#bv-format).
    */
-  public var version: String? = null,
+  public val version: String? = null,
   /**
    * Indicates the mechanism used to compare versions to determine which CodeSystem is more current.
    *
@@ -189,7 +189,7 @@ public data class CodeSystem(
    * positive number if version2 and a 0 if the version ordering can't be successfully be
    * determined.
    */
-  public var versionAlgorithm: VersionAlgorithm? = null,
+  public val versionAlgorithm: VersionAlgorithm? = null,
   /**
    * A natural language name identifying the code system. This name should be usable as an
    * identifier for the module by machine processing applications such as code generation.
@@ -197,14 +197,14 @@ public data class CodeSystem(
    * The name is not expected to be globally unique. The name should be a simple alphanumeric type
    * name to ensure that it is machine-processing friendly.
    */
-  public var name: String? = null,
+  public val name: String? = null,
   /**
    * A short, descriptive, user-friendly title for the code system.
    *
    * This name does not need to be machine-processing friendly and may contain punctuation,
    * white-space, etc.
    */
-  public var title: String? = null,
+  public val title: String? = null,
   /**
    * The status of this code system. Enables tracking the life-cycle of the content.
    *
@@ -213,14 +213,14 @@ public data class CodeSystem(
    * See guidance around (not) making local changes to elements
    * [here](canonicalresource.html#localization).
    */
-  public var status: Enumeration<PublicationStatus>,
+  public val status: Enumeration<PublicationStatus>,
   /**
    * A Boolean value to indicate that this code system is authored for testing purposes (or
    * education/evaluation/marketing) and is not intended to be used for genuine usage.
    *
    * Allows filtering of code systems that are appropriate for use versus not.
    */
-  public var experimental: Boolean? = null,
+  public val experimental: Boolean? = null,
   /**
    * The date (and optionally time) when the code system was last significantly changed. The date
    * must change when the business version changes and it must change if the status code changes. In
@@ -234,7 +234,7 @@ public data class CodeSystem(
    * See guidance around (not) making local changes to elements
    * [here](canonicalresource.html#localization).
    */
-  public var date: DateTime? = null,
+  public val date: DateTime? = null,
   /**
    * The name of the organization or individual responsible for the release and ongoing maintenance
    * of the code system.
@@ -246,7 +246,7 @@ public data class CodeSystem(
    * issues with the code system. This item SHOULD be populated unless the information is available
    * from context.
    */
-  public var publisher: String? = null,
+  public val publisher: String? = null,
   /**
    * Contact details to assist a user in finding and communicating with the publisher.
    *
@@ -255,7 +255,7 @@ public data class CodeSystem(
    * See guidance around (not) making local changes to elements
    * [here](canonicalresource.html#localization).
    */
-  public var contact: MutableList<ContactDetail> = mutableListOf(),
+  public val contact: List<ContactDetail> = listOf(),
   /**
    * A free text natural language description of the code system from a consumer's perspective.
    *
@@ -266,7 +266,7 @@ public data class CodeSystem(
    * language of the code system is presumed to be the predominant language in the place the code
    * system was created).
    */
-  public var description: Markdown? = null,
+  public val description: Markdown? = null,
   /**
    * The content was developed with a focus and intent of supporting the contexts that are listed.
    * These contexts may be general categories (gender, age, ...) or may be references to specific
@@ -276,7 +276,7 @@ public data class CodeSystem(
    * When multiple useContexts are specified, there is no expectation that all or any of the
    * contexts apply.
    */
-  public var useContext: MutableList<UsageContext> = mutableListOf(),
+  public val useContext: List<UsageContext> = listOf(),
   /**
    * A legal or geographic region in which the code system is intended to be used.
    *
@@ -288,7 +288,7 @@ public data class CodeSystem(
    * http://terminology.hl7.org/CodeSystem/usage-context-type#jurisdiction and
    * useContext.valueCodeableConcept indicating the jurisdiction.)
    */
-  public var jurisdiction: MutableList<CodeableConcept> = mutableListOf(),
+  public val jurisdiction: List<CodeableConcept> = listOf(),
   /**
    * Explanation of why this code system is needed and why it has been designed as it has.
    *
@@ -296,7 +296,7 @@ public data class CodeSystem(
    * of ''why'' the resource is either needed or ''why'' it is defined as it is. This may be used to
    * point to source materials or specifications that drove the structure of this code system.
    */
-  public var purpose: Markdown? = null,
+  public val purpose: Markdown? = null,
   /**
    * A copyright statement relating to the code system and/or its contents. Copyright statements are
    * generally legal restrictions on the use and publishing of the code system.
@@ -304,7 +304,7 @@ public data class CodeSystem(
    * ... Sometimes, the copyright differs between the code system and the codes that are included.
    * The copyright statement should clearly differentiate between these when required.
    */
-  public var copyright: Markdown? = null,
+  public val copyright: Markdown? = null,
   /**
    * A short string (<50 characters), suitable for inclusion in a page footer that identifies the
    * copyright holder, effective period, and optionally whether rights are resctricted. (e.g. 'All
@@ -314,7 +314,7 @@ public data class CodeSystem(
    * rendering the notation. Full details about licensing, restrictions, warrantees, etc. goes in
    * the more general 'copyright' element.
    */
-  public var copyrightLabel: String? = null,
+  public val copyrightLabel: String? = null,
   /**
    * The date on which the resource content was approved by the publisher. Approval happens once
    * when the content is officially approved for usage.
@@ -325,7 +325,7 @@ public data class CodeSystem(
    * See guidance around (not) making local changes to elements
    * [here](canonicalresource.html#localization).
    */
-  public var approvalDate: Date? = null,
+  public val approvalDate: Date? = null,
   /**
    * The date on which the resource content was last reviewed. Review happens periodically after
    * approval but does not change the original approval date.
@@ -335,7 +335,7 @@ public data class CodeSystem(
    * See guidance around (not) making local changes to elements
    * [here](canonicalresource.html#localization).
    */
-  public var lastReviewDate: Date? = null,
+  public val lastReviewDate: Date? = null,
   /**
    * The period during which the CodeSystem content was or is planned to be in active use.
    *
@@ -346,7 +346,7 @@ public data class CodeSystem(
    * See guidance around (not) making local changes to elements
    * [here](canonicalresource.html#localization).
    */
-  public var effectivePeriod: Period? = null,
+  public val effectivePeriod: Period? = null,
   /**
    * Descriptions related to the content of the CodeSystem. Topics provide a high-level
    * categorization as well as keywords for the CodeSystem that can be useful for filtering and
@@ -357,16 +357,16 @@ public data class CodeSystem(
    * http://terminology.hl7.org/CodeSystem/usage-context-type#topic and
    * useContext.valueCodeableConcept indicating the topic)
    */
-  public var topic: MutableList<CodeableConcept> = mutableListOf(),
+  public val topic: List<CodeableConcept> = listOf(),
   /**
    * An individiual or organization primarily involved in the creation and maintenance of the
    * CodeSystem.
    */
-  public var author: MutableList<ContactDetail> = mutableListOf(),
+  public val author: List<ContactDetail> = listOf(),
   /**
    * An individual or organization primarily responsible for internal coherence of the CodeSystem.
    */
-  public var editor: MutableList<ContactDetail> = mutableListOf(),
+  public val editor: List<ContactDetail> = listOf(),
   /**
    * An individual or organization asserted by the publisher to be primarily responsible for review
    * of some aspect of the CodeSystem.
@@ -374,7 +374,7 @@ public data class CodeSystem(
    * See guidance around (not) making local changes to elements
    * [here](canonicalresource.html#localization).
    */
-  public var reviewer: MutableList<ContactDetail> = mutableListOf(),
+  public val reviewer: List<ContactDetail> = listOf(),
   /**
    * An individual or organization asserted by the publisher to be responsible for officially
    * endorsing the CodeSystem for use in some setting.
@@ -382,7 +382,7 @@ public data class CodeSystem(
    * See guidance around (not) making local changes to elements
    * [here](canonicalresource.html#localization).
    */
-  public var endorser: MutableList<ContactDetail> = mutableListOf(),
+  public val endorser: List<ContactDetail> = listOf(),
   /**
    * Related artifacts such as additional documentation, justification, dependencies, bibliographic
    * references, and predecessor and successor artifacts.
@@ -390,7 +390,7 @@ public data class CodeSystem(
    * Each related artifact is either an attachment, or a reference to another resource, but not
    * both.
    */
-  public var relatedArtifact: MutableList<RelatedArtifact> = mutableListOf(),
+  public val relatedArtifact: List<RelatedArtifact> = listOf(),
   /**
    * If code comparison is case sensitive when codes within this system are compared to each other.
    *
@@ -399,7 +399,7 @@ public data class CodeSystem(
    * correct case, and accept codes in any case. This element is primarily provided to support
    * validation software.
    */
-  public var caseSensitive: Boolean? = null,
+  public val caseSensitive: Boolean? = null,
   /**
    * Canonical reference to the value set that contains all codes in the code system independent of
    * code status.
@@ -408,21 +408,21 @@ public data class CodeSystem(
    * concept status, and only codes from this code system. It SHALL be immutable, and operations
    * SHOULD support validation of any allowed code compositions.
    */
-  public var valueSet: Canonical? = null,
+  public val valueSet: Canonical? = null,
   /**
    * The meaning of the hierarchy of concepts as represented in this resource.
    *
    * Note that other representations might have a different hierarchy or none at all, and represent
    * the information using properties.
    */
-  public var hierarchyMeaning: Enumeration<CodeSystemHierarchyMeaning>? = null,
+  public val hierarchyMeaning: Enumeration<CodeSystemHierarchyMeaning>? = null,
   /**
    * The code system defines a compositional (post-coordination) grammar.
    *
    * Note that the code system resource does not define what the compositional grammar is, only
    * whether or not there is one.
    */
-  public var compositional: Boolean? = null,
+  public val compositional: Boolean? = null,
   /**
    * This flag is used to signify that the code system does not commit to concept permanence across
    * versions. If true, a version must be specified when referencing this code system.
@@ -435,19 +435,19 @@ public data class CodeSystem(
    * Contexts in which the concept display values are validated may require that the version be
    * specified for some code systems irrespective of the value of this property.
    */
-  public var versionNeeded: Boolean? = null,
+  public val versionNeeded: Boolean? = null,
   /**
    * The extent of the content of the code system (the concepts and codes it defines) are
    * represented in this resource instance.
    */
-  public var content: Enumeration<CodeSystemContentMode>,
+  public val content: Enumeration<CodeSystemContentMode>,
   /**
    * The canonical URL of the code system that this code system supplement is adding designations
    * and properties to.
    *
    * The most common use of a code system supplement is to add additional language support.
    */
-  public var supplements: Canonical? = null,
+  public val supplements: Canonical? = null,
   /**
    * The total number of concepts defined by the code system. Where the code system has a
    * compositional grammar, the basis of this count is defined by the system steward.
@@ -455,7 +455,7 @@ public data class CodeSystem(
    * The count of concepts defined in this resource cannot be more than this value but may be less
    * for several reasons - see the content element.
    */
-  public var count: UnsignedInt? = null,
+  public val count: UnsignedInt? = null,
   /**
    * A filter that can be used in a value set compose statement when selecting concepts using a
    * filter.
@@ -464,7 +464,7 @@ public data class CodeSystem(
    * terminology engine that will make them available for use in value set filters. For this reason,
    * they are generally only seen in high value published terminologies.
    */
-  public var filter: MutableList<Filter> = mutableListOf(),
+  public val filter: List<Filter> = listOf(),
   /**
    * A property defines an additional slot through which additional information can be provided
    * about a concept.
@@ -473,7 +473,7 @@ public data class CodeSystem(
    * CodeSystem.concept.property.code is the same and CodeSystem.concept.property.value differs. For
    * example: multiple designations for a single concept.
    */
-  public var `property`: MutableList<Property> = mutableListOf(),
+  public val `property`: List<Property> = listOf(),
   /**
    * Concepts that are in the code system. The concept definitions are inherently hierarchical, but
    * the definitions must be consulted to determine what the meanings of the hierarchical
@@ -482,7 +482,7 @@ public data class CodeSystem(
    * If this is empty, it means that the code system resource does not represent the content of the
    * code system.
    */
-  public var concept: MutableList<Concept> = mutableListOf(),
+  public val concept: List<Concept> = listOf(),
 ) : DomainResource() {
   /**
    * A filter that can be used in a value set compose statement when selecting concepts using a
@@ -494,7 +494,7 @@ public data class CodeSystem(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -507,7 +507,7 @@ public data class CodeSystem(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -526,18 +526,18 @@ public data class CodeSystem(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /**
      * The code that identifies this filter when it is used as a filter in
      * [ValueSet](valueset.html#).compose.include.filter.
      */
-    public var code: Code,
+    public val code: Code,
     /** A description of how or why the filter is used. */
-    public var description: String? = null,
+    public val description: String? = null,
     /** A list of operators that can be used with the filter. */
-    public var `operator`: MutableList<Enumeration<FilterOperator>> = mutableListOf(),
+    public val `operator`: List<Enumeration<FilterOperator>> = listOf(),
     /** A description of what the value for the filter should be. */
-    public var `value`: String,
+    public val `value`: String,
   ) : BackboneElement()
 
   /**
@@ -550,7 +550,7 @@ public data class CodeSystem(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -563,7 +563,7 @@ public data class CodeSystem(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -582,24 +582,24 @@ public data class CodeSystem(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /**
      * A code that is used to identify the property. The code is used internally (in
      * CodeSystem.concept.property.code) and also externally, such as in property filters.
      */
-    public var code: Code,
+    public val code: Code,
     /**
      * Reference to the formal meaning of the property. One possible source of meaning is the
      * [Concept Properties](codesystem-concept-properties.html) code system.
      */
-    public var uri: Uri? = null,
+    public val uri: Uri? = null,
     /** A description of the property- why it is defined, and how its value might be used. */
-    public var description: String? = null,
+    public val description: String? = null,
     /**
      * The type of the property value. Properties of type "code" contain a code defined by the code
      * system (e.g. a reference to another defined concept).
      */
-    public var type: Enumeration<PropertyType>,
+    public val type: Enumeration<PropertyType>,
   ) : BackboneElement()
 
   /**
@@ -613,7 +613,7 @@ public data class CodeSystem(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -626,7 +626,7 @@ public data class CodeSystem(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -645,20 +645,20 @@ public data class CodeSystem(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /** A code - a text symbol - that uniquely identifies the concept within the code system. */
-    public var code: Code,
+    public val code: Code,
     /**
      * A human readable string that is the recommended default way to present this concept to a
      * user.
      */
-    public var display: String? = null,
+    public val display: String? = null,
     /**
      * The formal definition of the concept. The code system resource does not make formal
      * definitions required, because of the prevalence of legacy systems. However, they are highly
      * recommended, as without them there is no formal meaning associated with the concept.
      */
-    public var definition: String? = null,
+    public val definition: String? = null,
     /**
      * Additional representations for the concept - other languages, aliases, specialized purposes,
      * used for particular purposes, etc.
@@ -667,14 +667,14 @@ public data class CodeSystem(
      * equivalent to a special designation with an implied ```designation.use``` of "primary code"
      * and a language equal to the [Resource Language](resource.html#language).
      */
-    public var designation: MutableList<Designation> = mutableListOf(),
+    public val designation: List<Designation> = listOf(),
     /** A property value for this concept. */
-    public var `property`: MutableList<Property> = mutableListOf(),
+    public val `property`: List<Property> = listOf(),
     /**
      * Defines children of a concept to produce a hierarchy of concepts. The nature of the
      * relationships is variable (is-a/contains/categorizes) - see hierarchyMeaning.
      */
-    public var concept: MutableList<Concept> = mutableListOf(),
+    public val concept: List<Concept> = listOf(),
   ) : BackboneElement() {
     /**
      * Additional representations for the concept - other languages, aliases, specialized purposes,
@@ -686,7 +686,7 @@ public data class CodeSystem(
        * Unique id for the element within a resource (for internal references). This may be any
        * string value that does not contain spaces.
        */
-      override var id: kotlin.String? = null,
+      override val id: kotlin.String? = null,
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -699,7 +699,7 @@ public data class CodeSystem(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: MutableList<Extension> = mutableListOf(),
+      override val extension: List<Extension> = listOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -718,20 +718,20 @@ public data class CodeSystem(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: MutableList<Extension> = mutableListOf(),
+      override val modifierExtension: List<Extension> = listOf(),
       /**
        * The language this designation is defined for.
        *
        * In the absence of a language, the resource language applies.
        */
-      public var language: Code? = null,
+      public val language: Code? = null,
       /**
        * A code that details how this designation would be used.
        *
        * If no use is provided, the designation can be assumed to be suitable for general display to
        * a human user.
        */
-      public var use: Coding? = null,
+      public val use: Coding? = null,
       /**
        * Additional codes that detail how this designation would be used, if there is more than one
        * use.
@@ -739,9 +739,9 @@ public data class CodeSystem(
        * This was added rather than increasing the cardinality of .use to 0..* in order to maintain
        * backward compatibility.
        */
-      public var additionalUse: MutableList<Coding> = mutableListOf(),
+      public val additionalUse: List<Coding> = listOf(),
       /** The text value for this designation. */
-      public var `value`: String,
+      public val `value`: String,
     ) : BackboneElement()
 
     /** A property value for this concept. */
@@ -751,7 +751,7 @@ public data class CodeSystem(
        * Unique id for the element within a resource (for internal references). This may be any
        * string value that does not contain spaces.
        */
-      override var id: kotlin.String? = null,
+      override val id: kotlin.String? = null,
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -764,7 +764,7 @@ public data class CodeSystem(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: MutableList<Extension> = mutableListOf(),
+      override val extension: List<Extension> = listOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -783,11 +783,11 @@ public data class CodeSystem(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: MutableList<Extension> = mutableListOf(),
+      override val modifierExtension: List<Extension> = listOf(),
       /** A code that is a reference to CodeSystem.property.code. */
-      public var code: Code,
+      public val code: Code,
       /** The value of this property. */
-      public var `value`: Value,
+      public val `value`: Value,
     ) : BackboneElement() {
       @Serializable(with = CodeSystemConceptPropertyValueSerializer::class)
       public sealed interface Value {

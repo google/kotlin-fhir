@@ -25,7 +25,7 @@ import com.google.fhir.model.r5.serializers.ManufacturedItemDefinitionPropertyVa
 import com.google.fhir.model.r5.serializers.ManufacturedItemDefinitionSerializer
 import com.google.fhir.model.r5.terminologies.PublicationStatus
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -44,12 +44,12 @@ public data class ManufacturedItemDefinition(
    * like the create and conditional update. Otherwise, the use of the resouce id depends on the
    * given use case.
    */
-  override var id: kotlin.String? = null,
+  override val id: kotlin.String? = null,
   /**
    * The metadata about the resource. This is content that is maintained by the infrastructure.
    * Changes to the content might not always be associated with version changes to the resource.
    */
-  override var meta: Meta? = null,
+  override val meta: Meta? = null,
   /**
    * A reference to a set of rules that were followed when the resource was constructed, and which
    * must be understood when processing the content. Often, this is a reference to an implementation
@@ -63,7 +63,7 @@ public data class ManufacturedItemDefinition(
    * to an implementation guide that defines these special rules as part of its narrative along with
    * other profiles, value sets, etc.
    */
-  override var implicitRules: Uri? = null,
+  override val implicitRules: Uri? = null,
   /**
    * The base language in which the resource is written.
    *
@@ -75,7 +75,7 @@ public data class ManufacturedItemDefinition(
    * language is specified, it should it also be specified on the div element in the html (see rules
    * in HTML5 for information about the relationship between xml:lang and the html lang attribute).
    */
-  override var language: Code? = null,
+  override val language: Code? = null,
   /**
    * A human-readable narrative that contains a summary of the resource and can be used to represent
    * the content of the resource to a human. The narrative need not encode all the structured data,
@@ -89,7 +89,7 @@ public data class ManufacturedItemDefinition(
    * legacy systems where information is captured as a "text blob" or where text is additionally
    * entered raw or narrated and encoded information is added later.
    */
-  override var text: Narrative? = null,
+  override val text: Narrative? = null,
   /**
    * These resources do not have an independent existence apart from the resource that contains
    * them - they cannot be identified independently, nor can they have their own independent
@@ -101,7 +101,7 @@ public data class ManufacturedItemDefinition(
    * resources may have profiles and tags in their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: MutableList<Resource> = mutableListOf(),
+  override val contained: List<Resource> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and managable, there is a strict set of governance
@@ -114,7 +114,7 @@ public data class ManufacturedItemDefinition(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: MutableList<Extension> = mutableListOf(),
+  override val extension: List<Extension> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -133,40 +133,40 @@ public data class ManufacturedItemDefinition(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: MutableList<Extension> = mutableListOf(),
+  override val modifierExtension: List<Extension> = listOf(),
   /** Unique identifier. */
-  public var identifier: MutableList<Identifier> = mutableListOf(),
+  public val identifier: List<Identifier> = listOf(),
   /**
    * The status of this item. Enables tracking the life-cycle of the content.
    *
    * Allows filtering of manufactured items that are appropriate for use versus not.
    */
-  public var status: Enumeration<PublicationStatus>,
+  public val status: Enumeration<PublicationStatus>,
   /** A descriptive name applied to this item. */
-  public var name: String? = null,
+  public val name: String? = null,
   /** Dose form as manufactured and before any transformation into the pharmaceutical product. */
-  public var manufacturedDoseForm: CodeableConcept,
+  public val manufacturedDoseForm: CodeableConcept,
   /** The “real-world” units in which the quantity of the manufactured item is described. */
-  public var unitOfPresentation: CodeableConcept? = null,
+  public val unitOfPresentation: CodeableConcept? = null,
   /** Manufacturer of the item, one of several possible. */
-  public var manufacturer: MutableList<Reference> = mutableListOf(),
+  public val manufacturer: List<Reference> = listOf(),
   /**
    * Allows specifying that an item is on the market for sale, or that it is not available, and the
    * dates and locations associated.
    */
-  public var marketingStatus: MutableList<MarketingStatus> = mutableListOf(),
+  public val marketingStatus: List<MarketingStatus> = listOf(),
   /**
    * The ingredients of this manufactured item. This is only needed if the ingredients are not
    * specified by incoming references from the Ingredient resource.
    */
-  public var ingredient: MutableList<CodeableConcept> = mutableListOf(),
+  public val ingredient: List<CodeableConcept> = listOf(),
   /** General characteristics of this item. */
-  public var `property`: MutableList<Property> = mutableListOf(),
+  public val `property`: List<Property> = listOf(),
   /**
    * Physical parts of the manufactured item, that it is intrisically made from. This is distinct
    * from the ingredients that are part of its chemical makeup.
    */
-  public var component: MutableList<Component> = mutableListOf(),
+  public val component: List<Component> = listOf(),
 ) : DomainResource() {
   /** General characteristics of this item. */
   @Serializable(with = ManufacturedItemDefinitionPropertySerializer::class)
@@ -175,7 +175,7 @@ public data class ManufacturedItemDefinition(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -188,7 +188,7 @@ public data class ManufacturedItemDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -207,11 +207,11 @@ public data class ManufacturedItemDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /** A code expressing the type of characteristic. */
-    public var type: CodeableConcept,
+    public val type: CodeableConcept,
     /** A value for the characteristic. */
-    public var `value`: Value? = null,
+    public val `value`: Value? = null,
   ) : BackboneElement() {
     @Serializable(with = ManufacturedItemDefinitionPropertyValueSerializer::class)
     public sealed interface Value {
@@ -278,7 +278,7 @@ public data class ManufacturedItemDefinition(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -291,7 +291,7 @@ public data class ManufacturedItemDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -310,28 +310,28 @@ public data class ManufacturedItemDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /** Defining type of the component e.g. shell, layer, ink. */
-    public var type: CodeableConcept,
+    public val type: CodeableConcept,
     /**
      * The function of this component within the item e.g. delivers active ingredient, masks taste.
      */
-    public var function: MutableList<CodeableConcept> = mutableListOf(),
+    public val function: List<CodeableConcept> = listOf(),
     /**
      * The measurable amount of total quantity of all substances in the component, expressable in
      * different ways (e.g. by mass or volume).
      */
-    public var amount: MutableList<Quantity> = mutableListOf(),
+    public val amount: List<Quantity> = listOf(),
     /**
      * A reference to a constituent of the manufactured item as a whole, linked here so that its
      * component location within the item can be indicated. This not where the item's ingredient are
      * primarily stated (for which see Ingredient.for or ManufacturedItemDefinition.ingredient).
      */
-    public var constituent: MutableList<Constituent> = mutableListOf(),
+    public val constituent: List<Constituent> = listOf(),
     /** General characteristics of this component. */
-    public var `property`: MutableList<Property> = mutableListOf(),
+    public val `property`: List<Property> = listOf(),
     /** A component that this component contains or is made from. */
-    public var component: MutableList<Component> = mutableListOf(),
+    public val component: List<Component> = listOf(),
   ) : BackboneElement() {
     /**
      * A reference to a constituent of the manufactured item as a whole, linked here so that its
@@ -344,7 +344,7 @@ public data class ManufacturedItemDefinition(
        * Unique id for the element within a resource (for internal references). This may be any
        * string value that does not contain spaces.
        */
-      override var id: kotlin.String? = null,
+      override val id: kotlin.String? = null,
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -357,7 +357,7 @@ public data class ManufacturedItemDefinition(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: MutableList<Extension> = mutableListOf(),
+      override val extension: List<Extension> = listOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -376,22 +376,22 @@ public data class ManufacturedItemDefinition(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: MutableList<Extension> = mutableListOf(),
+      override val modifierExtension: List<Extension> = listOf(),
       /**
        * The measurable amount of the substance, expressable in different ways (e.g. by mass or
        * volume).
        */
-      public var amount: MutableList<Quantity> = mutableListOf(),
+      public val amount: List<Quantity> = listOf(),
       /**
        * The physical location of the constituent/ingredient within the component. Example – if the
        * component is the bead in the capsule, then the location would be where the ingredient
        * resides within the product part – intragranular, extra-granular, etc.
        */
-      public var location: MutableList<CodeableConcept> = mutableListOf(),
+      public val location: List<CodeableConcept> = listOf(),
       /** The function of this constituent within the component e.g. binder. */
-      public var function: MutableList<CodeableConcept> = mutableListOf(),
+      public val function: List<CodeableConcept> = listOf(),
       /** The ingredient that is the constituent of the given component. */
-      public var hasIngredient: MutableList<CodeableReference> = mutableListOf(),
+      public val hasIngredient: List<CodeableReference> = listOf(),
     ) : BackboneElement()
   }
 }

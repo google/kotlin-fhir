@@ -29,7 +29,7 @@ import com.google.fhir.model.r5.serializers.ServiceRequestQuantitySerializer
 import com.google.fhir.model.r5.serializers.ServiceRequestSerializer
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -48,12 +48,12 @@ public data class ServiceRequest(
    * like the create and conditional update. Otherwise, the use of the resouce id depends on the
    * given use case.
    */
-  override var id: String? = null,
+  override val id: String? = null,
   /**
    * The metadata about the resource. This is content that is maintained by the infrastructure.
    * Changes to the content might not always be associated with version changes to the resource.
    */
-  override var meta: Meta? = null,
+  override val meta: Meta? = null,
   /**
    * A reference to a set of rules that were followed when the resource was constructed, and which
    * must be understood when processing the content. Often, this is a reference to an implementation
@@ -67,7 +67,7 @@ public data class ServiceRequest(
    * to an implementation guide that defines these special rules as part of its narrative along with
    * other profiles, value sets, etc.
    */
-  override var implicitRules: Uri? = null,
+  override val implicitRules: Uri? = null,
   /**
    * The base language in which the resource is written.
    *
@@ -79,7 +79,7 @@ public data class ServiceRequest(
    * language is specified, it should it also be specified on the div element in the html (see rules
    * in HTML5 for information about the relationship between xml:lang and the html lang attribute).
    */
-  override var language: Code? = null,
+  override val language: Code? = null,
   /**
    * A human-readable narrative that contains a summary of the resource and can be used to represent
    * the content of the resource to a human. The narrative need not encode all the structured data,
@@ -93,7 +93,7 @@ public data class ServiceRequest(
    * legacy systems where information is captured as a "text blob" or where text is additionally
    * entered raw or narrated and encoded information is added later.
    */
-  override var text: Narrative? = null,
+  override val text: Narrative? = null,
   /**
    * These resources do not have an independent existence apart from the resource that contains
    * them - they cannot be identified independently, nor can they have their own independent
@@ -105,7 +105,7 @@ public data class ServiceRequest(
    * resources may have profiles and tags in their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: MutableList<Resource> = mutableListOf(),
+  override val contained: List<Resource> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and managable, there is a strict set of governance
@@ -118,7 +118,7 @@ public data class ServiceRequest(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: MutableList<Extension> = mutableListOf(),
+  override val extension: List<Extension> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -137,7 +137,7 @@ public data class ServiceRequest(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: MutableList<Extension> = mutableListOf(),
+  override val modifierExtension: List<Extension> = listOf(),
   /**
    * Identifiers assigned to this order instance by the orderer and/or the receiver and/or order
    * fulfiller.
@@ -147,7 +147,7 @@ public data class ServiceRequest(
    * the order (known as the 'Filler' in HL7 V2). For further discussion and examples see the
    * resource notes section below.
    */
-  public var identifier: MutableList<Identifier> = mutableListOf(),
+  public val identifier: List<Identifier> = listOf(),
   /**
    * The URL pointing to a FHIR-defined protocol, guideline, orderset or other definition that is
    * adhered to in whole or in part by this ServiceRequest.
@@ -157,18 +157,18 @@ public data class ServiceRequest(
    * to be performed. More information can be found in the
    * [Boundaries and Relationships](plandefinition.html#12.23.2) section for PlanDefinition.
    */
-  public var instantiatesCanonical: MutableList<Canonical> = mutableListOf(),
+  public val instantiatesCanonical: List<Canonical> = listOf(),
   /**
    * The URL pointing to an externally maintained protocol, guideline, orderset or other definition
    * that is adhered to in whole or in part by this ServiceRequest.
    *
    * This might be an HTML page, PDF, etc. or could just be a non-resolvable URI identifier.
    */
-  public var instantiatesUri: MutableList<Uri> = mutableListOf(),
+  public val instantiatesUri: List<Uri> = listOf(),
   /** Plan/proposal/order fulfilled by this request. */
-  public var basedOn: MutableList<Reference> = mutableListOf(),
+  public val basedOn: List<Reference> = listOf(),
   /** The request takes the place of the referenced completed or terminated request(s). */
-  public var replaces: MutableList<Reference> = mutableListOf(),
+  public val replaces: List<Reference> = listOf(),
   /**
    * A shared identifier common to all service requests that were authorized more or less
    * simultaneously by a single author, representing the composite or group identifier.
@@ -178,7 +178,7 @@ public data class ServiceRequest(
    * treated independently from the perspective of changing their state or maintaining them after
    * initial creation.
    */
-  public var requisition: Identifier? = null,
+  public val requisition: Identifier? = null,
   /**
    * The status of the order.
    *
@@ -188,14 +188,14 @@ public data class ServiceRequest(
    * event (see [Event Pattern](event.html) for general discussion) or using the [Task](task.html)
    * resource.
    */
-  public var status: Enumeration<RequestStatus>,
+  public val status: Enumeration<RequestStatus>,
   /**
    * Whether the request is a proposal, plan, an original order or a reflex order.
    *
    * This element is labeled as a modifier because the intent alters when and how the resource is
    * actually applicable.
    */
-  public var intent: Enumeration<RequestIntent>,
+  public val intent: Enumeration<RequestIntent>,
   /**
    * A code that classifies the service for searching, sorting and display purposes (e.g. "Surgical
    * Procedure").
@@ -204,11 +204,11 @@ public data class ServiceRequest(
    * retrieving or displaying the resource. The level of granularity is defined by the category
    * concepts in the value set.
    */
-  public var category: MutableList<CodeableConcept> = mutableListOf(),
+  public val category: List<CodeableConcept> = listOf(),
   /**
    * Indicates how quickly the ServiceRequest should be addressed with respect to other requests.
    */
-  public var priority: Enumeration<RequestPriority>? = null,
+  public val priority: Enumeration<RequestPriority>? = null,
   /**
    * Set this to true if the record is saying that the service/procedure should NOT be performed.
    *
@@ -217,7 +217,7 @@ public data class ServiceRequest(
    * prohibition. If the ServiceRequest.code and ServiceRequest.doNotPerform both contain negation,
    * that will reinforce prohibition and should not have a double negative interpretation.
    */
-  public var doNotPerform: Boolean? = null,
+  public val doNotPerform: Boolean? = null,
   /**
    * A code or reference that identifies a particular service (i.e., procedure, diagnostic
    * investigation, or panel of investigations) that have been requested.
@@ -226,7 +226,7 @@ public data class ServiceRequest(
    * name, for example, serum or serum/plasma glucose, or a chest x-ray. The specimen might not be
    * recorded separately from the test code.
    */
-  public var code: CodeableReference? = null,
+  public val code: CodeableReference? = null,
   /**
    * Additional details and instructions about the how the services are to be delivered. For
    * example, and order for a urinary catheter may have an order detail for an external or
@@ -236,19 +236,19 @@ public data class ServiceRequest(
    * For information from the medical record intended to support the delivery of the requested
    * services, use the `supportingInformation` element.
    */
-  public var orderDetail: MutableList<OrderDetail> = mutableListOf(),
+  public val orderDetail: List<OrderDetail> = listOf(),
   /**
    * An amount of service being requested which can be a quantity ( for example $1,500 home
    * modification), a ratio ( for example, 20 half day visits per month), or a range (2.0 to 1.8 Gy
    * per fraction).
    */
-  public var quantity: Quantity? = null,
+  public val quantity: Quantity? = null,
   /**
    * On whom or what the service is to be performed. This is usually a human patient, but can also
    * be requested on animals, groups of humans or animals, devices such as dialysis machines, or
    * even locations (typically for environmental scans).
    */
-  public var subject: Reference,
+  public val subject: Reference,
   /**
    * The actual focus of a service request when it is not the subject of record representing
    * something or someone associated with the subject such as a spouse, parent, fetus, or donor. The
@@ -256,28 +256,28 @@ public data class ServiceRequest(
    * diet, another service request on the subject, or a body structure such as tumor or implanted
    * device.
    */
-  public var focus: MutableList<Reference> = mutableListOf(),
+  public val focus: List<Reference> = listOf(),
   /**
    * An encounter that provides additional information about the healthcare context in which this
    * request is made.
    */
-  public var encounter: Reference? = null,
+  public val encounter: Reference? = null,
   /** The date/time at which the requested service should occur. */
-  public var occurrence: Occurrence? = null,
+  public val occurrence: Occurrence? = null,
   /**
    * If a CodeableConcept is present, it indicates the pre-condition for performing the service. For
    * example "pain", "on flare-up", etc.
    */
-  public var asNeeded: AsNeeded? = null,
+  public val asNeeded: AsNeeded? = null,
   /** When the request transitioned to being actionable. */
-  public var authoredOn: DateTime? = null,
+  public val authoredOn: DateTime? = null,
   /**
    * The individual who initiated the request and has responsibility for its activation.
    *
    * This not the dispatcher, but rather who is the authorizer. This element is not intended to
    * handle delegation which would generally be managed through the Provenance resource.
    */
-  public var requester: Reference? = null,
+  public val requester: Reference? = null,
   /**
    * Desired type of performer for doing the requested service.
    *
@@ -285,7 +285,7 @@ public data class ServiceRequest(
    * describes the capacity. For example, “compounding pharmacy”, “psychiatrist” or “internal
    * referral”.
    */
-  public var performerType: CodeableConcept? = null,
+  public val performerType: CodeableConcept? = null,
   /**
    * The desired performer for doing the requested service. For example, the surgeon,
    * dermatopathologist, endoscopist, etc.
@@ -296,12 +296,12 @@ public data class ServiceRequest(
    * Use CareTeam to represent a group of performers (for example, Practitioner A *and* Practitioner
    * B).
    */
-  public var performer: MutableList<Reference> = mutableListOf(),
+  public val performer: List<Reference> = listOf(),
   /**
    * The preferred location(s) where the procedure should actually happen in coded or free text
    * form. E.g. at home or nursing day care center.
    */
-  public var location: MutableList<CodeableReference> = mutableListOf(),
+  public val location: List<CodeableReference> = listOf(),
   /**
    * An explanation or justification for why this service is being requested in coded or textual
    * form. This is often for billing purposes. May relate to the resources referred to in
@@ -313,12 +313,12 @@ public data class ServiceRequest(
    * use `concept.text` element if the data is free (uncoded) text as shown in the
    * [CT Scan example](servicerequest-example-di.html).
    */
-  public var reason: MutableList<CodeableReference> = mutableListOf(),
+  public val reason: List<CodeableReference> = listOf(),
   /**
    * Insurance plans, coverage extensions, pre-authorizations and/or pre-determinations that may be
    * needed for delivering the requested service.
    */
-  public var insurance: MutableList<Reference> = mutableListOf(),
+  public val insurance: List<Reference> = listOf(),
   /**
    * Additional clinical information about the patient or specimen that may influence the services
    * or their interpretations. This information includes diagnosis, clinical findings and other
@@ -330,7 +330,7 @@ public data class ServiceRequest(
    * To represent information about how the services are to be delivered use the `instructions`
    * element.
    */
-  public var supportingInfo: MutableList<CodeableReference> = mutableListOf(),
+  public val supportingInfo: List<CodeableReference> = listOf(),
   /**
    * One or more specimens that the laboratory procedure will use.
    *
@@ -340,7 +340,7 @@ public data class ServiceRequest(
    * ServiceRequest.supportingInfo or the Specimen.parent where the Specimen.parent would enable
    * descendency and ServiceRequest.supportingInfo a general reference for context.
    */
-  public var specimen: MutableList<Reference> = mutableListOf(),
+  public val specimen: List<Reference> = listOf(),
   /**
    * Anatomic location where the procedure should be performed. This is the target site.
    *
@@ -349,16 +349,16 @@ public data class ServiceRequest(
    * identify and track separately) then use the standard extension
    * [http://hl7.org/fhir/StructureDefinition/procedure-targetBodyStructure](http://hl7.org/fhir/extensions/StructureDefinition-procedure-targetBodyStructure.html).
    */
-  public var bodySite: MutableList<CodeableConcept> = mutableListOf(),
+  public val bodySite: List<CodeableConcept> = listOf(),
   /** Anatomic location where the procedure should be performed. This is the target site. */
-  public var bodyStructure: Reference? = null,
+  public val bodyStructure: Reference? = null,
   /**
    * Any other notes and comments made about the service request. For example, internal billing
    * notes.
    */
-  public var note: MutableList<Annotation> = mutableListOf(),
+  public val note: List<Annotation> = listOf(),
   /** Instructions in terms that are understood by the patient or consumer. */
-  public var patientInstruction: MutableList<PatientInstruction> = mutableListOf(),
+  public val patientInstruction: List<PatientInstruction> = listOf(),
   /**
    * Key events in the history of the request.
    *
@@ -369,7 +369,7 @@ public data class ServiceRequest(
    * that points to this version using _revinclude All Provenances should have some historical
    * version of this Request as their subject.
    */
-  public var relevantHistory: MutableList<Reference> = mutableListOf(),
+  public val relevantHistory: List<Reference> = listOf(),
 ) : DomainResource() {
   /**
    * Additional details and instructions about the how the services are to be delivered. For
@@ -383,7 +383,7 @@ public data class ServiceRequest(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: String? = null,
+    override val id: String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -396,7 +396,7 @@ public data class ServiceRequest(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -415,11 +415,11 @@ public data class ServiceRequest(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /** Indicates the context of the order details by reference. */
-    public var parameterFocus: CodeableReference? = null,
+    public val parameterFocus: CodeableReference? = null,
     /** The parameter details for the service being requested. */
-    public var parameter: MutableList<Parameter> = mutableListOf(),
+    public val parameter: List<Parameter> = listOf(),
   ) : BackboneElement() {
     /** The parameter details for the service being requested. */
     @Serializable(with = ServiceRequestOrderDetailParameterSerializer::class)
@@ -428,7 +428,7 @@ public data class ServiceRequest(
        * Unique id for the element within a resource (for internal references). This may be any
        * string value that does not contain spaces.
        */
-      override var id: String? = null,
+      override val id: String? = null,
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -441,7 +441,7 @@ public data class ServiceRequest(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: MutableList<Extension> = mutableListOf(),
+      override val extension: List<Extension> = listOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -460,12 +460,12 @@ public data class ServiceRequest(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: MutableList<Extension> = mutableListOf(),
+      override val modifierExtension: List<Extension> = listOf(),
       /**
        * A value representing the additional detail or instructions for the order (e.g., catheter
        * insertion, body elevation, descriptive device configuration and/or setting instructions).
        */
-      public var code: CodeableConcept,
+      public val code: CodeableConcept,
       /**
        * Indicates a value for the order detail.
        *
@@ -473,7 +473,7 @@ public data class ServiceRequest(
        * a code is not available for a concept, CodeableConcept.text can be used. When the data is a
        * text or not a single identifiable concept, string should be used.
        */
-      public var `value`: Value,
+      public val `value`: Value,
     ) : BackboneElement() {
       @Serializable(with = ServiceRequestOrderDetailParameterValueSerializer::class)
       public sealed interface Value {
@@ -538,7 +538,7 @@ public data class ServiceRequest(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: String? = null,
+    override val id: String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -551,7 +551,7 @@ public data class ServiceRequest(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -570,9 +570,9 @@ public data class ServiceRequest(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /** Instructions in terms that are understood by the patient or consumer. */
-    public var instruction: Instruction? = null,
+    public val instruction: Instruction? = null,
   ) : BackboneElement() {
     @Serializable(with = ServiceRequestPatientInstructionInstructionSerializer::class)
     public sealed interface Instruction {

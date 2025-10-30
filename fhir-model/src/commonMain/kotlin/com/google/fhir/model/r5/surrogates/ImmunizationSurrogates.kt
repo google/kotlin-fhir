@@ -45,23 +45,23 @@ import com.google.fhir.model.r5.serializers.LocalTimeSerializer
 import kotlin.Boolean as KotlinBoolean
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class ImmunizationPerformerSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var function: CodeableConcept? = null,
   public var actor: Reference,
 ) {
   public fun toModel(): Immunization.Performer =
     Immunization.Performer(
       id = this@ImmunizationPerformerSurrogate.id,
-      extension = this@ImmunizationPerformerSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@ImmunizationPerformerSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@ImmunizationPerformerSurrogate.extension ?: listOf(),
+      modifierExtension = this@ImmunizationPerformerSurrogate.modifierExtension ?: listOf(),
       function = this@ImmunizationPerformerSurrogate.function,
       actor = this@ImmunizationPerformerSurrogate.actor,
     )
@@ -83,17 +83,17 @@ internal data class ImmunizationPerformerSurrogate(
 @Serializable
 internal data class ImmunizationProgramEligibilitySurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var program: CodeableConcept,
   public var programStatus: CodeableConcept,
 ) {
   public fun toModel(): Immunization.ProgramEligibility =
     Immunization.ProgramEligibility(
       id = this@ImmunizationProgramEligibilitySurrogate.id,
-      extension = this@ImmunizationProgramEligibilitySurrogate.extension ?: mutableListOf(),
+      extension = this@ImmunizationProgramEligibilitySurrogate.extension ?: listOf(),
       modifierExtension =
-        this@ImmunizationProgramEligibilitySurrogate.modifierExtension ?: mutableListOf(),
+        this@ImmunizationProgramEligibilitySurrogate.modifierExtension ?: listOf(),
       program = this@ImmunizationProgramEligibilitySurrogate.program,
       programStatus = this@ImmunizationProgramEligibilitySurrogate.programStatus,
     )
@@ -117,8 +117,8 @@ internal data class ImmunizationProgramEligibilitySurrogate(
 @Serializable
 internal data class ImmunizationReactionSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var date: KotlinString? = null,
   public var _date: Element? = null,
   public var manifestation: CodeableReference? = null,
@@ -128,8 +128,8 @@ internal data class ImmunizationReactionSurrogate(
   public fun toModel(): Immunization.Reaction =
     Immunization.Reaction(
       id = this@ImmunizationReactionSurrogate.id,
-      extension = this@ImmunizationReactionSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@ImmunizationReactionSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@ImmunizationReactionSurrogate.extension ?: listOf(),
+      modifierExtension = this@ImmunizationReactionSurrogate.modifierExtension ?: listOf(),
       date =
         DateTime.of(
           FhirDateTime.fromString(this@ImmunizationReactionSurrogate.date),
@@ -163,12 +163,12 @@ internal data class ImmunizationReactionSurrogate(
 @Serializable
 internal data class ImmunizationProtocolAppliedSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var series: KotlinString? = null,
   public var _series: Element? = null,
   public var authority: Reference? = null,
-  public var targetDisease: MutableList<CodeableConcept>? = null,
+  public var targetDisease: List<CodeableConcept>? = null,
   public var doseNumber: KotlinString? = null,
   public var _doseNumber: Element? = null,
   public var seriesDoses: KotlinString? = null,
@@ -177,16 +177,15 @@ internal data class ImmunizationProtocolAppliedSurrogate(
   public fun toModel(): Immunization.ProtocolApplied =
     Immunization.ProtocolApplied(
       id = this@ImmunizationProtocolAppliedSurrogate.id,
-      extension = this@ImmunizationProtocolAppliedSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@ImmunizationProtocolAppliedSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@ImmunizationProtocolAppliedSurrogate.extension ?: listOf(),
+      modifierExtension = this@ImmunizationProtocolAppliedSurrogate.modifierExtension ?: listOf(),
       series =
         R5String.of(
           this@ImmunizationProtocolAppliedSurrogate.series,
           this@ImmunizationProtocolAppliedSurrogate._series,
         ),
       authority = this@ImmunizationProtocolAppliedSurrogate.authority,
-      targetDisease = this@ImmunizationProtocolAppliedSurrogate.targetDisease ?: mutableListOf(),
+      targetDisease = this@ImmunizationProtocolAppliedSurrogate.targetDisease ?: listOf(),
       doseNumber =
         R5String.of(
           this@ImmunizationProtocolAppliedSurrogate.doseNumber,
@@ -262,11 +261,11 @@ internal data class ImmunizationSurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: MutableList<Resource>? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var identifier: MutableList<Identifier>? = null,
-  public var basedOn: MutableList<Reference>? = null,
+  public var contained: List<Resource>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
+  public var identifier: List<Identifier>? = null,
+  public var basedOn: List<Reference>? = null,
   public var status: KotlinString? = null,
   public var _status: Element? = null,
   public var statusReason: CodeableConcept? = null,
@@ -279,7 +278,7 @@ internal data class ImmunizationSurrogate(
   public var _expirationDate: Element? = null,
   public var patient: Reference,
   public var encounter: Reference? = null,
-  public var supportingInformation: MutableList<Reference>? = null,
+  public var supportingInformation: List<Reference>? = null,
   public var occurrence: Immunization.Occurrence,
   public var primarySource: KotlinBoolean? = null,
   public var _primarySource: Element? = null,
@@ -288,16 +287,16 @@ internal data class ImmunizationSurrogate(
   public var site: CodeableConcept? = null,
   public var route: CodeableConcept? = null,
   public var doseQuantity: Quantity? = null,
-  public var performer: MutableList<Immunization.Performer>? = null,
-  public var note: MutableList<Annotation>? = null,
-  public var reason: MutableList<CodeableReference>? = null,
+  public var performer: List<Immunization.Performer>? = null,
+  public var note: List<Annotation>? = null,
+  public var reason: List<CodeableReference>? = null,
   public var isSubpotent: KotlinBoolean? = null,
   public var _isSubpotent: Element? = null,
-  public var subpotentReason: MutableList<CodeableConcept>? = null,
-  public var programEligibility: MutableList<Immunization.ProgramEligibility>? = null,
+  public var subpotentReason: List<CodeableConcept>? = null,
+  public var programEligibility: List<Immunization.ProgramEligibility>? = null,
   public var fundingSource: CodeableConcept? = null,
-  public var reaction: MutableList<Immunization.Reaction>? = null,
-  public var protocolApplied: MutableList<Immunization.ProtocolApplied>? = null,
+  public var reaction: List<Immunization.Reaction>? = null,
+  public var protocolApplied: List<Immunization.ProtocolApplied>? = null,
 ) {
   public fun toModel(): Immunization =
     Immunization(
@@ -307,11 +306,11 @@ internal data class ImmunizationSurrogate(
         Uri.of(this@ImmunizationSurrogate.implicitRules, this@ImmunizationSurrogate._implicitRules),
       language = Code.of(this@ImmunizationSurrogate.language, this@ImmunizationSurrogate._language),
       text = this@ImmunizationSurrogate.text,
-      contained = this@ImmunizationSurrogate.contained ?: mutableListOf(),
-      extension = this@ImmunizationSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@ImmunizationSurrogate.modifierExtension ?: mutableListOf(),
-      identifier = this@ImmunizationSurrogate.identifier ?: mutableListOf(),
-      basedOn = this@ImmunizationSurrogate.basedOn ?: mutableListOf(),
+      contained = this@ImmunizationSurrogate.contained ?: listOf(),
+      extension = this@ImmunizationSurrogate.extension ?: listOf(),
+      modifierExtension = this@ImmunizationSurrogate.modifierExtension ?: listOf(),
+      identifier = this@ImmunizationSurrogate.identifier ?: listOf(),
+      basedOn = this@ImmunizationSurrogate.basedOn ?: listOf(),
       status =
         Enumeration.of(
           Immunization.ImmunizationStatusCodes.fromCode(this@ImmunizationSurrogate.status!!),
@@ -330,7 +329,7 @@ internal data class ImmunizationSurrogate(
         ),
       patient = this@ImmunizationSurrogate.patient,
       encounter = this@ImmunizationSurrogate.encounter,
-      supportingInformation = this@ImmunizationSurrogate.supportingInformation ?: mutableListOf(),
+      supportingInformation = this@ImmunizationSurrogate.supportingInformation ?: listOf(),
       occurrence = this@ImmunizationSurrogate.occurrence,
       primarySource =
         R5Boolean.of(
@@ -342,19 +341,19 @@ internal data class ImmunizationSurrogate(
       site = this@ImmunizationSurrogate.site,
       route = this@ImmunizationSurrogate.route,
       doseQuantity = this@ImmunizationSurrogate.doseQuantity,
-      performer = this@ImmunizationSurrogate.performer ?: mutableListOf(),
-      note = this@ImmunizationSurrogate.note ?: mutableListOf(),
-      reason = this@ImmunizationSurrogate.reason ?: mutableListOf(),
+      performer = this@ImmunizationSurrogate.performer ?: listOf(),
+      note = this@ImmunizationSurrogate.note ?: listOf(),
+      reason = this@ImmunizationSurrogate.reason ?: listOf(),
       isSubpotent =
         R5Boolean.of(
           this@ImmunizationSurrogate.isSubpotent,
           this@ImmunizationSurrogate._isSubpotent,
         ),
-      subpotentReason = this@ImmunizationSurrogate.subpotentReason ?: mutableListOf(),
-      programEligibility = this@ImmunizationSurrogate.programEligibility ?: mutableListOf(),
+      subpotentReason = this@ImmunizationSurrogate.subpotentReason ?: listOf(),
+      programEligibility = this@ImmunizationSurrogate.programEligibility ?: listOf(),
       fundingSource = this@ImmunizationSurrogate.fundingSource,
-      reaction = this@ImmunizationSurrogate.reaction ?: mutableListOf(),
-      protocolApplied = this@ImmunizationSurrogate.protocolApplied ?: mutableListOf(),
+      reaction = this@ImmunizationSurrogate.reaction ?: listOf(),
+      protocolApplied = this@ImmunizationSurrogate.protocolApplied ?: listOf(),
     )
 
   public companion object {

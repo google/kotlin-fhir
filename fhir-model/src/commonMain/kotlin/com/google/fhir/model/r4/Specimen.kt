@@ -27,7 +27,7 @@ import com.google.fhir.model.r4.serializers.SpecimenProcessingSerializer
 import com.google.fhir.model.r4.serializers.SpecimenProcessingTimeSerializer
 import com.google.fhir.model.r4.serializers.SpecimenSerializer
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -42,12 +42,12 @@ public data class Specimen(
    * The only time that a resource does not have an id is when it is being submitted to the server
    * using a create operation.
    */
-  override var id: kotlin.String? = null,
+  override val id: kotlin.String? = null,
   /**
    * The metadata about the resource. This is content that is maintained by the infrastructure.
    * Changes to the content might not always be associated with version changes to the resource.
    */
-  override var meta: Meta? = null,
+  override val meta: Meta? = null,
   /**
    * A reference to a set of rules that were followed when the resource was constructed, and which
    * must be understood when processing the content. Often, this is a reference to an implementation
@@ -61,7 +61,7 @@ public data class Specimen(
    * to an implementation guide that defines these special rules as part of it's narrative along
    * with other profiles, value sets, etc.
    */
-  override var implicitRules: Uri? = null,
+  override val implicitRules: Uri? = null,
   /**
    * The base language in which the resource is written.
    *
@@ -73,7 +73,7 @@ public data class Specimen(
    * language is specified, it should it also be specified on the div element in the html (see rules
    * in HTML5 for information about the relationship between xml:lang and the html lang attribute).
    */
-  override var language: Code? = null,
+  override val language: Code? = null,
   /**
    * A human-readable narrative that contains a summary of the resource and can be used to represent
    * the content of the resource to a human. The narrative need not encode all the structured data,
@@ -87,7 +87,7 @@ public data class Specimen(
    * legacy systems where information is captured as a "text blob" or where text is additionally
    * entered raw or narrated and encoded information is added later.
    */
-  override var text: Narrative? = null,
+  override val text: Narrative? = null,
   /**
    * These resources do not have an independent existence apart from the resource that contains
    * them - they cannot be identified independently, and nor can they have their own independent
@@ -98,7 +98,7 @@ public data class Specimen(
    * resources may have profiles and tags In their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: MutableList<Resource> = mutableListOf(),
+  override val contained: List<Resource> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and manageable, there is a strict set of
@@ -111,7 +111,7 @@ public data class Specimen(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: MutableList<Extension> = mutableListOf(),
+  override val extension: List<Extension> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -130,21 +130,21 @@ public data class Specimen(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: MutableList<Extension> = mutableListOf(),
+  override val modifierExtension: List<Extension> = listOf(),
   /** Id for specimen. */
-  public var identifier: MutableList<Identifier> = mutableListOf(),
+  public val identifier: List<Identifier> = listOf(),
   /**
    * The identifier assigned by the lab when accessioning specimen(s). This is not necessarily the
    * same as the specimen identifier, depending on local lab procedures.
    */
-  public var accessionIdentifier: Identifier? = null,
+  public val accessionIdentifier: Identifier? = null,
   /**
    * The availability of the specimen.
    *
    * This element is labeled as a modifier because the status contains codes that mark the resource
    * as not currently valid.
    */
-  public var status: Enumeration<SpecimenStatus>? = null,
+  public val status: Enumeration<SpecimenStatus>? = null,
   /**
    * The kind of material that forms the specimen.
    *
@@ -152,14 +152,14 @@ public data class Specimen(
    * properly be performed on the specimen. It is frequently used in diagnostic work flow decision
    * making systems.
    */
-  public var type: CodeableConcept? = null,
+  public val type: CodeableConcept? = null,
   /**
    * Where the specimen came from. This may be from patient(s), from a location (e.g., the source of
    * an environmental sample), or a sampling of a substance or a device.
    */
-  public var subject: Reference? = null,
+  public val subject: Reference? = null,
   /** Time when specimen was received for processing or testing. */
-  public var receivedTime: DateTime? = null,
+  public val receivedTime: DateTime? = null,
   /**
    * Reference to the parent (source) specimen which is used when the specimen was either derived
    * from or a component of another specimen.
@@ -168,34 +168,34 @@ public data class Specimen(
    * processing step (e.g. an aliquot or isolate or extracted nucleic acids from clinical samples)
    * or one of many specimens that were combined to create a pooled sample.
    */
-  public var parent: MutableList<Reference> = mutableListOf(),
+  public val parent: List<Reference> = listOf(),
   /**
    * Details concerning a service request that required a specimen to be collected.
    *
    * The request may be explicit or implied such with a ServiceRequest that requires a blood draw.
    */
-  public var request: MutableList<Reference> = mutableListOf(),
+  public val request: List<Reference> = listOf(),
   /** Details concerning the specimen collection. */
-  public var collection: Collection? = null,
+  public val collection: Collection? = null,
   /** Details concerning processing and processing steps for the specimen. */
-  public var processing: MutableList<Processing> = mutableListOf(),
+  public val processing: List<Processing> = listOf(),
   /**
    * The container holding the specimen. The recursive nature of containers; i.e. blood in tube in
    * tray in rack is not addressed here.
    */
-  public var container: MutableList<Container> = mutableListOf(),
+  public val container: List<Container> = listOf(),
   /**
    * A mode or state of being that describes the nature of the specimen.
    *
    * Specimen condition is an observation made about the specimen. It's a point-in-time assessment.
    * It can be used to assess its quality or appropriateness for a specific test.
    */
-  public var condition: MutableList<CodeableConcept> = mutableListOf(),
+  public val condition: List<CodeableConcept> = listOf(),
   /**
    * To communicate any details or issues about the specimen or during the specimen collection. (for
    * example: broken vial, sent with patient, frozen).
    */
-  public var note: MutableList<Annotation> = mutableListOf(),
+  public val note: List<Annotation> = listOf(),
 ) : DomainResource() {
   /** Details concerning the specimen collection. */
   @Serializable(with = SpecimenCollectionSerializer::class)
@@ -204,7 +204,7 @@ public data class Specimen(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and manageable, there is a strict set of
@@ -217,7 +217,7 @@ public data class Specimen(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -236,20 +236,20 @@ public data class Specimen(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /** Person who collected the specimen. */
-    public var collector: Reference? = null,
+    public val collector: Reference? = null,
     /** Time when specimen was collected from subject - the physiologically relevant time. */
-    public var collected: Collected? = null,
+    public val collected: Collected? = null,
     /** The span of time over which the collection of a specimen occurred. */
-    public var duration: Duration? = null,
+    public val duration: Duration? = null,
     /**
      * The quantity of specimen collected; for instance the volume of a blood sample, or the
      * physical measurement of an anatomic pathology sample.
      */
-    public var quantity: Quantity? = null,
+    public val quantity: Quantity? = null,
     /** A coded value specifying the technique that is used to perform the procedure. */
-    public var method: CodeableConcept? = null,
+    public val method: CodeableConcept? = null,
     /**
      * Anatomical location from which the specimen was collected (if subject is a patient). This is
      * the target site. This element is not used for environmental specimens.
@@ -258,7 +258,7 @@ public data class Specimen(
      * coded element (e.g. to identify and track separately) then use the standard extension
      * [bodySite](extension-bodysite.html).
      */
-    public var bodySite: CodeableConcept? = null,
+    public val bodySite: CodeableConcept? = null,
     /**
      * Abstinence or reduction from some or all food, drink, or both, for a period of time prior to
      * sample collection.
@@ -268,7 +268,7 @@ public data class Specimen(
      * hour Urine --12 hours fasting), or using a component observation ` such as
      * `Observation.component code` = LOINC 49541-6 (Fasting status - Reported).
      */
-    public var fastingStatus: FastingStatus? = null,
+    public val fastingStatus: FastingStatus? = null,
   ) : BackboneElement() {
     @Serializable(with = SpecimenCollectionCollectedSerializer::class)
     public sealed interface Collected {
@@ -325,7 +325,7 @@ public data class Specimen(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and manageable, there is a strict set of
@@ -338,7 +338,7 @@ public data class Specimen(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -357,18 +357,18 @@ public data class Specimen(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /** Textual description of procedure. */
-    public var description: String? = null,
+    public val description: String? = null,
     /** A coded value specifying the procedure used to process the specimen. */
-    public var procedure: CodeableConcept? = null,
+    public val procedure: CodeableConcept? = null,
     /** Material used in the processing step. */
-    public var additive: MutableList<Reference> = mutableListOf(),
+    public val additive: List<Reference> = listOf(),
     /**
      * A record of the time or period when the specimen processing occurred. For example the time of
      * sample fixation or the period of time the sample was in formalin.
      */
-    public var time: Time? = null,
+    public val time: Time? = null,
   ) : BackboneElement() {
     @Serializable(with = SpecimenProcessingTimeSerializer::class)
     public sealed interface Time {
@@ -403,7 +403,7 @@ public data class Specimen(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and manageable, there is a strict set of
@@ -416,7 +416,7 @@ public data class Specimen(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -435,28 +435,28 @@ public data class Specimen(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /**
      * Id for container. There may be multiple; a manufacturer's bar code, lab assigned identifier,
      * etc. The container ID may differ from the specimen id in some circumstances.
      */
-    public var identifier: MutableList<Identifier> = mutableListOf(),
+    public val identifier: List<Identifier> = listOf(),
     /** Textual description of the container. */
-    public var description: String? = null,
+    public val description: String? = null,
     /** The type of container associated with the specimen (e.g. slide, aliquot, etc.). */
-    public var type: CodeableConcept? = null,
+    public val type: CodeableConcept? = null,
     /** The capacity (volume or other measure) the container may contain. */
-    public var capacity: Quantity? = null,
+    public val capacity: Quantity? = null,
     /**
      * The quantity of specimen in the container; may be volume, dimensions, or other appropriate
      * measurements, depending on the specimen type.
      */
-    public var specimenQuantity: Quantity? = null,
+    public val specimenQuantity: Quantity? = null,
     /**
      * Introduced substance to preserve, maintain or enhance the specimen. Examples: Formalin,
      * Citrate, EDTA.
      */
-    public var additive: Additive? = null,
+    public val additive: Additive? = null,
   ) : BackboneElement() {
     @Serializable(with = SpecimenContainerAdditiveSerializer::class)
     public sealed interface Additive {

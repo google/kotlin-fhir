@@ -38,15 +38,15 @@ import com.google.fhir.model.r4b.serializers.DoubleSerializer
 import com.google.fhir.model.r4b.serializers.LocalTimeSerializer
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class DeviceMetricCalibrationSurrogate(
   public var id: String? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var type: String? = null,
   public var _type: Element? = null,
   public var state: String? = null,
@@ -57,9 +57,8 @@ internal data class DeviceMetricCalibrationSurrogate(
   public fun toModel(): DeviceMetric.Calibration =
     DeviceMetric.Calibration(
       id = this@DeviceMetricCalibrationSurrogate.id,
-      extension = this@DeviceMetricCalibrationSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@DeviceMetricCalibrationSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@DeviceMetricCalibrationSurrogate.extension ?: listOf(),
+      modifierExtension = this@DeviceMetricCalibrationSurrogate.modifierExtension ?: listOf(),
       type =
         this@DeviceMetricCalibrationSurrogate.type?.let {
           Enumeration.of(
@@ -108,10 +107,10 @@ internal data class DeviceMetricSurrogate(
   public var language: String? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: MutableList<Resource>? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var identifier: MutableList<Identifier>? = null,
+  public var contained: List<Resource>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
+  public var identifier: List<Identifier>? = null,
   public var type: CodeableConcept,
   public var unit: CodeableConcept? = null,
   public var source: Reference? = null,
@@ -123,7 +122,7 @@ internal data class DeviceMetricSurrogate(
   public var category: String? = null,
   public var _category: Element? = null,
   public var measurementPeriod: Timing? = null,
-  public var calibration: MutableList<DeviceMetric.Calibration>? = null,
+  public var calibration: List<DeviceMetric.Calibration>? = null,
 ) {
   public fun toModel(): DeviceMetric =
     DeviceMetric(
@@ -133,10 +132,10 @@ internal data class DeviceMetricSurrogate(
         Uri.of(this@DeviceMetricSurrogate.implicitRules, this@DeviceMetricSurrogate._implicitRules),
       language = Code.of(this@DeviceMetricSurrogate.language, this@DeviceMetricSurrogate._language),
       text = this@DeviceMetricSurrogate.text,
-      contained = this@DeviceMetricSurrogate.contained ?: mutableListOf(),
-      extension = this@DeviceMetricSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@DeviceMetricSurrogate.modifierExtension ?: mutableListOf(),
-      identifier = this@DeviceMetricSurrogate.identifier ?: mutableListOf(),
+      contained = this@DeviceMetricSurrogate.contained ?: listOf(),
+      extension = this@DeviceMetricSurrogate.extension ?: listOf(),
+      modifierExtension = this@DeviceMetricSurrogate.modifierExtension ?: listOf(),
+      identifier = this@DeviceMetricSurrogate.identifier ?: listOf(),
       type = this@DeviceMetricSurrogate.type,
       unit = this@DeviceMetricSurrogate.unit,
       source = this@DeviceMetricSurrogate.source,
@@ -161,7 +160,7 @@ internal data class DeviceMetricSurrogate(
           this@DeviceMetricSurrogate._category,
         ),
       measurementPeriod = this@DeviceMetricSurrogate.measurementPeriod,
-      calibration = this@DeviceMetricSurrogate.calibration ?: mutableListOf(),
+      calibration = this@DeviceMetricSurrogate.calibration ?: listOf(),
     )
 
   public companion object {

@@ -21,7 +21,7 @@ package com.google.fhir.model.r4b
 import kotlin.Int
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 
 /**
  * Base StructureDefinition for unsignedInt type: An integer with a value that is not negative
@@ -29,7 +29,7 @@ import kotlin.collections.MutableList
  */
 public data class UnsignedInt(
   /** unique id for the element within a resource (for internal references) */
-  override var id: String? = null,
+  override val id: String? = null,
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and manageable, there is a strict set of
@@ -42,9 +42,9 @@ public data class UnsignedInt(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: MutableList<Extension> = mutableListOf(),
+  override val extension: List<Extension> = listOf(),
   /** Primitive value for unsignedInt */
-  override var `value`: Int? = null,
+  override val `value`: Int? = null,
 ) : Integer(id, extension, `value`) {
   override fun toElement(): Element? {
     if (id != null || extension.isNotEmpty()) {

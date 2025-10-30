@@ -25,7 +25,7 @@ import com.google.fhir.model.r4b.serializers.ObservationReferenceRangeSerializer
 import com.google.fhir.model.r4b.serializers.ObservationSerializer
 import com.google.fhir.model.r4b.serializers.ObservationValueSerializer
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -40,12 +40,12 @@ public data class Observation(
    * The only time that a resource does not have an id is when it is being submitted to the server
    * using a create operation.
    */
-  override var id: kotlin.String? = null,
+  override val id: kotlin.String? = null,
   /**
    * The metadata about the resource. This is content that is maintained by the infrastructure.
    * Changes to the content might not always be associated with version changes to the resource.
    */
-  override var meta: Meta? = null,
+  override val meta: Meta? = null,
   /**
    * A reference to a set of rules that were followed when the resource was constructed, and which
    * must be understood when processing the content. Often, this is a reference to an implementation
@@ -59,7 +59,7 @@ public data class Observation(
    * to an implementation guide that defines these special rules as part of it's narrative along
    * with other profiles, value sets, etc.
    */
-  override var implicitRules: Uri? = null,
+  override val implicitRules: Uri? = null,
   /**
    * The base language in which the resource is written.
    *
@@ -71,7 +71,7 @@ public data class Observation(
    * language is specified, it should it also be specified on the div element in the html (see rules
    * in HTML5 for information about the relationship between xml:lang and the html lang attribute).
    */
-  override var language: Code? = null,
+  override val language: Code? = null,
   /**
    * A human-readable narrative that contains a summary of the resource and can be used to represent
    * the content of the resource to a human. The narrative need not encode all the structured data,
@@ -85,7 +85,7 @@ public data class Observation(
    * legacy systems where information is captured as a "text blob" or where text is additionally
    * entered raw or narrated and encoded information is added later.
    */
-  override var text: Narrative? = null,
+  override val text: Narrative? = null,
   /**
    * These resources do not have an independent existence apart from the resource that contains
    * them - they cannot be identified independently, and nor can they have their own independent
@@ -96,7 +96,7 @@ public data class Observation(
    * resources may have profiles and tags In their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: MutableList<Resource> = mutableListOf(),
+  override val contained: List<Resource> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and manageable, there is a strict set of
@@ -109,7 +109,7 @@ public data class Observation(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: MutableList<Extension> = mutableListOf(),
+  override val extension: List<Extension> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -128,15 +128,15 @@ public data class Observation(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: MutableList<Extension> = mutableListOf(),
+  override val modifierExtension: List<Extension> = listOf(),
   /** A unique identifier assigned to this observation. */
-  public var identifier: MutableList<Identifier> = mutableListOf(),
+  public val identifier: List<Identifier> = listOf(),
   /**
    * A plan, proposal or order that is fulfilled in whole or in part by this event. For example, a
    * MedicationRequest may require a patient to have laboratory test performed before it is
    * dispensed.
    */
-  public var basedOn: MutableList<Reference> = mutableListOf(),
+  public val basedOn: List<Reference> = listOf(),
   /**
    * A larger event of which this particular Observation is a component or step. For example, an
    * observation as part of a procedure.
@@ -144,14 +144,14 @@ public data class Observation(
    * To link an Observation to an Encounter use `encounter`. See the
    * [Notes](observation.html#obsgrouping) below for guidance on referencing another Observation.
    */
-  public var partOf: MutableList<Reference> = mutableListOf(),
+  public val partOf: List<Reference> = listOf(),
   /**
    * The status of the result value.
    *
    * This element is labeled as a modifier because the status contains codes that mark the resource
    * as not currently valid.
    */
-  public var status: Enumeration<ObservationStatus>,
+  public val status: Enumeration<ObservationStatus>,
   /**
    * A code that classifies the general type of observation being made.
    *
@@ -159,14 +159,14 @@ public data class Observation(
    * schemes based on the owner’s definition of the category and effectively multiple categories can
    * be used at once. The level of granularity is defined by the category concepts in the value set.
    */
-  public var category: MutableList<CodeableConcept> = mutableListOf(),
+  public val category: List<CodeableConcept> = listOf(),
   /**
    * Describes what was observed. Sometimes this is called the observation "name".
    *
    * *All* code-value and, if present, component.code-component.value pairs need to be taken into
    * account to correctly understand the meaning of the observation.
    */
-  public var code: CodeableConcept,
+  public val code: CodeableConcept,
   /**
    * The patient, or group of patients, location, or device this observation is about and into whose
    * record the observation is placed. If the actual focus of the observation is different from the
@@ -178,7 +178,7 @@ public data class Observation(
    * patient. In this case, the observation SHALL be matched to a patient through some
    * context/channel matching technique, and at this point, the observation should be updated.
    */
-  public var subject: Reference? = null,
+  public val subject: Reference? = null,
   /**
    * The actual focus of an observation when it is not the patient of record representing something
    * or someone associated with the patient such as a spouse, parent, fetus, or donor. For example,
@@ -195,7 +195,7 @@ public data class Observation(
    * specimen is required. If a code is required instead of a resource use either `bodysite` for
    * bodysites or the standard extension [focusCode](extension-observation-focuscode.html).
    */
-  public var focus: MutableList<Reference> = mutableListOf(),
+  public val focus: List<Reference> = listOf(),
   /**
    * The healthcare event (e.g. a patient and healthcare provider interaction) during which this
    * observation is made.
@@ -204,7 +204,7 @@ public data class Observation(
    * initiated prior to or after the official completion of an encounter but still be tied to the
    * context of the encounter (e.g. pre-admission laboratory tests).
    */
-  public var encounter: Reference? = null,
+  public val encounter: Reference? = null,
   /**
    * The time or time-period the observed value is asserted as being true. For biological subjects -
    * e.g. human patients - this is usually called the "physiologically relevant time". This is
@@ -216,7 +216,7 @@ public data class Observation(
    * use the [Timing](datatypes.html#timing) datatype which allow the measurement to be tied to
    * regular life events.
    */
-  public var effective: Effective? = null,
+  public val effective: Effective? = null,
   /**
    * The date and time this version of the observation was made available to providers, typically
    * after the results have been reviewed and verified.
@@ -227,9 +227,9 @@ public data class Observation(
    * same as the `lastUpdated` time of the resource itself due to a non-clinically significant
    * update that doesn’t require the new version to be reviewed and verified again.
    */
-  public var issued: Instant? = null,
+  public val issued: Instant? = null,
   /** Who was responsible for asserting the observed value as "true". */
-  public var performer: MutableList<Reference> = mutableListOf(),
+  public val performer: List<Reference> = listOf(),
   /**
    * The information determined as a result of making the observation, if the information has a
    * simple value.
@@ -241,7 +241,7 @@ public data class Observation(
    * associated with the Observation.code defines a coded value. For additional guidance, see the
    * [Notes section](observation.html#notes) below.
    */
-  public var `value`: Value? = null,
+  public val `value`: Value? = null,
   /**
    * Provides a reason why the expected value in the element Observation.value[x] is missing.
    *
@@ -257,7 +257,7 @@ public data class Observation(
    * reported only when > 0. Because of these options, use-case agreements are required to interpret
    * general observations for null or exceptional values.
    */
-  public var dataAbsentReason: CodeableConcept? = null,
+  public val dataAbsentReason: CodeableConcept? = null,
   /**
    * A categorical assessment of an observation value. For example, high, low, normal.
    *
@@ -266,7 +266,7 @@ public data class Observation(
    * compact codes this element is often placed adjacent to the result value in reports and flow
    * sheets to signal the meaning/normalcy status of the result.
    */
-  public var interpretation: MutableList<CodeableConcept> = mutableListOf(),
+  public val interpretation: List<CodeableConcept> = listOf(),
   /**
    * Comments about the observation or the results.
    *
@@ -274,7 +274,7 @@ public data class Observation(
    * unexpected or unreliable results values, or information about its source when relevant to its
    * interpretation.
    */
-  public var note: MutableList<Annotation> = mutableListOf(),
+  public val note: List<Annotation> = listOf(),
   /**
    * Indicates the site on the subject's body where the observation was made (i.e. the target site).
    *
@@ -284,13 +284,13 @@ public data class Observation(
    * If the use case requires BodySite to be handled as a separate resource (e.g. to identify and
    * track separately) then use the standard extension[ bodySite](extension-bodysite.html).
    */
-  public var bodySite: CodeableConcept? = null,
+  public val bodySite: CodeableConcept? = null,
   /**
    * Indicates the mechanism used to perform the observation.
    *
    * Only used if not implicit in code for Observation.code.
    */
-  public var method: CodeableConcept? = null,
+  public val method: CodeableConcept? = null,
   /**
    * The specimen that was used when this observation was made.
    *
@@ -300,14 +300,14 @@ public data class Observation(
    * reported explicitly. Also note that observation resources may be used in contexts that track
    * the specimen explicitly (e.g. Diagnostic Report).
    */
-  public var specimen: Reference? = null,
+  public val specimen: Reference? = null,
   /**
    * The device used to generate the observation data.
    *
    * Note that this is not meant to represent a device involved in the transmission of the result,
    * e.g., a gateway. Such devices may be documented using the Provenance resource where relevant.
    */
-  public var device: Reference? = null,
+  public val device: Reference? = null,
   /**
    * Guidance on how to interpret the value by comparison to a normal or recommended range. Multiple
    * reference ranges are interpreted as an "OR". In other words, to represent two distinct target
@@ -319,7 +319,7 @@ public data class Observation(
    * appropriate. Whenever more than one reference range is supplied, the differences between them
    * SHOULD be provided in the reference range and/or age properties.
    */
-  public var referenceRange: MutableList<ReferenceRange> = mutableListOf(),
+  public val referenceRange: List<ReferenceRange> = listOf(),
   /**
    * This observation is a group observation (e.g. a battery, a panel of tests, a set of vital sign
    * measurements) that includes the target as a member of the group.
@@ -331,7 +331,7 @@ public data class Observation(
    * [QuestionnaireResponse](questionnaireresponse.html) into a final score and represent the score
    * as an Observation.
    */
-  public var hasMember: MutableList<Reference> = mutableListOf(),
+  public val hasMember: List<Reference> = listOf(),
   /**
    * The target resource that represents a measurement from which this observation value is derived.
    * For example, a calculated anion gap or a fetal measurement based on an ultrasound image.
@@ -341,7 +341,7 @@ public data class Observation(
    * will be another Observation. For a discussion on the ways Observations can assembled in groups
    * together, see [Notes](observation.html#obsgrouping) below.
    */
-  public var derivedFrom: MutableList<Reference> = mutableListOf(),
+  public val derivedFrom: List<Reference> = listOf(),
   /**
    * Some observations have multiple component observations. These component observations are
    * expressed as separate code value pairs that share the same attributes. Examples include
@@ -351,7 +351,7 @@ public data class Observation(
    * For a discussion on the ways Observations can be assembled in groups together see
    * [Notes](observation.html#notes) below.
    */
-  public var component: MutableList<Component> = mutableListOf(),
+  public val component: List<Component> = listOf(),
 ) : DomainResource() {
   /**
    * Guidance on how to interpret the value by comparison to a normal or recommended range. Multiple
@@ -364,7 +364,7 @@ public data class Observation(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and manageable, there is a strict set of
@@ -377,7 +377,7 @@ public data class Observation(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -396,19 +396,19 @@ public data class Observation(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /**
      * The value of the low bound of the reference range. The low bound of the reference range
      * endpoint is inclusive of the value (e.g. reference range is >=5 - <=9). If the low bound is
      * omitted, it is assumed to be meaningless (e.g. reference range is <=2.3).
      */
-    public var low: Quantity? = null,
+    public val low: Quantity? = null,
     /**
      * The value of the high bound of the reference range. The high bound of the reference range
      * endpoint is inclusive of the value (e.g. reference range is >=5 - <=9). If the high bound is
      * omitted, it is assumed to be meaningless (e.g. reference range is >= 2.3).
      */
-    public var high: Quantity? = null,
+    public val high: Quantity? = null,
     /**
      * Codes to indicate the what part of the targeted reference population it applies to. For
      * example, the normal or therapeutic range.
@@ -416,7 +416,7 @@ public data class Observation(
      * This SHOULD be populated if there is more than one range. If this element is not present then
      * the normal range is assumed.
      */
-    public var type: CodeableConcept? = null,
+    public val type: CodeableConcept? = null,
     /**
      * Codes to indicate the target population this reference range applies to. For example, a
      * reference range may be based on the normal population or a particular sex or race. Multiple
@@ -427,18 +427,18 @@ public data class Observation(
      * This SHOULD be populated if there is more than one range. If this element is not present then
      * the normal population is assumed.
      */
-    public var appliesTo: MutableList<CodeableConcept> = mutableListOf(),
+    public val appliesTo: List<CodeableConcept> = listOf(),
     /**
      * The age at which this reference range is applicable. This is a neonatal age (e.g. number of
      * weeks at term) if the meaning says so.
      */
-    public var age: Range? = null,
+    public val age: Range? = null,
     /**
      * Text based reference range in an observation which may be used when a quantitative range is
      * not appropriate for an observation. An example would be a reference value of "Negative" or a
      * list or table of "normals".
      */
-    public var text: String? = null,
+    public val text: String? = null,
   ) : BackboneElement()
 
   /**
@@ -453,7 +453,7 @@ public data class Observation(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and manageable, there is a strict set of
@@ -466,7 +466,7 @@ public data class Observation(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -485,14 +485,14 @@ public data class Observation(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /**
      * Describes what was observed. Sometimes this is called the observation "code".
      *
      * *All* code-value and component.code-component.value pairs need to be taken into account to
      * correctly understand the meaning of the observation.
      */
-    public var code: CodeableConcept,
+    public val code: CodeableConcept,
     /**
      * The information determined as a result of making the observation, if the information has a
      * simple value.
@@ -504,7 +504,7 @@ public data class Observation(
      * the field was usually coded, or if the type associated with the Observation.code defines a
      * coded value. For additional guidance, see the [Notes section](observation.html#notes) below.
      */
-    public var `value`: Value? = null,
+    public val `value`: Value? = null,
     /**
      * Provides a reason why the expected value in the element Observation.component.value[x] is
      * missing.
@@ -519,7 +519,7 @@ public data class Observation(
      * "error" could be used when the measurement was not completed. Because of these options,
      * use-case agreements are required to interpret general observations for exceptional values.
      */
-    public var dataAbsentReason: CodeableConcept? = null,
+    public val dataAbsentReason: CodeableConcept? = null,
     /**
      * A categorical assessment of an observation value. For example, high, low, normal.
      *
@@ -528,7 +528,7 @@ public data class Observation(
      * simple compact codes this element is often placed adjacent to the result value in reports and
      * flow sheets to signal the meaning/normalcy status of the result.
      */
-    public var interpretation: MutableList<CodeableConcept> = mutableListOf(),
+    public val interpretation: List<CodeableConcept> = listOf(),
     /**
      * Guidance on how to interpret the value by comparison to a normal or recommended range.
      *
@@ -538,7 +538,7 @@ public data class Observation(
      * possible or appropriate. Whenever more than one reference range is supplied, the differences
      * between them SHOULD be provided in the reference range and/or age properties.
      */
-    public var referenceRange: MutableList<ReferenceRange> = mutableListOf(),
+    public val referenceRange: List<ReferenceRange> = listOf(),
   ) : BackboneElement() {
     @Serializable(with = ObservationComponentValueSerializer::class)
     public sealed interface Value {

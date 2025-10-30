@@ -40,28 +40,27 @@ import com.google.fhir.model.r5.serializers.LocalTimeSerializer
 import kotlin.Int
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class MolecularSequenceRelativeSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var coordinateSystem: CodeableConcept,
   public var ordinalPosition: Int? = null,
   public var _ordinalPosition: Element? = null,
   public var sequenceRange: Range? = null,
   public var startingSequence: MolecularSequence.Relative.StartingSequence? = null,
-  public var edit: MutableList<MolecularSequence.Relative.Edit>? = null,
+  public var edit: List<MolecularSequence.Relative.Edit>? = null,
 ) {
   public fun toModel(): MolecularSequence.Relative =
     MolecularSequence.Relative(
       id = this@MolecularSequenceRelativeSurrogate.id,
-      extension = this@MolecularSequenceRelativeSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@MolecularSequenceRelativeSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@MolecularSequenceRelativeSurrogate.extension ?: listOf(),
+      modifierExtension = this@MolecularSequenceRelativeSurrogate.modifierExtension ?: listOf(),
       coordinateSystem = this@MolecularSequenceRelativeSurrogate.coordinateSystem,
       ordinalPosition =
         Integer.of(
@@ -70,7 +69,7 @@ internal data class MolecularSequenceRelativeSurrogate(
         ),
       sequenceRange = this@MolecularSequenceRelativeSurrogate.sequenceRange,
       startingSequence = this@MolecularSequenceRelativeSurrogate.startingSequence,
-      edit = this@MolecularSequenceRelativeSurrogate.edit ?: mutableListOf(),
+      edit = this@MolecularSequenceRelativeSurrogate.edit ?: listOf(),
     )
 
   public companion object {
@@ -94,8 +93,8 @@ internal data class MolecularSequenceRelativeSurrogate(
 @Serializable
 internal data class MolecularSequenceRelativeStartingSequenceSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var genomeAssembly: CodeableConcept? = null,
   public var chromosome: CodeableConcept? = null,
   public var sequence: MolecularSequence.Relative.StartingSequence.Sequence? = null,
@@ -111,11 +110,9 @@ internal data class MolecularSequenceRelativeStartingSequenceSurrogate(
   public fun toModel(): MolecularSequence.Relative.StartingSequence =
     MolecularSequence.Relative.StartingSequence(
       id = this@MolecularSequenceRelativeStartingSequenceSurrogate.id,
-      extension =
-        this@MolecularSequenceRelativeStartingSequenceSurrogate.extension ?: mutableListOf(),
+      extension = this@MolecularSequenceRelativeStartingSequenceSurrogate.extension ?: listOf(),
       modifierExtension =
-        this@MolecularSequenceRelativeStartingSequenceSurrogate.modifierExtension
-          ?: mutableListOf(),
+        this@MolecularSequenceRelativeStartingSequenceSurrogate.modifierExtension ?: listOf(),
       genomeAssembly = this@MolecularSequenceRelativeStartingSequenceSurrogate.genomeAssembly,
       chromosome = this@MolecularSequenceRelativeStartingSequenceSurrogate.chromosome,
       sequence = this@MolecularSequenceRelativeStartingSequenceSurrogate.sequence,
@@ -173,8 +170,8 @@ internal data class MolecularSequenceRelativeStartingSequenceSurrogate(
 @Serializable
 internal data class MolecularSequenceRelativeEditSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var start: Int? = null,
   public var _start: Element? = null,
   public var end: Int? = null,
@@ -187,9 +184,8 @@ internal data class MolecularSequenceRelativeEditSurrogate(
   public fun toModel(): MolecularSequence.Relative.Edit =
     MolecularSequence.Relative.Edit(
       id = this@MolecularSequenceRelativeEditSurrogate.id,
-      extension = this@MolecularSequenceRelativeEditSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@MolecularSequenceRelativeEditSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@MolecularSequenceRelativeEditSurrogate.extension ?: listOf(),
+      modifierExtension = this@MolecularSequenceRelativeEditSurrogate.modifierExtension ?: listOf(),
       start =
         Integer.of(
           this@MolecularSequenceRelativeEditSurrogate.start,
@@ -275,21 +271,21 @@ internal data class MolecularSequenceSurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: MutableList<Resource>? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var identifier: MutableList<Identifier>? = null,
+  public var contained: List<Resource>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
+  public var identifier: List<Identifier>? = null,
   public var type: KotlinString? = null,
   public var _type: Element? = null,
   public var subject: Reference? = null,
-  public var focus: MutableList<Reference>? = null,
+  public var focus: List<Reference>? = null,
   public var specimen: Reference? = null,
   public var device: Reference? = null,
   public var performer: Reference? = null,
   public var literal: KotlinString? = null,
   public var _literal: Element? = null,
-  public var formatted: MutableList<Attachment>? = null,
-  public var relative: MutableList<MolecularSequence.Relative>? = null,
+  public var formatted: List<Attachment>? = null,
+  public var relative: List<MolecularSequence.Relative>? = null,
 ) {
   public fun toModel(): MolecularSequence =
     MolecularSequence(
@@ -306,10 +302,10 @@ internal data class MolecularSequenceSurrogate(
           this@MolecularSequenceSurrogate._language,
         ),
       text = this@MolecularSequenceSurrogate.text,
-      contained = this@MolecularSequenceSurrogate.contained ?: mutableListOf(),
-      extension = this@MolecularSequenceSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@MolecularSequenceSurrogate.modifierExtension ?: mutableListOf(),
-      identifier = this@MolecularSequenceSurrogate.identifier ?: mutableListOf(),
+      contained = this@MolecularSequenceSurrogate.contained ?: listOf(),
+      extension = this@MolecularSequenceSurrogate.extension ?: listOf(),
+      modifierExtension = this@MolecularSequenceSurrogate.modifierExtension ?: listOf(),
+      identifier = this@MolecularSequenceSurrogate.identifier ?: listOf(),
       type =
         this@MolecularSequenceSurrogate.type?.let {
           Enumeration.of(
@@ -318,7 +314,7 @@ internal data class MolecularSequenceSurrogate(
           )
         },
       subject = this@MolecularSequenceSurrogate.subject,
-      focus = this@MolecularSequenceSurrogate.focus ?: mutableListOf(),
+      focus = this@MolecularSequenceSurrogate.focus ?: listOf(),
       specimen = this@MolecularSequenceSurrogate.specimen,
       device = this@MolecularSequenceSurrogate.device,
       performer = this@MolecularSequenceSurrogate.performer,
@@ -327,8 +323,8 @@ internal data class MolecularSequenceSurrogate(
           this@MolecularSequenceSurrogate.literal,
           this@MolecularSequenceSurrogate._literal,
         ),
-      formatted = this@MolecularSequenceSurrogate.formatted ?: mutableListOf(),
-      relative = this@MolecularSequenceSurrogate.relative ?: mutableListOf(),
+      formatted = this@MolecularSequenceSurrogate.formatted ?: listOf(),
+      relative = this@MolecularSequenceSurrogate.relative ?: listOf(),
     )
 
   public companion object {

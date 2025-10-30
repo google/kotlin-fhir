@@ -45,15 +45,15 @@ import com.google.fhir.model.r4b.terminologies.AdministrativeGender
 import kotlin.Boolean as KotlinBoolean
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class RelatedPersonCommunicationSurrogate(
   public var id: String? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var language: CodeableConcept,
   public var preferred: KotlinBoolean? = null,
   public var _preferred: Element? = null,
@@ -61,9 +61,8 @@ internal data class RelatedPersonCommunicationSurrogate(
   public fun toModel(): RelatedPerson.Communication =
     RelatedPerson.Communication(
       id = this@RelatedPersonCommunicationSurrogate.id,
-      extension = this@RelatedPersonCommunicationSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@RelatedPersonCommunicationSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@RelatedPersonCommunicationSurrogate.extension ?: listOf(),
+      modifierExtension = this@RelatedPersonCommunicationSurrogate.modifierExtension ?: listOf(),
       language = this@RelatedPersonCommunicationSurrogate.language,
       preferred =
         R4bBoolean.of(
@@ -96,24 +95,24 @@ internal data class RelatedPersonSurrogate(
   public var language: String? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: MutableList<Resource>? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var identifier: MutableList<Identifier>? = null,
+  public var contained: List<Resource>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
+  public var identifier: List<Identifier>? = null,
   public var active: KotlinBoolean? = null,
   public var _active: Element? = null,
   public var patient: Reference,
-  public var relationship: MutableList<CodeableConcept>? = null,
-  public var name: MutableList<HumanName>? = null,
-  public var telecom: MutableList<ContactPoint>? = null,
+  public var relationship: List<CodeableConcept>? = null,
+  public var name: List<HumanName>? = null,
+  public var telecom: List<ContactPoint>? = null,
   public var gender: String? = null,
   public var _gender: Element? = null,
   public var birthDate: String? = null,
   public var _birthDate: Element? = null,
-  public var address: MutableList<Address>? = null,
-  public var photo: MutableList<Attachment>? = null,
+  public var address: List<Address>? = null,
+  public var photo: List<Attachment>? = null,
   public var period: Period? = null,
-  public var communication: MutableList<RelatedPerson.Communication>? = null,
+  public var communication: List<RelatedPerson.Communication>? = null,
 ) {
   public fun toModel(): RelatedPerson =
     RelatedPerson(
@@ -127,16 +126,16 @@ internal data class RelatedPersonSurrogate(
       language =
         Code.of(this@RelatedPersonSurrogate.language, this@RelatedPersonSurrogate._language),
       text = this@RelatedPersonSurrogate.text,
-      contained = this@RelatedPersonSurrogate.contained ?: mutableListOf(),
-      extension = this@RelatedPersonSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@RelatedPersonSurrogate.modifierExtension ?: mutableListOf(),
-      identifier = this@RelatedPersonSurrogate.identifier ?: mutableListOf(),
+      contained = this@RelatedPersonSurrogate.contained ?: listOf(),
+      extension = this@RelatedPersonSurrogate.extension ?: listOf(),
+      modifierExtension = this@RelatedPersonSurrogate.modifierExtension ?: listOf(),
+      identifier = this@RelatedPersonSurrogate.identifier ?: listOf(),
       active =
         R4bBoolean.of(this@RelatedPersonSurrogate.active, this@RelatedPersonSurrogate._active),
       patient = this@RelatedPersonSurrogate.patient,
-      relationship = this@RelatedPersonSurrogate.relationship ?: mutableListOf(),
-      name = this@RelatedPersonSurrogate.name ?: mutableListOf(),
-      telecom = this@RelatedPersonSurrogate.telecom ?: mutableListOf(),
+      relationship = this@RelatedPersonSurrogate.relationship ?: listOf(),
+      name = this@RelatedPersonSurrogate.name ?: listOf(),
+      telecom = this@RelatedPersonSurrogate.telecom ?: listOf(),
       gender =
         this@RelatedPersonSurrogate.gender?.let {
           Enumeration.of(AdministrativeGender.fromCode(it), this@RelatedPersonSurrogate._gender)
@@ -146,10 +145,10 @@ internal data class RelatedPersonSurrogate(
           FhirDate.fromString(this@RelatedPersonSurrogate.birthDate),
           this@RelatedPersonSurrogate._birthDate,
         ),
-      address = this@RelatedPersonSurrogate.address ?: mutableListOf(),
-      photo = this@RelatedPersonSurrogate.photo ?: mutableListOf(),
+      address = this@RelatedPersonSurrogate.address ?: listOf(),
+      photo = this@RelatedPersonSurrogate.photo ?: listOf(),
       period = this@RelatedPersonSurrogate.period,
-      communication = this@RelatedPersonSurrogate.communication ?: mutableListOf(),
+      communication = this@RelatedPersonSurrogate.communication ?: listOf(),
     )
 
   public companion object {

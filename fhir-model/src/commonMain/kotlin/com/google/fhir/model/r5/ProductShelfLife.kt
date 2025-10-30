@@ -22,7 +22,7 @@ import com.google.fhir.model.r5.serializers.ProductShelfLifePeriodSerializer
 import com.google.fhir.model.r5.serializers.ProductShelfLifeSerializer
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 
 /**
@@ -35,7 +35,7 @@ public data class ProductShelfLife(
    * Unique id for the element within a resource (for internal references). This may be any string
    * value that does not contain spaces.
    */
-  override var id: String? = null,
+  override val id: String? = null,
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * element. To make the use of extensions safe and managable, there is a strict set of governance
@@ -48,7 +48,7 @@ public data class ProductShelfLife(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: MutableList<Extension> = mutableListOf(),
+  override val extension: List<Extension> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * element and that modifies the understanding of the element in which it is contained and/or the
@@ -67,7 +67,7 @@ public data class ProductShelfLife(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: MutableList<Extension> = mutableListOf(),
+  override val modifierExtension: List<Extension> = listOf(),
   /**
    * This describes the shelf life, taking into account various scenarios such as shelf life of the
    * packaged Medicinal Product itself, shelf life after transformation where necessary and shelf
@@ -75,18 +75,18 @@ public data class ProductShelfLife(
    * appropriate controlled vocabulary The controlled term and the controlled term identifier shall
    * be specified.
    */
-  public var type: CodeableConcept? = null,
+  public val type: CodeableConcept? = null,
   /**
    * The shelf life time period can be specified using a numerical value for the period of time and
    * its unit of time measurement The unit of measurement shall be specified in accordance with ISO
    * 11240 and the resulting terminology The symbol and the symbol identifier shall be used.
    */
-  public var period: Period? = null,
+  public val period: Period? = null,
   /**
    * Special precautions for storage, if any, can be specified using an appropriate controlled
    * vocabulary The controlled term and the controlled term identifier shall be specified.
    */
-  public var specialPrecautionsForStorage: MutableList<CodeableConcept> = mutableListOf(),
+  public val specialPrecautionsForStorage: List<CodeableConcept> = listOf(),
 ) : BackboneType() {
   @Serializable(with = ProductShelfLifePeriodSerializer::class)
   public sealed interface Period {

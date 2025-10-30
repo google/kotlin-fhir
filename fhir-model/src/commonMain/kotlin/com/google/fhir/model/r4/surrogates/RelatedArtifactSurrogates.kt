@@ -32,14 +32,14 @@ import com.google.fhir.model.r4.serializers.DoubleSerializer
 import com.google.fhir.model.r4.serializers.LocalTimeSerializer
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class RelatedArtifactSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
   public var type: KotlinString? = null,
   public var _type: Element? = null,
   public var label: KotlinString? = null,
@@ -57,7 +57,7 @@ internal data class RelatedArtifactSurrogate(
   public fun toModel(): RelatedArtifact =
     RelatedArtifact(
       id = this@RelatedArtifactSurrogate.id,
-      extension = this@RelatedArtifactSurrogate.extension ?: mutableListOf(),
+      extension = this@RelatedArtifactSurrogate.extension ?: listOf(),
       type =
         Enumeration.of(
           RelatedArtifact.RelatedArtifactType.fromCode(this@RelatedArtifactSurrogate.type!!),

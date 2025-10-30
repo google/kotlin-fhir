@@ -21,7 +21,7 @@ package com.google.fhir.model.r5
 import com.google.fhir.model.r5.serializers.HealthcareServiceEligibilitySerializer
 import com.google.fhir.model.r5.serializers.HealthcareServiceSerializer
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -41,12 +41,12 @@ public data class HealthcareService(
    * like the create and conditional update. Otherwise, the use of the resouce id depends on the
    * given use case.
    */
-  override var id: kotlin.String? = null,
+  override val id: kotlin.String? = null,
   /**
    * The metadata about the resource. This is content that is maintained by the infrastructure.
    * Changes to the content might not always be associated with version changes to the resource.
    */
-  override var meta: Meta? = null,
+  override val meta: Meta? = null,
   /**
    * A reference to a set of rules that were followed when the resource was constructed, and which
    * must be understood when processing the content. Often, this is a reference to an implementation
@@ -60,7 +60,7 @@ public data class HealthcareService(
    * to an implementation guide that defines these special rules as part of its narrative along with
    * other profiles, value sets, etc.
    */
-  override var implicitRules: Uri? = null,
+  override val implicitRules: Uri? = null,
   /**
    * The base language in which the resource is written.
    *
@@ -72,7 +72,7 @@ public data class HealthcareService(
    * language is specified, it should it also be specified on the div element in the html (see rules
    * in HTML5 for information about the relationship between xml:lang and the html lang attribute).
    */
-  override var language: Code? = null,
+  override val language: Code? = null,
   /**
    * A human-readable narrative that contains a summary of the resource and can be used to represent
    * the content of the resource to a human. The narrative need not encode all the structured data,
@@ -86,7 +86,7 @@ public data class HealthcareService(
    * legacy systems where information is captured as a "text blob" or where text is additionally
    * entered raw or narrated and encoded information is added later.
    */
-  override var text: Narrative? = null,
+  override val text: Narrative? = null,
   /**
    * These resources do not have an independent existence apart from the resource that contains
    * them - they cannot be identified independently, nor can they have their own independent
@@ -98,7 +98,7 @@ public data class HealthcareService(
    * resources may have profiles and tags in their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: MutableList<Resource> = mutableListOf(),
+  override val contained: List<Resource> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and managable, there is a strict set of governance
@@ -111,7 +111,7 @@ public data class HealthcareService(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: MutableList<Extension> = mutableListOf(),
+  override val extension: List<Extension> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -130,9 +130,9 @@ public data class HealthcareService(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: MutableList<Extension> = mutableListOf(),
+  override val modifierExtension: List<Extension> = listOf(),
   /** External identifiers for this item. */
-  public var identifier: MutableList<Identifier> = mutableListOf(),
+  public val identifier: List<Identifier> = listOf(),
   /**
    * This flag is used to mark the record to not be used. This is not used when a center is closed
    * for maintenance, or for holidays, the notAvailable period is to be used for this.
@@ -140,7 +140,7 @@ public data class HealthcareService(
    * This element is labeled as a modifier because it may be used to mark that the resource was
    * created in error.
    */
-  public var active: Boolean? = null,
+  public val active: Boolean? = null,
   /**
    * The organization that provides this healthcare service.
    *
@@ -148,7 +148,7 @@ public data class HealthcareService(
    * provided should be interpreted as such. If the Location does not have a managing Organization,
    * then this property should be populated.
    */
-  public var providedBy: Reference? = null,
+  public val providedBy: Reference? = null,
   /**
    * When the HealthcareService is representing a specific, schedulable service, the availableIn
    * property can refer to a generic service.
@@ -157,24 +157,24 @@ public data class HealthcareService(
    * have HealthcareService resources for the CT Scans and MRIs, which have an offeredIn reference
    * to the Radiology HealthcareService.
    */
-  public var offeredIn: MutableList<Reference> = mutableListOf(),
+  public val offeredIn: List<Reference> = listOf(),
   /**
    * Identifies the broad category of service being performed or delivered.
    *
    * Selecting a Service Category then determines the list of relevant service types that can be
    * selected in the primary service type.
    */
-  public var category: MutableList<CodeableConcept> = mutableListOf(),
+  public val category: List<CodeableConcept> = listOf(),
   /** The specific type of service that may be delivered or performed. */
-  public var type: MutableList<CodeableConcept> = mutableListOf(),
+  public val type: List<CodeableConcept> = listOf(),
   /**
    * Collection of specialties handled by the Healthcare service. This is more of a medical term.
    */
-  public var specialty: MutableList<CodeableConcept> = mutableListOf(),
+  public val specialty: List<CodeableConcept> = listOf(),
   /** The location(s) where this healthcare service may be provided. */
-  public var location: MutableList<Reference> = mutableListOf(),
+  public val location: List<Reference> = listOf(),
   /** Further description of the service as it would be presented to a consumer while searching. */
-  public var name: String? = null,
+  public val name: String? = null,
   /**
    * Any additional description of the service and/or any specific issues not covered by the other
    * attributes, which can be displayed as further detail under the serviceName.
@@ -182,14 +182,14 @@ public data class HealthcareService(
    * Would expect that a user would not see this information on a search results, and it would only
    * be available when viewing the complete details of the service.
    */
-  public var comment: Markdown? = null,
+  public val comment: Markdown? = null,
   /** Extra details about the service that can't be placed in the other fields. */
-  public var extraDetails: Markdown? = null,
+  public val extraDetails: Markdown? = null,
   /**
    * If there is a photo/symbol associated with this HealthcareService, it may be included here to
    * facilitate quick identification of the service in a list.
    */
-  public var photo: Attachment? = null,
+  public val photo: Attachment? = null,
   /**
    * The contact details of communication devices available relevant to the specific
    * HealthcareService. This can include addresses, phone numbers, fax numbers, mobile numbers,
@@ -203,7 +203,7 @@ public data class HealthcareService(
    *
    * If this is empty (or the type of interest is empty), refer to the location's contacts.
    */
-  public var contact: MutableList<ExtendedContactDetail> = mutableListOf(),
+  public val contact: List<ExtendedContactDetail> = listOf(),
   /**
    * The location(s) that this service is available to (not where the service is provided).
    *
@@ -213,7 +213,7 @@ public data class HealthcareService(
    * often not managed by any specific organization. This could also include generic locations such
    * as "in-home".
    */
-  public var coverageArea: MutableList<Reference> = mutableListOf(),
+  public val coverageArea: List<Reference> = listOf(),
   /**
    * The code(s) that detail the conditions under which the healthcare service is available/offered.
    *
@@ -221,25 +221,25 @@ public data class HealthcareService(
    * of costings that may apply to this healthcare service, such if the service may be available for
    * free, some discounts available, or fees apply.
    */
-  public var serviceProvisionCode: MutableList<CodeableConcept> = mutableListOf(),
+  public val serviceProvisionCode: List<CodeableConcept> = listOf(),
   /**
    * Does this service have specific eligibility requirements that need to be met in order to use
    * the service?
    */
-  public var eligibility: MutableList<Eligibility> = mutableListOf(),
+  public val eligibility: List<Eligibility> = listOf(),
   /**
    * Programs that this service is applicable to.
    *
    * Programs are often defined externally to an Organization, commonly by governments; e.g. Home
    * and Community Care Programs, Homeless Program, ….
    */
-  public var program: MutableList<CodeableConcept> = mutableListOf(),
+  public val program: List<CodeableConcept> = listOf(),
   /**
    * Collection of characteristics (attributes).
    *
    * These could be such things as is wheelchair accessible.
    */
-  public var characteristic: MutableList<CodeableConcept> = mutableListOf(),
+  public val characteristic: List<CodeableConcept> = listOf(),
   /**
    * Some services are specifically made available in multiple languages, this property permits a
    * directory to declare the languages this is offered in. Typically this is only provided where a
@@ -249,18 +249,18 @@ public data class HealthcareService(
    * not derived from the practitioners, and not all are required to use this language, just that
    * this language is available while scheduling.
    */
-  public var communication: MutableList<CodeableConcept> = mutableListOf(),
+  public val communication: List<CodeableConcept> = listOf(),
   /**
    * Ways that the service accepts referrals, if this is not provided then it is implied that no
    * referral is required.
    */
-  public var referralMethod: MutableList<CodeableConcept> = mutableListOf(),
+  public val referralMethod: List<CodeableConcept> = listOf(),
   /**
    * Indicates whether or not a prospective consumer will require an appointment for a particular
    * service at a site to be provided by the Organization. Indicates if an appointment is required
    * for access to this service.
    */
-  public var appointmentRequired: Boolean? = null,
+  public val appointmentRequired: Boolean? = null,
   /**
    * A collection of times that the healthcare service is available.
    *
@@ -274,12 +274,12 @@ public data class HealthcareService(
    * The NotAvailableTime(s) included indicate the general days/periods where the service is not
    * available (for things such as public holidays).
    */
-  public var availability: MutableList<Availability> = mutableListOf(),
+  public val availability: List<Availability> = listOf(),
   /**
    * Technical endpoints providing access to services operated for the specific healthcare services
    * defined at this resource.
    */
-  public var endpoint: MutableList<Reference> = mutableListOf(),
+  public val endpoint: List<Reference> = listOf(),
 ) : DomainResource() {
   /**
    * Does this service have specific eligibility requirements that need to be met in order to use
@@ -291,7 +291,7 @@ public data class HealthcareService(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -304,7 +304,7 @@ public data class HealthcareService(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -323,9 +323,9 @@ public data class HealthcareService(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /** Coded value for the eligibility. */
-    public var code: CodeableConcept? = null,
+    public val code: CodeableConcept? = null,
     /**
      * Describes the eligibility conditions for the service.
      *
@@ -336,6 +336,6 @@ public data class HealthcareService(
      * outside source, such as an Act of Parliament, this should be noted, preferably with a
      * reference to a commonly available copy of the source document such as a web page.
      */
-    public var comment: Markdown? = null,
+    public val comment: Markdown? = null,
   ) : BackboneElement()
 }

@@ -39,25 +39,25 @@ import com.google.fhir.model.r4.serializers.DoubleSerializer
 import com.google.fhir.model.r4.serializers.LocalTimeSerializer
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class DetectedIssueEvidenceSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var code: MutableList<CodeableConcept>? = null,
-  public var detail: MutableList<Reference>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
+  public var code: List<CodeableConcept>? = null,
+  public var detail: List<Reference>? = null,
 ) {
   public fun toModel(): DetectedIssue.Evidence =
     DetectedIssue.Evidence(
       id = this@DetectedIssueEvidenceSurrogate.id,
-      extension = this@DetectedIssueEvidenceSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@DetectedIssueEvidenceSurrogate.modifierExtension ?: mutableListOf(),
-      code = this@DetectedIssueEvidenceSurrogate.code ?: mutableListOf(),
-      detail = this@DetectedIssueEvidenceSurrogate.detail ?: mutableListOf(),
+      extension = this@DetectedIssueEvidenceSurrogate.extension ?: listOf(),
+      modifierExtension = this@DetectedIssueEvidenceSurrogate.modifierExtension ?: listOf(),
+      code = this@DetectedIssueEvidenceSurrogate.code ?: listOf(),
+      detail = this@DetectedIssueEvidenceSurrogate.detail ?: listOf(),
     )
 
   public companion object {
@@ -77,8 +77,8 @@ internal data class DetectedIssueEvidenceSurrogate(
 @Serializable
 internal data class DetectedIssueMitigationSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var action: CodeableConcept,
   public var date: KotlinString? = null,
   public var _date: Element? = null,
@@ -87,9 +87,8 @@ internal data class DetectedIssueMitigationSurrogate(
   public fun toModel(): DetectedIssue.Mitigation =
     DetectedIssue.Mitigation(
       id = this@DetectedIssueMitigationSurrogate.id,
-      extension = this@DetectedIssueMitigationSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@DetectedIssueMitigationSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@DetectedIssueMitigationSurrogate.extension ?: listOf(),
+      modifierExtension = this@DetectedIssueMitigationSurrogate.modifierExtension ?: listOf(),
       action = this@DetectedIssueMitigationSurrogate.action,
       date =
         DateTime.of(
@@ -151,10 +150,10 @@ internal data class DetectedIssueSurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: MutableList<Resource>? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var identifier: MutableList<Identifier>? = null,
+  public var contained: List<Resource>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
+  public var identifier: List<Identifier>? = null,
   public var status: KotlinString? = null,
   public var _status: Element? = null,
   public var code: CodeableConcept? = null,
@@ -163,13 +162,13 @@ internal data class DetectedIssueSurrogate(
   public var patient: Reference? = null,
   public var identified: DetectedIssue.Identified? = null,
   public var author: Reference? = null,
-  public var implicated: MutableList<Reference>? = null,
-  public var evidence: MutableList<DetectedIssue.Evidence>? = null,
+  public var implicated: List<Reference>? = null,
+  public var evidence: List<DetectedIssue.Evidence>? = null,
   public var detail: KotlinString? = null,
   public var _detail: Element? = null,
   public var reference: KotlinString? = null,
   public var _reference: Element? = null,
-  public var mitigation: MutableList<DetectedIssue.Mitigation>? = null,
+  public var mitigation: List<DetectedIssue.Mitigation>? = null,
 ) {
   public fun toModel(): DetectedIssue =
     DetectedIssue(
@@ -183,10 +182,10 @@ internal data class DetectedIssueSurrogate(
       language =
         Code.of(this@DetectedIssueSurrogate.language, this@DetectedIssueSurrogate._language),
       text = this@DetectedIssueSurrogate.text,
-      contained = this@DetectedIssueSurrogate.contained ?: mutableListOf(),
-      extension = this@DetectedIssueSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@DetectedIssueSurrogate.modifierExtension ?: mutableListOf(),
-      identifier = this@DetectedIssueSurrogate.identifier ?: mutableListOf(),
+      contained = this@DetectedIssueSurrogate.contained ?: listOf(),
+      extension = this@DetectedIssueSurrogate.extension ?: listOf(),
+      modifierExtension = this@DetectedIssueSurrogate.modifierExtension ?: listOf(),
+      identifier = this@DetectedIssueSurrogate.identifier ?: listOf(),
       status =
         Enumeration.of(
           DetectedIssue.ObservationStatus.fromCode(this@DetectedIssueSurrogate.status!!),
@@ -203,12 +202,12 @@ internal data class DetectedIssueSurrogate(
       patient = this@DetectedIssueSurrogate.patient,
       identified = this@DetectedIssueSurrogate.identified,
       author = this@DetectedIssueSurrogate.author,
-      implicated = this@DetectedIssueSurrogate.implicated ?: mutableListOf(),
-      evidence = this@DetectedIssueSurrogate.evidence ?: mutableListOf(),
+      implicated = this@DetectedIssueSurrogate.implicated ?: listOf(),
+      evidence = this@DetectedIssueSurrogate.evidence ?: listOf(),
       detail = R4String.of(this@DetectedIssueSurrogate.detail, this@DetectedIssueSurrogate._detail),
       reference =
         Uri.of(this@DetectedIssueSurrogate.reference, this@DetectedIssueSurrogate._reference),
-      mitigation = this@DetectedIssueSurrogate.mitigation ?: mutableListOf(),
+      mitigation = this@DetectedIssueSurrogate.mitigation ?: listOf(),
     )
 
   public companion object {

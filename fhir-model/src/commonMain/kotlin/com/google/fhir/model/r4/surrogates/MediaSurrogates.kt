@@ -46,7 +46,7 @@ import kotlin.Double
 import kotlin.Int
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
@@ -86,12 +86,12 @@ internal data class MediaSurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: MutableList<Resource>? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var identifier: MutableList<Identifier>? = null,
-  public var basedOn: MutableList<Reference>? = null,
-  public var partOf: MutableList<Reference>? = null,
+  public var contained: List<Resource>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
+  public var identifier: List<Identifier>? = null,
+  public var basedOn: List<Reference>? = null,
+  public var partOf: List<Reference>? = null,
   public var status: KotlinString? = null,
   public var _status: Element? = null,
   public var type: CodeableConcept? = null,
@@ -103,7 +103,7 @@ internal data class MediaSurrogate(
   public var issued: KotlinString? = null,
   public var _issued: Element? = null,
   public var `operator`: Reference? = null,
-  public var reasonCode: MutableList<CodeableConcept>? = null,
+  public var reasonCode: List<CodeableConcept>? = null,
   public var bodySite: CodeableConcept? = null,
   public var deviceName: KotlinString? = null,
   public var _deviceName: Element? = null,
@@ -117,7 +117,7 @@ internal data class MediaSurrogate(
   public var duration: Double? = null,
   public var _duration: Element? = null,
   public var content: Attachment,
-  public var note: MutableList<Annotation>? = null,
+  public var note: List<Annotation>? = null,
 ) {
   public fun toModel(): Media =
     Media(
@@ -126,12 +126,12 @@ internal data class MediaSurrogate(
       implicitRules = Uri.of(this@MediaSurrogate.implicitRules, this@MediaSurrogate._implicitRules),
       language = Code.of(this@MediaSurrogate.language, this@MediaSurrogate._language),
       text = this@MediaSurrogate.text,
-      contained = this@MediaSurrogate.contained ?: mutableListOf(),
-      extension = this@MediaSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@MediaSurrogate.modifierExtension ?: mutableListOf(),
-      identifier = this@MediaSurrogate.identifier ?: mutableListOf(),
-      basedOn = this@MediaSurrogate.basedOn ?: mutableListOf(),
-      partOf = this@MediaSurrogate.partOf ?: mutableListOf(),
+      contained = this@MediaSurrogate.contained ?: listOf(),
+      extension = this@MediaSurrogate.extension ?: listOf(),
+      modifierExtension = this@MediaSurrogate.modifierExtension ?: listOf(),
+      identifier = this@MediaSurrogate.identifier ?: listOf(),
+      basedOn = this@MediaSurrogate.basedOn ?: listOf(),
+      partOf = this@MediaSurrogate.partOf ?: listOf(),
       status =
         Enumeration.of(
           Media.EventStatus.fromCode(this@MediaSurrogate.status!!),
@@ -149,7 +149,7 @@ internal data class MediaSurrogate(
           this@MediaSurrogate._issued,
         ),
       `operator` = this@MediaSurrogate.`operator`,
-      reasonCode = this@MediaSurrogate.reasonCode ?: mutableListOf(),
+      reasonCode = this@MediaSurrogate.reasonCode ?: listOf(),
       bodySite = this@MediaSurrogate.bodySite,
       deviceName = R4String.of(this@MediaSurrogate.deviceName, this@MediaSurrogate._deviceName),
       device = this@MediaSurrogate.device,
@@ -158,7 +158,7 @@ internal data class MediaSurrogate(
       frames = PositiveInt.of(this@MediaSurrogate.frames, this@MediaSurrogate._frames),
       duration = Decimal.of(this@MediaSurrogate.duration, this@MediaSurrogate._duration),
       content = this@MediaSurrogate.content,
-      note = this@MediaSurrogate.note ?: mutableListOf(),
+      note = this@MediaSurrogate.note ?: listOf(),
     )
 
   public companion object {

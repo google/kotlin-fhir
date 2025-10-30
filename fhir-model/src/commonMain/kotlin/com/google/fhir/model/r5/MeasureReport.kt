@@ -30,7 +30,7 @@ import com.google.fhir.model.r5.serializers.MeasureReportGroupStratifierStratumS
 import com.google.fhir.model.r5.serializers.MeasureReportGroupStratifierStratumValueSerializer
 import com.google.fhir.model.r5.serializers.MeasureReportSerializer
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -49,12 +49,12 @@ public data class MeasureReport(
    * like the create and conditional update. Otherwise, the use of the resouce id depends on the
    * given use case.
    */
-  override var id: kotlin.String? = null,
+  override val id: kotlin.String? = null,
   /**
    * The metadata about the resource. This is content that is maintained by the infrastructure.
    * Changes to the content might not always be associated with version changes to the resource.
    */
-  override var meta: Meta? = null,
+  override val meta: Meta? = null,
   /**
    * A reference to a set of rules that were followed when the resource was constructed, and which
    * must be understood when processing the content. Often, this is a reference to an implementation
@@ -68,7 +68,7 @@ public data class MeasureReport(
    * to an implementation guide that defines these special rules as part of its narrative along with
    * other profiles, value sets, etc.
    */
-  override var implicitRules: Uri? = null,
+  override val implicitRules: Uri? = null,
   /**
    * The base language in which the resource is written.
    *
@@ -80,7 +80,7 @@ public data class MeasureReport(
    * language is specified, it should it also be specified on the div element in the html (see rules
    * in HTML5 for information about the relationship between xml:lang and the html lang attribute).
    */
-  override var language: Code? = null,
+  override val language: Code? = null,
   /**
    * A human-readable narrative that contains a summary of the resource and can be used to represent
    * the content of the resource to a human. The narrative need not encode all the structured data,
@@ -94,7 +94,7 @@ public data class MeasureReport(
    * legacy systems where information is captured as a "text blob" or where text is additionally
    * entered raw or narrated and encoded information is added later.
    */
-  override var text: Narrative? = null,
+  override val text: Narrative? = null,
   /**
    * These resources do not have an independent existence apart from the resource that contains
    * them - they cannot be identified independently, nor can they have their own independent
@@ -106,7 +106,7 @@ public data class MeasureReport(
    * resources may have profiles and tags in their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: MutableList<Resource> = mutableListOf(),
+  override val contained: List<Resource> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and managable, there is a strict set of governance
@@ -119,7 +119,7 @@ public data class MeasureReport(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: MutableList<Extension> = mutableListOf(),
+  override val extension: List<Extension> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -138,7 +138,7 @@ public data class MeasureReport(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: MutableList<Extension> = mutableListOf(),
+  override val modifierExtension: List<Extension> = listOf(),
   /**
    * A formal identifier that is used to identify this MeasureReport when it is represented in other
    * formats or referenced in a specification, model, design or an instance.
@@ -146,14 +146,14 @@ public data class MeasureReport(
    * Typically, this is used for identifiers that can go in an HL7 V3 II data type - e.g. to
    * identify this {{title}} outside of FHIR, where the logical URL is not possible to use.
    */
-  public var identifier: MutableList<Identifier> = mutableListOf(),
+  public val identifier: List<Identifier> = listOf(),
   /**
    * The MeasureReport status. No data will be available until the MeasureReport status is complete.
    *
    * This element is labeled as a modifier because the status contains codes that mark the resource
    * as not currently valid.
    */
-  public var status: Enumeration<MeasureReportStatus>,
+  public val status: Enumeration<MeasureReportStatus>,
   /**
    * The type of measure report. This may be an individual report, which provides the score for the
    * measure for an individual member of the population; a subject-listing, which returns the list
@@ -164,7 +164,7 @@ public data class MeasureReport(
    * Data-exchange reports are used only to communicate data-of-interest for a measure. They do not
    * necessarily include all the data for a particular subject or population, but they may.
    */
-  public var type: Enumeration<MeasureReportType>,
+  public val type: Enumeration<MeasureReportType>,
   /**
    * Indicates whether the data submitted in a data-exchange report represents a snapshot or
    * incremental update. A snapshot update replaces all previously submitted data for the receiver,
@@ -174,26 +174,26 @@ public data class MeasureReport(
    * This element only applies to Data-collection reports used to communicate the data-of-interest
    * for a measure
    */
-  public var dataUpdateType: Enumeration<SubmitDataUpdateType>? = null,
+  public val dataUpdateType: Enumeration<SubmitDataUpdateType>? = null,
   /** A reference to the Measure that was calculated to produce this report. */
-  public var measure: Canonical? = null,
+  public val measure: Canonical? = null,
   /** Optional subject identifying the individual or individuals the report is for. */
-  public var subject: Reference? = null,
+  public val subject: Reference? = null,
   /** The date this measure was calculated. */
-  public var date: DateTime? = null,
+  public val date: DateTime? = null,
   /** The individual or organization that is reporting the data. */
-  public var reporter: Reference? = null,
+  public val reporter: Reference? = null,
   /**
    * A reference to the vendor who queried the data, calculated results and/or generated the report.
    * The ‘reporting vendor’ is intended to represent the submitting entity when it is not the same
    * as the reporting entity. This extension is used when the Receiver is interested in getting
    * vendor information in the report.
    */
-  public var reportingVendor: Reference? = null,
+  public val reportingVendor: Reference? = null,
   /** A reference to the location for which the data is being reported. */
-  public var location: Reference? = null,
+  public val location: Reference? = null,
   /** The reporting period for which the report was calculated. */
-  public var period: Period,
+  public val period: Period,
   /**
    * A reference to a Parameters resource (typically represented using a contained resource) that
    * represents any input parameters that were provided to the operation that generated the report.
@@ -204,14 +204,14 @@ public data class MeasureReport(
    * The inputParameters can also be used in a MeasureReport used to define a test case (i.e., not
    * as a result of an operation).
    */
-  public var inputParameters: Reference? = null,
+  public val inputParameters: Reference? = null,
   /**
    * Indicates how the calculation is performed for the measure, including proportion, ratio,
    * continuous-variable, and cohort. The value set is extensible, allowing additional measure
    * scoring types to be represented. It is expected to be the same as the scoring element on the
    * referenced Measure.
    */
-  public var scoring: CodeableConcept? = null,
+  public val scoring: CodeableConcept? = null,
   /**
    * Whether improvement in the measure is noted by an increase or decrease in the measure score.
    *
@@ -224,9 +224,9 @@ public data class MeasureReport(
    * if the measure score is an increase or decrease, I.e., moving in the direction of the desired
    * outcome.
    */
-  public var improvementNotation: CodeableConcept? = null,
+  public val improvementNotation: CodeableConcept? = null,
   /** The results of the calculation, one for each population group in the measure. */
-  public var group: MutableList<Group> = mutableListOf(),
+  public val group: List<Group> = listOf(),
   /**
    * A reference to a Resource that represents additional information collected for the report. If
    * the value of the supplemental data is not a Resource (i.e. evaluating the supplementalData
@@ -239,7 +239,7 @@ public data class MeasureReport(
    * the number of times each value appeared as a supplementalData result for members of the
    * population.
    */
-  public var supplementalData: MutableList<Reference> = mutableListOf(),
+  public val supplementalData: List<Reference> = listOf(),
   /**
    * Evaluated resources are used to capture what data was involved in the calculation of a measure.
    * This usage is only allowed for individual reports to ensure that the size of the MeasureReport
@@ -247,7 +247,7 @@ public data class MeasureReport(
    *
    * Evaluated resources are only reported for individual reports.
    */
-  public var evaluatedResource: MutableList<Reference> = mutableListOf(),
+  public val evaluatedResource: List<Reference> = listOf(),
 ) : DomainResource() {
   /** The results of the calculation, one for each population group in the measure. */
   @Serializable(with = MeasureReportGroupSerializer::class)
@@ -256,7 +256,7 @@ public data class MeasureReport(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -269,7 +269,7 @@ public data class MeasureReport(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -288,28 +288,28 @@ public data class MeasureReport(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /** The group from the Measure that corresponds to this group in the MeasureReport resource. */
-    public var linkId: String? = null,
+    public val linkId: String? = null,
     /** The meaning of the population group as defined in the measure definition. */
-    public var code: CodeableConcept? = null,
+    public val code: CodeableConcept? = null,
     /** Optional subject identifying the individual or individuals the report is for. */
-    public var subject: Reference? = null,
+    public val subject: Reference? = null,
     /**
      * The populations that make up the population group, one for each type of population
      * appropriate for the measure.
      */
-    public var population: MutableList<Population> = mutableListOf(),
+    public val population: List<Population> = listOf(),
     /**
      * The measure score for this population group, calculated as appropriate for the measure type
      * and scoring method, and based on the contents of the populations defined in the group.
      */
-    public var measureScore: MeasureScore? = null,
+    public val measureScore: MeasureScore? = null,
     /**
      * When a measure includes multiple stratifiers, there will be a stratifier group for each
      * stratifier defined by the measure.
      */
-    public var stratifier: MutableList<Stratifier> = mutableListOf(),
+    public val stratifier: List<Stratifier> = listOf(),
   ) : BackboneElement() {
     /**
      * The populations that make up the population group, one for each type of population
@@ -321,7 +321,7 @@ public data class MeasureReport(
        * Unique id for the element within a resource (for internal references). This may be any
        * string value that does not contain spaces.
        */
-      override var id: kotlin.String? = null,
+      override val id: kotlin.String? = null,
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -334,7 +334,7 @@ public data class MeasureReport(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: MutableList<Extension> = mutableListOf(),
+      override val extension: List<Extension> = listOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -353,21 +353,21 @@ public data class MeasureReport(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: MutableList<Extension> = mutableListOf(),
+      override val modifierExtension: List<Extension> = listOf(),
       /**
        * The population from the Measure that corresponds to this population in the MeasureReport
        * resource.
        */
-      public var linkId: String? = null,
+      public val linkId: String? = null,
       /** The type of the population. */
-      public var code: CodeableConcept? = null,
+      public val code: CodeableConcept? = null,
       /** The number of members of the population. */
-      public var count: Integer? = null,
+      public val count: Integer? = null,
       /**
        * This element refers to a List of individual level MeasureReport resources, one for each
        * subject in this population.
        */
-      public var subjectResults: Reference? = null,
+      public val subjectResults: Reference? = null,
       /**
        * A reference to an individual level MeasureReport resource for a member of the population.
        *
@@ -377,7 +377,7 @@ public data class MeasureReport(
        * implementations would be free to return a TOO-COSTLY response if a request is made for a
        * subject-list report with too many subjects.
        */
-      public var subjectReport: MutableList<Reference> = mutableListOf(),
+      public val subjectReport: List<Reference> = listOf(),
       /**
        * Optional Group identifying the individuals that make up the population.
        *
@@ -386,7 +386,7 @@ public data class MeasureReport(
        * Encounter-based measure). In addition, the referenced Group resource SHALL be an actual (as
        * opposed to a definitional) group.
        */
-      public var subjects: Reference? = null,
+      public val subjects: Reference? = null,
     ) : BackboneElement()
 
     /**
@@ -399,7 +399,7 @@ public data class MeasureReport(
        * Unique id for the element within a resource (for internal references). This may be any
        * string value that does not contain spaces.
        */
-      override var id: kotlin.String? = null,
+      override val id: kotlin.String? = null,
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -412,7 +412,7 @@ public data class MeasureReport(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: MutableList<Extension> = mutableListOf(),
+      override val extension: List<Extension> = listOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -431,20 +431,20 @@ public data class MeasureReport(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: MutableList<Extension> = mutableListOf(),
+      override val modifierExtension: List<Extension> = listOf(),
       /**
        * The stratifier from the Measure that corresponds to this stratifier in the MeasureReport
        * resource.
        */
-      public var linkId: String? = null,
+      public val linkId: String? = null,
       /** The meaning of this stratifier, as defined in the measure definition. */
-      public var code: CodeableConcept? = null,
+      public val code: CodeableConcept? = null,
       /**
        * This element contains the results for a single stratum within the stratifier. For example,
        * when stratifying on administrative gender, there will be four strata, one for each possible
        * gender value.
        */
-      public var stratum: MutableList<Stratum> = mutableListOf(),
+      public val stratum: List<Stratum> = listOf(),
     ) : BackboneElement() {
       /**
        * This element contains the results for a single stratum within the stratifier. For example,
@@ -457,7 +457,7 @@ public data class MeasureReport(
          * Unique id for the element within a resource (for internal references). This may be any
          * string value that does not contain spaces.
          */
-        override var id: kotlin.String? = null,
+        override val id: kotlin.String? = null,
         /**
          * May be used to represent additional information that is not part of the basic definition
          * of the element. To make the use of extensions safe and managable, there is a strict set
@@ -470,7 +470,7 @@ public data class MeasureReport(
          * extensions. The use of extensions is what allows the FHIR specification to retain a core
          * level of simplicity for everyone.
          */
-        override var extension: MutableList<Extension> = mutableListOf(),
+        override val extension: List<Extension> = listOf(),
         /**
          * May be used to represent additional information that is not part of the basic definition
          * of the element and that modifies the understanding of the element in which it is
@@ -489,25 +489,25 @@ public data class MeasureReport(
          * extensions. The use of extensions is what allows the FHIR specification to retain a core
          * level of simplicity for everyone.
          */
-        override var modifierExtension: MutableList<Extension> = mutableListOf(),
+        override val modifierExtension: List<Extension> = listOf(),
         /**
          * The value for this stratum, expressed as a CodeableConcept. When defining stratifiers on
          * complex values, the value must be rendered such that the value for each stratum within
          * the stratifier is unique.
          */
-        public var `value`: Value? = null,
+        public val `value`: Value? = null,
         /** A stratifier component value. */
-        public var component: MutableList<Component> = mutableListOf(),
+        public val component: List<Component> = listOf(),
         /**
          * The populations that make up the stratum, one for each type of population appropriate to
          * the measure.
          */
-        public var population: MutableList<Population> = mutableListOf(),
+        public val population: List<Population> = listOf(),
         /**
          * The measure score for this stratum, calculated as appropriate for the measure type and
          * scoring method, and based on only the members of this stratum.
          */
-        public var measureScore: MeasureScore? = null,
+        public val measureScore: MeasureScore? = null,
       ) : BackboneElement() {
         /** A stratifier component value. */
         @Serializable(with = MeasureReportGroupStratifierStratumComponentSerializer::class)
@@ -516,7 +516,7 @@ public data class MeasureReport(
            * Unique id for the element within a resource (for internal references). This may be any
            * string value that does not contain spaces.
            */
-          override var id: kotlin.String? = null,
+          override val id: kotlin.String? = null,
           /**
            * May be used to represent additional information that is not part of the basic
            * definition of the element. To make the use of extensions safe and managable, there is a
@@ -529,7 +529,7 @@ public data class MeasureReport(
            * defines the extensions. The use of extensions is what allows the FHIR specification to
            * retain a core level of simplicity for everyone.
            */
-          override var extension: MutableList<Extension> = mutableListOf(),
+          override val extension: List<Extension> = listOf(),
           /**
            * May be used to represent additional information that is not part of the basic
            * definition of the element and that modifies the understanding of the element in which
@@ -548,16 +548,16 @@ public data class MeasureReport(
            * defines the extensions. The use of extensions is what allows the FHIR specification to
            * retain a core level of simplicity for everyone.
            */
-          override var modifierExtension: MutableList<Extension> = mutableListOf(),
+          override val modifierExtension: List<Extension> = listOf(),
           /**
            * The stratifier component from the Measure that corresponds to this stratifier component
            * in the MeasureReport resource.
            */
-          public var linkId: String? = null,
+          public val linkId: String? = null,
           /** The code for the stratum component value. */
-          public var code: CodeableConcept,
+          public val code: CodeableConcept,
           /** The stratum component value. */
-          public var `value`: Value,
+          public val `value`: Value,
         ) : BackboneElement() {
           @Serializable(with = MeasureReportGroupStratifierStratumComponentValueSerializer::class)
           public sealed interface Value {
@@ -614,7 +614,7 @@ public data class MeasureReport(
            * Unique id for the element within a resource (for internal references). This may be any
            * string value that does not contain spaces.
            */
-          override var id: kotlin.String? = null,
+          override val id: kotlin.String? = null,
           /**
            * May be used to represent additional information that is not part of the basic
            * definition of the element. To make the use of extensions safe and managable, there is a
@@ -627,7 +627,7 @@ public data class MeasureReport(
            * defines the extensions. The use of extensions is what allows the FHIR specification to
            * retain a core level of simplicity for everyone.
            */
-          override var extension: MutableList<Extension> = mutableListOf(),
+          override val extension: List<Extension> = listOf(),
           /**
            * May be used to represent additional information that is not part of the basic
            * definition of the element and that modifies the understanding of the element in which
@@ -646,21 +646,21 @@ public data class MeasureReport(
            * defines the extensions. The use of extensions is what allows the FHIR specification to
            * retain a core level of simplicity for everyone.
            */
-          override var modifierExtension: MutableList<Extension> = mutableListOf(),
+          override val modifierExtension: List<Extension> = listOf(),
           /**
            * The population from the Measure that corresponds to this population in the
            * MeasureReport resource.
            */
-          public var linkId: String? = null,
+          public val linkId: String? = null,
           /** The type of the population. */
-          public var code: CodeableConcept? = null,
+          public val code: CodeableConcept? = null,
           /** The number of members of the population in this stratum. */
-          public var count: Integer? = null,
+          public val count: Integer? = null,
           /**
            * This element refers to a List of individual level MeasureReport resources, one for each
            * subject in this population in this stratum.
            */
-          public var subjectResults: Reference? = null,
+          public val subjectResults: Reference? = null,
           /**
            * A reference to an individual level MeasureReport resource for a member of the
            * population.
@@ -671,7 +671,7 @@ public data class MeasureReport(
            * MeasureReport; implementations would be free to return a TOO-COSTLY response if a
            * request is made for a subject-list report with too many subjects.
            */
-          public var subjectReport: MutableList<Reference> = mutableListOf(),
+          public val subjectReport: List<Reference> = listOf(),
           /**
            * Optional Group identifying the individuals that make up the population.
            *
@@ -680,7 +680,7 @@ public data class MeasureReport(
            * an Encounter-based measure). In addition, the referenced Group SHALL be an actual (as
            * opposed to a definitional) group.
            */
-          public var subjects: Reference? = null,
+          public val subjects: Reference? = null,
         ) : BackboneElement()
 
         @Serializable(with = MeasureReportGroupStratifierStratumValueSerializer::class)

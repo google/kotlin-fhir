@@ -45,15 +45,15 @@ import com.google.fhir.model.r5.serializers.LocalTimeSerializer
 import kotlin.Boolean as KotlinBoolean
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class NutritionIntakeConsumedItemSurrogate(
   public var id: String? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var type: CodeableConcept,
   public var nutritionProduct: CodeableReference,
   public var schedule: Timing? = null,
@@ -66,9 +66,8 @@ internal data class NutritionIntakeConsumedItemSurrogate(
   public fun toModel(): NutritionIntake.ConsumedItem =
     NutritionIntake.ConsumedItem(
       id = this@NutritionIntakeConsumedItemSurrogate.id,
-      extension = this@NutritionIntakeConsumedItemSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@NutritionIntakeConsumedItemSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@NutritionIntakeConsumedItemSurrogate.extension ?: listOf(),
+      modifierExtension = this@NutritionIntakeConsumedItemSurrogate.modifierExtension ?: listOf(),
       type = this@NutritionIntakeConsumedItemSurrogate.type,
       nutritionProduct = this@NutritionIntakeConsumedItemSurrogate.nutritionProduct,
       schedule = this@NutritionIntakeConsumedItemSurrogate.schedule,
@@ -107,17 +106,17 @@ internal data class NutritionIntakeConsumedItemSurrogate(
 @Serializable
 internal data class NutritionIntakeIngredientLabelSurrogate(
   public var id: String? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var nutrient: CodeableReference,
   public var amount: Quantity,
 ) {
   public fun toModel(): NutritionIntake.IngredientLabel =
     NutritionIntake.IngredientLabel(
       id = this@NutritionIntakeIngredientLabelSurrogate.id,
-      extension = this@NutritionIntakeIngredientLabelSurrogate.extension ?: mutableListOf(),
+      extension = this@NutritionIntakeIngredientLabelSurrogate.extension ?: listOf(),
       modifierExtension =
-        this@NutritionIntakeIngredientLabelSurrogate.modifierExtension ?: mutableListOf(),
+        this@NutritionIntakeIngredientLabelSurrogate.modifierExtension ?: listOf(),
       nutrient = this@NutritionIntakeIngredientLabelSurrogate.nutrient,
       amount = this@NutritionIntakeIngredientLabelSurrogate.amount,
     )
@@ -141,17 +140,16 @@ internal data class NutritionIntakeIngredientLabelSurrogate(
 @Serializable
 internal data class NutritionIntakePerformerSurrogate(
   public var id: String? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var function: CodeableConcept? = null,
   public var actor: Reference,
 ) {
   public fun toModel(): NutritionIntake.Performer =
     NutritionIntake.Performer(
       id = this@NutritionIntakePerformerSurrogate.id,
-      extension = this@NutritionIntakePerformerSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@NutritionIntakePerformerSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@NutritionIntakePerformerSurrogate.extension ?: listOf(),
+      modifierExtension = this@NutritionIntakePerformerSurrogate.modifierExtension ?: listOf(),
       function = this@NutritionIntakePerformerSurrogate.function,
       actor = this@NutritionIntakePerformerSurrogate.actor,
     )
@@ -233,19 +231,19 @@ internal data class NutritionIntakeSurrogate(
   public var language: String? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: MutableList<Resource>? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var identifier: MutableList<Identifier>? = null,
-  public var instantiatesCanonical: MutableList<String?>? = null,
-  public var _instantiatesCanonical: MutableList<Element?>? = null,
-  public var instantiatesUri: MutableList<String?>? = null,
-  public var _instantiatesUri: MutableList<Element?>? = null,
-  public var basedOn: MutableList<Reference>? = null,
-  public var partOf: MutableList<Reference>? = null,
+  public var contained: List<Resource>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
+  public var identifier: List<Identifier>? = null,
+  public var instantiatesCanonical: List<String?>? = null,
+  public var _instantiatesCanonical: List<Element?>? = null,
+  public var instantiatesUri: List<String?>? = null,
+  public var _instantiatesUri: List<Element?>? = null,
+  public var basedOn: List<Reference>? = null,
+  public var partOf: List<Reference>? = null,
   public var status: String? = null,
   public var _status: Element? = null,
-  public var statusReason: MutableList<CodeableConcept>? = null,
+  public var statusReason: List<CodeableConcept>? = null,
   public var code: CodeableConcept? = null,
   public var subject: Reference,
   public var encounter: Reference? = null,
@@ -253,13 +251,13 @@ internal data class NutritionIntakeSurrogate(
   public var recorded: String? = null,
   public var _recorded: Element? = null,
   public var reported: NutritionIntake.Reported? = null,
-  public var consumedItem: MutableList<NutritionIntake.ConsumedItem>? = null,
-  public var ingredientLabel: MutableList<NutritionIntake.IngredientLabel>? = null,
-  public var performer: MutableList<NutritionIntake.Performer>? = null,
+  public var consumedItem: List<NutritionIntake.ConsumedItem>? = null,
+  public var ingredientLabel: List<NutritionIntake.IngredientLabel>? = null,
+  public var performer: List<NutritionIntake.Performer>? = null,
   public var location: Reference? = null,
-  public var derivedFrom: MutableList<Reference>? = null,
-  public var reason: MutableList<CodeableReference>? = null,
-  public var note: MutableList<Annotation>? = null,
+  public var derivedFrom: List<Reference>? = null,
+  public var reason: List<CodeableReference>? = null,
+  public var note: List<Annotation>? = null,
 ) {
   public fun toModel(): NutritionIntake =
     NutritionIntake(
@@ -273,16 +271,16 @@ internal data class NutritionIntakeSurrogate(
       language =
         Code.of(this@NutritionIntakeSurrogate.language, this@NutritionIntakeSurrogate._language),
       text = this@NutritionIntakeSurrogate.text,
-      contained = this@NutritionIntakeSurrogate.contained ?: mutableListOf(),
-      extension = this@NutritionIntakeSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@NutritionIntakeSurrogate.modifierExtension ?: mutableListOf(),
-      identifier = this@NutritionIntakeSurrogate.identifier ?: mutableListOf(),
+      contained = this@NutritionIntakeSurrogate.contained ?: listOf(),
+      extension = this@NutritionIntakeSurrogate.extension ?: listOf(),
+      modifierExtension = this@NutritionIntakeSurrogate.modifierExtension ?: listOf(),
+      identifier = this@NutritionIntakeSurrogate.identifier ?: listOf(),
       instantiatesCanonical =
         if (
           this@NutritionIntakeSurrogate.instantiatesCanonical == null &&
             this@NutritionIntakeSurrogate._instantiatesCanonical == null
         ) {
-          mutableListOf()
+          listOf()
         } else {
           (this@NutritionIntakeSurrogate.instantiatesCanonical
               ?: List(this@NutritionIntakeSurrogate._instantiatesCanonical!!.size) { null })
@@ -291,14 +289,14 @@ internal data class NutritionIntakeSurrogate(
                 ?: List(this@NutritionIntakeSurrogate.instantiatesCanonical!!.size) { null }
             )
             .map { (value, element) -> Canonical.of(value, element)!! }
-            .toMutableList()
+            .toList()
         },
       instantiatesUri =
         if (
           this@NutritionIntakeSurrogate.instantiatesUri == null &&
             this@NutritionIntakeSurrogate._instantiatesUri == null
         ) {
-          mutableListOf()
+          listOf()
         } else {
           (this@NutritionIntakeSurrogate.instantiatesUri
               ?: List(this@NutritionIntakeSurrogate._instantiatesUri!!.size) { null })
@@ -307,16 +305,16 @@ internal data class NutritionIntakeSurrogate(
                 ?: List(this@NutritionIntakeSurrogate.instantiatesUri!!.size) { null }
             )
             .map { (value, element) -> Uri.of(value, element)!! }
-            .toMutableList()
+            .toList()
         },
-      basedOn = this@NutritionIntakeSurrogate.basedOn ?: mutableListOf(),
-      partOf = this@NutritionIntakeSurrogate.partOf ?: mutableListOf(),
+      basedOn = this@NutritionIntakeSurrogate.basedOn ?: listOf(),
+      partOf = this@NutritionIntakeSurrogate.partOf ?: listOf(),
       status =
         Enumeration.of(
           NutritionIntake.EventStatus.fromCode(this@NutritionIntakeSurrogate.status!!),
           this@NutritionIntakeSurrogate._status,
         ),
-      statusReason = this@NutritionIntakeSurrogate.statusReason ?: mutableListOf(),
+      statusReason = this@NutritionIntakeSurrogate.statusReason ?: listOf(),
       code = this@NutritionIntakeSurrogate.code,
       subject = this@NutritionIntakeSurrogate.subject,
       encounter = this@NutritionIntakeSurrogate.encounter,
@@ -327,13 +325,13 @@ internal data class NutritionIntakeSurrogate(
           this@NutritionIntakeSurrogate._recorded,
         ),
       reported = this@NutritionIntakeSurrogate.reported,
-      consumedItem = this@NutritionIntakeSurrogate.consumedItem ?: mutableListOf(),
-      ingredientLabel = this@NutritionIntakeSurrogate.ingredientLabel ?: mutableListOf(),
-      performer = this@NutritionIntakeSurrogate.performer ?: mutableListOf(),
+      consumedItem = this@NutritionIntakeSurrogate.consumedItem ?: listOf(),
+      ingredientLabel = this@NutritionIntakeSurrogate.ingredientLabel ?: listOf(),
+      performer = this@NutritionIntakeSurrogate.performer ?: listOf(),
       location = this@NutritionIntakeSurrogate.location,
-      derivedFrom = this@NutritionIntakeSurrogate.derivedFrom ?: mutableListOf(),
-      reason = this@NutritionIntakeSurrogate.reason ?: mutableListOf(),
-      note = this@NutritionIntakeSurrogate.note ?: mutableListOf(),
+      derivedFrom = this@NutritionIntakeSurrogate.derivedFrom ?: listOf(),
+      reason = this@NutritionIntakeSurrogate.reason ?: listOf(),
+      note = this@NutritionIntakeSurrogate.note ?: listOf(),
     )
 
   public companion object {
@@ -354,25 +352,25 @@ internal data class NutritionIntakeSurrogate(
           instantiatesCanonical =
             this@with.instantiatesCanonical
               .map { it.value }
-              .toMutableList()
+              .toList()
               .takeUnless { it.all { it == null } },
           _instantiatesCanonical =
             this@with.instantiatesCanonical
               .map { it.toElement() }
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
-              ?.toMutableList(),
+              ?.toList(),
           instantiatesUri =
             this@with.instantiatesUri
               .map { it.value }
-              .toMutableList()
+              .toList()
               .takeUnless { it.all { it == null } },
           _instantiatesUri =
             this@with.instantiatesUri
               .map { it.toElement() }
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
-              ?.toMutableList(),
+              ?.toList(),
           basedOn = this@with.basedOn.takeIf { it.isNotEmpty() },
           partOf = this@with.partOf.takeIf { it.isNotEmpty() },
           status = this@with.status.value?.getCode(),

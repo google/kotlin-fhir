@@ -41,25 +41,25 @@ import com.google.fhir.model.r5.serializers.DoubleSerializer
 import com.google.fhir.model.r5.serializers.LocalTimeSerializer
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class EncounterParticipantSurrogate(
   public var id: String? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var type: MutableList<CodeableConcept>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
+  public var type: List<CodeableConcept>? = null,
   public var period: Period? = null,
   public var actor: Reference? = null,
 ) {
   public fun toModel(): Encounter.Participant =
     Encounter.Participant(
       id = this@EncounterParticipantSurrogate.id,
-      extension = this@EncounterParticipantSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@EncounterParticipantSurrogate.modifierExtension ?: mutableListOf(),
-      type = this@EncounterParticipantSurrogate.type ?: mutableListOf(),
+      extension = this@EncounterParticipantSurrogate.extension ?: listOf(),
+      modifierExtension = this@EncounterParticipantSurrogate.modifierExtension ?: listOf(),
+      type = this@EncounterParticipantSurrogate.type ?: listOf(),
       period = this@EncounterParticipantSurrogate.period,
       actor = this@EncounterParticipantSurrogate.actor,
     )
@@ -82,18 +82,18 @@ internal data class EncounterParticipantSurrogate(
 @Serializable
 internal data class EncounterReasonSurrogate(
   public var id: String? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var use: MutableList<CodeableConcept>? = null,
-  public var `value`: MutableList<CodeableReference>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
+  public var use: List<CodeableConcept>? = null,
+  public var `value`: List<CodeableReference>? = null,
 ) {
   public fun toModel(): Encounter.Reason =
     Encounter.Reason(
       id = this@EncounterReasonSurrogate.id,
-      extension = this@EncounterReasonSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@EncounterReasonSurrogate.modifierExtension ?: mutableListOf(),
-      use = this@EncounterReasonSurrogate.use ?: mutableListOf(),
-      `value` = this@EncounterReasonSurrogate.`value` ?: mutableListOf(),
+      extension = this@EncounterReasonSurrogate.extension ?: listOf(),
+      modifierExtension = this@EncounterReasonSurrogate.modifierExtension ?: listOf(),
+      use = this@EncounterReasonSurrogate.use ?: listOf(),
+      `value` = this@EncounterReasonSurrogate.`value` ?: listOf(),
     )
 
   public companion object {
@@ -113,18 +113,18 @@ internal data class EncounterReasonSurrogate(
 @Serializable
 internal data class EncounterDiagnosisSurrogate(
   public var id: String? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var condition: MutableList<CodeableReference>? = null,
-  public var use: MutableList<CodeableConcept>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
+  public var condition: List<CodeableReference>? = null,
+  public var use: List<CodeableConcept>? = null,
 ) {
   public fun toModel(): Encounter.Diagnosis =
     Encounter.Diagnosis(
       id = this@EncounterDiagnosisSurrogate.id,
-      extension = this@EncounterDiagnosisSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@EncounterDiagnosisSurrogate.modifierExtension ?: mutableListOf(),
-      condition = this@EncounterDiagnosisSurrogate.condition ?: mutableListOf(),
-      use = this@EncounterDiagnosisSurrogate.use ?: mutableListOf(),
+      extension = this@EncounterDiagnosisSurrogate.extension ?: listOf(),
+      modifierExtension = this@EncounterDiagnosisSurrogate.modifierExtension ?: listOf(),
+      condition = this@EncounterDiagnosisSurrogate.condition ?: listOf(),
+      use = this@EncounterDiagnosisSurrogate.use ?: listOf(),
     )
 
   public companion object {
@@ -144,8 +144,8 @@ internal data class EncounterDiagnosisSurrogate(
 @Serializable
 internal data class EncounterAdmissionSurrogate(
   public var id: String? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var preAdmissionIdentifier: Identifier? = null,
   public var origin: Reference? = null,
   public var admitSource: CodeableConcept? = null,
@@ -156,8 +156,8 @@ internal data class EncounterAdmissionSurrogate(
   public fun toModel(): Encounter.Admission =
     Encounter.Admission(
       id = this@EncounterAdmissionSurrogate.id,
-      extension = this@EncounterAdmissionSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@EncounterAdmissionSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@EncounterAdmissionSurrogate.extension ?: listOf(),
+      modifierExtension = this@EncounterAdmissionSurrogate.modifierExtension ?: listOf(),
       preAdmissionIdentifier = this@EncounterAdmissionSurrogate.preAdmissionIdentifier,
       origin = this@EncounterAdmissionSurrogate.origin,
       admitSource = this@EncounterAdmissionSurrogate.admitSource,
@@ -187,8 +187,8 @@ internal data class EncounterAdmissionSurrogate(
 @Serializable
 internal data class EncounterLocationSurrogate(
   public var id: String? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var location: Reference,
   public var status: String? = null,
   public var _status: Element? = null,
@@ -198,8 +198,8 @@ internal data class EncounterLocationSurrogate(
   public fun toModel(): Encounter.Location =
     Encounter.Location(
       id = this@EncounterLocationSurrogate.id,
-      extension = this@EncounterLocationSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@EncounterLocationSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@EncounterLocationSurrogate.extension ?: listOf(),
+      modifierExtension = this@EncounterLocationSurrogate.modifierExtension ?: listOf(),
       location = this@EncounterLocationSurrogate.location,
       status =
         this@EncounterLocationSurrogate.status?.let {
@@ -238,40 +238,40 @@ internal data class EncounterSurrogate(
   public var language: String? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: MutableList<Resource>? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var identifier: MutableList<Identifier>? = null,
+  public var contained: List<Resource>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
+  public var identifier: List<Identifier>? = null,
   public var status: String? = null,
   public var _status: Element? = null,
-  public var `class`: MutableList<CodeableConcept>? = null,
+  public var `class`: List<CodeableConcept>? = null,
   public var priority: CodeableConcept? = null,
-  public var type: MutableList<CodeableConcept>? = null,
-  public var serviceType: MutableList<CodeableReference>? = null,
+  public var type: List<CodeableConcept>? = null,
+  public var serviceType: List<CodeableReference>? = null,
   public var subject: Reference? = null,
   public var subjectStatus: CodeableConcept? = null,
-  public var episodeOfCare: MutableList<Reference>? = null,
-  public var basedOn: MutableList<Reference>? = null,
-  public var careTeam: MutableList<Reference>? = null,
+  public var episodeOfCare: List<Reference>? = null,
+  public var basedOn: List<Reference>? = null,
+  public var careTeam: List<Reference>? = null,
   public var partOf: Reference? = null,
   public var serviceProvider: Reference? = null,
-  public var participant: MutableList<Encounter.Participant>? = null,
-  public var appointment: MutableList<Reference>? = null,
-  public var virtualService: MutableList<VirtualServiceDetail>? = null,
+  public var participant: List<Encounter.Participant>? = null,
+  public var appointment: List<Reference>? = null,
+  public var virtualService: List<VirtualServiceDetail>? = null,
   public var actualPeriod: Period? = null,
   public var plannedStartDate: String? = null,
   public var _plannedStartDate: Element? = null,
   public var plannedEndDate: String? = null,
   public var _plannedEndDate: Element? = null,
   public var length: Duration? = null,
-  public var reason: MutableList<Encounter.Reason>? = null,
-  public var diagnosis: MutableList<Encounter.Diagnosis>? = null,
-  public var account: MutableList<Reference>? = null,
-  public var dietPreference: MutableList<CodeableConcept>? = null,
-  public var specialArrangement: MutableList<CodeableConcept>? = null,
-  public var specialCourtesy: MutableList<CodeableConcept>? = null,
+  public var reason: List<Encounter.Reason>? = null,
+  public var diagnosis: List<Encounter.Diagnosis>? = null,
+  public var account: List<Reference>? = null,
+  public var dietPreference: List<CodeableConcept>? = null,
+  public var specialArrangement: List<CodeableConcept>? = null,
+  public var specialCourtesy: List<CodeableConcept>? = null,
   public var admission: Encounter.Admission? = null,
-  public var location: MutableList<Encounter.Location>? = null,
+  public var location: List<Encounter.Location>? = null,
 ) {
   public fun toModel(): Encounter =
     Encounter(
@@ -281,29 +281,29 @@ internal data class EncounterSurrogate(
         Uri.of(this@EncounterSurrogate.implicitRules, this@EncounterSurrogate._implicitRules),
       language = Code.of(this@EncounterSurrogate.language, this@EncounterSurrogate._language),
       text = this@EncounterSurrogate.text,
-      contained = this@EncounterSurrogate.contained ?: mutableListOf(),
-      extension = this@EncounterSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@EncounterSurrogate.modifierExtension ?: mutableListOf(),
-      identifier = this@EncounterSurrogate.identifier ?: mutableListOf(),
+      contained = this@EncounterSurrogate.contained ?: listOf(),
+      extension = this@EncounterSurrogate.extension ?: listOf(),
+      modifierExtension = this@EncounterSurrogate.modifierExtension ?: listOf(),
+      identifier = this@EncounterSurrogate.identifier ?: listOf(),
       status =
         Enumeration.of(
           Encounter.EncounterStatus.fromCode(this@EncounterSurrogate.status!!),
           this@EncounterSurrogate._status,
         ),
-      `class` = this@EncounterSurrogate.`class` ?: mutableListOf(),
+      `class` = this@EncounterSurrogate.`class` ?: listOf(),
       priority = this@EncounterSurrogate.priority,
-      type = this@EncounterSurrogate.type ?: mutableListOf(),
-      serviceType = this@EncounterSurrogate.serviceType ?: mutableListOf(),
+      type = this@EncounterSurrogate.type ?: listOf(),
+      serviceType = this@EncounterSurrogate.serviceType ?: listOf(),
       subject = this@EncounterSurrogate.subject,
       subjectStatus = this@EncounterSurrogate.subjectStatus,
-      episodeOfCare = this@EncounterSurrogate.episodeOfCare ?: mutableListOf(),
-      basedOn = this@EncounterSurrogate.basedOn ?: mutableListOf(),
-      careTeam = this@EncounterSurrogate.careTeam ?: mutableListOf(),
+      episodeOfCare = this@EncounterSurrogate.episodeOfCare ?: listOf(),
+      basedOn = this@EncounterSurrogate.basedOn ?: listOf(),
+      careTeam = this@EncounterSurrogate.careTeam ?: listOf(),
       partOf = this@EncounterSurrogate.partOf,
       serviceProvider = this@EncounterSurrogate.serviceProvider,
-      participant = this@EncounterSurrogate.participant ?: mutableListOf(),
-      appointment = this@EncounterSurrogate.appointment ?: mutableListOf(),
-      virtualService = this@EncounterSurrogate.virtualService ?: mutableListOf(),
+      participant = this@EncounterSurrogate.participant ?: listOf(),
+      appointment = this@EncounterSurrogate.appointment ?: listOf(),
+      virtualService = this@EncounterSurrogate.virtualService ?: listOf(),
       actualPeriod = this@EncounterSurrogate.actualPeriod,
       plannedStartDate =
         DateTime.of(
@@ -316,14 +316,14 @@ internal data class EncounterSurrogate(
           this@EncounterSurrogate._plannedEndDate,
         ),
       length = this@EncounterSurrogate.length,
-      reason = this@EncounterSurrogate.reason ?: mutableListOf(),
-      diagnosis = this@EncounterSurrogate.diagnosis ?: mutableListOf(),
-      account = this@EncounterSurrogate.account ?: mutableListOf(),
-      dietPreference = this@EncounterSurrogate.dietPreference ?: mutableListOf(),
-      specialArrangement = this@EncounterSurrogate.specialArrangement ?: mutableListOf(),
-      specialCourtesy = this@EncounterSurrogate.specialCourtesy ?: mutableListOf(),
+      reason = this@EncounterSurrogate.reason ?: listOf(),
+      diagnosis = this@EncounterSurrogate.diagnosis ?: listOf(),
+      account = this@EncounterSurrogate.account ?: listOf(),
+      dietPreference = this@EncounterSurrogate.dietPreference ?: listOf(),
+      specialArrangement = this@EncounterSurrogate.specialArrangement ?: listOf(),
+      specialCourtesy = this@EncounterSurrogate.specialCourtesy ?: listOf(),
       admission = this@EncounterSurrogate.admission,
-      location = this@EncounterSurrogate.location ?: mutableListOf(),
+      location = this@EncounterSurrogate.location ?: listOf(),
     )
 
   public companion object {

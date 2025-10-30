@@ -49,7 +49,7 @@ import com.google.fhir.model.r4.terminologies.PublicationStatus
 import kotlin.Boolean as KotlinBoolean
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
@@ -84,12 +84,12 @@ internal data class EventDefinitionSurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: MutableList<Resource>? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var contained: List<Resource>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var url: KotlinString? = null,
   public var _url: Element? = null,
-  public var identifier: MutableList<Identifier>? = null,
+  public var identifier: List<Identifier>? = null,
   public var version: KotlinString? = null,
   public var _version: Element? = null,
   public var name: KotlinString? = null,
@@ -107,11 +107,11 @@ internal data class EventDefinitionSurrogate(
   public var _date: Element? = null,
   public var publisher: KotlinString? = null,
   public var _publisher: Element? = null,
-  public var contact: MutableList<ContactDetail>? = null,
+  public var contact: List<ContactDetail>? = null,
   public var description: KotlinString? = null,
   public var _description: Element? = null,
-  public var useContext: MutableList<UsageContext>? = null,
-  public var jurisdiction: MutableList<CodeableConcept>? = null,
+  public var useContext: List<UsageContext>? = null,
+  public var jurisdiction: List<CodeableConcept>? = null,
   public var purpose: KotlinString? = null,
   public var _purpose: Element? = null,
   public var usage: KotlinString? = null,
@@ -123,13 +123,13 @@ internal data class EventDefinitionSurrogate(
   public var lastReviewDate: KotlinString? = null,
   public var _lastReviewDate: Element? = null,
   public var effectivePeriod: Period? = null,
-  public var topic: MutableList<CodeableConcept>? = null,
-  public var author: MutableList<ContactDetail>? = null,
-  public var editor: MutableList<ContactDetail>? = null,
-  public var reviewer: MutableList<ContactDetail>? = null,
-  public var endorser: MutableList<ContactDetail>? = null,
-  public var relatedArtifact: MutableList<RelatedArtifact>? = null,
-  public var trigger: MutableList<TriggerDefinition>? = null,
+  public var topic: List<CodeableConcept>? = null,
+  public var author: List<ContactDetail>? = null,
+  public var editor: List<ContactDetail>? = null,
+  public var reviewer: List<ContactDetail>? = null,
+  public var endorser: List<ContactDetail>? = null,
+  public var relatedArtifact: List<RelatedArtifact>? = null,
+  public var trigger: List<TriggerDefinition>? = null,
 ) {
   public fun toModel(): EventDefinition =
     EventDefinition(
@@ -143,11 +143,11 @@ internal data class EventDefinitionSurrogate(
       language =
         Code.of(this@EventDefinitionSurrogate.language, this@EventDefinitionSurrogate._language),
       text = this@EventDefinitionSurrogate.text,
-      contained = this@EventDefinitionSurrogate.contained ?: mutableListOf(),
-      extension = this@EventDefinitionSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@EventDefinitionSurrogate.modifierExtension ?: mutableListOf(),
+      contained = this@EventDefinitionSurrogate.contained ?: listOf(),
+      extension = this@EventDefinitionSurrogate.extension ?: listOf(),
+      modifierExtension = this@EventDefinitionSurrogate.modifierExtension ?: listOf(),
       url = Uri.of(this@EventDefinitionSurrogate.url, this@EventDefinitionSurrogate._url),
-      identifier = this@EventDefinitionSurrogate.identifier ?: mutableListOf(),
+      identifier = this@EventDefinitionSurrogate.identifier ?: listOf(),
       version =
         R4String.of(this@EventDefinitionSurrogate.version, this@EventDefinitionSurrogate._version),
       name = R4String.of(this@EventDefinitionSurrogate.name, this@EventDefinitionSurrogate._name),
@@ -179,14 +179,14 @@ internal data class EventDefinitionSurrogate(
           this@EventDefinitionSurrogate.publisher,
           this@EventDefinitionSurrogate._publisher,
         ),
-      contact = this@EventDefinitionSurrogate.contact ?: mutableListOf(),
+      contact = this@EventDefinitionSurrogate.contact ?: listOf(),
       description =
         Markdown.of(
           this@EventDefinitionSurrogate.description,
           this@EventDefinitionSurrogate._description,
         ),
-      useContext = this@EventDefinitionSurrogate.useContext ?: mutableListOf(),
-      jurisdiction = this@EventDefinitionSurrogate.jurisdiction ?: mutableListOf(),
+      useContext = this@EventDefinitionSurrogate.useContext ?: listOf(),
+      jurisdiction = this@EventDefinitionSurrogate.jurisdiction ?: listOf(),
       purpose =
         Markdown.of(this@EventDefinitionSurrogate.purpose, this@EventDefinitionSurrogate._purpose),
       usage =
@@ -207,13 +207,13 @@ internal data class EventDefinitionSurrogate(
           this@EventDefinitionSurrogate._lastReviewDate,
         ),
       effectivePeriod = this@EventDefinitionSurrogate.effectivePeriod,
-      topic = this@EventDefinitionSurrogate.topic ?: mutableListOf(),
-      author = this@EventDefinitionSurrogate.author ?: mutableListOf(),
-      editor = this@EventDefinitionSurrogate.editor ?: mutableListOf(),
-      reviewer = this@EventDefinitionSurrogate.reviewer ?: mutableListOf(),
-      endorser = this@EventDefinitionSurrogate.endorser ?: mutableListOf(),
-      relatedArtifact = this@EventDefinitionSurrogate.relatedArtifact ?: mutableListOf(),
-      trigger = this@EventDefinitionSurrogate.trigger ?: mutableListOf(),
+      topic = this@EventDefinitionSurrogate.topic ?: listOf(),
+      author = this@EventDefinitionSurrogate.author ?: listOf(),
+      editor = this@EventDefinitionSurrogate.editor ?: listOf(),
+      reviewer = this@EventDefinitionSurrogate.reviewer ?: listOf(),
+      endorser = this@EventDefinitionSurrogate.endorser ?: listOf(),
+      relatedArtifact = this@EventDefinitionSurrogate.relatedArtifact ?: listOf(),
+      trigger = this@EventDefinitionSurrogate.trigger ?: listOf(),
     )
 
   public companion object {

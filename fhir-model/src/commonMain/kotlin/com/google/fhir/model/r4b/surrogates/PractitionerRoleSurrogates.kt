@@ -41,7 +41,7 @@ import com.google.fhir.model.r4b.serializers.LocalTimeSerializer
 import kotlin.Boolean as KotlinBoolean
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.datetime.LocalTime
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
@@ -49,10 +49,10 @@ import kotlinx.serialization.UseSerializers
 @Serializable
 internal data class PractitionerRoleAvailableTimeSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var daysOfWeek: MutableList<KotlinString?>? = null,
-  public var _daysOfWeek: MutableList<Element?>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
+  public var daysOfWeek: List<KotlinString?>? = null,
+  public var _daysOfWeek: List<Element?>? = null,
   public var allDay: KotlinBoolean? = null,
   public var _allDay: Element? = null,
   public var availableStartTime: LocalTime? = null,
@@ -63,15 +63,14 @@ internal data class PractitionerRoleAvailableTimeSurrogate(
   public fun toModel(): PractitionerRole.AvailableTime =
     PractitionerRole.AvailableTime(
       id = this@PractitionerRoleAvailableTimeSurrogate.id,
-      extension = this@PractitionerRoleAvailableTimeSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@PractitionerRoleAvailableTimeSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@PractitionerRoleAvailableTimeSurrogate.extension ?: listOf(),
+      modifierExtension = this@PractitionerRoleAvailableTimeSurrogate.modifierExtension ?: listOf(),
       daysOfWeek =
         if (
           this@PractitionerRoleAvailableTimeSurrogate.daysOfWeek == null &&
             this@PractitionerRoleAvailableTimeSurrogate._daysOfWeek == null
         ) {
-          mutableListOf()
+          listOf()
         } else {
           (this@PractitionerRoleAvailableTimeSurrogate.daysOfWeek
               ?: List(this@PractitionerRoleAvailableTimeSurrogate._daysOfWeek!!.size) { null })
@@ -82,7 +81,7 @@ internal data class PractitionerRoleAvailableTimeSurrogate(
             .map { (value, element) ->
               Enumeration.of(value.let { PractitionerRole.DaysOfWeek.fromCode(it!!) }, element)
             }
-            .toMutableList()
+            .toList()
         },
       allDay =
         R4bBoolean.of(
@@ -113,14 +112,14 @@ internal data class PractitionerRoleAvailableTimeSurrogate(
           daysOfWeek =
             this@with.daysOfWeek
               .map { it.value?.getCode() }
-              .toMutableList()
+              .toList()
               .takeUnless { it.all { it == null } },
           _daysOfWeek =
             this@with.daysOfWeek
               .map { it.toElement() }
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
-              ?.toMutableList(),
+              ?.toList(),
           allDay = this@with.allDay?.value,
           _allDay = this@with.allDay?.toElement(),
           availableStartTime = this@with.availableStartTime?.value,
@@ -135,8 +134,8 @@ internal data class PractitionerRoleAvailableTimeSurrogate(
 @Serializable
 internal data class PractitionerRoleNotAvailableSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var description: KotlinString? = null,
   public var _description: Element? = null,
   public var during: Period? = null,
@@ -144,9 +143,8 @@ internal data class PractitionerRoleNotAvailableSurrogate(
   public fun toModel(): PractitionerRole.NotAvailable =
     PractitionerRole.NotAvailable(
       id = this@PractitionerRoleNotAvailableSurrogate.id,
-      extension = this@PractitionerRoleNotAvailableSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@PractitionerRoleNotAvailableSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@PractitionerRoleNotAvailableSurrogate.extension ?: listOf(),
+      modifierExtension = this@PractitionerRoleNotAvailableSurrogate.modifierExtension ?: listOf(),
       description =
         R4bString.of(
           this@PractitionerRoleNotAvailableSurrogate.description,
@@ -181,25 +179,25 @@ internal data class PractitionerRoleSurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: MutableList<Resource>? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var identifier: MutableList<Identifier>? = null,
+  public var contained: List<Resource>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
+  public var identifier: List<Identifier>? = null,
   public var active: KotlinBoolean? = null,
   public var _active: Element? = null,
   public var period: Period? = null,
   public var practitioner: Reference? = null,
   public var organization: Reference? = null,
-  public var code: MutableList<CodeableConcept>? = null,
-  public var specialty: MutableList<CodeableConcept>? = null,
-  public var location: MutableList<Reference>? = null,
-  public var healthcareService: MutableList<Reference>? = null,
-  public var telecom: MutableList<ContactPoint>? = null,
-  public var availableTime: MutableList<PractitionerRole.AvailableTime>? = null,
-  public var notAvailable: MutableList<PractitionerRole.NotAvailable>? = null,
+  public var code: List<CodeableConcept>? = null,
+  public var specialty: List<CodeableConcept>? = null,
+  public var location: List<Reference>? = null,
+  public var healthcareService: List<Reference>? = null,
+  public var telecom: List<ContactPoint>? = null,
+  public var availableTime: List<PractitionerRole.AvailableTime>? = null,
+  public var notAvailable: List<PractitionerRole.NotAvailable>? = null,
   public var availabilityExceptions: KotlinString? = null,
   public var _availabilityExceptions: Element? = null,
-  public var endpoint: MutableList<Reference>? = null,
+  public var endpoint: List<Reference>? = null,
 ) {
   public fun toModel(): PractitionerRole =
     PractitionerRole(
@@ -213,10 +211,10 @@ internal data class PractitionerRoleSurrogate(
       language =
         Code.of(this@PractitionerRoleSurrogate.language, this@PractitionerRoleSurrogate._language),
       text = this@PractitionerRoleSurrogate.text,
-      contained = this@PractitionerRoleSurrogate.contained ?: mutableListOf(),
-      extension = this@PractitionerRoleSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@PractitionerRoleSurrogate.modifierExtension ?: mutableListOf(),
-      identifier = this@PractitionerRoleSurrogate.identifier ?: mutableListOf(),
+      contained = this@PractitionerRoleSurrogate.contained ?: listOf(),
+      extension = this@PractitionerRoleSurrogate.extension ?: listOf(),
+      modifierExtension = this@PractitionerRoleSurrogate.modifierExtension ?: listOf(),
+      identifier = this@PractitionerRoleSurrogate.identifier ?: listOf(),
       active =
         R4bBoolean.of(
           this@PractitionerRoleSurrogate.active,
@@ -225,19 +223,19 @@ internal data class PractitionerRoleSurrogate(
       period = this@PractitionerRoleSurrogate.period,
       practitioner = this@PractitionerRoleSurrogate.practitioner,
       organization = this@PractitionerRoleSurrogate.organization,
-      code = this@PractitionerRoleSurrogate.code ?: mutableListOf(),
-      specialty = this@PractitionerRoleSurrogate.specialty ?: mutableListOf(),
-      location = this@PractitionerRoleSurrogate.location ?: mutableListOf(),
-      healthcareService = this@PractitionerRoleSurrogate.healthcareService ?: mutableListOf(),
-      telecom = this@PractitionerRoleSurrogate.telecom ?: mutableListOf(),
-      availableTime = this@PractitionerRoleSurrogate.availableTime ?: mutableListOf(),
-      notAvailable = this@PractitionerRoleSurrogate.notAvailable ?: mutableListOf(),
+      code = this@PractitionerRoleSurrogate.code ?: listOf(),
+      specialty = this@PractitionerRoleSurrogate.specialty ?: listOf(),
+      location = this@PractitionerRoleSurrogate.location ?: listOf(),
+      healthcareService = this@PractitionerRoleSurrogate.healthcareService ?: listOf(),
+      telecom = this@PractitionerRoleSurrogate.telecom ?: listOf(),
+      availableTime = this@PractitionerRoleSurrogate.availableTime ?: listOf(),
+      notAvailable = this@PractitionerRoleSurrogate.notAvailable ?: listOf(),
       availabilityExceptions =
         R4bString.of(
           this@PractitionerRoleSurrogate.availabilityExceptions,
           this@PractitionerRoleSurrogate._availabilityExceptions,
         ),
-      endpoint = this@PractitionerRoleSurrogate.endpoint ?: mutableListOf(),
+      endpoint = this@PractitionerRoleSurrogate.endpoint ?: listOf(),
     )
 
   public companion object {

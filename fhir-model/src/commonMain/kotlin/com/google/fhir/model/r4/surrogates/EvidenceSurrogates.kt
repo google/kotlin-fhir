@@ -47,7 +47,7 @@ import com.google.fhir.model.r4.serializers.LocalTimeSerializer
 import com.google.fhir.model.r4.terminologies.PublicationStatus
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
@@ -60,12 +60,12 @@ internal data class EvidenceSurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: MutableList<Resource>? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var contained: List<Resource>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var url: KotlinString? = null,
   public var _url: Element? = null,
-  public var identifier: MutableList<Identifier>? = null,
+  public var identifier: List<Identifier>? = null,
   public var version: KotlinString? = null,
   public var _version: Element? = null,
   public var name: KotlinString? = null,
@@ -82,12 +82,12 @@ internal data class EvidenceSurrogate(
   public var _date: Element? = null,
   public var publisher: KotlinString? = null,
   public var _publisher: Element? = null,
-  public var contact: MutableList<ContactDetail>? = null,
+  public var contact: List<ContactDetail>? = null,
   public var description: KotlinString? = null,
   public var _description: Element? = null,
-  public var note: MutableList<Annotation>? = null,
-  public var useContext: MutableList<UsageContext>? = null,
-  public var jurisdiction: MutableList<CodeableConcept>? = null,
+  public var note: List<Annotation>? = null,
+  public var useContext: List<UsageContext>? = null,
+  public var jurisdiction: List<CodeableConcept>? = null,
   public var copyright: KotlinString? = null,
   public var _copyright: Element? = null,
   public var approvalDate: KotlinString? = null,
@@ -95,15 +95,15 @@ internal data class EvidenceSurrogate(
   public var lastReviewDate: KotlinString? = null,
   public var _lastReviewDate: Element? = null,
   public var effectivePeriod: Period? = null,
-  public var topic: MutableList<CodeableConcept>? = null,
-  public var author: MutableList<ContactDetail>? = null,
-  public var editor: MutableList<ContactDetail>? = null,
-  public var reviewer: MutableList<ContactDetail>? = null,
-  public var endorser: MutableList<ContactDetail>? = null,
-  public var relatedArtifact: MutableList<RelatedArtifact>? = null,
+  public var topic: List<CodeableConcept>? = null,
+  public var author: List<ContactDetail>? = null,
+  public var editor: List<ContactDetail>? = null,
+  public var reviewer: List<ContactDetail>? = null,
+  public var endorser: List<ContactDetail>? = null,
+  public var relatedArtifact: List<RelatedArtifact>? = null,
   public var exposureBackground: Reference,
-  public var exposureVariant: MutableList<Reference>? = null,
-  public var outcome: MutableList<Reference>? = null,
+  public var exposureVariant: List<Reference>? = null,
+  public var outcome: List<Reference>? = null,
 ) {
   public fun toModel(): Evidence =
     Evidence(
@@ -113,11 +113,11 @@ internal data class EvidenceSurrogate(
         Uri.of(this@EvidenceSurrogate.implicitRules, this@EvidenceSurrogate._implicitRules),
       language = Code.of(this@EvidenceSurrogate.language, this@EvidenceSurrogate._language),
       text = this@EvidenceSurrogate.text,
-      contained = this@EvidenceSurrogate.contained ?: mutableListOf(),
-      extension = this@EvidenceSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@EvidenceSurrogate.modifierExtension ?: mutableListOf(),
+      contained = this@EvidenceSurrogate.contained ?: listOf(),
+      extension = this@EvidenceSurrogate.extension ?: listOf(),
+      modifierExtension = this@EvidenceSurrogate.modifierExtension ?: listOf(),
       url = Uri.of(this@EvidenceSurrogate.url, this@EvidenceSurrogate._url),
-      identifier = this@EvidenceSurrogate.identifier ?: mutableListOf(),
+      identifier = this@EvidenceSurrogate.identifier ?: listOf(),
       version = R4String.of(this@EvidenceSurrogate.version, this@EvidenceSurrogate._version),
       name = R4String.of(this@EvidenceSurrogate.name, this@EvidenceSurrogate._name),
       title = R4String.of(this@EvidenceSurrogate.title, this@EvidenceSurrogate._title),
@@ -135,12 +135,12 @@ internal data class EvidenceSurrogate(
           this@EvidenceSurrogate._date,
         ),
       publisher = R4String.of(this@EvidenceSurrogate.publisher, this@EvidenceSurrogate._publisher),
-      contact = this@EvidenceSurrogate.contact ?: mutableListOf(),
+      contact = this@EvidenceSurrogate.contact ?: listOf(),
       description =
         Markdown.of(this@EvidenceSurrogate.description, this@EvidenceSurrogate._description),
-      note = this@EvidenceSurrogate.note ?: mutableListOf(),
-      useContext = this@EvidenceSurrogate.useContext ?: mutableListOf(),
-      jurisdiction = this@EvidenceSurrogate.jurisdiction ?: mutableListOf(),
+      note = this@EvidenceSurrogate.note ?: listOf(),
+      useContext = this@EvidenceSurrogate.useContext ?: listOf(),
+      jurisdiction = this@EvidenceSurrogate.jurisdiction ?: listOf(),
       copyright = Markdown.of(this@EvidenceSurrogate.copyright, this@EvidenceSurrogate._copyright),
       approvalDate =
         Date.of(
@@ -153,15 +153,15 @@ internal data class EvidenceSurrogate(
           this@EvidenceSurrogate._lastReviewDate,
         ),
       effectivePeriod = this@EvidenceSurrogate.effectivePeriod,
-      topic = this@EvidenceSurrogate.topic ?: mutableListOf(),
-      author = this@EvidenceSurrogate.author ?: mutableListOf(),
-      editor = this@EvidenceSurrogate.editor ?: mutableListOf(),
-      reviewer = this@EvidenceSurrogate.reviewer ?: mutableListOf(),
-      endorser = this@EvidenceSurrogate.endorser ?: mutableListOf(),
-      relatedArtifact = this@EvidenceSurrogate.relatedArtifact ?: mutableListOf(),
+      topic = this@EvidenceSurrogate.topic ?: listOf(),
+      author = this@EvidenceSurrogate.author ?: listOf(),
+      editor = this@EvidenceSurrogate.editor ?: listOf(),
+      reviewer = this@EvidenceSurrogate.reviewer ?: listOf(),
+      endorser = this@EvidenceSurrogate.endorser ?: listOf(),
+      relatedArtifact = this@EvidenceSurrogate.relatedArtifact ?: listOf(),
       exposureBackground = this@EvidenceSurrogate.exposureBackground,
-      exposureVariant = this@EvidenceSurrogate.exposureVariant ?: mutableListOf(),
-      outcome = this@EvidenceSurrogate.outcome ?: mutableListOf(),
+      exposureVariant = this@EvidenceSurrogate.exposureVariant ?: listOf(),
+      outcome = this@EvidenceSurrogate.outcome ?: listOf(),
     )
 
   public companion object {

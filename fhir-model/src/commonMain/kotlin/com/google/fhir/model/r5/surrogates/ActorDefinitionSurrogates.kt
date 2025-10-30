@@ -46,7 +46,7 @@ import com.google.fhir.model.r5.terminologies.PublicationStatus
 import kotlin.Boolean as KotlinBoolean
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
@@ -88,12 +88,12 @@ internal data class ActorDefinitionSurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: MutableList<Resource>? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var contained: List<Resource>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var url: KotlinString? = null,
   public var _url: Element? = null,
-  public var identifier: MutableList<Identifier>? = null,
+  public var identifier: List<Identifier>? = null,
   public var version: KotlinString? = null,
   public var _version: Element? = null,
   public var versionAlgorithm: ActorDefinition.VersionAlgorithm? = null,
@@ -109,11 +109,11 @@ internal data class ActorDefinitionSurrogate(
   public var _date: Element? = null,
   public var publisher: KotlinString? = null,
   public var _publisher: Element? = null,
-  public var contact: MutableList<ContactDetail>? = null,
+  public var contact: List<ContactDetail>? = null,
   public var description: KotlinString? = null,
   public var _description: Element? = null,
-  public var useContext: MutableList<UsageContext>? = null,
-  public var jurisdiction: MutableList<CodeableConcept>? = null,
+  public var useContext: List<UsageContext>? = null,
+  public var jurisdiction: List<CodeableConcept>? = null,
   public var purpose: KotlinString? = null,
   public var _purpose: Element? = null,
   public var copyright: KotlinString? = null,
@@ -124,12 +124,12 @@ internal data class ActorDefinitionSurrogate(
   public var _type: Element? = null,
   public var documentation: KotlinString? = null,
   public var _documentation: Element? = null,
-  public var reference: MutableList<KotlinString?>? = null,
-  public var _reference: MutableList<Element?>? = null,
+  public var reference: List<KotlinString?>? = null,
+  public var _reference: List<Element?>? = null,
   public var capabilities: KotlinString? = null,
   public var _capabilities: Element? = null,
-  public var derivedFrom: MutableList<KotlinString?>? = null,
-  public var _derivedFrom: MutableList<Element?>? = null,
+  public var derivedFrom: List<KotlinString?>? = null,
+  public var _derivedFrom: List<Element?>? = null,
 ) {
   public fun toModel(): ActorDefinition =
     ActorDefinition(
@@ -143,11 +143,11 @@ internal data class ActorDefinitionSurrogate(
       language =
         Code.of(this@ActorDefinitionSurrogate.language, this@ActorDefinitionSurrogate._language),
       text = this@ActorDefinitionSurrogate.text,
-      contained = this@ActorDefinitionSurrogate.contained ?: mutableListOf(),
-      extension = this@ActorDefinitionSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@ActorDefinitionSurrogate.modifierExtension ?: mutableListOf(),
+      contained = this@ActorDefinitionSurrogate.contained ?: listOf(),
+      extension = this@ActorDefinitionSurrogate.extension ?: listOf(),
+      modifierExtension = this@ActorDefinitionSurrogate.modifierExtension ?: listOf(),
       url = Uri.of(this@ActorDefinitionSurrogate.url, this@ActorDefinitionSurrogate._url),
-      identifier = this@ActorDefinitionSurrogate.identifier ?: mutableListOf(),
+      identifier = this@ActorDefinitionSurrogate.identifier ?: listOf(),
       version =
         R5String.of(this@ActorDefinitionSurrogate.version, this@ActorDefinitionSurrogate._version),
       versionAlgorithm = this@ActorDefinitionSurrogate.versionAlgorithm,
@@ -174,14 +174,14 @@ internal data class ActorDefinitionSurrogate(
           this@ActorDefinitionSurrogate.publisher,
           this@ActorDefinitionSurrogate._publisher,
         ),
-      contact = this@ActorDefinitionSurrogate.contact ?: mutableListOf(),
+      contact = this@ActorDefinitionSurrogate.contact ?: listOf(),
       description =
         Markdown.of(
           this@ActorDefinitionSurrogate.description,
           this@ActorDefinitionSurrogate._description,
         ),
-      useContext = this@ActorDefinitionSurrogate.useContext ?: mutableListOf(),
-      jurisdiction = this@ActorDefinitionSurrogate.jurisdiction ?: mutableListOf(),
+      useContext = this@ActorDefinitionSurrogate.useContext ?: listOf(),
+      jurisdiction = this@ActorDefinitionSurrogate.jurisdiction ?: listOf(),
       purpose =
         Markdown.of(this@ActorDefinitionSurrogate.purpose, this@ActorDefinitionSurrogate._purpose),
       copyright =
@@ -209,7 +209,7 @@ internal data class ActorDefinitionSurrogate(
           this@ActorDefinitionSurrogate.reference == null &&
             this@ActorDefinitionSurrogate._reference == null
         ) {
-          mutableListOf()
+          listOf()
         } else {
           (this@ActorDefinitionSurrogate.reference
               ?: List(this@ActorDefinitionSurrogate._reference!!.size) { null })
@@ -218,7 +218,7 @@ internal data class ActorDefinitionSurrogate(
                 ?: List(this@ActorDefinitionSurrogate.reference!!.size) { null }
             )
             .map { (value, element) -> Url.of(value, element)!! }
-            .toMutableList()
+            .toList()
         },
       capabilities =
         Canonical.of(
@@ -230,7 +230,7 @@ internal data class ActorDefinitionSurrogate(
           this@ActorDefinitionSurrogate.derivedFrom == null &&
             this@ActorDefinitionSurrogate._derivedFrom == null
         ) {
-          mutableListOf()
+          listOf()
         } else {
           (this@ActorDefinitionSurrogate.derivedFrom
               ?: List(this@ActorDefinitionSurrogate._derivedFrom!!.size) { null })
@@ -239,7 +239,7 @@ internal data class ActorDefinitionSurrogate(
                 ?: List(this@ActorDefinitionSurrogate.derivedFrom!!.size) { null }
             )
             .map { (value, element) -> Canonical.of(value, element)!! }
-            .toMutableList()
+            .toList()
         },
     )
 
@@ -291,29 +291,23 @@ internal data class ActorDefinitionSurrogate(
           documentation = this@with.documentation?.value,
           _documentation = this@with.documentation?.toElement(),
           reference =
-            this@with.reference
-              .map { it.value }
-              .toMutableList()
-              .takeUnless { it.all { it == null } },
+            this@with.reference.map { it.value }.toList().takeUnless { it.all { it == null } },
           _reference =
             this@with.reference
               .map { it.toElement() }
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
-              ?.toMutableList(),
+              ?.toList(),
           capabilities = this@with.capabilities?.value,
           _capabilities = this@with.capabilities?.toElement(),
           derivedFrom =
-            this@with.derivedFrom
-              .map { it.value }
-              .toMutableList()
-              .takeUnless { it.all { it == null } },
+            this@with.derivedFrom.map { it.value }.toList().takeUnless { it.all { it == null } },
           _derivedFrom =
             this@with.derivedFrom
               .map { it.toElement() }
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
-              ?.toMutableList(),
+              ?.toList(),
         )
       }
   }

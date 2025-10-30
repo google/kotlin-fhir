@@ -20,7 +20,7 @@ package com.google.fhir.model.r5
 
 import com.google.fhir.model.r5.serializers.SampledDataSerializer
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 
 /**
@@ -33,7 +33,7 @@ public data class SampledData(
    * Unique id for the element within a resource (for internal references). This may be any string
    * value that does not contain spaces.
    */
-  override var id: kotlin.String? = null,
+  override val id: kotlin.String? = null,
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * element. To make the use of extensions safe and managable, there is a strict set of governance
@@ -46,35 +46,35 @@ public data class SampledData(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: MutableList<Extension> = mutableListOf(),
+  override val extension: List<Extension> = listOf(),
   /**
    * The base quantity that a measured value of zero represents. In addition, this provides the
    * units of the entire measurement series.
    */
-  public var origin: Quantity,
+  public val origin: Quantity,
   /**
    * Amount of intervalUnits between samples, e.g. milliseconds for time-based sampling.
    *
    * This is usually a whole number.
    */
-  public var interval: Decimal? = null,
+  public val interval: Decimal? = null,
   /** The measurement unit in which the sample interval is expressed. */
-  public var intervalUnit: Code,
+  public val intervalUnit: Code,
   /**
    * A correction factor that is applied to the sampled data points before they are added to the
    * origin.
    */
-  public var factor: Decimal? = null,
+  public val factor: Decimal? = null,
   /**
    * The lower limit of detection of the measured points. This is needed if any of the data points
    * have the value "L" (lower than detection limit).
    */
-  public var lowerLimit: Decimal? = null,
+  public val lowerLimit: Decimal? = null,
   /**
    * The upper limit of detection of the measured points. This is needed if any of the data points
    * have the value "U" (higher than detection limit).
    */
-  public var upperLimit: Decimal? = null,
+  public val upperLimit: Decimal? = null,
   /**
    * The number of sample points at each time point. If this value is greater than one, then the
    * dimensions will be interlaced - all the sample points for a point in time will be recorded at
@@ -83,13 +83,13 @@ public data class SampledData(
    * If there is more than one dimension, the code for the type of data will define the meaning of
    * the dimensions (typically ECG data).
    */
-  public var dimensions: PositiveInt,
+  public val dimensions: PositiveInt,
   /**
    * Reference to ConceptMap that defines the codes used in the data.
    *
    * The ConceptMap cannot define meanings for the codes 'E', 'U', or 'L' (nor 'e', 'u', or 'l').
    */
-  public var codeMap: Canonical? = null,
+  public val codeMap: Canonical? = null,
   /**
    * A series of data points which are decimal values separated by a single space (character u20).
    * The units in which the offsets are expressed are found in intervalUnit. The absolute point at
@@ -99,7 +99,7 @@ public data class SampledData(
    * If offsets is present, the number of data points must be equal to the number of offsets
    * mlutipled by the dimensions.
    */
-  public var offsets: String? = null,
+  public val offsets: String? = null,
   /**
    * A series of data points which are decimal values or codes separated by a single space
    * (character u20). The special codes "E" (error), "L" (below detection limit) and "U" (above
@@ -108,5 +108,5 @@ public data class SampledData(
    * The data may be missing if it is omitted for summarization purposes. In general, data is
    * required for any actual use of a SampledData.
    */
-  public var `data`: String? = null,
+  public val `data`: String? = null,
 ) : DataType()

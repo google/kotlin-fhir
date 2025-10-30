@@ -32,14 +32,14 @@ import com.google.fhir.model.r4b.serializers.LocalTimeSerializer
 import kotlin.Double
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class QuantitySurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
   public var `value`: Double? = null,
   public var _value: Element? = null,
   public var comparator: KotlinString? = null,
@@ -54,7 +54,7 @@ internal data class QuantitySurrogate(
   public fun toModel(): Quantity =
     Quantity(
       id = this@QuantitySurrogate.id,
-      extension = this@QuantitySurrogate.extension ?: mutableListOf(),
+      extension = this@QuantitySurrogate.extension ?: listOf(),
       `value` = Decimal.of(this@QuantitySurrogate.`value`, this@QuantitySurrogate._value),
       comparator =
         this@QuantitySurrogate.comparator?.let {

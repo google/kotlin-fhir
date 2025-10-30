@@ -21,7 +21,7 @@ package com.google.fhir.model.r5
 import com.google.fhir.model.r5.serializers.AppointmentResponseSerializer
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -40,12 +40,12 @@ public data class AppointmentResponse(
    * like the create and conditional update. Otherwise, the use of the resouce id depends on the
    * given use case.
    */
-  override var id: String? = null,
+  override val id: String? = null,
   /**
    * The metadata about the resource. This is content that is maintained by the infrastructure.
    * Changes to the content might not always be associated with version changes to the resource.
    */
-  override var meta: Meta? = null,
+  override val meta: Meta? = null,
   /**
    * A reference to a set of rules that were followed when the resource was constructed, and which
    * must be understood when processing the content. Often, this is a reference to an implementation
@@ -59,7 +59,7 @@ public data class AppointmentResponse(
    * to an implementation guide that defines these special rules as part of its narrative along with
    * other profiles, value sets, etc.
    */
-  override var implicitRules: Uri? = null,
+  override val implicitRules: Uri? = null,
   /**
    * The base language in which the resource is written.
    *
@@ -71,7 +71,7 @@ public data class AppointmentResponse(
    * language is specified, it should it also be specified on the div element in the html (see rules
    * in HTML5 for information about the relationship between xml:lang and the html lang attribute).
    */
-  override var language: Code? = null,
+  override val language: Code? = null,
   /**
    * A human-readable narrative that contains a summary of the resource and can be used to represent
    * the content of the resource to a human. The narrative need not encode all the structured data,
@@ -85,7 +85,7 @@ public data class AppointmentResponse(
    * legacy systems where information is captured as a "text blob" or where text is additionally
    * entered raw or narrated and encoded information is added later.
    */
-  override var text: Narrative? = null,
+  override val text: Narrative? = null,
   /**
    * These resources do not have an independent existence apart from the resource that contains
    * them - they cannot be identified independently, nor can they have their own independent
@@ -97,7 +97,7 @@ public data class AppointmentResponse(
    * resources may have profiles and tags in their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: MutableList<Resource> = mutableListOf(),
+  override val contained: List<Resource> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and managable, there is a strict set of governance
@@ -110,7 +110,7 @@ public data class AppointmentResponse(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: MutableList<Extension> = mutableListOf(),
+  override val extension: List<Extension> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -129,32 +129,32 @@ public data class AppointmentResponse(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: MutableList<Extension> = mutableListOf(),
+  override val modifierExtension: List<Extension> = listOf(),
   /**
    * This records identifiers associated with this appointment response concern that are defined by
    * business processes and/ or used to refer to it when a direct URL reference to the resource
    * itself is not appropriate.
    */
-  public var identifier: MutableList<Identifier> = mutableListOf(),
+  public val identifier: List<Identifier> = listOf(),
   /** Appointment that this response is replying to. */
-  public var appointment: Reference,
+  public val appointment: Reference,
   /**
    * Indicates that the response is proposing a different time that was initially requested. The new
    * proposed time will be indicated in the start and end properties.
    */
-  public var proposedNewTime: Boolean? = null,
+  public val proposedNewTime: Boolean? = null,
   /**
    * Date/Time that the appointment is to take place, or requested new start time.
    *
    * This may be either the same as the appointment request to confirm the details of the
    * appointment, or alternately a new time to request a re-negotiation of the start time.
    */
-  public var start: Instant? = null,
+  public val start: Instant? = null,
   /**
    * This may be either the same as the appointment request to confirm the details of the
    * appointment, or alternately a new time to request a re-negotiation of the end time.
    */
-  public var end: Instant? = null,
+  public val end: Instant? = null,
   /**
    * Role of participant in the appointment.
    *
@@ -167,9 +167,9 @@ public data class AppointmentResponse(
    * This value SHALL be the same as specified on the referenced Appointment so that they can be
    * matched, and subsequently updated.
    */
-  public var participantType: MutableList<CodeableConcept> = mutableListOf(),
+  public val participantType: List<CodeableConcept> = listOf(),
   /** A Person, Location, HealthcareService, or Device that is participating in the appointment. */
-  public var actor: Reference? = null,
+  public val actor: Reference? = null,
   /**
    * Participation status of the participant. When the status is declined or tentative if the
    * start/end times are different to the appointment, then these times should be interpreted as a
@@ -179,14 +179,14 @@ public data class AppointmentResponse(
    * This element is labeled as a modifier because the status contains the code entered-in-error
    * that marks the participant as not currently valid.
    */
-  public var participantStatus: Enumeration<AppointmentResponseStatus>,
+  public val participantStatus: Enumeration<AppointmentResponseStatus>,
   /**
    * Additional comments about the appointment.
    *
    * This comment is particularly important when the responder is declining, tentatively accepting
    * or requesting another time to indicate the reasons why.
    */
-  public var comment: Markdown? = null,
+  public val comment: Markdown? = null,
   /**
    * Indicates that this AppointmentResponse applies to all occurrences in a recurring request.
    *
@@ -197,13 +197,13 @@ public data class AppointmentResponse(
    * chooses. For example, they may accept all occurrences (recurring = true), but then send a
    * decline for a specific occurrence (recurring=false).
    */
-  public var recurring: Boolean? = null,
+  public val recurring: Boolean? = null,
   /**
    * The original date within a recurring request. This could be used in place of the recurrenceId
    * to be more direct (or where the template is provided through the simple list of dates in
    * `Appointment.occurrenceDate`).
    */
-  public var occurrenceDate: Date? = null,
+  public val occurrenceDate: Date? = null,
   /**
    * The recurrence ID (sequence number) of the specific appointment when responding to a recurring
    * request.
@@ -211,7 +211,7 @@ public data class AppointmentResponse(
    * If the recurrence template was defined using the list of occurrenceDates then this property
    * might not be used.
    */
-  public var recurrenceId: PositiveInt? = null,
+  public val recurrenceId: PositiveInt? = null,
 ) : DomainResource() {
   /** The Participation status for a participant in response to a request for an appointment. */
   public enum class AppointmentResponseStatus(

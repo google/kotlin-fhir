@@ -32,7 +32,7 @@ import com.google.fhir.model.r5.serializers.EvidenceVariableSerializer
 import com.google.fhir.model.r5.serializers.EvidenceVariableVersionAlgorithmSerializer
 import com.google.fhir.model.r5.terminologies.PublicationStatus
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -48,12 +48,12 @@ public data class EvidenceVariable(
    * like the create and conditional update. Otherwise, the use of the resouce id depends on the
    * given use case.
    */
-  override var id: kotlin.String? = null,
+  override val id: kotlin.String? = null,
   /**
    * The metadata about the resource. This is content that is maintained by the infrastructure.
    * Changes to the content might not always be associated with version changes to the resource.
    */
-  override var meta: Meta? = null,
+  override val meta: Meta? = null,
   /**
    * A reference to a set of rules that were followed when the resource was constructed, and which
    * must be understood when processing the content. Often, this is a reference to an implementation
@@ -67,7 +67,7 @@ public data class EvidenceVariable(
    * to an implementation guide that defines these special rules as part of its narrative along with
    * other profiles, value sets, etc.
    */
-  override var implicitRules: Uri? = null,
+  override val implicitRules: Uri? = null,
   /**
    * The base language in which the resource is written.
    *
@@ -79,7 +79,7 @@ public data class EvidenceVariable(
    * language is specified, it should it also be specified on the div element in the html (see rules
    * in HTML5 for information about the relationship between xml:lang and the html lang attribute).
    */
-  override var language: Code? = null,
+  override val language: Code? = null,
   /**
    * A human-readable narrative that contains a summary of the resource and can be used to represent
    * the content of the resource to a human. The narrative need not encode all the structured data,
@@ -93,7 +93,7 @@ public data class EvidenceVariable(
    * legacy systems where information is captured as a "text blob" or where text is additionally
    * entered raw or narrated and encoded information is added later.
    */
-  override var text: Narrative? = null,
+  override val text: Narrative? = null,
   /**
    * These resources do not have an independent existence apart from the resource that contains
    * them - they cannot be identified independently, nor can they have their own independent
@@ -105,7 +105,7 @@ public data class EvidenceVariable(
    * resources may have profiles and tags in their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: MutableList<Resource> = mutableListOf(),
+  override val contained: List<Resource> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and managable, there is a strict set of governance
@@ -118,7 +118,7 @@ public data class EvidenceVariable(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: MutableList<Extension> = mutableListOf(),
+  override val extension: List<Extension> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -137,7 +137,7 @@ public data class EvidenceVariable(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: MutableList<Extension> = mutableListOf(),
+  override val modifierExtension: List<Extension> = listOf(),
   /**
    * An absolute URI that is used to identify this evidence variable when it is referenced in a
    * specification, model, design or an instance; also called its canonical identifier. This SHOULD
@@ -149,7 +149,7 @@ public data class EvidenceVariable(
    * change. Implementations can use the meta.source element to indicate where the current master
    * source of the resource can be found.
    */
-  public var url: Uri? = null,
+  public val url: Uri? = null,
   /**
    * A formal identifier that is used to identify this evidence variable when it is represented in
    * other formats, or referenced in a specification, model, design or an instance.
@@ -158,7 +158,7 @@ public data class EvidenceVariable(
    * type, and can then identify this evidence variable outside of FHIR, where it is not possible to
    * use the logical URI.
    */
-  public var identifier: MutableList<Identifier> = mutableListOf(),
+  public val identifier: List<Identifier> = listOf(),
   /**
    * The identifier that is used to identify this version of the evidence variable when it is
    * referenced in a specification, model, design or instance. This is an arbitrary value managed by
@@ -175,7 +175,7 @@ public data class EvidenceVariable(
    * particular business version of the evidence variable with the format [url]|[version]. The
    * version SHOULD NOT contain a '#' - see [Business Version](resource.html#bv-format).
    */
-  public var version: String? = null,
+  public val version: String? = null,
   /**
    * Indicates the mechanism used to compare versions to determine which is more current.
    *
@@ -184,7 +184,7 @@ public data class EvidenceVariable(
    * positive number if version2 is newer, and a 0 if the version ordering can't successfully be
    * determined.
    */
-  public var versionAlgorithm: VersionAlgorithm? = null,
+  public val versionAlgorithm: VersionAlgorithm? = null,
   /**
    * A natural language name identifying the evidence variable. This name should be usable as an
    * identifier for the module by machine processing applications such as code generation.
@@ -192,19 +192,19 @@ public data class EvidenceVariable(
    * The name is not expected to be globally unique. The name should be a simple alphanumeric type
    * name to ensure that it is machine-processing friendly.
    */
-  public var name: String? = null,
+  public val name: String? = null,
   /**
    * A short, descriptive, user-friendly title for the evidence variable.
    *
    * This name does not need to be machine-processing friendly and may contain punctuation,
    * white-space, etc.
    */
-  public var title: String? = null,
+  public val title: String? = null,
   /**
    * The short title provides an alternate title for use in informal descriptive contexts where the
    * full, formal title is not necessary.
    */
-  public var shortTitle: String? = null,
+  public val shortTitle: String? = null,
   /**
    * The status of this evidence variable. Enables tracking the life-cycle of the content.
    *
@@ -213,12 +213,12 @@ public data class EvidenceVariable(
    * See guidance around (not) making local changes to elements
    * [here](canonicalresource.html#localization).
    */
-  public var status: Enumeration<PublicationStatus>,
+  public val status: Enumeration<PublicationStatus>,
   /**
    * A Boolean value to indicate that this resource is authored for testing purposes (or
    * education/evaluation/marketing) and is not intended to be used for genuine usage.
    */
-  public var experimental: Boolean? = null,
+  public val experimental: Boolean? = null,
   /**
    * The date (and optionally time) when the evidence variable was last significantly changed. The
    * date must change when the business version changes and it must change if the status code
@@ -234,7 +234,7 @@ public data class EvidenceVariable(
    * See guidance around (not) making local changes to elements
    * [here](canonicalresource.html#localization).
    */
-  public var date: DateTime? = null,
+  public val date: DateTime? = null,
   /**
    * The name of the organization or individual responsible for the release and ongoing maintenance
    * of the evidence variable.
@@ -246,7 +246,7 @@ public data class EvidenceVariable(
    * questions or issues with the evidence variable. This item SHOULD be populated unless the
    * information is available from context.
    */
-  public var publisher: String? = null,
+  public val publisher: String? = null,
   /**
    * Contact details to assist a user in finding and communicating with the publisher.
    *
@@ -256,7 +256,7 @@ public data class EvidenceVariable(
    * See guidance around (not) making local changes to elements
    * [here](canonicalresource.html#localization).
    */
-  public var contact: MutableList<ContactDetail> = mutableListOf(),
+  public val contact: List<ContactDetail> = listOf(),
   /**
    * A free text natural language description of the evidence variable from a consumer's
    * perspective.
@@ -268,9 +268,9 @@ public data class EvidenceVariable(
    * the language of the evidence variable is presumed to be the predominant language in the place
    * the evidence variable was created).
    */
-  public var description: Markdown? = null,
+  public val description: Markdown? = null,
   /** A human-readable string to clarify or explain concepts about the resource. */
-  public var note: MutableList<Annotation> = mutableListOf(),
+  public val note: List<Annotation> = listOf(),
   /**
    * The content was developed with a focus and intent of supporting the contexts that are listed.
    * These contexts may be general categories (gender, age, ...) or may be references to specific
@@ -280,7 +280,7 @@ public data class EvidenceVariable(
    * When multiple useContexts are specified, there is no expectation that all or any of the
    * contexts apply.
    */
-  public var useContext: MutableList<UsageContext> = mutableListOf(),
+  public val useContext: List<UsageContext> = listOf(),
   /**
    * Explanation of why this EvidenceVariable is needed and why it has been designed as it has.
    *
@@ -289,12 +289,12 @@ public data class EvidenceVariable(
    * may be used to point to source materials or specifications that drove the structure of this
    * EvidenceVariable.
    */
-  public var purpose: Markdown? = null,
+  public val purpose: Markdown? = null,
   /**
    * A copyright statement relating to the resource and/or its contents. Copyright statements are
    * generally legal restrictions on the use and publishing of the resource.
    */
-  public var copyright: Markdown? = null,
+  public val copyright: Markdown? = null,
   /**
    * A short string (<50 characters), suitable for inclusion in a page footer that identifies the
    * copyright holder, effective period, and optionally whether rights are resctricted. (e.g. 'All
@@ -304,7 +304,7 @@ public data class EvidenceVariable(
    * rendering the notation. Full details about licensing, restrictions, warrantees, etc. goes in
    * the more general 'copyright' element.
    */
-  public var copyrightLabel: String? = null,
+  public val copyrightLabel: String? = null,
   /**
    * The date on which the resource content was approved by the publisher. Approval happens once
    * when the content is officially approved for usage.
@@ -312,7 +312,7 @@ public data class EvidenceVariable(
    * See guidance around (not) making local changes to elements
    * [here](canonicalresource.html#localization).
    */
-  public var approvalDate: Date? = null,
+  public val approvalDate: Date? = null,
   /**
    * The date on which the resource content was last reviewed. Review happens periodically after
    * approval but does not change the original approval date.
@@ -322,7 +322,7 @@ public data class EvidenceVariable(
    * See guidance around (not) making local changes to elements
    * [here](canonicalresource.html#localization).
    */
-  public var lastReviewDate: Date? = null,
+  public val lastReviewDate: Date? = null,
   /**
    * The period during which the resource content was or is planned to be in active use.
    *
@@ -333,7 +333,7 @@ public data class EvidenceVariable(
    * See guidance around (not) making local changes to elements
    * [here](canonicalresource.html#localization).
    */
-  public var effectivePeriod: Period? = null,
+  public val effectivePeriod: Period? = null,
   /**
    * An individiual or organization primarily involved in the creation and maintenance of the
    * content.
@@ -341,14 +341,14 @@ public data class EvidenceVariable(
    * Extensions to ContactDetail include: contactReference, contactAddress, and contributionTime
    * (see [Clinical Reasoning Module](clinicalreasoning-module.html)).
    */
-  public var author: MutableList<ContactDetail> = mutableListOf(),
+  public val author: List<ContactDetail> = listOf(),
   /**
    * An individual or organization primarily responsible for internal coherence of the content.
    *
    * Extensions to ContactDetail include: contactReference, contactAddress, and contributionTime
    * (see [Clinical Reasoning Module](clinicalreasoning-module.html)).
    */
-  public var editor: MutableList<ContactDetail> = mutableListOf(),
+  public val editor: List<ContactDetail> = listOf(),
   /**
    * An individual or organization asserted by the publisher to be primarily responsible for review
    * of some aspect of the content.
@@ -359,7 +359,7 @@ public data class EvidenceVariable(
    * See guidance around (not) making local changes to elements
    * [here](canonicalresource.html#localization).
    */
-  public var reviewer: MutableList<ContactDetail> = mutableListOf(),
+  public val reviewer: List<ContactDetail> = listOf(),
   /**
    * An individual or organization asserted by the publisher to be responsible for officially
    * endorsing the content for use in some setting.
@@ -370,19 +370,19 @@ public data class EvidenceVariable(
    * See guidance around (not) making local changes to elements
    * [here](canonicalresource.html#localization).
    */
-  public var endorser: MutableList<ContactDetail> = mutableListOf(),
+  public val endorser: List<ContactDetail> = listOf(),
   /**
    * Related artifacts such as additional documentation, justification, or bibliographic references.
    *
    * Each related artifact is either an attachment, or a reference to another resource, but not
    * both.
    */
-  public var relatedArtifact: MutableList<RelatedArtifact> = mutableListOf(),
+  public val relatedArtifact: List<RelatedArtifact> = listOf(),
   /**
    * True if the actual variable measured, false if a conceptual representation of the intended
    * variable.
    */
-  public var `actual`: Boolean? = null,
+  public val `actual`: Boolean? = null,
   /**
    * A defining factor of the EvidenceVariable. Multiple characteristics are applied with "and"
    * semantics.
@@ -391,11 +391,11 @@ public data class EvidenceVariable(
    * criteria, ranging from simple codes, all the way to using an expression language to express the
    * criteria.
    */
-  public var characteristic: MutableList<Characteristic> = mutableListOf(),
+  public val characteristic: List<Characteristic> = listOf(),
   /** The method of handling in statistical analysis. */
-  public var handling: Enumeration<EvidenceVariableHandling>? = null,
+  public val handling: Enumeration<EvidenceVariableHandling>? = null,
   /** A grouping for ordinal or polychotomous variables. */
-  public var category: MutableList<Category> = mutableListOf(),
+  public val category: List<Category> = listOf(),
 ) : DomainResource() {
   /**
    * A defining factor of the EvidenceVariable. Multiple characteristics are applied with "and"
@@ -407,7 +407,7 @@ public data class EvidenceVariable(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -420,7 +420,7 @@ public data class EvidenceVariable(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -439,27 +439,27 @@ public data class EvidenceVariable(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /** Label used for when a characteristic refers to another characteristic. */
-    public var linkId: Id? = null,
+    public val linkId: Id? = null,
     /**
      * A short, natural language description of the characteristic that could be used to communicate
      * the criteria to an end-user.
      */
-    public var description: Markdown? = null,
+    public val description: Markdown? = null,
     /** A human-readable string to clarify or explain concepts about the characteristic. */
-    public var note: MutableList<Annotation> = mutableListOf(),
+    public val note: List<Annotation> = listOf(),
     /**
      * When true, this characteristic is an exclusion criterion. In other words, not matching this
      * characteristic definition is equivalent to meeting this criterion.
      */
-    public var exclude: Boolean? = null,
+    public val exclude: Boolean? = null,
     /** Defines the characteristic using a Reference. */
-    public var definitionReference: Reference? = null,
+    public val definitionReference: Reference? = null,
     /** Defines the characteristic using Canonical. */
-    public var definitionCanonical: Canonical? = null,
+    public val definitionCanonical: Canonical? = null,
     /** Defines the characteristic using CodeableConcept. */
-    public var definitionCodeableConcept: CodeableConcept? = null,
+    public val definitionCodeableConcept: CodeableConcept? = null,
     /**
      * Defines the characteristic using Expression.
      *
@@ -467,19 +467,19 @@ public data class EvidenceVariable(
      * content SHALL match the definition (only adding technical concepts necessary for
      * implementation) without changing the meaning.
      */
-    public var definitionExpression: Expression? = null,
+    public val definitionExpression: Expression? = null,
     /** Defines the characteristic using id. */
-    public var definitionId: Id? = null,
+    public val definitionId: Id? = null,
     /** Defines the characteristic using both a type and value[x] elements. */
-    public var definitionByTypeAndValue: DefinitionByTypeAndValue? = null,
+    public val definitionByTypeAndValue: DefinitionByTypeAndValue? = null,
     /** Defines the characteristic as a combination of two or more characteristics. */
-    public var definitionByCombination: DefinitionByCombination? = null,
+    public val definitionByCombination: DefinitionByCombination? = null,
     /** Number of occurrences meeting the characteristic. */
-    public var instances: Instances? = null,
+    public val instances: Instances? = null,
     /** Length of time in which the characteristic is met. */
-    public var duration: Duration? = null,
+    public val duration: Duration? = null,
     /** Timing in which the characteristic is determined. */
-    public var timeFromEvent: MutableList<TimeFromEvent> = mutableListOf(),
+    public val timeFromEvent: List<TimeFromEvent> = listOf(),
   ) : BackboneElement() {
     /** Defines the characteristic using both a type and value[x] elements. */
     @Serializable(with = EvidenceVariableCharacteristicDefinitionByTypeAndValueSerializer::class)
@@ -488,7 +488,7 @@ public data class EvidenceVariable(
        * Unique id for the element within a resource (for internal references). This may be any
        * string value that does not contain spaces.
        */
-      override var id: kotlin.String? = null,
+      override val id: kotlin.String? = null,
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -501,7 +501,7 @@ public data class EvidenceVariable(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: MutableList<Extension> = mutableListOf(),
+      override val extension: List<Extension> = listOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -520,20 +520,20 @@ public data class EvidenceVariable(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: MutableList<Extension> = mutableListOf(),
+      override val modifierExtension: List<Extension> = listOf(),
       /** Used to express the type of characteristic. */
-      public var type: CodeableConcept,
+      public val type: CodeableConcept,
       /** Method for how the characteristic value was determined. */
-      public var method: MutableList<CodeableConcept> = mutableListOf(),
+      public val method: List<CodeableConcept> = listOf(),
       /** Device used for determining characteristic. */
-      public var device: Reference? = null,
+      public val device: Reference? = null,
       /** Defines the characteristic when paired with characteristic.type. */
-      public var `value`: Value,
+      public val `value`: Value,
       /**
        * Defines the reference point for comparison when valueQuantity or valueRange is not compared
        * to zero.
        */
-      public var offset: CodeableConcept? = null,
+      public val offset: CodeableConcept? = null,
     ) : BackboneElement() {
       @Serializable(
         with = EvidenceVariableCharacteristicDefinitionByTypeAndValueValueSerializer::class
@@ -593,7 +593,7 @@ public data class EvidenceVariable(
        * Unique id for the element within a resource (for internal references). This may be any
        * string value that does not contain spaces.
        */
-      override var id: kotlin.String? = null,
+      override val id: kotlin.String? = null,
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -606,7 +606,7 @@ public data class EvidenceVariable(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: MutableList<Extension> = mutableListOf(),
+      override val extension: List<Extension> = listOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -625,13 +625,13 @@ public data class EvidenceVariable(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: MutableList<Extension> = mutableListOf(),
+      override val modifierExtension: List<Extension> = listOf(),
       /** Used to specify if two or more characteristics are combined with OR or AND. */
-      public var code: Enumeration<CharacteristicCombination>,
+      public val code: Enumeration<CharacteristicCombination>,
       /** Provides the value of "n" when "at-least" or "at-most" codes are used. */
-      public var threshold: PositiveInt? = null,
+      public val threshold: PositiveInt? = null,
       /** A defining factor of the characteristic. */
-      public var characteristic: MutableList<Characteristic> = mutableListOf(),
+      public val characteristic: List<Characteristic> = listOf(),
     ) : BackboneElement()
 
     /** Timing in which the characteristic is determined. */
@@ -641,7 +641,7 @@ public data class EvidenceVariable(
        * Unique id for the element within a resource (for internal references). This may be any
        * string value that does not contain spaces.
        */
-      override var id: kotlin.String? = null,
+      override val id: kotlin.String? = null,
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -654,7 +654,7 @@ public data class EvidenceVariable(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: MutableList<Extension> = mutableListOf(),
+      override val extension: List<Extension> = listOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -673,17 +673,17 @@ public data class EvidenceVariable(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: MutableList<Extension> = mutableListOf(),
+      override val modifierExtension: List<Extension> = listOf(),
       /** Human readable description. */
-      public var description: Markdown? = null,
+      public val description: Markdown? = null,
       /** A human-readable string to clarify or explain concepts about the timeFromEvent. */
-      public var note: MutableList<Annotation> = mutableListOf(),
+      public val note: List<Annotation> = listOf(),
       /** The event used as a base point (reference point) in time. */
-      public var event: Event? = null,
+      public val event: Event? = null,
       /** Used to express the observation at a defined amount of time before or after the event. */
-      public var quantity: Quantity? = null,
+      public val quantity: Quantity? = null,
       /** Used to express the observation within a period before and/or after the event. */
-      public var range: Range? = null,
+      public val range: Range? = null,
     ) : BackboneElement() {
       @Serializable(with = EvidenceVariableCharacteristicTimeFromEventEventSerializer::class)
       public sealed interface Event {
@@ -774,7 +774,7 @@ public data class EvidenceVariable(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -787,7 +787,7 @@ public data class EvidenceVariable(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -806,11 +806,11 @@ public data class EvidenceVariable(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /** Description of the grouping. */
-    public var name: String? = null,
+    public val name: String? = null,
     /** Definition of the grouping. */
-    public var `value`: Value? = null,
+    public val `value`: Value? = null,
   ) : BackboneElement() {
     @Serializable(with = EvidenceVariableCategoryValueSerializer::class)
     public sealed interface Value {

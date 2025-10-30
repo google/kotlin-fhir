@@ -25,7 +25,7 @@ import com.google.fhir.model.r4.serializers.FamilyMemberHistoryConditionSerializ
 import com.google.fhir.model.r4.serializers.FamilyMemberHistoryDeceasedSerializer
 import com.google.fhir.model.r4.serializers.FamilyMemberHistorySerializer
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -43,12 +43,12 @@ public data class FamilyMemberHistory(
    * The only time that a resource does not have an id is when it is being submitted to the server
    * using a create operation.
    */
-  override var id: kotlin.String? = null,
+  override val id: kotlin.String? = null,
   /**
    * The metadata about the resource. This is content that is maintained by the infrastructure.
    * Changes to the content might not always be associated with version changes to the resource.
    */
-  override var meta: Meta? = null,
+  override val meta: Meta? = null,
   /**
    * A reference to a set of rules that were followed when the resource was constructed, and which
    * must be understood when processing the content. Often, this is a reference to an implementation
@@ -62,7 +62,7 @@ public data class FamilyMemberHistory(
    * to an implementation guide that defines these special rules as part of it's narrative along
    * with other profiles, value sets, etc.
    */
-  override var implicitRules: Uri? = null,
+  override val implicitRules: Uri? = null,
   /**
    * The base language in which the resource is written.
    *
@@ -74,7 +74,7 @@ public data class FamilyMemberHistory(
    * language is specified, it should it also be specified on the div element in the html (see rules
    * in HTML5 for information about the relationship between xml:lang and the html lang attribute).
    */
-  override var language: Code? = null,
+  override val language: Code? = null,
   /**
    * A human-readable narrative that contains a summary of the resource and can be used to represent
    * the content of the resource to a human. The narrative need not encode all the structured data,
@@ -88,7 +88,7 @@ public data class FamilyMemberHistory(
    * legacy systems where information is captured as a "text blob" or where text is additionally
    * entered raw or narrated and encoded information is added later.
    */
-  override var text: Narrative? = null,
+  override val text: Narrative? = null,
   /**
    * These resources do not have an independent existence apart from the resource that contains
    * them - they cannot be identified independently, and nor can they have their own independent
@@ -99,7 +99,7 @@ public data class FamilyMemberHistory(
    * resources may have profiles and tags In their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: MutableList<Resource> = mutableListOf(),
+  override val contained: List<Resource> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and manageable, there is a strict set of
@@ -112,7 +112,7 @@ public data class FamilyMemberHistory(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: MutableList<Extension> = mutableListOf(),
+  override val extension: List<Extension> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -131,7 +131,7 @@ public data class FamilyMemberHistory(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: MutableList<Extension> = mutableListOf(),
+  override val modifierExtension: List<Extension> = listOf(),
   /**
    * Business identifiers assigned to this family member history by the performer or other systems
    * which remain constant as the resource is updated and propagates from server to server.
@@ -143,43 +143,43 @@ public data class FamilyMemberHistory(
    * resource types. For example, multiple Patient and a Person resource instance might share the
    * same social insurance number.
    */
-  public var identifier: MutableList<Identifier> = mutableListOf(),
+  public val identifier: List<Identifier> = listOf(),
   /**
    * The URL pointing to a FHIR-defined protocol, guideline, orderset or other definition that is
    * adhered to in whole or in part by this FamilyMemberHistory.
    */
-  public var instantiatesCanonical: MutableList<Canonical> = mutableListOf(),
+  public val instantiatesCanonical: List<Canonical> = listOf(),
   /**
    * The URL pointing to an externally maintained protocol, guideline, orderset or other definition
    * that is adhered to in whole or in part by this FamilyMemberHistory.
    *
    * This might be an HTML page, PDF, etc. or could just be a non-resolvable URI identifier.
    */
-  public var instantiatesUri: MutableList<Uri> = mutableListOf(),
+  public val instantiatesUri: List<Uri> = listOf(),
   /**
    * A code specifying the status of the record of the family history of a specific family member.
    *
    * This element is labeled as a modifier because the status contains codes that mark the resource
    * as not currently valid.
    */
-  public var status: Enumeration<FamilyHistoryStatus>,
+  public val status: Enumeration<FamilyHistoryStatus>,
   /** Describes why the family member's history is not available. */
-  public var dataAbsentReason: CodeableConcept? = null,
+  public val dataAbsentReason: CodeableConcept? = null,
   /** The person who this history concerns. */
-  public var patient: Reference,
+  public val patient: Reference,
   /**
    * The date (and possibly time) when the family member history was recorded or last updated.
    *
    * This should be captured even if the same as the date on the List aggregating the full family
    * history.
    */
-  public var date: DateTime? = null,
+  public val date: DateTime? = null,
   /**
    * This will either be a name or a description; e.g. "Aunt Susan", "my cousin with the red hair".
    */
-  public var name: String? = null,
+  public val name: String? = null,
   /** The type of relationship this person has to the patient (father, mother, brother etc.). */
-  public var relationship: CodeableConcept,
+  public val relationship: CodeableConcept,
   /**
    * The birth sex of the family member.
    *
@@ -190,49 +190,49 @@ public data class FamilyMemberHistory(
    * phrased to encourage capture of genetic sex where known. However, systems performing analysis
    * should also allow for the possibility of imprecision with this element.
    */
-  public var sex: CodeableConcept? = null,
+  public val sex: CodeableConcept? = null,
   /** The actual or approximate date of birth of the relative. */
-  public var born: Born? = null,
+  public val born: Born? = null,
   /**
    * The age of the relative at the time the family member history is recorded.
    *
    * use estimatedAge to indicate whether the age is actual or not.
    */
-  public var age: Age? = null,
+  public val age: Age? = null,
   /**
    * If true, indicates that the age value specified is an estimated value.
    *
    * This element is labeled as a modifier because the fact that age is estimated can/should change
    * the results of any algorithm that calculates based on the specified age.
    */
-  public var estimatedAge: Boolean? = null,
+  public val estimatedAge: Boolean? = null,
   /**
    * Deceased flag or the actual or approximate age of the relative at the time of death for the
    * family member history record.
    */
-  public var deceased: Deceased? = null,
+  public val deceased: Deceased? = null,
   /**
    * Describes why the family member history occurred in coded or textual form.
    *
    * Textual reasons can be captured using reasonCode.text.
    */
-  public var reasonCode: MutableList<CodeableConcept> = mutableListOf(),
+  public val reasonCode: List<CodeableConcept> = listOf(),
   /**
    * Indicates a Condition, Observation, AllergyIntolerance, or QuestionnaireResponse that justifies
    * this family member history event.
    */
-  public var reasonReference: MutableList<Reference> = mutableListOf(),
+  public val reasonReference: List<Reference> = listOf(),
   /**
    * This property allows a non condition-specific note to the made about the related person.
    * Ideally, the note would be in the condition property, but this is not always possible.
    */
-  public var note: MutableList<Annotation> = mutableListOf(),
+  public val note: List<Annotation> = listOf(),
   /**
    * The significant Conditions (or condition) that the family member had. This is a repeating
    * section to allow a system to represent more than one condition per resource, though there is
    * nothing stopping multiple resources - one per condition.
    */
-  public var condition: MutableList<Condition> = mutableListOf(),
+  public val condition: List<Condition> = listOf(),
 ) : DomainResource() {
   /**
    * The significant Conditions (or condition) that the family member had. This is a repeating
@@ -245,7 +245,7 @@ public data class FamilyMemberHistory(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and manageable, there is a strict set of
@@ -258,7 +258,7 @@ public data class FamilyMemberHistory(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -277,30 +277,30 @@ public data class FamilyMemberHistory(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /**
      * The actual condition specified. Could be a coded condition (like MI or Diabetes) or a less
      * specific string like 'cancer' depending on how much is known about the condition and the
      * capabilities of the creating system.
      */
-    public var code: CodeableConcept,
+    public val code: CodeableConcept,
     /**
      * Indicates what happened following the condition. If the condition resulted in death, deceased
      * date is captured on the relation.
      */
-    public var outcome: CodeableConcept? = null,
+    public val outcome: CodeableConcept? = null,
     /**
      * This condition contributed to the cause of death of the related person. If contributedToDeath
      * is not populated, then it is unknown.
      */
-    public var contributedToDeath: Boolean? = null,
+    public val contributedToDeath: Boolean? = null,
     /**
      * Either the age of onset, range of approximate age or descriptive string can be recorded. For
      * conditions with multiple occurrences, this describes the first known occurrence.
      */
-    public var onset: Onset? = null,
+    public val onset: Onset? = null,
     /** An area where general notes can be placed about this specific condition. */
-    public var note: MutableList<Annotation> = mutableListOf(),
+    public val note: List<Annotation> = listOf(),
   ) : BackboneElement() {
     @Serializable(with = FamilyMemberHistoryConditionOnsetSerializer::class)
     public sealed interface Onset {

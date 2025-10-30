@@ -39,15 +39,15 @@ import com.google.fhir.model.r4b.serializers.DoubleSerializer
 import com.google.fhir.model.r4b.serializers.LocalTimeSerializer
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class CompositionAttesterSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var mode: KotlinString? = null,
   public var _mode: Element? = null,
   public var time: KotlinString? = null,
@@ -57,8 +57,8 @@ internal data class CompositionAttesterSurrogate(
   public fun toModel(): Composition.Attester =
     Composition.Attester(
       id = this@CompositionAttesterSurrogate.id,
-      extension = this@CompositionAttesterSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@CompositionAttesterSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@CompositionAttesterSurrogate.extension ?: listOf(),
+      modifierExtension = this@CompositionAttesterSurrogate.modifierExtension ?: listOf(),
       mode =
         Enumeration.of(
           Composition.CompositionAttestationMode.fromCode(this@CompositionAttesterSurrogate.mode!!),
@@ -92,8 +92,8 @@ internal data class CompositionAttesterSurrogate(
 @Serializable
 internal data class CompositionRelatesToSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var code: KotlinString? = null,
   public var _code: Element? = null,
   public var target: Composition.RelatesTo.Target,
@@ -101,8 +101,8 @@ internal data class CompositionRelatesToSurrogate(
   public fun toModel(): Composition.RelatesTo =
     Composition.RelatesTo(
       id = this@CompositionRelatesToSurrogate.id,
-      extension = this@CompositionRelatesToSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@CompositionRelatesToSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@CompositionRelatesToSurrogate.extension ?: listOf(),
+      modifierExtension = this@CompositionRelatesToSurrogate.modifierExtension ?: listOf(),
       code =
         Enumeration.of(
           Composition.DocumentRelationshipType.fromCode(this@CompositionRelatesToSurrogate.code!!),
@@ -129,20 +129,20 @@ internal data class CompositionRelatesToSurrogate(
 @Serializable
 internal data class CompositionEventSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var code: MutableList<CodeableConcept>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
+  public var code: List<CodeableConcept>? = null,
   public var period: Period? = null,
-  public var detail: MutableList<Reference>? = null,
+  public var detail: List<Reference>? = null,
 ) {
   public fun toModel(): Composition.Event =
     Composition.Event(
       id = this@CompositionEventSurrogate.id,
-      extension = this@CompositionEventSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@CompositionEventSurrogate.modifierExtension ?: mutableListOf(),
-      code = this@CompositionEventSurrogate.code ?: mutableListOf(),
+      extension = this@CompositionEventSurrogate.extension ?: listOf(),
+      modifierExtension = this@CompositionEventSurrogate.modifierExtension ?: listOf(),
+      code = this@CompositionEventSurrogate.code ?: listOf(),
       period = this@CompositionEventSurrogate.period,
-      detail = this@CompositionEventSurrogate.detail ?: mutableListOf(),
+      detail = this@CompositionEventSurrogate.detail ?: listOf(),
     )
 
   public companion object {
@@ -163,33 +163,33 @@ internal data class CompositionEventSurrogate(
 @Serializable
 internal data class CompositionSectionSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var title: KotlinString? = null,
   public var _title: Element? = null,
   public var code: CodeableConcept? = null,
-  public var author: MutableList<Reference>? = null,
+  public var author: List<Reference>? = null,
   public var focus: Reference? = null,
   public var text: Narrative? = null,
   public var mode: KotlinString? = null,
   public var _mode: Element? = null,
   public var orderedBy: CodeableConcept? = null,
-  public var entry: MutableList<Reference>? = null,
+  public var entry: List<Reference>? = null,
   public var emptyReason: CodeableConcept? = null,
-  public var section: MutableList<Composition.Section>? = null,
+  public var section: List<Composition.Section>? = null,
 ) {
   public fun toModel(): Composition.Section =
     Composition.Section(
       id = this@CompositionSectionSurrogate.id,
-      extension = this@CompositionSectionSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@CompositionSectionSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@CompositionSectionSurrogate.extension ?: listOf(),
+      modifierExtension = this@CompositionSectionSurrogate.modifierExtension ?: listOf(),
       title =
         R4bString.of(
           this@CompositionSectionSurrogate.title,
           this@CompositionSectionSurrogate._title,
         ),
       code = this@CompositionSectionSurrogate.code,
-      author = this@CompositionSectionSurrogate.author ?: mutableListOf(),
+      author = this@CompositionSectionSurrogate.author ?: listOf(),
       focus = this@CompositionSectionSurrogate.focus,
       text = this@CompositionSectionSurrogate.text,
       mode =
@@ -197,9 +197,9 @@ internal data class CompositionSectionSurrogate(
           Enumeration.of(Composition.ListMode.fromCode(it), this@CompositionSectionSurrogate._mode)
         },
       orderedBy = this@CompositionSectionSurrogate.orderedBy,
-      entry = this@CompositionSectionSurrogate.entry ?: mutableListOf(),
+      entry = this@CompositionSectionSurrogate.entry ?: listOf(),
       emptyReason = this@CompositionSectionSurrogate.emptyReason,
-      section = this@CompositionSectionSurrogate.section ?: mutableListOf(),
+      section = this@CompositionSectionSurrogate.section ?: listOf(),
     )
 
   public companion object {
@@ -257,28 +257,28 @@ internal data class CompositionSurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: MutableList<Resource>? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var contained: List<Resource>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var identifier: Identifier? = null,
   public var status: KotlinString? = null,
   public var _status: Element? = null,
   public var type: CodeableConcept,
-  public var category: MutableList<CodeableConcept>? = null,
+  public var category: List<CodeableConcept>? = null,
   public var subject: Reference? = null,
   public var encounter: Reference? = null,
   public var date: KotlinString? = null,
   public var _date: Element? = null,
-  public var author: MutableList<Reference>? = null,
+  public var author: List<Reference>? = null,
   public var title: KotlinString? = null,
   public var _title: Element? = null,
   public var confidentiality: KotlinString? = null,
   public var _confidentiality: Element? = null,
-  public var attester: MutableList<Composition.Attester>? = null,
+  public var attester: List<Composition.Attester>? = null,
   public var custodian: Reference? = null,
-  public var relatesTo: MutableList<Composition.RelatesTo>? = null,
-  public var event: MutableList<Composition.Event>? = null,
-  public var section: MutableList<Composition.Section>? = null,
+  public var relatesTo: List<Composition.RelatesTo>? = null,
+  public var event: List<Composition.Event>? = null,
+  public var section: List<Composition.Section>? = null,
 ) {
   public fun toModel(): Composition =
     Composition(
@@ -288,9 +288,9 @@ internal data class CompositionSurrogate(
         Uri.of(this@CompositionSurrogate.implicitRules, this@CompositionSurrogate._implicitRules),
       language = Code.of(this@CompositionSurrogate.language, this@CompositionSurrogate._language),
       text = this@CompositionSurrogate.text,
-      contained = this@CompositionSurrogate.contained ?: mutableListOf(),
-      extension = this@CompositionSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@CompositionSurrogate.modifierExtension ?: mutableListOf(),
+      contained = this@CompositionSurrogate.contained ?: listOf(),
+      extension = this@CompositionSurrogate.extension ?: listOf(),
+      modifierExtension = this@CompositionSurrogate.modifierExtension ?: listOf(),
       identifier = this@CompositionSurrogate.identifier,
       status =
         Enumeration.of(
@@ -298,7 +298,7 @@ internal data class CompositionSurrogate(
           this@CompositionSurrogate._status,
         ),
       type = this@CompositionSurrogate.type,
-      category = this@CompositionSurrogate.category ?: mutableListOf(),
+      category = this@CompositionSurrogate.category ?: listOf(),
       subject = this@CompositionSurrogate.subject,
       encounter = this@CompositionSurrogate.encounter,
       date =
@@ -306,7 +306,7 @@ internal data class CompositionSurrogate(
           FhirDateTime.fromString(this@CompositionSurrogate.date),
           this@CompositionSurrogate._date,
         )!!,
-      author = this@CompositionSurrogate.author ?: mutableListOf(),
+      author = this@CompositionSurrogate.author ?: listOf(),
       title = R4bString.of(this@CompositionSurrogate.title, this@CompositionSurrogate._title)!!,
       confidentiality =
         this@CompositionSurrogate.confidentiality?.let {
@@ -315,11 +315,11 @@ internal data class CompositionSurrogate(
             this@CompositionSurrogate._confidentiality,
           )
         },
-      attester = this@CompositionSurrogate.attester ?: mutableListOf(),
+      attester = this@CompositionSurrogate.attester ?: listOf(),
       custodian = this@CompositionSurrogate.custodian,
-      relatesTo = this@CompositionSurrogate.relatesTo ?: mutableListOf(),
-      event = this@CompositionSurrogate.event ?: mutableListOf(),
-      section = this@CompositionSurrogate.section ?: mutableListOf(),
+      relatesTo = this@CompositionSurrogate.relatesTo ?: listOf(),
+      event = this@CompositionSurrogate.event ?: listOf(),
+      section = this@CompositionSurrogate.section ?: listOf(),
     )
 
   public companion object {

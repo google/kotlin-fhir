@@ -34,15 +34,15 @@ import com.google.fhir.model.r5.serializers.DoubleSerializer
 import com.google.fhir.model.r5.serializers.LocalTimeSerializer
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class OperationOutcomeIssueSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var severity: KotlinString? = null,
   public var _severity: Element? = null,
   public var code: KotlinString? = null,
@@ -50,16 +50,16 @@ internal data class OperationOutcomeIssueSurrogate(
   public var details: CodeableConcept? = null,
   public var diagnostics: KotlinString? = null,
   public var _diagnostics: Element? = null,
-  public var location: MutableList<KotlinString?>? = null,
-  public var _location: MutableList<Element?>? = null,
-  public var expression: MutableList<KotlinString?>? = null,
-  public var _expression: MutableList<Element?>? = null,
+  public var location: List<KotlinString?>? = null,
+  public var _location: List<Element?>? = null,
+  public var expression: List<KotlinString?>? = null,
+  public var _expression: List<Element?>? = null,
 ) {
   public fun toModel(): OperationOutcome.Issue =
     OperationOutcome.Issue(
       id = this@OperationOutcomeIssueSurrogate.id,
-      extension = this@OperationOutcomeIssueSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@OperationOutcomeIssueSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@OperationOutcomeIssueSurrogate.extension ?: listOf(),
+      modifierExtension = this@OperationOutcomeIssueSurrogate.modifierExtension ?: listOf(),
       severity =
         Enumeration.of(
           OperationOutcome.IssueSeverity.fromCode(this@OperationOutcomeIssueSurrogate.severity!!),
@@ -81,7 +81,7 @@ internal data class OperationOutcomeIssueSurrogate(
           this@OperationOutcomeIssueSurrogate.location == null &&
             this@OperationOutcomeIssueSurrogate._location == null
         ) {
-          mutableListOf()
+          listOf()
         } else {
           (this@OperationOutcomeIssueSurrogate.location
               ?: List(this@OperationOutcomeIssueSurrogate._location!!.size) { null })
@@ -90,14 +90,14 @@ internal data class OperationOutcomeIssueSurrogate(
                 ?: List(this@OperationOutcomeIssueSurrogate.location!!.size) { null }
             )
             .map { (value, element) -> R5String.of(value, element)!! }
-            .toMutableList()
+            .toList()
         },
       expression =
         if (
           this@OperationOutcomeIssueSurrogate.expression == null &&
             this@OperationOutcomeIssueSurrogate._expression == null
         ) {
-          mutableListOf()
+          listOf()
         } else {
           (this@OperationOutcomeIssueSurrogate.expression
               ?: List(this@OperationOutcomeIssueSurrogate._expression!!.size) { null })
@@ -106,7 +106,7 @@ internal data class OperationOutcomeIssueSurrogate(
                 ?: List(this@OperationOutcomeIssueSurrogate.expression!!.size) { null }
             )
             .map { (value, element) -> R5String.of(value, element)!! }
-            .toMutableList()
+            .toList()
         },
     )
 
@@ -125,27 +125,21 @@ internal data class OperationOutcomeIssueSurrogate(
           diagnostics = this@with.diagnostics?.value,
           _diagnostics = this@with.diagnostics?.toElement(),
           location =
-            this@with.location
-              .map { it.value }
-              .toMutableList()
-              .takeUnless { it.all { it == null } },
+            this@with.location.map { it.value }.toList().takeUnless { it.all { it == null } },
           _location =
             this@with.location
               .map { it.toElement() }
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
-              ?.toMutableList(),
+              ?.toList(),
           expression =
-            this@with.expression
-              .map { it.value }
-              .toMutableList()
-              .takeUnless { it.all { it == null } },
+            this@with.expression.map { it.value }.toList().takeUnless { it.all { it == null } },
           _expression =
             this@with.expression
               .map { it.toElement() }
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
-              ?.toMutableList(),
+              ?.toList(),
         )
       }
   }
@@ -160,10 +154,10 @@ internal data class OperationOutcomeSurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: MutableList<Resource>? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var issue: MutableList<OperationOutcome.Issue>? = null,
+  public var contained: List<Resource>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
+  public var issue: List<OperationOutcome.Issue>? = null,
 ) {
   public fun toModel(): OperationOutcome =
     OperationOutcome(
@@ -177,10 +171,10 @@ internal data class OperationOutcomeSurrogate(
       language =
         Code.of(this@OperationOutcomeSurrogate.language, this@OperationOutcomeSurrogate._language),
       text = this@OperationOutcomeSurrogate.text,
-      contained = this@OperationOutcomeSurrogate.contained ?: mutableListOf(),
-      extension = this@OperationOutcomeSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@OperationOutcomeSurrogate.modifierExtension ?: mutableListOf(),
-      issue = this@OperationOutcomeSurrogate.issue ?: mutableListOf(),
+      contained = this@OperationOutcomeSurrogate.contained ?: listOf(),
+      extension = this@OperationOutcomeSurrogate.extension ?: listOf(),
+      modifierExtension = this@OperationOutcomeSurrogate.modifierExtension ?: listOf(),
+      issue = this@OperationOutcomeSurrogate.issue ?: listOf(),
     )
 
   public companion object {

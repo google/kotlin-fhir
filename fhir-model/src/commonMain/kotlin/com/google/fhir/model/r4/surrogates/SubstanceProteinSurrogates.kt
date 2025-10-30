@@ -37,15 +37,15 @@ import com.google.fhir.model.r4.serializers.LocalTimeSerializer
 import kotlin.Int
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class SubstanceProteinSubunitSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var subunit: Int? = null,
   public var _subunit: Element? = null,
   public var sequence: KotlinString? = null,
@@ -63,9 +63,8 @@ internal data class SubstanceProteinSubunitSurrogate(
   public fun toModel(): SubstanceProtein.Subunit =
     SubstanceProtein.Subunit(
       id = this@SubstanceProteinSubunitSurrogate.id,
-      extension = this@SubstanceProteinSubunitSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@SubstanceProteinSubunitSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@SubstanceProteinSubunitSurrogate.extension ?: listOf(),
+      modifierExtension = this@SubstanceProteinSubunitSurrogate.modifierExtension ?: listOf(),
       subunit =
         Integer.of(
           this@SubstanceProteinSubunitSurrogate.subunit,
@@ -130,15 +129,15 @@ internal data class SubstanceProteinSurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: MutableList<Resource>? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var contained: List<Resource>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var sequenceType: CodeableConcept? = null,
   public var numberOfSubunits: Int? = null,
   public var _numberOfSubunits: Element? = null,
-  public var disulfideLinkage: MutableList<KotlinString?>? = null,
-  public var _disulfideLinkage: MutableList<Element?>? = null,
-  public var subunit: MutableList<SubstanceProtein.Subunit>? = null,
+  public var disulfideLinkage: List<KotlinString?>? = null,
+  public var _disulfideLinkage: List<Element?>? = null,
+  public var subunit: List<SubstanceProtein.Subunit>? = null,
 ) {
   public fun toModel(): SubstanceProtein =
     SubstanceProtein(
@@ -152,9 +151,9 @@ internal data class SubstanceProteinSurrogate(
       language =
         Code.of(this@SubstanceProteinSurrogate.language, this@SubstanceProteinSurrogate._language),
       text = this@SubstanceProteinSurrogate.text,
-      contained = this@SubstanceProteinSurrogate.contained ?: mutableListOf(),
-      extension = this@SubstanceProteinSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@SubstanceProteinSurrogate.modifierExtension ?: mutableListOf(),
+      contained = this@SubstanceProteinSurrogate.contained ?: listOf(),
+      extension = this@SubstanceProteinSurrogate.extension ?: listOf(),
+      modifierExtension = this@SubstanceProteinSurrogate.modifierExtension ?: listOf(),
       sequenceType = this@SubstanceProteinSurrogate.sequenceType,
       numberOfSubunits =
         Integer.of(
@@ -166,7 +165,7 @@ internal data class SubstanceProteinSurrogate(
           this@SubstanceProteinSurrogate.disulfideLinkage == null &&
             this@SubstanceProteinSurrogate._disulfideLinkage == null
         ) {
-          mutableListOf()
+          listOf()
         } else {
           (this@SubstanceProteinSurrogate.disulfideLinkage
               ?: List(this@SubstanceProteinSurrogate._disulfideLinkage!!.size) { null })
@@ -175,9 +174,9 @@ internal data class SubstanceProteinSurrogate(
                 ?: List(this@SubstanceProteinSurrogate.disulfideLinkage!!.size) { null }
             )
             .map { (value, element) -> R4String.of(value, element)!! }
-            .toMutableList()
+            .toList()
         },
-      subunit = this@SubstanceProteinSurrogate.subunit ?: mutableListOf(),
+      subunit = this@SubstanceProteinSurrogate.subunit ?: listOf(),
     )
 
   public companion object {
@@ -200,14 +199,14 @@ internal data class SubstanceProteinSurrogate(
           disulfideLinkage =
             this@with.disulfideLinkage
               .map { it.value }
-              .toMutableList()
+              .toList()
               .takeUnless { it.all { it == null } },
           _disulfideLinkage =
             this@with.disulfideLinkage
               .map { it.toElement() }
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
-              ?.toMutableList(),
+              ?.toList(),
           subunit = this@with.subunit.takeIf { it.isNotEmpty() },
         )
       }

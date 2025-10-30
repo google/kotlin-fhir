@@ -35,7 +35,7 @@ import com.google.fhir.model.r4.serializers.DoubleSerializer
 import com.google.fhir.model.r4.serializers.LocalTimeSerializer
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
@@ -48,16 +48,16 @@ internal data class MedicinalProductManufacturedSurrogate(
   public var language: String? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: MutableList<Resource>? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var contained: List<Resource>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var manufacturedDoseForm: CodeableConcept,
   public var unitOfPresentation: CodeableConcept? = null,
   public var quantity: Quantity,
-  public var manufacturer: MutableList<Reference>? = null,
-  public var ingredient: MutableList<Reference>? = null,
+  public var manufacturer: List<Reference>? = null,
+  public var ingredient: List<Reference>? = null,
   public var physicalCharacteristics: ProdCharacteristic? = null,
-  public var otherCharacteristics: MutableList<CodeableConcept>? = null,
+  public var otherCharacteristics: List<CodeableConcept>? = null,
 ) {
   public fun toModel(): MedicinalProductManufactured =
     MedicinalProductManufactured(
@@ -74,18 +74,17 @@ internal data class MedicinalProductManufacturedSurrogate(
           this@MedicinalProductManufacturedSurrogate._language,
         ),
       text = this@MedicinalProductManufacturedSurrogate.text,
-      contained = this@MedicinalProductManufacturedSurrogate.contained ?: mutableListOf(),
-      extension = this@MedicinalProductManufacturedSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@MedicinalProductManufacturedSurrogate.modifierExtension ?: mutableListOf(),
+      contained = this@MedicinalProductManufacturedSurrogate.contained ?: listOf(),
+      extension = this@MedicinalProductManufacturedSurrogate.extension ?: listOf(),
+      modifierExtension = this@MedicinalProductManufacturedSurrogate.modifierExtension ?: listOf(),
       manufacturedDoseForm = this@MedicinalProductManufacturedSurrogate.manufacturedDoseForm,
       unitOfPresentation = this@MedicinalProductManufacturedSurrogate.unitOfPresentation,
       quantity = this@MedicinalProductManufacturedSurrogate.quantity,
-      manufacturer = this@MedicinalProductManufacturedSurrogate.manufacturer ?: mutableListOf(),
-      ingredient = this@MedicinalProductManufacturedSurrogate.ingredient ?: mutableListOf(),
+      manufacturer = this@MedicinalProductManufacturedSurrogate.manufacturer ?: listOf(),
+      ingredient = this@MedicinalProductManufacturedSurrogate.ingredient ?: listOf(),
       physicalCharacteristics = this@MedicinalProductManufacturedSurrogate.physicalCharacteristics,
       otherCharacteristics =
-        this@MedicinalProductManufacturedSurrogate.otherCharacteristics ?: mutableListOf(),
+        this@MedicinalProductManufacturedSurrogate.otherCharacteristics ?: listOf(),
     )
 
   public companion object {

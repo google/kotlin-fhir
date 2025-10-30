@@ -48,15 +48,15 @@ import kotlin.Boolean as KotlinBoolean
 import kotlin.Int
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class MedicationRequestDispenseRequestSurrogate(
   public var id: String? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var initialFill: MedicationRequest.DispenseRequest.InitialFill? = null,
   public var dispenseInterval: Duration? = null,
   public var validityPeriod: Period? = null,
@@ -65,15 +65,15 @@ internal data class MedicationRequestDispenseRequestSurrogate(
   public var quantity: Quantity? = null,
   public var expectedSupplyDuration: Duration? = null,
   public var dispenser: Reference? = null,
-  public var dispenserInstruction: MutableList<Annotation>? = null,
+  public var dispenserInstruction: List<Annotation>? = null,
   public var doseAdministrationAid: CodeableConcept? = null,
 ) {
   public fun toModel(): MedicationRequest.DispenseRequest =
     MedicationRequest.DispenseRequest(
       id = this@MedicationRequestDispenseRequestSurrogate.id,
-      extension = this@MedicationRequestDispenseRequestSurrogate.extension ?: mutableListOf(),
+      extension = this@MedicationRequestDispenseRequestSurrogate.extension ?: listOf(),
       modifierExtension =
-        this@MedicationRequestDispenseRequestSurrogate.modifierExtension ?: mutableListOf(),
+        this@MedicationRequestDispenseRequestSurrogate.modifierExtension ?: listOf(),
       initialFill = this@MedicationRequestDispenseRequestSurrogate.initialFill,
       dispenseInterval = this@MedicationRequestDispenseRequestSurrogate.dispenseInterval,
       validityPeriod = this@MedicationRequestDispenseRequestSurrogate.validityPeriod,
@@ -87,7 +87,7 @@ internal data class MedicationRequestDispenseRequestSurrogate(
         this@MedicationRequestDispenseRequestSurrogate.expectedSupplyDuration,
       dispenser = this@MedicationRequestDispenseRequestSurrogate.dispenser,
       dispenserInstruction =
-        this@MedicationRequestDispenseRequestSurrogate.dispenserInstruction ?: mutableListOf(),
+        this@MedicationRequestDispenseRequestSurrogate.dispenserInstruction ?: listOf(),
       doseAdministrationAid = this@MedicationRequestDispenseRequestSurrogate.doseAdministrationAid,
     )
 
@@ -118,19 +118,17 @@ internal data class MedicationRequestDispenseRequestSurrogate(
 @Serializable
 internal data class MedicationRequestDispenseRequestInitialFillSurrogate(
   public var id: String? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var quantity: Quantity? = null,
   public var duration: Duration? = null,
 ) {
   public fun toModel(): MedicationRequest.DispenseRequest.InitialFill =
     MedicationRequest.DispenseRequest.InitialFill(
       id = this@MedicationRequestDispenseRequestInitialFillSurrogate.id,
-      extension =
-        this@MedicationRequestDispenseRequestInitialFillSurrogate.extension ?: mutableListOf(),
+      extension = this@MedicationRequestDispenseRequestInitialFillSurrogate.extension ?: listOf(),
       modifierExtension =
-        this@MedicationRequestDispenseRequestInitialFillSurrogate.modifierExtension
-          ?: mutableListOf(),
+        this@MedicationRequestDispenseRequestInitialFillSurrogate.modifierExtension ?: listOf(),
       quantity = this@MedicationRequestDispenseRequestInitialFillSurrogate.quantity,
       duration = this@MedicationRequestDispenseRequestInitialFillSurrogate.duration,
     )
@@ -154,17 +152,16 @@ internal data class MedicationRequestDispenseRequestInitialFillSurrogate(
 @Serializable
 internal data class MedicationRequestSubstitutionSurrogate(
   public var id: String? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var allowed: MedicationRequest.Substitution.Allowed,
   public var reason: CodeableConcept? = null,
 ) {
   public fun toModel(): MedicationRequest.Substitution =
     MedicationRequest.Substitution(
       id = this@MedicationRequestSubstitutionSurrogate.id,
-      extension = this@MedicationRequestSubstitutionSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@MedicationRequestSubstitutionSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@MedicationRequestSubstitutionSurrogate.extension ?: listOf(),
+      modifierExtension = this@MedicationRequestSubstitutionSurrogate.modifierExtension ?: listOf(),
       allowed = this@MedicationRequestSubstitutionSurrogate.allowed,
       reason = this@MedicationRequestSubstitutionSurrogate.reason,
     )
@@ -223,11 +220,11 @@ internal data class MedicationRequestSurrogate(
   public var language: String? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: MutableList<Resource>? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var identifier: MutableList<Identifier>? = null,
-  public var basedOn: MutableList<Reference>? = null,
+  public var contained: List<Resource>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
+  public var identifier: List<Identifier>? = null,
+  public var basedOn: List<Reference>? = null,
   public var priorPrescription: Reference? = null,
   public var groupIdentifier: Identifier? = null,
   public var status: String? = null,
@@ -237,36 +234,36 @@ internal data class MedicationRequestSurrogate(
   public var _statusChanged: Element? = null,
   public var intent: String? = null,
   public var _intent: Element? = null,
-  public var category: MutableList<CodeableConcept>? = null,
+  public var category: List<CodeableConcept>? = null,
   public var priority: String? = null,
   public var _priority: Element? = null,
   public var doNotPerform: KotlinBoolean? = null,
   public var _doNotPerform: Element? = null,
   public var medication: CodeableReference,
   public var subject: Reference,
-  public var informationSource: MutableList<Reference>? = null,
+  public var informationSource: List<Reference>? = null,
   public var encounter: Reference? = null,
-  public var supportingInformation: MutableList<Reference>? = null,
+  public var supportingInformation: List<Reference>? = null,
   public var authoredOn: String? = null,
   public var _authoredOn: Element? = null,
   public var requester: Reference? = null,
   public var reported: KotlinBoolean? = null,
   public var _reported: Element? = null,
   public var performerType: CodeableConcept? = null,
-  public var performer: MutableList<Reference>? = null,
-  public var device: MutableList<CodeableReference>? = null,
+  public var performer: List<Reference>? = null,
+  public var device: List<CodeableReference>? = null,
   public var recorder: Reference? = null,
-  public var reason: MutableList<CodeableReference>? = null,
+  public var reason: List<CodeableReference>? = null,
   public var courseOfTherapyType: CodeableConcept? = null,
-  public var insurance: MutableList<Reference>? = null,
-  public var note: MutableList<Annotation>? = null,
+  public var insurance: List<Reference>? = null,
+  public var note: List<Annotation>? = null,
   public var renderedDosageInstruction: String? = null,
   public var _renderedDosageInstruction: Element? = null,
   public var effectiveDosePeriod: Period? = null,
-  public var dosageInstruction: MutableList<Dosage>? = null,
+  public var dosageInstruction: List<Dosage>? = null,
   public var dispenseRequest: MedicationRequest.DispenseRequest? = null,
   public var substitution: MedicationRequest.Substitution? = null,
-  public var eventHistory: MutableList<Reference>? = null,
+  public var eventHistory: List<Reference>? = null,
 ) {
   public fun toModel(): MedicationRequest =
     MedicationRequest(
@@ -283,11 +280,11 @@ internal data class MedicationRequestSurrogate(
           this@MedicationRequestSurrogate._language,
         ),
       text = this@MedicationRequestSurrogate.text,
-      contained = this@MedicationRequestSurrogate.contained ?: mutableListOf(),
-      extension = this@MedicationRequestSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@MedicationRequestSurrogate.modifierExtension ?: mutableListOf(),
-      identifier = this@MedicationRequestSurrogate.identifier ?: mutableListOf(),
-      basedOn = this@MedicationRequestSurrogate.basedOn ?: mutableListOf(),
+      contained = this@MedicationRequestSurrogate.contained ?: listOf(),
+      extension = this@MedicationRequestSurrogate.extension ?: listOf(),
+      modifierExtension = this@MedicationRequestSurrogate.modifierExtension ?: listOf(),
+      identifier = this@MedicationRequestSurrogate.identifier ?: listOf(),
+      basedOn = this@MedicationRequestSurrogate.basedOn ?: listOf(),
       priorPrescription = this@MedicationRequestSurrogate.priorPrescription,
       groupIdentifier = this@MedicationRequestSurrogate.groupIdentifier,
       status =
@@ -310,7 +307,7 @@ internal data class MedicationRequestSurrogate(
           ),
           this@MedicationRequestSurrogate._intent,
         ),
-      category = this@MedicationRequestSurrogate.category ?: mutableListOf(),
+      category = this@MedicationRequestSurrogate.category ?: listOf(),
       priority =
         this@MedicationRequestSurrogate.priority?.let {
           Enumeration.of(
@@ -325,10 +322,9 @@ internal data class MedicationRequestSurrogate(
         ),
       medication = this@MedicationRequestSurrogate.medication,
       subject = this@MedicationRequestSurrogate.subject,
-      informationSource = this@MedicationRequestSurrogate.informationSource ?: mutableListOf(),
+      informationSource = this@MedicationRequestSurrogate.informationSource ?: listOf(),
       encounter = this@MedicationRequestSurrogate.encounter,
-      supportingInformation =
-        this@MedicationRequestSurrogate.supportingInformation ?: mutableListOf(),
+      supportingInformation = this@MedicationRequestSurrogate.supportingInformation ?: listOf(),
       authoredOn =
         DateTime.of(
           FhirDateTime.fromString(this@MedicationRequestSurrogate.authoredOn),
@@ -341,23 +337,23 @@ internal data class MedicationRequestSurrogate(
           this@MedicationRequestSurrogate._reported,
         ),
       performerType = this@MedicationRequestSurrogate.performerType,
-      performer = this@MedicationRequestSurrogate.performer ?: mutableListOf(),
-      device = this@MedicationRequestSurrogate.device ?: mutableListOf(),
+      performer = this@MedicationRequestSurrogate.performer ?: listOf(),
+      device = this@MedicationRequestSurrogate.device ?: listOf(),
       recorder = this@MedicationRequestSurrogate.recorder,
-      reason = this@MedicationRequestSurrogate.reason ?: mutableListOf(),
+      reason = this@MedicationRequestSurrogate.reason ?: listOf(),
       courseOfTherapyType = this@MedicationRequestSurrogate.courseOfTherapyType,
-      insurance = this@MedicationRequestSurrogate.insurance ?: mutableListOf(),
-      note = this@MedicationRequestSurrogate.note ?: mutableListOf(),
+      insurance = this@MedicationRequestSurrogate.insurance ?: listOf(),
+      note = this@MedicationRequestSurrogate.note ?: listOf(),
       renderedDosageInstruction =
         Markdown.of(
           this@MedicationRequestSurrogate.renderedDosageInstruction,
           this@MedicationRequestSurrogate._renderedDosageInstruction,
         ),
       effectiveDosePeriod = this@MedicationRequestSurrogate.effectiveDosePeriod,
-      dosageInstruction = this@MedicationRequestSurrogate.dosageInstruction ?: mutableListOf(),
+      dosageInstruction = this@MedicationRequestSurrogate.dosageInstruction ?: listOf(),
       dispenseRequest = this@MedicationRequestSurrogate.dispenseRequest,
       substitution = this@MedicationRequestSurrogate.substitution,
-      eventHistory = this@MedicationRequestSurrogate.eventHistory ?: mutableListOf(),
+      eventHistory = this@MedicationRequestSurrogate.eventHistory ?: listOf(),
     )
 
   public companion object {

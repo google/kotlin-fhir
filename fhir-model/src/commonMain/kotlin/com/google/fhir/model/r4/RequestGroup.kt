@@ -25,7 +25,7 @@ import com.google.fhir.model.r4.serializers.RequestGroupActionSerializer
 import com.google.fhir.model.r4.serializers.RequestGroupActionTimingSerializer
 import com.google.fhir.model.r4.serializers.RequestGroupSerializer
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -43,12 +43,12 @@ public data class RequestGroup(
    * The only time that a resource does not have an id is when it is being submitted to the server
    * using a create operation.
    */
-  override var id: kotlin.String? = null,
+  override val id: kotlin.String? = null,
   /**
    * The metadata about the resource. This is content that is maintained by the infrastructure.
    * Changes to the content might not always be associated with version changes to the resource.
    */
-  override var meta: Meta? = null,
+  override val meta: Meta? = null,
   /**
    * A reference to a set of rules that were followed when the resource was constructed, and which
    * must be understood when processing the content. Often, this is a reference to an implementation
@@ -62,7 +62,7 @@ public data class RequestGroup(
    * to an implementation guide that defines these special rules as part of it's narrative along
    * with other profiles, value sets, etc.
    */
-  override var implicitRules: Uri? = null,
+  override val implicitRules: Uri? = null,
   /**
    * The base language in which the resource is written.
    *
@@ -74,7 +74,7 @@ public data class RequestGroup(
    * language is specified, it should it also be specified on the div element in the html (see rules
    * in HTML5 for information about the relationship between xml:lang and the html lang attribute).
    */
-  override var language: Code? = null,
+  override val language: Code? = null,
   /**
    * A human-readable narrative that contains a summary of the resource and can be used to represent
    * the content of the resource to a human. The narrative need not encode all the structured data,
@@ -88,7 +88,7 @@ public data class RequestGroup(
    * legacy systems where information is captured as a "text blob" or where text is additionally
    * entered raw or narrated and encoded information is added later.
    */
-  override var text: Narrative? = null,
+  override val text: Narrative? = null,
   /**
    * These resources do not have an independent existence apart from the resource that contains
    * them - they cannot be identified independently, and nor can they have their own independent
@@ -99,7 +99,7 @@ public data class RequestGroup(
    * resources may have profiles and tags In their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: MutableList<Resource> = mutableListOf(),
+  override val contained: List<Resource> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and manageable, there is a strict set of
@@ -112,7 +112,7 @@ public data class RequestGroup(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: MutableList<Extension> = mutableListOf(),
+  override val extension: List<Extension> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -131,21 +131,21 @@ public data class RequestGroup(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: MutableList<Extension> = mutableListOf(),
+  override val modifierExtension: List<Extension> = listOf(),
   /** Allows a service to provide a unique, business identifier for the request. */
-  public var identifier: MutableList<Identifier> = mutableListOf(),
+  public val identifier: List<Identifier> = listOf(),
   /**
    * A canonical URL referencing a FHIR-defined protocol, guideline, orderset or other definition
    * that is adhered to in whole or in part by this request.
    */
-  public var instantiatesCanonical: MutableList<Canonical> = mutableListOf(),
+  public val instantiatesCanonical: List<Canonical> = listOf(),
   /**
    * A URL referencing an externally defined protocol, guideline, orderset or other definition that
    * is adhered to in whole or in part by this request.
    */
-  public var instantiatesUri: MutableList<Uri> = mutableListOf(),
+  public val instantiatesUri: List<Uri> = listOf(),
   /** A plan, proposal or order that is fulfilled in whole or in part by this request. */
-  public var basedOn: MutableList<Reference> = mutableListOf(),
+  public val basedOn: List<Reference> = listOf(),
   /**
    * Completed or terminated request(s) whose function is taken by this new request.
    *
@@ -153,7 +153,7 @@ public data class RequestGroup(
    * or because the previous request was completed, but the need for the action described by the
    * request remains ongoing.
    */
-  public var replaces: MutableList<Reference> = mutableListOf(),
+  public val replaces: List<Reference> = listOf(),
   /**
    * A shared identifier common to all requests that were authorized more or less simultaneously by
    * a single author, representing the identifier of the requisition, prescription or similar form.
@@ -163,19 +163,19 @@ public data class RequestGroup(
    * treated independently from the perspective of changing their state or maintaining them after
    * initial creation.
    */
-  public var groupIdentifier: Identifier? = null,
+  public val groupIdentifier: Identifier? = null,
   /**
    * The current state of the request. For request groups, the status reflects the status of all the
    * requests in the group.
    */
-  public var status: Enumeration<RequestStatus>,
+  public val status: Enumeration<RequestStatus>,
   /**
    * Indicates the level of authority/intentionality associated with the request and where the
    * request fits into the workflow chain.
    */
-  public var intent: Enumeration<RequestIntent>,
+  public val intent: Enumeration<RequestIntent>,
   /** Indicates how quickly the request should be addressed with respect to other requests. */
-  public var priority: Enumeration<RequestPriority>? = null,
+  public val priority: Enumeration<RequestPriority>? = null,
   /**
    * A code that identifies what the overall request group is.
    *
@@ -183,23 +183,23 @@ public data class RequestGroup(
    * whole, as opposed to the code of the action element, which captures the meaning of the
    * individual actions within the request group.
    */
-  public var code: CodeableConcept? = null,
+  public val code: CodeableConcept? = null,
   /** The subject for which the request group was created. */
-  public var subject: Reference? = null,
+  public val subject: Reference? = null,
   /** Describes the context of the request group, if any. */
-  public var encounter: Reference? = null,
+  public val encounter: Reference? = null,
   /** Indicates when the request group was created. */
-  public var authoredOn: DateTime? = null,
+  public val authoredOn: DateTime? = null,
   /** Provides a reference to the author of the request group. */
-  public var author: Reference? = null,
+  public val author: Reference? = null,
   /** Describes the reason for the request group in coded or textual form. */
-  public var reasonCode: MutableList<CodeableConcept> = mutableListOf(),
+  public val reasonCode: List<CodeableConcept> = listOf(),
   /** Indicates another resource whose existence justifies this request group. */
-  public var reasonReference: MutableList<Reference> = mutableListOf(),
+  public val reasonReference: List<Reference> = listOf(),
   /** Provides a mechanism to communicate additional information about the response. */
-  public var note: MutableList<Annotation> = mutableListOf(),
+  public val note: List<Annotation> = listOf(),
   /** The actions, if any, produced by the evaluation of the artifact. */
-  public var action: MutableList<Action> = mutableListOf(),
+  public val action: List<Action> = listOf(),
 ) : DomainResource() {
   /** The actions, if any, produced by the evaluation of the artifact. */
   @Serializable(with = RequestGroupActionSerializer::class)
@@ -208,7 +208,7 @@ public data class RequestGroup(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and manageable, there is a strict set of
@@ -221,7 +221,7 @@ public data class RequestGroup(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -240,66 +240,66 @@ public data class RequestGroup(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /** A user-visible prefix for the action. */
-    public var prefix: String? = null,
+    public val prefix: String? = null,
     /** The title of the action displayed to a user. */
-    public var title: String? = null,
+    public val title: String? = null,
     /** A short description of the action used to provide a summary to display to the user. */
-    public var description: String? = null,
+    public val description: String? = null,
     /**
      * A text equivalent of the action to be performed. This provides a human-interpretable
      * description of the action when the definition is consumed by a system that might not be
      * capable of interpreting it dynamically.
      */
-    public var textEquivalent: String? = null,
+    public val textEquivalent: String? = null,
     /** Indicates how quickly the action should be addressed with respect to other actions. */
-    public var priority: Enumeration<RequestPriority>? = null,
+    public val priority: Enumeration<RequestPriority>? = null,
     /**
      * A code that provides meaning for the action or action group. For example, a section may have
      * a LOINC code for a section of a documentation template.
      */
-    public var code: MutableList<CodeableConcept> = mutableListOf(),
+    public val code: List<CodeableConcept> = listOf(),
     /**
      * Didactic or other informational resources associated with the action that can be provided to
      * the CDS recipient. Information resources can include inline text commentary and links to web
      * resources.
      */
-    public var documentation: MutableList<RelatedArtifact> = mutableListOf(),
+    public val documentation: List<RelatedArtifact> = listOf(),
     /**
      * An expression that describes applicability criteria, or start/stop conditions for the action.
      *
      * When multiple conditions of the same kind are present, the effects are combined using AND
      * semantics, so the overall condition is true only if all of the conditions are true.
      */
-    public var condition: MutableList<Condition> = mutableListOf(),
+    public val condition: List<Condition> = listOf(),
     /** A relationship to another action such as "before" or "30-60 minutes after start of". */
-    public var relatedAction: MutableList<RelatedAction> = mutableListOf(),
+    public val relatedAction: List<RelatedAction> = listOf(),
     /** An optional value describing when the action should be performed. */
-    public var timing: Timing? = null,
+    public val timing: Timing? = null,
     /** The participant that should perform or be responsible for this action. */
-    public var participant: MutableList<Reference> = mutableListOf(),
+    public val participant: List<Reference> = listOf(),
     /** The type of action to perform (create, update, remove). */
-    public var type: CodeableConcept? = null,
+    public val type: CodeableConcept? = null,
     /** Defines the grouping behavior for the action and its children. */
-    public var groupingBehavior: Enumeration<ActionGroupingBehavior>? = null,
+    public val groupingBehavior: Enumeration<ActionGroupingBehavior>? = null,
     /** Defines the selection behavior for the action and its children. */
-    public var selectionBehavior: Enumeration<ActionSelectionBehavior>? = null,
+    public val selectionBehavior: Enumeration<ActionSelectionBehavior>? = null,
     /** Defines expectations around whether an action is required. */
-    public var requiredBehavior: Enumeration<ActionRequiredBehavior>? = null,
+    public val requiredBehavior: Enumeration<ActionRequiredBehavior>? = null,
     /** Defines whether the action should usually be preselected. */
-    public var precheckBehavior: Enumeration<ActionPrecheckBehavior>? = null,
+    public val precheckBehavior: Enumeration<ActionPrecheckBehavior>? = null,
     /** Defines whether the action can be selected multiple times. */
-    public var cardinalityBehavior: Enumeration<ActionCardinalityBehavior>? = null,
+    public val cardinalityBehavior: Enumeration<ActionCardinalityBehavior>? = null,
     /**
      * The resource that is the target of the action (e.g. CommunicationRequest).
      *
      * The target resource SHALL be a [Request](request.html) resource with a Request.intent set to
      * "option".
      */
-    public var resource: Reference? = null,
+    public val resource: Reference? = null,
     /** Sub actions. */
-    public var action: MutableList<Action> = mutableListOf(),
+    public val action: List<Action> = listOf(),
   ) : BackboneElement() {
     /**
      * An expression that describes applicability criteria, or start/stop conditions for the action.
@@ -310,7 +310,7 @@ public data class RequestGroup(
        * Unique id for the element within a resource (for internal references). This may be any
        * string value that does not contain spaces.
        */
-      override var id: kotlin.String? = null,
+      override val id: kotlin.String? = null,
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element. To make the use of extensions safe and manageable, there is a strict set of
@@ -323,7 +323,7 @@ public data class RequestGroup(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: MutableList<Extension> = mutableListOf(),
+      override val extension: List<Extension> = listOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -342,7 +342,7 @@ public data class RequestGroup(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: MutableList<Extension> = mutableListOf(),
+      override val modifierExtension: List<Extension> = listOf(),
       /**
        * The kind of condition.
        *
@@ -350,7 +350,7 @@ public data class RequestGroup(
        * is applied to a given context. Start and stop criteria are carried through application and
        * used to describe enter/exit criteria for an action.
        */
-      public var kind: Enumeration<ActionConditionKind>,
+      public val kind: Enumeration<ActionConditionKind>,
       /**
        * An expression that returns true or false, indicating whether or not the condition is
        * satisfied.
@@ -358,7 +358,7 @@ public data class RequestGroup(
        * The expression may be inlined, or may be a reference to a named expression within a logic
        * library referenced by the library element.
        */
-      public var expression: Expression? = null,
+      public val expression: Expression? = null,
     ) : BackboneElement()
 
     /** A relationship to another action such as "before" or "30-60 minutes after start of". */
@@ -368,7 +368,7 @@ public data class RequestGroup(
        * Unique id for the element within a resource (for internal references). This may be any
        * string value that does not contain spaces.
        */
-      override var id: kotlin.String? = null,
+      override val id: kotlin.String? = null,
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element. To make the use of extensions safe and manageable, there is a strict set of
@@ -381,7 +381,7 @@ public data class RequestGroup(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: MutableList<Extension> = mutableListOf(),
+      override val extension: List<Extension> = listOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -400,16 +400,16 @@ public data class RequestGroup(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: MutableList<Extension> = mutableListOf(),
+      override val modifierExtension: List<Extension> = listOf(),
       /** The element id of the action this is related to. */
-      public var actionId: Id,
+      public val actionId: Id,
       /** The relationship of this action to the related action. */
-      public var relationship: Enumeration<ActionRelationshipType>,
+      public val relationship: Enumeration<ActionRelationshipType>,
       /**
        * A duration or range of durations to apply to the relationship. For example, 30-60 minutes
        * before.
        */
-      public var offset: Offset? = null,
+      public val offset: Offset? = null,
     ) : BackboneElement() {
       @Serializable(with = RequestGroupActionRelatedActionOffsetSerializer::class)
       public sealed interface Offset {

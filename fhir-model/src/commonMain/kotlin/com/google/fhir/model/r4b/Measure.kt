@@ -27,7 +27,7 @@ import com.google.fhir.model.r4b.serializers.MeasureSubjectSerializer
 import com.google.fhir.model.r4b.serializers.MeasureSupplementalDataSerializer
 import com.google.fhir.model.r4b.terminologies.PublicationStatus
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -42,12 +42,12 @@ public data class Measure(
    * The only time that a resource does not have an id is when it is being submitted to the server
    * using a create operation.
    */
-  override var id: kotlin.String? = null,
+  override val id: kotlin.String? = null,
   /**
    * The metadata about the resource. This is content that is maintained by the infrastructure.
    * Changes to the content might not always be associated with version changes to the resource.
    */
-  override var meta: Meta? = null,
+  override val meta: Meta? = null,
   /**
    * A reference to a set of rules that were followed when the resource was constructed, and which
    * must be understood when processing the content. Often, this is a reference to an implementation
@@ -61,7 +61,7 @@ public data class Measure(
    * to an implementation guide that defines these special rules as part of it's narrative along
    * with other profiles, value sets, etc.
    */
-  override var implicitRules: Uri? = null,
+  override val implicitRules: Uri? = null,
   /**
    * The base language in which the resource is written.
    *
@@ -73,7 +73,7 @@ public data class Measure(
    * language is specified, it should it also be specified on the div element in the html (see rules
    * in HTML5 for information about the relationship between xml:lang and the html lang attribute).
    */
-  override var language: Code? = null,
+  override val language: Code? = null,
   /**
    * A human-readable narrative that contains a summary of the resource and can be used to represent
    * the content of the resource to a human. The narrative need not encode all the structured data,
@@ -87,7 +87,7 @@ public data class Measure(
    * legacy systems where information is captured as a "text blob" or where text is additionally
    * entered raw or narrated and encoded information is added later.
    */
-  override var text: Narrative? = null,
+  override val text: Narrative? = null,
   /**
    * These resources do not have an independent existence apart from the resource that contains
    * them - they cannot be identified independently, and nor can they have their own independent
@@ -98,7 +98,7 @@ public data class Measure(
    * resources may have profiles and tags In their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: MutableList<Resource> = mutableListOf(),
+  override val contained: List<Resource> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and manageable, there is a strict set of
@@ -111,7 +111,7 @@ public data class Measure(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: MutableList<Extension> = mutableListOf(),
+  override val extension: List<Extension> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -130,7 +130,7 @@ public data class Measure(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: MutableList<Extension> = mutableListOf(),
+  override val modifierExtension: List<Extension> = listOf(),
   /**
    * An absolute URI that is used to identify this measure when it is referenced in a specification,
    * model, design or an instance; also called its canonical identifier. This SHOULD be globally
@@ -149,7 +149,7 @@ public data class Measure(
    * change. Implementations can use the [meta.source](resource.html#meta) element to indicate where
    * the current master source of the resource can be found.
    */
-  public var url: Uri? = null,
+  public val url: Uri? = null,
   /**
    * A formal identifier that is used to identify this measure when it is represented in other
    * formats, or referenced in a specification, model, design or an instance.
@@ -158,7 +158,7 @@ public data class Measure(
    * type, and can then identify this measure outside of FHIR, where it is not possible to use the
    * logical URI.
    */
-  public var identifier: MutableList<Identifier> = mutableListOf(),
+  public val identifier: List<Identifier> = listOf(),
   /**
    * The identifier that is used to identify this version of the measure when it is referenced in a
    * specification, model, design or instance. This is an arbitrary value managed by the measure
@@ -173,7 +173,7 @@ public data class Measure(
    * The version can be appended to the url in a reference to allow a reference to a particular
    * business version of the measure with the format [url]|[version].
    */
-  public var version: String? = null,
+  public val version: String? = null,
   /**
    * A natural language name identifying the measure. This name should be usable as an identifier
    * for the module by machine processing applications such as code generation.
@@ -181,32 +181,32 @@ public data class Measure(
    * The name is not expected to be globally unique. The name should be a simple alphanumeric type
    * name to ensure that it is machine-processing friendly.
    */
-  public var name: String? = null,
+  public val name: String? = null,
   /**
    * A short, descriptive, user-friendly title for the measure.
    *
    * This name does not need to be machine-processing friendly and may contain punctuation,
    * white-space, etc.
    */
-  public var title: String? = null,
+  public val title: String? = null,
   /**
    * An explanatory or alternate title for the measure giving additional information about its
    * content.
    */
-  public var subtitle: String? = null,
+  public val subtitle: String? = null,
   /**
    * The status of this measure. Enables tracking the life-cycle of the content.
    *
    * Allows filtering of measures that are appropriate for use versus not.
    */
-  public var status: Enumeration<PublicationStatus>,
+  public val status: Enumeration<PublicationStatus>,
   /**
    * A Boolean value to indicate that this measure is authored for testing purposes (or
    * education/evaluation/marketing) and is not intended to be used for genuine usage.
    *
    * Allows filtering of measures that are appropriate for use versus not.
    */
-  public var experimental: Boolean? = null,
+  public val experimental: Boolean? = null,
   /**
    * The intended subjects for the measure. If this element is not provided, a Patient subject is
    * assumed, but the subject of the measure can be anything.
@@ -216,7 +216,7 @@ public data class Measure(
    * the notion of a Compartment in that it limits what content is available based on its
    * relationship to the subject. In CQL, this corresponds to the context declaration.
    */
-  public var subject: Subject? = null,
+  public val subject: Subject? = null,
   /**
    * The date (and optionally time) when the measure was published. The date must change when the
    * business version changes and it must change if the status code changes. In addition, it should
@@ -226,7 +226,7 @@ public data class Measure(
    * secondary representation of the measure. Additional specific dates may be added as extensions
    * or be found by consulting Provenances associated with past versions of the resource.
    */
-  public var date: DateTime? = null,
+  public val date: DateTime? = null,
   /**
    * The name of the organization or individual that published the measure.
    *
@@ -237,13 +237,13 @@ public data class Measure(
    * issues with the measure. This item SHOULD be populated unless the information is available from
    * context.
    */
-  public var publisher: String? = null,
+  public val publisher: String? = null,
   /**
    * Contact details to assist a user in finding and communicating with the publisher.
    *
    * May be a web site, an email address, a telephone number, etc.
    */
-  public var contact: MutableList<ContactDetail> = mutableListOf(),
+  public val contact: List<ContactDetail> = listOf(),
   /**
    * A free text natural language description of the measure from a consumer's perspective.
    *
@@ -254,7 +254,7 @@ public data class Measure(
    * context (e.g. the language of the measure is presumed to be the predominant language in the
    * place the measure was created).
    */
-  public var description: Markdown? = null,
+  public val description: Markdown? = null,
   /**
    * The content was developed with a focus and intent of supporting the contexts that are listed.
    * These contexts may be general categories (gender, age, ...) or may be references to specific
@@ -264,14 +264,14 @@ public data class Measure(
    * When multiple useContexts are specified, there is no expectation that all or any of the
    * contexts apply.
    */
-  public var useContext: MutableList<UsageContext> = mutableListOf(),
+  public val useContext: List<UsageContext> = listOf(),
   /**
    * A legal or geographic region in which the measure is intended to be used.
    *
    * It may be possible for the measure to be used in jurisdictions other than those for which it
    * was originally designed or intended.
    */
-  public var jurisdiction: MutableList<CodeableConcept> = mutableListOf(),
+  public val jurisdiction: List<CodeableConcept> = listOf(),
   /**
    * Explanation of why this measure is needed and why it has been designed as it has.
    *
@@ -279,14 +279,14 @@ public data class Measure(
    * ''why'' the resource is either needed or ''why'' it is defined as it is. This may be used to
    * point to source materials or specifications that drove the structure of this measure.
    */
-  public var purpose: Markdown? = null,
+  public val purpose: Markdown? = null,
   /** A detailed description, from a clinical perspective, of how the measure is used. */
-  public var usage: String? = null,
+  public val usage: String? = null,
   /**
    * A copyright statement relating to the measure and/or its contents. Copyright statements are
    * generally legal restrictions on the use and publishing of the measure.
    */
-  public var copyright: Markdown? = null,
+  public val copyright: Markdown? = null,
   /**
    * The date on which the resource content was approved by the publisher. Approval happens once
    * when the content is officially approved for usage.
@@ -294,14 +294,14 @@ public data class Measure(
    * The 'date' element may be more recent than the approval date because of minor changes or
    * editorial corrections.
    */
-  public var approvalDate: Date? = null,
+  public val approvalDate: Date? = null,
   /**
    * The date on which the resource content was last reviewed. Review happens periodically after
    * approval but does not change the original approval date.
    *
    * If specified, this date follows the original approval date.
    */
-  public var lastReviewDate: Date? = null,
+  public val lastReviewDate: Date? = null,
   /**
    * The period during which the measure content was or is planned to be in active use.
    *
@@ -309,58 +309,58 @@ public data class Measure(
    * independent of publication and review dates. For example, a measure intended to be used for the
    * year 2016 might be published in 2015.
    */
-  public var effectivePeriod: Period? = null,
+  public val effectivePeriod: Period? = null,
   /**
    * Descriptive topics related to the content of the measure. Topics provide a high-level
    * categorization grouping types of measures that can be useful for filtering and searching.
    */
-  public var topic: MutableList<CodeableConcept> = mutableListOf(),
+  public val topic: List<CodeableConcept> = listOf(),
   /**
    * An individiual or organization primarily involved in the creation and maintenance of the
    * content.
    */
-  public var author: MutableList<ContactDetail> = mutableListOf(),
+  public val author: List<ContactDetail> = listOf(),
   /** An individual or organization primarily responsible for internal coherence of the content. */
-  public var editor: MutableList<ContactDetail> = mutableListOf(),
+  public val editor: List<ContactDetail> = listOf(),
   /**
    * An individual or organization primarily responsible for review of some aspect of the content.
    */
-  public var reviewer: MutableList<ContactDetail> = mutableListOf(),
+  public val reviewer: List<ContactDetail> = listOf(),
   /**
    * An individual or organization responsible for officially endorsing the content for use in some
    * setting.
    */
-  public var endorser: MutableList<ContactDetail> = mutableListOf(),
+  public val endorser: List<ContactDetail> = listOf(),
   /**
    * Related artifacts such as additional documentation, justification, or bibliographic references.
    *
    * Each related artifact is either an attachment, or a reference to another resource, but not
    * both.
    */
-  public var relatedArtifact: MutableList<RelatedArtifact> = mutableListOf(),
+  public val relatedArtifact: List<RelatedArtifact> = listOf(),
   /** A reference to a Library resource containing the formal logic used by the measure. */
-  public var library: MutableList<Canonical> = mutableListOf(),
+  public val library: List<Canonical> = listOf(),
   /**
    * Notices and disclaimers regarding the use of the measure or related to intellectual property
    * (such as code systems) referenced by the measure.
    */
-  public var disclaimer: Markdown? = null,
+  public val disclaimer: Markdown? = null,
   /**
    * Indicates how the calculation is performed for the measure, including proportion, ratio,
    * continuous-variable, and cohort. The value set is extensible, allowing additional measure
    * scoring types to be represented.
    */
-  public var scoring: CodeableConcept? = null,
+  public val scoring: CodeableConcept? = null,
   /**
    * If this is a composite measure, the scoring method used to combine the component measures to
    * determine the composite score.
    */
-  public var compositeScoring: CodeableConcept? = null,
+  public val compositeScoring: CodeableConcept? = null,
   /**
    * Indicates whether the measure is used to examine a process, an outcome over time, a
    * patient-reported outcome, or a structure measure such as utilization.
    */
-  public var type: MutableList<CodeableConcept> = mutableListOf(),
+  public val type: List<CodeableConcept> = listOf(),
   /**
    * A description of the risk adjustment factors that may impact the resulting score for the
    * measure and how they may be accounted for when computing and reporting measure results.
@@ -371,7 +371,7 @@ public data class Measure(
    * reducing, removing, or clarifying the influences of confounding factors to allow for more
    * useful comparisons.
    */
-  public var riskAdjustment: String? = null,
+  public val riskAdjustment: String? = null,
   /**
    * Describes how to combine the information calculated, based on logic in each of several
    * populations, into one summarized result.
@@ -385,32 +385,32 @@ public data class Measure(
    * and then the roll-up of the two). This could be applied to aggregated cohort measure
    * definitions (e.g., CDC's aggregate reporting for TB at the state level).
    */
-  public var rateAggregation: String? = null,
+  public val rateAggregation: String? = null,
   /**
    * Provides a succinct statement of the need for the measure. Usually includes statements
    * pertaining to importance criterion: impact, gap in care, and evidence.
    */
-  public var rationale: Markdown? = null,
+  public val rationale: Markdown? = null,
   /**
    * Provides a summary of relevant clinical guidelines or other clinical recommendations supporting
    * the measure.
    */
-  public var clinicalRecommendationStatement: Markdown? = null,
+  public val clinicalRecommendationStatement: Markdown? = null,
   /**
    * Information on whether an increase or decrease in score is the preferred result (e.g., a higher
    * score indicates better quality OR a lower score indicates better quality OR quality is within a
    * range).
    */
-  public var improvementNotation: CodeableConcept? = null,
+  public val improvementNotation: CodeableConcept? = null,
   /** Provides a description of an individual term used within the measure. */
-  public var definition: MutableList<Markdown> = mutableListOf(),
+  public val definition: List<Markdown> = listOf(),
   /**
    * Additional guidance for the measure including how it can be used in a clinical context, and the
    * intent of the measure.
    */
-  public var guidance: Markdown? = null,
+  public val guidance: Markdown? = null,
   /** A group of population criteria for the measure. */
-  public var group: MutableList<Group> = mutableListOf(),
+  public val group: List<Group> = listOf(),
   /**
    * The supplemental data criteria for the measure report, specified as either the name of a valid
    * CQL expression within a referenced library, or a valid FHIR Resource Path.
@@ -419,7 +419,7 @@ public data class Measure(
    * evaluatedResources bundle. See the MeasureReport resource or the Quality Reporting topic for
    * more information.
    */
-  public var supplementalData: MutableList<SupplementalData> = mutableListOf(),
+  public val supplementalData: List<SupplementalData> = listOf(),
 ) : DomainResource() {
   /** A group of population criteria for the measure. */
   @Serializable(with = MeasureGroupSerializer::class)
@@ -428,7 +428,7 @@ public data class Measure(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and manageable, there is a strict set of
@@ -441,7 +441,7 @@ public data class Measure(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -460,22 +460,22 @@ public data class Measure(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /**
      * Indicates a meaning for the group. This can be as simple as a unique identifier, or it can
      * establish meaning in a broader context by drawing from a terminology, allowing groups to be
      * correlated across measures.
      */
-    public var code: CodeableConcept? = null,
+    public val code: CodeableConcept? = null,
     /** The human readable description of this population group. */
-    public var description: String? = null,
+    public val description: String? = null,
     /** A population criteria for the measure. */
-    public var population: MutableList<Population> = mutableListOf(),
+    public val population: List<Population> = listOf(),
     /**
      * The stratifier criteria for the measure report, specified as either the name of a valid CQL
      * expression defined within a referenced library or a valid FHIR Resource Path.
      */
-    public var stratifier: MutableList<Stratifier> = mutableListOf(),
+    public val stratifier: List<Stratifier> = listOf(),
   ) : BackboneElement() {
     /** A population criteria for the measure. */
     @Serializable(with = MeasureGroupPopulationSerializer::class)
@@ -484,7 +484,7 @@ public data class Measure(
        * Unique id for the element within a resource (for internal references). This may be any
        * string value that does not contain spaces.
        */
-      override var id: kotlin.String? = null,
+      override val id: kotlin.String? = null,
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element. To make the use of extensions safe and manageable, there is a strict set of
@@ -497,7 +497,7 @@ public data class Measure(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: MutableList<Extension> = mutableListOf(),
+      override val extension: List<Extension> = listOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -516,11 +516,11 @@ public data class Measure(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: MutableList<Extension> = mutableListOf(),
+      override val modifierExtension: List<Extension> = listOf(),
       /** The type of population criteria. */
-      public var code: CodeableConcept? = null,
+      public val code: CodeableConcept? = null,
       /** The human readable description of this population criteria. */
-      public var description: String? = null,
+      public val description: String? = null,
       /**
        * An expression that specifies the criteria for the population, typically the name of an
        * expression in a library.
@@ -531,7 +531,7 @@ public data class Measure(
        * observation resources included in the evaluatedResources bundle for each patient. See the
        * MeasureReport resource or the Quality Reporting topic for more information.
        */
-      public var criteria: Expression,
+      public val criteria: Expression,
     ) : BackboneElement()
 
     /**
@@ -544,7 +544,7 @@ public data class Measure(
        * Unique id for the element within a resource (for internal references). This may be any
        * string value that does not contain spaces.
        */
-      override var id: kotlin.String? = null,
+      override val id: kotlin.String? = null,
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element. To make the use of extensions safe and manageable, there is a strict set of
@@ -557,7 +557,7 @@ public data class Measure(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: MutableList<Extension> = mutableListOf(),
+      override val extension: List<Extension> = listOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -576,21 +576,21 @@ public data class Measure(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: MutableList<Extension> = mutableListOf(),
+      override val modifierExtension: List<Extension> = listOf(),
       /**
        * Indicates a meaning for the stratifier. This can be as simple as a unique identifier, or it
        * can establish meaning in a broader context by drawing from a terminology, allowing
        * stratifiers to be correlated across measures.
        */
-      public var code: CodeableConcept? = null,
+      public val code: CodeableConcept? = null,
       /** The human readable description of this stratifier criteria. */
-      public var description: String? = null,
+      public val description: String? = null,
       /**
        * An expression that specifies the criteria for the stratifier. This is typically the name of
        * an expression defined within a referenced library, but it may also be a path to a
        * stratifier element.
        */
-      public var criteria: Expression? = null,
+      public val criteria: Expression? = null,
       /**
        * A component of the stratifier criteria for the measure report, specified as either the name
        * of a valid CQL expression defined within a referenced library or a valid FHIR Resource
@@ -598,7 +598,7 @@ public data class Measure(
        *
        * Stratifiers are defined either as a single criteria, or as a set of component criteria.
        */
-      public var component: MutableList<Component> = mutableListOf(),
+      public val component: List<Component> = listOf(),
     ) : BackboneElement() {
       /**
        * A component of the stratifier criteria for the measure report, specified as either the name
@@ -611,7 +611,7 @@ public data class Measure(
          * Unique id for the element within a resource (for internal references). This may be any
          * string value that does not contain spaces.
          */
-        override var id: kotlin.String? = null,
+        override val id: kotlin.String? = null,
         /**
          * May be used to represent additional information that is not part of the basic definition
          * of the element. To make the use of extensions safe and manageable, there is a strict set
@@ -624,7 +624,7 @@ public data class Measure(
          * extensions. The use of extensions is what allows the FHIR specification to retain a core
          * level of simplicity for everyone.
          */
-        override var extension: MutableList<Extension> = mutableListOf(),
+        override val extension: List<Extension> = listOf(),
         /**
          * May be used to represent additional information that is not part of the basic definition
          * of the element and that modifies the understanding of the element in which it is
@@ -643,21 +643,21 @@ public data class Measure(
          * extensions. The use of extensions is what allows the FHIR specification to retain a core
          * level of simplicity for everyone.
          */
-        override var modifierExtension: MutableList<Extension> = mutableListOf(),
+        override val modifierExtension: List<Extension> = listOf(),
         /**
          * Indicates a meaning for the stratifier component. This can be as simple as a unique
          * identifier, or it can establish meaning in a broader context by drawing from a
          * terminology, allowing stratifiers to be correlated across measures.
          */
-        public var code: CodeableConcept? = null,
+        public val code: CodeableConcept? = null,
         /** The human readable description of this stratifier criteria component. */
-        public var description: String? = null,
+        public val description: String? = null,
         /**
          * An expression that specifies the criteria for this component of the stratifier. This is
          * typically the name of an expression defined within a referenced library, but it may also
          * be a path to a stratifier element.
          */
-        public var criteria: Expression,
+        public val criteria: Expression,
       ) : BackboneElement()
     }
   }
@@ -672,7 +672,7 @@ public data class Measure(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and manageable, there is a strict set of
@@ -685,7 +685,7 @@ public data class Measure(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -704,28 +704,28 @@ public data class Measure(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /**
      * Indicates a meaning for the supplemental data. This can be as simple as a unique identifier,
      * or it can establish meaning in a broader context by drawing from a terminology, allowing
      * supplemental data to be correlated across measures.
      */
-    public var code: CodeableConcept? = null,
+    public val code: CodeableConcept? = null,
     /**
      * An indicator of the intended usage for the supplemental data element. Supplemental data
      * indicates the data is additional information requested to augment the measure information.
      * Risk adjustment factor indicates the data is additional information used to calculate risk
      * adjustment factors when applying a risk model to the measure calculation.
      */
-    public var usage: MutableList<CodeableConcept> = mutableListOf(),
+    public val usage: List<CodeableConcept> = listOf(),
     /** The human readable description of this supplemental data. */
-    public var description: String? = null,
+    public val description: String? = null,
     /**
      * The criteria for the supplemental data. This is typically the name of a valid expression
      * defined within a referenced library, but it may also be a path to a specific data element.
      * The criteria defines the data to be returned for this element.
      */
-    public var criteria: Expression,
+    public val criteria: Expression,
   ) : BackboneElement()
 
   @Serializable(with = MeasureSubjectSerializer::class)

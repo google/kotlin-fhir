@@ -46,23 +46,23 @@ import com.google.fhir.model.r4.serializers.LocalTimeSerializer
 import kotlin.Double
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class ChargeItemPerformerSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var function: CodeableConcept? = null,
   public var actor: Reference,
 ) {
   public fun toModel(): ChargeItem.Performer =
     ChargeItem.Performer(
       id = this@ChargeItemPerformerSurrogate.id,
-      extension = this@ChargeItemPerformerSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@ChargeItemPerformerSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@ChargeItemPerformerSurrogate.extension ?: listOf(),
+      modifierExtension = this@ChargeItemPerformerSurrogate.modifierExtension ?: listOf(),
       function = this@ChargeItemPerformerSurrogate.function,
       actor = this@ChargeItemPerformerSurrogate.actor,
     )
@@ -142,27 +142,27 @@ internal data class ChargeItemSurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: MutableList<Resource>? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var identifier: MutableList<Identifier>? = null,
-  public var definitionUri: MutableList<KotlinString?>? = null,
-  public var _definitionUri: MutableList<Element?>? = null,
-  public var definitionCanonical: MutableList<KotlinString?>? = null,
-  public var _definitionCanonical: MutableList<Element?>? = null,
+  public var contained: List<Resource>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
+  public var identifier: List<Identifier>? = null,
+  public var definitionUri: List<KotlinString?>? = null,
+  public var _definitionUri: List<Element?>? = null,
+  public var definitionCanonical: List<KotlinString?>? = null,
+  public var _definitionCanonical: List<Element?>? = null,
   public var status: KotlinString? = null,
   public var _status: Element? = null,
-  public var partOf: MutableList<Reference>? = null,
+  public var partOf: List<Reference>? = null,
   public var code: CodeableConcept,
   public var subject: Reference,
   public var context: Reference? = null,
   public var occurrence: ChargeItem.Occurrence? = null,
-  public var performer: MutableList<ChargeItem.Performer>? = null,
+  public var performer: List<ChargeItem.Performer>? = null,
   public var performingOrganization: Reference? = null,
   public var requestingOrganization: Reference? = null,
   public var costCenter: Reference? = null,
   public var quantity: Quantity? = null,
-  public var bodysite: MutableList<CodeableConcept>? = null,
+  public var bodysite: List<CodeableConcept>? = null,
   public var factorOverride: Double? = null,
   public var _factorOverride: Element? = null,
   public var priceOverride: Money? = null,
@@ -171,12 +171,12 @@ internal data class ChargeItemSurrogate(
   public var enterer: Reference? = null,
   public var enteredDate: KotlinString? = null,
   public var _enteredDate: Element? = null,
-  public var reason: MutableList<CodeableConcept>? = null,
-  public var service: MutableList<Reference>? = null,
+  public var reason: List<CodeableConcept>? = null,
+  public var service: List<Reference>? = null,
   public var product: ChargeItem.Product? = null,
-  public var account: MutableList<Reference>? = null,
-  public var note: MutableList<Annotation>? = null,
-  public var supportingInformation: MutableList<Reference>? = null,
+  public var account: List<Reference>? = null,
+  public var note: List<Annotation>? = null,
+  public var supportingInformation: List<Reference>? = null,
 ) {
   public fun toModel(): ChargeItem =
     ChargeItem(
@@ -186,16 +186,16 @@ internal data class ChargeItemSurrogate(
         Uri.of(this@ChargeItemSurrogate.implicitRules, this@ChargeItemSurrogate._implicitRules),
       language = Code.of(this@ChargeItemSurrogate.language, this@ChargeItemSurrogate._language),
       text = this@ChargeItemSurrogate.text,
-      contained = this@ChargeItemSurrogate.contained ?: mutableListOf(),
-      extension = this@ChargeItemSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@ChargeItemSurrogate.modifierExtension ?: mutableListOf(),
-      identifier = this@ChargeItemSurrogate.identifier ?: mutableListOf(),
+      contained = this@ChargeItemSurrogate.contained ?: listOf(),
+      extension = this@ChargeItemSurrogate.extension ?: listOf(),
+      modifierExtension = this@ChargeItemSurrogate.modifierExtension ?: listOf(),
+      identifier = this@ChargeItemSurrogate.identifier ?: listOf(),
       definitionUri =
         if (
           this@ChargeItemSurrogate.definitionUri == null &&
             this@ChargeItemSurrogate._definitionUri == null
         ) {
-          mutableListOf()
+          listOf()
         } else {
           (this@ChargeItemSurrogate.definitionUri
               ?: List(this@ChargeItemSurrogate._definitionUri!!.size) { null })
@@ -204,14 +204,14 @@ internal data class ChargeItemSurrogate(
                 ?: List(this@ChargeItemSurrogate.definitionUri!!.size) { null }
             )
             .map { (value, element) -> Uri.of(value, element)!! }
-            .toMutableList()
+            .toList()
         },
       definitionCanonical =
         if (
           this@ChargeItemSurrogate.definitionCanonical == null &&
             this@ChargeItemSurrogate._definitionCanonical == null
         ) {
-          mutableListOf()
+          listOf()
         } else {
           (this@ChargeItemSurrogate.definitionCanonical
               ?: List(this@ChargeItemSurrogate._definitionCanonical!!.size) { null })
@@ -220,24 +220,24 @@ internal data class ChargeItemSurrogate(
                 ?: List(this@ChargeItemSurrogate.definitionCanonical!!.size) { null }
             )
             .map { (value, element) -> Canonical.of(value, element)!! }
-            .toMutableList()
+            .toList()
         },
       status =
         Enumeration.of(
           ChargeItem.ChargeItemStatus.fromCode(this@ChargeItemSurrogate.status!!),
           this@ChargeItemSurrogate._status,
         ),
-      partOf = this@ChargeItemSurrogate.partOf ?: mutableListOf(),
+      partOf = this@ChargeItemSurrogate.partOf ?: listOf(),
       code = this@ChargeItemSurrogate.code,
       subject = this@ChargeItemSurrogate.subject,
       context = this@ChargeItemSurrogate.context,
       occurrence = this@ChargeItemSurrogate.occurrence,
-      performer = this@ChargeItemSurrogate.performer ?: mutableListOf(),
+      performer = this@ChargeItemSurrogate.performer ?: listOf(),
       performingOrganization = this@ChargeItemSurrogate.performingOrganization,
       requestingOrganization = this@ChargeItemSurrogate.requestingOrganization,
       costCenter = this@ChargeItemSurrogate.costCenter,
       quantity = this@ChargeItemSurrogate.quantity,
-      bodysite = this@ChargeItemSurrogate.bodysite ?: mutableListOf(),
+      bodysite = this@ChargeItemSurrogate.bodysite ?: listOf(),
       factorOverride =
         Decimal.of(
           this@ChargeItemSurrogate.factorOverride,
@@ -255,12 +255,12 @@ internal data class ChargeItemSurrogate(
           FhirDateTime.fromString(this@ChargeItemSurrogate.enteredDate),
           this@ChargeItemSurrogate._enteredDate,
         ),
-      reason = this@ChargeItemSurrogate.reason ?: mutableListOf(),
-      service = this@ChargeItemSurrogate.service ?: mutableListOf(),
+      reason = this@ChargeItemSurrogate.reason ?: listOf(),
+      service = this@ChargeItemSurrogate.service ?: listOf(),
       product = this@ChargeItemSurrogate.product,
-      account = this@ChargeItemSurrogate.account ?: mutableListOf(),
-      note = this@ChargeItemSurrogate.note ?: mutableListOf(),
-      supportingInformation = this@ChargeItemSurrogate.supportingInformation ?: mutableListOf(),
+      account = this@ChargeItemSurrogate.account ?: listOf(),
+      note = this@ChargeItemSurrogate.note ?: listOf(),
+      supportingInformation = this@ChargeItemSurrogate.supportingInformation ?: listOf(),
     )
 
   public companion object {
@@ -279,27 +279,24 @@ internal data class ChargeItemSurrogate(
           modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           identifier = this@with.identifier.takeIf { it.isNotEmpty() },
           definitionUri =
-            this@with.definitionUri
-              .map { it.value }
-              .toMutableList()
-              .takeUnless { it.all { it == null } },
+            this@with.definitionUri.map { it.value }.toList().takeUnless { it.all { it == null } },
           _definitionUri =
             this@with.definitionUri
               .map { it.toElement() }
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
-              ?.toMutableList(),
+              ?.toList(),
           definitionCanonical =
             this@with.definitionCanonical
               .map { it.value }
-              .toMutableList()
+              .toList()
               .takeUnless { it.all { it == null } },
           _definitionCanonical =
             this@with.definitionCanonical
               .map { it.toElement() }
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
-              ?.toMutableList(),
+              ?.toList(),
           status = this@with.status.value?.getCode(),
           _status = this@with.status.toElement(),
           partOf = this@with.partOf.takeIf { it.isNotEmpty() },

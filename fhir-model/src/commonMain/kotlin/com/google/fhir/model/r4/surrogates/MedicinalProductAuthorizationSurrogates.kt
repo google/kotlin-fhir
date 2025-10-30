@@ -37,18 +37,18 @@ import com.google.fhir.model.r4.serializers.DoubleSerializer
 import com.google.fhir.model.r4.serializers.LocalTimeSerializer
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class MedicinalProductAuthorizationJurisdictionalAuthorizationSurrogate(
   public var id: String? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var identifier: MutableList<Identifier>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
+  public var identifier: List<Identifier>? = null,
   public var country: CodeableConcept? = null,
-  public var jurisdiction: MutableList<CodeableConcept>? = null,
+  public var jurisdiction: List<CodeableConcept>? = null,
   public var legalStatusOfSupply: CodeableConcept? = null,
   public var validityPeriod: Period? = null,
 ) {
@@ -57,17 +57,17 @@ internal data class MedicinalProductAuthorizationJurisdictionalAuthorizationSurr
       id = this@MedicinalProductAuthorizationJurisdictionalAuthorizationSurrogate.id,
       extension =
         this@MedicinalProductAuthorizationJurisdictionalAuthorizationSurrogate.extension
-          ?: mutableListOf(),
+          ?: listOf(),
       modifierExtension =
         this@MedicinalProductAuthorizationJurisdictionalAuthorizationSurrogate.modifierExtension
-          ?: mutableListOf(),
+          ?: listOf(),
       identifier =
         this@MedicinalProductAuthorizationJurisdictionalAuthorizationSurrogate.identifier
-          ?: mutableListOf(),
+          ?: listOf(),
       country = this@MedicinalProductAuthorizationJurisdictionalAuthorizationSurrogate.country,
       jurisdiction =
         this@MedicinalProductAuthorizationJurisdictionalAuthorizationSurrogate.jurisdiction
-          ?: mutableListOf(),
+          ?: listOf(),
       legalStatusOfSupply =
         this@MedicinalProductAuthorizationJurisdictionalAuthorizationSurrogate.legalStatusOfSupply,
       validityPeriod =
@@ -96,24 +96,23 @@ internal data class MedicinalProductAuthorizationJurisdictionalAuthorizationSurr
 @Serializable
 internal data class MedicinalProductAuthorizationProcedureSurrogate(
   public var id: String? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var identifier: Identifier? = null,
   public var type: CodeableConcept,
   public var date: MedicinalProductAuthorization.Procedure.Date? = null,
-  public var application: MutableList<MedicinalProductAuthorization.Procedure>? = null,
+  public var application: List<MedicinalProductAuthorization.Procedure>? = null,
 ) {
   public fun toModel(): MedicinalProductAuthorization.Procedure =
     MedicinalProductAuthorization.Procedure(
       id = this@MedicinalProductAuthorizationProcedureSurrogate.id,
-      extension = this@MedicinalProductAuthorizationProcedureSurrogate.extension ?: mutableListOf(),
+      extension = this@MedicinalProductAuthorizationProcedureSurrogate.extension ?: listOf(),
       modifierExtension =
-        this@MedicinalProductAuthorizationProcedureSurrogate.modifierExtension ?: mutableListOf(),
+        this@MedicinalProductAuthorizationProcedureSurrogate.modifierExtension ?: listOf(),
       identifier = this@MedicinalProductAuthorizationProcedureSurrogate.identifier,
       type = this@MedicinalProductAuthorizationProcedureSurrogate.type,
       date = this@MedicinalProductAuthorizationProcedureSurrogate.date,
-      application =
-        this@MedicinalProductAuthorizationProcedureSurrogate.application ?: mutableListOf(),
+      application = this@MedicinalProductAuthorizationProcedureSurrogate.application ?: listOf(),
     )
 
   public companion object {
@@ -174,13 +173,13 @@ internal data class MedicinalProductAuthorizationSurrogate(
   public var language: String? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: MutableList<Resource>? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var identifier: MutableList<Identifier>? = null,
+  public var contained: List<Resource>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
+  public var identifier: List<Identifier>? = null,
   public var subject: Reference? = null,
-  public var country: MutableList<CodeableConcept>? = null,
-  public var jurisdiction: MutableList<CodeableConcept>? = null,
+  public var country: List<CodeableConcept>? = null,
+  public var jurisdiction: List<CodeableConcept>? = null,
   public var status: CodeableConcept? = null,
   public var statusDate: String? = null,
   public var _statusDate: Element? = null,
@@ -194,7 +193,7 @@ internal data class MedicinalProductAuthorizationSurrogate(
   public var _internationalBirthDate: Element? = null,
   public var legalBasis: CodeableConcept? = null,
   public var jurisdictionalAuthorization:
-    MutableList<MedicinalProductAuthorization.JurisdictionalAuthorization>? =
+    List<MedicinalProductAuthorization.JurisdictionalAuthorization>? =
     null,
   public var holder: Reference? = null,
   public var regulator: Reference? = null,
@@ -215,14 +214,13 @@ internal data class MedicinalProductAuthorizationSurrogate(
           this@MedicinalProductAuthorizationSurrogate._language,
         ),
       text = this@MedicinalProductAuthorizationSurrogate.text,
-      contained = this@MedicinalProductAuthorizationSurrogate.contained ?: mutableListOf(),
-      extension = this@MedicinalProductAuthorizationSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@MedicinalProductAuthorizationSurrogate.modifierExtension ?: mutableListOf(),
-      identifier = this@MedicinalProductAuthorizationSurrogate.identifier ?: mutableListOf(),
+      contained = this@MedicinalProductAuthorizationSurrogate.contained ?: listOf(),
+      extension = this@MedicinalProductAuthorizationSurrogate.extension ?: listOf(),
+      modifierExtension = this@MedicinalProductAuthorizationSurrogate.modifierExtension ?: listOf(),
+      identifier = this@MedicinalProductAuthorizationSurrogate.identifier ?: listOf(),
       subject = this@MedicinalProductAuthorizationSurrogate.subject,
-      country = this@MedicinalProductAuthorizationSurrogate.country ?: mutableListOf(),
-      jurisdiction = this@MedicinalProductAuthorizationSurrogate.jurisdiction ?: mutableListOf(),
+      country = this@MedicinalProductAuthorizationSurrogate.country ?: listOf(),
+      jurisdiction = this@MedicinalProductAuthorizationSurrogate.jurisdiction ?: listOf(),
       status = this@MedicinalProductAuthorizationSurrogate.status,
       statusDate =
         DateTime.of(
@@ -252,7 +250,7 @@ internal data class MedicinalProductAuthorizationSurrogate(
         ),
       legalBasis = this@MedicinalProductAuthorizationSurrogate.legalBasis,
       jurisdictionalAuthorization =
-        this@MedicinalProductAuthorizationSurrogate.jurisdictionalAuthorization ?: mutableListOf(),
+        this@MedicinalProductAuthorizationSurrogate.jurisdictionalAuthorization ?: listOf(),
       holder = this@MedicinalProductAuthorizationSurrogate.holder,
       regulator = this@MedicinalProductAuthorizationSurrogate.regulator,
       procedure = this@MedicinalProductAuthorizationSurrogate.procedure,

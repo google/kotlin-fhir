@@ -47,15 +47,15 @@ import kotlin.Boolean as KotlinBoolean
 import kotlin.Int
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class AccountCoverageSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var coverage: Reference,
   public var priority: Int? = null,
   public var _priority: Element? = null,
@@ -63,8 +63,8 @@ internal data class AccountCoverageSurrogate(
   public fun toModel(): Account.Coverage =
     Account.Coverage(
       id = this@AccountCoverageSurrogate.id,
-      extension = this@AccountCoverageSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@AccountCoverageSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@AccountCoverageSurrogate.extension ?: listOf(),
+      modifierExtension = this@AccountCoverageSurrogate.modifierExtension ?: listOf(),
       coverage = this@AccountCoverageSurrogate.coverage,
       priority =
         PositiveInt.of(
@@ -91,8 +91,8 @@ internal data class AccountCoverageSurrogate(
 @Serializable
 internal data class AccountGuarantorSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var party: Reference,
   public var onHold: KotlinBoolean? = null,
   public var _onHold: Element? = null,
@@ -101,8 +101,8 @@ internal data class AccountGuarantorSurrogate(
   public fun toModel(): Account.Guarantor =
     Account.Guarantor(
       id = this@AccountGuarantorSurrogate.id,
-      extension = this@AccountGuarantorSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@AccountGuarantorSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@AccountGuarantorSurrogate.extension ?: listOf(),
+      modifierExtension = this@AccountGuarantorSurrogate.modifierExtension ?: listOf(),
       party = this@AccountGuarantorSurrogate.party,
       onHold =
         R5Boolean.of(this@AccountGuarantorSurrogate.onHold, this@AccountGuarantorSurrogate._onHold),
@@ -128,23 +128,23 @@ internal data class AccountGuarantorSurrogate(
 @Serializable
 internal data class AccountDiagnosisSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var sequence: Int? = null,
   public var _sequence: Element? = null,
   public var condition: CodeableReference,
   public var dateOfDiagnosis: KotlinString? = null,
   public var _dateOfDiagnosis: Element? = null,
-  public var type: MutableList<CodeableConcept>? = null,
+  public var type: List<CodeableConcept>? = null,
   public var onAdmission: KotlinBoolean? = null,
   public var _onAdmission: Element? = null,
-  public var packageCode: MutableList<CodeableConcept>? = null,
+  public var packageCode: List<CodeableConcept>? = null,
 ) {
   public fun toModel(): Account.Diagnosis =
     Account.Diagnosis(
       id = this@AccountDiagnosisSurrogate.id,
-      extension = this@AccountDiagnosisSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@AccountDiagnosisSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@AccountDiagnosisSurrogate.extension ?: listOf(),
+      modifierExtension = this@AccountDiagnosisSurrogate.modifierExtension ?: listOf(),
       sequence =
         PositiveInt.of(
           this@AccountDiagnosisSurrogate.sequence,
@@ -156,13 +156,13 @@ internal data class AccountDiagnosisSurrogate(
           FhirDateTime.fromString(this@AccountDiagnosisSurrogate.dateOfDiagnosis),
           this@AccountDiagnosisSurrogate._dateOfDiagnosis,
         ),
-      type = this@AccountDiagnosisSurrogate.type ?: mutableListOf(),
+      type = this@AccountDiagnosisSurrogate.type ?: listOf(),
       onAdmission =
         R5Boolean.of(
           this@AccountDiagnosisSurrogate.onAdmission,
           this@AccountDiagnosisSurrogate._onAdmission,
         ),
-      packageCode = this@AccountDiagnosisSurrogate.packageCode ?: mutableListOf(),
+      packageCode = this@AccountDiagnosisSurrogate.packageCode ?: listOf(),
     )
 
   public companion object {
@@ -189,22 +189,22 @@ internal data class AccountDiagnosisSurrogate(
 @Serializable
 internal data class AccountProcedureSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var sequence: Int? = null,
   public var _sequence: Element? = null,
   public var code: CodeableReference,
   public var dateOfService: KotlinString? = null,
   public var _dateOfService: Element? = null,
-  public var type: MutableList<CodeableConcept>? = null,
-  public var packageCode: MutableList<CodeableConcept>? = null,
-  public var device: MutableList<Reference>? = null,
+  public var type: List<CodeableConcept>? = null,
+  public var packageCode: List<CodeableConcept>? = null,
+  public var device: List<Reference>? = null,
 ) {
   public fun toModel(): Account.Procedure =
     Account.Procedure(
       id = this@AccountProcedureSurrogate.id,
-      extension = this@AccountProcedureSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@AccountProcedureSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@AccountProcedureSurrogate.extension ?: listOf(),
+      modifierExtension = this@AccountProcedureSurrogate.modifierExtension ?: listOf(),
       sequence =
         PositiveInt.of(
           this@AccountProcedureSurrogate.sequence,
@@ -216,9 +216,9 @@ internal data class AccountProcedureSurrogate(
           FhirDateTime.fromString(this@AccountProcedureSurrogate.dateOfService),
           this@AccountProcedureSurrogate._dateOfService,
         ),
-      type = this@AccountProcedureSurrogate.type ?: mutableListOf(),
-      packageCode = this@AccountProcedureSurrogate.packageCode ?: mutableListOf(),
-      device = this@AccountProcedureSurrogate.device ?: mutableListOf(),
+      type = this@AccountProcedureSurrogate.type ?: listOf(),
+      packageCode = this@AccountProcedureSurrogate.packageCode ?: listOf(),
+      device = this@AccountProcedureSurrogate.device ?: listOf(),
     )
 
   public companion object {
@@ -244,16 +244,16 @@ internal data class AccountProcedureSurrogate(
 @Serializable
 internal data class AccountRelatedAccountSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var relationship: CodeableConcept? = null,
   public var account: Reference,
 ) {
   public fun toModel(): Account.RelatedAccount =
     Account.RelatedAccount(
       id = this@AccountRelatedAccountSurrogate.id,
-      extension = this@AccountRelatedAccountSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@AccountRelatedAccountSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@AccountRelatedAccountSurrogate.extension ?: listOf(),
+      modifierExtension = this@AccountRelatedAccountSurrogate.modifierExtension ?: listOf(),
       relationship = this@AccountRelatedAccountSurrogate.relationship,
       account = this@AccountRelatedAccountSurrogate.account,
     )
@@ -275,8 +275,8 @@ internal data class AccountRelatedAccountSurrogate(
 @Serializable
 internal data class AccountBalanceSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var aggregate: CodeableConcept? = null,
   public var term: CodeableConcept? = null,
   public var estimate: KotlinBoolean? = null,
@@ -286,8 +286,8 @@ internal data class AccountBalanceSurrogate(
   public fun toModel(): Account.Balance =
     Account.Balance(
       id = this@AccountBalanceSurrogate.id,
-      extension = this@AccountBalanceSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@AccountBalanceSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@AccountBalanceSurrogate.extension ?: listOf(),
+      modifierExtension = this@AccountBalanceSurrogate.modifierExtension ?: listOf(),
       aggregate = this@AccountBalanceSurrogate.aggregate,
       term = this@AccountBalanceSurrogate.term,
       estimate =
@@ -321,28 +321,28 @@ internal data class AccountSurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: MutableList<Resource>? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var identifier: MutableList<Identifier>? = null,
+  public var contained: List<Resource>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
+  public var identifier: List<Identifier>? = null,
   public var status: KotlinString? = null,
   public var _status: Element? = null,
   public var billingStatus: CodeableConcept? = null,
   public var type: CodeableConcept? = null,
   public var name: KotlinString? = null,
   public var _name: Element? = null,
-  public var subject: MutableList<Reference>? = null,
+  public var subject: List<Reference>? = null,
   public var servicePeriod: Period? = null,
-  public var coverage: MutableList<Account.Coverage>? = null,
+  public var coverage: List<Account.Coverage>? = null,
   public var owner: Reference? = null,
   public var description: KotlinString? = null,
   public var _description: Element? = null,
-  public var guarantor: MutableList<Account.Guarantor>? = null,
-  public var diagnosis: MutableList<Account.Diagnosis>? = null,
-  public var procedure: MutableList<Account.Procedure>? = null,
-  public var relatedAccount: MutableList<Account.RelatedAccount>? = null,
+  public var guarantor: List<Account.Guarantor>? = null,
+  public var diagnosis: List<Account.Diagnosis>? = null,
+  public var procedure: List<Account.Procedure>? = null,
+  public var relatedAccount: List<Account.RelatedAccount>? = null,
   public var currency: CodeableConcept? = null,
-  public var balance: MutableList<Account.Balance>? = null,
+  public var balance: List<Account.Balance>? = null,
   public var calculatedAt: KotlinString? = null,
   public var _calculatedAt: Element? = null,
 ) {
@@ -354,10 +354,10 @@ internal data class AccountSurrogate(
         Uri.of(this@AccountSurrogate.implicitRules, this@AccountSurrogate._implicitRules),
       language = Code.of(this@AccountSurrogate.language, this@AccountSurrogate._language),
       text = this@AccountSurrogate.text,
-      contained = this@AccountSurrogate.contained ?: mutableListOf(),
-      extension = this@AccountSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@AccountSurrogate.modifierExtension ?: mutableListOf(),
-      identifier = this@AccountSurrogate.identifier ?: mutableListOf(),
+      contained = this@AccountSurrogate.contained ?: listOf(),
+      extension = this@AccountSurrogate.extension ?: listOf(),
+      modifierExtension = this@AccountSurrogate.modifierExtension ?: listOf(),
+      identifier = this@AccountSurrogate.identifier ?: listOf(),
       status =
         Enumeration.of(
           Account.AccountStatus.fromCode(this@AccountSurrogate.status!!),
@@ -366,18 +366,18 @@ internal data class AccountSurrogate(
       billingStatus = this@AccountSurrogate.billingStatus,
       type = this@AccountSurrogate.type,
       name = R5String.of(this@AccountSurrogate.name, this@AccountSurrogate._name),
-      subject = this@AccountSurrogate.subject ?: mutableListOf(),
+      subject = this@AccountSurrogate.subject ?: listOf(),
       servicePeriod = this@AccountSurrogate.servicePeriod,
-      coverage = this@AccountSurrogate.coverage ?: mutableListOf(),
+      coverage = this@AccountSurrogate.coverage ?: listOf(),
       owner = this@AccountSurrogate.owner,
       description =
         Markdown.of(this@AccountSurrogate.description, this@AccountSurrogate._description),
-      guarantor = this@AccountSurrogate.guarantor ?: mutableListOf(),
-      diagnosis = this@AccountSurrogate.diagnosis ?: mutableListOf(),
-      procedure = this@AccountSurrogate.procedure ?: mutableListOf(),
-      relatedAccount = this@AccountSurrogate.relatedAccount ?: mutableListOf(),
+      guarantor = this@AccountSurrogate.guarantor ?: listOf(),
+      diagnosis = this@AccountSurrogate.diagnosis ?: listOf(),
+      procedure = this@AccountSurrogate.procedure ?: listOf(),
+      relatedAccount = this@AccountSurrogate.relatedAccount ?: listOf(),
       currency = this@AccountSurrogate.currency,
-      balance = this@AccountSurrogate.balance ?: mutableListOf(),
+      balance = this@AccountSurrogate.balance ?: listOf(),
       calculatedAt =
         Instant.of(
           FhirDateTime.fromString(this@AccountSurrogate.calculatedAt),

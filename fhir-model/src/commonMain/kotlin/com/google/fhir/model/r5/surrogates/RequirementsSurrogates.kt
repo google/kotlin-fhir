@@ -48,21 +48,21 @@ import com.google.fhir.model.r5.terminologies.PublicationStatus
 import kotlin.Boolean as KotlinBoolean
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class RequirementsStatementSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var key: KotlinString? = null,
   public var _key: Element? = null,
   public var label: KotlinString? = null,
   public var _label: Element? = null,
-  public var conformance: MutableList<KotlinString?>? = null,
-  public var _conformance: MutableList<Element?>? = null,
+  public var conformance: List<KotlinString?>? = null,
+  public var _conformance: List<Element?>? = null,
   public var conditionality: KotlinBoolean? = null,
   public var _conditionality: Element? = null,
   public var requirement: KotlinString? = null,
@@ -71,17 +71,17 @@ internal data class RequirementsStatementSurrogate(
   public var _derivedFrom: Element? = null,
   public var parent: KotlinString? = null,
   public var _parent: Element? = null,
-  public var satisfiedBy: MutableList<KotlinString?>? = null,
-  public var _satisfiedBy: MutableList<Element?>? = null,
-  public var reference: MutableList<KotlinString?>? = null,
-  public var _reference: MutableList<Element?>? = null,
-  public var source: MutableList<Reference>? = null,
+  public var satisfiedBy: List<KotlinString?>? = null,
+  public var _satisfiedBy: List<Element?>? = null,
+  public var reference: List<KotlinString?>? = null,
+  public var _reference: List<Element?>? = null,
+  public var source: List<Reference>? = null,
 ) {
   public fun toModel(): Requirements.Statement =
     Requirements.Statement(
       id = this@RequirementsStatementSurrogate.id,
-      extension = this@RequirementsStatementSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@RequirementsStatementSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@RequirementsStatementSurrogate.extension ?: listOf(),
+      modifierExtension = this@RequirementsStatementSurrogate.modifierExtension ?: listOf(),
       key =
         Id.of(this@RequirementsStatementSurrogate.key, this@RequirementsStatementSurrogate._key)!!,
       label =
@@ -94,7 +94,7 @@ internal data class RequirementsStatementSurrogate(
           this@RequirementsStatementSurrogate.conformance == null &&
             this@RequirementsStatementSurrogate._conformance == null
         ) {
-          mutableListOf()
+          listOf()
         } else {
           (this@RequirementsStatementSurrogate.conformance
               ?: List(this@RequirementsStatementSurrogate._conformance!!.size) { null })
@@ -108,7 +108,7 @@ internal data class RequirementsStatementSurrogate(
                 element,
               )
             }
-            .toMutableList()
+            .toList()
         },
       conditionality =
         R5Boolean.of(
@@ -135,7 +135,7 @@ internal data class RequirementsStatementSurrogate(
           this@RequirementsStatementSurrogate.satisfiedBy == null &&
             this@RequirementsStatementSurrogate._satisfiedBy == null
         ) {
-          mutableListOf()
+          listOf()
         } else {
           (this@RequirementsStatementSurrogate.satisfiedBy
               ?: List(this@RequirementsStatementSurrogate._satisfiedBy!!.size) { null })
@@ -144,14 +144,14 @@ internal data class RequirementsStatementSurrogate(
                 ?: List(this@RequirementsStatementSurrogate.satisfiedBy!!.size) { null }
             )
             .map { (value, element) -> Url.of(value, element)!! }
-            .toMutableList()
+            .toList()
         },
       reference =
         if (
           this@RequirementsStatementSurrogate.reference == null &&
             this@RequirementsStatementSurrogate._reference == null
         ) {
-          mutableListOf()
+          listOf()
         } else {
           (this@RequirementsStatementSurrogate.reference
               ?: List(this@RequirementsStatementSurrogate._reference!!.size) { null })
@@ -160,9 +160,9 @@ internal data class RequirementsStatementSurrogate(
                 ?: List(this@RequirementsStatementSurrogate.reference!!.size) { null }
             )
             .map { (value, element) -> Url.of(value, element)!! }
-            .toMutableList()
+            .toList()
         },
-      source = this@RequirementsStatementSurrogate.source ?: mutableListOf(),
+      source = this@RequirementsStatementSurrogate.source ?: listOf(),
     )
 
   public companion object {
@@ -179,14 +179,14 @@ internal data class RequirementsStatementSurrogate(
           conformance =
             this@with.conformance
               .map { it.value?.getCode() }
-              .toMutableList()
+              .toList()
               .takeUnless { it.all { it == null } },
           _conformance =
             this@with.conformance
               .map { it.toElement() }
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
-              ?.toMutableList(),
+              ?.toList(),
           conditionality = this@with.conditionality?.value,
           _conditionality = this@with.conditionality?.toElement(),
           requirement = this@with.requirement.value,
@@ -196,27 +196,21 @@ internal data class RequirementsStatementSurrogate(
           parent = this@with.parent?.value,
           _parent = this@with.parent?.toElement(),
           satisfiedBy =
-            this@with.satisfiedBy
-              .map { it.value }
-              .toMutableList()
-              .takeUnless { it.all { it == null } },
+            this@with.satisfiedBy.map { it.value }.toList().takeUnless { it.all { it == null } },
           _satisfiedBy =
             this@with.satisfiedBy
               .map { it.toElement() }
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
-              ?.toMutableList(),
+              ?.toList(),
           reference =
-            this@with.reference
-              .map { it.value }
-              .toMutableList()
-              .takeUnless { it.all { it == null } },
+            this@with.reference.map { it.value }.toList().takeUnless { it.all { it == null } },
           _reference =
             this@with.reference
               .map { it.toElement() }
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
-              ?.toMutableList(),
+              ?.toList(),
           source = this@with.source.takeIf { it.isNotEmpty() },
         )
       }
@@ -261,12 +255,12 @@ internal data class RequirementsSurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: MutableList<Resource>? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var contained: List<Resource>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var url: KotlinString? = null,
   public var _url: Element? = null,
-  public var identifier: MutableList<Identifier>? = null,
+  public var identifier: List<Identifier>? = null,
   public var version: KotlinString? = null,
   public var _version: Element? = null,
   public var versionAlgorithm: Requirements.VersionAlgorithm? = null,
@@ -282,24 +276,24 @@ internal data class RequirementsSurrogate(
   public var _date: Element? = null,
   public var publisher: KotlinString? = null,
   public var _publisher: Element? = null,
-  public var contact: MutableList<ContactDetail>? = null,
+  public var contact: List<ContactDetail>? = null,
   public var description: KotlinString? = null,
   public var _description: Element? = null,
-  public var useContext: MutableList<UsageContext>? = null,
-  public var jurisdiction: MutableList<CodeableConcept>? = null,
+  public var useContext: List<UsageContext>? = null,
+  public var jurisdiction: List<CodeableConcept>? = null,
   public var purpose: KotlinString? = null,
   public var _purpose: Element? = null,
   public var copyright: KotlinString? = null,
   public var _copyright: Element? = null,
   public var copyrightLabel: KotlinString? = null,
   public var _copyrightLabel: Element? = null,
-  public var derivedFrom: MutableList<KotlinString?>? = null,
-  public var _derivedFrom: MutableList<Element?>? = null,
-  public var reference: MutableList<KotlinString?>? = null,
-  public var _reference: MutableList<Element?>? = null,
-  public var actor: MutableList<KotlinString?>? = null,
-  public var _actor: MutableList<Element?>? = null,
-  public var statement: MutableList<Requirements.Statement>? = null,
+  public var derivedFrom: List<KotlinString?>? = null,
+  public var _derivedFrom: List<Element?>? = null,
+  public var reference: List<KotlinString?>? = null,
+  public var _reference: List<Element?>? = null,
+  public var actor: List<KotlinString?>? = null,
+  public var _actor: List<Element?>? = null,
+  public var statement: List<Requirements.Statement>? = null,
 ) {
   public fun toModel(): Requirements =
     Requirements(
@@ -309,11 +303,11 @@ internal data class RequirementsSurrogate(
         Uri.of(this@RequirementsSurrogate.implicitRules, this@RequirementsSurrogate._implicitRules),
       language = Code.of(this@RequirementsSurrogate.language, this@RequirementsSurrogate._language),
       text = this@RequirementsSurrogate.text,
-      contained = this@RequirementsSurrogate.contained ?: mutableListOf(),
-      extension = this@RequirementsSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@RequirementsSurrogate.modifierExtension ?: mutableListOf(),
+      contained = this@RequirementsSurrogate.contained ?: listOf(),
+      extension = this@RequirementsSurrogate.extension ?: listOf(),
+      modifierExtension = this@RequirementsSurrogate.modifierExtension ?: listOf(),
       url = Uri.of(this@RequirementsSurrogate.url, this@RequirementsSurrogate._url),
-      identifier = this@RequirementsSurrogate.identifier ?: mutableListOf(),
+      identifier = this@RequirementsSurrogate.identifier ?: listOf(),
       version =
         R5String.of(this@RequirementsSurrogate.version, this@RequirementsSurrogate._version),
       versionAlgorithm = this@RequirementsSurrogate.versionAlgorithm,
@@ -336,14 +330,14 @@ internal data class RequirementsSurrogate(
         ),
       publisher =
         R5String.of(this@RequirementsSurrogate.publisher, this@RequirementsSurrogate._publisher),
-      contact = this@RequirementsSurrogate.contact ?: mutableListOf(),
+      contact = this@RequirementsSurrogate.contact ?: listOf(),
       description =
         Markdown.of(
           this@RequirementsSurrogate.description,
           this@RequirementsSurrogate._description,
         ),
-      useContext = this@RequirementsSurrogate.useContext ?: mutableListOf(),
-      jurisdiction = this@RequirementsSurrogate.jurisdiction ?: mutableListOf(),
+      useContext = this@RequirementsSurrogate.useContext ?: listOf(),
+      jurisdiction = this@RequirementsSurrogate.jurisdiction ?: listOf(),
       purpose =
         Markdown.of(this@RequirementsSurrogate.purpose, this@RequirementsSurrogate._purpose),
       copyright =
@@ -358,7 +352,7 @@ internal data class RequirementsSurrogate(
           this@RequirementsSurrogate.derivedFrom == null &&
             this@RequirementsSurrogate._derivedFrom == null
         ) {
-          mutableListOf()
+          listOf()
         } else {
           (this@RequirementsSurrogate.derivedFrom
               ?: List(this@RequirementsSurrogate._derivedFrom!!.size) { null })
@@ -367,14 +361,14 @@ internal data class RequirementsSurrogate(
                 ?: List(this@RequirementsSurrogate.derivedFrom!!.size) { null }
             )
             .map { (value, element) -> Canonical.of(value, element)!! }
-            .toMutableList()
+            .toList()
         },
       reference =
         if (
           this@RequirementsSurrogate.reference == null &&
             this@RequirementsSurrogate._reference == null
         ) {
-          mutableListOf()
+          listOf()
         } else {
           (this@RequirementsSurrogate.reference
               ?: List(this@RequirementsSurrogate._reference!!.size) { null })
@@ -383,11 +377,11 @@ internal data class RequirementsSurrogate(
                 ?: List(this@RequirementsSurrogate.reference!!.size) { null }
             )
             .map { (value, element) -> Url.of(value, element)!! }
-            .toMutableList()
+            .toList()
         },
       actor =
         if (this@RequirementsSurrogate.actor == null && this@RequirementsSurrogate._actor == null) {
-          mutableListOf()
+          listOf()
         } else {
           (this@RequirementsSurrogate.actor
               ?: List(this@RequirementsSurrogate._actor!!.size) { null })
@@ -396,9 +390,9 @@ internal data class RequirementsSurrogate(
                 ?: List(this@RequirementsSurrogate.actor!!.size) { null }
             )
             .map { (value, element) -> Canonical.of(value, element)!! }
-            .toMutableList()
+            .toList()
         },
-      statement = this@RequirementsSurrogate.statement ?: mutableListOf(),
+      statement = this@RequirementsSurrogate.statement ?: listOf(),
     )
 
   public companion object {
@@ -445,35 +439,28 @@ internal data class RequirementsSurrogate(
           copyrightLabel = this@with.copyrightLabel?.value,
           _copyrightLabel = this@with.copyrightLabel?.toElement(),
           derivedFrom =
-            this@with.derivedFrom
-              .map { it.value }
-              .toMutableList()
-              .takeUnless { it.all { it == null } },
+            this@with.derivedFrom.map { it.value }.toList().takeUnless { it.all { it == null } },
           _derivedFrom =
             this@with.derivedFrom
               .map { it.toElement() }
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
-              ?.toMutableList(),
+              ?.toList(),
           reference =
-            this@with.reference
-              .map { it.value }
-              .toMutableList()
-              .takeUnless { it.all { it == null } },
+            this@with.reference.map { it.value }.toList().takeUnless { it.all { it == null } },
           _reference =
             this@with.reference
               .map { it.toElement() }
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
-              ?.toMutableList(),
-          actor =
-            this@with.actor.map { it.value }.toMutableList().takeUnless { it.all { it == null } },
+              ?.toList(),
+          actor = this@with.actor.map { it.value }.toList().takeUnless { it.all { it == null } },
           _actor =
             this@with.actor
               .map { it.toElement() }
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
-              ?.toMutableList(),
+              ?.toList(),
           statement = this@with.statement.takeIf { it.isNotEmpty() },
         )
       }

@@ -21,7 +21,7 @@ package com.google.fhir.model.r4
 import com.google.fhir.model.r4.serializers.ParameterDefinitionSerializer
 import com.google.fhir.model.r4.terminologies.FHIRAllTypes
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 
 /**
@@ -36,7 +36,7 @@ public data class ParameterDefinition(
    * Unique id for the element within a resource (for internal references). This may be any string
    * value that does not contain spaces.
    */
-  override var id: kotlin.String? = null,
+  override val id: kotlin.String? = null,
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * element. To make the use of extensions safe and manageable, there is a strict set of governance
@@ -49,27 +49,27 @@ public data class ParameterDefinition(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: MutableList<Extension> = mutableListOf(),
+  override val extension: List<Extension> = listOf(),
   /**
    * The name of the parameter used to allow access to the value of the parameter in evaluation
    * contexts.
    */
-  public var name: Code? = null,
+  public val name: Code? = null,
   /** Whether the parameter is input or output for the module. */
-  public var use: Enumeration<OperationParameterUse>,
+  public val use: Enumeration<OperationParameterUse>,
   /** The minimum number of times this parameter SHALL appear in the request or response. */
-  public var min: Integer? = null,
+  public val min: Integer? = null,
   /** The maximum number of times this element is permitted to appear in the request or response. */
-  public var max: String? = null,
+  public val max: String? = null,
   /** A brief discussion of what the parameter is for and how it is used by the module. */
-  public var documentation: String? = null,
+  public val documentation: String? = null,
   /** The type of the parameter. */
-  public var type: Enumeration<FHIRAllTypes>,
+  public val type: Enumeration<FHIRAllTypes>,
   /**
    * If specified, this indicates a profile that the input data must conform to, or that the output
    * data will conform to.
    */
-  public var profile: Canonical? = null,
+  public val profile: Canonical? = null,
 ) : Element() {
   /** Whether an operation parameter is an input or an output parameter. */
   public enum class OperationParameterUse(

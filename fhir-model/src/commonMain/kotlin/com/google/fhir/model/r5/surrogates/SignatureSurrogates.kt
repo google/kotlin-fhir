@@ -32,15 +32,15 @@ import com.google.fhir.model.r5.serializers.DoubleSerializer
 import com.google.fhir.model.r5.serializers.LocalTimeSerializer
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class SignatureSurrogate(
   public var id: String? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var type: MutableList<Coding>? = null,
+  public var extension: List<Extension>? = null,
+  public var type: List<Coding>? = null,
   public var `when`: String? = null,
   public var _when: Element? = null,
   public var who: Reference? = null,
@@ -55,8 +55,8 @@ internal data class SignatureSurrogate(
   public fun toModel(): Signature =
     Signature(
       id = this@SignatureSurrogate.id,
-      extension = this@SignatureSurrogate.extension ?: mutableListOf(),
-      type = this@SignatureSurrogate.type ?: mutableListOf(),
+      extension = this@SignatureSurrogate.extension ?: listOf(),
+      type = this@SignatureSurrogate.type ?: listOf(),
       `when` =
         Instant.of(
           FhirDateTime.fromString(this@SignatureSurrogate.`when`),

@@ -32,29 +32,29 @@ import com.google.fhir.model.r4.serializers.DoubleSerializer
 import com.google.fhir.model.r4.serializers.LocalTimeSerializer
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class MetaSurrogate(
   public var id: String? = null,
-  public var extension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
   public var versionId: String? = null,
   public var _versionId: Element? = null,
   public var lastUpdated: String? = null,
   public var _lastUpdated: Element? = null,
   public var source: String? = null,
   public var _source: Element? = null,
-  public var profile: MutableList<String?>? = null,
-  public var _profile: MutableList<Element?>? = null,
-  public var security: MutableList<Coding>? = null,
-  public var tag: MutableList<Coding>? = null,
+  public var profile: List<String?>? = null,
+  public var _profile: List<Element?>? = null,
+  public var security: List<Coding>? = null,
+  public var tag: List<Coding>? = null,
 ) {
   public fun toModel(): Meta =
     Meta(
       id = this@MetaSurrogate.id,
-      extension = this@MetaSurrogate.extension ?: mutableListOf(),
+      extension = this@MetaSurrogate.extension ?: listOf(),
       versionId = Id.of(this@MetaSurrogate.versionId, this@MetaSurrogate._versionId),
       lastUpdated =
         Instant.of(
@@ -64,15 +64,15 @@ internal data class MetaSurrogate(
       source = Uri.of(this@MetaSurrogate.source, this@MetaSurrogate._source),
       profile =
         if (this@MetaSurrogate.profile == null && this@MetaSurrogate._profile == null) {
-          mutableListOf()
+          listOf()
         } else {
           (this@MetaSurrogate.profile ?: List(this@MetaSurrogate._profile!!.size) { null })
             .zip(this@MetaSurrogate._profile ?: List(this@MetaSurrogate.profile!!.size) { null })
             .map { (value, element) -> Canonical.of(value, element)!! }
-            .toMutableList()
+            .toList()
         },
-      security = this@MetaSurrogate.security ?: mutableListOf(),
-      tag = this@MetaSurrogate.tag ?: mutableListOf(),
+      security = this@MetaSurrogate.security ?: listOf(),
+      tag = this@MetaSurrogate.tag ?: listOf(),
     )
 
   public companion object {
@@ -88,13 +88,13 @@ internal data class MetaSurrogate(
           source = this@with.source?.value,
           _source = this@with.source?.toElement(),
           profile =
-            this@with.profile.map { it.value }.toMutableList().takeUnless { it.all { it == null } },
+            this@with.profile.map { it.value }.toList().takeUnless { it.all { it == null } },
           _profile =
             this@with.profile
               .map { it.toElement() }
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
-              ?.toMutableList(),
+              ?.toList(),
           security = this@with.security.takeIf { it.isNotEmpty() },
           tag = this@with.tag.takeIf { it.isNotEmpty() },
         )

@@ -39,7 +39,7 @@ import com.google.fhir.model.r5.serializers.LocalTimeSerializer
 import kotlin.Boolean as KotlinBoolean
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
@@ -52,24 +52,24 @@ internal data class PractitionerRoleSurrogate(
   public var language: String? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: MutableList<Resource>? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var identifier: MutableList<Identifier>? = null,
+  public var contained: List<Resource>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
+  public var identifier: List<Identifier>? = null,
   public var active: KotlinBoolean? = null,
   public var _active: Element? = null,
   public var period: Period? = null,
   public var practitioner: Reference? = null,
   public var organization: Reference? = null,
-  public var code: MutableList<CodeableConcept>? = null,
-  public var specialty: MutableList<CodeableConcept>? = null,
-  public var location: MutableList<Reference>? = null,
-  public var healthcareService: MutableList<Reference>? = null,
-  public var contact: MutableList<ExtendedContactDetail>? = null,
-  public var characteristic: MutableList<CodeableConcept>? = null,
-  public var communication: MutableList<CodeableConcept>? = null,
-  public var availability: MutableList<Availability>? = null,
-  public var endpoint: MutableList<Reference>? = null,
+  public var code: List<CodeableConcept>? = null,
+  public var specialty: List<CodeableConcept>? = null,
+  public var location: List<Reference>? = null,
+  public var healthcareService: List<Reference>? = null,
+  public var contact: List<ExtendedContactDetail>? = null,
+  public var characteristic: List<CodeableConcept>? = null,
+  public var communication: List<CodeableConcept>? = null,
+  public var availability: List<Availability>? = null,
+  public var endpoint: List<Reference>? = null,
 ) {
   public fun toModel(): PractitionerRole =
     PractitionerRole(
@@ -83,24 +83,24 @@ internal data class PractitionerRoleSurrogate(
       language =
         Code.of(this@PractitionerRoleSurrogate.language, this@PractitionerRoleSurrogate._language),
       text = this@PractitionerRoleSurrogate.text,
-      contained = this@PractitionerRoleSurrogate.contained ?: mutableListOf(),
-      extension = this@PractitionerRoleSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@PractitionerRoleSurrogate.modifierExtension ?: mutableListOf(),
-      identifier = this@PractitionerRoleSurrogate.identifier ?: mutableListOf(),
+      contained = this@PractitionerRoleSurrogate.contained ?: listOf(),
+      extension = this@PractitionerRoleSurrogate.extension ?: listOf(),
+      modifierExtension = this@PractitionerRoleSurrogate.modifierExtension ?: listOf(),
+      identifier = this@PractitionerRoleSurrogate.identifier ?: listOf(),
       active =
         R5Boolean.of(this@PractitionerRoleSurrogate.active, this@PractitionerRoleSurrogate._active),
       period = this@PractitionerRoleSurrogate.period,
       practitioner = this@PractitionerRoleSurrogate.practitioner,
       organization = this@PractitionerRoleSurrogate.organization,
-      code = this@PractitionerRoleSurrogate.code ?: mutableListOf(),
-      specialty = this@PractitionerRoleSurrogate.specialty ?: mutableListOf(),
-      location = this@PractitionerRoleSurrogate.location ?: mutableListOf(),
-      healthcareService = this@PractitionerRoleSurrogate.healthcareService ?: mutableListOf(),
-      contact = this@PractitionerRoleSurrogate.contact ?: mutableListOf(),
-      characteristic = this@PractitionerRoleSurrogate.characteristic ?: mutableListOf(),
-      communication = this@PractitionerRoleSurrogate.communication ?: mutableListOf(),
-      availability = this@PractitionerRoleSurrogate.availability ?: mutableListOf(),
-      endpoint = this@PractitionerRoleSurrogate.endpoint ?: mutableListOf(),
+      code = this@PractitionerRoleSurrogate.code ?: listOf(),
+      specialty = this@PractitionerRoleSurrogate.specialty ?: listOf(),
+      location = this@PractitionerRoleSurrogate.location ?: listOf(),
+      healthcareService = this@PractitionerRoleSurrogate.healthcareService ?: listOf(),
+      contact = this@PractitionerRoleSurrogate.contact ?: listOf(),
+      characteristic = this@PractitionerRoleSurrogate.characteristic ?: listOf(),
+      communication = this@PractitionerRoleSurrogate.communication ?: listOf(),
+      availability = this@PractitionerRoleSurrogate.availability ?: listOf(),
+      endpoint = this@PractitionerRoleSurrogate.endpoint ?: listOf(),
     )
 
   public companion object {

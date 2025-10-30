@@ -38,7 +38,7 @@ import com.google.fhir.model.r4.serializers.LocalTimeSerializer
 import kotlin.Boolean as KotlinBoolean
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
@@ -51,22 +51,22 @@ internal data class OrganizationAffiliationSurrogate(
   public var language: String? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: MutableList<Resource>? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var identifier: MutableList<Identifier>? = null,
+  public var contained: List<Resource>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
+  public var identifier: List<Identifier>? = null,
   public var active: KotlinBoolean? = null,
   public var _active: Element? = null,
   public var period: Period? = null,
   public var organization: Reference? = null,
   public var participatingOrganization: Reference? = null,
-  public var network: MutableList<Reference>? = null,
-  public var code: MutableList<CodeableConcept>? = null,
-  public var specialty: MutableList<CodeableConcept>? = null,
-  public var location: MutableList<Reference>? = null,
-  public var healthcareService: MutableList<Reference>? = null,
-  public var telecom: MutableList<ContactPoint>? = null,
-  public var endpoint: MutableList<Reference>? = null,
+  public var network: List<Reference>? = null,
+  public var code: List<CodeableConcept>? = null,
+  public var specialty: List<CodeableConcept>? = null,
+  public var location: List<Reference>? = null,
+  public var healthcareService: List<Reference>? = null,
+  public var telecom: List<ContactPoint>? = null,
+  public var endpoint: List<Reference>? = null,
 ) {
   public fun toModel(): OrganizationAffiliation =
     OrganizationAffiliation(
@@ -83,11 +83,10 @@ internal data class OrganizationAffiliationSurrogate(
           this@OrganizationAffiliationSurrogate._language,
         ),
       text = this@OrganizationAffiliationSurrogate.text,
-      contained = this@OrganizationAffiliationSurrogate.contained ?: mutableListOf(),
-      extension = this@OrganizationAffiliationSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@OrganizationAffiliationSurrogate.modifierExtension ?: mutableListOf(),
-      identifier = this@OrganizationAffiliationSurrogate.identifier ?: mutableListOf(),
+      contained = this@OrganizationAffiliationSurrogate.contained ?: listOf(),
+      extension = this@OrganizationAffiliationSurrogate.extension ?: listOf(),
+      modifierExtension = this@OrganizationAffiliationSurrogate.modifierExtension ?: listOf(),
+      identifier = this@OrganizationAffiliationSurrogate.identifier ?: listOf(),
       active =
         R4Boolean.of(
           this@OrganizationAffiliationSurrogate.active,
@@ -96,14 +95,13 @@ internal data class OrganizationAffiliationSurrogate(
       period = this@OrganizationAffiliationSurrogate.period,
       organization = this@OrganizationAffiliationSurrogate.organization,
       participatingOrganization = this@OrganizationAffiliationSurrogate.participatingOrganization,
-      network = this@OrganizationAffiliationSurrogate.network ?: mutableListOf(),
-      code = this@OrganizationAffiliationSurrogate.code ?: mutableListOf(),
-      specialty = this@OrganizationAffiliationSurrogate.specialty ?: mutableListOf(),
-      location = this@OrganizationAffiliationSurrogate.location ?: mutableListOf(),
-      healthcareService =
-        this@OrganizationAffiliationSurrogate.healthcareService ?: mutableListOf(),
-      telecom = this@OrganizationAffiliationSurrogate.telecom ?: mutableListOf(),
-      endpoint = this@OrganizationAffiliationSurrogate.endpoint ?: mutableListOf(),
+      network = this@OrganizationAffiliationSurrogate.network ?: listOf(),
+      code = this@OrganizationAffiliationSurrogate.code ?: listOf(),
+      specialty = this@OrganizationAffiliationSurrogate.specialty ?: listOf(),
+      location = this@OrganizationAffiliationSurrogate.location ?: listOf(),
+      healthcareService = this@OrganizationAffiliationSurrogate.healthcareService ?: listOf(),
+      telecom = this@OrganizationAffiliationSurrogate.telecom ?: listOf(),
+      endpoint = this@OrganizationAffiliationSurrogate.endpoint ?: listOf(),
     )
 
   public companion object {

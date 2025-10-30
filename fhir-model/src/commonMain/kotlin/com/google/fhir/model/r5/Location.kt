@@ -21,7 +21,7 @@ package com.google.fhir.model.r5
 import com.google.fhir.model.r5.serializers.LocationPositionSerializer
 import com.google.fhir.model.r5.serializers.LocationSerializer
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -40,12 +40,12 @@ public data class Location(
    * like the create and conditional update. Otherwise, the use of the resouce id depends on the
    * given use case.
    */
-  override var id: kotlin.String? = null,
+  override val id: kotlin.String? = null,
   /**
    * The metadata about the resource. This is content that is maintained by the infrastructure.
    * Changes to the content might not always be associated with version changes to the resource.
    */
-  override var meta: Meta? = null,
+  override val meta: Meta? = null,
   /**
    * A reference to a set of rules that were followed when the resource was constructed, and which
    * must be understood when processing the content. Often, this is a reference to an implementation
@@ -59,7 +59,7 @@ public data class Location(
    * to an implementation guide that defines these special rules as part of its narrative along with
    * other profiles, value sets, etc.
    */
-  override var implicitRules: Uri? = null,
+  override val implicitRules: Uri? = null,
   /**
    * The base language in which the resource is written.
    *
@@ -71,7 +71,7 @@ public data class Location(
    * language is specified, it should it also be specified on the div element in the html (see rules
    * in HTML5 for information about the relationship between xml:lang and the html lang attribute).
    */
-  override var language: Code? = null,
+  override val language: Code? = null,
   /**
    * A human-readable narrative that contains a summary of the resource and can be used to represent
    * the content of the resource to a human. The narrative need not encode all the structured data,
@@ -85,7 +85,7 @@ public data class Location(
    * legacy systems where information is captured as a "text blob" or where text is additionally
    * entered raw or narrated and encoded information is added later.
    */
-  override var text: Narrative? = null,
+  override val text: Narrative? = null,
   /**
    * These resources do not have an independent existence apart from the resource that contains
    * them - they cannot be identified independently, nor can they have their own independent
@@ -97,7 +97,7 @@ public data class Location(
    * resources may have profiles and tags in their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: MutableList<Resource> = mutableListOf(),
+  override val contained: List<Resource> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and managable, there is a strict set of governance
@@ -110,7 +110,7 @@ public data class Location(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: MutableList<Extension> = mutableListOf(),
+  override val extension: List<Extension> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -129,28 +129,28 @@ public data class Location(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: MutableList<Extension> = mutableListOf(),
+  override val modifierExtension: List<Extension> = listOf(),
   /** Unique code or number identifying the location to its users. */
-  public var identifier: MutableList<Identifier> = mutableListOf(),
+  public val identifier: List<Identifier> = listOf(),
   /**
    * The status property covers the general availability of the resource, not the current value
    * which may be covered by the operationStatus, or by a schedule/slots if they are configured for
    * the location.
    */
-  public var status: Enumeration<LocationStatus>? = null,
+  public val status: Enumeration<LocationStatus>? = null,
   /**
    * The operational status covers operation values most relevant to beds (but can also apply to
    * rooms/units/chairs/etc. such as an isolation unit/dialysis chair). This typically covers
    * concepts such as contamination, housekeeping, and other activities like maintenance.
    */
-  public var operationalStatus: Coding? = null,
+  public val operationalStatus: Coding? = null,
   /**
    * Name of the location as used by humans. Does not need to be unique.
    *
    * If the name of a location changes, consider putting the old name in the alias column so that it
    * can still be located through searches.
    */
-  public var name: String? = null,
+  public val name: String? = null,
   /**
    * A list of alternate names that the location is known as, or was known as, in the past.
    *
@@ -158,18 +158,18 @@ public data class Location(
    * when names were used, but to assist in searching so that older names can still result in
    * identifying the location.
    */
-  public var alias: MutableList<String> = mutableListOf(),
+  public val alias: List<String> = listOf(),
   /** Description of the Location, which helps in finding or referencing the place. */
-  public var description: Markdown? = null,
+  public val description: Markdown? = null,
   /**
    * Indicates whether a resource instance represents a specific location or a class of locations.
    *
    * This is labeled as a modifier because whether or not the location is a class of locations
    * changes how it can be used and understood.
    */
-  public var mode: Enumeration<LocationMode>? = null,
+  public val mode: Enumeration<LocationMode>? = null,
   /** Indicates the type of function performed at the location. */
-  public var type: MutableList<CodeableConcept> = mutableListOf(),
+  public val type: List<CodeableConcept> = listOf(),
   /**
    * The contact details of communication devices available at the location. This can include
    * addresses, phone numbers, fax numbers, mobile numbers, email addresses and web sites.
@@ -182,16 +182,16 @@ public data class Location(
    *
    * If this is empty (or the type of interest is empty), refer to the organization's contacts.
    */
-  public var contact: MutableList<ExtendedContactDetail> = mutableListOf(),
+  public val contact: List<ExtendedContactDetail> = listOf(),
   /**
    * Physical location.
    *
    * Additional addresses should be recorded using another instance of the Location resource, or via
    * the Organization.
    */
-  public var address: Address? = null,
+  public val address: Address? = null,
   /** Physical form of the location, e.g. building, room, vehicle, road, virtual. */
-  public var form: CodeableConcept? = null,
+  public val form: CodeableConcept? = null,
   /**
    * The absolute geographic location of the Location, expressed using the WGS84 datum (This is the
    * same co-ordinate system used in KML).
@@ -200,22 +200,22 @@ public data class Location(
    * `[http://hl7.org/fhir/StructureDefinition/location-boundary-geojson](http://hl7.org/fhir/extensions/StructureDefinition-location-boundary-geojson.html)`,
    * and search using the `contains` special search parameter.
    */
-  public var position: Position? = null,
+  public val position: Position? = null,
   /**
    * The organization responsible for the provisioning and upkeep of the location.
    *
    * This can also be used as the part of the organization hierarchy where this location provides
    * services. These services can be defined through the HealthcareService resource.
    */
-  public var managingOrganization: Reference? = null,
+  public val managingOrganization: Reference? = null,
   /** Another Location of which this Location is physically a part of. */
-  public var partOf: Reference? = null,
+  public val partOf: Reference? = null,
   /**
    * Collection of characteristics (attributes).
    *
    * These could be such things as is wheelchair accessible.
    */
-  public var characteristic: MutableList<CodeableConcept> = mutableListOf(),
+  public val characteristic: List<CodeableConcept> = listOf(),
   /**
    * What days/times during a week is this location usually open, and any exceptions where the
    * location is not available.
@@ -233,7 +233,7 @@ public data class Location(
    *
    * The availableStartTime is the opening time, and the availableEndTime is the closing time.
    */
-  public var hoursOfOperation: MutableList<Availability> = mutableListOf(),
+  public val hoursOfOperation: List<Availability> = listOf(),
   /**
    * Connection details of a virtual service (e.g. shared conference call facility with dedicated
    * number/details).
@@ -246,9 +246,9 @@ public data class Location(
    * Implementers may consider using Appointment.virtualService for virtual meeting rooms that are
    * generated on-demand.
    */
-  public var virtualService: MutableList<VirtualServiceDetail> = mutableListOf(),
+  public val virtualService: List<VirtualServiceDetail> = listOf(),
   /** Technical endpoints providing access to services operated for the location. */
-  public var endpoint: MutableList<Reference> = mutableListOf(),
+  public val endpoint: List<Reference> = listOf(),
 ) : DomainResource() {
   /**
    * The absolute geographic location of the Location, expressed using the WGS84 datum (This is the
@@ -260,7 +260,7 @@ public data class Location(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -273,7 +273,7 @@ public data class Location(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -292,22 +292,22 @@ public data class Location(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /**
      * Longitude. The value domain and the interpretation are the same as for the text of the
      * longitude element in KML (see notes on Location main page).
      */
-    public var longitude: Decimal,
+    public val longitude: Decimal,
     /**
      * Latitude. The value domain and the interpretation are the same as for the text of the
      * latitude element in KML (see notes on Location main page).
      */
-    public var latitude: Decimal,
+    public val latitude: Decimal,
     /**
      * Altitude. The value domain and the interpretation are the same as for the text of the
      * altitude element in KML (see notes on Location main page).
      */
-    public var altitude: Decimal? = null,
+    public val altitude: Decimal? = null,
   ) : BackboneElement()
 
   /** Indicates whether the location is still in use. */

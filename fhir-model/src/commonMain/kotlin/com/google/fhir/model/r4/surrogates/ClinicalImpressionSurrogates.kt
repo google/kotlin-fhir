@@ -40,26 +40,26 @@ import com.google.fhir.model.r4.serializers.DoubleSerializer
 import com.google.fhir.model.r4.serializers.LocalTimeSerializer
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class ClinicalImpressionInvestigationSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var code: CodeableConcept,
-  public var item: MutableList<Reference>? = null,
+  public var item: List<Reference>? = null,
 ) {
   public fun toModel(): ClinicalImpression.Investigation =
     ClinicalImpression.Investigation(
       id = this@ClinicalImpressionInvestigationSurrogate.id,
-      extension = this@ClinicalImpressionInvestigationSurrogate.extension ?: mutableListOf(),
+      extension = this@ClinicalImpressionInvestigationSurrogate.extension ?: listOf(),
       modifierExtension =
-        this@ClinicalImpressionInvestigationSurrogate.modifierExtension ?: mutableListOf(),
+        this@ClinicalImpressionInvestigationSurrogate.modifierExtension ?: listOf(),
       code = this@ClinicalImpressionInvestigationSurrogate.code,
-      item = this@ClinicalImpressionInvestigationSurrogate.item ?: mutableListOf(),
+      item = this@ClinicalImpressionInvestigationSurrogate.item ?: listOf(),
     )
 
   public companion object {
@@ -81,8 +81,8 @@ internal data class ClinicalImpressionInvestigationSurrogate(
 @Serializable
 internal data class ClinicalImpressionFindingSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var itemCodeableConcept: CodeableConcept? = null,
   public var itemReference: Reference? = null,
   public var basis: KotlinString? = null,
@@ -91,9 +91,8 @@ internal data class ClinicalImpressionFindingSurrogate(
   public fun toModel(): ClinicalImpression.Finding =
     ClinicalImpression.Finding(
       id = this@ClinicalImpressionFindingSurrogate.id,
-      extension = this@ClinicalImpressionFindingSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@ClinicalImpressionFindingSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@ClinicalImpressionFindingSurrogate.extension ?: listOf(),
+      modifierExtension = this@ClinicalImpressionFindingSurrogate.modifierExtension ?: listOf(),
       itemCodeableConcept = this@ClinicalImpressionFindingSurrogate.itemCodeableConcept,
       itemReference = this@ClinicalImpressionFindingSurrogate.itemReference,
       basis =
@@ -157,10 +156,10 @@ internal data class ClinicalImpressionSurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: MutableList<Resource>? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var identifier: MutableList<Identifier>? = null,
+  public var contained: List<Resource>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
+  public var identifier: List<Identifier>? = null,
   public var status: KotlinString? = null,
   public var _status: Element? = null,
   public var statusReason: CodeableConcept? = null,
@@ -174,17 +173,17 @@ internal data class ClinicalImpressionSurrogate(
   public var _date: Element? = null,
   public var assessor: Reference? = null,
   public var previous: Reference? = null,
-  public var problem: MutableList<Reference>? = null,
-  public var investigation: MutableList<ClinicalImpression.Investigation>? = null,
-  public var protocol: MutableList<KotlinString?>? = null,
-  public var _protocol: MutableList<Element?>? = null,
+  public var problem: List<Reference>? = null,
+  public var investigation: List<ClinicalImpression.Investigation>? = null,
+  public var protocol: List<KotlinString?>? = null,
+  public var _protocol: List<Element?>? = null,
   public var summary: KotlinString? = null,
   public var _summary: Element? = null,
-  public var finding: MutableList<ClinicalImpression.Finding>? = null,
-  public var prognosisCodeableConcept: MutableList<CodeableConcept>? = null,
-  public var prognosisReference: MutableList<Reference>? = null,
-  public var supportingInfo: MutableList<Reference>? = null,
-  public var note: MutableList<Annotation>? = null,
+  public var finding: List<ClinicalImpression.Finding>? = null,
+  public var prognosisCodeableConcept: List<CodeableConcept>? = null,
+  public var prognosisReference: List<Reference>? = null,
+  public var supportingInfo: List<Reference>? = null,
+  public var note: List<Annotation>? = null,
 ) {
   public fun toModel(): ClinicalImpression =
     ClinicalImpression(
@@ -201,10 +200,10 @@ internal data class ClinicalImpressionSurrogate(
           this@ClinicalImpressionSurrogate._language,
         ),
       text = this@ClinicalImpressionSurrogate.text,
-      contained = this@ClinicalImpressionSurrogate.contained ?: mutableListOf(),
-      extension = this@ClinicalImpressionSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@ClinicalImpressionSurrogate.modifierExtension ?: mutableListOf(),
-      identifier = this@ClinicalImpressionSurrogate.identifier ?: mutableListOf(),
+      contained = this@ClinicalImpressionSurrogate.contained ?: listOf(),
+      extension = this@ClinicalImpressionSurrogate.extension ?: listOf(),
+      modifierExtension = this@ClinicalImpressionSurrogate.modifierExtension ?: listOf(),
+      identifier = this@ClinicalImpressionSurrogate.identifier ?: listOf(),
       status =
         Enumeration.of(
           ClinicalImpression.ClinicalImpressionStatus.fromCode(
@@ -229,14 +228,14 @@ internal data class ClinicalImpressionSurrogate(
         ),
       assessor = this@ClinicalImpressionSurrogate.assessor,
       previous = this@ClinicalImpressionSurrogate.previous,
-      problem = this@ClinicalImpressionSurrogate.problem ?: mutableListOf(),
-      investigation = this@ClinicalImpressionSurrogate.investigation ?: mutableListOf(),
+      problem = this@ClinicalImpressionSurrogate.problem ?: listOf(),
+      investigation = this@ClinicalImpressionSurrogate.investigation ?: listOf(),
       protocol =
         if (
           this@ClinicalImpressionSurrogate.protocol == null &&
             this@ClinicalImpressionSurrogate._protocol == null
         ) {
-          mutableListOf()
+          listOf()
         } else {
           (this@ClinicalImpressionSurrogate.protocol
               ?: List(this@ClinicalImpressionSurrogate._protocol!!.size) { null })
@@ -245,19 +244,19 @@ internal data class ClinicalImpressionSurrogate(
                 ?: List(this@ClinicalImpressionSurrogate.protocol!!.size) { null }
             )
             .map { (value, element) -> Uri.of(value, element)!! }
-            .toMutableList()
+            .toList()
         },
       summary =
         R4String.of(
           this@ClinicalImpressionSurrogate.summary,
           this@ClinicalImpressionSurrogate._summary,
         ),
-      finding = this@ClinicalImpressionSurrogate.finding ?: mutableListOf(),
+      finding = this@ClinicalImpressionSurrogate.finding ?: listOf(),
       prognosisCodeableConcept =
-        this@ClinicalImpressionSurrogate.prognosisCodeableConcept ?: mutableListOf(),
-      prognosisReference = this@ClinicalImpressionSurrogate.prognosisReference ?: mutableListOf(),
-      supportingInfo = this@ClinicalImpressionSurrogate.supportingInfo ?: mutableListOf(),
-      note = this@ClinicalImpressionSurrogate.note ?: mutableListOf(),
+        this@ClinicalImpressionSurrogate.prognosisCodeableConcept ?: listOf(),
+      prognosisReference = this@ClinicalImpressionSurrogate.prognosisReference ?: listOf(),
+      supportingInfo = this@ClinicalImpressionSurrogate.supportingInfo ?: listOf(),
+      note = this@ClinicalImpressionSurrogate.note ?: listOf(),
     )
 
   public companion object {
@@ -291,16 +290,13 @@ internal data class ClinicalImpressionSurrogate(
           problem = this@with.problem.takeIf { it.isNotEmpty() },
           investigation = this@with.investigation.takeIf { it.isNotEmpty() },
           protocol =
-            this@with.protocol
-              .map { it.value }
-              .toMutableList()
-              .takeUnless { it.all { it == null } },
+            this@with.protocol.map { it.value }.toList().takeUnless { it.all { it == null } },
           _protocol =
             this@with.protocol
               .map { it.toElement() }
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
-              ?.toMutableList(),
+              ?.toList(),
           summary = this@with.summary?.value,
           _summary = this@with.summary?.toElement(),
           finding = this@with.finding.takeIf { it.isNotEmpty() },

@@ -25,7 +25,7 @@ import com.google.fhir.model.r5.serializers.BundleEntrySerializer
 import com.google.fhir.model.r5.serializers.BundleLinkSerializer
 import com.google.fhir.model.r5.serializers.BundleSerializer
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -41,12 +41,12 @@ public data class Bundle(
    * like the create and conditional update. Otherwise, the use of the resouce id depends on the
    * given use case.
    */
-  override var id: kotlin.String? = null,
+  override val id: kotlin.String? = null,
   /**
    * The metadata about the resource. This is content that is maintained by the infrastructure.
    * Changes to the content might not always be associated with version changes to the resource.
    */
-  override var meta: Meta? = null,
+  override val meta: Meta? = null,
   /**
    * A reference to a set of rules that were followed when the resource was constructed, and which
    * must be understood when processing the content. Often, this is a reference to an implementation
@@ -60,7 +60,7 @@ public data class Bundle(
    * to an implementation guide that defines these special rules as part of its narrative along with
    * other profiles, value sets, etc.
    */
-  override var implicitRules: Uri? = null,
+  override val implicitRules: Uri? = null,
   /**
    * The base language in which the resource is written.
    *
@@ -72,7 +72,7 @@ public data class Bundle(
    * language is specified, it should it also be specified on the div element in the html (see rules
    * in HTML5 for information about the relationship between xml:lang and the html lang attribute).
    */
-  override var language: Code? = null,
+  override val language: Code? = null,
   /**
    * A persistent identifier for the bundle that won't change as a bundle is copied from server to
    * server.
@@ -82,7 +82,7 @@ public data class Bundle(
    * ignore Bundle.identifier when processing batches and transactions. For Documents the
    * .identifier SHALL be populated such that the .identifier is globally unique.
    */
-  public var identifier: Identifier? = null,
+  public val identifier: Identifier? = null,
   /**
    * Indicates the purpose of this bundle - how it is intended to be used.
    *
@@ -90,7 +90,7 @@ public data class Bundle(
    * transaction). This is primarily defined so that there can be specific rules for some of the
    * bundle types.
    */
-  public var type: Enumeration<BundleType>,
+  public val type: Enumeration<BundleType>,
   /**
    * The date/time that the bundle was assembled - i.e. when the resources were placed in the
    * bundle.
@@ -120,7 +120,7 @@ public data class Bundle(
    * resources in the bundle, and it should be equal or earlier than the .meta.lastUpdated on the
    * Bundle itself.
    */
-  public var timestamp: Instant? = null,
+  public val timestamp: Instant? = null,
   /**
    * If a set of search matches, this is the (potentially estimated) total number of entries of type
    * 'match' across all pages in the search. It does not include search.mode = 'include' or
@@ -129,7 +129,7 @@ public data class Bundle(
    * Only used if the bundle is a search result set. The total does not include resources such as
    * OperationOutcome and included resources, only the total number of matching resources.
    */
-  public var total: UnsignedInt? = null,
+  public val total: UnsignedInt? = null,
   /**
    * A series of links that provide context to this bundle.
    *
@@ -147,12 +147,12 @@ public data class Bundle(
    * choose to use such link relationships for other bundle types will need to negotiate behavior
    * with their interoperability partners.
    */
-  public var link: MutableList<Link> = mutableListOf(),
+  public val link: List<Link> = listOf(),
   /**
    * An entry in a bundle resource - will either contain a resource or information about a resource
    * (transactions and history only).
    */
-  public var entry: MutableList<Entry> = mutableListOf(),
+  public val entry: List<Entry> = listOf(),
   /**
    * Digital Signature - base64 encoded. XML-DSig or a JWS.
    *
@@ -160,7 +160,7 @@ public data class Bundle(
    * Requirements around inclusion of a signature, verification of signatures and treatment of
    * signed/non-signed bundles is implementation-environment specific.
    */
-  public var signature: Signature? = null,
+  public val signature: Signature? = null,
   /**
    * Captures issues and warnings that relate to the construction of the Bundle and the content
    * within it.
@@ -171,7 +171,7 @@ public data class Bundle(
    * errors that arise in the creation of the Bundle, then that should be handled by an
    * OperationOutcome being returned instead of the Bundle.
    */
-  public var issues: Resource? = null,
+  public val issues: Resource? = null,
 ) : Resource() {
   /** A series of links that provide context to this bundle. */
   @Serializable(with = BundleLinkSerializer::class)
@@ -180,7 +180,7 @@ public data class Bundle(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -193,7 +193,7 @@ public data class Bundle(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -212,14 +212,14 @@ public data class Bundle(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /**
      * A name which details the functional use for this link - see
      * [http://www.iana.org/assignments/link-relations/link-relations.xhtml#link-relations-1](http://www.iana.org/assignments/link-relations/link-relations.xhtml#link-relations-1).
      */
-    public var relation: Enumeration<LinkRelationTypes>,
+    public val relation: Enumeration<LinkRelationTypes>,
     /** The reference details for the link. */
-    public var url: Uri,
+    public val url: Uri,
   ) : BackboneElement()
 
   /**
@@ -232,7 +232,7 @@ public data class Bundle(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -245,7 +245,7 @@ public data class Bundle(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -264,9 +264,9 @@ public data class Bundle(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /** A series of links that provide context to this entry. */
-    public var link: MutableList<Link> = mutableListOf(),
+    public val link: List<Link> = listOf(),
     /**
      * The Absolute URL for the resource. Except for transactions and batches, each entry in a
      * Bundle must have a fullUrl. The fullUrl SHALL NOT disagree with the id in the resource - i.e.
@@ -290,27 +290,27 @@ public data class Bundle(
      * endpoint serving the resource (these will happen to have the same value on the canonical
      * server for the resource with the canonical URL).
      */
-    public var fullUrl: Uri? = null,
+    public val fullUrl: Uri? = null,
     /**
      * The Resource for the entry. The purpose/meaning of the resource is determined by the
      * Bundle.type. This is allowed to be a Parameters resource if and only if it is referenced by
      * something else within the Bundle that provides context/meaning.
      */
-    public var resource: Resource? = null,
+    public val resource: Resource? = null,
     /** Information about the search process that lead to the creation of this entry. */
-    public var search: Search? = null,
+    public val search: Search? = null,
     /**
      * Additional information about how this entry should be processed as part of a transaction or
      * batch. For history, it shows how the entry was processed to create the version contained in
      * the entry.
      */
-    public var request: Request? = null,
+    public val request: Request? = null,
     /**
      * Indicates the results of processing the corresponding 'request' entry in the batch or
      * transaction being responded to or what the results of an operation where when returning
      * history.
      */
-    public var response: Response? = null,
+    public val response: Response? = null,
   ) : BackboneElement() {
     /** Information about the search process that lead to the creation of this entry. */
     @Serializable(with = BundleEntrySearchSerializer::class)
@@ -319,7 +319,7 @@ public data class Bundle(
        * Unique id for the element within a resource (for internal references). This may be any
        * string value that does not contain spaces.
        */
-      override var id: kotlin.String? = null,
+      override val id: kotlin.String? = null,
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -332,7 +332,7 @@ public data class Bundle(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: MutableList<Extension> = mutableListOf(),
+      override val extension: List<Extension> = listOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -351,7 +351,7 @@ public data class Bundle(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: MutableList<Extension> = mutableListOf(),
+      override val modifierExtension: List<Extension> = listOf(),
       /**
        * Why this entry is in the result set - whether it's included as a match or because of an
        * _include requirement, or to convey information or warning information about the search
@@ -360,7 +360,7 @@ public data class Bundle(
        * There is only one mode. In some corner cases, a resource may be included because it is both
        * a match and an include. In these circumstances, 'match' takes precedence.
        */
-      public var mode: Enumeration<SearchEntryMode>? = null,
+      public val mode: Enumeration<SearchEntryMode>? = null,
       /**
        * When searching, the server's search ranking score for the entry.
        *
@@ -371,7 +371,7 @@ public data class Bundle(
        * See [Patient Match](patient-operation-match.html) for the EMPI search which relates to this
        * element.
        */
-      public var score: Decimal? = null,
+      public val score: Decimal? = null,
     ) : BackboneElement()
 
     /**
@@ -385,7 +385,7 @@ public data class Bundle(
        * Unique id for the element within a resource (for internal references). This may be any
        * string value that does not contain spaces.
        */
-      override var id: kotlin.String? = null,
+      override val id: kotlin.String? = null,
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -398,7 +398,7 @@ public data class Bundle(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: MutableList<Extension> = mutableListOf(),
+      override val extension: List<Extension> = listOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -417,41 +417,41 @@ public data class Bundle(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: MutableList<Extension> = mutableListOf(),
+      override val modifierExtension: List<Extension> = listOf(),
       /**
        * In a transaction or batch, this is the HTTP action to be executed for this entry. In a
        * history bundle, this indicates the HTTP action that occurred.
        */
-      public var method: Enumeration<HTTPVerb>,
+      public val method: Enumeration<HTTPVerb>,
       /**
        * The URL for this entry, relative to the root (the address to which the request is posted).
        *
        * E.g. for a Patient Create, the method would be "POST" and the URL would be "Patient". For a
        * Patient Update, the method would be PUT and the URL would be "Patient/[id]".
        */
-      public var url: Uri,
+      public val url: Uri,
       /**
        * If the ETag values match, return a 304 Not Modified status. See the API documentation for
        * ["Conditional Read"](http.html#cread).
        */
-      public var ifNoneMatch: String? = null,
+      public val ifNoneMatch: String? = null,
       /**
        * Only perform the operation if the last updated date matches. See the API documentation for
        * ["Conditional Read"](http.html#cread).
        */
-      public var ifModifiedSince: Instant? = null,
+      public val ifModifiedSince: Instant? = null,
       /**
        * Only perform the operation if the Etag value matches. For more information, see the API
        * section ["Managing Resource Contention"](http.html#concurrency).
        */
-      public var ifMatch: String? = null,
+      public val ifMatch: String? = null,
       /**
        * Instruct the server not to perform the create if a specified resource already exists. For
        * further information, see the API documentation for
        * ["Conditional Create"](http.html#ccreate). This is just the query portion of the URL - what
        * follows the "?" (not including the "?").
        */
-      public var ifNoneExist: String? = null,
+      public val ifNoneExist: String? = null,
     ) : BackboneElement()
 
     /**
@@ -465,7 +465,7 @@ public data class Bundle(
        * Unique id for the element within a resource (for internal references). This may be any
        * string value that does not contain spaces.
        */
-      override var id: kotlin.String? = null,
+      override val id: kotlin.String? = null,
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -478,7 +478,7 @@ public data class Bundle(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: MutableList<Extension> = mutableListOf(),
+      override val extension: List<Extension> = listOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -497,18 +497,18 @@ public data class Bundle(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: MutableList<Extension> = mutableListOf(),
+      override val modifierExtension: List<Extension> = listOf(),
       /**
        * The status code returned by processing this entry. The status SHALL start with a 3 digit
        * HTTP code (e.g. 404) and may contain the standard HTTP description associated with the
        * status code.
        */
-      public var status: String,
+      public val status: String,
       /**
        * The location header created by processing this operation, populated if the operation
        * returns a location.
        */
-      public var location: Uri? = null,
+      public val location: Uri? = null,
       /**
        * The Etag for the resource, if the operation for the entry produced a versioned resource
        * (see [Resource Metadata and Versioning](http.html#versioning) and
@@ -517,14 +517,14 @@ public data class Bundle(
        * Etags match the Resource.meta.versionId. The ETag has to match the version id in the header
        * if a resource is included.
        */
-      public var etag: String? = null,
+      public val etag: String? = null,
       /**
        * The date/time that the resource was modified on the server.
        *
        * This has to match the same time in the meta header (meta.lastUpdated) if a resource is
        * included.
        */
-      public var lastModified: Instant? = null,
+      public val lastModified: Instant? = null,
       /**
        * An OperationOutcome containing hints and warnings produced as part of processing this entry
        * in a batch or transaction.
@@ -538,7 +538,7 @@ public data class Bundle(
        * transaction, there will be a single OperationOutcome instead of a bundle in the case of an
        * error.
        */
-      public var outcome: Resource? = null,
+      public val outcome: Resource? = null,
     ) : BackboneElement()
   }
 

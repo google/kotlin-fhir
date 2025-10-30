@@ -27,7 +27,7 @@ import com.google.fhir.model.r4b.serializers.BiologicallyDerivedProductProcessin
 import com.google.fhir.model.r4b.serializers.BiologicallyDerivedProductSerializer
 import com.google.fhir.model.r4b.serializers.BiologicallyDerivedProductStorageSerializer
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -45,12 +45,12 @@ public data class BiologicallyDerivedProduct(
    * The only time that a resource does not have an id is when it is being submitted to the server
    * using a create operation.
    */
-  override var id: kotlin.String? = null,
+  override val id: kotlin.String? = null,
   /**
    * The metadata about the resource. This is content that is maintained by the infrastructure.
    * Changes to the content might not always be associated with version changes to the resource.
    */
-  override var meta: Meta? = null,
+  override val meta: Meta? = null,
   /**
    * A reference to a set of rules that were followed when the resource was constructed, and which
    * must be understood when processing the content. Often, this is a reference to an implementation
@@ -64,7 +64,7 @@ public data class BiologicallyDerivedProduct(
    * to an implementation guide that defines these special rules as part of it's narrative along
    * with other profiles, value sets, etc.
    */
-  override var implicitRules: Uri? = null,
+  override val implicitRules: Uri? = null,
   /**
    * The base language in which the resource is written.
    *
@@ -76,7 +76,7 @@ public data class BiologicallyDerivedProduct(
    * language is specified, it should it also be specified on the div element in the html (see rules
    * in HTML5 for information about the relationship between xml:lang and the html lang attribute).
    */
-  override var language: Code? = null,
+  override val language: Code? = null,
   /**
    * A human-readable narrative that contains a summary of the resource and can be used to represent
    * the content of the resource to a human. The narrative need not encode all the structured data,
@@ -90,7 +90,7 @@ public data class BiologicallyDerivedProduct(
    * legacy systems where information is captured as a "text blob" or where text is additionally
    * entered raw or narrated and encoded information is added later.
    */
-  override var text: Narrative? = null,
+  override val text: Narrative? = null,
   /**
    * These resources do not have an independent existence apart from the resource that contains
    * them - they cannot be identified independently, and nor can they have their own independent
@@ -101,7 +101,7 @@ public data class BiologicallyDerivedProduct(
    * resources may have profiles and tags In their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: MutableList<Resource> = mutableListOf(),
+  override val contained: List<Resource> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and manageable, there is a strict set of
@@ -114,7 +114,7 @@ public data class BiologicallyDerivedProduct(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: MutableList<Extension> = mutableListOf(),
+  override val extension: List<Extension> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -133,24 +133,24 @@ public data class BiologicallyDerivedProduct(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: MutableList<Extension> = mutableListOf(),
+  override val modifierExtension: List<Extension> = listOf(),
   /**
    * This records identifiers associated with this biologically derived product instance that are
    * defined by business processes and/or used to refer to it when a direct URL reference to the
    * resource itself is not appropriate (e.g. in CDA documents, or in written / printed
    * documentation).
    */
-  public var identifier: MutableList<Identifier> = mutableListOf(),
+  public val identifier: List<Identifier> = listOf(),
   /** Broad category of this product. */
-  public var productCategory: Enumeration<BiologicallyDerivedProductCategory>? = null,
+  public val productCategory: Enumeration<BiologicallyDerivedProductCategory>? = null,
   /** A code that identifies the kind of this biologically derived product (SNOMED Ctcode). */
-  public var productCode: CodeableConcept? = null,
+  public val productCode: CodeableConcept? = null,
   /** Whether the product is currently available. */
-  public var status: Enumeration<BiologicallyDerivedProductStatus>? = null,
+  public val status: Enumeration<BiologicallyDerivedProductStatus>? = null,
   /** Procedure request to obtain this biologically derived product. */
-  public var request: MutableList<Reference> = mutableListOf(),
+  public val request: List<Reference> = listOf(),
   /** Number of discrete units within this product. */
-  public var quantity: Integer? = null,
+  public val quantity: Integer? = null,
   /**
    * Parent product (if any).
    *
@@ -158,23 +158,23 @@ public data class BiologicallyDerivedProduct(
    * collected over several days from a single donor and the donation split into in multiple
    * containers which must be linked to the parent donation.
    */
-  public var parent: MutableList<Reference> = mutableListOf(),
+  public val parent: List<Reference> = listOf(),
   /** How this product was collected. */
-  public var collection: Collection? = null,
+  public val collection: Collection? = null,
   /**
    * Any processing of the product during collection that does not change the fundamental nature of
    * the product. For example adding anti-coagulants during the collection of Peripheral Blood Stem
    * Cells.
    */
-  public var processing: MutableList<Processing> = mutableListOf(),
+  public val processing: List<Processing> = listOf(),
   /**
    * Any manipulation of product post-collection that is intended to alter the product. For example
    * a buffy-coat enrichment or CD8 reduction of Peripheral Blood Stem Cells to make it more
    * suitable for infusion.
    */
-  public var manipulation: Manipulation? = null,
+  public val manipulation: Manipulation? = null,
   /** Product storage. */
-  public var storage: MutableList<Storage> = mutableListOf(),
+  public val storage: List<Storage> = listOf(),
 ) : DomainResource() {
   /** How this product was collected. */
   @Serializable(with = BiologicallyDerivedProductCollectionSerializer::class)
@@ -183,7 +183,7 @@ public data class BiologicallyDerivedProduct(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and manageable, there is a strict set of
@@ -196,7 +196,7 @@ public data class BiologicallyDerivedProduct(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -215,16 +215,16 @@ public data class BiologicallyDerivedProduct(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /** Healthcare professional who is performing the collection. */
-    public var collector: Reference? = null,
+    public val collector: Reference? = null,
     /**
      * The patient or entity, such as a hospital or vendor in the case of a
      * processed/manipulated/manufactured product, providing the product.
      */
-    public var source: Reference? = null,
+    public val source: Reference? = null,
     /** Time of product collection. */
-    public var collected: Collected? = null,
+    public val collected: Collected? = null,
   ) : BackboneElement() {
     @Serializable(with = BiologicallyDerivedProductCollectionCollectedSerializer::class)
     public sealed interface Collected {
@@ -261,7 +261,7 @@ public data class BiologicallyDerivedProduct(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and manageable, there is a strict set of
@@ -274,7 +274,7 @@ public data class BiologicallyDerivedProduct(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -293,15 +293,15 @@ public data class BiologicallyDerivedProduct(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /** Description of of processing. */
-    public var description: String? = null,
+    public val description: String? = null,
     /** Procesing code. */
-    public var procedure: CodeableConcept? = null,
+    public val procedure: CodeableConcept? = null,
     /** Substance added during processing. */
-    public var additive: Reference? = null,
+    public val additive: Reference? = null,
     /** Time of processing. */
-    public var time: Time? = null,
+    public val time: Time? = null,
   ) : BackboneElement() {
     @Serializable(with = BiologicallyDerivedProductProcessingTimeSerializer::class)
     public sealed interface Time {
@@ -337,7 +337,7 @@ public data class BiologicallyDerivedProduct(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and manageable, there is a strict set of
@@ -350,7 +350,7 @@ public data class BiologicallyDerivedProduct(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -369,11 +369,11 @@ public data class BiologicallyDerivedProduct(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /** Description of manipulation. */
-    public var description: String? = null,
+    public val description: String? = null,
     /** Time of manipulation. */
-    public var time: Time? = null,
+    public val time: Time? = null,
   ) : BackboneElement() {
     @Serializable(with = BiologicallyDerivedProductManipulationTimeSerializer::class)
     public sealed interface Time {
@@ -405,7 +405,7 @@ public data class BiologicallyDerivedProduct(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and manageable, there is a strict set of
@@ -418,7 +418,7 @@ public data class BiologicallyDerivedProduct(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -437,15 +437,15 @@ public data class BiologicallyDerivedProduct(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /** Description of storage. */
-    public var description: String? = null,
+    public val description: String? = null,
     /** Storage temperature. */
-    public var temperature: Decimal? = null,
+    public val temperature: Decimal? = null,
     /** Temperature scale used. */
-    public var scale: Enumeration<BiologicallyDerivedProductStorageScale>? = null,
+    public val scale: Enumeration<BiologicallyDerivedProductStorageScale>? = null,
     /** Storage timeperiod. */
-    public var duration: Period? = null,
+    public val duration: Period? = null,
   ) : BackboneElement()
 
   /** BiologicallyDerived Product Storage Scale. */

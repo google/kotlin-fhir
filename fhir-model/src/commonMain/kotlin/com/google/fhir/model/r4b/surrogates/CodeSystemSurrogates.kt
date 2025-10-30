@@ -51,29 +51,29 @@ import kotlin.Double
 import kotlin.Int
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class CodeSystemFilterSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var code: KotlinString? = null,
   public var _code: Element? = null,
   public var description: KotlinString? = null,
   public var _description: Element? = null,
-  public var `operator`: MutableList<KotlinString?>? = null,
-  public var _operator: MutableList<Element?>? = null,
+  public var `operator`: List<KotlinString?>? = null,
+  public var _operator: List<Element?>? = null,
   public var `value`: KotlinString? = null,
   public var _value: Element? = null,
 ) {
   public fun toModel(): CodeSystem.Filter =
     CodeSystem.Filter(
       id = this@CodeSystemFilterSurrogate.id,
-      extension = this@CodeSystemFilterSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@CodeSystemFilterSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@CodeSystemFilterSurrogate.extension ?: listOf(),
+      modifierExtension = this@CodeSystemFilterSurrogate.modifierExtension ?: listOf(),
       code = Code.of(this@CodeSystemFilterSurrogate.code, this@CodeSystemFilterSurrogate._code)!!,
       description =
         R4bString.of(
@@ -85,7 +85,7 @@ internal data class CodeSystemFilterSurrogate(
           this@CodeSystemFilterSurrogate.`operator` == null &&
             this@CodeSystemFilterSurrogate._operator == null
         ) {
-          mutableListOf()
+          listOf()
         } else {
           (this@CodeSystemFilterSurrogate.`operator`
               ?: List(this@CodeSystemFilterSurrogate._operator!!.size) { null })
@@ -96,7 +96,7 @@ internal data class CodeSystemFilterSurrogate(
             .map { (value, element) ->
               Enumeration.of(value.let { CodeSystem.FilterOperator.fromCode(it!!) }, element)
             }
-            .toMutableList()
+            .toList()
         },
       `value` =
         R4bString.of(
@@ -119,14 +119,14 @@ internal data class CodeSystemFilterSurrogate(
           `operator` =
             this@with.`operator`
               .map { it.value?.getCode() }
-              .toMutableList()
+              .toList()
               .takeUnless { it.all { it == null } },
           _operator =
             this@with.`operator`
               .map { it.toElement() }
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
-              ?.toMutableList(),
+              ?.toList(),
           `value` = this@with.`value`.value,
           _value = this@with.`value`.toElement(),
         )
@@ -137,8 +137,8 @@ internal data class CodeSystemFilterSurrogate(
 @Serializable
 internal data class CodeSystemPropertySurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var code: KotlinString? = null,
   public var _code: Element? = null,
   public var uri: KotlinString? = null,
@@ -151,8 +151,8 @@ internal data class CodeSystemPropertySurrogate(
   public fun toModel(): CodeSystem.Property =
     CodeSystem.Property(
       id = this@CodeSystemPropertySurrogate.id,
-      extension = this@CodeSystemPropertySurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@CodeSystemPropertySurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@CodeSystemPropertySurrogate.extension ?: listOf(),
+      modifierExtension = this@CodeSystemPropertySurrogate.modifierExtension ?: listOf(),
       code =
         Code.of(this@CodeSystemPropertySurrogate.code, this@CodeSystemPropertySurrogate._code)!!,
       uri = Uri.of(this@CodeSystemPropertySurrogate.uri, this@CodeSystemPropertySurrogate._uri),
@@ -191,23 +191,23 @@ internal data class CodeSystemPropertySurrogate(
 @Serializable
 internal data class CodeSystemConceptSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var code: KotlinString? = null,
   public var _code: Element? = null,
   public var display: KotlinString? = null,
   public var _display: Element? = null,
   public var definition: KotlinString? = null,
   public var _definition: Element? = null,
-  public var designation: MutableList<CodeSystem.Concept.Designation>? = null,
-  public var `property`: MutableList<CodeSystem.Concept.Property>? = null,
-  public var concept: MutableList<CodeSystem.Concept>? = null,
+  public var designation: List<CodeSystem.Concept.Designation>? = null,
+  public var `property`: List<CodeSystem.Concept.Property>? = null,
+  public var concept: List<CodeSystem.Concept>? = null,
 ) {
   public fun toModel(): CodeSystem.Concept =
     CodeSystem.Concept(
       id = this@CodeSystemConceptSurrogate.id,
-      extension = this@CodeSystemConceptSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@CodeSystemConceptSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@CodeSystemConceptSurrogate.extension ?: listOf(),
+      modifierExtension = this@CodeSystemConceptSurrogate.modifierExtension ?: listOf(),
       code = Code.of(this@CodeSystemConceptSurrogate.code, this@CodeSystemConceptSurrogate._code)!!,
       display =
         R4bString.of(
@@ -219,9 +219,9 @@ internal data class CodeSystemConceptSurrogate(
           this@CodeSystemConceptSurrogate.definition,
           this@CodeSystemConceptSurrogate._definition,
         ),
-      designation = this@CodeSystemConceptSurrogate.designation ?: mutableListOf(),
-      `property` = this@CodeSystemConceptSurrogate.`property` ?: mutableListOf(),
-      concept = this@CodeSystemConceptSurrogate.concept ?: mutableListOf(),
+      designation = this@CodeSystemConceptSurrogate.designation ?: listOf(),
+      `property` = this@CodeSystemConceptSurrogate.`property` ?: listOf(),
+      concept = this@CodeSystemConceptSurrogate.concept ?: listOf(),
     )
 
   public companion object {
@@ -248,8 +248,8 @@ internal data class CodeSystemConceptSurrogate(
 @Serializable
 internal data class CodeSystemConceptDesignationSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var use: Coding? = null,
@@ -259,9 +259,8 @@ internal data class CodeSystemConceptDesignationSurrogate(
   public fun toModel(): CodeSystem.Concept.Designation =
     CodeSystem.Concept.Designation(
       id = this@CodeSystemConceptDesignationSurrogate.id,
-      extension = this@CodeSystemConceptDesignationSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@CodeSystemConceptDesignationSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@CodeSystemConceptDesignationSurrogate.extension ?: listOf(),
+      modifierExtension = this@CodeSystemConceptDesignationSurrogate.modifierExtension ?: listOf(),
       language =
         this@CodeSystemConceptDesignationSurrogate.language?.let {
           Enumeration.of(
@@ -299,8 +298,8 @@ internal data class CodeSystemConceptDesignationSurrogate(
 @Serializable
 internal data class CodeSystemConceptPropertySurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var code: KotlinString? = null,
   public var _code: Element? = null,
   public var `value`: CodeSystem.Concept.Property.Value,
@@ -308,9 +307,8 @@ internal data class CodeSystemConceptPropertySurrogate(
   public fun toModel(): CodeSystem.Concept.Property =
     CodeSystem.Concept.Property(
       id = this@CodeSystemConceptPropertySurrogate.id,
-      extension = this@CodeSystemConceptPropertySurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@CodeSystemConceptPropertySurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@CodeSystemConceptPropertySurrogate.extension ?: listOf(),
+      modifierExtension = this@CodeSystemConceptPropertySurrogate.modifierExtension ?: listOf(),
       code =
         Code.of(
           this@CodeSystemConceptPropertySurrogate.code,
@@ -412,12 +410,12 @@ internal data class CodeSystemSurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: MutableList<Resource>? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var contained: List<Resource>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var url: KotlinString? = null,
   public var _url: Element? = null,
-  public var identifier: MutableList<Identifier>? = null,
+  public var identifier: List<Identifier>? = null,
   public var version: KotlinString? = null,
   public var _version: Element? = null,
   public var name: KotlinString? = null,
@@ -432,11 +430,11 @@ internal data class CodeSystemSurrogate(
   public var _date: Element? = null,
   public var publisher: KotlinString? = null,
   public var _publisher: Element? = null,
-  public var contact: MutableList<ContactDetail>? = null,
+  public var contact: List<ContactDetail>? = null,
   public var description: KotlinString? = null,
   public var _description: Element? = null,
-  public var useContext: MutableList<UsageContext>? = null,
-  public var jurisdiction: MutableList<CodeableConcept>? = null,
+  public var useContext: List<UsageContext>? = null,
+  public var jurisdiction: List<CodeableConcept>? = null,
   public var purpose: KotlinString? = null,
   public var _purpose: Element? = null,
   public var copyright: KotlinString? = null,
@@ -457,9 +455,9 @@ internal data class CodeSystemSurrogate(
   public var _supplements: Element? = null,
   public var count: Int? = null,
   public var _count: Element? = null,
-  public var filter: MutableList<CodeSystem.Filter>? = null,
-  public var `property`: MutableList<CodeSystem.Property>? = null,
-  public var concept: MutableList<CodeSystem.Concept>? = null,
+  public var filter: List<CodeSystem.Filter>? = null,
+  public var `property`: List<CodeSystem.Property>? = null,
+  public var concept: List<CodeSystem.Concept>? = null,
 ) {
   public fun toModel(): CodeSystem =
     CodeSystem(
@@ -469,11 +467,11 @@ internal data class CodeSystemSurrogate(
         Uri.of(this@CodeSystemSurrogate.implicitRules, this@CodeSystemSurrogate._implicitRules),
       language = Code.of(this@CodeSystemSurrogate.language, this@CodeSystemSurrogate._language),
       text = this@CodeSystemSurrogate.text,
-      contained = this@CodeSystemSurrogate.contained ?: mutableListOf(),
-      extension = this@CodeSystemSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@CodeSystemSurrogate.modifierExtension ?: mutableListOf(),
+      contained = this@CodeSystemSurrogate.contained ?: listOf(),
+      extension = this@CodeSystemSurrogate.extension ?: listOf(),
+      modifierExtension = this@CodeSystemSurrogate.modifierExtension ?: listOf(),
       url = Uri.of(this@CodeSystemSurrogate.url, this@CodeSystemSurrogate._url),
-      identifier = this@CodeSystemSurrogate.identifier ?: mutableListOf(),
+      identifier = this@CodeSystemSurrogate.identifier ?: listOf(),
       version = R4bString.of(this@CodeSystemSurrogate.version, this@CodeSystemSurrogate._version),
       name = R4bString.of(this@CodeSystemSurrogate.name, this@CodeSystemSurrogate._name),
       title = R4bString.of(this@CodeSystemSurrogate.title, this@CodeSystemSurrogate._title),
@@ -494,11 +492,11 @@ internal data class CodeSystemSurrogate(
         ),
       publisher =
         R4bString.of(this@CodeSystemSurrogate.publisher, this@CodeSystemSurrogate._publisher),
-      contact = this@CodeSystemSurrogate.contact ?: mutableListOf(),
+      contact = this@CodeSystemSurrogate.contact ?: listOf(),
       description =
         Markdown.of(this@CodeSystemSurrogate.description, this@CodeSystemSurrogate._description),
-      useContext = this@CodeSystemSurrogate.useContext ?: mutableListOf(),
-      jurisdiction = this@CodeSystemSurrogate.jurisdiction ?: mutableListOf(),
+      useContext = this@CodeSystemSurrogate.useContext ?: listOf(),
+      jurisdiction = this@CodeSystemSurrogate.jurisdiction ?: listOf(),
       purpose = Markdown.of(this@CodeSystemSurrogate.purpose, this@CodeSystemSurrogate._purpose),
       copyright =
         Markdown.of(this@CodeSystemSurrogate.copyright, this@CodeSystemSurrogate._copyright),
@@ -534,9 +532,9 @@ internal data class CodeSystemSurrogate(
       supplements =
         Canonical.of(this@CodeSystemSurrogate.supplements, this@CodeSystemSurrogate._supplements),
       count = UnsignedInt.of(this@CodeSystemSurrogate.count, this@CodeSystemSurrogate._count),
-      filter = this@CodeSystemSurrogate.filter ?: mutableListOf(),
-      `property` = this@CodeSystemSurrogate.`property` ?: mutableListOf(),
-      concept = this@CodeSystemSurrogate.concept ?: mutableListOf(),
+      filter = this@CodeSystemSurrogate.filter ?: listOf(),
+      `property` = this@CodeSystemSurrogate.`property` ?: listOf(),
+      concept = this@CodeSystemSurrogate.concept ?: listOf(),
     )
 
   public companion object {

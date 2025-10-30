@@ -19,7 +19,7 @@
 package com.google.fhir.model.r4b
 
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 
 /**
  * Base StructureDefinition for code type: A string which has at least one character and no leading
@@ -27,7 +27,7 @@ import kotlin.collections.MutableList
  */
 public data class Code(
   /** unique id for the element within a resource (for internal references) */
-  override var id: kotlin.String? = null,
+  override val id: kotlin.String? = null,
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and manageable, there is a strict set of
@@ -40,9 +40,9 @@ public data class Code(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: MutableList<Extension> = mutableListOf(),
+  override val extension: List<Extension> = listOf(),
   /** Primitive value for code */
-  override var `value`: kotlin.String? = null,
+  override val `value`: kotlin.String? = null,
 ) : String(id, extension, `value`) {
   override fun toElement(): Element? {
     if (id != null || extension.isNotEmpty()) {

@@ -42,15 +42,15 @@ import com.google.fhir.model.r4b.terminologies.PublicationStatus
 import kotlin.Boolean as KotlinBoolean
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class IngredientManufacturerSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var role: KotlinString? = null,
   public var _role: Element? = null,
   public var manufacturer: Reference,
@@ -58,8 +58,8 @@ internal data class IngredientManufacturerSurrogate(
   public fun toModel(): Ingredient.Manufacturer =
     Ingredient.Manufacturer(
       id = this@IngredientManufacturerSurrogate.id,
-      extension = this@IngredientManufacturerSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@IngredientManufacturerSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@IngredientManufacturerSurrogate.extension ?: listOf(),
+      modifierExtension = this@IngredientManufacturerSurrogate.modifierExtension ?: listOf(),
       role =
         this@IngredientManufacturerSurrogate.role?.let {
           Enumeration.of(
@@ -88,18 +88,18 @@ internal data class IngredientManufacturerSurrogate(
 @Serializable
 internal data class IngredientSubstanceSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var code: CodeableReference,
-  public var strength: MutableList<Ingredient.Substance.Strength>? = null,
+  public var strength: List<Ingredient.Substance.Strength>? = null,
 ) {
   public fun toModel(): Ingredient.Substance =
     Ingredient.Substance(
       id = this@IngredientSubstanceSurrogate.id,
-      extension = this@IngredientSubstanceSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@IngredientSubstanceSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@IngredientSubstanceSurrogate.extension ?: listOf(),
+      modifierExtension = this@IngredientSubstanceSurrogate.modifierExtension ?: listOf(),
       code = this@IngredientSubstanceSurrogate.code,
-      strength = this@IngredientSubstanceSurrogate.strength ?: mutableListOf(),
+      strength = this@IngredientSubstanceSurrogate.strength ?: listOf(),
     )
 
   public companion object {
@@ -119,8 +119,8 @@ internal data class IngredientSubstanceSurrogate(
 @Serializable
 internal data class IngredientSubstanceStrengthSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var presentation: Ingredient.Substance.Strength.Presentation? = null,
   public var textPresentation: KotlinString? = null,
   public var _textPresentation: Element? = null,
@@ -129,15 +129,14 @@ internal data class IngredientSubstanceStrengthSurrogate(
   public var _textConcentration: Element? = null,
   public var measurementPoint: KotlinString? = null,
   public var _measurementPoint: Element? = null,
-  public var country: MutableList<CodeableConcept>? = null,
-  public var referenceStrength: MutableList<Ingredient.Substance.Strength.ReferenceStrength>? = null,
+  public var country: List<CodeableConcept>? = null,
+  public var referenceStrength: List<Ingredient.Substance.Strength.ReferenceStrength>? = null,
 ) {
   public fun toModel(): Ingredient.Substance.Strength =
     Ingredient.Substance.Strength(
       id = this@IngredientSubstanceStrengthSurrogate.id,
-      extension = this@IngredientSubstanceStrengthSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@IngredientSubstanceStrengthSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@IngredientSubstanceStrengthSurrogate.extension ?: listOf(),
+      modifierExtension = this@IngredientSubstanceStrengthSurrogate.modifierExtension ?: listOf(),
       presentation = this@IngredientSubstanceStrengthSurrogate.presentation,
       textPresentation =
         R4bString.of(
@@ -155,9 +154,8 @@ internal data class IngredientSubstanceStrengthSurrogate(
           this@IngredientSubstanceStrengthSurrogate.measurementPoint,
           this@IngredientSubstanceStrengthSurrogate._measurementPoint,
         ),
-      country = this@IngredientSubstanceStrengthSurrogate.country ?: mutableListOf(),
-      referenceStrength =
-        this@IngredientSubstanceStrengthSurrogate.referenceStrength ?: mutableListOf(),
+      country = this@IngredientSubstanceStrengthSurrogate.country ?: listOf(),
+      referenceStrength = this@IngredientSubstanceStrengthSurrogate.referenceStrength ?: listOf(),
     )
 
   public companion object {
@@ -187,22 +185,20 @@ internal data class IngredientSubstanceStrengthSurrogate(
 @Serializable
 internal data class IngredientSubstanceStrengthReferenceStrengthSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var substance: CodeableReference? = null,
   public var strength: Ingredient.Substance.Strength.ReferenceStrength.Strength,
   public var measurementPoint: KotlinString? = null,
   public var _measurementPoint: Element? = null,
-  public var country: MutableList<CodeableConcept>? = null,
+  public var country: List<CodeableConcept>? = null,
 ) {
   public fun toModel(): Ingredient.Substance.Strength.ReferenceStrength =
     Ingredient.Substance.Strength.ReferenceStrength(
       id = this@IngredientSubstanceStrengthReferenceStrengthSurrogate.id,
-      extension =
-        this@IngredientSubstanceStrengthReferenceStrengthSurrogate.extension ?: mutableListOf(),
+      extension = this@IngredientSubstanceStrengthReferenceStrengthSurrogate.extension ?: listOf(),
       modifierExtension =
-        this@IngredientSubstanceStrengthReferenceStrengthSurrogate.modifierExtension
-          ?: mutableListOf(),
+        this@IngredientSubstanceStrengthReferenceStrengthSurrogate.modifierExtension ?: listOf(),
       substance = this@IngredientSubstanceStrengthReferenceStrengthSurrogate.substance,
       strength = this@IngredientSubstanceStrengthReferenceStrengthSurrogate.strength,
       measurementPoint =
@@ -210,8 +206,7 @@ internal data class IngredientSubstanceStrengthReferenceStrengthSurrogate(
           this@IngredientSubstanceStrengthReferenceStrengthSurrogate.measurementPoint,
           this@IngredientSubstanceStrengthReferenceStrengthSurrogate._measurementPoint,
         ),
-      country =
-        this@IngredientSubstanceStrengthReferenceStrengthSurrogate.country ?: mutableListOf(),
+      country = this@IngredientSubstanceStrengthReferenceStrengthSurrogate.country ?: listOf(),
     )
 
   public companion object {
@@ -314,18 +309,18 @@ internal data class IngredientSurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: MutableList<Resource>? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var contained: List<Resource>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var identifier: Identifier? = null,
   public var status: KotlinString? = null,
   public var _status: Element? = null,
-  public var `for`: MutableList<Reference>? = null,
+  public var `for`: List<Reference>? = null,
   public var role: CodeableConcept,
-  public var function: MutableList<CodeableConcept>? = null,
+  public var function: List<CodeableConcept>? = null,
   public var allergenicIndicator: KotlinBoolean? = null,
   public var _allergenicIndicator: Element? = null,
-  public var manufacturer: MutableList<Ingredient.Manufacturer>? = null,
+  public var manufacturer: List<Ingredient.Manufacturer>? = null,
   public var substance: Ingredient.Substance,
 ) {
   public fun toModel(): Ingredient =
@@ -336,24 +331,24 @@ internal data class IngredientSurrogate(
         Uri.of(this@IngredientSurrogate.implicitRules, this@IngredientSurrogate._implicitRules),
       language = Code.of(this@IngredientSurrogate.language, this@IngredientSurrogate._language),
       text = this@IngredientSurrogate.text,
-      contained = this@IngredientSurrogate.contained ?: mutableListOf(),
-      extension = this@IngredientSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@IngredientSurrogate.modifierExtension ?: mutableListOf(),
+      contained = this@IngredientSurrogate.contained ?: listOf(),
+      extension = this@IngredientSurrogate.extension ?: listOf(),
+      modifierExtension = this@IngredientSurrogate.modifierExtension ?: listOf(),
       identifier = this@IngredientSurrogate.identifier,
       status =
         Enumeration.of(
           PublicationStatus.fromCode(this@IngredientSurrogate.status!!),
           this@IngredientSurrogate._status,
         ),
-      `for` = this@IngredientSurrogate.`for` ?: mutableListOf(),
+      `for` = this@IngredientSurrogate.`for` ?: listOf(),
       role = this@IngredientSurrogate.role,
-      function = this@IngredientSurrogate.function ?: mutableListOf(),
+      function = this@IngredientSurrogate.function ?: listOf(),
       allergenicIndicator =
         R4bBoolean.of(
           this@IngredientSurrogate.allergenicIndicator,
           this@IngredientSurrogate._allergenicIndicator,
         ),
-      manufacturer = this@IngredientSurrogate.manufacturer ?: mutableListOf(),
+      manufacturer = this@IngredientSurrogate.manufacturer ?: listOf(),
       substance = this@IngredientSurrogate.substance,
     )
 

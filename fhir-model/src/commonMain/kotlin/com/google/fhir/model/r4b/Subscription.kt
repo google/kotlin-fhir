@@ -21,7 +21,7 @@ package com.google.fhir.model.r4b
 import com.google.fhir.model.r4b.serializers.SubscriptionChannelSerializer
 import com.google.fhir.model.r4b.serializers.SubscriptionSerializer
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -41,12 +41,12 @@ public data class Subscription(
    * The only time that a resource does not have an id is when it is being submitted to the server
    * using a create operation.
    */
-  override var id: kotlin.String? = null,
+  override val id: kotlin.String? = null,
   /**
    * The metadata about the resource. This is content that is maintained by the infrastructure.
    * Changes to the content might not always be associated with version changes to the resource.
    */
-  override var meta: Meta? = null,
+  override val meta: Meta? = null,
   /**
    * A reference to a set of rules that were followed when the resource was constructed, and which
    * must be understood when processing the content. Often, this is a reference to an implementation
@@ -60,7 +60,7 @@ public data class Subscription(
    * to an implementation guide that defines these special rules as part of it's narrative along
    * with other profiles, value sets, etc.
    */
-  override var implicitRules: Uri? = null,
+  override val implicitRules: Uri? = null,
   /**
    * The base language in which the resource is written.
    *
@@ -72,7 +72,7 @@ public data class Subscription(
    * language is specified, it should it also be specified on the div element in the html (see rules
    * in HTML5 for information about the relationship between xml:lang and the html lang attribute).
    */
-  override var language: Code? = null,
+  override val language: Code? = null,
   /**
    * A human-readable narrative that contains a summary of the resource and can be used to represent
    * the content of the resource to a human. The narrative need not encode all the structured data,
@@ -86,7 +86,7 @@ public data class Subscription(
    * legacy systems where information is captured as a "text blob" or where text is additionally
    * entered raw or narrated and encoded information is added later.
    */
-  override var text: Narrative? = null,
+  override val text: Narrative? = null,
   /**
    * These resources do not have an independent existence apart from the resource that contains
    * them - they cannot be identified independently, and nor can they have their own independent
@@ -97,7 +97,7 @@ public data class Subscription(
    * resources may have profiles and tags In their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: MutableList<Resource> = mutableListOf(),
+  override val contained: List<Resource> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and manageable, there is a strict set of
@@ -110,7 +110,7 @@ public data class Subscription(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: MutableList<Extension> = mutableListOf(),
+  override val extension: List<Extension> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -129,7 +129,7 @@ public data class Subscription(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: MutableList<Extension> = mutableListOf(),
+  override val modifierExtension: List<Extension> = listOf(),
   /**
    * The status of the subscription, which marks the server state for managing the subscription.
    *
@@ -140,20 +140,20 @@ public data class Subscription(
    * This element is labeled as a modifier because the status contains codes that mark the resource
    * as not currently valid.
    */
-  public var status: Enumeration<SubscriptionStatusCodes>,
+  public val status: Enumeration<SubscriptionStatusCodes>,
   /**
    * Contact details for a human to contact about the subscription. The primary use of this for
    * system administrator troubleshooting.
    */
-  public var contact: MutableList<ContactPoint> = mutableListOf(),
+  public val contact: List<ContactPoint> = listOf(),
   /**
    * The time for the server to turn the subscription off.
    *
    * The server is permitted to deviate from this time but should observe it.
    */
-  public var end: Instant? = null,
+  public val end: Instant? = null,
   /** A description of why this subscription is defined. */
-  public var reason: String,
+  public val reason: String,
   /**
    * The rules that the server should use to determine when to generate notifications for this
    * subscription.
@@ -161,11 +161,11 @@ public data class Subscription(
    * The rules are search criteria (without the [base] part). Like Bundle.entry.request.url, it has
    * no leading "/".
    */
-  public var criteria: String,
+  public val criteria: String,
   /** A record of the last error that occurred when the server processed a notification. */
-  public var error: String? = null,
+  public val error: String? = null,
   /** Details where to send notifications when resources are received that meet the criteria. */
-  public var channel: Channel,
+  public val channel: Channel,
 ) : DomainResource() {
   /** Details where to send notifications when resources are received that meet the criteria. */
   @Serializable(with = SubscriptionChannelSerializer::class)
@@ -174,7 +174,7 @@ public data class Subscription(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and manageable, there is a strict set of
@@ -187,7 +187,7 @@ public data class Subscription(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -206,9 +206,9 @@ public data class Subscription(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /** The type of channel to send notifications on. */
-    public var type: Enumeration<SubscriptionChannelType>,
+    public val type: Enumeration<SubscriptionChannelType>,
     /**
      * The url that describes the actual end-point to send messages to.
      *
@@ -218,7 +218,7 @@ public data class Subscription(
      * case, it is relative to the server end-point (since there may be more than one, clients
      * should avoid using relative URIs).
      */
-    public var endpoint: Url? = null,
+    public val endpoint: Url? = null,
     /**
      * The mime type to send the payload in - either application/fhir+xml, or application/fhir+json.
      * If the payload is not present, then there is no payload in the notification, just a
@@ -227,7 +227,7 @@ public data class Subscription(
      * Sending the payload has obvious security implications. The server is responsible for ensuring
      * that the content is appropriately secured.
      */
-    public var payload: Code? = null,
+    public val payload: Code? = null,
     /**
      * Additional headers / information to send as part of the notification.
      *
@@ -235,7 +235,7 @@ public data class Subscription(
      * the recipient and/or meet security requirements; for example, support of multiple headers in
      * the outgoing notifications for rest-hook type subscriptions.
      */
-    public var `header`: MutableList<String> = mutableListOf(),
+    public val `header`: List<String> = listOf(),
   ) : BackboneElement()
 
   /** The type of method used to execute a subscription. */

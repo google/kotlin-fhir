@@ -27,7 +27,7 @@ import com.google.fhir.model.r5.serializers.InventoryItemNameSerializer
 import com.google.fhir.model.r5.serializers.InventoryItemResponsibleOrganizationSerializer
 import com.google.fhir.model.r5.serializers.InventoryItemSerializer
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -43,12 +43,12 @@ public data class InventoryItem(
    * like the create and conditional update. Otherwise, the use of the resouce id depends on the
    * given use case.
    */
-  override var id: kotlin.String? = null,
+  override val id: kotlin.String? = null,
   /**
    * The metadata about the resource. This is content that is maintained by the infrastructure.
    * Changes to the content might not always be associated with version changes to the resource.
    */
-  override var meta: Meta? = null,
+  override val meta: Meta? = null,
   /**
    * A reference to a set of rules that were followed when the resource was constructed, and which
    * must be understood when processing the content. Often, this is a reference to an implementation
@@ -62,7 +62,7 @@ public data class InventoryItem(
    * to an implementation guide that defines these special rules as part of its narrative along with
    * other profiles, value sets, etc.
    */
-  override var implicitRules: Uri? = null,
+  override val implicitRules: Uri? = null,
   /**
    * The base language in which the resource is written.
    *
@@ -74,7 +74,7 @@ public data class InventoryItem(
    * language is specified, it should it also be specified on the div element in the html (see rules
    * in HTML5 for information about the relationship between xml:lang and the html lang attribute).
    */
-  override var language: Code? = null,
+  override val language: Code? = null,
   /**
    * A human-readable narrative that contains a summary of the resource and can be used to represent
    * the content of the resource to a human. The narrative need not encode all the structured data,
@@ -88,7 +88,7 @@ public data class InventoryItem(
    * legacy systems where information is captured as a "text blob" or where text is additionally
    * entered raw or narrated and encoded information is added later.
    */
-  override var text: Narrative? = null,
+  override val text: Narrative? = null,
   /**
    * These resources do not have an independent existence apart from the resource that contains
    * them - they cannot be identified independently, nor can they have their own independent
@@ -100,7 +100,7 @@ public data class InventoryItem(
    * resources may have profiles and tags in their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: MutableList<Resource> = mutableListOf(),
+  override val contained: List<Resource> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and managable, there is a strict set of governance
@@ -113,7 +113,7 @@ public data class InventoryItem(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: MutableList<Extension> = mutableListOf(),
+  override val extension: List<Extension> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -132,38 +132,38 @@ public data class InventoryItem(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: MutableList<Extension> = mutableListOf(),
+  override val modifierExtension: List<Extension> = listOf(),
   /** Business identifier for the inventory item. */
-  public var identifier: MutableList<Identifier> = mutableListOf(),
+  public val identifier: List<Identifier> = listOf(),
   /** Status of the item entry. */
-  public var status: Enumeration<InventoryItemStatusCodes>,
+  public val status: Enumeration<InventoryItemStatusCodes>,
   /** Category or class of the item. */
-  public var category: MutableList<CodeableConcept> = mutableListOf(),
+  public val category: List<CodeableConcept> = listOf(),
   /** Code designating the specific type of item. */
-  public var code: MutableList<CodeableConcept> = mutableListOf(),
+  public val code: List<CodeableConcept> = listOf(),
   /** The item name(s) - the brand name, or common name, functional name, generic name. */
-  public var name: MutableList<Name> = mutableListOf(),
+  public val name: List<Name> = listOf(),
   /** Organization(s) responsible for the product. */
-  public var responsibleOrganization: MutableList<ResponsibleOrganization> = mutableListOf(),
+  public val responsibleOrganization: List<ResponsibleOrganization> = listOf(),
   /** The descriptive characteristics of the inventory item. */
-  public var description: Description? = null,
+  public val description: Description? = null,
   /**
    * The usage status e.g. recalled, in use, discarded... This can be used to indicate that the
    * items have been taken out of inventory, or are in use, etc.
    */
-  public var inventoryStatus: MutableList<CodeableConcept> = mutableListOf(),
+  public val inventoryStatus: List<CodeableConcept> = listOf(),
   /** The base unit of measure - the unit in which the product is used or counted. */
-  public var baseUnit: CodeableConcept? = null,
+  public val baseUnit: CodeableConcept? = null,
   /** Net content or amount present in the item. */
-  public var netContent: Quantity? = null,
+  public val netContent: Quantity? = null,
   /** Association with other items or products. */
-  public var association: MutableList<Association> = mutableListOf(),
+  public val association: List<Association> = listOf(),
   /** The descriptive or identifying characteristics of the item. */
-  public var characteristic: MutableList<Characteristic> = mutableListOf(),
+  public val characteristic: List<Characteristic> = listOf(),
   /** Instances or occurrences of the product. */
-  public var instance: Instance? = null,
+  public val instance: Instance? = null,
   /** Link to a product resource used in clinical workflows. */
-  public var productReference: Reference? = null,
+  public val productReference: Reference? = null,
 ) : DomainResource() {
   /** The item name(s) - the brand name, or common name, functional name, generic name. */
   @Serializable(with = InventoryItemNameSerializer::class)
@@ -172,7 +172,7 @@ public data class InventoryItem(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -185,7 +185,7 @@ public data class InventoryItem(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -204,13 +204,13 @@ public data class InventoryItem(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /** The type of name e.g. 'brand-name', 'functional-name', 'common-name'. */
-    public var nameType: Coding,
+    public val nameType: Coding,
     /** The language that the item name is expressed in. */
-    public var language: Enumeration<CommonLanguages>,
+    public val language: Enumeration<CommonLanguages>,
     /** The name or designation that the item is given. */
-    public var name: String,
+    public val name: String,
   ) : BackboneElement()
 
   /** Organization(s) responsible for the product. */
@@ -220,7 +220,7 @@ public data class InventoryItem(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -233,7 +233,7 @@ public data class InventoryItem(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -252,14 +252,14 @@ public data class InventoryItem(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /** The role of the organization e.g. manufacturer, distributor, etc. */
-    public var role: CodeableConcept,
+    public val role: CodeableConcept,
     /**
      * An organization that has an association with the item, e.g. manufacturer, distributor,
      * responsible, etc.
      */
-    public var organization: Reference,
+    public val organization: Reference,
   ) : BackboneElement()
 
   /** The descriptive characteristics of the inventory item. */
@@ -269,7 +269,7 @@ public data class InventoryItem(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -282,7 +282,7 @@ public data class InventoryItem(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -301,14 +301,14 @@ public data class InventoryItem(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /**
      * The language for the item description, when an item must be described in different languages
      * and those languages may be authoritative and not translations of a 'main' language.
      */
-    public var language: Enumeration<CommonLanguages>? = null,
+    public val language: Enumeration<CommonLanguages>? = null,
     /** Textual description of the item. */
-    public var description: String? = null,
+    public val description: String? = null,
   ) : BackboneElement()
 
   /** Association with other items or products. */
@@ -318,7 +318,7 @@ public data class InventoryItem(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -331,7 +331,7 @@ public data class InventoryItem(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -350,21 +350,21 @@ public data class InventoryItem(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /**
      * This attribute defined the type of association when establishing associations or relations
      * between items, e.g. 'packaged within' or 'used with' or 'to be mixed with.
      */
-    public var associationType: CodeableConcept,
+    public val associationType: CodeableConcept,
     /** The related item or product. */
-    public var relatedItem: Reference,
+    public val relatedItem: Reference,
     /**
      * The quantity of the related product in this product - Numerator is the quantity of the
      * related product. Denominator is the quantity of the present product. For example a value of
      * 20 means that this product contains 20 units of the related product; a value of 1:20 means
      * the inverse - that the contained product contains 20 units of the present product.
      */
-    public var quantity: Ratio,
+    public val quantity: Ratio,
   ) : BackboneElement()
 
   /** The descriptive or identifying characteristics of the item. */
@@ -374,7 +374,7 @@ public data class InventoryItem(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -387,7 +387,7 @@ public data class InventoryItem(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -406,9 +406,9 @@ public data class InventoryItem(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /** The type of characteristic that is being defined. */
-    public var characteristicType: CodeableConcept,
+    public val characteristicType: CodeableConcept,
     /**
      * The value of the attribute.
      *
@@ -416,7 +416,7 @@ public data class InventoryItem(
      * information. CodeableConcept.text is used when the characteristic is discrete and could
      * otherwise be coded but for which there is no code available.
      */
-    public var `value`: Value,
+    public val `value`: Value,
   ) : BackboneElement() {
     @Serializable(with = InventoryItemCharacteristicValueSerializer::class)
     public sealed interface Value {
@@ -516,7 +516,7 @@ public data class InventoryItem(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -529,7 +529,7 @@ public data class InventoryItem(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -548,17 +548,17 @@ public data class InventoryItem(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /** The identifier for the physical instance, typically a serial number. */
-    public var identifier: MutableList<Identifier> = mutableListOf(),
+    public val identifier: List<Identifier> = listOf(),
     /** The lot or batch number of the item. */
-    public var lotNumber: String? = null,
+    public val lotNumber: String? = null,
     /** The expiry date or date and time for the product. */
-    public var expiry: DateTime? = null,
+    public val expiry: DateTime? = null,
     /** The subject that the item is associated with. */
-    public var subject: Reference? = null,
+    public val subject: Reference? = null,
     /** The location that the item is associated with. */
-    public var location: Reference? = null,
+    public val location: Reference? = null,
   ) : BackboneElement()
 
   /** This value set includes common codes from BCP-47 (see http://tools.ietf.org/html/bcp47) */

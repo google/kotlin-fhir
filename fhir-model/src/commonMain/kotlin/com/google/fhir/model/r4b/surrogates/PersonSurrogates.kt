@@ -43,15 +43,15 @@ import com.google.fhir.model.r4b.terminologies.AdministrativeGender
 import kotlin.Boolean as KotlinBoolean
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class PersonLinkSurrogate(
   public var id: String? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var target: Reference,
   public var assurance: String? = null,
   public var _assurance: Element? = null,
@@ -59,8 +59,8 @@ internal data class PersonLinkSurrogate(
   public fun toModel(): Person.Link =
     Person.Link(
       id = this@PersonLinkSurrogate.id,
-      extension = this@PersonLinkSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@PersonLinkSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@PersonLinkSurrogate.extension ?: listOf(),
+      modifierExtension = this@PersonLinkSurrogate.modifierExtension ?: listOf(),
       target = this@PersonLinkSurrogate.target,
       assurance =
         this@PersonLinkSurrogate.assurance?.let {
@@ -95,22 +95,22 @@ internal data class PersonSurrogate(
   public var language: String? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: MutableList<Resource>? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var identifier: MutableList<Identifier>? = null,
-  public var name: MutableList<HumanName>? = null,
-  public var telecom: MutableList<ContactPoint>? = null,
+  public var contained: List<Resource>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
+  public var identifier: List<Identifier>? = null,
+  public var name: List<HumanName>? = null,
+  public var telecom: List<ContactPoint>? = null,
   public var gender: String? = null,
   public var _gender: Element? = null,
   public var birthDate: String? = null,
   public var _birthDate: Element? = null,
-  public var address: MutableList<Address>? = null,
+  public var address: List<Address>? = null,
   public var photo: Attachment? = null,
   public var managingOrganization: Reference? = null,
   public var active: KotlinBoolean? = null,
   public var _active: Element? = null,
-  public var link: MutableList<Person.Link>? = null,
+  public var link: List<Person.Link>? = null,
 ) {
   public fun toModel(): Person =
     Person(
@@ -120,12 +120,12 @@ internal data class PersonSurrogate(
         Uri.of(this@PersonSurrogate.implicitRules, this@PersonSurrogate._implicitRules),
       language = Code.of(this@PersonSurrogate.language, this@PersonSurrogate._language),
       text = this@PersonSurrogate.text,
-      contained = this@PersonSurrogate.contained ?: mutableListOf(),
-      extension = this@PersonSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@PersonSurrogate.modifierExtension ?: mutableListOf(),
-      identifier = this@PersonSurrogate.identifier ?: mutableListOf(),
-      name = this@PersonSurrogate.name ?: mutableListOf(),
-      telecom = this@PersonSurrogate.telecom ?: mutableListOf(),
+      contained = this@PersonSurrogate.contained ?: listOf(),
+      extension = this@PersonSurrogate.extension ?: listOf(),
+      modifierExtension = this@PersonSurrogate.modifierExtension ?: listOf(),
+      identifier = this@PersonSurrogate.identifier ?: listOf(),
+      name = this@PersonSurrogate.name ?: listOf(),
+      telecom = this@PersonSurrogate.telecom ?: listOf(),
       gender =
         this@PersonSurrogate.gender?.let {
           Enumeration.of(AdministrativeGender.fromCode(it), this@PersonSurrogate._gender)
@@ -135,11 +135,11 @@ internal data class PersonSurrogate(
           FhirDate.fromString(this@PersonSurrogate.birthDate),
           this@PersonSurrogate._birthDate,
         ),
-      address = this@PersonSurrogate.address ?: mutableListOf(),
+      address = this@PersonSurrogate.address ?: listOf(),
       photo = this@PersonSurrogate.photo,
       managingOrganization = this@PersonSurrogate.managingOrganization,
       active = R4bBoolean.of(this@PersonSurrogate.active, this@PersonSurrogate._active),
-      link = this@PersonSurrogate.link ?: mutableListOf(),
+      link = this@PersonSurrogate.link ?: listOf(),
     )
 
   public companion object {

@@ -38,26 +38,24 @@ import com.google.fhir.model.r4.serializers.DoubleSerializer
 import com.google.fhir.model.r4.serializers.LocalTimeSerializer
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class MedicinalProductPharmaceuticalCharacteristicsSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var code: CodeableConcept,
   public var status: CodeableConcept? = null,
 ) {
   public fun toModel(): MedicinalProductPharmaceutical.Characteristics =
     MedicinalProductPharmaceutical.Characteristics(
       id = this@MedicinalProductPharmaceuticalCharacteristicsSurrogate.id,
-      extension =
-        this@MedicinalProductPharmaceuticalCharacteristicsSurrogate.extension ?: mutableListOf(),
+      extension = this@MedicinalProductPharmaceuticalCharacteristicsSurrogate.extension ?: listOf(),
       modifierExtension =
-        this@MedicinalProductPharmaceuticalCharacteristicsSurrogate.modifierExtension
-          ?: mutableListOf(),
+        this@MedicinalProductPharmaceuticalCharacteristicsSurrogate.modifierExtension ?: listOf(),
       code = this@MedicinalProductPharmaceuticalCharacteristicsSurrogate.code,
       status = this@MedicinalProductPharmaceuticalCharacteristicsSurrogate.status,
     )
@@ -81,8 +79,8 @@ internal data class MedicinalProductPharmaceuticalCharacteristicsSurrogate(
 @Serializable
 internal data class MedicinalProductPharmaceuticalRouteOfAdministrationSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var code: CodeableConcept,
   public var firstDose: Quantity? = null,
   public var maxSingleDose: Quantity? = null,
@@ -90,18 +88,17 @@ internal data class MedicinalProductPharmaceuticalRouteOfAdministrationSurrogate
   public var maxDosePerTreatmentPeriod: Ratio? = null,
   public var maxTreatmentPeriod: Duration? = null,
   public var targetSpecies:
-    MutableList<MedicinalProductPharmaceutical.RouteOfAdministration.TargetSpecies>? =
+    List<MedicinalProductPharmaceutical.RouteOfAdministration.TargetSpecies>? =
     null,
 ) {
   public fun toModel(): MedicinalProductPharmaceutical.RouteOfAdministration =
     MedicinalProductPharmaceutical.RouteOfAdministration(
       id = this@MedicinalProductPharmaceuticalRouteOfAdministrationSurrogate.id,
       extension =
-        this@MedicinalProductPharmaceuticalRouteOfAdministrationSurrogate.extension
-          ?: mutableListOf(),
+        this@MedicinalProductPharmaceuticalRouteOfAdministrationSurrogate.extension ?: listOf(),
       modifierExtension =
         this@MedicinalProductPharmaceuticalRouteOfAdministrationSurrogate.modifierExtension
-          ?: mutableListOf(),
+          ?: listOf(),
       code = this@MedicinalProductPharmaceuticalRouteOfAdministrationSurrogate.code,
       firstDose = this@MedicinalProductPharmaceuticalRouteOfAdministrationSurrogate.firstDose,
       maxSingleDose =
@@ -113,8 +110,7 @@ internal data class MedicinalProductPharmaceuticalRouteOfAdministrationSurrogate
       maxTreatmentPeriod =
         this@MedicinalProductPharmaceuticalRouteOfAdministrationSurrogate.maxTreatmentPeriod,
       targetSpecies =
-        this@MedicinalProductPharmaceuticalRouteOfAdministrationSurrogate.targetSpecies
-          ?: mutableListOf(),
+        this@MedicinalProductPharmaceuticalRouteOfAdministrationSurrogate.targetSpecies ?: listOf(),
     )
 
   public companion object {
@@ -141,13 +137,11 @@ internal data class MedicinalProductPharmaceuticalRouteOfAdministrationSurrogate
 @Serializable
 internal data class MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpeciesSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var code: CodeableConcept,
   public var withdrawalPeriod:
-    MutableList<
-      MedicinalProductPharmaceutical.RouteOfAdministration.TargetSpecies.WithdrawalPeriod
-    >? =
+    List<MedicinalProductPharmaceutical.RouteOfAdministration.TargetSpecies.WithdrawalPeriod>? =
     null,
 ) {
   public fun toModel(): MedicinalProductPharmaceutical.RouteOfAdministration.TargetSpecies =
@@ -155,14 +149,14 @@ internal data class MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpe
       id = this@MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpeciesSurrogate.id,
       extension =
         this@MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpeciesSurrogate.extension
-          ?: mutableListOf(),
+          ?: listOf(),
       modifierExtension =
         this@MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpeciesSurrogate
-          .modifierExtension ?: mutableListOf(),
+          .modifierExtension ?: listOf(),
       code = this@MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpeciesSurrogate.code,
       withdrawalPeriod =
         this@MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpeciesSurrogate
-          .withdrawalPeriod ?: mutableListOf(),
+          .withdrawalPeriod ?: listOf(),
     )
 
   public companion object {
@@ -184,8 +178,8 @@ internal data class MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpe
 @Serializable
 internal data class MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpeciesWithdrawalPeriodSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var tissue: CodeableConcept,
   public var `value`: Quantity,
   public var supportingInformation: KotlinString? = null,
@@ -199,10 +193,10 @@ internal data class MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpe
           .id,
       extension =
         this@MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpeciesWithdrawalPeriodSurrogate
-          .extension ?: mutableListOf(),
+          .extension ?: listOf(),
       modifierExtension =
         this@MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpeciesWithdrawalPeriodSurrogate
-          .modifierExtension ?: mutableListOf(),
+          .modifierExtension ?: listOf(),
       tissue =
         this@MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpeciesWithdrawalPeriodSurrogate
           .tissue,
@@ -245,17 +239,16 @@ internal data class MedicinalProductPharmaceuticalSurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: MutableList<Resource>? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var identifier: MutableList<Identifier>? = null,
+  public var contained: List<Resource>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
+  public var identifier: List<Identifier>? = null,
   public var administrableDoseForm: CodeableConcept,
   public var unitOfPresentation: CodeableConcept? = null,
-  public var ingredient: MutableList<Reference>? = null,
-  public var device: MutableList<Reference>? = null,
-  public var characteristics: MutableList<MedicinalProductPharmaceutical.Characteristics>? = null,
-  public var routeOfAdministration:
-    MutableList<MedicinalProductPharmaceutical.RouteOfAdministration>? =
+  public var ingredient: List<Reference>? = null,
+  public var device: List<Reference>? = null,
+  public var characteristics: List<MedicinalProductPharmaceutical.Characteristics>? = null,
+  public var routeOfAdministration: List<MedicinalProductPharmaceutical.RouteOfAdministration>? =
     null,
 ) {
   public fun toModel(): MedicinalProductPharmaceutical =
@@ -273,19 +266,18 @@ internal data class MedicinalProductPharmaceuticalSurrogate(
           this@MedicinalProductPharmaceuticalSurrogate._language,
         ),
       text = this@MedicinalProductPharmaceuticalSurrogate.text,
-      contained = this@MedicinalProductPharmaceuticalSurrogate.contained ?: mutableListOf(),
-      extension = this@MedicinalProductPharmaceuticalSurrogate.extension ?: mutableListOf(),
+      contained = this@MedicinalProductPharmaceuticalSurrogate.contained ?: listOf(),
+      extension = this@MedicinalProductPharmaceuticalSurrogate.extension ?: listOf(),
       modifierExtension =
-        this@MedicinalProductPharmaceuticalSurrogate.modifierExtension ?: mutableListOf(),
-      identifier = this@MedicinalProductPharmaceuticalSurrogate.identifier ?: mutableListOf(),
+        this@MedicinalProductPharmaceuticalSurrogate.modifierExtension ?: listOf(),
+      identifier = this@MedicinalProductPharmaceuticalSurrogate.identifier ?: listOf(),
       administrableDoseForm = this@MedicinalProductPharmaceuticalSurrogate.administrableDoseForm,
       unitOfPresentation = this@MedicinalProductPharmaceuticalSurrogate.unitOfPresentation,
-      ingredient = this@MedicinalProductPharmaceuticalSurrogate.ingredient ?: mutableListOf(),
-      device = this@MedicinalProductPharmaceuticalSurrogate.device ?: mutableListOf(),
-      characteristics =
-        this@MedicinalProductPharmaceuticalSurrogate.characteristics ?: mutableListOf(),
+      ingredient = this@MedicinalProductPharmaceuticalSurrogate.ingredient ?: listOf(),
+      device = this@MedicinalProductPharmaceuticalSurrogate.device ?: listOf(),
+      characteristics = this@MedicinalProductPharmaceuticalSurrogate.characteristics ?: listOf(),
       routeOfAdministration =
-        this@MedicinalProductPharmaceuticalSurrogate.routeOfAdministration ?: mutableListOf(),
+        this@MedicinalProductPharmaceuticalSurrogate.routeOfAdministration ?: listOf(),
     )
 
   public companion object {

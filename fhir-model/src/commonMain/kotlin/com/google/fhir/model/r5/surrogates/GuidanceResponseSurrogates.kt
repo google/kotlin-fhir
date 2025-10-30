@@ -41,7 +41,7 @@ import com.google.fhir.model.r5.serializers.DoubleSerializer
 import com.google.fhir.model.r5.serializers.LocalTimeSerializer
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
@@ -89,11 +89,11 @@ internal data class GuidanceResponseSurrogate(
   public var language: String? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: MutableList<Resource>? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var contained: List<Resource>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var requestIdentifier: Identifier? = null,
-  public var identifier: MutableList<Identifier>? = null,
+  public var identifier: List<Identifier>? = null,
   public var module: GuidanceResponse.Module,
   public var status: String? = null,
   public var _status: Element? = null,
@@ -102,12 +102,12 @@ internal data class GuidanceResponseSurrogate(
   public var occurrenceDateTime: String? = null,
   public var _occurrenceDateTime: Element? = null,
   public var performer: Reference? = null,
-  public var reason: MutableList<CodeableReference>? = null,
-  public var note: MutableList<Annotation>? = null,
+  public var reason: List<CodeableReference>? = null,
+  public var note: List<Annotation>? = null,
   public var evaluationMessage: Reference? = null,
   public var outputParameters: Reference? = null,
-  public var result: MutableList<Reference>? = null,
-  public var dataRequirement: MutableList<DataRequirement>? = null,
+  public var result: List<Reference>? = null,
+  public var dataRequirement: List<DataRequirement>? = null,
 ) {
   public fun toModel(): GuidanceResponse =
     GuidanceResponse(
@@ -121,11 +121,11 @@ internal data class GuidanceResponseSurrogate(
       language =
         Code.of(this@GuidanceResponseSurrogate.language, this@GuidanceResponseSurrogate._language),
       text = this@GuidanceResponseSurrogate.text,
-      contained = this@GuidanceResponseSurrogate.contained ?: mutableListOf(),
-      extension = this@GuidanceResponseSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@GuidanceResponseSurrogate.modifierExtension ?: mutableListOf(),
+      contained = this@GuidanceResponseSurrogate.contained ?: listOf(),
+      extension = this@GuidanceResponseSurrogate.extension ?: listOf(),
+      modifierExtension = this@GuidanceResponseSurrogate.modifierExtension ?: listOf(),
       requestIdentifier = this@GuidanceResponseSurrogate.requestIdentifier,
-      identifier = this@GuidanceResponseSurrogate.identifier ?: mutableListOf(),
+      identifier = this@GuidanceResponseSurrogate.identifier ?: listOf(),
       module = this@GuidanceResponseSurrogate.module,
       status =
         Enumeration.of(
@@ -140,12 +140,12 @@ internal data class GuidanceResponseSurrogate(
           this@GuidanceResponseSurrogate._occurrenceDateTime,
         ),
       performer = this@GuidanceResponseSurrogate.performer,
-      reason = this@GuidanceResponseSurrogate.reason ?: mutableListOf(),
-      note = this@GuidanceResponseSurrogate.note ?: mutableListOf(),
+      reason = this@GuidanceResponseSurrogate.reason ?: listOf(),
+      note = this@GuidanceResponseSurrogate.note ?: listOf(),
       evaluationMessage = this@GuidanceResponseSurrogate.evaluationMessage,
       outputParameters = this@GuidanceResponseSurrogate.outputParameters,
-      result = this@GuidanceResponseSurrogate.result ?: mutableListOf(),
-      dataRequirement = this@GuidanceResponseSurrogate.dataRequirement ?: mutableListOf(),
+      result = this@GuidanceResponseSurrogate.result ?: listOf(),
+      dataRequirement = this@GuidanceResponseSurrogate.dataRequirement ?: listOf(),
     )
 
   public companion object {

@@ -51,15 +51,15 @@ import kotlin.Boolean as KotlinBoolean
 import kotlin.Double
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class ChargeItemDefinitionApplicabilitySurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var description: KotlinString? = null,
   public var _description: Element? = null,
   public var language: KotlinString? = null,
@@ -70,9 +70,9 @@ internal data class ChargeItemDefinitionApplicabilitySurrogate(
   public fun toModel(): ChargeItemDefinition.Applicability =
     ChargeItemDefinition.Applicability(
       id = this@ChargeItemDefinitionApplicabilitySurrogate.id,
-      extension = this@ChargeItemDefinitionApplicabilitySurrogate.extension ?: mutableListOf(),
+      extension = this@ChargeItemDefinitionApplicabilitySurrogate.extension ?: listOf(),
       modifierExtension =
-        this@ChargeItemDefinitionApplicabilitySurrogate.modifierExtension ?: mutableListOf(),
+        this@ChargeItemDefinitionApplicabilitySurrogate.modifierExtension ?: listOf(),
       description =
         R4String.of(
           this@ChargeItemDefinitionApplicabilitySurrogate.description,
@@ -113,21 +113,19 @@ internal data class ChargeItemDefinitionApplicabilitySurrogate(
 @Serializable
 internal data class ChargeItemDefinitionPropertyGroupSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var applicability: MutableList<ChargeItemDefinition.Applicability>? = null,
-  public var priceComponent: MutableList<ChargeItemDefinition.PropertyGroup.PriceComponent>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
+  public var applicability: List<ChargeItemDefinition.Applicability>? = null,
+  public var priceComponent: List<ChargeItemDefinition.PropertyGroup.PriceComponent>? = null,
 ) {
   public fun toModel(): ChargeItemDefinition.PropertyGroup =
     ChargeItemDefinition.PropertyGroup(
       id = this@ChargeItemDefinitionPropertyGroupSurrogate.id,
-      extension = this@ChargeItemDefinitionPropertyGroupSurrogate.extension ?: mutableListOf(),
+      extension = this@ChargeItemDefinitionPropertyGroupSurrogate.extension ?: listOf(),
       modifierExtension =
-        this@ChargeItemDefinitionPropertyGroupSurrogate.modifierExtension ?: mutableListOf(),
-      applicability =
-        this@ChargeItemDefinitionPropertyGroupSurrogate.applicability ?: mutableListOf(),
-      priceComponent =
-        this@ChargeItemDefinitionPropertyGroupSurrogate.priceComponent ?: mutableListOf(),
+        this@ChargeItemDefinitionPropertyGroupSurrogate.modifierExtension ?: listOf(),
+      applicability = this@ChargeItemDefinitionPropertyGroupSurrogate.applicability ?: listOf(),
+      priceComponent = this@ChargeItemDefinitionPropertyGroupSurrogate.priceComponent ?: listOf(),
     )
 
   public companion object {
@@ -149,8 +147,8 @@ internal data class ChargeItemDefinitionPropertyGroupSurrogate(
 @Serializable
 internal data class ChargeItemDefinitionPropertyGroupPriceComponentSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var type: KotlinString? = null,
   public var _type: Element? = null,
   public var code: CodeableConcept? = null,
@@ -162,10 +160,9 @@ internal data class ChargeItemDefinitionPropertyGroupPriceComponentSurrogate(
     ChargeItemDefinition.PropertyGroup.PriceComponent(
       id = this@ChargeItemDefinitionPropertyGroupPriceComponentSurrogate.id,
       extension =
-        this@ChargeItemDefinitionPropertyGroupPriceComponentSurrogate.extension ?: mutableListOf(),
+        this@ChargeItemDefinitionPropertyGroupPriceComponentSurrogate.extension ?: listOf(),
       modifierExtension =
-        this@ChargeItemDefinitionPropertyGroupPriceComponentSurrogate.modifierExtension
-          ?: mutableListOf(),
+        this@ChargeItemDefinitionPropertyGroupPriceComponentSurrogate.modifierExtension ?: listOf(),
       type =
         Enumeration.of(
           ChargeItemDefinition.InvoicePriceComponentType.fromCode(
@@ -211,22 +208,22 @@ internal data class ChargeItemDefinitionSurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: MutableList<Resource>? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var contained: List<Resource>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var url: KotlinString? = null,
   public var _url: Element? = null,
-  public var identifier: MutableList<Identifier>? = null,
+  public var identifier: List<Identifier>? = null,
   public var version: KotlinString? = null,
   public var _version: Element? = null,
   public var title: KotlinString? = null,
   public var _title: Element? = null,
-  public var derivedFromUri: MutableList<KotlinString?>? = null,
-  public var _derivedFromUri: MutableList<Element?>? = null,
-  public var partOf: MutableList<KotlinString?>? = null,
-  public var _partOf: MutableList<Element?>? = null,
-  public var replaces: MutableList<KotlinString?>? = null,
-  public var _replaces: MutableList<Element?>? = null,
+  public var derivedFromUri: List<KotlinString?>? = null,
+  public var _derivedFromUri: List<Element?>? = null,
+  public var partOf: List<KotlinString?>? = null,
+  public var _partOf: List<Element?>? = null,
+  public var replaces: List<KotlinString?>? = null,
+  public var _replaces: List<Element?>? = null,
   public var status: KotlinString? = null,
   public var _status: Element? = null,
   public var experimental: KotlinBoolean? = null,
@@ -235,11 +232,11 @@ internal data class ChargeItemDefinitionSurrogate(
   public var _date: Element? = null,
   public var publisher: KotlinString? = null,
   public var _publisher: Element? = null,
-  public var contact: MutableList<ContactDetail>? = null,
+  public var contact: List<ContactDetail>? = null,
   public var description: KotlinString? = null,
   public var _description: Element? = null,
-  public var useContext: MutableList<UsageContext>? = null,
-  public var jurisdiction: MutableList<CodeableConcept>? = null,
+  public var useContext: List<UsageContext>? = null,
+  public var jurisdiction: List<CodeableConcept>? = null,
   public var copyright: KotlinString? = null,
   public var _copyright: Element? = null,
   public var approvalDate: KotlinString? = null,
@@ -248,9 +245,9 @@ internal data class ChargeItemDefinitionSurrogate(
   public var _lastReviewDate: Element? = null,
   public var effectivePeriod: Period? = null,
   public var code: CodeableConcept? = null,
-  public var instance: MutableList<Reference>? = null,
-  public var applicability: MutableList<ChargeItemDefinition.Applicability>? = null,
-  public var propertyGroup: MutableList<ChargeItemDefinition.PropertyGroup>? = null,
+  public var instance: List<Reference>? = null,
+  public var applicability: List<ChargeItemDefinition.Applicability>? = null,
+  public var propertyGroup: List<ChargeItemDefinition.PropertyGroup>? = null,
 ) {
   public fun toModel(): ChargeItemDefinition =
     ChargeItemDefinition(
@@ -267,12 +264,12 @@ internal data class ChargeItemDefinitionSurrogate(
           this@ChargeItemDefinitionSurrogate._language,
         ),
       text = this@ChargeItemDefinitionSurrogate.text,
-      contained = this@ChargeItemDefinitionSurrogate.contained ?: mutableListOf(),
-      extension = this@ChargeItemDefinitionSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@ChargeItemDefinitionSurrogate.modifierExtension ?: mutableListOf(),
+      contained = this@ChargeItemDefinitionSurrogate.contained ?: listOf(),
+      extension = this@ChargeItemDefinitionSurrogate.extension ?: listOf(),
+      modifierExtension = this@ChargeItemDefinitionSurrogate.modifierExtension ?: listOf(),
       url =
         Uri.of(this@ChargeItemDefinitionSurrogate.url, this@ChargeItemDefinitionSurrogate._url)!!,
-      identifier = this@ChargeItemDefinitionSurrogate.identifier ?: mutableListOf(),
+      identifier = this@ChargeItemDefinitionSurrogate.identifier ?: listOf(),
       version =
         R4String.of(
           this@ChargeItemDefinitionSurrogate.version,
@@ -288,7 +285,7 @@ internal data class ChargeItemDefinitionSurrogate(
           this@ChargeItemDefinitionSurrogate.derivedFromUri == null &&
             this@ChargeItemDefinitionSurrogate._derivedFromUri == null
         ) {
-          mutableListOf()
+          listOf()
         } else {
           (this@ChargeItemDefinitionSurrogate.derivedFromUri
               ?: List(this@ChargeItemDefinitionSurrogate._derivedFromUri!!.size) { null })
@@ -297,14 +294,14 @@ internal data class ChargeItemDefinitionSurrogate(
                 ?: List(this@ChargeItemDefinitionSurrogate.derivedFromUri!!.size) { null }
             )
             .map { (value, element) -> Uri.of(value, element)!! }
-            .toMutableList()
+            .toList()
         },
       partOf =
         if (
           this@ChargeItemDefinitionSurrogate.partOf == null &&
             this@ChargeItemDefinitionSurrogate._partOf == null
         ) {
-          mutableListOf()
+          listOf()
         } else {
           (this@ChargeItemDefinitionSurrogate.partOf
               ?: List(this@ChargeItemDefinitionSurrogate._partOf!!.size) { null })
@@ -313,14 +310,14 @@ internal data class ChargeItemDefinitionSurrogate(
                 ?: List(this@ChargeItemDefinitionSurrogate.partOf!!.size) { null }
             )
             .map { (value, element) -> Canonical.of(value, element)!! }
-            .toMutableList()
+            .toList()
         },
       replaces =
         if (
           this@ChargeItemDefinitionSurrogate.replaces == null &&
             this@ChargeItemDefinitionSurrogate._replaces == null
         ) {
-          mutableListOf()
+          listOf()
         } else {
           (this@ChargeItemDefinitionSurrogate.replaces
               ?: List(this@ChargeItemDefinitionSurrogate._replaces!!.size) { null })
@@ -329,7 +326,7 @@ internal data class ChargeItemDefinitionSurrogate(
                 ?: List(this@ChargeItemDefinitionSurrogate.replaces!!.size) { null }
             )
             .map { (value, element) -> Canonical.of(value, element)!! }
-            .toMutableList()
+            .toList()
         },
       status =
         Enumeration.of(
@@ -351,14 +348,14 @@ internal data class ChargeItemDefinitionSurrogate(
           this@ChargeItemDefinitionSurrogate.publisher,
           this@ChargeItemDefinitionSurrogate._publisher,
         ),
-      contact = this@ChargeItemDefinitionSurrogate.contact ?: mutableListOf(),
+      contact = this@ChargeItemDefinitionSurrogate.contact ?: listOf(),
       description =
         Markdown.of(
           this@ChargeItemDefinitionSurrogate.description,
           this@ChargeItemDefinitionSurrogate._description,
         ),
-      useContext = this@ChargeItemDefinitionSurrogate.useContext ?: mutableListOf(),
-      jurisdiction = this@ChargeItemDefinitionSurrogate.jurisdiction ?: mutableListOf(),
+      useContext = this@ChargeItemDefinitionSurrogate.useContext ?: listOf(),
+      jurisdiction = this@ChargeItemDefinitionSurrogate.jurisdiction ?: listOf(),
       copyright =
         Markdown.of(
           this@ChargeItemDefinitionSurrogate.copyright,
@@ -376,9 +373,9 @@ internal data class ChargeItemDefinitionSurrogate(
         ),
       effectivePeriod = this@ChargeItemDefinitionSurrogate.effectivePeriod,
       code = this@ChargeItemDefinitionSurrogate.code,
-      instance = this@ChargeItemDefinitionSurrogate.instance ?: mutableListOf(),
-      applicability = this@ChargeItemDefinitionSurrogate.applicability ?: mutableListOf(),
-      propertyGroup = this@ChargeItemDefinitionSurrogate.propertyGroup ?: mutableListOf(),
+      instance = this@ChargeItemDefinitionSurrogate.instance ?: listOf(),
+      applicability = this@ChargeItemDefinitionSurrogate.applicability ?: listOf(),
+      propertyGroup = this@ChargeItemDefinitionSurrogate.propertyGroup ?: listOf(),
     )
 
   public companion object {
@@ -403,35 +400,28 @@ internal data class ChargeItemDefinitionSurrogate(
           title = this@with.title?.value,
           _title = this@with.title?.toElement(),
           derivedFromUri =
-            this@with.derivedFromUri
-              .map { it.value }
-              .toMutableList()
-              .takeUnless { it.all { it == null } },
+            this@with.derivedFromUri.map { it.value }.toList().takeUnless { it.all { it == null } },
           _derivedFromUri =
             this@with.derivedFromUri
               .map { it.toElement() }
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
-              ?.toMutableList(),
-          partOf =
-            this@with.partOf.map { it.value }.toMutableList().takeUnless { it.all { it == null } },
+              ?.toList(),
+          partOf = this@with.partOf.map { it.value }.toList().takeUnless { it.all { it == null } },
           _partOf =
             this@with.partOf
               .map { it.toElement() }
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
-              ?.toMutableList(),
+              ?.toList(),
           replaces =
-            this@with.replaces
-              .map { it.value }
-              .toMutableList()
-              .takeUnless { it.all { it == null } },
+            this@with.replaces.map { it.value }.toList().takeUnless { it.all { it == null } },
           _replaces =
             this@with.replaces
               .map { it.toElement() }
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
-              ?.toMutableList(),
+              ?.toList(),
           status = this@with.status.value?.getCode(),
           _status = this@with.status.toElement(),
           experimental = this@with.experimental?.value,

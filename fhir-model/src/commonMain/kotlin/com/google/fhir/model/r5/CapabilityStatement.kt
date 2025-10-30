@@ -38,7 +38,7 @@ import com.google.fhir.model.r5.terminologies.PublicationStatus
 import com.google.fhir.model.r5.terminologies.ResourceType
 import com.google.fhir.model.r5.terminologies.SearchParamType
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -58,12 +58,12 @@ public data class CapabilityStatement(
    * like the create and conditional update. Otherwise, the use of the resouce id depends on the
    * given use case.
    */
-  override var id: kotlin.String? = null,
+  override val id: kotlin.String? = null,
   /**
    * The metadata about the resource. This is content that is maintained by the infrastructure.
    * Changes to the content might not always be associated with version changes to the resource.
    */
-  override var meta: Meta? = null,
+  override val meta: Meta? = null,
   /**
    * A reference to a set of rules that were followed when the resource was constructed, and which
    * must be understood when processing the content. Often, this is a reference to an implementation
@@ -77,7 +77,7 @@ public data class CapabilityStatement(
    * to an implementation guide that defines these special rules as part of its narrative along with
    * other profiles, value sets, etc.
    */
-  override var implicitRules: Uri? = null,
+  override val implicitRules: Uri? = null,
   /**
    * The base language in which the resource is written.
    *
@@ -89,7 +89,7 @@ public data class CapabilityStatement(
    * language is specified, it should it also be specified on the div element in the html (see rules
    * in HTML5 for information about the relationship between xml:lang and the html lang attribute).
    */
-  override var language: Code? = null,
+  override val language: Code? = null,
   /**
    * A human-readable narrative that contains a summary of the resource and can be used to represent
    * the content of the resource to a human. The narrative need not encode all the structured data,
@@ -103,7 +103,7 @@ public data class CapabilityStatement(
    * legacy systems where information is captured as a "text blob" or where text is additionally
    * entered raw or narrated and encoded information is added later.
    */
-  override var text: Narrative? = null,
+  override val text: Narrative? = null,
   /**
    * These resources do not have an independent existence apart from the resource that contains
    * them - they cannot be identified independently, nor can they have their own independent
@@ -115,7 +115,7 @@ public data class CapabilityStatement(
    * resources may have profiles and tags in their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: MutableList<Resource> = mutableListOf(),
+  override val contained: List<Resource> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and managable, there is a strict set of governance
@@ -128,7 +128,7 @@ public data class CapabilityStatement(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: MutableList<Extension> = mutableListOf(),
+  override val extension: List<Extension> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -147,7 +147,7 @@ public data class CapabilityStatement(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: MutableList<Extension> = mutableListOf(),
+  override val modifierExtension: List<Extension> = listOf(),
   /**
    * An absolute URI that is used to identify this capability statement when it is referenced in a
    * specification, model, design or an instance; also called its canonical identifier. This SHOULD
@@ -167,12 +167,12 @@ public data class CapabilityStatement(
    * change. Implementations can use the [meta.source](resource.html#meta) element to indicate where
    * the current master source of the resource can be found.
    */
-  public var url: Uri? = null,
+  public val url: Uri? = null,
   /**
    * A formal identifier that is used to identify this CapabilityStatement when it is represented in
    * other formats, or referenced in a specification, model, design or an instance.
    */
-  public var identifier: MutableList<Identifier> = mutableListOf(),
+  public val identifier: List<Identifier> = listOf(),
   /**
    * The identifier that is used to identify this version of the capability statement when it is
    * referenced in a specification, model, design or instance. This is an arbitrary value managed by
@@ -185,7 +185,7 @@ public data class CapabilityStatement(
    * to a particular business version of the capability statement with the format [url]|[version].
    * The version SHOULD NOT contain a '#' - see [Business Version](resource.html#bv-format).
    */
-  public var version: String? = null,
+  public val version: String? = null,
   /**
    * Indicates the mechanism used to compare versions to determine which is more current.
    *
@@ -194,7 +194,7 @@ public data class CapabilityStatement(
    * positive number if version2 and a 0 if the version ordering can't be successfully be
    * determined.
    */
-  public var versionAlgorithm: VersionAlgorithm? = null,
+  public val versionAlgorithm: VersionAlgorithm? = null,
   /**
    * A natural language name identifying the capability statement. This name should be usable as an
    * identifier for the module by machine processing applications such as code generation.
@@ -202,14 +202,14 @@ public data class CapabilityStatement(
    * The name is not expected to be globally unique. The name should be a simple alphanumeric type
    * name to ensure that it is machine-processing friendly.
    */
-  public var name: String? = null,
+  public val name: String? = null,
   /**
    * A short, descriptive, user-friendly title for the capability statement.
    *
    * This name does not need to be machine-processing friendly and may contain punctuation,
    * white-space, etc.
    */
-  public var title: String? = null,
+  public val title: String? = null,
   /**
    * The status of this capability statement. Enables tracking the life-cycle of the content.
    *
@@ -220,14 +220,14 @@ public data class CapabilityStatement(
    * See guidance around (not) making local changes to elements
    * [here](canonicalresource.html#localization).
    */
-  public var status: Enumeration<PublicationStatus>,
+  public val status: Enumeration<PublicationStatus>,
   /**
    * A Boolean value to indicate that this capability statement is authored for testing purposes (or
    * education/evaluation/marketing) and is not intended to be used for genuine usage.
    *
    * Allows filtering of capability statements that are appropriate for use versus not.
    */
-  public var experimental: Boolean? = null,
+  public val experimental: Boolean? = null,
   /**
    * The date (and optionally time) when the capability statement was last significantly changed.
    * The date must change when the business version changes and it must change if the status code
@@ -243,7 +243,7 @@ public data class CapabilityStatement(
    * See guidance around (not) making local changes to elements
    * [here](canonicalresource.html#localization).
    */
-  public var date: DateTime,
+  public val date: DateTime,
   /**
    * The name of the organization or individual responsible for the release and ongoing maintenance
    * of the capability statement.
@@ -255,7 +255,7 @@ public data class CapabilityStatement(
    * contact for questions or issues with the capability statement. This item SHOULD be populated
    * unless the information is available from context.
    */
-  public var publisher: String? = null,
+  public val publisher: String? = null,
   /**
    * Contact details to assist a user in finding and communicating with the publisher.
    *
@@ -264,7 +264,7 @@ public data class CapabilityStatement(
    * See guidance around (not) making local changes to elements
    * [here](canonicalresource.html#localization).
    */
-  public var contact: MutableList<ContactDetail> = mutableListOf(),
+  public val contact: List<ContactDetail> = listOf(),
   /**
    * A free text natural language description of the capability statement from a consumer's
    * perspective. Typically, this is used when the capability statement describes a desired rather
@@ -278,7 +278,7 @@ public data class CapabilityStatement(
    * place the capability statement was created).This does not need to be populated if the
    * description is adequately implied by the software or implementation details.
    */
-  public var description: Markdown? = null,
+  public val description: Markdown? = null,
   /**
    * The content was developed with a focus and intent of supporting the contexts that are listed.
    * These contexts may be general categories (gender, age, ...) or may be references to specific
@@ -288,7 +288,7 @@ public data class CapabilityStatement(
    * When multiple useContexts are specified, there is no expectation that all or any of the
    * contexts apply.
    */
-  public var useContext: MutableList<UsageContext> = mutableListOf(),
+  public val useContext: List<UsageContext> = listOf(),
   /**
    * A legal or geographic region in which the capability statement is intended to be used.
    *
@@ -300,7 +300,7 @@ public data class CapabilityStatement(
    * http://terminology.hl7.org/CodeSystem/usage-context-type#jurisdiction and
    * useContext.valueCodeableConcept indicating the jurisdiction.)
    */
-  public var jurisdiction: MutableList<CodeableConcept> = mutableListOf(),
+  public val jurisdiction: List<CodeableConcept> = listOf(),
   /**
    * Explanation of why this capability statement is needed and why it has been designed as it has.
    *
@@ -309,7 +309,7 @@ public data class CapabilityStatement(
    * may be used to point to source materials or specifications that drove the structure of this
    * capability statement.
    */
-  public var purpose: Markdown? = null,
+  public val purpose: Markdown? = null,
   /**
    * A copyright statement relating to the capability statement and/or its contents. Copyright
    * statements are generally legal restrictions on the use and publishing of the capability
@@ -317,7 +317,7 @@ public data class CapabilityStatement(
    *
    * ...
    */
-  public var copyright: Markdown? = null,
+  public val copyright: Markdown? = null,
   /**
    * A short string (<50 characters), suitable for inclusion in a page footer that identifies the
    * copyright holder, effective period, and optionally whether rights are resctricted. (e.g. 'All
@@ -327,13 +327,13 @@ public data class CapabilityStatement(
    * rendering the notation. Full details about licensing, restrictions, warrantees, etc. goes in
    * the more general 'copyright' element.
    */
-  public var copyrightLabel: String? = null,
+  public val copyrightLabel: String? = null,
   /**
    * The way that this statement is intended to be used, to describe an actual running instance of
    * software, a particular product (kind, not instance of software) or a class of implementation
    * (e.g. a desired purchase).
    */
-  public var kind: Enumeration<CapabilityStatementKind>,
+  public val kind: Enumeration<CapabilityStatementKind>,
   /**
    * Reference to a canonical URL of another CapabilityStatement that this software implements. This
    * capability statement is a published API description that corresponds to a business service. The
@@ -344,7 +344,7 @@ public data class CapabilityStatement(
    *
    * Many [Implementation Guides](http://fhir.org/guides/registry) define additional services.
    */
-  public var instantiates: MutableList<Canonical> = mutableListOf(),
+  public val instantiates: List<Canonical> = listOf(),
   /**
    * Reference to a canonical URL of another CapabilityStatement that this software adds to. The
    * capability statement automatically includes everything in the other statement, and it is not
@@ -359,17 +359,17 @@ public data class CapabilityStatement(
    * too (though this is often not a very useful statement for the kinds of CapabilityStatements
    * that are suitable for importing).
    */
-  public var imports: MutableList<Canonical> = mutableListOf(),
+  public val imports: List<Canonical> = listOf(),
   /**
    * Software that is covered by this capability statement. It is used when the capability statement
    * describes the capabilities of a particular software version, independent of an installation.
    */
-  public var software: Software? = null,
+  public val software: Software? = null,
   /**
    * Identifies a specific implementation instance that is described by the capability statement -
    * i.e. a particular installation, rather than the capabilities of a software program.
    */
-  public var implementation: Implementation? = null,
+  public val implementation: Implementation? = null,
   /**
    * The version of the FHIR specification that this CapabilityStatement describes (which SHALL be
    * the same as the FHIR version of the CapabilityStatement itself). There is no default value.
@@ -379,14 +379,14 @@ public data class CapabilityStatement(
    * CapabilityStatement is requested from the server, then this fhirVersion will be either the
    * version requested, or the server's default version.
    */
-  public var fhirVersion: Enumeration<FHIRVersion>,
+  public val fhirVersion: Enumeration<FHIRVersion>,
   /**
    * A list of the formats supported by this implementation using their content types.
    *
    * "xml", "json" and "ttl" are allowed, which describe the simple encodings described in the
    * specification (and imply appropriate bundle support). Otherwise, mime types are legal here.
    */
-  public var format: MutableList<Code> = mutableListOf(),
+  public val format: List<Code> = listOf(),
   /**
    * A list of the patch formats supported by this implementation using their content types.
    *
@@ -394,7 +394,7 @@ public data class CapabilityStatement(
    * legal. Generally, if a server supports PATCH, it would be expected to support the patch formats
    * and match the formats it supports, but this is not always possible or necessary.
    */
-  public var patchFormat: MutableList<Code> = mutableListOf(),
+  public val patchFormat: List<Code> = listOf(),
   /**
    * A list of the languages supported by this implementation that are usefully supported in
    * the ```Accept-Language``` header.
@@ -402,7 +402,7 @@ public data class CapabilityStatement(
    * In general, if a server gets a request with an Accept-Language that it doesn't support, it
    * should still reutrn the resource, just in its default language for the resource.
    */
-  public var acceptLanguage: MutableList<Code> = mutableListOf(),
+  public val acceptLanguage: List<Code> = listOf(),
   /**
    * A list of implementation guides that the server does (or should) support in their entirety.
    *
@@ -416,22 +416,22 @@ public data class CapabilityStatement(
    * in the IG. To assert conformance with CapabilityStatements in a referenced IG, it is necessary
    * to use the CapabilityStatement.instantiates element.
    */
-  public var implementationGuide: MutableList<Canonical> = mutableListOf(),
+  public val implementationGuide: List<Canonical> = listOf(),
   /**
    * A definition of the restful capabilities of the solution, if any.
    *
    * Multiple repetitions allow definition of both client and/or server behaviors or possibly
    * behaviors under different configuration settings (for software or requirements statements).
    */
-  public var rest: MutableList<Rest> = mutableListOf(),
+  public val rest: List<Rest> = listOf(),
   /**
    * A description of the messaging capabilities of the solution.
    *
    * Multiple repetitions allow the documentation of multiple endpoints per solution.
    */
-  public var messaging: MutableList<Messaging> = mutableListOf(),
+  public val messaging: List<Messaging> = listOf(),
   /** A document definition. */
-  public var document: MutableList<Document> = mutableListOf(),
+  public val document: List<Document> = listOf(),
 ) : DomainResource() {
   /**
    * Software that is covered by this capability statement. It is used when the capability statement
@@ -443,7 +443,7 @@ public data class CapabilityStatement(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -456,7 +456,7 @@ public data class CapabilityStatement(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -475,18 +475,18 @@ public data class CapabilityStatement(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /** Name the software is known by. */
-    public var name: String,
+    public val name: String,
     /**
      * The version identifier for the software covered by this statement.
      *
      * If possible, a version should be specified, as statements are likely to be different for
      * different versions of software.
      */
-    public var version: String? = null,
+    public val version: String? = null,
     /** Date this version of the software was released. */
-    public var releaseDate: DateTime? = null,
+    public val releaseDate: DateTime? = null,
   ) : BackboneElement()
 
   /**
@@ -499,7 +499,7 @@ public data class CapabilityStatement(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -512,7 +512,7 @@ public data class CapabilityStatement(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -531,19 +531,19 @@ public data class CapabilityStatement(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /** Information about the specific installation that this capability statement relates to. */
-    public var description: Markdown,
+    public val description: Markdown,
     /**
      * An absolute base URL for the implementation. This forms the base for REST interfaces as well
      * as the mailbox and document interfaces.
      */
-    public var url: Url? = null,
+    public val url: Url? = null,
     /**
      * The organization responsible for the management of the instance and oversight of the data on
      * the server at the specified URL.
      */
-    public var custodian: Reference? = null,
+    public val custodian: Reference? = null,
   ) : BackboneElement()
 
   /** A definition of the restful capabilities of the solution, if any. */
@@ -553,7 +553,7 @@ public data class CapabilityStatement(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -566,7 +566,7 @@ public data class CapabilityStatement(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -585,30 +585,30 @@ public data class CapabilityStatement(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /**
      * Identifies whether this portion of the statement is describing the ability to initiate or
      * receive restful operations.
      */
-    public var mode: Enumeration<RestfulCapabilityMode>,
+    public val mode: Enumeration<RestfulCapabilityMode>,
     /**
      * Information about the system's restful capabilities that apply across all applications, such
      * as security.
      */
-    public var documentation: Markdown? = null,
+    public val documentation: Markdown? = null,
     /**
      * Information about security implementation from an interface perspective - what a client needs
      * to know.
      */
-    public var security: Security? = null,
+    public val security: Security? = null,
     /**
      * A specification of the restful capabilities of the solution for a specific resource type.
      *
      * Max of one repetition per resource type.
      */
-    public var resource: MutableList<Resource> = mutableListOf(),
+    public val resource: List<Resource> = listOf(),
     /** A specification of restful operations supported by the system. */
-    public var interaction: MutableList<Interaction> = mutableListOf(),
+    public val interaction: List<Interaction> = listOf(),
     /**
      * Search parameters that are supported for searching all resources for implementations to
      * support and/or make use of - either references to ones defined in the specification, or
@@ -624,7 +624,7 @@ public data class CapabilityStatement(
      * elements, or narrative within the capability statement or linked
      * [SearchParameter](searchparameter.html#) definitions.
      */
-    public var searchParam: MutableList<Resource.SearchParam> = mutableListOf(),
+    public val searchParam: List<Resource.SearchParam> = listOf(),
     /**
      * Definition of an operation or a named query together with its parameters and their meaning
      * and type.
@@ -634,7 +634,7 @@ public data class CapabilityStatement(
      * CapabilityStatement.rest.operation must have OperationDefinition.system = true, or more than
      * one Operation.resource.
      */
-    public var operation: MutableList<Resource.Operation> = mutableListOf(),
+    public val operation: List<Resource.Operation> = listOf(),
     /**
      * An absolute URI which is a reference to the definition of a compartment that the system
      * supports. The reference is to a CompartmentDefinition resource by its canonical URL .
@@ -642,7 +642,7 @@ public data class CapabilityStatement(
      * At present, the only defined compartments are at
      * [CompartmentDefinition](compartmentdefinition.html).
      */
-    public var compartment: MutableList<Canonical> = mutableListOf(),
+    public val compartment: List<Canonical> = listOf(),
   ) : BackboneElement() {
     /**
      * Information about security implementation from an interface perspective - what a client needs
@@ -654,7 +654,7 @@ public data class CapabilityStatement(
        * Unique id for the element within a resource (for internal references). This may be any
        * string value that does not contain spaces.
        */
-      override var id: kotlin.String? = null,
+      override val id: kotlin.String? = null,
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -667,7 +667,7 @@ public data class CapabilityStatement(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: MutableList<Extension> = mutableListOf(),
+      override val extension: List<Extension> = listOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -686,7 +686,7 @@ public data class CapabilityStatement(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: MutableList<Extension> = mutableListOf(),
+      override val modifierExtension: List<Extension> = listOf(),
       /**
        * Server adds CORS headers when responding to requests - this enables Javascript applications
        * to use the server.
@@ -694,11 +694,11 @@ public data class CapabilityStatement(
        * The easiest CORS headers to add are Access-Control-Allow-Origin: * &
        * Access-Control-Request-Method: GET, POST, PUT, DELETE. All servers SHOULD support CORS.
        */
-      public var cors: Boolean? = null,
+      public val cors: Boolean? = null,
       /** Types of security services that are supported/required by the system. */
-      public var service: MutableList<CodeableConcept> = mutableListOf(),
+      public val service: List<CodeableConcept> = listOf(),
       /** General description of how security works. */
-      public var description: Markdown? = null,
+      public val description: Markdown? = null,
     ) : BackboneElement()
 
     /** A specification of the restful capabilities of the solution for a specific resource type. */
@@ -708,7 +708,7 @@ public data class CapabilityStatement(
        * Unique id for the element within a resource (for internal references). This may be any
        * string value that does not contain spaces.
        */
-      override var id: kotlin.String? = null,
+      override val id: kotlin.String? = null,
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -721,7 +721,7 @@ public data class CapabilityStatement(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: MutableList<Extension> = mutableListOf(),
+      override val extension: List<Extension> = listOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -740,9 +740,9 @@ public data class CapabilityStatement(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: MutableList<Extension> = mutableListOf(),
+      override val modifierExtension: List<Extension> = listOf(),
       /** A type of resource exposed via the restful interface. */
-      public var type: Enumeration<ResourceType>,
+      public val type: Enumeration<ResourceType>,
       /**
        * A system-wide profile that is applied across *all* instances of the resource supported by
        * the system. For example, if declared on Observation, this profile is the "superset" of
@@ -752,7 +752,7 @@ public data class CapabilityStatement(
        * All other profiles for this type that are listed in `.rest.resource.supportedProfile` must
        * conform to this profile.
        */
-      public var profile: Canonical? = null,
+      public val profile: Canonical? = null,
       /**
        * A list of profiles representing different use cases the system hosts/produces. A supported
        * profile is a statement about the functionality of the data and services provided by the
@@ -769,9 +769,9 @@ public data class CapabilityStatement(
        * client) for a particular set of use cases and will not necessarily apply to all data
        * consumed or exposed by the server.
        */
-      public var supportedProfile: MutableList<Canonical> = mutableListOf(),
+      public val supportedProfile: List<Canonical> = listOf(),
       /** Additional information about the resource type used by the system. */
-      public var documentation: Markdown? = null,
+      public val documentation: Markdown? = null,
       /**
        * Identifies a restful operation supported by the solution.
        *
@@ -779,7 +779,7 @@ public data class CapabilityStatement(
        * some capabilities - e.g. there is at least one interaction supported. However interactions
        * can be omitted to support summarization (_summary = true).
        */
-      public var interaction: MutableList<Interaction> = mutableListOf(),
+      public val interaction: List<Interaction> = listOf(),
       /**
        * This field is set to no-version to specify that the system does not support (server) or use
        * (client) versioning for this resource type. If this has some other value, the server must
@@ -790,7 +790,7 @@ public data class CapabilityStatement(
        * If a server supports versionIds correctly, it SHOULD support vread too, but is not required
        * to do so.
        */
-      public var versioning: Enumeration<ResourceVersionPolicy>? = null,
+      public val versioning: Enumeration<ResourceVersionPolicy>? = null,
       /**
        * A flag for whether the server is able to return past versions as part of the vRead
        * operation.
@@ -798,7 +798,7 @@ public data class CapabilityStatement(
        * It is useful to support the vRead operation for current operations, even if past versions
        * aren't available.
        */
-      public var readHistory: Boolean? = null,
+      public val readHistory: Boolean? = null,
       /**
        * A flag to indicate that the server allows or needs to allow the client to create new
        * identities on the server (that is, the client PUTs to a location where there is no existing
@@ -811,45 +811,44 @@ public data class CapabilityStatement(
        * identities on the client means that the clients need to be managed, it's much more
        * convenient for many scenarios if such management can be put in place.
        */
-      public var updateCreate: Boolean? = null,
+      public val updateCreate: Boolean? = null,
       /**
        * A flag that indicates that the server supports conditional create.
        *
        * Conditional Create is mainly appropriate for interface engine scripts converting from other
        * formats, such as v2.
        */
-      public var conditionalCreate: Boolean? = null,
+      public val conditionalCreate: Boolean? = null,
       /**
        * A code that indicates how the server supports conditional read.
        *
        * Conditional Read is mainly appropriate for interface engine scripts converting from other
        * formats, such as v2.
        */
-      public var conditionalRead: Enumeration<ConditionalReadStatus>? = null,
+      public val conditionalRead: Enumeration<ConditionalReadStatus>? = null,
       /**
        * A flag that indicates that the server supports conditional update.
        *
        * Conditional Update is mainly appropriate for interface engine scripts converting from other
        * formats, such as v2.
        */
-      public var conditionalUpdate: Boolean? = null,
+      public val conditionalUpdate: Boolean? = null,
       /**
        * A flag that indicates that the server supports conditional patch.
        *
        * Conditional Patch is mainly appropriate for interface engine scripts converting from other
        * formats, such as v2.
        */
-      public var conditionalPatch: Boolean? = null,
+      public val conditionalPatch: Boolean? = null,
       /**
        * A code that indicates how the server supports conditional delete.
        *
        * Conditional Delete is mainly appropriate for interface engine scripts converting from other
        * formats, such as v2.
        */
-      public var conditionalDelete: Enumeration<ConditionalDeleteStatus>? = null,
+      public val conditionalDelete: Enumeration<ConditionalDeleteStatus>? = null,
       /** A set of flags that defines how references are supported. */
-      public var referencePolicy: MutableList<Enumeration<ReferenceHandlingPolicy>> =
-        mutableListOf(),
+      public val referencePolicy: List<Enumeration<ReferenceHandlingPolicy>> = listOf(),
       /**
        * A list of _include values supported by the server.
        *
@@ -868,13 +867,13 @@ public data class CapabilityStatement(
        *
        * "searchInclude" : ["CarePlan:activity-reference:DeviceRequest","DeviceRequest:device"],
        */
-      public var searchInclude: MutableList<String> = mutableListOf(),
+      public val searchInclude: List<String> = listOf(),
       /**
        * A list of _revinclude (reverse include) values supported by the server.
        *
        * See `CapabilityStatement.rest.resource.searchInclude` comments.
        */
-      public var searchRevInclude: MutableList<String> = mutableListOf(),
+      public val searchRevInclude: List<String> = listOf(),
       /**
        * Search parameters for implementations to support and/or make use of - either references to
        * ones defined in the specification, or additional ones defined for/by the implementation.
@@ -886,7 +885,7 @@ public data class CapabilityStatement(
        * elements, or narrative within the capability statement or linked
        * [SearchParameter](searchparameter.html#) definitions.
        */
-      public var searchParam: MutableList<SearchParam> = mutableListOf(),
+      public val searchParam: List<SearchParam> = listOf(),
       /**
        * Definition of an operation or a named query together with its parameters and their meaning
        * and type. Consult the definition of the operation for details about how to invoke the
@@ -900,7 +899,7 @@ public data class CapabilityStatement(
        * only supported on the specified resource types, and that may be a subset of those listed in
        * OperationDefinition.resource.
        */
-      public var operation: MutableList<Operation> = mutableListOf(),
+      public val operation: List<Operation> = listOf(),
     ) : BackboneElement() {
       /** Identifies a restful operation supported by the solution. */
       @Serializable(with = CapabilityStatementRestResourceInteractionSerializer::class)
@@ -909,7 +908,7 @@ public data class CapabilityStatement(
          * Unique id for the element within a resource (for internal references). This may be any
          * string value that does not contain spaces.
          */
-        override var id: kotlin.String? = null,
+        override val id: kotlin.String? = null,
         /**
          * May be used to represent additional information that is not part of the basic definition
          * of the element. To make the use of extensions safe and managable, there is a strict set
@@ -922,7 +921,7 @@ public data class CapabilityStatement(
          * extensions. The use of extensions is what allows the FHIR specification to retain a core
          * level of simplicity for everyone.
          */
-        override var extension: MutableList<Extension> = mutableListOf(),
+        override val extension: List<Extension> = listOf(),
         /**
          * May be used to represent additional information that is not part of the basic definition
          * of the element and that modifies the understanding of the element in which it is
@@ -941,15 +940,15 @@ public data class CapabilityStatement(
          * extensions. The use of extensions is what allows the FHIR specification to retain a core
          * level of simplicity for everyone.
          */
-        override var modifierExtension: MutableList<Extension> = mutableListOf(),
+        override val modifierExtension: List<Extension> = listOf(),
         /** Coded identifier of the operation, supported by the system resource. */
-        public var code: Enumeration<TypeRestfulInteraction>,
+        public val code: Enumeration<TypeRestfulInteraction>,
         /**
          * Guidance specific to the implementation of this operation, such as 'delete is a logical
          * delete' or 'updates are only allowed with version id' or 'creates permitted from
          * pre-authorized certificates only'.
          */
-        public var documentation: Markdown? = null,
+        public val documentation: Markdown? = null,
       ) : BackboneElement()
 
       /**
@@ -962,7 +961,7 @@ public data class CapabilityStatement(
          * Unique id for the element within a resource (for internal references). This may be any
          * string value that does not contain spaces.
          */
-        override var id: kotlin.String? = null,
+        override val id: kotlin.String? = null,
         /**
          * May be used to represent additional information that is not part of the basic definition
          * of the element. To make the use of extensions safe and managable, there is a strict set
@@ -975,7 +974,7 @@ public data class CapabilityStatement(
          * extensions. The use of extensions is what allows the FHIR specification to retain a core
          * level of simplicity for everyone.
          */
-        override var extension: MutableList<Extension> = mutableListOf(),
+        override val extension: List<Extension> = listOf(),
         /**
          * May be used to represent additional information that is not part of the basic definition
          * of the element and that modifies the understanding of the element in which it is
@@ -994,7 +993,7 @@ public data class CapabilityStatement(
          * extensions. The use of extensions is what allows the FHIR specification to retain a core
          * level of simplicity for everyone.
          */
-        override var modifierExtension: MutableList<Extension> = mutableListOf(),
+        override val modifierExtension: List<Extension> = listOf(),
         /**
          * The label used for the search parameter in this particular system's API - i.e. the 'name'
          * portion of the name-value pair that will appear as part of the search URL. This SHOULD be
@@ -1007,7 +1006,7 @@ public data class CapabilityStatement(
          * searchParam.name and SearchParameter.name - the latter is used as a class name when
          * generating code for the search parameter.
          */
-        public var name: String,
+        public val name: String,
         /**
          * An absolute URI that is a formal reference to where this parameter was first defined, so
          * that a client can be confident of the meaning of the search parameter (a reference to
@@ -1021,7 +1020,7 @@ public data class CapabilityStatement(
          * SHALL be populated if the search parameter refers to a SearchParameter defined by the
          * FHIR core specification or externally defined IGs.
          */
-        public var definition: Canonical? = null,
+        public val definition: Canonical? = null,
         /**
          * The type of value a search parameter refers to, and how the content is interpreted.
          *
@@ -1029,12 +1028,12 @@ public data class CapabilityStatement(
          * systems that autogenerate a query interface based on the server capability statement. It
          * SHALL be the same as the type in the search parameter definition.
          */
-        public var type: Enumeration<SearchParamType>,
+        public val type: Enumeration<SearchParamType>,
         /**
          * This allows documentation of any distinct behaviors about how the search parameter is
          * used. For example, text matching algorithms.
          */
-        public var documentation: Markdown? = null,
+        public val documentation: Markdown? = null,
       ) : BackboneElement()
 
       /**
@@ -1048,7 +1047,7 @@ public data class CapabilityStatement(
          * Unique id for the element within a resource (for internal references). This may be any
          * string value that does not contain spaces.
          */
-        override var id: kotlin.String? = null,
+        override val id: kotlin.String? = null,
         /**
          * May be used to represent additional information that is not part of the basic definition
          * of the element. To make the use of extensions safe and managable, there is a strict set
@@ -1061,7 +1060,7 @@ public data class CapabilityStatement(
          * extensions. The use of extensions is what allows the FHIR specification to retain a core
          * level of simplicity for everyone.
          */
-        override var extension: MutableList<Extension> = mutableListOf(),
+        override val extension: List<Extension> = listOf(),
         /**
          * May be used to represent additional information that is not part of the basic definition
          * of the element and that modifies the understanding of the element in which it is
@@ -1080,7 +1079,7 @@ public data class CapabilityStatement(
          * extensions. The use of extensions is what allows the FHIR specification to retain a core
          * level of simplicity for everyone.
          */
-        override var modifierExtension: MutableList<Extension> = mutableListOf(),
+        override val modifierExtension: List<Extension> = listOf(),
         /**
          * The name of the operation or query. For an operation, this name is prefixed with $ and
          * used in the URL. For a query, this is the name used in the _query parameter when the
@@ -1095,7 +1094,7 @@ public data class CapabilityStatement(
          * OperationDefinition.name - the latter is used as a class name when generating code for
          * the operation. HL7 will never define operations that have conflicting names.
          */
-        public var name: String,
+        public val name: String,
         /**
          * Where the formal definition can be found. If a server references the base definition of
          * an Operation (i.e. from the specification itself such
@@ -1108,13 +1107,13 @@ public data class CapabilityStatement(
          *
          * This can be used to build an HTML form to invoke the operation, for instance.
          */
-        public var definition: Canonical,
+        public val definition: Canonical,
         /**
          * Documentation that describes anything special about the operation behavior, possibly
          * detailing different behavior for system, type and instance-level invocation of the
          * operation.
          */
-        public var documentation: Markdown? = null,
+        public val documentation: Markdown? = null,
       ) : BackboneElement()
     }
 
@@ -1125,7 +1124,7 @@ public data class CapabilityStatement(
        * Unique id for the element within a resource (for internal references). This may be any
        * string value that does not contain spaces.
        */
-      override var id: kotlin.String? = null,
+      override val id: kotlin.String? = null,
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -1138,7 +1137,7 @@ public data class CapabilityStatement(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: MutableList<Extension> = mutableListOf(),
+      override val extension: List<Extension> = listOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -1157,14 +1156,14 @@ public data class CapabilityStatement(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: MutableList<Extension> = mutableListOf(),
+      override val modifierExtension: List<Extension> = listOf(),
       /** A coded identifier of the operation, supported by the system. */
-      public var code: Enumeration<SystemRestfulInteraction>,
+      public val code: Enumeration<SystemRestfulInteraction>,
       /**
        * Guidance specific to the implementation of this operation, such as limitations on the kind
        * of transactions allowed, or information about system wide search is implemented.
        */
-      public var documentation: Markdown? = null,
+      public val documentation: Markdown? = null,
     ) : BackboneElement()
   }
 
@@ -1175,7 +1174,7 @@ public data class CapabilityStatement(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -1188,7 +1187,7 @@ public data class CapabilityStatement(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -1207,9 +1206,9 @@ public data class CapabilityStatement(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /** An endpoint (network accessible address) to which messages and/or replies are to be sent. */
-    public var endpoint: MutableList<Endpoint> = mutableListOf(),
+    public val endpoint: List<Endpoint> = listOf(),
     /**
      * Length if the receiver's reliable messaging cache in minutes (if a receiver) or how long the
      * cache length on the receiver should be (if a sender).
@@ -1217,19 +1216,19 @@ public data class CapabilityStatement(
      * If this value is missing then the application does not implement (receiver) or depend on
      * (sender) reliable messaging.
      */
-    public var reliableCache: UnsignedInt? = null,
+    public val reliableCache: UnsignedInt? = null,
     /**
      * Documentation about the system's messaging capabilities for this endpoint not otherwise
      * documented by the capability statement. For example, the process for becoming an authorized
      * messaging exchange partner.
      */
-    public var documentation: Markdown? = null,
+    public val documentation: Markdown? = null,
     /**
      * References to message definitions for messages this system can send or receive.
      *
      * This is a proposed alternative to the messaging.event structure.
      */
-    public var supportedMessage: MutableList<SupportedMessage> = mutableListOf(),
+    public val supportedMessage: List<SupportedMessage> = listOf(),
   ) : BackboneElement() {
     /** An endpoint (network accessible address) to which messages and/or replies are to be sent. */
     @Serializable(with = CapabilityStatementMessagingEndpointSerializer::class)
@@ -1238,7 +1237,7 @@ public data class CapabilityStatement(
        * Unique id for the element within a resource (for internal references). This may be any
        * string value that does not contain spaces.
        */
-      override var id: kotlin.String? = null,
+      override val id: kotlin.String? = null,
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -1251,7 +1250,7 @@ public data class CapabilityStatement(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: MutableList<Extension> = mutableListOf(),
+      override val extension: List<Extension> = listOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -1270,14 +1269,14 @@ public data class CapabilityStatement(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: MutableList<Extension> = mutableListOf(),
+      override val modifierExtension: List<Extension> = listOf(),
       /** A list of the messaging transport protocol(s) identifiers, supported by this endpoint. */
-      public var protocol: Coding,
+      public val protocol: Coding,
       /**
        * The network address of the endpoint. For solutions that do not use network addresses for
        * routing, it can be just an identifier.
        */
-      public var address: Url,
+      public val address: Url,
     ) : BackboneElement()
 
     /** References to message definitions for messages this system can send or receive. */
@@ -1287,7 +1286,7 @@ public data class CapabilityStatement(
        * Unique id for the element within a resource (for internal references). This may be any
        * string value that does not contain spaces.
        */
-      override var id: kotlin.String? = null,
+      override val id: kotlin.String? = null,
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -1300,7 +1299,7 @@ public data class CapabilityStatement(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: MutableList<Extension> = mutableListOf(),
+      override val extension: List<Extension> = listOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -1319,14 +1318,14 @@ public data class CapabilityStatement(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: MutableList<Extension> = mutableListOf(),
+      override val modifierExtension: List<Extension> = listOf(),
       /** The mode of this event declaration - whether application is sender or receiver. */
-      public var mode: Enumeration<EventCapabilityMode>,
+      public val mode: Enumeration<EventCapabilityMode>,
       /**
        * Points to a message definition that identifies the messaging event, message structure,
        * allowed responses, etc.
        */
-      public var definition: Canonical,
+      public val definition: Canonical,
     ) : BackboneElement()
   }
 
@@ -1337,7 +1336,7 @@ public data class CapabilityStatement(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -1350,7 +1349,7 @@ public data class CapabilityStatement(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -1369,21 +1368,21 @@ public data class CapabilityStatement(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /** Mode of this document declaration - whether an application is a producer or consumer. */
-    public var mode: Enumeration<DocumentMode>,
+    public val mode: Enumeration<DocumentMode>,
     /**
      * A description of how the application supports or uses the specified document profile. For
      * example, when documents are created, what action is taken with consumed documents, etc.
      */
-    public var documentation: Markdown? = null,
+    public val documentation: Markdown? = null,
     /**
      * A profile on the document Bundle that constrains which resources are present, and their
      * contents.
      *
      * The profile is actually on the Bundle.
      */
-    public var profile: Canonical,
+    public val profile: Canonical,
   ) : BackboneElement()
 
   @Serializable(with = CapabilityStatementVersionAlgorithmSerializer::class)

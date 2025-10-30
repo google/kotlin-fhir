@@ -22,7 +22,7 @@ import com.google.fhir.model.r4b.serializers.DeviceMetricCalibrationSerializer
 import com.google.fhir.model.r4b.serializers.DeviceMetricSerializer
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -37,12 +37,12 @@ public data class DeviceMetric(
    * The only time that a resource does not have an id is when it is being submitted to the server
    * using a create operation.
    */
-  override var id: String? = null,
+  override val id: String? = null,
   /**
    * The metadata about the resource. This is content that is maintained by the infrastructure.
    * Changes to the content might not always be associated with version changes to the resource.
    */
-  override var meta: Meta? = null,
+  override val meta: Meta? = null,
   /**
    * A reference to a set of rules that were followed when the resource was constructed, and which
    * must be understood when processing the content. Often, this is a reference to an implementation
@@ -56,7 +56,7 @@ public data class DeviceMetric(
    * to an implementation guide that defines these special rules as part of it's narrative along
    * with other profiles, value sets, etc.
    */
-  override var implicitRules: Uri? = null,
+  override val implicitRules: Uri? = null,
   /**
    * The base language in which the resource is written.
    *
@@ -68,7 +68,7 @@ public data class DeviceMetric(
    * language is specified, it should it also be specified on the div element in the html (see rules
    * in HTML5 for information about the relationship between xml:lang and the html lang attribute).
    */
-  override var language: Code? = null,
+  override val language: Code? = null,
   /**
    * A human-readable narrative that contains a summary of the resource and can be used to represent
    * the content of the resource to a human. The narrative need not encode all the structured data,
@@ -82,7 +82,7 @@ public data class DeviceMetric(
    * legacy systems where information is captured as a "text blob" or where text is additionally
    * entered raw or narrated and encoded information is added later.
    */
-  override var text: Narrative? = null,
+  override val text: Narrative? = null,
   /**
    * These resources do not have an independent existence apart from the resource that contains
    * them - they cannot be identified independently, and nor can they have their own independent
@@ -93,7 +93,7 @@ public data class DeviceMetric(
    * resources may have profiles and tags In their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: MutableList<Resource> = mutableListOf(),
+  override val contained: List<Resource> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and manageable, there is a strict set of
@@ -106,7 +106,7 @@ public data class DeviceMetric(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: MutableList<Extension> = mutableListOf(),
+  override val extension: List<Extension> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -125,7 +125,7 @@ public data class DeviceMetric(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: MutableList<Extension> = mutableListOf(),
+  override val modifierExtension: List<Extension> = listOf(),
   /**
    * Unique instance identifiers assigned to a device by the device or gateway software,
    * manufacturers, other organizations or owners. For example: handle ID.
@@ -133,25 +133,25 @@ public data class DeviceMetric(
    * For identifiers assigned to a device by the device or gateway software, the `system` element of
    * the identifier should be set to the unique identifier of the device.
    */
-  public var identifier: MutableList<Identifier> = mutableListOf(),
+  public val identifier: List<Identifier> = listOf(),
   /**
    * Describes the type of the metric. For example: Heart Rate, PEEP Setting, etc.
    *
    * DeviceMetric.type can be referred to either IEEE 11073-10101 or LOINC.
    */
-  public var type: CodeableConcept,
+  public val type: CodeableConcept,
   /**
    * Describes the unit that an observed value determined for this metric will have. For example:
    * Percent, Seconds, etc.
    *
    * DeviceMetric.unit can refer to either UCUM or preferable a RTMMS coding system.
    */
-  public var unit: CodeableConcept? = null,
+  public val unit: CodeableConcept? = null,
   /**
    * Describes the link to the Device that this DeviceMetric belongs to and that contains
    * administrative device information such as manufacturer, serial number, etc.
    */
-  public var source: Reference? = null,
+  public val source: Reference? = null,
   /**
    * Describes the link to the Device that this DeviceMetric belongs to and that provide information
    * about the location of this DeviceMetric in the containment structure of the parent Device. An
@@ -159,21 +159,21 @@ public data class DeviceMetric(
    * application to distinguish DeviceMetrics that have the same type, but should be interpreted
    * based on their containment location.
    */
-  public var parent: Reference? = null,
+  public val parent: Reference? = null,
   /** Indicates current operational state of the device. For example: On, Off, Standby, etc. */
-  public var operationalStatus: Enumeration<DeviceMetricOperationalStatus>? = null,
+  public val operationalStatus: Enumeration<DeviceMetricOperationalStatus>? = null,
   /**
    * Describes the color representation for the metric. This is often used to aid clinicians to
    * track and identify parameter types by color. In practice, consider a Patient Monitor that has
    * ECG/HR and Pleth for example; the parameters are displayed in different characteristic colors,
    * such as HR-blue, BP-green, and PR and SpO2- magenta.
    */
-  public var color: Enumeration<DeviceMetricColor>? = null,
+  public val color: Enumeration<DeviceMetricColor>? = null,
   /**
    * Indicates the category of the observation generation process. A DeviceMetric can be for example
    * a setting, measurement, or calculation.
    */
-  public var category: Enumeration<DeviceMetricCategory>,
+  public val category: Enumeration<DeviceMetricCategory>,
   /**
    * Describes the measurement repetition time. This is not necessarily the same as the update
    * period. The measurement repetition time can range from milliseconds up to hours. An example for
@@ -183,9 +183,9 @@ public data class DeviceMetric(
    * time, if the device does not update the published observed value with the same frequency as it
    * was measured.
    */
-  public var measurementPeriod: Timing? = null,
+  public val measurementPeriod: Timing? = null,
   /** Describes the calibrations that have been performed or that are required to be performed. */
-  public var calibration: MutableList<Calibration> = mutableListOf(),
+  public val calibration: List<Calibration> = listOf(),
 ) : DomainResource() {
   /** Describes the calibrations that have been performed or that are required to be performed. */
   @Serializable(with = DeviceMetricCalibrationSerializer::class)
@@ -194,7 +194,7 @@ public data class DeviceMetric(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: String? = null,
+    override val id: String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and manageable, there is a strict set of
@@ -207,7 +207,7 @@ public data class DeviceMetric(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -226,13 +226,13 @@ public data class DeviceMetric(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /** Describes the type of the calibration method. */
-    public var type: Enumeration<DeviceMetricCalibrationType>? = null,
+    public val type: Enumeration<DeviceMetricCalibrationType>? = null,
     /** Describes the state of the calibration. */
-    public var state: Enumeration<DeviceMetricCalibrationState>? = null,
+    public val state: Enumeration<DeviceMetricCalibrationState>? = null,
     /** Describes the time last calibration has been performed. */
-    public var time: Instant? = null,
+    public val time: Instant? = null,
   ) : BackboneElement()
 
   /** Describes the type of a metric calibration. */

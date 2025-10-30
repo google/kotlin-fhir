@@ -44,23 +44,23 @@ import com.google.fhir.model.r5.serializers.LocalTimeSerializer
 import kotlin.Boolean as KotlinBoolean
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class SupplyRequestParameterSurrogate(
   public var id: String? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var code: CodeableConcept? = null,
   public var `value`: SupplyRequest.Parameter.Value? = null,
 ) {
   public fun toModel(): SupplyRequest.Parameter =
     SupplyRequest.Parameter(
       id = this@SupplyRequestParameterSurrogate.id,
-      extension = this@SupplyRequestParameterSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@SupplyRequestParameterSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@SupplyRequestParameterSurrogate.extension ?: listOf(),
+      modifierExtension = this@SupplyRequestParameterSurrogate.modifierExtension ?: listOf(),
       code = this@SupplyRequestParameterSurrogate.code,
       `value` = this@SupplyRequestParameterSurrogate.`value`,
     )
@@ -153,26 +153,26 @@ internal data class SupplyRequestSurrogate(
   public var language: String? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: MutableList<Resource>? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var identifier: MutableList<Identifier>? = null,
+  public var contained: List<Resource>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
+  public var identifier: List<Identifier>? = null,
   public var status: String? = null,
   public var _status: Element? = null,
-  public var basedOn: MutableList<Reference>? = null,
+  public var basedOn: List<Reference>? = null,
   public var category: CodeableConcept? = null,
   public var priority: String? = null,
   public var _priority: Element? = null,
   public var deliverFor: Reference? = null,
   public var item: CodeableReference,
   public var quantity: Quantity,
-  public var parameter: MutableList<SupplyRequest.Parameter>? = null,
+  public var parameter: List<SupplyRequest.Parameter>? = null,
   public var occurrence: SupplyRequest.Occurrence? = null,
   public var authoredOn: String? = null,
   public var _authoredOn: Element? = null,
   public var requester: Reference? = null,
-  public var supplier: MutableList<Reference>? = null,
-  public var reason: MutableList<CodeableReference>? = null,
+  public var supplier: List<Reference>? = null,
+  public var reason: List<CodeableReference>? = null,
   public var deliverFrom: Reference? = null,
   public var deliverTo: Reference? = null,
 ) {
@@ -188,10 +188,10 @@ internal data class SupplyRequestSurrogate(
       language =
         Code.of(this@SupplyRequestSurrogate.language, this@SupplyRequestSurrogate._language),
       text = this@SupplyRequestSurrogate.text,
-      contained = this@SupplyRequestSurrogate.contained ?: mutableListOf(),
-      extension = this@SupplyRequestSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@SupplyRequestSurrogate.modifierExtension ?: mutableListOf(),
-      identifier = this@SupplyRequestSurrogate.identifier ?: mutableListOf(),
+      contained = this@SupplyRequestSurrogate.contained ?: listOf(),
+      extension = this@SupplyRequestSurrogate.extension ?: listOf(),
+      modifierExtension = this@SupplyRequestSurrogate.modifierExtension ?: listOf(),
+      identifier = this@SupplyRequestSurrogate.identifier ?: listOf(),
       status =
         this@SupplyRequestSurrogate.status?.let {
           Enumeration.of(
@@ -199,7 +199,7 @@ internal data class SupplyRequestSurrogate(
             this@SupplyRequestSurrogate._status,
           )
         },
-      basedOn = this@SupplyRequestSurrogate.basedOn ?: mutableListOf(),
+      basedOn = this@SupplyRequestSurrogate.basedOn ?: listOf(),
       category = this@SupplyRequestSurrogate.category,
       priority =
         this@SupplyRequestSurrogate.priority?.let {
@@ -211,7 +211,7 @@ internal data class SupplyRequestSurrogate(
       deliverFor = this@SupplyRequestSurrogate.deliverFor,
       item = this@SupplyRequestSurrogate.item,
       quantity = this@SupplyRequestSurrogate.quantity,
-      parameter = this@SupplyRequestSurrogate.parameter ?: mutableListOf(),
+      parameter = this@SupplyRequestSurrogate.parameter ?: listOf(),
       occurrence = this@SupplyRequestSurrogate.occurrence,
       authoredOn =
         DateTime.of(
@@ -219,8 +219,8 @@ internal data class SupplyRequestSurrogate(
           this@SupplyRequestSurrogate._authoredOn,
         ),
       requester = this@SupplyRequestSurrogate.requester,
-      supplier = this@SupplyRequestSurrogate.supplier ?: mutableListOf(),
-      reason = this@SupplyRequestSurrogate.reason ?: mutableListOf(),
+      supplier = this@SupplyRequestSurrogate.supplier ?: listOf(),
+      reason = this@SupplyRequestSurrogate.reason ?: listOf(),
       deliverFrom = this@SupplyRequestSurrogate.deliverFrom,
       deliverTo = this@SupplyRequestSurrogate.deliverTo,
     )

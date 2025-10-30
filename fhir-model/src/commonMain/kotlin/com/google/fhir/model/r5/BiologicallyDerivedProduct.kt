@@ -24,7 +24,7 @@ import com.google.fhir.model.r5.serializers.BiologicallyDerivedProductPropertySe
 import com.google.fhir.model.r5.serializers.BiologicallyDerivedProductPropertyValueSerializer
 import com.google.fhir.model.r5.serializers.BiologicallyDerivedProductSerializer
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -43,12 +43,12 @@ public data class BiologicallyDerivedProduct(
    * like the create and conditional update. Otherwise, the use of the resouce id depends on the
    * given use case.
    */
-  override var id: kotlin.String? = null,
+  override val id: kotlin.String? = null,
   /**
    * The metadata about the resource. This is content that is maintained by the infrastructure.
    * Changes to the content might not always be associated with version changes to the resource.
    */
-  override var meta: Meta? = null,
+  override val meta: Meta? = null,
   /**
    * A reference to a set of rules that were followed when the resource was constructed, and which
    * must be understood when processing the content. Often, this is a reference to an implementation
@@ -62,7 +62,7 @@ public data class BiologicallyDerivedProduct(
    * to an implementation guide that defines these special rules as part of its narrative along with
    * other profiles, value sets, etc.
    */
-  override var implicitRules: Uri? = null,
+  override val implicitRules: Uri? = null,
   /**
    * The base language in which the resource is written.
    *
@@ -74,7 +74,7 @@ public data class BiologicallyDerivedProduct(
    * language is specified, it should it also be specified on the div element in the html (see rules
    * in HTML5 for information about the relationship between xml:lang and the html lang attribute).
    */
-  override var language: Code? = null,
+  override val language: Code? = null,
   /**
    * A human-readable narrative that contains a summary of the resource and can be used to represent
    * the content of the resource to a human. The narrative need not encode all the structured data,
@@ -88,7 +88,7 @@ public data class BiologicallyDerivedProduct(
    * legacy systems where information is captured as a "text blob" or where text is additionally
    * entered raw or narrated and encoded information is added later.
    */
-  override var text: Narrative? = null,
+  override val text: Narrative? = null,
   /**
    * These resources do not have an independent existence apart from the resource that contains
    * them - they cannot be identified independently, nor can they have their own independent
@@ -100,7 +100,7 @@ public data class BiologicallyDerivedProduct(
    * resources may have profiles and tags in their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: MutableList<Resource> = mutableListOf(),
+  override val contained: List<Resource> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and managable, there is a strict set of governance
@@ -113,7 +113,7 @@ public data class BiologicallyDerivedProduct(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: MutableList<Extension> = mutableListOf(),
+  override val extension: List<Extension> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -132,15 +132,15 @@ public data class BiologicallyDerivedProduct(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: MutableList<Extension> = mutableListOf(),
+  override val modifierExtension: List<Extension> = listOf(),
   /** Broad category of this product. */
-  public var productCategory: Coding? = null,
+  public val productCategory: Coding? = null,
   /**
    * A codified value that systematically supports characterization and classification of medical
    * products of human origin inclusive of processing conditions such as additives, volumes and
    * handling conditions.
    */
-  public var productCode: CodeableConcept? = null,
+  public val productCode: CodeableConcept? = null,
   /**
    * Parent product (if any) for this biologically-derived product.
    *
@@ -148,9 +148,9 @@ public data class BiologicallyDerivedProduct(
    * collected over several days from a single donor and the donation split into in multiple
    * containers which must be linked to the parent donation.
    */
-  public var parent: MutableList<Reference> = mutableListOf(),
+  public val parent: List<Reference> = listOf(),
   /** Request to obtain and/or infuse this biologically derived product. */
-  public var request: MutableList<Reference> = mutableListOf(),
+  public val request: List<Reference> = listOf(),
   /**
    * Unique instance identifiers assigned to a biologically derived product. Note: This is a
    * business identifier, not a resource identifier.
@@ -158,7 +158,7 @@ public data class BiologicallyDerivedProduct(
    * This identifier should uniquely identify the product instance in the business domain. Ideally
    * it should be a globally unique identifier under the control of an ISO/IEC 15459 Issuing Agency.
    */
-  public var identifier: MutableList<Identifier> = mutableListOf(),
+  public val identifier: List<Identifier> = listOf(),
   /**
    * An identifier that supports traceability to the event during which material in this product
    * from one or more biological entities was obtained or pooled.
@@ -175,36 +175,36 @@ public data class BiologicallyDerivedProduct(
    * shaped bone grafts and a large number of bone putty/paste products; and each of them may be
    * assigned to the same biological source event identifier.
    */
-  public var biologicalSourceEvent: Identifier? = null,
+  public val biologicalSourceEvent: Identifier? = null,
   /**
    * Processing facilities responsible for the labeling and distribution of this biologically
    * derived product.
    */
-  public var processingFacility: MutableList<Reference> = mutableListOf(),
+  public val processingFacility: List<Reference> = listOf(),
   /**
    * A unique identifier for an aliquot of a product. Used to distinguish individual aliquots of a
    * product carrying the same biologicalSource and productCode identifiers.
    */
-  public var division: String? = null,
+  public val division: String? = null,
   /** Whether the product is currently available. */
-  public var productStatus: Coding? = null,
+  public val productStatus: Coding? = null,
   /** Date, and where relevant time, of expiration. */
-  public var expirationDate: DateTime? = null,
+  public val expirationDate: DateTime? = null,
   /** How this product was collected. */
-  public var collection: Collection? = null,
+  public val collection: Collection? = null,
   /**
    * The temperature requirements for storage of the biologically-derived product.
    *
    * May be extracted from information held in the Product Description Code.
    */
-  public var storageTempRequirements: Range? = null,
+  public val storageTempRequirements: Range? = null,
   /**
    * A property that is specific to this BiologicallyDerviedProduct instance.
    *
    * Property can be used to provide information on a wide range of additional information specific
    * to a particular biologicallyDerivedProduct.
    */
-  public var `property`: MutableList<Property> = mutableListOf(),
+  public val `property`: List<Property> = listOf(),
 ) : DomainResource() {
   /** How this product was collected. */
   @Serializable(with = BiologicallyDerivedProductCollectionSerializer::class)
@@ -213,7 +213,7 @@ public data class BiologicallyDerivedProduct(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -226,7 +226,7 @@ public data class BiologicallyDerivedProduct(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -245,16 +245,16 @@ public data class BiologicallyDerivedProduct(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /** Healthcare professional who is performing the collection. */
-    public var collector: Reference? = null,
+    public val collector: Reference? = null,
     /**
      * The patient or entity, such as a hospital or vendor in the case of a
      * processed/manipulated/manufactured product, providing the product.
      */
-    public var source: Reference? = null,
+    public val source: Reference? = null,
     /** Time of product collection. */
-    public var collected: Collected? = null,
+    public val collected: Collected? = null,
   ) : BackboneElement() {
     @Serializable(with = BiologicallyDerivedProductCollectionCollectedSerializer::class)
     public sealed interface Collected {
@@ -286,7 +286,7 @@ public data class BiologicallyDerivedProduct(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -299,7 +299,7 @@ public data class BiologicallyDerivedProduct(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -318,14 +318,14 @@ public data class BiologicallyDerivedProduct(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /**
      * Code that specifies the property. It should reference an established coding system.
      *
      * The element is identified by name and system URI in the type. Some types may have multiple
      * occurrences.
      */
-    public var type: CodeableConcept,
+    public val type: CodeableConcept,
     /**
      * Property values.
      *
@@ -333,7 +333,7 @@ public data class BiologicallyDerivedProduct(
      * ratio, or attachment. The description can be a string only when these others are not
      * available. The type of value will depend on the property type and is specified in ST-027.
      */
-    public var `value`: Value,
+    public val `value`: Value,
   ) : BackboneElement() {
     @Serializable(with = BiologicallyDerivedProductPropertyValueSerializer::class)
     public sealed interface Value {

@@ -23,12 +23,12 @@ import com.ionspin.kotlin.bignum.decimal.toBigDecimal
 import kotlin.Double
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 
 /** Base StructureDefinition for decimal Type: A rational number with implicit precision */
 public data class Decimal(
   /** unique id for the element within a resource (for internal references) */
-  override var id: String? = null,
+  override val id: String? = null,
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and manageable, there is a strict set of
@@ -41,9 +41,9 @@ public data class Decimal(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: MutableList<Extension> = mutableListOf(),
+  override val extension: List<Extension> = listOf(),
   /** The actual value */
-  public var `value`: BigDecimal? = null,
+  public val `value`: BigDecimal? = null,
 ) : Element(id, extension) {
   public fun toElement(): Element? {
     if (id != null || extension.isNotEmpty()) {

@@ -22,7 +22,7 @@ import com.google.fhir.model.r4.serializers.SubstanceAmountAmountSerializer
 import com.google.fhir.model.r4.serializers.SubstanceAmountReferenceRangeSerializer
 import com.google.fhir.model.r4.serializers.SubstanceAmountSerializer
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 
 /**
@@ -39,7 +39,7 @@ public data class SubstanceAmount(
    * Unique id for the element within a resource (for internal references). This may be any string
    * value that does not contain spaces.
    */
-  override var id: kotlin.String? = null,
+  override val id: kotlin.String? = null,
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * element. To make the use of extensions safe and manageable, there is a strict set of governance
@@ -52,7 +52,7 @@ public data class SubstanceAmount(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: MutableList<Extension> = mutableListOf(),
+  override val extension: List<Extension> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * element and that modifies the understanding of the element in which it is contained and/or the
@@ -71,13 +71,13 @@ public data class SubstanceAmount(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: MutableList<Extension> = mutableListOf(),
+  override val modifierExtension: List<Extension> = listOf(),
   /**
    * Used to capture quantitative values for a variety of elements. If only limits are given, the
    * arithmetic mean would be the average. If only a single definite value for a given element is
    * given, it would be captured in this field.
    */
-  public var amount: Amount? = null,
+  public val amount: Amount? = null,
   /**
    * Most elements that require a quantitative value will also have a field called amount type.
    * Amount type should always be specified because the actual value of the amount is often
@@ -86,11 +86,11 @@ public data class SubstanceAmount(
    * ratio. For any given element an effort should be made to use same the amount type for all
    * related definitional elements.
    */
-  public var amountType: CodeableConcept? = null,
+  public val amountType: CodeableConcept? = null,
   /** A textual comment on a numeric value. */
-  public var amountText: String? = null,
+  public val amountText: String? = null,
   /** Reference range of possible or expected values. */
-  public var referenceRange: ReferenceRange? = null,
+  public val referenceRange: ReferenceRange? = null,
 ) : BackboneElement() {
   /** Reference range of possible or expected values. */
   @Serializable(with = SubstanceAmountReferenceRangeSerializer::class)
@@ -99,7 +99,7 @@ public data class SubstanceAmount(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and manageable, there is a strict set of
@@ -112,11 +112,11 @@ public data class SubstanceAmount(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /** Lower limit possible or expected. */
-    public var lowLimit: Quantity? = null,
+    public val lowLimit: Quantity? = null,
     /** Upper limit possible or expected. */
-    public var highLimit: Quantity? = null,
+    public val highLimit: Quantity? = null,
   ) : Element()
 
   @Serializable(with = SubstanceAmountAmountSerializer::class)

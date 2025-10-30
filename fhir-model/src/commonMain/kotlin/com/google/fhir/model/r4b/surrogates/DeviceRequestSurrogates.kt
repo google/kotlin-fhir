@@ -45,23 +45,23 @@ import com.google.fhir.model.r4b.serializers.LocalTimeSerializer
 import kotlin.Boolean as KotlinBoolean
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class DeviceRequestParameterSurrogate(
   public var id: String? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var code: CodeableConcept? = null,
   public var `value`: DeviceRequest.Parameter.Value? = null,
 ) {
   public fun toModel(): DeviceRequest.Parameter =
     DeviceRequest.Parameter(
       id = this@DeviceRequestParameterSurrogate.id,
-      extension = this@DeviceRequestParameterSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@DeviceRequestParameterSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@DeviceRequestParameterSurrogate.extension ?: listOf(),
+      modifierExtension = this@DeviceRequestParameterSurrogate.modifierExtension ?: listOf(),
       code = this@DeviceRequestParameterSurrogate.code,
       `value` = this@DeviceRequestParameterSurrogate.`value`,
     )
@@ -176,16 +176,16 @@ internal data class DeviceRequestSurrogate(
   public var language: String? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: MutableList<Resource>? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var identifier: MutableList<Identifier>? = null,
-  public var instantiatesCanonical: MutableList<String?>? = null,
-  public var _instantiatesCanonical: MutableList<Element?>? = null,
-  public var instantiatesUri: MutableList<String?>? = null,
-  public var _instantiatesUri: MutableList<Element?>? = null,
-  public var basedOn: MutableList<Reference>? = null,
-  public var priorRequest: MutableList<Reference>? = null,
+  public var contained: List<Resource>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
+  public var identifier: List<Identifier>? = null,
+  public var instantiatesCanonical: List<String?>? = null,
+  public var _instantiatesCanonical: List<Element?>? = null,
+  public var instantiatesUri: List<String?>? = null,
+  public var _instantiatesUri: List<Element?>? = null,
+  public var basedOn: List<Reference>? = null,
+  public var priorRequest: List<Reference>? = null,
   public var groupIdentifier: Identifier? = null,
   public var status: String? = null,
   public var _status: Element? = null,
@@ -194,7 +194,7 @@ internal data class DeviceRequestSurrogate(
   public var priority: String? = null,
   public var _priority: Element? = null,
   public var code: DeviceRequest.Code,
-  public var parameter: MutableList<DeviceRequest.Parameter>? = null,
+  public var parameter: List<DeviceRequest.Parameter>? = null,
   public var subject: Reference,
   public var encounter: Reference? = null,
   public var occurrence: DeviceRequest.Occurrence? = null,
@@ -203,12 +203,12 @@ internal data class DeviceRequestSurrogate(
   public var requester: Reference? = null,
   public var performerType: CodeableConcept? = null,
   public var performer: Reference? = null,
-  public var reasonCode: MutableList<CodeableConcept>? = null,
-  public var reasonReference: MutableList<Reference>? = null,
-  public var insurance: MutableList<Reference>? = null,
-  public var supportingInfo: MutableList<Reference>? = null,
-  public var note: MutableList<Annotation>? = null,
-  public var relevantHistory: MutableList<Reference>? = null,
+  public var reasonCode: List<CodeableConcept>? = null,
+  public var reasonReference: List<Reference>? = null,
+  public var insurance: List<Reference>? = null,
+  public var supportingInfo: List<Reference>? = null,
+  public var note: List<Annotation>? = null,
+  public var relevantHistory: List<Reference>? = null,
 ) {
   public fun toModel(): DeviceRequest =
     DeviceRequest(
@@ -222,16 +222,16 @@ internal data class DeviceRequestSurrogate(
       language =
         Code.of(this@DeviceRequestSurrogate.language, this@DeviceRequestSurrogate._language),
       text = this@DeviceRequestSurrogate.text,
-      contained = this@DeviceRequestSurrogate.contained ?: mutableListOf(),
-      extension = this@DeviceRequestSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@DeviceRequestSurrogate.modifierExtension ?: mutableListOf(),
-      identifier = this@DeviceRequestSurrogate.identifier ?: mutableListOf(),
+      contained = this@DeviceRequestSurrogate.contained ?: listOf(),
+      extension = this@DeviceRequestSurrogate.extension ?: listOf(),
+      modifierExtension = this@DeviceRequestSurrogate.modifierExtension ?: listOf(),
+      identifier = this@DeviceRequestSurrogate.identifier ?: listOf(),
       instantiatesCanonical =
         if (
           this@DeviceRequestSurrogate.instantiatesCanonical == null &&
             this@DeviceRequestSurrogate._instantiatesCanonical == null
         ) {
-          mutableListOf()
+          listOf()
         } else {
           (this@DeviceRequestSurrogate.instantiatesCanonical
               ?: List(this@DeviceRequestSurrogate._instantiatesCanonical!!.size) { null })
@@ -240,14 +240,14 @@ internal data class DeviceRequestSurrogate(
                 ?: List(this@DeviceRequestSurrogate.instantiatesCanonical!!.size) { null }
             )
             .map { (value, element) -> Canonical.of(value, element)!! }
-            .toMutableList()
+            .toList()
         },
       instantiatesUri =
         if (
           this@DeviceRequestSurrogate.instantiatesUri == null &&
             this@DeviceRequestSurrogate._instantiatesUri == null
         ) {
-          mutableListOf()
+          listOf()
         } else {
           (this@DeviceRequestSurrogate.instantiatesUri
               ?: List(this@DeviceRequestSurrogate._instantiatesUri!!.size) { null })
@@ -256,10 +256,10 @@ internal data class DeviceRequestSurrogate(
                 ?: List(this@DeviceRequestSurrogate.instantiatesUri!!.size) { null }
             )
             .map { (value, element) -> Uri.of(value, element)!! }
-            .toMutableList()
+            .toList()
         },
-      basedOn = this@DeviceRequestSurrogate.basedOn ?: mutableListOf(),
-      priorRequest = this@DeviceRequestSurrogate.priorRequest ?: mutableListOf(),
+      basedOn = this@DeviceRequestSurrogate.basedOn ?: listOf(),
+      priorRequest = this@DeviceRequestSurrogate.priorRequest ?: listOf(),
       groupIdentifier = this@DeviceRequestSurrogate.groupIdentifier,
       status =
         this@DeviceRequestSurrogate.status?.let {
@@ -281,7 +281,7 @@ internal data class DeviceRequestSurrogate(
           )
         },
       code = this@DeviceRequestSurrogate.code,
-      parameter = this@DeviceRequestSurrogate.parameter ?: mutableListOf(),
+      parameter = this@DeviceRequestSurrogate.parameter ?: listOf(),
       subject = this@DeviceRequestSurrogate.subject,
       encounter = this@DeviceRequestSurrogate.encounter,
       occurrence = this@DeviceRequestSurrogate.occurrence,
@@ -293,12 +293,12 @@ internal data class DeviceRequestSurrogate(
       requester = this@DeviceRequestSurrogate.requester,
       performerType = this@DeviceRequestSurrogate.performerType,
       performer = this@DeviceRequestSurrogate.performer,
-      reasonCode = this@DeviceRequestSurrogate.reasonCode ?: mutableListOf(),
-      reasonReference = this@DeviceRequestSurrogate.reasonReference ?: mutableListOf(),
-      insurance = this@DeviceRequestSurrogate.insurance ?: mutableListOf(),
-      supportingInfo = this@DeviceRequestSurrogate.supportingInfo ?: mutableListOf(),
-      note = this@DeviceRequestSurrogate.note ?: mutableListOf(),
-      relevantHistory = this@DeviceRequestSurrogate.relevantHistory ?: mutableListOf(),
+      reasonCode = this@DeviceRequestSurrogate.reasonCode ?: listOf(),
+      reasonReference = this@DeviceRequestSurrogate.reasonReference ?: listOf(),
+      insurance = this@DeviceRequestSurrogate.insurance ?: listOf(),
+      supportingInfo = this@DeviceRequestSurrogate.supportingInfo ?: listOf(),
+      note = this@DeviceRequestSurrogate.note ?: listOf(),
+      relevantHistory = this@DeviceRequestSurrogate.relevantHistory ?: listOf(),
     )
 
   public companion object {
@@ -319,25 +319,25 @@ internal data class DeviceRequestSurrogate(
           instantiatesCanonical =
             this@with.instantiatesCanonical
               .map { it.value }
-              .toMutableList()
+              .toList()
               .takeUnless { it.all { it == null } },
           _instantiatesCanonical =
             this@with.instantiatesCanonical
               .map { it.toElement() }
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
-              ?.toMutableList(),
+              ?.toList(),
           instantiatesUri =
             this@with.instantiatesUri
               .map { it.value }
-              .toMutableList()
+              .toList()
               .takeUnless { it.all { it == null } },
           _instantiatesUri =
             this@with.instantiatesUri
               .map { it.toElement() }
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
-              ?.toMutableList(),
+              ?.toList(),
           basedOn = this@with.basedOn.takeIf { it.isNotEmpty() },
           priorRequest = this@with.priorRequest.takeIf { it.isNotEmpty() },
           groupIdentifier = this@with.groupIdentifier,

@@ -33,14 +33,14 @@ import com.google.fhir.model.r5.terminologies.FHIRTypes
 import kotlin.Int
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class ParameterDefinitionSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
   public var name: KotlinString? = null,
   public var _name: Element? = null,
   public var use: KotlinString? = null,
@@ -59,7 +59,7 @@ internal data class ParameterDefinitionSurrogate(
   public fun toModel(): ParameterDefinition =
     ParameterDefinition(
       id = this@ParameterDefinitionSurrogate.id,
-      extension = this@ParameterDefinitionSurrogate.extension ?: mutableListOf(),
+      extension = this@ParameterDefinitionSurrogate.extension ?: listOf(),
       name =
         Code.of(this@ParameterDefinitionSurrogate.name, this@ParameterDefinitionSurrogate._name),
       use =

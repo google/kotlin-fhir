@@ -40,24 +40,23 @@ import com.google.fhir.model.r5.serializers.DoubleSerializer
 import com.google.fhir.model.r5.serializers.LocalTimeSerializer
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class SupplyDeliverySuppliedItemSurrogate(
   public var id: String? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var quantity: Quantity? = null,
   public var item: SupplyDelivery.SuppliedItem.Item? = null,
 ) {
   public fun toModel(): SupplyDelivery.SuppliedItem =
     SupplyDelivery.SuppliedItem(
       id = this@SupplyDeliverySuppliedItemSurrogate.id,
-      extension = this@SupplyDeliverySuppliedItemSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@SupplyDeliverySuppliedItemSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@SupplyDeliverySuppliedItemSurrogate.extension ?: listOf(),
+      modifierExtension = this@SupplyDeliverySuppliedItemSurrogate.modifierExtension ?: listOf(),
       quantity = this@SupplyDeliverySuppliedItemSurrogate.quantity,
       item = this@SupplyDeliverySuppliedItemSurrogate.item,
     )
@@ -139,21 +138,21 @@ internal data class SupplyDeliverySurrogate(
   public var language: String? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: MutableList<Resource>? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var identifier: MutableList<Identifier>? = null,
-  public var basedOn: MutableList<Reference>? = null,
-  public var partOf: MutableList<Reference>? = null,
+  public var contained: List<Resource>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
+  public var identifier: List<Identifier>? = null,
+  public var basedOn: List<Reference>? = null,
+  public var partOf: List<Reference>? = null,
   public var status: String? = null,
   public var _status: Element? = null,
   public var patient: Reference? = null,
   public var type: CodeableConcept? = null,
-  public var suppliedItem: MutableList<SupplyDelivery.SuppliedItem>? = null,
+  public var suppliedItem: List<SupplyDelivery.SuppliedItem>? = null,
   public var occurrence: SupplyDelivery.Occurrence? = null,
   public var supplier: Reference? = null,
   public var destination: Reference? = null,
-  public var `receiver`: MutableList<Reference>? = null,
+  public var `receiver`: List<Reference>? = null,
 ) {
   public fun toModel(): SupplyDelivery =
     SupplyDelivery(
@@ -167,12 +166,12 @@ internal data class SupplyDeliverySurrogate(
       language =
         Code.of(this@SupplyDeliverySurrogate.language, this@SupplyDeliverySurrogate._language),
       text = this@SupplyDeliverySurrogate.text,
-      contained = this@SupplyDeliverySurrogate.contained ?: mutableListOf(),
-      extension = this@SupplyDeliverySurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@SupplyDeliverySurrogate.modifierExtension ?: mutableListOf(),
-      identifier = this@SupplyDeliverySurrogate.identifier ?: mutableListOf(),
-      basedOn = this@SupplyDeliverySurrogate.basedOn ?: mutableListOf(),
-      partOf = this@SupplyDeliverySurrogate.partOf ?: mutableListOf(),
+      contained = this@SupplyDeliverySurrogate.contained ?: listOf(),
+      extension = this@SupplyDeliverySurrogate.extension ?: listOf(),
+      modifierExtension = this@SupplyDeliverySurrogate.modifierExtension ?: listOf(),
+      identifier = this@SupplyDeliverySurrogate.identifier ?: listOf(),
+      basedOn = this@SupplyDeliverySurrogate.basedOn ?: listOf(),
+      partOf = this@SupplyDeliverySurrogate.partOf ?: listOf(),
       status =
         this@SupplyDeliverySurrogate.status?.let {
           Enumeration.of(
@@ -182,11 +181,11 @@ internal data class SupplyDeliverySurrogate(
         },
       patient = this@SupplyDeliverySurrogate.patient,
       type = this@SupplyDeliverySurrogate.type,
-      suppliedItem = this@SupplyDeliverySurrogate.suppliedItem ?: mutableListOf(),
+      suppliedItem = this@SupplyDeliverySurrogate.suppliedItem ?: listOf(),
       occurrence = this@SupplyDeliverySurrogate.occurrence,
       supplier = this@SupplyDeliverySurrogate.supplier,
       destination = this@SupplyDeliverySurrogate.destination,
-      `receiver` = this@SupplyDeliverySurrogate.`receiver` ?: mutableListOf(),
+      `receiver` = this@SupplyDeliverySurrogate.`receiver` ?: listOf(),
     )
 
   public companion object {

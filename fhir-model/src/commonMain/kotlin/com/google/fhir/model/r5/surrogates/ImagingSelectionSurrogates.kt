@@ -45,24 +45,23 @@ import kotlin.Double
 import kotlin.Int
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class ImagingSelectionPerformerSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var function: CodeableConcept? = null,
   public var actor: Reference? = null,
 ) {
   public fun toModel(): ImagingSelection.Performer =
     ImagingSelection.Performer(
       id = this@ImagingSelectionPerformerSurrogate.id,
-      extension = this@ImagingSelectionPerformerSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@ImagingSelectionPerformerSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@ImagingSelectionPerformerSurrogate.extension ?: listOf(),
+      modifierExtension = this@ImagingSelectionPerformerSurrogate.modifierExtension ?: listOf(),
       function = this@ImagingSelectionPerformerSurrogate.function,
       actor = this@ImagingSelectionPerformerSurrogate.actor,
     )
@@ -84,24 +83,23 @@ internal data class ImagingSelectionPerformerSurrogate(
 @Serializable
 internal data class ImagingSelectionInstanceSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var uid: KotlinString? = null,
   public var _uid: Element? = null,
   public var number: Int? = null,
   public var _number: Element? = null,
   public var sopClass: Coding? = null,
-  public var subset: MutableList<KotlinString?>? = null,
-  public var _subset: MutableList<Element?>? = null,
-  public var imageRegion2D: MutableList<ImagingSelection.Instance.ImageRegion2D>? = null,
-  public var imageRegion3D: MutableList<ImagingSelection.Instance.ImageRegion3D>? = null,
+  public var subset: List<KotlinString?>? = null,
+  public var _subset: List<Element?>? = null,
+  public var imageRegion2D: List<ImagingSelection.Instance.ImageRegion2D>? = null,
+  public var imageRegion3D: List<ImagingSelection.Instance.ImageRegion3D>? = null,
 ) {
   public fun toModel(): ImagingSelection.Instance =
     ImagingSelection.Instance(
       id = this@ImagingSelectionInstanceSurrogate.id,
-      extension = this@ImagingSelectionInstanceSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@ImagingSelectionInstanceSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@ImagingSelectionInstanceSurrogate.extension ?: listOf(),
+      modifierExtension = this@ImagingSelectionInstanceSurrogate.modifierExtension ?: listOf(),
       uid =
         Id.of(
           this@ImagingSelectionInstanceSurrogate.uid,
@@ -118,7 +116,7 @@ internal data class ImagingSelectionInstanceSurrogate(
           this@ImagingSelectionInstanceSurrogate.subset == null &&
             this@ImagingSelectionInstanceSurrogate._subset == null
         ) {
-          mutableListOf()
+          listOf()
         } else {
           (this@ImagingSelectionInstanceSurrogate.subset
               ?: List(this@ImagingSelectionInstanceSurrogate._subset!!.size) { null })
@@ -127,10 +125,10 @@ internal data class ImagingSelectionInstanceSurrogate(
                 ?: List(this@ImagingSelectionInstanceSurrogate.subset!!.size) { null }
             )
             .map { (value, element) -> R5String.of(value, element)!! }
-            .toMutableList()
+            .toList()
         },
-      imageRegion2D = this@ImagingSelectionInstanceSurrogate.imageRegion2D ?: mutableListOf(),
-      imageRegion3D = this@ImagingSelectionInstanceSurrogate.imageRegion3D ?: mutableListOf(),
+      imageRegion2D = this@ImagingSelectionInstanceSurrogate.imageRegion2D ?: listOf(),
+      imageRegion3D = this@ImagingSelectionInstanceSurrogate.imageRegion3D ?: listOf(),
     )
 
   public companion object {
@@ -145,14 +143,13 @@ internal data class ImagingSelectionInstanceSurrogate(
           number = this@with.number?.value,
           _number = this@with.number?.toElement(),
           sopClass = this@with.sopClass,
-          subset =
-            this@with.subset.map { it.value }.toMutableList().takeUnless { it.all { it == null } },
+          subset = this@with.subset.map { it.value }.toList().takeUnless { it.all { it == null } },
           _subset =
             this@with.subset
               .map { it.toElement() }
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
-              ?.toMutableList(),
+              ?.toList(),
           imageRegion2D = this@with.imageRegion2D.takeIf { it.isNotEmpty() },
           imageRegion3D = this@with.imageRegion3D.takeIf { it.isNotEmpty() },
         )
@@ -163,19 +160,19 @@ internal data class ImagingSelectionInstanceSurrogate(
 @Serializable
 internal data class ImagingSelectionInstanceImageRegion2DSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var regionType: KotlinString? = null,
   public var _regionType: Element? = null,
-  public var coordinate: MutableList<Double?>? = null,
-  public var _coordinate: MutableList<Element?>? = null,
+  public var coordinate: List<Double?>? = null,
+  public var _coordinate: List<Element?>? = null,
 ) {
   public fun toModel(): ImagingSelection.Instance.ImageRegion2D =
     ImagingSelection.Instance.ImageRegion2D(
       id = this@ImagingSelectionInstanceImageRegion2DSurrogate.id,
-      extension = this@ImagingSelectionInstanceImageRegion2DSurrogate.extension ?: mutableListOf(),
+      extension = this@ImagingSelectionInstanceImageRegion2DSurrogate.extension ?: listOf(),
       modifierExtension =
-        this@ImagingSelectionInstanceImageRegion2DSurrogate.modifierExtension ?: mutableListOf(),
+        this@ImagingSelectionInstanceImageRegion2DSurrogate.modifierExtension ?: listOf(),
       regionType =
         Enumeration.of(
           ImagingSelection.ImagingSelection2DGraphicType.fromCode(
@@ -188,7 +185,7 @@ internal data class ImagingSelectionInstanceImageRegion2DSurrogate(
           this@ImagingSelectionInstanceImageRegion2DSurrogate.coordinate == null &&
             this@ImagingSelectionInstanceImageRegion2DSurrogate._coordinate == null
         ) {
-          mutableListOf()
+          listOf()
         } else {
           (this@ImagingSelectionInstanceImageRegion2DSurrogate.coordinate
               ?: List(this@ImagingSelectionInstanceImageRegion2DSurrogate._coordinate!!.size) {
@@ -201,7 +198,7 @@ internal data class ImagingSelectionInstanceImageRegion2DSurrogate(
                 }
             )
             .map { (value, element) -> Decimal.of(value, element)!! }
-            .toMutableList()
+            .toList()
         },
     )
 
@@ -219,14 +216,14 @@ internal data class ImagingSelectionInstanceImageRegion2DSurrogate(
           coordinate =
             this@with.coordinate
               .map { it.value?.toString()?.toDouble() }
-              .toMutableList()
+              .toList()
               .takeUnless { it.all { it == null } },
           _coordinate =
             this@with.coordinate
               .map { it.toElement() }
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
-              ?.toMutableList(),
+              ?.toList(),
         )
       }
   }
@@ -235,19 +232,19 @@ internal data class ImagingSelectionInstanceImageRegion2DSurrogate(
 @Serializable
 internal data class ImagingSelectionInstanceImageRegion3DSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var regionType: KotlinString? = null,
   public var _regionType: Element? = null,
-  public var coordinate: MutableList<Double?>? = null,
-  public var _coordinate: MutableList<Element?>? = null,
+  public var coordinate: List<Double?>? = null,
+  public var _coordinate: List<Element?>? = null,
 ) {
   public fun toModel(): ImagingSelection.Instance.ImageRegion3D =
     ImagingSelection.Instance.ImageRegion3D(
       id = this@ImagingSelectionInstanceImageRegion3DSurrogate.id,
-      extension = this@ImagingSelectionInstanceImageRegion3DSurrogate.extension ?: mutableListOf(),
+      extension = this@ImagingSelectionInstanceImageRegion3DSurrogate.extension ?: listOf(),
       modifierExtension =
-        this@ImagingSelectionInstanceImageRegion3DSurrogate.modifierExtension ?: mutableListOf(),
+        this@ImagingSelectionInstanceImageRegion3DSurrogate.modifierExtension ?: listOf(),
       regionType =
         Enumeration.of(
           ImagingSelection.ImagingSelection3DGraphicType.fromCode(
@@ -260,7 +257,7 @@ internal data class ImagingSelectionInstanceImageRegion3DSurrogate(
           this@ImagingSelectionInstanceImageRegion3DSurrogate.coordinate == null &&
             this@ImagingSelectionInstanceImageRegion3DSurrogate._coordinate == null
         ) {
-          mutableListOf()
+          listOf()
         } else {
           (this@ImagingSelectionInstanceImageRegion3DSurrogate.coordinate
               ?: List(this@ImagingSelectionInstanceImageRegion3DSurrogate._coordinate!!.size) {
@@ -273,7 +270,7 @@ internal data class ImagingSelectionInstanceImageRegion3DSurrogate(
                 }
             )
             .map { (value, element) -> Decimal.of(value, element)!! }
-            .toMutableList()
+            .toList()
         },
     )
 
@@ -291,14 +288,14 @@ internal data class ImagingSelectionInstanceImageRegion3DSurrogate(
           coordinate =
             this@with.coordinate
               .map { it.value?.toString()?.toDouble() }
-              .toMutableList()
+              .toList()
               .takeUnless { it.all { it == null } },
           _coordinate =
             this@with.coordinate
               .map { it.toElement() }
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
-              ?.toMutableList(),
+              ?.toList(),
         )
       }
   }
@@ -313,23 +310,23 @@ internal data class ImagingSelectionSurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: MutableList<Resource>? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var identifier: MutableList<Identifier>? = null,
+  public var contained: List<Resource>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
+  public var identifier: List<Identifier>? = null,
   public var status: KotlinString? = null,
   public var _status: Element? = null,
   public var subject: Reference? = null,
   public var issued: KotlinString? = null,
   public var _issued: Element? = null,
-  public var performer: MutableList<ImagingSelection.Performer>? = null,
-  public var basedOn: MutableList<Reference>? = null,
-  public var category: MutableList<CodeableConcept>? = null,
+  public var performer: List<ImagingSelection.Performer>? = null,
+  public var basedOn: List<Reference>? = null,
+  public var category: List<CodeableConcept>? = null,
   public var code: CodeableConcept,
   public var studyUid: KotlinString? = null,
   public var _studyUid: Element? = null,
-  public var derivedFrom: MutableList<Reference>? = null,
-  public var endpoint: MutableList<Reference>? = null,
+  public var derivedFrom: List<Reference>? = null,
+  public var endpoint: List<Reference>? = null,
   public var seriesUid: KotlinString? = null,
   public var _seriesUid: Element? = null,
   public var seriesNumber: Int? = null,
@@ -337,8 +334,8 @@ internal data class ImagingSelectionSurrogate(
   public var frameOfReferenceUid: KotlinString? = null,
   public var _frameOfReferenceUid: Element? = null,
   public var bodySite: CodeableReference? = null,
-  public var focus: MutableList<Reference>? = null,
-  public var instance: MutableList<ImagingSelection.Instance>? = null,
+  public var focus: List<Reference>? = null,
+  public var instance: List<ImagingSelection.Instance>? = null,
 ) {
   public fun toModel(): ImagingSelection =
     ImagingSelection(
@@ -352,10 +349,10 @@ internal data class ImagingSelectionSurrogate(
       language =
         Code.of(this@ImagingSelectionSurrogate.language, this@ImagingSelectionSurrogate._language),
       text = this@ImagingSelectionSurrogate.text,
-      contained = this@ImagingSelectionSurrogate.contained ?: mutableListOf(),
-      extension = this@ImagingSelectionSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@ImagingSelectionSurrogate.modifierExtension ?: mutableListOf(),
-      identifier = this@ImagingSelectionSurrogate.identifier ?: mutableListOf(),
+      contained = this@ImagingSelectionSurrogate.contained ?: listOf(),
+      extension = this@ImagingSelectionSurrogate.extension ?: listOf(),
+      modifierExtension = this@ImagingSelectionSurrogate.modifierExtension ?: listOf(),
+      identifier = this@ImagingSelectionSurrogate.identifier ?: listOf(),
       status =
         Enumeration.of(
           ImagingSelection.ImagingSelectionStatus.fromCode(this@ImagingSelectionSurrogate.status!!),
@@ -367,14 +364,14 @@ internal data class ImagingSelectionSurrogate(
           FhirDateTime.fromString(this@ImagingSelectionSurrogate.issued),
           this@ImagingSelectionSurrogate._issued,
         ),
-      performer = this@ImagingSelectionSurrogate.performer ?: mutableListOf(),
-      basedOn = this@ImagingSelectionSurrogate.basedOn ?: mutableListOf(),
-      category = this@ImagingSelectionSurrogate.category ?: mutableListOf(),
+      performer = this@ImagingSelectionSurrogate.performer ?: listOf(),
+      basedOn = this@ImagingSelectionSurrogate.basedOn ?: listOf(),
+      category = this@ImagingSelectionSurrogate.category ?: listOf(),
       code = this@ImagingSelectionSurrogate.code,
       studyUid =
         Id.of(this@ImagingSelectionSurrogate.studyUid, this@ImagingSelectionSurrogate._studyUid),
-      derivedFrom = this@ImagingSelectionSurrogate.derivedFrom ?: mutableListOf(),
-      endpoint = this@ImagingSelectionSurrogate.endpoint ?: mutableListOf(),
+      derivedFrom = this@ImagingSelectionSurrogate.derivedFrom ?: listOf(),
+      endpoint = this@ImagingSelectionSurrogate.endpoint ?: listOf(),
       seriesUid =
         Id.of(this@ImagingSelectionSurrogate.seriesUid, this@ImagingSelectionSurrogate._seriesUid),
       seriesNumber =
@@ -388,8 +385,8 @@ internal data class ImagingSelectionSurrogate(
           this@ImagingSelectionSurrogate._frameOfReferenceUid,
         ),
       bodySite = this@ImagingSelectionSurrogate.bodySite,
-      focus = this@ImagingSelectionSurrogate.focus ?: mutableListOf(),
-      instance = this@ImagingSelectionSurrogate.instance ?: mutableListOf(),
+      focus = this@ImagingSelectionSurrogate.focus ?: listOf(),
+      instance = this@ImagingSelectionSurrogate.instance ?: listOf(),
     )
 
   public companion object {

@@ -40,7 +40,7 @@ import com.google.fhir.model.r4b.serializers.LocalTimeSerializer
 import kotlin.Boolean as KotlinBoolean
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
@@ -53,13 +53,13 @@ internal data class SlotSurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: MutableList<Resource>? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var identifier: MutableList<Identifier>? = null,
-  public var serviceCategory: MutableList<CodeableConcept>? = null,
-  public var serviceType: MutableList<CodeableConcept>? = null,
-  public var specialty: MutableList<CodeableConcept>? = null,
+  public var contained: List<Resource>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
+  public var identifier: List<Identifier>? = null,
+  public var serviceCategory: List<CodeableConcept>? = null,
+  public var serviceType: List<CodeableConcept>? = null,
+  public var specialty: List<CodeableConcept>? = null,
   public var appointmentType: CodeableConcept? = null,
   public var schedule: Reference,
   public var status: KotlinString? = null,
@@ -80,13 +80,13 @@ internal data class SlotSurrogate(
       implicitRules = Uri.of(this@SlotSurrogate.implicitRules, this@SlotSurrogate._implicitRules),
       language = Code.of(this@SlotSurrogate.language, this@SlotSurrogate._language),
       text = this@SlotSurrogate.text,
-      contained = this@SlotSurrogate.contained ?: mutableListOf(),
-      extension = this@SlotSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@SlotSurrogate.modifierExtension ?: mutableListOf(),
-      identifier = this@SlotSurrogate.identifier ?: mutableListOf(),
-      serviceCategory = this@SlotSurrogate.serviceCategory ?: mutableListOf(),
-      serviceType = this@SlotSurrogate.serviceType ?: mutableListOf(),
-      specialty = this@SlotSurrogate.specialty ?: mutableListOf(),
+      contained = this@SlotSurrogate.contained ?: listOf(),
+      extension = this@SlotSurrogate.extension ?: listOf(),
+      modifierExtension = this@SlotSurrogate.modifierExtension ?: listOf(),
+      identifier = this@SlotSurrogate.identifier ?: listOf(),
+      serviceCategory = this@SlotSurrogate.serviceCategory ?: listOf(),
+      serviceType = this@SlotSurrogate.serviceType ?: listOf(),
+      specialty = this@SlotSurrogate.specialty ?: listOf(),
       appointmentType = this@SlotSurrogate.appointmentType,
       schedule = this@SlotSurrogate.schedule,
       status =

@@ -63,35 +63,35 @@ import kotlin.Boolean as KotlinBoolean
 import kotlin.Int
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class PlanDefinitionGoalSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var category: CodeableConcept? = null,
   public var description: CodeableConcept,
   public var priority: CodeableConcept? = null,
   public var start: CodeableConcept? = null,
-  public var addresses: MutableList<CodeableConcept>? = null,
-  public var documentation: MutableList<RelatedArtifact>? = null,
-  public var target: MutableList<PlanDefinition.Goal.Target>? = null,
+  public var addresses: List<CodeableConcept>? = null,
+  public var documentation: List<RelatedArtifact>? = null,
+  public var target: List<PlanDefinition.Goal.Target>? = null,
 ) {
   public fun toModel(): PlanDefinition.Goal =
     PlanDefinition.Goal(
       id = this@PlanDefinitionGoalSurrogate.id,
-      extension = this@PlanDefinitionGoalSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@PlanDefinitionGoalSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@PlanDefinitionGoalSurrogate.extension ?: listOf(),
+      modifierExtension = this@PlanDefinitionGoalSurrogate.modifierExtension ?: listOf(),
       category = this@PlanDefinitionGoalSurrogate.category,
       description = this@PlanDefinitionGoalSurrogate.description,
       priority = this@PlanDefinitionGoalSurrogate.priority,
       start = this@PlanDefinitionGoalSurrogate.start,
-      addresses = this@PlanDefinitionGoalSurrogate.addresses ?: mutableListOf(),
-      documentation = this@PlanDefinitionGoalSurrogate.documentation ?: mutableListOf(),
-      target = this@PlanDefinitionGoalSurrogate.target ?: mutableListOf(),
+      addresses = this@PlanDefinitionGoalSurrogate.addresses ?: listOf(),
+      documentation = this@PlanDefinitionGoalSurrogate.documentation ?: listOf(),
+      target = this@PlanDefinitionGoalSurrogate.target ?: listOf(),
     )
 
   public companion object {
@@ -116,8 +116,8 @@ internal data class PlanDefinitionGoalSurrogate(
 @Serializable
 internal data class PlanDefinitionGoalTargetSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var measure: CodeableConcept? = null,
   public var detail: PlanDefinition.Goal.Target.Detail? = null,
   public var due: Duration? = null,
@@ -125,9 +125,8 @@ internal data class PlanDefinitionGoalTargetSurrogate(
   public fun toModel(): PlanDefinition.Goal.Target =
     PlanDefinition.Goal.Target(
       id = this@PlanDefinitionGoalTargetSurrogate.id,
-      extension = this@PlanDefinitionGoalTargetSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@PlanDefinitionGoalTargetSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@PlanDefinitionGoalTargetSurrogate.extension ?: listOf(),
+      modifierExtension = this@PlanDefinitionGoalTargetSurrogate.modifierExtension ?: listOf(),
       measure = this@PlanDefinitionGoalTargetSurrogate.measure,
       detail = this@PlanDefinitionGoalTargetSurrogate.detail,
       due = this@PlanDefinitionGoalTargetSurrogate.due,
@@ -151,19 +150,19 @@ internal data class PlanDefinitionGoalTargetSurrogate(
 @Serializable
 internal data class PlanDefinitionActorSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var title: KotlinString? = null,
   public var _title: Element? = null,
   public var description: KotlinString? = null,
   public var _description: Element? = null,
-  public var option: MutableList<PlanDefinition.Actor.Option>? = null,
+  public var option: List<PlanDefinition.Actor.Option>? = null,
 ) {
   public fun toModel(): PlanDefinition.Actor =
     PlanDefinition.Actor(
       id = this@PlanDefinitionActorSurrogate.id,
-      extension = this@PlanDefinitionActorSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@PlanDefinitionActorSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@PlanDefinitionActorSurrogate.extension ?: listOf(),
+      modifierExtension = this@PlanDefinitionActorSurrogate.modifierExtension ?: listOf(),
       title =
         R5String.of(
           this@PlanDefinitionActorSurrogate.title,
@@ -174,7 +173,7 @@ internal data class PlanDefinitionActorSurrogate(
           this@PlanDefinitionActorSurrogate.description,
           this@PlanDefinitionActorSurrogate._description,
         ),
-      option = this@PlanDefinitionActorSurrogate.option ?: mutableListOf(),
+      option = this@PlanDefinitionActorSurrogate.option ?: listOf(),
     )
 
   public companion object {
@@ -197,8 +196,8 @@ internal data class PlanDefinitionActorSurrogate(
 @Serializable
 internal data class PlanDefinitionActorOptionSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var type: KotlinString? = null,
   public var _type: Element? = null,
   public var typeCanonical: KotlinString? = null,
@@ -209,9 +208,8 @@ internal data class PlanDefinitionActorOptionSurrogate(
   public fun toModel(): PlanDefinition.Actor.Option =
     PlanDefinition.Actor.Option(
       id = this@PlanDefinitionActorOptionSurrogate.id,
-      extension = this@PlanDefinitionActorOptionSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@PlanDefinitionActorOptionSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@PlanDefinitionActorOptionSurrogate.extension ?: listOf(),
+      modifierExtension = this@PlanDefinitionActorOptionSurrogate.modifierExtension ?: listOf(),
       type =
         this@PlanDefinitionActorOptionSurrogate.type?.let {
           Enumeration.of(
@@ -249,8 +247,8 @@ internal data class PlanDefinitionActorOptionSurrogate(
 @Serializable
 internal data class PlanDefinitionActionSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var linkId: KotlinString? = null,
   public var _linkId: Element? = null,
   public var prefix: KotlinString? = null,
@@ -264,19 +262,19 @@ internal data class PlanDefinitionActionSurrogate(
   public var priority: KotlinString? = null,
   public var _priority: Element? = null,
   public var code: CodeableConcept? = null,
-  public var reason: MutableList<CodeableConcept>? = null,
-  public var documentation: MutableList<RelatedArtifact>? = null,
-  public var goalId: MutableList<KotlinString?>? = null,
-  public var _goalId: MutableList<Element?>? = null,
+  public var reason: List<CodeableConcept>? = null,
+  public var documentation: List<RelatedArtifact>? = null,
+  public var goalId: List<KotlinString?>? = null,
+  public var _goalId: List<Element?>? = null,
   public var subject: PlanDefinition.Action.Subject? = null,
-  public var trigger: MutableList<TriggerDefinition>? = null,
-  public var condition: MutableList<PlanDefinition.Action.Condition>? = null,
-  public var input: MutableList<PlanDefinition.Action.Input>? = null,
-  public var output: MutableList<PlanDefinition.Action.Output>? = null,
-  public var relatedAction: MutableList<PlanDefinition.Action.RelatedAction>? = null,
+  public var trigger: List<TriggerDefinition>? = null,
+  public var condition: List<PlanDefinition.Action.Condition>? = null,
+  public var input: List<PlanDefinition.Action.Input>? = null,
+  public var output: List<PlanDefinition.Action.Output>? = null,
+  public var relatedAction: List<PlanDefinition.Action.RelatedAction>? = null,
   public var timing: PlanDefinition.Action.Timing? = null,
   public var location: CodeableReference? = null,
-  public var participant: MutableList<PlanDefinition.Action.Participant>? = null,
+  public var participant: List<PlanDefinition.Action.Participant>? = null,
   public var type: CodeableConcept? = null,
   public var groupingBehavior: KotlinString? = null,
   public var _groupingBehavior: Element? = null,
@@ -291,14 +289,14 @@ internal data class PlanDefinitionActionSurrogate(
   public var definition: PlanDefinition.Action.Definition? = null,
   public var transform: KotlinString? = null,
   public var _transform: Element? = null,
-  public var dynamicValue: MutableList<PlanDefinition.Action.DynamicValue>? = null,
-  public var action: MutableList<PlanDefinition.Action>? = null,
+  public var dynamicValue: List<PlanDefinition.Action.DynamicValue>? = null,
+  public var action: List<PlanDefinition.Action>? = null,
 ) {
   public fun toModel(): PlanDefinition.Action =
     PlanDefinition.Action(
       id = this@PlanDefinitionActionSurrogate.id,
-      extension = this@PlanDefinitionActionSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@PlanDefinitionActionSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@PlanDefinitionActionSurrogate.extension ?: listOf(),
+      modifierExtension = this@PlanDefinitionActionSurrogate.modifierExtension ?: listOf(),
       linkId =
         R5String.of(
           this@PlanDefinitionActionSurrogate.linkId,
@@ -332,14 +330,14 @@ internal data class PlanDefinitionActionSurrogate(
           )
         },
       code = this@PlanDefinitionActionSurrogate.code,
-      reason = this@PlanDefinitionActionSurrogate.reason ?: mutableListOf(),
-      documentation = this@PlanDefinitionActionSurrogate.documentation ?: mutableListOf(),
+      reason = this@PlanDefinitionActionSurrogate.reason ?: listOf(),
+      documentation = this@PlanDefinitionActionSurrogate.documentation ?: listOf(),
       goalId =
         if (
           this@PlanDefinitionActionSurrogate.goalId == null &&
             this@PlanDefinitionActionSurrogate._goalId == null
         ) {
-          mutableListOf()
+          listOf()
         } else {
           (this@PlanDefinitionActionSurrogate.goalId
               ?: List(this@PlanDefinitionActionSurrogate._goalId!!.size) { null })
@@ -348,17 +346,17 @@ internal data class PlanDefinitionActionSurrogate(
                 ?: List(this@PlanDefinitionActionSurrogate.goalId!!.size) { null }
             )
             .map { (value, element) -> Id.of(value, element)!! }
-            .toMutableList()
+            .toList()
         },
       subject = this@PlanDefinitionActionSurrogate.subject,
-      trigger = this@PlanDefinitionActionSurrogate.trigger ?: mutableListOf(),
-      condition = this@PlanDefinitionActionSurrogate.condition ?: mutableListOf(),
-      input = this@PlanDefinitionActionSurrogate.input ?: mutableListOf(),
-      output = this@PlanDefinitionActionSurrogate.output ?: mutableListOf(),
-      relatedAction = this@PlanDefinitionActionSurrogate.relatedAction ?: mutableListOf(),
+      trigger = this@PlanDefinitionActionSurrogate.trigger ?: listOf(),
+      condition = this@PlanDefinitionActionSurrogate.condition ?: listOf(),
+      input = this@PlanDefinitionActionSurrogate.input ?: listOf(),
+      output = this@PlanDefinitionActionSurrogate.output ?: listOf(),
+      relatedAction = this@PlanDefinitionActionSurrogate.relatedAction ?: listOf(),
       timing = this@PlanDefinitionActionSurrogate.timing,
       location = this@PlanDefinitionActionSurrogate.location,
-      participant = this@PlanDefinitionActionSurrogate.participant ?: mutableListOf(),
+      participant = this@PlanDefinitionActionSurrogate.participant ?: listOf(),
       type = this@PlanDefinitionActionSurrogate.type,
       groupingBehavior =
         this@PlanDefinitionActionSurrogate.groupingBehavior?.let {
@@ -401,8 +399,8 @@ internal data class PlanDefinitionActionSurrogate(
           this@PlanDefinitionActionSurrogate.transform,
           this@PlanDefinitionActionSurrogate._transform,
         ),
-      dynamicValue = this@PlanDefinitionActionSurrogate.dynamicValue ?: mutableListOf(),
-      action = this@PlanDefinitionActionSurrogate.action ?: mutableListOf(),
+      dynamicValue = this@PlanDefinitionActionSurrogate.dynamicValue ?: listOf(),
+      action = this@PlanDefinitionActionSurrogate.action ?: listOf(),
     )
 
   public companion object {
@@ -427,14 +425,13 @@ internal data class PlanDefinitionActionSurrogate(
           code = this@with.code,
           reason = this@with.reason.takeIf { it.isNotEmpty() },
           documentation = this@with.documentation.takeIf { it.isNotEmpty() },
-          goalId =
-            this@with.goalId.map { it.value }.toMutableList().takeUnless { it.all { it == null } },
+          goalId = this@with.goalId.map { it.value }.toList().takeUnless { it.all { it == null } },
           _goalId =
             this@with.goalId
               .map { it.toElement() }
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
-              ?.toMutableList(),
+              ?.toList(),
           subject = this@with.subject,
           trigger = this@with.trigger.takeIf { it.isNotEmpty() },
           condition = this@with.condition.takeIf { it.isNotEmpty() },
@@ -468,8 +465,8 @@ internal data class PlanDefinitionActionSurrogate(
 @Serializable
 internal data class PlanDefinitionActionConditionSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var kind: KotlinString? = null,
   public var _kind: Element? = null,
   public var expression: Expression? = null,
@@ -477,9 +474,8 @@ internal data class PlanDefinitionActionConditionSurrogate(
   public fun toModel(): PlanDefinition.Action.Condition =
     PlanDefinition.Action.Condition(
       id = this@PlanDefinitionActionConditionSurrogate.id,
-      extension = this@PlanDefinitionActionConditionSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@PlanDefinitionActionConditionSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@PlanDefinitionActionConditionSurrogate.extension ?: listOf(),
+      modifierExtension = this@PlanDefinitionActionConditionSurrogate.modifierExtension ?: listOf(),
       kind =
         Enumeration.of(
           PlanDefinition.ActionConditionKind.fromCode(
@@ -510,8 +506,8 @@ internal data class PlanDefinitionActionConditionSurrogate(
 @Serializable
 internal data class PlanDefinitionActionInputSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var title: KotlinString? = null,
   public var _title: Element? = null,
   public var requirement: DataRequirement? = null,
@@ -521,9 +517,8 @@ internal data class PlanDefinitionActionInputSurrogate(
   public fun toModel(): PlanDefinition.Action.Input =
     PlanDefinition.Action.Input(
       id = this@PlanDefinitionActionInputSurrogate.id,
-      extension = this@PlanDefinitionActionInputSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@PlanDefinitionActionInputSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@PlanDefinitionActionInputSurrogate.extension ?: listOf(),
+      modifierExtension = this@PlanDefinitionActionInputSurrogate.modifierExtension ?: listOf(),
       title =
         R5String.of(
           this@PlanDefinitionActionInputSurrogate.title,
@@ -557,8 +552,8 @@ internal data class PlanDefinitionActionInputSurrogate(
 @Serializable
 internal data class PlanDefinitionActionOutputSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var title: KotlinString? = null,
   public var _title: Element? = null,
   public var requirement: DataRequirement? = null,
@@ -568,9 +563,8 @@ internal data class PlanDefinitionActionOutputSurrogate(
   public fun toModel(): PlanDefinition.Action.Output =
     PlanDefinition.Action.Output(
       id = this@PlanDefinitionActionOutputSurrogate.id,
-      extension = this@PlanDefinitionActionOutputSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@PlanDefinitionActionOutputSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@PlanDefinitionActionOutputSurrogate.extension ?: listOf(),
+      modifierExtension = this@PlanDefinitionActionOutputSurrogate.modifierExtension ?: listOf(),
       title =
         R5String.of(
           this@PlanDefinitionActionOutputSurrogate.title,
@@ -604,8 +598,8 @@ internal data class PlanDefinitionActionOutputSurrogate(
 @Serializable
 internal data class PlanDefinitionActionRelatedActionSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var targetId: KotlinString? = null,
   public var _targetId: Element? = null,
   public var relationship: KotlinString? = null,
@@ -617,9 +611,9 @@ internal data class PlanDefinitionActionRelatedActionSurrogate(
   public fun toModel(): PlanDefinition.Action.RelatedAction =
     PlanDefinition.Action.RelatedAction(
       id = this@PlanDefinitionActionRelatedActionSurrogate.id,
-      extension = this@PlanDefinitionActionRelatedActionSurrogate.extension ?: mutableListOf(),
+      extension = this@PlanDefinitionActionRelatedActionSurrogate.extension ?: listOf(),
       modifierExtension =
-        this@PlanDefinitionActionRelatedActionSurrogate.modifierExtension ?: mutableListOf(),
+        this@PlanDefinitionActionRelatedActionSurrogate.modifierExtension ?: listOf(),
       targetId =
         Id.of(
           this@PlanDefinitionActionRelatedActionSurrogate.targetId,
@@ -666,8 +660,8 @@ internal data class PlanDefinitionActionRelatedActionSurrogate(
 @Serializable
 internal data class PlanDefinitionActionParticipantSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var actorId: KotlinString? = null,
   public var _actorId: Element? = null,
   public var type: KotlinString? = null,
@@ -681,9 +675,9 @@ internal data class PlanDefinitionActionParticipantSurrogate(
   public fun toModel(): PlanDefinition.Action.Participant =
     PlanDefinition.Action.Participant(
       id = this@PlanDefinitionActionParticipantSurrogate.id,
-      extension = this@PlanDefinitionActionParticipantSurrogate.extension ?: mutableListOf(),
+      extension = this@PlanDefinitionActionParticipantSurrogate.extension ?: listOf(),
       modifierExtension =
-        this@PlanDefinitionActionParticipantSurrogate.modifierExtension ?: mutableListOf(),
+        this@PlanDefinitionActionParticipantSurrogate.modifierExtension ?: listOf(),
       actorId =
         R5String.of(
           this@PlanDefinitionActionParticipantSurrogate.actorId,
@@ -732,8 +726,8 @@ internal data class PlanDefinitionActionParticipantSurrogate(
 @Serializable
 internal data class PlanDefinitionActionDynamicValueSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var path: KotlinString? = null,
   public var _path: Element? = null,
   public var expression: Expression? = null,
@@ -741,9 +735,9 @@ internal data class PlanDefinitionActionDynamicValueSurrogate(
   public fun toModel(): PlanDefinition.Action.DynamicValue =
     PlanDefinition.Action.DynamicValue(
       id = this@PlanDefinitionActionDynamicValueSurrogate.id,
-      extension = this@PlanDefinitionActionDynamicValueSurrogate.extension ?: mutableListOf(),
+      extension = this@PlanDefinitionActionDynamicValueSurrogate.extension ?: listOf(),
       modifierExtension =
-        this@PlanDefinitionActionDynamicValueSurrogate.modifierExtension ?: mutableListOf(),
+        this@PlanDefinitionActionDynamicValueSurrogate.modifierExtension ?: listOf(),
       path =
         R5String.of(
           this@PlanDefinitionActionDynamicValueSurrogate.path,
@@ -1036,12 +1030,12 @@ internal data class PlanDefinitionSurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: MutableList<Resource>? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var contained: List<Resource>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var url: KotlinString? = null,
   public var _url: Element? = null,
-  public var identifier: MutableList<Identifier>? = null,
+  public var identifier: List<Identifier>? = null,
   public var version: KotlinString? = null,
   public var _version: Element? = null,
   public var versionAlgorithm: PlanDefinition.VersionAlgorithm? = null,
@@ -1061,11 +1055,11 @@ internal data class PlanDefinitionSurrogate(
   public var _date: Element? = null,
   public var publisher: KotlinString? = null,
   public var _publisher: Element? = null,
-  public var contact: MutableList<ContactDetail>? = null,
+  public var contact: List<ContactDetail>? = null,
   public var description: KotlinString? = null,
   public var _description: Element? = null,
-  public var useContext: MutableList<UsageContext>? = null,
-  public var jurisdiction: MutableList<CodeableConcept>? = null,
+  public var useContext: List<UsageContext>? = null,
+  public var jurisdiction: List<CodeableConcept>? = null,
   public var purpose: KotlinString? = null,
   public var _purpose: Element? = null,
   public var usage: KotlinString? = null,
@@ -1079,17 +1073,17 @@ internal data class PlanDefinitionSurrogate(
   public var lastReviewDate: KotlinString? = null,
   public var _lastReviewDate: Element? = null,
   public var effectivePeriod: Period? = null,
-  public var topic: MutableList<CodeableConcept>? = null,
-  public var author: MutableList<ContactDetail>? = null,
-  public var editor: MutableList<ContactDetail>? = null,
-  public var reviewer: MutableList<ContactDetail>? = null,
-  public var endorser: MutableList<ContactDetail>? = null,
-  public var relatedArtifact: MutableList<RelatedArtifact>? = null,
-  public var library: MutableList<KotlinString?>? = null,
-  public var _library: MutableList<Element?>? = null,
-  public var goal: MutableList<PlanDefinition.Goal>? = null,
-  public var actor: MutableList<PlanDefinition.Actor>? = null,
-  public var action: MutableList<PlanDefinition.Action>? = null,
+  public var topic: List<CodeableConcept>? = null,
+  public var author: List<ContactDetail>? = null,
+  public var editor: List<ContactDetail>? = null,
+  public var reviewer: List<ContactDetail>? = null,
+  public var endorser: List<ContactDetail>? = null,
+  public var relatedArtifact: List<RelatedArtifact>? = null,
+  public var library: List<KotlinString?>? = null,
+  public var _library: List<Element?>? = null,
+  public var goal: List<PlanDefinition.Goal>? = null,
+  public var actor: List<PlanDefinition.Actor>? = null,
+  public var action: List<PlanDefinition.Action>? = null,
   public var asNeeded: PlanDefinition.AsNeeded? = null,
 ) {
   public fun toModel(): PlanDefinition =
@@ -1104,11 +1098,11 @@ internal data class PlanDefinitionSurrogate(
       language =
         Code.of(this@PlanDefinitionSurrogate.language, this@PlanDefinitionSurrogate._language),
       text = this@PlanDefinitionSurrogate.text,
-      contained = this@PlanDefinitionSurrogate.contained ?: mutableListOf(),
-      extension = this@PlanDefinitionSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@PlanDefinitionSurrogate.modifierExtension ?: mutableListOf(),
+      contained = this@PlanDefinitionSurrogate.contained ?: listOf(),
+      extension = this@PlanDefinitionSurrogate.extension ?: listOf(),
+      modifierExtension = this@PlanDefinitionSurrogate.modifierExtension ?: listOf(),
       url = Uri.of(this@PlanDefinitionSurrogate.url, this@PlanDefinitionSurrogate._url),
-      identifier = this@PlanDefinitionSurrogate.identifier ?: mutableListOf(),
+      identifier = this@PlanDefinitionSurrogate.identifier ?: listOf(),
       version =
         R5String.of(this@PlanDefinitionSurrogate.version, this@PlanDefinitionSurrogate._version),
       versionAlgorithm = this@PlanDefinitionSurrogate.versionAlgorithm,
@@ -1138,14 +1132,14 @@ internal data class PlanDefinitionSurrogate(
           this@PlanDefinitionSurrogate.publisher,
           this@PlanDefinitionSurrogate._publisher,
         ),
-      contact = this@PlanDefinitionSurrogate.contact ?: mutableListOf(),
+      contact = this@PlanDefinitionSurrogate.contact ?: listOf(),
       description =
         Markdown.of(
           this@PlanDefinitionSurrogate.description,
           this@PlanDefinitionSurrogate._description,
         ),
-      useContext = this@PlanDefinitionSurrogate.useContext ?: mutableListOf(),
-      jurisdiction = this@PlanDefinitionSurrogate.jurisdiction ?: mutableListOf(),
+      useContext = this@PlanDefinitionSurrogate.useContext ?: listOf(),
+      jurisdiction = this@PlanDefinitionSurrogate.jurisdiction ?: listOf(),
       purpose =
         Markdown.of(this@PlanDefinitionSurrogate.purpose, this@PlanDefinitionSurrogate._purpose),
       usage = Markdown.of(this@PlanDefinitionSurrogate.usage, this@PlanDefinitionSurrogate._usage),
@@ -1170,18 +1164,18 @@ internal data class PlanDefinitionSurrogate(
           this@PlanDefinitionSurrogate._lastReviewDate,
         ),
       effectivePeriod = this@PlanDefinitionSurrogate.effectivePeriod,
-      topic = this@PlanDefinitionSurrogate.topic ?: mutableListOf(),
-      author = this@PlanDefinitionSurrogate.author ?: mutableListOf(),
-      editor = this@PlanDefinitionSurrogate.editor ?: mutableListOf(),
-      reviewer = this@PlanDefinitionSurrogate.reviewer ?: mutableListOf(),
-      endorser = this@PlanDefinitionSurrogate.endorser ?: mutableListOf(),
-      relatedArtifact = this@PlanDefinitionSurrogate.relatedArtifact ?: mutableListOf(),
+      topic = this@PlanDefinitionSurrogate.topic ?: listOf(),
+      author = this@PlanDefinitionSurrogate.author ?: listOf(),
+      editor = this@PlanDefinitionSurrogate.editor ?: listOf(),
+      reviewer = this@PlanDefinitionSurrogate.reviewer ?: listOf(),
+      endorser = this@PlanDefinitionSurrogate.endorser ?: listOf(),
+      relatedArtifact = this@PlanDefinitionSurrogate.relatedArtifact ?: listOf(),
       library =
         if (
           this@PlanDefinitionSurrogate.library == null &&
             this@PlanDefinitionSurrogate._library == null
         ) {
-          mutableListOf()
+          listOf()
         } else {
           (this@PlanDefinitionSurrogate.library
               ?: List(this@PlanDefinitionSurrogate._library!!.size) { null })
@@ -1190,11 +1184,11 @@ internal data class PlanDefinitionSurrogate(
                 ?: List(this@PlanDefinitionSurrogate.library!!.size) { null }
             )
             .map { (value, element) -> Canonical.of(value, element)!! }
-            .toMutableList()
+            .toList()
         },
-      goal = this@PlanDefinitionSurrogate.goal ?: mutableListOf(),
-      actor = this@PlanDefinitionSurrogate.actor ?: mutableListOf(),
-      action = this@PlanDefinitionSurrogate.action ?: mutableListOf(),
+      goal = this@PlanDefinitionSurrogate.goal ?: listOf(),
+      actor = this@PlanDefinitionSurrogate.actor ?: listOf(),
+      action = this@PlanDefinitionSurrogate.action ?: listOf(),
       asNeeded = this@PlanDefinitionSurrogate.asNeeded,
     )
 
@@ -1259,13 +1253,13 @@ internal data class PlanDefinitionSurrogate(
           endorser = this@with.endorser.takeIf { it.isNotEmpty() },
           relatedArtifact = this@with.relatedArtifact.takeIf { it.isNotEmpty() },
           library =
-            this@with.library.map { it.value }.toMutableList().takeUnless { it.all { it == null } },
+            this@with.library.map { it.value }.toList().takeUnless { it.all { it == null } },
           _library =
             this@with.library
               .map { it.toElement() }
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
-              ?.toMutableList(),
+              ?.toList(),
           goal = this@with.goal.takeIf { it.isNotEmpty() },
           actor = this@with.actor.takeIf { it.isNotEmpty() },
           action = this@with.action.takeIf { it.isNotEmpty() },

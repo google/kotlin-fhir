@@ -20,7 +20,7 @@ package com.google.fhir.model.r5
 
 import com.google.fhir.model.r5.serializers.ExpressionSerializer
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 
 /**
@@ -34,7 +34,7 @@ public data class Expression(
    * Unique id for the element within a resource (for internal references). This may be any string
    * value that does not contain spaces.
    */
-  override var id: kotlin.String? = null,
+  override val id: kotlin.String? = null,
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * element. To make the use of extensions safe and managable, there is a strict set of governance
@@ -47,33 +47,33 @@ public data class Expression(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: MutableList<Extension> = mutableListOf(),
+  override val extension: List<Extension> = listOf(),
   /**
    * A brief, natural language description of the condition that effectively communicates the
    * intended semantics.
    */
-  public var description: String? = null,
+  public val description: String? = null,
   /**
    * A short name assigned to the expression to allow for multiple reuse of the expression in the
    * context where it is defined.
    */
-  public var name: Code? = null,
+  public val name: Code? = null,
   /** The media type of the language for the expression. */
-  public var language: Enumeration<ExpressionLanguage>? = null,
+  public val language: Enumeration<ExpressionLanguage>? = null,
   /**
    * An expression in the specified language that returns a value.
    *
    * If Expression.expression and Expression.reference are both present, the Expression.expression
    * might just be a name pointing something within the referenced content.
    */
-  public var expression: String? = null,
+  public val expression: String? = null,
   /**
    * A URI that defines where the expression is found.
    *
    * If both a reference and an expression is found, the reference SHALL point to the same
    * expression.
    */
-  public var reference: Uri? = null,
+  public val reference: Uri? = null,
 ) : DataType() {
   /** The media type of the expression language. */
   public enum class ExpressionLanguage(

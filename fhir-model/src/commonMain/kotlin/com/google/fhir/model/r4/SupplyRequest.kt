@@ -25,7 +25,7 @@ import com.google.fhir.model.r4.serializers.SupplyRequestParameterValueSerialize
 import com.google.fhir.model.r4.serializers.SupplyRequestSerializer
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -40,12 +40,12 @@ public data class SupplyRequest(
    * The only time that a resource does not have an id is when it is being submitted to the server
    * using a create operation.
    */
-  override var id: String? = null,
+  override val id: String? = null,
   /**
    * The metadata about the resource. This is content that is maintained by the infrastructure.
    * Changes to the content might not always be associated with version changes to the resource.
    */
-  override var meta: Meta? = null,
+  override val meta: Meta? = null,
   /**
    * A reference to a set of rules that were followed when the resource was constructed, and which
    * must be understood when processing the content. Often, this is a reference to an implementation
@@ -59,7 +59,7 @@ public data class SupplyRequest(
    * to an implementation guide that defines these special rules as part of it's narrative along
    * with other profiles, value sets, etc.
    */
-  override var implicitRules: Uri? = null,
+  override val implicitRules: Uri? = null,
   /**
    * The base language in which the resource is written.
    *
@@ -71,7 +71,7 @@ public data class SupplyRequest(
    * language is specified, it should it also be specified on the div element in the html (see rules
    * in HTML5 for information about the relationship between xml:lang and the html lang attribute).
    */
-  override var language: Code? = null,
+  override val language: Code? = null,
   /**
    * A human-readable narrative that contains a summary of the resource and can be used to represent
    * the content of the resource to a human. The narrative need not encode all the structured data,
@@ -85,7 +85,7 @@ public data class SupplyRequest(
    * legacy systems where information is captured as a "text blob" or where text is additionally
    * entered raw or narrated and encoded information is added later.
    */
-  override var text: Narrative? = null,
+  override val text: Narrative? = null,
   /**
    * These resources do not have an independent existence apart from the resource that contains
    * them - they cannot be identified independently, and nor can they have their own independent
@@ -96,7 +96,7 @@ public data class SupplyRequest(
    * resources may have profiles and tags In their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: MutableList<Resource> = mutableListOf(),
+  override val contained: List<Resource> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and manageable, there is a strict set of
@@ -109,7 +109,7 @@ public data class SupplyRequest(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: MutableList<Extension> = mutableListOf(),
+  override val extension: List<Extension> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -128,7 +128,7 @@ public data class SupplyRequest(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: MutableList<Extension> = mutableListOf(),
+  override val modifierExtension: List<Extension> = listOf(),
   /**
    * Business identifiers assigned to this SupplyRequest by the author and/or other systems. These
    * identifiers remain constant as the resource is updated and propagates from server to server.
@@ -136,18 +136,18 @@ public data class SupplyRequest(
    * The identifier.type element is used to distinguish between the identifiers assigned by the
    * requester/placer and the performer/filler.
    */
-  public var identifier: MutableList<Identifier> = mutableListOf(),
+  public val identifier: List<Identifier> = listOf(),
   /** Status of the supply request. */
-  public var status: Enumeration<SupplyRequestStatus>? = null,
+  public val status: Enumeration<SupplyRequestStatus>? = null,
   /**
    * Category of supply, e.g. central, non-stock, etc. This is used to support work flows associated
    * with the supply process.
    */
-  public var category: CodeableConcept? = null,
+  public val category: CodeableConcept? = null,
   /**
    * Indicates how quickly this SupplyRequest should be addressed with respect to other requests.
    */
-  public var priority: Enumeration<RequestPriority>? = null,
+  public val priority: Enumeration<RequestPriority>? = null,
   /**
    * The item that is requested to be supplied. This is either a link to a resource representing the
    * details of the item or a code that identifies the item from a known list.
@@ -156,27 +156,27 @@ public data class SupplyRequest(
    * along with a (sometimes) implicit supply, and an explicit request to supply, with no explicit
    * instructions.
    */
-  public var item: Item,
+  public val item: Item,
   /** The amount that is being ordered of the indicated item. */
-  public var quantity: Quantity,
+  public val quantity: Quantity,
   /** Specific parameters for the ordered item. For example, the size of the indicated item. */
-  public var parameter: MutableList<Parameter> = mutableListOf(),
+  public val parameter: List<Parameter> = listOf(),
   /** When the request should be fulfilled. */
-  public var occurrence: Occurrence? = null,
+  public val occurrence: Occurrence? = null,
   /** When the request was made. */
-  public var authoredOn: DateTime? = null,
+  public val authoredOn: DateTime? = null,
   /** The device, practitioner, etc. who initiated the request. */
-  public var requester: Reference? = null,
+  public val requester: Reference? = null,
   /** Who is intended to fulfill the request. */
-  public var supplier: MutableList<Reference> = mutableListOf(),
+  public val supplier: List<Reference> = listOf(),
   /** The reason why the supply item was requested. */
-  public var reasonCode: MutableList<CodeableConcept> = mutableListOf(),
+  public val reasonCode: List<CodeableConcept> = listOf(),
   /** The reason why the supply item was requested. */
-  public var reasonReference: MutableList<Reference> = mutableListOf(),
+  public val reasonReference: List<Reference> = listOf(),
   /** Where the supply is expected to come from. */
-  public var deliverFrom: Reference? = null,
+  public val deliverFrom: Reference? = null,
   /** Where the supply is destined to go. */
-  public var deliverTo: Reference? = null,
+  public val deliverTo: Reference? = null,
 ) : DomainResource() {
   /** Specific parameters for the ordered item. For example, the size of the indicated item. */
   @Serializable(with = SupplyRequestParameterSerializer::class)
@@ -185,7 +185,7 @@ public data class SupplyRequest(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: String? = null,
+    override val id: String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and manageable, there is a strict set of
@@ -198,7 +198,7 @@ public data class SupplyRequest(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -217,15 +217,15 @@ public data class SupplyRequest(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /** A code or string that identifies the device detail being asserted. */
-    public var code: CodeableConcept? = null,
+    public val code: CodeableConcept? = null,
     /**
      * The value of the device detail.
      *
      * Range means device should have a value that falls somewhere within the specified range.
      */
-    public var `value`: Value? = null,
+    public val `value`: Value? = null,
   ) : BackboneElement() {
     @Serializable(with = SupplyRequestParameterValueSerializer::class)
     public sealed interface Value {

@@ -43,23 +43,23 @@ import com.google.fhir.model.r5.serializers.LocalTimeSerializer
 import kotlin.Boolean as KotlinBoolean
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class SubstanceIngredientSurrogate(
   public var id: String? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var quantity: Ratio? = null,
   public var substance: Substance.Ingredient.Substance,
 ) {
   public fun toModel(): Substance.Ingredient =
     Substance.Ingredient(
       id = this@SubstanceIngredientSurrogate.id,
-      extension = this@SubstanceIngredientSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@SubstanceIngredientSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@SubstanceIngredientSurrogate.extension ?: listOf(),
+      modifierExtension = this@SubstanceIngredientSurrogate.modifierExtension ?: listOf(),
       quantity = this@SubstanceIngredientSurrogate.quantity,
       substance = this@SubstanceIngredientSurrogate.substance,
     )
@@ -111,22 +111,22 @@ internal data class SubstanceSurrogate(
   public var language: String? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: MutableList<Resource>? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var identifier: MutableList<Identifier>? = null,
+  public var contained: List<Resource>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
+  public var identifier: List<Identifier>? = null,
   public var instance: KotlinBoolean? = null,
   public var _instance: Element? = null,
   public var status: String? = null,
   public var _status: Element? = null,
-  public var category: MutableList<CodeableConcept>? = null,
+  public var category: List<CodeableConcept>? = null,
   public var code: CodeableReference,
   public var description: String? = null,
   public var _description: Element? = null,
   public var expiry: String? = null,
   public var _expiry: Element? = null,
   public var quantity: Quantity? = null,
-  public var ingredient: MutableList<Substance.Ingredient>? = null,
+  public var ingredient: List<Substance.Ingredient>? = null,
 ) {
   public fun toModel(): Substance =
     Substance(
@@ -136,10 +136,10 @@ internal data class SubstanceSurrogate(
         Uri.of(this@SubstanceSurrogate.implicitRules, this@SubstanceSurrogate._implicitRules),
       language = Code.of(this@SubstanceSurrogate.language, this@SubstanceSurrogate._language),
       text = this@SubstanceSurrogate.text,
-      contained = this@SubstanceSurrogate.contained ?: mutableListOf(),
-      extension = this@SubstanceSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@SubstanceSurrogate.modifierExtension ?: mutableListOf(),
-      identifier = this@SubstanceSurrogate.identifier ?: mutableListOf(),
+      contained = this@SubstanceSurrogate.contained ?: listOf(),
+      extension = this@SubstanceSurrogate.extension ?: listOf(),
+      modifierExtension = this@SubstanceSurrogate.modifierExtension ?: listOf(),
+      identifier = this@SubstanceSurrogate.identifier ?: listOf(),
       instance =
         R5Boolean.of(this@SubstanceSurrogate.instance, this@SubstanceSurrogate._instance)!!,
       status =
@@ -149,7 +149,7 @@ internal data class SubstanceSurrogate(
             this@SubstanceSurrogate._status,
           )
         },
-      category = this@SubstanceSurrogate.category ?: mutableListOf(),
+      category = this@SubstanceSurrogate.category ?: listOf(),
       code = this@SubstanceSurrogate.code,
       description =
         Markdown.of(this@SubstanceSurrogate.description, this@SubstanceSurrogate._description),
@@ -159,7 +159,7 @@ internal data class SubstanceSurrogate(
           this@SubstanceSurrogate._expiry,
         ),
       quantity = this@SubstanceSurrogate.quantity,
-      ingredient = this@SubstanceSurrogate.ingredient ?: mutableListOf(),
+      ingredient = this@SubstanceSurrogate.ingredient ?: listOf(),
     )
 
   public companion object {

@@ -36,14 +36,14 @@ import kotlin.Boolean as KotlinBoolean
 import kotlin.Int
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class DosageDoseAndRateSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
   public var type: CodeableConcept? = null,
   public var dose: Dosage.DoseAndRate.Dose? = null,
   public var rate: Dosage.DoseAndRate.Rate? = null,
@@ -51,7 +51,7 @@ internal data class DosageDoseAndRateSurrogate(
   public fun toModel(): Dosage.DoseAndRate =
     Dosage.DoseAndRate(
       id = this@DosageDoseAndRateSurrogate.id,
-      extension = this@DosageDoseAndRateSurrogate.extension ?: mutableListOf(),
+      extension = this@DosageDoseAndRateSurrogate.extension ?: listOf(),
       type = this@DosageDoseAndRateSurrogate.type,
       dose = this@DosageDoseAndRateSurrogate.dose,
       rate = this@DosageDoseAndRateSurrogate.rate,
@@ -148,13 +148,13 @@ internal data class DosageDoseAndRateRateSurrogate(
 @Serializable
 internal data class DosageSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var sequence: Int? = null,
   public var _sequence: Element? = null,
   public var text: KotlinString? = null,
   public var _text: Element? = null,
-  public var additionalInstruction: MutableList<CodeableConcept>? = null,
+  public var additionalInstruction: List<CodeableConcept>? = null,
   public var patientInstruction: KotlinString? = null,
   public var _patientInstruction: Element? = null,
   public var timing: Timing? = null,
@@ -162,7 +162,7 @@ internal data class DosageSurrogate(
   public var site: CodeableConcept? = null,
   public var route: CodeableConcept? = null,
   public var method: CodeableConcept? = null,
-  public var doseAndRate: MutableList<Dosage.DoseAndRate>? = null,
+  public var doseAndRate: List<Dosage.DoseAndRate>? = null,
   public var maxDosePerPeriod: Ratio? = null,
   public var maxDosePerAdministration: Quantity? = null,
   public var maxDosePerLifetime: Quantity? = null,
@@ -170,11 +170,11 @@ internal data class DosageSurrogate(
   public fun toModel(): Dosage =
     Dosage(
       id = this@DosageSurrogate.id,
-      extension = this@DosageSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@DosageSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@DosageSurrogate.extension ?: listOf(),
+      modifierExtension = this@DosageSurrogate.modifierExtension ?: listOf(),
       sequence = Integer.of(this@DosageSurrogate.sequence, this@DosageSurrogate._sequence),
       text = R4bString.of(this@DosageSurrogate.text, this@DosageSurrogate._text),
-      additionalInstruction = this@DosageSurrogate.additionalInstruction ?: mutableListOf(),
+      additionalInstruction = this@DosageSurrogate.additionalInstruction ?: listOf(),
       patientInstruction =
         R4bString.of(
           this@DosageSurrogate.patientInstruction,
@@ -185,7 +185,7 @@ internal data class DosageSurrogate(
       site = this@DosageSurrogate.site,
       route = this@DosageSurrogate.route,
       method = this@DosageSurrogate.method,
-      doseAndRate = this@DosageSurrogate.doseAndRate ?: mutableListOf(),
+      doseAndRate = this@DosageSurrogate.doseAndRate ?: listOf(),
       maxDosePerPeriod = this@DosageSurrogate.maxDosePerPeriod,
       maxDosePerAdministration = this@DosageSurrogate.maxDosePerAdministration,
       maxDosePerLifetime = this@DosageSurrogate.maxDosePerLifetime,

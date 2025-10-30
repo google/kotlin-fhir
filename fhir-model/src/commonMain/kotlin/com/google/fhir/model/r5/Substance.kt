@@ -23,7 +23,7 @@ import com.google.fhir.model.r5.serializers.SubstanceIngredientSubstanceSerializ
 import com.google.fhir.model.r5.serializers.SubstanceSerializer
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -39,12 +39,12 @@ public data class Substance(
    * like the create and conditional update. Otherwise, the use of the resouce id depends on the
    * given use case.
    */
-  override var id: String? = null,
+  override val id: String? = null,
   /**
    * The metadata about the resource. This is content that is maintained by the infrastructure.
    * Changes to the content might not always be associated with version changes to the resource.
    */
-  override var meta: Meta? = null,
+  override val meta: Meta? = null,
   /**
    * A reference to a set of rules that were followed when the resource was constructed, and which
    * must be understood when processing the content. Often, this is a reference to an implementation
@@ -58,7 +58,7 @@ public data class Substance(
    * to an implementation guide that defines these special rules as part of its narrative along with
    * other profiles, value sets, etc.
    */
-  override var implicitRules: Uri? = null,
+  override val implicitRules: Uri? = null,
   /**
    * The base language in which the resource is written.
    *
@@ -70,7 +70,7 @@ public data class Substance(
    * language is specified, it should it also be specified on the div element in the html (see rules
    * in HTML5 for information about the relationship between xml:lang and the html lang attribute).
    */
-  override var language: Code? = null,
+  override val language: Code? = null,
   /**
    * A human-readable narrative that contains a summary of the resource and can be used to represent
    * the content of the resource to a human. The narrative need not encode all the structured data,
@@ -84,7 +84,7 @@ public data class Substance(
    * legacy systems where information is captured as a "text blob" or where text is additionally
    * entered raw or narrated and encoded information is added later.
    */
-  override var text: Narrative? = null,
+  override val text: Narrative? = null,
   /**
    * These resources do not have an independent existence apart from the resource that contains
    * them - they cannot be identified independently, nor can they have their own independent
@@ -96,7 +96,7 @@ public data class Substance(
    * resources may have profiles and tags in their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: MutableList<Resource> = mutableListOf(),
+  override val contained: List<Resource> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and managable, there is a strict set of governance
@@ -109,7 +109,7 @@ public data class Substance(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: MutableList<Extension> = mutableListOf(),
+  override val extension: List<Extension> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -128,16 +128,16 @@ public data class Substance(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: MutableList<Extension> = mutableListOf(),
+  override val modifierExtension: List<Extension> = listOf(),
   /**
    * Unique identifier for the substance. For an instance, an identifier associated with the
    * package/container (usually a label affixed directly).
    */
-  public var identifier: MutableList<Identifier> = mutableListOf(),
+  public val identifier: List<Identifier> = listOf(),
   /** A boolean to indicate if this an instance of a substance or a kind of one (a definition). */
-  public var instance: Boolean,
+  public val instance: Boolean,
   /** A code to indicate if the substance is actively used. */
-  public var status: Enumeration<FHIRSubstanceStatus>? = null,
+  public val status: Enumeration<FHIRSubstanceStatus>? = null,
   /**
    * A code that classifies the general type of substance. This is used for searching, sorting and
    * display purposes.
@@ -146,27 +146,27 @@ public data class Substance(
    * fine-grained filtering can be performed using the metadata and/or terminology hierarchy in
    * Substance.code.
    */
-  public var category: MutableList<CodeableConcept> = mutableListOf(),
+  public val category: List<CodeableConcept> = listOf(),
   /**
    * A code (or set of codes) that identify this substance.
    *
    * This could be a reference to an externally defined code. It could also be a locally assigned
    * code (e.g. a formulary), optionally with translations to the standard drug codes.
    */
-  public var code: CodeableReference,
+  public val code: CodeableReference,
   /**
    * A description of the substance - its appearance, handling requirements, and other usage notes.
    */
-  public var description: Markdown? = null,
+  public val description: Markdown? = null,
   /**
    * When the substance is no longer valid to use. For some substances, a single arbitrary date is
    * used for expiry.
    */
-  public var expiry: DateTime? = null,
+  public val expiry: DateTime? = null,
   /** The amount of the substance. */
-  public var quantity: Quantity? = null,
+  public val quantity: Quantity? = null,
   /** A substance can be composed of other substances. */
-  public var ingredient: MutableList<Ingredient> = mutableListOf(),
+  public val ingredient: List<Ingredient> = listOf(),
 ) : DomainResource() {
   /** A substance can be composed of other substances. */
   @Serializable(with = SubstanceIngredientSerializer::class)
@@ -175,7 +175,7 @@ public data class Substance(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: String? = null,
+    override val id: String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -188,7 +188,7 @@ public data class Substance(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -207,11 +207,11 @@ public data class Substance(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /** The amount of the ingredient in the substance - a concentration ratio. */
-    public var quantity: Ratio? = null,
+    public val quantity: Ratio? = null,
     /** Another substance that is a component of this substance. */
-    public var substance: Substance,
+    public val substance: Substance,
   ) : BackboneElement() {
     @Serializable(with = SubstanceIngredientSubstanceSerializer::class)
     public sealed interface Substance {

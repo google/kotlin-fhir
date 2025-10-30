@@ -42,24 +42,24 @@ import com.google.fhir.model.r4b.terminologies.PublicationStatus
 import kotlin.Boolean as KotlinBoolean
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class ManufacturedItemDefinitionPropertySurrogate(
   public var id: String? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var type: CodeableConcept,
   public var `value`: ManufacturedItemDefinition.Property.Value? = null,
 ) {
   public fun toModel(): ManufacturedItemDefinition.Property =
     ManufacturedItemDefinition.Property(
       id = this@ManufacturedItemDefinitionPropertySurrogate.id,
-      extension = this@ManufacturedItemDefinitionPropertySurrogate.extension ?: mutableListOf(),
+      extension = this@ManufacturedItemDefinitionPropertySurrogate.extension ?: listOf(),
       modifierExtension =
-        this@ManufacturedItemDefinitionPropertySurrogate.modifierExtension ?: mutableListOf(),
+        this@ManufacturedItemDefinitionPropertySurrogate.modifierExtension ?: listOf(),
       type = this@ManufacturedItemDefinitionPropertySurrogate.type,
       `value` = this@ManufacturedItemDefinitionPropertySurrogate.`value`,
     )
@@ -132,17 +132,17 @@ internal data class ManufacturedItemDefinitionSurrogate(
   public var language: String? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: MutableList<Resource>? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var identifier: MutableList<Identifier>? = null,
+  public var contained: List<Resource>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
+  public var identifier: List<Identifier>? = null,
   public var status: String? = null,
   public var _status: Element? = null,
   public var manufacturedDoseForm: CodeableConcept,
   public var unitOfPresentation: CodeableConcept? = null,
-  public var manufacturer: MutableList<Reference>? = null,
-  public var ingredient: MutableList<CodeableConcept>? = null,
-  public var `property`: MutableList<ManufacturedItemDefinition.Property>? = null,
+  public var manufacturer: List<Reference>? = null,
+  public var ingredient: List<CodeableConcept>? = null,
+  public var `property`: List<ManufacturedItemDefinition.Property>? = null,
 ) {
   public fun toModel(): ManufacturedItemDefinition =
     ManufacturedItemDefinition(
@@ -159,11 +159,10 @@ internal data class ManufacturedItemDefinitionSurrogate(
           this@ManufacturedItemDefinitionSurrogate._language,
         ),
       text = this@ManufacturedItemDefinitionSurrogate.text,
-      contained = this@ManufacturedItemDefinitionSurrogate.contained ?: mutableListOf(),
-      extension = this@ManufacturedItemDefinitionSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@ManufacturedItemDefinitionSurrogate.modifierExtension ?: mutableListOf(),
-      identifier = this@ManufacturedItemDefinitionSurrogate.identifier ?: mutableListOf(),
+      contained = this@ManufacturedItemDefinitionSurrogate.contained ?: listOf(),
+      extension = this@ManufacturedItemDefinitionSurrogate.extension ?: listOf(),
+      modifierExtension = this@ManufacturedItemDefinitionSurrogate.modifierExtension ?: listOf(),
+      identifier = this@ManufacturedItemDefinitionSurrogate.identifier ?: listOf(),
       status =
         Enumeration.of(
           PublicationStatus.fromCode(this@ManufacturedItemDefinitionSurrogate.status!!),
@@ -171,9 +170,9 @@ internal data class ManufacturedItemDefinitionSurrogate(
         ),
       manufacturedDoseForm = this@ManufacturedItemDefinitionSurrogate.manufacturedDoseForm,
       unitOfPresentation = this@ManufacturedItemDefinitionSurrogate.unitOfPresentation,
-      manufacturer = this@ManufacturedItemDefinitionSurrogate.manufacturer ?: mutableListOf(),
-      ingredient = this@ManufacturedItemDefinitionSurrogate.ingredient ?: mutableListOf(),
-      `property` = this@ManufacturedItemDefinitionSurrogate.`property` ?: mutableListOf(),
+      manufacturer = this@ManufacturedItemDefinitionSurrogate.manufacturer ?: listOf(),
+      ingredient = this@ManufacturedItemDefinitionSurrogate.ingredient ?: listOf(),
+      `property` = this@ManufacturedItemDefinitionSurrogate.`property` ?: listOf(),
     )
 
   public companion object {

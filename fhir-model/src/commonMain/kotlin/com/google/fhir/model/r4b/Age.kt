@@ -20,7 +20,7 @@ package com.google.fhir.model.r4b
 
 import com.google.fhir.model.r4b.serializers.AgeSerializer
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 
 /**
@@ -33,7 +33,7 @@ public data class Age(
    * Unique id for the element within a resource (for internal references). This may be any string
    * value that does not contain spaces.
    */
-  override var id: kotlin.String? = null,
+  override val id: kotlin.String? = null,
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * element. To make the use of extensions safe and manageable, there is a strict set of governance
@@ -46,7 +46,7 @@ public data class Age(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: MutableList<Extension> = mutableListOf(),
+  override val extension: List<Extension> = listOf(),
   /**
    * The value of the measured amount. The value includes an implicit precision in the presentation
    * of the value.
@@ -54,24 +54,24 @@ public data class Age(
    * The implicit precision in the value should always be honored. Monetary values have their own
    * rules for handling precision (refer to standard accounting text books).
    */
-  override var `value`: Decimal? = null,
+  override val `value`: Decimal? = null,
   /**
    * How the value should be understood and represented - whether the actual value is greater or
    * less than the stated value due to measurement issues; e.g. if the comparator is "<" , then the
    * real value is < stated value.
    */
-  override var comparator: Enumeration<Quantity.QuantityComparator>? = null,
+  override val comparator: Enumeration<Quantity.QuantityComparator>? = null,
   /** A human-readable form of the unit. */
-  override var unit: String? = null,
+  override val unit: String? = null,
   /** The identification of the system that provides the coded form of the unit. */
-  override var system: Uri? = null,
+  override val system: Uri? = null,
   /**
    * A computer processable form of the unit in some unit representation system.
    *
    * The preferred system is UCUM, but SNOMED CT can also be used (for customary units) or ISO 4217
    * for currency. The context of use may additionally require a code from a particular system.
    */
-  override var code: Code? = null,
+  override val code: Code? = null,
 ) : Quantity() {
   /** How the Quantity should be understood and represented. */
   public enum class QuantityComparator(

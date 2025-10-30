@@ -31,7 +31,7 @@ import com.google.fhir.model.r5.serializers.DoubleSerializer
 import com.google.fhir.model.r5.serializers.LocalTimeSerializer
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
@@ -65,7 +65,7 @@ internal data class AnnotationAuthorSurrogate(
 @Serializable
 internal data class AnnotationSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
   public var author: Annotation.Author? = null,
   public var time: KotlinString? = null,
   public var _time: Element? = null,
@@ -75,7 +75,7 @@ internal data class AnnotationSurrogate(
   public fun toModel(): Annotation =
     Annotation(
       id = this@AnnotationSurrogate.id,
-      extension = this@AnnotationSurrogate.extension ?: mutableListOf(),
+      extension = this@AnnotationSurrogate.extension ?: listOf(),
       author = this@AnnotationSurrogate.author,
       time =
         DateTime.of(

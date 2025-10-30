@@ -45,30 +45,29 @@ import com.google.fhir.model.r4b.serializers.LocalTimeSerializer
 import kotlin.Boolean as KotlinBoolean
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class CarePlanActivitySurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var outcomeCodeableConcept: MutableList<CodeableConcept>? = null,
-  public var outcomeReference: MutableList<Reference>? = null,
-  public var progress: MutableList<Annotation>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
+  public var outcomeCodeableConcept: List<CodeableConcept>? = null,
+  public var outcomeReference: List<Reference>? = null,
+  public var progress: List<Annotation>? = null,
   public var reference: Reference? = null,
   public var detail: CarePlan.Activity.Detail? = null,
 ) {
   public fun toModel(): CarePlan.Activity =
     CarePlan.Activity(
       id = this@CarePlanActivitySurrogate.id,
-      extension = this@CarePlanActivitySurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@CarePlanActivitySurrogate.modifierExtension ?: mutableListOf(),
-      outcomeCodeableConcept =
-        this@CarePlanActivitySurrogate.outcomeCodeableConcept ?: mutableListOf(),
-      outcomeReference = this@CarePlanActivitySurrogate.outcomeReference ?: mutableListOf(),
-      progress = this@CarePlanActivitySurrogate.progress ?: mutableListOf(),
+      extension = this@CarePlanActivitySurrogate.extension ?: listOf(),
+      modifierExtension = this@CarePlanActivitySurrogate.modifierExtension ?: listOf(),
+      outcomeCodeableConcept = this@CarePlanActivitySurrogate.outcomeCodeableConcept ?: listOf(),
+      outcomeReference = this@CarePlanActivitySurrogate.outcomeReference ?: listOf(),
+      progress = this@CarePlanActivitySurrogate.progress ?: listOf(),
       reference = this@CarePlanActivitySurrogate.reference,
       detail = this@CarePlanActivitySurrogate.detail,
     )
@@ -93,18 +92,18 @@ internal data class CarePlanActivitySurrogate(
 @Serializable
 internal data class CarePlanActivityDetailSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var kind: KotlinString? = null,
   public var _kind: Element? = null,
-  public var instantiatesCanonical: MutableList<KotlinString?>? = null,
-  public var _instantiatesCanonical: MutableList<Element?>? = null,
-  public var instantiatesUri: MutableList<KotlinString?>? = null,
-  public var _instantiatesUri: MutableList<Element?>? = null,
+  public var instantiatesCanonical: List<KotlinString?>? = null,
+  public var _instantiatesCanonical: List<Element?>? = null,
+  public var instantiatesUri: List<KotlinString?>? = null,
+  public var _instantiatesUri: List<Element?>? = null,
   public var code: CodeableConcept? = null,
-  public var reasonCode: MutableList<CodeableConcept>? = null,
-  public var reasonReference: MutableList<Reference>? = null,
-  public var goal: MutableList<Reference>? = null,
+  public var reasonCode: List<CodeableConcept>? = null,
+  public var reasonReference: List<Reference>? = null,
+  public var goal: List<Reference>? = null,
   public var status: KotlinString? = null,
   public var _status: Element? = null,
   public var statusReason: CodeableConcept? = null,
@@ -112,7 +111,7 @@ internal data class CarePlanActivityDetailSurrogate(
   public var _doNotPerform: Element? = null,
   public var scheduled: CarePlan.Activity.Detail.Scheduled? = null,
   public var location: Reference? = null,
-  public var performer: MutableList<Reference>? = null,
+  public var performer: List<Reference>? = null,
   public var product: CarePlan.Activity.Detail.Product? = null,
   public var dailyAmount: Quantity? = null,
   public var quantity: Quantity? = null,
@@ -122,8 +121,8 @@ internal data class CarePlanActivityDetailSurrogate(
   public fun toModel(): CarePlan.Activity.Detail =
     CarePlan.Activity.Detail(
       id = this@CarePlanActivityDetailSurrogate.id,
-      extension = this@CarePlanActivityDetailSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@CarePlanActivityDetailSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@CarePlanActivityDetailSurrogate.extension ?: listOf(),
+      modifierExtension = this@CarePlanActivityDetailSurrogate.modifierExtension ?: listOf(),
       kind =
         this@CarePlanActivityDetailSurrogate.kind?.let {
           Enumeration.of(
@@ -136,7 +135,7 @@ internal data class CarePlanActivityDetailSurrogate(
           this@CarePlanActivityDetailSurrogate.instantiatesCanonical == null &&
             this@CarePlanActivityDetailSurrogate._instantiatesCanonical == null
         ) {
-          mutableListOf()
+          listOf()
         } else {
           (this@CarePlanActivityDetailSurrogate.instantiatesCanonical
               ?: List(this@CarePlanActivityDetailSurrogate._instantiatesCanonical!!.size) { null })
@@ -145,14 +144,14 @@ internal data class CarePlanActivityDetailSurrogate(
                 ?: List(this@CarePlanActivityDetailSurrogate.instantiatesCanonical!!.size) { null }
             )
             .map { (value, element) -> Canonical.of(value, element)!! }
-            .toMutableList()
+            .toList()
         },
       instantiatesUri =
         if (
           this@CarePlanActivityDetailSurrogate.instantiatesUri == null &&
             this@CarePlanActivityDetailSurrogate._instantiatesUri == null
         ) {
-          mutableListOf()
+          listOf()
         } else {
           (this@CarePlanActivityDetailSurrogate.instantiatesUri
               ?: List(this@CarePlanActivityDetailSurrogate._instantiatesUri!!.size) { null })
@@ -161,12 +160,12 @@ internal data class CarePlanActivityDetailSurrogate(
                 ?: List(this@CarePlanActivityDetailSurrogate.instantiatesUri!!.size) { null }
             )
             .map { (value, element) -> Uri.of(value, element)!! }
-            .toMutableList()
+            .toList()
         },
       code = this@CarePlanActivityDetailSurrogate.code,
-      reasonCode = this@CarePlanActivityDetailSurrogate.reasonCode ?: mutableListOf(),
-      reasonReference = this@CarePlanActivityDetailSurrogate.reasonReference ?: mutableListOf(),
-      goal = this@CarePlanActivityDetailSurrogate.goal ?: mutableListOf(),
+      reasonCode = this@CarePlanActivityDetailSurrogate.reasonCode ?: listOf(),
+      reasonReference = this@CarePlanActivityDetailSurrogate.reasonReference ?: listOf(),
+      goal = this@CarePlanActivityDetailSurrogate.goal ?: listOf(),
       status =
         Enumeration.of(
           CarePlan.CarePlanActivityStatus.fromCode(this@CarePlanActivityDetailSurrogate.status!!),
@@ -180,7 +179,7 @@ internal data class CarePlanActivityDetailSurrogate(
         ),
       scheduled = this@CarePlanActivityDetailSurrogate.scheduled,
       location = this@CarePlanActivityDetailSurrogate.location,
-      performer = this@CarePlanActivityDetailSurrogate.performer ?: mutableListOf(),
+      performer = this@CarePlanActivityDetailSurrogate.performer ?: listOf(),
       product = this@CarePlanActivityDetailSurrogate.product,
       dailyAmount = this@CarePlanActivityDetailSurrogate.dailyAmount,
       quantity = this@CarePlanActivityDetailSurrogate.quantity,
@@ -203,25 +202,25 @@ internal data class CarePlanActivityDetailSurrogate(
           instantiatesCanonical =
             this@with.instantiatesCanonical
               .map { it.value }
-              .toMutableList()
+              .toList()
               .takeUnless { it.all { it == null } },
           _instantiatesCanonical =
             this@with.instantiatesCanonical
               .map { it.toElement() }
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
-              ?.toMutableList(),
+              ?.toList(),
           instantiatesUri =
             this@with.instantiatesUri
               .map { it.value }
-              .toMutableList()
+              .toList()
               .takeUnless { it.all { it == null } },
           _instantiatesUri =
             this@with.instantiatesUri
               .map { it.toElement() }
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
-              ?.toMutableList(),
+              ?.toList(),
           code = this@with.code,
           reasonCode = this@with.reasonCode.takeIf { it.isNotEmpty() },
           reasonReference = this@with.reasonReference.takeIf { it.isNotEmpty() },
@@ -309,22 +308,22 @@ internal data class CarePlanSurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: MutableList<Resource>? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var identifier: MutableList<Identifier>? = null,
-  public var instantiatesCanonical: MutableList<KotlinString?>? = null,
-  public var _instantiatesCanonical: MutableList<Element?>? = null,
-  public var instantiatesUri: MutableList<KotlinString?>? = null,
-  public var _instantiatesUri: MutableList<Element?>? = null,
-  public var basedOn: MutableList<Reference>? = null,
-  public var replaces: MutableList<Reference>? = null,
-  public var partOf: MutableList<Reference>? = null,
+  public var contained: List<Resource>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
+  public var identifier: List<Identifier>? = null,
+  public var instantiatesCanonical: List<KotlinString?>? = null,
+  public var _instantiatesCanonical: List<Element?>? = null,
+  public var instantiatesUri: List<KotlinString?>? = null,
+  public var _instantiatesUri: List<Element?>? = null,
+  public var basedOn: List<Reference>? = null,
+  public var replaces: List<Reference>? = null,
+  public var partOf: List<Reference>? = null,
   public var status: KotlinString? = null,
   public var _status: Element? = null,
   public var intent: KotlinString? = null,
   public var _intent: Element? = null,
-  public var category: MutableList<CodeableConcept>? = null,
+  public var category: List<CodeableConcept>? = null,
   public var title: KotlinString? = null,
   public var _title: Element? = null,
   public var description: KotlinString? = null,
@@ -335,13 +334,13 @@ internal data class CarePlanSurrogate(
   public var created: KotlinString? = null,
   public var _created: Element? = null,
   public var author: Reference? = null,
-  public var contributor: MutableList<Reference>? = null,
-  public var careTeam: MutableList<Reference>? = null,
-  public var addresses: MutableList<Reference>? = null,
-  public var supportingInfo: MutableList<Reference>? = null,
-  public var goal: MutableList<Reference>? = null,
-  public var activity: MutableList<CarePlan.Activity>? = null,
-  public var note: MutableList<Annotation>? = null,
+  public var contributor: List<Reference>? = null,
+  public var careTeam: List<Reference>? = null,
+  public var addresses: List<Reference>? = null,
+  public var supportingInfo: List<Reference>? = null,
+  public var goal: List<Reference>? = null,
+  public var activity: List<CarePlan.Activity>? = null,
+  public var note: List<Annotation>? = null,
 ) {
   public fun toModel(): CarePlan =
     CarePlan(
@@ -351,16 +350,16 @@ internal data class CarePlanSurrogate(
         Uri.of(this@CarePlanSurrogate.implicitRules, this@CarePlanSurrogate._implicitRules),
       language = Code.of(this@CarePlanSurrogate.language, this@CarePlanSurrogate._language),
       text = this@CarePlanSurrogate.text,
-      contained = this@CarePlanSurrogate.contained ?: mutableListOf(),
-      extension = this@CarePlanSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@CarePlanSurrogate.modifierExtension ?: mutableListOf(),
-      identifier = this@CarePlanSurrogate.identifier ?: mutableListOf(),
+      contained = this@CarePlanSurrogate.contained ?: listOf(),
+      extension = this@CarePlanSurrogate.extension ?: listOf(),
+      modifierExtension = this@CarePlanSurrogate.modifierExtension ?: listOf(),
+      identifier = this@CarePlanSurrogate.identifier ?: listOf(),
       instantiatesCanonical =
         if (
           this@CarePlanSurrogate.instantiatesCanonical == null &&
             this@CarePlanSurrogate._instantiatesCanonical == null
         ) {
-          mutableListOf()
+          listOf()
         } else {
           (this@CarePlanSurrogate.instantiatesCanonical
               ?: List(this@CarePlanSurrogate._instantiatesCanonical!!.size) { null })
@@ -369,14 +368,14 @@ internal data class CarePlanSurrogate(
                 ?: List(this@CarePlanSurrogate.instantiatesCanonical!!.size) { null }
             )
             .map { (value, element) -> Canonical.of(value, element)!! }
-            .toMutableList()
+            .toList()
         },
       instantiatesUri =
         if (
           this@CarePlanSurrogate.instantiatesUri == null &&
             this@CarePlanSurrogate._instantiatesUri == null
         ) {
-          mutableListOf()
+          listOf()
         } else {
           (this@CarePlanSurrogate.instantiatesUri
               ?: List(this@CarePlanSurrogate._instantiatesUri!!.size) { null })
@@ -385,11 +384,11 @@ internal data class CarePlanSurrogate(
                 ?: List(this@CarePlanSurrogate.instantiatesUri!!.size) { null }
             )
             .map { (value, element) -> Uri.of(value, element)!! }
-            .toMutableList()
+            .toList()
         },
-      basedOn = this@CarePlanSurrogate.basedOn ?: mutableListOf(),
-      replaces = this@CarePlanSurrogate.replaces ?: mutableListOf(),
-      partOf = this@CarePlanSurrogate.partOf ?: mutableListOf(),
+      basedOn = this@CarePlanSurrogate.basedOn ?: listOf(),
+      replaces = this@CarePlanSurrogate.replaces ?: listOf(),
+      partOf = this@CarePlanSurrogate.partOf ?: listOf(),
       status =
         Enumeration.of(
           CarePlan.RequestStatus.fromCode(this@CarePlanSurrogate.status!!),
@@ -400,7 +399,7 @@ internal data class CarePlanSurrogate(
           CarePlan.CarePlanIntent.fromCode(this@CarePlanSurrogate.intent!!),
           this@CarePlanSurrogate._intent,
         ),
-      category = this@CarePlanSurrogate.category ?: mutableListOf(),
+      category = this@CarePlanSurrogate.category ?: listOf(),
       title = R4bString.of(this@CarePlanSurrogate.title, this@CarePlanSurrogate._title),
       description =
         R4bString.of(this@CarePlanSurrogate.description, this@CarePlanSurrogate._description),
@@ -413,13 +412,13 @@ internal data class CarePlanSurrogate(
           this@CarePlanSurrogate._created,
         ),
       author = this@CarePlanSurrogate.author,
-      contributor = this@CarePlanSurrogate.contributor ?: mutableListOf(),
-      careTeam = this@CarePlanSurrogate.careTeam ?: mutableListOf(),
-      addresses = this@CarePlanSurrogate.addresses ?: mutableListOf(),
-      supportingInfo = this@CarePlanSurrogate.supportingInfo ?: mutableListOf(),
-      goal = this@CarePlanSurrogate.goal ?: mutableListOf(),
-      activity = this@CarePlanSurrogate.activity ?: mutableListOf(),
-      note = this@CarePlanSurrogate.note ?: mutableListOf(),
+      contributor = this@CarePlanSurrogate.contributor ?: listOf(),
+      careTeam = this@CarePlanSurrogate.careTeam ?: listOf(),
+      addresses = this@CarePlanSurrogate.addresses ?: listOf(),
+      supportingInfo = this@CarePlanSurrogate.supportingInfo ?: listOf(),
+      goal = this@CarePlanSurrogate.goal ?: listOf(),
+      activity = this@CarePlanSurrogate.activity ?: listOf(),
+      note = this@CarePlanSurrogate.note ?: listOf(),
     )
 
   public companion object {
@@ -440,25 +439,25 @@ internal data class CarePlanSurrogate(
           instantiatesCanonical =
             this@with.instantiatesCanonical
               .map { it.value }
-              .toMutableList()
+              .toList()
               .takeUnless { it.all { it == null } },
           _instantiatesCanonical =
             this@with.instantiatesCanonical
               .map { it.toElement() }
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
-              ?.toMutableList(),
+              ?.toList(),
           instantiatesUri =
             this@with.instantiatesUri
               .map { it.value }
-              .toMutableList()
+              .toList()
               .takeUnless { it.all { it == null } },
           _instantiatesUri =
             this@with.instantiatesUri
               .map { it.toElement() }
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
-              ?.toMutableList(),
+              ?.toList(),
           basedOn = this@with.basedOn.takeIf { it.isNotEmpty() },
           replaces = this@with.replaces.takeIf { it.isNotEmpty() },
           partOf = this@with.partOf.takeIf { it.isNotEmpty() },

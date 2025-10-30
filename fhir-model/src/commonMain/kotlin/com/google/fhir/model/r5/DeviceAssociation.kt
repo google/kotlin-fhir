@@ -22,7 +22,7 @@ import com.google.fhir.model.r5.serializers.DeviceAssociationOperationSerializer
 import com.google.fhir.model.r5.serializers.DeviceAssociationSerializer
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -38,12 +38,12 @@ public data class DeviceAssociation(
    * like the create and conditional update. Otherwise, the use of the resouce id depends on the
    * given use case.
    */
-  override var id: String? = null,
+  override val id: String? = null,
   /**
    * The metadata about the resource. This is content that is maintained by the infrastructure.
    * Changes to the content might not always be associated with version changes to the resource.
    */
-  override var meta: Meta? = null,
+  override val meta: Meta? = null,
   /**
    * A reference to a set of rules that were followed when the resource was constructed, and which
    * must be understood when processing the content. Often, this is a reference to an implementation
@@ -57,7 +57,7 @@ public data class DeviceAssociation(
    * to an implementation guide that defines these special rules as part of its narrative along with
    * other profiles, value sets, etc.
    */
-  override var implicitRules: Uri? = null,
+  override val implicitRules: Uri? = null,
   /**
    * The base language in which the resource is written.
    *
@@ -69,7 +69,7 @@ public data class DeviceAssociation(
    * language is specified, it should it also be specified on the div element in the html (see rules
    * in HTML5 for information about the relationship between xml:lang and the html lang attribute).
    */
-  override var language: Code? = null,
+  override val language: Code? = null,
   /**
    * A human-readable narrative that contains a summary of the resource and can be used to represent
    * the content of the resource to a human. The narrative need not encode all the structured data,
@@ -83,7 +83,7 @@ public data class DeviceAssociation(
    * legacy systems where information is captured as a "text blob" or where text is additionally
    * entered raw or narrated and encoded information is added later.
    */
-  override var text: Narrative? = null,
+  override val text: Narrative? = null,
   /**
    * These resources do not have an independent existence apart from the resource that contains
    * them - they cannot be identified independently, nor can they have their own independent
@@ -95,7 +95,7 @@ public data class DeviceAssociation(
    * resources may have profiles and tags in their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: MutableList<Resource> = mutableListOf(),
+  override val contained: List<Resource> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and managable, there is a strict set of governance
@@ -108,7 +108,7 @@ public data class DeviceAssociation(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: MutableList<Extension> = mutableListOf(),
+  override val extension: List<Extension> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -127,25 +127,25 @@ public data class DeviceAssociation(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: MutableList<Extension> = mutableListOf(),
+  override val modifierExtension: List<Extension> = listOf(),
   /** Instance identifier. */
-  public var identifier: MutableList<Identifier> = mutableListOf(),
+  public val identifier: List<Identifier> = listOf(),
   /** Reference to the devices associated with the patient or group. */
-  public var device: Reference,
+  public val device: Reference,
   /** Describes the relationship between the device and subject. */
-  public var category: MutableList<CodeableConcept> = mutableListOf(),
+  public val category: List<CodeableConcept> = listOf(),
   /** Indicates the state of the Device association. */
-  public var status: CodeableConcept,
+  public val status: CodeableConcept,
   /** The reasons given for the current association status. */
-  public var statusReason: MutableList<CodeableConcept> = mutableListOf(),
+  public val statusReason: List<CodeableConcept> = listOf(),
   /** The individual, group of individuals or device that the device is on or associated with. */
-  public var subject: Reference? = null,
+  public val subject: Reference? = null,
   /** Current anatomical location of the device in/on subject. */
-  public var bodyStructure: Reference? = null,
+  public val bodyStructure: Reference? = null,
   /** Begin and end dates and times for the device association. */
-  public var period: Period? = null,
+  public val period: Period? = null,
   /** The details about the device when it is in use to describe its operation. */
-  public var operation: MutableList<Operation> = mutableListOf(),
+  public val operation: List<Operation> = listOf(),
 ) : DomainResource() {
   /** The details about the device when it is in use to describe its operation. */
   @Serializable(with = DeviceAssociationOperationSerializer::class)
@@ -154,7 +154,7 @@ public data class DeviceAssociation(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: String? = null,
+    override val id: String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -167,7 +167,7 @@ public data class DeviceAssociation(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -186,12 +186,12 @@ public data class DeviceAssociation(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /** Device operational condition corresponding to the association. */
-    public var status: CodeableConcept,
+    public val status: CodeableConcept,
     /** The individual performing the action enabled by the device. */
-    public var `operator`: MutableList<Reference> = mutableListOf(),
+    public val `operator`: List<Reference> = listOf(),
     /** Begin and end dates and times for the device's operation. */
-    public var period: Period? = null,
+    public val period: Period? = null,
   ) : BackboneElement()
 }

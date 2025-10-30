@@ -29,7 +29,7 @@ import com.google.fhir.model.r4b.terminologies.PublicationStatus
 import com.google.fhir.model.r4b.terminologies.ResourceType
 import com.google.fhir.model.r4b.terminologies.SearchParamType
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -47,12 +47,12 @@ public data class OperationDefinition(
    * The only time that a resource does not have an id is when it is being submitted to the server
    * using a create operation.
    */
-  override var id: kotlin.String? = null,
+  override val id: kotlin.String? = null,
   /**
    * The metadata about the resource. This is content that is maintained by the infrastructure.
    * Changes to the content might not always be associated with version changes to the resource.
    */
-  override var meta: Meta? = null,
+  override val meta: Meta? = null,
   /**
    * A reference to a set of rules that were followed when the resource was constructed, and which
    * must be understood when processing the content. Often, this is a reference to an implementation
@@ -66,7 +66,7 @@ public data class OperationDefinition(
    * to an implementation guide that defines these special rules as part of it's narrative along
    * with other profiles, value sets, etc.
    */
-  override var implicitRules: Uri? = null,
+  override val implicitRules: Uri? = null,
   /**
    * The base language in which the resource is written.
    *
@@ -78,7 +78,7 @@ public data class OperationDefinition(
    * language is specified, it should it also be specified on the div element in the html (see rules
    * in HTML5 for information about the relationship between xml:lang and the html lang attribute).
    */
-  override var language: Code? = null,
+  override val language: Code? = null,
   /**
    * A human-readable narrative that contains a summary of the resource and can be used to represent
    * the content of the resource to a human. The narrative need not encode all the structured data,
@@ -92,7 +92,7 @@ public data class OperationDefinition(
    * legacy systems where information is captured as a "text blob" or where text is additionally
    * entered raw or narrated and encoded information is added later.
    */
-  override var text: Narrative? = null,
+  override val text: Narrative? = null,
   /**
    * These resources do not have an independent existence apart from the resource that contains
    * them - they cannot be identified independently, and nor can they have their own independent
@@ -103,7 +103,7 @@ public data class OperationDefinition(
    * resources may have profiles and tags In their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: MutableList<Resource> = mutableListOf(),
+  override val contained: List<Resource> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and manageable, there is a strict set of
@@ -116,7 +116,7 @@ public data class OperationDefinition(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: MutableList<Extension> = mutableListOf(),
+  override val extension: List<Extension> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -135,7 +135,7 @@ public data class OperationDefinition(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: MutableList<Extension> = mutableListOf(),
+  override val modifierExtension: List<Extension> = listOf(),
   /**
    * An absolute URI that is used to identify this operation definition when it is referenced in a
    * specification, model, design or an instance; also called its canonical identifier. This SHOULD
@@ -155,7 +155,7 @@ public data class OperationDefinition(
    * change. Implementations can use the [meta.source](resource.html#meta) element to indicate where
    * the current master source of the resource can be found.
    */
-  public var url: Uri? = null,
+  public val url: Uri? = null,
   /**
    * The identifier that is used to identify this version of the operation definition when it is
    * referenced in a specification, model, design or instance. This is an arbitrary value managed by
@@ -167,7 +167,7 @@ public data class OperationDefinition(
    * different versions. The version can be appended to the url in a reference to allow a reference
    * to a particular business version of the operation definition with the format [url]|[version].
    */
-  public var version: String? = null,
+  public val version: String? = null,
   /**
    * A natural language name identifying the operation definition. This name should be usable as an
    * identifier for the module by machine processing applications such as code generation.
@@ -175,33 +175,33 @@ public data class OperationDefinition(
    * The name is not expected to be globally unique. The name should be a simple alphanumeric type
    * name to ensure that it is machine-processing friendly.
    */
-  public var name: String,
+  public val name: String,
   /**
    * A short, descriptive, user-friendly title for the operation definition.
    *
    * This name does not need to be machine-processing friendly and may contain punctuation,
    * white-space, etc.
    */
-  public var title: String? = null,
+  public val title: String? = null,
   /**
    * The status of this operation definition. Enables tracking the life-cycle of the content.
    *
    * Allows filtering of operation definitions that are appropriate for use versus not.
    */
-  public var status: Enumeration<PublicationStatus>,
+  public val status: Enumeration<PublicationStatus>,
   /**
    * Whether this is an operation or a named query.
    *
    * Named queries are invoked differently, and have different capabilities.
    */
-  public var kind: Enumeration<OperationKind>,
+  public val kind: Enumeration<OperationKind>,
   /**
    * A Boolean value to indicate that this operation definition is authored for testing purposes (or
    * education/evaluation/marketing) and is not intended to be used for genuine usage.
    *
    * Allows filtering of operation definitions that are appropriate for use versus not.
    */
-  public var experimental: Boolean? = null,
+  public val experimental: Boolean? = null,
   /**
    * The date (and optionally time) when the operation definition was published. The date must
    * change when the business version changes and it must change if the status code changes. In
@@ -211,7 +211,7 @@ public data class OperationDefinition(
    * secondary representation of the operation definition. Additional specific dates may be added as
    * extensions or be found by consulting Provenances associated with past versions of the resource.
    */
-  public var date: DateTime? = null,
+  public val date: DateTime? = null,
   /**
    * The name of the organization or individual that published the operation definition.
    *
@@ -222,13 +222,13 @@ public data class OperationDefinition(
    * contact for questions or issues with the operation definition. This item SHOULD be populated
    * unless the information is available from context.
    */
-  public var publisher: String? = null,
+  public val publisher: String? = null,
   /**
    * Contact details to assist a user in finding and communicating with the publisher.
    *
    * May be a web site, an email address, a telephone number, etc.
    */
-  public var contact: MutableList<ContactDetail> = mutableListOf(),
+  public val contact: List<ContactDetail> = listOf(),
   /**
    * A free text natural language description of the operation definition from a consumer's
    * perspective.
@@ -240,7 +240,7 @@ public data class OperationDefinition(
    * information is available from context (e.g. the language of the operation definition is
    * presumed to be the predominant language in the place the operation definition was created).
    */
-  public var description: Markdown? = null,
+  public val description: Markdown? = null,
   /**
    * The content was developed with a focus and intent of supporting the contexts that are listed.
    * These contexts may be general categories (gender, age, ...) or may be references to specific
@@ -250,14 +250,14 @@ public data class OperationDefinition(
    * When multiple useContexts are specified, there is no expectation that all or any of the
    * contexts apply.
    */
-  public var useContext: MutableList<UsageContext> = mutableListOf(),
+  public val useContext: List<UsageContext> = listOf(),
   /**
    * A legal or geographic region in which the operation definition is intended to be used.
    *
    * It may be possible for the operation definition to be used in jurisdictions other than those
    * for which it was originally designed or intended.
    */
-  public var jurisdiction: MutableList<CodeableConcept> = mutableListOf(),
+  public val jurisdiction: List<CodeableConcept> = listOf(),
   /**
    * Explanation of why this operation definition is needed and why it has been designed as it has.
    *
@@ -266,7 +266,7 @@ public data class OperationDefinition(
    * may be used to point to source materials or specifications that drove the structure of this
    * operation definition.
    */
-  public var purpose: Markdown? = null,
+  public val purpose: Markdown? = null,
   /**
    * Whether the operation affects state. Side effects such as producing audit trail entries do not
    * count as 'affecting state'.
@@ -277,41 +277,41 @@ public data class OperationDefinition(
    * 2. Servers SHALL support GET method if all the parameters for the operation are primitive or
    *    there are no parameters and the operation has affectsState = false.
    */
-  public var affectsState: Boolean? = null,
+  public val affectsState: Boolean? = null,
   /** The name used to invoke the operation. */
-  public var code: Code,
+  public val code: Code,
   /** Additional information about how to use this operation or named query. */
-  public var comment: Markdown? = null,
+  public val comment: Markdown? = null,
   /**
    * Indicates that this operation definition is a constraining profile on the base.
    *
    * A constrained profile can make optional parameters required or not used and clarify
    * documentation.
    */
-  public var base: Canonical? = null,
+  public val base: Canonical? = null,
   /**
    * The types on which this operation can be executed.
    *
    * If the type is an abstract resource ("Resource" or "DomainResource") then the operation can be
    * invoked on any concrete specialization.
    */
-  public var resource: MutableList<Enumeration<ResourceType>> = mutableListOf(),
+  public val resource: List<Enumeration<ResourceType>> = listOf(),
   /**
    * Indicates whether this operation or named query can be invoked at the system level (e.g.
    * without needing to choose a resource type for the context).
    */
-  public var system: Boolean,
+  public val system: Boolean,
   /**
    * Indicates whether this operation or named query can be invoked at the resource type level for
    * any given resource type level (e.g. without needing to choose a specific resource id for the
    * context).
    */
-  public var type: Boolean,
+  public val type: Boolean,
   /**
    * Indicates whether this operation can be invoked on a particular instance of one of the given
    * types.
    */
-  public var instance: Boolean,
+  public val instance: Boolean,
   /**
    * Additional validation information for the in parameters - a single profile that covers all the
    * parameters. The profile is a constraint on the parameters resource as a whole.
@@ -321,7 +321,7 @@ public data class OperationDefinition(
    * constraints expressed in the profile apply whether the operation is invoked by a POST wih
    * parameters or not.
    */
-  public var inputProfile: Canonical? = null,
+  public val inputProfile: Canonical? = null,
   /**
    * Additional validation information for the out parameters - a single profile that covers all the
    * parameters. The profile is a constraint on the parameters resource.
@@ -331,14 +331,14 @@ public data class OperationDefinition(
    * constraints expressed in the profile apply whether the operation is invoked by a POST wih
    * parameters or not.
    */
-  public var outputProfile: Canonical? = null,
+  public val outputProfile: Canonical? = null,
   /**
    * The parameters for the operation/query.
    *
    * Query Definitions only have one output parameter, named "result". This might not be described,
    * but can be to allow a profile to be defined.
    */
-  public var parameter: MutableList<Parameter> = mutableListOf(),
+  public val parameter: List<Parameter> = listOf(),
   /**
    * Defines an appropriate combination of parameters to use when invoking this operation, to help
    * code generators when generating overloaded parameter sets for this operation.
@@ -346,7 +346,7 @@ public data class OperationDefinition(
    * The combinations are suggestions as to which sets of parameters to use together, but the
    * combinations are not intended to be authoritative.
    */
-  public var overload: MutableList<Overload> = mutableListOf(),
+  public val overload: List<Overload> = listOf(),
 ) : DomainResource() {
   /** The parameters for the operation/query. */
   @Serializable(with = OperationDefinitionParameterSerializer::class)
@@ -355,7 +355,7 @@ public data class OperationDefinition(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and manageable, there is a strict set of
@@ -368,7 +368,7 @@ public data class OperationDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -387,7 +387,7 @@ public data class OperationDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /**
      * The name of used to identify the parameter.
      *
@@ -395,29 +395,29 @@ public data class OperationDefinition(
      * and underscore. Note that for search parameters (type = string, with a search type), the name
      * may be altered by the search modifiers.
      */
-    public var name: Code,
+    public val name: Code,
     /**
      * Whether this is an input or an output parameter.
      *
      * If a parameter name is used for both an input and an output parameter, the parameter should
      * be defined twice.
      */
-    public var use: Enumeration<OperationParameterUse>,
+    public val use: Enumeration<OperationParameterUse>,
     /** The minimum number of times this parameter SHALL appear in the request or response. */
-    public var min: Integer,
+    public val min: Integer,
     /**
      * The maximum number of times this element is permitted to appear in the request or response.
      */
-    public var max: String,
+    public val max: String,
     /** Describes the meaning or use of this parameter. */
-    public var documentation: String? = null,
+    public val documentation: String? = null,
     /**
      * The type for this parameter.
      *
      * if there is no stated parameter, then the parameter is a multi-part parameter; type and must
      * have at least one part defined.
      */
-    public var type: Enumeration<FHIRAllTypes>? = null,
+    public val type: Enumeration<FHIRAllTypes>? = null,
     /**
      * Used when the type is "Reference" or "canonical", and identifies a profile structure or
      * implementation Guide that applies to the target of the reference this parameter refers to. If
@@ -430,28 +430,28 @@ public data class OperationDefinition(
      * Often, these profiles are the base definitions from the spec (e.g.
      * http://hl7.org/fhir/StructureDefinition/Patient).
      */
-    public var targetProfile: MutableList<Canonical> = mutableListOf(),
+    public val targetProfile: List<Canonical> = listOf(),
     /**
      * How the parameter is understood as a search parameter. This is only used if the parameter
      * type is 'string'.
      */
-    public var searchType: Enumeration<SearchParamType>? = null,
+    public val searchType: Enumeration<SearchParamType>? = null,
     /** Binds to a value set if this parameter is coded (code, Coding, CodeableConcept). */
-    public var binding: Binding? = null,
+    public val binding: Binding? = null,
     /**
      * Identifies other resource parameters within the operation invocation that are expected to
      * resolve to this resource.
      *
      * Resolution applies if the referenced parameter exists.
      */
-    public var referencedFrom: MutableList<ReferencedFrom> = mutableListOf(),
+    public val referencedFrom: List<ReferencedFrom> = listOf(),
     /**
      * The parts of a nested Parameter.
      *
      * Query Definitions only have one output parameter, named "result". This might not be
      * described, but can be to allow a profile to be defined.
      */
-    public var part: MutableList<Parameter> = mutableListOf(),
+    public val part: List<Parameter> = listOf(),
   ) : BackboneElement() {
     /** Binds to a value set if this parameter is coded (code, Coding, CodeableConcept). */
     @Serializable(with = OperationDefinitionParameterBindingSerializer::class)
@@ -460,7 +460,7 @@ public data class OperationDefinition(
        * Unique id for the element within a resource (for internal references). This may be any
        * string value that does not contain spaces.
        */
-      override var id: kotlin.String? = null,
+      override val id: kotlin.String? = null,
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element. To make the use of extensions safe and manageable, there is a strict set of
@@ -473,7 +473,7 @@ public data class OperationDefinition(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: MutableList<Extension> = mutableListOf(),
+      override val extension: List<Extension> = listOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -492,14 +492,14 @@ public data class OperationDefinition(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: MutableList<Extension> = mutableListOf(),
+      override val modifierExtension: List<Extension> = listOf(),
       /**
        * Indicates the degree of conformance expectations associated with this binding - that is,
        * the degree to which the provided value set must be adhered to in the instances.
        *
        * For further discussion, see [Using Terminologies](terminologies.html).
        */
-      public var strength: Enumeration<BindingStrength>,
+      public val strength: Enumeration<BindingStrength>,
       /**
        * Points to the value set or external definition (e.g. implicit value set) that identifies
        * the set of codes to be used.
@@ -507,7 +507,7 @@ public data class OperationDefinition(
        * For value sets with a referenceResource, the display can contain the value set description.
        * The reference may be version-specific or not.
        */
-      public var valueSet: Canonical,
+      public val valueSet: Canonical,
     ) : BackboneElement()
 
     /**
@@ -520,7 +520,7 @@ public data class OperationDefinition(
        * Unique id for the element within a resource (for internal references). This may be any
        * string value that does not contain spaces.
        */
-      override var id: kotlin.String? = null,
+      override val id: kotlin.String? = null,
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element. To make the use of extensions safe and manageable, there is a strict set of
@@ -533,7 +533,7 @@ public data class OperationDefinition(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: MutableList<Extension> = mutableListOf(),
+      override val extension: List<Extension> = listOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -552,17 +552,17 @@ public data class OperationDefinition(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: MutableList<Extension> = mutableListOf(),
+      override val modifierExtension: List<Extension> = listOf(),
       /**
        * The name of the parameter or dot-separated path of parameter names pointing to the resource
        * parameter that is expected to contain a reference to this resource.
        */
-      public var source: String,
+      public val source: String,
       /**
        * The id of the element in the referencing resource that is expected to resolve to this
        * resource.
        */
-      public var sourceId: String? = null,
+      public val sourceId: String? = null,
     ) : BackboneElement()
   }
 
@@ -576,7 +576,7 @@ public data class OperationDefinition(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and manageable, there is a strict set of
@@ -589,7 +589,7 @@ public data class OperationDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -608,11 +608,11 @@ public data class OperationDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /** Name of parameter to include in overload. */
-    public var parameterName: MutableList<String> = mutableListOf(),
+    public val parameterName: List<String> = listOf(),
     /** Comments to go on overload. */
-    public var comment: String? = null,
+    public val comment: String? = null,
   ) : BackboneElement()
 
   /** Whether an operation parameter is an input or an output parameter. */

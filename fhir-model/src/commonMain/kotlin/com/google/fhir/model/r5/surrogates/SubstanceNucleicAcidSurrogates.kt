@@ -37,15 +37,15 @@ import com.google.fhir.model.r5.serializers.LocalTimeSerializer
 import kotlin.Int
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class SubstanceNucleicAcidSubunitSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var subunit: Int? = null,
   public var _subunit: Element? = null,
   public var sequence: KotlinString? = null,
@@ -55,15 +55,14 @@ internal data class SubstanceNucleicAcidSubunitSurrogate(
   public var sequenceAttachment: Attachment? = null,
   public var fivePrime: CodeableConcept? = null,
   public var threePrime: CodeableConcept? = null,
-  public var linkage: MutableList<SubstanceNucleicAcid.Subunit.Linkage>? = null,
-  public var sugar: MutableList<SubstanceNucleicAcid.Subunit.Sugar>? = null,
+  public var linkage: List<SubstanceNucleicAcid.Subunit.Linkage>? = null,
+  public var sugar: List<SubstanceNucleicAcid.Subunit.Sugar>? = null,
 ) {
   public fun toModel(): SubstanceNucleicAcid.Subunit =
     SubstanceNucleicAcid.Subunit(
       id = this@SubstanceNucleicAcidSubunitSurrogate.id,
-      extension = this@SubstanceNucleicAcidSubunitSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@SubstanceNucleicAcidSubunitSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@SubstanceNucleicAcidSubunitSurrogate.extension ?: listOf(),
+      modifierExtension = this@SubstanceNucleicAcidSubunitSurrogate.modifierExtension ?: listOf(),
       subunit =
         Integer.of(
           this@SubstanceNucleicAcidSubunitSurrogate.subunit,
@@ -82,8 +81,8 @@ internal data class SubstanceNucleicAcidSubunitSurrogate(
       sequenceAttachment = this@SubstanceNucleicAcidSubunitSurrogate.sequenceAttachment,
       fivePrime = this@SubstanceNucleicAcidSubunitSurrogate.fivePrime,
       threePrime = this@SubstanceNucleicAcidSubunitSurrogate.threePrime,
-      linkage = this@SubstanceNucleicAcidSubunitSurrogate.linkage ?: mutableListOf(),
-      sugar = this@SubstanceNucleicAcidSubunitSurrogate.sugar ?: mutableListOf(),
+      linkage = this@SubstanceNucleicAcidSubunitSurrogate.linkage ?: listOf(),
+      sugar = this@SubstanceNucleicAcidSubunitSurrogate.sugar ?: listOf(),
     )
 
   public companion object {
@@ -114,8 +113,8 @@ internal data class SubstanceNucleicAcidSubunitSurrogate(
 @Serializable
 internal data class SubstanceNucleicAcidSubunitLinkageSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var connectivity: KotlinString? = null,
   public var _connectivity: Element? = null,
   public var identifier: Identifier? = null,
@@ -127,9 +126,9 @@ internal data class SubstanceNucleicAcidSubunitLinkageSurrogate(
   public fun toModel(): SubstanceNucleicAcid.Subunit.Linkage =
     SubstanceNucleicAcid.Subunit.Linkage(
       id = this@SubstanceNucleicAcidSubunitLinkageSurrogate.id,
-      extension = this@SubstanceNucleicAcidSubunitLinkageSurrogate.extension ?: mutableListOf(),
+      extension = this@SubstanceNucleicAcidSubunitLinkageSurrogate.extension ?: listOf(),
       modifierExtension =
-        this@SubstanceNucleicAcidSubunitLinkageSurrogate.modifierExtension ?: mutableListOf(),
+        this@SubstanceNucleicAcidSubunitLinkageSurrogate.modifierExtension ?: listOf(),
       connectivity =
         R5String.of(
           this@SubstanceNucleicAcidSubunitLinkageSurrogate.connectivity,
@@ -172,8 +171,8 @@ internal data class SubstanceNucleicAcidSubunitLinkageSurrogate(
 @Serializable
 internal data class SubstanceNucleicAcidSubunitSugarSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var identifier: Identifier? = null,
   public var name: KotlinString? = null,
   public var _name: Element? = null,
@@ -183,9 +182,9 @@ internal data class SubstanceNucleicAcidSubunitSugarSurrogate(
   public fun toModel(): SubstanceNucleicAcid.Subunit.Sugar =
     SubstanceNucleicAcid.Subunit.Sugar(
       id = this@SubstanceNucleicAcidSubunitSugarSurrogate.id,
-      extension = this@SubstanceNucleicAcidSubunitSugarSurrogate.extension ?: mutableListOf(),
+      extension = this@SubstanceNucleicAcidSubunitSugarSurrogate.extension ?: listOf(),
       modifierExtension =
-        this@SubstanceNucleicAcidSubunitSugarSurrogate.modifierExtension ?: mutableListOf(),
+        this@SubstanceNucleicAcidSubunitSugarSurrogate.modifierExtension ?: listOf(),
       identifier = this@SubstanceNucleicAcidSubunitSugarSurrogate.identifier,
       name =
         R5String.of(
@@ -227,16 +226,16 @@ internal data class SubstanceNucleicAcidSurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: MutableList<Resource>? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var contained: List<Resource>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var sequenceType: CodeableConcept? = null,
   public var numberOfSubunits: Int? = null,
   public var _numberOfSubunits: Element? = null,
   public var areaOfHybridisation: KotlinString? = null,
   public var _areaOfHybridisation: Element? = null,
   public var oligoNucleotideType: CodeableConcept? = null,
-  public var subunit: MutableList<SubstanceNucleicAcid.Subunit>? = null,
+  public var subunit: List<SubstanceNucleicAcid.Subunit>? = null,
 ) {
   public fun toModel(): SubstanceNucleicAcid =
     SubstanceNucleicAcid(
@@ -253,9 +252,9 @@ internal data class SubstanceNucleicAcidSurrogate(
           this@SubstanceNucleicAcidSurrogate._language,
         ),
       text = this@SubstanceNucleicAcidSurrogate.text,
-      contained = this@SubstanceNucleicAcidSurrogate.contained ?: mutableListOf(),
-      extension = this@SubstanceNucleicAcidSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@SubstanceNucleicAcidSurrogate.modifierExtension ?: mutableListOf(),
+      contained = this@SubstanceNucleicAcidSurrogate.contained ?: listOf(),
+      extension = this@SubstanceNucleicAcidSurrogate.extension ?: listOf(),
+      modifierExtension = this@SubstanceNucleicAcidSurrogate.modifierExtension ?: listOf(),
       sequenceType = this@SubstanceNucleicAcidSurrogate.sequenceType,
       numberOfSubunits =
         Integer.of(
@@ -268,7 +267,7 @@ internal data class SubstanceNucleicAcidSurrogate(
           this@SubstanceNucleicAcidSurrogate._areaOfHybridisation,
         ),
       oligoNucleotideType = this@SubstanceNucleicAcidSurrogate.oligoNucleotideType,
-      subunit = this@SubstanceNucleicAcidSurrogate.subunit ?: mutableListOf(),
+      subunit = this@SubstanceNucleicAcidSurrogate.subunit ?: listOf(),
     )
 
   public companion object {

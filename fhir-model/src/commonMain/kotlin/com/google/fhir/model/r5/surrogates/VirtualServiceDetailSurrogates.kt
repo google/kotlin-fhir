@@ -33,7 +33,7 @@ import com.google.fhir.model.r5.serializers.LocalTimeSerializer
 import kotlin.Int
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
@@ -80,11 +80,11 @@ internal data class VirtualServiceDetailAddressSurrogate(
 @Serializable
 internal data class VirtualServiceDetailSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
   public var channelType: Coding? = null,
   public var address: VirtualServiceDetail.Address? = null,
-  public var additionalInfo: MutableList<KotlinString?>? = null,
-  public var _additionalInfo: MutableList<Element?>? = null,
+  public var additionalInfo: List<KotlinString?>? = null,
+  public var _additionalInfo: List<Element?>? = null,
   public var maxParticipants: Int? = null,
   public var _maxParticipants: Element? = null,
   public var sessionKey: KotlinString? = null,
@@ -93,7 +93,7 @@ internal data class VirtualServiceDetailSurrogate(
   public fun toModel(): VirtualServiceDetail =
     VirtualServiceDetail(
       id = this@VirtualServiceDetailSurrogate.id,
-      extension = this@VirtualServiceDetailSurrogate.extension ?: mutableListOf(),
+      extension = this@VirtualServiceDetailSurrogate.extension ?: listOf(),
       channelType = this@VirtualServiceDetailSurrogate.channelType,
       address = this@VirtualServiceDetailSurrogate.address,
       additionalInfo =
@@ -101,7 +101,7 @@ internal data class VirtualServiceDetailSurrogate(
           this@VirtualServiceDetailSurrogate.additionalInfo == null &&
             this@VirtualServiceDetailSurrogate._additionalInfo == null
         ) {
-          mutableListOf()
+          listOf()
         } else {
           (this@VirtualServiceDetailSurrogate.additionalInfo
               ?: List(this@VirtualServiceDetailSurrogate._additionalInfo!!.size) { null })
@@ -110,7 +110,7 @@ internal data class VirtualServiceDetailSurrogate(
                 ?: List(this@VirtualServiceDetailSurrogate.additionalInfo!!.size) { null }
             )
             .map { (value, element) -> Url.of(value, element)!! }
-            .toMutableList()
+            .toList()
         },
       maxParticipants =
         PositiveInt.of(
@@ -133,16 +133,13 @@ internal data class VirtualServiceDetailSurrogate(
           channelType = this@with.channelType,
           address = this@with.address,
           additionalInfo =
-            this@with.additionalInfo
-              .map { it.value }
-              .toMutableList()
-              .takeUnless { it.all { it == null } },
+            this@with.additionalInfo.map { it.value }.toList().takeUnless { it.all { it == null } },
           _additionalInfo =
             this@with.additionalInfo
               .map { it.toElement() }
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
-              ?.toMutableList(),
+              ?.toList(),
           maxParticipants = this@with.maxParticipants?.value,
           _maxParticipants = this@with.maxParticipants?.toElement(),
           sessionKey = this@with.sessionKey?.value,
