@@ -46,24 +46,24 @@ import com.google.fhir.model.r5.serializers.LocalTimeSerializer
 import kotlin.Boolean as KotlinBoolean
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class MedicationAdministrationPerformerSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var function: CodeableConcept? = null,
   public var actor: CodeableReference,
 ) {
   public fun toModel(): MedicationAdministration.Performer =
     MedicationAdministration.Performer(
       id = this@MedicationAdministrationPerformerSurrogate.id,
-      extension = this@MedicationAdministrationPerformerSurrogate.extension ?: mutableListOf(),
+      extension = this@MedicationAdministrationPerformerSurrogate.extension ?: listOf(),
       modifierExtension =
-        this@MedicationAdministrationPerformerSurrogate.modifierExtension ?: mutableListOf(),
+        this@MedicationAdministrationPerformerSurrogate.modifierExtension ?: listOf(),
       function = this@MedicationAdministrationPerformerSurrogate.function,
       actor = this@MedicationAdministrationPerformerSurrogate.actor,
     )
@@ -87,8 +87,8 @@ internal data class MedicationAdministrationPerformerSurrogate(
 @Serializable
 internal data class MedicationAdministrationDosageSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var text: KotlinString? = null,
   public var _text: Element? = null,
   public var site: CodeableConcept? = null,
@@ -100,9 +100,9 @@ internal data class MedicationAdministrationDosageSurrogate(
   public fun toModel(): MedicationAdministration.Dosage =
     MedicationAdministration.Dosage(
       id = this@MedicationAdministrationDosageSurrogate.id,
-      extension = this@MedicationAdministrationDosageSurrogate.extension ?: mutableListOf(),
+      extension = this@MedicationAdministrationDosageSurrogate.extension ?: listOf(),
       modifierExtension =
-        this@MedicationAdministrationDosageSurrogate.modifierExtension ?: mutableListOf(),
+        this@MedicationAdministrationDosageSurrogate.modifierExtension ?: listOf(),
       text =
         R5String.of(
           this@MedicationAdministrationDosageSurrogate.text,
@@ -201,33 +201,33 @@ internal data class MedicationAdministrationSurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: MutableList<Resource>? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var identifier: MutableList<Identifier>? = null,
-  public var basedOn: MutableList<Reference>? = null,
-  public var partOf: MutableList<Reference>? = null,
+  public var contained: List<Resource>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
+  public var identifier: List<Identifier>? = null,
+  public var basedOn: List<Reference>? = null,
+  public var partOf: List<Reference>? = null,
   public var status: KotlinString? = null,
   public var _status: Element? = null,
-  public var statusReason: MutableList<CodeableConcept>? = null,
-  public var category: MutableList<CodeableConcept>? = null,
+  public var statusReason: List<CodeableConcept>? = null,
+  public var category: List<CodeableConcept>? = null,
   public var medication: CodeableReference,
   public var subject: Reference,
   public var encounter: Reference? = null,
-  public var supportingInformation: MutableList<Reference>? = null,
+  public var supportingInformation: List<Reference>? = null,
   public var occurence: MedicationAdministration.Occurence,
   public var recorded: KotlinString? = null,
   public var _recorded: Element? = null,
   public var isSubPotent: KotlinBoolean? = null,
   public var _isSubPotent: Element? = null,
-  public var subPotentReason: MutableList<CodeableConcept>? = null,
-  public var performer: MutableList<MedicationAdministration.Performer>? = null,
-  public var reason: MutableList<CodeableReference>? = null,
+  public var subPotentReason: List<CodeableConcept>? = null,
+  public var performer: List<MedicationAdministration.Performer>? = null,
+  public var reason: List<CodeableReference>? = null,
   public var request: Reference? = null,
-  public var device: MutableList<CodeableReference>? = null,
-  public var note: MutableList<Annotation>? = null,
+  public var device: List<CodeableReference>? = null,
+  public var note: List<Annotation>? = null,
   public var dosage: MedicationAdministration.Dosage? = null,
-  public var eventHistory: MutableList<Reference>? = null,
+  public var eventHistory: List<Reference>? = null,
 ) {
   public fun toModel(): MedicationAdministration =
     MedicationAdministration(
@@ -244,13 +244,12 @@ internal data class MedicationAdministrationSurrogate(
           this@MedicationAdministrationSurrogate._language,
         ),
       text = this@MedicationAdministrationSurrogate.text,
-      contained = this@MedicationAdministrationSurrogate.contained ?: mutableListOf(),
-      extension = this@MedicationAdministrationSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@MedicationAdministrationSurrogate.modifierExtension ?: mutableListOf(),
-      identifier = this@MedicationAdministrationSurrogate.identifier ?: mutableListOf(),
-      basedOn = this@MedicationAdministrationSurrogate.basedOn ?: mutableListOf(),
-      partOf = this@MedicationAdministrationSurrogate.partOf ?: mutableListOf(),
+      contained = this@MedicationAdministrationSurrogate.contained ?: listOf(),
+      extension = this@MedicationAdministrationSurrogate.extension ?: listOf(),
+      modifierExtension = this@MedicationAdministrationSurrogate.modifierExtension ?: listOf(),
+      identifier = this@MedicationAdministrationSurrogate.identifier ?: listOf(),
+      basedOn = this@MedicationAdministrationSurrogate.basedOn ?: listOf(),
+      partOf = this@MedicationAdministrationSurrogate.partOf ?: listOf(),
       status =
         Enumeration.of(
           MedicationAdministration.MedicationAdministrationStatusCodes.fromCode(
@@ -258,13 +257,13 @@ internal data class MedicationAdministrationSurrogate(
           ),
           this@MedicationAdministrationSurrogate._status,
         ),
-      statusReason = this@MedicationAdministrationSurrogate.statusReason ?: mutableListOf(),
-      category = this@MedicationAdministrationSurrogate.category ?: mutableListOf(),
+      statusReason = this@MedicationAdministrationSurrogate.statusReason ?: listOf(),
+      category = this@MedicationAdministrationSurrogate.category ?: listOf(),
       medication = this@MedicationAdministrationSurrogate.medication,
       subject = this@MedicationAdministrationSurrogate.subject,
       encounter = this@MedicationAdministrationSurrogate.encounter,
       supportingInformation =
-        this@MedicationAdministrationSurrogate.supportingInformation ?: mutableListOf(),
+        this@MedicationAdministrationSurrogate.supportingInformation ?: listOf(),
       occurence = this@MedicationAdministrationSurrogate.occurence,
       recorded =
         DateTime.of(
@@ -276,14 +275,14 @@ internal data class MedicationAdministrationSurrogate(
           this@MedicationAdministrationSurrogate.isSubPotent,
           this@MedicationAdministrationSurrogate._isSubPotent,
         ),
-      subPotentReason = this@MedicationAdministrationSurrogate.subPotentReason ?: mutableListOf(),
-      performer = this@MedicationAdministrationSurrogate.performer ?: mutableListOf(),
-      reason = this@MedicationAdministrationSurrogate.reason ?: mutableListOf(),
+      subPotentReason = this@MedicationAdministrationSurrogate.subPotentReason ?: listOf(),
+      performer = this@MedicationAdministrationSurrogate.performer ?: listOf(),
+      reason = this@MedicationAdministrationSurrogate.reason ?: listOf(),
       request = this@MedicationAdministrationSurrogate.request,
-      device = this@MedicationAdministrationSurrogate.device ?: mutableListOf(),
-      note = this@MedicationAdministrationSurrogate.note ?: mutableListOf(),
+      device = this@MedicationAdministrationSurrogate.device ?: listOf(),
+      note = this@MedicationAdministrationSurrogate.note ?: listOf(),
       dosage = this@MedicationAdministrationSurrogate.dosage,
-      eventHistory = this@MedicationAdministrationSurrogate.eventHistory ?: mutableListOf(),
+      eventHistory = this@MedicationAdministrationSurrogate.eventHistory ?: listOf(),
     )
 
   public companion object {

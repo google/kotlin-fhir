@@ -46,24 +46,24 @@ import com.google.fhir.model.r5.terminologies.PublicationStatus
 import kotlin.Boolean as KotlinBoolean
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class ManufacturedItemDefinitionPropertySurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var type: CodeableConcept,
   public var `value`: ManufacturedItemDefinition.Property.Value? = null,
 ) {
   public fun toModel(): ManufacturedItemDefinition.Property =
     ManufacturedItemDefinition.Property(
       id = this@ManufacturedItemDefinitionPropertySurrogate.id,
-      extension = this@ManufacturedItemDefinitionPropertySurrogate.extension ?: mutableListOf(),
+      extension = this@ManufacturedItemDefinitionPropertySurrogate.extension ?: listOf(),
       modifierExtension =
-        this@ManufacturedItemDefinitionPropertySurrogate.modifierExtension ?: mutableListOf(),
+        this@ManufacturedItemDefinitionPropertySurrogate.modifierExtension ?: listOf(),
       type = this@ManufacturedItemDefinitionPropertySurrogate.type,
       `value` = this@ManufacturedItemDefinitionPropertySurrogate.`value`,
     )
@@ -87,28 +87,27 @@ internal data class ManufacturedItemDefinitionPropertySurrogate(
 @Serializable
 internal data class ManufacturedItemDefinitionComponentSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var type: CodeableConcept,
-  public var function: MutableList<CodeableConcept>? = null,
-  public var amount: MutableList<Quantity>? = null,
-  public var constituent: MutableList<ManufacturedItemDefinition.Component.Constituent>? = null,
-  public var `property`: MutableList<ManufacturedItemDefinition.Property>? = null,
-  public var component: MutableList<ManufacturedItemDefinition.Component>? = null,
+  public var function: List<CodeableConcept>? = null,
+  public var amount: List<Quantity>? = null,
+  public var constituent: List<ManufacturedItemDefinition.Component.Constituent>? = null,
+  public var `property`: List<ManufacturedItemDefinition.Property>? = null,
+  public var component: List<ManufacturedItemDefinition.Component>? = null,
 ) {
   public fun toModel(): ManufacturedItemDefinition.Component =
     ManufacturedItemDefinition.Component(
       id = this@ManufacturedItemDefinitionComponentSurrogate.id,
-      extension = this@ManufacturedItemDefinitionComponentSurrogate.extension ?: mutableListOf(),
+      extension = this@ManufacturedItemDefinitionComponentSurrogate.extension ?: listOf(),
       modifierExtension =
-        this@ManufacturedItemDefinitionComponentSurrogate.modifierExtension ?: mutableListOf(),
+        this@ManufacturedItemDefinitionComponentSurrogate.modifierExtension ?: listOf(),
       type = this@ManufacturedItemDefinitionComponentSurrogate.type,
-      function = this@ManufacturedItemDefinitionComponentSurrogate.function ?: mutableListOf(),
-      amount = this@ManufacturedItemDefinitionComponentSurrogate.amount ?: mutableListOf(),
-      constituent =
-        this@ManufacturedItemDefinitionComponentSurrogate.constituent ?: mutableListOf(),
-      `property` = this@ManufacturedItemDefinitionComponentSurrogate.`property` ?: mutableListOf(),
-      component = this@ManufacturedItemDefinitionComponentSurrogate.component ?: mutableListOf(),
+      function = this@ManufacturedItemDefinitionComponentSurrogate.function ?: listOf(),
+      amount = this@ManufacturedItemDefinitionComponentSurrogate.amount ?: listOf(),
+      constituent = this@ManufacturedItemDefinitionComponentSurrogate.constituent ?: listOf(),
+      `property` = this@ManufacturedItemDefinitionComponentSurrogate.`property` ?: listOf(),
+      component = this@ManufacturedItemDefinitionComponentSurrogate.component ?: listOf(),
     )
 
   public companion object {
@@ -134,30 +133,25 @@ internal data class ManufacturedItemDefinitionComponentSurrogate(
 @Serializable
 internal data class ManufacturedItemDefinitionComponentConstituentSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var amount: MutableList<Quantity>? = null,
-  public var location: MutableList<CodeableConcept>? = null,
-  public var function: MutableList<CodeableConcept>? = null,
-  public var hasIngredient: MutableList<CodeableReference>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
+  public var amount: List<Quantity>? = null,
+  public var location: List<CodeableConcept>? = null,
+  public var function: List<CodeableConcept>? = null,
+  public var hasIngredient: List<CodeableReference>? = null,
 ) {
   public fun toModel(): ManufacturedItemDefinition.Component.Constituent =
     ManufacturedItemDefinition.Component.Constituent(
       id = this@ManufacturedItemDefinitionComponentConstituentSurrogate.id,
       extension =
-        this@ManufacturedItemDefinitionComponentConstituentSurrogate.extension ?: mutableListOf(),
+        this@ManufacturedItemDefinitionComponentConstituentSurrogate.extension ?: listOf(),
       modifierExtension =
-        this@ManufacturedItemDefinitionComponentConstituentSurrogate.modifierExtension
-          ?: mutableListOf(),
-      amount =
-        this@ManufacturedItemDefinitionComponentConstituentSurrogate.amount ?: mutableListOf(),
-      location =
-        this@ManufacturedItemDefinitionComponentConstituentSurrogate.location ?: mutableListOf(),
-      function =
-        this@ManufacturedItemDefinitionComponentConstituentSurrogate.function ?: mutableListOf(),
+        this@ManufacturedItemDefinitionComponentConstituentSurrogate.modifierExtension ?: listOf(),
+      amount = this@ManufacturedItemDefinitionComponentConstituentSurrogate.amount ?: listOf(),
+      location = this@ManufacturedItemDefinitionComponentConstituentSurrogate.location ?: listOf(),
+      function = this@ManufacturedItemDefinitionComponentConstituentSurrogate.function ?: listOf(),
       hasIngredient =
-        this@ManufacturedItemDefinitionComponentConstituentSurrogate.hasIngredient
-          ?: mutableListOf(),
+        this@ManufacturedItemDefinitionComponentConstituentSurrogate.hasIngredient ?: listOf(),
     )
 
   public companion object {
@@ -241,21 +235,21 @@ internal data class ManufacturedItemDefinitionSurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: MutableList<Resource>? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var identifier: MutableList<Identifier>? = null,
+  public var contained: List<Resource>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
+  public var identifier: List<Identifier>? = null,
   public var status: KotlinString? = null,
   public var _status: Element? = null,
   public var name: KotlinString? = null,
   public var _name: Element? = null,
   public var manufacturedDoseForm: CodeableConcept,
   public var unitOfPresentation: CodeableConcept? = null,
-  public var manufacturer: MutableList<Reference>? = null,
-  public var marketingStatus: MutableList<MarketingStatus>? = null,
-  public var ingredient: MutableList<CodeableConcept>? = null,
-  public var `property`: MutableList<ManufacturedItemDefinition.Property>? = null,
-  public var component: MutableList<ManufacturedItemDefinition.Component>? = null,
+  public var manufacturer: List<Reference>? = null,
+  public var marketingStatus: List<MarketingStatus>? = null,
+  public var ingredient: List<CodeableConcept>? = null,
+  public var `property`: List<ManufacturedItemDefinition.Property>? = null,
+  public var component: List<ManufacturedItemDefinition.Component>? = null,
 ) {
   public fun toModel(): ManufacturedItemDefinition =
     ManufacturedItemDefinition(
@@ -272,11 +266,10 @@ internal data class ManufacturedItemDefinitionSurrogate(
           this@ManufacturedItemDefinitionSurrogate._language,
         ),
       text = this@ManufacturedItemDefinitionSurrogate.text,
-      contained = this@ManufacturedItemDefinitionSurrogate.contained ?: mutableListOf(),
-      extension = this@ManufacturedItemDefinitionSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@ManufacturedItemDefinitionSurrogate.modifierExtension ?: mutableListOf(),
-      identifier = this@ManufacturedItemDefinitionSurrogate.identifier ?: mutableListOf(),
+      contained = this@ManufacturedItemDefinitionSurrogate.contained ?: listOf(),
+      extension = this@ManufacturedItemDefinitionSurrogate.extension ?: listOf(),
+      modifierExtension = this@ManufacturedItemDefinitionSurrogate.modifierExtension ?: listOf(),
+      identifier = this@ManufacturedItemDefinitionSurrogate.identifier ?: listOf(),
       status =
         Enumeration.of(
           PublicationStatus.fromCode(this@ManufacturedItemDefinitionSurrogate.status!!),
@@ -289,11 +282,11 @@ internal data class ManufacturedItemDefinitionSurrogate(
         ),
       manufacturedDoseForm = this@ManufacturedItemDefinitionSurrogate.manufacturedDoseForm,
       unitOfPresentation = this@ManufacturedItemDefinitionSurrogate.unitOfPresentation,
-      manufacturer = this@ManufacturedItemDefinitionSurrogate.manufacturer ?: mutableListOf(),
-      marketingStatus = this@ManufacturedItemDefinitionSurrogate.marketingStatus ?: mutableListOf(),
-      ingredient = this@ManufacturedItemDefinitionSurrogate.ingredient ?: mutableListOf(),
-      `property` = this@ManufacturedItemDefinitionSurrogate.`property` ?: mutableListOf(),
-      component = this@ManufacturedItemDefinitionSurrogate.component ?: mutableListOf(),
+      manufacturer = this@ManufacturedItemDefinitionSurrogate.manufacturer ?: listOf(),
+      marketingStatus = this@ManufacturedItemDefinitionSurrogate.marketingStatus ?: listOf(),
+      ingredient = this@ManufacturedItemDefinitionSurrogate.ingredient ?: listOf(),
+      `property` = this@ManufacturedItemDefinitionSurrogate.`property` ?: listOf(),
+      component = this@ManufacturedItemDefinitionSurrogate.component ?: listOf(),
     )
 
   public companion object {

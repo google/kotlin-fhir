@@ -23,7 +23,7 @@ import com.google.fhir.model.r4.serializers.ImagingStudySeriesInstanceSerializer
 import com.google.fhir.model.r4.serializers.ImagingStudySeriesPerformerSerializer
 import com.google.fhir.model.r4.serializers.ImagingStudySeriesSerializer
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -43,12 +43,12 @@ public data class ImagingStudy(
    * The only time that a resource does not have an id is when it is being submitted to the server
    * using a create operation.
    */
-  override var id: kotlin.String? = null,
+  override val id: kotlin.String? = null,
   /**
    * The metadata about the resource. This is content that is maintained by the infrastructure.
    * Changes to the content might not always be associated with version changes to the resource.
    */
-  override var meta: Meta? = null,
+  override val meta: Meta? = null,
   /**
    * A reference to a set of rules that were followed when the resource was constructed, and which
    * must be understood when processing the content. Often, this is a reference to an implementation
@@ -62,7 +62,7 @@ public data class ImagingStudy(
    * to an implementation guide that defines these special rules as part of it's narrative along
    * with other profiles, value sets, etc.
    */
-  override var implicitRules: Uri? = null,
+  override val implicitRules: Uri? = null,
   /**
    * The base language in which the resource is written.
    *
@@ -74,7 +74,7 @@ public data class ImagingStudy(
    * language is specified, it should it also be specified on the div element in the html (see rules
    * in HTML5 for information about the relationship between xml:lang and the html lang attribute).
    */
-  override var language: Code? = null,
+  override val language: Code? = null,
   /**
    * A human-readable narrative that contains a summary of the resource and can be used to represent
    * the content of the resource to a human. The narrative need not encode all the structured data,
@@ -88,7 +88,7 @@ public data class ImagingStudy(
    * legacy systems where information is captured as a "text blob" or where text is additionally
    * entered raw or narrated and encoded information is added later.
    */
-  override var text: Narrative? = null,
+  override val text: Narrative? = null,
   /**
    * These resources do not have an independent existence apart from the resource that contains
    * them - they cannot be identified independently, and nor can they have their own independent
@@ -99,7 +99,7 @@ public data class ImagingStudy(
    * resources may have profiles and tags In their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: MutableList<Resource> = mutableListOf(),
+  override val contained: List<Resource> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and manageable, there is a strict set of
@@ -112,7 +112,7 @@ public data class ImagingStudy(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: MutableList<Extension> = mutableListOf(),
+  override val extension: List<Extension> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -131,33 +131,33 @@ public data class ImagingStudy(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: MutableList<Extension> = mutableListOf(),
+  override val modifierExtension: List<Extension> = listOf(),
   /**
    * Identifiers for the ImagingStudy such as DICOM Study Instance UID, and Accession Number.
    *
    * See discussion under [Imaging Study Implementation Notes](imagingstudy.html#notes) for encoding
    * of DICOM Study Instance UID. Accession Number should use ACSN Identifier type.
    */
-  public var identifier: MutableList<Identifier> = mutableListOf(),
+  public val identifier: List<Identifier> = listOf(),
   /**
    * The current state of the ImagingStudy.
    *
    * Unknown does not represent "other" - one of the defined statuses must apply. Unknown is used
    * when the authoring system is not sure what the current status is.
    */
-  public var status: Enumeration<ImagingStudyStatus>,
+  public val status: Enumeration<ImagingStudyStatus>,
   /**
    * A list of all the series.modality values that are actual acquisition modalities, i.e. those in
    * the DICOM Context Group 29 (value set OID 1.2.840.10008.6.1.19).
    */
-  public var modality: MutableList<Coding> = mutableListOf(),
+  public val modality: List<Coding> = listOf(),
   /**
    * The subject, typically a patient, of the imaging study.
    *
    * QA phantoms can be recorded with a Device; multiple subjects (such as mice) can be recorded
    * with a Group.
    */
-  public var subject: Reference,
+  public val subject: Reference,
   /**
    * The healthcare event (e.g. a patient and healthcare provider interaction) during which this
    * ImagingStudy is made.
@@ -166,15 +166,15 @@ public data class ImagingStudy(
    * initiated prior to or after the official completion of an encounter but still be tied to the
    * context of the encounter (e.g. pre-admission test).
    */
-  public var encounter: Reference? = null,
+  public val encounter: Reference? = null,
   /** Date and time the study started. */
-  public var started: DateTime? = null,
+  public val started: DateTime? = null,
   /** A list of the diagnostic requests that resulted in this imaging study being performed. */
-  public var basedOn: MutableList<Reference> = mutableListOf(),
+  public val basedOn: List<Reference> = listOf(),
   /** The requesting/referring physician. */
-  public var referrer: Reference? = null,
+  public val referrer: Reference? = null,
   /** Who read the study and interpreted the images or other content. */
-  public var interpreter: MutableList<Reference> = mutableListOf(),
+  public val interpreter: List<Reference> = listOf(),
   /**
    * The network service providing access (e.g., query, view, or retrieval) for the study. See
    * implementation notes for information about using DICOM endpoints. A study-level endpoint
@@ -188,42 +188,42 @@ public data class ImagingStudy(
    * instances; or IHE Invoke Image Display (IID), which provides standard invocation of an imaging
    * web viewer.
    */
-  public var endpoint: MutableList<Reference> = mutableListOf(),
+  public val endpoint: List<Reference> = listOf(),
   /**
    * Number of Series in the Study. This value given may be larger than the number of series
    * elements this Resource contains due to resource availability, security, or other factors. This
    * element should be present if any series elements are present.
    */
-  public var numberOfSeries: UnsignedInt? = null,
+  public val numberOfSeries: UnsignedInt? = null,
   /**
    * Number of SOP Instances in Study. This value given may be larger than the number of instance
    * elements this resource contains due to resource availability, security, or other factors. This
    * element should be present if any instance elements are present.
    */
-  public var numberOfInstances: UnsignedInt? = null,
+  public val numberOfInstances: UnsignedInt? = null,
   /** The procedure which this ImagingStudy was part of. */
-  public var procedureReference: Reference? = null,
+  public val procedureReference: Reference? = null,
   /** The code for the performed procedure type. */
-  public var procedureCode: MutableList<CodeableConcept> = mutableListOf(),
+  public val procedureCode: List<CodeableConcept> = listOf(),
   /** The principal physical location where the ImagingStudy was performed. */
-  public var location: Reference? = null,
+  public val location: Reference? = null,
   /** Description of clinical condition indicating why the ImagingStudy was requested. */
-  public var reasonCode: MutableList<CodeableConcept> = mutableListOf(),
+  public val reasonCode: List<CodeableConcept> = listOf(),
   /** Indicates another resource whose existence justifies this Study. */
-  public var reasonReference: MutableList<Reference> = mutableListOf(),
+  public val reasonReference: List<Reference> = listOf(),
   /**
    * Per the recommended DICOM mapping, this element is derived from the Study Description attribute
    * (0008,1030). Observations or findings about the imaging study should be recorded in another
    * resource, e.g. Observation, and not in this element.
    */
-  public var note: MutableList<Annotation> = mutableListOf(),
+  public val note: List<Annotation> = listOf(),
   /**
    * The Imaging Manager description of the study. Institution-generated description or
    * classification of the Study (component) performed.
    */
-  public var description: String? = null,
+  public val description: String? = null,
   /** Each study has one or more series of images or other content. */
-  public var series: MutableList<Series> = mutableListOf(),
+  public val series: List<Series> = listOf(),
 ) : DomainResource() {
   /** Each study has one or more series of images or other content. */
   @Serializable(with = ImagingStudySeriesSerializer::class)
@@ -232,7 +232,7 @@ public data class ImagingStudy(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and manageable, there is a strict set of
@@ -245,7 +245,7 @@ public data class ImagingStudy(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -264,26 +264,26 @@ public data class ImagingStudy(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /**
      * The DICOM Series Instance UID for the series.
      *
      * See
      * [DICOM PS3.3 C.7.3](http://dicom.nema.org/medical/dicom/current/output/chtml/part03/sect_C.7.3.html).
      */
-    public var uid: Id,
+    public val uid: Id,
     /** The numeric identifier of this series in the study. */
-    public var number: UnsignedInt? = null,
+    public val number: UnsignedInt? = null,
     /** The modality of this series sequence. */
-    public var modality: Coding,
+    public val modality: Coding,
     /** A description of the series. */
-    public var description: String? = null,
+    public val description: String? = null,
     /**
      * Number of SOP Instances in the Study. The value given may be larger than the number of
      * instance elements this resource contains due to resource availability, security, or other
      * factors. This element should be present if any instance elements are present.
      */
-    public var numberOfInstances: UnsignedInt? = null,
+    public val numberOfInstances: UnsignedInt? = null,
     /**
      * The network service providing access (e.g., query, view, or retrieval) for this series. See
      * implementation notes for information about using DICOM endpoints. A series-level endpoint, if
@@ -295,33 +295,33 @@ public data class ImagingStudy(
      * and DICOM QIDO-RS, which allows RESTful query for DICOM information without retrieving the
      * actual instances.
      */
-    public var endpoint: MutableList<Reference> = mutableListOf(),
+    public val endpoint: List<Reference> = listOf(),
     /**
      * The anatomic structures examined. See DICOM Part 16 Annex L
      * (http://dicom.nema.org/medical/dicom/current/output/chtml/part16/chapter_L.html) for DICOM to
      * SNOMED-CT mappings. The bodySite may indicate the laterality of body part imaged; if so, it
      * shall be consistent with any content of ImagingStudy.series.laterality.
      */
-    public var bodySite: Coding? = null,
+    public val bodySite: Coding? = null,
     /**
      * The laterality of the (possibly paired) anatomic structures examined. E.g., the left knee,
      * both lungs, or unpaired abdomen. If present, shall be consistent with any laterality
      * information indicated in ImagingStudy.series.bodySite.
      */
-    public var laterality: Coding? = null,
+    public val laterality: Coding? = null,
     /** The specimen imaged, e.g., for whole slide imaging of a biopsy. */
-    public var specimen: MutableList<Reference> = mutableListOf(),
+    public val specimen: List<Reference> = listOf(),
     /** The date and time the series was started. */
-    public var started: DateTime? = null,
+    public val started: DateTime? = null,
     /**
      * Indicates who or what performed the series and how they were involved.
      *
      * If the person who performed the series is not known, their Organization may be recorded. A
      * patient, or related person, may be the performer, e.g. for patient-captured images.
      */
-    public var performer: MutableList<Performer> = mutableListOf(),
+    public val performer: List<Performer> = listOf(),
     /** A single SOP instance within the series, e.g. an image, or presentation state. */
-    public var instance: MutableList<Instance> = mutableListOf(),
+    public val instance: List<Instance> = listOf(),
   ) : BackboneElement() {
     /** Indicates who or what performed the series and how they were involved. */
     @Serializable(with = ImagingStudySeriesPerformerSerializer::class)
@@ -330,7 +330,7 @@ public data class ImagingStudy(
        * Unique id for the element within a resource (for internal references). This may be any
        * string value that does not contain spaces.
        */
-      override var id: kotlin.String? = null,
+      override val id: kotlin.String? = null,
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element. To make the use of extensions safe and manageable, there is a strict set of
@@ -343,7 +343,7 @@ public data class ImagingStudy(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: MutableList<Extension> = mutableListOf(),
+      override val extension: List<Extension> = listOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -362,11 +362,11 @@ public data class ImagingStudy(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: MutableList<Extension> = mutableListOf(),
+      override val modifierExtension: List<Extension> = listOf(),
       /** Distinguishes the type of involvement of the performer in the series. */
-      public var function: CodeableConcept? = null,
+      public val function: CodeableConcept? = null,
       /** Indicates who or what performed the series. */
-      public var actor: Reference,
+      public val actor: Reference,
     ) : BackboneElement()
 
     /** A single SOP instance within the series, e.g. an image, or presentation state. */
@@ -376,7 +376,7 @@ public data class ImagingStudy(
        * Unique id for the element within a resource (for internal references). This may be any
        * string value that does not contain spaces.
        */
-      override var id: kotlin.String? = null,
+      override val id: kotlin.String? = null,
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element. To make the use of extensions safe and manageable, there is a strict set of
@@ -389,7 +389,7 @@ public data class ImagingStudy(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: MutableList<Extension> = mutableListOf(),
+      override val extension: List<Extension> = listOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -408,25 +408,25 @@ public data class ImagingStudy(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: MutableList<Extension> = mutableListOf(),
+      override val modifierExtension: List<Extension> = listOf(),
       /**
        * The DICOM SOP Instance UID for this image or other DICOM content.
        *
        * See
        * [DICOM PS3.3 C.12.1](http://dicom.nema.org/medical/dicom/current/output/chtml/part03/sect_C.12.html#sect_C.12.1).
        */
-      public var uid: Id,
+      public val uid: Id,
       /** DICOM instance type. */
-      public var sopClass: Coding,
+      public val sopClass: Coding,
       /** The number of instance in the series. */
-      public var number: UnsignedInt? = null,
+      public val number: UnsignedInt? = null,
       /**
        * The description of the instance.
        *
        * Particularly for post-acquisition analytic objects, such as SR, presentation states, value
        * mapping, etc.
        */
-      public var title: String? = null,
+      public val title: String? = null,
     ) : BackboneElement()
   }
 

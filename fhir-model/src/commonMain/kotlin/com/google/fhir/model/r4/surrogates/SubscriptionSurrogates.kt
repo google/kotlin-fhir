@@ -37,29 +37,29 @@ import com.google.fhir.model.r4.serializers.DoubleSerializer
 import com.google.fhir.model.r4.serializers.LocalTimeSerializer
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class SubscriptionChannelSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var type: KotlinString? = null,
   public var _type: Element? = null,
   public var endpoint: KotlinString? = null,
   public var _endpoint: Element? = null,
   public var payload: KotlinString? = null,
   public var _payload: Element? = null,
-  public var `header`: MutableList<KotlinString?>? = null,
-  public var _header: MutableList<Element?>? = null,
+  public var `header`: List<KotlinString?>? = null,
+  public var _header: List<Element?>? = null,
 ) {
   public fun toModel(): Subscription.Channel =
     Subscription.Channel(
       id = this@SubscriptionChannelSurrogate.id,
-      extension = this@SubscriptionChannelSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@SubscriptionChannelSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@SubscriptionChannelSurrogate.extension ?: listOf(),
+      modifierExtension = this@SubscriptionChannelSurrogate.modifierExtension ?: listOf(),
       type =
         Enumeration.of(
           Subscription.SubscriptionChannelType.fromCode(this@SubscriptionChannelSurrogate.type!!),
@@ -80,7 +80,7 @@ internal data class SubscriptionChannelSurrogate(
           this@SubscriptionChannelSurrogate.`header` == null &&
             this@SubscriptionChannelSurrogate._header == null
         ) {
-          mutableListOf()
+          listOf()
         } else {
           (this@SubscriptionChannelSurrogate.`header`
               ?: List(this@SubscriptionChannelSurrogate._header!!.size) { null })
@@ -89,7 +89,7 @@ internal data class SubscriptionChannelSurrogate(
                 ?: List(this@SubscriptionChannelSurrogate.`header`!!.size) { null }
             )
             .map { (value, element) -> R4String.of(value, element)!! }
-            .toMutableList()
+            .toList()
         },
     )
 
@@ -107,16 +107,13 @@ internal data class SubscriptionChannelSurrogate(
           payload = this@with.payload?.value,
           _payload = this@with.payload?.toElement(),
           `header` =
-            this@with.`header`
-              .map { it.value }
-              .toMutableList()
-              .takeUnless { it.all { it == null } },
+            this@with.`header`.map { it.value }.toList().takeUnless { it.all { it == null } },
           _header =
             this@with.`header`
               .map { it.toElement() }
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
-              ?.toMutableList(),
+              ?.toList(),
         )
       }
   }
@@ -131,12 +128,12 @@ internal data class SubscriptionSurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: MutableList<Resource>? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var contained: List<Resource>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var status: KotlinString? = null,
   public var _status: Element? = null,
-  public var contact: MutableList<ContactPoint>? = null,
+  public var contact: List<ContactPoint>? = null,
   public var end: KotlinString? = null,
   public var _end: Element? = null,
   public var reason: KotlinString? = null,
@@ -155,15 +152,15 @@ internal data class SubscriptionSurrogate(
         Uri.of(this@SubscriptionSurrogate.implicitRules, this@SubscriptionSurrogate._implicitRules),
       language = Code.of(this@SubscriptionSurrogate.language, this@SubscriptionSurrogate._language),
       text = this@SubscriptionSurrogate.text,
-      contained = this@SubscriptionSurrogate.contained ?: mutableListOf(),
-      extension = this@SubscriptionSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@SubscriptionSurrogate.modifierExtension ?: mutableListOf(),
+      contained = this@SubscriptionSurrogate.contained ?: listOf(),
+      extension = this@SubscriptionSurrogate.extension ?: listOf(),
+      modifierExtension = this@SubscriptionSurrogate.modifierExtension ?: listOf(),
       status =
         Enumeration.of(
           Subscription.SubscriptionStatus.fromCode(this@SubscriptionSurrogate.status!!),
           this@SubscriptionSurrogate._status,
         ),
-      contact = this@SubscriptionSurrogate.contact ?: mutableListOf(),
+      contact = this@SubscriptionSurrogate.contact ?: listOf(),
       end =
         Instant.of(
           FhirDateTime.fromString(this@SubscriptionSurrogate.end),

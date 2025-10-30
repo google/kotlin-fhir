@@ -48,15 +48,15 @@ import com.google.fhir.model.r4.serializers.DoubleSerializer
 import com.google.fhir.model.r4.serializers.LocalTimeSerializer
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class RequestGroupActionSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var prefix: KotlinString? = null,
   public var _prefix: Element? = null,
   public var title: KotlinString? = null,
@@ -67,12 +67,12 @@ internal data class RequestGroupActionSurrogate(
   public var _textEquivalent: Element? = null,
   public var priority: KotlinString? = null,
   public var _priority: Element? = null,
-  public var code: MutableList<CodeableConcept>? = null,
-  public var documentation: MutableList<RelatedArtifact>? = null,
-  public var condition: MutableList<RequestGroup.Action.Condition>? = null,
-  public var relatedAction: MutableList<RequestGroup.Action.RelatedAction>? = null,
+  public var code: List<CodeableConcept>? = null,
+  public var documentation: List<RelatedArtifact>? = null,
+  public var condition: List<RequestGroup.Action.Condition>? = null,
+  public var relatedAction: List<RequestGroup.Action.RelatedAction>? = null,
   public var timing: RequestGroup.Action.Timing? = null,
-  public var participant: MutableList<Reference>? = null,
+  public var participant: List<Reference>? = null,
   public var type: CodeableConcept? = null,
   public var groupingBehavior: KotlinString? = null,
   public var _groupingBehavior: Element? = null,
@@ -85,13 +85,13 @@ internal data class RequestGroupActionSurrogate(
   public var cardinalityBehavior: KotlinString? = null,
   public var _cardinalityBehavior: Element? = null,
   public var resource: Reference? = null,
-  public var action: MutableList<RequestGroup.Action>? = null,
+  public var action: List<RequestGroup.Action>? = null,
 ) {
   public fun toModel(): RequestGroup.Action =
     RequestGroup.Action(
       id = this@RequestGroupActionSurrogate.id,
-      extension = this@RequestGroupActionSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@RequestGroupActionSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@RequestGroupActionSurrogate.extension ?: listOf(),
+      modifierExtension = this@RequestGroupActionSurrogate.modifierExtension ?: listOf(),
       prefix =
         R4String.of(
           this@RequestGroupActionSurrogate.prefix,
@@ -119,12 +119,12 @@ internal data class RequestGroupActionSurrogate(
             this@RequestGroupActionSurrogate._priority,
           )
         },
-      code = this@RequestGroupActionSurrogate.code ?: mutableListOf(),
-      documentation = this@RequestGroupActionSurrogate.documentation ?: mutableListOf(),
-      condition = this@RequestGroupActionSurrogate.condition ?: mutableListOf(),
-      relatedAction = this@RequestGroupActionSurrogate.relatedAction ?: mutableListOf(),
+      code = this@RequestGroupActionSurrogate.code ?: listOf(),
+      documentation = this@RequestGroupActionSurrogate.documentation ?: listOf(),
+      condition = this@RequestGroupActionSurrogate.condition ?: listOf(),
+      relatedAction = this@RequestGroupActionSurrogate.relatedAction ?: listOf(),
       timing = this@RequestGroupActionSurrogate.timing,
-      participant = this@RequestGroupActionSurrogate.participant ?: mutableListOf(),
+      participant = this@RequestGroupActionSurrogate.participant ?: listOf(),
       type = this@RequestGroupActionSurrogate.type,
       groupingBehavior =
         this@RequestGroupActionSurrogate.groupingBehavior?.let {
@@ -162,7 +162,7 @@ internal data class RequestGroupActionSurrogate(
           )
         },
       resource = this@RequestGroupActionSurrogate.resource,
-      action = this@RequestGroupActionSurrogate.action ?: mutableListOf(),
+      action = this@RequestGroupActionSurrogate.action ?: listOf(),
     )
 
   public companion object {
@@ -209,8 +209,8 @@ internal data class RequestGroupActionSurrogate(
 @Serializable
 internal data class RequestGroupActionConditionSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var kind: KotlinString? = null,
   public var _kind: Element? = null,
   public var expression: Expression? = null,
@@ -218,9 +218,8 @@ internal data class RequestGroupActionConditionSurrogate(
   public fun toModel(): RequestGroup.Action.Condition =
     RequestGroup.Action.Condition(
       id = this@RequestGroupActionConditionSurrogate.id,
-      extension = this@RequestGroupActionConditionSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@RequestGroupActionConditionSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@RequestGroupActionConditionSurrogate.extension ?: listOf(),
+      modifierExtension = this@RequestGroupActionConditionSurrogate.modifierExtension ?: listOf(),
       kind =
         Enumeration.of(
           RequestGroup.ActionConditionKind.fromCode(
@@ -251,8 +250,8 @@ internal data class RequestGroupActionConditionSurrogate(
 @Serializable
 internal data class RequestGroupActionRelatedActionSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var actionId: KotlinString? = null,
   public var _actionId: Element? = null,
   public var relationship: KotlinString? = null,
@@ -262,9 +261,9 @@ internal data class RequestGroupActionRelatedActionSurrogate(
   public fun toModel(): RequestGroup.Action.RelatedAction =
     RequestGroup.Action.RelatedAction(
       id = this@RequestGroupActionRelatedActionSurrogate.id,
-      extension = this@RequestGroupActionRelatedActionSurrogate.extension ?: mutableListOf(),
+      extension = this@RequestGroupActionRelatedActionSurrogate.extension ?: listOf(),
       modifierExtension =
-        this@RequestGroupActionRelatedActionSurrogate.modifierExtension ?: mutableListOf(),
+        this@RequestGroupActionRelatedActionSurrogate.modifierExtension ?: listOf(),
       actionId =
         Id.of(
           this@RequestGroupActionRelatedActionSurrogate.actionId,
@@ -371,16 +370,16 @@ internal data class RequestGroupSurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: MutableList<Resource>? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var identifier: MutableList<Identifier>? = null,
-  public var instantiatesCanonical: MutableList<KotlinString?>? = null,
-  public var _instantiatesCanonical: MutableList<Element?>? = null,
-  public var instantiatesUri: MutableList<KotlinString?>? = null,
-  public var _instantiatesUri: MutableList<Element?>? = null,
-  public var basedOn: MutableList<Reference>? = null,
-  public var replaces: MutableList<Reference>? = null,
+  public var contained: List<Resource>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
+  public var identifier: List<Identifier>? = null,
+  public var instantiatesCanonical: List<KotlinString?>? = null,
+  public var _instantiatesCanonical: List<Element?>? = null,
+  public var instantiatesUri: List<KotlinString?>? = null,
+  public var _instantiatesUri: List<Element?>? = null,
+  public var basedOn: List<Reference>? = null,
+  public var replaces: List<Reference>? = null,
   public var groupIdentifier: Identifier? = null,
   public var status: KotlinString? = null,
   public var _status: Element? = null,
@@ -394,10 +393,10 @@ internal data class RequestGroupSurrogate(
   public var authoredOn: KotlinString? = null,
   public var _authoredOn: Element? = null,
   public var author: Reference? = null,
-  public var reasonCode: MutableList<CodeableConcept>? = null,
-  public var reasonReference: MutableList<Reference>? = null,
-  public var note: MutableList<Annotation>? = null,
-  public var action: MutableList<RequestGroup.Action>? = null,
+  public var reasonCode: List<CodeableConcept>? = null,
+  public var reasonReference: List<Reference>? = null,
+  public var note: List<Annotation>? = null,
+  public var action: List<RequestGroup.Action>? = null,
 ) {
   public fun toModel(): RequestGroup =
     RequestGroup(
@@ -407,16 +406,16 @@ internal data class RequestGroupSurrogate(
         Uri.of(this@RequestGroupSurrogate.implicitRules, this@RequestGroupSurrogate._implicitRules),
       language = Code.of(this@RequestGroupSurrogate.language, this@RequestGroupSurrogate._language),
       text = this@RequestGroupSurrogate.text,
-      contained = this@RequestGroupSurrogate.contained ?: mutableListOf(),
-      extension = this@RequestGroupSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@RequestGroupSurrogate.modifierExtension ?: mutableListOf(),
-      identifier = this@RequestGroupSurrogate.identifier ?: mutableListOf(),
+      contained = this@RequestGroupSurrogate.contained ?: listOf(),
+      extension = this@RequestGroupSurrogate.extension ?: listOf(),
+      modifierExtension = this@RequestGroupSurrogate.modifierExtension ?: listOf(),
+      identifier = this@RequestGroupSurrogate.identifier ?: listOf(),
       instantiatesCanonical =
         if (
           this@RequestGroupSurrogate.instantiatesCanonical == null &&
             this@RequestGroupSurrogate._instantiatesCanonical == null
         ) {
-          mutableListOf()
+          listOf()
         } else {
           (this@RequestGroupSurrogate.instantiatesCanonical
               ?: List(this@RequestGroupSurrogate._instantiatesCanonical!!.size) { null })
@@ -425,14 +424,14 @@ internal data class RequestGroupSurrogate(
                 ?: List(this@RequestGroupSurrogate.instantiatesCanonical!!.size) { null }
             )
             .map { (value, element) -> Canonical.of(value, element)!! }
-            .toMutableList()
+            .toList()
         },
       instantiatesUri =
         if (
           this@RequestGroupSurrogate.instantiatesUri == null &&
             this@RequestGroupSurrogate._instantiatesUri == null
         ) {
-          mutableListOf()
+          listOf()
         } else {
           (this@RequestGroupSurrogate.instantiatesUri
               ?: List(this@RequestGroupSurrogate._instantiatesUri!!.size) { null })
@@ -441,10 +440,10 @@ internal data class RequestGroupSurrogate(
                 ?: List(this@RequestGroupSurrogate.instantiatesUri!!.size) { null }
             )
             .map { (value, element) -> Uri.of(value, element)!! }
-            .toMutableList()
+            .toList()
         },
-      basedOn = this@RequestGroupSurrogate.basedOn ?: mutableListOf(),
-      replaces = this@RequestGroupSurrogate.replaces ?: mutableListOf(),
+      basedOn = this@RequestGroupSurrogate.basedOn ?: listOf(),
+      replaces = this@RequestGroupSurrogate.replaces ?: listOf(),
       groupIdentifier = this@RequestGroupSurrogate.groupIdentifier,
       status =
         Enumeration.of(
@@ -472,10 +471,10 @@ internal data class RequestGroupSurrogate(
           this@RequestGroupSurrogate._authoredOn,
         ),
       author = this@RequestGroupSurrogate.author,
-      reasonCode = this@RequestGroupSurrogate.reasonCode ?: mutableListOf(),
-      reasonReference = this@RequestGroupSurrogate.reasonReference ?: mutableListOf(),
-      note = this@RequestGroupSurrogate.note ?: mutableListOf(),
-      action = this@RequestGroupSurrogate.action ?: mutableListOf(),
+      reasonCode = this@RequestGroupSurrogate.reasonCode ?: listOf(),
+      reasonReference = this@RequestGroupSurrogate.reasonReference ?: listOf(),
+      note = this@RequestGroupSurrogate.note ?: listOf(),
+      action = this@RequestGroupSurrogate.action ?: listOf(),
     )
 
   public companion object {
@@ -496,25 +495,25 @@ internal data class RequestGroupSurrogate(
           instantiatesCanonical =
             this@with.instantiatesCanonical
               .map { it.value }
-              .toMutableList()
+              .toList()
               .takeUnless { it.all { it == null } },
           _instantiatesCanonical =
             this@with.instantiatesCanonical
               .map { it.toElement() }
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
-              ?.toMutableList(),
+              ?.toList(),
           instantiatesUri =
             this@with.instantiatesUri
               .map { it.value }
-              .toMutableList()
+              .toList()
               .takeUnless { it.all { it == null } },
           _instantiatesUri =
             this@with.instantiatesUri
               .map { it.toElement() }
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
-              ?.toMutableList(),
+              ?.toList(),
           basedOn = this@with.basedOn.takeIf { it.isNotEmpty() },
           replaces = this@with.replaces.takeIf { it.isNotEmpty() },
           groupIdentifier = this@with.groupIdentifier,

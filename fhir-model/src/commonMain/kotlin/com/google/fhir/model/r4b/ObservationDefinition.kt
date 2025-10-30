@@ -23,7 +23,7 @@ import com.google.fhir.model.r4b.serializers.ObservationDefinitionQuantitativeDe
 import com.google.fhir.model.r4b.serializers.ObservationDefinitionSerializer
 import com.google.fhir.model.r4b.terminologies.AdministrativeGender
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -41,12 +41,12 @@ public data class ObservationDefinition(
    * The only time that a resource does not have an id is when it is being submitted to the server
    * using a create operation.
    */
-  override var id: kotlin.String? = null,
+  override val id: kotlin.String? = null,
   /**
    * The metadata about the resource. This is content that is maintained by the infrastructure.
    * Changes to the content might not always be associated with version changes to the resource.
    */
-  override var meta: Meta? = null,
+  override val meta: Meta? = null,
   /**
    * A reference to a set of rules that were followed when the resource was constructed, and which
    * must be understood when processing the content. Often, this is a reference to an implementation
@@ -60,7 +60,7 @@ public data class ObservationDefinition(
    * to an implementation guide that defines these special rules as part of it's narrative along
    * with other profiles, value sets, etc.
    */
-  override var implicitRules: Uri? = null,
+  override val implicitRules: Uri? = null,
   /**
    * The base language in which the resource is written.
    *
@@ -72,7 +72,7 @@ public data class ObservationDefinition(
    * language is specified, it should it also be specified on the div element in the html (see rules
    * in HTML5 for information about the relationship between xml:lang and the html lang attribute).
    */
-  override var language: Code? = null,
+  override val language: Code? = null,
   /**
    * A human-readable narrative that contains a summary of the resource and can be used to represent
    * the content of the resource to a human. The narrative need not encode all the structured data,
@@ -86,7 +86,7 @@ public data class ObservationDefinition(
    * legacy systems where information is captured as a "text blob" or where text is additionally
    * entered raw or narrated and encoded information is added later.
    */
-  override var text: Narrative? = null,
+  override val text: Narrative? = null,
   /**
    * These resources do not have an independent existence apart from the resource that contains
    * them - they cannot be identified independently, and nor can they have their own independent
@@ -97,7 +97,7 @@ public data class ObservationDefinition(
    * resources may have profiles and tags In their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: MutableList<Resource> = mutableListOf(),
+  override val contained: List<Resource> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and manageable, there is a strict set of
@@ -110,7 +110,7 @@ public data class ObservationDefinition(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: MutableList<Extension> = mutableListOf(),
+  override val extension: List<Extension> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -129,7 +129,7 @@ public data class ObservationDefinition(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: MutableList<Extension> = mutableListOf(),
+  override val modifierExtension: List<Extension> = listOf(),
   /**
    * A code that classifies the general type of observation.
    *
@@ -138,57 +138,57 @@ public data class ObservationDefinition(
    * ObservationDefinition. The level of granularity is defined by the category concepts in the
    * value set.
    */
-  public var category: MutableList<CodeableConcept> = mutableListOf(),
+  public val category: List<CodeableConcept> = listOf(),
   /** Describes what will be observed. Sometimes this is called the observation "name". */
-  public var code: CodeableConcept,
+  public val code: CodeableConcept,
   /** A unique identifier assigned to this ObservationDefinition artifact. */
-  public var identifier: MutableList<Identifier> = mutableListOf(),
+  public val identifier: List<Identifier> = listOf(),
   /**
    * The data types allowed for the value element of the instance observations conforming to this
    * ObservationDefinition.
    */
-  public var permittedDataType: MutableList<Enumeration<ObservationDataType>> = mutableListOf(),
+  public val permittedDataType: List<Enumeration<ObservationDataType>> = listOf(),
   /**
    * Multiple results allowed for observations conforming to this ObservationDefinition.
    *
    * An example of observation allowing multiple results is "bacteria identified by culture".
    * Conversely, the measurement of a potassium level allows a single result.
    */
-  public var multipleResultsAllowed: Boolean? = null,
+  public val multipleResultsAllowed: Boolean? = null,
   /**
    * The method or technique used to perform the observation.
    *
    * Only used if not implicit in observation code.
    */
-  public var method: CodeableConcept? = null,
+  public val method: CodeableConcept? = null,
   /**
    * The preferred name to be used when reporting the results of observations conforming to this
    * ObservationDefinition.
    */
-  public var preferredReportName: String? = null,
+  public val preferredReportName: String? = null,
   /** Characteristics for quantitative results of this observation. */
-  public var quantitativeDetails: QuantitativeDetails? = null,
+  public val quantitativeDetails: QuantitativeDetails? = null,
   /**
    * Multiple ranges of results qualified by different contexts for ordinal or continuous
    * observations conforming to this ObservationDefinition.
    */
-  public var qualifiedInterval: MutableList<QualifiedInterval> = mutableListOf(),
+  public val qualifiedInterval: List<QualifiedInterval> = listOf(),
   /**
    * The set of valid coded results for the observations conforming to this ObservationDefinition.
    */
-  public var validCodedValueSet: Reference? = null,
+  public val validCodedValueSet: Reference? = null,
   /**
    * The set of normal coded results for the observations conforming to this ObservationDefinition.
    */
-  public var normalCodedValueSet: Reference? = null,
+  public val normalCodedValueSet: Reference? = null,
   /**
    * The set of abnormal coded results for the observation conforming to this ObservationDefinition.
    */
-  public var abnormalCodedValueSet: Reference? = null,
+  public val abnormalCodedValueSet: Reference? = null,
   /**
    * The set of critical coded results for the observation conforming to this ObservationDefinition.
    */
-  public var criticalCodedValueSet: Reference? = null,
+  public val criticalCodedValueSet: Reference? = null,
 ) : DomainResource() {
   /** Characteristics for quantitative results of this observation. */
   @Serializable(with = ObservationDefinitionQuantitativeDetailsSerializer::class)
@@ -197,7 +197,7 @@ public data class ObservationDefinition(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and manageable, there is a strict set of
@@ -210,7 +210,7 @@ public data class ObservationDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -229,26 +229,26 @@ public data class ObservationDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /**
      * Customary unit used to report quantitative results of observations conforming to this
      * ObservationDefinition.
      */
-    public var customaryUnit: CodeableConcept? = null,
+    public val customaryUnit: CodeableConcept? = null,
     /**
      * SI unit used to report quantitative results of observations conforming to this
      * ObservationDefinition.
      */
-    public var unit: CodeableConcept? = null,
+    public val unit: CodeableConcept? = null,
     /**
      * Factor for converting value expressed with SI unit to value expressed with customary unit.
      */
-    public var conversionFactor: Decimal? = null,
+    public val conversionFactor: Decimal? = null,
     /**
      * Number of digits after decimal separator when the results of such observations are of type
      * Quantity.
      */
-    public var decimalPrecision: Integer? = null,
+    public val decimalPrecision: Integer? = null,
   ) : BackboneElement()
 
   /**
@@ -261,7 +261,7 @@ public data class ObservationDefinition(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and manageable, there is a strict set of
@@ -274,7 +274,7 @@ public data class ObservationDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -293,40 +293,40 @@ public data class ObservationDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /**
      * The category of interval of values for continuous or ordinal observations conforming to this
      * ObservationDefinition.
      */
-    public var category: Enumeration<ObservationRangeCategory>? = null,
+    public val category: Enumeration<ObservationRangeCategory>? = null,
     /** The low and high values determining the interval. There may be only one of the two. */
-    public var range: Range? = null,
+    public val range: Range? = null,
     /**
      * Codes to indicate the health context the range applies to. For example, the normal or
      * therapeutic range.
      */
-    public var context: CodeableConcept? = null,
+    public val context: CodeableConcept? = null,
     /**
      * Codes to indicate the target population this reference range applies to.
      *
      * If this element is not present then the global population is assumed.
      */
-    public var appliesTo: MutableList<CodeableConcept> = mutableListOf(),
+    public val appliesTo: List<CodeableConcept> = listOf(),
     /** Sex of the population the range applies to. */
-    public var gender: Enumeration<AdministrativeGender>? = null,
+    public val gender: Enumeration<AdministrativeGender>? = null,
     /**
      * The age at which this reference range is applicable. This is a neonatal age (e.g. number of
      * weeks at term) if the meaning says so.
      *
      * Some analytes vary greatly over age.
      */
-    public var age: Range? = null,
+    public val age: Range? = null,
     /**
      * The gestational age to which this reference range is applicable, in the context of pregnancy.
      */
-    public var gestationalAge: Range? = null,
+    public val gestationalAge: Range? = null,
     /** Text based condition for which the reference range is valid. */
-    public var condition: String? = null,
+    public val condition: String? = null,
   ) : BackboneElement()
 
   /** Codes identifying the category of observation range. */

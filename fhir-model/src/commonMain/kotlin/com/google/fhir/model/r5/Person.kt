@@ -25,7 +25,7 @@ import com.google.fhir.model.r5.serializers.PersonSerializer
 import com.google.fhir.model.r5.terminologies.AdministrativeGender
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -44,12 +44,12 @@ public data class Person(
    * like the create and conditional update. Otherwise, the use of the resouce id depends on the
    * given use case.
    */
-  override var id: String? = null,
+  override val id: String? = null,
   /**
    * The metadata about the resource. This is content that is maintained by the infrastructure.
    * Changes to the content might not always be associated with version changes to the resource.
    */
-  override var meta: Meta? = null,
+  override val meta: Meta? = null,
   /**
    * A reference to a set of rules that were followed when the resource was constructed, and which
    * must be understood when processing the content. Often, this is a reference to an implementation
@@ -63,7 +63,7 @@ public data class Person(
    * to an implementation guide that defines these special rules as part of its narrative along with
    * other profiles, value sets, etc.
    */
-  override var implicitRules: Uri? = null,
+  override val implicitRules: Uri? = null,
   /**
    * The base language in which the resource is written.
    *
@@ -75,7 +75,7 @@ public data class Person(
    * language is specified, it should it also be specified on the div element in the html (see rules
    * in HTML5 for information about the relationship between xml:lang and the html lang attribute).
    */
-  override var language: Code? = null,
+  override val language: Code? = null,
   /**
    * A human-readable narrative that contains a summary of the resource and can be used to represent
    * the content of the resource to a human. The narrative need not encode all the structured data,
@@ -89,7 +89,7 @@ public data class Person(
    * legacy systems where information is captured as a "text blob" or where text is additionally
    * entered raw or narrated and encoded information is added later.
    */
-  override var text: Narrative? = null,
+  override val text: Narrative? = null,
   /**
    * These resources do not have an independent existence apart from the resource that contains
    * them - they cannot be identified independently, nor can they have their own independent
@@ -101,7 +101,7 @@ public data class Person(
    * resources may have profiles and tags in their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: MutableList<Resource> = mutableListOf(),
+  override val contained: List<Resource> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and managable, there is a strict set of governance
@@ -114,7 +114,7 @@ public data class Person(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: MutableList<Extension> = mutableListOf(),
+  override val extension: List<Extension> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -133,24 +133,24 @@ public data class Person(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: MutableList<Extension> = mutableListOf(),
+  override val modifierExtension: List<Extension> = listOf(),
   /** Identifier for a person within a particular scope. */
-  public var identifier: MutableList<Identifier> = mutableListOf(),
+  public val identifier: List<Identifier> = listOf(),
   /** Whether this person's record is in active use. */
-  public var active: Boolean? = null,
+  public val active: Boolean? = null,
   /**
    * A name associated with the person.
    *
    * Person may have multiple names with different uses or applicable periods.
    */
-  public var name: MutableList<HumanName> = mutableListOf(),
+  public val name: List<HumanName> = listOf(),
   /**
    * A contact detail for the person, e.g. a telephone number or an email address.
    *
    * Person may have multiple ways to be contacted with different uses or applicable periods. May
    * need to have options for contacting the person urgently and also to help with identification.
    */
-  public var telecom: MutableList<ContactPoint> = mutableListOf(),
+  public val telecom: List<ContactPoint> = listOf(),
   /**
    * Administrative Gender.
    *
@@ -159,13 +159,13 @@ public data class Person(
    * legitimate possibilities than M and F, though a clear majority of systems and contexts only
    * support M and F.
    */
-  public var gender: Enumeration<AdministrativeGender>? = null,
+  public val gender: Enumeration<AdministrativeGender>? = null,
   /**
    * The birth date for the person.
    *
    * At least an estimated year should be provided as a guess if the real DOB is unknown.
    */
-  public var birthDate: Date? = null,
+  public val birthDate: Date? = null,
   /**
    * Indicates if the individual is deceased or not.
    *
@@ -173,25 +173,25 @@ public data class Person(
    * individual is deceased. Most systems will interpret the absence of a value as a sign of the
    * person being alive.
    */
-  public var deceased: Deceased? = null,
+  public val deceased: Deceased? = null,
   /**
    * One or more addresses for the person.
    *
    * Person may have multiple addresses with different uses or applicable periods.
    */
-  public var address: MutableList<Address> = mutableListOf(),
+  public val address: List<Address> = listOf(),
   /**
    * This field contains a person's most recent marital (civil) status.
    *
    * Many countries maintain a register of births, deaths and marriages, and this would simplify
    * that interaction
    */
-  public var maritalStatus: CodeableConcept? = null,
+  public val maritalStatus: CodeableConcept? = null,
   /**
    * An image that can be displayed as a thumbnail of the person to enhance the identification of
    * the individual.
    */
-  public var photo: MutableList<Attachment> = mutableListOf(),
+  public val photo: List<Attachment> = listOf(),
   /**
    * A language which may be used to communicate with the person about his or her health.
    *
@@ -206,11 +206,11 @@ public data class Person(
    * may be used to inform the value on practitioner, along with their role at the organization
    * (with the practitioner's permission)
    */
-  public var communication: MutableList<Communication> = mutableListOf(),
+  public val communication: List<Communication> = listOf(),
   /** The organization that is the custodian of the person record. */
-  public var managingOrganization: Reference? = null,
+  public val managingOrganization: Reference? = null,
   /** Link to a resource that concerns the same actual person. */
-  public var link: MutableList<Link> = mutableListOf(),
+  public val link: List<Link> = listOf(),
 ) : DomainResource() {
   /** A language which may be used to communicate with the person about his or her health. */
   @Serializable(with = PersonCommunicationSerializer::class)
@@ -219,7 +219,7 @@ public data class Person(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: String? = null,
+    override val id: String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -232,7 +232,7 @@ public data class Person(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -251,7 +251,7 @@ public data class Person(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /**
      * The ISO-639-1 alpha 2 code in lower case for the language, optionally followed by a hyphen
      * and the ISO-3166-1 alpha 2 code for the region in upper case; e.g. "en" for English, or
@@ -261,14 +261,14 @@ public data class Person(
      * However not all systems actually code this but instead have it as free text. Hence
      * CodeableConcept instead of code as the data type.
      */
-    public var language: CodeableConcept,
+    public val language: CodeableConcept,
     /**
      * Indicates whether or not the person prefers this language (over other languages he masters up
      * a certain level).
      *
      * This language is specifically identified for communicating healthcare information.
      */
-    public var preferred: Boolean? = null,
+    public val preferred: Boolean? = null,
   ) : BackboneElement()
 
   /** Link to a resource that concerns the same actual person. */
@@ -278,7 +278,7 @@ public data class Person(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: String? = null,
+    override val id: String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -291,7 +291,7 @@ public data class Person(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -310,11 +310,11 @@ public data class Person(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /** The resource to which this actual person is associated. */
-    public var target: Reference,
+    public val target: Reference,
     /** Level of assurance that this link is associated with the target resource. */
-    public var assurance: Enumeration<IdentityAssuranceLevel>? = null,
+    public val assurance: Enumeration<IdentityAssuranceLevel>? = null,
   ) : BackboneElement()
 
   @Serializable(with = PersonDeceasedSerializer::class)

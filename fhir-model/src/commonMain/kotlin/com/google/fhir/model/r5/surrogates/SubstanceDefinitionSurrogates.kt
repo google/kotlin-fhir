@@ -46,15 +46,15 @@ import com.google.fhir.model.r5.serializers.LocalTimeSerializer
 import kotlin.Boolean as KotlinBoolean
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class SubstanceDefinitionMoietySurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var role: CodeableConcept? = null,
   public var identifier: Identifier? = null,
   public var name: KotlinString? = null,
@@ -69,9 +69,8 @@ internal data class SubstanceDefinitionMoietySurrogate(
   public fun toModel(): SubstanceDefinition.Moiety =
     SubstanceDefinition.Moiety(
       id = this@SubstanceDefinitionMoietySurrogate.id,
-      extension = this@SubstanceDefinitionMoietySurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@SubstanceDefinitionMoietySurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@SubstanceDefinitionMoietySurrogate.extension ?: listOf(),
+      modifierExtension = this@SubstanceDefinitionMoietySurrogate.modifierExtension ?: listOf(),
       role = this@SubstanceDefinitionMoietySurrogate.role,
       identifier = this@SubstanceDefinitionMoietySurrogate.identifier,
       name =
@@ -115,20 +114,20 @@ internal data class SubstanceDefinitionMoietySurrogate(
 @Serializable
 internal data class SubstanceDefinitionCharacterizationSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var technique: CodeableConcept? = null,
   public var form: CodeableConcept? = null,
   public var description: KotlinString? = null,
   public var _description: Element? = null,
-  public var `file`: MutableList<Attachment>? = null,
+  public var `file`: List<Attachment>? = null,
 ) {
   public fun toModel(): SubstanceDefinition.Characterization =
     SubstanceDefinition.Characterization(
       id = this@SubstanceDefinitionCharacterizationSurrogate.id,
-      extension = this@SubstanceDefinitionCharacterizationSurrogate.extension ?: mutableListOf(),
+      extension = this@SubstanceDefinitionCharacterizationSurrogate.extension ?: listOf(),
       modifierExtension =
-        this@SubstanceDefinitionCharacterizationSurrogate.modifierExtension ?: mutableListOf(),
+        this@SubstanceDefinitionCharacterizationSurrogate.modifierExtension ?: listOf(),
       technique = this@SubstanceDefinitionCharacterizationSurrogate.technique,
       form = this@SubstanceDefinitionCharacterizationSurrogate.form,
       description =
@@ -136,7 +135,7 @@ internal data class SubstanceDefinitionCharacterizationSurrogate(
           this@SubstanceDefinitionCharacterizationSurrogate.description,
           this@SubstanceDefinitionCharacterizationSurrogate._description,
         ),
-      `file` = this@SubstanceDefinitionCharacterizationSurrogate.`file` ?: mutableListOf(),
+      `file` = this@SubstanceDefinitionCharacterizationSurrogate.`file` ?: listOf(),
     )
 
   public companion object {
@@ -161,17 +160,16 @@ internal data class SubstanceDefinitionCharacterizationSurrogate(
 @Serializable
 internal data class SubstanceDefinitionPropertySurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var type: CodeableConcept,
   public var `value`: SubstanceDefinition.Property.Value? = null,
 ) {
   public fun toModel(): SubstanceDefinition.Property =
     SubstanceDefinition.Property(
       id = this@SubstanceDefinitionPropertySurrogate.id,
-      extension = this@SubstanceDefinitionPropertySurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@SubstanceDefinitionPropertySurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@SubstanceDefinitionPropertySurrogate.extension ?: listOf(),
+      modifierExtension = this@SubstanceDefinitionPropertySurrogate.modifierExtension ?: listOf(),
       type = this@SubstanceDefinitionPropertySurrogate.type,
       `value` = this@SubstanceDefinitionPropertySurrogate.`value`,
     )
@@ -195,8 +193,8 @@ internal data class SubstanceDefinitionPropertySurrogate(
 @Serializable
 internal data class SubstanceDefinitionMolecularWeightSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var method: CodeableConcept? = null,
   public var type: CodeableConcept? = null,
   public var amount: Quantity,
@@ -204,9 +202,9 @@ internal data class SubstanceDefinitionMolecularWeightSurrogate(
   public fun toModel(): SubstanceDefinition.MolecularWeight =
     SubstanceDefinition.MolecularWeight(
       id = this@SubstanceDefinitionMolecularWeightSurrogate.id,
-      extension = this@SubstanceDefinitionMolecularWeightSurrogate.extension ?: mutableListOf(),
+      extension = this@SubstanceDefinitionMolecularWeightSurrogate.extension ?: listOf(),
       modifierExtension =
-        this@SubstanceDefinitionMolecularWeightSurrogate.modifierExtension ?: mutableListOf(),
+        this@SubstanceDefinitionMolecularWeightSurrogate.modifierExtension ?: listOf(),
       method = this@SubstanceDefinitionMolecularWeightSurrogate.method,
       type = this@SubstanceDefinitionMolecularWeightSurrogate.type,
       amount = this@SubstanceDefinitionMolecularWeightSurrogate.amount,
@@ -232,8 +230,8 @@ internal data class SubstanceDefinitionMolecularWeightSurrogate(
 @Serializable
 internal data class SubstanceDefinitionStructureSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var stereochemistry: CodeableConcept? = null,
   public var opticalActivity: CodeableConcept? = null,
   public var molecularFormula: KotlinString? = null,
@@ -241,16 +239,15 @@ internal data class SubstanceDefinitionStructureSurrogate(
   public var molecularFormulaByMoiety: KotlinString? = null,
   public var _molecularFormulaByMoiety: Element? = null,
   public var molecularWeight: SubstanceDefinition.MolecularWeight? = null,
-  public var technique: MutableList<CodeableConcept>? = null,
-  public var sourceDocument: MutableList<Reference>? = null,
-  public var representation: MutableList<SubstanceDefinition.Structure.Representation>? = null,
+  public var technique: List<CodeableConcept>? = null,
+  public var sourceDocument: List<Reference>? = null,
+  public var representation: List<SubstanceDefinition.Structure.Representation>? = null,
 ) {
   public fun toModel(): SubstanceDefinition.Structure =
     SubstanceDefinition.Structure(
       id = this@SubstanceDefinitionStructureSurrogate.id,
-      extension = this@SubstanceDefinitionStructureSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@SubstanceDefinitionStructureSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@SubstanceDefinitionStructureSurrogate.extension ?: listOf(),
+      modifierExtension = this@SubstanceDefinitionStructureSurrogate.modifierExtension ?: listOf(),
       stereochemistry = this@SubstanceDefinitionStructureSurrogate.stereochemistry,
       opticalActivity = this@SubstanceDefinitionStructureSurrogate.opticalActivity,
       molecularFormula =
@@ -264,9 +261,9 @@ internal data class SubstanceDefinitionStructureSurrogate(
           this@SubstanceDefinitionStructureSurrogate._molecularFormulaByMoiety,
         ),
       molecularWeight = this@SubstanceDefinitionStructureSurrogate.molecularWeight,
-      technique = this@SubstanceDefinitionStructureSurrogate.technique ?: mutableListOf(),
-      sourceDocument = this@SubstanceDefinitionStructureSurrogate.sourceDocument ?: mutableListOf(),
-      representation = this@SubstanceDefinitionStructureSurrogate.representation ?: mutableListOf(),
+      technique = this@SubstanceDefinitionStructureSurrogate.technique ?: listOf(),
+      sourceDocument = this@SubstanceDefinitionStructureSurrogate.sourceDocument ?: listOf(),
+      representation = this@SubstanceDefinitionStructureSurrogate.representation ?: listOf(),
     )
 
   public companion object {
@@ -296,8 +293,8 @@ internal data class SubstanceDefinitionStructureSurrogate(
 @Serializable
 internal data class SubstanceDefinitionStructureRepresentationSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var type: CodeableConcept? = null,
   public var representation: KotlinString? = null,
   public var _representation: Element? = null,
@@ -307,11 +304,9 @@ internal data class SubstanceDefinitionStructureRepresentationSurrogate(
   public fun toModel(): SubstanceDefinition.Structure.Representation =
     SubstanceDefinition.Structure.Representation(
       id = this@SubstanceDefinitionStructureRepresentationSurrogate.id,
-      extension =
-        this@SubstanceDefinitionStructureRepresentationSurrogate.extension ?: mutableListOf(),
+      extension = this@SubstanceDefinitionStructureRepresentationSurrogate.extension ?: listOf(),
       modifierExtension =
-        this@SubstanceDefinitionStructureRepresentationSurrogate.modifierExtension
-          ?: mutableListOf(),
+        this@SubstanceDefinitionStructureRepresentationSurrogate.modifierExtension ?: listOf(),
       type = this@SubstanceDefinitionStructureRepresentationSurrogate.type,
       representation =
         R5String.of(
@@ -344,21 +339,20 @@ internal data class SubstanceDefinitionStructureRepresentationSurrogate(
 @Serializable
 internal data class SubstanceDefinitionCodeSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var code: CodeableConcept? = null,
   public var status: CodeableConcept? = null,
   public var statusDate: KotlinString? = null,
   public var _statusDate: Element? = null,
-  public var note: MutableList<Annotation>? = null,
-  public var source: MutableList<Reference>? = null,
+  public var note: List<Annotation>? = null,
+  public var source: List<Reference>? = null,
 ) {
   public fun toModel(): SubstanceDefinition.Code =
     SubstanceDefinition.Code(
       id = this@SubstanceDefinitionCodeSurrogate.id,
-      extension = this@SubstanceDefinitionCodeSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@SubstanceDefinitionCodeSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@SubstanceDefinitionCodeSurrogate.extension ?: listOf(),
+      modifierExtension = this@SubstanceDefinitionCodeSurrogate.modifierExtension ?: listOf(),
       code = this@SubstanceDefinitionCodeSurrogate.code,
       status = this@SubstanceDefinitionCodeSurrogate.status,
       statusDate =
@@ -366,8 +360,8 @@ internal data class SubstanceDefinitionCodeSurrogate(
           FhirDateTime.fromString(this@SubstanceDefinitionCodeSurrogate.statusDate),
           this@SubstanceDefinitionCodeSurrogate._statusDate,
         ),
-      note = this@SubstanceDefinitionCodeSurrogate.note ?: mutableListOf(),
-      source = this@SubstanceDefinitionCodeSurrogate.source ?: mutableListOf(),
+      note = this@SubstanceDefinitionCodeSurrogate.note ?: listOf(),
+      source = this@SubstanceDefinitionCodeSurrogate.source ?: listOf(),
     )
 
   public companion object {
@@ -391,28 +385,27 @@ internal data class SubstanceDefinitionCodeSurrogate(
 @Serializable
 internal data class SubstanceDefinitionNameSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var name: KotlinString? = null,
   public var _name: Element? = null,
   public var type: CodeableConcept? = null,
   public var status: CodeableConcept? = null,
   public var preferred: KotlinBoolean? = null,
   public var _preferred: Element? = null,
-  public var language: MutableList<CodeableConcept>? = null,
-  public var domain: MutableList<CodeableConcept>? = null,
-  public var jurisdiction: MutableList<CodeableConcept>? = null,
-  public var synonym: MutableList<SubstanceDefinition.Name>? = null,
-  public var translation: MutableList<SubstanceDefinition.Name>? = null,
-  public var official: MutableList<SubstanceDefinition.Name.Official>? = null,
-  public var source: MutableList<Reference>? = null,
+  public var language: List<CodeableConcept>? = null,
+  public var domain: List<CodeableConcept>? = null,
+  public var jurisdiction: List<CodeableConcept>? = null,
+  public var synonym: List<SubstanceDefinition.Name>? = null,
+  public var translation: List<SubstanceDefinition.Name>? = null,
+  public var official: List<SubstanceDefinition.Name.Official>? = null,
+  public var source: List<Reference>? = null,
 ) {
   public fun toModel(): SubstanceDefinition.Name =
     SubstanceDefinition.Name(
       id = this@SubstanceDefinitionNameSurrogate.id,
-      extension = this@SubstanceDefinitionNameSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@SubstanceDefinitionNameSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@SubstanceDefinitionNameSurrogate.extension ?: listOf(),
+      modifierExtension = this@SubstanceDefinitionNameSurrogate.modifierExtension ?: listOf(),
       name =
         R5String.of(
           this@SubstanceDefinitionNameSurrogate.name,
@@ -425,13 +418,13 @@ internal data class SubstanceDefinitionNameSurrogate(
           this@SubstanceDefinitionNameSurrogate.preferred,
           this@SubstanceDefinitionNameSurrogate._preferred,
         ),
-      language = this@SubstanceDefinitionNameSurrogate.language ?: mutableListOf(),
-      domain = this@SubstanceDefinitionNameSurrogate.domain ?: mutableListOf(),
-      jurisdiction = this@SubstanceDefinitionNameSurrogate.jurisdiction ?: mutableListOf(),
-      synonym = this@SubstanceDefinitionNameSurrogate.synonym ?: mutableListOf(),
-      translation = this@SubstanceDefinitionNameSurrogate.translation ?: mutableListOf(),
-      official = this@SubstanceDefinitionNameSurrogate.official ?: mutableListOf(),
-      source = this@SubstanceDefinitionNameSurrogate.source ?: mutableListOf(),
+      language = this@SubstanceDefinitionNameSurrogate.language ?: listOf(),
+      domain = this@SubstanceDefinitionNameSurrogate.domain ?: listOf(),
+      jurisdiction = this@SubstanceDefinitionNameSurrogate.jurisdiction ?: listOf(),
+      synonym = this@SubstanceDefinitionNameSurrogate.synonym ?: listOf(),
+      translation = this@SubstanceDefinitionNameSurrogate.translation ?: listOf(),
+      official = this@SubstanceDefinitionNameSurrogate.official ?: listOf(),
+      source = this@SubstanceDefinitionNameSurrogate.source ?: listOf(),
     )
 
   public companion object {
@@ -462,8 +455,8 @@ internal data class SubstanceDefinitionNameSurrogate(
 @Serializable
 internal data class SubstanceDefinitionNameOfficialSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var authority: CodeableConcept? = null,
   public var status: CodeableConcept? = null,
   public var date: KotlinString? = null,
@@ -472,9 +465,9 @@ internal data class SubstanceDefinitionNameOfficialSurrogate(
   public fun toModel(): SubstanceDefinition.Name.Official =
     SubstanceDefinition.Name.Official(
       id = this@SubstanceDefinitionNameOfficialSurrogate.id,
-      extension = this@SubstanceDefinitionNameOfficialSurrogate.extension ?: mutableListOf(),
+      extension = this@SubstanceDefinitionNameOfficialSurrogate.extension ?: listOf(),
       modifierExtension =
-        this@SubstanceDefinitionNameOfficialSurrogate.modifierExtension ?: mutableListOf(),
+        this@SubstanceDefinitionNameOfficialSurrogate.modifierExtension ?: listOf(),
       authority = this@SubstanceDefinitionNameOfficialSurrogate.authority,
       status = this@SubstanceDefinitionNameOfficialSurrogate.status,
       date =
@@ -505,8 +498,8 @@ internal data class SubstanceDefinitionNameOfficialSurrogate(
 @Serializable
 internal data class SubstanceDefinitionRelationshipSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var substanceDefinition: SubstanceDefinition.Relationship.SubstanceDefinition? = null,
   public var type: CodeableConcept,
   public var isDefining: KotlinBoolean? = null,
@@ -514,14 +507,14 @@ internal data class SubstanceDefinitionRelationshipSurrogate(
   public var amount: SubstanceDefinition.Relationship.Amount? = null,
   public var ratioHighLimitAmount: Ratio? = null,
   public var comparator: CodeableConcept? = null,
-  public var source: MutableList<Reference>? = null,
+  public var source: List<Reference>? = null,
 ) {
   public fun toModel(): SubstanceDefinition.Relationship =
     SubstanceDefinition.Relationship(
       id = this@SubstanceDefinitionRelationshipSurrogate.id,
-      extension = this@SubstanceDefinitionRelationshipSurrogate.extension ?: mutableListOf(),
+      extension = this@SubstanceDefinitionRelationshipSurrogate.extension ?: listOf(),
       modifierExtension =
-        this@SubstanceDefinitionRelationshipSurrogate.modifierExtension ?: mutableListOf(),
+        this@SubstanceDefinitionRelationshipSurrogate.modifierExtension ?: listOf(),
       substanceDefinition = this@SubstanceDefinitionRelationshipSurrogate.substanceDefinition,
       type = this@SubstanceDefinitionRelationshipSurrogate.type,
       isDefining =
@@ -532,7 +525,7 @@ internal data class SubstanceDefinitionRelationshipSurrogate(
       amount = this@SubstanceDefinitionRelationshipSurrogate.amount,
       ratioHighLimitAmount = this@SubstanceDefinitionRelationshipSurrogate.ratioHighLimitAmount,
       comparator = this@SubstanceDefinitionRelationshipSurrogate.comparator,
-      source = this@SubstanceDefinitionRelationshipSurrogate.source ?: mutableListOf(),
+      source = this@SubstanceDefinitionRelationshipSurrogate.source ?: listOf(),
     )
 
   public companion object {
@@ -560,26 +553,25 @@ internal data class SubstanceDefinitionRelationshipSurrogate(
 @Serializable
 internal data class SubstanceDefinitionSourceMaterialSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var type: CodeableConcept? = null,
   public var genus: CodeableConcept? = null,
   public var species: CodeableConcept? = null,
   public var part: CodeableConcept? = null,
-  public var countryOfOrigin: MutableList<CodeableConcept>? = null,
+  public var countryOfOrigin: List<CodeableConcept>? = null,
 ) {
   public fun toModel(): SubstanceDefinition.SourceMaterial =
     SubstanceDefinition.SourceMaterial(
       id = this@SubstanceDefinitionSourceMaterialSurrogate.id,
-      extension = this@SubstanceDefinitionSourceMaterialSurrogate.extension ?: mutableListOf(),
+      extension = this@SubstanceDefinitionSourceMaterialSurrogate.extension ?: listOf(),
       modifierExtension =
-        this@SubstanceDefinitionSourceMaterialSurrogate.modifierExtension ?: mutableListOf(),
+        this@SubstanceDefinitionSourceMaterialSurrogate.modifierExtension ?: listOf(),
       type = this@SubstanceDefinitionSourceMaterialSurrogate.type,
       genus = this@SubstanceDefinitionSourceMaterialSurrogate.genus,
       species = this@SubstanceDefinitionSourceMaterialSurrogate.species,
       part = this@SubstanceDefinitionSourceMaterialSurrogate.part,
-      countryOfOrigin =
-        this@SubstanceDefinitionSourceMaterialSurrogate.countryOfOrigin ?: mutableListOf(),
+      countryOfOrigin = this@SubstanceDefinitionSourceMaterialSurrogate.countryOfOrigin ?: listOf(),
     )
 
   public companion object {
@@ -739,31 +731,31 @@ internal data class SubstanceDefinitionSurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: MutableList<Resource>? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var identifier: MutableList<Identifier>? = null,
+  public var contained: List<Resource>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
+  public var identifier: List<Identifier>? = null,
   public var version: KotlinString? = null,
   public var _version: Element? = null,
   public var status: CodeableConcept? = null,
-  public var classification: MutableList<CodeableConcept>? = null,
+  public var classification: List<CodeableConcept>? = null,
   public var domain: CodeableConcept? = null,
-  public var grade: MutableList<CodeableConcept>? = null,
+  public var grade: List<CodeableConcept>? = null,
   public var description: KotlinString? = null,
   public var _description: Element? = null,
-  public var informationSource: MutableList<Reference>? = null,
-  public var note: MutableList<Annotation>? = null,
-  public var manufacturer: MutableList<Reference>? = null,
-  public var supplier: MutableList<Reference>? = null,
-  public var moiety: MutableList<SubstanceDefinition.Moiety>? = null,
-  public var characterization: MutableList<SubstanceDefinition.Characterization>? = null,
-  public var `property`: MutableList<SubstanceDefinition.Property>? = null,
+  public var informationSource: List<Reference>? = null,
+  public var note: List<Annotation>? = null,
+  public var manufacturer: List<Reference>? = null,
+  public var supplier: List<Reference>? = null,
+  public var moiety: List<SubstanceDefinition.Moiety>? = null,
+  public var characterization: List<SubstanceDefinition.Characterization>? = null,
+  public var `property`: List<SubstanceDefinition.Property>? = null,
   public var referenceInformation: Reference? = null,
-  public var molecularWeight: MutableList<SubstanceDefinition.MolecularWeight>? = null,
+  public var molecularWeight: List<SubstanceDefinition.MolecularWeight>? = null,
   public var structure: SubstanceDefinition.Structure? = null,
-  public var code: MutableList<SubstanceDefinition.Code>? = null,
-  public var name: MutableList<SubstanceDefinition.Name>? = null,
-  public var relationship: MutableList<SubstanceDefinition.Relationship>? = null,
+  public var code: List<SubstanceDefinition.Code>? = null,
+  public var name: List<SubstanceDefinition.Name>? = null,
+  public var relationship: List<SubstanceDefinition.Relationship>? = null,
   public var nucleicAcid: Reference? = null,
   public var polymer: Reference? = null,
   public var protein: Reference? = null,
@@ -784,37 +776,37 @@ internal data class SubstanceDefinitionSurrogate(
           this@SubstanceDefinitionSurrogate._language,
         ),
       text = this@SubstanceDefinitionSurrogate.text,
-      contained = this@SubstanceDefinitionSurrogate.contained ?: mutableListOf(),
-      extension = this@SubstanceDefinitionSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@SubstanceDefinitionSurrogate.modifierExtension ?: mutableListOf(),
-      identifier = this@SubstanceDefinitionSurrogate.identifier ?: mutableListOf(),
+      contained = this@SubstanceDefinitionSurrogate.contained ?: listOf(),
+      extension = this@SubstanceDefinitionSurrogate.extension ?: listOf(),
+      modifierExtension = this@SubstanceDefinitionSurrogate.modifierExtension ?: listOf(),
+      identifier = this@SubstanceDefinitionSurrogate.identifier ?: listOf(),
       version =
         R5String.of(
           this@SubstanceDefinitionSurrogate.version,
           this@SubstanceDefinitionSurrogate._version,
         ),
       status = this@SubstanceDefinitionSurrogate.status,
-      classification = this@SubstanceDefinitionSurrogate.classification ?: mutableListOf(),
+      classification = this@SubstanceDefinitionSurrogate.classification ?: listOf(),
       domain = this@SubstanceDefinitionSurrogate.domain,
-      grade = this@SubstanceDefinitionSurrogate.grade ?: mutableListOf(),
+      grade = this@SubstanceDefinitionSurrogate.grade ?: listOf(),
       description =
         Markdown.of(
           this@SubstanceDefinitionSurrogate.description,
           this@SubstanceDefinitionSurrogate._description,
         ),
-      informationSource = this@SubstanceDefinitionSurrogate.informationSource ?: mutableListOf(),
-      note = this@SubstanceDefinitionSurrogate.note ?: mutableListOf(),
-      manufacturer = this@SubstanceDefinitionSurrogate.manufacturer ?: mutableListOf(),
-      supplier = this@SubstanceDefinitionSurrogate.supplier ?: mutableListOf(),
-      moiety = this@SubstanceDefinitionSurrogate.moiety ?: mutableListOf(),
-      characterization = this@SubstanceDefinitionSurrogate.characterization ?: mutableListOf(),
-      `property` = this@SubstanceDefinitionSurrogate.`property` ?: mutableListOf(),
+      informationSource = this@SubstanceDefinitionSurrogate.informationSource ?: listOf(),
+      note = this@SubstanceDefinitionSurrogate.note ?: listOf(),
+      manufacturer = this@SubstanceDefinitionSurrogate.manufacturer ?: listOf(),
+      supplier = this@SubstanceDefinitionSurrogate.supplier ?: listOf(),
+      moiety = this@SubstanceDefinitionSurrogate.moiety ?: listOf(),
+      characterization = this@SubstanceDefinitionSurrogate.characterization ?: listOf(),
+      `property` = this@SubstanceDefinitionSurrogate.`property` ?: listOf(),
       referenceInformation = this@SubstanceDefinitionSurrogate.referenceInformation,
-      molecularWeight = this@SubstanceDefinitionSurrogate.molecularWeight ?: mutableListOf(),
+      molecularWeight = this@SubstanceDefinitionSurrogate.molecularWeight ?: listOf(),
       structure = this@SubstanceDefinitionSurrogate.structure,
-      code = this@SubstanceDefinitionSurrogate.code ?: mutableListOf(),
-      name = this@SubstanceDefinitionSurrogate.name ?: mutableListOf(),
-      relationship = this@SubstanceDefinitionSurrogate.relationship ?: mutableListOf(),
+      code = this@SubstanceDefinitionSurrogate.code ?: listOf(),
+      name = this@SubstanceDefinitionSurrogate.name ?: listOf(),
+      relationship = this@SubstanceDefinitionSurrogate.relationship ?: listOf(),
       nucleicAcid = this@SubstanceDefinitionSurrogate.nucleicAcid,
       polymer = this@SubstanceDefinitionSurrogate.polymer,
       protein = this@SubstanceDefinitionSurrogate.protein,

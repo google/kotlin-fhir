@@ -23,7 +23,7 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 
 /**
@@ -37,7 +37,7 @@ public open class Quantity(
    * Unique id for the element within a resource (for internal references). This may be any string
    * value that does not contain spaces.
    */
-  open override var id: kotlin.String? = null,
+  open override val id: kotlin.String? = null,
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * element. To make the use of extensions safe and managable, there is a strict set of governance
@@ -50,7 +50,7 @@ public open class Quantity(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  open override var extension: MutableList<Extension> = mutableListOf(),
+  open override val extension: List<Extension> = listOf(),
   /**
    * The value of the measured amount. The value includes an implicit precision in the presentation
    * of the value.
@@ -58,24 +58,24 @@ public open class Quantity(
    * The implicit precision in the value should always be honored. Monetary values have their own
    * rules for handling precision (refer to standard accounting text books).
    */
-  public open var `value`: Decimal? = null,
+  public open val `value`: Decimal? = null,
   /**
    * How the value should be understood and represented - whether the actual value is greater or
    * less than the stated value due to measurement issues; e.g. if the comparator is "<" , then the
    * real value is < stated value.
    */
-  public open var comparator: Enumeration<QuantityComparator>? = null,
+  public open val comparator: Enumeration<QuantityComparator>? = null,
   /** A human-readable form of the unit. */
-  public open var unit: String? = null,
+  public open val unit: String? = null,
   /** The identification of the system that provides the coded form of the unit. */
-  public open var system: Uri? = null,
+  public open val system: Uri? = null,
   /**
    * A computer processable form of the unit in some unit representation system.
    *
    * The preferred system is UCUM, but SNOMED CT can also be used (for customary units) or ISO 4217
    * for currency. The context of use may additionally require a code from a particular system.
    */
-  public open var code: Code? = null,
+  public open val code: Code? = null,
 ) : DataType() {
   override fun equals(other: Any?): Boolean {
     if (this === other) return true

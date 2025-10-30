@@ -33,14 +33,14 @@ import com.google.fhir.model.r4b.serializers.LocalTimeSerializer
 import kotlin.Double
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class DurationSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
   public var `value`: Double? = null,
   public var _value: Element? = null,
   public var comparator: KotlinString? = null,
@@ -55,7 +55,7 @@ internal data class DurationSurrogate(
   public fun toModel(): Duration =
     Duration(
       id = this@DurationSurrogate.id,
-      extension = this@DurationSurrogate.extension ?: mutableListOf(),
+      extension = this@DurationSurrogate.extension ?: listOf(),
       `value` = Decimal.of(this@DurationSurrogate.`value`, this@DurationSurrogate._value),
       comparator =
         this@DurationSurrogate.comparator?.let {

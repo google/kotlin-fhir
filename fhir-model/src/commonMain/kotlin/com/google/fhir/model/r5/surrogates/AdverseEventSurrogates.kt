@@ -42,24 +42,23 @@ import com.google.fhir.model.r5.serializers.LocalTimeSerializer
 import kotlin.Boolean as KotlinBoolean
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class AdverseEventParticipantSurrogate(
   public var id: String? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var function: CodeableConcept? = null,
   public var actor: Reference,
 ) {
   public fun toModel(): AdverseEvent.Participant =
     AdverseEvent.Participant(
       id = this@AdverseEventParticipantSurrogate.id,
-      extension = this@AdverseEventParticipantSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@AdverseEventParticipantSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@AdverseEventParticipantSurrogate.extension ?: listOf(),
+      modifierExtension = this@AdverseEventParticipantSurrogate.modifierExtension ?: listOf(),
       function = this@AdverseEventParticipantSurrogate.function,
       actor = this@AdverseEventParticipantSurrogate.actor,
     )
@@ -81,17 +80,16 @@ internal data class AdverseEventParticipantSurrogate(
 @Serializable
 internal data class AdverseEventSuspectEntitySurrogate(
   public var id: String? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var instance: AdverseEvent.SuspectEntity.Instance,
   public var causality: AdverseEvent.SuspectEntity.Causality? = null,
 ) {
   public fun toModel(): AdverseEvent.SuspectEntity =
     AdverseEvent.SuspectEntity(
       id = this@AdverseEventSuspectEntitySurrogate.id,
-      extension = this@AdverseEventSuspectEntitySurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@AdverseEventSuspectEntitySurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@AdverseEventSuspectEntitySurrogate.extension ?: listOf(),
+      modifierExtension = this@AdverseEventSuspectEntitySurrogate.modifierExtension ?: listOf(),
       instance = this@AdverseEventSuspectEntitySurrogate.instance,
       causality = this@AdverseEventSuspectEntitySurrogate.causality,
     )
@@ -113,8 +111,8 @@ internal data class AdverseEventSuspectEntitySurrogate(
 @Serializable
 internal data class AdverseEventSuspectEntityCausalitySurrogate(
   public var id: String? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var assessmentMethod: CodeableConcept? = null,
   public var entityRelatedness: CodeableConcept? = null,
   public var author: Reference? = null,
@@ -122,9 +120,9 @@ internal data class AdverseEventSuspectEntityCausalitySurrogate(
   public fun toModel(): AdverseEvent.SuspectEntity.Causality =
     AdverseEvent.SuspectEntity.Causality(
       id = this@AdverseEventSuspectEntityCausalitySurrogate.id,
-      extension = this@AdverseEventSuspectEntityCausalitySurrogate.extension ?: mutableListOf(),
+      extension = this@AdverseEventSuspectEntityCausalitySurrogate.extension ?: listOf(),
       modifierExtension =
-        this@AdverseEventSuspectEntityCausalitySurrogate.modifierExtension ?: mutableListOf(),
+        this@AdverseEventSuspectEntityCausalitySurrogate.modifierExtension ?: listOf(),
       assessmentMethod = this@AdverseEventSuspectEntityCausalitySurrogate.assessmentMethod,
       entityRelatedness = this@AdverseEventSuspectEntityCausalitySurrogate.entityRelatedness,
       author = this@AdverseEventSuspectEntityCausalitySurrogate.author,
@@ -150,16 +148,16 @@ internal data class AdverseEventSuspectEntityCausalitySurrogate(
 @Serializable
 internal data class AdverseEventContributingFactorSurrogate(
   public var id: String? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var item: AdverseEvent.ContributingFactor.Item,
 ) {
   public fun toModel(): AdverseEvent.ContributingFactor =
     AdverseEvent.ContributingFactor(
       id = this@AdverseEventContributingFactorSurrogate.id,
-      extension = this@AdverseEventContributingFactorSurrogate.extension ?: mutableListOf(),
+      extension = this@AdverseEventContributingFactorSurrogate.extension ?: listOf(),
       modifierExtension =
-        this@AdverseEventContributingFactorSurrogate.modifierExtension ?: mutableListOf(),
+        this@AdverseEventContributingFactorSurrogate.modifierExtension ?: listOf(),
       item = this@AdverseEventContributingFactorSurrogate.item,
     )
 
@@ -181,16 +179,15 @@ internal data class AdverseEventContributingFactorSurrogate(
 @Serializable
 internal data class AdverseEventPreventiveActionSurrogate(
   public var id: String? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var item: AdverseEvent.PreventiveAction.Item,
 ) {
   public fun toModel(): AdverseEvent.PreventiveAction =
     AdverseEvent.PreventiveAction(
       id = this@AdverseEventPreventiveActionSurrogate.id,
-      extension = this@AdverseEventPreventiveActionSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@AdverseEventPreventiveActionSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@AdverseEventPreventiveActionSurrogate.extension ?: listOf(),
+      modifierExtension = this@AdverseEventPreventiveActionSurrogate.modifierExtension ?: listOf(),
       item = this@AdverseEventPreventiveActionSurrogate.item,
     )
 
@@ -212,16 +209,15 @@ internal data class AdverseEventPreventiveActionSurrogate(
 @Serializable
 internal data class AdverseEventMitigatingActionSurrogate(
   public var id: String? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var item: AdverseEvent.MitigatingAction.Item,
 ) {
   public fun toModel(): AdverseEvent.MitigatingAction =
     AdverseEvent.MitigatingAction(
       id = this@AdverseEventMitigatingActionSurrogate.id,
-      extension = this@AdverseEventMitigatingActionSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@AdverseEventMitigatingActionSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@AdverseEventMitigatingActionSurrogate.extension ?: listOf(),
+      modifierExtension = this@AdverseEventMitigatingActionSurrogate.modifierExtension ?: listOf(),
       item = this@AdverseEventMitigatingActionSurrogate.item,
     )
 
@@ -243,16 +239,15 @@ internal data class AdverseEventMitigatingActionSurrogate(
 @Serializable
 internal data class AdverseEventSupportingInfoSurrogate(
   public var id: String? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var item: AdverseEvent.SupportingInfo.Item,
 ) {
   public fun toModel(): AdverseEvent.SupportingInfo =
     AdverseEvent.SupportingInfo(
       id = this@AdverseEventSupportingInfoSurrogate.id,
-      extension = this@AdverseEventSupportingInfoSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@AdverseEventSupportingInfoSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@AdverseEventSupportingInfoSurrogate.extension ?: listOf(),
+      modifierExtension = this@AdverseEventSupportingInfoSurrogate.modifierExtension ?: listOf(),
       item = this@AdverseEventSupportingInfoSurrogate.item,
     )
 
@@ -428,15 +423,15 @@ internal data class AdverseEventSurrogate(
   public var language: String? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: MutableList<Resource>? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var identifier: MutableList<Identifier>? = null,
+  public var contained: List<Resource>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
+  public var identifier: List<Identifier>? = null,
   public var status: String? = null,
   public var _status: Element? = null,
   public var actuality: String? = null,
   public var _actuality: Element? = null,
-  public var category: MutableList<CodeableConcept>? = null,
+  public var category: List<CodeableConcept>? = null,
   public var code: CodeableConcept? = null,
   public var subject: Reference,
   public var encounter: Reference? = null,
@@ -445,21 +440,21 @@ internal data class AdverseEventSurrogate(
   public var _detected: Element? = null,
   public var recordedDate: String? = null,
   public var _recordedDate: Element? = null,
-  public var resultingEffect: MutableList<Reference>? = null,
+  public var resultingEffect: List<Reference>? = null,
   public var location: Reference? = null,
   public var seriousness: CodeableConcept? = null,
-  public var outcome: MutableList<CodeableConcept>? = null,
+  public var outcome: List<CodeableConcept>? = null,
   public var recorder: Reference? = null,
-  public var participant: MutableList<AdverseEvent.Participant>? = null,
-  public var study: MutableList<Reference>? = null,
+  public var participant: List<AdverseEvent.Participant>? = null,
+  public var study: List<Reference>? = null,
   public var expectedInResearchStudy: KotlinBoolean? = null,
   public var _expectedInResearchStudy: Element? = null,
-  public var suspectEntity: MutableList<AdverseEvent.SuspectEntity>? = null,
-  public var contributingFactor: MutableList<AdverseEvent.ContributingFactor>? = null,
-  public var preventiveAction: MutableList<AdverseEvent.PreventiveAction>? = null,
-  public var mitigatingAction: MutableList<AdverseEvent.MitigatingAction>? = null,
-  public var supportingInfo: MutableList<AdverseEvent.SupportingInfo>? = null,
-  public var note: MutableList<Annotation>? = null,
+  public var suspectEntity: List<AdverseEvent.SuspectEntity>? = null,
+  public var contributingFactor: List<AdverseEvent.ContributingFactor>? = null,
+  public var preventiveAction: List<AdverseEvent.PreventiveAction>? = null,
+  public var mitigatingAction: List<AdverseEvent.MitigatingAction>? = null,
+  public var supportingInfo: List<AdverseEvent.SupportingInfo>? = null,
+  public var note: List<Annotation>? = null,
 ) {
   public fun toModel(): AdverseEvent =
     AdverseEvent(
@@ -469,10 +464,10 @@ internal data class AdverseEventSurrogate(
         Uri.of(this@AdverseEventSurrogate.implicitRules, this@AdverseEventSurrogate._implicitRules),
       language = Code.of(this@AdverseEventSurrogate.language, this@AdverseEventSurrogate._language),
       text = this@AdverseEventSurrogate.text,
-      contained = this@AdverseEventSurrogate.contained ?: mutableListOf(),
-      extension = this@AdverseEventSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@AdverseEventSurrogate.modifierExtension ?: mutableListOf(),
-      identifier = this@AdverseEventSurrogate.identifier ?: mutableListOf(),
+      contained = this@AdverseEventSurrogate.contained ?: listOf(),
+      extension = this@AdverseEventSurrogate.extension ?: listOf(),
+      modifierExtension = this@AdverseEventSurrogate.modifierExtension ?: listOf(),
+      identifier = this@AdverseEventSurrogate.identifier ?: listOf(),
       status =
         Enumeration.of(
           AdverseEvent.AdverseEventStatus.fromCode(this@AdverseEventSurrogate.status!!),
@@ -483,7 +478,7 @@ internal data class AdverseEventSurrogate(
           AdverseEvent.AdverseEventActuality.fromCode(this@AdverseEventSurrogate.actuality!!),
           this@AdverseEventSurrogate._actuality,
         ),
-      category = this@AdverseEventSurrogate.category ?: mutableListOf(),
+      category = this@AdverseEventSurrogate.category ?: listOf(),
       code = this@AdverseEventSurrogate.code,
       subject = this@AdverseEventSurrogate.subject,
       encounter = this@AdverseEventSurrogate.encounter,
@@ -498,24 +493,24 @@ internal data class AdverseEventSurrogate(
           FhirDateTime.fromString(this@AdverseEventSurrogate.recordedDate),
           this@AdverseEventSurrogate._recordedDate,
         ),
-      resultingEffect = this@AdverseEventSurrogate.resultingEffect ?: mutableListOf(),
+      resultingEffect = this@AdverseEventSurrogate.resultingEffect ?: listOf(),
       location = this@AdverseEventSurrogate.location,
       seriousness = this@AdverseEventSurrogate.seriousness,
-      outcome = this@AdverseEventSurrogate.outcome ?: mutableListOf(),
+      outcome = this@AdverseEventSurrogate.outcome ?: listOf(),
       recorder = this@AdverseEventSurrogate.recorder,
-      participant = this@AdverseEventSurrogate.participant ?: mutableListOf(),
-      study = this@AdverseEventSurrogate.study ?: mutableListOf(),
+      participant = this@AdverseEventSurrogate.participant ?: listOf(),
+      study = this@AdverseEventSurrogate.study ?: listOf(),
       expectedInResearchStudy =
         R5Boolean.of(
           this@AdverseEventSurrogate.expectedInResearchStudy,
           this@AdverseEventSurrogate._expectedInResearchStudy,
         ),
-      suspectEntity = this@AdverseEventSurrogate.suspectEntity ?: mutableListOf(),
-      contributingFactor = this@AdverseEventSurrogate.contributingFactor ?: mutableListOf(),
-      preventiveAction = this@AdverseEventSurrogate.preventiveAction ?: mutableListOf(),
-      mitigatingAction = this@AdverseEventSurrogate.mitigatingAction ?: mutableListOf(),
-      supportingInfo = this@AdverseEventSurrogate.supportingInfo ?: mutableListOf(),
-      note = this@AdverseEventSurrogate.note ?: mutableListOf(),
+      suspectEntity = this@AdverseEventSurrogate.suspectEntity ?: listOf(),
+      contributingFactor = this@AdverseEventSurrogate.contributingFactor ?: listOf(),
+      preventiveAction = this@AdverseEventSurrogate.preventiveAction ?: listOf(),
+      mitigatingAction = this@AdverseEventSurrogate.mitigatingAction ?: listOf(),
+      supportingInfo = this@AdverseEventSurrogate.supportingInfo ?: listOf(),
+      note = this@AdverseEventSurrogate.note ?: listOf(),
     )
 
   public companion object {

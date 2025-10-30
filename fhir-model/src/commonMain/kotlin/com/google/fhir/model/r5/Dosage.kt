@@ -23,7 +23,7 @@ import com.google.fhir.model.r5.serializers.DosageDoseAndRateRateSerializer
 import com.google.fhir.model.r5.serializers.DosageDoseAndRateSerializer
 import com.google.fhir.model.r5.serializers.DosageSerializer
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 
 /** Dosage Type: Indicates how the medication is/was taken or should be taken by the patient. */
@@ -33,7 +33,7 @@ public data class Dosage(
    * Unique id for the element within a resource (for internal references). This may be any string
    * value that does not contain spaces.
    */
-  override var id: kotlin.String? = null,
+  override val id: kotlin.String? = null,
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * element. To make the use of extensions safe and managable, there is a strict set of governance
@@ -46,7 +46,7 @@ public data class Dosage(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: MutableList<Extension> = mutableListOf(),
+  override val extension: List<Extension> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * element and that modifies the understanding of the element in which it is contained and/or the
@@ -65,11 +65,11 @@ public data class Dosage(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: MutableList<Extension> = mutableListOf(),
+  override val modifierExtension: List<Extension> = listOf(),
   /** Indicates the order in which the dosage instructions should be applied or interpreted. */
-  public var sequence: Integer? = null,
+  public val sequence: Integer? = null,
   /** Free text dosage instructions e.g. SIG. */
-  public var text: String? = null,
+  public val text: String? = null,
   /**
    * Supplemental instructions to the patient on how to take the medication (e.g. "with meals"
    * or"take half to one hour before food") or warnings for the patient about the medication (e.g.
@@ -79,16 +79,16 @@ public data class Dosage(
    * possibly via intraperitoneal port" or take "immediately following drug x") should be populated
    * in dosage.text.
    */
-  public var additionalInstruction: MutableList<CodeableConcept> = mutableListOf(),
+  public val additionalInstruction: List<CodeableConcept> = listOf(),
   /** Instructions in terms that are understood by the patient or consumer. */
-  public var patientInstruction: String? = null,
+  public val patientInstruction: String? = null,
   /**
    * When medication should be administered.
    *
    * This attribute might not always be populated while the Dosage.text is expected to be populated.
    * If both are populated, then the Dosage.text should reflect the content of the Dosage.timing.
    */
-  public var timing: Timing? = null,
+  public val timing: Timing? = null,
   /**
    * Indicates whether the Medication is only taken when needed within a specific dosing schedule
    * (Boolean option).
@@ -96,7 +96,7 @@ public data class Dosage(
    * Can express "as needed" without a reason by setting the Boolean = True. In this case the
    * CodeableConcept is not populated.
    */
-  public var asNeeded: Boolean? = null,
+  public val asNeeded: Boolean? = null,
   /**
    * Indicates whether the Medication is only taken based on a precondition for taking the
    * Medication (CodeableConcept).
@@ -105,7 +105,7 @@ public data class Dosage(
    * Boolean is assumed to be False, then the dose is given according to the schedule and is not
    * "prn" or "as needed".
    */
-  public var asNeededFor: MutableList<CodeableConcept> = mutableListOf(),
+  public val asNeededFor: List<CodeableConcept> = listOf(),
   /**
    * Body site to administer to.
    *
@@ -114,27 +114,27 @@ public data class Dosage(
    * [http://hl7.org/fhir/StructureDefinition/bodySite](http://hl7.org/fhir/extensions/StructureDefinition-bodySite.html).
    * May be a summary code, or a reference to a very precise definition of the location, or both.
    */
-  public var site: CodeableConcept? = null,
+  public val site: CodeableConcept? = null,
   /** How drug should enter body. */
-  public var route: CodeableConcept? = null,
+  public val route: CodeableConcept? = null,
   /**
    * Technique for administering medication.
    *
    * Terminologies used often pre-coordinate this term with the route and or form of administration.
    */
-  public var method: CodeableConcept? = null,
+  public val method: CodeableConcept? = null,
   /**
    * Depending on the resource,this is the amount of medication administered, to be administered or
    * typical amount to be administered.
    */
-  public var doseAndRate: MutableList<DoseAndRate> = mutableListOf(),
+  public val doseAndRate: List<DoseAndRate> = listOf(),
   /**
    * Upper limit on medication per unit of time.
    *
    * This is intended for use as an adjunct to the dosage when there is an upper cap. For example "2
    * tablets every 4 hours to a maximum of 8/day".
    */
-  public var maxDosePerPeriod: MutableList<Ratio> = mutableListOf(),
+  public val maxDosePerPeriod: List<Ratio> = listOf(),
   /**
    * Upper limit on medication per administration.
    *
@@ -142,9 +142,9 @@ public data class Dosage(
    * body surface area related dose with a maximum amount, such as 1.5 mg/m2 (maximum 2 mg) IV over
    * 5 – 10 minutes would have doseQuantity of 1.5 mg/m2 and maxDosePerAdministration of 2 mg.
    */
-  public var maxDosePerAdministration: Quantity? = null,
+  public val maxDosePerAdministration: Quantity? = null,
   /** Upper limit on medication per lifetime of the patient. */
-  public var maxDosePerLifetime: Quantity? = null,
+  public val maxDosePerLifetime: Quantity? = null,
 ) : BackboneType() {
   /**
    * Depending on the resource,this is the amount of medication administered, to be administered or
@@ -156,7 +156,7 @@ public data class Dosage(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -169,9 +169,9 @@ public data class Dosage(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /** The kind of dose or rate specified, for example, ordered or calculated. */
-    public var type: CodeableConcept? = null,
+    public val type: CodeableConcept? = null,
     /**
      * Amount of medication per dose.
      *
@@ -188,7 +188,7 @@ public data class Dosage(
      * by the schedule e.g. 500 ml in dose, with timing used to convey that this should be done over
      * 4 hours.
      */
-    public var dose: Dose? = null,
+    public val dose: Dose? = null,
     /**
      * Amount of medication per unit of time.
      *
@@ -205,7 +205,7 @@ public data class Dosage(
      * use of rateRatio may be more semantically correct than specifying using a rateQuantity of 250
      * mg/hour.
      */
-    public var rate: Rate? = null,
+    public val rate: Rate? = null,
   ) : Element() {
     @Serializable(with = DosageDoseAndRateDoseSerializer::class)
     public sealed interface Dose {

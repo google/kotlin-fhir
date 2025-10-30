@@ -40,15 +40,15 @@ import com.google.fhir.model.r4b.serializers.DoubleSerializer
 import com.google.fhir.model.r4b.serializers.LocalTimeSerializer
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class SubstanceInstanceSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var identifier: Identifier? = null,
   public var expiry: KotlinString? = null,
   public var _expiry: Element? = null,
@@ -57,8 +57,8 @@ internal data class SubstanceInstanceSurrogate(
   public fun toModel(): Substance.Instance =
     Substance.Instance(
       id = this@SubstanceInstanceSurrogate.id,
-      extension = this@SubstanceInstanceSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@SubstanceInstanceSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@SubstanceInstanceSurrogate.extension ?: listOf(),
+      modifierExtension = this@SubstanceInstanceSurrogate.modifierExtension ?: listOf(),
       identifier = this@SubstanceInstanceSurrogate.identifier,
       expiry =
         DateTime.of(
@@ -87,16 +87,16 @@ internal data class SubstanceInstanceSurrogate(
 @Serializable
 internal data class SubstanceIngredientSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var quantity: Ratio? = null,
   public var substance: Substance.Ingredient.Substance,
 ) {
   public fun toModel(): Substance.Ingredient =
     Substance.Ingredient(
       id = this@SubstanceIngredientSurrogate.id,
-      extension = this@SubstanceIngredientSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@SubstanceIngredientSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@SubstanceIngredientSurrogate.extension ?: listOf(),
+      modifierExtension = this@SubstanceIngredientSurrogate.modifierExtension ?: listOf(),
       quantity = this@SubstanceIngredientSurrogate.quantity,
       substance = this@SubstanceIngredientSurrogate.substance,
     )
@@ -148,18 +148,18 @@ internal data class SubstanceSurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: MutableList<Resource>? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var identifier: MutableList<Identifier>? = null,
+  public var contained: List<Resource>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
+  public var identifier: List<Identifier>? = null,
   public var status: KotlinString? = null,
   public var _status: Element? = null,
-  public var category: MutableList<CodeableConcept>? = null,
+  public var category: List<CodeableConcept>? = null,
   public var code: CodeableConcept,
   public var description: KotlinString? = null,
   public var _description: Element? = null,
-  public var instance: MutableList<Substance.Instance>? = null,
-  public var ingredient: MutableList<Substance.Ingredient>? = null,
+  public var instance: List<Substance.Instance>? = null,
+  public var ingredient: List<Substance.Ingredient>? = null,
 ) {
   public fun toModel(): Substance =
     Substance(
@@ -169,10 +169,10 @@ internal data class SubstanceSurrogate(
         Uri.of(this@SubstanceSurrogate.implicitRules, this@SubstanceSurrogate._implicitRules),
       language = Code.of(this@SubstanceSurrogate.language, this@SubstanceSurrogate._language),
       text = this@SubstanceSurrogate.text,
-      contained = this@SubstanceSurrogate.contained ?: mutableListOf(),
-      extension = this@SubstanceSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@SubstanceSurrogate.modifierExtension ?: mutableListOf(),
-      identifier = this@SubstanceSurrogate.identifier ?: mutableListOf(),
+      contained = this@SubstanceSurrogate.contained ?: listOf(),
+      extension = this@SubstanceSurrogate.extension ?: listOf(),
+      modifierExtension = this@SubstanceSurrogate.modifierExtension ?: listOf(),
+      identifier = this@SubstanceSurrogate.identifier ?: listOf(),
       status =
         this@SubstanceSurrogate.status?.let {
           Enumeration.of(
@@ -180,12 +180,12 @@ internal data class SubstanceSurrogate(
             this@SubstanceSurrogate._status,
           )
         },
-      category = this@SubstanceSurrogate.category ?: mutableListOf(),
+      category = this@SubstanceSurrogate.category ?: listOf(),
       code = this@SubstanceSurrogate.code,
       description =
         R4bString.of(this@SubstanceSurrogate.description, this@SubstanceSurrogate._description),
-      instance = this@SubstanceSurrogate.instance ?: mutableListOf(),
-      ingredient = this@SubstanceSurrogate.ingredient ?: mutableListOf(),
+      instance = this@SubstanceSurrogate.instance ?: listOf(),
+      ingredient = this@SubstanceSurrogate.ingredient ?: listOf(),
     )
 
   public companion object {

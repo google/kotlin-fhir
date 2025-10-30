@@ -20,7 +20,7 @@ package com.google.fhir.model.r4
 
 import com.google.fhir.model.r4.serializers.HumanNameSerializer
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 
 /**
@@ -33,7 +33,7 @@ public data class HumanName(
    * Unique id for the element within a resource (for internal references). This may be any string
    * value that does not contain spaces.
    */
-  override var id: kotlin.String? = null,
+  override val id: kotlin.String? = null,
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * element. To make the use of extensions safe and manageable, there is a strict set of governance
@@ -46,14 +46,14 @@ public data class HumanName(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: MutableList<Extension> = mutableListOf(),
+  override val extension: List<Extension> = listOf(),
   /**
    * Identifies the purpose for this name.
    *
    * Applications can assume that a name is current unless it explicitly says that it is temporary
    * or old.
    */
-  public var use: Enumeration<NameUse>? = null,
+  public val use: Enumeration<NameUse>? = null,
   /**
    * Specifies the entire name as it should be displayed e.g. on an application UI. This may be
    * provided instead of or as well as the specific parts.
@@ -62,7 +62,7 @@ public data class HumanName(
    * that when both text and parts are present, no content is included in the text that isn't found
    * in a part.
    */
-  public var text: String? = null,
+  public val text: String? = null,
   /**
    * The part of a name that links to the genealogy. In some cultures (e.g. Eritrea) the family name
    * of a son is the first name of his father.
@@ -70,7 +70,7 @@ public data class HumanName(
    * Family Name may be decomposed into specific parts using extensions (de, nl, es related
    * cultures).
    */
-  public var family: String? = null,
+  public val family: String? = null,
   /**
    * Given name.
    *
@@ -78,19 +78,19 @@ public data class HumanName(
    * be separated into multiple given names but often aren't due to paractical limitations. This
    * element is not called "first name" since given names do not always come first.
    */
-  public var given: MutableList<String> = mutableListOf(),
+  public val given: List<String> = listOf(),
   /**
    * Part of the name that is acquired as a title due to academic, legal, employment or nobility
    * status, etc. and that appears at the start of the name.
    */
-  public var prefix: MutableList<String> = mutableListOf(),
+  public val prefix: List<String> = listOf(),
   /**
    * Part of the name that is acquired as a title due to academic, legal, employment or nobility
    * status, etc. and that appears at the end of the name.
    */
-  public var suffix: MutableList<String> = mutableListOf(),
+  public val suffix: List<String> = listOf(),
   /** Indicates the period of time when this name was valid for the named person. */
-  public var period: Period? = null,
+  public val period: Period? = null,
 ) : Element() {
   /** The use of a human name. */
   public enum class NameUse(

@@ -142,7 +142,7 @@ abstract class FhirCodegenTask : DefaultTask() {
         }
         .toList()
 
-    MoreJsonBuilderFileSpecGenerator.generate(packageName, subclasses).writeTo(outputDir)
+    FhirJsonFileSpecGenerator.generate(packageName, subclasses).writeTo(outputDir)
 
     FhirDateTimeFileSpecGenerator.generate(packageName).writeTo(outputDir)
     FhirDateFileSpecGenerator.generate(packageName).writeTo(outputDir)

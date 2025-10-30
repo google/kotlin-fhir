@@ -32,7 +32,7 @@ import com.google.fhir.model.r5.serializers.TerminologyCapabilitiesValidateCodeS
 import com.google.fhir.model.r5.serializers.TerminologyCapabilitiesVersionAlgorithmSerializer
 import com.google.fhir.model.r5.terminologies.PublicationStatus
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -52,12 +52,12 @@ public data class TerminologyCapabilities(
    * like the create and conditional update. Otherwise, the use of the resouce id depends on the
    * given use case.
    */
-  override var id: kotlin.String? = null,
+  override val id: kotlin.String? = null,
   /**
    * The metadata about the resource. This is content that is maintained by the infrastructure.
    * Changes to the content might not always be associated with version changes to the resource.
    */
-  override var meta: Meta? = null,
+  override val meta: Meta? = null,
   /**
    * A reference to a set of rules that were followed when the resource was constructed, and which
    * must be understood when processing the content. Often, this is a reference to an implementation
@@ -71,7 +71,7 @@ public data class TerminologyCapabilities(
    * to an implementation guide that defines these special rules as part of its narrative along with
    * other profiles, value sets, etc.
    */
-  override var implicitRules: Uri? = null,
+  override val implicitRules: Uri? = null,
   /**
    * The base language in which the resource is written.
    *
@@ -83,7 +83,7 @@ public data class TerminologyCapabilities(
    * language is specified, it should it also be specified on the div element in the html (see rules
    * in HTML5 for information about the relationship between xml:lang and the html lang attribute).
    */
-  override var language: Code? = null,
+  override val language: Code? = null,
   /**
    * A human-readable narrative that contains a summary of the resource and can be used to represent
    * the content of the resource to a human. The narrative need not encode all the structured data,
@@ -97,7 +97,7 @@ public data class TerminologyCapabilities(
    * legacy systems where information is captured as a "text blob" or where text is additionally
    * entered raw or narrated and encoded information is added later.
    */
-  override var text: Narrative? = null,
+  override val text: Narrative? = null,
   /**
    * These resources do not have an independent existence apart from the resource that contains
    * them - they cannot be identified independently, nor can they have their own independent
@@ -109,7 +109,7 @@ public data class TerminologyCapabilities(
    * resources may have profiles and tags in their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: MutableList<Resource> = mutableListOf(),
+  override val contained: List<Resource> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and managable, there is a strict set of governance
@@ -122,7 +122,7 @@ public data class TerminologyCapabilities(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: MutableList<Extension> = mutableListOf(),
+  override val extension: List<Extension> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -141,7 +141,7 @@ public data class TerminologyCapabilities(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: MutableList<Extension> = mutableListOf(),
+  override val modifierExtension: List<Extension> = listOf(),
   /**
    * An absolute URI that is used to identify this terminology capabilities when it is referenced in
    * a specification, model, design or an instance; also called its canonical identifier. This
@@ -161,7 +161,7 @@ public data class TerminologyCapabilities(
    * change. Implementations can use the [meta.source](resource.html#meta) element to indicate where
    * the current master source of the resource can be found.
    */
-  public var url: Uri? = null,
+  public val url: Uri? = null,
   /**
    * A formal identifier that is used to identify this terminology capabilities when it is
    * represented in other formats, or referenced in a specification, model, design or an instance.
@@ -170,7 +170,7 @@ public data class TerminologyCapabilities(
    * type, and can then identify this terminology capabilities outside of FHIR, where it is not
    * possible to use the logical URI.
    */
-  public var identifier: MutableList<Identifier> = mutableListOf(),
+  public val identifier: List<Identifier> = listOf(),
   /**
    * The identifier that is used to identify this version of the terminology capabilities when it is
    * referenced in a specification, model, design or instance. This is an arbitrary value managed by
@@ -184,7 +184,7 @@ public data class TerminologyCapabilities(
    * [url]|[version]. The version SHOULD NOT contain a '#' - see
    * [Business Version](resource.html#bv-format).
    */
-  public var version: String? = null,
+  public val version: String? = null,
   /**
    * Indicates the mechanism used to compare versions to determine which is more current.
    *
@@ -193,7 +193,7 @@ public data class TerminologyCapabilities(
    * positive number if version2 and a 0 if the version ordering can't be successfully be
    * determined.
    */
-  public var versionAlgorithm: VersionAlgorithm? = null,
+  public val versionAlgorithm: VersionAlgorithm? = null,
   /**
    * A natural language name identifying the terminology capabilities. This name should be usable as
    * an identifier for the module by machine processing applications such as code generation.
@@ -201,14 +201,14 @@ public data class TerminologyCapabilities(
    * The name is not expected to be globally unique. The name should be a simple alphanumeric type
    * name to ensure that it is machine-processing friendly.
    */
-  public var name: String? = null,
+  public val name: String? = null,
   /**
    * A short, descriptive, user-friendly title for the terminology capabilities.
    *
    * This name does not need to be machine-processing friendly and may contain punctuation,
    * white-space, etc.
    */
-  public var title: String? = null,
+  public val title: String? = null,
   /**
    * The status of this terminology capabilities. Enables tracking the life-cycle of the content.
    *
@@ -219,14 +219,14 @@ public data class TerminologyCapabilities(
    * See guidance around (not) making local changes to elements
    * [here](canonicalresource.html#localization).
    */
-  public var status: Enumeration<PublicationStatus>,
+  public val status: Enumeration<PublicationStatus>,
   /**
    * A Boolean value to indicate that this terminology capabilities is authored for testing purposes
    * (or education/evaluation/marketing) and is not intended to be used for genuine usage.
    *
    * Allows filtering of terminology capabilitiess that are appropriate for use versus not.
    */
-  public var experimental: Boolean? = null,
+  public val experimental: Boolean? = null,
   /**
    * The date (and optionally time) when the terminology capabilities was last significantly
    * changed. The date must change when the business version changes and it must change if the
@@ -242,7 +242,7 @@ public data class TerminologyCapabilities(
    * See guidance around (not) making local changes to elements
    * [here](canonicalresource.html#localization).
    */
-  public var date: DateTime,
+  public val date: DateTime,
   /**
    * The name of the organization or individual responsible for the release and ongoing maintenance
    * of the terminology capabilities.
@@ -254,7 +254,7 @@ public data class TerminologyCapabilities(
    * point of contact for questions or issues with the terminology capabilities. This item SHOULD be
    * populated unless the information is available from context.
    */
-  public var publisher: String? = null,
+  public val publisher: String? = null,
   /**
    * Contact details to assist a user in finding and communicating with the publisher.
    *
@@ -263,7 +263,7 @@ public data class TerminologyCapabilities(
    * See guidance around (not) making local changes to elements
    * [here](canonicalresource.html#localization).
    */
-  public var contact: MutableList<ContactDetail> = mutableListOf(),
+  public val contact: List<ContactDetail> = listOf(),
   /**
    * A free text natural language description of the terminology capabilities from a consumer's
    * perspective. Typically, this is used when the capability statement describes a desired rather
@@ -277,7 +277,7 @@ public data class TerminologyCapabilities(
    * in the place the terminology capabilities was created).This does not need to be populated if
    * the description is adequately implied by the software or implementation details.
    */
-  public var description: Markdown? = null,
+  public val description: Markdown? = null,
   /**
    * The content was developed with a focus and intent of supporting the contexts that are listed.
    * These contexts may be general categories (gender, age, ...) or may be references to specific
@@ -287,7 +287,7 @@ public data class TerminologyCapabilities(
    * When multiple useContexts are specified, there is no expectation that all or any of the
    * contexts apply.
    */
-  public var useContext: MutableList<UsageContext> = mutableListOf(),
+  public val useContext: List<UsageContext> = listOf(),
   /**
    * A legal or geographic region in which the terminology capabilities is intended to be used.
    *
@@ -299,7 +299,7 @@ public data class TerminologyCapabilities(
    * http://terminology.hl7.org/CodeSystem/usage-context-type#jurisdiction and
    * useContext.valueCodeableConcept indicating the jurisdiction.)
    */
-  public var jurisdiction: MutableList<CodeableConcept> = mutableListOf(),
+  public val jurisdiction: List<CodeableConcept> = listOf(),
   /**
    * Explanation of why this terminology capabilities is needed and why it has been designed as it
    * has.
@@ -309,13 +309,13 @@ public data class TerminologyCapabilities(
    * may be used to point to source materials or specifications that drove the structure of this
    * terminology capabilities.
    */
-  public var purpose: Markdown? = null,
+  public val purpose: Markdown? = null,
   /**
    * A copyright statement relating to the terminology capabilities and/or its contents. Copyright
    * statements are generally legal restrictions on the use and publishing of the terminology
    * capabilities.
    */
-  public var copyright: Markdown? = null,
+  public val copyright: Markdown? = null,
   /**
    * A short string (<50 characters), suitable for inclusion in a page footer that identifies the
    * copyright holder, effective period, and optionally whether rights are resctricted. (e.g. 'All
@@ -325,26 +325,26 @@ public data class TerminologyCapabilities(
    * rendering the notation. Full details about licensing, restrictions, warrantees, etc. goes in
    * the more general 'copyright' element.
    */
-  public var copyrightLabel: String? = null,
+  public val copyrightLabel: String? = null,
   /**
    * The way that this statement is intended to be used, to describe an actual running instance of
    * software, a particular product (kind, not instance of software) or a class of implementation
    * (e.g. a desired purchase).
    */
-  public var kind: Enumeration<CapabilityStatementKind>,
+  public val kind: Enumeration<CapabilityStatementKind>,
   /**
    * Software that is covered by this terminology capability statement. It is used when the
    * statement describes the capabilities of a particular software version, independent of an
    * installation.
    */
-  public var software: Software? = null,
+  public val software: Software? = null,
   /**
    * Identifies a specific implementation instance that is described by the terminology capability
    * statement - i.e. a particular installation, rather than the capabilities of a software program.
    */
-  public var implementation: Implementation? = null,
+  public val implementation: Implementation? = null,
   /** Whether the server supports lockedDate. */
-  public var lockedDate: Boolean? = null,
+  public val lockedDate: Boolean? = null,
   /**
    * Identifies a code system that is supported by the server. If there is a no code system URL,
    * then this declares the general assumptions a client can make about support for any CodeSystem
@@ -353,27 +353,27 @@ public data class TerminologyCapabilities(
    * The code system - identified by its system URL - may also be declared explicitly as a Code
    * System Resource at /CodeSystem, but it might not be.
    */
-  public var codeSystem: MutableList<CodeSystem> = mutableListOf(),
+  public val codeSystem: List<CodeSystem> = listOf(),
   /** Information about the [ValueSet/$expand](valueset-operation-expand.html) operation. */
-  public var expansion: Expansion? = null,
+  public val expansion: Expansion? = null,
   /**
    * The degree to which the server supports the code search parameter on ValueSet, if it is
    * supported.
    *
    * See notes on the [ValueSet](valueset.html#) resource.
    */
-  public var codeSearch: Enumeration<CodeSearchSupport>? = null,
+  public val codeSearch: Enumeration<CodeSearchSupport>? = null,
   /**
    * Information about the [ValueSet/$validate-code](valueset-operation-validate-code.html)
    * operation.
    */
-  public var validateCode: ValidateCode? = null,
+  public val validateCode: ValidateCode? = null,
   /**
    * Information about the [ConceptMap/$translate](conceptmap-operation-translate.html) operation.
    */
-  public var translation: Translation? = null,
+  public val translation: Translation? = null,
   /** Whether the $closure operation is supported. */
-  public var closure: Closure? = null,
+  public val closure: Closure? = null,
 ) : DomainResource() {
   /**
    * Software that is covered by this terminology capability statement. It is used when the
@@ -386,7 +386,7 @@ public data class TerminologyCapabilities(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -399,7 +399,7 @@ public data class TerminologyCapabilities(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -418,16 +418,16 @@ public data class TerminologyCapabilities(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /** Name the software is known by. */
-    public var name: String,
+    public val name: String,
     /**
      * The version identifier for the software covered by this statement.
      *
      * If possible, a version should be specified, as statements are likely to be different for
      * different versions of software.
      */
-    public var version: String? = null,
+    public val version: String? = null,
   ) : BackboneElement()
 
   /**
@@ -440,7 +440,7 @@ public data class TerminologyCapabilities(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -453,7 +453,7 @@ public data class TerminologyCapabilities(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -472,14 +472,14 @@ public data class TerminologyCapabilities(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /**
      * Information about the specific installation that this terminology capability statement
      * relates to.
      */
-    public var description: String,
+    public val description: String,
     /** An absolute base URL for the implementation. */
-    public var url: Url? = null,
+    public val url: Url? = null,
   ) : BackboneElement()
 
   /**
@@ -493,7 +493,7 @@ public data class TerminologyCapabilities(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -506,7 +506,7 @@ public data class TerminologyCapabilities(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -525,22 +525,22 @@ public data class TerminologyCapabilities(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /** Canonical identifier for the code system, represented as a URI. */
-    public var uri: Canonical? = null,
+    public val uri: Canonical? = null,
     /**
      * For the code system, a list of versions that are supported by the server.
      *
      * Language translations might not be available for all codes.
      */
-    public var version: MutableList<Version> = mutableListOf(),
+    public val version: List<Version> = listOf(),
     /**
      * The extent of the content of the code system (the concepts and codes it defines) are
      * represented in this resource instance.
      */
-    public var content: Enumeration<CodeSystemContentMode>,
+    public val content: Enumeration<CodeSystemContentMode>,
     /** True if subsumption is supported for this version of the code system. */
-    public var subsumption: Boolean? = null,
+    public val subsumption: Boolean? = null,
   ) : BackboneElement() {
     /** For the code system, a list of versions that are supported by the server. */
     @Serializable(with = TerminologyCapabilitiesCodeSystemVersionSerializer::class)
@@ -549,7 +549,7 @@ public data class TerminologyCapabilities(
        * Unique id for the element within a resource (for internal references). This may be any
        * string value that does not contain spaces.
        */
-      override var id: kotlin.String? = null,
+      override val id: kotlin.String? = null,
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -562,7 +562,7 @@ public data class TerminologyCapabilities(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: MutableList<Extension> = mutableListOf(),
+      override val extension: List<Extension> = listOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -581,19 +581,19 @@ public data class TerminologyCapabilities(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: MutableList<Extension> = mutableListOf(),
+      override val modifierExtension: List<Extension> = listOf(),
       /** For version-less code systems, there should be a single version with no identifier. */
-      public var code: String? = null,
+      public val code: String? = null,
       /** If this is the default version for this code system. */
-      public var isDefault: Boolean? = null,
+      public val isDefault: Boolean? = null,
       /** If the compositional grammar defined by the code system is supported. */
-      public var compositional: Boolean? = null,
+      public val compositional: Boolean? = null,
       /** Language Displays supported. */
-      public var language: MutableList<Enumeration<CommonLanguages>> = mutableListOf(),
+      public val language: List<Enumeration<CommonLanguages>> = listOf(),
       /** Filter Properties supported. */
-      public var filter: MutableList<Filter> = mutableListOf(),
+      public val filter: List<Filter> = listOf(),
       /** Properties supported for $lookup. */
-      public var `property`: MutableList<Code> = mutableListOf(),
+      public val `property`: List<Code> = listOf(),
     ) : BackboneElement() {
       /** Filter Properties supported. */
       @Serializable(with = TerminologyCapabilitiesCodeSystemVersionFilterSerializer::class)
@@ -602,7 +602,7 @@ public data class TerminologyCapabilities(
          * Unique id for the element within a resource (for internal references). This may be any
          * string value that does not contain spaces.
          */
-        override var id: kotlin.String? = null,
+        override val id: kotlin.String? = null,
         /**
          * May be used to represent additional information that is not part of the basic definition
          * of the element. To make the use of extensions safe and managable, there is a strict set
@@ -615,7 +615,7 @@ public data class TerminologyCapabilities(
          * extensions. The use of extensions is what allows the FHIR specification to retain a core
          * level of simplicity for everyone.
          */
-        override var extension: MutableList<Extension> = mutableListOf(),
+        override val extension: List<Extension> = listOf(),
         /**
          * May be used to represent additional information that is not part of the basic definition
          * of the element and that modifies the understanding of the element in which it is
@@ -634,11 +634,11 @@ public data class TerminologyCapabilities(
          * extensions. The use of extensions is what allows the FHIR specification to retain a core
          * level of simplicity for everyone.
          */
-        override var modifierExtension: MutableList<Extension> = mutableListOf(),
+        override val modifierExtension: List<Extension> = listOf(),
         /** Code of the property supported. */
-        public var code: Code,
+        public val code: Code,
         /** Operations supported for the property. */
-        public var op: MutableList<Code> = mutableListOf(),
+        public val op: List<Code> = listOf(),
       ) : BackboneElement()
     }
   }
@@ -650,7 +650,7 @@ public data class TerminologyCapabilities(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -663,7 +663,7 @@ public data class TerminologyCapabilities(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -682,15 +682,15 @@ public data class TerminologyCapabilities(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /** Whether the server can return nested value sets. */
-    public var hierarchical: Boolean? = null,
+    public val hierarchical: Boolean? = null,
     /** Whether the server supports paging on expansion. */
-    public var paging: Boolean? = null,
+    public val paging: Boolean? = null,
     /** True if requests for incomplete expansions are allowed. */
-    public var incomplete: Boolean? = null,
+    public val incomplete: Boolean? = null,
     /** Supported expansion parameter. */
-    public var parameter: MutableList<Parameter> = mutableListOf(),
+    public val parameter: List<Parameter> = listOf(),
     /**
      * Documentation about text searching works.
      *
@@ -698,7 +698,7 @@ public data class TerminologyCapabilities(
      * ignored, what wild cards are supported (if any), whether text is starts with or contains, and
      * whether word order matters.
      */
-    public var textFilter: Markdown? = null,
+    public val textFilter: Markdown? = null,
   ) : BackboneElement() {
     /** Supported expansion parameter. */
     @Serializable(with = TerminologyCapabilitiesExpansionParameterSerializer::class)
@@ -707,7 +707,7 @@ public data class TerminologyCapabilities(
        * Unique id for the element within a resource (for internal references). This may be any
        * string value that does not contain spaces.
        */
-      override var id: kotlin.String? = null,
+      override val id: kotlin.String? = null,
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -720,7 +720,7 @@ public data class TerminologyCapabilities(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: MutableList<Extension> = mutableListOf(),
+      override val extension: List<Extension> = listOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -739,11 +739,11 @@ public data class TerminologyCapabilities(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: MutableList<Extension> = mutableListOf(),
+      override val modifierExtension: List<Extension> = listOf(),
       /** Name of the supported expansion parameter. */
-      public var name: Code,
+      public val name: Code,
       /** Description of support for parameter. */
-      public var documentation: String? = null,
+      public val documentation: String? = null,
     ) : BackboneElement()
   }
 
@@ -757,7 +757,7 @@ public data class TerminologyCapabilities(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -770,7 +770,7 @@ public data class TerminologyCapabilities(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -789,9 +789,9 @@ public data class TerminologyCapabilities(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /** Whether translations are validated. */
-    public var translations: Boolean,
+    public val translations: Boolean,
   ) : BackboneElement()
 
   /**
@@ -803,7 +803,7 @@ public data class TerminologyCapabilities(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -816,7 +816,7 @@ public data class TerminologyCapabilities(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -835,9 +835,9 @@ public data class TerminologyCapabilities(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /** Whether the client must identify the map. */
-    public var needsMap: Boolean,
+    public val needsMap: Boolean,
   ) : BackboneElement()
 
   /** Whether the $closure operation is supported. */
@@ -847,7 +847,7 @@ public data class TerminologyCapabilities(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -860,7 +860,7 @@ public data class TerminologyCapabilities(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -879,9 +879,9 @@ public data class TerminologyCapabilities(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /** If cross-system closure is supported. */
-    public var translation: Boolean? = null,
+    public val translation: Boolean? = null,
   ) : BackboneElement()
 
   @Serializable(with = TerminologyCapabilitiesVersionAlgorithmSerializer::class)

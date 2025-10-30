@@ -36,7 +36,7 @@ import com.google.fhir.model.r5.serializers.DoubleSerializer
 import com.google.fhir.model.r5.serializers.LocalTimeSerializer
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
@@ -49,13 +49,13 @@ internal data class FlagSurrogate(
   public var language: String? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: MutableList<Resource>? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var identifier: MutableList<Identifier>? = null,
+  public var contained: List<Resource>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
+  public var identifier: List<Identifier>? = null,
   public var status: String? = null,
   public var _status: Element? = null,
-  public var category: MutableList<CodeableConcept>? = null,
+  public var category: List<CodeableConcept>? = null,
   public var code: CodeableConcept,
   public var subject: Reference,
   public var period: Period? = null,
@@ -69,16 +69,16 @@ internal data class FlagSurrogate(
       implicitRules = Uri.of(this@FlagSurrogate.implicitRules, this@FlagSurrogate._implicitRules),
       language = Code.of(this@FlagSurrogate.language, this@FlagSurrogate._language),
       text = this@FlagSurrogate.text,
-      contained = this@FlagSurrogate.contained ?: mutableListOf(),
-      extension = this@FlagSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@FlagSurrogate.modifierExtension ?: mutableListOf(),
-      identifier = this@FlagSurrogate.identifier ?: mutableListOf(),
+      contained = this@FlagSurrogate.contained ?: listOf(),
+      extension = this@FlagSurrogate.extension ?: listOf(),
+      modifierExtension = this@FlagSurrogate.modifierExtension ?: listOf(),
+      identifier = this@FlagSurrogate.identifier ?: listOf(),
       status =
         Enumeration.of(
           Flag.FlagStatus.fromCode(this@FlagSurrogate.status!!),
           this@FlagSurrogate._status,
         ),
-      category = this@FlagSurrogate.category ?: mutableListOf(),
+      category = this@FlagSurrogate.category ?: listOf(),
       code = this@FlagSurrogate.code,
       subject = this@FlagSurrogate.subject,
       period = this@FlagSurrogate.period,

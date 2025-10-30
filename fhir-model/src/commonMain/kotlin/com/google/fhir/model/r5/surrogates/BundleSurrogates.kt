@@ -40,15 +40,15 @@ import kotlin.Double
 import kotlin.Int
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class BundleLinkSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var relation: KotlinString? = null,
   public var _relation: Element? = null,
   public var url: KotlinString? = null,
@@ -57,8 +57,8 @@ internal data class BundleLinkSurrogate(
   public fun toModel(): Bundle.Link =
     Bundle.Link(
       id = this@BundleLinkSurrogate.id,
-      extension = this@BundleLinkSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@BundleLinkSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@BundleLinkSurrogate.extension ?: listOf(),
+      modifierExtension = this@BundleLinkSurrogate.modifierExtension ?: listOf(),
       relation =
         Enumeration.of(
           Bundle.LinkRelationTypes.fromCode(this@BundleLinkSurrogate.relation!!),
@@ -86,9 +86,9 @@ internal data class BundleLinkSurrogate(
 @Serializable
 internal data class BundleEntrySurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var link: MutableList<Bundle.Link>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
+  public var link: List<Bundle.Link>? = null,
   public var fullUrl: KotlinString? = null,
   public var _fullUrl: Element? = null,
   public var resource: Resource? = null,
@@ -99,9 +99,9 @@ internal data class BundleEntrySurrogate(
   public fun toModel(): Bundle.Entry =
     Bundle.Entry(
       id = this@BundleEntrySurrogate.id,
-      extension = this@BundleEntrySurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@BundleEntrySurrogate.modifierExtension ?: mutableListOf(),
-      link = this@BundleEntrySurrogate.link ?: mutableListOf(),
+      extension = this@BundleEntrySurrogate.extension ?: listOf(),
+      modifierExtension = this@BundleEntrySurrogate.modifierExtension ?: listOf(),
+      link = this@BundleEntrySurrogate.link ?: listOf(),
       fullUrl = Uri.of(this@BundleEntrySurrogate.fullUrl, this@BundleEntrySurrogate._fullUrl),
       resource = this@BundleEntrySurrogate.resource,
       search = this@BundleEntrySurrogate.search,
@@ -131,8 +131,8 @@ internal data class BundleEntrySurrogate(
 @Serializable
 internal data class BundleEntrySearchSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var mode: KotlinString? = null,
   public var _mode: Element? = null,
   public var score: Double? = null,
@@ -141,8 +141,8 @@ internal data class BundleEntrySearchSurrogate(
   public fun toModel(): Bundle.Entry.Search =
     Bundle.Entry.Search(
       id = this@BundleEntrySearchSurrogate.id,
-      extension = this@BundleEntrySearchSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@BundleEntrySearchSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@BundleEntrySearchSurrogate.extension ?: listOf(),
+      modifierExtension = this@BundleEntrySearchSurrogate.modifierExtension ?: listOf(),
       mode =
         this@BundleEntrySearchSurrogate.mode?.let {
           Enumeration.of(Bundle.SearchEntryMode.fromCode(it), this@BundleEntrySearchSurrogate._mode)
@@ -170,8 +170,8 @@ internal data class BundleEntrySearchSurrogate(
 @Serializable
 internal data class BundleEntryRequestSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var method: KotlinString? = null,
   public var _method: Element? = null,
   public var url: KotlinString? = null,
@@ -188,8 +188,8 @@ internal data class BundleEntryRequestSurrogate(
   public fun toModel(): Bundle.Entry.Request =
     Bundle.Entry.Request(
       id = this@BundleEntryRequestSurrogate.id,
-      extension = this@BundleEntryRequestSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@BundleEntryRequestSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@BundleEntryRequestSurrogate.extension ?: listOf(),
+      modifierExtension = this@BundleEntryRequestSurrogate.modifierExtension ?: listOf(),
       method =
         Enumeration.of(
           Bundle.HTTPVerb.fromCode(this@BundleEntryRequestSurrogate.method!!),
@@ -245,8 +245,8 @@ internal data class BundleEntryRequestSurrogate(
 @Serializable
 internal data class BundleEntryResponseSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var status: KotlinString? = null,
   public var _status: Element? = null,
   public var location: KotlinString? = null,
@@ -260,8 +260,8 @@ internal data class BundleEntryResponseSurrogate(
   public fun toModel(): Bundle.Entry.Response =
     Bundle.Entry.Response(
       id = this@BundleEntryResponseSurrogate.id,
-      extension = this@BundleEntryResponseSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@BundleEntryResponseSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@BundleEntryResponseSurrogate.extension ?: listOf(),
+      modifierExtension = this@BundleEntryResponseSurrogate.modifierExtension ?: listOf(),
       status =
         R5String.of(
           this@BundleEntryResponseSurrogate.status,
@@ -321,8 +321,8 @@ internal data class BundleSurrogate(
   public var _timestamp: Element? = null,
   public var total: Int? = null,
   public var _total: Element? = null,
-  public var link: MutableList<Bundle.Link>? = null,
-  public var entry: MutableList<Bundle.Entry>? = null,
+  public var link: List<Bundle.Link>? = null,
+  public var entry: List<Bundle.Entry>? = null,
   public var signature: Signature? = null,
   public var issues: Resource? = null,
 ) {
@@ -345,8 +345,8 @@ internal data class BundleSurrogate(
           this@BundleSurrogate._timestamp,
         ),
       total = UnsignedInt.of(this@BundleSurrogate.total, this@BundleSurrogate._total),
-      link = this@BundleSurrogate.link ?: mutableListOf(),
-      entry = this@BundleSurrogate.entry ?: mutableListOf(),
+      link = this@BundleSurrogate.link ?: listOf(),
+      entry = this@BundleSurrogate.entry ?: listOf(),
       signature = this@BundleSurrogate.signature,
       issues = this@BundleSurrogate.issues,
     )

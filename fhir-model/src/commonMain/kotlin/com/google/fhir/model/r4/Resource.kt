@@ -32,13 +32,13 @@ public abstract class Resource {
    * The only time that a resource does not have an id is when it is being submitted to the server
    * using a create operation.
    */
-  public abstract var id: String?
+  public abstract val id: String?
 
   /**
    * The metadata about the resource. This is content that is maintained by the infrastructure.
    * Changes to the content might not always be associated with version changes to the resource.
    */
-  public abstract var meta: Meta?
+  public abstract val meta: Meta?
 
   /**
    * A reference to a set of rules that were followed when the resource was constructed, and which
@@ -53,7 +53,7 @@ public abstract class Resource {
    * to an implementation guide that defines these special rules as part of it's narrative along
    * with other profiles, value sets, etc.
    */
-  public abstract var implicitRules: Uri?
+  public abstract val implicitRules: Uri?
 
   /**
    * The base language in which the resource is written.
@@ -66,5 +66,5 @@ public abstract class Resource {
    * language is specified, it should it also be specified on the div element in the html (see rules
    * in HTML5 for information about the relationship between xml:lang and the html lang attribute).
    */
-  public abstract var language: Code?
+  public abstract val language: Code?
 }

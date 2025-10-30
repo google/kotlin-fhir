@@ -22,7 +22,7 @@ import com.google.fhir.model.r5.serializers.AnnotationAuthorSerializer
 import com.google.fhir.model.r5.serializers.AnnotationSerializer
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 
 /**
@@ -35,7 +35,7 @@ public data class Annotation(
    * Unique id for the element within a resource (for internal references). This may be any string
    * value that does not contain spaces.
    */
-  override var id: String? = null,
+  override val id: String? = null,
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * element. To make the use of extensions safe and managable, there is a strict set of governance
@@ -48,17 +48,17 @@ public data class Annotation(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: MutableList<Extension> = mutableListOf(),
+  override val extension: List<Extension> = listOf(),
   /**
    * The individual responsible for making the annotation.
    *
    * Organization is used when there's no need for specific attribution as to who made the comment.
    */
-  public var author: Author? = null,
+  public val author: Author? = null,
   /** Indicates when this particular annotation was made. */
-  public var time: DateTime? = null,
+  public val time: DateTime? = null,
   /** The text of the annotation in markdown format. */
-  public var text: Markdown,
+  public val text: Markdown,
 ) : DataType() {
   @Serializable(with = AnnotationAuthorSerializer::class)
   public sealed interface Author {

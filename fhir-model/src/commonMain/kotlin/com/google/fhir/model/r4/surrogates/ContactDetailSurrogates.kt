@@ -28,24 +28,24 @@ import com.google.fhir.model.r4.serializers.DoubleSerializer
 import com.google.fhir.model.r4.serializers.LocalTimeSerializer
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class ContactDetailSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
   public var name: KotlinString? = null,
   public var _name: Element? = null,
-  public var telecom: MutableList<ContactPoint>? = null,
+  public var telecom: List<ContactPoint>? = null,
 ) {
   public fun toModel(): ContactDetail =
     ContactDetail(
       id = this@ContactDetailSurrogate.id,
-      extension = this@ContactDetailSurrogate.extension ?: mutableListOf(),
+      extension = this@ContactDetailSurrogate.extension ?: listOf(),
       name = R4String.of(this@ContactDetailSurrogate.name, this@ContactDetailSurrogate._name),
-      telecom = this@ContactDetailSurrogate.telecom ?: mutableListOf(),
+      telecom = this@ContactDetailSurrogate.telecom ?: listOf(),
     )
 
   public companion object {

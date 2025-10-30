@@ -40,15 +40,15 @@ import com.google.fhir.model.r5.serializers.LocalTimeSerializer
 import com.google.fhir.model.r5.terminologies.PublicationStatus
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class ResearchSubjectProgressSurrogate(
   public var id: String? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var type: CodeableConcept? = null,
   public var subjectState: CodeableConcept? = null,
   public var milestone: CodeableConcept? = null,
@@ -61,9 +61,8 @@ internal data class ResearchSubjectProgressSurrogate(
   public fun toModel(): ResearchSubject.Progress =
     ResearchSubject.Progress(
       id = this@ResearchSubjectProgressSurrogate.id,
-      extension = this@ResearchSubjectProgressSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@ResearchSubjectProgressSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@ResearchSubjectProgressSurrogate.extension ?: listOf(),
+      modifierExtension = this@ResearchSubjectProgressSurrogate.modifierExtension ?: listOf(),
       type = this@ResearchSubjectProgressSurrogate.type,
       subjectState = this@ResearchSubjectProgressSurrogate.subjectState,
       milestone = this@ResearchSubjectProgressSurrogate.milestone,
@@ -109,13 +108,13 @@ internal data class ResearchSubjectSurrogate(
   public var language: String? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: MutableList<Resource>? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var identifier: MutableList<Identifier>? = null,
+  public var contained: List<Resource>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
+  public var identifier: List<Identifier>? = null,
   public var status: String? = null,
   public var _status: Element? = null,
-  public var progress: MutableList<ResearchSubject.Progress>? = null,
+  public var progress: List<ResearchSubject.Progress>? = null,
   public var period: Period? = null,
   public var study: Reference,
   public var subject: Reference,
@@ -123,7 +122,7 @@ internal data class ResearchSubjectSurrogate(
   public var _assignedComparisonGroup: Element? = null,
   public var actualComparisonGroup: String? = null,
   public var _actualComparisonGroup: Element? = null,
-  public var consent: MutableList<Reference>? = null,
+  public var consent: List<Reference>? = null,
 ) {
   public fun toModel(): ResearchSubject =
     ResearchSubject(
@@ -137,16 +136,16 @@ internal data class ResearchSubjectSurrogate(
       language =
         Code.of(this@ResearchSubjectSurrogate.language, this@ResearchSubjectSurrogate._language),
       text = this@ResearchSubjectSurrogate.text,
-      contained = this@ResearchSubjectSurrogate.contained ?: mutableListOf(),
-      extension = this@ResearchSubjectSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@ResearchSubjectSurrogate.modifierExtension ?: mutableListOf(),
-      identifier = this@ResearchSubjectSurrogate.identifier ?: mutableListOf(),
+      contained = this@ResearchSubjectSurrogate.contained ?: listOf(),
+      extension = this@ResearchSubjectSurrogate.extension ?: listOf(),
+      modifierExtension = this@ResearchSubjectSurrogate.modifierExtension ?: listOf(),
+      identifier = this@ResearchSubjectSurrogate.identifier ?: listOf(),
       status =
         Enumeration.of(
           PublicationStatus.fromCode(this@ResearchSubjectSurrogate.status!!),
           this@ResearchSubjectSurrogate._status,
         ),
-      progress = this@ResearchSubjectSurrogate.progress ?: mutableListOf(),
+      progress = this@ResearchSubjectSurrogate.progress ?: listOf(),
       period = this@ResearchSubjectSurrogate.period,
       study = this@ResearchSubjectSurrogate.study,
       subject = this@ResearchSubjectSurrogate.subject,
@@ -160,7 +159,7 @@ internal data class ResearchSubjectSurrogate(
           this@ResearchSubjectSurrogate.actualComparisonGroup,
           this@ResearchSubjectSurrogate._actualComparisonGroup,
         ),
-      consent = this@ResearchSubjectSurrogate.consent ?: mutableListOf(),
+      consent = this@ResearchSubjectSurrogate.consent ?: listOf(),
     )
 
   public companion object {

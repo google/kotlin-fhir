@@ -25,7 +25,7 @@ import com.google.fhir.model.r4.serializers.ConditionSerializer
 import com.google.fhir.model.r4.serializers.ConditionStageSerializer
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -43,12 +43,12 @@ public data class Condition(
    * The only time that a resource does not have an id is when it is being submitted to the server
    * using a create operation.
    */
-  override var id: String? = null,
+  override val id: String? = null,
   /**
    * The metadata about the resource. This is content that is maintained by the infrastructure.
    * Changes to the content might not always be associated with version changes to the resource.
    */
-  override var meta: Meta? = null,
+  override val meta: Meta? = null,
   /**
    * A reference to a set of rules that were followed when the resource was constructed, and which
    * must be understood when processing the content. Often, this is a reference to an implementation
@@ -62,7 +62,7 @@ public data class Condition(
    * to an implementation guide that defines these special rules as part of it's narrative along
    * with other profiles, value sets, etc.
    */
-  override var implicitRules: Uri? = null,
+  override val implicitRules: Uri? = null,
   /**
    * The base language in which the resource is written.
    *
@@ -74,7 +74,7 @@ public data class Condition(
    * language is specified, it should it also be specified on the div element in the html (see rules
    * in HTML5 for information about the relationship between xml:lang and the html lang attribute).
    */
-  override var language: Code? = null,
+  override val language: Code? = null,
   /**
    * A human-readable narrative that contains a summary of the resource and can be used to represent
    * the content of the resource to a human. The narrative need not encode all the structured data,
@@ -88,7 +88,7 @@ public data class Condition(
    * legacy systems where information is captured as a "text blob" or where text is additionally
    * entered raw or narrated and encoded information is added later.
    */
-  override var text: Narrative? = null,
+  override val text: Narrative? = null,
   /**
    * These resources do not have an independent existence apart from the resource that contains
    * them - they cannot be identified independently, and nor can they have their own independent
@@ -99,7 +99,7 @@ public data class Condition(
    * resources may have profiles and tags In their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: MutableList<Resource> = mutableListOf(),
+  override val contained: List<Resource> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and manageable, there is a strict set of
@@ -112,7 +112,7 @@ public data class Condition(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: MutableList<Extension> = mutableListOf(),
+  override val extension: List<Extension> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -131,7 +131,7 @@ public data class Condition(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: MutableList<Extension> = mutableListOf(),
+  override val modifierExtension: List<Extension> = listOf(),
   /**
    * Business identifiers assigned to this condition by the performer or other systems which remain
    * constant as the resource is updated and propagates from server to server.
@@ -143,7 +143,7 @@ public data class Condition(
    * resource types. For example, multiple Patient and a Person resource instance might share the
    * same social insurance number.
    */
-  public var identifier: MutableList<Identifier> = mutableListOf(),
+  public val identifier: List<Identifier> = listOf(),
   /**
    * The clinical status of the condition.
    *
@@ -151,7 +151,7 @@ public data class Condition(
    * such that there might need to be more specificity than the required FHIR value set allows. For
    * example, a SNOMED coding might allow for additional specificity.
    */
-  public var clinicalStatus: CodeableConcept? = null,
+  public val clinicalStatus: CodeableConcept? = null,
   /**
    * The verification status to support the clinical status of the condition.
    *
@@ -161,22 +161,22 @@ public data class Condition(
    * specificity than the required FHIR value set allows. For example, a SNOMED coding might allow
    * for additional specificity.
    */
-  public var verificationStatus: CodeableConcept? = null,
+  public val verificationStatus: CodeableConcept? = null,
   /**
    * A category assigned to the condition.
    *
    * The categorization is often highly contextual and may appear poorly differentiated or not very
    * useful in other contexts.
    */
-  public var category: MutableList<CodeableConcept> = mutableListOf(),
+  public val category: List<CodeableConcept> = listOf(),
   /**
    * A subjective assessment of the severity of the condition as evaluated by the clinician.
    *
    * Coding of the severity with a terminology is preferred, where possible.
    */
-  public var severity: CodeableConcept? = null,
+  public val severity: CodeableConcept? = null,
   /** Identification of the condition, problem or diagnosis. */
-  public var code: CodeableConcept? = null,
+  public val code: CodeableConcept? = null,
   /**
    * The anatomical location where this condition manifests itself.
    *
@@ -185,9 +185,9 @@ public data class Condition(
    * extension [bodySite](extension-bodysite.html). May be a summary code, or a reference to a very
    * precise definition of the location, or both.
    */
-  public var bodySite: MutableList<CodeableConcept> = mutableListOf(),
+  public val bodySite: List<CodeableConcept> = listOf(),
   /** Indicates the patient or group who the condition record is associated with. */
-  public var subject: Reference,
+  public val subject: Reference,
   /**
    * The Encounter during which this Condition was created or to which the creation of this record
    * is tightly associated.
@@ -199,13 +199,13 @@ public data class Condition(
    * the condition, this might be distinct from the first encounter in which the underlying
    * condition was first "known".
    */
-  public var encounter: Reference? = null,
+  public val encounter: Reference? = null,
   /**
    * Estimated or actual date or date-time the condition began, in the opinion of the clinician.
    *
    * Age is generally used when the patient reports an age at which the Condition began to occur.
    */
-  public var onset: Onset? = null,
+  public val onset: Onset? = null,
   /**
    * The date or estimated date that the condition resolved or went into remission. This is called
    * "abatement" because of the many overloaded connotations associated with "remission" or
@@ -217,18 +217,18 @@ public data class Condition(
    * resolved or entered remission; applications and users should generally assume that the
    * condition is still valid. When abatementString exists, it implies the condition is abated.
    */
-  public var abatement: Abatement? = null,
+  public val abatement: Abatement? = null,
   /**
    * The recordedDate represents when this particular Condition record was created in the system,
    * which is often a system-generated date.
    */
-  public var recordedDate: DateTime? = null,
+  public val recordedDate: DateTime? = null,
   /** Individual who recorded the record and takes responsibility for its content. */
-  public var recorder: Reference? = null,
+  public val recorder: Reference? = null,
   /** Individual who is making the condition statement. */
-  public var asserter: Reference? = null,
+  public val asserter: Reference? = null,
   /** Clinical stage or grade of a condition. May include formal severity assessments. */
-  public var stage: MutableList<Stage> = mutableListOf(),
+  public val stage: List<Stage> = listOf(),
   /**
    * Supporting evidence / manifestations that are the basis of the Condition's verification status,
    * such as evidence that confirmed or refuted the condition.
@@ -236,12 +236,12 @@ public data class Condition(
    * The evidence may be a simple list of coded symptoms/manifestations, or references to
    * observations or formal assessments, or both.
    */
-  public var evidence: MutableList<Evidence> = mutableListOf(),
+  public val evidence: List<Evidence> = listOf(),
   /**
    * Additional information about the Condition. This is a general notes/comments entry for
    * description of the Condition, its diagnosis and prognosis.
    */
-  public var note: MutableList<Annotation> = mutableListOf(),
+  public val note: List<Annotation> = listOf(),
 ) : DomainResource() {
   /** Clinical stage or grade of a condition. May include formal severity assessments. */
   @Serializable(with = ConditionStageSerializer::class)
@@ -250,7 +250,7 @@ public data class Condition(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: String? = null,
+    override val id: String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and manageable, there is a strict set of
@@ -263,7 +263,7 @@ public data class Condition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -282,16 +282,16 @@ public data class Condition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /**
      * A simple summary of the stage such as "Stage 3". The determination of the stage is
      * disease-specific.
      */
-    public var summary: CodeableConcept? = null,
+    public val summary: CodeableConcept? = null,
     /** Reference to a formal record of the evidence on which the staging assessment is based. */
-    public var assessment: MutableList<Reference> = mutableListOf(),
+    public val assessment: List<Reference> = listOf(),
     /** The kind of staging, such as pathological or clinical staging. */
-    public var type: CodeableConcept? = null,
+    public val type: CodeableConcept? = null,
   ) : BackboneElement()
 
   /**
@@ -304,7 +304,7 @@ public data class Condition(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: String? = null,
+    override val id: String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and manageable, there is a strict set of
@@ -317,7 +317,7 @@ public data class Condition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -336,11 +336,11 @@ public data class Condition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /** A manifestation or symptom that led to the recording of this condition. */
-    public var code: MutableList<CodeableConcept> = mutableListOf(),
+    public val code: List<CodeableConcept> = listOf(),
     /** Links to other relevant information, including pathology reports. */
-    public var detail: MutableList<Reference> = mutableListOf(),
+    public val detail: List<Reference> = listOf(),
   ) : BackboneElement()
 
   @Serializable(with = ConditionOnsetSerializer::class)

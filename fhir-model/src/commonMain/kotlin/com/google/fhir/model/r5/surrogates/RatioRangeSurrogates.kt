@@ -26,14 +26,14 @@ import com.google.fhir.model.r5.serializers.DoubleSerializer
 import com.google.fhir.model.r5.serializers.LocalTimeSerializer
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class RatioRangeSurrogate(
   public var id: String? = null,
-  public var extension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
   public var lowNumerator: Quantity? = null,
   public var highNumerator: Quantity? = null,
   public var denominator: Quantity? = null,
@@ -41,7 +41,7 @@ internal data class RatioRangeSurrogate(
   public fun toModel(): RatioRange =
     RatioRange(
       id = this@RatioRangeSurrogate.id,
-      extension = this@RatioRangeSurrogate.extension ?: mutableListOf(),
+      extension = this@RatioRangeSurrogate.extension ?: listOf(),
       lowNumerator = this@RatioRangeSurrogate.lowNumerator,
       highNumerator = this@RatioRangeSurrogate.highNumerator,
       denominator = this@RatioRangeSurrogate.denominator,

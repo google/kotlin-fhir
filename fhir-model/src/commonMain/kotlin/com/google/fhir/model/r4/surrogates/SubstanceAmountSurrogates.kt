@@ -30,21 +30,21 @@ import com.google.fhir.model.r4.serializers.DoubleSerializer
 import com.google.fhir.model.r4.serializers.LocalTimeSerializer
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class SubstanceAmountReferenceRangeSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
   public var lowLimit: Quantity? = null,
   public var highLimit: Quantity? = null,
 ) {
   public fun toModel(): SubstanceAmount.ReferenceRange =
     SubstanceAmount.ReferenceRange(
       id = this@SubstanceAmountReferenceRangeSurrogate.id,
-      extension = this@SubstanceAmountReferenceRangeSurrogate.extension ?: mutableListOf(),
+      extension = this@SubstanceAmountReferenceRangeSurrogate.extension ?: listOf(),
       lowLimit = this@SubstanceAmountReferenceRangeSurrogate.lowLimit,
       highLimit = this@SubstanceAmountReferenceRangeSurrogate.highLimit,
     )
@@ -97,8 +97,8 @@ internal data class SubstanceAmountAmountSurrogate(
 @Serializable
 internal data class SubstanceAmountSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var amount: SubstanceAmount.Amount? = null,
   public var amountType: CodeableConcept? = null,
   public var amountText: KotlinString? = null,
@@ -108,8 +108,8 @@ internal data class SubstanceAmountSurrogate(
   public fun toModel(): SubstanceAmount =
     SubstanceAmount(
       id = this@SubstanceAmountSurrogate.id,
-      extension = this@SubstanceAmountSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@SubstanceAmountSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@SubstanceAmountSurrogate.extension ?: listOf(),
+      modifierExtension = this@SubstanceAmountSurrogate.modifierExtension ?: listOf(),
       amount = this@SubstanceAmountSurrogate.amount,
       amountType = this@SubstanceAmountSurrogate.amountType,
       amountText =

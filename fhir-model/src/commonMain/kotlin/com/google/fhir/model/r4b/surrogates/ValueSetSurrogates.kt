@@ -52,27 +52,27 @@ import kotlin.Double
 import kotlin.Int
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class ValueSetComposeSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var lockedDate: KotlinString? = null,
   public var _lockedDate: Element? = null,
   public var inactive: KotlinBoolean? = null,
   public var _inactive: Element? = null,
-  public var include: MutableList<ValueSet.Compose.Include>? = null,
-  public var exclude: MutableList<ValueSet.Compose.Include>? = null,
+  public var include: List<ValueSet.Compose.Include>? = null,
+  public var exclude: List<ValueSet.Compose.Include>? = null,
 ) {
   public fun toModel(): ValueSet.Compose =
     ValueSet.Compose(
       id = this@ValueSetComposeSurrogate.id,
-      extension = this@ValueSetComposeSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@ValueSetComposeSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@ValueSetComposeSurrogate.extension ?: listOf(),
+      modifierExtension = this@ValueSetComposeSurrogate.modifierExtension ?: listOf(),
       lockedDate =
         Date.of(
           FhirDate.fromString(this@ValueSetComposeSurrogate.lockedDate),
@@ -83,8 +83,8 @@ internal data class ValueSetComposeSurrogate(
           this@ValueSetComposeSurrogate.inactive,
           this@ValueSetComposeSurrogate._inactive,
         ),
-      include = this@ValueSetComposeSurrogate.include ?: mutableListOf(),
-      exclude = this@ValueSetComposeSurrogate.exclude ?: mutableListOf(),
+      include = this@ValueSetComposeSurrogate.include ?: listOf(),
+      exclude = this@ValueSetComposeSurrogate.exclude ?: listOf(),
     )
 
   public companion object {
@@ -108,22 +108,22 @@ internal data class ValueSetComposeSurrogate(
 @Serializable
 internal data class ValueSetComposeIncludeSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var system: KotlinString? = null,
   public var _system: Element? = null,
   public var version: KotlinString? = null,
   public var _version: Element? = null,
-  public var concept: MutableList<ValueSet.Compose.Include.Concept>? = null,
-  public var filter: MutableList<ValueSet.Compose.Include.Filter>? = null,
-  public var valueSet: MutableList<KotlinString?>? = null,
-  public var _valueSet: MutableList<Element?>? = null,
+  public var concept: List<ValueSet.Compose.Include.Concept>? = null,
+  public var filter: List<ValueSet.Compose.Include.Filter>? = null,
+  public var valueSet: List<KotlinString?>? = null,
+  public var _valueSet: List<Element?>? = null,
 ) {
   public fun toModel(): ValueSet.Compose.Include =
     ValueSet.Compose.Include(
       id = this@ValueSetComposeIncludeSurrogate.id,
-      extension = this@ValueSetComposeIncludeSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@ValueSetComposeIncludeSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@ValueSetComposeIncludeSurrogate.extension ?: listOf(),
+      modifierExtension = this@ValueSetComposeIncludeSurrogate.modifierExtension ?: listOf(),
       system =
         Uri.of(
           this@ValueSetComposeIncludeSurrogate.system,
@@ -134,14 +134,14 @@ internal data class ValueSetComposeIncludeSurrogate(
           this@ValueSetComposeIncludeSurrogate.version,
           this@ValueSetComposeIncludeSurrogate._version,
         ),
-      concept = this@ValueSetComposeIncludeSurrogate.concept ?: mutableListOf(),
-      filter = this@ValueSetComposeIncludeSurrogate.filter ?: mutableListOf(),
+      concept = this@ValueSetComposeIncludeSurrogate.concept ?: listOf(),
+      filter = this@ValueSetComposeIncludeSurrogate.filter ?: listOf(),
       valueSet =
         if (
           this@ValueSetComposeIncludeSurrogate.valueSet == null &&
             this@ValueSetComposeIncludeSurrogate._valueSet == null
         ) {
-          mutableListOf()
+          listOf()
         } else {
           (this@ValueSetComposeIncludeSurrogate.valueSet
               ?: List(this@ValueSetComposeIncludeSurrogate._valueSet!!.size) { null })
@@ -150,7 +150,7 @@ internal data class ValueSetComposeIncludeSurrogate(
                 ?: List(this@ValueSetComposeIncludeSurrogate.valueSet!!.size) { null }
             )
             .map { (value, element) -> Canonical.of(value, element)!! }
-            .toMutableList()
+            .toList()
         },
     )
 
@@ -168,16 +168,13 @@ internal data class ValueSetComposeIncludeSurrogate(
           concept = this@with.concept.takeIf { it.isNotEmpty() },
           filter = this@with.filter.takeIf { it.isNotEmpty() },
           valueSet =
-            this@with.valueSet
-              .map { it.value }
-              .toMutableList()
-              .takeUnless { it.all { it == null } },
+            this@with.valueSet.map { it.value }.toList().takeUnless { it.all { it == null } },
           _valueSet =
             this@with.valueSet
               .map { it.toElement() }
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
-              ?.toMutableList(),
+              ?.toList(),
         )
       }
   }
@@ -186,20 +183,19 @@ internal data class ValueSetComposeIncludeSurrogate(
 @Serializable
 internal data class ValueSetComposeIncludeConceptSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var code: KotlinString? = null,
   public var _code: Element? = null,
   public var display: KotlinString? = null,
   public var _display: Element? = null,
-  public var designation: MutableList<ValueSet.Compose.Include.Concept.Designation>? = null,
+  public var designation: List<ValueSet.Compose.Include.Concept.Designation>? = null,
 ) {
   public fun toModel(): ValueSet.Compose.Include.Concept =
     ValueSet.Compose.Include.Concept(
       id = this@ValueSetComposeIncludeConceptSurrogate.id,
-      extension = this@ValueSetComposeIncludeConceptSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@ValueSetComposeIncludeConceptSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@ValueSetComposeIncludeConceptSurrogate.extension ?: listOf(),
+      modifierExtension = this@ValueSetComposeIncludeConceptSurrogate.modifierExtension ?: listOf(),
       code =
         Code.of(
           this@ValueSetComposeIncludeConceptSurrogate.code,
@@ -210,7 +206,7 @@ internal data class ValueSetComposeIncludeConceptSurrogate(
           this@ValueSetComposeIncludeConceptSurrogate.display,
           this@ValueSetComposeIncludeConceptSurrogate._display,
         ),
-      designation = this@ValueSetComposeIncludeConceptSurrogate.designation ?: mutableListOf(),
+      designation = this@ValueSetComposeIncludeConceptSurrogate.designation ?: listOf(),
     )
 
   public companion object {
@@ -235,8 +231,8 @@ internal data class ValueSetComposeIncludeConceptSurrogate(
 @Serializable
 internal data class ValueSetComposeIncludeConceptDesignationSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var use: Coding? = null,
@@ -246,10 +242,9 @@ internal data class ValueSetComposeIncludeConceptDesignationSurrogate(
   public fun toModel(): ValueSet.Compose.Include.Concept.Designation =
     ValueSet.Compose.Include.Concept.Designation(
       id = this@ValueSetComposeIncludeConceptDesignationSurrogate.id,
-      extension =
-        this@ValueSetComposeIncludeConceptDesignationSurrogate.extension ?: mutableListOf(),
+      extension = this@ValueSetComposeIncludeConceptDesignationSurrogate.extension ?: listOf(),
       modifierExtension =
-        this@ValueSetComposeIncludeConceptDesignationSurrogate.modifierExtension ?: mutableListOf(),
+        this@ValueSetComposeIncludeConceptDesignationSurrogate.modifierExtension ?: listOf(),
       language =
         this@ValueSetComposeIncludeConceptDesignationSurrogate.language?.let {
           Enumeration.of(
@@ -287,8 +282,8 @@ internal data class ValueSetComposeIncludeConceptDesignationSurrogate(
 @Serializable
 internal data class ValueSetComposeIncludeFilterSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var `property`: KotlinString? = null,
   public var _property: Element? = null,
   public var op: KotlinString? = null,
@@ -299,9 +294,8 @@ internal data class ValueSetComposeIncludeFilterSurrogate(
   public fun toModel(): ValueSet.Compose.Include.Filter =
     ValueSet.Compose.Include.Filter(
       id = this@ValueSetComposeIncludeFilterSurrogate.id,
-      extension = this@ValueSetComposeIncludeFilterSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@ValueSetComposeIncludeFilterSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@ValueSetComposeIncludeFilterSurrogate.extension ?: listOf(),
+      modifierExtension = this@ValueSetComposeIncludeFilterSurrogate.modifierExtension ?: listOf(),
       `property` =
         Code.of(
           this@ValueSetComposeIncludeFilterSurrogate.`property`,
@@ -342,8 +336,8 @@ internal data class ValueSetComposeIncludeFilterSurrogate(
 @Serializable
 internal data class ValueSetExpansionSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var identifier: KotlinString? = null,
   public var _identifier: Element? = null,
   public var timestamp: KotlinString? = null,
@@ -352,14 +346,14 @@ internal data class ValueSetExpansionSurrogate(
   public var _total: Element? = null,
   public var offset: Int? = null,
   public var _offset: Element? = null,
-  public var parameter: MutableList<ValueSet.Expansion.Parameter>? = null,
-  public var contains: MutableList<ValueSet.Expansion.Contains>? = null,
+  public var parameter: List<ValueSet.Expansion.Parameter>? = null,
+  public var contains: List<ValueSet.Expansion.Contains>? = null,
 ) {
   public fun toModel(): ValueSet.Expansion =
     ValueSet.Expansion(
       id = this@ValueSetExpansionSurrogate.id,
-      extension = this@ValueSetExpansionSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@ValueSetExpansionSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@ValueSetExpansionSurrogate.extension ?: listOf(),
+      modifierExtension = this@ValueSetExpansionSurrogate.modifierExtension ?: listOf(),
       identifier =
         Uri.of(
           this@ValueSetExpansionSurrogate.identifier,
@@ -374,8 +368,8 @@ internal data class ValueSetExpansionSurrogate(
         Integer.of(this@ValueSetExpansionSurrogate.total, this@ValueSetExpansionSurrogate._total),
       offset =
         Integer.of(this@ValueSetExpansionSurrogate.offset, this@ValueSetExpansionSurrogate._offset),
-      parameter = this@ValueSetExpansionSurrogate.parameter ?: mutableListOf(),
-      contains = this@ValueSetExpansionSurrogate.contains ?: mutableListOf(),
+      parameter = this@ValueSetExpansionSurrogate.parameter ?: listOf(),
+      contains = this@ValueSetExpansionSurrogate.contains ?: listOf(),
     )
 
   public companion object {
@@ -403,8 +397,8 @@ internal data class ValueSetExpansionSurrogate(
 @Serializable
 internal data class ValueSetExpansionParameterSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var name: KotlinString? = null,
   public var _name: Element? = null,
   public var `value`: ValueSet.Expansion.Parameter.Value? = null,
@@ -412,9 +406,8 @@ internal data class ValueSetExpansionParameterSurrogate(
   public fun toModel(): ValueSet.Expansion.Parameter =
     ValueSet.Expansion.Parameter(
       id = this@ValueSetExpansionParameterSurrogate.id,
-      extension = this@ValueSetExpansionParameterSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@ValueSetExpansionParameterSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@ValueSetExpansionParameterSurrogate.extension ?: listOf(),
+      modifierExtension = this@ValueSetExpansionParameterSurrogate.modifierExtension ?: listOf(),
       name =
         R4bString.of(
           this@ValueSetExpansionParameterSurrogate.name,
@@ -441,8 +434,8 @@ internal data class ValueSetExpansionParameterSurrogate(
 @Serializable
 internal data class ValueSetExpansionContainsSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var system: KotlinString? = null,
   public var _system: Element? = null,
   public var `abstract`: KotlinBoolean? = null,
@@ -455,15 +448,14 @@ internal data class ValueSetExpansionContainsSurrogate(
   public var _code: Element? = null,
   public var display: KotlinString? = null,
   public var _display: Element? = null,
-  public var designation: MutableList<ValueSet.Compose.Include.Concept.Designation>? = null,
-  public var contains: MutableList<ValueSet.Expansion.Contains>? = null,
+  public var designation: List<ValueSet.Compose.Include.Concept.Designation>? = null,
+  public var contains: List<ValueSet.Expansion.Contains>? = null,
 ) {
   public fun toModel(): ValueSet.Expansion.Contains =
     ValueSet.Expansion.Contains(
       id = this@ValueSetExpansionContainsSurrogate.id,
-      extension = this@ValueSetExpansionContainsSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@ValueSetExpansionContainsSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@ValueSetExpansionContainsSurrogate.extension ?: listOf(),
+      modifierExtension = this@ValueSetExpansionContainsSurrogate.modifierExtension ?: listOf(),
       system =
         Uri.of(
           this@ValueSetExpansionContainsSurrogate.system,
@@ -494,8 +486,8 @@ internal data class ValueSetExpansionContainsSurrogate(
           this@ValueSetExpansionContainsSurrogate.display,
           this@ValueSetExpansionContainsSurrogate._display,
         ),
-      designation = this@ValueSetExpansionContainsSurrogate.designation ?: mutableListOf(),
-      contains = this@ValueSetExpansionContainsSurrogate.contains ?: mutableListOf(),
+      designation = this@ValueSetExpansionContainsSurrogate.designation ?: listOf(),
+      contains = this@ValueSetExpansionContainsSurrogate.contains ?: listOf(),
     )
 
   public companion object {
@@ -607,12 +599,12 @@ internal data class ValueSetSurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: MutableList<Resource>? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var contained: List<Resource>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var url: KotlinString? = null,
   public var _url: Element? = null,
-  public var identifier: MutableList<Identifier>? = null,
+  public var identifier: List<Identifier>? = null,
   public var version: KotlinString? = null,
   public var _version: Element? = null,
   public var name: KotlinString? = null,
@@ -627,11 +619,11 @@ internal data class ValueSetSurrogate(
   public var _date: Element? = null,
   public var publisher: KotlinString? = null,
   public var _publisher: Element? = null,
-  public var contact: MutableList<ContactDetail>? = null,
+  public var contact: List<ContactDetail>? = null,
   public var description: KotlinString? = null,
   public var _description: Element? = null,
-  public var useContext: MutableList<UsageContext>? = null,
-  public var jurisdiction: MutableList<CodeableConcept>? = null,
+  public var useContext: List<UsageContext>? = null,
+  public var jurisdiction: List<CodeableConcept>? = null,
   public var immutable: KotlinBoolean? = null,
   public var _immutable: Element? = null,
   public var purpose: KotlinString? = null,
@@ -649,11 +641,11 @@ internal data class ValueSetSurrogate(
         Uri.of(this@ValueSetSurrogate.implicitRules, this@ValueSetSurrogate._implicitRules),
       language = Code.of(this@ValueSetSurrogate.language, this@ValueSetSurrogate._language),
       text = this@ValueSetSurrogate.text,
-      contained = this@ValueSetSurrogate.contained ?: mutableListOf(),
-      extension = this@ValueSetSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@ValueSetSurrogate.modifierExtension ?: mutableListOf(),
+      contained = this@ValueSetSurrogate.contained ?: listOf(),
+      extension = this@ValueSetSurrogate.extension ?: listOf(),
+      modifierExtension = this@ValueSetSurrogate.modifierExtension ?: listOf(),
       url = Uri.of(this@ValueSetSurrogate.url, this@ValueSetSurrogate._url),
-      identifier = this@ValueSetSurrogate.identifier ?: mutableListOf(),
+      identifier = this@ValueSetSurrogate.identifier ?: listOf(),
       version = R4bString.of(this@ValueSetSurrogate.version, this@ValueSetSurrogate._version),
       name = R4bString.of(this@ValueSetSurrogate.name, this@ValueSetSurrogate._name),
       title = R4bString.of(this@ValueSetSurrogate.title, this@ValueSetSurrogate._title),
@@ -670,11 +662,11 @@ internal data class ValueSetSurrogate(
           this@ValueSetSurrogate._date,
         ),
       publisher = R4bString.of(this@ValueSetSurrogate.publisher, this@ValueSetSurrogate._publisher),
-      contact = this@ValueSetSurrogate.contact ?: mutableListOf(),
+      contact = this@ValueSetSurrogate.contact ?: listOf(),
       description =
         Markdown.of(this@ValueSetSurrogate.description, this@ValueSetSurrogate._description),
-      useContext = this@ValueSetSurrogate.useContext ?: mutableListOf(),
-      jurisdiction = this@ValueSetSurrogate.jurisdiction ?: mutableListOf(),
+      useContext = this@ValueSetSurrogate.useContext ?: listOf(),
+      jurisdiction = this@ValueSetSurrogate.jurisdiction ?: listOf(),
       immutable =
         R4bBoolean.of(this@ValueSetSurrogate.immutable, this@ValueSetSurrogate._immutable),
       purpose = Markdown.of(this@ValueSetSurrogate.purpose, this@ValueSetSurrogate._purpose),

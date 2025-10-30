@@ -44,7 +44,7 @@ import kotlin.Boolean as KotlinBoolean
 import kotlin.Double
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.datetime.LocalTime
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
@@ -52,8 +52,8 @@ import kotlinx.serialization.UseSerializers
 @Serializable
 internal data class LocationPositionSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var longitude: Double? = null,
   public var _longitude: Element? = null,
   public var latitude: Double? = null,
@@ -64,8 +64,8 @@ internal data class LocationPositionSurrogate(
   public fun toModel(): Location.Position =
     Location.Position(
       id = this@LocationPositionSurrogate.id,
-      extension = this@LocationPositionSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@LocationPositionSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@LocationPositionSurrogate.extension ?: listOf(),
+      modifierExtension = this@LocationPositionSurrogate.modifierExtension ?: listOf(),
       longitude =
         Decimal.of(
           this@LocationPositionSurrogate.longitude,
@@ -104,10 +104,10 @@ internal data class LocationPositionSurrogate(
 @Serializable
 internal data class LocationHoursOfOperationSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var daysOfWeek: MutableList<KotlinString?>? = null,
-  public var _daysOfWeek: MutableList<Element?>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
+  public var daysOfWeek: List<KotlinString?>? = null,
+  public var _daysOfWeek: List<Element?>? = null,
   public var allDay: KotlinBoolean? = null,
   public var _allDay: Element? = null,
   public var openingTime: LocalTime? = null,
@@ -118,15 +118,14 @@ internal data class LocationHoursOfOperationSurrogate(
   public fun toModel(): Location.HoursOfOperation =
     Location.HoursOfOperation(
       id = this@LocationHoursOfOperationSurrogate.id,
-      extension = this@LocationHoursOfOperationSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@LocationHoursOfOperationSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@LocationHoursOfOperationSurrogate.extension ?: listOf(),
+      modifierExtension = this@LocationHoursOfOperationSurrogate.modifierExtension ?: listOf(),
       daysOfWeek =
         if (
           this@LocationHoursOfOperationSurrogate.daysOfWeek == null &&
             this@LocationHoursOfOperationSurrogate._daysOfWeek == null
         ) {
-          mutableListOf()
+          listOf()
         } else {
           (this@LocationHoursOfOperationSurrogate.daysOfWeek
               ?: List(this@LocationHoursOfOperationSurrogate._daysOfWeek!!.size) { null })
@@ -137,7 +136,7 @@ internal data class LocationHoursOfOperationSurrogate(
             .map { (value, element) ->
               Enumeration.of(value.let { Location.DaysOfWeek.fromCode(it!!) }, element)
             }
-            .toMutableList()
+            .toList()
         },
       allDay =
         R4bBoolean.of(
@@ -166,14 +165,14 @@ internal data class LocationHoursOfOperationSurrogate(
           daysOfWeek =
             this@with.daysOfWeek
               .map { it.value?.getCode() }
-              .toMutableList()
+              .toList()
               .takeUnless { it.all { it == null } },
           _daysOfWeek =
             this@with.daysOfWeek
               .map { it.toElement() }
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
-              ?.toMutableList(),
+              ?.toList(),
           allDay = this@with.allDay?.value,
           _allDay = this@with.allDay?.toElement(),
           openingTime = this@with.openingTime?.value,
@@ -194,32 +193,32 @@ internal data class LocationSurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: MutableList<Resource>? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var identifier: MutableList<Identifier>? = null,
+  public var contained: List<Resource>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
+  public var identifier: List<Identifier>? = null,
   public var status: KotlinString? = null,
   public var _status: Element? = null,
   public var operationalStatus: Coding? = null,
   public var name: KotlinString? = null,
   public var _name: Element? = null,
-  public var alias: MutableList<KotlinString?>? = null,
-  public var _alias: MutableList<Element?>? = null,
+  public var alias: List<KotlinString?>? = null,
+  public var _alias: List<Element?>? = null,
   public var description: KotlinString? = null,
   public var _description: Element? = null,
   public var mode: KotlinString? = null,
   public var _mode: Element? = null,
-  public var type: MutableList<CodeableConcept>? = null,
-  public var telecom: MutableList<ContactPoint>? = null,
+  public var type: List<CodeableConcept>? = null,
+  public var telecom: List<ContactPoint>? = null,
   public var address: Address? = null,
   public var physicalType: CodeableConcept? = null,
   public var position: Location.Position? = null,
   public var managingOrganization: Reference? = null,
   public var partOf: Reference? = null,
-  public var hoursOfOperation: MutableList<Location.HoursOfOperation>? = null,
+  public var hoursOfOperation: List<Location.HoursOfOperation>? = null,
   public var availabilityExceptions: KotlinString? = null,
   public var _availabilityExceptions: Element? = null,
-  public var endpoint: MutableList<Reference>? = null,
+  public var endpoint: List<Reference>? = null,
 ) {
   public fun toModel(): Location =
     Location(
@@ -229,10 +228,10 @@ internal data class LocationSurrogate(
         Uri.of(this@LocationSurrogate.implicitRules, this@LocationSurrogate._implicitRules),
       language = Code.of(this@LocationSurrogate.language, this@LocationSurrogate._language),
       text = this@LocationSurrogate.text,
-      contained = this@LocationSurrogate.contained ?: mutableListOf(),
-      extension = this@LocationSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@LocationSurrogate.modifierExtension ?: mutableListOf(),
-      identifier = this@LocationSurrogate.identifier ?: mutableListOf(),
+      contained = this@LocationSurrogate.contained ?: listOf(),
+      extension = this@LocationSurrogate.extension ?: listOf(),
+      modifierExtension = this@LocationSurrogate.modifierExtension ?: listOf(),
+      identifier = this@LocationSurrogate.identifier ?: listOf(),
       status =
         this@LocationSurrogate.status?.let {
           Enumeration.of(Location.LocationStatus.fromCode(it), this@LocationSurrogate._status)
@@ -241,14 +240,14 @@ internal data class LocationSurrogate(
       name = R4bString.of(this@LocationSurrogate.name, this@LocationSurrogate._name),
       alias =
         if (this@LocationSurrogate.alias == null && this@LocationSurrogate._alias == null) {
-          mutableListOf()
+          listOf()
         } else {
           (this@LocationSurrogate.alias ?: List(this@LocationSurrogate._alias!!.size) { null })
             .zip(
               this@LocationSurrogate._alias ?: List(this@LocationSurrogate.alias!!.size) { null }
             )
             .map { (value, element) -> R4bString.of(value, element)!! }
-            .toMutableList()
+            .toList()
         },
       description =
         R4bString.of(this@LocationSurrogate.description, this@LocationSurrogate._description),
@@ -256,20 +255,20 @@ internal data class LocationSurrogate(
         this@LocationSurrogate.mode?.let {
           Enumeration.of(Location.LocationMode.fromCode(it), this@LocationSurrogate._mode)
         },
-      type = this@LocationSurrogate.type ?: mutableListOf(),
-      telecom = this@LocationSurrogate.telecom ?: mutableListOf(),
+      type = this@LocationSurrogate.type ?: listOf(),
+      telecom = this@LocationSurrogate.telecom ?: listOf(),
       address = this@LocationSurrogate.address,
       physicalType = this@LocationSurrogate.physicalType,
       position = this@LocationSurrogate.position,
       managingOrganization = this@LocationSurrogate.managingOrganization,
       partOf = this@LocationSurrogate.partOf,
-      hoursOfOperation = this@LocationSurrogate.hoursOfOperation ?: mutableListOf(),
+      hoursOfOperation = this@LocationSurrogate.hoursOfOperation ?: listOf(),
       availabilityExceptions =
         R4bString.of(
           this@LocationSurrogate.availabilityExceptions,
           this@LocationSurrogate._availabilityExceptions,
         ),
-      endpoint = this@LocationSurrogate.endpoint ?: mutableListOf(),
+      endpoint = this@LocationSurrogate.endpoint ?: listOf(),
     )
 
   public companion object {
@@ -292,14 +291,13 @@ internal data class LocationSurrogate(
           operationalStatus = this@with.operationalStatus,
           name = this@with.name?.value,
           _name = this@with.name?.toElement(),
-          alias =
-            this@with.alias.map { it.value }.toMutableList().takeUnless { it.all { it == null } },
+          alias = this@with.alias.map { it.value }.toList().takeUnless { it.all { it == null } },
           _alias =
             this@with.alias
               .map { it.toElement() }
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
-              ?.toMutableList(),
+              ?.toList(),
           description = this@with.description?.value,
           _description = this@with.description?.toElement(),
           mode = this@with.mode?.value?.getCode(),

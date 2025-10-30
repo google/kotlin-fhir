@@ -20,12 +20,12 @@ package com.google.fhir.model.r4b
 
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 
 /** Base StructureDefinition for boolean Type: Value of "true" or "false" */
 public data class Boolean(
   /** unique id for the element within a resource (for internal references) */
-  override var id: String? = null,
+  override val id: String? = null,
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and manageable, there is a strict set of
@@ -38,9 +38,9 @@ public data class Boolean(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: MutableList<Extension> = mutableListOf(),
+  override val extension: List<Extension> = listOf(),
   /** The actual value */
-  public var `value`: kotlin.Boolean? = null,
+  public val `value`: kotlin.Boolean? = null,
 ) : Element(id, extension) {
   public fun toElement(): Element? {
     if (id != null || extension.isNotEmpty()) {

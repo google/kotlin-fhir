@@ -35,15 +35,15 @@ import com.google.fhir.model.r5.serializers.LocalTimeSerializer
 import kotlin.Boolean as KotlinBoolean
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class LinkageItemSurrogate(
   public var id: String? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var type: String? = null,
   public var _type: Element? = null,
   public var resource: Reference,
@@ -51,8 +51,8 @@ internal data class LinkageItemSurrogate(
   public fun toModel(): Linkage.Item =
     Linkage.Item(
       id = this@LinkageItemSurrogate.id,
-      extension = this@LinkageItemSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@LinkageItemSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@LinkageItemSurrogate.extension ?: listOf(),
+      modifierExtension = this@LinkageItemSurrogate.modifierExtension ?: listOf(),
       type =
         Enumeration.of(
           Linkage.LinkageType.fromCode(this@LinkageItemSurrogate.type!!),
@@ -85,13 +85,13 @@ internal data class LinkageSurrogate(
   public var language: String? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: MutableList<Resource>? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var contained: List<Resource>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var active: KotlinBoolean? = null,
   public var _active: Element? = null,
   public var author: Reference? = null,
-  public var item: MutableList<Linkage.Item>? = null,
+  public var item: List<Linkage.Item>? = null,
 ) {
   public fun toModel(): Linkage =
     Linkage(
@@ -101,12 +101,12 @@ internal data class LinkageSurrogate(
         Uri.of(this@LinkageSurrogate.implicitRules, this@LinkageSurrogate._implicitRules),
       language = Code.of(this@LinkageSurrogate.language, this@LinkageSurrogate._language),
       text = this@LinkageSurrogate.text,
-      contained = this@LinkageSurrogate.contained ?: mutableListOf(),
-      extension = this@LinkageSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@LinkageSurrogate.modifierExtension ?: mutableListOf(),
+      contained = this@LinkageSurrogate.contained ?: listOf(),
+      extension = this@LinkageSurrogate.extension ?: listOf(),
+      modifierExtension = this@LinkageSurrogate.modifierExtension ?: listOf(),
       active = R5Boolean.of(this@LinkageSurrogate.active, this@LinkageSurrogate._active),
       author = this@LinkageSurrogate.author,
-      item = this@LinkageSurrogate.item ?: mutableListOf(),
+      item = this@LinkageSurrogate.item ?: listOf(),
     )
 
   public companion object {

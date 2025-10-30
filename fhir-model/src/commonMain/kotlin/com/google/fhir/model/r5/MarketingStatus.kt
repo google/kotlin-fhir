@@ -21,7 +21,7 @@ package com.google.fhir.model.r5
 import com.google.fhir.model.r5.serializers.MarketingStatusSerializer
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 
 /**
@@ -34,7 +34,7 @@ public data class MarketingStatus(
    * Unique id for the element within a resource (for internal references). This may be any string
    * value that does not contain spaces.
    */
-  override var id: String? = null,
+  override val id: String? = null,
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * element. To make the use of extensions safe and managable, there is a strict set of governance
@@ -47,7 +47,7 @@ public data class MarketingStatus(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: MutableList<Extension> = mutableListOf(),
+  override val extension: List<Extension> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * element and that modifies the understanding of the element in which it is contained and/or the
@@ -66,24 +66,24 @@ public data class MarketingStatus(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: MutableList<Extension> = mutableListOf(),
+  override val modifierExtension: List<Extension> = listOf(),
   /**
    * The country in which the marketing authorization has been granted shall be specified It should
    * be specified using the ISO 3166 ‑ 1 alpha-2 code elements.
    */
-  public var country: CodeableConcept? = null,
+  public val country: CodeableConcept? = null,
   /**
    * Where a Medicines Regulatory Agency has granted a marketing authorization for which specific
    * provisions within a jurisdiction apply, the jurisdiction can be specified using an appropriate
    * controlled terminology The controlled term and the controlled term identifier shall be
    * specified.
    */
-  public var jurisdiction: CodeableConcept? = null,
+  public val jurisdiction: CodeableConcept? = null,
   /**
    * This attribute provides information on the status of the marketing of the medicinal product See
    * ISO/TS 20443 for more information and examples.
    */
-  public var status: CodeableConcept,
+  public val status: CodeableConcept,
   /**
    * The date when the Medicinal Product is placed on the market by the Marketing Authorization
    * Holder (or where applicable, the manufacturer/distributor) in a country and/or jurisdiction
@@ -91,7 +91,7 @@ public data class MarketingStatus(
    * the ISO 8601 date format NOTE “Placed on the market” refers to the release of the Medicinal
    * Product into the distribution chain.
    */
-  public var dateRange: Period? = null,
+  public val dateRange: Period? = null,
   /**
    * The date when the Medicinal Product is placed on the market by the Marketing Authorization
    * Holder (or where applicable, the manufacturer/distributor) in a country and/or jurisdiction
@@ -99,5 +99,5 @@ public data class MarketingStatus(
    * the ISO 8601 date format NOTE “Placed on the market” refers to the release of the Medicinal
    * Product into the distribution chain.
    */
-  public var restoreDate: DateTime? = null,
+  public val restoreDate: DateTime? = null,
 ) : BackboneType()

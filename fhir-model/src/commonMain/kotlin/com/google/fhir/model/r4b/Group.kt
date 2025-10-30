@@ -23,7 +23,7 @@ import com.google.fhir.model.r4b.serializers.GroupCharacteristicValueSerializer
 import com.google.fhir.model.r4b.serializers.GroupMemberSerializer
 import com.google.fhir.model.r4b.serializers.GroupSerializer
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -42,12 +42,12 @@ public data class Group(
    * The only time that a resource does not have an id is when it is being submitted to the server
    * using a create operation.
    */
-  override var id: kotlin.String? = null,
+  override val id: kotlin.String? = null,
   /**
    * The metadata about the resource. This is content that is maintained by the infrastructure.
    * Changes to the content might not always be associated with version changes to the resource.
    */
-  override var meta: Meta? = null,
+  override val meta: Meta? = null,
   /**
    * A reference to a set of rules that were followed when the resource was constructed, and which
    * must be understood when processing the content. Often, this is a reference to an implementation
@@ -61,7 +61,7 @@ public data class Group(
    * to an implementation guide that defines these special rules as part of it's narrative along
    * with other profiles, value sets, etc.
    */
-  override var implicitRules: Uri? = null,
+  override val implicitRules: Uri? = null,
   /**
    * The base language in which the resource is written.
    *
@@ -73,7 +73,7 @@ public data class Group(
    * language is specified, it should it also be specified on the div element in the html (see rules
    * in HTML5 for information about the relationship between xml:lang and the html lang attribute).
    */
-  override var language: Code? = null,
+  override val language: Code? = null,
   /**
    * A human-readable narrative that contains a summary of the resource and can be used to represent
    * the content of the resource to a human. The narrative need not encode all the structured data,
@@ -87,7 +87,7 @@ public data class Group(
    * legacy systems where information is captured as a "text blob" or where text is additionally
    * entered raw or narrated and encoded information is added later.
    */
-  override var text: Narrative? = null,
+  override val text: Narrative? = null,
   /**
    * These resources do not have an independent existence apart from the resource that contains
    * them - they cannot be identified independently, and nor can they have their own independent
@@ -98,7 +98,7 @@ public data class Group(
    * resources may have profiles and tags In their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: MutableList<Resource> = mutableListOf(),
+  override val contained: List<Resource> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and manageable, there is a strict set of
@@ -111,7 +111,7 @@ public data class Group(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: MutableList<Extension> = mutableListOf(),
+  override val extension: List<Extension> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -130,41 +130,41 @@ public data class Group(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: MutableList<Extension> = mutableListOf(),
+  override val modifierExtension: List<Extension> = listOf(),
   /** A unique business identifier for this group. */
-  public var identifier: MutableList<Identifier> = mutableListOf(),
+  public val identifier: List<Identifier> = listOf(),
   /**
    * Indicates whether the record for the group is available for use or is merely being retained for
    * historical purposes.
    */
-  public var active: Boolean? = null,
+  public val active: Boolean? = null,
   /**
    * Identifies the broad classification of the kind of resources the group includes.
    *
    * Group members SHALL be of the appropriate resource type (Patient for person or animal; or
    * Practitioner, Device, Medication or Substance for the other types.).
    */
-  public var type: Enumeration<GroupType>,
+  public val type: Enumeration<GroupType>,
   /**
    * If true, indicates that the resource refers to a specific group of real individuals. If false,
    * the group defines a set of intended individuals.
    */
-  public var `actual`: Boolean,
+  public val `actual`: Boolean,
   /**
    * Provides a specific type of resource the group includes; e.g. "cow", "syringe", etc.
    *
    * This would generally be omitted for Person resources.
    */
-  public var code: CodeableConcept? = null,
+  public val code: CodeableConcept? = null,
   /** A label assigned to the group for human identification and communication. */
-  public var name: String? = null,
+  public val name: String? = null,
   /**
    * A count of the number of resource instances that are part of the group.
    *
    * Note that the quantity may be less than the number of members if some of the members are not
    * active.
    */
-  public var quantity: UnsignedInt? = null,
+  public val quantity: UnsignedInt? = null,
   /**
    * Entity responsible for defining and maintaining Group characteristics and/or registered
    * members.
@@ -172,15 +172,15 @@ public data class Group(
    * This does not strictly align with ownership of a herd or flock, but may suffice to represent
    * that relationship in simple cases. More complex cases will require an extension.
    */
-  public var managingEntity: Reference? = null,
+  public val managingEntity: Reference? = null,
   /**
    * Identifies traits whose presence r absence is shared by members of the group.
    *
    * All the identified characteristics must be true for an entity to a member of the group.
    */
-  public var characteristic: MutableList<Characteristic> = mutableListOf(),
+  public val characteristic: List<Characteristic> = listOf(),
   /** Identifies the resource instances that are members of the group. */
-  public var member: MutableList<Member> = mutableListOf(),
+  public val member: List<Member> = listOf(),
 ) : DomainResource() {
   /** Identifies traits whose presence r absence is shared by members of the group. */
   @Serializable(with = GroupCharacteristicSerializer::class)
@@ -189,7 +189,7 @@ public data class Group(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and manageable, there is a strict set of
@@ -202,7 +202,7 @@ public data class Group(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -221,9 +221,9 @@ public data class Group(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /** A code that identifies the kind of trait being asserted. */
-    public var code: CodeableConcept,
+    public val code: CodeableConcept,
     /**
      * The value of the trait that holds (or does not hold - see 'exclude') for members of the
      * group.
@@ -231,19 +231,19 @@ public data class Group(
      * For Range, it means members of the group have a value that falls somewhere within the
      * specified range.
      */
-    public var `value`: Value,
+    public val `value`: Value,
     /**
      * If true, indicates the characteristic is one that is NOT held by members of the group.
      *
      * This is labeled as "Is Modifier" because applications cannot wrongly include excluded members
      * as included or vice versa.
      */
-    public var exclude: Boolean,
+    public val exclude: Boolean,
     /**
      * The period over which the characteristic is tested; e.g. the patient had an operation during
      * the month of June.
      */
-    public var period: Period? = null,
+    public val period: Period? = null,
   ) : BackboneElement() {
     @Serializable(with = GroupCharacteristicValueSerializer::class)
     public sealed interface Value {
@@ -295,7 +295,7 @@ public data class Group(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and manageable, there is a strict set of
@@ -308,7 +308,7 @@ public data class Group(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -327,19 +327,19 @@ public data class Group(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /**
      * A reference to the entity that is a member of the group. Must be consistent with Group.type.
      * If the entity is another group, then the type must be the same.
      */
-    public var entity: Reference,
+    public val entity: Reference,
     /** The period that the member was in the group, if known. */
-    public var period: Period? = null,
+    public val period: Period? = null,
     /**
      * A flag to indicate that the member is no longer in the group, but previously may have been a
      * member.
      */
-    public var inactive: Boolean? = null,
+    public val inactive: Boolean? = null,
   ) : BackboneElement()
 
   /** Types of resources that are part of group. */

@@ -21,7 +21,7 @@ package com.google.fhir.model.r4b
 import com.google.fhir.model.r4b.serializers.OrganizationContactSerializer
 import com.google.fhir.model.r4b.serializers.OrganizationSerializer
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -40,12 +40,12 @@ public data class Organization(
    * The only time that a resource does not have an id is when it is being submitted to the server
    * using a create operation.
    */
-  override var id: kotlin.String? = null,
+  override val id: kotlin.String? = null,
   /**
    * The metadata about the resource. This is content that is maintained by the infrastructure.
    * Changes to the content might not always be associated with version changes to the resource.
    */
-  override var meta: Meta? = null,
+  override val meta: Meta? = null,
   /**
    * A reference to a set of rules that were followed when the resource was constructed, and which
    * must be understood when processing the content. Often, this is a reference to an implementation
@@ -59,7 +59,7 @@ public data class Organization(
    * to an implementation guide that defines these special rules as part of it's narrative along
    * with other profiles, value sets, etc.
    */
-  override var implicitRules: Uri? = null,
+  override val implicitRules: Uri? = null,
   /**
    * The base language in which the resource is written.
    *
@@ -71,7 +71,7 @@ public data class Organization(
    * language is specified, it should it also be specified on the div element in the html (see rules
    * in HTML5 for information about the relationship between xml:lang and the html lang attribute).
    */
-  override var language: Code? = null,
+  override val language: Code? = null,
   /**
    * A human-readable narrative that contains a summary of the resource and can be used to represent
    * the content of the resource to a human. The narrative need not encode all the structured data,
@@ -85,7 +85,7 @@ public data class Organization(
    * legacy systems where information is captured as a "text blob" or where text is additionally
    * entered raw or narrated and encoded information is added later.
    */
-  override var text: Narrative? = null,
+  override val text: Narrative? = null,
   /**
    * These resources do not have an independent existence apart from the resource that contains
    * them - they cannot be identified independently, and nor can they have their own independent
@@ -96,7 +96,7 @@ public data class Organization(
    * resources may have profiles and tags In their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: MutableList<Resource> = mutableListOf(),
+  override val contained: List<Resource> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and manageable, there is a strict set of
@@ -109,7 +109,7 @@ public data class Organization(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: MutableList<Extension> = mutableListOf(),
+  override val extension: List<Extension> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -128,12 +128,12 @@ public data class Organization(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: MutableList<Extension> = mutableListOf(),
+  override val modifierExtension: List<Extension> = listOf(),
   /**
    * Identifier for the organization that is used to identify the organization across multiple
    * disparate systems.
    */
-  public var identifier: MutableList<Identifier> = mutableListOf(),
+  public val identifier: List<Identifier> = listOf(),
   /**
    * Whether the organization's record is still in active use.
    *
@@ -145,7 +145,7 @@ public data class Organization(
    * This element is labeled as a modifier because it may be used to mark that the resource was
    * created in error.
    */
-  public var active: Boolean? = null,
+  public val active: Boolean? = null,
   /**
    * The kind(s) of organization that this is.
    *
@@ -161,14 +161,14 @@ public data class Organization(
    *
    * We expect that some jurisdictions will profile this optionality to be a single cardinality.
    */
-  public var type: MutableList<CodeableConcept> = mutableListOf(),
+  public val type: List<CodeableConcept> = listOf(),
   /**
    * A name associated with the organization.
    *
    * If the name of an organization changes, consider putting the old name in the alias column so
    * that it can still be located through searches.
    */
-  public var name: String? = null,
+  public val name: String? = null,
   /**
    * A list of alternate names that the organization is known as, or was known as in the past.
    *
@@ -176,7 +176,7 @@ public data class Organization(
    * when names were used, but to assist in searching so that older names can still result in
    * identifying the organization.
    */
-  public var alias: MutableList<String> = mutableListOf(),
+  public val alias: List<String> = listOf(),
   /**
    * A contact detail for the organization.
    *
@@ -184,25 +184,25 @@ public data class Organization(
    * people who are employed by or represent the organization, but official contacts for the
    * organization itself.
    */
-  public var telecom: MutableList<ContactPoint> = mutableListOf(),
+  public val telecom: List<ContactPoint> = listOf(),
   /**
    * An address for the organization.
    *
    * Organization may have multiple addresses with different uses or applicable periods. The use
    * code 'home' is not to be used.
    */
-  public var address: MutableList<Address> = mutableListOf(),
+  public val address: List<Address> = listOf(),
   /** The organization of which this organization forms a part. */
-  public var partOf: Reference? = null,
+  public val partOf: Reference? = null,
   /**
    * Contact for the organization for a certain purpose.
    *
    * Where multiple contacts for the same purpose are provided there is a standard extension that
    * can be used to determine which one is the preferred contact to use.
    */
-  public var contact: MutableList<Contact> = mutableListOf(),
+  public val contact: List<Contact> = listOf(),
   /** Technical endpoints providing access to services operated for the organization. */
-  public var endpoint: MutableList<Reference> = mutableListOf(),
+  public val endpoint: List<Reference> = listOf(),
 ) : DomainResource() {
   /** Contact for the organization for a certain purpose. */
   @Serializable(with = OrganizationContactSerializer::class)
@@ -211,7 +211,7 @@ public data class Organization(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and manageable, there is a strict set of
@@ -224,7 +224,7 @@ public data class Organization(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -243,17 +243,17 @@ public data class Organization(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /** Indicates a purpose for which the contact can be reached. */
-    public var purpose: CodeableConcept? = null,
+    public val purpose: CodeableConcept? = null,
     /** A name associated with the contact. */
-    public var name: HumanName? = null,
+    public val name: HumanName? = null,
     /**
      * A contact detail (e.g. a telephone number or an email address) by which the party may be
      * contacted.
      */
-    public var telecom: MutableList<ContactPoint> = mutableListOf(),
+    public val telecom: List<ContactPoint> = listOf(),
     /** Visiting or postal addresses for the contact. */
-    public var address: Address? = null,
+    public val address: Address? = null,
   ) : BackboneElement()
 }

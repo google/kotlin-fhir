@@ -36,7 +36,7 @@ import com.google.fhir.model.r4b.serializers.DoubleSerializer
 import com.google.fhir.model.r4b.serializers.LocalTimeSerializer
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
@@ -49,10 +49,10 @@ internal data class ResearchSubjectSurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: MutableList<Resource>? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var identifier: MutableList<Identifier>? = null,
+  public var contained: List<Resource>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
+  public var identifier: List<Identifier>? = null,
   public var status: KotlinString? = null,
   public var _status: Element? = null,
   public var period: Period? = null,
@@ -76,10 +76,10 @@ internal data class ResearchSubjectSurrogate(
       language =
         Code.of(this@ResearchSubjectSurrogate.language, this@ResearchSubjectSurrogate._language),
       text = this@ResearchSubjectSurrogate.text,
-      contained = this@ResearchSubjectSurrogate.contained ?: mutableListOf(),
-      extension = this@ResearchSubjectSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@ResearchSubjectSurrogate.modifierExtension ?: mutableListOf(),
-      identifier = this@ResearchSubjectSurrogate.identifier ?: mutableListOf(),
+      contained = this@ResearchSubjectSurrogate.contained ?: listOf(),
+      extension = this@ResearchSubjectSurrogate.extension ?: listOf(),
+      modifierExtension = this@ResearchSubjectSurrogate.modifierExtension ?: listOf(),
+      identifier = this@ResearchSubjectSurrogate.identifier ?: listOf(),
       status =
         Enumeration.of(
           ResearchSubject.ResearchSubjectStatus.fromCode(this@ResearchSubjectSurrogate.status!!),

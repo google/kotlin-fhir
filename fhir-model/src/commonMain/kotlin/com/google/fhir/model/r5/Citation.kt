@@ -40,7 +40,7 @@ import com.google.fhir.model.r5.serializers.CitationSummarySerializer
 import com.google.fhir.model.r5.serializers.CitationVersionAlgorithmSerializer
 import com.google.fhir.model.r5.terminologies.PublicationStatus
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -61,12 +61,12 @@ public data class Citation(
    * like the create and conditional update. Otherwise, the use of the resouce id depends on the
    * given use case.
    */
-  override var id: kotlin.String? = null,
+  override val id: kotlin.String? = null,
   /**
    * The metadata about the resource. This is content that is maintained by the infrastructure.
    * Changes to the content might not always be associated with version changes to the resource.
    */
-  override var meta: Meta? = null,
+  override val meta: Meta? = null,
   /**
    * A reference to a set of rules that were followed when the resource was constructed, and which
    * must be understood when processing the content. Often, this is a reference to an implementation
@@ -80,7 +80,7 @@ public data class Citation(
    * to an implementation guide that defines these special rules as part of its narrative along with
    * other profiles, value sets, etc.
    */
-  override var implicitRules: Uri? = null,
+  override val implicitRules: Uri? = null,
   /**
    * The base language in which the resource is written.
    *
@@ -92,7 +92,7 @@ public data class Citation(
    * language is specified, it should it also be specified on the div element in the html (see rules
    * in HTML5 for information about the relationship between xml:lang and the html lang attribute).
    */
-  override var language: Code? = null,
+  override val language: Code? = null,
   /**
    * A human-readable narrative that contains a summary of the resource and can be used to represent
    * the content of the resource to a human. The narrative need not encode all the structured data,
@@ -106,7 +106,7 @@ public data class Citation(
    * legacy systems where information is captured as a "text blob" or where text is additionally
    * entered raw or narrated and encoded information is added later.
    */
-  override var text: Narrative? = null,
+  override val text: Narrative? = null,
   /**
    * These resources do not have an independent existence apart from the resource that contains
    * them - they cannot be identified independently, nor can they have their own independent
@@ -118,7 +118,7 @@ public data class Citation(
    * resources may have profiles and tags in their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: MutableList<Resource> = mutableListOf(),
+  override val contained: List<Resource> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and managable, there is a strict set of governance
@@ -131,7 +131,7 @@ public data class Citation(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: MutableList<Extension> = mutableListOf(),
+  override val extension: List<Extension> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -150,7 +150,7 @@ public data class Citation(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: MutableList<Extension> = mutableListOf(),
+  override val modifierExtension: List<Extension> = listOf(),
   /**
    * An absolute URI that is used to identify this citation record when it is referenced in a
    * specification, model, design or an instance; also called its canonical identifier. This SHOULD
@@ -162,7 +162,7 @@ public data class Citation(
    * change. Implementations can use the meta.source element to indicate where the current master
    * source of the resource can be found.
    */
-  public var url: Uri? = null,
+  public val url: Uri? = null,
   /**
    * A formal identifier that is used to identify this citation record when it is represented in
    * other formats, or referenced in a specification, model, design or an instance.
@@ -170,7 +170,7 @@ public data class Citation(
    * Use this element if you need to identify the citation record independently from identifying the
    * cited artifact.
    */
-  public var identifier: MutableList<Identifier> = mutableListOf(),
+  public val identifier: List<Identifier> = listOf(),
   /**
    * The identifier that is used to identify this version of the citation record when it is
    * referenced in a specification, model, design or instance. This is an arbitrary value managed by
@@ -183,7 +183,7 @@ public data class Citation(
    * particular business version of the citation record with the format [url]|[version]. The version
    * SHOULD NOT contain a '#' - see [Business Version](resource.html#bv-format).
    */
-  public var version: String? = null,
+  public val version: String? = null,
   /**
    * Indicates the mechanism used to compare versions to determine which is more current.
    *
@@ -192,7 +192,7 @@ public data class Citation(
    * positive number if version2 is newer, and a 0 if the version ordering can't successfully be
    * determined.
    */
-  public var versionAlgorithm: VersionAlgorithm? = null,
+  public val versionAlgorithm: VersionAlgorithm? = null,
   /**
    * A natural language name identifying the citation record. This name should be usable as an
    * identifier for the module by machine processing applications such as code generation.
@@ -200,7 +200,7 @@ public data class Citation(
    * The name is not expected to be globally unique. The name should be a simple alphanumeric type
    * name to ensure that it is machine-processing friendly.
    */
-  public var name: String? = null,
+  public val name: String? = null,
   /**
    * A short, descriptive, user-friendly title for the citation record.
    *
@@ -209,7 +209,7 @@ public data class Citation(
    * use, such as a display name for the citation record that is used when selecting citations from
    * a list.
    */
-  public var title: String? = null,
+  public val title: String? = null,
   /**
    * The status of this summary. Enables tracking the life-cycle of the content.
    *
@@ -220,14 +220,14 @@ public data class Citation(
    * See guidance around (not) making local changes to elements
    * [here](canonicalresource.html#localization).
    */
-  public var status: Enumeration<PublicationStatus>,
+  public val status: Enumeration<PublicationStatus>,
   /**
    * A Boolean value to indicate that this citation record is authored for testing purposes (or
    * education/evaluation/marketing) and is not intended to be used for genuine usage.
    *
    * Allows filtering of citation records that are appropriate for use versus not.
    */
-  public var experimental: Boolean? = null,
+  public val experimental: Boolean? = null,
   /**
    * The date (and optionally time) when the citation record was last significantly changed. The
    * date must change when the business version changes and it must change if the status code
@@ -243,7 +243,7 @@ public data class Citation(
    * See guidance around (not) making local changes to elements
    * [here](canonicalresource.html#localization).
    */
-  public var date: DateTime? = null,
+  public val date: DateTime? = null,
   /**
    * The name of the organization or individual that published the citation record.
    *
@@ -254,7 +254,7 @@ public data class Citation(
    * questions or issues with the citation record. This item SHOULD be populated unless the
    * information is available from context.
    */
-  public var publisher: String? = null,
+  public val publisher: String? = null,
   /**
    * Contact details to assist a user in finding and communicating with the publisher.
    *
@@ -263,7 +263,7 @@ public data class Citation(
    * See guidance around (not) making local changes to elements
    * [here](canonicalresource.html#localization).
    */
-  public var contact: MutableList<ContactDetail> = mutableListOf(),
+  public val contact: List<ContactDetail> = listOf(),
   /**
    * A free text natural language description of the citation from a consumer's perspective.
    *
@@ -273,7 +273,7 @@ public data class Citation(
    * item SHOULD be populated unless the information is available from context (e.g. the language of
    * the citation is presumed to be the predominant language in the place the citation was created).
    */
-  public var description: Markdown? = null,
+  public val description: Markdown? = null,
   /**
    * The content was developed with a focus and intent of supporting the contexts that are listed.
    * These contexts may be general categories (gender, age, ...) or may be references to specific
@@ -283,7 +283,7 @@ public data class Citation(
    * When multiple useContexts are specified, there is no expectation that all or any of the
    * contexts apply.
    */
-  public var useContext: MutableList<UsageContext> = mutableListOf(),
+  public val useContext: List<UsageContext> = listOf(),
   /**
    * A legal or geographic region in which the citation record is intended to be used.
    *
@@ -295,7 +295,7 @@ public data class Citation(
    * http://terminology.hl7.org/CodeSystem/usage-context-type#jurisdiction and
    * useContext.valueCodeableConcept indicating the jurisdiction.)
    */
-  public var jurisdiction: MutableList<CodeableConcept> = mutableListOf(),
+  public val jurisdiction: List<CodeableConcept> = listOf(),
   /**
    * Explanation of why this citation is needed and why it has been designed as it has.
    *
@@ -303,9 +303,9 @@ public data class Citation(
    * ''why'' the resource is either needed or ''why'' it is defined as it is. This may be used to
    * point to source materials or specifications that drove the structure of this citation.
    */
-  public var purpose: Markdown? = null,
+  public val purpose: Markdown? = null,
   /** Use and/or publishing restrictions for the citation record, not for the cited artifact. */
-  public var copyright: Markdown? = null,
+  public val copyright: Markdown? = null,
   /**
    * A short string (<50 characters), suitable for inclusion in a page footer that identifies the
    * copyright holder, effective period, and optionally whether rights are resctricted. (e.g. 'All
@@ -315,7 +315,7 @@ public data class Citation(
    * rendering the notation. Full details about licensing, restrictions, warrantees, etc. goes in
    * the more general 'copyright' element.
    */
-  public var copyrightLabel: String? = null,
+  public val copyrightLabel: String? = null,
   /**
    * The date on which the resource content was approved by the publisher. Approval happens once
    * when the content is officially approved for usage.
@@ -326,7 +326,7 @@ public data class Citation(
    * See guidance around (not) making local changes to elements
    * [here](canonicalresource.html#localization).
    */
-  public var approvalDate: Date? = null,
+  public val approvalDate: Date? = null,
   /**
    * The date on which the resource content was last reviewed. Review happens periodically after
    * approval but does not change the original approval date.
@@ -336,7 +336,7 @@ public data class Citation(
    * See guidance around (not) making local changes to elements
    * [here](canonicalresource.html#localization).
    */
-  public var lastReviewDate: Date? = null,
+  public val lastReviewDate: Date? = null,
   /**
    * The period during which the citation record content was or is planned to be in active use.
    *
@@ -347,7 +347,7 @@ public data class Citation(
    * See guidance around (not) making local changes to elements
    * [here](canonicalresource.html#localization).
    */
-  public var effectivePeriod: Period? = null,
+  public val effectivePeriod: Period? = null,
   /**
    * Who authored or created the citation record.
    *
@@ -356,7 +356,7 @@ public data class Citation(
    * identifiers for the author. If detailed contributorship data is needed for the authorship of
    * the citation record, then one can create a Citation Resource for the Citation Resource.
    */
-  public var author: MutableList<ContactDetail> = mutableListOf(),
+  public val author: List<ContactDetail> = listOf(),
   /**
    * Who edited or revised the citation record.
    *
@@ -365,7 +365,7 @@ public data class Citation(
    * for the editor. If detailed contributorship data is needed for the editing of the citation
    * record, then one can create a Citation Resource for the Citation Resource.
    */
-  public var editor: MutableList<ContactDetail> = mutableListOf(),
+  public val editor: List<ContactDetail> = listOf(),
   /**
    * Who reviewed the citation record.
    *
@@ -377,7 +377,7 @@ public data class Citation(
    * See guidance around (not) making local changes to elements
    * [here](canonicalresource.html#localization).
    */
-  public var reviewer: MutableList<ContactDetail> = mutableListOf(),
+  public val reviewer: List<ContactDetail> = listOf(),
   /**
    * Who endorsed the citation record.
    *
@@ -389,25 +389,25 @@ public data class Citation(
    * See guidance around (not) making local changes to elements
    * [here](canonicalresource.html#localization).
    */
-  public var endorser: MutableList<ContactDetail> = mutableListOf(),
+  public val endorser: List<ContactDetail> = listOf(),
   /** A human-readable display of key concepts to represent the citation. */
-  public var summary: MutableList<Summary> = mutableListOf(),
+  public val summary: List<Summary> = listOf(),
   /**
    * The assignment to an organizing scheme.
    *
    * Use this element if you need to classify the citation record independently from classifying the
    * cited artifact.
    */
-  public var classification: MutableList<Classification> = mutableListOf(),
+  public val classification: List<Classification> = listOf(),
   /** Used for general notes and annotations not coded elsewhere. */
-  public var note: MutableList<Annotation> = mutableListOf(),
+  public val note: List<Annotation> = listOf(),
   /**
    * The status of the citation record.
    *
    * Use this if needed for reporting the state or status of the citation record, NOT FOR reporting
    * the state or status of the cited article.
    */
-  public var currentState: MutableList<CodeableConcept> = mutableListOf(),
+  public val currentState: List<CodeableConcept> = listOf(),
   /**
    * The state or status of the citation record paired with an effective date or period for that
    * state.
@@ -415,7 +415,7 @@ public data class Citation(
    * Use this if needed for reporting the state or status of the citation record, NOT FOR reporting
    * the state or status of the cited article.
    */
-  public var statusDate: MutableList<StatusDate> = mutableListOf(),
+  public val statusDate: List<StatusDate> = listOf(),
   /**
    * Artifact related to the citation record.
    *
@@ -424,9 +424,9 @@ public data class Citation(
    * data source for generation of the Citation Resource instance if it was automatically generated,
    * such as conversion from a citation repository.
    */
-  public var relatedArtifact: MutableList<RelatedArtifact> = mutableListOf(),
+  public val relatedArtifact: List<RelatedArtifact> = listOf(),
   /** The article or artifact being described. */
-  public var citedArtifact: CitedArtifact? = null,
+  public val citedArtifact: CitedArtifact? = null,
 ) : DomainResource() {
   /** A human-readable display of key concepts to represent the citation. */
   @Serializable(with = CitationSummarySerializer::class)
@@ -435,7 +435,7 @@ public data class Citation(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -448,7 +448,7 @@ public data class Citation(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -467,11 +467,11 @@ public data class Citation(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /** Format for display of the citation summary. */
-    public var style: CodeableConcept? = null,
+    public val style: CodeableConcept? = null,
     /** The human-readable display of the citation summary. */
-    public var text: Markdown,
+    public val text: Markdown,
   ) : BackboneElement()
 
   /** The assignment to an organizing scheme. */
@@ -481,7 +481,7 @@ public data class Citation(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -494,7 +494,7 @@ public data class Citation(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -513,11 +513,11 @@ public data class Citation(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /** The kind of classifier (e.g. publication type, keyword). */
-    public var type: CodeableConcept? = null,
+    public val type: CodeableConcept? = null,
     /** The specific classification value. */
-    public var classifier: MutableList<CodeableConcept> = mutableListOf(),
+    public val classifier: List<CodeableConcept> = listOf(),
   ) : BackboneElement()
 
   /**
@@ -530,7 +530,7 @@ public data class Citation(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -543,7 +543,7 @@ public data class Citation(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -562,17 +562,17 @@ public data class Citation(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /** The state or status of the citation record (that will be paired with the period). */
-    public var activity: CodeableConcept,
+    public val activity: CodeableConcept,
     /** Whether the status date is actual (has occurred) or expected (estimated or anticipated). */
-    public var `actual`: Boolean? = null,
+    public val `actual`: Boolean? = null,
     /**
      * When the status started and/or ended.
      *
      * For an instance, place the same value in both start and end elements.
      */
-    public var period: Period,
+    public val period: Period,
   ) : BackboneElement()
 
   /** The article or artifact being described. */
@@ -582,7 +582,7 @@ public data class Citation(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -595,7 +595,7 @@ public data class Citation(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -614,7 +614,7 @@ public data class Citation(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /**
      * A formal identifier that is used to identify the cited artifact when it is represented in
      * other formats, or referenced in a specification, model, design or an instance.
@@ -625,7 +625,7 @@ public data class Citation(
      * identifier.system values to use for these 3 identifiers are: DOI = "https://doi.org" PMID =
      * "https://pubmed.ncbi.nlm.nih.gov" PMCID = "https://www.ncbi.nlm.nih.gov/pmc/"
      */
-    public var identifier: MutableList<Identifier> = mutableListOf(),
+    public val identifier: List<Identifier> = listOf(),
     /**
      * A formal identifier that is used to identify things closely related to the cited artifact.
      *
@@ -638,32 +638,32 @@ public data class Citation(
      * to use for these 2 identifiers are: ClinicalTrials.gov = "https://clinicaltrials.gov"
      * PROSPERO = "https://www.crd.york.ac.uk/prospero/"
      */
-    public var relatedIdentifier: MutableList<Identifier> = mutableListOf(),
+    public val relatedIdentifier: List<Identifier> = listOf(),
     /**
      * When the cited artifact was accessed.
      *
      * Use this element when citing an artifact from a potentially unstable source, such as a
      * webpage, to note the date (and time) the source was accessed.
      */
-    public var dateAccessed: DateTime? = null,
+    public val dateAccessed: DateTime? = null,
     /** The defined version of the cited artifact. */
-    public var version: Version? = null,
+    public val version: Version? = null,
     /** The status of the cited artifact. */
-    public var currentState: MutableList<CodeableConcept> = mutableListOf(),
+    public val currentState: List<CodeableConcept> = listOf(),
     /**
      * An effective date or period, historical or future, actual or expected, for a status of the
      * cited artifact.
      */
-    public var statusDate: MutableList<StatusDate> = mutableListOf(),
+    public val statusDate: List<StatusDate> = listOf(),
     /** The title details of the article or artifact. */
-    public var title: MutableList<Title> = mutableListOf(),
+    public val title: List<Title> = listOf(),
     /**
      * The abstract may be used to convey article-contained abstracts, externally-created abstracts,
      * or other descriptive summaries.
      */
-    public var `abstract`: MutableList<Abstract> = mutableListOf(),
+    public val `abstract`: List<Abstract> = listOf(),
     /** The component of the article or artifact. */
-    public var part: Part? = null,
+    public val part: Part? = null,
     /**
      * The artifact related to the cited artifact.
      *
@@ -671,7 +671,7 @@ public data class Citation(
      * Datatype to enable use of an extended value set for the required code for the type of
      * relationship.
      */
-    public var relatesTo: MutableList<RelatesTo> = mutableListOf(),
+    public val relatesTo: List<RelatesTo> = listOf(),
     /**
      * If multiple, used to represent alternative forms of the article that are not separate
      * citations.
@@ -679,18 +679,18 @@ public data class Citation(
      * A common use is a journal article with a publication date and pagination for a print version
      * and a different publication date for the online version of the same article.
      */
-    public var publicationForm: MutableList<PublicationForm> = mutableListOf(),
+    public val publicationForm: List<PublicationForm> = listOf(),
     /** Used for any URL for the article or artifact cited. */
-    public var webLocation: MutableList<WebLocation> = mutableListOf(),
+    public val webLocation: List<WebLocation> = listOf(),
     /** The assignment to an organizing scheme. */
-    public var classification: MutableList<Classification> = mutableListOf(),
+    public val classification: List<Classification> = listOf(),
     /**
      * This element is used to list authors and other contributors, their contact information,
      * specific contributions, and summary statements.
      */
-    public var contributorship: Contributorship? = null,
+    public val contributorship: Contributorship? = null,
     /** Any additional information or content for the article or artifact. */
-    public var note: MutableList<Annotation> = mutableListOf(),
+    public val note: List<Annotation> = listOf(),
   ) : BackboneElement() {
     /** The defined version of the cited artifact. */
     @Serializable(with = CitationCitedArtifactVersionSerializer::class)
@@ -699,7 +699,7 @@ public data class Citation(
        * Unique id for the element within a resource (for internal references). This may be any
        * string value that does not contain spaces.
        */
-      override var id: kotlin.String? = null,
+      override val id: kotlin.String? = null,
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -712,7 +712,7 @@ public data class Citation(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: MutableList<Extension> = mutableListOf(),
+      override val extension: List<Extension> = listOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -731,9 +731,9 @@ public data class Citation(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: MutableList<Extension> = mutableListOf(),
+      override val modifierExtension: List<Extension> = listOf(),
       /** The version number or other version identifier. */
-      public var `value`: String,
+      public val `value`: String,
       /**
        * Citation for the main version of the cited artifact.
        *
@@ -741,7 +741,7 @@ public data class Citation(
        * Resource and consider any data in the current Citation Resource as superceding to be
        * version-specific.
        */
-      public var baseCitation: Reference? = null,
+      public val baseCitation: Reference? = null,
     ) : BackboneElement()
 
     /**
@@ -754,7 +754,7 @@ public data class Citation(
        * Unique id for the element within a resource (for internal references). This may be any
        * string value that does not contain spaces.
        */
-      override var id: kotlin.String? = null,
+      override val id: kotlin.String? = null,
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -767,7 +767,7 @@ public data class Citation(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: MutableList<Extension> = mutableListOf(),
+      override val extension: List<Extension> = listOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -786,17 +786,17 @@ public data class Citation(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: MutableList<Extension> = mutableListOf(),
+      override val modifierExtension: List<Extension> = listOf(),
       /** A definition of the status associated with a date or period. */
-      public var activity: CodeableConcept,
+      public val activity: CodeableConcept,
       /** Either occurred or expected. */
-      public var `actual`: Boolean? = null,
+      public val `actual`: Boolean? = null,
       /**
        * When the status started and/or ended.
        *
        * For an instance, place the same value in both start and end elements.
        */
-      public var period: Period,
+      public val period: Period,
     ) : BackboneElement()
 
     /** The title details of the article or artifact. */
@@ -806,7 +806,7 @@ public data class Citation(
        * Unique id for the element within a resource (for internal references). This may be any
        * string value that does not contain spaces.
        */
-      override var id: kotlin.String? = null,
+      override val id: kotlin.String? = null,
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -819,7 +819,7 @@ public data class Citation(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: MutableList<Extension> = mutableListOf(),
+      override val extension: List<Extension> = listOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -838,13 +838,13 @@ public data class Citation(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: MutableList<Extension> = mutableListOf(),
+      override val modifierExtension: List<Extension> = listOf(),
       /** Used to express the reason for or classification of the title. */
-      public var type: MutableList<CodeableConcept> = mutableListOf(),
+      public val type: List<CodeableConcept> = listOf(),
       /** Used to express the specific language of the title. */
-      public var language: CodeableConcept? = null,
+      public val language: CodeableConcept? = null,
       /** The title of the article or artifact. */
-      public var text: Markdown,
+      public val text: Markdown,
     ) : BackboneElement()
 
     /**
@@ -857,7 +857,7 @@ public data class Citation(
        * Unique id for the element within a resource (for internal references). This may be any
        * string value that does not contain spaces.
        */
-      override var id: kotlin.String? = null,
+      override val id: kotlin.String? = null,
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -870,7 +870,7 @@ public data class Citation(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: MutableList<Extension> = mutableListOf(),
+      override val extension: List<Extension> = listOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -889,20 +889,20 @@ public data class Citation(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: MutableList<Extension> = mutableListOf(),
+      override val modifierExtension: List<Extension> = listOf(),
       /** Used to express the reason for or classification of the abstract. */
-      public var type: CodeableConcept? = null,
+      public val type: CodeableConcept? = null,
       /** Used to express the specific language of the abstract. */
-      public var language: CodeableConcept? = null,
+      public val language: CodeableConcept? = null,
       /** Abstract content. */
-      public var text: Markdown,
+      public val text: Markdown,
       /**
        * Copyright notice for the abstract.
        *
        * There is also a copyright element in the publicationForm element, so this copyright element
        * is intended for copyright of the abstract.
        */
-      public var copyright: Markdown? = null,
+      public val copyright: Markdown? = null,
     ) : BackboneElement()
 
     /** The component of the article or artifact. */
@@ -912,7 +912,7 @@ public data class Citation(
        * Unique id for the element within a resource (for internal references). This may be any
        * string value that does not contain spaces.
        */
-      override var id: kotlin.String? = null,
+      override val id: kotlin.String? = null,
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -925,7 +925,7 @@ public data class Citation(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: MutableList<Extension> = mutableListOf(),
+      override val extension: List<Extension> = listOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -944,11 +944,11 @@ public data class Citation(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: MutableList<Extension> = mutableListOf(),
+      override val modifierExtension: List<Extension> = listOf(),
       /** The kind of component. */
-      public var type: CodeableConcept? = null,
+      public val type: CodeableConcept? = null,
       /** The specification of the component. */
-      public var `value`: String? = null,
+      public val `value`: String? = null,
       /**
        * The citation for the full article or artifact.
        *
@@ -959,7 +959,7 @@ public data class Citation(
        * citation when there is a need to uniquely report the contributorship for an image or
        * supplement associated with the fuller citation record.
        */
-      public var baseCitation: Reference? = null,
+      public val baseCitation: Reference? = null,
     ) : BackboneElement()
 
     /** The artifact related to the cited artifact. */
@@ -969,7 +969,7 @@ public data class Citation(
        * Unique id for the element within a resource (for internal references). This may be any
        * string value that does not contain spaces.
        */
-      override var id: kotlin.String? = null,
+      override val id: kotlin.String? = null,
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -982,7 +982,7 @@ public data class Citation(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: MutableList<Extension> = mutableListOf(),
+      override val extension: List<Extension> = listOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -1001,11 +1001,11 @@ public data class Citation(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: MutableList<Extension> = mutableListOf(),
+      override val modifierExtension: List<Extension> = listOf(),
       /** The type of relationship to the related artifact. */
-      public var type: Enumeration<RelatedArtifactTypeExpanded>,
+      public val type: Enumeration<RelatedArtifactTypeExpanded>,
       /** Provides additional classifiers of the related artifact. */
-      public var classifier: MutableList<CodeableConcept> = mutableListOf(),
+      public val classifier: List<CodeableConcept> = listOf(),
       /**
        * A short label that can be used to reference the related artifact from elsewhere in the
        * containing artifact, such as a footnote index.
@@ -1013,17 +1013,17 @@ public data class Citation(
        * Though not commonly used in citation records, this could be used for referencing other
        * articles in the abstract or explanatory notes.
        */
-      public var label: String? = null,
+      public val label: String? = null,
       /**
        * A brief description of the document or knowledge resource being referenced, suitable for
        * display to a consumer.
        */
-      public var display: String? = null,
+      public val display: String? = null,
       /**
        * A bibliographic citation for the related artifact. This text SHOULD be formatted according
        * to an accepted citation format.
        */
-      public var citation: Markdown? = null,
+      public val citation: Markdown? = null,
       /**
        * The document being referenced, represented as an attachment. Do not use this element if
        * using the resource element to provide the canonical to the related artifact.
@@ -1031,14 +1031,14 @@ public data class Citation(
        * To refer to related artifacts by URL, the FHIR Attachment Datatype includes a url element,
        * so the path would be Citation.citedArtifact.relatesTo.document.url
        */
-      public var document: Attachment? = null,
+      public val document: Attachment? = null,
       /**
        * The related artifact, such as a library, value set, profile, or other knowledge resource.
        *
        * If the type is predecessor, this is a reference to the succeeding knowledge resource. If
        * the type is successor, this is a reference to the prior knowledge resource
        */
-      public var resource: Canonical? = null,
+      public val resource: Canonical? = null,
       /**
        * The related artifact, if the artifact is not a canonical resource, or a resource reference
        * to a canonical resource.
@@ -1050,7 +1050,7 @@ public data class Citation(
        * reference definitional resources, and profiles SHOULD be used to make that explicit for
        * particular use cases.
        */
-      public var resourceReference: Reference? = null,
+      public val resourceReference: Reference? = null,
     ) : BackboneElement()
 
     /**
@@ -1063,7 +1063,7 @@ public data class Citation(
        * Unique id for the element within a resource (for internal references). This may be any
        * string value that does not contain spaces.
        */
-      override var id: kotlin.String? = null,
+      override val id: kotlin.String? = null,
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -1076,7 +1076,7 @@ public data class Citation(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: MutableList<Extension> = mutableListOf(),
+      override val extension: List<Extension> = listOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -1095,9 +1095,9 @@ public data class Citation(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: MutableList<Extension> = mutableListOf(),
+      override val modifierExtension: List<Extension> = listOf(),
       /** The collection the cited article or artifact is published in. */
-      public var publishedIn: PublishedIn? = null,
+      public val publishedIn: PublishedIn? = null,
       /**
        * Describes the form of the medium cited. Common codes are "Internet" or "Print". The
        * CitedMedium value set has 6 codes. The codes internet, print, and offline-digital-storage
@@ -1108,38 +1108,38 @@ public data class Citation(
        * from the issue (as commonly done with early online publication), to represent specific
        * identification of the publication form not associated with the issue.
        */
-      public var citedMedium: CodeableConcept? = null,
+      public val citedMedium: CodeableConcept? = null,
       /** Volume number of journal or other collection in which the article is published. */
-      public var volume: String? = null,
+      public val volume: String? = null,
       /**
        * Issue, part or supplement of journal or other collection in which the article is published.
        */
-      public var issue: String? = null,
+      public val issue: String? = null,
       /**
        * The date the article was added to the database, or the date the article was released.
        *
        * The articleDate is the preferred element for expressing the publication date as structured
        * data.
        */
-      public var articleDate: DateTime? = null,
+      public val articleDate: DateTime? = null,
       /**
        * Text representation of the date on which the issue of the cited artifact was published.
        *
        * The publicationDateText element is prefererntially used when a date is not represented in a
        * form that can be handled as structured data in other elements.
        */
-      public var publicationDateText: String? = null,
+      public val publicationDateText: String? = null,
       /** Spring, Summer, Fall/Autumn, Winter. */
-      public var publicationDateSeason: String? = null,
+      public val publicationDateSeason: String? = null,
       /**
        * The date the article was last revised or updated in the database.
        *
        * The lastRevisionDate is used for the cited article and not the date the Citation Resource
        * is last revised.
        */
-      public var lastRevisionDate: DateTime? = null,
+      public val lastRevisionDate: DateTime? = null,
       /** The language or languages in which this form of the article is published. */
-      public var language: MutableList<CodeableConcept> = mutableListOf(),
+      public val language: List<CodeableConcept> = listOf(),
       /**
        * Entry number or identifier for inclusion in a database.
        *
@@ -1150,23 +1150,23 @@ public data class Citation(
        * Citation.citedArtifact.publicationForm.accessionNumber -- this use would be a type of
        * Citation.identifier for the citation record itself.
        */
-      public var accessionNumber: String? = null,
+      public val accessionNumber: String? = null,
       /** Used for full display of pagination. */
-      public var pageString: String? = null,
+      public val pageString: String? = null,
       /** Used for isolated representation of first page. */
-      public var firstPage: String? = null,
+      public val firstPage: String? = null,
       /** Used for isolated representation of last page. */
-      public var lastPage: String? = null,
+      public val lastPage: String? = null,
       /**
        * Actual or approximate number of pages or screens. Distinct from reporting the page numbers.
        */
-      public var pageCount: String? = null,
+      public val pageCount: String? = null,
       /**
        * Copyright notice for the full article or artifact.
        *
        * It is possible that different publication forms have different copyright notices.
        */
-      public var copyright: Markdown? = null,
+      public val copyright: Markdown? = null,
     ) : BackboneElement() {
       /** The collection the cited article or artifact is published in. */
       @Serializable(with = CitationCitedArtifactPublicationFormPublishedInSerializer::class)
@@ -1175,7 +1175,7 @@ public data class Citation(
          * Unique id for the element within a resource (for internal references). This may be any
          * string value that does not contain spaces.
          */
-        override var id: kotlin.String? = null,
+        override val id: kotlin.String? = null,
         /**
          * May be used to represent additional information that is not part of the basic definition
          * of the element. To make the use of extensions safe and managable, there is a strict set
@@ -1188,7 +1188,7 @@ public data class Citation(
          * extensions. The use of extensions is what allows the FHIR specification to retain a core
          * level of simplicity for everyone.
          */
-        override var extension: MutableList<Extension> = mutableListOf(),
+        override val extension: List<Extension> = listOf(),
         /**
          * May be used to represent additional information that is not part of the basic definition
          * of the element and that modifies the understanding of the element in which it is
@@ -1207,28 +1207,28 @@ public data class Citation(
          * extensions. The use of extensions is what allows the FHIR specification to retain a core
          * level of simplicity for everyone.
          */
-        override var modifierExtension: MutableList<Extension> = mutableListOf(),
+        override val modifierExtension: List<Extension> = listOf(),
         /**
          * Kind of container (e.g. Periodical, database, or book).
          *
          * Journals and newspapers are coded as Periodical.
          */
-        public var type: CodeableConcept? = null,
+        public val type: CodeableConcept? = null,
         /**
          * Journal identifiers include ISSN, ISO Abbreviation and NLMuniqueID; Book identifiers
          * include ISBN.
          */
-        public var identifier: MutableList<Identifier> = mutableListOf(),
+        public val identifier: List<Identifier> = listOf(),
         /**
          * Name of the database or title of the book or journal.
          *
          * ClinicalTrials.gov is a name of a database.
          */
-        public var title: String? = null,
+        public val title: String? = null,
         /** Name of or resource describing the publisher. */
-        public var publisher: Reference? = null,
+        public val publisher: Reference? = null,
         /** Geographic location of the publisher. */
-        public var publisherLocation: String? = null,
+        public val publisherLocation: String? = null,
       ) : BackboneElement()
     }
 
@@ -1239,7 +1239,7 @@ public data class Citation(
        * Unique id for the element within a resource (for internal references). This may be any
        * string value that does not contain spaces.
        */
-      override var id: kotlin.String? = null,
+      override val id: kotlin.String? = null,
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -1252,7 +1252,7 @@ public data class Citation(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: MutableList<Extension> = mutableListOf(),
+      override val extension: List<Extension> = listOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -1271,20 +1271,20 @@ public data class Citation(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: MutableList<Extension> = mutableListOf(),
+      override val modifierExtension: List<Extension> = listOf(),
       /**
        * A characterization of the object expected at the web location.
        *
        * Categories that may be frequently used for study citations may include abstract, full-text,
        * supplement, webpage, and doi-based.
        */
-      public var classifier: MutableList<CodeableConcept> = mutableListOf(),
+      public val classifier: List<CodeableConcept> = listOf(),
       /**
        * The specific URL.
        *
        * Persistent URLs, like doi, are preferred.
        */
-      public var url: Uri? = null,
+      public val url: Uri? = null,
     ) : BackboneElement()
 
     /** The assignment to an organizing scheme. */
@@ -1294,7 +1294,7 @@ public data class Citation(
        * Unique id for the element within a resource (for internal references). This may be any
        * string value that does not contain spaces.
        */
-      override var id: kotlin.String? = null,
+      override val id: kotlin.String? = null,
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -1307,7 +1307,7 @@ public data class Citation(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: MutableList<Extension> = mutableListOf(),
+      override val extension: List<Extension> = listOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -1326,11 +1326,11 @@ public data class Citation(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: MutableList<Extension> = mutableListOf(),
+      override val modifierExtension: List<Extension> = listOf(),
       /** The kind of classifier (e.g. publication type, keyword). */
-      public var type: CodeableConcept? = null,
+      public val type: CodeableConcept? = null,
       /** The specific classification value. */
-      public var classifier: MutableList<CodeableConcept> = mutableListOf(),
+      public val classifier: List<CodeableConcept> = listOf(),
       /**
        * Complex or externally created classification.
        *
@@ -1338,7 +1338,7 @@ public data class Citation(
        * qualifier codings or sub-classifications, and include risk of bias assessments created by
        * persons different from the creator of the citation record.
        */
-      public var artifactAssessment: MutableList<Reference> = mutableListOf(),
+      public val artifactAssessment: List<Reference> = listOf(),
     ) : BackboneElement()
 
     /**
@@ -1351,7 +1351,7 @@ public data class Citation(
        * Unique id for the element within a resource (for internal references). This may be any
        * string value that does not contain spaces.
        */
-      override var id: kotlin.String? = null,
+      override val id: kotlin.String? = null,
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -1364,7 +1364,7 @@ public data class Citation(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: MutableList<Extension> = mutableListOf(),
+      override val extension: List<Extension> = listOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -1383,26 +1383,26 @@ public data class Citation(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: MutableList<Extension> = mutableListOf(),
+      override val modifierExtension: List<Extension> = listOf(),
       /**
        * Indicates if the list includes all authors and/or contributors.
        *
        * If list is incomplete, "et al" can be appended to Contributorship.summary.value for display
        * purposes.
        */
-      public var complete: Boolean? = null,
+      public val complete: Boolean? = null,
       /**
        * An individual entity named as a contributor, for example in the author list or contributor
        * list.
        *
        * Used to report contributorship in individualized ways.
        */
-      public var entry: MutableList<Entry> = mutableListOf(),
+      public val entry: List<Entry> = listOf(),
       /**
        * Used to record a display of the author/contributor list without separate data element for
        * each list member.
        */
-      public var summary: MutableList<Summary> = mutableListOf(),
+      public val summary: List<Summary> = listOf(),
     ) : BackboneElement() {
       /**
        * An individual entity named as a contributor, for example in the author list or contributor
@@ -1414,7 +1414,7 @@ public data class Citation(
          * Unique id for the element within a resource (for internal references). This may be any
          * string value that does not contain spaces.
          */
-        override var id: kotlin.String? = null,
+        override val id: kotlin.String? = null,
         /**
          * May be used to represent additional information that is not part of the basic definition
          * of the element. To make the use of extensions safe and managable, there is a strict set
@@ -1427,7 +1427,7 @@ public data class Citation(
          * extensions. The use of extensions is what allows the FHIR specification to retain a core
          * level of simplicity for everyone.
          */
-        override var extension: MutableList<Extension> = mutableListOf(),
+        override val extension: List<Extension> = listOf(),
         /**
          * May be used to represent additional information that is not part of the basic definition
          * of the element and that modifies the understanding of the element in which it is
@@ -1446,7 +1446,7 @@ public data class Citation(
          * extensions. The use of extensions is what allows the FHIR specification to retain a core
          * level of simplicity for everyone.
          */
-        override var modifierExtension: MutableList<Extension> = mutableListOf(),
+        override val modifierExtension: List<Extension> = listOf(),
         /**
          * The identity of the individual contributor.
          *
@@ -1454,7 +1454,7 @@ public data class Citation(
          * element within the Reference datatype may be used for a simple string without referencing
          * another resource.
          */
-        public var contributor: Reference,
+        public val contributor: Reference,
         /**
          * For citation styles that use initials.
          *
@@ -1465,7 +1465,7 @@ public data class Citation(
          * the FHIR HumanName Datatype does not have a specific element for forename initials and
          * this is common in citation usage, the element is added to contributorship.entry directly.
          */
-        public var forenameInitials: String? = null,
+        public val forenameInitials: String? = null,
         /**
          * Organization affiliated with the contributor.
          *
@@ -1473,7 +1473,7 @@ public data class Citation(
          * display element within the Reference datatype may be used for a simple string without
          * referencing another resource.
          */
-        public var affiliation: MutableList<Reference> = mutableListOf(),
+        public val affiliation: List<Reference> = listOf(),
         /**
          * This element identifies the specific nature of an individual’s contribution with respect
          * to the cited work.
@@ -1482,25 +1482,25 @@ public data class Citation(
          * CRediT is to provide transparency in contributions to scholarly published work, to enable
          * improved systems of attribution, credit, and accountability.
          */
-        public var contributionType: MutableList<CodeableConcept> = mutableListOf(),
+        public val contributionType: List<CodeableConcept> = listOf(),
         /** The role of the contributor (e.g. author, editor, reviewer, funder). */
-        public var role: CodeableConcept? = null,
+        public val role: CodeableConcept? = null,
         /** Contributions with accounting for time or number. */
-        public var contributionInstance: MutableList<ContributionInstance> = mutableListOf(),
+        public val contributionInstance: List<ContributionInstance> = listOf(),
         /**
          * Whether the contributor is the corresponding contributor for the role.
          *
          * If there are multiple authors and one serves as the corresponding author, then that one
          * would have correspondingContact = true.
          */
-        public var correspondingContact: Boolean? = null,
+        public val correspondingContact: Boolean? = null,
         /**
          * Provides a numerical ranking to represent the degree of contributorship relative to other
          * contributors, such as 1 for first author and 2 for second author.
          *
          * Used to retain order of authorship as structured data
          */
-        public var rankingOrder: PositiveInt? = null,
+        public val rankingOrder: PositiveInt? = null,
       ) : BackboneElement() {
         /** Contributions with accounting for time or number. */
         @Serializable(
@@ -1511,7 +1511,7 @@ public data class Citation(
            * Unique id for the element within a resource (for internal references). This may be any
            * string value that does not contain spaces.
            */
-          override var id: kotlin.String? = null,
+          override val id: kotlin.String? = null,
           /**
            * May be used to represent additional information that is not part of the basic
            * definition of the element. To make the use of extensions safe and managable, there is a
@@ -1524,7 +1524,7 @@ public data class Citation(
            * defines the extensions. The use of extensions is what allows the FHIR specification to
            * retain a core level of simplicity for everyone.
            */
-          override var extension: MutableList<Extension> = mutableListOf(),
+          override val extension: List<Extension> = listOf(),
           /**
            * May be used to represent additional information that is not part of the basic
            * definition of the element and that modifies the understanding of the element in which
@@ -1543,11 +1543,11 @@ public data class Citation(
            * defines the extensions. The use of extensions is what allows the FHIR specification to
            * retain a core level of simplicity for everyone.
            */
-          override var modifierExtension: MutableList<Extension> = mutableListOf(),
+          override val modifierExtension: List<Extension> = listOf(),
           /** The specific contribution. */
-          public var type: CodeableConcept,
+          public val type: CodeableConcept,
           /** The time that the contribution was made. */
-          public var time: DateTime? = null,
+          public val time: DateTime? = null,
         ) : BackboneElement()
       }
 
@@ -1561,7 +1561,7 @@ public data class Citation(
          * Unique id for the element within a resource (for internal references). This may be any
          * string value that does not contain spaces.
          */
-        override var id: kotlin.String? = null,
+        override val id: kotlin.String? = null,
         /**
          * May be used to represent additional information that is not part of the basic definition
          * of the element. To make the use of extensions safe and managable, there is a strict set
@@ -1574,7 +1574,7 @@ public data class Citation(
          * extensions. The use of extensions is what allows the FHIR specification to retain a core
          * level of simplicity for everyone.
          */
-        override var extension: MutableList<Extension> = mutableListOf(),
+        override val extension: List<Extension> = listOf(),
         /**
          * May be used to represent additional information that is not part of the basic definition
          * of the element and that modifies the understanding of the element in which it is
@@ -1593,20 +1593,20 @@ public data class Citation(
          * extensions. The use of extensions is what allows the FHIR specification to retain a core
          * level of simplicity for everyone.
          */
-        override var modifierExtension: MutableList<Extension> = mutableListOf(),
+        override val modifierExtension: List<Extension> = listOf(),
         /** Used most commonly to express an author list or a contributorship statement. */
-        public var type: CodeableConcept? = null,
+        public val type: CodeableConcept? = null,
         /**
          * The format for the display string, such as author last name with first letter capitalized
          * followed by forename initials.
          */
-        public var style: CodeableConcept? = null,
+        public val style: CodeableConcept? = null,
         /** Used to code the producer or rule for creating the display string. */
-        public var source: CodeableConcept? = null,
+        public val source: CodeableConcept? = null,
         /**
          * The display string for the author list, contributor list, or contributorship statement.
          */
-        public var `value`: Markdown,
+        public val `value`: Markdown,
       ) : BackboneElement()
     }
   }

@@ -29,14 +29,14 @@ import com.google.fhir.model.r5.serializers.DoubleSerializer
 import com.google.fhir.model.r5.serializers.LocalTimeSerializer
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class ReferenceSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
   public var reference: KotlinString? = null,
   public var _reference: Element? = null,
   public var type: KotlinString? = null,
@@ -48,7 +48,7 @@ internal data class ReferenceSurrogate(
   public fun toModel(): Reference =
     Reference(
       id = this@ReferenceSurrogate.id,
-      extension = this@ReferenceSurrogate.extension ?: mutableListOf(),
+      extension = this@ReferenceSurrogate.extension ?: listOf(),
       reference =
         R5String.of(this@ReferenceSurrogate.reference, this@ReferenceSurrogate._reference),
       type = Uri.of(this@ReferenceSurrogate.type, this@ReferenceSurrogate._type),

@@ -51,7 +51,7 @@ import kotlin.Boolean as KotlinBoolean
 import kotlin.Int
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.datetime.LocalTime
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
@@ -59,12 +59,12 @@ import kotlinx.serialization.UseSerializers
 @Serializable
 internal data class ObservationReferenceRangeSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var low: Quantity? = null,
   public var high: Quantity? = null,
   public var type: CodeableConcept? = null,
-  public var appliesTo: MutableList<CodeableConcept>? = null,
+  public var appliesTo: List<CodeableConcept>? = null,
   public var age: Range? = null,
   public var text: KotlinString? = null,
   public var _text: Element? = null,
@@ -72,13 +72,12 @@ internal data class ObservationReferenceRangeSurrogate(
   public fun toModel(): Observation.ReferenceRange =
     Observation.ReferenceRange(
       id = this@ObservationReferenceRangeSurrogate.id,
-      extension = this@ObservationReferenceRangeSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@ObservationReferenceRangeSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@ObservationReferenceRangeSurrogate.extension ?: listOf(),
+      modifierExtension = this@ObservationReferenceRangeSurrogate.modifierExtension ?: listOf(),
       low = this@ObservationReferenceRangeSurrogate.low,
       high = this@ObservationReferenceRangeSurrogate.high,
       type = this@ObservationReferenceRangeSurrogate.type,
-      appliesTo = this@ObservationReferenceRangeSurrogate.appliesTo ?: mutableListOf(),
+      appliesTo = this@ObservationReferenceRangeSurrogate.appliesTo ?: listOf(),
       age = this@ObservationReferenceRangeSurrogate.age,
       text =
         R4String.of(
@@ -109,24 +108,24 @@ internal data class ObservationReferenceRangeSurrogate(
 @Serializable
 internal data class ObservationComponentSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var code: CodeableConcept,
   public var `value`: Observation.Component.Value? = null,
   public var dataAbsentReason: CodeableConcept? = null,
-  public var interpretation: MutableList<CodeableConcept>? = null,
-  public var referenceRange: MutableList<Observation.ReferenceRange>? = null,
+  public var interpretation: List<CodeableConcept>? = null,
+  public var referenceRange: List<Observation.ReferenceRange>? = null,
 ) {
   public fun toModel(): Observation.Component =
     Observation.Component(
       id = this@ObservationComponentSurrogate.id,
-      extension = this@ObservationComponentSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@ObservationComponentSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@ObservationComponentSurrogate.extension ?: listOf(),
+      modifierExtension = this@ObservationComponentSurrogate.modifierExtension ?: listOf(),
       code = this@ObservationComponentSurrogate.code,
       `value` = this@ObservationComponentSurrogate.`value`,
       dataAbsentReason = this@ObservationComponentSurrogate.dataAbsentReason,
-      interpretation = this@ObservationComponentSurrogate.interpretation ?: mutableListOf(),
-      referenceRange = this@ObservationComponentSurrogate.referenceRange ?: mutableListOf(),
+      interpretation = this@ObservationComponentSurrogate.interpretation ?: listOf(),
+      referenceRange = this@ObservationComponentSurrogate.referenceRange ?: listOf(),
     )
 
   public companion object {
@@ -338,35 +337,35 @@ internal data class ObservationSurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: MutableList<Resource>? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var identifier: MutableList<Identifier>? = null,
-  public var basedOn: MutableList<Reference>? = null,
-  public var partOf: MutableList<Reference>? = null,
+  public var contained: List<Resource>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
+  public var identifier: List<Identifier>? = null,
+  public var basedOn: List<Reference>? = null,
+  public var partOf: List<Reference>? = null,
   public var status: KotlinString? = null,
   public var _status: Element? = null,
-  public var category: MutableList<CodeableConcept>? = null,
+  public var category: List<CodeableConcept>? = null,
   public var code: CodeableConcept,
   public var subject: Reference? = null,
-  public var focus: MutableList<Reference>? = null,
+  public var focus: List<Reference>? = null,
   public var encounter: Reference? = null,
   public var effective: Observation.Effective? = null,
   public var issued: KotlinString? = null,
   public var _issued: Element? = null,
-  public var performer: MutableList<Reference>? = null,
+  public var performer: List<Reference>? = null,
   public var `value`: Observation.Value? = null,
   public var dataAbsentReason: CodeableConcept? = null,
-  public var interpretation: MutableList<CodeableConcept>? = null,
-  public var note: MutableList<Annotation>? = null,
+  public var interpretation: List<CodeableConcept>? = null,
+  public var note: List<Annotation>? = null,
   public var bodySite: CodeableConcept? = null,
   public var method: CodeableConcept? = null,
   public var specimen: Reference? = null,
   public var device: Reference? = null,
-  public var referenceRange: MutableList<Observation.ReferenceRange>? = null,
-  public var hasMember: MutableList<Reference>? = null,
-  public var derivedFrom: MutableList<Reference>? = null,
-  public var component: MutableList<Observation.Component>? = null,
+  public var referenceRange: List<Observation.ReferenceRange>? = null,
+  public var hasMember: List<Reference>? = null,
+  public var derivedFrom: List<Reference>? = null,
+  public var component: List<Observation.Component>? = null,
 ) {
   public fun toModel(): Observation =
     Observation(
@@ -376,21 +375,21 @@ internal data class ObservationSurrogate(
         Uri.of(this@ObservationSurrogate.implicitRules, this@ObservationSurrogate._implicitRules),
       language = Code.of(this@ObservationSurrogate.language, this@ObservationSurrogate._language),
       text = this@ObservationSurrogate.text,
-      contained = this@ObservationSurrogate.contained ?: mutableListOf(),
-      extension = this@ObservationSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@ObservationSurrogate.modifierExtension ?: mutableListOf(),
-      identifier = this@ObservationSurrogate.identifier ?: mutableListOf(),
-      basedOn = this@ObservationSurrogate.basedOn ?: mutableListOf(),
-      partOf = this@ObservationSurrogate.partOf ?: mutableListOf(),
+      contained = this@ObservationSurrogate.contained ?: listOf(),
+      extension = this@ObservationSurrogate.extension ?: listOf(),
+      modifierExtension = this@ObservationSurrogate.modifierExtension ?: listOf(),
+      identifier = this@ObservationSurrogate.identifier ?: listOf(),
+      basedOn = this@ObservationSurrogate.basedOn ?: listOf(),
+      partOf = this@ObservationSurrogate.partOf ?: listOf(),
       status =
         Enumeration.of(
           Observation.ObservationStatus.fromCode(this@ObservationSurrogate.status!!),
           this@ObservationSurrogate._status,
         ),
-      category = this@ObservationSurrogate.category ?: mutableListOf(),
+      category = this@ObservationSurrogate.category ?: listOf(),
       code = this@ObservationSurrogate.code,
       subject = this@ObservationSurrogate.subject,
-      focus = this@ObservationSurrogate.focus ?: mutableListOf(),
+      focus = this@ObservationSurrogate.focus ?: listOf(),
       encounter = this@ObservationSurrogate.encounter,
       effective = this@ObservationSurrogate.effective,
       issued =
@@ -398,19 +397,19 @@ internal data class ObservationSurrogate(
           FhirDateTime.fromString(this@ObservationSurrogate.issued),
           this@ObservationSurrogate._issued,
         ),
-      performer = this@ObservationSurrogate.performer ?: mutableListOf(),
+      performer = this@ObservationSurrogate.performer ?: listOf(),
       `value` = this@ObservationSurrogate.`value`,
       dataAbsentReason = this@ObservationSurrogate.dataAbsentReason,
-      interpretation = this@ObservationSurrogate.interpretation ?: mutableListOf(),
-      note = this@ObservationSurrogate.note ?: mutableListOf(),
+      interpretation = this@ObservationSurrogate.interpretation ?: listOf(),
+      note = this@ObservationSurrogate.note ?: listOf(),
       bodySite = this@ObservationSurrogate.bodySite,
       method = this@ObservationSurrogate.method,
       specimen = this@ObservationSurrogate.specimen,
       device = this@ObservationSurrogate.device,
-      referenceRange = this@ObservationSurrogate.referenceRange ?: mutableListOf(),
-      hasMember = this@ObservationSurrogate.hasMember ?: mutableListOf(),
-      derivedFrom = this@ObservationSurrogate.derivedFrom ?: mutableListOf(),
-      component = this@ObservationSurrogate.component ?: mutableListOf(),
+      referenceRange = this@ObservationSurrogate.referenceRange ?: listOf(),
+      hasMember = this@ObservationSurrogate.hasMember ?: listOf(),
+      derivedFrom = this@ObservationSurrogate.derivedFrom ?: listOf(),
+      component = this@ObservationSurrogate.component ?: listOf(),
     )
 
   public companion object {

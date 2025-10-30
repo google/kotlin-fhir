@@ -40,7 +40,7 @@ import com.google.fhir.model.r4.serializers.DoubleSerializer
 import com.google.fhir.model.r4.serializers.LocalTimeSerializer
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
@@ -53,10 +53,10 @@ internal data class PaymentNoticeSurrogate(
   public var language: String? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: MutableList<Resource>? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var identifier: MutableList<Identifier>? = null,
+  public var contained: List<Resource>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
+  public var identifier: List<Identifier>? = null,
   public var status: String? = null,
   public var _status: Element? = null,
   public var request: Reference? = null,
@@ -84,10 +84,10 @@ internal data class PaymentNoticeSurrogate(
       language =
         Code.of(this@PaymentNoticeSurrogate.language, this@PaymentNoticeSurrogate._language),
       text = this@PaymentNoticeSurrogate.text,
-      contained = this@PaymentNoticeSurrogate.contained ?: mutableListOf(),
-      extension = this@PaymentNoticeSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@PaymentNoticeSurrogate.modifierExtension ?: mutableListOf(),
-      identifier = this@PaymentNoticeSurrogate.identifier ?: mutableListOf(),
+      contained = this@PaymentNoticeSurrogate.contained ?: listOf(),
+      extension = this@PaymentNoticeSurrogate.extension ?: listOf(),
+      modifierExtension = this@PaymentNoticeSurrogate.modifierExtension ?: listOf(),
+      identifier = this@PaymentNoticeSurrogate.identifier ?: listOf(),
       status =
         Enumeration.of(
           PaymentNotice.FinancialResourceStatusCodes.fromCode(this@PaymentNoticeSurrogate.status!!),

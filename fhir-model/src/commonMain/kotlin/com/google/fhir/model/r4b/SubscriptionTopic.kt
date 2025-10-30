@@ -26,7 +26,7 @@ import com.google.fhir.model.r4b.serializers.SubscriptionTopicResourceTriggerSer
 import com.google.fhir.model.r4b.serializers.SubscriptionTopicSerializer
 import com.google.fhir.model.r4b.terminologies.PublicationStatus
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -44,12 +44,12 @@ public data class SubscriptionTopic(
    * The only time that a resource does not have an id is when it is being submitted to the server
    * using a create operation.
    */
-  override var id: kotlin.String? = null,
+  override val id: kotlin.String? = null,
   /**
    * The metadata about the resource. This is content that is maintained by the infrastructure.
    * Changes to the content might not always be associated with version changes to the resource.
    */
-  override var meta: Meta? = null,
+  override val meta: Meta? = null,
   /**
    * A reference to a set of rules that were followed when the resource was constructed, and which
    * must be understood when processing the content. Often, this is a reference to an implementation
@@ -63,7 +63,7 @@ public data class SubscriptionTopic(
    * to an implementation guide that defines these special rules as part of it's narrative along
    * with other profiles, value sets, etc.
    */
-  override var implicitRules: Uri? = null,
+  override val implicitRules: Uri? = null,
   /**
    * The base language in which the resource is written.
    *
@@ -75,7 +75,7 @@ public data class SubscriptionTopic(
    * language is specified, it should it also be specified on the div element in the html (see rules
    * in HTML5 for information about the relationship between xml:lang and the html lang attribute).
    */
-  override var language: Code? = null,
+  override val language: Code? = null,
   /**
    * A human-readable narrative that contains a summary of the resource and can be used to represent
    * the content of the resource to a human. The narrative need not encode all the structured data,
@@ -89,7 +89,7 @@ public data class SubscriptionTopic(
    * legacy systems where information is captured as a "text blob" or where text is additionally
    * entered raw or narrated and encoded information is added later.
    */
-  override var text: Narrative? = null,
+  override val text: Narrative? = null,
   /**
    * These resources do not have an independent existence apart from the resource that contains
    * them - they cannot be identified independently, and nor can they have their own independent
@@ -100,7 +100,7 @@ public data class SubscriptionTopic(
    * resources may have profiles and tags In their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: MutableList<Resource> = mutableListOf(),
+  override val contained: List<Resource> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and manageable, there is a strict set of
@@ -113,7 +113,7 @@ public data class SubscriptionTopic(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: MutableList<Extension> = mutableListOf(),
+  override val extension: List<Extension> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -132,7 +132,7 @@ public data class SubscriptionTopic(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: MutableList<Extension> = mutableListOf(),
+  override val modifierExtension: List<Extension> = listOf(),
   /**
    * An absolute URI that is used to identify this subscription topic when it is referenced in a
    * specification, model, design or an instance; also called its canonical identifier. This SHOULD
@@ -151,7 +151,7 @@ public data class SubscriptionTopic(
    * change. Implementations can use the [meta.source](resource.html#meta) element to indicate where
    * the current master source of the resource can be found.
    */
-  public var url: Uri,
+  public val url: Uri,
   /**
    * Business identifiers assigned to this subscription topic by the performer and/or other systems.
    * These identifiers remain constant as the resource is updated and propagates from server to
@@ -164,7 +164,7 @@ public data class SubscriptionTopic(
    * resource types. For example, multiple Patient and a Person resource instance might share the
    * same social insurance number.
    */
-  public var identifier: MutableList<Identifier> = mutableListOf(),
+  public val identifier: List<Identifier> = listOf(),
   /**
    * The identifier that is used to identify this version of the subscription topic when it is
    * referenced in a specification, model, design or instance. This is an arbitrary value managed by
@@ -175,16 +175,16 @@ public data class SubscriptionTopic(
    * There may be multiple different instances of a subscription topic that have the same identifier
    * but different versions.
    */
-  public var version: String? = null,
+  public val version: String? = null,
   /**
    * A short, descriptive, user-friendly title for the SubscriptionTopic, for example, "admission".
    */
-  public var title: String? = null,
+  public val title: String? = null,
   /**
    * The canonical URL pointing to another FHIR-defined SubscriptionTopic that is adhered to in
    * whole or in part by this SubscriptionTopic.
    */
-  public var derivedFrom: MutableList<Canonical> = mutableListOf(),
+  public val derivedFrom: List<Canonical> = listOf(),
   /**
    * The current state of the SubscriptionTopic.
    *
@@ -194,30 +194,30 @@ public data class SubscriptionTopic(
    * Unknown does not represent "other" - one of the defined statuses must apply. Unknown is used
    * when the authoring system is not sure what the current status is.
    */
-  public var status: Enumeration<PublicationStatus>,
+  public val status: Enumeration<PublicationStatus>,
   /**
    * A flag to indicate that this TopSubscriptionTopicic is authored for testing purposes (or
    * education/evaluation/marketing), and is not intended to be used for genuine usage.
    *
    * Allows filtering of SubscriptionTopic that are appropriate for use vs. not.
    */
-  public var experimental: Boolean? = null,
+  public val experimental: Boolean? = null,
   /**
    * For draft definitions, indicates the date of initial creation. For active definitions,
    * represents the date of activation. For withdrawn definitions, indicates the date of withdrawal.
    */
-  public var date: DateTime? = null,
+  public val date: DateTime? = null,
   /**
    * Helps establish the "authority/credibility" of the SubscriptionTopic. May also allow for
    * contact.
    */
-  public var publisher: String? = null,
+  public val publisher: String? = null,
   /**
    * Contact details to assist a user in finding and communicating with the publisher.
    *
    * May be a web site, an email address, a telephone number, etc.
    */
-  public var contact: MutableList<ContactDetail> = mutableListOf(),
+  public val contact: List<ContactDetail> = listOf(),
   /**
    * A free text natural language description of the Topic from the consumer's perspective.
    *
@@ -227,7 +227,7 @@ public data class SubscriptionTopic(
    * resource itself. This item SHOULD be populated unless the information is available from
    * context.
    */
-  public var description: Markdown? = null,
+  public val description: Markdown? = null,
   /**
    * The content was developed with a focus and intent of supporting the contexts that are listed.
    * These terms may be used to assist with indexing and searching of code system definitions.
@@ -235,9 +235,9 @@ public data class SubscriptionTopic(
    * When multiple usageContexts are specified, there is no expectation for whether all or any of
    * the contexts apply.
    */
-  public var useContext: MutableList<UsageContext> = mutableListOf(),
+  public val useContext: List<UsageContext> = listOf(),
   /** A jurisdiction in which the Topic is intended to be used. */
-  public var jurisdiction: MutableList<CodeableConcept> = mutableListOf(),
+  public val jurisdiction: List<CodeableConcept> = listOf(),
   /**
    * Explains why this Topic is needed and why it has been designed as it has.
    *
@@ -245,12 +245,12 @@ public data class SubscriptionTopic(
    * the resource is either needed or ''why'' it is defined as it is. This may be used to point to
    * source materials or specifications that drove the structure of this Topic.
    */
-  public var purpose: Markdown? = null,
+  public val purpose: Markdown? = null,
   /**
    * A copyright statement relating to the SubscriptionTopic and/or its contents. Copyright
    * statements are generally legal restrictions on the use and publishing of the SubscriptionTopic.
    */
-  public var copyright: Markdown? = null,
+  public val copyright: Markdown? = null,
   /**
    * The date on which the asset content was approved by the publisher. Approval happens once when
    * the content is officially approved for usage.
@@ -258,14 +258,14 @@ public data class SubscriptionTopic(
    * The date may be more recent than the approval date because of minor changes / editorial
    * corrections.
    */
-  public var approvalDate: Date? = null,
+  public val approvalDate: Date? = null,
   /**
    * The date on which the asset content was last reviewed. Review happens periodically after that,
    * but doesn't change the original approval date.
    *
    * If specified, this is usually after the approval date.
    */
-  public var lastReviewDate: Date? = null,
+  public val lastReviewDate: Date? = null,
   /**
    * The period during which the SubscriptionTopic content was or is planned to be effective.
    *
@@ -273,27 +273,27 @@ public data class SubscriptionTopic(
    * usage and is independent of publication and review dates. For example, a measure intended to be
    * used for the year 2016 would be published in 2015.
    */
-  public var effectivePeriod: Period? = null,
+  public val effectivePeriod: Period? = null,
   /**
    * A definition of a resource-based event that triggers a notification based on the
    * SubscriptionTopic. The criteria may be just a human readable description and/or a full FHIR
    * search string or FHIRPath expression. Multiple triggers are considered OR joined (e.g., a
    * resource update matching ANY of the definitions will trigger a notification).
    */
-  public var resourceTrigger: MutableList<ResourceTrigger> = mutableListOf(),
+  public val resourceTrigger: List<ResourceTrigger> = listOf(),
   /** Event definition which can be used to trigger the SubscriptionTopic. */
-  public var eventTrigger: MutableList<EventTrigger> = mutableListOf(),
+  public val eventTrigger: List<EventTrigger> = listOf(),
   /**
    * List of properties by which Subscriptions on the SubscriptionTopic can be filtered. May be
    * defined Search Parameters (e.g., Encounter.patient) or parameters defined within this
    * SubscriptionTopic context (e.g., hub.event).
    */
-  public var canFilterBy: MutableList<CanFilterBy> = mutableListOf(),
+  public val canFilterBy: List<CanFilterBy> = listOf(),
   /**
    * List of properties to describe the shape (e.g., resources) included in notifications from this
    * Subscription Topic.
    */
-  public var notificationShape: MutableList<NotificationShape> = mutableListOf(),
+  public val notificationShape: List<NotificationShape> = listOf(),
 ) : DomainResource() {
   /**
    * A definition of a resource-based event that triggers a notification based on the
@@ -307,7 +307,7 @@ public data class SubscriptionTopic(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and manageable, there is a strict set of
@@ -320,7 +320,7 @@ public data class SubscriptionTopic(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -339,7 +339,7 @@ public data class SubscriptionTopic(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /**
      * The human readable description of this resource trigger for the SubscriptionTopic - for
      * example, "An Encounter enters the 'in-progress' state".
@@ -347,7 +347,7 @@ public data class SubscriptionTopic(
      * Implementation of particular subscription topics might not use a computable definition and
      * instead base their design on the definition.
      */
-    public var description: Markdown? = null,
+    public val description: Markdown? = null,
     /**
      * URL of the Resource that is the type used in this resource trigger. Relative URLs are
      * relative to the StructureDefinition root of the implemented FHIR version (e.g.,
@@ -355,24 +355,24 @@ public data class SubscriptionTopic(
      * http://hl7.org/fhir/StructureDefinition/Patient. For more information, see <a
      * href="elementdefinition-definitions.html#ElementDefinition.type.code">ElementDefinition.type.code</a>.
      */
-    public var resource: Uri,
+    public val resource: Uri,
     /**
      * The FHIR RESTful interaction which can be used to trigger a notification for the
      * SubscriptionTopic. Multiple values are considered OR joined (e.g., CREATE or UPDATE).
      */
-    public var supportedInteraction: MutableList<Enumeration<InteractionTrigger>> = mutableListOf(),
+    public val supportedInteraction: List<Enumeration<InteractionTrigger>> = listOf(),
     /**
      * The FHIR query based rules that the server should use to determine when to trigger a
      * notification for this subscription topic.
      */
-    public var queryCriteria: QueryCriteria? = null,
+    public val queryCriteria: QueryCriteria? = null,
     /**
      * The FHIRPath based rules that the server should use to determine when to trigger a
      * notification for this topic.
      *
      * FHIRPath expression with %previous and %current vars.
      */
-    public var fhirPathCriteria: String? = null,
+    public val fhirPathCriteria: String? = null,
   ) : BackboneElement() {
     /**
      * The FHIR query based rules that the server should use to determine when to trigger a
@@ -384,7 +384,7 @@ public data class SubscriptionTopic(
        * Unique id for the element within a resource (for internal references). This may be any
        * string value that does not contain spaces.
        */
-      override var id: kotlin.String? = null,
+      override val id: kotlin.String? = null,
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element. To make the use of extensions safe and manageable, there is a strict set of
@@ -397,7 +397,7 @@ public data class SubscriptionTopic(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: MutableList<Extension> = mutableListOf(),
+      override val extension: List<Extension> = listOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -416,7 +416,7 @@ public data class SubscriptionTopic(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: MutableList<Extension> = mutableListOf(),
+      override val modifierExtension: List<Extension> = listOf(),
       /**
        * The FHIR query based rules are applied to the previous resource state (e.g., state before
        * an update).
@@ -424,12 +424,12 @@ public data class SubscriptionTopic(
        * The rules are search criteria (without the [base] part). Like Bundle.entry.request.url, it
        * has no leading "/".
        */
-      public var previous: String? = null,
+      public val previous: String? = null,
       /**
        * For "create" interactions, should the "previous" criteria count as an automatic pass or an
        * automatic fail.
        */
-      public var resultForCreate: Enumeration<CriteriaNotExistsBehavior>? = null,
+      public val resultForCreate: Enumeration<CriteriaNotExistsBehavior>? = null,
       /**
        * The FHIR query based rules are applied to the current resource state (e.g., state after an
        * update).
@@ -437,18 +437,18 @@ public data class SubscriptionTopic(
        * The rules are search criteria (without the [base] part). Like Bundle.entry.request.url, it
        * has no leading "/".
        */
-      public var current: String? = null,
+      public val current: String? = null,
       /**
        * For "delete" interactions, should the "current" criteria count as an automatic pass or an
        * automatic fail.
        */
-      public var resultForDelete: Enumeration<CriteriaNotExistsBehavior>? = null,
+      public val resultForDelete: Enumeration<CriteriaNotExistsBehavior>? = null,
       /**
        * If set to true, both current and previous criteria must evaluate true to trigger a
        * notification for this topic. Otherwise a notification for this topic will be triggered if
        * either one evaluates to true.
        */
-      public var requireBoth: Boolean? = null,
+      public val requireBoth: Boolean? = null,
     ) : BackboneElement()
   }
 
@@ -459,7 +459,7 @@ public data class SubscriptionTopic(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and manageable, there is a strict set of
@@ -472,7 +472,7 @@ public data class SubscriptionTopic(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -491,7 +491,7 @@ public data class SubscriptionTopic(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /**
      * The human readable description of an event to trigger a notification for the
      * SubscriptionTopic - for example, "Patient Admission, as defined in HL7v2 via message
@@ -500,11 +500,11 @@ public data class SubscriptionTopic(
      * Implementation of particular subscription topics might not use a computable definition and
      * instead base their design on the definition.
      */
-    public var description: Markdown? = null,
+    public val description: Markdown? = null,
     /**
      * A well-defined event which can be used to trigger notifications from the SubscriptionTopic.
      */
-    public var event: CodeableConcept,
+    public val event: CodeableConcept,
     /**
      * URL of the Resource that is the focus type used in this event trigger. Relative URLs are
      * relative to the StructureDefinition root of the implemented FHIR version (e.g.,
@@ -512,7 +512,7 @@ public data class SubscriptionTopic(
      * http://hl7.org/fhir/StructureDefinition/Patient. For more information, see <a
      * href="elementdefinition-definitions.html#ElementDefinition.type.code">ElementDefinition.type.code</a>.
      */
-    public var resource: Uri,
+    public val resource: Uri,
   ) : BackboneElement()
 
   /**
@@ -526,7 +526,7 @@ public data class SubscriptionTopic(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and manageable, there is a strict set of
@@ -539,7 +539,7 @@ public data class SubscriptionTopic(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -558,9 +558,9 @@ public data class SubscriptionTopic(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /** Description of how this filtering parameter is intended to be used. */
-    public var description: Markdown? = null,
+    public val description: Markdown? = null,
     /**
      * URL of the Resource that is the type used in this filter. This is the "focus" of the topic
      * (or one of them if there are more than one). It will be the same, a generality, or a
@@ -573,7 +573,7 @@ public data class SubscriptionTopic(
      * http://hl7.org/fhir/StructureDefinition/Patient. For more information, see <a
      * href="elementdefinition-definitions.html#ElementDefinition.type.code">ElementDefinition.type.code</a>.
      */
-    public var resource: Uri? = null,
+    public val resource: Uri? = null,
     /**
      * Either the canonical URL to a search parameter (like
      * "http://hl7.org/fhir/SearchParameter/encounter-patient") or topic-defined parameter (like
@@ -581,7 +581,7 @@ public data class SubscriptionTopic(
      *
      * Chained parameters are allowed (like "patient.gender") - but can not use colons or modifiers.
      */
-    public var filterParameter: String,
+    public val filterParameter: String,
     /**
      * Either the canonical URL to a search parameter (like
      * "http://hl7.org/fhir/SearchParameter/encounter-patient") or the officially-defined URI for a
@@ -589,13 +589,13 @@ public data class SubscriptionTopic(
      *
      * Chained parameters are allowed (like "patient.gender") - but can not use colons or modifiers.
      */
-    public var filterDefinition: Uri? = null,
+    public val filterDefinition: Uri? = null,
     /**
      * Allowable operators to apply when determining matches (Search Modifiers). If the
      * filterParameter is a SearchParameter, this list of modifiers SHALL be a strict subset of the
      * modifiers defined on that SearchParameter.
      */
-    public var modifier: MutableList<Enumeration<SubscriptionSearchModifier>> = mutableListOf(),
+    public val modifier: List<Enumeration<SubscriptionSearchModifier>> = listOf(),
   ) : BackboneElement()
 
   /**
@@ -608,7 +608,7 @@ public data class SubscriptionTopic(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and manageable, there is a strict set of
@@ -621,7 +621,7 @@ public data class SubscriptionTopic(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -640,7 +640,7 @@ public data class SubscriptionTopic(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /**
      * URL of the Resource that is the type used in this shape. This is the "focus" of the topic (or
      * one of them if there are more than one) and the root resource for this shape definition. It
@@ -654,21 +654,21 @@ public data class SubscriptionTopic(
      * http://hl7.org/fhir/StructureDefinition/Patient. For more information, see <a
      * href="elementdefinition-definitions.html#ElementDefinition.type.code">ElementDefinition.type.code</a>.
      */
-    public var resource: Uri,
+    public val resource: Uri,
     /**
      * Search-style _include directives, rooted in the resource for this shape. Servers SHOULD
      * include resources listed here, if they exist and the user is authorized to receive them.
      * Clients SHOULD be prepared to receive these additional resources, but SHALL function properly
      * without them.
      */
-    public var include: MutableList<String> = mutableListOf(),
+    public val include: List<String> = listOf(),
     /**
      * Search-style _revinclude directives, rooted in the resource for this shape. Servers SHOULD
      * include resources listed here, if they exist and the user is authorized to receive them.
      * Clients SHOULD be prepared to receive these additional resources, but SHALL function properly
      * without them.
      */
-    public var revInclude: MutableList<String> = mutableListOf(),
+    public val revInclude: List<String> = listOf(),
   ) : BackboneElement()
 
   /** FHIR RESTful interaction codes used for SubscriptionTopic trigger. */

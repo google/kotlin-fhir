@@ -50,21 +50,21 @@ import kotlin.Boolean as KotlinBoolean
 import kotlin.Int
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class OperationDefinitionParameterSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var name: KotlinString? = null,
   public var _name: Element? = null,
   public var use: KotlinString? = null,
   public var _use: Element? = null,
-  public var scope: MutableList<KotlinString?>? = null,
-  public var _scope: MutableList<Element?>? = null,
+  public var scope: List<KotlinString?>? = null,
+  public var _scope: List<Element?>? = null,
   public var min: Int? = null,
   public var _min: Element? = null,
   public var max: KotlinString? = null,
@@ -73,22 +73,21 @@ internal data class OperationDefinitionParameterSurrogate(
   public var _documentation: Element? = null,
   public var type: KotlinString? = null,
   public var _type: Element? = null,
-  public var allowedType: MutableList<KotlinString?>? = null,
-  public var _allowedType: MutableList<Element?>? = null,
-  public var targetProfile: MutableList<KotlinString?>? = null,
-  public var _targetProfile: MutableList<Element?>? = null,
+  public var allowedType: List<KotlinString?>? = null,
+  public var _allowedType: List<Element?>? = null,
+  public var targetProfile: List<KotlinString?>? = null,
+  public var _targetProfile: List<Element?>? = null,
   public var searchType: KotlinString? = null,
   public var _searchType: Element? = null,
   public var binding: OperationDefinition.Parameter.Binding? = null,
-  public var referencedFrom: MutableList<OperationDefinition.Parameter.ReferencedFrom>? = null,
-  public var part: MutableList<OperationDefinition.Parameter>? = null,
+  public var referencedFrom: List<OperationDefinition.Parameter.ReferencedFrom>? = null,
+  public var part: List<OperationDefinition.Parameter>? = null,
 ) {
   public fun toModel(): OperationDefinition.Parameter =
     OperationDefinition.Parameter(
       id = this@OperationDefinitionParameterSurrogate.id,
-      extension = this@OperationDefinitionParameterSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@OperationDefinitionParameterSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@OperationDefinitionParameterSurrogate.extension ?: listOf(),
+      modifierExtension = this@OperationDefinitionParameterSurrogate.modifierExtension ?: listOf(),
       name =
         Code.of(
           this@OperationDefinitionParameterSurrogate.name,
@@ -106,7 +105,7 @@ internal data class OperationDefinitionParameterSurrogate(
           this@OperationDefinitionParameterSurrogate.scope == null &&
             this@OperationDefinitionParameterSurrogate._scope == null
         ) {
-          mutableListOf()
+          listOf()
         } else {
           (this@OperationDefinitionParameterSurrogate.scope
               ?: List(this@OperationDefinitionParameterSurrogate._scope!!.size) { null })
@@ -120,7 +119,7 @@ internal data class OperationDefinitionParameterSurrogate(
                 element,
               )
             }
-            .toMutableList()
+            .toList()
         },
       min =
         Integer.of(
@@ -146,7 +145,7 @@ internal data class OperationDefinitionParameterSurrogate(
           this@OperationDefinitionParameterSurrogate.allowedType == null &&
             this@OperationDefinitionParameterSurrogate._allowedType == null
         ) {
-          mutableListOf()
+          listOf()
         } else {
           (this@OperationDefinitionParameterSurrogate.allowedType
               ?: List(this@OperationDefinitionParameterSurrogate._allowedType!!.size) { null })
@@ -157,14 +156,14 @@ internal data class OperationDefinitionParameterSurrogate(
             .map { (value, element) ->
               Enumeration.of(value.let { FHIRTypes.fromCode(it!!) }, element)
             }
-            .toMutableList()
+            .toList()
         },
       targetProfile =
         if (
           this@OperationDefinitionParameterSurrogate.targetProfile == null &&
             this@OperationDefinitionParameterSurrogate._targetProfile == null
         ) {
-          mutableListOf()
+          listOf()
         } else {
           (this@OperationDefinitionParameterSurrogate.targetProfile
               ?: List(this@OperationDefinitionParameterSurrogate._targetProfile!!.size) { null })
@@ -173,7 +172,7 @@ internal data class OperationDefinitionParameterSurrogate(
                 ?: List(this@OperationDefinitionParameterSurrogate.targetProfile!!.size) { null }
             )
             .map { (value, element) -> Canonical.of(value, element)!! }
-            .toMutableList()
+            .toList()
         },
       searchType =
         this@OperationDefinitionParameterSurrogate.searchType?.let {
@@ -183,8 +182,8 @@ internal data class OperationDefinitionParameterSurrogate(
           )
         },
       binding = this@OperationDefinitionParameterSurrogate.binding,
-      referencedFrom = this@OperationDefinitionParameterSurrogate.referencedFrom ?: mutableListOf(),
-      part = this@OperationDefinitionParameterSurrogate.part ?: mutableListOf(),
+      referencedFrom = this@OperationDefinitionParameterSurrogate.referencedFrom ?: listOf(),
+      part = this@OperationDefinitionParameterSurrogate.part ?: listOf(),
     )
 
   public companion object {
@@ -203,14 +202,14 @@ internal data class OperationDefinitionParameterSurrogate(
           scope =
             this@with.scope
               .map { it.value?.getCode() }
-              .toMutableList()
+              .toList()
               .takeUnless { it.all { it == null } },
           _scope =
             this@with.scope
               .map { it.toElement() }
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
-              ?.toMutableList(),
+              ?.toList(),
           min = this@with.min.value,
           _min = this@with.min.toElement(),
           max = this@with.max.value,
@@ -222,25 +221,22 @@ internal data class OperationDefinitionParameterSurrogate(
           allowedType =
             this@with.allowedType
               .map { it.value?.getCode() }
-              .toMutableList()
+              .toList()
               .takeUnless { it.all { it == null } },
           _allowedType =
             this@with.allowedType
               .map { it.toElement() }
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
-              ?.toMutableList(),
+              ?.toList(),
           targetProfile =
-            this@with.targetProfile
-              .map { it.value }
-              .toMutableList()
-              .takeUnless { it.all { it == null } },
+            this@with.targetProfile.map { it.value }.toList().takeUnless { it.all { it == null } },
           _targetProfile =
             this@with.targetProfile
               .map { it.toElement() }
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
-              ?.toMutableList(),
+              ?.toList(),
           searchType = this@with.searchType?.value?.getCode(),
           _searchType = this@with.searchType?.toElement(),
           binding = this@with.binding,
@@ -254,8 +250,8 @@ internal data class OperationDefinitionParameterSurrogate(
 @Serializable
 internal data class OperationDefinitionParameterBindingSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var strength: KotlinString? = null,
   public var _strength: Element? = null,
   public var valueSet: KotlinString? = null,
@@ -264,9 +260,9 @@ internal data class OperationDefinitionParameterBindingSurrogate(
   public fun toModel(): OperationDefinition.Parameter.Binding =
     OperationDefinition.Parameter.Binding(
       id = this@OperationDefinitionParameterBindingSurrogate.id,
-      extension = this@OperationDefinitionParameterBindingSurrogate.extension ?: mutableListOf(),
+      extension = this@OperationDefinitionParameterBindingSurrogate.extension ?: listOf(),
       modifierExtension =
-        this@OperationDefinitionParameterBindingSurrogate.modifierExtension ?: mutableListOf(),
+        this@OperationDefinitionParameterBindingSurrogate.modifierExtension ?: listOf(),
       strength =
         Enumeration.of(
           BindingStrength.fromCode(this@OperationDefinitionParameterBindingSurrogate.strength!!),
@@ -300,8 +296,8 @@ internal data class OperationDefinitionParameterBindingSurrogate(
 @Serializable
 internal data class OperationDefinitionParameterReferencedFromSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var source: KotlinString? = null,
   public var _source: Element? = null,
   public var sourceId: KotlinString? = null,
@@ -310,11 +306,9 @@ internal data class OperationDefinitionParameterReferencedFromSurrogate(
   public fun toModel(): OperationDefinition.Parameter.ReferencedFrom =
     OperationDefinition.Parameter.ReferencedFrom(
       id = this@OperationDefinitionParameterReferencedFromSurrogate.id,
-      extension =
-        this@OperationDefinitionParameterReferencedFromSurrogate.extension ?: mutableListOf(),
+      extension = this@OperationDefinitionParameterReferencedFromSurrogate.extension ?: listOf(),
       modifierExtension =
-        this@OperationDefinitionParameterReferencedFromSurrogate.modifierExtension
-          ?: mutableListOf(),
+        this@OperationDefinitionParameterReferencedFromSurrogate.modifierExtension ?: listOf(),
       source =
         R5String.of(
           this@OperationDefinitionParameterReferencedFromSurrogate.source,
@@ -348,25 +342,24 @@ internal data class OperationDefinitionParameterReferencedFromSurrogate(
 @Serializable
 internal data class OperationDefinitionOverloadSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var parameterName: MutableList<KotlinString?>? = null,
-  public var _parameterName: MutableList<Element?>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
+  public var parameterName: List<KotlinString?>? = null,
+  public var _parameterName: List<Element?>? = null,
   public var comment: KotlinString? = null,
   public var _comment: Element? = null,
 ) {
   public fun toModel(): OperationDefinition.Overload =
     OperationDefinition.Overload(
       id = this@OperationDefinitionOverloadSurrogate.id,
-      extension = this@OperationDefinitionOverloadSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@OperationDefinitionOverloadSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@OperationDefinitionOverloadSurrogate.extension ?: listOf(),
+      modifierExtension = this@OperationDefinitionOverloadSurrogate.modifierExtension ?: listOf(),
       parameterName =
         if (
           this@OperationDefinitionOverloadSurrogate.parameterName == null &&
             this@OperationDefinitionOverloadSurrogate._parameterName == null
         ) {
-          mutableListOf()
+          listOf()
         } else {
           (this@OperationDefinitionOverloadSurrogate.parameterName
               ?: List(this@OperationDefinitionOverloadSurrogate._parameterName!!.size) { null })
@@ -375,7 +368,7 @@ internal data class OperationDefinitionOverloadSurrogate(
                 ?: List(this@OperationDefinitionOverloadSurrogate.parameterName!!.size) { null }
             )
             .map { (value, element) -> R5String.of(value, element)!! }
-            .toMutableList()
+            .toList()
         },
       comment =
         R5String.of(
@@ -394,16 +387,13 @@ internal data class OperationDefinitionOverloadSurrogate(
           extension = this@with.extension.takeIf { it.isNotEmpty() },
           modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           parameterName =
-            this@with.parameterName
-              .map { it.value }
-              .toMutableList()
-              .takeUnless { it.all { it == null } },
+            this@with.parameterName.map { it.value }.toList().takeUnless { it.all { it == null } },
           _parameterName =
             this@with.parameterName
               .map { it.toElement() }
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
-              ?.toMutableList(),
+              ?.toList(),
           comment = this@with.comment?.value,
           _comment = this@with.comment?.toElement(),
         )
@@ -449,12 +439,12 @@ internal data class OperationDefinitionSurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: MutableList<Resource>? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var contained: List<Resource>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var url: KotlinString? = null,
   public var _url: Element? = null,
-  public var identifier: MutableList<Identifier>? = null,
+  public var identifier: List<Identifier>? = null,
   public var version: KotlinString? = null,
   public var _version: Element? = null,
   public var versionAlgorithm: OperationDefinition.VersionAlgorithm? = null,
@@ -472,11 +462,11 @@ internal data class OperationDefinitionSurrogate(
   public var _date: Element? = null,
   public var publisher: KotlinString? = null,
   public var _publisher: Element? = null,
-  public var contact: MutableList<ContactDetail>? = null,
+  public var contact: List<ContactDetail>? = null,
   public var description: KotlinString? = null,
   public var _description: Element? = null,
-  public var useContext: MutableList<UsageContext>? = null,
-  public var jurisdiction: MutableList<CodeableConcept>? = null,
+  public var useContext: List<UsageContext>? = null,
+  public var jurisdiction: List<CodeableConcept>? = null,
   public var purpose: KotlinString? = null,
   public var _purpose: Element? = null,
   public var copyright: KotlinString? = null,
@@ -491,8 +481,8 @@ internal data class OperationDefinitionSurrogate(
   public var _comment: Element? = null,
   public var base: KotlinString? = null,
   public var _base: Element? = null,
-  public var resource: MutableList<KotlinString?>? = null,
-  public var _resource: MutableList<Element?>? = null,
+  public var resource: List<KotlinString?>? = null,
+  public var _resource: List<Element?>? = null,
   public var system: KotlinBoolean? = null,
   public var _system: Element? = null,
   public var type: KotlinBoolean? = null,
@@ -503,8 +493,8 @@ internal data class OperationDefinitionSurrogate(
   public var _inputProfile: Element? = null,
   public var outputProfile: KotlinString? = null,
   public var _outputProfile: Element? = null,
-  public var parameter: MutableList<OperationDefinition.Parameter>? = null,
-  public var overload: MutableList<OperationDefinition.Overload>? = null,
+  public var parameter: List<OperationDefinition.Parameter>? = null,
+  public var overload: List<OperationDefinition.Overload>? = null,
 ) {
   public fun toModel(): OperationDefinition =
     OperationDefinition(
@@ -521,11 +511,11 @@ internal data class OperationDefinitionSurrogate(
           this@OperationDefinitionSurrogate._language,
         ),
       text = this@OperationDefinitionSurrogate.text,
-      contained = this@OperationDefinitionSurrogate.contained ?: mutableListOf(),
-      extension = this@OperationDefinitionSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@OperationDefinitionSurrogate.modifierExtension ?: mutableListOf(),
+      contained = this@OperationDefinitionSurrogate.contained ?: listOf(),
+      extension = this@OperationDefinitionSurrogate.extension ?: listOf(),
+      modifierExtension = this@OperationDefinitionSurrogate.modifierExtension ?: listOf(),
       url = Uri.of(this@OperationDefinitionSurrogate.url, this@OperationDefinitionSurrogate._url),
-      identifier = this@OperationDefinitionSurrogate.identifier ?: mutableListOf(),
+      identifier = this@OperationDefinitionSurrogate.identifier ?: listOf(),
       version =
         R5String.of(
           this@OperationDefinitionSurrogate.version,
@@ -567,14 +557,14 @@ internal data class OperationDefinitionSurrogate(
           this@OperationDefinitionSurrogate.publisher,
           this@OperationDefinitionSurrogate._publisher,
         ),
-      contact = this@OperationDefinitionSurrogate.contact ?: mutableListOf(),
+      contact = this@OperationDefinitionSurrogate.contact ?: listOf(),
       description =
         Markdown.of(
           this@OperationDefinitionSurrogate.description,
           this@OperationDefinitionSurrogate._description,
         ),
-      useContext = this@OperationDefinitionSurrogate.useContext ?: mutableListOf(),
-      jurisdiction = this@OperationDefinitionSurrogate.jurisdiction ?: mutableListOf(),
+      useContext = this@OperationDefinitionSurrogate.useContext ?: listOf(),
+      jurisdiction = this@OperationDefinitionSurrogate.jurisdiction ?: listOf(),
       purpose =
         Markdown.of(
           this@OperationDefinitionSurrogate.purpose,
@@ -612,7 +602,7 @@ internal data class OperationDefinitionSurrogate(
           this@OperationDefinitionSurrogate.resource == null &&
             this@OperationDefinitionSurrogate._resource == null
         ) {
-          mutableListOf()
+          listOf()
         } else {
           (this@OperationDefinitionSurrogate.resource
               ?: List(this@OperationDefinitionSurrogate._resource!!.size) { null })
@@ -626,7 +616,7 @@ internal data class OperationDefinitionSurrogate(
                 element,
               )
             }
-            .toMutableList()
+            .toList()
         },
       system =
         R5Boolean.of(
@@ -653,8 +643,8 @@ internal data class OperationDefinitionSurrogate(
           this@OperationDefinitionSurrogate.outputProfile,
           this@OperationDefinitionSurrogate._outputProfile,
         ),
-      parameter = this@OperationDefinitionSurrogate.parameter ?: mutableListOf(),
-      overload = this@OperationDefinitionSurrogate.overload ?: mutableListOf(),
+      parameter = this@OperationDefinitionSurrogate.parameter ?: listOf(),
+      overload = this@OperationDefinitionSurrogate.overload ?: listOf(),
     )
 
   public companion object {
@@ -713,14 +703,14 @@ internal data class OperationDefinitionSurrogate(
           resource =
             this@with.resource
               .map { it.value?.getCode() }
-              .toMutableList()
+              .toList()
               .takeUnless { it.all { it == null } },
           _resource =
             this@with.resource
               .map { it.toElement() }
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
-              ?.toMutableList(),
+              ?.toList(),
           system = this@with.system.value,
           _system = this@with.system.toElement(),
           type = this@with.type.value,

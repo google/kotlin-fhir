@@ -20,7 +20,7 @@ package com.google.fhir.model.r4
 
 import com.google.fhir.model.r4.serializers.ResearchSubjectSerializer
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -38,12 +38,12 @@ public data class ResearchSubject(
    * The only time that a resource does not have an id is when it is being submitted to the server
    * using a create operation.
    */
-  override var id: kotlin.String? = null,
+  override val id: kotlin.String? = null,
   /**
    * The metadata about the resource. This is content that is maintained by the infrastructure.
    * Changes to the content might not always be associated with version changes to the resource.
    */
-  override var meta: Meta? = null,
+  override val meta: Meta? = null,
   /**
    * A reference to a set of rules that were followed when the resource was constructed, and which
    * must be understood when processing the content. Often, this is a reference to an implementation
@@ -57,7 +57,7 @@ public data class ResearchSubject(
    * to an implementation guide that defines these special rules as part of it's narrative along
    * with other profiles, value sets, etc.
    */
-  override var implicitRules: Uri? = null,
+  override val implicitRules: Uri? = null,
   /**
    * The base language in which the resource is written.
    *
@@ -69,7 +69,7 @@ public data class ResearchSubject(
    * language is specified, it should it also be specified on the div element in the html (see rules
    * in HTML5 for information about the relationship between xml:lang and the html lang attribute).
    */
-  override var language: Code? = null,
+  override val language: Code? = null,
   /**
    * A human-readable narrative that contains a summary of the resource and can be used to represent
    * the content of the resource to a human. The narrative need not encode all the structured data,
@@ -83,7 +83,7 @@ public data class ResearchSubject(
    * legacy systems where information is captured as a "text blob" or where text is additionally
    * entered raw or narrated and encoded information is added later.
    */
-  override var text: Narrative? = null,
+  override val text: Narrative? = null,
   /**
    * These resources do not have an independent existence apart from the resource that contains
    * them - they cannot be identified independently, and nor can they have their own independent
@@ -94,7 +94,7 @@ public data class ResearchSubject(
    * resources may have profiles and tags In their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: MutableList<Resource> = mutableListOf(),
+  override val contained: List<Resource> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and manageable, there is a strict set of
@@ -107,7 +107,7 @@ public data class ResearchSubject(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: MutableList<Extension> = mutableListOf(),
+  override val extension: List<Extension> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -126,23 +126,23 @@ public data class ResearchSubject(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: MutableList<Extension> = mutableListOf(),
+  override val modifierExtension: List<Extension> = listOf(),
   /** Identifiers assigned to this research subject for a study. */
-  public var identifier: MutableList<Identifier> = mutableListOf(),
+  public val identifier: List<Identifier> = listOf(),
   /** The current state of the subject. */
-  public var status: Enumeration<ResearchSubjectStatus>,
+  public val status: Enumeration<ResearchSubjectStatus>,
   /** The dates the subject began and ended their participation in the study. */
-  public var period: Period? = null,
+  public val period: Period? = null,
   /** Reference to the study the subject is participating in. */
-  public var study: Reference,
+  public val study: Reference,
   /** The record of the person or animal who is involved in the study. */
-  public var individual: Reference,
+  public val individual: Reference,
   /** The name of the arm in the study the subject is expected to follow as part of this study. */
-  public var assignedArm: String? = null,
+  public val assignedArm: String? = null,
   /** The name of the arm in the study the subject actually followed as part of this study. */
-  public var actualArm: String? = null,
+  public val actualArm: String? = null,
   /** A record of the patient's informed agreement to participate in the study. */
-  public var consent: Reference? = null,
+  public val consent: Reference? = null,
 ) : DomainResource() {
   /** Indicates the progression of a study subject through a study. */
   public enum class ResearchSubjectStatus(

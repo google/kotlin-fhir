@@ -37,7 +37,7 @@ import com.google.fhir.model.r4b.terminologies.FHIRVersion
 import com.google.fhir.model.r4b.terminologies.PublicationStatus
 import com.google.fhir.model.r4b.terminologies.ResourceType
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -57,12 +57,12 @@ public data class ImplementationGuide(
    * The only time that a resource does not have an id is when it is being submitted to the server
    * using a create operation.
    */
-  override var id: kotlin.String? = null,
+  override val id: kotlin.String? = null,
   /**
    * The metadata about the resource. This is content that is maintained by the infrastructure.
    * Changes to the content might not always be associated with version changes to the resource.
    */
-  override var meta: Meta? = null,
+  override val meta: Meta? = null,
   /**
    * A reference to a set of rules that were followed when the resource was constructed, and which
    * must be understood when processing the content. Often, this is a reference to an implementation
@@ -76,7 +76,7 @@ public data class ImplementationGuide(
    * to an implementation guide that defines these special rules as part of it's narrative along
    * with other profiles, value sets, etc.
    */
-  override var implicitRules: Uri? = null,
+  override val implicitRules: Uri? = null,
   /**
    * The base language in which the resource is written.
    *
@@ -88,7 +88,7 @@ public data class ImplementationGuide(
    * language is specified, it should it also be specified on the div element in the html (see rules
    * in HTML5 for information about the relationship between xml:lang and the html lang attribute).
    */
-  override var language: Code? = null,
+  override val language: Code? = null,
   /**
    * A human-readable narrative that contains a summary of the resource and can be used to represent
    * the content of the resource to a human. The narrative need not encode all the structured data,
@@ -102,7 +102,7 @@ public data class ImplementationGuide(
    * legacy systems where information is captured as a "text blob" or where text is additionally
    * entered raw or narrated and encoded information is added later.
    */
-  override var text: Narrative? = null,
+  override val text: Narrative? = null,
   /**
    * These resources do not have an independent existence apart from the resource that contains
    * them - they cannot be identified independently, and nor can they have their own independent
@@ -113,7 +113,7 @@ public data class ImplementationGuide(
    * resources may have profiles and tags In their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: MutableList<Resource> = mutableListOf(),
+  override val contained: List<Resource> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and manageable, there is a strict set of
@@ -126,7 +126,7 @@ public data class ImplementationGuide(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: MutableList<Extension> = mutableListOf(),
+  override val extension: List<Extension> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -145,7 +145,7 @@ public data class ImplementationGuide(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: MutableList<Extension> = mutableListOf(),
+  override val modifierExtension: List<Extension> = listOf(),
   /**
    * An absolute URI that is used to identify this implementation guide when it is referenced in a
    * specification, model, design or an instance; also called its canonical identifier. This SHOULD
@@ -165,7 +165,7 @@ public data class ImplementationGuide(
    * change. Implementations can use the [meta.source](resource.html#meta) element to indicate where
    * the current master source of the resource can be found.
    */
-  public var url: Uri,
+  public val url: Uri,
   /**
    * The identifier that is used to identify this version of the implementation guide when it is
    * referenced in a specification, model, design or instance. This is an arbitrary value managed by
@@ -177,7 +177,7 @@ public data class ImplementationGuide(
    * different versions. The version can be appended to the url in a reference to allow a reference
    * to a particular business version of the implementation guide with the format [url]|[version].
    */
-  public var version: String? = null,
+  public val version: String? = null,
   /**
    * A natural language name identifying the implementation guide. This name should be usable as an
    * identifier for the module by machine processing applications such as code generation.
@@ -185,27 +185,27 @@ public data class ImplementationGuide(
    * The name is not expected to be globally unique. The name should be a simple alphanumeric type
    * name to ensure that it is machine-processing friendly.
    */
-  public var name: String,
+  public val name: String,
   /**
    * A short, descriptive, user-friendly title for the implementation guide.
    *
    * This name does not need to be machine-processing friendly and may contain punctuation,
    * white-space, etc.
    */
-  public var title: String? = null,
+  public val title: String? = null,
   /**
    * The status of this implementation guide. Enables tracking the life-cycle of the content.
    *
    * Allows filtering of implementation guides that are appropriate for use versus not.
    */
-  public var status: Enumeration<PublicationStatus>,
+  public val status: Enumeration<PublicationStatus>,
   /**
    * A Boolean value to indicate that this implementation guide is authored for testing purposes (or
    * education/evaluation/marketing) and is not intended to be used for genuine usage.
    *
    * Allows filtering of implementation guides that are appropriate for use versus not.
    */
-  public var experimental: Boolean? = null,
+  public val experimental: Boolean? = null,
   /**
    * The date (and optionally time) when the implementation guide was published. The date must
    * change when the business version changes and it must change if the status code changes. In
@@ -215,7 +215,7 @@ public data class ImplementationGuide(
    * secondary representation of the implementation guide. Additional specific dates may be added as
    * extensions or be found by consulting Provenances associated with past versions of the resource.
    */
-  public var date: DateTime? = null,
+  public val date: DateTime? = null,
   /**
    * The name of the organization or individual that published the implementation guide.
    *
@@ -226,13 +226,13 @@ public data class ImplementationGuide(
    * point of contact for questions or issues with the implementation guide. This item SHOULD be
    * populated unless the information is available from context.
    */
-  public var publisher: String? = null,
+  public val publisher: String? = null,
   /**
    * Contact details to assist a user in finding and communicating with the publisher.
    *
    * May be a web site, an email address, a telephone number, etc.
    */
-  public var contact: MutableList<ContactDetail> = mutableListOf(),
+  public val contact: List<ContactDetail> = listOf(),
   /**
    * A free text natural language description of the implementation guide from a consumer's
    * perspective.
@@ -244,7 +244,7 @@ public data class ImplementationGuide(
    * information is available from context (e.g. the language of the implementation guide is
    * presumed to be the predominant language in the place the implementation guide was created).
    */
-  public var description: Markdown? = null,
+  public val description: Markdown? = null,
   /**
    * The content was developed with a focus and intent of supporting the contexts that are listed.
    * These contexts may be general categories (gender, age, ...) or may be references to specific
@@ -254,20 +254,20 @@ public data class ImplementationGuide(
    * When multiple useContexts are specified, there is no expectation that all or any of the
    * contexts apply.
    */
-  public var useContext: MutableList<UsageContext> = mutableListOf(),
+  public val useContext: List<UsageContext> = listOf(),
   /**
    * A legal or geographic region in which the implementation guide is intended to be used.
    *
    * It may be possible for the implementation guide to be used in jurisdictions other than those
    * for which it was originally designed or intended.
    */
-  public var jurisdiction: MutableList<CodeableConcept> = mutableListOf(),
+  public val jurisdiction: List<CodeableConcept> = listOf(),
   /**
    * A copyright statement relating to the implementation guide and/or its contents. Copyright
    * statements are generally legal restrictions on the use and publishing of the implementation
    * guide.
    */
-  public var copyright: Markdown? = null,
+  public val copyright: Markdown? = null,
   /**
    * The NPM package name for this Implementation Guide, used in the NPM package distribution, which
    * is the primary mechanism by which FHIR based tooling manages IG dependencies. This value must
@@ -277,12 +277,12 @@ public data class ImplementationGuide(
    * implementation guides published through HL7 or the FHIR foundation, the FHIR product director
    * assigns package IDs.
    */
-  public var packageId: Id,
+  public val packageId: Id,
   /**
    * The license that applies to this Implementation Guide, using an SPDX license code, or
    * 'not-open-source'.
    */
-  public var license: Enumeration<SPDXLicense>? = null,
+  public val license: Enumeration<SPDXLicense>? = null,
   /**
    * The version(s) of the FHIR specification that this ImplementationGuide targets - e.g. describes
    * how to use. The value of this element is the formal version of the specification, without the
@@ -295,28 +295,28 @@ public data class ImplementationGuide(
    * implementation matures and different implementation communities are stuck at different versions
    * by regulation or market dynamics.
    */
-  public var fhirVersion: MutableList<Enumeration<FHIRVersion>> = mutableListOf(),
+  public val fhirVersion: List<Enumeration<FHIRVersion>> = listOf(),
   /**
    * Another implementation guide that this implementation depends on. Typically, an implementation
    * guide uses value sets, profiles etc.defined in other implementation guides.
    */
-  public var dependsOn: MutableList<DependsOn> = mutableListOf(),
+  public val dependsOn: List<DependsOn> = listOf(),
   /**
    * A set of profiles that all resources covered by this implementation guide must conform to.
    *
    * See [Default Profiles](implementationguide.html#default) for a discussion of which resources
    * are 'covered' by an implementation guide.
    */
-  public var global: MutableList<Global> = mutableListOf(),
+  public val global: List<Global> = listOf(),
   /**
    * The information needed by an IG publisher tool to publish the whole implementation guide.
    *
    * Principally, this consists of information abuot source resource and file locations, and build
    * parameters and templates.
    */
-  public var definition: Definition? = null,
+  public val definition: Definition? = null,
   /** Information about an assembled implementation guide, created by the publication tooling. */
-  public var manifest: Manifest? = null,
+  public val manifest: Manifest? = null,
 ) : DomainResource() {
   /**
    * Another implementation guide that this implementation depends on. Typically, an implementation
@@ -328,7 +328,7 @@ public data class ImplementationGuide(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and manageable, there is a strict set of
@@ -341,7 +341,7 @@ public data class ImplementationGuide(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -360,23 +360,23 @@ public data class ImplementationGuide(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /**
      * A canonical reference to the Implementation guide for the dependency.
      *
      * Usually, A canonical reference to the implementation guide is the same as the master location
      * at which the implementation guide is published.
      */
-    public var uri: Canonical,
+    public val uri: Canonical,
     /** The NPM package name for the Implementation Guide that this IG depends on. */
-    public var packageId: Id? = null,
+    public val packageId: Id? = null,
     /**
      * The version of the IG that is depended on, when the correct version is required to understand
      * the IG correctly.
      *
      * This follows the syntax of the NPM packaging version field - see [[reference]].
      */
-    public var version: String? = null,
+    public val version: String? = null,
   ) : BackboneElement()
 
   /** A set of profiles that all resources covered by this implementation guide must conform to. */
@@ -386,7 +386,7 @@ public data class ImplementationGuide(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and manageable, there is a strict set of
@@ -399,7 +399,7 @@ public data class ImplementationGuide(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -418,7 +418,7 @@ public data class ImplementationGuide(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /**
      * The type of resource that all instances must conform to.
      *
@@ -426,9 +426,9 @@ public data class ImplementationGuide(
      * denormalization so that a system processing the implementation guide resource knows which
      * resources the profile applies to even if the profile itself is not available.
      */
-    public var type: Enumeration<ResourceType>,
+    public val type: Enumeration<ResourceType>,
     /** A reference to the profile that all instances must conform to. */
-    public var profile: Canonical,
+    public val profile: Canonical,
   ) : BackboneElement()
 
   /** The information needed by an IG publisher tool to publish the whole implementation guide. */
@@ -438,7 +438,7 @@ public data class ImplementationGuide(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and manageable, there is a strict set of
@@ -451,7 +451,7 @@ public data class ImplementationGuide(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -470,20 +470,20 @@ public data class ImplementationGuide(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /**
      * A logical group of resources. Logical groups can be used when building pages.
      *
      * Groupings are arbitrary sub-divisions of content. Typically, they are used to help build
      * Table of Contents automatically.
      */
-    public var grouping: MutableList<Grouping> = mutableListOf(),
+    public val grouping: List<Grouping> = listOf(),
     /**
      * A resource that is part of the implementation guide. Conformance resources (value set,
      * structure definition, capability statements etc.) are obvious candidates for inclusion, but
      * any kind of resource can be included as an example resource.
      */
-    public var resource: MutableList<Resource> = mutableListOf(),
+    public val resource: List<Resource> = listOf(),
     /**
      * A page / section in the implementation guide. The root page is the implementation guide home
      * page.
@@ -491,11 +491,11 @@ public data class ImplementationGuide(
      * Pages automatically become sections if they have sub-pages. By convention, the home page is
      * called index.html.
      */
-    public var page: Page? = null,
+    public val page: Page? = null,
     /** Defines how IG is built by tools. */
-    public var parameter: MutableList<Parameter> = mutableListOf(),
+    public val parameter: List<Parameter> = listOf(),
     /** A template for building resources. */
-    public var template: MutableList<Template> = mutableListOf(),
+    public val template: List<Template> = listOf(),
   ) : BackboneElement() {
     /** A logical group of resources. Logical groups can be used when building pages. */
     @Serializable(with = ImplementationGuideDefinitionGroupingSerializer::class)
@@ -504,7 +504,7 @@ public data class ImplementationGuide(
        * Unique id for the element within a resource (for internal references). This may be any
        * string value that does not contain spaces.
        */
-      override var id: kotlin.String? = null,
+      override val id: kotlin.String? = null,
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element. To make the use of extensions safe and manageable, there is a strict set of
@@ -517,7 +517,7 @@ public data class ImplementationGuide(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: MutableList<Extension> = mutableListOf(),
+      override val extension: List<Extension> = listOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -536,14 +536,14 @@ public data class ImplementationGuide(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: MutableList<Extension> = mutableListOf(),
+      override val modifierExtension: List<Extension> = listOf(),
       /**
        * The human-readable title to display for the package of resources when rendering the
        * implementation guide.
        */
-      public var name: String,
+      public val name: String,
       /** Human readable text describing the package. */
-      public var description: String? = null,
+      public val description: String? = null,
     ) : BackboneElement()
 
     /**
@@ -557,7 +557,7 @@ public data class ImplementationGuide(
        * Unique id for the element within a resource (for internal references). This may be any
        * string value that does not contain spaces.
        */
-      override var id: kotlin.String? = null,
+      override val id: kotlin.String? = null,
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element. To make the use of extensions safe and manageable, there is a strict set of
@@ -570,7 +570,7 @@ public data class ImplementationGuide(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: MutableList<Extension> = mutableListOf(),
+      override val extension: List<Extension> = listOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -589,7 +589,7 @@ public data class ImplementationGuide(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: MutableList<Extension> = mutableListOf(),
+      override val modifierExtension: List<Extension> = listOf(),
       /**
        * Where this resource is found.
        *
@@ -598,7 +598,7 @@ public data class ImplementationGuide(
        * tooling, use a URI that may point to a resource, or to one of various alternative
        * representations (e.g. spreadsheet). The tooling will convert this when it publishes it.
        */
-      public var reference: Reference,
+      public val reference: Reference,
       /**
        * Indicates the FHIR Version(s) this artifact is intended to apply to. If no versions are
        * specified, the resource is assumed to apply to all the versions stated in
@@ -611,19 +611,19 @@ public data class ImplementationGuide(
        * versions using the
        * [applicable-version](extension-structuredefinition-applicable-version.html) extension.
        */
-      public var fhirVersion: MutableList<Enumeration<FHIRVersion>> = mutableListOf(),
+      public val fhirVersion: List<Enumeration<FHIRVersion>> = listOf(),
       /**
        * A human assigned name for the resource. All resources SHOULD have a name, but the name may
        * be extracted from the resource (e.g. ValueSet.name).
        */
-      public var name: String? = null,
+      public val name: String? = null,
       /**
        * A description of the reason that a resource has been included in the implementation guide.
        *
        * This is mostly used with examples to explain why it is present (though they can have
        * extensive comments in the examples).
        */
-      public var description: String? = null,
+      public val description: String? = null,
       /**
        * If true or a reference, indicates the resource is an example instance. If a reference is
        * present, indicates that the example is an example of the specified profile.
@@ -634,13 +634,13 @@ public data class ImplementationGuide(
        * * OperationDefinition -> Parameters
        * * Questionnaire -> QuestionnaireResponse.
        */
-      public var example: Example? = null,
+      public val example: Example? = null,
       /**
        * Reference to the id of the grouping this resource appears in.
        *
        * This must correspond to a package.id element within this implementation guide.
        */
-      public var groupingId: Id? = null,
+      public val groupingId: Id? = null,
     ) : BackboneElement() {
       @Serializable(with = ImplementationGuideDefinitionResourceExampleSerializer::class)
       public sealed interface Example {
@@ -676,7 +676,7 @@ public data class ImplementationGuide(
        * Unique id for the element within a resource (for internal references). This may be any
        * string value that does not contain spaces.
        */
-      override var id: kotlin.String? = null,
+      override val id: kotlin.String? = null,
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element. To make the use of extensions safe and manageable, there is a strict set of
@@ -689,7 +689,7 @@ public data class ImplementationGuide(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: MutableList<Extension> = mutableListOf(),
+      override val extension: List<Extension> = listOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -708,27 +708,27 @@ public data class ImplementationGuide(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: MutableList<Extension> = mutableListOf(),
+      override val modifierExtension: List<Extension> = listOf(),
       /**
        * The source address for the page.
        *
        * The publishing tool will autogenerate source for list (source = n/a) and inject included
        * implementations for include (source = uri of guide to include).
        */
-      public var name: Name,
+      public val name: Name,
       /**
        * A short title used to represent this page in navigational structures such as table of
        * contents, bread crumbs, etc.
        */
-      public var title: String,
+      public val title: String,
       /** A code that indicates how the page is generated. */
-      public var generation: Enumeration<GuidePageGeneration>,
+      public val generation: Enumeration<GuidePageGeneration>,
       /**
        * Nested Pages/Sections under this page.
        *
        * The implementation guide breadcrumbs are generated from this structure.
        */
-      public var page: MutableList<Page> = mutableListOf(),
+      public val page: List<Page> = listOf(),
     ) : BackboneElement() {
       @Serializable(with = ImplementationGuideDefinitionPageNameSerializer::class)
       public sealed interface Name {
@@ -760,7 +760,7 @@ public data class ImplementationGuide(
        * Unique id for the element within a resource (for internal references). This may be any
        * string value that does not contain spaces.
        */
-      override var id: kotlin.String? = null,
+      override val id: kotlin.String? = null,
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element. To make the use of extensions safe and manageable, there is a strict set of
@@ -773,7 +773,7 @@ public data class ImplementationGuide(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: MutableList<Extension> = mutableListOf(),
+      override val extension: List<Extension> = listOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -792,14 +792,14 @@ public data class ImplementationGuide(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: MutableList<Extension> = mutableListOf(),
+      override val modifierExtension: List<Extension> = listOf(),
       /**
        * apply | path-resource | path-pages | path-tx-cache | expansion-parameter |
        * rule-broken-links | generate-xml | generate-json | generate-turtle | html-template.
        */
-      public var code: Enumeration<GuideParameterCode>,
+      public val code: Enumeration<GuideParameterCode>,
       /** Value for named type. */
-      public var `value`: String,
+      public val `value`: String,
     ) : BackboneElement()
 
     /** A template for building resources. */
@@ -809,7 +809,7 @@ public data class ImplementationGuide(
        * Unique id for the element within a resource (for internal references). This may be any
        * string value that does not contain spaces.
        */
-      override var id: kotlin.String? = null,
+      override val id: kotlin.String? = null,
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element. To make the use of extensions safe and manageable, there is a strict set of
@@ -822,7 +822,7 @@ public data class ImplementationGuide(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: MutableList<Extension> = mutableListOf(),
+      override val extension: List<Extension> = listOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -841,13 +841,13 @@ public data class ImplementationGuide(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: MutableList<Extension> = mutableListOf(),
+      override val modifierExtension: List<Extension> = listOf(),
       /** Type of template specified. */
-      public var code: Code,
+      public val code: Code,
       /** The source location for the template. */
-      public var source: String,
+      public val source: String,
       /** The scope in which the template applies. */
-      public var scope: String? = null,
+      public val scope: String? = null,
     ) : BackboneElement()
   }
 
@@ -858,7 +858,7 @@ public data class ImplementationGuide(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and manageable, there is a strict set of
@@ -871,7 +871,7 @@ public data class ImplementationGuide(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -890,24 +890,24 @@ public data class ImplementationGuide(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /** A pointer to official web page, PDF or other rendering of the implementation guide. */
-    public var rendering: Url? = null,
+    public val rendering: Url? = null,
     /**
      * A resource that is part of the implementation guide. Conformance resources (value set,
      * structure definition, capability statements etc.) are obvious candidates for inclusion, but
      * any kind of resource can be included as an example resource.
      */
-    public var resource: MutableList<Resource> = mutableListOf(),
+    public val resource: List<Resource> = listOf(),
     /** Information about a page within the IG. */
-    public var page: MutableList<Page> = mutableListOf(),
+    public val page: List<Page> = listOf(),
     /** Indicates a relative path to an image that exists within the IG. */
-    public var image: MutableList<String> = mutableListOf(),
+    public val image: List<String> = listOf(),
     /**
      * Indicates the relative path of an additional non-page, non-image file that is part of the
      * IG - e.g. zip, jar and similar files that could be the target of a hyperlink in a derived IG.
      */
-    public var other: MutableList<String> = mutableListOf(),
+    public val other: List<String> = listOf(),
   ) : BackboneElement() {
     /**
      * A resource that is part of the implementation guide. Conformance resources (value set,
@@ -920,7 +920,7 @@ public data class ImplementationGuide(
        * Unique id for the element within a resource (for internal references). This may be any
        * string value that does not contain spaces.
        */
-      override var id: kotlin.String? = null,
+      override val id: kotlin.String? = null,
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element. To make the use of extensions safe and manageable, there is a strict set of
@@ -933,7 +933,7 @@ public data class ImplementationGuide(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: MutableList<Extension> = mutableListOf(),
+      override val extension: List<Extension> = listOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -952,7 +952,7 @@ public data class ImplementationGuide(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: MutableList<Extension> = mutableListOf(),
+      override val modifierExtension: List<Extension> = listOf(),
       /**
        * Where this resource is found.
        *
@@ -961,7 +961,7 @@ public data class ImplementationGuide(
        * tooling, use a URI that may point to a resource, or to one of various alternative
        * representations (e.g. spreadsheet). The tooling will convert this when it publishes it.
        */
-      public var reference: Reference,
+      public val reference: Reference,
       /**
        * If true or a reference, indicates the resource is an example instance. If a reference is
        * present, indicates that the example is an example of the specified profile.
@@ -970,13 +970,13 @@ public data class ImplementationGuide(
        * implementation guide, with their normal meaning, and patient linked resources are usually
        * examples. However this is not always true.
        */
-      public var example: Example? = null,
+      public val example: Example? = null,
       /**
        * The relative path for primary page for this resource within the IG.
        *
        * Appending 'rendering' + "/" + this should resolve to the resource page.
        */
-      public var relativePath: Url? = null,
+      public val relativePath: Url? = null,
     ) : BackboneElement() {
       @Serializable(with = ImplementationGuideManifestResourceExampleSerializer::class)
       public sealed interface Example {
@@ -1009,7 +1009,7 @@ public data class ImplementationGuide(
        * Unique id for the element within a resource (for internal references). This may be any
        * string value that does not contain spaces.
        */
-      override var id: kotlin.String? = null,
+      override val id: kotlin.String? = null,
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element. To make the use of extensions safe and manageable, there is a strict set of
@@ -1022,7 +1022,7 @@ public data class ImplementationGuide(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: MutableList<Extension> = mutableListOf(),
+      override val extension: List<Extension> = listOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -1041,21 +1041,21 @@ public data class ImplementationGuide(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: MutableList<Extension> = mutableListOf(),
+      override val modifierExtension: List<Extension> = listOf(),
       /**
        * Relative path to the page.
        *
        * Appending 'rendering' + "/" + this should resolve to the page.
        */
-      public var name: String,
+      public val name: String,
       /** Label for the page intended for human display. */
-      public var title: String? = null,
+      public val title: String? = null,
       /**
        * The name of an anchor available on the page.
        *
        * Appending 'rendering' + "/" + page.name + "#" + page.anchor should resolve to the anchor.
        */
-      public var anchor: MutableList<String> = mutableListOf(),
+      public val anchor: List<String> = listOf(),
     ) : BackboneElement()
   }
 

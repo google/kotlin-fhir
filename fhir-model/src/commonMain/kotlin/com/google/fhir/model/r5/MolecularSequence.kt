@@ -24,7 +24,7 @@ import com.google.fhir.model.r5.serializers.MolecularSequenceRelativeStartingSeq
 import com.google.fhir.model.r5.serializers.MolecularSequenceRelativeStartingSequenceSerializer
 import com.google.fhir.model.r5.serializers.MolecularSequenceSerializer
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -40,12 +40,12 @@ public data class MolecularSequence(
    * like the create and conditional update. Otherwise, the use of the resouce id depends on the
    * given use case.
    */
-  override var id: kotlin.String? = null,
+  override val id: kotlin.String? = null,
   /**
    * The metadata about the resource. This is content that is maintained by the infrastructure.
    * Changes to the content might not always be associated with version changes to the resource.
    */
-  override var meta: Meta? = null,
+  override val meta: Meta? = null,
   /**
    * A reference to a set of rules that were followed when the resource was constructed, and which
    * must be understood when processing the content. Often, this is a reference to an implementation
@@ -59,7 +59,7 @@ public data class MolecularSequence(
    * to an implementation guide that defines these special rules as part of its narrative along with
    * other profiles, value sets, etc.
    */
-  override var implicitRules: Uri? = null,
+  override val implicitRules: Uri? = null,
   /**
    * The base language in which the resource is written.
    *
@@ -71,7 +71,7 @@ public data class MolecularSequence(
    * language is specified, it should it also be specified on the div element in the html (see rules
    * in HTML5 for information about the relationship between xml:lang and the html lang attribute).
    */
-  override var language: Code? = null,
+  override val language: Code? = null,
   /**
    * A human-readable narrative that contains a summary of the resource and can be used to represent
    * the content of the resource to a human. The narrative need not encode all the structured data,
@@ -85,7 +85,7 @@ public data class MolecularSequence(
    * legacy systems where information is captured as a "text blob" or where text is additionally
    * entered raw or narrated and encoded information is added later.
    */
-  override var text: Narrative? = null,
+  override val text: Narrative? = null,
   /**
    * These resources do not have an independent existence apart from the resource that contains
    * them - they cannot be identified independently, nor can they have their own independent
@@ -97,7 +97,7 @@ public data class MolecularSequence(
    * resources may have profiles and tags in their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: MutableList<Resource> = mutableListOf(),
+  override val contained: List<Resource> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and managable, there is a strict set of governance
@@ -110,7 +110,7 @@ public data class MolecularSequence(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: MutableList<Extension> = mutableListOf(),
+  override val extension: List<Extension> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -129,35 +129,35 @@ public data class MolecularSequence(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: MutableList<Extension> = mutableListOf(),
+  override val modifierExtension: List<Extension> = listOf(),
   /** A unique identifier for this particular sequence instance. */
-  public var identifier: MutableList<Identifier> = mutableListOf(),
+  public val identifier: List<Identifier> = listOf(),
   /** Amino Acid Sequence/ DNA Sequence / RNA Sequence. */
-  public var type: Enumeration<SequenceType>? = null,
+  public val type: Enumeration<SequenceType>? = null,
   /** Indicates the subject this sequence is associated too. */
-  public var subject: Reference? = null,
+  public val subject: Reference? = null,
   /**
    * The actual focus of a molecular sequence when it is not the patient of record representing
    * something or someone associated with the patient such as a spouse, parent, child, or sibling.
    * For example, in trio testing, the subject would be the child (proband) and the focus would be
    * the parent.
    */
-  public var focus: MutableList<Reference> = mutableListOf(),
+  public val focus: List<Reference> = listOf(),
   /** Specimen used for sequencing. */
-  public var specimen: Reference? = null,
+  public val specimen: Reference? = null,
   /** The method for sequencing, for example, chip information. */
-  public var device: Reference? = null,
+  public val device: Reference? = null,
   /** The organization or lab that should be responsible for this result. */
-  public var performer: Reference? = null,
+  public val performer: Reference? = null,
   /** Sequence that was observed. */
-  public var literal: String? = null,
+  public val literal: String? = null,
   /**
    * Sequence that was observed as file content. Can be an actual file contents, or referenced by a
    * URL to an external system.
    */
-  public var formatted: MutableList<Attachment> = mutableListOf(),
+  public val formatted: List<Attachment> = listOf(),
   /** A sequence defined relative to another sequence. */
-  public var relative: MutableList<Relative> = mutableListOf(),
+  public val relative: List<Relative> = listOf(),
 ) : DomainResource() {
   /** A sequence defined relative to another sequence. */
   @Serializable(with = MolecularSequenceRelativeSerializer::class)
@@ -166,7 +166,7 @@ public data class MolecularSequence(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -179,7 +179,7 @@ public data class MolecularSequence(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -198,30 +198,30 @@ public data class MolecularSequence(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /**
      * These are different ways of identifying nucleotides or amino acids within a sequence.
      * Different databases and file types may use different systems. For detail definitions, see
      * https://loinc.org/92822-6/ for more detail.
      */
-    public var coordinateSystem: CodeableConcept,
+    public val coordinateSystem: CodeableConcept,
     /**
      * Indicates the order in which the sequence should be considered when putting multiple
      * 'relative' elements together.
      */
-    public var ordinalPosition: Integer? = null,
+    public val ordinalPosition: Integer? = null,
     /**
      * Indicates the nucleotide range in the composed sequence when multiple 'relative' elements are
      * used together.
      */
-    public var sequenceRange: Range? = null,
+    public val sequenceRange: Range? = null,
     /**
      * A sequence that is used as a starting sequence to describe variants that are present in a
      * sequence analyzed.
      */
-    public var startingSequence: StartingSequence? = null,
+    public val startingSequence: StartingSequence? = null,
     /** Changes in sequence from the starting sequence. */
-    public var edit: MutableList<Edit> = mutableListOf(),
+    public val edit: List<Edit> = listOf(),
   ) : BackboneElement() {
     /**
      * A sequence that is used as a starting sequence to describe variants that are present in a
@@ -233,7 +233,7 @@ public data class MolecularSequence(
        * Unique id for the element within a resource (for internal references). This may be any
        * string value that does not contain spaces.
        */
-      override var id: kotlin.String? = null,
+      override val id: kotlin.String? = null,
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -246,7 +246,7 @@ public data class MolecularSequence(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: MutableList<Extension> = mutableListOf(),
+      override val extension: List<Extension> = listOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -265,15 +265,15 @@ public data class MolecularSequence(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: MutableList<Extension> = mutableListOf(),
+      override val modifierExtension: List<Extension> = listOf(),
       /** The genome assembly used for starting sequence, e.g. GRCh38. */
-      public var genomeAssembly: CodeableConcept? = null,
+      public val genomeAssembly: CodeableConcept? = null,
       /**
        * Structural unit composed of a nucleic acid molecule which controls its own replication
        * through the interaction of specific proteins at one or more origins of replication
        * ([SO:0000340](http://www.sequenceontology.org/browser/current_svn/term/SO:0000340)).
        */
-      public var chromosome: CodeableConcept? = null,
+      public val chromosome: CodeableConcept? = null,
       /**
        * The reference sequence that represents the starting sequence.
        *
@@ -282,29 +282,29 @@ public data class MolecularSequence(
        * 1. a simple string of IUPAC codes
        * 1. a reference to another MolecularSequence resource.
        */
-      public var sequence: Sequence? = null,
+      public val sequence: Sequence? = null,
       /**
        * Start position of the window on the starting sequence. This value should honor the rules of
        * the coordinateSystem.
        */
-      public var windowStart: Integer? = null,
+      public val windowStart: Integer? = null,
       /**
        * End position of the window on the starting sequence. This value should honor the rules of
        * the coordinateSystem.
        */
-      public var windowEnd: Integer? = null,
+      public val windowEnd: Integer? = null,
       /**
        * A relative reference to a DNA strand based on gene orientation. The strand that contains
        * the open reading frame of the gene is the "sense" strand, and the opposite complementary
        * strand is the "antisense" strand.
        */
-      public var orientation: Enumeration<OrientationType>? = null,
+      public val orientation: Enumeration<OrientationType>? = null,
       /**
        * An absolute reference to a strand. The Watson strand is the strand whose 5'-end is on the
        * short arm of the chromosome, and the Crick strand as the one whose 5'-end is on the long
        * arm.
        */
-      public var strand: Enumeration<StrandType>? = null,
+      public val strand: Enumeration<StrandType>? = null,
     ) : BackboneElement() {
       @Serializable(with = MolecularSequenceRelativeStartingSequenceSequenceSerializer::class)
       public sealed interface Sequence {
@@ -345,7 +345,7 @@ public data class MolecularSequence(
        * Unique id for the element within a resource (for internal references). This may be any
        * string value that does not contain spaces.
        */
-      override var id: kotlin.String? = null,
+      override val id: kotlin.String? = null,
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -358,7 +358,7 @@ public data class MolecularSequence(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: MutableList<Extension> = mutableListOf(),
+      override val extension: List<Extension> = listOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -377,32 +377,32 @@ public data class MolecularSequence(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: MutableList<Extension> = mutableListOf(),
+      override val modifierExtension: List<Extension> = listOf(),
       /**
        * Start position of the edit on the starting sequence. If the coordinate system is either
        * 0-based or 1-based, then start position is inclusive.
        */
-      public var start: Integer? = null,
+      public val start: Integer? = null,
       /**
        * End position of the edit on the starting sequence. If the coordinate system is 0-based then
        * end is exclusive and does not include the last position. If the coordinate system is
        * 1-base, then end is inclusive and includes the last position.
        */
-      public var end: Integer? = null,
+      public val end: Integer? = null,
       /**
        * Allele that was observed. Nucleotide(s)/amino acids from start position of sequence to stop
        * position of sequence on the positive (+) strand of the observed sequence. When the sequence
        * type is DNA, it should be the sequence on the positive (+) strand. This will lay in the
        * range between variant.start and variant.end.
        */
-      public var replacementSequence: String? = null,
+      public val replacementSequence: String? = null,
       /**
        * Allele in the starting sequence. Nucleotide(s)/amino acids from start position of sequence
        * to stop position of sequence on the positive (+) strand of the starting sequence. When the
        * sequence type is DNA, it should be the sequence on the positive (+) strand. This will lay
        * in the range between variant.start and variant.end.
        */
-      public var replacedSequence: String? = null,
+      public val replacedSequence: String? = null,
     ) : BackboneElement()
   }
 

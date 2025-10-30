@@ -24,7 +24,7 @@ import com.google.fhir.model.r5.serializers.CommunicationRequestPayloadSerialize
 import com.google.fhir.model.r5.serializers.CommunicationRequestSerializer
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -44,12 +44,12 @@ public data class CommunicationRequest(
    * like the create and conditional update. Otherwise, the use of the resouce id depends on the
    * given use case.
    */
-  override var id: String? = null,
+  override val id: String? = null,
   /**
    * The metadata about the resource. This is content that is maintained by the infrastructure.
    * Changes to the content might not always be associated with version changes to the resource.
    */
-  override var meta: Meta? = null,
+  override val meta: Meta? = null,
   /**
    * A reference to a set of rules that were followed when the resource was constructed, and which
    * must be understood when processing the content. Often, this is a reference to an implementation
@@ -63,7 +63,7 @@ public data class CommunicationRequest(
    * to an implementation guide that defines these special rules as part of its narrative along with
    * other profiles, value sets, etc.
    */
-  override var implicitRules: Uri? = null,
+  override val implicitRules: Uri? = null,
   /**
    * The base language in which the resource is written.
    *
@@ -75,7 +75,7 @@ public data class CommunicationRequest(
    * language is specified, it should it also be specified on the div element in the html (see rules
    * in HTML5 for information about the relationship between xml:lang and the html lang attribute).
    */
-  override var language: Code? = null,
+  override val language: Code? = null,
   /**
    * A human-readable narrative that contains a summary of the resource and can be used to represent
    * the content of the resource to a human. The narrative need not encode all the structured data,
@@ -89,7 +89,7 @@ public data class CommunicationRequest(
    * legacy systems where information is captured as a "text blob" or where text is additionally
    * entered raw or narrated and encoded information is added later.
    */
-  override var text: Narrative? = null,
+  override val text: Narrative? = null,
   /**
    * These resources do not have an independent existence apart from the resource that contains
    * them - they cannot be identified independently, nor can they have their own independent
@@ -101,7 +101,7 @@ public data class CommunicationRequest(
    * resources may have profiles and tags in their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: MutableList<Resource> = mutableListOf(),
+  override val contained: List<Resource> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and managable, there is a strict set of governance
@@ -114,7 +114,7 @@ public data class CommunicationRequest(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: MutableList<Extension> = mutableListOf(),
+  override val extension: List<Extension> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -133,7 +133,7 @@ public data class CommunicationRequest(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: MutableList<Extension> = mutableListOf(),
+  override val modifierExtension: List<Extension> = listOf(),
   /**
    * Business identifiers assigned to this communication request by the performer or other systems
    * which remain constant as the resource is updated and propagates from server to server.
@@ -145,9 +145,9 @@ public data class CommunicationRequest(
    * resource types. For example, multiple Patient and a Person resource instance might share the
    * same social insurance number.
    */
-  public var identifier: MutableList<Identifier> = mutableListOf(),
+  public val identifier: List<Identifier> = listOf(),
   /** A plan or proposal that is fulfilled in whole or in part by this request. */
-  public var basedOn: MutableList<Reference> = mutableListOf(),
+  public val basedOn: List<Reference> = listOf(),
   /**
    * Completed or terminated request(s) whose function is taken by this new request.
    *
@@ -155,7 +155,7 @@ public data class CommunicationRequest(
    * or because the previous request was completed, but the need for the action described by the
    * request remains ongoing.
    */
-  public var replaces: MutableList<Reference> = mutableListOf(),
+  public val replaces: List<Reference> = listOf(),
   /**
    * A shared identifier common to multiple independent Request instances that were
    * activated/authorized more or less simultaneously by a single author. The presence of the same
@@ -168,16 +168,16 @@ public data class CommunicationRequest(
    * treated independently from the perspective of changing their state or maintaining them after
    * initial creation.
    */
-  public var groupIdentifier: Identifier? = null,
+  public val groupIdentifier: Identifier? = null,
   /** The status of the proposal or order. */
-  public var status: Enumeration<RequestStatus>,
+  public val status: Enumeration<RequestStatus>,
   /**
    * Captures the reason for the current state of the CommunicationRequest.
    *
    * This is generally only used for "exception" statuses such as "on-hold" or "revoked". The reason
    * why the CommunicationRequest was created at all is captured in reasonCode, not here.
    */
-  public var statusReason: CodeableConcept? = null,
+  public val statusReason: CodeableConcept? = null,
   /**
    * Indicates the level of authority/intentionality associated with the CommunicationRequest and
    * where the request fits into the workflow chain.
@@ -191,30 +191,30 @@ public data class CommunicationRequest(
    * "filler-order". Or, in rarer cases (to meet recipient constraints), the reverse might also
    * occur.
    */
-  public var intent: Enumeration<RequestIntent>,
+  public val intent: Enumeration<RequestIntent>,
   /**
    * The type of message to be sent such as alert, notification, reminder, instruction, etc.
    *
    * There may be multiple axes of categorization and one communication request may serve multiple
    * purposes.
    */
-  public var category: MutableList<CodeableConcept> = mutableListOf(),
+  public val category: List<CodeableConcept> = listOf(),
   /**
    * Characterizes how quickly the proposed act must be initiated. Includes concepts such as stat,
    * urgent, routine.
    */
-  public var priority: Enumeration<RequestPriority>? = null,
+  public val priority: Enumeration<RequestPriority>? = null,
   /**
    * If true indicates that the CommunicationRequest is asking for the specified action to *not*
    * occur.
    *
    * The attributes provided with the request qualify what is not to be done.
    */
-  public var doNotPerform: Boolean? = null,
+  public val doNotPerform: Boolean? = null,
   /** A channel that was used for this communication (e.g. email, fax). */
-  public var medium: MutableList<CodeableConcept> = mutableListOf(),
+  public val medium: List<CodeableConcept> = listOf(),
   /** The patient or group that is the focus of this communication request. */
-  public var subject: Reference? = null,
+  public val subject: Reference? = null,
   /**
    * Other resources that pertain to this communication request and to which this communication
    * request should be associated.
@@ -222,7 +222,7 @@ public data class CommunicationRequest(
    * Don't use CommunicationRequest.about element when a more specific element exists, such as
    * basedOn, reasonReference, or replaces.
    */
-  public var about: MutableList<Reference> = mutableListOf(),
+  public val about: List<Reference> = listOf(),
   /**
    * The Encounter during which this CommunicationRequest was created or to which the creation of
    * this record is tightly associated.
@@ -231,39 +231,39 @@ public data class CommunicationRequest(
    * initiated prior to or after the official completion of an encounter but still be tied to the
    * context of the encounter.
    */
-  public var encounter: Reference? = null,
+  public val encounter: Reference? = null,
   /** Text, attachment(s), or resource(s) to be communicated to the recipient. */
-  public var payload: MutableList<Payload> = mutableListOf(),
+  public val payload: List<Payload> = listOf(),
   /** The time when this communication is to occur. */
-  public var occurrence: Occurrence? = null,
+  public val occurrence: Occurrence? = null,
   /**
    * For draft requests, indicates the date of initial creation. For requests with other statuses,
    * indicates the date of activation.
    */
-  public var authoredOn: DateTime? = null,
+  public val authoredOn: DateTime? = null,
   /** The device, individual, or organization who asks for the information to be shared. */
-  public var requester: Reference? = null,
+  public val requester: Reference? = null,
   /**
    * The entity (e.g. person, organization, clinical information system, device, group, or care
    * team) which is the intended target of the communication.
    */
-  public var recipient: MutableList<Reference> = mutableListOf(),
+  public val recipient: List<Reference> = listOf(),
   /**
    * The entity (e.g. person, organization, clinical information system, or device) which is to be
    * the source of the communication.
    */
-  public var informationProvider: MutableList<Reference> = mutableListOf(),
+  public val informationProvider: List<Reference> = listOf(),
   /**
    * Describes why the request is being made in coded or textual form.
    *
    * Textual reasons can be captured using reasonCode.text.
    */
-  public var reason: MutableList<CodeableReference> = mutableListOf(),
+  public val reason: List<CodeableReference> = listOf(),
   /**
    * Comments made about the request by the requester, sender, recipient, subject or other
    * participants.
    */
-  public var note: MutableList<Annotation> = mutableListOf(),
+  public val note: List<Annotation> = listOf(),
 ) : DomainResource() {
   /** Text, attachment(s), or resource(s) to be communicated to the recipient. */
   @Serializable(with = CommunicationRequestPayloadSerializer::class)
@@ -272,7 +272,7 @@ public data class CommunicationRequest(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: String? = null,
+    override val id: String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -285,7 +285,7 @@ public data class CommunicationRequest(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -304,7 +304,7 @@ public data class CommunicationRequest(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /**
      * The communicated content (or for multi-part communications, one portion of the
      * communication).
@@ -319,7 +319,7 @@ public data class CommunicationRequest(
      * When using contentCodeableConcept, the CodeableConcept is what is being communicated and is
      * not a categorization of the content.
      */
-    public var content: Content,
+    public val content: Content,
   ) : BackboneElement() {
     @Serializable(with = CommunicationRequestPayloadContentSerializer::class)
     public sealed interface Content {

@@ -24,7 +24,7 @@ import com.google.fhir.model.r5.serializers.CompartmentDefinitionVersionAlgorith
 import com.google.fhir.model.r5.terminologies.PublicationStatus
 import com.google.fhir.model.r5.terminologies.ResourceType
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -40,12 +40,12 @@ public data class CompartmentDefinition(
    * like the create and conditional update. Otherwise, the use of the resouce id depends on the
    * given use case.
    */
-  override var id: kotlin.String? = null,
+  override val id: kotlin.String? = null,
   /**
    * The metadata about the resource. This is content that is maintained by the infrastructure.
    * Changes to the content might not always be associated with version changes to the resource.
    */
-  override var meta: Meta? = null,
+  override val meta: Meta? = null,
   /**
    * A reference to a set of rules that were followed when the resource was constructed, and which
    * must be understood when processing the content. Often, this is a reference to an implementation
@@ -59,7 +59,7 @@ public data class CompartmentDefinition(
    * to an implementation guide that defines these special rules as part of its narrative along with
    * other profiles, value sets, etc.
    */
-  override var implicitRules: Uri? = null,
+  override val implicitRules: Uri? = null,
   /**
    * The base language in which the resource is written.
    *
@@ -71,7 +71,7 @@ public data class CompartmentDefinition(
    * language is specified, it should it also be specified on the div element in the html (see rules
    * in HTML5 for information about the relationship between xml:lang and the html lang attribute).
    */
-  override var language: Code? = null,
+  override val language: Code? = null,
   /**
    * A human-readable narrative that contains a summary of the resource and can be used to represent
    * the content of the resource to a human. The narrative need not encode all the structured data,
@@ -85,7 +85,7 @@ public data class CompartmentDefinition(
    * legacy systems where information is captured as a "text blob" or where text is additionally
    * entered raw or narrated and encoded information is added later.
    */
-  override var text: Narrative? = null,
+  override val text: Narrative? = null,
   /**
    * These resources do not have an independent existence apart from the resource that contains
    * them - they cannot be identified independently, nor can they have their own independent
@@ -97,7 +97,7 @@ public data class CompartmentDefinition(
    * resources may have profiles and tags in their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: MutableList<com.google.fhir.model.r5.Resource> = mutableListOf(),
+  override val contained: List<com.google.fhir.model.r5.Resource> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and managable, there is a strict set of governance
@@ -110,7 +110,7 @@ public data class CompartmentDefinition(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: MutableList<Extension> = mutableListOf(),
+  override val extension: List<Extension> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -129,7 +129,7 @@ public data class CompartmentDefinition(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: MutableList<Extension> = mutableListOf(),
+  override val modifierExtension: List<Extension> = listOf(),
   /**
    * An absolute URI that is used to identify this compartment definition when it is referenced in a
    * specification, model, design or an instance; also called its canonical identifier. This SHOULD
@@ -149,7 +149,7 @@ public data class CompartmentDefinition(
    * change. Implementations can use the [meta.source](resource.html#meta) element to indicate where
    * the current master source of the resource can be found.
    */
-  public var url: Uri,
+  public val url: Uri,
   /**
    * The identifier that is used to identify this version of the compartment definition when it is
    * referenced in a specification, model, design or instance. This is an arbitrary value managed by
@@ -162,7 +162,7 @@ public data class CompartmentDefinition(
    * to a particular business version of the compartment definition with the format [url]|[version].
    * The version SHOULD NOT contain a '#' - see [Business Version](resource.html#bv-format).
    */
-  public var version: String? = null,
+  public val version: String? = null,
   /**
    * Indicates the mechanism used to compare versions to determine which is more current.
    *
@@ -171,7 +171,7 @@ public data class CompartmentDefinition(
    * positive number if version2 and a 0 if the version ordering can't be successfully be
    * determined.
    */
-  public var versionAlgorithm: VersionAlgorithm? = null,
+  public val versionAlgorithm: VersionAlgorithm? = null,
   /**
    * A natural language name identifying the compartment definition. This name should be usable as
    * an identifier for the module by machine processing applications such as code generation.
@@ -180,14 +180,14 @@ public data class CompartmentDefinition(
    * name to ensure that it is machine-processing friendly.This is often the same as the code for
    * the parameter, but does not need to be.
    */
-  public var name: String,
+  public val name: String,
   /**
    * A short, descriptive, user-friendly title for the capability statement.
    *
    * This name does not need to be machine-processing friendly and may contain punctuation,
    * white-space, etc.
    */
-  public var title: String? = null,
+  public val title: String? = null,
   /**
    * The status of this compartment definition. Enables tracking the life-cycle of the content.
    *
@@ -196,14 +196,14 @@ public data class CompartmentDefinition(
    * See guidance around (not) making local changes to elements
    * [here](canonicalresource.html#localization).
    */
-  public var status: Enumeration<PublicationStatus>,
+  public val status: Enumeration<PublicationStatus>,
   /**
    * A Boolean value to indicate that this compartment definition is authored for testing purposes
    * (or education/evaluation/marketing) and is not intended to be used for genuine usage.
    *
    * Allows filtering of compartment definitions that are appropriate for use versus not.
    */
-  public var experimental: Boolean? = null,
+  public val experimental: Boolean? = null,
   /**
    * The date (and optionally time) when the compartment definition was last significantly changed.
    * The date must change when the business version changes and it must change if the status code
@@ -219,7 +219,7 @@ public data class CompartmentDefinition(
    * See guidance around (not) making local changes to elements
    * [here](canonicalresource.html#localization).
    */
-  public var date: DateTime? = null,
+  public val date: DateTime? = null,
   /**
    * The name of the organization or individual responsible for the release and ongoing maintenance
    * of the compartment definition.
@@ -231,7 +231,7 @@ public data class CompartmentDefinition(
    * point of contact for questions or issues with the compartment definition. This item SHOULD be
    * populated unless the information is available from context.
    */
-  public var publisher: String? = null,
+  public val publisher: String? = null,
   /**
    * Contact details to assist a user in finding and communicating with the publisher.
    *
@@ -240,7 +240,7 @@ public data class CompartmentDefinition(
    * See guidance around (not) making local changes to elements
    * [here](canonicalresource.html#localization).
    */
-  public var contact: MutableList<ContactDetail> = mutableListOf(),
+  public val contact: List<ContactDetail> = listOf(),
   /**
    * A free text natural language description of the compartment definition from a consumer's
    * perspective.
@@ -252,7 +252,7 @@ public data class CompartmentDefinition(
    * (e.g. the language of the compartment definition is presumed to be the predominant language in
    * the place the compartment definition was created).
    */
-  public var description: Markdown? = null,
+  public val description: Markdown? = null,
   /**
    * The content was developed with a focus and intent of supporting the contexts that are listed.
    * These contexts may be general categories (gender, age, ...) or may be references to specific
@@ -262,7 +262,7 @@ public data class CompartmentDefinition(
    * When multiple useContexts are specified, there is no expectation that all or any of the
    * contexts apply.
    */
-  public var useContext: MutableList<UsageContext> = mutableListOf(),
+  public val useContext: List<UsageContext> = listOf(),
   /**
    * Explanation of why this compartment definition is needed and why it has been designed as it
    * has.
@@ -272,23 +272,23 @@ public data class CompartmentDefinition(
    * may be used to point to source materials or specifications that drove the structure of this
    * compartment definition.
    */
-  public var purpose: Markdown? = null,
+  public val purpose: Markdown? = null,
   /**
    * Which compartment this definition describes.
    *
    * Only the specification can define the compartments that can exist. Servers can choose to
    * support them.
    */
-  public var code: Enumeration<CompartmentType>,
+  public val code: Enumeration<CompartmentType>,
   /**
    * Whether the search syntax is supported,.
    *
    * Servers may define and use compartments to manage logical access without implementing the
    * compartment related syntax.
    */
-  public var search: Boolean,
+  public val search: Boolean,
   /** Information about how a resource is related to the compartment. */
-  public var resource: MutableList<Resource> = mutableListOf(),
+  public val resource: List<Resource> = listOf(),
 ) : DomainResource() {
   /** Information about how a resource is related to the compartment. */
   @Serializable(with = CompartmentDefinitionResourceSerializer::class)
@@ -297,7 +297,7 @@ public data class CompartmentDefinition(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -310,7 +310,7 @@ public data class CompartmentDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -329,28 +329,28 @@ public data class CompartmentDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /** The name of a resource supported by the server. */
-    public var code: Enumeration<ResourceType>,
+    public val code: Enumeration<ResourceType>,
     /**
      * The name of a search parameter that represents the link to the compartment. More than one may
      * be listed because a resource may be linked to a compartment in more than one way,.
      *
      * If no search parameters are listed, then the resource is not linked to the compartment.
      */
-    public var `param`: MutableList<String> = mutableListOf(),
+    public val `param`: List<String> = listOf(),
     /** Additional documentation about the resource and compartment. */
-    public var documentation: String? = null,
+    public val documentation: String? = null,
     /**
      * Search Parameter for mapping requests made with $everything.start (e.g. on
      * [Patient.$everything](patient-operation-everything.html)).
      */
-    public var startParam: Uri? = null,
+    public val startParam: Uri? = null,
     /**
      * Search Parameter for mapping requests made with $everything.end (e.g. on
      * [Patient.$everything](patient-operation-everything.html)).
      */
-    public var endParam: Uri? = null,
+    public val endParam: Uri? = null,
   ) : BackboneElement()
 
   @Serializable(with = CompartmentDefinitionVersionAlgorithmSerializer::class)

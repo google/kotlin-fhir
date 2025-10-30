@@ -43,15 +43,15 @@ import com.google.fhir.model.r5.serializers.LocalTimeSerializer
 import kotlin.Boolean as KotlinBoolean
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class MedicationIngredientSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var item: CodeableReference,
   public var isActive: KotlinBoolean? = null,
   public var _isActive: Element? = null,
@@ -60,8 +60,8 @@ internal data class MedicationIngredientSurrogate(
   public fun toModel(): Medication.Ingredient =
     Medication.Ingredient(
       id = this@MedicationIngredientSurrogate.id,
-      extension = this@MedicationIngredientSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@MedicationIngredientSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@MedicationIngredientSurrogate.extension ?: listOf(),
+      modifierExtension = this@MedicationIngredientSurrogate.modifierExtension ?: listOf(),
       item = this@MedicationIngredientSurrogate.item,
       isActive =
         R5Boolean.of(
@@ -90,8 +90,8 @@ internal data class MedicationIngredientSurrogate(
 @Serializable
 internal data class MedicationBatchSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var lotNumber: KotlinString? = null,
   public var _lotNumber: Element? = null,
   public var expirationDate: KotlinString? = null,
@@ -100,8 +100,8 @@ internal data class MedicationBatchSurrogate(
   public fun toModel(): Medication.Batch =
     Medication.Batch(
       id = this@MedicationBatchSurrogate.id,
-      extension = this@MedicationBatchSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@MedicationBatchSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@MedicationBatchSurrogate.extension ?: listOf(),
+      modifierExtension = this@MedicationBatchSurrogate.modifierExtension ?: listOf(),
       lotNumber =
         R5String.of(
           this@MedicationBatchSurrogate.lotNumber,
@@ -166,17 +166,17 @@ internal data class MedicationSurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: MutableList<Resource>? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var identifier: MutableList<Identifier>? = null,
+  public var contained: List<Resource>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
+  public var identifier: List<Identifier>? = null,
   public var code: CodeableConcept? = null,
   public var status: KotlinString? = null,
   public var _status: Element? = null,
   public var marketingAuthorizationHolder: Reference? = null,
   public var doseForm: CodeableConcept? = null,
   public var totalVolume: Quantity? = null,
-  public var ingredient: MutableList<Medication.Ingredient>? = null,
+  public var ingredient: List<Medication.Ingredient>? = null,
   public var batch: Medication.Batch? = null,
   public var definition: Reference? = null,
 ) {
@@ -188,10 +188,10 @@ internal data class MedicationSurrogate(
         Uri.of(this@MedicationSurrogate.implicitRules, this@MedicationSurrogate._implicitRules),
       language = Code.of(this@MedicationSurrogate.language, this@MedicationSurrogate._language),
       text = this@MedicationSurrogate.text,
-      contained = this@MedicationSurrogate.contained ?: mutableListOf(),
-      extension = this@MedicationSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@MedicationSurrogate.modifierExtension ?: mutableListOf(),
-      identifier = this@MedicationSurrogate.identifier ?: mutableListOf(),
+      contained = this@MedicationSurrogate.contained ?: listOf(),
+      extension = this@MedicationSurrogate.extension ?: listOf(),
+      modifierExtension = this@MedicationSurrogate.modifierExtension ?: listOf(),
+      identifier = this@MedicationSurrogate.identifier ?: listOf(),
       code = this@MedicationSurrogate.code,
       status =
         this@MedicationSurrogate.status?.let {
@@ -203,7 +203,7 @@ internal data class MedicationSurrogate(
       marketingAuthorizationHolder = this@MedicationSurrogate.marketingAuthorizationHolder,
       doseForm = this@MedicationSurrogate.doseForm,
       totalVolume = this@MedicationSurrogate.totalVolume,
-      ingredient = this@MedicationSurrogate.ingredient ?: mutableListOf(),
+      ingredient = this@MedicationSurrogate.ingredient ?: listOf(),
       batch = this@MedicationSurrogate.batch,
       definition = this@MedicationSurrogate.definition,
     )

@@ -21,7 +21,7 @@ package com.google.fhir.model.r5
 import com.google.fhir.model.r5.serializers.CarePlanActivitySerializer
 import com.google.fhir.model.r5.serializers.CarePlanSerializer
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -41,12 +41,12 @@ public data class CarePlan(
    * like the create and conditional update. Otherwise, the use of the resouce id depends on the
    * given use case.
    */
-  override var id: kotlin.String? = null,
+  override val id: kotlin.String? = null,
   /**
    * The metadata about the resource. This is content that is maintained by the infrastructure.
    * Changes to the content might not always be associated with version changes to the resource.
    */
-  override var meta: Meta? = null,
+  override val meta: Meta? = null,
   /**
    * A reference to a set of rules that were followed when the resource was constructed, and which
    * must be understood when processing the content. Often, this is a reference to an implementation
@@ -60,7 +60,7 @@ public data class CarePlan(
    * to an implementation guide that defines these special rules as part of its narrative along with
    * other profiles, value sets, etc.
    */
-  override var implicitRules: Uri? = null,
+  override val implicitRules: Uri? = null,
   /**
    * The base language in which the resource is written.
    *
@@ -72,7 +72,7 @@ public data class CarePlan(
    * language is specified, it should it also be specified on the div element in the html (see rules
    * in HTML5 for information about the relationship between xml:lang and the html lang attribute).
    */
-  override var language: Code? = null,
+  override val language: Code? = null,
   /**
    * A human-readable narrative that contains a summary of the resource and can be used to represent
    * the content of the resource to a human. The narrative need not encode all the structured data,
@@ -86,7 +86,7 @@ public data class CarePlan(
    * legacy systems where information is captured as a "text blob" or where text is additionally
    * entered raw or narrated and encoded information is added later.
    */
-  override var text: Narrative? = null,
+  override val text: Narrative? = null,
   /**
    * These resources do not have an independent existence apart from the resource that contains
    * them - they cannot be identified independently, nor can they have their own independent
@@ -98,7 +98,7 @@ public data class CarePlan(
    * resources may have profiles and tags in their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: MutableList<Resource> = mutableListOf(),
+  override val contained: List<Resource> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and managable, there is a strict set of governance
@@ -111,7 +111,7 @@ public data class CarePlan(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: MutableList<Extension> = mutableListOf(),
+  override val extension: List<Extension> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -130,7 +130,7 @@ public data class CarePlan(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: MutableList<Extension> = mutableListOf(),
+  override val modifierExtension: List<Extension> = listOf(),
   /**
    * Business identifiers assigned to this care plan by the performer or other systems which remain
    * constant as the resource is updated and propagates from server to server.
@@ -142,24 +142,24 @@ public data class CarePlan(
    * resource types. For example, multiple Patient and a Person resource instance might share the
    * same social insurance number.
    */
-  public var identifier: MutableList<Identifier> = mutableListOf(),
+  public val identifier: List<Identifier> = listOf(),
   /**
    * The URL pointing to a FHIR-defined protocol, guideline, questionnaire or other definition that
    * is adhered to in whole or in part by this CarePlan.
    */
-  public var instantiatesCanonical: MutableList<Canonical> = mutableListOf(),
+  public val instantiatesCanonical: List<Canonical> = listOf(),
   /**
    * The URL pointing to an externally maintained protocol, guideline, questionnaire or other
    * definition that is adhered to in whole or in part by this CarePlan.
    *
    * This might be an HTML page, PDF, etc. or could just be a non-resolvable URI identifier.
    */
-  public var instantiatesUri: MutableList<Uri> = mutableListOf(),
+  public val instantiatesUri: List<Uri> = listOf(),
   /**
    * A higher-level request resource (i.e. a plan, proposal or order) that is fulfilled in whole or
    * in part by this care plan.
    */
-  public var basedOn: MutableList<Reference> = mutableListOf(),
+  public val basedOn: List<Reference> = listOf(),
   /**
    * Completed or terminated care plan whose function is taken by this new care plan.
    *
@@ -167,14 +167,14 @@ public data class CarePlan(
    * issue) or because the previous care plan was completed, but the need for the action described
    * by the care plan remains ongoing.
    */
-  public var replaces: MutableList<Reference> = mutableListOf(),
+  public val replaces: List<Reference> = listOf(),
   /**
    * A larger care plan of which this particular care plan is a component or step.
    *
    * Each care plan is an independent request, such that having a care plan be part of another care
    * plan can cause issues with cascading statuses. As such, this element is still being discussed.
    */
-  public var partOf: MutableList<Reference> = mutableListOf(),
+  public val partOf: List<Reference> = listOf(),
   /**
    * Indicates whether the plan is currently being acted upon, represents future intentions or is
    * now a historical record.
@@ -186,7 +186,7 @@ public data class CarePlan(
    * This element is labeled as a modifier because the status contains the code entered-in-error
    * that marks the plan as not currently valid.
    */
-  public var status: Enumeration<RequestStatus>,
+  public val status: Enumeration<RequestStatus>,
   /**
    * Indicates the level of authority/intentionality associated with the care plan and where the
    * care plan fits into the workflow chain.
@@ -196,7 +196,7 @@ public data class CarePlan(
    * should never change to be a "plan" instance or "order" instance. Instead, a new instance
    * 'basedOn' the prior instance should be created with the new 'intent' value.
    */
-  public var intent: Enumeration<CarePlanIntent>,
+  public val intent: Enumeration<CarePlanIntent>,
   /**
    * Identifies what "kind" of plan this is to support differentiation between multiple co-existing
    * plans; e.g. "Home health", "psychiatric", "asthma", "disease management", "wellness plan", etc.
@@ -204,13 +204,13 @@ public data class CarePlan(
    * There may be multiple axes of categorization and one plan may serve multiple purposes. In some
    * cases, this may be redundant with references to CarePlan.addresses.
    */
-  public var category: MutableList<CodeableConcept> = mutableListOf(),
+  public val category: List<CodeableConcept> = listOf(),
   /** Human-friendly name for the care plan. */
-  public var title: String? = null,
+  public val title: String? = null,
   /** A description of the scope and nature of the plan. */
-  public var description: String? = null,
+  public val description: String? = null,
   /** Identifies the patient or group whose intended care is described by the plan. */
-  public var subject: Reference,
+  public val subject: Reference,
   /**
    * The Encounter during which this CarePlan was created or to which the creation of this record is
    * tightly associated.
@@ -220,7 +220,7 @@ public data class CarePlan(
    * context of the encounter. CarePlan activities conducted as a result of the care plan may well
    * occur as part of other encounters.
    */
-  public var encounter: Reference? = null,
+  public val encounter: Reference? = null,
   /**
    * Indicates when the plan did (or is intended to) come into effect and end.
    *
@@ -228,31 +228,31 @@ public data class CarePlan(
    * regardless of whether the activities are planned within a single encounter/episode or across
    * multiple encounters/episodes (e.g. the longitudinal management of a chronic condition).
    */
-  public var period: Period? = null,
+  public val period: Period? = null,
   /**
    * Represents when this particular CarePlan record was created in the system, which is often a
    * system-generated date.
    */
-  public var created: DateTime? = null,
+  public val created: DateTime? = null,
   /**
    * When populated, the custodian is responsible for the care plan. The care plan is attributed to
    * the custodian.
    *
    * The custodian might or might not be a contributor.
    */
-  public var custodian: Reference? = null,
+  public val custodian: Reference? = null,
   /**
    * Identifies the individual(s), organization or device who provided the contents of the care
    * plan.
    *
    * Collaborative care plans may have multiple contributors.
    */
-  public var contributor: MutableList<Reference> = mutableListOf(),
+  public val contributor: List<Reference> = listOf(),
   /**
    * Identifies all people and organizations who are expected to be involved in the care envisioned
    * by this plan.
    */
-  public var careTeam: MutableList<Reference> = mutableListOf(),
+  public val careTeam: List<Reference> = listOf(),
   /**
    * Identifies the conditions/problems/concerns/diagnoses/etc. whose management and/or mitigation
    * are handled by this plan.
@@ -267,7 +267,7 @@ public data class CarePlan(
    * CarePlan.addresses.concept and CarePlan.addresses.reference can be used if they are describing
    * different concerns for the care plan.
    */
-  public var addresses: MutableList<CodeableReference> = mutableListOf(),
+  public val addresses: List<CodeableReference> = listOf(),
   /**
    * Identifies portions of the patient's record that specifically influenced the formation of the
    * plan. These might include comorbidities, recent procedures, limitations, recent assessments,
@@ -277,22 +277,22 @@ public data class CarePlan(
    * used to convey one or more Advance Directives or Medical Treatment Consent Directives by
    * referencing Consent or any other request resource with intent = directive.
    */
-  public var supportingInfo: MutableList<Reference> = mutableListOf(),
+  public val supportingInfo: List<Reference> = listOf(),
   /**
    * Describes the intended objective(s) of carrying out the care plan.
    *
    * Goal can be achieving a particular change or merely maintaining a current state or even slowing
    * a decline.
    */
-  public var goal: MutableList<Reference> = mutableListOf(),
+  public val goal: List<Reference> = listOf(),
   /**
    * Identifies an action that has occurred or is a planned action to occur as part of the plan. For
    * example, a medication to be used, lab tests to perform, self-monitoring that has occurred,
    * education etc.
    */
-  public var activity: MutableList<Activity> = mutableListOf(),
+  public val activity: List<Activity> = listOf(),
   /** General notes about the care plan not covered elsewhere. */
-  public var note: MutableList<Annotation> = mutableListOf(),
+  public val note: List<Annotation> = listOf(),
 ) : DomainResource() {
   /**
    * Identifies an action that has occurred or is a planned action to occur as part of the plan. For
@@ -305,7 +305,7 @@ public data class CarePlan(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -318,7 +318,7 @@ public data class CarePlan(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -337,7 +337,7 @@ public data class CarePlan(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /**
      * Identifies the activity that was performed. For example, an activity could be patient
      * education, exercise, or a medication administration. The reference to an "event" resource,
@@ -351,7 +351,7 @@ public data class CarePlan(
      * then the activity performed could be amount and intensity of exercise performed whereas the
      * goal outcome is an observation for the actual body weight measured.
      */
-    public var performedActivity: MutableList<CodeableReference> = mutableListOf(),
+    public val performedActivity: List<CodeableReference> = listOf(),
     /**
      * Notes about the adherence/status/progress of the activity.
      *
@@ -359,7 +359,7 @@ public data class CarePlan(
      * within the resource pointed to by activity.detail.reference or in
      * activity.detail.description.
      */
-    public var progress: MutableList<Annotation> = mutableListOf(),
+    public val progress: List<Annotation> = listOf(),
     /**
      * The details of the proposed activity represented in a specific resource.
      *
@@ -372,7 +372,7 @@ public data class CarePlan(
      * this CarePlan using the "basedOn" element. i.e. Requests that are part of a CarePlan are not
      * "based on" the CarePlan.
      */
-    public var plannedActivityReference: Reference? = null,
+    public val plannedActivityReference: Reference? = null,
   ) : BackboneElement()
 
   /** Codes identifying the lifecycle stage of a request. */

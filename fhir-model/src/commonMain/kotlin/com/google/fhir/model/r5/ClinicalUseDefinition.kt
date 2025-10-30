@@ -30,7 +30,7 @@ import com.google.fhir.model.r5.serializers.ClinicalUseDefinitionUndesirableEffe
 import com.google.fhir.model.r5.serializers.ClinicalUseDefinitionWarningSerializer
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -49,12 +49,12 @@ public data class ClinicalUseDefinition(
    * like the create and conditional update. Otherwise, the use of the resouce id depends on the
    * given use case.
    */
-  override var id: String? = null,
+  override val id: String? = null,
   /**
    * The metadata about the resource. This is content that is maintained by the infrastructure.
    * Changes to the content might not always be associated with version changes to the resource.
    */
-  override var meta: Meta? = null,
+  override val meta: Meta? = null,
   /**
    * A reference to a set of rules that were followed when the resource was constructed, and which
    * must be understood when processing the content. Often, this is a reference to an implementation
@@ -68,7 +68,7 @@ public data class ClinicalUseDefinition(
    * to an implementation guide that defines these special rules as part of its narrative along with
    * other profiles, value sets, etc.
    */
-  override var implicitRules: Uri? = null,
+  override val implicitRules: Uri? = null,
   /**
    * The base language in which the resource is written.
    *
@@ -80,7 +80,7 @@ public data class ClinicalUseDefinition(
    * language is specified, it should it also be specified on the div element in the html (see rules
    * in HTML5 for information about the relationship between xml:lang and the html lang attribute).
    */
-  override var language: Code? = null,
+  override val language: Code? = null,
   /**
    * A human-readable narrative that contains a summary of the resource and can be used to represent
    * the content of the resource to a human. The narrative need not encode all the structured data,
@@ -94,7 +94,7 @@ public data class ClinicalUseDefinition(
    * legacy systems where information is captured as a "text blob" or where text is additionally
    * entered raw or narrated and encoded information is added later.
    */
-  override var text: Narrative? = null,
+  override val text: Narrative? = null,
   /**
    * These resources do not have an independent existence apart from the resource that contains
    * them - they cannot be identified independently, nor can they have their own independent
@@ -106,7 +106,7 @@ public data class ClinicalUseDefinition(
    * resources may have profiles and tags in their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: MutableList<Resource> = mutableListOf(),
+  override val contained: List<Resource> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and managable, there is a strict set of governance
@@ -119,7 +119,7 @@ public data class ClinicalUseDefinition(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: MutableList<Extension> = mutableListOf(),
+  override val extension: List<Extension> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -138,41 +138,41 @@ public data class ClinicalUseDefinition(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: MutableList<Extension> = mutableListOf(),
+  override val modifierExtension: List<Extension> = listOf(),
   /** Business identifier for this issue. */
-  public var identifier: MutableList<Identifier> = mutableListOf(),
+  public val identifier: List<Identifier> = listOf(),
   /** indication | contraindication | interaction | undesirable-effect | warning. */
-  public var type: Enumeration<ClinicalUseDefinitionType>,
+  public val type: Enumeration<ClinicalUseDefinitionType>,
   /**
    * A categorisation of the issue, primarily for dividing warnings into subject heading areas such
    * as "Pregnancy and Lactation", "Overdose", "Effects on Ability to Drive and Use Machines".
    */
-  public var category: MutableList<CodeableConcept> = mutableListOf(),
+  public val category: List<CodeableConcept> = listOf(),
   /** The medication, product, substance, device, procedure etc. for which this is an indication. */
-  public var subject: MutableList<Reference> = mutableListOf(),
+  public val subject: List<Reference> = listOf(),
   /** Whether this is a current issue or one that has been retired etc. */
-  public var status: CodeableConcept? = null,
+  public val status: CodeableConcept? = null,
   /** Specifics for when this is a contraindication. */
-  public var contraindication: Contraindication? = null,
+  public val contraindication: Contraindication? = null,
   /** Specifics for when this is an indication. */
-  public var indication: Indication? = null,
+  public val indication: Indication? = null,
   /** Specifics for when this is an interaction. */
-  public var interaction: Interaction? = null,
+  public val interaction: Interaction? = null,
   /** The population group to which this applies. */
-  public var population: MutableList<Reference> = mutableListOf(),
+  public val population: List<Reference> = listOf(),
   /** Logic used by the clinical use definition. */
-  public var library: MutableList<Canonical> = mutableListOf(),
+  public val library: List<Canonical> = listOf(),
   /**
    * Describe the possible undesirable effects (negative outcomes) from the use of the medicinal
    * product as treatment.
    */
-  public var undesirableEffect: UndesirableEffect? = null,
+  public val undesirableEffect: UndesirableEffect? = null,
   /**
    * A critical piece of information about environmental, health or physical risks or hazards that
    * serve as caution to the user. For example 'Do not operate heavy machinery', 'May cause
    * drowsiness', or 'Get medical advice/attention if you feel unwell'.
    */
-  public var warning: Warning? = null,
+  public val warning: Warning? = null,
 ) : DomainResource() {
   /** Specifics for when this is a contraindication. */
   @Serializable(with = ClinicalUseDefinitionContraindicationSerializer::class)
@@ -181,7 +181,7 @@ public data class ClinicalUseDefinition(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: String? = null,
+    override val id: String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -194,7 +194,7 @@ public data class ClinicalUseDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -213,18 +213,18 @@ public data class ClinicalUseDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /** The situation that is being documented as contraindicating against this item. */
-    public var diseaseSymptomProcedure: CodeableReference? = null,
+    public val diseaseSymptomProcedure: CodeableReference? = null,
     /**
      * The status of the disease or symptom for the contraindication, for example "chronic" or
      * "metastatic".
      */
-    public var diseaseStatus: CodeableReference? = null,
+    public val diseaseStatus: CodeableReference? = null,
     /** A comorbidity (concurrent condition) or coinfection. */
-    public var comorbidity: MutableList<CodeableReference> = mutableListOf(),
+    public val comorbidity: List<CodeableReference> = listOf(),
     /** The indication which this is a contraidication for. */
-    public var indication: MutableList<Reference> = mutableListOf(),
+    public val indication: List<Reference> = listOf(),
     /**
      * An expression that returns true or false, indicating whether the indication is applicable or
      * not, after having applied its other elements.
@@ -232,12 +232,12 @@ public data class ClinicalUseDefinition(
      * The expression may be inlined or may be a reference to a named expression within a logic
      * library referenced by the library element.
      */
-    public var applicability: Expression? = null,
+    public val applicability: Expression? = null,
     /**
      * Information about the use of the medicinal product in relation to other therapies described
      * as part of the contraindication.
      */
-    public var otherTherapy: MutableList<OtherTherapy> = mutableListOf(),
+    public val otherTherapy: List<OtherTherapy> = listOf(),
   ) : BackboneElement() {
     /**
      * Information about the use of the medicinal product in relation to other therapies described
@@ -249,7 +249,7 @@ public data class ClinicalUseDefinition(
        * Unique id for the element within a resource (for internal references). This may be any
        * string value that does not contain spaces.
        */
-      override var id: String? = null,
+      override val id: String? = null,
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -262,7 +262,7 @@ public data class ClinicalUseDefinition(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: MutableList<Extension> = mutableListOf(),
+      override val extension: List<Extension> = listOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -281,17 +281,17 @@ public data class ClinicalUseDefinition(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: MutableList<Extension> = mutableListOf(),
+      override val modifierExtension: List<Extension> = listOf(),
       /**
        * The type of relationship between the medicinal product indication or contraindication and
        * another therapy.
        */
-      public var relationshipType: CodeableConcept,
+      public val relationshipType: CodeableConcept,
       /**
        * Reference to a specific medication (active substance, medicinal product or class of
        * products, biological, food etc.) as part of an indication or contraindication.
        */
-      public var treatment: CodeableReference,
+      public val treatment: CodeableReference,
     ) : BackboneElement()
   }
 
@@ -302,7 +302,7 @@ public data class ClinicalUseDefinition(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: String? = null,
+    override val id: String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -315,7 +315,7 @@ public data class ClinicalUseDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -334,29 +334,29 @@ public data class ClinicalUseDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /** The situation that is being documented as an indicaton for this item. */
-    public var diseaseSymptomProcedure: CodeableReference? = null,
+    public val diseaseSymptomProcedure: CodeableReference? = null,
     /**
      * The status of the disease or symptom for the indication, for example "chronic" or
      * "metastatic".
      */
-    public var diseaseStatus: CodeableReference? = null,
+    public val diseaseStatus: CodeableReference? = null,
     /** A comorbidity (concurrent condition) or coinfection as part of the indication. */
-    public var comorbidity: MutableList<CodeableReference> = mutableListOf(),
+    public val comorbidity: List<CodeableReference> = listOf(),
     /** The intended effect, aim or strategy to be achieved. */
-    public var intendedEffect: CodeableReference? = null,
+    public val intendedEffect: CodeableReference? = null,
     /**
      * Timing or duration information, that may be associated with use with the indicated condition
      * e.g. Adult patients suffering from myocardial infarction (from a few days until less than 35
      * days), ischaemic stroke (from 7 days until less than 6 months).
      */
-    public var duration: Duration? = null,
+    public val duration: Duration? = null,
     /**
      * An unwanted side effect or negative outcome that may happen if you use the drug (or other
      * subject of this resource) for this indication.
      */
-    public var undesirableEffect: MutableList<Reference> = mutableListOf(),
+    public val undesirableEffect: List<Reference> = listOf(),
     /**
      * An expression that returns true or false, indicating whether the indication is applicable or
      * not, after having applied its other elements.
@@ -364,12 +364,12 @@ public data class ClinicalUseDefinition(
      * The expression may be inlined or may be a reference to a named expression within a logic
      * library referenced by the library element.
      */
-    public var applicability: Expression? = null,
+    public val applicability: Expression? = null,
     /**
      * Information about the use of the medicinal product in relation to other therapies described
      * as part of the indication.
      */
-    public var otherTherapy: MutableList<Contraindication.OtherTherapy> = mutableListOf(),
+    public val otherTherapy: List<Contraindication.OtherTherapy> = listOf(),
   ) : BackboneElement() {
     @Serializable(with = ClinicalUseDefinitionIndicationDurationSerializer::class)
     public sealed interface Duration {
@@ -401,7 +401,7 @@ public data class ClinicalUseDefinition(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: String? = null,
+    override val id: String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -414,7 +414,7 @@ public data class ClinicalUseDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -433,23 +433,23 @@ public data class ClinicalUseDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /** The specific medication, product, food, substance etc. or laboratory test that interacts. */
-    public var interactant: MutableList<Interactant> = mutableListOf(),
+    public val interactant: List<Interactant> = listOf(),
     /**
      * The type of the interaction e.g. drug-drug interaction, drug-food interaction, drug-lab test
      * interaction.
      */
-    public var type: CodeableConcept? = null,
+    public val type: CodeableConcept? = null,
     /**
      * The effect of the interaction, for example "reduced gastric absorption of primary
      * medication".
      */
-    public var effect: CodeableReference? = null,
+    public val effect: CodeableReference? = null,
     /** The incidence of the interaction, e.g. theoretical, observed. */
-    public var incidence: CodeableConcept? = null,
+    public val incidence: CodeableConcept? = null,
     /** Actions for managing the interaction. */
-    public var management: MutableList<CodeableConcept> = mutableListOf(),
+    public val management: List<CodeableConcept> = listOf(),
   ) : BackboneElement() {
     /** The specific medication, product, food, substance etc. or laboratory test that interacts. */
     @Serializable(with = ClinicalUseDefinitionInteractionInteractantSerializer::class)
@@ -458,7 +458,7 @@ public data class ClinicalUseDefinition(
        * Unique id for the element within a resource (for internal references). This may be any
        * string value that does not contain spaces.
        */
-      override var id: String? = null,
+      override val id: String? = null,
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -471,7 +471,7 @@ public data class ClinicalUseDefinition(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: MutableList<Extension> = mutableListOf(),
+      override val extension: List<Extension> = listOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -490,11 +490,11 @@ public data class ClinicalUseDefinition(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: MutableList<Extension> = mutableListOf(),
+      override val modifierExtension: List<Extension> = listOf(),
       /**
        * The specific medication, product, food, substance etc. or laboratory test that interacts.
        */
-      public var item: Item,
+      public val item: Item,
     ) : BackboneElement() {
       @Serializable(with = ClinicalUseDefinitionInteractionInteractantItemSerializer::class)
       public sealed interface Item {
@@ -532,7 +532,7 @@ public data class ClinicalUseDefinition(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: String? = null,
+    override val id: String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -545,7 +545,7 @@ public data class ClinicalUseDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -564,13 +564,13 @@ public data class ClinicalUseDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /** The situation in which the undesirable effect may manifest. */
-    public var symptomConditionEffect: CodeableReference? = null,
+    public val symptomConditionEffect: CodeableReference? = null,
     /** High level classification of the effect. */
-    public var classification: CodeableConcept? = null,
+    public val classification: CodeableConcept? = null,
     /** How often the effect is seen. */
-    public var frequencyOfOccurrence: CodeableConcept? = null,
+    public val frequencyOfOccurrence: CodeableConcept? = null,
   ) : BackboneElement()
 
   /**
@@ -584,7 +584,7 @@ public data class ClinicalUseDefinition(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: String? = null,
+    override val id: String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -597,7 +597,7 @@ public data class ClinicalUseDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -616,11 +616,11 @@ public data class ClinicalUseDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /** A textual definition of this warning, with formatting. */
-    public var description: Markdown? = null,
+    public val description: Markdown? = null,
     /** A coded or unformatted textual definition of this warning. */
-    public var code: CodeableConcept? = null,
+    public val code: CodeableConcept? = null,
   ) : BackboneElement()
 
   /** Overall defining type of this clinical use definition. */

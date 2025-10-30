@@ -56,15 +56,15 @@ import com.google.fhir.model.r4.terminologies.PublicationStatus
 import kotlin.Boolean as KotlinBoolean
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class ActivityDefinitionParticipantSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var type: KotlinString? = null,
   public var _type: Element? = null,
   public var role: CodeableConcept? = null,
@@ -72,9 +72,8 @@ internal data class ActivityDefinitionParticipantSurrogate(
   public fun toModel(): ActivityDefinition.Participant =
     ActivityDefinition.Participant(
       id = this@ActivityDefinitionParticipantSurrogate.id,
-      extension = this@ActivityDefinitionParticipantSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@ActivityDefinitionParticipantSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@ActivityDefinitionParticipantSurrogate.extension ?: listOf(),
+      modifierExtension = this@ActivityDefinitionParticipantSurrogate.modifierExtension ?: listOf(),
       type =
         Enumeration.of(
           ActivityDefinition.ActionParticipantType.fromCode(
@@ -105,8 +104,8 @@ internal data class ActivityDefinitionParticipantSurrogate(
 @Serializable
 internal data class ActivityDefinitionDynamicValueSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var path: KotlinString? = null,
   public var _path: Element? = null,
   public var expression: Expression,
@@ -114,9 +113,9 @@ internal data class ActivityDefinitionDynamicValueSurrogate(
   public fun toModel(): ActivityDefinition.DynamicValue =
     ActivityDefinition.DynamicValue(
       id = this@ActivityDefinitionDynamicValueSurrogate.id,
-      extension = this@ActivityDefinitionDynamicValueSurrogate.extension ?: mutableListOf(),
+      extension = this@ActivityDefinitionDynamicValueSurrogate.extension ?: listOf(),
       modifierExtension =
-        this@ActivityDefinitionDynamicValueSurrogate.modifierExtension ?: mutableListOf(),
+        this@ActivityDefinitionDynamicValueSurrogate.modifierExtension ?: listOf(),
       path =
         R4String.of(
           this@ActivityDefinitionDynamicValueSurrogate.path,
@@ -234,12 +233,12 @@ internal data class ActivityDefinitionSurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: MutableList<Resource>? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var contained: List<Resource>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var url: KotlinString? = null,
   public var _url: Element? = null,
-  public var identifier: MutableList<Identifier>? = null,
+  public var identifier: List<Identifier>? = null,
   public var version: KotlinString? = null,
   public var _version: Element? = null,
   public var name: KotlinString? = null,
@@ -257,11 +256,11 @@ internal data class ActivityDefinitionSurrogate(
   public var _date: Element? = null,
   public var publisher: KotlinString? = null,
   public var _publisher: Element? = null,
-  public var contact: MutableList<ContactDetail>? = null,
+  public var contact: List<ContactDetail>? = null,
   public var description: KotlinString? = null,
   public var _description: Element? = null,
-  public var useContext: MutableList<UsageContext>? = null,
-  public var jurisdiction: MutableList<CodeableConcept>? = null,
+  public var useContext: List<UsageContext>? = null,
+  public var jurisdiction: List<CodeableConcept>? = null,
   public var purpose: KotlinString? = null,
   public var _purpose: Element? = null,
   public var usage: KotlinString? = null,
@@ -273,14 +272,14 @@ internal data class ActivityDefinitionSurrogate(
   public var lastReviewDate: KotlinString? = null,
   public var _lastReviewDate: Element? = null,
   public var effectivePeriod: Period? = null,
-  public var topic: MutableList<CodeableConcept>? = null,
-  public var author: MutableList<ContactDetail>? = null,
-  public var editor: MutableList<ContactDetail>? = null,
-  public var reviewer: MutableList<ContactDetail>? = null,
-  public var endorser: MutableList<ContactDetail>? = null,
-  public var relatedArtifact: MutableList<RelatedArtifact>? = null,
-  public var library: MutableList<KotlinString?>? = null,
-  public var _library: MutableList<Element?>? = null,
+  public var topic: List<CodeableConcept>? = null,
+  public var author: List<ContactDetail>? = null,
+  public var editor: List<ContactDetail>? = null,
+  public var reviewer: List<ContactDetail>? = null,
+  public var endorser: List<ContactDetail>? = null,
+  public var relatedArtifact: List<RelatedArtifact>? = null,
+  public var library: List<KotlinString?>? = null,
+  public var _library: List<Element?>? = null,
   public var kind: KotlinString? = null,
   public var _kind: Element? = null,
   public var profile: KotlinString? = null,
@@ -294,17 +293,17 @@ internal data class ActivityDefinitionSurrogate(
   public var _doNotPerform: Element? = null,
   public var timing: ActivityDefinition.Timing? = null,
   public var location: Reference? = null,
-  public var participant: MutableList<ActivityDefinition.Participant>? = null,
+  public var participant: List<ActivityDefinition.Participant>? = null,
   public var product: ActivityDefinition.Product? = null,
   public var quantity: Quantity? = null,
-  public var dosage: MutableList<Dosage>? = null,
-  public var bodySite: MutableList<CodeableConcept>? = null,
-  public var specimenRequirement: MutableList<Reference>? = null,
-  public var observationRequirement: MutableList<Reference>? = null,
-  public var observationResultRequirement: MutableList<Reference>? = null,
+  public var dosage: List<Dosage>? = null,
+  public var bodySite: List<CodeableConcept>? = null,
+  public var specimenRequirement: List<Reference>? = null,
+  public var observationRequirement: List<Reference>? = null,
+  public var observationResultRequirement: List<Reference>? = null,
   public var transform: KotlinString? = null,
   public var _transform: Element? = null,
-  public var dynamicValue: MutableList<ActivityDefinition.DynamicValue>? = null,
+  public var dynamicValue: List<ActivityDefinition.DynamicValue>? = null,
 ) {
   public fun toModel(): ActivityDefinition =
     ActivityDefinition(
@@ -321,11 +320,11 @@ internal data class ActivityDefinitionSurrogate(
           this@ActivityDefinitionSurrogate._language,
         ),
       text = this@ActivityDefinitionSurrogate.text,
-      contained = this@ActivityDefinitionSurrogate.contained ?: mutableListOf(),
-      extension = this@ActivityDefinitionSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@ActivityDefinitionSurrogate.modifierExtension ?: mutableListOf(),
+      contained = this@ActivityDefinitionSurrogate.contained ?: listOf(),
+      extension = this@ActivityDefinitionSurrogate.extension ?: listOf(),
+      modifierExtension = this@ActivityDefinitionSurrogate.modifierExtension ?: listOf(),
       url = Uri.of(this@ActivityDefinitionSurrogate.url, this@ActivityDefinitionSurrogate._url),
-      identifier = this@ActivityDefinitionSurrogate.identifier ?: mutableListOf(),
+      identifier = this@ActivityDefinitionSurrogate.identifier ?: listOf(),
       version =
         R4String.of(
           this@ActivityDefinitionSurrogate.version,
@@ -364,14 +363,14 @@ internal data class ActivityDefinitionSurrogate(
           this@ActivityDefinitionSurrogate.publisher,
           this@ActivityDefinitionSurrogate._publisher,
         ),
-      contact = this@ActivityDefinitionSurrogate.contact ?: mutableListOf(),
+      contact = this@ActivityDefinitionSurrogate.contact ?: listOf(),
       description =
         Markdown.of(
           this@ActivityDefinitionSurrogate.description,
           this@ActivityDefinitionSurrogate._description,
         ),
-      useContext = this@ActivityDefinitionSurrogate.useContext ?: mutableListOf(),
-      jurisdiction = this@ActivityDefinitionSurrogate.jurisdiction ?: mutableListOf(),
+      useContext = this@ActivityDefinitionSurrogate.useContext ?: listOf(),
+      jurisdiction = this@ActivityDefinitionSurrogate.jurisdiction ?: listOf(),
       purpose =
         Markdown.of(
           this@ActivityDefinitionSurrogate.purpose,
@@ -398,18 +397,18 @@ internal data class ActivityDefinitionSurrogate(
           this@ActivityDefinitionSurrogate._lastReviewDate,
         ),
       effectivePeriod = this@ActivityDefinitionSurrogate.effectivePeriod,
-      topic = this@ActivityDefinitionSurrogate.topic ?: mutableListOf(),
-      author = this@ActivityDefinitionSurrogate.author ?: mutableListOf(),
-      editor = this@ActivityDefinitionSurrogate.editor ?: mutableListOf(),
-      reviewer = this@ActivityDefinitionSurrogate.reviewer ?: mutableListOf(),
-      endorser = this@ActivityDefinitionSurrogate.endorser ?: mutableListOf(),
-      relatedArtifact = this@ActivityDefinitionSurrogate.relatedArtifact ?: mutableListOf(),
+      topic = this@ActivityDefinitionSurrogate.topic ?: listOf(),
+      author = this@ActivityDefinitionSurrogate.author ?: listOf(),
+      editor = this@ActivityDefinitionSurrogate.editor ?: listOf(),
+      reviewer = this@ActivityDefinitionSurrogate.reviewer ?: listOf(),
+      endorser = this@ActivityDefinitionSurrogate.endorser ?: listOf(),
+      relatedArtifact = this@ActivityDefinitionSurrogate.relatedArtifact ?: listOf(),
       library =
         if (
           this@ActivityDefinitionSurrogate.library == null &&
             this@ActivityDefinitionSurrogate._library == null
         ) {
-          mutableListOf()
+          listOf()
         } else {
           (this@ActivityDefinitionSurrogate.library
               ?: List(this@ActivityDefinitionSurrogate._library!!.size) { null })
@@ -418,7 +417,7 @@ internal data class ActivityDefinitionSurrogate(
                 ?: List(this@ActivityDefinitionSurrogate.library!!.size) { null }
             )
             .map { (value, element) -> Canonical.of(value, element)!! }
-            .toMutableList()
+            .toList()
         },
       kind =
         this@ActivityDefinitionSurrogate.kind?.let {
@@ -454,22 +453,21 @@ internal data class ActivityDefinitionSurrogate(
         ),
       timing = this@ActivityDefinitionSurrogate.timing,
       location = this@ActivityDefinitionSurrogate.location,
-      participant = this@ActivityDefinitionSurrogate.participant ?: mutableListOf(),
+      participant = this@ActivityDefinitionSurrogate.participant ?: listOf(),
       product = this@ActivityDefinitionSurrogate.product,
       quantity = this@ActivityDefinitionSurrogate.quantity,
-      dosage = this@ActivityDefinitionSurrogate.dosage ?: mutableListOf(),
-      bodySite = this@ActivityDefinitionSurrogate.bodySite ?: mutableListOf(),
-      specimenRequirement = this@ActivityDefinitionSurrogate.specimenRequirement ?: mutableListOf(),
-      observationRequirement =
-        this@ActivityDefinitionSurrogate.observationRequirement ?: mutableListOf(),
+      dosage = this@ActivityDefinitionSurrogate.dosage ?: listOf(),
+      bodySite = this@ActivityDefinitionSurrogate.bodySite ?: listOf(),
+      specimenRequirement = this@ActivityDefinitionSurrogate.specimenRequirement ?: listOf(),
+      observationRequirement = this@ActivityDefinitionSurrogate.observationRequirement ?: listOf(),
       observationResultRequirement =
-        this@ActivityDefinitionSurrogate.observationResultRequirement ?: mutableListOf(),
+        this@ActivityDefinitionSurrogate.observationResultRequirement ?: listOf(),
       transform =
         Canonical.of(
           this@ActivityDefinitionSurrogate.transform,
           this@ActivityDefinitionSurrogate._transform,
         ),
-      dynamicValue = this@ActivityDefinitionSurrogate.dynamicValue ?: mutableListOf(),
+      dynamicValue = this@ActivityDefinitionSurrogate.dynamicValue ?: listOf(),
     )
 
   public companion object {
@@ -529,13 +527,13 @@ internal data class ActivityDefinitionSurrogate(
           endorser = this@with.endorser.takeIf { it.isNotEmpty() },
           relatedArtifact = this@with.relatedArtifact.takeIf { it.isNotEmpty() },
           library =
-            this@with.library.map { it.value }.toMutableList().takeUnless { it.all { it == null } },
+            this@with.library.map { it.value }.toList().takeUnless { it.all { it == null } },
           _library =
             this@with.library
               .map { it.toElement() }
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
-              ?.toMutableList(),
+              ?.toList(),
           kind = this@with.kind?.value?.getCode(),
           _kind = this@with.kind?.toElement(),
           profile = this@with.profile?.value,

@@ -46,36 +46,35 @@ import com.google.fhir.model.r5.serializers.LocalTimeSerializer
 import kotlin.Boolean as KotlinBoolean
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class ArtifactAssessmentContentSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var informationType: KotlinString? = null,
   public var _informationType: Element? = null,
   public var summary: KotlinString? = null,
   public var _summary: Element? = null,
   public var type: CodeableConcept? = null,
-  public var classifier: MutableList<CodeableConcept>? = null,
+  public var classifier: List<CodeableConcept>? = null,
   public var quantity: Quantity? = null,
   public var author: Reference? = null,
-  public var path: MutableList<KotlinString?>? = null,
-  public var _path: MutableList<Element?>? = null,
-  public var relatedArtifact: MutableList<RelatedArtifact>? = null,
+  public var path: List<KotlinString?>? = null,
+  public var _path: List<Element?>? = null,
+  public var relatedArtifact: List<RelatedArtifact>? = null,
   public var freeToShare: KotlinBoolean? = null,
   public var _freeToShare: Element? = null,
-  public var component: MutableList<ArtifactAssessment.Content>? = null,
+  public var component: List<ArtifactAssessment.Content>? = null,
 ) {
   public fun toModel(): ArtifactAssessment.Content =
     ArtifactAssessment.Content(
       id = this@ArtifactAssessmentContentSurrogate.id,
-      extension = this@ArtifactAssessmentContentSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@ArtifactAssessmentContentSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@ArtifactAssessmentContentSurrogate.extension ?: listOf(),
+      modifierExtension = this@ArtifactAssessmentContentSurrogate.modifierExtension ?: listOf(),
       informationType =
         this@ArtifactAssessmentContentSurrogate.informationType?.let {
           Enumeration.of(
@@ -89,7 +88,7 @@ internal data class ArtifactAssessmentContentSurrogate(
           this@ArtifactAssessmentContentSurrogate._summary,
         ),
       type = this@ArtifactAssessmentContentSurrogate.type,
-      classifier = this@ArtifactAssessmentContentSurrogate.classifier ?: mutableListOf(),
+      classifier = this@ArtifactAssessmentContentSurrogate.classifier ?: listOf(),
       quantity = this@ArtifactAssessmentContentSurrogate.quantity,
       author = this@ArtifactAssessmentContentSurrogate.author,
       path =
@@ -97,7 +96,7 @@ internal data class ArtifactAssessmentContentSurrogate(
           this@ArtifactAssessmentContentSurrogate.path == null &&
             this@ArtifactAssessmentContentSurrogate._path == null
         ) {
-          mutableListOf()
+          listOf()
         } else {
           (this@ArtifactAssessmentContentSurrogate.path
               ?: List(this@ArtifactAssessmentContentSurrogate._path!!.size) { null })
@@ -106,15 +105,15 @@ internal data class ArtifactAssessmentContentSurrogate(
                 ?: List(this@ArtifactAssessmentContentSurrogate.path!!.size) { null }
             )
             .map { (value, element) -> Uri.of(value, element)!! }
-            .toMutableList()
+            .toList()
         },
-      relatedArtifact = this@ArtifactAssessmentContentSurrogate.relatedArtifact ?: mutableListOf(),
+      relatedArtifact = this@ArtifactAssessmentContentSurrogate.relatedArtifact ?: listOf(),
       freeToShare =
         R5Boolean.of(
           this@ArtifactAssessmentContentSurrogate.freeToShare,
           this@ArtifactAssessmentContentSurrogate._freeToShare,
         ),
-      component = this@ArtifactAssessmentContentSurrogate.component ?: mutableListOf(),
+      component = this@ArtifactAssessmentContentSurrogate.component ?: listOf(),
     )
 
   public companion object {
@@ -132,14 +131,13 @@ internal data class ArtifactAssessmentContentSurrogate(
           classifier = this@with.classifier.takeIf { it.isNotEmpty() },
           quantity = this@with.quantity,
           author = this@with.author,
-          path =
-            this@with.path.map { it.value }.toMutableList().takeUnless { it.all { it == null } },
+          path = this@with.path.map { it.value }.toList().takeUnless { it.all { it == null } },
           _path =
             this@with.path
               .map { it.toElement() }
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
-              ?.toMutableList(),
+              ?.toList(),
           relatedArtifact = this@with.relatedArtifact.takeIf { it.isNotEmpty() },
           freeToShare = this@with.freeToShare?.value,
           _freeToShare = this@with.freeToShare?.toElement(),
@@ -220,10 +218,10 @@ internal data class ArtifactAssessmentSurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: MutableList<Resource>? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var identifier: MutableList<Identifier>? = null,
+  public var contained: List<Resource>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
+  public var identifier: List<Identifier>? = null,
   public var title: KotlinString? = null,
   public var _title: Element? = null,
   public var citeAs: ArtifactAssessment.CiteAs? = null,
@@ -236,7 +234,7 @@ internal data class ArtifactAssessmentSurrogate(
   public var lastReviewDate: KotlinString? = null,
   public var _lastReviewDate: Element? = null,
   public var artifact: ArtifactAssessment.Artifact,
-  public var content: MutableList<ArtifactAssessment.Content>? = null,
+  public var content: List<ArtifactAssessment.Content>? = null,
   public var workflowStatus: KotlinString? = null,
   public var _workflowStatus: Element? = null,
   public var disposition: KotlinString? = null,
@@ -257,10 +255,10 @@ internal data class ArtifactAssessmentSurrogate(
           this@ArtifactAssessmentSurrogate._language,
         ),
       text = this@ArtifactAssessmentSurrogate.text,
-      contained = this@ArtifactAssessmentSurrogate.contained ?: mutableListOf(),
-      extension = this@ArtifactAssessmentSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@ArtifactAssessmentSurrogate.modifierExtension ?: mutableListOf(),
-      identifier = this@ArtifactAssessmentSurrogate.identifier ?: mutableListOf(),
+      contained = this@ArtifactAssessmentSurrogate.contained ?: listOf(),
+      extension = this@ArtifactAssessmentSurrogate.extension ?: listOf(),
+      modifierExtension = this@ArtifactAssessmentSurrogate.modifierExtension ?: listOf(),
+      identifier = this@ArtifactAssessmentSurrogate.identifier ?: listOf(),
       title =
         R5String.of(
           this@ArtifactAssessmentSurrogate.title,
@@ -288,7 +286,7 @@ internal data class ArtifactAssessmentSurrogate(
           this@ArtifactAssessmentSurrogate._lastReviewDate,
         ),
       artifact = this@ArtifactAssessmentSurrogate.artifact,
-      content = this@ArtifactAssessmentSurrogate.content ?: mutableListOf(),
+      content = this@ArtifactAssessmentSurrogate.content ?: listOf(),
       workflowStatus =
         this@ArtifactAssessmentSurrogate.workflowStatus?.let {
           Enumeration.of(

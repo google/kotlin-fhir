@@ -25,7 +25,7 @@ import com.google.fhir.model.r5.serializers.PackagedProductDefinitionPackagingPr
 import com.google.fhir.model.r5.serializers.PackagedProductDefinitionPackagingSerializer
 import com.google.fhir.model.r5.serializers.PackagedProductDefinitionSerializer
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -41,12 +41,12 @@ public data class PackagedProductDefinition(
    * like the create and conditional update. Otherwise, the use of the resouce id depends on the
    * given use case.
    */
-  override var id: kotlin.String? = null,
+  override val id: kotlin.String? = null,
   /**
    * The metadata about the resource. This is content that is maintained by the infrastructure.
    * Changes to the content might not always be associated with version changes to the resource.
    */
-  override var meta: Meta? = null,
+  override val meta: Meta? = null,
   /**
    * A reference to a set of rules that were followed when the resource was constructed, and which
    * must be understood when processing the content. Often, this is a reference to an implementation
@@ -60,7 +60,7 @@ public data class PackagedProductDefinition(
    * to an implementation guide that defines these special rules as part of its narrative along with
    * other profiles, value sets, etc.
    */
-  override var implicitRules: Uri? = null,
+  override val implicitRules: Uri? = null,
   /**
    * The base language in which the resource is written.
    *
@@ -72,7 +72,7 @@ public data class PackagedProductDefinition(
    * language is specified, it should it also be specified on the div element in the html (see rules
    * in HTML5 for information about the relationship between xml:lang and the html lang attribute).
    */
-  override var language: Code? = null,
+  override val language: Code? = null,
   /**
    * A human-readable narrative that contains a summary of the resource and can be used to represent
    * the content of the resource to a human. The narrative need not encode all the structured data,
@@ -86,7 +86,7 @@ public data class PackagedProductDefinition(
    * legacy systems where information is captured as a "text blob" or where text is additionally
    * entered raw or narrated and encoded information is added later.
    */
-  override var text: Narrative? = null,
+  override val text: Narrative? = null,
   /**
    * These resources do not have an independent existence apart from the resource that contains
    * them - they cannot be identified independently, nor can they have their own independent
@@ -98,7 +98,7 @@ public data class PackagedProductDefinition(
    * resources may have profiles and tags in their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: MutableList<Resource> = mutableListOf(),
+  override val contained: List<Resource> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and managable, there is a strict set of governance
@@ -111,7 +111,7 @@ public data class PackagedProductDefinition(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: MutableList<Extension> = mutableListOf(),
+  override val extension: List<Extension> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -130,34 +130,34 @@ public data class PackagedProductDefinition(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: MutableList<Extension> = mutableListOf(),
+  override val modifierExtension: List<Extension> = listOf(),
   /**
    * A unique identifier for this package as whole - not the the content of the package. Unique
    * instance identifiers assigned to a package by manufacturers, regulators, drug catalogue
    * custodians or other organizations.
    */
-  public var identifier: MutableList<Identifier> = mutableListOf(),
+  public val identifier: List<Identifier> = listOf(),
   /**
    * A name for this package. Typically what it would be listed as in a drug formulary or catalogue,
    * inventory etc.
    */
-  public var name: String? = null,
+  public val name: String? = null,
   /**
    * A high level category e.g. medicinal product, raw material, shipping/transport container, etc.
    */
-  public var type: CodeableConcept? = null,
+  public val type: CodeableConcept? = null,
   /**
    * The product this package model relates to, not the contents of the package (for which see
    * package.containedItem).
    */
-  public var packageFor: MutableList<Reference> = mutableListOf(),
+  public val packageFor: List<Reference> = listOf(),
   /**
    * The status within the lifecycle of this item. A high level status, this is not intended to
    * duplicate details carried elsewhere such as legal status, or authorization or marketing status.
    */
-  public var status: CodeableConcept? = null,
+  public val status: CodeableConcept? = null,
   /** The date at which the given status became applicable. */
-  public var statusDate: DateTime? = null,
+  public val statusDate: DateTime? = null,
   /**
    * A total of the complete count of contained items of a particular type/form, independent of
    * sub-packaging or organization. This can be considered as the pack size. This attribute differs
@@ -170,39 +170,39 @@ public data class PackagedProductDefinition(
    * not '2 tubes and 3 tubes'). Repeats are not to be used to represent different pack sizes (e.g.
    * 20 pack vs. 50 pack) - which would be different instances of this resource.
    */
-  public var containedItemQuantity: MutableList<Quantity> = mutableListOf(),
+  public val containedItemQuantity: List<Quantity> = listOf(),
   /** Textual description. Note that this is not the name of the package or product. */
-  public var description: Markdown? = null,
+  public val description: Markdown? = null,
   /** The legal status of supply of the packaged item as classified by the regulator. */
-  public var legalStatusOfSupply: MutableList<LegalStatusOfSupply> = mutableListOf(),
+  public val legalStatusOfSupply: List<LegalStatusOfSupply> = listOf(),
   /**
    * Allows specifying that an item is on the market for sale, or that it is not available, and the
    * dates and locations associated.
    */
-  public var marketingStatus: MutableList<MarketingStatus> = mutableListOf(),
+  public val marketingStatus: List<MarketingStatus> = listOf(),
   /**
    * Identifies if the package contains different items, such as when a drug product is supplied
    * with another item e.g. a diluent or adjuvant.
    */
-  public var copackagedIndicator: Boolean? = null,
+  public val copackagedIndicator: Boolean? = null,
   /**
    * Manufacturer of this package type. When there are multiple it means these are all possible
    * manufacturers.
    */
-  public var manufacturer: MutableList<Reference> = mutableListOf(),
+  public val manufacturer: List<Reference> = listOf(),
   /** Additional information or supporting documentation about the packaged product. */
-  public var attachedDocument: MutableList<Reference> = mutableListOf(),
+  public val attachedDocument: List<Reference> = listOf(),
   /**
    * A packaging item, as a container for medically related items, possibly with other packaging
    * items within, or a packaging component, such as bottle cap (which is not a device or a
    * medication manufactured item).
    */
-  public var packaging: Packaging? = null,
+  public val packaging: Packaging? = null,
   /**
    * Allows the key features to be recorded, such as "hospital pack", "nurse prescribable",
    * "calendar pack".
    */
-  public var characteristic: MutableList<Packaging.Property> = mutableListOf(),
+  public val characteristic: List<Packaging.Property> = listOf(),
 ) : DomainResource() {
   /** The legal status of supply of the packaged item as classified by the regulator. */
   @Serializable(with = PackagedProductDefinitionLegalStatusOfSupplySerializer::class)
@@ -211,7 +211,7 @@ public data class PackagedProductDefinition(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -224,7 +224,7 @@ public data class PackagedProductDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -243,17 +243,17 @@ public data class PackagedProductDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /**
      * The actual status of supply. Conveys in what situation this package type may be supplied for
      * use.
      */
-    public var code: CodeableConcept? = null,
+    public val code: CodeableConcept? = null,
     /**
      * The place where the legal status of supply applies. When not specified, this indicates it is
      * unknown in this context.
      */
-    public var jurisdiction: CodeableConcept? = null,
+    public val jurisdiction: CodeableConcept? = null,
   ) : BackboneElement()
 
   /**
@@ -267,7 +267,7 @@ public data class PackagedProductDefinition(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -280,7 +280,7 @@ public data class PackagedProductDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -299,51 +299,51 @@ public data class PackagedProductDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /**
      * A business identifier that is specific to this particular part of the packaging, often
      * assigned by the manufacturer. Including possibly Data Carrier Identifier (a GS1 barcode).
      */
-    public var identifier: MutableList<Identifier> = mutableListOf(),
+    public val identifier: List<Identifier> = listOf(),
     /** The physical type of the container of the items. */
-    public var type: CodeableConcept? = null,
+    public val type: CodeableConcept? = null,
     /**
      * Is this a part of the packaging (e.g. a cap or bottle stopper), rather than the packaging
      * itself (e.g. a bottle or vial). The latter type are designed be a container, but the former
      * are not.
      */
-    public var componentPart: Boolean? = null,
+    public val componentPart: Boolean? = null,
     /**
      * The quantity of packaging items contained at this layer of the package. This does not relate
      * to the number of contained items but relates solely to the number of packaging items. When
      * looking at the outermost layer it is always 1. If there are two boxes within, at the next
      * layer it would be 2.
      */
-    public var quantity: Integer? = null,
+    public val quantity: Integer? = null,
     /** Material type of the package item. */
-    public var material: MutableList<CodeableConcept> = mutableListOf(),
+    public val material: List<CodeableConcept> = listOf(),
     /**
      * A possible alternate material for this part of the packaging, that is allowed to be used
      * instead of the usual material (e.g. different types of plastic for a blister sleeve).
      */
-    public var alternateMaterial: MutableList<CodeableConcept> = mutableListOf(),
+    public val alternateMaterial: List<CodeableConcept> = listOf(),
     /** Shelf Life and storage information. */
-    public var shelfLifeStorage: MutableList<ProductShelfLife> = mutableListOf(),
+    public val shelfLifeStorage: List<ProductShelfLife> = listOf(),
     /**
      * Manufacturer of this packaging item. When there are multiple values each one is a potential
      * manufacturer of this packaging item.
      */
-    public var manufacturer: MutableList<Reference> = mutableListOf(),
+    public val manufacturer: List<Reference> = listOf(),
     /** General characteristics of this item. */
-    public var `property`: MutableList<Property> = mutableListOf(),
+    public val `property`: List<Property> = listOf(),
     /** The item(s) within the packaging. */
-    public var containedItem: MutableList<ContainedItem> = mutableListOf(),
+    public val containedItem: List<ContainedItem> = listOf(),
     /**
      * Allows containers (and parts of containers) within containers, still as a part of a single
      * packaged product. See also
      * PackagedProductDefinition.packaging.containedItem.item(PackagedProductDefinition).
      */
-    public var packaging: MutableList<Packaging> = mutableListOf(),
+    public val packaging: List<Packaging> = listOf(),
   ) : BackboneElement() {
     /** General characteristics of this item. */
     @Serializable(with = PackagedProductDefinitionPackagingPropertySerializer::class)
@@ -352,7 +352,7 @@ public data class PackagedProductDefinition(
        * Unique id for the element within a resource (for internal references). This may be any
        * string value that does not contain spaces.
        */
-      override var id: kotlin.String? = null,
+      override val id: kotlin.String? = null,
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -365,7 +365,7 @@ public data class PackagedProductDefinition(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: MutableList<Extension> = mutableListOf(),
+      override val extension: List<Extension> = listOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -384,11 +384,11 @@ public data class PackagedProductDefinition(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: MutableList<Extension> = mutableListOf(),
+      override val modifierExtension: List<Extension> = listOf(),
       /** A code expressing the type of characteristic. */
-      public var type: CodeableConcept,
+      public val type: CodeableConcept,
       /** A value for the characteristic. */
-      public var `value`: Value? = null,
+      public val `value`: Value? = null,
     ) : BackboneElement() {
       @Serializable(with = PackagedProductDefinitionPackagingPropertyValueSerializer::class)
       public sealed interface Value {
@@ -441,7 +441,7 @@ public data class PackagedProductDefinition(
        * Unique id for the element within a resource (for internal references). This may be any
        * string value that does not contain spaces.
        */
-      override var id: kotlin.String? = null,
+      override val id: kotlin.String? = null,
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -454,7 +454,7 @@ public data class PackagedProductDefinition(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: MutableList<Extension> = mutableListOf(),
+      override val extension: List<Extension> = listOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -473,7 +473,7 @@ public data class PackagedProductDefinition(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: MutableList<Extension> = mutableListOf(),
+      override val modifierExtension: List<Extension> = listOf(),
       /**
        * The actual item(s) of medication, as manufactured, or a device (typically, but not
        * necessarily, a co-packaged one), or other medically related item (such as food,
@@ -482,13 +482,13 @@ public data class PackagedProductDefinition(
        * where a package of other entire packages is wanted - such as a wholesale or distribution
        * pack (for layers within one package, use PackagedProductDefinition.packaging.packaging).
        */
-      public var item: CodeableReference,
+      public val item: CodeableReference,
       /**
        * The number of this type of item within this packaging or for continuous items such as
        * liquids it is the quantity (for example 25ml). See also
        * PackagedProductDefinition.containedItemQuantity (especially the long definition).
        */
-      public var amount: Quantity? = null,
+      public val amount: Quantity? = null,
     ) : BackboneElement()
   }
 }

@@ -31,14 +31,14 @@ import com.google.fhir.model.r4b.serializers.LocalTimeSerializer
 import kotlin.Int
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class ContactPointSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
   public var system: KotlinString? = null,
   public var _system: Element? = null,
   public var `value`: KotlinString? = null,
@@ -52,7 +52,7 @@ internal data class ContactPointSurrogate(
   public fun toModel(): ContactPoint =
     ContactPoint(
       id = this@ContactPointSurrogate.id,
-      extension = this@ContactPointSurrogate.extension ?: mutableListOf(),
+      extension = this@ContactPointSurrogate.extension ?: listOf(),
       system =
         this@ContactPointSurrogate.system?.let {
           Enumeration.of(

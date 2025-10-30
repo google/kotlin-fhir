@@ -46,15 +46,15 @@ import com.google.fhir.model.r5.terminologies.PublicationStatus
 import kotlin.Boolean as KotlinBoolean
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class AdministrableProductDefinitionPropertySurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var type: CodeableConcept,
   public var `value`: AdministrableProductDefinition.Property.Value? = null,
   public var status: CodeableConcept? = null,
@@ -62,9 +62,9 @@ internal data class AdministrableProductDefinitionPropertySurrogate(
   public fun toModel(): AdministrableProductDefinition.Property =
     AdministrableProductDefinition.Property(
       id = this@AdministrableProductDefinitionPropertySurrogate.id,
-      extension = this@AdministrableProductDefinitionPropertySurrogate.extension ?: mutableListOf(),
+      extension = this@AdministrableProductDefinitionPropertySurrogate.extension ?: listOf(),
       modifierExtension =
-        this@AdministrableProductDefinitionPropertySurrogate.modifierExtension ?: mutableListOf(),
+        this@AdministrableProductDefinitionPropertySurrogate.modifierExtension ?: listOf(),
       type = this@AdministrableProductDefinitionPropertySurrogate.type,
       `value` = this@AdministrableProductDefinitionPropertySurrogate.`value`,
       status = this@AdministrableProductDefinitionPropertySurrogate.status,
@@ -90,8 +90,8 @@ internal data class AdministrableProductDefinitionPropertySurrogate(
 @Serializable
 internal data class AdministrableProductDefinitionRouteOfAdministrationSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var code: CodeableConcept,
   public var firstDose: Quantity? = null,
   public var maxSingleDose: Quantity? = null,
@@ -99,18 +99,17 @@ internal data class AdministrableProductDefinitionRouteOfAdministrationSurrogate
   public var maxDosePerTreatmentPeriod: Ratio? = null,
   public var maxTreatmentPeriod: Duration? = null,
   public var targetSpecies:
-    MutableList<AdministrableProductDefinition.RouteOfAdministration.TargetSpecies>? =
+    List<AdministrableProductDefinition.RouteOfAdministration.TargetSpecies>? =
     null,
 ) {
   public fun toModel(): AdministrableProductDefinition.RouteOfAdministration =
     AdministrableProductDefinition.RouteOfAdministration(
       id = this@AdministrableProductDefinitionRouteOfAdministrationSurrogate.id,
       extension =
-        this@AdministrableProductDefinitionRouteOfAdministrationSurrogate.extension
-          ?: mutableListOf(),
+        this@AdministrableProductDefinitionRouteOfAdministrationSurrogate.extension ?: listOf(),
       modifierExtension =
         this@AdministrableProductDefinitionRouteOfAdministrationSurrogate.modifierExtension
-          ?: mutableListOf(),
+          ?: listOf(),
       code = this@AdministrableProductDefinitionRouteOfAdministrationSurrogate.code,
       firstDose = this@AdministrableProductDefinitionRouteOfAdministrationSurrogate.firstDose,
       maxSingleDose =
@@ -122,8 +121,7 @@ internal data class AdministrableProductDefinitionRouteOfAdministrationSurrogate
       maxTreatmentPeriod =
         this@AdministrableProductDefinitionRouteOfAdministrationSurrogate.maxTreatmentPeriod,
       targetSpecies =
-        this@AdministrableProductDefinitionRouteOfAdministrationSurrogate.targetSpecies
-          ?: mutableListOf(),
+        this@AdministrableProductDefinitionRouteOfAdministrationSurrogate.targetSpecies ?: listOf(),
     )
 
   public companion object {
@@ -150,13 +148,11 @@ internal data class AdministrableProductDefinitionRouteOfAdministrationSurrogate
 @Serializable
 internal data class AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var code: CodeableConcept,
   public var withdrawalPeriod:
-    MutableList<
-      AdministrableProductDefinition.RouteOfAdministration.TargetSpecies.WithdrawalPeriod
-    >? =
+    List<AdministrableProductDefinition.RouteOfAdministration.TargetSpecies.WithdrawalPeriod>? =
     null,
 ) {
   public fun toModel(): AdministrableProductDefinition.RouteOfAdministration.TargetSpecies =
@@ -164,14 +160,14 @@ internal data class AdministrableProductDefinitionRouteOfAdministrationTargetSpe
       id = this@AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesSurrogate.id,
       extension =
         this@AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesSurrogate.extension
-          ?: mutableListOf(),
+          ?: listOf(),
       modifierExtension =
         this@AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesSurrogate
-          .modifierExtension ?: mutableListOf(),
+          .modifierExtension ?: listOf(),
       code = this@AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesSurrogate.code,
       withdrawalPeriod =
         this@AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesSurrogate
-          .withdrawalPeriod ?: mutableListOf(),
+          .withdrawalPeriod ?: listOf(),
     )
 
   public companion object {
@@ -193,8 +189,8 @@ internal data class AdministrableProductDefinitionRouteOfAdministrationTargetSpe
 @Serializable
 internal data class AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesWithdrawalPeriodSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var tissue: CodeableConcept,
   public var `value`: Quantity,
   public var supportingInformation: KotlinString? = null,
@@ -208,10 +204,10 @@ internal data class AdministrableProductDefinitionRouteOfAdministrationTargetSpe
           .id,
       extension =
         this@AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesWithdrawalPeriodSurrogate
-          .extension ?: mutableListOf(),
+          .extension ?: listOf(),
       modifierExtension =
         this@AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesWithdrawalPeriodSurrogate
-          .modifierExtension ?: mutableListOf(),
+          .modifierExtension ?: listOf(),
       tissue =
         this@AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesWithdrawalPeriodSurrogate
           .tissue,
@@ -308,23 +304,22 @@ internal data class AdministrableProductDefinitionSurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: MutableList<Resource>? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var identifier: MutableList<Identifier>? = null,
+  public var contained: List<Resource>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
+  public var identifier: List<Identifier>? = null,
   public var status: KotlinString? = null,
   public var _status: Element? = null,
-  public var formOf: MutableList<Reference>? = null,
+  public var formOf: List<Reference>? = null,
   public var administrableDoseForm: CodeableConcept? = null,
   public var unitOfPresentation: CodeableConcept? = null,
-  public var producedFrom: MutableList<Reference>? = null,
-  public var ingredient: MutableList<CodeableConcept>? = null,
+  public var producedFrom: List<Reference>? = null,
+  public var ingredient: List<CodeableConcept>? = null,
   public var device: Reference? = null,
   public var description: KotlinString? = null,
   public var _description: Element? = null,
-  public var `property`: MutableList<AdministrableProductDefinition.Property>? = null,
-  public var routeOfAdministration:
-    MutableList<AdministrableProductDefinition.RouteOfAdministration>? =
+  public var `property`: List<AdministrableProductDefinition.Property>? = null,
+  public var routeOfAdministration: List<AdministrableProductDefinition.RouteOfAdministration>? =
     null,
 ) {
   public fun toModel(): AdministrableProductDefinition =
@@ -342,30 +337,30 @@ internal data class AdministrableProductDefinitionSurrogate(
           this@AdministrableProductDefinitionSurrogate._language,
         ),
       text = this@AdministrableProductDefinitionSurrogate.text,
-      contained = this@AdministrableProductDefinitionSurrogate.contained ?: mutableListOf(),
-      extension = this@AdministrableProductDefinitionSurrogate.extension ?: mutableListOf(),
+      contained = this@AdministrableProductDefinitionSurrogate.contained ?: listOf(),
+      extension = this@AdministrableProductDefinitionSurrogate.extension ?: listOf(),
       modifierExtension =
-        this@AdministrableProductDefinitionSurrogate.modifierExtension ?: mutableListOf(),
-      identifier = this@AdministrableProductDefinitionSurrogate.identifier ?: mutableListOf(),
+        this@AdministrableProductDefinitionSurrogate.modifierExtension ?: listOf(),
+      identifier = this@AdministrableProductDefinitionSurrogate.identifier ?: listOf(),
       status =
         Enumeration.of(
           PublicationStatus.fromCode(this@AdministrableProductDefinitionSurrogate.status!!),
           this@AdministrableProductDefinitionSurrogate._status,
         ),
-      formOf = this@AdministrableProductDefinitionSurrogate.formOf ?: mutableListOf(),
+      formOf = this@AdministrableProductDefinitionSurrogate.formOf ?: listOf(),
       administrableDoseForm = this@AdministrableProductDefinitionSurrogate.administrableDoseForm,
       unitOfPresentation = this@AdministrableProductDefinitionSurrogate.unitOfPresentation,
-      producedFrom = this@AdministrableProductDefinitionSurrogate.producedFrom ?: mutableListOf(),
-      ingredient = this@AdministrableProductDefinitionSurrogate.ingredient ?: mutableListOf(),
+      producedFrom = this@AdministrableProductDefinitionSurrogate.producedFrom ?: listOf(),
+      ingredient = this@AdministrableProductDefinitionSurrogate.ingredient ?: listOf(),
       device = this@AdministrableProductDefinitionSurrogate.device,
       description =
         Markdown.of(
           this@AdministrableProductDefinitionSurrogate.description,
           this@AdministrableProductDefinitionSurrogate._description,
         ),
-      `property` = this@AdministrableProductDefinitionSurrogate.`property` ?: mutableListOf(),
+      `property` = this@AdministrableProductDefinitionSurrogate.`property` ?: listOf(),
       routeOfAdministration =
-        this@AdministrableProductDefinitionSurrogate.routeOfAdministration ?: mutableListOf(),
+        this@AdministrableProductDefinitionSurrogate.routeOfAdministration ?: listOf(),
     )
 
   public companion object {

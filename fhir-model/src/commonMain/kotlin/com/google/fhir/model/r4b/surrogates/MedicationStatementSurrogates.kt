@@ -40,7 +40,7 @@ import com.google.fhir.model.r4b.serializers.DoubleSerializer
 import com.google.fhir.model.r4b.serializers.LocalTimeSerializer
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
@@ -106,15 +106,15 @@ internal data class MedicationStatementSurrogate(
   public var language: String? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: MutableList<Resource>? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var identifier: MutableList<Identifier>? = null,
-  public var basedOn: MutableList<Reference>? = null,
-  public var partOf: MutableList<Reference>? = null,
+  public var contained: List<Resource>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
+  public var identifier: List<Identifier>? = null,
+  public var basedOn: List<Reference>? = null,
+  public var partOf: List<Reference>? = null,
   public var status: String? = null,
   public var _status: Element? = null,
-  public var statusReason: MutableList<CodeableConcept>? = null,
+  public var statusReason: List<CodeableConcept>? = null,
   public var category: CodeableConcept? = null,
   public var medication: MedicationStatement.Medication,
   public var subject: Reference,
@@ -123,11 +123,11 @@ internal data class MedicationStatementSurrogate(
   public var dateAsserted: String? = null,
   public var _dateAsserted: Element? = null,
   public var informationSource: Reference? = null,
-  public var derivedFrom: MutableList<Reference>? = null,
-  public var reasonCode: MutableList<CodeableConcept>? = null,
-  public var reasonReference: MutableList<Reference>? = null,
-  public var note: MutableList<Annotation>? = null,
-  public var dosage: MutableList<Dosage>? = null,
+  public var derivedFrom: List<Reference>? = null,
+  public var reasonCode: List<CodeableConcept>? = null,
+  public var reasonReference: List<Reference>? = null,
+  public var note: List<Annotation>? = null,
+  public var dosage: List<Dosage>? = null,
 ) {
   public fun toModel(): MedicationStatement =
     MedicationStatement(
@@ -144,12 +144,12 @@ internal data class MedicationStatementSurrogate(
           this@MedicationStatementSurrogate._language,
         ),
       text = this@MedicationStatementSurrogate.text,
-      contained = this@MedicationStatementSurrogate.contained ?: mutableListOf(),
-      extension = this@MedicationStatementSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@MedicationStatementSurrogate.modifierExtension ?: mutableListOf(),
-      identifier = this@MedicationStatementSurrogate.identifier ?: mutableListOf(),
-      basedOn = this@MedicationStatementSurrogate.basedOn ?: mutableListOf(),
-      partOf = this@MedicationStatementSurrogate.partOf ?: mutableListOf(),
+      contained = this@MedicationStatementSurrogate.contained ?: listOf(),
+      extension = this@MedicationStatementSurrogate.extension ?: listOf(),
+      modifierExtension = this@MedicationStatementSurrogate.modifierExtension ?: listOf(),
+      identifier = this@MedicationStatementSurrogate.identifier ?: listOf(),
+      basedOn = this@MedicationStatementSurrogate.basedOn ?: listOf(),
+      partOf = this@MedicationStatementSurrogate.partOf ?: listOf(),
       status =
         Enumeration.of(
           MedicationStatement.MedicationStatementStatusCodes.fromCode(
@@ -157,7 +157,7 @@ internal data class MedicationStatementSurrogate(
           ),
           this@MedicationStatementSurrogate._status,
         ),
-      statusReason = this@MedicationStatementSurrogate.statusReason ?: mutableListOf(),
+      statusReason = this@MedicationStatementSurrogate.statusReason ?: listOf(),
       category = this@MedicationStatementSurrogate.category,
       medication = this@MedicationStatementSurrogate.medication,
       subject = this@MedicationStatementSurrogate.subject,
@@ -169,11 +169,11 @@ internal data class MedicationStatementSurrogate(
           this@MedicationStatementSurrogate._dateAsserted,
         ),
       informationSource = this@MedicationStatementSurrogate.informationSource,
-      derivedFrom = this@MedicationStatementSurrogate.derivedFrom ?: mutableListOf(),
-      reasonCode = this@MedicationStatementSurrogate.reasonCode ?: mutableListOf(),
-      reasonReference = this@MedicationStatementSurrogate.reasonReference ?: mutableListOf(),
-      note = this@MedicationStatementSurrogate.note ?: mutableListOf(),
-      dosage = this@MedicationStatementSurrogate.dosage ?: mutableListOf(),
+      derivedFrom = this@MedicationStatementSurrogate.derivedFrom ?: listOf(),
+      reasonCode = this@MedicationStatementSurrogate.reasonCode ?: listOf(),
+      reasonReference = this@MedicationStatementSurrogate.reasonReference ?: listOf(),
+      note = this@MedicationStatementSurrogate.note ?: listOf(),
+      dosage = this@MedicationStatementSurrogate.dosage ?: listOf(),
     )
 
   public companion object {

@@ -22,7 +22,7 @@ import com.google.fhir.model.r4b.serializers.PopulationAgeSerializer
 import com.google.fhir.model.r4b.serializers.PopulationSerializer
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 
 /**
@@ -35,7 +35,7 @@ public data class Population(
    * Unique id for the element within a resource (for internal references). This may be any string
    * value that does not contain spaces.
    */
-  override var id: String? = null,
+  override val id: String? = null,
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * element. To make the use of extensions safe and manageable, there is a strict set of governance
@@ -48,7 +48,7 @@ public data class Population(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: MutableList<Extension> = mutableListOf(),
+  override val extension: List<Extension> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * element and that modifies the understanding of the element in which it is contained and/or the
@@ -67,15 +67,15 @@ public data class Population(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: MutableList<Extension> = mutableListOf(),
+  override val modifierExtension: List<Extension> = listOf(),
   /** The age of the specific population. */
-  public var age: Age? = null,
+  public val age: Age? = null,
   /** The gender of the specific population. */
-  public var gender: CodeableConcept? = null,
+  public val gender: CodeableConcept? = null,
   /** Race of the specific population. */
-  public var race: CodeableConcept? = null,
+  public val race: CodeableConcept? = null,
   /** The existing physiological conditions of the specific population to which this applies. */
-  public var physiologicalCondition: CodeableConcept? = null,
+  public val physiologicalCondition: CodeableConcept? = null,
 ) : BackboneElement() {
   @Serializable(with = PopulationAgeSerializer::class)
   public sealed interface Age {

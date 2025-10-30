@@ -26,7 +26,7 @@ import com.google.fhir.model.r5.serializers.PermissionRuleSerializer
 import com.google.fhir.model.r5.serializers.PermissionSerializer
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -42,12 +42,12 @@ public data class Permission(
    * like the create and conditional update. Otherwise, the use of the resouce id depends on the
    * given use case.
    */
-  override var id: String? = null,
+  override val id: String? = null,
   /**
    * The metadata about the resource. This is content that is maintained by the infrastructure.
    * Changes to the content might not always be associated with version changes to the resource.
    */
-  override var meta: Meta? = null,
+  override val meta: Meta? = null,
   /**
    * A reference to a set of rules that were followed when the resource was constructed, and which
    * must be understood when processing the content. Often, this is a reference to an implementation
@@ -61,7 +61,7 @@ public data class Permission(
    * to an implementation guide that defines these special rules as part of its narrative along with
    * other profiles, value sets, etc.
    */
-  override var implicitRules: Uri? = null,
+  override val implicitRules: Uri? = null,
   /**
    * The base language in which the resource is written.
    *
@@ -73,7 +73,7 @@ public data class Permission(
    * language is specified, it should it also be specified on the div element in the html (see rules
    * in HTML5 for information about the relationship between xml:lang and the html lang attribute).
    */
-  override var language: Code? = null,
+  override val language: Code? = null,
   /**
    * A human-readable narrative that contains a summary of the resource and can be used to represent
    * the content of the resource to a human. The narrative need not encode all the structured data,
@@ -87,7 +87,7 @@ public data class Permission(
    * legacy systems where information is captured as a "text blob" or where text is additionally
    * entered raw or narrated and encoded information is added later.
    */
-  override var text: Narrative? = null,
+  override val text: Narrative? = null,
   /**
    * These resources do not have an independent existence apart from the resource that contains
    * them - they cannot be identified independently, nor can they have their own independent
@@ -99,7 +99,7 @@ public data class Permission(
    * resources may have profiles and tags in their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: MutableList<Resource> = mutableListOf(),
+  override val contained: List<Resource> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and managable, there is a strict set of governance
@@ -112,7 +112,7 @@ public data class Permission(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: MutableList<Extension> = mutableListOf(),
+  override val extension: List<Extension> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -131,26 +131,26 @@ public data class Permission(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: MutableList<Extension> = mutableListOf(),
+  override val modifierExtension: List<Extension> = listOf(),
   /** Status. */
-  public var status: Enumeration<PermissionStatus>,
+  public val status: Enumeration<PermissionStatus>,
   /** The person or entity that asserts the permission. */
-  public var asserter: Reference? = null,
+  public val asserter: Reference? = null,
   /** The date that permission was asserted. */
-  public var date: MutableList<DateTime> = mutableListOf(),
+  public val date: List<DateTime> = listOf(),
   /** The period in which the permission is active. */
-  public var validity: Period? = null,
+  public val validity: Period? = null,
   /** The asserted justification for using the data. */
-  public var justification: Justification? = null,
+  public val justification: Justification? = null,
   /**
    * Defines a procedure for arriving at an access decision given the set of rules.
    *
    * see
    * [XACML Combining Rules](http://docs.oasis-open.org/xacml/3.0/xacml-3.0-core-spec-cos01-en.html#_Toc325047267)
    */
-  public var combining: Enumeration<PermissionRuleCombining>,
+  public val combining: Enumeration<PermissionRuleCombining>,
   /** A set of rules. */
-  public var rule: MutableList<Rule> = mutableListOf(),
+  public val rule: List<Rule> = listOf(),
 ) : DomainResource() {
   /** The asserted justification for using the data. */
   @Serializable(with = PermissionJustificationSerializer::class)
@@ -159,7 +159,7 @@ public data class Permission(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: String? = null,
+    override val id: String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -172,7 +172,7 @@ public data class Permission(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -191,19 +191,19 @@ public data class Permission(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /**
      * This would be a codeableconcept, or a coding, which can be constrained to , for example, the
      * 6 grounds for processing in GDPR.
      */
-    public var basis: MutableList<CodeableConcept> = mutableListOf(),
+    public val basis: List<CodeableConcept> = listOf(),
     /**
      * Justifing rational.
      *
      * While any resource may be used, DocumentReference, Consent, PlanDefinition, and Contract
      * would be most frequent
      */
-    public var evidence: MutableList<Reference> = mutableListOf(),
+    public val evidence: List<Reference> = listOf(),
   ) : BackboneElement()
 
   /** A set of rules. */
@@ -213,7 +213,7 @@ public data class Permission(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: String? = null,
+    override val id: String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -226,7 +226,7 @@ public data class Permission(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -245,15 +245,15 @@ public data class Permission(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /** deny | permit. */
-    public var type: Enumeration<ConsentProvisionType>? = null,
+    public val type: Enumeration<ConsentProvisionType>? = null,
     /** A description or definition of which activities are allowed to be done on the data. */
-    public var `data`: MutableList<Data> = mutableListOf(),
+    public val `data`: List<Data> = listOf(),
     /** A description or definition of which activities are allowed to be done on the data. */
-    public var activity: MutableList<Activity> = mutableListOf(),
+    public val activity: List<Activity> = listOf(),
     /** What limits apply to the use of the data. */
-    public var limit: MutableList<CodeableConcept> = mutableListOf(),
+    public val limit: List<CodeableConcept> = listOf(),
   ) : BackboneElement() {
     /** A description or definition of which activities are allowed to be done on the data. */
     @Serializable(with = PermissionRuleDataSerializer::class)
@@ -262,7 +262,7 @@ public data class Permission(
        * Unique id for the element within a resource (for internal references). This may be any
        * string value that does not contain spaces.
        */
-      override var id: String? = null,
+      override val id: String? = null,
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -275,7 +275,7 @@ public data class Permission(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: MutableList<Extension> = mutableListOf(),
+      override val extension: List<Extension> = listOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -294,9 +294,9 @@ public data class Permission(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: MutableList<Extension> = mutableListOf(),
+      override val modifierExtension: List<Extension> = listOf(),
       /** Explicit FHIR Resource references. */
-      public var resource: MutableList<Resource> = mutableListOf(),
+      public val resource: List<Resource> = listOf(),
       /**
        * The data in scope are those with the given codes present in that data .meta.security
        * element.
@@ -307,16 +307,16 @@ public data class Permission(
        * logic applies. When the purpose of use tag is on the data, access request purpose of use
        * shall not conflict.
        */
-      public var security: MutableList<Coding> = mutableListOf(),
+      public val security: List<Coding> = listOf(),
       /**
        * Clinical or Operational Relevant period of time that bounds the data controlled by this
        * rule.
        *
        * This has a different sense to the .validity.
        */
-      public var period: MutableList<Period> = mutableListOf(),
+      public val period: List<Period> = listOf(),
       /** Used when other data selection elements are insufficient. */
-      public var expression: Expression? = null,
+      public val expression: Expression? = null,
     ) : BackboneElement() {
       /** Explicit FHIR Resource references. */
       @Serializable(with = PermissionRuleDataResourceSerializer::class)
@@ -325,7 +325,7 @@ public data class Permission(
          * Unique id for the element within a resource (for internal references). This may be any
          * string value that does not contain spaces.
          */
-        override var id: String? = null,
+        override val id: String? = null,
         /**
          * May be used to represent additional information that is not part of the basic definition
          * of the element. To make the use of extensions safe and managable, there is a strict set
@@ -338,7 +338,7 @@ public data class Permission(
          * extensions. The use of extensions is what allows the FHIR specification to retain a core
          * level of simplicity for everyone.
          */
-        override var extension: MutableList<Extension> = mutableListOf(),
+        override val extension: List<Extension> = listOf(),
         /**
          * May be used to represent additional information that is not part of the basic definition
          * of the element and that modifies the understanding of the element in which it is
@@ -357,14 +357,14 @@ public data class Permission(
          * extensions. The use of extensions is what allows the FHIR specification to retain a core
          * level of simplicity for everyone.
          */
-        override var modifierExtension: MutableList<Extension> = mutableListOf(),
+        override val modifierExtension: List<Extension> = listOf(),
         /** How the resource reference is interpreted when testing consent restrictions. */
-        public var meaning: Enumeration<ConsentDataMeaning>,
+        public val meaning: Enumeration<ConsentDataMeaning>,
         /**
          * A reference to a specific resource that defines which resources are covered by this
          * consent.
          */
-        public var reference: Reference,
+        public val reference: Reference,
       ) : BackboneElement()
     }
 
@@ -375,7 +375,7 @@ public data class Permission(
        * Unique id for the element within a resource (for internal references). This may be any
        * string value that does not contain spaces.
        */
-      override var id: String? = null,
+      override val id: String? = null,
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -388,7 +388,7 @@ public data class Permission(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: MutableList<Extension> = mutableListOf(),
+      override val extension: List<Extension> = listOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -407,9 +407,9 @@ public data class Permission(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: MutableList<Extension> = mutableListOf(),
+      override val modifierExtension: List<Extension> = listOf(),
       /** The actor(s) authorized for the defined activity. */
-      public var actor: MutableList<Reference> = mutableListOf(),
+      public val actor: List<Reference> = listOf(),
       /**
        * Actions controlled by this Rule.
        *
@@ -417,9 +417,9 @@ public data class Permission(
        * element). At present, the only action in the understood and tested scope of this resource
        * is 'read'.
        */
-      public var action: MutableList<CodeableConcept> = mutableListOf(),
+      public val action: List<CodeableConcept> = listOf(),
       /** The purpose for which the permission is given. */
-      public var purpose: MutableList<CodeableConcept> = mutableListOf(),
+      public val purpose: List<CodeableConcept> = listOf(),
     ) : BackboneElement()
   }
 

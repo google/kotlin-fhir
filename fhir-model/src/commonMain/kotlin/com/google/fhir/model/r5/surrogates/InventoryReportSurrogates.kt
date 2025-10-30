@@ -41,27 +41,27 @@ import com.google.fhir.model.r5.serializers.DoubleSerializer
 import com.google.fhir.model.r5.serializers.LocalTimeSerializer
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class InventoryReportInventoryListingSurrogate(
   public var id: String? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var location: Reference? = null,
   public var itemStatus: CodeableConcept? = null,
   public var countingDateTime: String? = null,
   public var _countingDateTime: Element? = null,
-  public var item: MutableList<InventoryReport.InventoryListing.Item>? = null,
+  public var item: List<InventoryReport.InventoryListing.Item>? = null,
 ) {
   public fun toModel(): InventoryReport.InventoryListing =
     InventoryReport.InventoryListing(
       id = this@InventoryReportInventoryListingSurrogate.id,
-      extension = this@InventoryReportInventoryListingSurrogate.extension ?: mutableListOf(),
+      extension = this@InventoryReportInventoryListingSurrogate.extension ?: listOf(),
       modifierExtension =
-        this@InventoryReportInventoryListingSurrogate.modifierExtension ?: mutableListOf(),
+        this@InventoryReportInventoryListingSurrogate.modifierExtension ?: listOf(),
       location = this@InventoryReportInventoryListingSurrogate.location,
       itemStatus = this@InventoryReportInventoryListingSurrogate.itemStatus,
       countingDateTime =
@@ -69,7 +69,7 @@ internal data class InventoryReportInventoryListingSurrogate(
           FhirDateTime.fromString(this@InventoryReportInventoryListingSurrogate.countingDateTime),
           this@InventoryReportInventoryListingSurrogate._countingDateTime,
         ),
-      item = this@InventoryReportInventoryListingSurrogate.item ?: mutableListOf(),
+      item = this@InventoryReportInventoryListingSurrogate.item ?: listOf(),
     )
 
   public companion object {
@@ -94,8 +94,8 @@ internal data class InventoryReportInventoryListingSurrogate(
 @Serializable
 internal data class InventoryReportInventoryListingItemSurrogate(
   public var id: String? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var category: CodeableConcept? = null,
   public var quantity: Quantity,
   public var item: CodeableReference,
@@ -103,9 +103,9 @@ internal data class InventoryReportInventoryListingItemSurrogate(
   public fun toModel(): InventoryReport.InventoryListing.Item =
     InventoryReport.InventoryListing.Item(
       id = this@InventoryReportInventoryListingItemSurrogate.id,
-      extension = this@InventoryReportInventoryListingItemSurrogate.extension ?: mutableListOf(),
+      extension = this@InventoryReportInventoryListingItemSurrogate.extension ?: listOf(),
       modifierExtension =
-        this@InventoryReportInventoryListingItemSurrogate.modifierExtension ?: mutableListOf(),
+        this@InventoryReportInventoryListingItemSurrogate.modifierExtension ?: listOf(),
       category = this@InventoryReportInventoryListingItemSurrogate.category,
       quantity = this@InventoryReportInventoryListingItemSurrogate.quantity,
       item = this@InventoryReportInventoryListingItemSurrogate.item,
@@ -137,10 +137,10 @@ internal data class InventoryReportSurrogate(
   public var language: String? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: MutableList<Resource>? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var identifier: MutableList<Identifier>? = null,
+  public var contained: List<Resource>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
+  public var identifier: List<Identifier>? = null,
   public var status: String? = null,
   public var _status: Element? = null,
   public var countType: String? = null,
@@ -151,8 +151,8 @@ internal data class InventoryReportSurrogate(
   public var _reportedDateTime: Element? = null,
   public var reporter: Reference? = null,
   public var reportingPeriod: Period? = null,
-  public var inventoryListing: MutableList<InventoryReport.InventoryListing>? = null,
-  public var note: MutableList<Annotation>? = null,
+  public var inventoryListing: List<InventoryReport.InventoryListing>? = null,
+  public var note: List<Annotation>? = null,
 ) {
   public fun toModel(): InventoryReport =
     InventoryReport(
@@ -166,10 +166,10 @@ internal data class InventoryReportSurrogate(
       language =
         Code.of(this@InventoryReportSurrogate.language, this@InventoryReportSurrogate._language),
       text = this@InventoryReportSurrogate.text,
-      contained = this@InventoryReportSurrogate.contained ?: mutableListOf(),
-      extension = this@InventoryReportSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@InventoryReportSurrogate.modifierExtension ?: mutableListOf(),
-      identifier = this@InventoryReportSurrogate.identifier ?: mutableListOf(),
+      contained = this@InventoryReportSurrogate.contained ?: listOf(),
+      extension = this@InventoryReportSurrogate.extension ?: listOf(),
+      modifierExtension = this@InventoryReportSurrogate.modifierExtension ?: listOf(),
+      identifier = this@InventoryReportSurrogate.identifier ?: listOf(),
       status =
         Enumeration.of(
           InventoryReport.InventoryReportStatus.fromCode(this@InventoryReportSurrogate.status!!),
@@ -189,8 +189,8 @@ internal data class InventoryReportSurrogate(
         )!!,
       reporter = this@InventoryReportSurrogate.reporter,
       reportingPeriod = this@InventoryReportSurrogate.reportingPeriod,
-      inventoryListing = this@InventoryReportSurrogate.inventoryListing ?: mutableListOf(),
-      note = this@InventoryReportSurrogate.note ?: mutableListOf(),
+      inventoryListing = this@InventoryReportSurrogate.inventoryListing ?: listOf(),
+      note = this@InventoryReportSurrogate.note ?: listOf(),
     )
 
   public companion object {

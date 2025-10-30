@@ -51,15 +51,15 @@ import kotlin.Double
 import kotlin.Int
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class ClaimRelatedSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var claim: Reference? = null,
   public var relationship: CodeableConcept? = null,
   public var reference: Identifier? = null,
@@ -67,8 +67,8 @@ internal data class ClaimRelatedSurrogate(
   public fun toModel(): Claim.Related =
     Claim.Related(
       id = this@ClaimRelatedSurrogate.id,
-      extension = this@ClaimRelatedSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@ClaimRelatedSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@ClaimRelatedSurrogate.extension ?: listOf(),
+      modifierExtension = this@ClaimRelatedSurrogate.modifierExtension ?: listOf(),
       claim = this@ClaimRelatedSurrogate.claim,
       relationship = this@ClaimRelatedSurrogate.relationship,
       reference = this@ClaimRelatedSurrogate.reference,
@@ -92,16 +92,16 @@ internal data class ClaimRelatedSurrogate(
 @Serializable
 internal data class ClaimPayeeSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var type: CodeableConcept,
   public var party: Reference? = null,
 ) {
   public fun toModel(): Claim.Payee =
     Claim.Payee(
       id = this@ClaimPayeeSurrogate.id,
-      extension = this@ClaimPayeeSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@ClaimPayeeSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@ClaimPayeeSurrogate.extension ?: listOf(),
+      modifierExtension = this@ClaimPayeeSurrogate.modifierExtension ?: listOf(),
       type = this@ClaimPayeeSurrogate.type,
       party = this@ClaimPayeeSurrogate.party,
     )
@@ -123,8 +123,8 @@ internal data class ClaimPayeeSurrogate(
 @Serializable
 internal data class ClaimCareTeamSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var sequence: Int? = null,
   public var _sequence: Element? = null,
   public var provider: Reference,
@@ -136,8 +136,8 @@ internal data class ClaimCareTeamSurrogate(
   public fun toModel(): Claim.CareTeam =
     Claim.CareTeam(
       id = this@ClaimCareTeamSurrogate.id,
-      extension = this@ClaimCareTeamSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@ClaimCareTeamSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@ClaimCareTeamSurrogate.extension ?: listOf(),
+      modifierExtension = this@ClaimCareTeamSurrogate.modifierExtension ?: listOf(),
       sequence =
         PositiveInt.of(
           this@ClaimCareTeamSurrogate.sequence,
@@ -175,8 +175,8 @@ internal data class ClaimCareTeamSurrogate(
 @Serializable
 internal data class ClaimSupportingInfoSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var sequence: Int? = null,
   public var _sequence: Element? = null,
   public var category: CodeableConcept,
@@ -188,8 +188,8 @@ internal data class ClaimSupportingInfoSurrogate(
   public fun toModel(): Claim.SupportingInfo =
     Claim.SupportingInfo(
       id = this@ClaimSupportingInfoSurrogate.id,
-      extension = this@ClaimSupportingInfoSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@ClaimSupportingInfoSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@ClaimSupportingInfoSurrogate.extension ?: listOf(),
+      modifierExtension = this@ClaimSupportingInfoSurrogate.modifierExtension ?: listOf(),
       sequence =
         PositiveInt.of(
           this@ClaimSupportingInfoSurrogate.sequence,
@@ -224,27 +224,27 @@ internal data class ClaimSupportingInfoSurrogate(
 @Serializable
 internal data class ClaimDiagnosisSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var sequence: Int? = null,
   public var _sequence: Element? = null,
   public var diagnosis: Claim.Diagnosis.Diagnosis,
-  public var type: MutableList<CodeableConcept>? = null,
+  public var type: List<CodeableConcept>? = null,
   public var onAdmission: CodeableConcept? = null,
   public var packageCode: CodeableConcept? = null,
 ) {
   public fun toModel(): Claim.Diagnosis =
     Claim.Diagnosis(
       id = this@ClaimDiagnosisSurrogate.id,
-      extension = this@ClaimDiagnosisSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@ClaimDiagnosisSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@ClaimDiagnosisSurrogate.extension ?: listOf(),
+      modifierExtension = this@ClaimDiagnosisSurrogate.modifierExtension ?: listOf(),
       sequence =
         PositiveInt.of(
           this@ClaimDiagnosisSurrogate.sequence,
           this@ClaimDiagnosisSurrogate._sequence,
         )!!,
       diagnosis = this@ClaimDiagnosisSurrogate.diagnosis,
-      type = this@ClaimDiagnosisSurrogate.type ?: mutableListOf(),
+      type = this@ClaimDiagnosisSurrogate.type ?: listOf(),
       onAdmission = this@ClaimDiagnosisSurrogate.onAdmission,
       packageCode = this@ClaimDiagnosisSurrogate.packageCode,
     )
@@ -270,34 +270,34 @@ internal data class ClaimDiagnosisSurrogate(
 @Serializable
 internal data class ClaimProcedureSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var sequence: Int? = null,
   public var _sequence: Element? = null,
-  public var type: MutableList<CodeableConcept>? = null,
+  public var type: List<CodeableConcept>? = null,
   public var date: KotlinString? = null,
   public var _date: Element? = null,
   public var procedure: Claim.Procedure.Procedure,
-  public var udi: MutableList<Reference>? = null,
+  public var udi: List<Reference>? = null,
 ) {
   public fun toModel(): Claim.Procedure =
     Claim.Procedure(
       id = this@ClaimProcedureSurrogate.id,
-      extension = this@ClaimProcedureSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@ClaimProcedureSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@ClaimProcedureSurrogate.extension ?: listOf(),
+      modifierExtension = this@ClaimProcedureSurrogate.modifierExtension ?: listOf(),
       sequence =
         PositiveInt.of(
           this@ClaimProcedureSurrogate.sequence,
           this@ClaimProcedureSurrogate._sequence,
         )!!,
-      type = this@ClaimProcedureSurrogate.type ?: mutableListOf(),
+      type = this@ClaimProcedureSurrogate.type ?: listOf(),
       date =
         DateTime.of(
           FhirDateTime.fromString(this@ClaimProcedureSurrogate.date),
           this@ClaimProcedureSurrogate._date,
         ),
       procedure = this@ClaimProcedureSurrogate.procedure,
-      udi = this@ClaimProcedureSurrogate.udi ?: mutableListOf(),
+      udi = this@ClaimProcedureSurrogate.udi ?: listOf(),
     )
 
   public companion object {
@@ -322,8 +322,8 @@ internal data class ClaimProcedureSurrogate(
 @Serializable
 internal data class ClaimInsuranceSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var sequence: Int? = null,
   public var _sequence: Element? = null,
   public var focal: KotlinBoolean? = null,
@@ -332,15 +332,15 @@ internal data class ClaimInsuranceSurrogate(
   public var coverage: Reference,
   public var businessArrangement: KotlinString? = null,
   public var _businessArrangement: Element? = null,
-  public var preAuthRef: MutableList<KotlinString?>? = null,
-  public var _preAuthRef: MutableList<Element?>? = null,
+  public var preAuthRef: List<KotlinString?>? = null,
+  public var _preAuthRef: List<Element?>? = null,
   public var claimResponse: Reference? = null,
 ) {
   public fun toModel(): Claim.Insurance =
     Claim.Insurance(
       id = this@ClaimInsuranceSurrogate.id,
-      extension = this@ClaimInsuranceSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@ClaimInsuranceSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@ClaimInsuranceSurrogate.extension ?: listOf(),
+      modifierExtension = this@ClaimInsuranceSurrogate.modifierExtension ?: listOf(),
       sequence =
         PositiveInt.of(
           this@ClaimInsuranceSurrogate.sequence,
@@ -360,7 +360,7 @@ internal data class ClaimInsuranceSurrogate(
           this@ClaimInsuranceSurrogate.preAuthRef == null &&
             this@ClaimInsuranceSurrogate._preAuthRef == null
         ) {
-          mutableListOf()
+          listOf()
         } else {
           (this@ClaimInsuranceSurrogate.preAuthRef
               ?: List(this@ClaimInsuranceSurrogate._preAuthRef!!.size) { null })
@@ -369,7 +369,7 @@ internal data class ClaimInsuranceSurrogate(
                 ?: List(this@ClaimInsuranceSurrogate.preAuthRef!!.size) { null }
             )
             .map { (value, element) -> R4bString.of(value, element)!! }
-            .toMutableList()
+            .toList()
         },
       claimResponse = this@ClaimInsuranceSurrogate.claimResponse,
     )
@@ -390,16 +390,13 @@ internal data class ClaimInsuranceSurrogate(
           businessArrangement = this@with.businessArrangement?.value,
           _businessArrangement = this@with.businessArrangement?.toElement(),
           preAuthRef =
-            this@with.preAuthRef
-              .map { it.value }
-              .toMutableList()
-              .takeUnless { it.all { it == null } },
+            this@with.preAuthRef.map { it.value }.toList().takeUnless { it.all { it == null } },
           _preAuthRef =
             this@with.preAuthRef
               .map { it.toElement() }
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
-              ?.toMutableList(),
+              ?.toList(),
           claimResponse = this@with.claimResponse,
         )
       }
@@ -409,8 +406,8 @@ internal data class ClaimInsuranceSurrogate(
 @Serializable
 internal data class ClaimAccidentSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var date: KotlinString? = null,
   public var _date: Element? = null,
   public var type: CodeableConcept? = null,
@@ -419,8 +416,8 @@ internal data class ClaimAccidentSurrogate(
   public fun toModel(): Claim.Accident =
     Claim.Accident(
       id = this@ClaimAccidentSurrogate.id,
-      extension = this@ClaimAccidentSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@ClaimAccidentSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@ClaimAccidentSurrogate.extension ?: listOf(),
+      modifierExtension = this@ClaimAccidentSurrogate.modifierExtension ?: listOf(),
       date =
         Date.of(
           FhirDate.fromString(this@ClaimAccidentSurrogate.date),
@@ -449,23 +446,23 @@ internal data class ClaimAccidentSurrogate(
 @Serializable
 internal data class ClaimItemSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var sequence: Int? = null,
   public var _sequence: Element? = null,
-  public var careTeamSequence: MutableList<Int?>? = null,
-  public var _careTeamSequence: MutableList<Element?>? = null,
-  public var diagnosisSequence: MutableList<Int?>? = null,
-  public var _diagnosisSequence: MutableList<Element?>? = null,
-  public var procedureSequence: MutableList<Int?>? = null,
-  public var _procedureSequence: MutableList<Element?>? = null,
-  public var informationSequence: MutableList<Int?>? = null,
-  public var _informationSequence: MutableList<Element?>? = null,
+  public var careTeamSequence: List<Int?>? = null,
+  public var _careTeamSequence: List<Element?>? = null,
+  public var diagnosisSequence: List<Int?>? = null,
+  public var _diagnosisSequence: List<Element?>? = null,
+  public var procedureSequence: List<Int?>? = null,
+  public var _procedureSequence: List<Element?>? = null,
+  public var informationSequence: List<Int?>? = null,
+  public var _informationSequence: List<Element?>? = null,
   public var revenue: CodeableConcept? = null,
   public var category: CodeableConcept? = null,
   public var productOrService: CodeableConcept,
-  public var modifier: MutableList<CodeableConcept>? = null,
-  public var programCode: MutableList<CodeableConcept>? = null,
+  public var modifier: List<CodeableConcept>? = null,
+  public var programCode: List<CodeableConcept>? = null,
   public var serviced: Claim.Item.Serviced? = null,
   public var location: Claim.Item.Location? = null,
   public var quantity: Quantity? = null,
@@ -473,17 +470,17 @@ internal data class ClaimItemSurrogate(
   public var factor: Double? = null,
   public var _factor: Element? = null,
   public var net: Money? = null,
-  public var udi: MutableList<Reference>? = null,
+  public var udi: List<Reference>? = null,
   public var bodySite: CodeableConcept? = null,
-  public var subSite: MutableList<CodeableConcept>? = null,
-  public var encounter: MutableList<Reference>? = null,
-  public var detail: MutableList<Claim.Item.Detail>? = null,
+  public var subSite: List<CodeableConcept>? = null,
+  public var encounter: List<Reference>? = null,
+  public var detail: List<Claim.Item.Detail>? = null,
 ) {
   public fun toModel(): Claim.Item =
     Claim.Item(
       id = this@ClaimItemSurrogate.id,
-      extension = this@ClaimItemSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@ClaimItemSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@ClaimItemSurrogate.extension ?: listOf(),
+      modifierExtension = this@ClaimItemSurrogate.modifierExtension ?: listOf(),
       sequence =
         PositiveInt.of(this@ClaimItemSurrogate.sequence, this@ClaimItemSurrogate._sequence)!!,
       careTeamSequence =
@@ -491,7 +488,7 @@ internal data class ClaimItemSurrogate(
           this@ClaimItemSurrogate.careTeamSequence == null &&
             this@ClaimItemSurrogate._careTeamSequence == null
         ) {
-          mutableListOf()
+          listOf()
         } else {
           (this@ClaimItemSurrogate.careTeamSequence
               ?: List(this@ClaimItemSurrogate._careTeamSequence!!.size) { null })
@@ -500,14 +497,14 @@ internal data class ClaimItemSurrogate(
                 ?: List(this@ClaimItemSurrogate.careTeamSequence!!.size) { null }
             )
             .map { (value, element) -> PositiveInt.of(value, element)!! }
-            .toMutableList()
+            .toList()
         },
       diagnosisSequence =
         if (
           this@ClaimItemSurrogate.diagnosisSequence == null &&
             this@ClaimItemSurrogate._diagnosisSequence == null
         ) {
-          mutableListOf()
+          listOf()
         } else {
           (this@ClaimItemSurrogate.diagnosisSequence
               ?: List(this@ClaimItemSurrogate._diagnosisSequence!!.size) { null })
@@ -516,14 +513,14 @@ internal data class ClaimItemSurrogate(
                 ?: List(this@ClaimItemSurrogate.diagnosisSequence!!.size) { null }
             )
             .map { (value, element) -> PositiveInt.of(value, element)!! }
-            .toMutableList()
+            .toList()
         },
       procedureSequence =
         if (
           this@ClaimItemSurrogate.procedureSequence == null &&
             this@ClaimItemSurrogate._procedureSequence == null
         ) {
-          mutableListOf()
+          listOf()
         } else {
           (this@ClaimItemSurrogate.procedureSequence
               ?: List(this@ClaimItemSurrogate._procedureSequence!!.size) { null })
@@ -532,14 +529,14 @@ internal data class ClaimItemSurrogate(
                 ?: List(this@ClaimItemSurrogate.procedureSequence!!.size) { null }
             )
             .map { (value, element) -> PositiveInt.of(value, element)!! }
-            .toMutableList()
+            .toList()
         },
       informationSequence =
         if (
           this@ClaimItemSurrogate.informationSequence == null &&
             this@ClaimItemSurrogate._informationSequence == null
         ) {
-          mutableListOf()
+          listOf()
         } else {
           (this@ClaimItemSurrogate.informationSequence
               ?: List(this@ClaimItemSurrogate._informationSequence!!.size) { null })
@@ -548,24 +545,24 @@ internal data class ClaimItemSurrogate(
                 ?: List(this@ClaimItemSurrogate.informationSequence!!.size) { null }
             )
             .map { (value, element) -> PositiveInt.of(value, element)!! }
-            .toMutableList()
+            .toList()
         },
       revenue = this@ClaimItemSurrogate.revenue,
       category = this@ClaimItemSurrogate.category,
       productOrService = this@ClaimItemSurrogate.productOrService,
-      modifier = this@ClaimItemSurrogate.modifier ?: mutableListOf(),
-      programCode = this@ClaimItemSurrogate.programCode ?: mutableListOf(),
+      modifier = this@ClaimItemSurrogate.modifier ?: listOf(),
+      programCode = this@ClaimItemSurrogate.programCode ?: listOf(),
       serviced = this@ClaimItemSurrogate.serviced,
       location = this@ClaimItemSurrogate.location,
       quantity = this@ClaimItemSurrogate.quantity,
       unitPrice = this@ClaimItemSurrogate.unitPrice,
       factor = Decimal.of(this@ClaimItemSurrogate.factor, this@ClaimItemSurrogate._factor),
       net = this@ClaimItemSurrogate.net,
-      udi = this@ClaimItemSurrogate.udi ?: mutableListOf(),
+      udi = this@ClaimItemSurrogate.udi ?: listOf(),
       bodySite = this@ClaimItemSurrogate.bodySite,
-      subSite = this@ClaimItemSurrogate.subSite ?: mutableListOf(),
-      encounter = this@ClaimItemSurrogate.encounter ?: mutableListOf(),
-      detail = this@ClaimItemSurrogate.detail ?: mutableListOf(),
+      subSite = this@ClaimItemSurrogate.subSite ?: listOf(),
+      encounter = this@ClaimItemSurrogate.encounter ?: listOf(),
+      detail = this@ClaimItemSurrogate.detail ?: listOf(),
     )
 
   public companion object {
@@ -580,47 +577,47 @@ internal data class ClaimItemSurrogate(
           careTeamSequence =
             this@with.careTeamSequence
               .map { it.value }
-              .toMutableList()
+              .toList()
               .takeUnless { it.all { it == null } },
           _careTeamSequence =
             this@with.careTeamSequence
               .map { it.toElement() }
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
-              ?.toMutableList(),
+              ?.toList(),
           diagnosisSequence =
             this@with.diagnosisSequence
               .map { it.value }
-              .toMutableList()
+              .toList()
               .takeUnless { it.all { it == null } },
           _diagnosisSequence =
             this@with.diagnosisSequence
               .map { it.toElement() }
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
-              ?.toMutableList(),
+              ?.toList(),
           procedureSequence =
             this@with.procedureSequence
               .map { it.value }
-              .toMutableList()
+              .toList()
               .takeUnless { it.all { it == null } },
           _procedureSequence =
             this@with.procedureSequence
               .map { it.toElement() }
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
-              ?.toMutableList(),
+              ?.toList(),
           informationSequence =
             this@with.informationSequence
               .map { it.value }
-              .toMutableList()
+              .toList()
               .takeUnless { it.all { it == null } },
           _informationSequence =
             this@with.informationSequence
               .map { it.toElement() }
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
-              ?.toMutableList(),
+              ?.toList(),
           revenue = this@with.revenue,
           category = this@with.category,
           productOrService = this@with.productOrService,
@@ -646,28 +643,28 @@ internal data class ClaimItemSurrogate(
 @Serializable
 internal data class ClaimItemDetailSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var sequence: Int? = null,
   public var _sequence: Element? = null,
   public var revenue: CodeableConcept? = null,
   public var category: CodeableConcept? = null,
   public var productOrService: CodeableConcept,
-  public var modifier: MutableList<CodeableConcept>? = null,
-  public var programCode: MutableList<CodeableConcept>? = null,
+  public var modifier: List<CodeableConcept>? = null,
+  public var programCode: List<CodeableConcept>? = null,
   public var quantity: Quantity? = null,
   public var unitPrice: Money? = null,
   public var factor: Double? = null,
   public var _factor: Element? = null,
   public var net: Money? = null,
-  public var udi: MutableList<Reference>? = null,
-  public var subDetail: MutableList<Claim.Item.Detail.SubDetail>? = null,
+  public var udi: List<Reference>? = null,
+  public var subDetail: List<Claim.Item.Detail.SubDetail>? = null,
 ) {
   public fun toModel(): Claim.Item.Detail =
     Claim.Item.Detail(
       id = this@ClaimItemDetailSurrogate.id,
-      extension = this@ClaimItemDetailSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@ClaimItemDetailSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@ClaimItemDetailSurrogate.extension ?: listOf(),
+      modifierExtension = this@ClaimItemDetailSurrogate.modifierExtension ?: listOf(),
       sequence =
         PositiveInt.of(
           this@ClaimItemDetailSurrogate.sequence,
@@ -676,15 +673,15 @@ internal data class ClaimItemDetailSurrogate(
       revenue = this@ClaimItemDetailSurrogate.revenue,
       category = this@ClaimItemDetailSurrogate.category,
       productOrService = this@ClaimItemDetailSurrogate.productOrService,
-      modifier = this@ClaimItemDetailSurrogate.modifier ?: mutableListOf(),
-      programCode = this@ClaimItemDetailSurrogate.programCode ?: mutableListOf(),
+      modifier = this@ClaimItemDetailSurrogate.modifier ?: listOf(),
+      programCode = this@ClaimItemDetailSurrogate.programCode ?: listOf(),
       quantity = this@ClaimItemDetailSurrogate.quantity,
       unitPrice = this@ClaimItemDetailSurrogate.unitPrice,
       factor =
         Decimal.of(this@ClaimItemDetailSurrogate.factor, this@ClaimItemDetailSurrogate._factor),
       net = this@ClaimItemDetailSurrogate.net,
-      udi = this@ClaimItemDetailSurrogate.udi ?: mutableListOf(),
-      subDetail = this@ClaimItemDetailSurrogate.subDetail ?: mutableListOf(),
+      udi = this@ClaimItemDetailSurrogate.udi ?: listOf(),
+      subDetail = this@ClaimItemDetailSurrogate.subDetail ?: listOf(),
     )
 
   public companion object {
@@ -716,28 +713,27 @@ internal data class ClaimItemDetailSurrogate(
 @Serializable
 internal data class ClaimItemDetailSubDetailSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var sequence: Int? = null,
   public var _sequence: Element? = null,
   public var revenue: CodeableConcept? = null,
   public var category: CodeableConcept? = null,
   public var productOrService: CodeableConcept,
-  public var modifier: MutableList<CodeableConcept>? = null,
-  public var programCode: MutableList<CodeableConcept>? = null,
+  public var modifier: List<CodeableConcept>? = null,
+  public var programCode: List<CodeableConcept>? = null,
   public var quantity: Quantity? = null,
   public var unitPrice: Money? = null,
   public var factor: Double? = null,
   public var _factor: Element? = null,
   public var net: Money? = null,
-  public var udi: MutableList<Reference>? = null,
+  public var udi: List<Reference>? = null,
 ) {
   public fun toModel(): Claim.Item.Detail.SubDetail =
     Claim.Item.Detail.SubDetail(
       id = this@ClaimItemDetailSubDetailSurrogate.id,
-      extension = this@ClaimItemDetailSubDetailSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@ClaimItemDetailSubDetailSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@ClaimItemDetailSubDetailSurrogate.extension ?: listOf(),
+      modifierExtension = this@ClaimItemDetailSubDetailSurrogate.modifierExtension ?: listOf(),
       sequence =
         PositiveInt.of(
           this@ClaimItemDetailSubDetailSurrogate.sequence,
@@ -746,8 +742,8 @@ internal data class ClaimItemDetailSubDetailSurrogate(
       revenue = this@ClaimItemDetailSubDetailSurrogate.revenue,
       category = this@ClaimItemDetailSubDetailSurrogate.category,
       productOrService = this@ClaimItemDetailSubDetailSurrogate.productOrService,
-      modifier = this@ClaimItemDetailSubDetailSurrogate.modifier ?: mutableListOf(),
-      programCode = this@ClaimItemDetailSubDetailSurrogate.programCode ?: mutableListOf(),
+      modifier = this@ClaimItemDetailSubDetailSurrogate.modifier ?: listOf(),
+      programCode = this@ClaimItemDetailSubDetailSurrogate.programCode ?: listOf(),
       quantity = this@ClaimItemDetailSubDetailSurrogate.quantity,
       unitPrice = this@ClaimItemDetailSubDetailSurrogate.unitPrice,
       factor =
@@ -756,7 +752,7 @@ internal data class ClaimItemDetailSubDetailSurrogate(
           this@ClaimItemDetailSubDetailSurrogate._factor,
         ),
       net = this@ClaimItemDetailSubDetailSurrogate.net,
-      udi = this@ClaimItemDetailSubDetailSurrogate.udi ?: mutableListOf(),
+      udi = this@ClaimItemDetailSubDetailSurrogate.udi ?: listOf(),
     )
 
   public companion object {
@@ -979,10 +975,10 @@ internal data class ClaimSurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: MutableList<Resource>? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var identifier: MutableList<Identifier>? = null,
+  public var contained: List<Resource>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
+  public var identifier: List<Identifier>? = null,
   public var status: KotlinString? = null,
   public var _status: Element? = null,
   public var type: CodeableConcept,
@@ -998,19 +994,19 @@ internal data class ClaimSurrogate(
   public var provider: Reference,
   public var priority: CodeableConcept,
   public var fundsReserve: CodeableConcept? = null,
-  public var related: MutableList<Claim.Related>? = null,
+  public var related: List<Claim.Related>? = null,
   public var prescription: Reference? = null,
   public var originalPrescription: Reference? = null,
   public var payee: Claim.Payee? = null,
   public var referral: Reference? = null,
   public var facility: Reference? = null,
-  public var careTeam: MutableList<Claim.CareTeam>? = null,
-  public var supportingInfo: MutableList<Claim.SupportingInfo>? = null,
-  public var diagnosis: MutableList<Claim.Diagnosis>? = null,
-  public var procedure: MutableList<Claim.Procedure>? = null,
-  public var insurance: MutableList<Claim.Insurance>? = null,
+  public var careTeam: List<Claim.CareTeam>? = null,
+  public var supportingInfo: List<Claim.SupportingInfo>? = null,
+  public var diagnosis: List<Claim.Diagnosis>? = null,
+  public var procedure: List<Claim.Procedure>? = null,
+  public var insurance: List<Claim.Insurance>? = null,
   public var accident: Claim.Accident? = null,
-  public var item: MutableList<Claim.Item>? = null,
+  public var item: List<Claim.Item>? = null,
   public var total: Money? = null,
 ) {
   public fun toModel(): Claim =
@@ -1020,10 +1016,10 @@ internal data class ClaimSurrogate(
       implicitRules = Uri.of(this@ClaimSurrogate.implicitRules, this@ClaimSurrogate._implicitRules),
       language = Code.of(this@ClaimSurrogate.language, this@ClaimSurrogate._language),
       text = this@ClaimSurrogate.text,
-      contained = this@ClaimSurrogate.contained ?: mutableListOf(),
-      extension = this@ClaimSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@ClaimSurrogate.modifierExtension ?: mutableListOf(),
-      identifier = this@ClaimSurrogate.identifier ?: mutableListOf(),
+      contained = this@ClaimSurrogate.contained ?: listOf(),
+      extension = this@ClaimSurrogate.extension ?: listOf(),
+      modifierExtension = this@ClaimSurrogate.modifierExtension ?: listOf(),
+      identifier = this@ClaimSurrogate.identifier ?: listOf(),
       status =
         Enumeration.of(
           Claim.FinancialResourceStatusCodes.fromCode(this@ClaimSurrogate.status!!),
@@ -1044,19 +1040,19 @@ internal data class ClaimSurrogate(
       provider = this@ClaimSurrogate.provider,
       priority = this@ClaimSurrogate.priority,
       fundsReserve = this@ClaimSurrogate.fundsReserve,
-      related = this@ClaimSurrogate.related ?: mutableListOf(),
+      related = this@ClaimSurrogate.related ?: listOf(),
       prescription = this@ClaimSurrogate.prescription,
       originalPrescription = this@ClaimSurrogate.originalPrescription,
       payee = this@ClaimSurrogate.payee,
       referral = this@ClaimSurrogate.referral,
       facility = this@ClaimSurrogate.facility,
-      careTeam = this@ClaimSurrogate.careTeam ?: mutableListOf(),
-      supportingInfo = this@ClaimSurrogate.supportingInfo ?: mutableListOf(),
-      diagnosis = this@ClaimSurrogate.diagnosis ?: mutableListOf(),
-      procedure = this@ClaimSurrogate.procedure ?: mutableListOf(),
-      insurance = this@ClaimSurrogate.insurance ?: mutableListOf(),
+      careTeam = this@ClaimSurrogate.careTeam ?: listOf(),
+      supportingInfo = this@ClaimSurrogate.supportingInfo ?: listOf(),
+      diagnosis = this@ClaimSurrogate.diagnosis ?: listOf(),
+      procedure = this@ClaimSurrogate.procedure ?: listOf(),
+      insurance = this@ClaimSurrogate.insurance ?: listOf(),
       accident = this@ClaimSurrogate.accident,
-      item = this@ClaimSurrogate.item ?: mutableListOf(),
+      item = this@ClaimSurrogate.item ?: listOf(),
       total = this@ClaimSurrogate.total,
     )
 

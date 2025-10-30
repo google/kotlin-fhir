@@ -37,15 +37,15 @@ import com.google.fhir.model.r5.serializers.DoubleSerializer
 import com.google.fhir.model.r5.serializers.LocalTimeSerializer
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class EpisodeOfCareStatusHistorySurrogate(
   public var id: String? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var status: String? = null,
   public var _status: Element? = null,
   public var period: Period,
@@ -53,9 +53,8 @@ internal data class EpisodeOfCareStatusHistorySurrogate(
   public fun toModel(): EpisodeOfCare.StatusHistory =
     EpisodeOfCare.StatusHistory(
       id = this@EpisodeOfCareStatusHistorySurrogate.id,
-      extension = this@EpisodeOfCareStatusHistorySurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@EpisodeOfCareStatusHistorySurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@EpisodeOfCareStatusHistorySurrogate.extension ?: listOf(),
+      modifierExtension = this@EpisodeOfCareStatusHistorySurrogate.modifierExtension ?: listOf(),
       status =
         Enumeration.of(
           EpisodeOfCare.EpisodeOfCareStatus.fromCode(
@@ -84,18 +83,18 @@ internal data class EpisodeOfCareStatusHistorySurrogate(
 @Serializable
 internal data class EpisodeOfCareReasonSurrogate(
   public var id: String? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var use: CodeableConcept? = null,
-  public var `value`: MutableList<CodeableReference>? = null,
+  public var `value`: List<CodeableReference>? = null,
 ) {
   public fun toModel(): EpisodeOfCare.Reason =
     EpisodeOfCare.Reason(
       id = this@EpisodeOfCareReasonSurrogate.id,
-      extension = this@EpisodeOfCareReasonSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@EpisodeOfCareReasonSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@EpisodeOfCareReasonSurrogate.extension ?: listOf(),
+      modifierExtension = this@EpisodeOfCareReasonSurrogate.modifierExtension ?: listOf(),
       use = this@EpisodeOfCareReasonSurrogate.use,
-      `value` = this@EpisodeOfCareReasonSurrogate.`value` ?: mutableListOf(),
+      `value` = this@EpisodeOfCareReasonSurrogate.`value` ?: listOf(),
     )
 
   public companion object {
@@ -115,17 +114,17 @@ internal data class EpisodeOfCareReasonSurrogate(
 @Serializable
 internal data class EpisodeOfCareDiagnosisSurrogate(
   public var id: String? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var condition: MutableList<CodeableReference>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
+  public var condition: List<CodeableReference>? = null,
   public var use: CodeableConcept? = null,
 ) {
   public fun toModel(): EpisodeOfCare.Diagnosis =
     EpisodeOfCare.Diagnosis(
       id = this@EpisodeOfCareDiagnosisSurrogate.id,
-      extension = this@EpisodeOfCareDiagnosisSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@EpisodeOfCareDiagnosisSurrogate.modifierExtension ?: mutableListOf(),
-      condition = this@EpisodeOfCareDiagnosisSurrogate.condition ?: mutableListOf(),
+      extension = this@EpisodeOfCareDiagnosisSurrogate.extension ?: listOf(),
+      modifierExtension = this@EpisodeOfCareDiagnosisSurrogate.modifierExtension ?: listOf(),
+      condition = this@EpisodeOfCareDiagnosisSurrogate.condition ?: listOf(),
       use = this@EpisodeOfCareDiagnosisSurrogate.use,
     )
 
@@ -152,23 +151,23 @@ internal data class EpisodeOfCareSurrogate(
   public var language: String? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: MutableList<Resource>? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var identifier: MutableList<Identifier>? = null,
+  public var contained: List<Resource>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
+  public var identifier: List<Identifier>? = null,
   public var status: String? = null,
   public var _status: Element? = null,
-  public var statusHistory: MutableList<EpisodeOfCare.StatusHistory>? = null,
-  public var type: MutableList<CodeableConcept>? = null,
-  public var reason: MutableList<EpisodeOfCare.Reason>? = null,
-  public var diagnosis: MutableList<EpisodeOfCare.Diagnosis>? = null,
+  public var statusHistory: List<EpisodeOfCare.StatusHistory>? = null,
+  public var type: List<CodeableConcept>? = null,
+  public var reason: List<EpisodeOfCare.Reason>? = null,
+  public var diagnosis: List<EpisodeOfCare.Diagnosis>? = null,
   public var patient: Reference,
   public var managingOrganization: Reference? = null,
   public var period: Period? = null,
-  public var referralRequest: MutableList<Reference>? = null,
+  public var referralRequest: List<Reference>? = null,
   public var careManager: Reference? = null,
-  public var careTeam: MutableList<Reference>? = null,
-  public var account: MutableList<Reference>? = null,
+  public var careTeam: List<Reference>? = null,
+  public var account: List<Reference>? = null,
 ) {
   public fun toModel(): EpisodeOfCare =
     EpisodeOfCare(
@@ -182,26 +181,26 @@ internal data class EpisodeOfCareSurrogate(
       language =
         Code.of(this@EpisodeOfCareSurrogate.language, this@EpisodeOfCareSurrogate._language),
       text = this@EpisodeOfCareSurrogate.text,
-      contained = this@EpisodeOfCareSurrogate.contained ?: mutableListOf(),
-      extension = this@EpisodeOfCareSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@EpisodeOfCareSurrogate.modifierExtension ?: mutableListOf(),
-      identifier = this@EpisodeOfCareSurrogate.identifier ?: mutableListOf(),
+      contained = this@EpisodeOfCareSurrogate.contained ?: listOf(),
+      extension = this@EpisodeOfCareSurrogate.extension ?: listOf(),
+      modifierExtension = this@EpisodeOfCareSurrogate.modifierExtension ?: listOf(),
+      identifier = this@EpisodeOfCareSurrogate.identifier ?: listOf(),
       status =
         Enumeration.of(
           EpisodeOfCare.EpisodeOfCareStatus.fromCode(this@EpisodeOfCareSurrogate.status!!),
           this@EpisodeOfCareSurrogate._status,
         ),
-      statusHistory = this@EpisodeOfCareSurrogate.statusHistory ?: mutableListOf(),
-      type = this@EpisodeOfCareSurrogate.type ?: mutableListOf(),
-      reason = this@EpisodeOfCareSurrogate.reason ?: mutableListOf(),
-      diagnosis = this@EpisodeOfCareSurrogate.diagnosis ?: mutableListOf(),
+      statusHistory = this@EpisodeOfCareSurrogate.statusHistory ?: listOf(),
+      type = this@EpisodeOfCareSurrogate.type ?: listOf(),
+      reason = this@EpisodeOfCareSurrogate.reason ?: listOf(),
+      diagnosis = this@EpisodeOfCareSurrogate.diagnosis ?: listOf(),
       patient = this@EpisodeOfCareSurrogate.patient,
       managingOrganization = this@EpisodeOfCareSurrogate.managingOrganization,
       period = this@EpisodeOfCareSurrogate.period,
-      referralRequest = this@EpisodeOfCareSurrogate.referralRequest ?: mutableListOf(),
+      referralRequest = this@EpisodeOfCareSurrogate.referralRequest ?: listOf(),
       careManager = this@EpisodeOfCareSurrogate.careManager,
-      careTeam = this@EpisodeOfCareSurrogate.careTeam ?: mutableListOf(),
-      account = this@EpisodeOfCareSurrogate.account ?: mutableListOf(),
+      careTeam = this@EpisodeOfCareSurrogate.careTeam ?: listOf(),
+      account = this@EpisodeOfCareSurrogate.account ?: listOf(),
     )
 
   public companion object {

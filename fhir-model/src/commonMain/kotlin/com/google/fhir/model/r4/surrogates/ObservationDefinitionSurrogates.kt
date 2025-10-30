@@ -44,15 +44,15 @@ import kotlin.Double
 import kotlin.Int
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class ObservationDefinitionQuantitativeDetailsSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var customaryUnit: CodeableConcept? = null,
   public var unit: CodeableConcept? = null,
   public var conversionFactor: Double? = null,
@@ -63,10 +63,9 @@ internal data class ObservationDefinitionQuantitativeDetailsSurrogate(
   public fun toModel(): ObservationDefinition.QuantitativeDetails =
     ObservationDefinition.QuantitativeDetails(
       id = this@ObservationDefinitionQuantitativeDetailsSurrogate.id,
-      extension =
-        this@ObservationDefinitionQuantitativeDetailsSurrogate.extension ?: mutableListOf(),
+      extension = this@ObservationDefinitionQuantitativeDetailsSurrogate.extension ?: listOf(),
       modifierExtension =
-        this@ObservationDefinitionQuantitativeDetailsSurrogate.modifierExtension ?: mutableListOf(),
+        this@ObservationDefinitionQuantitativeDetailsSurrogate.modifierExtension ?: listOf(),
       customaryUnit = this@ObservationDefinitionQuantitativeDetailsSurrogate.customaryUnit,
       unit = this@ObservationDefinitionQuantitativeDetailsSurrogate.unit,
       conversionFactor =
@@ -104,13 +103,13 @@ internal data class ObservationDefinitionQuantitativeDetailsSurrogate(
 @Serializable
 internal data class ObservationDefinitionQualifiedIntervalSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var category: KotlinString? = null,
   public var _category: Element? = null,
   public var range: Range? = null,
   public var context: CodeableConcept? = null,
-  public var appliesTo: MutableList<CodeableConcept>? = null,
+  public var appliesTo: List<CodeableConcept>? = null,
   public var gender: KotlinString? = null,
   public var _gender: Element? = null,
   public var age: Range? = null,
@@ -121,9 +120,9 @@ internal data class ObservationDefinitionQualifiedIntervalSurrogate(
   public fun toModel(): ObservationDefinition.QualifiedInterval =
     ObservationDefinition.QualifiedInterval(
       id = this@ObservationDefinitionQualifiedIntervalSurrogate.id,
-      extension = this@ObservationDefinitionQualifiedIntervalSurrogate.extension ?: mutableListOf(),
+      extension = this@ObservationDefinitionQualifiedIntervalSurrogate.extension ?: listOf(),
       modifierExtension =
-        this@ObservationDefinitionQualifiedIntervalSurrogate.modifierExtension ?: mutableListOf(),
+        this@ObservationDefinitionQualifiedIntervalSurrogate.modifierExtension ?: listOf(),
       category =
         this@ObservationDefinitionQualifiedIntervalSurrogate.category?.let {
           Enumeration.of(
@@ -133,7 +132,7 @@ internal data class ObservationDefinitionQualifiedIntervalSurrogate(
         },
       range = this@ObservationDefinitionQualifiedIntervalSurrogate.range,
       context = this@ObservationDefinitionQualifiedIntervalSurrogate.context,
-      appliesTo = this@ObservationDefinitionQualifiedIntervalSurrogate.appliesTo ?: mutableListOf(),
+      appliesTo = this@ObservationDefinitionQualifiedIntervalSurrogate.appliesTo ?: listOf(),
       gender =
         this@ObservationDefinitionQualifiedIntervalSurrogate.gender?.let {
           Enumeration.of(
@@ -184,21 +183,21 @@ internal data class ObservationDefinitionSurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: MutableList<Resource>? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var category: MutableList<CodeableConcept>? = null,
+  public var contained: List<Resource>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
+  public var category: List<CodeableConcept>? = null,
   public var code: CodeableConcept,
-  public var identifier: MutableList<Identifier>? = null,
-  public var permittedDataType: MutableList<KotlinString?>? = null,
-  public var _permittedDataType: MutableList<Element?>? = null,
+  public var identifier: List<Identifier>? = null,
+  public var permittedDataType: List<KotlinString?>? = null,
+  public var _permittedDataType: List<Element?>? = null,
   public var multipleResultsAllowed: KotlinBoolean? = null,
   public var _multipleResultsAllowed: Element? = null,
   public var method: CodeableConcept? = null,
   public var preferredReportName: KotlinString? = null,
   public var _preferredReportName: Element? = null,
   public var quantitativeDetails: ObservationDefinition.QuantitativeDetails? = null,
-  public var qualifiedInterval: MutableList<ObservationDefinition.QualifiedInterval>? = null,
+  public var qualifiedInterval: List<ObservationDefinition.QualifiedInterval>? = null,
   public var validCodedValueSet: Reference? = null,
   public var normalCodedValueSet: Reference? = null,
   public var abnormalCodedValueSet: Reference? = null,
@@ -219,18 +218,18 @@ internal data class ObservationDefinitionSurrogate(
           this@ObservationDefinitionSurrogate._language,
         ),
       text = this@ObservationDefinitionSurrogate.text,
-      contained = this@ObservationDefinitionSurrogate.contained ?: mutableListOf(),
-      extension = this@ObservationDefinitionSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@ObservationDefinitionSurrogate.modifierExtension ?: mutableListOf(),
-      category = this@ObservationDefinitionSurrogate.category ?: mutableListOf(),
+      contained = this@ObservationDefinitionSurrogate.contained ?: listOf(),
+      extension = this@ObservationDefinitionSurrogate.extension ?: listOf(),
+      modifierExtension = this@ObservationDefinitionSurrogate.modifierExtension ?: listOf(),
+      category = this@ObservationDefinitionSurrogate.category ?: listOf(),
       code = this@ObservationDefinitionSurrogate.code,
-      identifier = this@ObservationDefinitionSurrogate.identifier ?: mutableListOf(),
+      identifier = this@ObservationDefinitionSurrogate.identifier ?: listOf(),
       permittedDataType =
         if (
           this@ObservationDefinitionSurrogate.permittedDataType == null &&
             this@ObservationDefinitionSurrogate._permittedDataType == null
         ) {
-          mutableListOf()
+          listOf()
         } else {
           (this@ObservationDefinitionSurrogate.permittedDataType
               ?: List(this@ObservationDefinitionSurrogate._permittedDataType!!.size) { null })
@@ -244,7 +243,7 @@ internal data class ObservationDefinitionSurrogate(
                 element,
               )
             }
-            .toMutableList()
+            .toList()
         },
       multipleResultsAllowed =
         R4Boolean.of(
@@ -258,7 +257,7 @@ internal data class ObservationDefinitionSurrogate(
           this@ObservationDefinitionSurrogate._preferredReportName,
         ),
       quantitativeDetails = this@ObservationDefinitionSurrogate.quantitativeDetails,
-      qualifiedInterval = this@ObservationDefinitionSurrogate.qualifiedInterval ?: mutableListOf(),
+      qualifiedInterval = this@ObservationDefinitionSurrogate.qualifiedInterval ?: listOf(),
       validCodedValueSet = this@ObservationDefinitionSurrogate.validCodedValueSet,
       normalCodedValueSet = this@ObservationDefinitionSurrogate.normalCodedValueSet,
       abnormalCodedValueSet = this@ObservationDefinitionSurrogate.abnormalCodedValueSet,
@@ -285,14 +284,14 @@ internal data class ObservationDefinitionSurrogate(
           permittedDataType =
             this@with.permittedDataType
               .map { it.value?.getCode() }
-              .toMutableList()
+              .toList()
               .takeUnless { it.all { it == null } },
           _permittedDataType =
             this@with.permittedDataType
               .map { it.toElement() }
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
-              ?.toMutableList(),
+              ?.toList(),
           multipleResultsAllowed = this@with.multipleResultsAllowed?.value,
           _multipleResultsAllowed = this@with.multipleResultsAllowed?.toElement(),
           method = this@with.method,

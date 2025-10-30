@@ -20,7 +20,7 @@ package com.google.fhir.model.r4b
 
 import com.google.fhir.model.r4b.serializers.ReferenceSerializer
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 
 /** Base StructureDefinition for Reference Type: A reference from one resource to another. */
@@ -30,7 +30,7 @@ public data class Reference(
    * Unique id for the element within a resource (for internal references). This may be any string
    * value that does not contain spaces.
    */
-  override var id: kotlin.String? = null,
+  override val id: kotlin.String? = null,
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * element. To make the use of extensions safe and manageable, there is a strict set of governance
@@ -43,7 +43,7 @@ public data class Reference(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: MutableList<Extension> = mutableListOf(),
+  override val extension: List<Extension> = listOf(),
   /**
    * A reference to a location at which the other resource is found. The reference may be a relative
    * reference, in which case it is relative to the service base URL, or an absolute URL that
@@ -57,7 +57,7 @@ public data class Reference(
    * server, though this is the preferred approach. If the URL conforms to the structure
    * "/[type]/[id]" then it should be assumed that the reference is to a FHIR RESTful server.
    */
-  public var reference: String? = null,
+  public val reference: String? = null,
   /**
    * The expected type of the target of the reference. If both Reference.type and
    * Reference.reference are populated and Reference.reference is a FHIR URL, both SHALL be
@@ -75,7 +75,7 @@ public data class Reference(
    * target of the reference; if both the type and a reference is provided, the reference SHALL
    * resolve to a resource of the same type as that specified.
    */
-  public var type: Uri? = null,
+  public val type: Uri? = null,
   /**
    * An identifier for the target resource. This is used when there is no way to reference the other
    * resource directly, either because the entity it represents is not available through a FHIR
@@ -109,12 +109,12 @@ public data class Reference(
    * Reference(Observation|DiagnosticReport). One of the use-cases for Reference.identifier is the
    * situation where no FHIR representation exists (where the type is Reference (Any).
    */
-  public var identifier: Identifier? = null,
+  public val identifier: Identifier? = null,
   /**
    * Plain text narrative that identifies the resource in addition to the resource reference.
    *
    * This is generally not the same as the Resource.text of the referenced resource. The purpose is
    * to identify what's being referenced, not to fully describe it.
    */
-  public var display: String? = null,
+  public val display: String? = null,
 ) : Element()

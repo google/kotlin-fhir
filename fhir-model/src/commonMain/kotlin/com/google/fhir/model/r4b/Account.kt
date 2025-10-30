@@ -22,7 +22,7 @@ import com.google.fhir.model.r4b.serializers.AccountCoverageSerializer
 import com.google.fhir.model.r4b.serializers.AccountGuarantorSerializer
 import com.google.fhir.model.r4b.serializers.AccountSerializer
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -40,12 +40,12 @@ public data class Account(
    * The only time that a resource does not have an id is when it is being submitted to the server
    * using a create operation.
    */
-  override var id: kotlin.String? = null,
+  override val id: kotlin.String? = null,
   /**
    * The metadata about the resource. This is content that is maintained by the infrastructure.
    * Changes to the content might not always be associated with version changes to the resource.
    */
-  override var meta: Meta? = null,
+  override val meta: Meta? = null,
   /**
    * A reference to a set of rules that were followed when the resource was constructed, and which
    * must be understood when processing the content. Often, this is a reference to an implementation
@@ -59,7 +59,7 @@ public data class Account(
    * to an implementation guide that defines these special rules as part of it's narrative along
    * with other profiles, value sets, etc.
    */
-  override var implicitRules: Uri? = null,
+  override val implicitRules: Uri? = null,
   /**
    * The base language in which the resource is written.
    *
@@ -71,7 +71,7 @@ public data class Account(
    * language is specified, it should it also be specified on the div element in the html (see rules
    * in HTML5 for information about the relationship between xml:lang and the html lang attribute).
    */
-  override var language: Code? = null,
+  override val language: Code? = null,
   /**
    * A human-readable narrative that contains a summary of the resource and can be used to represent
    * the content of the resource to a human. The narrative need not encode all the structured data,
@@ -85,7 +85,7 @@ public data class Account(
    * legacy systems where information is captured as a "text blob" or where text is additionally
    * entered raw or narrated and encoded information is added later.
    */
-  override var text: Narrative? = null,
+  override val text: Narrative? = null,
   /**
    * These resources do not have an independent existence apart from the resource that contains
    * them - they cannot be identified independently, and nor can they have their own independent
@@ -96,7 +96,7 @@ public data class Account(
    * resources may have profiles and tags In their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: MutableList<Resource> = mutableListOf(),
+  override val contained: List<Resource> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and manageable, there is a strict set of
@@ -109,7 +109,7 @@ public data class Account(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: MutableList<Extension> = mutableListOf(),
+  override val extension: List<Extension> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -128,23 +128,23 @@ public data class Account(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: MutableList<Extension> = mutableListOf(),
+  override val modifierExtension: List<Extension> = listOf(),
   /**
    * Unique identifier used to reference the account. Might or might not be intended for human use
    * (e.g. credit card number).
    */
-  public var identifier: MutableList<Identifier> = mutableListOf(),
+  public val identifier: List<Identifier> = listOf(),
   /**
    * Indicates whether the account is presently used/usable or not.
    *
    * This element is labeled as a modifier because the status contains the codes inactive and
    * entered-in-error that mark the Account as not currently valid.
    */
-  public var status: Enumeration<AccountStatus>,
+  public val status: Enumeration<AccountStatus>,
   /** Categorizes the account for reporting and searching purposes. */
-  public var type: CodeableConcept? = null,
+  public val type: CodeableConcept? = null,
   /** Name used for the account when displaying it to humans in reports, etc. */
-  public var name: String? = null,
+  public val name: String? = null,
   /**
    * Identifies the entity which incurs the expenses. While the immediate recipients of services or
    * goods might be entities related to the subject, the expenses were ultimately incurred by the
@@ -154,14 +154,14 @@ public data class Account(
    * as group services (patients not tracked, and costs charged to another body), or might not be
    * allocated.
    */
-  public var subject: MutableList<Reference> = mutableListOf(),
+  public val subject: List<Reference> = listOf(),
   /**
    * The date range of services associated with this account.
    *
    * It is possible for transactions to be posted outside the service period, as long as the service
    * was provided within the defined service period.
    */
-  public var servicePeriod: Period? = null,
+  public val servicePeriod: Period? = null,
   /**
    * The party(s) that are responsible for covering the payment of this account, and what order
    * should they be applied to the account.
@@ -172,18 +172,18 @@ public data class Account(
    * billable items charged to the account, and in which order. Where the order is important, a
    * local/jurisdictional extension may be defined to specify the order for the type of charge.
    */
-  public var coverage: MutableList<Coverage> = mutableListOf(),
+  public val coverage: List<Coverage> = listOf(),
   /**
    * Indicates the service area, hospital, department, etc. with responsibility for managing the
    * Account.
    */
-  public var owner: Reference? = null,
+  public val owner: Reference? = null,
   /** Provides additional information about what the account tracks and how it is used. */
-  public var description: String? = null,
+  public val description: String? = null,
   /** The parties responsible for balancing the account if other payment options fall short. */
-  public var guarantor: MutableList<Guarantor> = mutableListOf(),
+  public val guarantor: List<Guarantor> = listOf(),
   /** Reference to a parent Account. */
-  public var partOf: Reference? = null,
+  public val partOf: Reference? = null,
 ) : DomainResource() {
   /**
    * The party(s) that are responsible for covering the payment of this account, and what order
@@ -195,7 +195,7 @@ public data class Account(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and manageable, there is a strict set of
@@ -208,7 +208,7 @@ public data class Account(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -227,7 +227,7 @@ public data class Account(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /**
      * The party(s) that contribute to payment (or part of) of the charges applied to this account
      * (including self-pay).
@@ -235,7 +235,7 @@ public data class Account(
      * A coverage may only be responsible for specific types of charges, and the sequence of the
      * coverages in the account could be important when processing billing.
      */
-    public var coverage: Reference,
+    public val coverage: Reference,
     /**
      * The priority of the coverage in the context of this account.
      *
@@ -243,7 +243,7 @@ public data class Account(
      * account, and a sequence is required to order the settling of the account (often with
      * insurance claiming).
      */
-    public var priority: PositiveInt? = null,
+    public val priority: PositiveInt? = null,
   ) : BackboneElement()
 
   /** The parties responsible for balancing the account if other payment options fall short. */
@@ -253,7 +253,7 @@ public data class Account(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and manageable, there is a strict set of
@@ -266,7 +266,7 @@ public data class Account(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -285,15 +285,15 @@ public data class Account(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /** The entity who is responsible. */
-    public var party: Reference,
+    public val party: Reference,
     /**
      * A guarantor may be placed on credit hold or otherwise have their role temporarily suspended.
      */
-    public var onHold: Boolean? = null,
+    public val onHold: Boolean? = null,
     /** The timeframe during which the guarantor accepts responsibility for the account. */
-    public var period: Period? = null,
+    public val period: Period? = null,
   ) : BackboneElement()
 
   /** Indicates whether the account is available to be used. */

@@ -45,15 +45,15 @@ import com.google.fhir.model.r4b.terminologies.PublicationStatus
 import kotlin.Boolean as KotlinBoolean
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class ConceptMapGroupSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var source: KotlinString? = null,
   public var _source: Element? = null,
   public var sourceVersion: KotlinString? = null,
@@ -62,14 +62,14 @@ internal data class ConceptMapGroupSurrogate(
   public var _target: Element? = null,
   public var targetVersion: KotlinString? = null,
   public var _targetVersion: Element? = null,
-  public var element: MutableList<ConceptMap.Group.Element>? = null,
+  public var element: List<ConceptMap.Group.Element>? = null,
   public var unmapped: ConceptMap.Group.Unmapped? = null,
 ) {
   public fun toModel(): ConceptMap.Group =
     ConceptMap.Group(
       id = this@ConceptMapGroupSurrogate.id,
-      extension = this@ConceptMapGroupSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@ConceptMapGroupSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@ConceptMapGroupSurrogate.extension ?: listOf(),
+      modifierExtension = this@ConceptMapGroupSurrogate.modifierExtension ?: listOf(),
       source = Uri.of(this@ConceptMapGroupSurrogate.source, this@ConceptMapGroupSurrogate._source),
       sourceVersion =
         R4bString.of(
@@ -82,7 +82,7 @@ internal data class ConceptMapGroupSurrogate(
           this@ConceptMapGroupSurrogate.targetVersion,
           this@ConceptMapGroupSurrogate._targetVersion,
         ),
-      element = this@ConceptMapGroupSurrogate.element ?: mutableListOf(),
+      element = this@ConceptMapGroupSurrogate.element ?: listOf(),
       unmapped = this@ConceptMapGroupSurrogate.unmapped,
     )
 
@@ -111,19 +111,19 @@ internal data class ConceptMapGroupSurrogate(
 @Serializable
 internal data class ConceptMapGroupElementSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var code: KotlinString? = null,
   public var _code: Element? = null,
   public var display: KotlinString? = null,
   public var _display: Element? = null,
-  public var target: MutableList<ConceptMap.Group.Element.Target>? = null,
+  public var target: List<ConceptMap.Group.Element.Target>? = null,
 ) {
   public fun toModel(): ConceptMap.Group.Element =
     ConceptMap.Group.Element(
       id = this@ConceptMapGroupElementSurrogate.id,
-      extension = this@ConceptMapGroupElementSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@ConceptMapGroupElementSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@ConceptMapGroupElementSurrogate.extension ?: listOf(),
+      modifierExtension = this@ConceptMapGroupElementSurrogate.modifierExtension ?: listOf(),
       code =
         Code.of(
           this@ConceptMapGroupElementSurrogate.code,
@@ -134,7 +134,7 @@ internal data class ConceptMapGroupElementSurrogate(
           this@ConceptMapGroupElementSurrogate.display,
           this@ConceptMapGroupElementSurrogate._display,
         ),
-      target = this@ConceptMapGroupElementSurrogate.target ?: mutableListOf(),
+      target = this@ConceptMapGroupElementSurrogate.target ?: listOf(),
     )
 
   public companion object {
@@ -157,8 +157,8 @@ internal data class ConceptMapGroupElementSurrogate(
 @Serializable
 internal data class ConceptMapGroupElementTargetSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var code: KotlinString? = null,
   public var _code: Element? = null,
   public var display: KotlinString? = null,
@@ -167,15 +167,14 @@ internal data class ConceptMapGroupElementTargetSurrogate(
   public var _equivalence: Element? = null,
   public var comment: KotlinString? = null,
   public var _comment: Element? = null,
-  public var dependsOn: MutableList<ConceptMap.Group.Element.Target.DependsOn>? = null,
-  public var product: MutableList<ConceptMap.Group.Element.Target.DependsOn>? = null,
+  public var dependsOn: List<ConceptMap.Group.Element.Target.DependsOn>? = null,
+  public var product: List<ConceptMap.Group.Element.Target.DependsOn>? = null,
 ) {
   public fun toModel(): ConceptMap.Group.Element.Target =
     ConceptMap.Group.Element.Target(
       id = this@ConceptMapGroupElementTargetSurrogate.id,
-      extension = this@ConceptMapGroupElementTargetSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@ConceptMapGroupElementTargetSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@ConceptMapGroupElementTargetSurrogate.extension ?: listOf(),
+      modifierExtension = this@ConceptMapGroupElementTargetSurrogate.modifierExtension ?: listOf(),
       code =
         Code.of(
           this@ConceptMapGroupElementTargetSurrogate.code,
@@ -196,8 +195,8 @@ internal data class ConceptMapGroupElementTargetSurrogate(
           this@ConceptMapGroupElementTargetSurrogate.comment,
           this@ConceptMapGroupElementTargetSurrogate._comment,
         ),
-      dependsOn = this@ConceptMapGroupElementTargetSurrogate.dependsOn ?: mutableListOf(),
-      product = this@ConceptMapGroupElementTargetSurrogate.product ?: mutableListOf(),
+      dependsOn = this@ConceptMapGroupElementTargetSurrogate.dependsOn ?: listOf(),
+      product = this@ConceptMapGroupElementTargetSurrogate.product ?: listOf(),
     )
 
   public companion object {
@@ -227,8 +226,8 @@ internal data class ConceptMapGroupElementTargetSurrogate(
 @Serializable
 internal data class ConceptMapGroupElementTargetDependsOnSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var `property`: KotlinString? = null,
   public var _property: Element? = null,
   public var system: KotlinString? = null,
@@ -241,9 +240,9 @@ internal data class ConceptMapGroupElementTargetDependsOnSurrogate(
   public fun toModel(): ConceptMap.Group.Element.Target.DependsOn =
     ConceptMap.Group.Element.Target.DependsOn(
       id = this@ConceptMapGroupElementTargetDependsOnSurrogate.id,
-      extension = this@ConceptMapGroupElementTargetDependsOnSurrogate.extension ?: mutableListOf(),
+      extension = this@ConceptMapGroupElementTargetDependsOnSurrogate.extension ?: listOf(),
       modifierExtension =
-        this@ConceptMapGroupElementTargetDependsOnSurrogate.modifierExtension ?: mutableListOf(),
+        this@ConceptMapGroupElementTargetDependsOnSurrogate.modifierExtension ?: listOf(),
       `property` =
         Uri.of(
           this@ConceptMapGroupElementTargetDependsOnSurrogate.`property`,
@@ -291,8 +290,8 @@ internal data class ConceptMapGroupElementTargetDependsOnSurrogate(
 @Serializable
 internal data class ConceptMapGroupUnmappedSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var mode: KotlinString? = null,
   public var _mode: Element? = null,
   public var code: KotlinString? = null,
@@ -305,9 +304,8 @@ internal data class ConceptMapGroupUnmappedSurrogate(
   public fun toModel(): ConceptMap.Group.Unmapped =
     ConceptMap.Group.Unmapped(
       id = this@ConceptMapGroupUnmappedSurrogate.id,
-      extension = this@ConceptMapGroupUnmappedSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@ConceptMapGroupUnmappedSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@ConceptMapGroupUnmappedSurrogate.extension ?: listOf(),
+      modifierExtension = this@ConceptMapGroupUnmappedSurrogate.modifierExtension ?: listOf(),
       mode =
         Enumeration.of(
           ConceptMap.ConceptMapGroupUnmappedMode.fromCode(
@@ -419,9 +417,9 @@ internal data class ConceptMapSurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: MutableList<Resource>? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var contained: List<Resource>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var url: KotlinString? = null,
   public var _url: Element? = null,
   public var identifier: Identifier? = null,
@@ -439,18 +437,18 @@ internal data class ConceptMapSurrogate(
   public var _date: Element? = null,
   public var publisher: KotlinString? = null,
   public var _publisher: Element? = null,
-  public var contact: MutableList<ContactDetail>? = null,
+  public var contact: List<ContactDetail>? = null,
   public var description: KotlinString? = null,
   public var _description: Element? = null,
-  public var useContext: MutableList<UsageContext>? = null,
-  public var jurisdiction: MutableList<CodeableConcept>? = null,
+  public var useContext: List<UsageContext>? = null,
+  public var jurisdiction: List<CodeableConcept>? = null,
   public var purpose: KotlinString? = null,
   public var _purpose: Element? = null,
   public var copyright: KotlinString? = null,
   public var _copyright: Element? = null,
   public var source: ConceptMap.Source? = null,
   public var target: ConceptMap.Target? = null,
-  public var group: MutableList<ConceptMap.Group>? = null,
+  public var group: List<ConceptMap.Group>? = null,
 ) {
   public fun toModel(): ConceptMap =
     ConceptMap(
@@ -460,9 +458,9 @@ internal data class ConceptMapSurrogate(
         Uri.of(this@ConceptMapSurrogate.implicitRules, this@ConceptMapSurrogate._implicitRules),
       language = Code.of(this@ConceptMapSurrogate.language, this@ConceptMapSurrogate._language),
       text = this@ConceptMapSurrogate.text,
-      contained = this@ConceptMapSurrogate.contained ?: mutableListOf(),
-      extension = this@ConceptMapSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@ConceptMapSurrogate.modifierExtension ?: mutableListOf(),
+      contained = this@ConceptMapSurrogate.contained ?: listOf(),
+      extension = this@ConceptMapSurrogate.extension ?: listOf(),
+      modifierExtension = this@ConceptMapSurrogate.modifierExtension ?: listOf(),
       url = Uri.of(this@ConceptMapSurrogate.url, this@ConceptMapSurrogate._url),
       identifier = this@ConceptMapSurrogate.identifier,
       version = R4bString.of(this@ConceptMapSurrogate.version, this@ConceptMapSurrogate._version),
@@ -485,17 +483,17 @@ internal data class ConceptMapSurrogate(
         ),
       publisher =
         R4bString.of(this@ConceptMapSurrogate.publisher, this@ConceptMapSurrogate._publisher),
-      contact = this@ConceptMapSurrogate.contact ?: mutableListOf(),
+      contact = this@ConceptMapSurrogate.contact ?: listOf(),
       description =
         Markdown.of(this@ConceptMapSurrogate.description, this@ConceptMapSurrogate._description),
-      useContext = this@ConceptMapSurrogate.useContext ?: mutableListOf(),
-      jurisdiction = this@ConceptMapSurrogate.jurisdiction ?: mutableListOf(),
+      useContext = this@ConceptMapSurrogate.useContext ?: listOf(),
+      jurisdiction = this@ConceptMapSurrogate.jurisdiction ?: listOf(),
       purpose = Markdown.of(this@ConceptMapSurrogate.purpose, this@ConceptMapSurrogate._purpose),
       copyright =
         Markdown.of(this@ConceptMapSurrogate.copyright, this@ConceptMapSurrogate._copyright),
       source = this@ConceptMapSurrogate.source,
       target = this@ConceptMapSurrogate.target,
-      group = this@ConceptMapSurrogate.group ?: mutableListOf(),
+      group = this@ConceptMapSurrogate.group ?: listOf(),
     )
 
   public companion object {

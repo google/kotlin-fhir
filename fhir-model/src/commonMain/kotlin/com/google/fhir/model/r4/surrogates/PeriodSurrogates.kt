@@ -28,14 +28,14 @@ import com.google.fhir.model.r4.serializers.DoubleSerializer
 import com.google.fhir.model.r4.serializers.LocalTimeSerializer
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class PeriodSurrogate(
   public var id: String? = null,
-  public var extension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
   public var start: String? = null,
   public var _start: Element? = null,
   public var end: String? = null,
@@ -44,7 +44,7 @@ internal data class PeriodSurrogate(
   public fun toModel(): Period =
     Period(
       id = this@PeriodSurrogate.id,
-      extension = this@PeriodSurrogate.extension ?: mutableListOf(),
+      extension = this@PeriodSurrogate.extension ?: listOf(),
       start =
         DateTime.of(
           FhirDateTime.fromString(this@PeriodSurrogate.start),

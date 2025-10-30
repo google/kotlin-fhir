@@ -41,25 +41,25 @@ import com.google.fhir.model.r5.serializers.DoubleSerializer
 import com.google.fhir.model.r5.serializers.LocalTimeSerializer
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class DeviceUsageAdherenceSurrogate(
   public var id: String? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var code: CodeableConcept,
-  public var reason: MutableList<CodeableConcept>? = null,
+  public var reason: List<CodeableConcept>? = null,
 ) {
   public fun toModel(): DeviceUsage.Adherence =
     DeviceUsage.Adherence(
       id = this@DeviceUsageAdherenceSurrogate.id,
-      extension = this@DeviceUsageAdherenceSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@DeviceUsageAdherenceSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@DeviceUsageAdherenceSurrogate.extension ?: listOf(),
+      modifierExtension = this@DeviceUsageAdherenceSurrogate.modifierExtension ?: listOf(),
       code = this@DeviceUsageAdherenceSurrogate.code,
-      reason = this@DeviceUsageAdherenceSurrogate.reason ?: mutableListOf(),
+      reason = this@DeviceUsageAdherenceSurrogate.reason ?: listOf(),
     )
 
   public companion object {
@@ -115,28 +115,28 @@ internal data class DeviceUsageSurrogate(
   public var language: String? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: MutableList<Resource>? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var identifier: MutableList<Identifier>? = null,
-  public var basedOn: MutableList<Reference>? = null,
+  public var contained: List<Resource>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
+  public var identifier: List<Identifier>? = null,
+  public var basedOn: List<Reference>? = null,
   public var status: String? = null,
   public var _status: Element? = null,
-  public var category: MutableList<CodeableConcept>? = null,
+  public var category: List<CodeableConcept>? = null,
   public var patient: Reference,
-  public var derivedFrom: MutableList<Reference>? = null,
+  public var derivedFrom: List<Reference>? = null,
   public var context: Reference? = null,
   public var timing: DeviceUsage.Timing? = null,
   public var dateAsserted: String? = null,
   public var _dateAsserted: Element? = null,
   public var usageStatus: CodeableConcept? = null,
-  public var usageReason: MutableList<CodeableConcept>? = null,
+  public var usageReason: List<CodeableConcept>? = null,
   public var adherence: DeviceUsage.Adherence? = null,
   public var informationSource: Reference? = null,
   public var device: CodeableReference,
-  public var reason: MutableList<CodeableReference>? = null,
+  public var reason: List<CodeableReference>? = null,
   public var bodySite: CodeableReference? = null,
-  public var note: MutableList<Annotation>? = null,
+  public var note: List<Annotation>? = null,
 ) {
   public fun toModel(): DeviceUsage =
     DeviceUsage(
@@ -146,19 +146,19 @@ internal data class DeviceUsageSurrogate(
         Uri.of(this@DeviceUsageSurrogate.implicitRules, this@DeviceUsageSurrogate._implicitRules),
       language = Code.of(this@DeviceUsageSurrogate.language, this@DeviceUsageSurrogate._language),
       text = this@DeviceUsageSurrogate.text,
-      contained = this@DeviceUsageSurrogate.contained ?: mutableListOf(),
-      extension = this@DeviceUsageSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@DeviceUsageSurrogate.modifierExtension ?: mutableListOf(),
-      identifier = this@DeviceUsageSurrogate.identifier ?: mutableListOf(),
-      basedOn = this@DeviceUsageSurrogate.basedOn ?: mutableListOf(),
+      contained = this@DeviceUsageSurrogate.contained ?: listOf(),
+      extension = this@DeviceUsageSurrogate.extension ?: listOf(),
+      modifierExtension = this@DeviceUsageSurrogate.modifierExtension ?: listOf(),
+      identifier = this@DeviceUsageSurrogate.identifier ?: listOf(),
+      basedOn = this@DeviceUsageSurrogate.basedOn ?: listOf(),
       status =
         Enumeration.of(
           DeviceUsage.DeviceUsageStatus.fromCode(this@DeviceUsageSurrogate.status!!),
           this@DeviceUsageSurrogate._status,
         ),
-      category = this@DeviceUsageSurrogate.category ?: mutableListOf(),
+      category = this@DeviceUsageSurrogate.category ?: listOf(),
       patient = this@DeviceUsageSurrogate.patient,
-      derivedFrom = this@DeviceUsageSurrogate.derivedFrom ?: mutableListOf(),
+      derivedFrom = this@DeviceUsageSurrogate.derivedFrom ?: listOf(),
       context = this@DeviceUsageSurrogate.context,
       timing = this@DeviceUsageSurrogate.timing,
       dateAsserted =
@@ -167,13 +167,13 @@ internal data class DeviceUsageSurrogate(
           this@DeviceUsageSurrogate._dateAsserted,
         ),
       usageStatus = this@DeviceUsageSurrogate.usageStatus,
-      usageReason = this@DeviceUsageSurrogate.usageReason ?: mutableListOf(),
+      usageReason = this@DeviceUsageSurrogate.usageReason ?: listOf(),
       adherence = this@DeviceUsageSurrogate.adherence,
       informationSource = this@DeviceUsageSurrogate.informationSource,
       device = this@DeviceUsageSurrogate.device,
-      reason = this@DeviceUsageSurrogate.reason ?: mutableListOf(),
+      reason = this@DeviceUsageSurrogate.reason ?: listOf(),
       bodySite = this@DeviceUsageSurrogate.bodySite,
-      note = this@DeviceUsageSurrogate.note ?: mutableListOf(),
+      note = this@DeviceUsageSurrogate.note ?: listOf(),
     )
 
   public companion object {

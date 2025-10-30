@@ -34,26 +34,24 @@ import com.google.fhir.model.r4.serializers.DoubleSerializer
 import com.google.fhir.model.r4.serializers.LocalTimeSerializer
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class MedicinalProductContraindicationOtherTherapySurrogate(
   public var id: String? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var therapyRelationshipType: CodeableConcept,
   public var medication: MedicinalProductContraindication.OtherTherapy.Medication,
 ) {
   public fun toModel(): MedicinalProductContraindication.OtherTherapy =
     MedicinalProductContraindication.OtherTherapy(
       id = this@MedicinalProductContraindicationOtherTherapySurrogate.id,
-      extension =
-        this@MedicinalProductContraindicationOtherTherapySurrogate.extension ?: mutableListOf(),
+      extension = this@MedicinalProductContraindicationOtherTherapySurrogate.extension ?: listOf(),
       modifierExtension =
-        this@MedicinalProductContraindicationOtherTherapySurrogate.modifierExtension
-          ?: mutableListOf(),
+        this@MedicinalProductContraindicationOtherTherapySurrogate.modifierExtension ?: listOf(),
       therapyRelationshipType =
         this@MedicinalProductContraindicationOtherTherapySurrogate.therapyRelationshipType,
       medication = this@MedicinalProductContraindicationOtherTherapySurrogate.medication,
@@ -109,16 +107,16 @@ internal data class MedicinalProductContraindicationSurrogate(
   public var language: String? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: MutableList<Resource>? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var subject: MutableList<Reference>? = null,
+  public var contained: List<Resource>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
+  public var subject: List<Reference>? = null,
   public var disease: CodeableConcept? = null,
   public var diseaseStatus: CodeableConcept? = null,
-  public var comorbidity: MutableList<CodeableConcept>? = null,
-  public var therapeuticIndication: MutableList<Reference>? = null,
-  public var otherTherapy: MutableList<MedicinalProductContraindication.OtherTherapy>? = null,
-  public var population: MutableList<Population>? = null,
+  public var comorbidity: List<CodeableConcept>? = null,
+  public var therapeuticIndication: List<Reference>? = null,
+  public var otherTherapy: List<MedicinalProductContraindication.OtherTherapy>? = null,
+  public var population: List<Population>? = null,
 ) {
   public fun toModel(): MedicinalProductContraindication =
     MedicinalProductContraindication(
@@ -135,18 +133,18 @@ internal data class MedicinalProductContraindicationSurrogate(
           this@MedicinalProductContraindicationSurrogate._language,
         ),
       text = this@MedicinalProductContraindicationSurrogate.text,
-      contained = this@MedicinalProductContraindicationSurrogate.contained ?: mutableListOf(),
-      extension = this@MedicinalProductContraindicationSurrogate.extension ?: mutableListOf(),
+      contained = this@MedicinalProductContraindicationSurrogate.contained ?: listOf(),
+      extension = this@MedicinalProductContraindicationSurrogate.extension ?: listOf(),
       modifierExtension =
-        this@MedicinalProductContraindicationSurrogate.modifierExtension ?: mutableListOf(),
-      subject = this@MedicinalProductContraindicationSurrogate.subject ?: mutableListOf(),
+        this@MedicinalProductContraindicationSurrogate.modifierExtension ?: listOf(),
+      subject = this@MedicinalProductContraindicationSurrogate.subject ?: listOf(),
       disease = this@MedicinalProductContraindicationSurrogate.disease,
       diseaseStatus = this@MedicinalProductContraindicationSurrogate.diseaseStatus,
-      comorbidity = this@MedicinalProductContraindicationSurrogate.comorbidity ?: mutableListOf(),
+      comorbidity = this@MedicinalProductContraindicationSurrogate.comorbidity ?: listOf(),
       therapeuticIndication =
-        this@MedicinalProductContraindicationSurrogate.therapeuticIndication ?: mutableListOf(),
-      otherTherapy = this@MedicinalProductContraindicationSurrogate.otherTherapy ?: mutableListOf(),
-      population = this@MedicinalProductContraindicationSurrogate.population ?: mutableListOf(),
+        this@MedicinalProductContraindicationSurrogate.therapeuticIndication ?: listOf(),
+      otherTherapy = this@MedicinalProductContraindicationSurrogate.otherTherapy ?: listOf(),
+      population = this@MedicinalProductContraindicationSurrogate.population ?: listOf(),
     )
 
   public companion object {

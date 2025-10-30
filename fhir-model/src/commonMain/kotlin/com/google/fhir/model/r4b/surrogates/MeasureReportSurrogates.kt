@@ -42,29 +42,29 @@ import com.google.fhir.model.r4b.serializers.LocalTimeSerializer
 import kotlin.Int
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class MeasureReportGroupSurrogate(
   public var id: String? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var code: CodeableConcept? = null,
-  public var population: MutableList<MeasureReport.Group.Population>? = null,
+  public var population: List<MeasureReport.Group.Population>? = null,
   public var measureScore: Quantity? = null,
-  public var stratifier: MutableList<MeasureReport.Group.Stratifier>? = null,
+  public var stratifier: List<MeasureReport.Group.Stratifier>? = null,
 ) {
   public fun toModel(): MeasureReport.Group =
     MeasureReport.Group(
       id = this@MeasureReportGroupSurrogate.id,
-      extension = this@MeasureReportGroupSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@MeasureReportGroupSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@MeasureReportGroupSurrogate.extension ?: listOf(),
+      modifierExtension = this@MeasureReportGroupSurrogate.modifierExtension ?: listOf(),
       code = this@MeasureReportGroupSurrogate.code,
-      population = this@MeasureReportGroupSurrogate.population ?: mutableListOf(),
+      population = this@MeasureReportGroupSurrogate.population ?: listOf(),
       measureScore = this@MeasureReportGroupSurrogate.measureScore,
-      stratifier = this@MeasureReportGroupSurrogate.stratifier ?: mutableListOf(),
+      stratifier = this@MeasureReportGroupSurrogate.stratifier ?: listOf(),
     )
 
   public companion object {
@@ -86,8 +86,8 @@ internal data class MeasureReportGroupSurrogate(
 @Serializable
 internal data class MeasureReportGroupPopulationSurrogate(
   public var id: String? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var code: CodeableConcept? = null,
   public var count: Int? = null,
   public var _count: Element? = null,
@@ -96,9 +96,8 @@ internal data class MeasureReportGroupPopulationSurrogate(
   public fun toModel(): MeasureReport.Group.Population =
     MeasureReport.Group.Population(
       id = this@MeasureReportGroupPopulationSurrogate.id,
-      extension = this@MeasureReportGroupPopulationSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@MeasureReportGroupPopulationSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@MeasureReportGroupPopulationSurrogate.extension ?: listOf(),
+      modifierExtension = this@MeasureReportGroupPopulationSurrogate.modifierExtension ?: listOf(),
       code = this@MeasureReportGroupPopulationSurrogate.code,
       count =
         Integer.of(
@@ -129,19 +128,18 @@ internal data class MeasureReportGroupPopulationSurrogate(
 @Serializable
 internal data class MeasureReportGroupStratifierSurrogate(
   public var id: String? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var code: MutableList<CodeableConcept>? = null,
-  public var stratum: MutableList<MeasureReport.Group.Stratifier.Stratum>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
+  public var code: List<CodeableConcept>? = null,
+  public var stratum: List<MeasureReport.Group.Stratifier.Stratum>? = null,
 ) {
   public fun toModel(): MeasureReport.Group.Stratifier =
     MeasureReport.Group.Stratifier(
       id = this@MeasureReportGroupStratifierSurrogate.id,
-      extension = this@MeasureReportGroupStratifierSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@MeasureReportGroupStratifierSurrogate.modifierExtension ?: mutableListOf(),
-      code = this@MeasureReportGroupStratifierSurrogate.code ?: mutableListOf(),
-      stratum = this@MeasureReportGroupStratifierSurrogate.stratum ?: mutableListOf(),
+      extension = this@MeasureReportGroupStratifierSurrogate.extension ?: listOf(),
+      modifierExtension = this@MeasureReportGroupStratifierSurrogate.modifierExtension ?: listOf(),
+      code = this@MeasureReportGroupStratifierSurrogate.code ?: listOf(),
+      stratum = this@MeasureReportGroupStratifierSurrogate.stratum ?: listOf(),
     )
 
   public companion object {
@@ -163,22 +161,22 @@ internal data class MeasureReportGroupStratifierSurrogate(
 @Serializable
 internal data class MeasureReportGroupStratifierStratumSurrogate(
   public var id: String? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var `value`: CodeableConcept? = null,
-  public var component: MutableList<MeasureReport.Group.Stratifier.Stratum.Component>? = null,
-  public var population: MutableList<MeasureReport.Group.Stratifier.Stratum.Population>? = null,
+  public var component: List<MeasureReport.Group.Stratifier.Stratum.Component>? = null,
+  public var population: List<MeasureReport.Group.Stratifier.Stratum.Population>? = null,
   public var measureScore: Quantity? = null,
 ) {
   public fun toModel(): MeasureReport.Group.Stratifier.Stratum =
     MeasureReport.Group.Stratifier.Stratum(
       id = this@MeasureReportGroupStratifierStratumSurrogate.id,
-      extension = this@MeasureReportGroupStratifierStratumSurrogate.extension ?: mutableListOf(),
+      extension = this@MeasureReportGroupStratifierStratumSurrogate.extension ?: listOf(),
       modifierExtension =
-        this@MeasureReportGroupStratifierStratumSurrogate.modifierExtension ?: mutableListOf(),
+        this@MeasureReportGroupStratifierStratumSurrogate.modifierExtension ?: listOf(),
       `value` = this@MeasureReportGroupStratifierStratumSurrogate.`value`,
-      component = this@MeasureReportGroupStratifierStratumSurrogate.component ?: mutableListOf(),
-      population = this@MeasureReportGroupStratifierStratumSurrogate.population ?: mutableListOf(),
+      component = this@MeasureReportGroupStratifierStratumSurrogate.component ?: listOf(),
+      population = this@MeasureReportGroupStratifierStratumSurrogate.population ?: listOf(),
       measureScore = this@MeasureReportGroupStratifierStratumSurrogate.measureScore,
     )
 
@@ -203,19 +201,17 @@ internal data class MeasureReportGroupStratifierStratumSurrogate(
 @Serializable
 internal data class MeasureReportGroupStratifierStratumComponentSurrogate(
   public var id: String? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var code: CodeableConcept,
   public var `value`: CodeableConcept,
 ) {
   public fun toModel(): MeasureReport.Group.Stratifier.Stratum.Component =
     MeasureReport.Group.Stratifier.Stratum.Component(
       id = this@MeasureReportGroupStratifierStratumComponentSurrogate.id,
-      extension =
-        this@MeasureReportGroupStratifierStratumComponentSurrogate.extension ?: mutableListOf(),
+      extension = this@MeasureReportGroupStratifierStratumComponentSurrogate.extension ?: listOf(),
       modifierExtension =
-        this@MeasureReportGroupStratifierStratumComponentSurrogate.modifierExtension
-          ?: mutableListOf(),
+        this@MeasureReportGroupStratifierStratumComponentSurrogate.modifierExtension ?: listOf(),
       code = this@MeasureReportGroupStratifierStratumComponentSurrogate.code,
       `value` = this@MeasureReportGroupStratifierStratumComponentSurrogate.`value`,
     )
@@ -239,8 +235,8 @@ internal data class MeasureReportGroupStratifierStratumComponentSurrogate(
 @Serializable
 internal data class MeasureReportGroupStratifierStratumPopulationSurrogate(
   public var id: String? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var code: CodeableConcept? = null,
   public var count: Int? = null,
   public var _count: Element? = null,
@@ -249,11 +245,9 @@ internal data class MeasureReportGroupStratifierStratumPopulationSurrogate(
   public fun toModel(): MeasureReport.Group.Stratifier.Stratum.Population =
     MeasureReport.Group.Stratifier.Stratum.Population(
       id = this@MeasureReportGroupStratifierStratumPopulationSurrogate.id,
-      extension =
-        this@MeasureReportGroupStratifierStratumPopulationSurrogate.extension ?: mutableListOf(),
+      extension = this@MeasureReportGroupStratifierStratumPopulationSurrogate.extension ?: listOf(),
       modifierExtension =
-        this@MeasureReportGroupStratifierStratumPopulationSurrogate.modifierExtension
-          ?: mutableListOf(),
+        this@MeasureReportGroupStratifierStratumPopulationSurrogate.modifierExtension ?: listOf(),
       code = this@MeasureReportGroupStratifierStratumPopulationSurrogate.code,
       count =
         Integer.of(
@@ -290,10 +284,10 @@ internal data class MeasureReportSurrogate(
   public var language: String? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: MutableList<Resource>? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var identifier: MutableList<Identifier>? = null,
+  public var contained: List<Resource>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
+  public var identifier: List<Identifier>? = null,
   public var status: String? = null,
   public var _status: Element? = null,
   public var type: String? = null,
@@ -306,8 +300,8 @@ internal data class MeasureReportSurrogate(
   public var reporter: Reference? = null,
   public var period: Period,
   public var improvementNotation: CodeableConcept? = null,
-  public var group: MutableList<MeasureReport.Group>? = null,
-  public var evaluatedResource: MutableList<Reference>? = null,
+  public var group: List<MeasureReport.Group>? = null,
+  public var evaluatedResource: List<Reference>? = null,
 ) {
   public fun toModel(): MeasureReport =
     MeasureReport(
@@ -321,10 +315,10 @@ internal data class MeasureReportSurrogate(
       language =
         Code.of(this@MeasureReportSurrogate.language, this@MeasureReportSurrogate._language),
       text = this@MeasureReportSurrogate.text,
-      contained = this@MeasureReportSurrogate.contained ?: mutableListOf(),
-      extension = this@MeasureReportSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@MeasureReportSurrogate.modifierExtension ?: mutableListOf(),
-      identifier = this@MeasureReportSurrogate.identifier ?: mutableListOf(),
+      contained = this@MeasureReportSurrogate.contained ?: listOf(),
+      extension = this@MeasureReportSurrogate.extension ?: listOf(),
+      modifierExtension = this@MeasureReportSurrogate.modifierExtension ?: listOf(),
+      identifier = this@MeasureReportSurrogate.identifier ?: listOf(),
       status =
         Enumeration.of(
           MeasureReport.MeasureReportStatus.fromCode(this@MeasureReportSurrogate.status!!),
@@ -346,8 +340,8 @@ internal data class MeasureReportSurrogate(
       reporter = this@MeasureReportSurrogate.reporter,
       period = this@MeasureReportSurrogate.period,
       improvementNotation = this@MeasureReportSurrogate.improvementNotation,
-      group = this@MeasureReportSurrogate.group ?: mutableListOf(),
-      evaluatedResource = this@MeasureReportSurrogate.evaluatedResource ?: mutableListOf(),
+      group = this@MeasureReportSurrogate.group ?: listOf(),
+      evaluatedResource = this@MeasureReportSurrogate.evaluatedResource ?: listOf(),
     )
 
   public companion object {

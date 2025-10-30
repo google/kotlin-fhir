@@ -21,7 +21,7 @@ package com.google.fhir.model.r5
 import com.google.fhir.model.r5.serializers.RelatedArtifactSerializer
 import com.google.fhir.model.r5.terminologies.PublicationStatus
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 
 /**
@@ -34,7 +34,7 @@ public data class RelatedArtifact(
    * Unique id for the element within a resource (for internal references). This may be any string
    * value that does not contain spaces.
    */
-  override var id: kotlin.String? = null,
+  override val id: kotlin.String? = null,
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * element. To make the use of extensions safe and managable, there is a strict set of governance
@@ -47,7 +47,7 @@ public data class RelatedArtifact(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: MutableList<Extension> = mutableListOf(),
+  override val extension: List<Extension> = listOf(),
   /**
    * The type of relationship to the related artifact.
    *
@@ -58,38 +58,38 @@ public data class RelatedArtifact(
    * using related artifact elements to describe and reference FHIR resources, the type element
    * SHALL be drawn from the fhir-related-artifact-type ValueSet.
    */
-  public var type: Enumeration<RelatedArtifactType>,
+  public val type: Enumeration<RelatedArtifactType>,
   /** Provides additional classifiers of the related artifact. */
-  public var classifier: MutableList<CodeableConcept> = mutableListOf(),
+  public val classifier: List<CodeableConcept> = listOf(),
   /**
    * A short label that can be used to reference the citation from elsewhere in the containing
    * artifact, such as a footnote index.
    */
-  public var label: String? = null,
+  public val label: String? = null,
   /**
    * A brief description of the document or knowledge resource being referenced, suitable for
    * display to a consumer.
    */
-  public var display: String? = null,
+  public val display: String? = null,
   /**
    * A bibliographic citation for the related artifact. This text SHOULD be formatted according to
    * an accepted citation format.
    *
    * Additional structured information about citations should be captured as extensions.
    */
-  public var citation: Markdown? = null,
+  public val citation: Markdown? = null,
   /**
    * The document being referenced, represented as an attachment. This is exclusive with the
    * resource element.
    */
-  public var document: Attachment? = null,
+  public val document: Attachment? = null,
   /**
    * The related artifact, such as a library, value set, profile, or other knowledge resource.
    *
    * If the type is predecessor, this is a reference to the succeeding knowledge resource. If the
    * type is successor, this is a reference to the prior knowledge resource.
    */
-  public var resource: Canonical? = null,
+  public val resource: Canonical? = null,
   /**
    * The related artifact, if the artifact is not a canonical resource, or a resource reference to a
    * canonical resource.
@@ -100,11 +100,11 @@ public data class RelatedArtifact(
    * Location where the kind is mode). Related artifacts SHOULD be used to reference definitional
    * resources, and profiles SHOULD be used to make that explicit for particular use cases.
    */
-  public var resourceReference: Reference? = null,
+  public val resourceReference: Reference? = null,
   /** The publication status of the artifact being referred to. */
-  public var publicationStatus: Enumeration<PublicationStatus>? = null,
+  public val publicationStatus: Enumeration<PublicationStatus>? = null,
   /** The date of publication of the artifact being referred to. */
-  public var publicationDate: Date? = null,
+  public val publicationDate: Date? = null,
 ) : DataType() {
   /** The type of relationship to the related artifact. */
   public enum class RelatedArtifactType(

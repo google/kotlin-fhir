@@ -21,7 +21,7 @@ package com.google.fhir.model.r5
 import com.google.fhir.model.r5.serializers.PeriodSerializer
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 
 /** Period Type: A time period defined by a start and end date and optionally time. */
@@ -31,7 +31,7 @@ public data class Period(
    * Unique id for the element within a resource (for internal references). This may be any string
    * value that does not contain spaces.
    */
-  override var id: String? = null,
+  override val id: String? = null,
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * element. To make the use of extensions safe and managable, there is a strict set of governance
@@ -44,13 +44,13 @@ public data class Period(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: MutableList<Extension> = mutableListOf(),
+  override val extension: List<Extension> = listOf(),
   /**
    * The start of the period. The boundary is inclusive.
    *
    * If the low element is missing, the meaning is that the low boundary is not known.
    */
-  public var start: DateTime? = null,
+  public val start: DateTime? = null,
   /**
    * The end of the period. If the end of the period is missing, it means no end was known or
    * planned at the time the instance was created. The start may be in the past, and the end date in
@@ -59,5 +59,5 @@ public data class Period(
    * The end value includes any matching date/time. i.e. 2012-02-03T10:00:00 is in a period that has
    * an end value of 2012-02-03.
    */
-  public var end: DateTime? = null,
+  public val end: DateTime? = null,
 ) : DataType()

@@ -23,7 +23,7 @@ import com.google.fhir.model.r4b.serializers.RegulatedAuthorizationCaseSerialize
 import com.google.fhir.model.r4b.serializers.RegulatedAuthorizationSerializer
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -42,12 +42,12 @@ public data class RegulatedAuthorization(
    * The only time that a resource does not have an id is when it is being submitted to the server
    * using a create operation.
    */
-  override var id: String? = null,
+  override val id: String? = null,
   /**
    * The metadata about the resource. This is content that is maintained by the infrastructure.
    * Changes to the content might not always be associated with version changes to the resource.
    */
-  override var meta: Meta? = null,
+  override val meta: Meta? = null,
   /**
    * A reference to a set of rules that were followed when the resource was constructed, and which
    * must be understood when processing the content. Often, this is a reference to an implementation
@@ -61,7 +61,7 @@ public data class RegulatedAuthorization(
    * to an implementation guide that defines these special rules as part of it's narrative along
    * with other profiles, value sets, etc.
    */
-  override var implicitRules: Uri? = null,
+  override val implicitRules: Uri? = null,
   /**
    * The base language in which the resource is written.
    *
@@ -73,7 +73,7 @@ public data class RegulatedAuthorization(
    * language is specified, it should it also be specified on the div element in the html (see rules
    * in HTML5 for information about the relationship between xml:lang and the html lang attribute).
    */
-  override var language: Code? = null,
+  override val language: Code? = null,
   /**
    * A human-readable narrative that contains a summary of the resource and can be used to represent
    * the content of the resource to a human. The narrative need not encode all the structured data,
@@ -87,7 +87,7 @@ public data class RegulatedAuthorization(
    * legacy systems where information is captured as a "text blob" or where text is additionally
    * entered raw or narrated and encoded information is added later.
    */
-  override var text: Narrative? = null,
+  override val text: Narrative? = null,
   /**
    * These resources do not have an independent existence apart from the resource that contains
    * them - they cannot be identified independently, and nor can they have their own independent
@@ -98,7 +98,7 @@ public data class RegulatedAuthorization(
    * resources may have profiles and tags In their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: MutableList<Resource> = mutableListOf(),
+  override val contained: List<Resource> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and manageable, there is a strict set of
@@ -111,7 +111,7 @@ public data class RegulatedAuthorization(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: MutableList<Extension> = mutableListOf(),
+  override val extension: List<Extension> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -130,54 +130,54 @@ public data class RegulatedAuthorization(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: MutableList<Extension> = mutableListOf(),
+  override val modifierExtension: List<Extension> = listOf(),
   /** Business identifier for the authorization, typically assigned by the authorizing body. */
-  public var identifier: MutableList<Identifier> = mutableListOf(),
+  public val identifier: List<Identifier> = listOf(),
   /** The product type, treatment, facility or activity that is being authorized. */
-  public var subject: MutableList<Reference> = mutableListOf(),
+  public val subject: List<Reference> = listOf(),
   /**
    * Overall type of this authorization, for example drug marketing approval, orphan drug
    * designation.
    */
-  public var type: CodeableConcept? = null,
+  public val type: CodeableConcept? = null,
   /** General textual supporting information. */
-  public var description: Markdown? = null,
+  public val description: Markdown? = null,
   /**
    * The territory (e.g., country, jurisdiction etc.) in which the authorization has been granted.
    */
-  public var region: MutableList<CodeableConcept> = mutableListOf(),
+  public val region: List<CodeableConcept> = listOf(),
   /**
    * The status that is authorised e.g. approved. Intermediate states and actions can be tracked
    * with cases and applications.
    */
-  public var status: CodeableConcept? = null,
+  public val status: CodeableConcept? = null,
   /** The date at which the current status was assigned. */
-  public var statusDate: DateTime? = null,
+  public val statusDate: DateTime? = null,
   /**
    * The time period in which the regulatory approval, clearance or licencing is in effect. As an
    * example, a Marketing Authorization includes the date of authorization and/or an expiration
    * date.
    */
-  public var validityPeriod: Period? = null,
+  public val validityPeriod: Period? = null,
   /** Condition for which the use of the regulated product applies. */
-  public var indication: CodeableReference? = null,
+  public val indication: CodeableReference? = null,
   /** The intended use of the product, e.g. prevention, treatment, diagnosis. */
-  public var intendedUse: CodeableConcept? = null,
+  public val intendedUse: CodeableConcept? = null,
   /**
    * The legal or regulatory framework against which this authorization is granted, or other reasons
    * for it.
    */
-  public var basis: MutableList<CodeableConcept> = mutableListOf(),
+  public val basis: List<CodeableConcept> = listOf(),
   /**
    * The organization that has been granted this authorization, by some authoritative body (the
    * 'regulator').
    */
-  public var holder: Reference? = null,
+  public val holder: Reference? = null,
   /**
    * The regulatory authority or authorizing body granting the authorization. For example, European
    * Medicines Agency (EMA), Food and Drug Administration (FDA), Health Canada (HC), etc.
    */
-  public var regulator: Reference? = null,
+  public val regulator: Reference? = null,
   /**
    * The case or regulatory procedure for granting or amending a regulated authorization. An
    * authorization is granted in response to submissions/applications by those seeking
@@ -185,7 +185,7 @@ public data class RegulatedAuthorization(
    * relate to this and assesses them. Note: This area is subject to ongoing review and the
    * workgroup is seeking implementer feedback on its use (see link at bottom of page).
    */
-  public var case: Case? = null,
+  public val case: Case? = null,
 ) : DomainResource() {
   /**
    * The case or regulatory procedure for granting or amending a regulated authorization. An
@@ -200,7 +200,7 @@ public data class RegulatedAuthorization(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: String? = null,
+    override val id: String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and manageable, there is a strict set of
@@ -213,7 +213,7 @@ public data class RegulatedAuthorization(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -232,22 +232,22 @@ public data class RegulatedAuthorization(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /** Identifier by which this case can be referenced. */
-    public var identifier: Identifier? = null,
+    public val identifier: Identifier? = null,
     /** The defining type of case. */
-    public var type: CodeableConcept? = null,
+    public val type: CodeableConcept? = null,
     /** The status associated with the case. */
-    public var status: CodeableConcept? = null,
+    public val status: CodeableConcept? = null,
     /** Relevant date for this case. */
-    public var date: Date? = null,
+    public val date: Date? = null,
     /**
      * A regulatory submission from an organization to a regulator, as part of an assessing case.
      * Multiple applications may occur over time, with more or different information to support or
      * modify the submission or the authorization. The applications can be considered as steps
      * within the longer running case or procedure for this authorization process.
      */
-    public var application: MutableList<Case> = mutableListOf(),
+    public val application: List<Case> = listOf(),
   ) : BackboneElement() {
     @Serializable(with = RegulatedAuthorizationCaseDateSerializer::class)
     public sealed interface Date {

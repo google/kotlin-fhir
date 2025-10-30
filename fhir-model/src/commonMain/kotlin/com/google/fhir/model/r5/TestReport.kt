@@ -31,7 +31,7 @@ import com.google.fhir.model.r5.serializers.TestReportTeardownSerializer
 import com.google.fhir.model.r5.serializers.TestReportTestActionSerializer
 import com.google.fhir.model.r5.serializers.TestReportTestSerializer
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -47,12 +47,12 @@ public data class TestReport(
    * like the create and conditional update. Otherwise, the use of the resouce id depends on the
    * given use case.
    */
-  override var id: kotlin.String? = null,
+  override val id: kotlin.String? = null,
   /**
    * The metadata about the resource. This is content that is maintained by the infrastructure.
    * Changes to the content might not always be associated with version changes to the resource.
    */
-  override var meta: Meta? = null,
+  override val meta: Meta? = null,
   /**
    * A reference to a set of rules that were followed when the resource was constructed, and which
    * must be understood when processing the content. Often, this is a reference to an implementation
@@ -66,7 +66,7 @@ public data class TestReport(
    * to an implementation guide that defines these special rules as part of its narrative along with
    * other profiles, value sets, etc.
    */
-  override var implicitRules: Uri? = null,
+  override val implicitRules: Uri? = null,
   /**
    * The base language in which the resource is written.
    *
@@ -78,7 +78,7 @@ public data class TestReport(
    * language is specified, it should it also be specified on the div element in the html (see rules
    * in HTML5 for information about the relationship between xml:lang and the html lang attribute).
    */
-  override var language: Code? = null,
+  override val language: Code? = null,
   /**
    * A human-readable narrative that contains a summary of the resource and can be used to represent
    * the content of the resource to a human. The narrative need not encode all the structured data,
@@ -92,7 +92,7 @@ public data class TestReport(
    * legacy systems where information is captured as a "text blob" or where text is additionally
    * entered raw or narrated and encoded information is added later.
    */
-  override var text: Narrative? = null,
+  override val text: Narrative? = null,
   /**
    * These resources do not have an independent existence apart from the resource that contains
    * them - they cannot be identified independently, nor can they have their own independent
@@ -104,7 +104,7 @@ public data class TestReport(
    * resources may have profiles and tags in their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: MutableList<Resource> = mutableListOf(),
+  override val contained: List<Resource> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and managable, there is a strict set of governance
@@ -117,7 +117,7 @@ public data class TestReport(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: MutableList<Extension> = mutableListOf(),
+  override val extension: List<Extension> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -136,15 +136,15 @@ public data class TestReport(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: MutableList<Extension> = mutableListOf(),
+  override val modifierExtension: List<Extension> = listOf(),
   /** Identifier for the TestReport assigned for external purposes outside the context of FHIR. */
-  public var identifier: Identifier? = null,
+  public val identifier: Identifier? = null,
   /**
    * A free text natural language name identifying the executed TestReport.
    *
    * Not expected to be globally unique.
    */
-  public var name: String? = null,
+  public val name: String? = null,
   /**
    * The current state of this test report.
    *
@@ -154,47 +154,47 @@ public data class TestReport(
    * This element is labeled as a modifier because the status contains codes that mark the resource
    * as not currently valid.
    */
-  public var status: Enumeration<TestReportStatus>,
+  public val status: Enumeration<TestReportStatus>,
   /**
    * Ideally this is an absolute URL that is used to identify the version-specific TestScript that
    * was executed, matching the `TestScript.url`.
    */
-  public var testScript: Canonical,
+  public val testScript: Canonical,
   /**
    * The overall result from the execution of the TestScript.
    *
    * The pass and fail result represents a completed test script execution. The pending result
    * represents a test script execution that has not yet started or is currently in progress.
    */
-  public var result: Enumeration<TestReportResult>,
+  public val result: Enumeration<TestReportResult>,
   /**
    * The final score (percentage of tests passed) resulting from the execution of the TestScript.
    */
-  public var score: Decimal? = null,
+  public val score: Decimal? = null,
   /**
    * Name of the tester producing this report (Organization or individual).
    *
    * Usually an organization, but may be an individual. This item SHOULD be populated unless the
    * information is available from context.
    */
-  public var tester: String? = null,
+  public val tester: String? = null,
   /**
    * When the TestScript was executed and this TestReport was generated.
    *
    * Additional specific dates may be added as extensions.
    */
-  public var issued: DateTime? = null,
+  public val issued: DateTime? = null,
   /** A participant in the test execution, either the execution engine, a client, or a server. */
-  public var participant: MutableList<Participant> = mutableListOf(),
+  public val participant: List<Participant> = listOf(),
   /** The results of the series of required setup operations before the tests were executed. */
-  public var setup: Setup? = null,
+  public val setup: Setup? = null,
   /** A test executed from the test script. */
-  public var test: MutableList<Test> = mutableListOf(),
+  public val test: List<Test> = listOf(),
   /**
    * The results of the series of operations required to clean up after all the tests were executed
    * (successfully or otherwise).
    */
-  public var teardown: Teardown? = null,
+  public val teardown: Teardown? = null,
 ) : DomainResource() {
   /** A participant in the test execution, either the execution engine, a client, or a server. */
   @Serializable(with = TestReportParticipantSerializer::class)
@@ -203,7 +203,7 @@ public data class TestReport(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -216,7 +216,7 @@ public data class TestReport(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -235,13 +235,13 @@ public data class TestReport(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /** The type of participant. */
-    public var type: Enumeration<TestReportParticipantType>,
+    public val type: Enumeration<TestReportParticipantType>,
     /** The uri of the participant. An absolute URL is preferred. */
-    public var uri: Uri,
+    public val uri: Uri,
     /** The display name of the participant. */
-    public var display: String? = null,
+    public val display: String? = null,
   ) : BackboneElement()
 
   /** The results of the series of required setup operations before the tests were executed. */
@@ -251,7 +251,7 @@ public data class TestReport(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -264,7 +264,7 @@ public data class TestReport(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -283,14 +283,14 @@ public data class TestReport(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /**
      * Action would contain either an operation or an assertion.
      *
      * An action should contain either an operation or an assertion but not both. It can contain any
      * number of variables.
      */
-    public var action: MutableList<Action> = mutableListOf(),
+    public val action: List<Action> = listOf(),
   ) : BackboneElement() {
     /** Action would contain either an operation or an assertion. */
     @Serializable(with = TestReportSetupActionSerializer::class)
@@ -299,7 +299,7 @@ public data class TestReport(
        * Unique id for the element within a resource (for internal references). This may be any
        * string value that does not contain spaces.
        */
-      override var id: kotlin.String? = null,
+      override val id: kotlin.String? = null,
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -312,7 +312,7 @@ public data class TestReport(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: MutableList<Extension> = mutableListOf(),
+      override val extension: List<Extension> = listOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -331,11 +331,11 @@ public data class TestReport(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: MutableList<Extension> = mutableListOf(),
+      override val modifierExtension: List<Extension> = listOf(),
       /** The operation performed. */
-      public var operation: Operation? = null,
+      public val operation: Operation? = null,
       /** The results of the assertion performed on the previous operations. */
-      public var assert: Assert? = null,
+      public val assert: Assert? = null,
     ) : BackboneElement() {
       /** The operation performed. */
       @Serializable(with = TestReportSetupActionOperationSerializer::class)
@@ -344,7 +344,7 @@ public data class TestReport(
          * Unique id for the element within a resource (for internal references). This may be any
          * string value that does not contain spaces.
          */
-        override var id: kotlin.String? = null,
+        override val id: kotlin.String? = null,
         /**
          * May be used to represent additional information that is not part of the basic definition
          * of the element. To make the use of extensions safe and managable, there is a strict set
@@ -357,7 +357,7 @@ public data class TestReport(
          * extensions. The use of extensions is what allows the FHIR specification to retain a core
          * level of simplicity for everyone.
          */
-        override var extension: MutableList<Extension> = mutableListOf(),
+        override val extension: List<Extension> = listOf(),
         /**
          * May be used to represent additional information that is not part of the basic definition
          * of the element and that modifies the understanding of the element in which it is
@@ -376,13 +376,13 @@ public data class TestReport(
          * extensions. The use of extensions is what allows the FHIR specification to retain a core
          * level of simplicity for everyone.
          */
-        override var modifierExtension: MutableList<Extension> = mutableListOf(),
+        override val modifierExtension: List<Extension> = listOf(),
         /** The result of this operation. */
-        public var result: Enumeration<TestReportActionResult>,
+        public val result: Enumeration<TestReportActionResult>,
         /** An explanatory message associated with the result. */
-        public var message: Markdown? = null,
+        public val message: Markdown? = null,
         /** A link to further details on the result. */
-        public var detail: Uri? = null,
+        public val detail: Uri? = null,
       ) : BackboneElement()
 
       /** The results of the assertion performed on the previous operations. */
@@ -392,7 +392,7 @@ public data class TestReport(
          * Unique id for the element within a resource (for internal references). This may be any
          * string value that does not contain spaces.
          */
-        override var id: kotlin.String? = null,
+        override val id: kotlin.String? = null,
         /**
          * May be used to represent additional information that is not part of the basic definition
          * of the element. To make the use of extensions safe and managable, there is a strict set
@@ -405,7 +405,7 @@ public data class TestReport(
          * extensions. The use of extensions is what allows the FHIR specification to retain a core
          * level of simplicity for everyone.
          */
-        override var extension: MutableList<Extension> = mutableListOf(),
+        override val extension: List<Extension> = listOf(),
         /**
          * May be used to represent additional information that is not part of the basic definition
          * of the element and that modifies the understanding of the element in which it is
@@ -424,13 +424,13 @@ public data class TestReport(
          * extensions. The use of extensions is what allows the FHIR specification to retain a core
          * level of simplicity for everyone.
          */
-        override var modifierExtension: MutableList<Extension> = mutableListOf(),
+        override val modifierExtension: List<Extension> = listOf(),
         /** The result of this assertion. */
-        public var result: Enumeration<TestReportActionResult>,
+        public val result: Enumeration<TestReportActionResult>,
         /** An explanatory message associated with the result. */
-        public var message: Markdown? = null,
+        public val message: Markdown? = null,
         /** A link to further details on the result. */
-        public var detail: String? = null,
+        public val detail: String? = null,
         /**
          * Links or references providing traceability to the testing requirements for this assert.
          *
@@ -438,7 +438,7 @@ public data class TestReport(
          * defined test requirements and documentation. These links provide traceability from the
          * executable/executed TestScript and TestReport tests to these requirements.
          */
-        public var requirement: MutableList<Requirement> = mutableListOf(),
+        public val requirement: List<Requirement> = listOf(),
       ) : BackboneElement() {
         /**
          * Links or references providing traceability to the testing requirements for this assert.
@@ -449,7 +449,7 @@ public data class TestReport(
            * Unique id for the element within a resource (for internal references). This may be any
            * string value that does not contain spaces.
            */
-          override var id: kotlin.String? = null,
+          override val id: kotlin.String? = null,
           /**
            * May be used to represent additional information that is not part of the basic
            * definition of the element. To make the use of extensions safe and managable, there is a
@@ -462,7 +462,7 @@ public data class TestReport(
            * defines the extensions. The use of extensions is what allows the FHIR specification to
            * retain a core level of simplicity for everyone.
            */
-          override var extension: MutableList<Extension> = mutableListOf(),
+          override val extension: List<Extension> = listOf(),
           /**
            * May be used to represent additional information that is not part of the basic
            * definition of the element and that modifies the understanding of the element in which
@@ -481,9 +481,9 @@ public data class TestReport(
            * defines the extensions. The use of extensions is what allows the FHIR specification to
            * retain a core level of simplicity for everyone.
            */
-          override var modifierExtension: MutableList<Extension> = mutableListOf(),
+          override val modifierExtension: List<Extension> = listOf(),
           /** Link or reference providing traceability to the testing requirement for this test. */
-          public var link: Link? = null,
+          public val link: Link? = null,
         ) : BackboneElement() {
           @Serializable(with = TestReportSetupActionAssertRequirementLinkSerializer::class)
           public sealed interface Link {
@@ -519,7 +519,7 @@ public data class TestReport(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -532,7 +532,7 @@ public data class TestReport(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -551,18 +551,18 @@ public data class TestReport(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /** The name of this test used for tracking/logging purposes by test engines. */
-    public var name: String? = null,
+    public val name: String? = null,
     /** A short description of the test used by test engines for tracking and reporting purposes. */
-    public var description: String? = null,
+    public val description: String? = null,
     /**
      * Action would contain either an operation or an assertion.
      *
      * An action should contain either an operation or an assertion but not both. It can contain any
      * number of variables.
      */
-    public var action: MutableList<Action> = mutableListOf(),
+    public val action: List<Action> = listOf(),
   ) : BackboneElement() {
     /** Action would contain either an operation or an assertion. */
     @Serializable(with = TestReportTestActionSerializer::class)
@@ -571,7 +571,7 @@ public data class TestReport(
        * Unique id for the element within a resource (for internal references). This may be any
        * string value that does not contain spaces.
        */
-      override var id: kotlin.String? = null,
+      override val id: kotlin.String? = null,
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -584,7 +584,7 @@ public data class TestReport(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: MutableList<Extension> = mutableListOf(),
+      override val extension: List<Extension> = listOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -603,11 +603,11 @@ public data class TestReport(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: MutableList<Extension> = mutableListOf(),
+      override val modifierExtension: List<Extension> = listOf(),
       /** An operation would involve a REST request to a server. */
-      public var operation: Setup.Action.Operation? = null,
+      public val operation: Setup.Action.Operation? = null,
       /** The results of the assertion performed on the previous operations. */
-      public var assert: Setup.Action.Assert? = null,
+      public val assert: Setup.Action.Assert? = null,
     ) : BackboneElement()
   }
 
@@ -621,7 +621,7 @@ public data class TestReport(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -634,7 +634,7 @@ public data class TestReport(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -653,14 +653,14 @@ public data class TestReport(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /**
      * The teardown action will only contain an operation.
      *
      * An action should contain either an operation or an assertion but not both. It can contain any
      * number of variables.
      */
-    public var action: MutableList<Action> = mutableListOf(),
+    public val action: List<Action> = listOf(),
   ) : BackboneElement() {
     /** The teardown action will only contain an operation. */
     @Serializable(with = TestReportTeardownActionSerializer::class)
@@ -669,7 +669,7 @@ public data class TestReport(
        * Unique id for the element within a resource (for internal references). This may be any
        * string value that does not contain spaces.
        */
-      override var id: kotlin.String? = null,
+      override val id: kotlin.String? = null,
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -682,7 +682,7 @@ public data class TestReport(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: MutableList<Extension> = mutableListOf(),
+      override val extension: List<Extension> = listOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -701,9 +701,9 @@ public data class TestReport(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: MutableList<Extension> = mutableListOf(),
+      override val modifierExtension: List<Extension> = listOf(),
       /** An operation would involve a REST request to a server. */
-      public var operation: Setup.Action.Operation,
+      public val operation: Setup.Action.Operation,
     ) : BackboneElement()
   }
 

@@ -22,7 +22,7 @@ import com.google.fhir.model.r4.serializers.ExtensionSerializer
 import com.google.fhir.model.r4.serializers.ExtensionValueSerializer
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 
 /**
@@ -34,7 +34,7 @@ public data class Extension(
    * Unique id for the element within a resource (for internal references). This may be any string
    * value that does not contain spaces.
    */
-  override var id: String? = null,
+  override val id: String? = null,
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * element. To make the use of extensions safe and manageable, there is a strict set of governance
@@ -47,7 +47,7 @@ public data class Extension(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: MutableList<Extension> = mutableListOf(),
+  override val extension: List<Extension> = listOf(),
   /**
    * Source of the definition for the extension code - a logical name or a URL.
    *
@@ -55,12 +55,12 @@ public data class Extension(
    * extensibility codes, or it may be a logical URI as declared in some other specification. The
    * definition SHALL be a URI for the Structure Definition defining the extension.
    */
-  public var url: String,
+  public val url: String,
   /**
    * Value of extension - must be one of a constrained set of the data types (see
    * [Extensibility](extensibility.html) for a list).
    */
-  public var `value`: Value? = null,
+  public val `value`: Value? = null,
 ) : Element() {
   @Serializable(with = ExtensionValueSerializer::class)
   public sealed interface Value {

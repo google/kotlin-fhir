@@ -88,7 +88,7 @@ import kotlin.Double
 import kotlin.Int
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.datetime.LocalTime
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
@@ -96,25 +96,25 @@ import kotlinx.serialization.UseSerializers
 @Serializable
 internal data class TransportRestrictionSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var repetitions: Int? = null,
   public var _repetitions: Element? = null,
   public var period: Period? = null,
-  public var recipient: MutableList<Reference>? = null,
+  public var recipient: List<Reference>? = null,
 ) {
   public fun toModel(): Transport.Restriction =
     Transport.Restriction(
       id = this@TransportRestrictionSurrogate.id,
-      extension = this@TransportRestrictionSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@TransportRestrictionSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@TransportRestrictionSurrogate.extension ?: listOf(),
+      modifierExtension = this@TransportRestrictionSurrogate.modifierExtension ?: listOf(),
       repetitions =
         PositiveInt.of(
           this@TransportRestrictionSurrogate.repetitions,
           this@TransportRestrictionSurrogate._repetitions,
         ),
       period = this@TransportRestrictionSurrogate.period,
-      recipient = this@TransportRestrictionSurrogate.recipient ?: mutableListOf(),
+      recipient = this@TransportRestrictionSurrogate.recipient ?: listOf(),
     )
 
   public companion object {
@@ -136,16 +136,16 @@ internal data class TransportRestrictionSurrogate(
 @Serializable
 internal data class TransportInputSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var type: CodeableConcept,
   public var `value`: Transport.Input.Value,
 ) {
   public fun toModel(): Transport.Input =
     Transport.Input(
       id = this@TransportInputSurrogate.id,
-      extension = this@TransportInputSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@TransportInputSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@TransportInputSurrogate.extension ?: listOf(),
+      modifierExtension = this@TransportInputSurrogate.modifierExtension ?: listOf(),
       type = this@TransportInputSurrogate.type,
       `value` = this@TransportInputSurrogate.`value`,
     )
@@ -167,16 +167,16 @@ internal data class TransportInputSurrogate(
 @Serializable
 internal data class TransportOutputSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var type: CodeableConcept,
   public var `value`: Transport.Output.Value,
 ) {
   public fun toModel(): Transport.Output =
     Transport.Output(
       id = this@TransportOutputSurrogate.id,
-      extension = this@TransportOutputSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@TransportOutputSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@TransportOutputSurrogate.extension ?: listOf(),
+      modifierExtension = this@TransportOutputSurrogate.modifierExtension ?: listOf(),
       type = this@TransportOutputSurrogate.type,
       `value` = this@TransportOutputSurrogate.`value`,
     )
@@ -757,17 +757,17 @@ internal data class TransportSurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: MutableList<Resource>? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var identifier: MutableList<Identifier>? = null,
+  public var contained: List<Resource>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
+  public var identifier: List<Identifier>? = null,
   public var instantiatesCanonical: KotlinString? = null,
   public var _instantiatesCanonical: Element? = null,
   public var instantiatesUri: KotlinString? = null,
   public var _instantiatesUri: Element? = null,
-  public var basedOn: MutableList<Reference>? = null,
+  public var basedOn: List<Reference>? = null,
   public var groupIdentifier: Identifier? = null,
-  public var partOf: MutableList<Reference>? = null,
+  public var partOf: List<Reference>? = null,
   public var status: KotlinString? = null,
   public var _status: Element? = null,
   public var statusReason: CodeableConcept? = null,
@@ -788,15 +788,15 @@ internal data class TransportSurrogate(
   public var lastModified: KotlinString? = null,
   public var _lastModified: Element? = null,
   public var requester: Reference? = null,
-  public var performerType: MutableList<CodeableConcept>? = null,
+  public var performerType: List<CodeableConcept>? = null,
   public var owner: Reference? = null,
   public var location: Reference? = null,
-  public var insurance: MutableList<Reference>? = null,
-  public var note: MutableList<Annotation>? = null,
-  public var relevantHistory: MutableList<Reference>? = null,
+  public var insurance: List<Reference>? = null,
+  public var note: List<Annotation>? = null,
+  public var relevantHistory: List<Reference>? = null,
   public var restriction: Transport.Restriction? = null,
-  public var input: MutableList<Transport.Input>? = null,
-  public var output: MutableList<Transport.Output>? = null,
+  public var input: List<Transport.Input>? = null,
+  public var output: List<Transport.Output>? = null,
   public var requestedLocation: Reference,
   public var currentLocation: Reference,
   public var reason: CodeableReference? = null,
@@ -810,10 +810,10 @@ internal data class TransportSurrogate(
         Uri.of(this@TransportSurrogate.implicitRules, this@TransportSurrogate._implicitRules),
       language = Code.of(this@TransportSurrogate.language, this@TransportSurrogate._language),
       text = this@TransportSurrogate.text,
-      contained = this@TransportSurrogate.contained ?: mutableListOf(),
-      extension = this@TransportSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@TransportSurrogate.modifierExtension ?: mutableListOf(),
-      identifier = this@TransportSurrogate.identifier ?: mutableListOf(),
+      contained = this@TransportSurrogate.contained ?: listOf(),
+      extension = this@TransportSurrogate.extension ?: listOf(),
+      modifierExtension = this@TransportSurrogate.modifierExtension ?: listOf(),
+      identifier = this@TransportSurrogate.identifier ?: listOf(),
       instantiatesCanonical =
         Canonical.of(
           this@TransportSurrogate.instantiatesCanonical,
@@ -821,9 +821,9 @@ internal data class TransportSurrogate(
         ),
       instantiatesUri =
         Uri.of(this@TransportSurrogate.instantiatesUri, this@TransportSurrogate._instantiatesUri),
-      basedOn = this@TransportSurrogate.basedOn ?: mutableListOf(),
+      basedOn = this@TransportSurrogate.basedOn ?: listOf(),
       groupIdentifier = this@TransportSurrogate.groupIdentifier,
-      partOf = this@TransportSurrogate.partOf ?: mutableListOf(),
+      partOf = this@TransportSurrogate.partOf ?: listOf(),
       status =
         this@TransportSurrogate.status?.let {
           Enumeration.of(Transport.TransportStatus.fromCode(it), this@TransportSurrogate._status)
@@ -860,15 +860,15 @@ internal data class TransportSurrogate(
           this@TransportSurrogate._lastModified,
         ),
       requester = this@TransportSurrogate.requester,
-      performerType = this@TransportSurrogate.performerType ?: mutableListOf(),
+      performerType = this@TransportSurrogate.performerType ?: listOf(),
       owner = this@TransportSurrogate.owner,
       location = this@TransportSurrogate.location,
-      insurance = this@TransportSurrogate.insurance ?: mutableListOf(),
-      note = this@TransportSurrogate.note ?: mutableListOf(),
-      relevantHistory = this@TransportSurrogate.relevantHistory ?: mutableListOf(),
+      insurance = this@TransportSurrogate.insurance ?: listOf(),
+      note = this@TransportSurrogate.note ?: listOf(),
+      relevantHistory = this@TransportSurrogate.relevantHistory ?: listOf(),
       restriction = this@TransportSurrogate.restriction,
-      input = this@TransportSurrogate.input ?: mutableListOf(),
-      output = this@TransportSurrogate.output ?: mutableListOf(),
+      input = this@TransportSurrogate.input ?: listOf(),
+      output = this@TransportSurrogate.output ?: listOf(),
       requestedLocation = this@TransportSurrogate.requestedLocation,
       currentLocation = this@TransportSurrogate.currentLocation,
       reason = this@TransportSurrogate.reason,

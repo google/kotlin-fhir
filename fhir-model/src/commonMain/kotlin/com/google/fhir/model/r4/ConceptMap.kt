@@ -29,7 +29,7 @@ import com.google.fhir.model.r4.serializers.ConceptMapTargetSerializer
 import com.google.fhir.model.r4.terminologies.ConceptMapEquivalence
 import com.google.fhir.model.r4.terminologies.PublicationStatus
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -47,12 +47,12 @@ public data class ConceptMap(
    * The only time that a resource does not have an id is when it is being submitted to the server
    * using a create operation.
    */
-  override var id: kotlin.String? = null,
+  override val id: kotlin.String? = null,
   /**
    * The metadata about the resource. This is content that is maintained by the infrastructure.
    * Changes to the content might not always be associated with version changes to the resource.
    */
-  override var meta: Meta? = null,
+  override val meta: Meta? = null,
   /**
    * A reference to a set of rules that were followed when the resource was constructed, and which
    * must be understood when processing the content. Often, this is a reference to an implementation
@@ -66,7 +66,7 @@ public data class ConceptMap(
    * to an implementation guide that defines these special rules as part of it's narrative along
    * with other profiles, value sets, etc.
    */
-  override var implicitRules: Uri? = null,
+  override val implicitRules: Uri? = null,
   /**
    * The base language in which the resource is written.
    *
@@ -78,7 +78,7 @@ public data class ConceptMap(
    * language is specified, it should it also be specified on the div element in the html (see rules
    * in HTML5 for information about the relationship between xml:lang and the html lang attribute).
    */
-  override var language: Code? = null,
+  override val language: Code? = null,
   /**
    * A human-readable narrative that contains a summary of the resource and can be used to represent
    * the content of the resource to a human. The narrative need not encode all the structured data,
@@ -92,7 +92,7 @@ public data class ConceptMap(
    * legacy systems where information is captured as a "text blob" or where text is additionally
    * entered raw or narrated and encoded information is added later.
    */
-  override var text: Narrative? = null,
+  override val text: Narrative? = null,
   /**
    * These resources do not have an independent existence apart from the resource that contains
    * them - they cannot be identified independently, and nor can they have their own independent
@@ -103,7 +103,7 @@ public data class ConceptMap(
    * resources may have profiles and tags In their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: MutableList<Resource> = mutableListOf(),
+  override val contained: List<Resource> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and manageable, there is a strict set of
@@ -116,7 +116,7 @@ public data class ConceptMap(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: MutableList<Extension> = mutableListOf(),
+  override val extension: List<Extension> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -135,7 +135,7 @@ public data class ConceptMap(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: MutableList<Extension> = mutableListOf(),
+  override val modifierExtension: List<Extension> = listOf(),
   /**
    * An absolute URI that is used to identify this concept map when it is referenced in a
    * specification, model, design or an instance; also called its canonical identifier. This SHOULD
@@ -154,7 +154,7 @@ public data class ConceptMap(
    * change. Implementations can use the [meta.source](resource.html#meta) element to indicate where
    * the current master source of the resource can be found.
    */
-  public var url: Uri? = null,
+  public val url: Uri? = null,
   /**
    * A formal identifier that is used to identify this concept map when it is represented in other
    * formats, or referenced in a specification, model, design or an instance.
@@ -163,7 +163,7 @@ public data class ConceptMap(
    * type, and can then identify this concept map outside of FHIR, where it is not possible to use
    * the logical URI.
    */
-  public var identifier: Identifier? = null,
+  public val identifier: Identifier? = null,
   /**
    * The identifier that is used to identify this version of the concept map when it is referenced
    * in a specification, model, design or instance. This is an arbitrary value managed by the
@@ -175,7 +175,7 @@ public data class ConceptMap(
    * versions. The version can be appended to the url in a reference to allow a reference to a
    * particular business version of the concept map with the format [url]|[version].
    */
-  public var version: String? = null,
+  public val version: String? = null,
   /**
    * A natural language name identifying the concept map. This name should be usable as an
    * identifier for the module by machine processing applications such as code generation.
@@ -183,27 +183,27 @@ public data class ConceptMap(
    * The name is not expected to be globally unique. The name should be a simple alphanumeric type
    * name to ensure that it is machine-processing friendly.
    */
-  public var name: String? = null,
+  public val name: String? = null,
   /**
    * A short, descriptive, user-friendly title for the concept map.
    *
    * This name does not need to be machine-processing friendly and may contain punctuation,
    * white-space, etc.
    */
-  public var title: String? = null,
+  public val title: String? = null,
   /**
    * The status of this concept map. Enables tracking the life-cycle of the content.
    *
    * Allows filtering of concept maps that are appropriate for use versus not.
    */
-  public var status: Enumeration<PublicationStatus>,
+  public val status: Enumeration<PublicationStatus>,
   /**
    * A Boolean value to indicate that this concept map is authored for testing purposes (or
    * education/evaluation/marketing) and is not intended to be used for genuine usage.
    *
    * Allows filtering of concept maps that are appropriate for use versus not.
    */
-  public var experimental: Boolean? = null,
+  public val experimental: Boolean? = null,
   /**
    * The date (and optionally time) when the concept map was published. The date must change when
    * the business version changes and it must change if the status code changes. In addition, it
@@ -213,7 +213,7 @@ public data class ConceptMap(
    * secondary representation of the concept map. Additional specific dates may be added as
    * extensions or be found by consulting Provenances associated with past versions of the resource.
    */
-  public var date: DateTime? = null,
+  public val date: DateTime? = null,
   /**
    * The name of the organization or individual that published the concept map.
    *
@@ -224,13 +224,13 @@ public data class ConceptMap(
    * issues with the concept map. This item SHOULD be populated unless the information is available
    * from context.
    */
-  public var publisher: String? = null,
+  public val publisher: String? = null,
   /**
    * Contact details to assist a user in finding and communicating with the publisher.
    *
    * May be a web site, an email address, a telephone number, etc.
    */
-  public var contact: MutableList<ContactDetail> = mutableListOf(),
+  public val contact: List<ContactDetail> = listOf(),
   /**
    * A free text natural language description of the concept map from a consumer's perspective.
    *
@@ -238,7 +238,7 @@ public data class ConceptMap(
    * should capture its intended use, which is needed for ensuring integrity for its use in models
    * across future changes.
    */
-  public var description: Markdown? = null,
+  public val description: Markdown? = null,
   /**
    * The content was developed with a focus and intent of supporting the contexts that are listed.
    * These contexts may be general categories (gender, age, ...) or may be references to specific
@@ -248,14 +248,14 @@ public data class ConceptMap(
    * When multiple useContexts are specified, there is no expectation that all or any of the
    * contexts apply.
    */
-  public var useContext: MutableList<UsageContext> = mutableListOf(),
+  public val useContext: List<UsageContext> = listOf(),
   /**
    * A legal or geographic region in which the concept map is intended to be used.
    *
    * It may be possible for the concept map to be used in jurisdictions other than those for which
    * it was originally designed or intended.
    */
-  public var jurisdiction: MutableList<CodeableConcept> = mutableListOf(),
+  public val jurisdiction: List<CodeableConcept> = listOf(),
   /**
    * Explanation of why this concept map is needed and why it has been designed as it has.
    *
@@ -263,7 +263,7 @@ public data class ConceptMap(
    * of ''why'' the resource is either needed or ''why'' it is defined as it is. This may be used to
    * point to source materials or specifications that drove the structure of this concept map.
    */
-  public var purpose: Markdown? = null,
+  public val purpose: Markdown? = null,
   /**
    * A copyright statement relating to the concept map and/or its contents. Copyright statements are
    * generally legal restrictions on the use and publishing of the concept map.
@@ -271,7 +271,7 @@ public data class ConceptMap(
    * Frequently the copyright differs between the concept map and codes that are included. The
    * copyright statement should clearly differentiate between these when required.
    */
-  public var copyright: Markdown? = null,
+  public val copyright: Markdown? = null,
   /**
    * Identifier for the source value set that contains the concepts that are being mapped and
    * provides context for the mappings.
@@ -280,7 +280,7 @@ public data class ConceptMap(
    * target value set, there is no specified context for the map (not recommended). The source value
    * set may select codes from either an explicit (standard or local) or implicit code system.
    */
-  public var source: Source? = null,
+  public val source: Source? = null,
   /**
    * The target value set provides context for the mappings. Note that the mapping is made between
    * concepts, not between value sets, but the value set provides important context about how the
@@ -289,9 +289,9 @@ public data class ConceptMap(
    * Should be a version specific reference. URIs SHOULD be absolute. If there is no source or
    * target value set, the is no specified context for the map.
    */
-  public var target: Target? = null,
+  public val target: Target? = null,
   /** A group of mappings that all have the same source and target system. */
-  public var group: MutableList<Group> = mutableListOf(),
+  public val group: List<Group> = listOf(),
 ) : DomainResource() {
   /** A group of mappings that all have the same source and target system. */
   @Serializable(with = ConceptMapGroupSerializer::class)
@@ -300,7 +300,7 @@ public data class ConceptMap(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and manageable, there is a strict set of
@@ -313,7 +313,7 @@ public data class ConceptMap(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -332,7 +332,7 @@ public data class ConceptMap(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /**
      * An absolute URI that identifies the source system where the concepts to be mapped are
      * defined.
@@ -340,14 +340,14 @@ public data class ConceptMap(
      * This is not needed if the source value set is specified and it contains concepts from only a
      * single system.
      */
-    public var source: Uri? = null,
+    public val source: Uri? = null,
     /**
      * The specific version of the code system, as determined by the code system authority.
      *
      * The specification of a particular code system version may be required for code systems which
      * lack concept permanence.
      */
-    public var sourceVersion: String? = null,
+    public val sourceVersion: String? = null,
     /**
      * An absolute URI that identifies the target system that the concepts will be mapped to.
      *
@@ -355,14 +355,14 @@ public data class ConceptMap(
      * single system. The group target may also be omitted if all of the target element equivalence
      * values are 'unmatched'.
      */
-    public var target: Uri? = null,
+    public val target: Uri? = null,
     /**
      * The specific version of the code system, as determined by the code system authority.
      *
      * The specification of a particular code system version may be required for code systems which
      * lack concept permanence.
      */
-    public var targetVersion: String? = null,
+    public val targetVersion: String? = null,
     /**
      * Mappings for an individual concept in the source to one or more concepts in the target.
      *
@@ -370,7 +370,7 @@ public data class ConceptMap(
      * value set, but a given concept may be mapped multiple times with different comments or
      * dependencies.
      */
-    public var element: MutableList<Element> = mutableListOf(),
+    public val element: List<Element> = listOf(),
     /**
      * What to do when there is no mapping for the source concept. "Unmapped" does not include codes
      * that are unmatched, and the unmapped element is ignored in a code is specified to have
@@ -379,7 +379,7 @@ public data class ConceptMap(
      * This only applies if the source code has a system value that matches the system defined for
      * the group.
      */
-    public var unmapped: Unmapped? = null,
+    public val unmapped: Unmapped? = null,
   ) : BackboneElement() {
     /** Mappings for an individual concept in the source to one or more concepts in the target. */
     @Serializable(with = ConceptMapGroupElementSerializer::class)
@@ -388,7 +388,7 @@ public data class ConceptMap(
        * Unique id for the element within a resource (for internal references). This may be any
        * string value that does not contain spaces.
        */
-      override var id: kotlin.String? = null,
+      override val id: kotlin.String? = null,
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element. To make the use of extensions safe and manageable, there is a strict set of
@@ -401,7 +401,7 @@ public data class ConceptMap(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: MutableList<Extension> = mutableListOf(),
+      override val extension: List<Extension> = listOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -420,23 +420,23 @@ public data class ConceptMap(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: MutableList<Extension> = mutableListOf(),
+      override val modifierExtension: List<Extension> = listOf(),
       /** Identity (code or path) or the element/item being mapped. */
-      public var code: Code? = null,
+      public val code: Code? = null,
       /**
        * The display for the code. The display is only provided to help editors when editing the
        * concept map.
        *
        * The display is ignored when processing the map.
        */
-      public var display: String? = null,
+      public val display: String? = null,
       /**
        * A concept from the target value set that this concept maps to.
        *
        * Ideally there would only be one map, with equal or equivalent mapping. But multiple maps
        * are allowed for several narrower options, or to assert that other concepts are unmatched.
        */
-      public var target: MutableList<Target> = mutableListOf(),
+      public val target: List<Target> = listOf(),
     ) : BackboneElement() {
       /** A concept from the target value set that this concept maps to. */
       @Serializable(with = ConceptMapGroupElementTargetSerializer::class)
@@ -445,7 +445,7 @@ public data class ConceptMap(
          * Unique id for the element within a resource (for internal references). This may be any
          * string value that does not contain spaces.
          */
-        override var id: kotlin.String? = null,
+        override val id: kotlin.String? = null,
         /**
          * May be used to represent additional information that is not part of the basic definition
          * of the element. To make the use of extensions safe and manageable, there is a strict set
@@ -458,7 +458,7 @@ public data class ConceptMap(
          * extensions. The use of extensions is what allows the FHIR specification to retain a core
          * level of simplicity for everyone.
          */
-        override var extension: MutableList<Extension> = mutableListOf(),
+        override val extension: List<Extension> = listOf(),
         /**
          * May be used to represent additional information that is not part of the basic definition
          * of the element and that modifies the understanding of the element in which it is
@@ -477,16 +477,16 @@ public data class ConceptMap(
          * extensions. The use of extensions is what allows the FHIR specification to retain a core
          * level of simplicity for everyone.
          */
-        override var modifierExtension: MutableList<Extension> = mutableListOf(),
+        override val modifierExtension: List<Extension> = listOf(),
         /** Identity (code or path) or the element/item that the map refers to. */
-        public var code: Code? = null,
+        public val code: Code? = null,
         /**
          * The display for the code. The display is only provided to help editors when editing the
          * concept map.
          *
          * The display is ignored when processing the map.
          */
-        public var display: String? = null,
+        public val display: String? = null,
         /**
          * The equivalence between the source and target concepts (counting for the dependencies and
          * products). The equivalence is read from target to source (e.g. the target is 'wider' than
@@ -495,24 +495,24 @@ public data class ConceptMap(
          * This element is labeled as a modifier because it may indicate that a target does not
          * apply.
          */
-        public var equivalence: Enumeration<ConceptMapEquivalence>,
+        public val equivalence: Enumeration<ConceptMapEquivalence>,
         /**
          * A description of status/issues in mapping that conveys additional information not
          * represented in the structured data.
          */
-        public var comment: String? = null,
+        public val comment: String? = null,
         /**
          * A set of additional dependencies for this mapping to hold. This mapping is only
          * applicable if the specified element can be resolved, and it has the specified value.
          */
-        public var dependsOn: MutableList<DependsOn> = mutableListOf(),
+        public val dependsOn: List<DependsOn> = listOf(),
         /**
          * A set of additional outcomes from this mapping to other elements. To properly execute
          * this mapping, the specified element must be mapped to some data element or source that is
          * in context. The mapping may still be useful without a place for the additional data
          * elements, but the equivalence cannot be relied on.
          */
-        public var product: MutableList<DependsOn> = mutableListOf(),
+        public val product: List<DependsOn> = listOf(),
       ) : BackboneElement() {
         /**
          * A set of additional dependencies for this mapping to hold. This mapping is only
@@ -524,7 +524,7 @@ public data class ConceptMap(
            * Unique id for the element within a resource (for internal references). This may be any
            * string value that does not contain spaces.
            */
-          override var id: kotlin.String? = null,
+          override val id: kotlin.String? = null,
           /**
            * May be used to represent additional information that is not part of the basic
            * definition of the element. To make the use of extensions safe and manageable, there is
@@ -537,7 +537,7 @@ public data class ConceptMap(
            * defines the extensions. The use of extensions is what allows the FHIR specification to
            * retain a core level of simplicity for everyone.
            */
-          override var extension: MutableList<Extension> = mutableListOf(),
+          override val extension: List<Extension> = listOf(),
           /**
            * May be used to represent additional information that is not part of the basic
            * definition of the element and that modifies the understanding of the element in which
@@ -556,30 +556,30 @@ public data class ConceptMap(
            * defines the extensions. The use of extensions is what allows the FHIR specification to
            * retain a core level of simplicity for everyone.
            */
-          override var modifierExtension: MutableList<Extension> = mutableListOf(),
+          override val modifierExtension: List<Extension> = listOf(),
           /**
            * A reference to an element that holds a coded value that corresponds to a code system
            * property. The idea is that the information model carries an element somewhere that is
            * labeled to correspond with a code system property.
            */
-          public var `property`: Uri,
+          public val `property`: Uri,
           /**
            * An absolute URI that identifies the code system of the dependency code (if the
            * source/dependency is a value set that crosses code systems).
            */
-          public var system: Canonical? = null,
+          public val system: Canonical? = null,
           /**
            * Identity (code or path) or the element/item/ValueSet/text that the map depends on /
            * refers to.
            */
-          public var `value`: String,
+          public val `value`: String,
           /**
            * The display for the code. The display is only provided to help editors when editing the
            * concept map.
            *
            * The display is ignored when processing the map.
            */
-          public var display: String? = null,
+          public val display: String? = null,
         ) : BackboneElement()
       }
     }
@@ -595,7 +595,7 @@ public data class ConceptMap(
        * Unique id for the element within a resource (for internal references). This may be any
        * string value that does not contain spaces.
        */
-      override var id: kotlin.String? = null,
+      override val id: kotlin.String? = null,
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element. To make the use of extensions safe and manageable, there is a strict set of
@@ -608,7 +608,7 @@ public data class ConceptMap(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: MutableList<Extension> = mutableListOf(),
+      override val extension: List<Extension> = listOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -627,7 +627,7 @@ public data class ConceptMap(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: MutableList<Extension> = mutableListOf(),
+      override val modifierExtension: List<Extension> = listOf(),
       /**
        * Defines which action to take if there is no match for the source concept in the target
        * system designated for the group. One of 3 actions are possible: use the unmapped code (this
@@ -635,24 +635,24 @@ public data class ConceptMap(
        * fixed code (a default code), or alternatively, a reference to a different concept map can
        * be provided (by canonical URL).
        */
-      public var mode: Enumeration<ConceptMapGroupUnmappedMode>,
+      public val mode: Enumeration<ConceptMapGroupUnmappedMode>,
       /**
        * The fixed code to use when the mode = 'fixed' - all unmapped codes are mapped to a single
        * fixed code.
        */
-      public var code: Code? = null,
+      public val code: Code? = null,
       /**
        * The display for the code. The display is only provided to help editors when editing the
        * concept map.
        *
        * The display is ignored when processing the map.
        */
-      public var display: String? = null,
+      public val display: String? = null,
       /**
        * The canonical reference to an additional ConceptMap resource instance to use for mapping if
        * this ConceptMap resource contains no matching mapping for the source concept.
        */
-      public var url: Canonical? = null,
+      public val url: Canonical? = null,
     ) : BackboneElement()
   }
 

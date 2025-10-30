@@ -23,12 +23,12 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 
 /** uri Type: String of characters used to identify a name or a resource */
 public open class Uri(
   /** unique id for the element within a resource (for internal references) */
-  open override var id: String? = null,
+  open override val id: String? = null,
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and managable, there is a strict set of governance
@@ -41,9 +41,9 @@ public open class Uri(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  open override var extension: MutableList<Extension> = mutableListOf(),
+  open override val extension: List<Extension> = listOf(),
   /** The actual value */
-  public open var `value`: String? = null,
+  public open val `value`: String? = null,
 ) : PrimitiveType() {
   override fun equals(other: Any?): Boolean {
     if (this === other) return true

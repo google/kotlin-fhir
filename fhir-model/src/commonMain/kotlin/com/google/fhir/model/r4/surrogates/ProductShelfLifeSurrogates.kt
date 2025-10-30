@@ -28,30 +28,30 @@ import com.google.fhir.model.r4.serializers.DoubleSerializer
 import com.google.fhir.model.r4.serializers.LocalTimeSerializer
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class ProductShelfLifeSurrogate(
   public var id: String? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var identifier: Identifier? = null,
   public var type: CodeableConcept,
   public var period: Quantity,
-  public var specialPrecautionsForStorage: MutableList<CodeableConcept>? = null,
+  public var specialPrecautionsForStorage: List<CodeableConcept>? = null,
 ) {
   public fun toModel(): ProductShelfLife =
     ProductShelfLife(
       id = this@ProductShelfLifeSurrogate.id,
-      extension = this@ProductShelfLifeSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@ProductShelfLifeSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@ProductShelfLifeSurrogate.extension ?: listOf(),
+      modifierExtension = this@ProductShelfLifeSurrogate.modifierExtension ?: listOf(),
       identifier = this@ProductShelfLifeSurrogate.identifier,
       type = this@ProductShelfLifeSurrogate.type,
       period = this@ProductShelfLifeSurrogate.period,
       specialPrecautionsForStorage =
-        this@ProductShelfLifeSurrogate.specialPrecautionsForStorage ?: mutableListOf(),
+        this@ProductShelfLifeSurrogate.specialPrecautionsForStorage ?: listOf(),
     )
 
   public companion object {

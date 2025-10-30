@@ -30,15 +30,15 @@ import com.google.fhir.model.r4b.serializers.DoubleSerializer
 import com.google.fhir.model.r4b.serializers.LocalTimeSerializer
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class ProdCharacteristicSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var height: Quantity? = null,
   public var width: Quantity? = null,
   public var depth: Quantity? = null,
@@ -47,18 +47,18 @@ internal data class ProdCharacteristicSurrogate(
   public var externalDiameter: Quantity? = null,
   public var shape: KotlinString? = null,
   public var _shape: Element? = null,
-  public var color: MutableList<KotlinString?>? = null,
-  public var _color: MutableList<Element?>? = null,
-  public var imprint: MutableList<KotlinString?>? = null,
-  public var _imprint: MutableList<Element?>? = null,
-  public var image: MutableList<Attachment>? = null,
+  public var color: List<KotlinString?>? = null,
+  public var _color: List<Element?>? = null,
+  public var imprint: List<KotlinString?>? = null,
+  public var _imprint: List<Element?>? = null,
+  public var image: List<Attachment>? = null,
   public var scoring: CodeableConcept? = null,
 ) {
   public fun toModel(): ProdCharacteristic =
     ProdCharacteristic(
       id = this@ProdCharacteristicSurrogate.id,
-      extension = this@ProdCharacteristicSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@ProdCharacteristicSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@ProdCharacteristicSurrogate.extension ?: listOf(),
+      modifierExtension = this@ProdCharacteristicSurrogate.modifierExtension ?: listOf(),
       height = this@ProdCharacteristicSurrogate.height,
       width = this@ProdCharacteristicSurrogate.width,
       depth = this@ProdCharacteristicSurrogate.depth,
@@ -75,7 +75,7 @@ internal data class ProdCharacteristicSurrogate(
           this@ProdCharacteristicSurrogate.color == null &&
             this@ProdCharacteristicSurrogate._color == null
         ) {
-          mutableListOf()
+          listOf()
         } else {
           (this@ProdCharacteristicSurrogate.color
               ?: List(this@ProdCharacteristicSurrogate._color!!.size) { null })
@@ -84,14 +84,14 @@ internal data class ProdCharacteristicSurrogate(
                 ?: List(this@ProdCharacteristicSurrogate.color!!.size) { null }
             )
             .map { (value, element) -> R4bString.of(value, element)!! }
-            .toMutableList()
+            .toList()
         },
       imprint =
         if (
           this@ProdCharacteristicSurrogate.imprint == null &&
             this@ProdCharacteristicSurrogate._imprint == null
         ) {
-          mutableListOf()
+          listOf()
         } else {
           (this@ProdCharacteristicSurrogate.imprint
               ?: List(this@ProdCharacteristicSurrogate._imprint!!.size) { null })
@@ -100,9 +100,9 @@ internal data class ProdCharacteristicSurrogate(
                 ?: List(this@ProdCharacteristicSurrogate.imprint!!.size) { null }
             )
             .map { (value, element) -> R4bString.of(value, element)!! }
-            .toMutableList()
+            .toList()
         },
-      image = this@ProdCharacteristicSurrogate.image ?: mutableListOf(),
+      image = this@ProdCharacteristicSurrogate.image ?: listOf(),
       scoring = this@ProdCharacteristicSurrogate.scoring,
     )
 
@@ -121,22 +121,21 @@ internal data class ProdCharacteristicSurrogate(
           externalDiameter = this@with.externalDiameter,
           shape = this@with.shape?.value,
           _shape = this@with.shape?.toElement(),
-          color =
-            this@with.color.map { it.value }.toMutableList().takeUnless { it.all { it == null } },
+          color = this@with.color.map { it.value }.toList().takeUnless { it.all { it == null } },
           _color =
             this@with.color
               .map { it.toElement() }
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
-              ?.toMutableList(),
+              ?.toList(),
           imprint =
-            this@with.imprint.map { it.value }.toMutableList().takeUnless { it.all { it == null } },
+            this@with.imprint.map { it.value }.toList().takeUnless { it.all { it == null } },
           _imprint =
             this@with.imprint
               .map { it.toElement() }
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
-              ?.toMutableList(),
+              ?.toList(),
           image = this@with.image.takeIf { it.isNotEmpty() },
           scoring = this@with.scoring,
         )

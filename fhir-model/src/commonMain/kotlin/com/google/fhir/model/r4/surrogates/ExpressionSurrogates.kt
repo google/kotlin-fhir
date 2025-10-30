@@ -30,14 +30,14 @@ import com.google.fhir.model.r4.serializers.DoubleSerializer
 import com.google.fhir.model.r4.serializers.LocalTimeSerializer
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class ExpressionSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
   public var description: KotlinString? = null,
   public var _description: Element? = null,
   public var name: KotlinString? = null,
@@ -52,7 +52,7 @@ internal data class ExpressionSurrogate(
   public fun toModel(): Expression =
     Expression(
       id = this@ExpressionSurrogate.id,
-      extension = this@ExpressionSurrogate.extension ?: mutableListOf(),
+      extension = this@ExpressionSurrogate.extension ?: listOf(),
       description =
         R4String.of(this@ExpressionSurrogate.description, this@ExpressionSurrogate._description),
       name = Id.of(this@ExpressionSurrogate.name, this@ExpressionSurrogate._name),

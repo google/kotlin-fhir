@@ -20,7 +20,7 @@ package com.google.fhir.model.r4
 
 import com.google.fhir.model.r4.serializers.IdentifierSerializer
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 
 /**
@@ -33,7 +33,7 @@ public data class Identifier(
    * Unique id for the element within a resource (for internal references). This may be any string
    * value that does not contain spaces.
    */
-  override var id: kotlin.String? = null,
+  override val id: kotlin.String? = null,
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * element. To make the use of extensions safe and manageable, there is a strict set of governance
@@ -46,14 +46,14 @@ public data class Identifier(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: MutableList<Extension> = mutableListOf(),
+  override val extension: List<Extension> = listOf(),
   /**
    * The purpose of this identifier.
    *
    * Applications can assume that an identifier is permanent unless it explicitly says that it is
    * temporary.
    */
-  public var use: Enumeration<IdentifierUse>? = null,
+  public val use: Enumeration<IdentifierUse>? = null,
   /**
    * A coded type for the identifier that can be used to determine which identifier to use for a
    * specific purpose.
@@ -65,14 +65,14 @@ public data class Identifier(
    * where the system is not known. There is not a 1:1 relationship between type and system, since
    * many different systems have the same type.
    */
-  public var type: CodeableConcept? = null,
+  public val type: CodeableConcept? = null,
   /**
    * Establishes the namespace for the value - that is, a URL that describes a set values that are
    * unique.
    *
    * Identifier.system is always case sensitive.
    */
-  public var system: Uri? = null,
+  public val system: Uri? = null,
   /**
    * The portion of the identifier typically relevant to the user and which is unique within the
    * context of the system.
@@ -84,16 +84,16 @@ public data class Identifier(
    * Identifier.value is to be treated as case sensitive unless knowledge of the Identifier.system
    * allows the processer to be confident that non-case-sensitive processing is safe.
    */
-  public var `value`: String? = null,
+  public val `value`: String? = null,
   /** Time period during which identifier is/was valid for use. */
-  public var period: Period? = null,
+  public val period: Period? = null,
   /**
    * Organization that issued/manages the identifier.
    *
    * The Identifier.assigner may omit the .reference element and only contain a .display element
    * reflecting the name or other textual information about the assigning organization.
    */
-  public var assigner: Reference? = null,
+  public val assigner: Reference? = null,
 ) : Element() {
   /** Identifies the purpose for this identifier, if known . */
   public enum class IdentifierUse(

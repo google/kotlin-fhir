@@ -54,15 +54,15 @@ import kotlin.Boolean as KotlinBoolean
 import kotlin.Int
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class CitationSummarySurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var style: CodeableConcept? = null,
   public var text: KotlinString? = null,
   public var _text: Element? = null,
@@ -70,8 +70,8 @@ internal data class CitationSummarySurrogate(
   public fun toModel(): Citation.Summary =
     Citation.Summary(
       id = this@CitationSummarySurrogate.id,
-      extension = this@CitationSummarySurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@CitationSummarySurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@CitationSummarySurrogate.extension ?: listOf(),
+      modifierExtension = this@CitationSummarySurrogate.modifierExtension ?: listOf(),
       style = this@CitationSummarySurrogate.style,
       text = Markdown.of(this@CitationSummarySurrogate.text, this@CitationSummarySurrogate._text)!!,
     )
@@ -94,18 +94,18 @@ internal data class CitationSummarySurrogate(
 @Serializable
 internal data class CitationClassificationSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var type: CodeableConcept? = null,
-  public var classifier: MutableList<CodeableConcept>? = null,
+  public var classifier: List<CodeableConcept>? = null,
 ) {
   public fun toModel(): Citation.Classification =
     Citation.Classification(
       id = this@CitationClassificationSurrogate.id,
-      extension = this@CitationClassificationSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@CitationClassificationSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@CitationClassificationSurrogate.extension ?: listOf(),
+      modifierExtension = this@CitationClassificationSurrogate.modifierExtension ?: listOf(),
       type = this@CitationClassificationSurrogate.type,
-      classifier = this@CitationClassificationSurrogate.classifier ?: mutableListOf(),
+      classifier = this@CitationClassificationSurrogate.classifier ?: listOf(),
     )
 
   public companion object {
@@ -125,8 +125,8 @@ internal data class CitationClassificationSurrogate(
 @Serializable
 internal data class CitationStatusDateSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var activity: CodeableConcept,
   public var `actual`: KotlinBoolean? = null,
   public var _actual: Element? = null,
@@ -135,8 +135,8 @@ internal data class CitationStatusDateSurrogate(
   public fun toModel(): Citation.StatusDate =
     Citation.StatusDate(
       id = this@CitationStatusDateSurrogate.id,
-      extension = this@CitationStatusDateSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@CitationStatusDateSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@CitationStatusDateSurrogate.extension ?: listOf(),
+      modifierExtension = this@CitationStatusDateSurrogate.modifierExtension ?: listOf(),
       activity = this@CitationStatusDateSurrogate.activity,
       `actual` =
         R5Boolean.of(
@@ -165,49 +165,49 @@ internal data class CitationStatusDateSurrogate(
 @Serializable
 internal data class CitationCitedArtifactSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var identifier: MutableList<Identifier>? = null,
-  public var relatedIdentifier: MutableList<Identifier>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
+  public var identifier: List<Identifier>? = null,
+  public var relatedIdentifier: List<Identifier>? = null,
   public var dateAccessed: KotlinString? = null,
   public var _dateAccessed: Element? = null,
   public var version: Citation.CitedArtifact.Version? = null,
-  public var currentState: MutableList<CodeableConcept>? = null,
-  public var statusDate: MutableList<Citation.CitedArtifact.StatusDate>? = null,
-  public var title: MutableList<Citation.CitedArtifact.Title>? = null,
-  public var `abstract`: MutableList<Citation.CitedArtifact.Abstract>? = null,
+  public var currentState: List<CodeableConcept>? = null,
+  public var statusDate: List<Citation.CitedArtifact.StatusDate>? = null,
+  public var title: List<Citation.CitedArtifact.Title>? = null,
+  public var `abstract`: List<Citation.CitedArtifact.Abstract>? = null,
   public var part: Citation.CitedArtifact.Part? = null,
-  public var relatesTo: MutableList<Citation.CitedArtifact.RelatesTo>? = null,
-  public var publicationForm: MutableList<Citation.CitedArtifact.PublicationForm>? = null,
-  public var webLocation: MutableList<Citation.CitedArtifact.WebLocation>? = null,
-  public var classification: MutableList<Citation.CitedArtifact.Classification>? = null,
+  public var relatesTo: List<Citation.CitedArtifact.RelatesTo>? = null,
+  public var publicationForm: List<Citation.CitedArtifact.PublicationForm>? = null,
+  public var webLocation: List<Citation.CitedArtifact.WebLocation>? = null,
+  public var classification: List<Citation.CitedArtifact.Classification>? = null,
   public var contributorship: Citation.CitedArtifact.Contributorship? = null,
-  public var note: MutableList<Annotation>? = null,
+  public var note: List<Annotation>? = null,
 ) {
   public fun toModel(): Citation.CitedArtifact =
     Citation.CitedArtifact(
       id = this@CitationCitedArtifactSurrogate.id,
-      extension = this@CitationCitedArtifactSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@CitationCitedArtifactSurrogate.modifierExtension ?: mutableListOf(),
-      identifier = this@CitationCitedArtifactSurrogate.identifier ?: mutableListOf(),
-      relatedIdentifier = this@CitationCitedArtifactSurrogate.relatedIdentifier ?: mutableListOf(),
+      extension = this@CitationCitedArtifactSurrogate.extension ?: listOf(),
+      modifierExtension = this@CitationCitedArtifactSurrogate.modifierExtension ?: listOf(),
+      identifier = this@CitationCitedArtifactSurrogate.identifier ?: listOf(),
+      relatedIdentifier = this@CitationCitedArtifactSurrogate.relatedIdentifier ?: listOf(),
       dateAccessed =
         DateTime.of(
           FhirDateTime.fromString(this@CitationCitedArtifactSurrogate.dateAccessed),
           this@CitationCitedArtifactSurrogate._dateAccessed,
         ),
       version = this@CitationCitedArtifactSurrogate.version,
-      currentState = this@CitationCitedArtifactSurrogate.currentState ?: mutableListOf(),
-      statusDate = this@CitationCitedArtifactSurrogate.statusDate ?: mutableListOf(),
-      title = this@CitationCitedArtifactSurrogate.title ?: mutableListOf(),
-      `abstract` = this@CitationCitedArtifactSurrogate.`abstract` ?: mutableListOf(),
+      currentState = this@CitationCitedArtifactSurrogate.currentState ?: listOf(),
+      statusDate = this@CitationCitedArtifactSurrogate.statusDate ?: listOf(),
+      title = this@CitationCitedArtifactSurrogate.title ?: listOf(),
+      `abstract` = this@CitationCitedArtifactSurrogate.`abstract` ?: listOf(),
       part = this@CitationCitedArtifactSurrogate.part,
-      relatesTo = this@CitationCitedArtifactSurrogate.relatesTo ?: mutableListOf(),
-      publicationForm = this@CitationCitedArtifactSurrogate.publicationForm ?: mutableListOf(),
-      webLocation = this@CitationCitedArtifactSurrogate.webLocation ?: mutableListOf(),
-      classification = this@CitationCitedArtifactSurrogate.classification ?: mutableListOf(),
+      relatesTo = this@CitationCitedArtifactSurrogate.relatesTo ?: listOf(),
+      publicationForm = this@CitationCitedArtifactSurrogate.publicationForm ?: listOf(),
+      webLocation = this@CitationCitedArtifactSurrogate.webLocation ?: listOf(),
+      classification = this@CitationCitedArtifactSurrogate.classification ?: listOf(),
       contributorship = this@CitationCitedArtifactSurrogate.contributorship,
-      note = this@CitationCitedArtifactSurrogate.note ?: mutableListOf(),
+      note = this@CitationCitedArtifactSurrogate.note ?: listOf(),
     )
 
   public companion object {
@@ -241,8 +241,8 @@ internal data class CitationCitedArtifactSurrogate(
 @Serializable
 internal data class CitationCitedArtifactVersionSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var `value`: KotlinString? = null,
   public var _value: Element? = null,
   public var baseCitation: Reference? = null,
@@ -250,9 +250,8 @@ internal data class CitationCitedArtifactVersionSurrogate(
   public fun toModel(): Citation.CitedArtifact.Version =
     Citation.CitedArtifact.Version(
       id = this@CitationCitedArtifactVersionSurrogate.id,
-      extension = this@CitationCitedArtifactVersionSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@CitationCitedArtifactVersionSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@CitationCitedArtifactVersionSurrogate.extension ?: listOf(),
+      modifierExtension = this@CitationCitedArtifactVersionSurrogate.modifierExtension ?: listOf(),
       `value` =
         R5String.of(
           this@CitationCitedArtifactVersionSurrogate.`value`,
@@ -281,8 +280,8 @@ internal data class CitationCitedArtifactVersionSurrogate(
 @Serializable
 internal data class CitationCitedArtifactStatusDateSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var activity: CodeableConcept,
   public var `actual`: KotlinBoolean? = null,
   public var _actual: Element? = null,
@@ -291,9 +290,9 @@ internal data class CitationCitedArtifactStatusDateSurrogate(
   public fun toModel(): Citation.CitedArtifact.StatusDate =
     Citation.CitedArtifact.StatusDate(
       id = this@CitationCitedArtifactStatusDateSurrogate.id,
-      extension = this@CitationCitedArtifactStatusDateSurrogate.extension ?: mutableListOf(),
+      extension = this@CitationCitedArtifactStatusDateSurrogate.extension ?: listOf(),
       modifierExtension =
-        this@CitationCitedArtifactStatusDateSurrogate.modifierExtension ?: mutableListOf(),
+        this@CitationCitedArtifactStatusDateSurrogate.modifierExtension ?: listOf(),
       activity = this@CitationCitedArtifactStatusDateSurrogate.activity,
       `actual` =
         R5Boolean.of(
@@ -324,9 +323,9 @@ internal data class CitationCitedArtifactStatusDateSurrogate(
 @Serializable
 internal data class CitationCitedArtifactTitleSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var type: MutableList<CodeableConcept>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
+  public var type: List<CodeableConcept>? = null,
   public var language: CodeableConcept? = null,
   public var text: KotlinString? = null,
   public var _text: Element? = null,
@@ -334,10 +333,9 @@ internal data class CitationCitedArtifactTitleSurrogate(
   public fun toModel(): Citation.CitedArtifact.Title =
     Citation.CitedArtifact.Title(
       id = this@CitationCitedArtifactTitleSurrogate.id,
-      extension = this@CitationCitedArtifactTitleSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@CitationCitedArtifactTitleSurrogate.modifierExtension ?: mutableListOf(),
-      type = this@CitationCitedArtifactTitleSurrogate.type ?: mutableListOf(),
+      extension = this@CitationCitedArtifactTitleSurrogate.extension ?: listOf(),
+      modifierExtension = this@CitationCitedArtifactTitleSurrogate.modifierExtension ?: listOf(),
+      type = this@CitationCitedArtifactTitleSurrogate.type ?: listOf(),
       language = this@CitationCitedArtifactTitleSurrogate.language,
       text =
         Markdown.of(
@@ -365,8 +363,8 @@ internal data class CitationCitedArtifactTitleSurrogate(
 @Serializable
 internal data class CitationCitedArtifactAbstractSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var type: CodeableConcept? = null,
   public var language: CodeableConcept? = null,
   public var text: KotlinString? = null,
@@ -377,9 +375,8 @@ internal data class CitationCitedArtifactAbstractSurrogate(
   public fun toModel(): Citation.CitedArtifact.Abstract =
     Citation.CitedArtifact.Abstract(
       id = this@CitationCitedArtifactAbstractSurrogate.id,
-      extension = this@CitationCitedArtifactAbstractSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@CitationCitedArtifactAbstractSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@CitationCitedArtifactAbstractSurrogate.extension ?: listOf(),
+      modifierExtension = this@CitationCitedArtifactAbstractSurrogate.modifierExtension ?: listOf(),
       type = this@CitationCitedArtifactAbstractSurrogate.type,
       language = this@CitationCitedArtifactAbstractSurrogate.language,
       text =
@@ -417,8 +414,8 @@ internal data class CitationCitedArtifactAbstractSurrogate(
 @Serializable
 internal data class CitationCitedArtifactPartSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var type: CodeableConcept? = null,
   public var `value`: KotlinString? = null,
   public var _value: Element? = null,
@@ -427,9 +424,8 @@ internal data class CitationCitedArtifactPartSurrogate(
   public fun toModel(): Citation.CitedArtifact.Part =
     Citation.CitedArtifact.Part(
       id = this@CitationCitedArtifactPartSurrogate.id,
-      extension = this@CitationCitedArtifactPartSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@CitationCitedArtifactPartSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@CitationCitedArtifactPartSurrogate.extension ?: listOf(),
+      modifierExtension = this@CitationCitedArtifactPartSurrogate.modifierExtension ?: listOf(),
       type = this@CitationCitedArtifactPartSurrogate.type,
       `value` =
         R5String.of(
@@ -458,11 +454,11 @@ internal data class CitationCitedArtifactPartSurrogate(
 @Serializable
 internal data class CitationCitedArtifactRelatesToSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var type: KotlinString? = null,
   public var _type: Element? = null,
-  public var classifier: MutableList<CodeableConcept>? = null,
+  public var classifier: List<CodeableConcept>? = null,
   public var label: KotlinString? = null,
   public var _label: Element? = null,
   public var display: KotlinString? = null,
@@ -477,9 +473,9 @@ internal data class CitationCitedArtifactRelatesToSurrogate(
   public fun toModel(): Citation.CitedArtifact.RelatesTo =
     Citation.CitedArtifact.RelatesTo(
       id = this@CitationCitedArtifactRelatesToSurrogate.id,
-      extension = this@CitationCitedArtifactRelatesToSurrogate.extension ?: mutableListOf(),
+      extension = this@CitationCitedArtifactRelatesToSurrogate.extension ?: listOf(),
       modifierExtension =
-        this@CitationCitedArtifactRelatesToSurrogate.modifierExtension ?: mutableListOf(),
+        this@CitationCitedArtifactRelatesToSurrogate.modifierExtension ?: listOf(),
       type =
         Enumeration.of(
           Citation.RelatedArtifactTypeExpanded.fromCode(
@@ -487,7 +483,7 @@ internal data class CitationCitedArtifactRelatesToSurrogate(
           ),
           this@CitationCitedArtifactRelatesToSurrogate._type,
         ),
-      classifier = this@CitationCitedArtifactRelatesToSurrogate.classifier ?: mutableListOf(),
+      classifier = this@CitationCitedArtifactRelatesToSurrogate.classifier ?: listOf(),
       label =
         R5String.of(
           this@CitationCitedArtifactRelatesToSurrogate.label,
@@ -542,8 +538,8 @@ internal data class CitationCitedArtifactRelatesToSurrogate(
 @Serializable
 internal data class CitationCitedArtifactPublicationFormSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var publishedIn: Citation.CitedArtifact.PublicationForm.PublishedIn? = null,
   public var citedMedium: CodeableConcept? = null,
   public var volume: KotlinString? = null,
@@ -558,7 +554,7 @@ internal data class CitationCitedArtifactPublicationFormSurrogate(
   public var _publicationDateSeason: Element? = null,
   public var lastRevisionDate: KotlinString? = null,
   public var _lastRevisionDate: Element? = null,
-  public var language: MutableList<CodeableConcept>? = null,
+  public var language: List<CodeableConcept>? = null,
   public var accessionNumber: KotlinString? = null,
   public var _accessionNumber: Element? = null,
   public var pageString: KotlinString? = null,
@@ -575,9 +571,9 @@ internal data class CitationCitedArtifactPublicationFormSurrogate(
   public fun toModel(): Citation.CitedArtifact.PublicationForm =
     Citation.CitedArtifact.PublicationForm(
       id = this@CitationCitedArtifactPublicationFormSurrogate.id,
-      extension = this@CitationCitedArtifactPublicationFormSurrogate.extension ?: mutableListOf(),
+      extension = this@CitationCitedArtifactPublicationFormSurrogate.extension ?: listOf(),
       modifierExtension =
-        this@CitationCitedArtifactPublicationFormSurrogate.modifierExtension ?: mutableListOf(),
+        this@CitationCitedArtifactPublicationFormSurrogate.modifierExtension ?: listOf(),
       publishedIn = this@CitationCitedArtifactPublicationFormSurrogate.publishedIn,
       citedMedium = this@CitationCitedArtifactPublicationFormSurrogate.citedMedium,
       volume =
@@ -612,7 +608,7 @@ internal data class CitationCitedArtifactPublicationFormSurrogate(
           ),
           this@CitationCitedArtifactPublicationFormSurrogate._lastRevisionDate,
         ),
-      language = this@CitationCitedArtifactPublicationFormSurrogate.language ?: mutableListOf(),
+      language = this@CitationCitedArtifactPublicationFormSurrogate.language ?: listOf(),
       accessionNumber =
         R5String.of(
           this@CitationCitedArtifactPublicationFormSurrogate.accessionNumber,
@@ -689,10 +685,10 @@ internal data class CitationCitedArtifactPublicationFormSurrogate(
 @Serializable
 internal data class CitationCitedArtifactPublicationFormPublishedInSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var type: CodeableConcept? = null,
-  public var identifier: MutableList<Identifier>? = null,
+  public var identifier: List<Identifier>? = null,
   public var title: KotlinString? = null,
   public var _title: Element? = null,
   public var publisher: Reference? = null,
@@ -703,13 +699,12 @@ internal data class CitationCitedArtifactPublicationFormPublishedInSurrogate(
     Citation.CitedArtifact.PublicationForm.PublishedIn(
       id = this@CitationCitedArtifactPublicationFormPublishedInSurrogate.id,
       extension =
-        this@CitationCitedArtifactPublicationFormPublishedInSurrogate.extension ?: mutableListOf(),
+        this@CitationCitedArtifactPublicationFormPublishedInSurrogate.extension ?: listOf(),
       modifierExtension =
-        this@CitationCitedArtifactPublicationFormPublishedInSurrogate.modifierExtension
-          ?: mutableListOf(),
+        this@CitationCitedArtifactPublicationFormPublishedInSurrogate.modifierExtension ?: listOf(),
       type = this@CitationCitedArtifactPublicationFormPublishedInSurrogate.type,
       identifier =
-        this@CitationCitedArtifactPublicationFormPublishedInSurrogate.identifier ?: mutableListOf(),
+        this@CitationCitedArtifactPublicationFormPublishedInSurrogate.identifier ?: listOf(),
       title =
         R5String.of(
           this@CitationCitedArtifactPublicationFormPublishedInSurrogate.title,
@@ -747,19 +742,19 @@ internal data class CitationCitedArtifactPublicationFormPublishedInSurrogate(
 @Serializable
 internal data class CitationCitedArtifactWebLocationSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var classifier: MutableList<CodeableConcept>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
+  public var classifier: List<CodeableConcept>? = null,
   public var url: KotlinString? = null,
   public var _url: Element? = null,
 ) {
   public fun toModel(): Citation.CitedArtifact.WebLocation =
     Citation.CitedArtifact.WebLocation(
       id = this@CitationCitedArtifactWebLocationSurrogate.id,
-      extension = this@CitationCitedArtifactWebLocationSurrogate.extension ?: mutableListOf(),
+      extension = this@CitationCitedArtifactWebLocationSurrogate.extension ?: listOf(),
       modifierExtension =
-        this@CitationCitedArtifactWebLocationSurrogate.modifierExtension ?: mutableListOf(),
-      classifier = this@CitationCitedArtifactWebLocationSurrogate.classifier ?: mutableListOf(),
+        this@CitationCitedArtifactWebLocationSurrogate.modifierExtension ?: listOf(),
+      classifier = this@CitationCitedArtifactWebLocationSurrogate.classifier ?: listOf(),
       url =
         Uri.of(
           this@CitationCitedArtifactWebLocationSurrogate.url,
@@ -787,22 +782,22 @@ internal data class CitationCitedArtifactWebLocationSurrogate(
 @Serializable
 internal data class CitationCitedArtifactClassificationSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var type: CodeableConcept? = null,
-  public var classifier: MutableList<CodeableConcept>? = null,
-  public var artifactAssessment: MutableList<Reference>? = null,
+  public var classifier: List<CodeableConcept>? = null,
+  public var artifactAssessment: List<Reference>? = null,
 ) {
   public fun toModel(): Citation.CitedArtifact.Classification =
     Citation.CitedArtifact.Classification(
       id = this@CitationCitedArtifactClassificationSurrogate.id,
-      extension = this@CitationCitedArtifactClassificationSurrogate.extension ?: mutableListOf(),
+      extension = this@CitationCitedArtifactClassificationSurrogate.extension ?: listOf(),
       modifierExtension =
-        this@CitationCitedArtifactClassificationSurrogate.modifierExtension ?: mutableListOf(),
+        this@CitationCitedArtifactClassificationSurrogate.modifierExtension ?: listOf(),
       type = this@CitationCitedArtifactClassificationSurrogate.type,
-      classifier = this@CitationCitedArtifactClassificationSurrogate.classifier ?: mutableListOf(),
+      classifier = this@CitationCitedArtifactClassificationSurrogate.classifier ?: listOf(),
       artifactAssessment =
-        this@CitationCitedArtifactClassificationSurrogate.artifactAssessment ?: mutableListOf(),
+        this@CitationCitedArtifactClassificationSurrogate.artifactAssessment ?: listOf(),
     )
 
   public companion object {
@@ -825,26 +820,26 @@ internal data class CitationCitedArtifactClassificationSurrogate(
 @Serializable
 internal data class CitationCitedArtifactContributorshipSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var complete: KotlinBoolean? = null,
   public var _complete: Element? = null,
-  public var entry: MutableList<Citation.CitedArtifact.Contributorship.Entry>? = null,
-  public var summary: MutableList<Citation.CitedArtifact.Contributorship.Summary>? = null,
+  public var entry: List<Citation.CitedArtifact.Contributorship.Entry>? = null,
+  public var summary: List<Citation.CitedArtifact.Contributorship.Summary>? = null,
 ) {
   public fun toModel(): Citation.CitedArtifact.Contributorship =
     Citation.CitedArtifact.Contributorship(
       id = this@CitationCitedArtifactContributorshipSurrogate.id,
-      extension = this@CitationCitedArtifactContributorshipSurrogate.extension ?: mutableListOf(),
+      extension = this@CitationCitedArtifactContributorshipSurrogate.extension ?: listOf(),
       modifierExtension =
-        this@CitationCitedArtifactContributorshipSurrogate.modifierExtension ?: mutableListOf(),
+        this@CitationCitedArtifactContributorshipSurrogate.modifierExtension ?: listOf(),
       complete =
         R5Boolean.of(
           this@CitationCitedArtifactContributorshipSurrogate.complete,
           this@CitationCitedArtifactContributorshipSurrogate._complete,
         ),
-      entry = this@CitationCitedArtifactContributorshipSurrogate.entry ?: mutableListOf(),
-      summary = this@CitationCitedArtifactContributorshipSurrogate.summary ?: mutableListOf(),
+      entry = this@CitationCitedArtifactContributorshipSurrogate.entry ?: listOf(),
+      summary = this@CitationCitedArtifactContributorshipSurrogate.summary ?: listOf(),
     )
 
   public companion object {
@@ -868,16 +863,16 @@ internal data class CitationCitedArtifactContributorshipSurrogate(
 @Serializable
 internal data class CitationCitedArtifactContributorshipEntrySurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var contributor: Reference,
   public var forenameInitials: KotlinString? = null,
   public var _forenameInitials: Element? = null,
-  public var affiliation: MutableList<Reference>? = null,
-  public var contributionType: MutableList<CodeableConcept>? = null,
+  public var affiliation: List<Reference>? = null,
+  public var contributionType: List<CodeableConcept>? = null,
   public var role: CodeableConcept? = null,
   public var contributionInstance:
-    MutableList<Citation.CitedArtifact.Contributorship.Entry.ContributionInstance>? =
+    List<Citation.CitedArtifact.Contributorship.Entry.ContributionInstance>? =
     null,
   public var correspondingContact: KotlinBoolean? = null,
   public var _correspondingContact: Element? = null,
@@ -887,25 +882,21 @@ internal data class CitationCitedArtifactContributorshipEntrySurrogate(
   public fun toModel(): Citation.CitedArtifact.Contributorship.Entry =
     Citation.CitedArtifact.Contributorship.Entry(
       id = this@CitationCitedArtifactContributorshipEntrySurrogate.id,
-      extension =
-        this@CitationCitedArtifactContributorshipEntrySurrogate.extension ?: mutableListOf(),
+      extension = this@CitationCitedArtifactContributorshipEntrySurrogate.extension ?: listOf(),
       modifierExtension =
-        this@CitationCitedArtifactContributorshipEntrySurrogate.modifierExtension
-          ?: mutableListOf(),
+        this@CitationCitedArtifactContributorshipEntrySurrogate.modifierExtension ?: listOf(),
       contributor = this@CitationCitedArtifactContributorshipEntrySurrogate.contributor,
       forenameInitials =
         R5String.of(
           this@CitationCitedArtifactContributorshipEntrySurrogate.forenameInitials,
           this@CitationCitedArtifactContributorshipEntrySurrogate._forenameInitials,
         ),
-      affiliation =
-        this@CitationCitedArtifactContributorshipEntrySurrogate.affiliation ?: mutableListOf(),
+      affiliation = this@CitationCitedArtifactContributorshipEntrySurrogate.affiliation ?: listOf(),
       contributionType =
-        this@CitationCitedArtifactContributorshipEntrySurrogate.contributionType ?: mutableListOf(),
+        this@CitationCitedArtifactContributorshipEntrySurrogate.contributionType ?: listOf(),
       role = this@CitationCitedArtifactContributorshipEntrySurrogate.role,
       contributionInstance =
-        this@CitationCitedArtifactContributorshipEntrySurrogate.contributionInstance
-          ?: mutableListOf(),
+        this@CitationCitedArtifactContributorshipEntrySurrogate.contributionInstance ?: listOf(),
       correspondingContact =
         R5Boolean.of(
           this@CitationCitedArtifactContributorshipEntrySurrogate.correspondingContact,
@@ -946,8 +937,8 @@ internal data class CitationCitedArtifactContributorshipEntrySurrogate(
 @Serializable
 internal data class CitationCitedArtifactContributorshipEntryContributionInstanceSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var type: CodeableConcept,
   public var time: KotlinString? = null,
   public var _time: Element? = null,
@@ -957,10 +948,10 @@ internal data class CitationCitedArtifactContributorshipEntryContributionInstanc
       id = this@CitationCitedArtifactContributorshipEntryContributionInstanceSurrogate.id,
       extension =
         this@CitationCitedArtifactContributorshipEntryContributionInstanceSurrogate.extension
-          ?: mutableListOf(),
+          ?: listOf(),
       modifierExtension =
         this@CitationCitedArtifactContributorshipEntryContributionInstanceSurrogate
-          .modifierExtension ?: mutableListOf(),
+          .modifierExtension ?: listOf(),
       type = this@CitationCitedArtifactContributorshipEntryContributionInstanceSurrogate.type,
       time =
         DateTime.of(
@@ -991,8 +982,8 @@ internal data class CitationCitedArtifactContributorshipEntryContributionInstanc
 @Serializable
 internal data class CitationCitedArtifactContributorshipSummarySurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var type: CodeableConcept? = null,
   public var style: CodeableConcept? = null,
   public var source: CodeableConcept? = null,
@@ -1002,11 +993,9 @@ internal data class CitationCitedArtifactContributorshipSummarySurrogate(
   public fun toModel(): Citation.CitedArtifact.Contributorship.Summary =
     Citation.CitedArtifact.Contributorship.Summary(
       id = this@CitationCitedArtifactContributorshipSummarySurrogate.id,
-      extension =
-        this@CitationCitedArtifactContributorshipSummarySurrogate.extension ?: mutableListOf(),
+      extension = this@CitationCitedArtifactContributorshipSummarySurrogate.extension ?: listOf(),
       modifierExtension =
-        this@CitationCitedArtifactContributorshipSummarySurrogate.modifierExtension
-          ?: mutableListOf(),
+        this@CitationCitedArtifactContributorshipSummarySurrogate.modifierExtension ?: listOf(),
       type = this@CitationCitedArtifactContributorshipSummarySurrogate.type,
       style = this@CitationCitedArtifactContributorshipSummarySurrogate.style,
       source = this@CitationCitedArtifactContributorshipSummarySurrogate.source,
@@ -1072,12 +1061,12 @@ internal data class CitationSurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: MutableList<Resource>? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var contained: List<Resource>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var url: KotlinString? = null,
   public var _url: Element? = null,
-  public var identifier: MutableList<Identifier>? = null,
+  public var identifier: List<Identifier>? = null,
   public var version: KotlinString? = null,
   public var _version: Element? = null,
   public var versionAlgorithm: Citation.VersionAlgorithm? = null,
@@ -1093,11 +1082,11 @@ internal data class CitationSurrogate(
   public var _date: Element? = null,
   public var publisher: KotlinString? = null,
   public var _publisher: Element? = null,
-  public var contact: MutableList<ContactDetail>? = null,
+  public var contact: List<ContactDetail>? = null,
   public var description: KotlinString? = null,
   public var _description: Element? = null,
-  public var useContext: MutableList<UsageContext>? = null,
-  public var jurisdiction: MutableList<CodeableConcept>? = null,
+  public var useContext: List<UsageContext>? = null,
+  public var jurisdiction: List<CodeableConcept>? = null,
   public var purpose: KotlinString? = null,
   public var _purpose: Element? = null,
   public var copyright: KotlinString? = null,
@@ -1109,16 +1098,16 @@ internal data class CitationSurrogate(
   public var lastReviewDate: KotlinString? = null,
   public var _lastReviewDate: Element? = null,
   public var effectivePeriod: Period? = null,
-  public var author: MutableList<ContactDetail>? = null,
-  public var editor: MutableList<ContactDetail>? = null,
-  public var reviewer: MutableList<ContactDetail>? = null,
-  public var endorser: MutableList<ContactDetail>? = null,
-  public var summary: MutableList<Citation.Summary>? = null,
-  public var classification: MutableList<Citation.Classification>? = null,
-  public var note: MutableList<Annotation>? = null,
-  public var currentState: MutableList<CodeableConcept>? = null,
-  public var statusDate: MutableList<Citation.StatusDate>? = null,
-  public var relatedArtifact: MutableList<RelatedArtifact>? = null,
+  public var author: List<ContactDetail>? = null,
+  public var editor: List<ContactDetail>? = null,
+  public var reviewer: List<ContactDetail>? = null,
+  public var endorser: List<ContactDetail>? = null,
+  public var summary: List<Citation.Summary>? = null,
+  public var classification: List<Citation.Classification>? = null,
+  public var note: List<Annotation>? = null,
+  public var currentState: List<CodeableConcept>? = null,
+  public var statusDate: List<Citation.StatusDate>? = null,
+  public var relatedArtifact: List<RelatedArtifact>? = null,
   public var citedArtifact: Citation.CitedArtifact? = null,
 ) {
   public fun toModel(): Citation =
@@ -1129,11 +1118,11 @@ internal data class CitationSurrogate(
         Uri.of(this@CitationSurrogate.implicitRules, this@CitationSurrogate._implicitRules),
       language = Code.of(this@CitationSurrogate.language, this@CitationSurrogate._language),
       text = this@CitationSurrogate.text,
-      contained = this@CitationSurrogate.contained ?: mutableListOf(),
-      extension = this@CitationSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@CitationSurrogate.modifierExtension ?: mutableListOf(),
+      contained = this@CitationSurrogate.contained ?: listOf(),
+      extension = this@CitationSurrogate.extension ?: listOf(),
+      modifierExtension = this@CitationSurrogate.modifierExtension ?: listOf(),
       url = Uri.of(this@CitationSurrogate.url, this@CitationSurrogate._url),
-      identifier = this@CitationSurrogate.identifier ?: mutableListOf(),
+      identifier = this@CitationSurrogate.identifier ?: listOf(),
       version = R5String.of(this@CitationSurrogate.version, this@CitationSurrogate._version),
       versionAlgorithm = this@CitationSurrogate.versionAlgorithm,
       name = R5String.of(this@CitationSurrogate.name, this@CitationSurrogate._name),
@@ -1151,11 +1140,11 @@ internal data class CitationSurrogate(
           this@CitationSurrogate._date,
         ),
       publisher = R5String.of(this@CitationSurrogate.publisher, this@CitationSurrogate._publisher),
-      contact = this@CitationSurrogate.contact ?: mutableListOf(),
+      contact = this@CitationSurrogate.contact ?: listOf(),
       description =
         Markdown.of(this@CitationSurrogate.description, this@CitationSurrogate._description),
-      useContext = this@CitationSurrogate.useContext ?: mutableListOf(),
-      jurisdiction = this@CitationSurrogate.jurisdiction ?: mutableListOf(),
+      useContext = this@CitationSurrogate.useContext ?: listOf(),
+      jurisdiction = this@CitationSurrogate.jurisdiction ?: listOf(),
       purpose = Markdown.of(this@CitationSurrogate.purpose, this@CitationSurrogate._purpose),
       copyright = Markdown.of(this@CitationSurrogate.copyright, this@CitationSurrogate._copyright),
       copyrightLabel =
@@ -1171,16 +1160,16 @@ internal data class CitationSurrogate(
           this@CitationSurrogate._lastReviewDate,
         ),
       effectivePeriod = this@CitationSurrogate.effectivePeriod,
-      author = this@CitationSurrogate.author ?: mutableListOf(),
-      editor = this@CitationSurrogate.editor ?: mutableListOf(),
-      reviewer = this@CitationSurrogate.reviewer ?: mutableListOf(),
-      endorser = this@CitationSurrogate.endorser ?: mutableListOf(),
-      summary = this@CitationSurrogate.summary ?: mutableListOf(),
-      classification = this@CitationSurrogate.classification ?: mutableListOf(),
-      note = this@CitationSurrogate.note ?: mutableListOf(),
-      currentState = this@CitationSurrogate.currentState ?: mutableListOf(),
-      statusDate = this@CitationSurrogate.statusDate ?: mutableListOf(),
-      relatedArtifact = this@CitationSurrogate.relatedArtifact ?: mutableListOf(),
+      author = this@CitationSurrogate.author ?: listOf(),
+      editor = this@CitationSurrogate.editor ?: listOf(),
+      reviewer = this@CitationSurrogate.reviewer ?: listOf(),
+      endorser = this@CitationSurrogate.endorser ?: listOf(),
+      summary = this@CitationSurrogate.summary ?: listOf(),
+      classification = this@CitationSurrogate.classification ?: listOf(),
+      note = this@CitationSurrogate.note ?: listOf(),
+      currentState = this@CitationSurrogate.currentState ?: listOf(),
+      statusDate = this@CitationSurrogate.statusDate ?: listOf(),
+      relatedArtifact = this@CitationSurrogate.relatedArtifact ?: listOf(),
       citedArtifact = this@CitationSurrogate.citedArtifact,
     )
 

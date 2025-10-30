@@ -87,7 +87,7 @@ import kotlin.Double
 import kotlin.Int
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.datetime.LocalTime
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
@@ -95,8 +95,8 @@ import kotlinx.serialization.UseSerializers
 @Serializable
 internal data class ElementDefinitionSlicingSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var discriminator: MutableList<ElementDefinition.Slicing.Discriminator>? = null,
+  public var extension: List<Extension>? = null,
+  public var discriminator: List<ElementDefinition.Slicing.Discriminator>? = null,
   public var description: KotlinString? = null,
   public var _description: Element? = null,
   public var ordered: KotlinBoolean? = null,
@@ -107,8 +107,8 @@ internal data class ElementDefinitionSlicingSurrogate(
   public fun toModel(): ElementDefinition.Slicing =
     ElementDefinition.Slicing(
       id = this@ElementDefinitionSlicingSurrogate.id,
-      extension = this@ElementDefinitionSlicingSurrogate.extension ?: mutableListOf(),
-      discriminator = this@ElementDefinitionSlicingSurrogate.discriminator ?: mutableListOf(),
+      extension = this@ElementDefinitionSlicingSurrogate.extension ?: listOf(),
+      discriminator = this@ElementDefinitionSlicingSurrogate.discriminator ?: listOf(),
       description =
         R5String.of(
           this@ElementDefinitionSlicingSurrogate.description,
@@ -147,7 +147,7 @@ internal data class ElementDefinitionSlicingSurrogate(
 @Serializable
 internal data class ElementDefinitionSlicingDiscriminatorSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
   public var type: KotlinString? = null,
   public var _type: Element? = null,
   public var path: KotlinString? = null,
@@ -156,7 +156,7 @@ internal data class ElementDefinitionSlicingDiscriminatorSurrogate(
   public fun toModel(): ElementDefinition.Slicing.Discriminator =
     ElementDefinition.Slicing.Discriminator(
       id = this@ElementDefinitionSlicingDiscriminatorSurrogate.id,
-      extension = this@ElementDefinitionSlicingDiscriminatorSurrogate.extension ?: mutableListOf(),
+      extension = this@ElementDefinitionSlicingDiscriminatorSurrogate.extension ?: listOf(),
       type =
         Enumeration.of(
           ElementDefinition.DiscriminatorType.fromCode(
@@ -191,7 +191,7 @@ internal data class ElementDefinitionSlicingDiscriminatorSurrogate(
 @Serializable
 internal data class ElementDefinitionBaseSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
   public var path: KotlinString? = null,
   public var _path: Element? = null,
   public var min: Int? = null,
@@ -202,7 +202,7 @@ internal data class ElementDefinitionBaseSurrogate(
   public fun toModel(): ElementDefinition.Base =
     ElementDefinition.Base(
       id = this@ElementDefinitionBaseSurrogate.id,
-      extension = this@ElementDefinitionBaseSurrogate.extension ?: mutableListOf(),
+      extension = this@ElementDefinitionBaseSurrogate.extension ?: listOf(),
       path =
         R5String.of(
           this@ElementDefinitionBaseSurrogate.path,
@@ -240,22 +240,22 @@ internal data class ElementDefinitionBaseSurrogate(
 @Serializable
 internal data class ElementDefinitionTypeSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
   public var code: KotlinString? = null,
   public var _code: Element? = null,
-  public var profile: MutableList<KotlinString?>? = null,
-  public var _profile: MutableList<Element?>? = null,
-  public var targetProfile: MutableList<KotlinString?>? = null,
-  public var _targetProfile: MutableList<Element?>? = null,
-  public var aggregation: MutableList<KotlinString?>? = null,
-  public var _aggregation: MutableList<Element?>? = null,
+  public var profile: List<KotlinString?>? = null,
+  public var _profile: List<Element?>? = null,
+  public var targetProfile: List<KotlinString?>? = null,
+  public var _targetProfile: List<Element?>? = null,
+  public var aggregation: List<KotlinString?>? = null,
+  public var _aggregation: List<Element?>? = null,
   public var versioning: KotlinString? = null,
   public var _versioning: Element? = null,
 ) {
   public fun toModel(): ElementDefinition.Type =
     ElementDefinition.Type(
       id = this@ElementDefinitionTypeSurrogate.id,
-      extension = this@ElementDefinitionTypeSurrogate.extension ?: mutableListOf(),
+      extension = this@ElementDefinitionTypeSurrogate.extension ?: listOf(),
       code =
         Uri.of(
           this@ElementDefinitionTypeSurrogate.code,
@@ -266,7 +266,7 @@ internal data class ElementDefinitionTypeSurrogate(
           this@ElementDefinitionTypeSurrogate.profile == null &&
             this@ElementDefinitionTypeSurrogate._profile == null
         ) {
-          mutableListOf()
+          listOf()
         } else {
           (this@ElementDefinitionTypeSurrogate.profile
               ?: List(this@ElementDefinitionTypeSurrogate._profile!!.size) { null })
@@ -275,14 +275,14 @@ internal data class ElementDefinitionTypeSurrogate(
                 ?: List(this@ElementDefinitionTypeSurrogate.profile!!.size) { null }
             )
             .map { (value, element) -> Canonical.of(value, element)!! }
-            .toMutableList()
+            .toList()
         },
       targetProfile =
         if (
           this@ElementDefinitionTypeSurrogate.targetProfile == null &&
             this@ElementDefinitionTypeSurrogate._targetProfile == null
         ) {
-          mutableListOf()
+          listOf()
         } else {
           (this@ElementDefinitionTypeSurrogate.targetProfile
               ?: List(this@ElementDefinitionTypeSurrogate._targetProfile!!.size) { null })
@@ -291,14 +291,14 @@ internal data class ElementDefinitionTypeSurrogate(
                 ?: List(this@ElementDefinitionTypeSurrogate.targetProfile!!.size) { null }
             )
             .map { (value, element) -> Canonical.of(value, element)!! }
-            .toMutableList()
+            .toList()
         },
       aggregation =
         if (
           this@ElementDefinitionTypeSurrogate.aggregation == null &&
             this@ElementDefinitionTypeSurrogate._aggregation == null
         ) {
-          mutableListOf()
+          listOf()
         } else {
           (this@ElementDefinitionTypeSurrogate.aggregation
               ?: List(this@ElementDefinitionTypeSurrogate._aggregation!!.size) { null })
@@ -312,7 +312,7 @@ internal data class ElementDefinitionTypeSurrogate(
                 element,
               )
             }
-            .toMutableList()
+            .toList()
         },
       versioning =
         this@ElementDefinitionTypeSurrogate.versioning?.let {
@@ -332,35 +332,32 @@ internal data class ElementDefinitionTypeSurrogate(
           code = this@with.code.value,
           _code = this@with.code.toElement(),
           profile =
-            this@with.profile.map { it.value }.toMutableList().takeUnless { it.all { it == null } },
+            this@with.profile.map { it.value }.toList().takeUnless { it.all { it == null } },
           _profile =
             this@with.profile
               .map { it.toElement() }
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
-              ?.toMutableList(),
+              ?.toList(),
           targetProfile =
-            this@with.targetProfile
-              .map { it.value }
-              .toMutableList()
-              .takeUnless { it.all { it == null } },
+            this@with.targetProfile.map { it.value }.toList().takeUnless { it.all { it == null } },
           _targetProfile =
             this@with.targetProfile
               .map { it.toElement() }
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
-              ?.toMutableList(),
+              ?.toList(),
           aggregation =
             this@with.aggregation
               .map { it.value?.getCode() }
-              .toMutableList()
+              .toList()
               .takeUnless { it.all { it == null } },
           _aggregation =
             this@with.aggregation
               .map { it.toElement() }
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
-              ?.toMutableList(),
+              ?.toList(),
           versioning = this@with.versioning?.value?.getCode(),
           _versioning = this@with.versioning?.toElement(),
         )
@@ -371,7 +368,7 @@ internal data class ElementDefinitionTypeSurrogate(
 @Serializable
 internal data class ElementDefinitionExampleSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
   public var label: KotlinString? = null,
   public var _label: Element? = null,
   public var `value`: ElementDefinition.Example.Value,
@@ -379,7 +376,7 @@ internal data class ElementDefinitionExampleSurrogate(
   public fun toModel(): ElementDefinition.Example =
     ElementDefinition.Example(
       id = this@ElementDefinitionExampleSurrogate.id,
-      extension = this@ElementDefinitionExampleSurrogate.extension ?: mutableListOf(),
+      extension = this@ElementDefinitionExampleSurrogate.extension ?: listOf(),
       label =
         R5String.of(
           this@ElementDefinitionExampleSurrogate.label,
@@ -405,7 +402,7 @@ internal data class ElementDefinitionExampleSurrogate(
 @Serializable
 internal data class ElementDefinitionConstraintSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
   public var key: KotlinString? = null,
   public var _key: Element? = null,
   public var requirements: KotlinString? = null,
@@ -424,7 +421,7 @@ internal data class ElementDefinitionConstraintSurrogate(
   public fun toModel(): ElementDefinition.Constraint =
     ElementDefinition.Constraint(
       id = this@ElementDefinitionConstraintSurrogate.id,
-      extension = this@ElementDefinitionConstraintSurrogate.extension ?: mutableListOf(),
+      extension = this@ElementDefinitionConstraintSurrogate.extension ?: listOf(),
       key =
         Id.of(
           this@ElementDefinitionConstraintSurrogate.key,
@@ -494,19 +491,19 @@ internal data class ElementDefinitionConstraintSurrogate(
 @Serializable
 internal data class ElementDefinitionBindingSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
   public var strength: KotlinString? = null,
   public var _strength: Element? = null,
   public var description: KotlinString? = null,
   public var _description: Element? = null,
   public var valueSet: KotlinString? = null,
   public var _valueSet: Element? = null,
-  public var additional: MutableList<ElementDefinition.Binding.Additional>? = null,
+  public var additional: List<ElementDefinition.Binding.Additional>? = null,
 ) {
   public fun toModel(): ElementDefinition.Binding =
     ElementDefinition.Binding(
       id = this@ElementDefinitionBindingSurrogate.id,
-      extension = this@ElementDefinitionBindingSurrogate.extension ?: mutableListOf(),
+      extension = this@ElementDefinitionBindingSurrogate.extension ?: listOf(),
       strength =
         Enumeration.of(
           BindingStrength.fromCode(this@ElementDefinitionBindingSurrogate.strength!!),
@@ -522,7 +519,7 @@ internal data class ElementDefinitionBindingSurrogate(
           this@ElementDefinitionBindingSurrogate.valueSet,
           this@ElementDefinitionBindingSurrogate._valueSet,
         ),
-      additional = this@ElementDefinitionBindingSurrogate.additional ?: mutableListOf(),
+      additional = this@ElementDefinitionBindingSurrogate.additional ?: listOf(),
     )
 
   public companion object {
@@ -546,7 +543,7 @@ internal data class ElementDefinitionBindingSurrogate(
 @Serializable
 internal data class ElementDefinitionBindingAdditionalSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
   public var purpose: KotlinString? = null,
   public var _purpose: Element? = null,
   public var valueSet: KotlinString? = null,
@@ -555,14 +552,14 @@ internal data class ElementDefinitionBindingAdditionalSurrogate(
   public var _documentation: Element? = null,
   public var shortDoco: KotlinString? = null,
   public var _shortDoco: Element? = null,
-  public var usage: MutableList<UsageContext>? = null,
+  public var usage: List<UsageContext>? = null,
   public var any: KotlinBoolean? = null,
   public var _any: Element? = null,
 ) {
   public fun toModel(): ElementDefinition.Binding.Additional =
     ElementDefinition.Binding.Additional(
       id = this@ElementDefinitionBindingAdditionalSurrogate.id,
-      extension = this@ElementDefinitionBindingAdditionalSurrogate.extension ?: mutableListOf(),
+      extension = this@ElementDefinitionBindingAdditionalSurrogate.extension ?: listOf(),
       purpose =
         Enumeration.of(
           ElementDefinition.AdditionalBindingPurposeVS.fromCode(
@@ -585,7 +582,7 @@ internal data class ElementDefinitionBindingAdditionalSurrogate(
           this@ElementDefinitionBindingAdditionalSurrogate.shortDoco,
           this@ElementDefinitionBindingAdditionalSurrogate._shortDoco,
         ),
-      usage = this@ElementDefinitionBindingAdditionalSurrogate.usage ?: mutableListOf(),
+      usage = this@ElementDefinitionBindingAdditionalSurrogate.usage ?: listOf(),
       any =
         R5Boolean.of(
           this@ElementDefinitionBindingAdditionalSurrogate.any,
@@ -620,7 +617,7 @@ internal data class ElementDefinitionBindingAdditionalSurrogate(
 @Serializable
 internal data class ElementDefinitionMappingSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
   public var identity: KotlinString? = null,
   public var _identity: Element? = null,
   public var language: KotlinString? = null,
@@ -633,7 +630,7 @@ internal data class ElementDefinitionMappingSurrogate(
   public fun toModel(): ElementDefinition.Mapping =
     ElementDefinition.Mapping(
       id = this@ElementDefinitionMappingSurrogate.id,
-      extension = this@ElementDefinitionMappingSurrogate.extension ?: mutableListOf(),
+      extension = this@ElementDefinitionMappingSurrogate.extension ?: listOf(),
       identity =
         Id.of(
           this@ElementDefinitionMappingSurrogate.identity,
@@ -1976,19 +1973,19 @@ internal data class ElementDefinitionMaxValueSurrogate(
 @Serializable
 internal data class ElementDefinitionSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var path: KotlinString? = null,
   public var _path: Element? = null,
-  public var representation: MutableList<KotlinString?>? = null,
-  public var _representation: MutableList<Element?>? = null,
+  public var representation: List<KotlinString?>? = null,
+  public var _representation: List<Element?>? = null,
   public var sliceName: KotlinString? = null,
   public var _sliceName: Element? = null,
   public var sliceIsConstraining: KotlinBoolean? = null,
   public var _sliceIsConstraining: Element? = null,
   public var label: KotlinString? = null,
   public var _label: Element? = null,
-  public var code: MutableList<Coding>? = null,
+  public var code: List<Coding>? = null,
   public var slicing: ElementDefinition.Slicing? = null,
   public var short: KotlinString? = null,
   public var _short: Element? = null,
@@ -1998,8 +1995,8 @@ internal data class ElementDefinitionSurrogate(
   public var _comment: Element? = null,
   public var requirements: KotlinString? = null,
   public var _requirements: Element? = null,
-  public var alias: MutableList<KotlinString?>? = null,
-  public var _alias: MutableList<Element?>? = null,
+  public var alias: List<KotlinString?>? = null,
+  public var _alias: List<Element?>? = null,
   public var min: Int? = null,
   public var _min: Element? = null,
   public var max: KotlinString? = null,
@@ -2007,7 +2004,7 @@ internal data class ElementDefinitionSurrogate(
   public var base: ElementDefinition.Base? = null,
   public var contentReference: KotlinString? = null,
   public var _contentReference: Element? = null,
-  public var type: MutableList<ElementDefinition.Type>? = null,
+  public var type: List<ElementDefinition.Type>? = null,
   public var defaultValue: ElementDefinition.DefaultValue? = null,
   public var meaningWhenMissing: KotlinString? = null,
   public var _meaningWhenMissing: Element? = null,
@@ -2015,18 +2012,18 @@ internal data class ElementDefinitionSurrogate(
   public var _orderMeaning: Element? = null,
   public var fixed: ElementDefinition.Fixed? = null,
   public var pattern: ElementDefinition.Pattern? = null,
-  public var example: MutableList<ElementDefinition.Example>? = null,
+  public var example: List<ElementDefinition.Example>? = null,
   public var minValue: ElementDefinition.MinValue? = null,
   public var maxValue: ElementDefinition.MaxValue? = null,
   public var maxLength: Int? = null,
   public var _maxLength: Element? = null,
-  public var condition: MutableList<KotlinString?>? = null,
-  public var _condition: MutableList<Element?>? = null,
-  public var constraint: MutableList<ElementDefinition.Constraint>? = null,
+  public var condition: List<KotlinString?>? = null,
+  public var _condition: List<Element?>? = null,
+  public var constraint: List<ElementDefinition.Constraint>? = null,
   public var mustHaveValue: KotlinBoolean? = null,
   public var _mustHaveValue: Element? = null,
-  public var valueAlternatives: MutableList<KotlinString?>? = null,
-  public var _valueAlternatives: MutableList<Element?>? = null,
+  public var valueAlternatives: List<KotlinString?>? = null,
+  public var _valueAlternatives: List<Element?>? = null,
   public var mustSupport: KotlinBoolean? = null,
   public var _mustSupport: Element? = null,
   public var isModifier: KotlinBoolean? = null,
@@ -2036,13 +2033,13 @@ internal data class ElementDefinitionSurrogate(
   public var isSummary: KotlinBoolean? = null,
   public var _isSummary: Element? = null,
   public var binding: ElementDefinition.Binding? = null,
-  public var mapping: MutableList<ElementDefinition.Mapping>? = null,
+  public var mapping: List<ElementDefinition.Mapping>? = null,
 ) {
   public fun toModel(): ElementDefinition =
     ElementDefinition(
       id = this@ElementDefinitionSurrogate.id,
-      extension = this@ElementDefinitionSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@ElementDefinitionSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@ElementDefinitionSurrogate.extension ?: listOf(),
+      modifierExtension = this@ElementDefinitionSurrogate.modifierExtension ?: listOf(),
       path =
         R5String.of(this@ElementDefinitionSurrogate.path, this@ElementDefinitionSurrogate._path)!!,
       representation =
@@ -2050,7 +2047,7 @@ internal data class ElementDefinitionSurrogate(
           this@ElementDefinitionSurrogate.representation == null &&
             this@ElementDefinitionSurrogate._representation == null
         ) {
-          mutableListOf()
+          listOf()
         } else {
           (this@ElementDefinitionSurrogate.representation
               ?: List(this@ElementDefinitionSurrogate._representation!!.size) { null })
@@ -2064,7 +2061,7 @@ internal data class ElementDefinitionSurrogate(
                 element,
               )
             }
-            .toMutableList()
+            .toList()
         },
       sliceName =
         R5String.of(
@@ -2078,7 +2075,7 @@ internal data class ElementDefinitionSurrogate(
         ),
       label =
         R5String.of(this@ElementDefinitionSurrogate.label, this@ElementDefinitionSurrogate._label),
-      code = this@ElementDefinitionSurrogate.code ?: mutableListOf(),
+      code = this@ElementDefinitionSurrogate.code ?: listOf(),
       slicing = this@ElementDefinitionSurrogate.slicing,
       short =
         R5String.of(this@ElementDefinitionSurrogate.short, this@ElementDefinitionSurrogate._short),
@@ -2102,7 +2099,7 @@ internal data class ElementDefinitionSurrogate(
           this@ElementDefinitionSurrogate.alias == null &&
             this@ElementDefinitionSurrogate._alias == null
         ) {
-          mutableListOf()
+          listOf()
         } else {
           (this@ElementDefinitionSurrogate.alias
               ?: List(this@ElementDefinitionSurrogate._alias!!.size) { null })
@@ -2111,7 +2108,7 @@ internal data class ElementDefinitionSurrogate(
                 ?: List(this@ElementDefinitionSurrogate.alias!!.size) { null }
             )
             .map { (value, element) -> R5String.of(value, element)!! }
-            .toMutableList()
+            .toList()
         },
       min =
         UnsignedInt.of(this@ElementDefinitionSurrogate.min, this@ElementDefinitionSurrogate._min),
@@ -2122,7 +2119,7 @@ internal data class ElementDefinitionSurrogate(
           this@ElementDefinitionSurrogate.contentReference,
           this@ElementDefinitionSurrogate._contentReference,
         ),
-      type = this@ElementDefinitionSurrogate.type ?: mutableListOf(),
+      type = this@ElementDefinitionSurrogate.type ?: listOf(),
       defaultValue = this@ElementDefinitionSurrogate.defaultValue,
       meaningWhenMissing =
         Markdown.of(
@@ -2136,7 +2133,7 @@ internal data class ElementDefinitionSurrogate(
         ),
       fixed = this@ElementDefinitionSurrogate.fixed,
       pattern = this@ElementDefinitionSurrogate.pattern,
-      example = this@ElementDefinitionSurrogate.example ?: mutableListOf(),
+      example = this@ElementDefinitionSurrogate.example ?: listOf(),
       minValue = this@ElementDefinitionSurrogate.minValue,
       maxValue = this@ElementDefinitionSurrogate.maxValue,
       maxLength =
@@ -2149,7 +2146,7 @@ internal data class ElementDefinitionSurrogate(
           this@ElementDefinitionSurrogate.condition == null &&
             this@ElementDefinitionSurrogate._condition == null
         ) {
-          mutableListOf()
+          listOf()
         } else {
           (this@ElementDefinitionSurrogate.condition
               ?: List(this@ElementDefinitionSurrogate._condition!!.size) { null })
@@ -2158,9 +2155,9 @@ internal data class ElementDefinitionSurrogate(
                 ?: List(this@ElementDefinitionSurrogate.condition!!.size) { null }
             )
             .map { (value, element) -> Id.of(value, element)!! }
-            .toMutableList()
+            .toList()
         },
-      constraint = this@ElementDefinitionSurrogate.constraint ?: mutableListOf(),
+      constraint = this@ElementDefinitionSurrogate.constraint ?: listOf(),
       mustHaveValue =
         R5Boolean.of(
           this@ElementDefinitionSurrogate.mustHaveValue,
@@ -2171,7 +2168,7 @@ internal data class ElementDefinitionSurrogate(
           this@ElementDefinitionSurrogate.valueAlternatives == null &&
             this@ElementDefinitionSurrogate._valueAlternatives == null
         ) {
-          mutableListOf()
+          listOf()
         } else {
           (this@ElementDefinitionSurrogate.valueAlternatives
               ?: List(this@ElementDefinitionSurrogate._valueAlternatives!!.size) { null })
@@ -2180,7 +2177,7 @@ internal data class ElementDefinitionSurrogate(
                 ?: List(this@ElementDefinitionSurrogate.valueAlternatives!!.size) { null }
             )
             .map { (value, element) -> Canonical.of(value, element)!! }
-            .toMutableList()
+            .toList()
         },
       mustSupport =
         R5Boolean.of(
@@ -2203,7 +2200,7 @@ internal data class ElementDefinitionSurrogate(
           this@ElementDefinitionSurrogate._isSummary,
         ),
       binding = this@ElementDefinitionSurrogate.binding,
-      mapping = this@ElementDefinitionSurrogate.mapping ?: mutableListOf(),
+      mapping = this@ElementDefinitionSurrogate.mapping ?: listOf(),
     )
 
   public companion object {
@@ -2218,14 +2215,14 @@ internal data class ElementDefinitionSurrogate(
           representation =
             this@with.representation
               .map { it.value?.getCode() }
-              .toMutableList()
+              .toList()
               .takeUnless { it.all { it == null } },
           _representation =
             this@with.representation
               .map { it.toElement() }
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
-              ?.toMutableList(),
+              ?.toList(),
           sliceName = this@with.sliceName?.value,
           _sliceName = this@with.sliceName?.toElement(),
           sliceIsConstraining = this@with.sliceIsConstraining?.value,
@@ -2242,14 +2239,13 @@ internal data class ElementDefinitionSurrogate(
           _comment = this@with.comment?.toElement(),
           requirements = this@with.requirements?.value,
           _requirements = this@with.requirements?.toElement(),
-          alias =
-            this@with.alias.map { it.value }.toMutableList().takeUnless { it.all { it == null } },
+          alias = this@with.alias.map { it.value }.toList().takeUnless { it.all { it == null } },
           _alias =
             this@with.alias
               .map { it.toElement() }
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
-              ?.toMutableList(),
+              ?.toList(),
           min = this@with.min?.value,
           _min = this@with.min?.toElement(),
           max = this@with.max?.value,
@@ -2271,30 +2267,27 @@ internal data class ElementDefinitionSurrogate(
           maxLength = this@with.maxLength?.value,
           _maxLength = this@with.maxLength?.toElement(),
           condition =
-            this@with.condition
-              .map { it.value }
-              .toMutableList()
-              .takeUnless { it.all { it == null } },
+            this@with.condition.map { it.value }.toList().takeUnless { it.all { it == null } },
           _condition =
             this@with.condition
               .map { it.toElement() }
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
-              ?.toMutableList(),
+              ?.toList(),
           constraint = this@with.constraint.takeIf { it.isNotEmpty() },
           mustHaveValue = this@with.mustHaveValue?.value,
           _mustHaveValue = this@with.mustHaveValue?.toElement(),
           valueAlternatives =
             this@with.valueAlternatives
               .map { it.value }
-              .toMutableList()
+              .toList()
               .takeUnless { it.all { it == null } },
           _valueAlternatives =
             this@with.valueAlternatives
               .map { it.toElement() }
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
-              ?.toMutableList(),
+              ?.toList(),
           mustSupport = this@with.mustSupport?.value,
           _mustSupport = this@with.mustSupport?.toElement(),
           isModifier = this@with.isModifier?.value,

@@ -49,18 +49,18 @@ import kotlin.Boolean as KotlinBoolean
 import kotlin.Int
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class PatientContactSurrogate(
   public var id: String? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var relationship: MutableList<CodeableConcept>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
+  public var relationship: List<CodeableConcept>? = null,
   public var name: HumanName? = null,
-  public var telecom: MutableList<ContactPoint>? = null,
+  public var telecom: List<ContactPoint>? = null,
   public var address: Address? = null,
   public var gender: String? = null,
   public var _gender: Element? = null,
@@ -70,11 +70,11 @@ internal data class PatientContactSurrogate(
   public fun toModel(): Patient.Contact =
     Patient.Contact(
       id = this@PatientContactSurrogate.id,
-      extension = this@PatientContactSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@PatientContactSurrogate.modifierExtension ?: mutableListOf(),
-      relationship = this@PatientContactSurrogate.relationship ?: mutableListOf(),
+      extension = this@PatientContactSurrogate.extension ?: listOf(),
+      modifierExtension = this@PatientContactSurrogate.modifierExtension ?: listOf(),
+      relationship = this@PatientContactSurrogate.relationship ?: listOf(),
       name = this@PatientContactSurrogate.name,
-      telecom = this@PatientContactSurrogate.telecom ?: mutableListOf(),
+      telecom = this@PatientContactSurrogate.telecom ?: listOf(),
       address = this@PatientContactSurrogate.address,
       gender =
         this@PatientContactSurrogate.gender?.let {
@@ -107,8 +107,8 @@ internal data class PatientContactSurrogate(
 @Serializable
 internal data class PatientCommunicationSurrogate(
   public var id: String? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var language: CodeableConcept,
   public var preferred: KotlinBoolean? = null,
   public var _preferred: Element? = null,
@@ -116,8 +116,8 @@ internal data class PatientCommunicationSurrogate(
   public fun toModel(): Patient.Communication =
     Patient.Communication(
       id = this@PatientCommunicationSurrogate.id,
-      extension = this@PatientCommunicationSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@PatientCommunicationSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@PatientCommunicationSurrogate.extension ?: listOf(),
+      modifierExtension = this@PatientCommunicationSurrogate.modifierExtension ?: listOf(),
       language = this@PatientCommunicationSurrogate.language,
       preferred =
         R5Boolean.of(
@@ -144,8 +144,8 @@ internal data class PatientCommunicationSurrogate(
 @Serializable
 internal data class PatientLinkSurrogate(
   public var id: String? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var other: Reference,
   public var type: String? = null,
   public var _type: Element? = null,
@@ -153,8 +153,8 @@ internal data class PatientLinkSurrogate(
   public fun toModel(): Patient.Link =
     Patient.Link(
       id = this@PatientLinkSurrogate.id,
-      extension = this@PatientLinkSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@PatientLinkSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@PatientLinkSurrogate.extension ?: listOf(),
+      modifierExtension = this@PatientLinkSurrogate.modifierExtension ?: listOf(),
       other = this@PatientLinkSurrogate.other,
       type =
         Enumeration.of(
@@ -251,28 +251,28 @@ internal data class PatientSurrogate(
   public var language: String? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: MutableList<Resource>? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var identifier: MutableList<Identifier>? = null,
+  public var contained: List<Resource>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
+  public var identifier: List<Identifier>? = null,
   public var active: KotlinBoolean? = null,
   public var _active: Element? = null,
-  public var name: MutableList<HumanName>? = null,
-  public var telecom: MutableList<ContactPoint>? = null,
+  public var name: List<HumanName>? = null,
+  public var telecom: List<ContactPoint>? = null,
   public var gender: String? = null,
   public var _gender: Element? = null,
   public var birthDate: String? = null,
   public var _birthDate: Element? = null,
   public var deceased: Patient.Deceased? = null,
-  public var address: MutableList<Address>? = null,
+  public var address: List<Address>? = null,
   public var maritalStatus: CodeableConcept? = null,
   public var multipleBirth: Patient.MultipleBirth? = null,
-  public var photo: MutableList<Attachment>? = null,
-  public var contact: MutableList<Patient.Contact>? = null,
-  public var communication: MutableList<Patient.Communication>? = null,
-  public var generalPractitioner: MutableList<Reference>? = null,
+  public var photo: List<Attachment>? = null,
+  public var contact: List<Patient.Contact>? = null,
+  public var communication: List<Patient.Communication>? = null,
+  public var generalPractitioner: List<Reference>? = null,
   public var managingOrganization: Reference? = null,
-  public var link: MutableList<Patient.Link>? = null,
+  public var link: List<Patient.Link>? = null,
 ) {
   public fun toModel(): Patient =
     Patient(
@@ -282,13 +282,13 @@ internal data class PatientSurrogate(
         Uri.of(this@PatientSurrogate.implicitRules, this@PatientSurrogate._implicitRules),
       language = Code.of(this@PatientSurrogate.language, this@PatientSurrogate._language),
       text = this@PatientSurrogate.text,
-      contained = this@PatientSurrogate.contained ?: mutableListOf(),
-      extension = this@PatientSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@PatientSurrogate.modifierExtension ?: mutableListOf(),
-      identifier = this@PatientSurrogate.identifier ?: mutableListOf(),
+      contained = this@PatientSurrogate.contained ?: listOf(),
+      extension = this@PatientSurrogate.extension ?: listOf(),
+      modifierExtension = this@PatientSurrogate.modifierExtension ?: listOf(),
+      identifier = this@PatientSurrogate.identifier ?: listOf(),
       active = R5Boolean.of(this@PatientSurrogate.active, this@PatientSurrogate._active),
-      name = this@PatientSurrogate.name ?: mutableListOf(),
-      telecom = this@PatientSurrogate.telecom ?: mutableListOf(),
+      name = this@PatientSurrogate.name ?: listOf(),
+      telecom = this@PatientSurrogate.telecom ?: listOf(),
       gender =
         this@PatientSurrogate.gender?.let {
           Enumeration.of(AdministrativeGender.fromCode(it), this@PatientSurrogate._gender)
@@ -299,15 +299,15 @@ internal data class PatientSurrogate(
           this@PatientSurrogate._birthDate,
         ),
       deceased = this@PatientSurrogate.deceased,
-      address = this@PatientSurrogate.address ?: mutableListOf(),
+      address = this@PatientSurrogate.address ?: listOf(),
       maritalStatus = this@PatientSurrogate.maritalStatus,
       multipleBirth = this@PatientSurrogate.multipleBirth,
-      photo = this@PatientSurrogate.photo ?: mutableListOf(),
-      contact = this@PatientSurrogate.contact ?: mutableListOf(),
-      communication = this@PatientSurrogate.communication ?: mutableListOf(),
-      generalPractitioner = this@PatientSurrogate.generalPractitioner ?: mutableListOf(),
+      photo = this@PatientSurrogate.photo ?: listOf(),
+      contact = this@PatientSurrogate.contact ?: listOf(),
+      communication = this@PatientSurrogate.communication ?: listOf(),
+      generalPractitioner = this@PatientSurrogate.generalPractitioner ?: listOf(),
       managingOrganization = this@PatientSurrogate.managingOrganization,
-      link = this@PatientSurrogate.link ?: mutableListOf(),
+      link = this@PatientSurrogate.link ?: listOf(),
     )
 
   public companion object {

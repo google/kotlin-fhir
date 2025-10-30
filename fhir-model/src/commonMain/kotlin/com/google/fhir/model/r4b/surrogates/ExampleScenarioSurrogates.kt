@@ -45,15 +45,15 @@ import com.google.fhir.model.r4b.terminologies.ResourceType
 import kotlin.Boolean as KotlinBoolean
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class ExampleScenarioActorSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var actorId: KotlinString? = null,
   public var _actorId: Element? = null,
   public var type: KotlinString? = null,
@@ -66,8 +66,8 @@ internal data class ExampleScenarioActorSurrogate(
   public fun toModel(): ExampleScenario.Actor =
     ExampleScenario.Actor(
       id = this@ExampleScenarioActorSurrogate.id,
-      extension = this@ExampleScenarioActorSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@ExampleScenarioActorSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@ExampleScenarioActorSurrogate.extension ?: listOf(),
+      modifierExtension = this@ExampleScenarioActorSurrogate.modifierExtension ?: listOf(),
       actorId =
         R4bString.of(
           this@ExampleScenarioActorSurrogate.actorId,
@@ -115,8 +115,8 @@ internal data class ExampleScenarioActorSurrogate(
 @Serializable
 internal data class ExampleScenarioInstanceSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var resourceId: KotlinString? = null,
   public var _resourceId: Element? = null,
   public var resourceType: KotlinString? = null,
@@ -125,15 +125,14 @@ internal data class ExampleScenarioInstanceSurrogate(
   public var _name: Element? = null,
   public var description: KotlinString? = null,
   public var _description: Element? = null,
-  public var version: MutableList<ExampleScenario.Instance.Version>? = null,
-  public var containedInstance: MutableList<ExampleScenario.Instance.ContainedInstance>? = null,
+  public var version: List<ExampleScenario.Instance.Version>? = null,
+  public var containedInstance: List<ExampleScenario.Instance.ContainedInstance>? = null,
 ) {
   public fun toModel(): ExampleScenario.Instance =
     ExampleScenario.Instance(
       id = this@ExampleScenarioInstanceSurrogate.id,
-      extension = this@ExampleScenarioInstanceSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@ExampleScenarioInstanceSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@ExampleScenarioInstanceSurrogate.extension ?: listOf(),
+      modifierExtension = this@ExampleScenarioInstanceSurrogate.modifierExtension ?: listOf(),
       resourceId =
         R4bString.of(
           this@ExampleScenarioInstanceSurrogate.resourceId,
@@ -154,8 +153,8 @@ internal data class ExampleScenarioInstanceSurrogate(
           this@ExampleScenarioInstanceSurrogate.description,
           this@ExampleScenarioInstanceSurrogate._description,
         ),
-      version = this@ExampleScenarioInstanceSurrogate.version ?: mutableListOf(),
-      containedInstance = this@ExampleScenarioInstanceSurrogate.containedInstance ?: mutableListOf(),
+      version = this@ExampleScenarioInstanceSurrogate.version ?: listOf(),
+      containedInstance = this@ExampleScenarioInstanceSurrogate.containedInstance ?: listOf(),
     )
 
   public companion object {
@@ -183,8 +182,8 @@ internal data class ExampleScenarioInstanceSurrogate(
 @Serializable
 internal data class ExampleScenarioInstanceVersionSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var versionId: KotlinString? = null,
   public var _versionId: Element? = null,
   public var description: KotlinString? = null,
@@ -193,9 +192,9 @@ internal data class ExampleScenarioInstanceVersionSurrogate(
   public fun toModel(): ExampleScenario.Instance.Version =
     ExampleScenario.Instance.Version(
       id = this@ExampleScenarioInstanceVersionSurrogate.id,
-      extension = this@ExampleScenarioInstanceVersionSurrogate.extension ?: mutableListOf(),
+      extension = this@ExampleScenarioInstanceVersionSurrogate.extension ?: listOf(),
       modifierExtension =
-        this@ExampleScenarioInstanceVersionSurrogate.modifierExtension ?: mutableListOf(),
+        this@ExampleScenarioInstanceVersionSurrogate.modifierExtension ?: listOf(),
       versionId =
         R4bString.of(
           this@ExampleScenarioInstanceVersionSurrogate.versionId,
@@ -229,8 +228,8 @@ internal data class ExampleScenarioInstanceVersionSurrogate(
 @Serializable
 internal data class ExampleScenarioInstanceContainedInstanceSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var resourceId: KotlinString? = null,
   public var _resourceId: Element? = null,
   public var versionId: KotlinString? = null,
@@ -239,10 +238,9 @@ internal data class ExampleScenarioInstanceContainedInstanceSurrogate(
   public fun toModel(): ExampleScenario.Instance.ContainedInstance =
     ExampleScenario.Instance.ContainedInstance(
       id = this@ExampleScenarioInstanceContainedInstanceSurrogate.id,
-      extension =
-        this@ExampleScenarioInstanceContainedInstanceSurrogate.extension ?: mutableListOf(),
+      extension = this@ExampleScenarioInstanceContainedInstanceSurrogate.extension ?: listOf(),
       modifierExtension =
-        this@ExampleScenarioInstanceContainedInstanceSurrogate.modifierExtension ?: mutableListOf(),
+        this@ExampleScenarioInstanceContainedInstanceSurrogate.modifierExtension ?: listOf(),
       resourceId =
         R4bString.of(
           this@ExampleScenarioInstanceContainedInstanceSurrogate.resourceId,
@@ -276,8 +274,8 @@ internal data class ExampleScenarioInstanceContainedInstanceSurrogate(
 @Serializable
 internal data class ExampleScenarioProcessSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var title: KotlinString? = null,
   public var _title: Element? = null,
   public var description: KotlinString? = null,
@@ -286,13 +284,13 @@ internal data class ExampleScenarioProcessSurrogate(
   public var _preConditions: Element? = null,
   public var postConditions: KotlinString? = null,
   public var _postConditions: Element? = null,
-  public var step: MutableList<ExampleScenario.Process.Step>? = null,
+  public var step: List<ExampleScenario.Process.Step>? = null,
 ) {
   public fun toModel(): ExampleScenario.Process =
     ExampleScenario.Process(
       id = this@ExampleScenarioProcessSurrogate.id,
-      extension = this@ExampleScenarioProcessSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@ExampleScenarioProcessSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@ExampleScenarioProcessSurrogate.extension ?: listOf(),
+      modifierExtension = this@ExampleScenarioProcessSurrogate.modifierExtension ?: listOf(),
       title =
         R4bString.of(
           this@ExampleScenarioProcessSurrogate.title,
@@ -313,7 +311,7 @@ internal data class ExampleScenarioProcessSurrogate(
           this@ExampleScenarioProcessSurrogate.postConditions,
           this@ExampleScenarioProcessSurrogate._postConditions,
         ),
-      step = this@ExampleScenarioProcessSurrogate.step ?: mutableListOf(),
+      step = this@ExampleScenarioProcessSurrogate.step ?: listOf(),
     )
 
   public companion object {
@@ -340,28 +338,27 @@ internal data class ExampleScenarioProcessSurrogate(
 @Serializable
 internal data class ExampleScenarioProcessStepSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var process: MutableList<ExampleScenario.Process>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
+  public var process: List<ExampleScenario.Process>? = null,
   public var pause: KotlinBoolean? = null,
   public var _pause: Element? = null,
   public var operation: ExampleScenario.Process.Step.Operation? = null,
-  public var alternative: MutableList<ExampleScenario.Process.Step.Alternative>? = null,
+  public var alternative: List<ExampleScenario.Process.Step.Alternative>? = null,
 ) {
   public fun toModel(): ExampleScenario.Process.Step =
     ExampleScenario.Process.Step(
       id = this@ExampleScenarioProcessStepSurrogate.id,
-      extension = this@ExampleScenarioProcessStepSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@ExampleScenarioProcessStepSurrogate.modifierExtension ?: mutableListOf(),
-      process = this@ExampleScenarioProcessStepSurrogate.process ?: mutableListOf(),
+      extension = this@ExampleScenarioProcessStepSurrogate.extension ?: listOf(),
+      modifierExtension = this@ExampleScenarioProcessStepSurrogate.modifierExtension ?: listOf(),
+      process = this@ExampleScenarioProcessStepSurrogate.process ?: listOf(),
       pause =
         R4bBoolean.of(
           this@ExampleScenarioProcessStepSurrogate.pause,
           this@ExampleScenarioProcessStepSurrogate._pause,
         ),
       operation = this@ExampleScenarioProcessStepSurrogate.operation,
-      alternative = this@ExampleScenarioProcessStepSurrogate.alternative ?: mutableListOf(),
+      alternative = this@ExampleScenarioProcessStepSurrogate.alternative ?: listOf(),
     )
 
   public companion object {
@@ -384,8 +381,8 @@ internal data class ExampleScenarioProcessStepSurrogate(
 @Serializable
 internal data class ExampleScenarioProcessStepOperationSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var number: KotlinString? = null,
   public var _number: Element? = null,
   public var type: KotlinString? = null,
@@ -408,9 +405,9 @@ internal data class ExampleScenarioProcessStepOperationSurrogate(
   public fun toModel(): ExampleScenario.Process.Step.Operation =
     ExampleScenario.Process.Step.Operation(
       id = this@ExampleScenarioProcessStepOperationSurrogate.id,
-      extension = this@ExampleScenarioProcessStepOperationSurrogate.extension ?: mutableListOf(),
+      extension = this@ExampleScenarioProcessStepOperationSurrogate.extension ?: listOf(),
       modifierExtension =
-        this@ExampleScenarioProcessStepOperationSurrogate.modifierExtension ?: mutableListOf(),
+        this@ExampleScenarioProcessStepOperationSurrogate.modifierExtension ?: listOf(),
       number =
         R4bString.of(
           this@ExampleScenarioProcessStepOperationSurrogate.number,
@@ -490,20 +487,20 @@ internal data class ExampleScenarioProcessStepOperationSurrogate(
 @Serializable
 internal data class ExampleScenarioProcessStepAlternativeSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var title: KotlinString? = null,
   public var _title: Element? = null,
   public var description: KotlinString? = null,
   public var _description: Element? = null,
-  public var step: MutableList<ExampleScenario.Process.Step>? = null,
+  public var step: List<ExampleScenario.Process.Step>? = null,
 ) {
   public fun toModel(): ExampleScenario.Process.Step.Alternative =
     ExampleScenario.Process.Step.Alternative(
       id = this@ExampleScenarioProcessStepAlternativeSurrogate.id,
-      extension = this@ExampleScenarioProcessStepAlternativeSurrogate.extension ?: mutableListOf(),
+      extension = this@ExampleScenarioProcessStepAlternativeSurrogate.extension ?: listOf(),
       modifierExtension =
-        this@ExampleScenarioProcessStepAlternativeSurrogate.modifierExtension ?: mutableListOf(),
+        this@ExampleScenarioProcessStepAlternativeSurrogate.modifierExtension ?: listOf(),
       title =
         R4bString.of(
           this@ExampleScenarioProcessStepAlternativeSurrogate.title,
@@ -514,7 +511,7 @@ internal data class ExampleScenarioProcessStepAlternativeSurrogate(
           this@ExampleScenarioProcessStepAlternativeSurrogate.description,
           this@ExampleScenarioProcessStepAlternativeSurrogate._description,
         ),
-      step = this@ExampleScenarioProcessStepAlternativeSurrogate.step ?: mutableListOf(),
+      step = this@ExampleScenarioProcessStepAlternativeSurrogate.step ?: listOf(),
     )
 
   public companion object {
@@ -545,12 +542,12 @@ internal data class ExampleScenarioSurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: MutableList<Resource>? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var contained: List<Resource>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var url: KotlinString? = null,
   public var _url: Element? = null,
-  public var identifier: MutableList<Identifier>? = null,
+  public var identifier: List<Identifier>? = null,
   public var version: KotlinString? = null,
   public var _version: Element? = null,
   public var name: KotlinString? = null,
@@ -563,18 +560,18 @@ internal data class ExampleScenarioSurrogate(
   public var _date: Element? = null,
   public var publisher: KotlinString? = null,
   public var _publisher: Element? = null,
-  public var contact: MutableList<ContactDetail>? = null,
-  public var useContext: MutableList<UsageContext>? = null,
-  public var jurisdiction: MutableList<CodeableConcept>? = null,
+  public var contact: List<ContactDetail>? = null,
+  public var useContext: List<UsageContext>? = null,
+  public var jurisdiction: List<CodeableConcept>? = null,
   public var copyright: KotlinString? = null,
   public var _copyright: Element? = null,
   public var purpose: KotlinString? = null,
   public var _purpose: Element? = null,
-  public var actor: MutableList<ExampleScenario.Actor>? = null,
-  public var instance: MutableList<ExampleScenario.Instance>? = null,
-  public var process: MutableList<ExampleScenario.Process>? = null,
-  public var workflow: MutableList<KotlinString?>? = null,
-  public var _workflow: MutableList<Element?>? = null,
+  public var actor: List<ExampleScenario.Actor>? = null,
+  public var instance: List<ExampleScenario.Instance>? = null,
+  public var process: List<ExampleScenario.Process>? = null,
+  public var workflow: List<KotlinString?>? = null,
+  public var _workflow: List<Element?>? = null,
 ) {
   public fun toModel(): ExampleScenario =
     ExampleScenario(
@@ -588,11 +585,11 @@ internal data class ExampleScenarioSurrogate(
       language =
         Code.of(this@ExampleScenarioSurrogate.language, this@ExampleScenarioSurrogate._language),
       text = this@ExampleScenarioSurrogate.text,
-      contained = this@ExampleScenarioSurrogate.contained ?: mutableListOf(),
-      extension = this@ExampleScenarioSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@ExampleScenarioSurrogate.modifierExtension ?: mutableListOf(),
+      contained = this@ExampleScenarioSurrogate.contained ?: listOf(),
+      extension = this@ExampleScenarioSurrogate.extension ?: listOf(),
+      modifierExtension = this@ExampleScenarioSurrogate.modifierExtension ?: listOf(),
       url = Uri.of(this@ExampleScenarioSurrogate.url, this@ExampleScenarioSurrogate._url),
-      identifier = this@ExampleScenarioSurrogate.identifier ?: mutableListOf(),
+      identifier = this@ExampleScenarioSurrogate.identifier ?: listOf(),
       version =
         R4bString.of(this@ExampleScenarioSurrogate.version, this@ExampleScenarioSurrogate._version),
       name = R4bString.of(this@ExampleScenarioSurrogate.name, this@ExampleScenarioSurrogate._name),
@@ -616,9 +613,9 @@ internal data class ExampleScenarioSurrogate(
           this@ExampleScenarioSurrogate.publisher,
           this@ExampleScenarioSurrogate._publisher,
         ),
-      contact = this@ExampleScenarioSurrogate.contact ?: mutableListOf(),
-      useContext = this@ExampleScenarioSurrogate.useContext ?: mutableListOf(),
-      jurisdiction = this@ExampleScenarioSurrogate.jurisdiction ?: mutableListOf(),
+      contact = this@ExampleScenarioSurrogate.contact ?: listOf(),
+      useContext = this@ExampleScenarioSurrogate.useContext ?: listOf(),
+      jurisdiction = this@ExampleScenarioSurrogate.jurisdiction ?: listOf(),
       copyright =
         Markdown.of(
           this@ExampleScenarioSurrogate.copyright,
@@ -626,15 +623,15 @@ internal data class ExampleScenarioSurrogate(
         ),
       purpose =
         Markdown.of(this@ExampleScenarioSurrogate.purpose, this@ExampleScenarioSurrogate._purpose),
-      actor = this@ExampleScenarioSurrogate.actor ?: mutableListOf(),
-      instance = this@ExampleScenarioSurrogate.instance ?: mutableListOf(),
-      process = this@ExampleScenarioSurrogate.process ?: mutableListOf(),
+      actor = this@ExampleScenarioSurrogate.actor ?: listOf(),
+      instance = this@ExampleScenarioSurrogate.instance ?: listOf(),
+      process = this@ExampleScenarioSurrogate.process ?: listOf(),
       workflow =
         if (
           this@ExampleScenarioSurrogate.workflow == null &&
             this@ExampleScenarioSurrogate._workflow == null
         ) {
-          mutableListOf()
+          listOf()
         } else {
           (this@ExampleScenarioSurrogate.workflow
               ?: List(this@ExampleScenarioSurrogate._workflow!!.size) { null })
@@ -643,7 +640,7 @@ internal data class ExampleScenarioSurrogate(
                 ?: List(this@ExampleScenarioSurrogate.workflow!!.size) { null }
             )
             .map { (value, element) -> Canonical.of(value, element)!! }
-            .toMutableList()
+            .toList()
         },
     )
 
@@ -687,16 +684,13 @@ internal data class ExampleScenarioSurrogate(
           instance = this@with.instance.takeIf { it.isNotEmpty() },
           process = this@with.process.takeIf { it.isNotEmpty() },
           workflow =
-            this@with.workflow
-              .map { it.value }
-              .toMutableList()
-              .takeUnless { it.all { it == null } },
+            this@with.workflow.map { it.value }.toList().takeUnless { it.all { it == null } },
           _workflow =
             this@with.workflow
               .map { it.toElement() }
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
-              ?.toMutableList(),
+              ?.toList(),
         )
       }
   }

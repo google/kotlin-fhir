@@ -51,15 +51,15 @@ import com.google.fhir.model.r5.serializers.DoubleSerializer
 import com.google.fhir.model.r5.serializers.LocalTimeSerializer
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class RequestOrchestrationActionSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var linkId: KotlinString? = null,
   public var _linkId: Element? = null,
   public var prefix: KotlinString? = null,
@@ -72,16 +72,16 @@ internal data class RequestOrchestrationActionSurrogate(
   public var _textEquivalent: Element? = null,
   public var priority: KotlinString? = null,
   public var _priority: Element? = null,
-  public var code: MutableList<CodeableConcept>? = null,
-  public var documentation: MutableList<RelatedArtifact>? = null,
-  public var goal: MutableList<Reference>? = null,
-  public var condition: MutableList<RequestOrchestration.Action.Condition>? = null,
-  public var input: MutableList<RequestOrchestration.Action.Input>? = null,
-  public var output: MutableList<RequestOrchestration.Action.Output>? = null,
-  public var relatedAction: MutableList<RequestOrchestration.Action.RelatedAction>? = null,
+  public var code: List<CodeableConcept>? = null,
+  public var documentation: List<RelatedArtifact>? = null,
+  public var goal: List<Reference>? = null,
+  public var condition: List<RequestOrchestration.Action.Condition>? = null,
+  public var input: List<RequestOrchestration.Action.Input>? = null,
+  public var output: List<RequestOrchestration.Action.Output>? = null,
+  public var relatedAction: List<RequestOrchestration.Action.RelatedAction>? = null,
   public var timing: RequestOrchestration.Action.Timing? = null,
   public var location: CodeableReference? = null,
-  public var participant: MutableList<RequestOrchestration.Action.Participant>? = null,
+  public var participant: List<RequestOrchestration.Action.Participant>? = null,
   public var type: CodeableConcept? = null,
   public var groupingBehavior: KotlinString? = null,
   public var _groupingBehavior: Element? = null,
@@ -97,15 +97,14 @@ internal data class RequestOrchestrationActionSurrogate(
   public var definition: RequestOrchestration.Action.Definition? = null,
   public var transform: KotlinString? = null,
   public var _transform: Element? = null,
-  public var dynamicValue: MutableList<RequestOrchestration.Action.DynamicValue>? = null,
-  public var action: MutableList<RequestOrchestration.Action>? = null,
+  public var dynamicValue: List<RequestOrchestration.Action.DynamicValue>? = null,
+  public var action: List<RequestOrchestration.Action>? = null,
 ) {
   public fun toModel(): RequestOrchestration.Action =
     RequestOrchestration.Action(
       id = this@RequestOrchestrationActionSurrogate.id,
-      extension = this@RequestOrchestrationActionSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@RequestOrchestrationActionSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@RequestOrchestrationActionSurrogate.extension ?: listOf(),
+      modifierExtension = this@RequestOrchestrationActionSurrogate.modifierExtension ?: listOf(),
       linkId =
         R5String.of(
           this@RequestOrchestrationActionSurrogate.linkId,
@@ -138,16 +137,16 @@ internal data class RequestOrchestrationActionSurrogate(
             this@RequestOrchestrationActionSurrogate._priority,
           )
         },
-      code = this@RequestOrchestrationActionSurrogate.code ?: mutableListOf(),
-      documentation = this@RequestOrchestrationActionSurrogate.documentation ?: mutableListOf(),
-      goal = this@RequestOrchestrationActionSurrogate.goal ?: mutableListOf(),
-      condition = this@RequestOrchestrationActionSurrogate.condition ?: mutableListOf(),
-      input = this@RequestOrchestrationActionSurrogate.input ?: mutableListOf(),
-      output = this@RequestOrchestrationActionSurrogate.output ?: mutableListOf(),
-      relatedAction = this@RequestOrchestrationActionSurrogate.relatedAction ?: mutableListOf(),
+      code = this@RequestOrchestrationActionSurrogate.code ?: listOf(),
+      documentation = this@RequestOrchestrationActionSurrogate.documentation ?: listOf(),
+      goal = this@RequestOrchestrationActionSurrogate.goal ?: listOf(),
+      condition = this@RequestOrchestrationActionSurrogate.condition ?: listOf(),
+      input = this@RequestOrchestrationActionSurrogate.input ?: listOf(),
+      output = this@RequestOrchestrationActionSurrogate.output ?: listOf(),
+      relatedAction = this@RequestOrchestrationActionSurrogate.relatedAction ?: listOf(),
       timing = this@RequestOrchestrationActionSurrogate.timing,
       location = this@RequestOrchestrationActionSurrogate.location,
-      participant = this@RequestOrchestrationActionSurrogate.participant ?: mutableListOf(),
+      participant = this@RequestOrchestrationActionSurrogate.participant ?: listOf(),
       type = this@RequestOrchestrationActionSurrogate.type,
       groupingBehavior =
         this@RequestOrchestrationActionSurrogate.groupingBehavior?.let {
@@ -191,8 +190,8 @@ internal data class RequestOrchestrationActionSurrogate(
           this@RequestOrchestrationActionSurrogate.transform,
           this@RequestOrchestrationActionSurrogate._transform,
         ),
-      dynamicValue = this@RequestOrchestrationActionSurrogate.dynamicValue ?: mutableListOf(),
-      action = this@RequestOrchestrationActionSurrogate.action ?: mutableListOf(),
+      dynamicValue = this@RequestOrchestrationActionSurrogate.dynamicValue ?: listOf(),
+      action = this@RequestOrchestrationActionSurrogate.action ?: listOf(),
     )
 
   public companion object {
@@ -249,8 +248,8 @@ internal data class RequestOrchestrationActionSurrogate(
 @Serializable
 internal data class RequestOrchestrationActionConditionSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var kind: KotlinString? = null,
   public var _kind: Element? = null,
   public var expression: Expression? = null,
@@ -258,9 +257,9 @@ internal data class RequestOrchestrationActionConditionSurrogate(
   public fun toModel(): RequestOrchestration.Action.Condition =
     RequestOrchestration.Action.Condition(
       id = this@RequestOrchestrationActionConditionSurrogate.id,
-      extension = this@RequestOrchestrationActionConditionSurrogate.extension ?: mutableListOf(),
+      extension = this@RequestOrchestrationActionConditionSurrogate.extension ?: listOf(),
       modifierExtension =
-        this@RequestOrchestrationActionConditionSurrogate.modifierExtension ?: mutableListOf(),
+        this@RequestOrchestrationActionConditionSurrogate.modifierExtension ?: listOf(),
       kind =
         Enumeration.of(
           RequestOrchestration.ActionConditionKind.fromCode(
@@ -291,8 +290,8 @@ internal data class RequestOrchestrationActionConditionSurrogate(
 @Serializable
 internal data class RequestOrchestrationActionInputSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var title: KotlinString? = null,
   public var _title: Element? = null,
   public var requirement: DataRequirement? = null,
@@ -302,9 +301,9 @@ internal data class RequestOrchestrationActionInputSurrogate(
   public fun toModel(): RequestOrchestration.Action.Input =
     RequestOrchestration.Action.Input(
       id = this@RequestOrchestrationActionInputSurrogate.id,
-      extension = this@RequestOrchestrationActionInputSurrogate.extension ?: mutableListOf(),
+      extension = this@RequestOrchestrationActionInputSurrogate.extension ?: listOf(),
       modifierExtension =
-        this@RequestOrchestrationActionInputSurrogate.modifierExtension ?: mutableListOf(),
+        this@RequestOrchestrationActionInputSurrogate.modifierExtension ?: listOf(),
       title =
         R5String.of(
           this@RequestOrchestrationActionInputSurrogate.title,
@@ -340,8 +339,8 @@ internal data class RequestOrchestrationActionInputSurrogate(
 @Serializable
 internal data class RequestOrchestrationActionOutputSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var title: KotlinString? = null,
   public var _title: Element? = null,
   public var requirement: DataRequirement? = null,
@@ -351,9 +350,9 @@ internal data class RequestOrchestrationActionOutputSurrogate(
   public fun toModel(): RequestOrchestration.Action.Output =
     RequestOrchestration.Action.Output(
       id = this@RequestOrchestrationActionOutputSurrogate.id,
-      extension = this@RequestOrchestrationActionOutputSurrogate.extension ?: mutableListOf(),
+      extension = this@RequestOrchestrationActionOutputSurrogate.extension ?: listOf(),
       modifierExtension =
-        this@RequestOrchestrationActionOutputSurrogate.modifierExtension ?: mutableListOf(),
+        this@RequestOrchestrationActionOutputSurrogate.modifierExtension ?: listOf(),
       title =
         R5String.of(
           this@RequestOrchestrationActionOutputSurrogate.title,
@@ -389,8 +388,8 @@ internal data class RequestOrchestrationActionOutputSurrogate(
 @Serializable
 internal data class RequestOrchestrationActionRelatedActionSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var targetId: KotlinString? = null,
   public var _targetId: Element? = null,
   public var relationship: KotlinString? = null,
@@ -402,10 +401,9 @@ internal data class RequestOrchestrationActionRelatedActionSurrogate(
   public fun toModel(): RequestOrchestration.Action.RelatedAction =
     RequestOrchestration.Action.RelatedAction(
       id = this@RequestOrchestrationActionRelatedActionSurrogate.id,
-      extension =
-        this@RequestOrchestrationActionRelatedActionSurrogate.extension ?: mutableListOf(),
+      extension = this@RequestOrchestrationActionRelatedActionSurrogate.extension ?: listOf(),
       modifierExtension =
-        this@RequestOrchestrationActionRelatedActionSurrogate.modifierExtension ?: mutableListOf(),
+        this@RequestOrchestrationActionRelatedActionSurrogate.modifierExtension ?: listOf(),
       targetId =
         Id.of(
           this@RequestOrchestrationActionRelatedActionSurrogate.targetId,
@@ -452,8 +450,8 @@ internal data class RequestOrchestrationActionRelatedActionSurrogate(
 @Serializable
 internal data class RequestOrchestrationActionParticipantSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var type: KotlinString? = null,
   public var _type: Element? = null,
   public var typeCanonical: KotlinString? = null,
@@ -466,9 +464,9 @@ internal data class RequestOrchestrationActionParticipantSurrogate(
   public fun toModel(): RequestOrchestration.Action.Participant =
     RequestOrchestration.Action.Participant(
       id = this@RequestOrchestrationActionParticipantSurrogate.id,
-      extension = this@RequestOrchestrationActionParticipantSurrogate.extension ?: mutableListOf(),
+      extension = this@RequestOrchestrationActionParticipantSurrogate.extension ?: listOf(),
       modifierExtension =
-        this@RequestOrchestrationActionParticipantSurrogate.modifierExtension ?: mutableListOf(),
+        this@RequestOrchestrationActionParticipantSurrogate.modifierExtension ?: listOf(),
       type =
         this@RequestOrchestrationActionParticipantSurrogate.type?.let {
           Enumeration.of(
@@ -512,8 +510,8 @@ internal data class RequestOrchestrationActionParticipantSurrogate(
 @Serializable
 internal data class RequestOrchestrationActionDynamicValueSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var path: KotlinString? = null,
   public var _path: Element? = null,
   public var expression: Expression? = null,
@@ -521,9 +519,9 @@ internal data class RequestOrchestrationActionDynamicValueSurrogate(
   public fun toModel(): RequestOrchestration.Action.DynamicValue =
     RequestOrchestration.Action.DynamicValue(
       id = this@RequestOrchestrationActionDynamicValueSurrogate.id,
-      extension = this@RequestOrchestrationActionDynamicValueSurrogate.extension ?: mutableListOf(),
+      extension = this@RequestOrchestrationActionDynamicValueSurrogate.extension ?: listOf(),
       modifierExtension =
-        this@RequestOrchestrationActionDynamicValueSurrogate.modifierExtension ?: mutableListOf(),
+        this@RequestOrchestrationActionDynamicValueSurrogate.modifierExtension ?: listOf(),
       path =
         R5String.of(
           this@RequestOrchestrationActionDynamicValueSurrogate.path,
@@ -686,16 +684,16 @@ internal data class RequestOrchestrationSurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: MutableList<Resource>? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var identifier: MutableList<Identifier>? = null,
-  public var instantiatesCanonical: MutableList<KotlinString?>? = null,
-  public var _instantiatesCanonical: MutableList<Element?>? = null,
-  public var instantiatesUri: MutableList<KotlinString?>? = null,
-  public var _instantiatesUri: MutableList<Element?>? = null,
-  public var basedOn: MutableList<Reference>? = null,
-  public var replaces: MutableList<Reference>? = null,
+  public var contained: List<Resource>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
+  public var identifier: List<Identifier>? = null,
+  public var instantiatesCanonical: List<KotlinString?>? = null,
+  public var _instantiatesCanonical: List<Element?>? = null,
+  public var instantiatesUri: List<KotlinString?>? = null,
+  public var _instantiatesUri: List<Element?>? = null,
+  public var basedOn: List<Reference>? = null,
+  public var replaces: List<Reference>? = null,
   public var groupIdentifier: Identifier? = null,
   public var status: KotlinString? = null,
   public var _status: Element? = null,
@@ -709,10 +707,10 @@ internal data class RequestOrchestrationSurrogate(
   public var authoredOn: KotlinString? = null,
   public var _authoredOn: Element? = null,
   public var author: Reference? = null,
-  public var reason: MutableList<CodeableReference>? = null,
-  public var goal: MutableList<Reference>? = null,
-  public var note: MutableList<Annotation>? = null,
-  public var action: MutableList<RequestOrchestration.Action>? = null,
+  public var reason: List<CodeableReference>? = null,
+  public var goal: List<Reference>? = null,
+  public var note: List<Annotation>? = null,
+  public var action: List<RequestOrchestration.Action>? = null,
 ) {
   public fun toModel(): RequestOrchestration =
     RequestOrchestration(
@@ -729,16 +727,16 @@ internal data class RequestOrchestrationSurrogate(
           this@RequestOrchestrationSurrogate._language,
         ),
       text = this@RequestOrchestrationSurrogate.text,
-      contained = this@RequestOrchestrationSurrogate.contained ?: mutableListOf(),
-      extension = this@RequestOrchestrationSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@RequestOrchestrationSurrogate.modifierExtension ?: mutableListOf(),
-      identifier = this@RequestOrchestrationSurrogate.identifier ?: mutableListOf(),
+      contained = this@RequestOrchestrationSurrogate.contained ?: listOf(),
+      extension = this@RequestOrchestrationSurrogate.extension ?: listOf(),
+      modifierExtension = this@RequestOrchestrationSurrogate.modifierExtension ?: listOf(),
+      identifier = this@RequestOrchestrationSurrogate.identifier ?: listOf(),
       instantiatesCanonical =
         if (
           this@RequestOrchestrationSurrogate.instantiatesCanonical == null &&
             this@RequestOrchestrationSurrogate._instantiatesCanonical == null
         ) {
-          mutableListOf()
+          listOf()
         } else {
           (this@RequestOrchestrationSurrogate.instantiatesCanonical
               ?: List(this@RequestOrchestrationSurrogate._instantiatesCanonical!!.size) { null })
@@ -747,14 +745,14 @@ internal data class RequestOrchestrationSurrogate(
                 ?: List(this@RequestOrchestrationSurrogate.instantiatesCanonical!!.size) { null }
             )
             .map { (value, element) -> Canonical.of(value, element)!! }
-            .toMutableList()
+            .toList()
         },
       instantiatesUri =
         if (
           this@RequestOrchestrationSurrogate.instantiatesUri == null &&
             this@RequestOrchestrationSurrogate._instantiatesUri == null
         ) {
-          mutableListOf()
+          listOf()
         } else {
           (this@RequestOrchestrationSurrogate.instantiatesUri
               ?: List(this@RequestOrchestrationSurrogate._instantiatesUri!!.size) { null })
@@ -763,10 +761,10 @@ internal data class RequestOrchestrationSurrogate(
                 ?: List(this@RequestOrchestrationSurrogate.instantiatesUri!!.size) { null }
             )
             .map { (value, element) -> Uri.of(value, element)!! }
-            .toMutableList()
+            .toList()
         },
-      basedOn = this@RequestOrchestrationSurrogate.basedOn ?: mutableListOf(),
-      replaces = this@RequestOrchestrationSurrogate.replaces ?: mutableListOf(),
+      basedOn = this@RequestOrchestrationSurrogate.basedOn ?: listOf(),
+      replaces = this@RequestOrchestrationSurrogate.replaces ?: listOf(),
       groupIdentifier = this@RequestOrchestrationSurrogate.groupIdentifier,
       status =
         Enumeration.of(
@@ -794,10 +792,10 @@ internal data class RequestOrchestrationSurrogate(
           this@RequestOrchestrationSurrogate._authoredOn,
         ),
       author = this@RequestOrchestrationSurrogate.author,
-      reason = this@RequestOrchestrationSurrogate.reason ?: mutableListOf(),
-      goal = this@RequestOrchestrationSurrogate.goal ?: mutableListOf(),
-      note = this@RequestOrchestrationSurrogate.note ?: mutableListOf(),
-      action = this@RequestOrchestrationSurrogate.action ?: mutableListOf(),
+      reason = this@RequestOrchestrationSurrogate.reason ?: listOf(),
+      goal = this@RequestOrchestrationSurrogate.goal ?: listOf(),
+      note = this@RequestOrchestrationSurrogate.note ?: listOf(),
+      action = this@RequestOrchestrationSurrogate.action ?: listOf(),
     )
 
   public companion object {
@@ -818,25 +816,25 @@ internal data class RequestOrchestrationSurrogate(
           instantiatesCanonical =
             this@with.instantiatesCanonical
               .map { it.value }
-              .toMutableList()
+              .toList()
               .takeUnless { it.all { it == null } },
           _instantiatesCanonical =
             this@with.instantiatesCanonical
               .map { it.toElement() }
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
-              ?.toMutableList(),
+              ?.toList(),
           instantiatesUri =
             this@with.instantiatesUri
               .map { it.value }
-              .toMutableList()
+              .toList()
               .takeUnless { it.all { it == null } },
           _instantiatesUri =
             this@with.instantiatesUri
               .map { it.toElement() }
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
-              ?.toMutableList(),
+              ?.toList(),
           basedOn = this@with.basedOn.takeIf { it.isNotEmpty() },
           replaces = this@with.replaces.takeIf { it.isNotEmpty() },
           groupIdentifier = this@with.groupIdentifier,

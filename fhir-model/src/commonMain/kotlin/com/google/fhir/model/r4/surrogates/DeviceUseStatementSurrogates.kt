@@ -40,7 +40,7 @@ import com.google.fhir.model.r4.serializers.DoubleSerializer
 import com.google.fhir.model.r4.serializers.LocalTimeSerializer
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
@@ -83,24 +83,24 @@ internal data class DeviceUseStatementSurrogate(
   public var language: String? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: MutableList<Resource>? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var identifier: MutableList<Identifier>? = null,
-  public var basedOn: MutableList<Reference>? = null,
+  public var contained: List<Resource>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
+  public var identifier: List<Identifier>? = null,
+  public var basedOn: List<Reference>? = null,
   public var status: String? = null,
   public var _status: Element? = null,
   public var subject: Reference,
-  public var derivedFrom: MutableList<Reference>? = null,
+  public var derivedFrom: List<Reference>? = null,
   public var timing: DeviceUseStatement.Timing? = null,
   public var recordedOn: String? = null,
   public var _recordedOn: Element? = null,
   public var source: Reference? = null,
   public var device: Reference,
-  public var reasonCode: MutableList<CodeableConcept>? = null,
-  public var reasonReference: MutableList<Reference>? = null,
+  public var reasonCode: List<CodeableConcept>? = null,
+  public var reasonReference: List<Reference>? = null,
   public var bodySite: CodeableConcept? = null,
-  public var note: MutableList<Annotation>? = null,
+  public var note: List<Annotation>? = null,
 ) {
   public fun toModel(): DeviceUseStatement =
     DeviceUseStatement(
@@ -117,11 +117,11 @@ internal data class DeviceUseStatementSurrogate(
           this@DeviceUseStatementSurrogate._language,
         ),
       text = this@DeviceUseStatementSurrogate.text,
-      contained = this@DeviceUseStatementSurrogate.contained ?: mutableListOf(),
-      extension = this@DeviceUseStatementSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@DeviceUseStatementSurrogate.modifierExtension ?: mutableListOf(),
-      identifier = this@DeviceUseStatementSurrogate.identifier ?: mutableListOf(),
-      basedOn = this@DeviceUseStatementSurrogate.basedOn ?: mutableListOf(),
+      contained = this@DeviceUseStatementSurrogate.contained ?: listOf(),
+      extension = this@DeviceUseStatementSurrogate.extension ?: listOf(),
+      modifierExtension = this@DeviceUseStatementSurrogate.modifierExtension ?: listOf(),
+      identifier = this@DeviceUseStatementSurrogate.identifier ?: listOf(),
+      basedOn = this@DeviceUseStatementSurrogate.basedOn ?: listOf(),
       status =
         Enumeration.of(
           DeviceUseStatement.DeviceUseStatementStatus.fromCode(
@@ -130,7 +130,7 @@ internal data class DeviceUseStatementSurrogate(
           this@DeviceUseStatementSurrogate._status,
         ),
       subject = this@DeviceUseStatementSurrogate.subject,
-      derivedFrom = this@DeviceUseStatementSurrogate.derivedFrom ?: mutableListOf(),
+      derivedFrom = this@DeviceUseStatementSurrogate.derivedFrom ?: listOf(),
       timing = this@DeviceUseStatementSurrogate.timing,
       recordedOn =
         DateTime.of(
@@ -139,10 +139,10 @@ internal data class DeviceUseStatementSurrogate(
         ),
       source = this@DeviceUseStatementSurrogate.source,
       device = this@DeviceUseStatementSurrogate.device,
-      reasonCode = this@DeviceUseStatementSurrogate.reasonCode ?: mutableListOf(),
-      reasonReference = this@DeviceUseStatementSurrogate.reasonReference ?: mutableListOf(),
+      reasonCode = this@DeviceUseStatementSurrogate.reasonCode ?: listOf(),
+      reasonReference = this@DeviceUseStatementSurrogate.reasonReference ?: listOf(),
       bodySite = this@DeviceUseStatementSurrogate.bodySite,
-      note = this@DeviceUseStatementSurrogate.note ?: mutableListOf(),
+      note = this@DeviceUseStatementSurrogate.note ?: listOf(),
     )
 
   public companion object {

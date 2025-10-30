@@ -48,15 +48,15 @@ import kotlin.Boolean as KotlinBoolean
 import kotlin.Int
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class MessageDefinitionFocusSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var code: KotlinString? = null,
   public var _code: Element? = null,
   public var profile: KotlinString? = null,
@@ -69,8 +69,8 @@ internal data class MessageDefinitionFocusSurrogate(
   public fun toModel(): MessageDefinition.Focus =
     MessageDefinition.Focus(
       id = this@MessageDefinitionFocusSurrogate.id,
-      extension = this@MessageDefinitionFocusSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@MessageDefinitionFocusSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@MessageDefinitionFocusSurrogate.extension ?: listOf(),
+      modifierExtension = this@MessageDefinitionFocusSurrogate.modifierExtension ?: listOf(),
       code =
         Enumeration.of(
           ResourceType.fromCode(this@MessageDefinitionFocusSurrogate.code!!),
@@ -116,8 +116,8 @@ internal data class MessageDefinitionFocusSurrogate(
 @Serializable
 internal data class MessageDefinitionAllowedResponseSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var message: KotlinString? = null,
   public var _message: Element? = null,
   public var situation: KotlinString? = null,
@@ -126,9 +126,9 @@ internal data class MessageDefinitionAllowedResponseSurrogate(
   public fun toModel(): MessageDefinition.AllowedResponse =
     MessageDefinition.AllowedResponse(
       id = this@MessageDefinitionAllowedResponseSurrogate.id,
-      extension = this@MessageDefinitionAllowedResponseSurrogate.extension ?: mutableListOf(),
+      extension = this@MessageDefinitionAllowedResponseSurrogate.extension ?: listOf(),
       modifierExtension =
-        this@MessageDefinitionAllowedResponseSurrogate.modifierExtension ?: mutableListOf(),
+        this@MessageDefinitionAllowedResponseSurrogate.modifierExtension ?: listOf(),
       message =
         Canonical.of(
           this@MessageDefinitionAllowedResponseSurrogate.message,
@@ -224,12 +224,12 @@ internal data class MessageDefinitionSurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: MutableList<Resource>? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var contained: List<Resource>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var url: KotlinString? = null,
   public var _url: Element? = null,
-  public var identifier: MutableList<Identifier>? = null,
+  public var identifier: List<Identifier>? = null,
   public var version: KotlinString? = null,
   public var _version: Element? = null,
   public var versionAlgorithm: MessageDefinition.VersionAlgorithm? = null,
@@ -237,8 +237,8 @@ internal data class MessageDefinitionSurrogate(
   public var _name: Element? = null,
   public var title: KotlinString? = null,
   public var _title: Element? = null,
-  public var replaces: MutableList<KotlinString?>? = null,
-  public var _replaces: MutableList<Element?>? = null,
+  public var replaces: List<KotlinString?>? = null,
+  public var _replaces: List<Element?>? = null,
   public var status: KotlinString? = null,
   public var _status: Element? = null,
   public var experimental: KotlinBoolean? = null,
@@ -247,11 +247,11 @@ internal data class MessageDefinitionSurrogate(
   public var _date: Element? = null,
   public var publisher: KotlinString? = null,
   public var _publisher: Element? = null,
-  public var contact: MutableList<ContactDetail>? = null,
+  public var contact: List<ContactDetail>? = null,
   public var description: KotlinString? = null,
   public var _description: Element? = null,
-  public var useContext: MutableList<UsageContext>? = null,
-  public var jurisdiction: MutableList<CodeableConcept>? = null,
+  public var useContext: List<UsageContext>? = null,
+  public var jurisdiction: List<CodeableConcept>? = null,
   public var purpose: KotlinString? = null,
   public var _purpose: Element? = null,
   public var copyright: KotlinString? = null,
@@ -260,15 +260,15 @@ internal data class MessageDefinitionSurrogate(
   public var _copyrightLabel: Element? = null,
   public var base: KotlinString? = null,
   public var _base: Element? = null,
-  public var parent: MutableList<KotlinString?>? = null,
-  public var _parent: MutableList<Element?>? = null,
+  public var parent: List<KotlinString?>? = null,
+  public var _parent: List<Element?>? = null,
   public var event: MessageDefinition.Event,
   public var category: KotlinString? = null,
   public var _category: Element? = null,
-  public var focus: MutableList<MessageDefinition.Focus>? = null,
+  public var focus: List<MessageDefinition.Focus>? = null,
   public var responseRequired: KotlinString? = null,
   public var _responseRequired: Element? = null,
-  public var allowedResponse: MutableList<MessageDefinition.AllowedResponse>? = null,
+  public var allowedResponse: List<MessageDefinition.AllowedResponse>? = null,
   public var graph: KotlinString? = null,
   public var _graph: Element? = null,
 ) {
@@ -287,11 +287,11 @@ internal data class MessageDefinitionSurrogate(
           this@MessageDefinitionSurrogate._language,
         ),
       text = this@MessageDefinitionSurrogate.text,
-      contained = this@MessageDefinitionSurrogate.contained ?: mutableListOf(),
-      extension = this@MessageDefinitionSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@MessageDefinitionSurrogate.modifierExtension ?: mutableListOf(),
+      contained = this@MessageDefinitionSurrogate.contained ?: listOf(),
+      extension = this@MessageDefinitionSurrogate.extension ?: listOf(),
+      modifierExtension = this@MessageDefinitionSurrogate.modifierExtension ?: listOf(),
       url = Uri.of(this@MessageDefinitionSurrogate.url, this@MessageDefinitionSurrogate._url),
-      identifier = this@MessageDefinitionSurrogate.identifier ?: mutableListOf(),
+      identifier = this@MessageDefinitionSurrogate.identifier ?: listOf(),
       version =
         R5String.of(
           this@MessageDefinitionSurrogate.version,
@@ -307,7 +307,7 @@ internal data class MessageDefinitionSurrogate(
           this@MessageDefinitionSurrogate.replaces == null &&
             this@MessageDefinitionSurrogate._replaces == null
         ) {
-          mutableListOf()
+          listOf()
         } else {
           (this@MessageDefinitionSurrogate.replaces
               ?: List(this@MessageDefinitionSurrogate._replaces!!.size) { null })
@@ -316,7 +316,7 @@ internal data class MessageDefinitionSurrogate(
                 ?: List(this@MessageDefinitionSurrogate.replaces!!.size) { null }
             )
             .map { (value, element) -> Canonical.of(value, element)!! }
-            .toMutableList()
+            .toList()
         },
       status =
         Enumeration.of(
@@ -338,14 +338,14 @@ internal data class MessageDefinitionSurrogate(
           this@MessageDefinitionSurrogate.publisher,
           this@MessageDefinitionSurrogate._publisher,
         ),
-      contact = this@MessageDefinitionSurrogate.contact ?: mutableListOf(),
+      contact = this@MessageDefinitionSurrogate.contact ?: listOf(),
       description =
         Markdown.of(
           this@MessageDefinitionSurrogate.description,
           this@MessageDefinitionSurrogate._description,
         ),
-      useContext = this@MessageDefinitionSurrogate.useContext ?: mutableListOf(),
-      jurisdiction = this@MessageDefinitionSurrogate.jurisdiction ?: mutableListOf(),
+      useContext = this@MessageDefinitionSurrogate.useContext ?: listOf(),
+      jurisdiction = this@MessageDefinitionSurrogate.jurisdiction ?: listOf(),
       purpose =
         Markdown.of(
           this@MessageDefinitionSurrogate.purpose,
@@ -368,7 +368,7 @@ internal data class MessageDefinitionSurrogate(
           this@MessageDefinitionSurrogate.parent == null &&
             this@MessageDefinitionSurrogate._parent == null
         ) {
-          mutableListOf()
+          listOf()
         } else {
           (this@MessageDefinitionSurrogate.parent
               ?: List(this@MessageDefinitionSurrogate._parent!!.size) { null })
@@ -377,7 +377,7 @@ internal data class MessageDefinitionSurrogate(
                 ?: List(this@MessageDefinitionSurrogate.parent!!.size) { null }
             )
             .map { (value, element) -> Canonical.of(value, element)!! }
-            .toMutableList()
+            .toList()
         },
       event = this@MessageDefinitionSurrogate.event,
       category =
@@ -387,7 +387,7 @@ internal data class MessageDefinitionSurrogate(
             this@MessageDefinitionSurrogate._category,
           )
         },
-      focus = this@MessageDefinitionSurrogate.focus ?: mutableListOf(),
+      focus = this@MessageDefinitionSurrogate.focus ?: listOf(),
       responseRequired =
         this@MessageDefinitionSurrogate.responseRequired?.let {
           Enumeration.of(
@@ -395,7 +395,7 @@ internal data class MessageDefinitionSurrogate(
             this@MessageDefinitionSurrogate._responseRequired,
           )
         },
-      allowedResponse = this@MessageDefinitionSurrogate.allowedResponse ?: mutableListOf(),
+      allowedResponse = this@MessageDefinitionSurrogate.allowedResponse ?: listOf(),
       graph =
         Canonical.of(this@MessageDefinitionSurrogate.graph, this@MessageDefinitionSurrogate._graph),
     )
@@ -425,16 +425,13 @@ internal data class MessageDefinitionSurrogate(
           title = this@with.title?.value,
           _title = this@with.title?.toElement(),
           replaces =
-            this@with.replaces
-              .map { it.value }
-              .toMutableList()
-              .takeUnless { it.all { it == null } },
+            this@with.replaces.map { it.value }.toList().takeUnless { it.all { it == null } },
           _replaces =
             this@with.replaces
               .map { it.toElement() }
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
-              ?.toMutableList(),
+              ?.toList(),
           status = this@with.status.value?.getCode(),
           _status = this@with.status.toElement(),
           experimental = this@with.experimental?.value,
@@ -456,14 +453,13 @@ internal data class MessageDefinitionSurrogate(
           _copyrightLabel = this@with.copyrightLabel?.toElement(),
           base = this@with.base?.value,
           _base = this@with.base?.toElement(),
-          parent =
-            this@with.parent.map { it.value }.toMutableList().takeUnless { it.all { it == null } },
+          parent = this@with.parent.map { it.value }.toList().takeUnless { it.all { it == null } },
           _parent =
             this@with.parent
               .map { it.toElement() }
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
-              ?.toMutableList(),
+              ?.toList(),
           event = this@with.event,
           category = this@with.category?.value?.getCode(),
           _category = this@with.category?.toElement(),

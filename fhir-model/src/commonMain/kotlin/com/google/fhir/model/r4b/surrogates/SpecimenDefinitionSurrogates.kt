@@ -41,15 +41,15 @@ import com.google.fhir.model.r4b.serializers.LocalTimeSerializer
 import kotlin.Boolean as KotlinBoolean
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class SpecimenDefinitionTypeTestedSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var isDerived: KotlinBoolean? = null,
   public var _isDerived: Element? = null,
   public var type: CodeableConcept? = null,
@@ -59,15 +59,14 @@ internal data class SpecimenDefinitionTypeTestedSurrogate(
   public var requirement: KotlinString? = null,
   public var _requirement: Element? = null,
   public var retentionTime: Duration? = null,
-  public var rejectionCriterion: MutableList<CodeableConcept>? = null,
-  public var handling: MutableList<SpecimenDefinition.TypeTested.Handling>? = null,
+  public var rejectionCriterion: List<CodeableConcept>? = null,
+  public var handling: List<SpecimenDefinition.TypeTested.Handling>? = null,
 ) {
   public fun toModel(): SpecimenDefinition.TypeTested =
     SpecimenDefinition.TypeTested(
       id = this@SpecimenDefinitionTypeTestedSurrogate.id,
-      extension = this@SpecimenDefinitionTypeTestedSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@SpecimenDefinitionTypeTestedSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@SpecimenDefinitionTypeTestedSurrogate.extension ?: listOf(),
+      modifierExtension = this@SpecimenDefinitionTypeTestedSurrogate.modifierExtension ?: listOf(),
       isDerived =
         R4bBoolean.of(
           this@SpecimenDefinitionTypeTestedSurrogate.isDerived,
@@ -89,8 +88,8 @@ internal data class SpecimenDefinitionTypeTestedSurrogate(
         ),
       retentionTime = this@SpecimenDefinitionTypeTestedSurrogate.retentionTime,
       rejectionCriterion =
-        this@SpecimenDefinitionTypeTestedSurrogate.rejectionCriterion ?: mutableListOf(),
-      handling = this@SpecimenDefinitionTypeTestedSurrogate.handling ?: mutableListOf(),
+        this@SpecimenDefinitionTypeTestedSurrogate.rejectionCriterion ?: listOf(),
+      handling = this@SpecimenDefinitionTypeTestedSurrogate.handling ?: listOf(),
     )
 
   public companion object {
@@ -121,8 +120,8 @@ internal data class SpecimenDefinitionTypeTestedSurrogate(
 @Serializable
 internal data class SpecimenDefinitionTypeTestedContainerSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var material: CodeableConcept? = null,
   public var type: CodeableConcept? = null,
   public var cap: CodeableConcept? = null,
@@ -130,16 +129,16 @@ internal data class SpecimenDefinitionTypeTestedContainerSurrogate(
   public var _description: Element? = null,
   public var capacity: Quantity? = null,
   public var minimumVolume: SpecimenDefinition.TypeTested.Container.MinimumVolume? = null,
-  public var additive: MutableList<SpecimenDefinition.TypeTested.Container.Additive>? = null,
+  public var additive: List<SpecimenDefinition.TypeTested.Container.Additive>? = null,
   public var preparation: KotlinString? = null,
   public var _preparation: Element? = null,
 ) {
   public fun toModel(): SpecimenDefinition.TypeTested.Container =
     SpecimenDefinition.TypeTested.Container(
       id = this@SpecimenDefinitionTypeTestedContainerSurrogate.id,
-      extension = this@SpecimenDefinitionTypeTestedContainerSurrogate.extension ?: mutableListOf(),
+      extension = this@SpecimenDefinitionTypeTestedContainerSurrogate.extension ?: listOf(),
       modifierExtension =
-        this@SpecimenDefinitionTypeTestedContainerSurrogate.modifierExtension ?: mutableListOf(),
+        this@SpecimenDefinitionTypeTestedContainerSurrogate.modifierExtension ?: listOf(),
       material = this@SpecimenDefinitionTypeTestedContainerSurrogate.material,
       type = this@SpecimenDefinitionTypeTestedContainerSurrogate.type,
       cap = this@SpecimenDefinitionTypeTestedContainerSurrogate.cap,
@@ -150,7 +149,7 @@ internal data class SpecimenDefinitionTypeTestedContainerSurrogate(
         ),
       capacity = this@SpecimenDefinitionTypeTestedContainerSurrogate.capacity,
       minimumVolume = this@SpecimenDefinitionTypeTestedContainerSurrogate.minimumVolume,
-      additive = this@SpecimenDefinitionTypeTestedContainerSurrogate.additive ?: mutableListOf(),
+      additive = this@SpecimenDefinitionTypeTestedContainerSurrogate.additive ?: listOf(),
       preparation =
         R4bString.of(
           this@SpecimenDefinitionTypeTestedContainerSurrogate.preparation,
@@ -185,18 +184,16 @@ internal data class SpecimenDefinitionTypeTestedContainerSurrogate(
 @Serializable
 internal data class SpecimenDefinitionTypeTestedContainerAdditiveSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var additive: SpecimenDefinition.TypeTested.Container.Additive.Additive,
 ) {
   public fun toModel(): SpecimenDefinition.TypeTested.Container.Additive =
     SpecimenDefinition.TypeTested.Container.Additive(
       id = this@SpecimenDefinitionTypeTestedContainerAdditiveSurrogate.id,
-      extension =
-        this@SpecimenDefinitionTypeTestedContainerAdditiveSurrogate.extension ?: mutableListOf(),
+      extension = this@SpecimenDefinitionTypeTestedContainerAdditiveSurrogate.extension ?: listOf(),
       modifierExtension =
-        this@SpecimenDefinitionTypeTestedContainerAdditiveSurrogate.modifierExtension
-          ?: mutableListOf(),
+        this@SpecimenDefinitionTypeTestedContainerAdditiveSurrogate.modifierExtension ?: listOf(),
       additive = this@SpecimenDefinitionTypeTestedContainerAdditiveSurrogate.additive,
     )
 
@@ -218,8 +215,8 @@ internal data class SpecimenDefinitionTypeTestedContainerAdditiveSurrogate(
 @Serializable
 internal data class SpecimenDefinitionTypeTestedHandlingSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var temperatureQualifier: CodeableConcept? = null,
   public var temperatureRange: Range? = null,
   public var maxDuration: Duration? = null,
@@ -229,9 +226,9 @@ internal data class SpecimenDefinitionTypeTestedHandlingSurrogate(
   public fun toModel(): SpecimenDefinition.TypeTested.Handling =
     SpecimenDefinition.TypeTested.Handling(
       id = this@SpecimenDefinitionTypeTestedHandlingSurrogate.id,
-      extension = this@SpecimenDefinitionTypeTestedHandlingSurrogate.extension ?: mutableListOf(),
+      extension = this@SpecimenDefinitionTypeTestedHandlingSurrogate.extension ?: listOf(),
       modifierExtension =
-        this@SpecimenDefinitionTypeTestedHandlingSurrogate.modifierExtension ?: mutableListOf(),
+        this@SpecimenDefinitionTypeTestedHandlingSurrogate.modifierExtension ?: listOf(),
       temperatureQualifier =
         this@SpecimenDefinitionTypeTestedHandlingSurrogate.temperatureQualifier,
       temperatureRange = this@SpecimenDefinitionTypeTestedHandlingSurrogate.temperatureRange,
@@ -324,16 +321,16 @@ internal data class SpecimenDefinitionSurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: MutableList<Resource>? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var contained: List<Resource>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var identifier: Identifier? = null,
   public var typeCollected: CodeableConcept? = null,
-  public var patientPreparation: MutableList<CodeableConcept>? = null,
+  public var patientPreparation: List<CodeableConcept>? = null,
   public var timeAspect: KotlinString? = null,
   public var _timeAspect: Element? = null,
-  public var collection: MutableList<CodeableConcept>? = null,
-  public var typeTested: MutableList<SpecimenDefinition.TypeTested>? = null,
+  public var collection: List<CodeableConcept>? = null,
+  public var typeTested: List<SpecimenDefinition.TypeTested>? = null,
 ) {
   public fun toModel(): SpecimenDefinition =
     SpecimenDefinition(
@@ -350,19 +347,19 @@ internal data class SpecimenDefinitionSurrogate(
           this@SpecimenDefinitionSurrogate._language,
         ),
       text = this@SpecimenDefinitionSurrogate.text,
-      contained = this@SpecimenDefinitionSurrogate.contained ?: mutableListOf(),
-      extension = this@SpecimenDefinitionSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@SpecimenDefinitionSurrogate.modifierExtension ?: mutableListOf(),
+      contained = this@SpecimenDefinitionSurrogate.contained ?: listOf(),
+      extension = this@SpecimenDefinitionSurrogate.extension ?: listOf(),
+      modifierExtension = this@SpecimenDefinitionSurrogate.modifierExtension ?: listOf(),
       identifier = this@SpecimenDefinitionSurrogate.identifier,
       typeCollected = this@SpecimenDefinitionSurrogate.typeCollected,
-      patientPreparation = this@SpecimenDefinitionSurrogate.patientPreparation ?: mutableListOf(),
+      patientPreparation = this@SpecimenDefinitionSurrogate.patientPreparation ?: listOf(),
       timeAspect =
         R4bString.of(
           this@SpecimenDefinitionSurrogate.timeAspect,
           this@SpecimenDefinitionSurrogate._timeAspect,
         ),
-      collection = this@SpecimenDefinitionSurrogate.collection ?: mutableListOf(),
-      typeTested = this@SpecimenDefinitionSurrogate.typeTested ?: mutableListOf(),
+      collection = this@SpecimenDefinitionSurrogate.collection ?: listOf(),
+      typeTested = this@SpecimenDefinitionSurrogate.typeTested ?: listOf(),
     )
 
   public companion object {

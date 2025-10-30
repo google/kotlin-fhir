@@ -20,7 +20,7 @@ package com.google.fhir.model.r4b
 
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 
 /** A resource that includes narrative, extensions, and contained resources. */
@@ -33,13 +33,13 @@ public abstract class DomainResource : Resource() {
    * The only time that a resource does not have an id is when it is being submitted to the server
    * using a create operation.
    */
-  abstract override var id: String?
+  abstract override val id: String?
 
   /**
    * The metadata about the resource. This is content that is maintained by the infrastructure.
    * Changes to the content might not always be associated with version changes to the resource.
    */
-  abstract override var meta: Meta?
+  abstract override val meta: Meta?
 
   /**
    * A reference to a set of rules that were followed when the resource was constructed, and which
@@ -54,7 +54,7 @@ public abstract class DomainResource : Resource() {
    * to an implementation guide that defines these special rules as part of it's narrative along
    * with other profiles, value sets, etc.
    */
-  abstract override var implicitRules: Uri?
+  abstract override val implicitRules: Uri?
 
   /**
    * The base language in which the resource is written.
@@ -67,7 +67,7 @@ public abstract class DomainResource : Resource() {
    * language is specified, it should it also be specified on the div element in the html (see rules
    * in HTML5 for information about the relationship between xml:lang and the html lang attribute).
    */
-  abstract override var language: Code?
+  abstract override val language: Code?
 
   /**
    * A human-readable narrative that contains a summary of the resource and can be used to represent
@@ -82,7 +82,7 @@ public abstract class DomainResource : Resource() {
    * legacy systems where information is captured as a "text blob" or where text is additionally
    * entered raw or narrated and encoded information is added later.
    */
-  public abstract var text: Narrative?
+  public abstract val text: Narrative?
 
   /**
    * These resources do not have an independent existence apart from the resource that contains
@@ -94,7 +94,7 @@ public abstract class DomainResource : Resource() {
    * resources may have profiles and tags In their meta elements, but SHALL NOT have security
    * labels.
    */
-  public abstract var contained: MutableList<Resource>
+  public abstract val contained: List<Resource>
 
   /**
    * May be used to represent additional information that is not part of the basic definition of the
@@ -108,7 +108,7 @@ public abstract class DomainResource : Resource() {
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  public abstract var extension: MutableList<Extension>
+  public abstract val extension: List<Extension>
 
   /**
    * May be used to represent additional information that is not part of the basic definition of the
@@ -128,5 +128,5 @@ public abstract class DomainResource : Resource() {
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  public abstract var modifierExtension: MutableList<Extension>
+  public abstract val modifierExtension: List<Extension>
 }

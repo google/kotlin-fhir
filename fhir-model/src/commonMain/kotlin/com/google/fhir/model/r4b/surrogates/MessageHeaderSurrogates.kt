@@ -40,15 +40,15 @@ import com.google.fhir.model.r4b.serializers.DoubleSerializer
 import com.google.fhir.model.r4b.serializers.LocalTimeSerializer
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class MessageHeaderDestinationSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var name: KotlinString? = null,
   public var _name: Element? = null,
   public var target: Reference? = null,
@@ -59,9 +59,8 @@ internal data class MessageHeaderDestinationSurrogate(
   public fun toModel(): MessageHeader.Destination =
     MessageHeader.Destination(
       id = this@MessageHeaderDestinationSurrogate.id,
-      extension = this@MessageHeaderDestinationSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@MessageHeaderDestinationSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@MessageHeaderDestinationSurrogate.extension ?: listOf(),
+      modifierExtension = this@MessageHeaderDestinationSurrogate.modifierExtension ?: listOf(),
       name =
         R4bString.of(
           this@MessageHeaderDestinationSurrogate.name,
@@ -97,8 +96,8 @@ internal data class MessageHeaderDestinationSurrogate(
 @Serializable
 internal data class MessageHeaderSourceSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var name: KotlinString? = null,
   public var _name: Element? = null,
   public var software: KotlinString? = null,
@@ -112,8 +111,8 @@ internal data class MessageHeaderSourceSurrogate(
   public fun toModel(): MessageHeader.Source =
     MessageHeader.Source(
       id = this@MessageHeaderSourceSurrogate.id,
-      extension = this@MessageHeaderSourceSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@MessageHeaderSourceSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@MessageHeaderSourceSurrogate.extension ?: listOf(),
+      modifierExtension = this@MessageHeaderSourceSurrogate.modifierExtension ?: listOf(),
       name =
         R4bString.of(
           this@MessageHeaderSourceSurrogate.name,
@@ -161,8 +160,8 @@ internal data class MessageHeaderSourceSurrogate(
 @Serializable
 internal data class MessageHeaderResponseSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var identifier: KotlinString? = null,
   public var _identifier: Element? = null,
   public var code: KotlinString? = null,
@@ -172,8 +171,8 @@ internal data class MessageHeaderResponseSurrogate(
   public fun toModel(): MessageHeader.Response =
     MessageHeader.Response(
       id = this@MessageHeaderResponseSurrogate.id,
-      extension = this@MessageHeaderResponseSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@MessageHeaderResponseSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@MessageHeaderResponseSurrogate.extension ?: listOf(),
+      modifierExtension = this@MessageHeaderResponseSurrogate.modifierExtension ?: listOf(),
       identifier =
         Id.of(
           this@MessageHeaderResponseSurrogate.identifier,
@@ -237,11 +236,11 @@ internal data class MessageHeaderSurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: MutableList<Resource>? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var contained: List<Resource>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var event: MessageHeader.Event,
-  public var destination: MutableList<MessageHeader.Destination>? = null,
+  public var destination: List<MessageHeader.Destination>? = null,
   public var sender: Reference? = null,
   public var enterer: Reference? = null,
   public var author: Reference? = null,
@@ -249,7 +248,7 @@ internal data class MessageHeaderSurrogate(
   public var responsible: Reference? = null,
   public var reason: CodeableConcept? = null,
   public var response: MessageHeader.Response? = null,
-  public var focus: MutableList<Reference>? = null,
+  public var focus: List<Reference>? = null,
   public var definition: KotlinString? = null,
   public var _definition: Element? = null,
 ) {
@@ -265,11 +264,11 @@ internal data class MessageHeaderSurrogate(
       language =
         Code.of(this@MessageHeaderSurrogate.language, this@MessageHeaderSurrogate._language),
       text = this@MessageHeaderSurrogate.text,
-      contained = this@MessageHeaderSurrogate.contained ?: mutableListOf(),
-      extension = this@MessageHeaderSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@MessageHeaderSurrogate.modifierExtension ?: mutableListOf(),
+      contained = this@MessageHeaderSurrogate.contained ?: listOf(),
+      extension = this@MessageHeaderSurrogate.extension ?: listOf(),
+      modifierExtension = this@MessageHeaderSurrogate.modifierExtension ?: listOf(),
       event = this@MessageHeaderSurrogate.event,
-      destination = this@MessageHeaderSurrogate.destination ?: mutableListOf(),
+      destination = this@MessageHeaderSurrogate.destination ?: listOf(),
       sender = this@MessageHeaderSurrogate.sender,
       enterer = this@MessageHeaderSurrogate.enterer,
       author = this@MessageHeaderSurrogate.author,
@@ -277,7 +276,7 @@ internal data class MessageHeaderSurrogate(
       responsible = this@MessageHeaderSurrogate.responsible,
       reason = this@MessageHeaderSurrogate.reason,
       response = this@MessageHeaderSurrogate.response,
-      focus = this@MessageHeaderSurrogate.focus ?: mutableListOf(),
+      focus = this@MessageHeaderSurrogate.focus ?: listOf(),
       definition =
         Canonical.of(
           this@MessageHeaderSurrogate.definition,

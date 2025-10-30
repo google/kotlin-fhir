@@ -21,7 +21,7 @@ package com.google.fhir.model.r4
 import com.google.fhir.model.r4.serializers.AttachmentSerializer
 import com.google.fhir.model.r4.terminologies.CommonLanguages
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 
 /**
@@ -34,7 +34,7 @@ public data class Attachment(
    * Unique id for the element within a resource (for internal references). This may be any string
    * value that does not contain spaces.
    */
-  override var id: kotlin.String? = null,
+  override val id: kotlin.String? = null,
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * element. To make the use of extensions safe and manageable, there is a strict set of governance
@@ -47,21 +47,21 @@ public data class Attachment(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: MutableList<Extension> = mutableListOf(),
+  override val extension: List<Extension> = listOf(),
   /**
    * Identifies the type of the data in the attachment and allows a method to be chosen to interpret
    * or render the data. Includes mime type parameters such as charset where appropriate.
    */
-  public var contentType: Code? = null,
+  public val contentType: Code? = null,
   /** The human language of the content. The value can be any valid value according to BCP 47. */
-  public var language: Enumeration<CommonLanguages>? = null,
+  public val language: Enumeration<CommonLanguages>? = null,
   /**
    * The actual data of the attachment - a sequence of bytes, base64 encoded.
    *
    * The base64-encoded data SHALL be expressed in the same character set as the base resource XML
    * or JSON.
    */
-  public var `data`: Base64Binary? = null,
+  public val `data`: Base64Binary? = null,
   /**
    * A location where the data can be accessed.
    *
@@ -71,7 +71,7 @@ public data class Attachment(
    * are interpreted relative to the service url, like a resource reference, rather than relative to
    * the resource itself. If a URL is provided, it SHALL resolve to actual data.
    */
-  public var url: Url? = null,
+  public val url: Url? = null,
   /**
    * The number of bytes of data that make up this attachment (before base64 encoding, if that is
    * done).
@@ -79,7 +79,7 @@ public data class Attachment(
    * The number of bytes is redundant if the data is provided as a base64binary, but is useful if
    * the data is provided as a url reference.
    */
-  public var size: UnsignedInt? = null,
+  public val size: UnsignedInt? = null,
   /**
    * The calculated hash of the data using SHA-1. Represented using base64.
    *
@@ -89,9 +89,9 @@ public data class Attachment(
    * [Provenance.signature](provenance-definitions.html#Provenance.signature) for mechanism to
    * protect a resource with a digital signature.
    */
-  public var hash: Base64Binary? = null,
+  public val hash: Base64Binary? = null,
   /** A label or set of text to display in place of the data. */
-  public var title: String? = null,
+  public val title: String? = null,
   /** The date that the attachment was first created. */
-  public var creation: DateTime? = null,
+  public val creation: DateTime? = null,
 ) : Element()

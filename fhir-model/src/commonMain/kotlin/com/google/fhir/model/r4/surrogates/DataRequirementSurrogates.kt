@@ -39,26 +39,26 @@ import com.google.fhir.model.r4.terminologies.FHIRAllTypes
 import kotlin.Int
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class DataRequirementCodeFilterSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
   public var path: KotlinString? = null,
   public var _path: Element? = null,
   public var searchParam: KotlinString? = null,
   public var _searchParam: Element? = null,
   public var valueSet: KotlinString? = null,
   public var _valueSet: Element? = null,
-  public var code: MutableList<Coding>? = null,
+  public var code: List<Coding>? = null,
 ) {
   public fun toModel(): DataRequirement.CodeFilter =
     DataRequirement.CodeFilter(
       id = this@DataRequirementCodeFilterSurrogate.id,
-      extension = this@DataRequirementCodeFilterSurrogate.extension ?: mutableListOf(),
+      extension = this@DataRequirementCodeFilterSurrogate.extension ?: listOf(),
       path =
         R4String.of(
           this@DataRequirementCodeFilterSurrogate.path,
@@ -74,7 +74,7 @@ internal data class DataRequirementCodeFilterSurrogate(
           this@DataRequirementCodeFilterSurrogate.valueSet,
           this@DataRequirementCodeFilterSurrogate._valueSet,
         ),
-      code = this@DataRequirementCodeFilterSurrogate.code ?: mutableListOf(),
+      code = this@DataRequirementCodeFilterSurrogate.code ?: listOf(),
     )
 
   public companion object {
@@ -98,7 +98,7 @@ internal data class DataRequirementCodeFilterSurrogate(
 @Serializable
 internal data class DataRequirementDateFilterSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
   public var path: KotlinString? = null,
   public var _path: Element? = null,
   public var searchParam: KotlinString? = null,
@@ -108,7 +108,7 @@ internal data class DataRequirementDateFilterSurrogate(
   public fun toModel(): DataRequirement.DateFilter =
     DataRequirement.DateFilter(
       id = this@DataRequirementDateFilterSurrogate.id,
-      extension = this@DataRequirementDateFilterSurrogate.extension ?: mutableListOf(),
+      extension = this@DataRequirementDateFilterSurrogate.extension ?: listOf(),
       path =
         R4String.of(
           this@DataRequirementDateFilterSurrogate.path,
@@ -141,7 +141,7 @@ internal data class DataRequirementDateFilterSurrogate(
 @Serializable
 internal data class DataRequirementSortSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
   public var path: KotlinString? = null,
   public var _path: Element? = null,
   public var direction: KotlinString? = null,
@@ -150,7 +150,7 @@ internal data class DataRequirementSortSurrogate(
   public fun toModel(): DataRequirement.Sort =
     DataRequirement.Sort(
       id = this@DataRequirementSortSurrogate.id,
-      extension = this@DataRequirementSortSurrogate.extension ?: mutableListOf(),
+      extension = this@DataRequirementSortSurrogate.extension ?: listOf(),
       path =
         R4String.of(
           this@DataRequirementSortSurrogate.path,
@@ -235,24 +235,24 @@ internal data class DataRequirementDateFilterValueSurrogate(
 @Serializable
 internal data class DataRequirementSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
   public var type: KotlinString? = null,
   public var _type: Element? = null,
-  public var profile: MutableList<KotlinString?>? = null,
-  public var _profile: MutableList<Element?>? = null,
+  public var profile: List<KotlinString?>? = null,
+  public var _profile: List<Element?>? = null,
   public var subject: DataRequirement.Subject? = null,
-  public var mustSupport: MutableList<KotlinString?>? = null,
-  public var _mustSupport: MutableList<Element?>? = null,
-  public var codeFilter: MutableList<DataRequirement.CodeFilter>? = null,
-  public var dateFilter: MutableList<DataRequirement.DateFilter>? = null,
+  public var mustSupport: List<KotlinString?>? = null,
+  public var _mustSupport: List<Element?>? = null,
+  public var codeFilter: List<DataRequirement.CodeFilter>? = null,
+  public var dateFilter: List<DataRequirement.DateFilter>? = null,
   public var limit: Int? = null,
   public var _limit: Element? = null,
-  public var sort: MutableList<DataRequirement.Sort>? = null,
+  public var sort: List<DataRequirement.Sort>? = null,
 ) {
   public fun toModel(): DataRequirement =
     DataRequirement(
       id = this@DataRequirementSurrogate.id,
-      extension = this@DataRequirementSurrogate.extension ?: mutableListOf(),
+      extension = this@DataRequirementSurrogate.extension ?: listOf(),
       type =
         Enumeration.of(
           FHIRAllTypes.fromCode(this@DataRequirementSurrogate.type!!),
@@ -263,7 +263,7 @@ internal data class DataRequirementSurrogate(
           this@DataRequirementSurrogate.profile == null &&
             this@DataRequirementSurrogate._profile == null
         ) {
-          mutableListOf()
+          listOf()
         } else {
           (this@DataRequirementSurrogate.profile
               ?: List(this@DataRequirementSurrogate._profile!!.size) { null })
@@ -272,7 +272,7 @@ internal data class DataRequirementSurrogate(
                 ?: List(this@DataRequirementSurrogate.profile!!.size) { null }
             )
             .map { (value, element) -> Canonical.of(value, element)!! }
-            .toMutableList()
+            .toList()
         },
       subject = this@DataRequirementSurrogate.subject,
       mustSupport =
@@ -280,7 +280,7 @@ internal data class DataRequirementSurrogate(
           this@DataRequirementSurrogate.mustSupport == null &&
             this@DataRequirementSurrogate._mustSupport == null
         ) {
-          mutableListOf()
+          listOf()
         } else {
           (this@DataRequirementSurrogate.mustSupport
               ?: List(this@DataRequirementSurrogate._mustSupport!!.size) { null })
@@ -289,13 +289,13 @@ internal data class DataRequirementSurrogate(
                 ?: List(this@DataRequirementSurrogate.mustSupport!!.size) { null }
             )
             .map { (value, element) -> R4String.of(value, element)!! }
-            .toMutableList()
+            .toList()
         },
-      codeFilter = this@DataRequirementSurrogate.codeFilter ?: mutableListOf(),
-      dateFilter = this@DataRequirementSurrogate.dateFilter ?: mutableListOf(),
+      codeFilter = this@DataRequirementSurrogate.codeFilter ?: listOf(),
+      dateFilter = this@DataRequirementSurrogate.dateFilter ?: listOf(),
       limit =
         PositiveInt.of(this@DataRequirementSurrogate.limit, this@DataRequirementSurrogate._limit),
-      sort = this@DataRequirementSurrogate.sort ?: mutableListOf(),
+      sort = this@DataRequirementSurrogate.sort ?: listOf(),
     )
 
   public companion object {
@@ -307,25 +307,22 @@ internal data class DataRequirementSurrogate(
           type = this@with.type.value?.getCode(),
           _type = this@with.type.toElement(),
           profile =
-            this@with.profile.map { it.value }.toMutableList().takeUnless { it.all { it == null } },
+            this@with.profile.map { it.value }.toList().takeUnless { it.all { it == null } },
           _profile =
             this@with.profile
               .map { it.toElement() }
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
-              ?.toMutableList(),
+              ?.toList(),
           subject = this@with.subject,
           mustSupport =
-            this@with.mustSupport
-              .map { it.value }
-              .toMutableList()
-              .takeUnless { it.all { it == null } },
+            this@with.mustSupport.map { it.value }.toList().takeUnless { it.all { it == null } },
           _mustSupport =
             this@with.mustSupport
               .map { it.toElement() }
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
-              ?.toMutableList(),
+              ?.toList(),
           codeFilter = this@with.codeFilter.takeIf { it.isNotEmpty() },
           dateFilter = this@with.dateFilter.takeIf { it.isNotEmpty() },
           limit = this@with.limit?.value,

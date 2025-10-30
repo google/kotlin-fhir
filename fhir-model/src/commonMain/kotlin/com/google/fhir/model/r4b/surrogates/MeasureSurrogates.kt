@@ -50,34 +50,34 @@ import com.google.fhir.model.r4b.terminologies.PublicationStatus
 import kotlin.Boolean as KotlinBoolean
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class MeasureGroupSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var code: CodeableConcept? = null,
   public var description: KotlinString? = null,
   public var _description: Element? = null,
-  public var population: MutableList<Measure.Group.Population>? = null,
-  public var stratifier: MutableList<Measure.Group.Stratifier>? = null,
+  public var population: List<Measure.Group.Population>? = null,
+  public var stratifier: List<Measure.Group.Stratifier>? = null,
 ) {
   public fun toModel(): Measure.Group =
     Measure.Group(
       id = this@MeasureGroupSurrogate.id,
-      extension = this@MeasureGroupSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@MeasureGroupSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@MeasureGroupSurrogate.extension ?: listOf(),
+      modifierExtension = this@MeasureGroupSurrogate.modifierExtension ?: listOf(),
       code = this@MeasureGroupSurrogate.code,
       description =
         R4bString.of(
           this@MeasureGroupSurrogate.description,
           this@MeasureGroupSurrogate._description,
         ),
-      population = this@MeasureGroupSurrogate.population ?: mutableListOf(),
-      stratifier = this@MeasureGroupSurrogate.stratifier ?: mutableListOf(),
+      population = this@MeasureGroupSurrogate.population ?: listOf(),
+      stratifier = this@MeasureGroupSurrogate.stratifier ?: listOf(),
     )
 
   public companion object {
@@ -100,8 +100,8 @@ internal data class MeasureGroupSurrogate(
 @Serializable
 internal data class MeasureGroupPopulationSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var code: CodeableConcept? = null,
   public var description: KotlinString? = null,
   public var _description: Element? = null,
@@ -110,8 +110,8 @@ internal data class MeasureGroupPopulationSurrogate(
   public fun toModel(): Measure.Group.Population =
     Measure.Group.Population(
       id = this@MeasureGroupPopulationSurrogate.id,
-      extension = this@MeasureGroupPopulationSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@MeasureGroupPopulationSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@MeasureGroupPopulationSurrogate.extension ?: listOf(),
+      modifierExtension = this@MeasureGroupPopulationSurrogate.modifierExtension ?: listOf(),
       code = this@MeasureGroupPopulationSurrogate.code,
       description =
         R4bString.of(
@@ -140,19 +140,19 @@ internal data class MeasureGroupPopulationSurrogate(
 @Serializable
 internal data class MeasureGroupStratifierSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var code: CodeableConcept? = null,
   public var description: KotlinString? = null,
   public var _description: Element? = null,
   public var criteria: Expression? = null,
-  public var component: MutableList<Measure.Group.Stratifier.Component>? = null,
+  public var component: List<Measure.Group.Stratifier.Component>? = null,
 ) {
   public fun toModel(): Measure.Group.Stratifier =
     Measure.Group.Stratifier(
       id = this@MeasureGroupStratifierSurrogate.id,
-      extension = this@MeasureGroupStratifierSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@MeasureGroupStratifierSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@MeasureGroupStratifierSurrogate.extension ?: listOf(),
+      modifierExtension = this@MeasureGroupStratifierSurrogate.modifierExtension ?: listOf(),
       code = this@MeasureGroupStratifierSurrogate.code,
       description =
         R4bString.of(
@@ -160,7 +160,7 @@ internal data class MeasureGroupStratifierSurrogate(
           this@MeasureGroupStratifierSurrogate._description,
         ),
       criteria = this@MeasureGroupStratifierSurrogate.criteria,
-      component = this@MeasureGroupStratifierSurrogate.component ?: mutableListOf(),
+      component = this@MeasureGroupStratifierSurrogate.component ?: listOf(),
     )
 
   public companion object {
@@ -183,8 +183,8 @@ internal data class MeasureGroupStratifierSurrogate(
 @Serializable
 internal data class MeasureGroupStratifierComponentSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var code: CodeableConcept? = null,
   public var description: KotlinString? = null,
   public var _description: Element? = null,
@@ -193,9 +193,9 @@ internal data class MeasureGroupStratifierComponentSurrogate(
   public fun toModel(): Measure.Group.Stratifier.Component =
     Measure.Group.Stratifier.Component(
       id = this@MeasureGroupStratifierComponentSurrogate.id,
-      extension = this@MeasureGroupStratifierComponentSurrogate.extension ?: mutableListOf(),
+      extension = this@MeasureGroupStratifierComponentSurrogate.extension ?: listOf(),
       modifierExtension =
-        this@MeasureGroupStratifierComponentSurrogate.modifierExtension ?: mutableListOf(),
+        this@MeasureGroupStratifierComponentSurrogate.modifierExtension ?: listOf(),
       code = this@MeasureGroupStratifierComponentSurrogate.code,
       description =
         R4bString.of(
@@ -226,10 +226,10 @@ internal data class MeasureGroupStratifierComponentSurrogate(
 @Serializable
 internal data class MeasureSupplementalDataSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var code: CodeableConcept? = null,
-  public var usage: MutableList<CodeableConcept>? = null,
+  public var usage: List<CodeableConcept>? = null,
   public var description: KotlinString? = null,
   public var _description: Element? = null,
   public var criteria: Expression,
@@ -237,11 +237,10 @@ internal data class MeasureSupplementalDataSurrogate(
   public fun toModel(): Measure.SupplementalData =
     Measure.SupplementalData(
       id = this@MeasureSupplementalDataSurrogate.id,
-      extension = this@MeasureSupplementalDataSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@MeasureSupplementalDataSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@MeasureSupplementalDataSurrogate.extension ?: listOf(),
+      modifierExtension = this@MeasureSupplementalDataSurrogate.modifierExtension ?: listOf(),
       code = this@MeasureSupplementalDataSurrogate.code,
-      usage = this@MeasureSupplementalDataSurrogate.usage ?: mutableListOf(),
+      usage = this@MeasureSupplementalDataSurrogate.usage ?: listOf(),
       description =
         R4bString.of(
           this@MeasureSupplementalDataSurrogate.description,
@@ -298,12 +297,12 @@ internal data class MeasureSurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: MutableList<Resource>? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var contained: List<Resource>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var url: KotlinString? = null,
   public var _url: Element? = null,
-  public var identifier: MutableList<Identifier>? = null,
+  public var identifier: List<Identifier>? = null,
   public var version: KotlinString? = null,
   public var _version: Element? = null,
   public var name: KotlinString? = null,
@@ -321,11 +320,11 @@ internal data class MeasureSurrogate(
   public var _date: Element? = null,
   public var publisher: KotlinString? = null,
   public var _publisher: Element? = null,
-  public var contact: MutableList<ContactDetail>? = null,
+  public var contact: List<ContactDetail>? = null,
   public var description: KotlinString? = null,
   public var _description: Element? = null,
-  public var useContext: MutableList<UsageContext>? = null,
-  public var jurisdiction: MutableList<CodeableConcept>? = null,
+  public var useContext: List<UsageContext>? = null,
+  public var jurisdiction: List<CodeableConcept>? = null,
   public var purpose: KotlinString? = null,
   public var _purpose: Element? = null,
   public var usage: KotlinString? = null,
@@ -337,19 +336,19 @@ internal data class MeasureSurrogate(
   public var lastReviewDate: KotlinString? = null,
   public var _lastReviewDate: Element? = null,
   public var effectivePeriod: Period? = null,
-  public var topic: MutableList<CodeableConcept>? = null,
-  public var author: MutableList<ContactDetail>? = null,
-  public var editor: MutableList<ContactDetail>? = null,
-  public var reviewer: MutableList<ContactDetail>? = null,
-  public var endorser: MutableList<ContactDetail>? = null,
-  public var relatedArtifact: MutableList<RelatedArtifact>? = null,
-  public var library: MutableList<KotlinString?>? = null,
-  public var _library: MutableList<Element?>? = null,
+  public var topic: List<CodeableConcept>? = null,
+  public var author: List<ContactDetail>? = null,
+  public var editor: List<ContactDetail>? = null,
+  public var reviewer: List<ContactDetail>? = null,
+  public var endorser: List<ContactDetail>? = null,
+  public var relatedArtifact: List<RelatedArtifact>? = null,
+  public var library: List<KotlinString?>? = null,
+  public var _library: List<Element?>? = null,
   public var disclaimer: KotlinString? = null,
   public var _disclaimer: Element? = null,
   public var scoring: CodeableConcept? = null,
   public var compositeScoring: CodeableConcept? = null,
-  public var type: MutableList<CodeableConcept>? = null,
+  public var type: List<CodeableConcept>? = null,
   public var riskAdjustment: KotlinString? = null,
   public var _riskAdjustment: Element? = null,
   public var rateAggregation: KotlinString? = null,
@@ -359,12 +358,12 @@ internal data class MeasureSurrogate(
   public var clinicalRecommendationStatement: KotlinString? = null,
   public var _clinicalRecommendationStatement: Element? = null,
   public var improvementNotation: CodeableConcept? = null,
-  public var definition: MutableList<KotlinString?>? = null,
-  public var _definition: MutableList<Element?>? = null,
+  public var definition: List<KotlinString?>? = null,
+  public var _definition: List<Element?>? = null,
   public var guidance: KotlinString? = null,
   public var _guidance: Element? = null,
-  public var group: MutableList<Measure.Group>? = null,
-  public var supplementalData: MutableList<Measure.SupplementalData>? = null,
+  public var group: List<Measure.Group>? = null,
+  public var supplementalData: List<Measure.SupplementalData>? = null,
 ) {
   public fun toModel(): Measure =
     Measure(
@@ -374,11 +373,11 @@ internal data class MeasureSurrogate(
         Uri.of(this@MeasureSurrogate.implicitRules, this@MeasureSurrogate._implicitRules),
       language = Code.of(this@MeasureSurrogate.language, this@MeasureSurrogate._language),
       text = this@MeasureSurrogate.text,
-      contained = this@MeasureSurrogate.contained ?: mutableListOf(),
-      extension = this@MeasureSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@MeasureSurrogate.modifierExtension ?: mutableListOf(),
+      contained = this@MeasureSurrogate.contained ?: listOf(),
+      extension = this@MeasureSurrogate.extension ?: listOf(),
+      modifierExtension = this@MeasureSurrogate.modifierExtension ?: listOf(),
       url = Uri.of(this@MeasureSurrogate.url, this@MeasureSurrogate._url),
-      identifier = this@MeasureSurrogate.identifier ?: mutableListOf(),
+      identifier = this@MeasureSurrogate.identifier ?: listOf(),
       version = R4bString.of(this@MeasureSurrogate.version, this@MeasureSurrogate._version),
       name = R4bString.of(this@MeasureSurrogate.name, this@MeasureSurrogate._name),
       title = R4bString.of(this@MeasureSurrogate.title, this@MeasureSurrogate._title),
@@ -397,11 +396,11 @@ internal data class MeasureSurrogate(
           this@MeasureSurrogate._date,
         ),
       publisher = R4bString.of(this@MeasureSurrogate.publisher, this@MeasureSurrogate._publisher),
-      contact = this@MeasureSurrogate.contact ?: mutableListOf(),
+      contact = this@MeasureSurrogate.contact ?: listOf(),
       description =
         Markdown.of(this@MeasureSurrogate.description, this@MeasureSurrogate._description),
-      useContext = this@MeasureSurrogate.useContext ?: mutableListOf(),
-      jurisdiction = this@MeasureSurrogate.jurisdiction ?: mutableListOf(),
+      useContext = this@MeasureSurrogate.useContext ?: listOf(),
+      jurisdiction = this@MeasureSurrogate.jurisdiction ?: listOf(),
       purpose = Markdown.of(this@MeasureSurrogate.purpose, this@MeasureSurrogate._purpose),
       usage = R4bString.of(this@MeasureSurrogate.usage, this@MeasureSurrogate._usage),
       copyright = Markdown.of(this@MeasureSurrogate.copyright, this@MeasureSurrogate._copyright),
@@ -416,27 +415,27 @@ internal data class MeasureSurrogate(
           this@MeasureSurrogate._lastReviewDate,
         ),
       effectivePeriod = this@MeasureSurrogate.effectivePeriod,
-      topic = this@MeasureSurrogate.topic ?: mutableListOf(),
-      author = this@MeasureSurrogate.author ?: mutableListOf(),
-      editor = this@MeasureSurrogate.editor ?: mutableListOf(),
-      reviewer = this@MeasureSurrogate.reviewer ?: mutableListOf(),
-      endorser = this@MeasureSurrogate.endorser ?: mutableListOf(),
-      relatedArtifact = this@MeasureSurrogate.relatedArtifact ?: mutableListOf(),
+      topic = this@MeasureSurrogate.topic ?: listOf(),
+      author = this@MeasureSurrogate.author ?: listOf(),
+      editor = this@MeasureSurrogate.editor ?: listOf(),
+      reviewer = this@MeasureSurrogate.reviewer ?: listOf(),
+      endorser = this@MeasureSurrogate.endorser ?: listOf(),
+      relatedArtifact = this@MeasureSurrogate.relatedArtifact ?: listOf(),
       library =
         if (this@MeasureSurrogate.library == null && this@MeasureSurrogate._library == null) {
-          mutableListOf()
+          listOf()
         } else {
           (this@MeasureSurrogate.library ?: List(this@MeasureSurrogate._library!!.size) { null })
             .zip(
               this@MeasureSurrogate._library ?: List(this@MeasureSurrogate.library!!.size) { null }
             )
             .map { (value, element) -> Canonical.of(value, element)!! }
-            .toMutableList()
+            .toList()
         },
       disclaimer = Markdown.of(this@MeasureSurrogate.disclaimer, this@MeasureSurrogate._disclaimer),
       scoring = this@MeasureSurrogate.scoring,
       compositeScoring = this@MeasureSurrogate.compositeScoring,
-      type = this@MeasureSurrogate.type ?: mutableListOf(),
+      type = this@MeasureSurrogate.type ?: listOf(),
       riskAdjustment =
         R4bString.of(this@MeasureSurrogate.riskAdjustment, this@MeasureSurrogate._riskAdjustment),
       rateAggregation =
@@ -450,7 +449,7 @@ internal data class MeasureSurrogate(
       improvementNotation = this@MeasureSurrogate.improvementNotation,
       definition =
         if (this@MeasureSurrogate.definition == null && this@MeasureSurrogate._definition == null) {
-          mutableListOf()
+          listOf()
         } else {
           (this@MeasureSurrogate.definition
               ?: List(this@MeasureSurrogate._definition!!.size) { null })
@@ -459,11 +458,11 @@ internal data class MeasureSurrogate(
                 ?: List(this@MeasureSurrogate.definition!!.size) { null }
             )
             .map { (value, element) -> Markdown.of(value, element)!! }
-            .toMutableList()
+            .toList()
         },
       guidance = Markdown.of(this@MeasureSurrogate.guidance, this@MeasureSurrogate._guidance),
-      group = this@MeasureSurrogate.group ?: mutableListOf(),
-      supplementalData = this@MeasureSurrogate.supplementalData ?: mutableListOf(),
+      group = this@MeasureSurrogate.group ?: listOf(),
+      supplementalData = this@MeasureSurrogate.supplementalData ?: listOf(),
     )
 
   public companion object {
@@ -523,13 +522,13 @@ internal data class MeasureSurrogate(
           endorser = this@with.endorser.takeIf { it.isNotEmpty() },
           relatedArtifact = this@with.relatedArtifact.takeIf { it.isNotEmpty() },
           library =
-            this@with.library.map { it.value }.toMutableList().takeUnless { it.all { it == null } },
+            this@with.library.map { it.value }.toList().takeUnless { it.all { it == null } },
           _library =
             this@with.library
               .map { it.toElement() }
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
-              ?.toMutableList(),
+              ?.toList(),
           disclaimer = this@with.disclaimer?.value,
           _disclaimer = this@with.disclaimer?.toElement(),
           scoring = this@with.scoring,
@@ -545,16 +544,13 @@ internal data class MeasureSurrogate(
           _clinicalRecommendationStatement = this@with.clinicalRecommendationStatement?.toElement(),
           improvementNotation = this@with.improvementNotation,
           definition =
-            this@with.definition
-              .map { it.value }
-              .toMutableList()
-              .takeUnless { it.all { it == null } },
+            this@with.definition.map { it.value }.toList().takeUnless { it.all { it == null } },
           _definition =
             this@with.definition
               .map { it.toElement() }
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
-              ?.toMutableList(),
+              ?.toList(),
           guidance = this@with.guidance?.value,
           _guidance = this@with.guidance?.toElement(),
           group = this@with.group.takeIf { it.isNotEmpty() },

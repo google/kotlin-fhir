@@ -27,7 +27,7 @@ import com.google.fhir.model.r4.serializers.DoubleSerializer
 import com.google.fhir.model.r4.serializers.LocalTimeSerializer
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
@@ -56,8 +56,8 @@ internal data class PopulationAgeSurrogate(
 @Serializable
 internal data class PopulationSurrogate(
   public var id: String? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var age: Population.Age? = null,
   public var gender: CodeableConcept? = null,
   public var race: CodeableConcept? = null,
@@ -66,8 +66,8 @@ internal data class PopulationSurrogate(
   public fun toModel(): Population =
     Population(
       id = this@PopulationSurrogate.id,
-      extension = this@PopulationSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@PopulationSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@PopulationSurrogate.extension ?: listOf(),
+      modifierExtension = this@PopulationSurrogate.modifierExtension ?: listOf(),
       age = this@PopulationSurrogate.age,
       gender = this@PopulationSurrogate.gender,
       race = this@PopulationSurrogate.race,

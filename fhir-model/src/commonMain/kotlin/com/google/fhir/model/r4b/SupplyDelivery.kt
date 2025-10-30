@@ -24,7 +24,7 @@ import com.google.fhir.model.r4b.serializers.SupplyDeliverySuppliedItemItemSeria
 import com.google.fhir.model.r4b.serializers.SupplyDeliverySuppliedItemSerializer
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -39,12 +39,12 @@ public data class SupplyDelivery(
    * The only time that a resource does not have an id is when it is being submitted to the server
    * using a create operation.
    */
-  override var id: String? = null,
+  override val id: String? = null,
   /**
    * The metadata about the resource. This is content that is maintained by the infrastructure.
    * Changes to the content might not always be associated with version changes to the resource.
    */
-  override var meta: Meta? = null,
+  override val meta: Meta? = null,
   /**
    * A reference to a set of rules that were followed when the resource was constructed, and which
    * must be understood when processing the content. Often, this is a reference to an implementation
@@ -58,7 +58,7 @@ public data class SupplyDelivery(
    * to an implementation guide that defines these special rules as part of it's narrative along
    * with other profiles, value sets, etc.
    */
-  override var implicitRules: Uri? = null,
+  override val implicitRules: Uri? = null,
   /**
    * The base language in which the resource is written.
    *
@@ -70,7 +70,7 @@ public data class SupplyDelivery(
    * language is specified, it should it also be specified on the div element in the html (see rules
    * in HTML5 for information about the relationship between xml:lang and the html lang attribute).
    */
-  override var language: Code? = null,
+  override val language: Code? = null,
   /**
    * A human-readable narrative that contains a summary of the resource and can be used to represent
    * the content of the resource to a human. The narrative need not encode all the structured data,
@@ -84,7 +84,7 @@ public data class SupplyDelivery(
    * legacy systems where information is captured as a "text blob" or where text is additionally
    * entered raw or narrated and encoded information is added later.
    */
-  override var text: Narrative? = null,
+  override val text: Narrative? = null,
   /**
    * These resources do not have an independent existence apart from the resource that contains
    * them - they cannot be identified independently, and nor can they have their own independent
@@ -95,7 +95,7 @@ public data class SupplyDelivery(
    * resources may have profiles and tags In their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: MutableList<Resource> = mutableListOf(),
+  override val contained: List<Resource> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and manageable, there is a strict set of
@@ -108,7 +108,7 @@ public data class SupplyDelivery(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: MutableList<Extension> = mutableListOf(),
+  override val extension: List<Extension> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -127,7 +127,7 @@ public data class SupplyDelivery(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: MutableList<Extension> = mutableListOf(),
+  override val modifierExtension: List<Extension> = listOf(),
   /**
    * Identifier for the supply delivery event that is used to identify it across multiple disparate
    * systems.
@@ -135,9 +135,9 @@ public data class SupplyDelivery(
    * This identifier is typically assigned by the dispenser, and may be used to reference the
    * delivery when exchanging information about it with other systems.
    */
-  public var identifier: MutableList<Identifier> = mutableListOf(),
+  public val identifier: List<Identifier> = listOf(),
   /** A plan, proposal or order that is fulfilled in whole or in part by this event. */
-  public var basedOn: MutableList<Reference> = mutableListOf(),
+  public val basedOn: List<Reference> = listOf(),
   /**
    * A larger event of which this particular event is a component or step.
    *
@@ -145,38 +145,38 @@ public data class SupplyDelivery(
    *
    * [The allowed reference resources may be adjusted as appropriate for the event resource].
    */
-  public var partOf: MutableList<Reference> = mutableListOf(),
+  public val partOf: List<Reference> = listOf(),
   /**
    * A code specifying the state of the dispense event.
    *
    * This element is labeled as a modifier because the status contains codes that mark the resource
    * as not currently valid.
    */
-  public var status: Enumeration<SupplyDeliveryStatus>? = null,
+  public val status: Enumeration<SupplyDeliveryStatus>? = null,
   /** A link to a resource representing the person whom the delivered item is for. */
-  public var patient: Reference? = null,
+  public val patient: Reference? = null,
   /**
    * Indicates the type of dispensing event that is performed. Examples include: Trial Fill,
    * Completion of Trial, Partial Fill, Emergency Fill, Samples, etc.
    */
-  public var type: CodeableConcept? = null,
+  public val type: CodeableConcept? = null,
   /** The item that is being delivered or has been supplied. */
-  public var suppliedItem: SuppliedItem? = null,
+  public val suppliedItem: SuppliedItem? = null,
   /**
    * The date or time(s) the activity occurred.
    *
    * [The list of types may be constrained as appropriate for the type of event].
    */
-  public var occurrence: Occurrence? = null,
+  public val occurrence: Occurrence? = null,
   /** The individual responsible for dispensing the medication, supplier or device. */
-  public var supplier: Reference? = null,
+  public val supplier: Reference? = null,
   /**
    * Identification of the facility/location where the Supply was shipped to, as part of the
    * dispense event.
    */
-  public var destination: Reference? = null,
+  public val destination: Reference? = null,
   /** Identifies the person who picked up the Supply. */
-  public var `receiver`: MutableList<Reference> = mutableListOf(),
+  public val `receiver`: List<Reference> = listOf(),
 ) : DomainResource() {
   /** The item that is being delivered or has been supplied. */
   @Serializable(with = SupplyDeliverySuppliedItemSerializer::class)
@@ -185,7 +185,7 @@ public data class SupplyDelivery(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: String? = null,
+    override val id: String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and manageable, there is a strict set of
@@ -198,7 +198,7 @@ public data class SupplyDelivery(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -217,15 +217,15 @@ public data class SupplyDelivery(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /** The amount of supply that has been dispensed. Includes unit of measure. */
-    public var quantity: Quantity? = null,
+    public val quantity: Quantity? = null,
     /**
      * Identifies the medication, substance or device being dispensed. This is either a link to a
      * resource representing the details of the item or a code that identifies the item from a known
      * list.
      */
-    public var item: Item? = null,
+    public val item: Item? = null,
   ) : BackboneElement() {
     @Serializable(with = SupplyDeliverySuppliedItemItemSerializer::class)
     public sealed interface Item {

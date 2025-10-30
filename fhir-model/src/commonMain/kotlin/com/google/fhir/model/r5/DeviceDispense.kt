@@ -22,7 +22,7 @@ import com.google.fhir.model.r5.serializers.DeviceDispensePerformerSerializer
 import com.google.fhir.model.r5.serializers.DeviceDispenseSerializer
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -41,12 +41,12 @@ public data class DeviceDispense(
    * like the create and conditional update. Otherwise, the use of the resouce id depends on the
    * given use case.
    */
-  override var id: String? = null,
+  override val id: String? = null,
   /**
    * The metadata about the resource. This is content that is maintained by the infrastructure.
    * Changes to the content might not always be associated with version changes to the resource.
    */
-  override var meta: Meta? = null,
+  override val meta: Meta? = null,
   /**
    * A reference to a set of rules that were followed when the resource was constructed, and which
    * must be understood when processing the content. Often, this is a reference to an implementation
@@ -60,7 +60,7 @@ public data class DeviceDispense(
    * to an implementation guide that defines these special rules as part of its narrative along with
    * other profiles, value sets, etc.
    */
-  override var implicitRules: Uri? = null,
+  override val implicitRules: Uri? = null,
   /**
    * The base language in which the resource is written.
    *
@@ -72,7 +72,7 @@ public data class DeviceDispense(
    * language is specified, it should it also be specified on the div element in the html (see rules
    * in HTML5 for information about the relationship between xml:lang and the html lang attribute).
    */
-  override var language: Code? = null,
+  override val language: Code? = null,
   /**
    * A human-readable narrative that contains a summary of the resource and can be used to represent
    * the content of the resource to a human. The narrative need not encode all the structured data,
@@ -86,7 +86,7 @@ public data class DeviceDispense(
    * legacy systems where information is captured as a "text blob" or where text is additionally
    * entered raw or narrated and encoded information is added later.
    */
-  override var text: Narrative? = null,
+  override val text: Narrative? = null,
   /**
    * These resources do not have an independent existence apart from the resource that contains
    * them - they cannot be identified independently, nor can they have their own independent
@@ -98,7 +98,7 @@ public data class DeviceDispense(
    * resources may have profiles and tags in their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: MutableList<Resource> = mutableListOf(),
+  override val contained: List<Resource> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and managable, there is a strict set of governance
@@ -111,7 +111,7 @@ public data class DeviceDispense(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: MutableList<Extension> = mutableListOf(),
+  override val extension: List<Extension> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -130,81 +130,81 @@ public data class DeviceDispense(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: MutableList<Extension> = mutableListOf(),
+  override val modifierExtension: List<Extension> = listOf(),
   /**
    * Business identifier for this dispensation.
    *
    * This is a business identifier, not a resource identifier.
    */
-  public var identifier: MutableList<Identifier> = mutableListOf(),
+  public val identifier: List<Identifier> = listOf(),
   /** The order or request that this dispense is fulfilling. */
-  public var basedOn: MutableList<Reference> = mutableListOf(),
+  public val basedOn: List<Reference> = listOf(),
   /** The bigger event that this dispense is a part of. */
-  public var partOf: MutableList<Reference> = mutableListOf(),
+  public val partOf: List<Reference> = listOf(),
   /**
    * A code specifying the state of the set of dispense events.
    *
    * This element is labeled as a modifier because the status contains codes that mark the resource
    * as not currently valid.
    */
-  public var status: Enumeration<DeviceDispenseStatusCodes>,
+  public val status: Enumeration<DeviceDispenseStatusCodes>,
   /** Indicates the reason why a dispense was or was not performed. */
-  public var statusReason: CodeableReference? = null,
+  public val statusReason: CodeableReference? = null,
   /**
    * Indicates the type of device dispense.
    *
    * The category can be used to include where the device is expected to be consumed or other types
    * of dispenses. Invariants can be used to bind to different value sets when profiling to bind.
    */
-  public var category: MutableList<CodeableConcept> = mutableListOf(),
+  public val category: List<CodeableConcept> = listOf(),
   /**
    * Identifies the device being dispensed. This is either a link to a resource representing the
    * details of the device or a simple attribute carrying a code that identifies the device from a
    * known list of devices.
    */
-  public var device: CodeableReference,
+  public val device: CodeableReference,
   /**
    * A link to a resource representing the person to whom the device is intended.
    *
    * What about 'this measuring Device is now asigned to Dr X who needs it now'?
    */
-  public var subject: Reference,
+  public val subject: Reference,
   /**
    * Identifies the person who picked up the device or the person or location where the device was
    * delivered. This may be a patient or their caregiver, but some cases exist where it can be a
    * healthcare professional or a location.
    */
-  public var `receiver`: Reference? = null,
+  public val `receiver`: Reference? = null,
   /** The encounter that establishes the context for this event. */
-  public var encounter: Reference? = null,
+  public val encounter: Reference? = null,
   /** Additional information that supports the device being dispensed. */
-  public var supportingInformation: MutableList<Reference> = mutableListOf(),
+  public val supportingInformation: List<Reference> = listOf(),
   /** Indicates who or what performed the event. */
-  public var performer: MutableList<Performer> = mutableListOf(),
+  public val performer: List<Performer> = listOf(),
   /** The principal physical location where the dispense was performed. */
-  public var location: Reference? = null,
+  public val location: Reference? = null,
   /** Indicates the type of dispensing event that is performed. */
-  public var type: CodeableConcept? = null,
+  public val type: CodeableConcept? = null,
   /** The number of devices that have been dispensed. */
-  public var quantity: Quantity? = null,
+  public val quantity: Quantity? = null,
   /** The time when the dispensed product was packaged and reviewed. */
-  public var preparedDate: DateTime? = null,
+  public val preparedDate: DateTime? = null,
   /** The time the dispensed product was made available to the patient or their representative. */
-  public var whenHandedOver: DateTime? = null,
+  public val whenHandedOver: DateTime? = null,
   /**
    * Identification of the facility/location where the device was /should be shipped to, as part of
    * the dispense process.
    */
-  public var destination: Reference? = null,
+  public val destination: Reference? = null,
   /** Extra information about the dispense that could not be conveyed in the other attributes. */
-  public var note: MutableList<Annotation> = mutableListOf(),
+  public val note: List<Annotation> = listOf(),
   /**
    * The full representation of the instructions.
    *
    * The content of the renderedDosageInstructions must not be different than the dose represented
    * in the dosageInstruction content.
    */
-  public var usageInstruction: Markdown? = null,
+  public val usageInstruction: Markdown? = null,
   /**
    * A summary of the events of interest that have occurred, such as when the dispense was verified.
    *
@@ -215,7 +215,7 @@ public data class DeviceDispense(
    * that points to this version using _revinclude All Provenances should have some historical
    * version of this Request as their subject.).
    */
-  public var eventHistory: MutableList<Reference> = mutableListOf(),
+  public val eventHistory: List<Reference> = listOf(),
 ) : DomainResource() {
   /** Indicates who or what performed the event. */
   @Serializable(with = DeviceDispensePerformerSerializer::class)
@@ -224,7 +224,7 @@ public data class DeviceDispense(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: String? = null,
+    override val id: String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -237,7 +237,7 @@ public data class DeviceDispense(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -256,17 +256,17 @@ public data class DeviceDispense(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /**
      * Distinguishes the type of performer in the dispense. For example, date enterer, packager,
      * final checker.
      */
-    public var function: CodeableConcept? = null,
+    public val function: CodeableConcept? = null,
     /**
      * The device, practitioner, etc. who performed the action. It should be assumed that the actor
      * is the dispenser of the device.
      */
-    public var actor: Reference,
+    public val actor: Reference,
   ) : BackboneElement()
 
   /** DeviceDispense Status Codes */

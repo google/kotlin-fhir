@@ -29,7 +29,7 @@ import com.google.fhir.model.r4b.Enumeration
 import com.google.fhir.model.r4b.Extension
 import com.google.fhir.model.r4b.FhirDateTime
 import com.google.fhir.model.r4b.Identifier
-import com.google.fhir.model.r4b.List
+import com.google.fhir.model.r4b.List as R4bList
 import com.google.fhir.model.r4b.Meta
 import com.google.fhir.model.r4b.Narrative
 import com.google.fhir.model.r4b.Reference
@@ -41,15 +41,15 @@ import com.google.fhir.model.r4b.serializers.LocalTimeSerializer
 import kotlin.Boolean as KotlinBoolean
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List as CollectionsList
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class ListEntrySurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: CollectionsList<Extension>? = null,
+  public var modifierExtension: CollectionsList<Extension>? = null,
   public var flag: CodeableConcept? = null,
   public var deleted: KotlinBoolean? = null,
   public var _deleted: Element? = null,
@@ -57,11 +57,11 @@ internal data class ListEntrySurrogate(
   public var _date: Element? = null,
   public var item: Reference,
 ) {
-  public fun toModel(): List.Entry =
-    List.Entry(
+  public fun toModel(): R4bList.Entry =
+    R4bList.Entry(
       id = this@ListEntrySurrogate.id,
-      extension = this@ListEntrySurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@ListEntrySurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@ListEntrySurrogate.extension ?: listOf(),
+      modifierExtension = this@ListEntrySurrogate.modifierExtension ?: listOf(),
       flag = this@ListEntrySurrogate.flag,
       deleted = R4bBoolean.of(this@ListEntrySurrogate.deleted, this@ListEntrySurrogate._deleted),
       date =
@@ -73,7 +73,7 @@ internal data class ListEntrySurrogate(
     )
 
   public companion object {
-    public fun fromModel(model: List.Entry): ListEntrySurrogate =
+    public fun fromModel(model: R4bList.Entry): ListEntrySurrogate =
       with(model) {
         ListEntrySurrogate(
           id = this@with.id,
@@ -99,10 +99,10 @@ internal data class ListSurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: MutableList<Resource>? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var identifier: MutableList<Identifier>? = null,
+  public var contained: CollectionsList<Resource>? = null,
+  public var extension: CollectionsList<Extension>? = null,
+  public var modifierExtension: CollectionsList<Extension>? = null,
+  public var identifier: CollectionsList<Identifier>? = null,
   public var status: KotlinString? = null,
   public var _status: Element? = null,
   public var mode: KotlinString? = null,
@@ -116,28 +116,31 @@ internal data class ListSurrogate(
   public var _date: Element? = null,
   public var source: Reference? = null,
   public var orderedBy: CodeableConcept? = null,
-  public var note: MutableList<Annotation>? = null,
-  public var entry: MutableList<List.Entry>? = null,
+  public var note: CollectionsList<Annotation>? = null,
+  public var entry: CollectionsList<R4bList.Entry>? = null,
   public var emptyReason: CodeableConcept? = null,
 ) {
-  public fun toModel(): List =
-    List(
+  public fun toModel(): R4bList =
+    R4bList(
       id = this@ListSurrogate.id,
       meta = this@ListSurrogate.meta,
       implicitRules = Uri.of(this@ListSurrogate.implicitRules, this@ListSurrogate._implicitRules),
       language = Code.of(this@ListSurrogate.language, this@ListSurrogate._language),
       text = this@ListSurrogate.text,
-      contained = this@ListSurrogate.contained ?: mutableListOf(),
-      extension = this@ListSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@ListSurrogate.modifierExtension ?: mutableListOf(),
-      identifier = this@ListSurrogate.identifier ?: mutableListOf(),
+      contained = this@ListSurrogate.contained ?: listOf(),
+      extension = this@ListSurrogate.extension ?: listOf(),
+      modifierExtension = this@ListSurrogate.modifierExtension ?: listOf(),
+      identifier = this@ListSurrogate.identifier ?: listOf(),
       status =
         Enumeration.of(
-          List.ListStatus.fromCode(this@ListSurrogate.status!!),
+          R4bList.ListStatus.fromCode(this@ListSurrogate.status!!),
           this@ListSurrogate._status,
         ),
       mode =
-        Enumeration.of(List.ListMode.fromCode(this@ListSurrogate.mode!!), this@ListSurrogate._mode),
+        Enumeration.of(
+          R4bList.ListMode.fromCode(this@ListSurrogate.mode!!),
+          this@ListSurrogate._mode,
+        ),
       title = R4bString.of(this@ListSurrogate.title, this@ListSurrogate._title),
       code = this@ListSurrogate.code,
       subject = this@ListSurrogate.subject,
@@ -146,13 +149,13 @@ internal data class ListSurrogate(
         DateTime.of(FhirDateTime.fromString(this@ListSurrogate.date), this@ListSurrogate._date),
       source = this@ListSurrogate.source,
       orderedBy = this@ListSurrogate.orderedBy,
-      note = this@ListSurrogate.note ?: mutableListOf(),
-      entry = this@ListSurrogate.entry ?: mutableListOf(),
+      note = this@ListSurrogate.note ?: listOf(),
+      entry = this@ListSurrogate.entry ?: listOf(),
       emptyReason = this@ListSurrogate.emptyReason,
     )
 
   public companion object {
-    public fun fromModel(model: List): ListSurrogate =
+    public fun fromModel(model: R4bList): ListSurrogate =
       with(model) {
         ListSurrogate(
           id = this@with.id,

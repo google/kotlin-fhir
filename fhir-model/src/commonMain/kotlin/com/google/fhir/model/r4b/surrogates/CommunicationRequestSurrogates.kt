@@ -43,23 +43,22 @@ import com.google.fhir.model.r4b.serializers.LocalTimeSerializer
 import kotlin.Boolean as KotlinBoolean
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class CommunicationRequestPayloadSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var content: CommunicationRequest.Payload.Content,
 ) {
   public fun toModel(): CommunicationRequest.Payload =
     CommunicationRequest.Payload(
       id = this@CommunicationRequestPayloadSurrogate.id,
-      extension = this@CommunicationRequestPayloadSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@CommunicationRequestPayloadSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@CommunicationRequestPayloadSurrogate.extension ?: listOf(),
+      modifierExtension = this@CommunicationRequestPayloadSurrogate.modifierExtension ?: listOf(),
       content = this@CommunicationRequestPayloadSurrogate.content,
     )
 
@@ -148,35 +147,35 @@ internal data class CommunicationRequestSurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: MutableList<Resource>? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var identifier: MutableList<Identifier>? = null,
-  public var basedOn: MutableList<Reference>? = null,
-  public var replaces: MutableList<Reference>? = null,
+  public var contained: List<Resource>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
+  public var identifier: List<Identifier>? = null,
+  public var basedOn: List<Reference>? = null,
+  public var replaces: List<Reference>? = null,
   public var groupIdentifier: Identifier? = null,
   public var status: KotlinString? = null,
   public var _status: Element? = null,
   public var statusReason: CodeableConcept? = null,
-  public var category: MutableList<CodeableConcept>? = null,
+  public var category: List<CodeableConcept>? = null,
   public var priority: KotlinString? = null,
   public var _priority: Element? = null,
   public var doNotPerform: KotlinBoolean? = null,
   public var _doNotPerform: Element? = null,
-  public var medium: MutableList<CodeableConcept>? = null,
+  public var medium: List<CodeableConcept>? = null,
   public var subject: Reference? = null,
-  public var about: MutableList<Reference>? = null,
+  public var about: List<Reference>? = null,
   public var encounter: Reference? = null,
-  public var payload: MutableList<CommunicationRequest.Payload>? = null,
+  public var payload: List<CommunicationRequest.Payload>? = null,
   public var occurrence: CommunicationRequest.Occurrence? = null,
   public var authoredOn: KotlinString? = null,
   public var _authoredOn: Element? = null,
   public var requester: Reference? = null,
-  public var recipient: MutableList<Reference>? = null,
+  public var recipient: List<Reference>? = null,
   public var sender: Reference? = null,
-  public var reasonCode: MutableList<CodeableConcept>? = null,
-  public var reasonReference: MutableList<Reference>? = null,
-  public var note: MutableList<Annotation>? = null,
+  public var reasonCode: List<CodeableConcept>? = null,
+  public var reasonReference: List<Reference>? = null,
+  public var note: List<Annotation>? = null,
 ) {
   public fun toModel(): CommunicationRequest =
     CommunicationRequest(
@@ -193,12 +192,12 @@ internal data class CommunicationRequestSurrogate(
           this@CommunicationRequestSurrogate._language,
         ),
       text = this@CommunicationRequestSurrogate.text,
-      contained = this@CommunicationRequestSurrogate.contained ?: mutableListOf(),
-      extension = this@CommunicationRequestSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@CommunicationRequestSurrogate.modifierExtension ?: mutableListOf(),
-      identifier = this@CommunicationRequestSurrogate.identifier ?: mutableListOf(),
-      basedOn = this@CommunicationRequestSurrogate.basedOn ?: mutableListOf(),
-      replaces = this@CommunicationRequestSurrogate.replaces ?: mutableListOf(),
+      contained = this@CommunicationRequestSurrogate.contained ?: listOf(),
+      extension = this@CommunicationRequestSurrogate.extension ?: listOf(),
+      modifierExtension = this@CommunicationRequestSurrogate.modifierExtension ?: listOf(),
+      identifier = this@CommunicationRequestSurrogate.identifier ?: listOf(),
+      basedOn = this@CommunicationRequestSurrogate.basedOn ?: listOf(),
+      replaces = this@CommunicationRequestSurrogate.replaces ?: listOf(),
       groupIdentifier = this@CommunicationRequestSurrogate.groupIdentifier,
       status =
         Enumeration.of(
@@ -206,7 +205,7 @@ internal data class CommunicationRequestSurrogate(
           this@CommunicationRequestSurrogate._status,
         ),
       statusReason = this@CommunicationRequestSurrogate.statusReason,
-      category = this@CommunicationRequestSurrogate.category ?: mutableListOf(),
+      category = this@CommunicationRequestSurrogate.category ?: listOf(),
       priority =
         this@CommunicationRequestSurrogate.priority?.let {
           Enumeration.of(
@@ -219,11 +218,11 @@ internal data class CommunicationRequestSurrogate(
           this@CommunicationRequestSurrogate.doNotPerform,
           this@CommunicationRequestSurrogate._doNotPerform,
         ),
-      medium = this@CommunicationRequestSurrogate.medium ?: mutableListOf(),
+      medium = this@CommunicationRequestSurrogate.medium ?: listOf(),
       subject = this@CommunicationRequestSurrogate.subject,
-      about = this@CommunicationRequestSurrogate.about ?: mutableListOf(),
+      about = this@CommunicationRequestSurrogate.about ?: listOf(),
       encounter = this@CommunicationRequestSurrogate.encounter,
-      payload = this@CommunicationRequestSurrogate.payload ?: mutableListOf(),
+      payload = this@CommunicationRequestSurrogate.payload ?: listOf(),
       occurrence = this@CommunicationRequestSurrogate.occurrence,
       authoredOn =
         DateTime.of(
@@ -231,11 +230,11 @@ internal data class CommunicationRequestSurrogate(
           this@CommunicationRequestSurrogate._authoredOn,
         ),
       requester = this@CommunicationRequestSurrogate.requester,
-      recipient = this@CommunicationRequestSurrogate.recipient ?: mutableListOf(),
+      recipient = this@CommunicationRequestSurrogate.recipient ?: listOf(),
       sender = this@CommunicationRequestSurrogate.sender,
-      reasonCode = this@CommunicationRequestSurrogate.reasonCode ?: mutableListOf(),
-      reasonReference = this@CommunicationRequestSurrogate.reasonReference ?: mutableListOf(),
-      note = this@CommunicationRequestSurrogate.note ?: mutableListOf(),
+      reasonCode = this@CommunicationRequestSurrogate.reasonCode ?: listOf(),
+      reasonReference = this@CommunicationRequestSurrogate.reasonReference ?: listOf(),
+      note = this@CommunicationRequestSurrogate.note ?: listOf(),
     )
 
   public companion object {

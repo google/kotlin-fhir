@@ -42,17 +42,17 @@ import com.google.fhir.model.r4b.serializers.LocalTimeSerializer
 import kotlin.Boolean as KotlinBoolean
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class AuditEventAgentSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var type: CodeableConcept? = null,
-  public var role: MutableList<CodeableConcept>? = null,
+  public var role: List<CodeableConcept>? = null,
   public var who: Reference? = null,
   public var altId: KotlinString? = null,
   public var _altId: Element? = null,
@@ -61,19 +61,19 @@ internal data class AuditEventAgentSurrogate(
   public var requestor: KotlinBoolean? = null,
   public var _requestor: Element? = null,
   public var location: Reference? = null,
-  public var policy: MutableList<KotlinString?>? = null,
-  public var _policy: MutableList<Element?>? = null,
+  public var policy: List<KotlinString?>? = null,
+  public var _policy: List<Element?>? = null,
   public var media: Coding? = null,
   public var network: AuditEvent.Agent.Network? = null,
-  public var purposeOfUse: MutableList<CodeableConcept>? = null,
+  public var purposeOfUse: List<CodeableConcept>? = null,
 ) {
   public fun toModel(): AuditEvent.Agent =
     AuditEvent.Agent(
       id = this@AuditEventAgentSurrogate.id,
-      extension = this@AuditEventAgentSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@AuditEventAgentSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@AuditEventAgentSurrogate.extension ?: listOf(),
+      modifierExtension = this@AuditEventAgentSurrogate.modifierExtension ?: listOf(),
       type = this@AuditEventAgentSurrogate.type,
-      role = this@AuditEventAgentSurrogate.role ?: mutableListOf(),
+      role = this@AuditEventAgentSurrogate.role ?: listOf(),
       who = this@AuditEventAgentSurrogate.who,
       altId =
         R4bString.of(this@AuditEventAgentSurrogate.altId, this@AuditEventAgentSurrogate._altId),
@@ -89,7 +89,7 @@ internal data class AuditEventAgentSurrogate(
           this@AuditEventAgentSurrogate.policy == null &&
             this@AuditEventAgentSurrogate._policy == null
         ) {
-          mutableListOf()
+          listOf()
         } else {
           (this@AuditEventAgentSurrogate.policy
               ?: List(this@AuditEventAgentSurrogate._policy!!.size) { null })
@@ -98,11 +98,11 @@ internal data class AuditEventAgentSurrogate(
                 ?: List(this@AuditEventAgentSurrogate.policy!!.size) { null }
             )
             .map { (value, element) -> Uri.of(value, element)!! }
-            .toMutableList()
+            .toList()
         },
       media = this@AuditEventAgentSurrogate.media,
       network = this@AuditEventAgentSurrogate.network,
-      purposeOfUse = this@AuditEventAgentSurrogate.purposeOfUse ?: mutableListOf(),
+      purposeOfUse = this@AuditEventAgentSurrogate.purposeOfUse ?: listOf(),
     )
 
   public companion object {
@@ -122,14 +122,13 @@ internal data class AuditEventAgentSurrogate(
           requestor = this@with.requestor.value,
           _requestor = this@with.requestor.toElement(),
           location = this@with.location,
-          policy =
-            this@with.policy.map { it.value }.toMutableList().takeUnless { it.all { it == null } },
+          policy = this@with.policy.map { it.value }.toList().takeUnless { it.all { it == null } },
           _policy =
             this@with.policy
               .map { it.toElement() }
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
-              ?.toMutableList(),
+              ?.toList(),
           media = this@with.media,
           network = this@with.network,
           purposeOfUse = this@with.purposeOfUse.takeIf { it.isNotEmpty() },
@@ -141,8 +140,8 @@ internal data class AuditEventAgentSurrogate(
 @Serializable
 internal data class AuditEventAgentNetworkSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var address: KotlinString? = null,
   public var _address: Element? = null,
   public var type: KotlinString? = null,
@@ -151,8 +150,8 @@ internal data class AuditEventAgentNetworkSurrogate(
   public fun toModel(): AuditEvent.Agent.Network =
     AuditEvent.Agent.Network(
       id = this@AuditEventAgentNetworkSurrogate.id,
-      extension = this@AuditEventAgentNetworkSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@AuditEventAgentNetworkSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@AuditEventAgentNetworkSurrogate.extension ?: listOf(),
+      modifierExtension = this@AuditEventAgentNetworkSurrogate.modifierExtension ?: listOf(),
       address =
         R4bString.of(
           this@AuditEventAgentNetworkSurrogate.address,
@@ -186,22 +185,22 @@ internal data class AuditEventAgentNetworkSurrogate(
 @Serializable
 internal data class AuditEventSourceSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var site: KotlinString? = null,
   public var _site: Element? = null,
   public var observer: Reference,
-  public var type: MutableList<Coding>? = null,
+  public var type: List<Coding>? = null,
 ) {
   public fun toModel(): AuditEvent.Source =
     AuditEvent.Source(
       id = this@AuditEventSourceSurrogate.id,
-      extension = this@AuditEventSourceSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@AuditEventSourceSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@AuditEventSourceSurrogate.extension ?: listOf(),
+      modifierExtension = this@AuditEventSourceSurrogate.modifierExtension ?: listOf(),
       site =
         R4bString.of(this@AuditEventSourceSurrogate.site, this@AuditEventSourceSurrogate._site),
       observer = this@AuditEventSourceSurrogate.observer,
-      type = this@AuditEventSourceSurrogate.type ?: mutableListOf(),
+      type = this@AuditEventSourceSurrogate.type ?: listOf(),
     )
 
   public companion object {
@@ -223,31 +222,31 @@ internal data class AuditEventSourceSurrogate(
 @Serializable
 internal data class AuditEventEntitySurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var what: Reference? = null,
   public var type: Coding? = null,
   public var role: Coding? = null,
   public var lifecycle: Coding? = null,
-  public var securityLabel: MutableList<Coding>? = null,
+  public var securityLabel: List<Coding>? = null,
   public var name: KotlinString? = null,
   public var _name: Element? = null,
   public var description: KotlinString? = null,
   public var _description: Element? = null,
   public var query: KotlinString? = null,
   public var _query: Element? = null,
-  public var detail: MutableList<AuditEvent.Entity.Detail>? = null,
+  public var detail: List<AuditEvent.Entity.Detail>? = null,
 ) {
   public fun toModel(): AuditEvent.Entity =
     AuditEvent.Entity(
       id = this@AuditEventEntitySurrogate.id,
-      extension = this@AuditEventEntitySurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@AuditEventEntitySurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@AuditEventEntitySurrogate.extension ?: listOf(),
+      modifierExtension = this@AuditEventEntitySurrogate.modifierExtension ?: listOf(),
       what = this@AuditEventEntitySurrogate.what,
       type = this@AuditEventEntitySurrogate.type,
       role = this@AuditEventEntitySurrogate.role,
       lifecycle = this@AuditEventEntitySurrogate.lifecycle,
-      securityLabel = this@AuditEventEntitySurrogate.securityLabel ?: mutableListOf(),
+      securityLabel = this@AuditEventEntitySurrogate.securityLabel ?: listOf(),
       name =
         R4bString.of(this@AuditEventEntitySurrogate.name, this@AuditEventEntitySurrogate._name),
       description =
@@ -260,7 +259,7 @@ internal data class AuditEventEntitySurrogate(
           this@AuditEventEntitySurrogate.query,
           this@AuditEventEntitySurrogate._query,
         ),
-      detail = this@AuditEventEntitySurrogate.detail ?: mutableListOf(),
+      detail = this@AuditEventEntitySurrogate.detail ?: listOf(),
     )
 
   public companion object {
@@ -290,8 +289,8 @@ internal data class AuditEventEntitySurrogate(
 @Serializable
 internal data class AuditEventEntityDetailSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var type: KotlinString? = null,
   public var _type: Element? = null,
   public var `value`: AuditEvent.Entity.Detail.Value,
@@ -299,8 +298,8 @@ internal data class AuditEventEntityDetailSurrogate(
   public fun toModel(): AuditEvent.Entity.Detail =
     AuditEvent.Entity.Detail(
       id = this@AuditEventEntityDetailSurrogate.id,
-      extension = this@AuditEventEntityDetailSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@AuditEventEntityDetailSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@AuditEventEntityDetailSurrogate.extension ?: listOf(),
+      modifierExtension = this@AuditEventEntityDetailSurrogate.modifierExtension ?: listOf(),
       type =
         R4bString.of(
           this@AuditEventEntityDetailSurrogate.type,
@@ -367,11 +366,11 @@ internal data class AuditEventSurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: MutableList<Resource>? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var contained: List<Resource>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var type: Coding,
-  public var subtype: MutableList<Coding>? = null,
+  public var subtype: List<Coding>? = null,
   public var action: KotlinString? = null,
   public var _action: Element? = null,
   public var period: Period? = null,
@@ -381,10 +380,10 @@ internal data class AuditEventSurrogate(
   public var _outcome: Element? = null,
   public var outcomeDesc: KotlinString? = null,
   public var _outcomeDesc: Element? = null,
-  public var purposeOfEvent: MutableList<CodeableConcept>? = null,
-  public var agent: MutableList<AuditEvent.Agent>? = null,
+  public var purposeOfEvent: List<CodeableConcept>? = null,
+  public var agent: List<AuditEvent.Agent>? = null,
   public var source: AuditEvent.Source,
-  public var entity: MutableList<AuditEvent.Entity>? = null,
+  public var entity: List<AuditEvent.Entity>? = null,
 ) {
   public fun toModel(): AuditEvent =
     AuditEvent(
@@ -394,11 +393,11 @@ internal data class AuditEventSurrogate(
         Uri.of(this@AuditEventSurrogate.implicitRules, this@AuditEventSurrogate._implicitRules),
       language = Code.of(this@AuditEventSurrogate.language, this@AuditEventSurrogate._language),
       text = this@AuditEventSurrogate.text,
-      contained = this@AuditEventSurrogate.contained ?: mutableListOf(),
-      extension = this@AuditEventSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@AuditEventSurrogate.modifierExtension ?: mutableListOf(),
+      contained = this@AuditEventSurrogate.contained ?: listOf(),
+      extension = this@AuditEventSurrogate.extension ?: listOf(),
+      modifierExtension = this@AuditEventSurrogate.modifierExtension ?: listOf(),
       type = this@AuditEventSurrogate.type,
-      subtype = this@AuditEventSurrogate.subtype ?: mutableListOf(),
+      subtype = this@AuditEventSurrogate.subtype ?: listOf(),
       action =
         this@AuditEventSurrogate.action?.let {
           Enumeration.of(AuditEvent.AuditEventAction.fromCode(it), this@AuditEventSurrogate._action)
@@ -418,10 +417,10 @@ internal data class AuditEventSurrogate(
         },
       outcomeDesc =
         R4bString.of(this@AuditEventSurrogate.outcomeDesc, this@AuditEventSurrogate._outcomeDesc),
-      purposeOfEvent = this@AuditEventSurrogate.purposeOfEvent ?: mutableListOf(),
-      agent = this@AuditEventSurrogate.agent ?: mutableListOf(),
+      purposeOfEvent = this@AuditEventSurrogate.purposeOfEvent ?: listOf(),
+      agent = this@AuditEventSurrogate.agent ?: listOf(),
       source = this@AuditEventSurrogate.source,
-      entity = this@AuditEventSurrogate.entity ?: mutableListOf(),
+      entity = this@AuditEventSurrogate.entity ?: listOf(),
     )
 
   public companion object {

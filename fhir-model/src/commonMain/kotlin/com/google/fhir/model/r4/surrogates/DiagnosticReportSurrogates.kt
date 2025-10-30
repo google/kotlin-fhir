@@ -41,15 +41,15 @@ import com.google.fhir.model.r4.serializers.DoubleSerializer
 import com.google.fhir.model.r4.serializers.LocalTimeSerializer
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class DiagnosticReportMediaSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var comment: KotlinString? = null,
   public var _comment: Element? = null,
   public var link: Reference,
@@ -57,8 +57,8 @@ internal data class DiagnosticReportMediaSurrogate(
   public fun toModel(): DiagnosticReport.Media =
     DiagnosticReport.Media(
       id = this@DiagnosticReportMediaSurrogate.id,
-      extension = this@DiagnosticReportMediaSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@DiagnosticReportMediaSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@DiagnosticReportMediaSurrogate.extension ?: listOf(),
+      modifierExtension = this@DiagnosticReportMediaSurrogate.modifierExtension ?: listOf(),
       comment =
         R4String.of(
           this@DiagnosticReportMediaSurrogate.comment,
@@ -118,30 +118,30 @@ internal data class DiagnosticReportSurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: MutableList<Resource>? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var identifier: MutableList<Identifier>? = null,
-  public var basedOn: MutableList<Reference>? = null,
+  public var contained: List<Resource>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
+  public var identifier: List<Identifier>? = null,
+  public var basedOn: List<Reference>? = null,
   public var status: KotlinString? = null,
   public var _status: Element? = null,
-  public var category: MutableList<CodeableConcept>? = null,
+  public var category: List<CodeableConcept>? = null,
   public var code: CodeableConcept,
   public var subject: Reference? = null,
   public var encounter: Reference? = null,
   public var effective: DiagnosticReport.Effective? = null,
   public var issued: KotlinString? = null,
   public var _issued: Element? = null,
-  public var performer: MutableList<Reference>? = null,
-  public var resultsInterpreter: MutableList<Reference>? = null,
-  public var specimen: MutableList<Reference>? = null,
-  public var result: MutableList<Reference>? = null,
-  public var imagingStudy: MutableList<Reference>? = null,
-  public var media: MutableList<DiagnosticReport.Media>? = null,
+  public var performer: List<Reference>? = null,
+  public var resultsInterpreter: List<Reference>? = null,
+  public var specimen: List<Reference>? = null,
+  public var result: List<Reference>? = null,
+  public var imagingStudy: List<Reference>? = null,
+  public var media: List<DiagnosticReport.Media>? = null,
   public var conclusion: KotlinString? = null,
   public var _conclusion: Element? = null,
-  public var conclusionCode: MutableList<CodeableConcept>? = null,
-  public var presentedForm: MutableList<Attachment>? = null,
+  public var conclusionCode: List<CodeableConcept>? = null,
+  public var presentedForm: List<Attachment>? = null,
 ) {
   public fun toModel(): DiagnosticReport =
     DiagnosticReport(
@@ -155,17 +155,17 @@ internal data class DiagnosticReportSurrogate(
       language =
         Code.of(this@DiagnosticReportSurrogate.language, this@DiagnosticReportSurrogate._language),
       text = this@DiagnosticReportSurrogate.text,
-      contained = this@DiagnosticReportSurrogate.contained ?: mutableListOf(),
-      extension = this@DiagnosticReportSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@DiagnosticReportSurrogate.modifierExtension ?: mutableListOf(),
-      identifier = this@DiagnosticReportSurrogate.identifier ?: mutableListOf(),
-      basedOn = this@DiagnosticReportSurrogate.basedOn ?: mutableListOf(),
+      contained = this@DiagnosticReportSurrogate.contained ?: listOf(),
+      extension = this@DiagnosticReportSurrogate.extension ?: listOf(),
+      modifierExtension = this@DiagnosticReportSurrogate.modifierExtension ?: listOf(),
+      identifier = this@DiagnosticReportSurrogate.identifier ?: listOf(),
+      basedOn = this@DiagnosticReportSurrogate.basedOn ?: listOf(),
       status =
         Enumeration.of(
           DiagnosticReport.DiagnosticReportStatus.fromCode(this@DiagnosticReportSurrogate.status!!),
           this@DiagnosticReportSurrogate._status,
         ),
-      category = this@DiagnosticReportSurrogate.category ?: mutableListOf(),
+      category = this@DiagnosticReportSurrogate.category ?: listOf(),
       code = this@DiagnosticReportSurrogate.code,
       subject = this@DiagnosticReportSurrogate.subject,
       encounter = this@DiagnosticReportSurrogate.encounter,
@@ -175,19 +175,19 @@ internal data class DiagnosticReportSurrogate(
           FhirDateTime.fromString(this@DiagnosticReportSurrogate.issued),
           this@DiagnosticReportSurrogate._issued,
         ),
-      performer = this@DiagnosticReportSurrogate.performer ?: mutableListOf(),
-      resultsInterpreter = this@DiagnosticReportSurrogate.resultsInterpreter ?: mutableListOf(),
-      specimen = this@DiagnosticReportSurrogate.specimen ?: mutableListOf(),
-      result = this@DiagnosticReportSurrogate.result ?: mutableListOf(),
-      imagingStudy = this@DiagnosticReportSurrogate.imagingStudy ?: mutableListOf(),
-      media = this@DiagnosticReportSurrogate.media ?: mutableListOf(),
+      performer = this@DiagnosticReportSurrogate.performer ?: listOf(),
+      resultsInterpreter = this@DiagnosticReportSurrogate.resultsInterpreter ?: listOf(),
+      specimen = this@DiagnosticReportSurrogate.specimen ?: listOf(),
+      result = this@DiagnosticReportSurrogate.result ?: listOf(),
+      imagingStudy = this@DiagnosticReportSurrogate.imagingStudy ?: listOf(),
+      media = this@DiagnosticReportSurrogate.media ?: listOf(),
       conclusion =
         R4String.of(
           this@DiagnosticReportSurrogate.conclusion,
           this@DiagnosticReportSurrogate._conclusion,
         ),
-      conclusionCode = this@DiagnosticReportSurrogate.conclusionCode ?: mutableListOf(),
-      presentedForm = this@DiagnosticReportSurrogate.presentedForm ?: mutableListOf(),
+      conclusionCode = this@DiagnosticReportSurrogate.conclusionCode ?: listOf(),
+      presentedForm = this@DiagnosticReportSurrogate.presentedForm ?: listOf(),
     )
 
   public companion object {

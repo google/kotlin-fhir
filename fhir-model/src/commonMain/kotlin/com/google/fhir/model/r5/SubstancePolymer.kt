@@ -26,7 +26,7 @@ import com.google.fhir.model.r5.serializers.SubstancePolymerRepeatRepeatUnitStru
 import com.google.fhir.model.r5.serializers.SubstancePolymerRepeatSerializer
 import com.google.fhir.model.r5.serializers.SubstancePolymerSerializer
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -42,12 +42,12 @@ public data class SubstancePolymer(
    * like the create and conditional update. Otherwise, the use of the resouce id depends on the
    * given use case.
    */
-  override var id: kotlin.String? = null,
+  override val id: kotlin.String? = null,
   /**
    * The metadata about the resource. This is content that is maintained by the infrastructure.
    * Changes to the content might not always be associated with version changes to the resource.
    */
-  override var meta: Meta? = null,
+  override val meta: Meta? = null,
   /**
    * A reference to a set of rules that were followed when the resource was constructed, and which
    * must be understood when processing the content. Often, this is a reference to an implementation
@@ -61,7 +61,7 @@ public data class SubstancePolymer(
    * to an implementation guide that defines these special rules as part of its narrative along with
    * other profiles, value sets, etc.
    */
-  override var implicitRules: Uri? = null,
+  override val implicitRules: Uri? = null,
   /**
    * The base language in which the resource is written.
    *
@@ -73,7 +73,7 @@ public data class SubstancePolymer(
    * language is specified, it should it also be specified on the div element in the html (see rules
    * in HTML5 for information about the relationship between xml:lang and the html lang attribute).
    */
-  override var language: Code? = null,
+  override val language: Code? = null,
   /**
    * A human-readable narrative that contains a summary of the resource and can be used to represent
    * the content of the resource to a human. The narrative need not encode all the structured data,
@@ -87,7 +87,7 @@ public data class SubstancePolymer(
    * legacy systems where information is captured as a "text blob" or where text is additionally
    * entered raw or narrated and encoded information is added later.
    */
-  override var text: Narrative? = null,
+  override val text: Narrative? = null,
   /**
    * These resources do not have an independent existence apart from the resource that contains
    * them - they cannot be identified independently, nor can they have their own independent
@@ -99,7 +99,7 @@ public data class SubstancePolymer(
    * resources may have profiles and tags in their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: MutableList<Resource> = mutableListOf(),
+  override val contained: List<Resource> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and managable, there is a strict set of governance
@@ -112,7 +112,7 @@ public data class SubstancePolymer(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: MutableList<Extension> = mutableListOf(),
+  override val extension: List<Extension> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -131,27 +131,27 @@ public data class SubstancePolymer(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: MutableList<Extension> = mutableListOf(),
+  override val modifierExtension: List<Extension> = listOf(),
   /**
    * A business idenfier for this polymer, but typically this is handled by a SubstanceDefinition
    * identifier.
    */
-  public var identifier: Identifier? = null,
+  public val identifier: Identifier? = null,
   /** Overall type of the polymer. */
-  public var `class`: CodeableConcept? = null,
+  public val `class`: CodeableConcept? = null,
   /** Polymer geometry, e.g. linear, branched, cross-linked, network or dendritic. */
-  public var geometry: CodeableConcept? = null,
+  public val geometry: CodeableConcept? = null,
   /** Descrtibes the copolymer sequence type (polymer connectivity). */
-  public var copolymerConnectivity: MutableList<CodeableConcept> = mutableListOf(),
+  public val copolymerConnectivity: List<CodeableConcept> = listOf(),
   /**
    * Todo - this is intended to connect to a repeating full modification structure, also used by
    * Protein and Nucleic Acid . String is just a placeholder.
    */
-  public var modification: String? = null,
+  public val modification: String? = null,
   /** Todo. */
-  public var monomerSet: MutableList<MonomerSet> = mutableListOf(),
+  public val monomerSet: List<MonomerSet> = listOf(),
   /** Specifies and quantifies the repeated units and their configuration. */
-  public var repeat: MutableList<Repeat> = mutableListOf(),
+  public val repeat: List<Repeat> = listOf(),
 ) : DomainResource() {
   /** Todo. */
   @Serializable(with = SubstancePolymerMonomerSetSerializer::class)
@@ -160,7 +160,7 @@ public data class SubstancePolymer(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -173,7 +173,7 @@ public data class SubstancePolymer(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -192,14 +192,14 @@ public data class SubstancePolymer(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /**
      * Captures the type of ratio to the entire polymer, e.g. Monomer/Polymer ratio, SRU/Polymer
      * Ratio.
      */
-    public var ratioType: CodeableConcept? = null,
+    public val ratioType: CodeableConcept? = null,
     /** The starting materials - monomer(s) used in the synthesis of the polymer. */
-    public var startingMaterial: MutableList<StartingMaterial> = mutableListOf(),
+    public val startingMaterial: List<StartingMaterial> = listOf(),
   ) : BackboneElement() {
     /** The starting materials - monomer(s) used in the synthesis of the polymer. */
     @Serializable(with = SubstancePolymerMonomerSetStartingMaterialSerializer::class)
@@ -208,7 +208,7 @@ public data class SubstancePolymer(
        * Unique id for the element within a resource (for internal references). This may be any
        * string value that does not contain spaces.
        */
-      override var id: kotlin.String? = null,
+      override val id: kotlin.String? = null,
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -221,7 +221,7 @@ public data class SubstancePolymer(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: MutableList<Extension> = mutableListOf(),
+      override val extension: List<Extension> = listOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -240,18 +240,18 @@ public data class SubstancePolymer(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: MutableList<Extension> = mutableListOf(),
+      override val modifierExtension: List<Extension> = listOf(),
       /** The type of substance for this starting material. */
-      public var code: CodeableConcept? = null,
+      public val code: CodeableConcept? = null,
       /** Substance high level category, e.g. chemical substance. */
-      public var category: CodeableConcept? = null,
+      public val category: CodeableConcept? = null,
       /**
        * Used to specify whether the attribute described is a defining element for the unique
        * identification of the polymer.
        */
-      public var isDefining: Boolean? = null,
+      public val isDefining: Boolean? = null,
       /** A percentage. */
-      public var amount: Quantity? = null,
+      public val amount: Quantity? = null,
     ) : BackboneElement()
   }
 
@@ -262,7 +262,7 @@ public data class SubstancePolymer(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -275,7 +275,7 @@ public data class SubstancePolymer(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -294,16 +294,16 @@ public data class SubstancePolymer(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /** A representation of an (average) molecular formula from a polymer. */
-    public var averageMolecularFormula: String? = null,
+    public val averageMolecularFormula: String? = null,
     /**
      * How the quantitative amount of Structural Repeat Units is captured (e.g. Exact, Numeric,
      * Average).
      */
-    public var repeatUnitAmountType: CodeableConcept? = null,
+    public val repeatUnitAmountType: CodeableConcept? = null,
     /** An SRU - Structural Repeat Unit. */
-    public var repeatUnit: MutableList<RepeatUnit> = mutableListOf(),
+    public val repeatUnit: List<RepeatUnit> = listOf(),
   ) : BackboneElement() {
     /** An SRU - Structural Repeat Unit. */
     @Serializable(with = SubstancePolymerRepeatRepeatUnitSerializer::class)
@@ -312,7 +312,7 @@ public data class SubstancePolymer(
        * Unique id for the element within a resource (for internal references). This may be any
        * string value that does not contain spaces.
        */
-      override var id: kotlin.String? = null,
+      override val id: kotlin.String? = null,
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -325,7 +325,7 @@ public data class SubstancePolymer(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: MutableList<Extension> = mutableListOf(),
+      override val extension: List<Extension> = listOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -344,20 +344,20 @@ public data class SubstancePolymer(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: MutableList<Extension> = mutableListOf(),
+      override val modifierExtension: List<Extension> = listOf(),
       /** Structural repeat units are essential elements for defining polymers. */
-      public var unit: String? = null,
+      public val unit: String? = null,
       /** The orientation of the polymerisation, e.g. head-tail, head-head, random. */
-      public var orientation: CodeableConcept? = null,
+      public val orientation: CodeableConcept? = null,
       /** Number of repeats of this unit. */
-      public var amount: Integer? = null,
+      public val amount: Integer? = null,
       /**
        * Applies to homopolymer and block co-polymers where the degree of polymerisation within a
        * block can be described.
        */
-      public var degreeOfPolymerisation: MutableList<DegreeOfPolymerisation> = mutableListOf(),
+      public val degreeOfPolymerisation: List<DegreeOfPolymerisation> = listOf(),
       /** A graphical structure for this SRU. */
-      public var structuralRepresentation: MutableList<StructuralRepresentation> = mutableListOf(),
+      public val structuralRepresentation: List<StructuralRepresentation> = listOf(),
     ) : BackboneElement() {
       /**
        * Applies to homopolymer and block co-polymers where the degree of polymerisation within a
@@ -369,7 +369,7 @@ public data class SubstancePolymer(
          * Unique id for the element within a resource (for internal references). This may be any
          * string value that does not contain spaces.
          */
-        override var id: kotlin.String? = null,
+        override val id: kotlin.String? = null,
         /**
          * May be used to represent additional information that is not part of the basic definition
          * of the element. To make the use of extensions safe and managable, there is a strict set
@@ -382,7 +382,7 @@ public data class SubstancePolymer(
          * extensions. The use of extensions is what allows the FHIR specification to retain a core
          * level of simplicity for everyone.
          */
-        override var extension: MutableList<Extension> = mutableListOf(),
+        override val extension: List<Extension> = listOf(),
         /**
          * May be used to represent additional information that is not part of the basic definition
          * of the element and that modifies the understanding of the element in which it is
@@ -401,15 +401,15 @@ public data class SubstancePolymer(
          * extensions. The use of extensions is what allows the FHIR specification to retain a core
          * level of simplicity for everyone.
          */
-        override var modifierExtension: MutableList<Extension> = mutableListOf(),
+        override val modifierExtension: List<Extension> = listOf(),
         /** The type of the degree of polymerisation shall be described, e.g. SRU/Polymer Ratio. */
-        public var type: CodeableConcept? = null,
+        public val type: CodeableConcept? = null,
         /** An average amount of polymerisation. */
-        public var average: Integer? = null,
+        public val average: Integer? = null,
         /** A low expected limit of the amount. */
-        public var low: Integer? = null,
+        public val low: Integer? = null,
         /** A high expected limit of the amount. */
-        public var high: Integer? = null,
+        public val high: Integer? = null,
       ) : BackboneElement()
 
       /** A graphical structure for this SRU. */
@@ -421,7 +421,7 @@ public data class SubstancePolymer(
          * Unique id for the element within a resource (for internal references). This may be any
          * string value that does not contain spaces.
          */
-        override var id: kotlin.String? = null,
+        override val id: kotlin.String? = null,
         /**
          * May be used to represent additional information that is not part of the basic definition
          * of the element. To make the use of extensions safe and managable, there is a strict set
@@ -434,7 +434,7 @@ public data class SubstancePolymer(
          * extensions. The use of extensions is what allows the FHIR specification to retain a core
          * level of simplicity for everyone.
          */
-        override var extension: MutableList<Extension> = mutableListOf(),
+        override val extension: List<Extension> = listOf(),
         /**
          * May be used to represent additional information that is not part of the basic definition
          * of the element and that modifies the understanding of the element in which it is
@@ -453,18 +453,18 @@ public data class SubstancePolymer(
          * extensions. The use of extensions is what allows the FHIR specification to retain a core
          * level of simplicity for everyone.
          */
-        override var modifierExtension: MutableList<Extension> = mutableListOf(),
+        override val modifierExtension: List<Extension> = listOf(),
         /** The type of structure (e.g. Full, Partial, Representative). */
-        public var type: CodeableConcept? = null,
+        public val type: CodeableConcept? = null,
         /**
          * The structural representation as text string in a standard format e.g. InChI, SMILES,
          * MOLFILE, CDX, SDF, PDB, mmCIF.
          */
-        public var representation: String? = null,
+        public val representation: String? = null,
         /** The format of the representation e.g. InChI, SMILES, MOLFILE, CDX, SDF, PDB, mmCIF. */
-        public var format: CodeableConcept? = null,
+        public val format: CodeableConcept? = null,
         /** An attached file with the structural representation. */
-        public var attachment: Attachment? = null,
+        public val attachment: Attachment? = null,
       ) : BackboneElement()
     }
   }

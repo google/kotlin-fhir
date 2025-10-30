@@ -82,7 +82,7 @@ import kotlin.Double
 import kotlin.Int
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.datetime.LocalTime
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
@@ -90,19 +90,19 @@ import kotlinx.serialization.UseSerializers
 @Serializable
 internal data class ParametersParameterSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var name: KotlinString? = null,
   public var _name: Element? = null,
   public var `value`: Parameters.Parameter.Value? = null,
   public var resource: Resource? = null,
-  public var part: MutableList<Parameters.Parameter>? = null,
+  public var part: List<Parameters.Parameter>? = null,
 ) {
   public fun toModel(): Parameters.Parameter =
     Parameters.Parameter(
       id = this@ParametersParameterSurrogate.id,
-      extension = this@ParametersParameterSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@ParametersParameterSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@ParametersParameterSurrogate.extension ?: listOf(),
+      modifierExtension = this@ParametersParameterSurrogate.modifierExtension ?: listOf(),
       name =
         R4String.of(
           this@ParametersParameterSurrogate.name,
@@ -110,7 +110,7 @@ internal data class ParametersParameterSurrogate(
         )!!,
       `value` = this@ParametersParameterSurrogate.`value`,
       resource = this@ParametersParameterSurrogate.resource,
-      part = this@ParametersParameterSurrogate.part ?: mutableListOf(),
+      part = this@ParametersParameterSurrogate.part ?: listOf(),
     )
 
   public companion object {
@@ -399,7 +399,7 @@ internal data class ParametersSurrogate(
   public var _implicitRules: Element? = null,
   public var language: KotlinString? = null,
   public var _language: Element? = null,
-  public var parameter: MutableList<Parameters.Parameter>? = null,
+  public var parameter: List<Parameters.Parameter>? = null,
 ) {
   public fun toModel(): Parameters =
     Parameters(
@@ -408,7 +408,7 @@ internal data class ParametersSurrogate(
       implicitRules =
         Uri.of(this@ParametersSurrogate.implicitRules, this@ParametersSurrogate._implicitRules),
       language = Code.of(this@ParametersSurrogate.language, this@ParametersSurrogate._language),
-      parameter = this@ParametersSurrogate.parameter ?: mutableListOf(),
+      parameter = this@ParametersSurrogate.parameter ?: listOf(),
     )
 
   public companion object {

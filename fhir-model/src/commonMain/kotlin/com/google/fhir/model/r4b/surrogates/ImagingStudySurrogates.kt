@@ -43,15 +43,15 @@ import com.google.fhir.model.r4b.serializers.LocalTimeSerializer
 import kotlin.Int
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class ImagingStudySeriesSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var uid: KotlinString? = null,
   public var _uid: Element? = null,
   public var number: Int? = null,
@@ -61,20 +61,20 @@ internal data class ImagingStudySeriesSurrogate(
   public var _description: Element? = null,
   public var numberOfInstances: Int? = null,
   public var _numberOfInstances: Element? = null,
-  public var endpoint: MutableList<Reference>? = null,
+  public var endpoint: List<Reference>? = null,
   public var bodySite: Coding? = null,
   public var laterality: Coding? = null,
-  public var specimen: MutableList<Reference>? = null,
+  public var specimen: List<Reference>? = null,
   public var started: KotlinString? = null,
   public var _started: Element? = null,
-  public var performer: MutableList<ImagingStudy.Series.Performer>? = null,
-  public var instance: MutableList<ImagingStudy.Series.Instance>? = null,
+  public var performer: List<ImagingStudy.Series.Performer>? = null,
+  public var instance: List<ImagingStudy.Series.Instance>? = null,
 ) {
   public fun toModel(): ImagingStudy.Series =
     ImagingStudy.Series(
       id = this@ImagingStudySeriesSurrogate.id,
-      extension = this@ImagingStudySeriesSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@ImagingStudySeriesSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@ImagingStudySeriesSurrogate.extension ?: listOf(),
+      modifierExtension = this@ImagingStudySeriesSurrogate.modifierExtension ?: listOf(),
       uid = Id.of(this@ImagingStudySeriesSurrogate.uid, this@ImagingStudySeriesSurrogate._uid)!!,
       number =
         UnsignedInt.of(
@@ -92,17 +92,17 @@ internal data class ImagingStudySeriesSurrogate(
           this@ImagingStudySeriesSurrogate.numberOfInstances,
           this@ImagingStudySeriesSurrogate._numberOfInstances,
         ),
-      endpoint = this@ImagingStudySeriesSurrogate.endpoint ?: mutableListOf(),
+      endpoint = this@ImagingStudySeriesSurrogate.endpoint ?: listOf(),
       bodySite = this@ImagingStudySeriesSurrogate.bodySite,
       laterality = this@ImagingStudySeriesSurrogate.laterality,
-      specimen = this@ImagingStudySeriesSurrogate.specimen ?: mutableListOf(),
+      specimen = this@ImagingStudySeriesSurrogate.specimen ?: listOf(),
       started =
         DateTime.of(
           FhirDateTime.fromString(this@ImagingStudySeriesSurrogate.started),
           this@ImagingStudySeriesSurrogate._started,
         ),
-      performer = this@ImagingStudySeriesSurrogate.performer ?: mutableListOf(),
-      instance = this@ImagingStudySeriesSurrogate.instance ?: mutableListOf(),
+      performer = this@ImagingStudySeriesSurrogate.performer ?: listOf(),
+      instance = this@ImagingStudySeriesSurrogate.instance ?: listOf(),
     )
 
   public companion object {
@@ -137,17 +137,16 @@ internal data class ImagingStudySeriesSurrogate(
 @Serializable
 internal data class ImagingStudySeriesPerformerSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var function: CodeableConcept? = null,
   public var actor: Reference,
 ) {
   public fun toModel(): ImagingStudy.Series.Performer =
     ImagingStudy.Series.Performer(
       id = this@ImagingStudySeriesPerformerSurrogate.id,
-      extension = this@ImagingStudySeriesPerformerSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@ImagingStudySeriesPerformerSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@ImagingStudySeriesPerformerSurrogate.extension ?: listOf(),
+      modifierExtension = this@ImagingStudySeriesPerformerSurrogate.modifierExtension ?: listOf(),
       function = this@ImagingStudySeriesPerformerSurrogate.function,
       actor = this@ImagingStudySeriesPerformerSurrogate.actor,
     )
@@ -171,8 +170,8 @@ internal data class ImagingStudySeriesPerformerSurrogate(
 @Serializable
 internal data class ImagingStudySeriesInstanceSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var uid: KotlinString? = null,
   public var _uid: Element? = null,
   public var sopClass: Coding,
@@ -184,9 +183,8 @@ internal data class ImagingStudySeriesInstanceSurrogate(
   public fun toModel(): ImagingStudy.Series.Instance =
     ImagingStudy.Series.Instance(
       id = this@ImagingStudySeriesInstanceSurrogate.id,
-      extension = this@ImagingStudySeriesInstanceSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@ImagingStudySeriesInstanceSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@ImagingStudySeriesInstanceSurrogate.extension ?: listOf(),
+      modifierExtension = this@ImagingStudySeriesInstanceSurrogate.modifierExtension ?: listOf(),
       uid =
         Id.of(
           this@ImagingStudySeriesInstanceSurrogate.uid,
@@ -233,34 +231,34 @@ internal data class ImagingStudySurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: MutableList<Resource>? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var identifier: MutableList<Identifier>? = null,
+  public var contained: List<Resource>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
+  public var identifier: List<Identifier>? = null,
   public var status: KotlinString? = null,
   public var _status: Element? = null,
-  public var modality: MutableList<Coding>? = null,
+  public var modality: List<Coding>? = null,
   public var subject: Reference,
   public var encounter: Reference? = null,
   public var started: KotlinString? = null,
   public var _started: Element? = null,
-  public var basedOn: MutableList<Reference>? = null,
+  public var basedOn: List<Reference>? = null,
   public var referrer: Reference? = null,
-  public var interpreter: MutableList<Reference>? = null,
-  public var endpoint: MutableList<Reference>? = null,
+  public var interpreter: List<Reference>? = null,
+  public var endpoint: List<Reference>? = null,
   public var numberOfSeries: Int? = null,
   public var _numberOfSeries: Element? = null,
   public var numberOfInstances: Int? = null,
   public var _numberOfInstances: Element? = null,
   public var procedureReference: Reference? = null,
-  public var procedureCode: MutableList<CodeableConcept>? = null,
+  public var procedureCode: List<CodeableConcept>? = null,
   public var location: Reference? = null,
-  public var reasonCode: MutableList<CodeableConcept>? = null,
-  public var reasonReference: MutableList<Reference>? = null,
-  public var note: MutableList<Annotation>? = null,
+  public var reasonCode: List<CodeableConcept>? = null,
+  public var reasonReference: List<Reference>? = null,
+  public var note: List<Annotation>? = null,
   public var description: KotlinString? = null,
   public var _description: Element? = null,
-  public var series: MutableList<ImagingStudy.Series>? = null,
+  public var series: List<ImagingStudy.Series>? = null,
 ) {
   public fun toModel(): ImagingStudy =
     ImagingStudy(
@@ -270,16 +268,16 @@ internal data class ImagingStudySurrogate(
         Uri.of(this@ImagingStudySurrogate.implicitRules, this@ImagingStudySurrogate._implicitRules),
       language = Code.of(this@ImagingStudySurrogate.language, this@ImagingStudySurrogate._language),
       text = this@ImagingStudySurrogate.text,
-      contained = this@ImagingStudySurrogate.contained ?: mutableListOf(),
-      extension = this@ImagingStudySurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@ImagingStudySurrogate.modifierExtension ?: mutableListOf(),
-      identifier = this@ImagingStudySurrogate.identifier ?: mutableListOf(),
+      contained = this@ImagingStudySurrogate.contained ?: listOf(),
+      extension = this@ImagingStudySurrogate.extension ?: listOf(),
+      modifierExtension = this@ImagingStudySurrogate.modifierExtension ?: listOf(),
+      identifier = this@ImagingStudySurrogate.identifier ?: listOf(),
       status =
         Enumeration.of(
           ImagingStudy.ImagingStudyStatus.fromCode(this@ImagingStudySurrogate.status!!),
           this@ImagingStudySurrogate._status,
         ),
-      modality = this@ImagingStudySurrogate.modality ?: mutableListOf(),
+      modality = this@ImagingStudySurrogate.modality ?: listOf(),
       subject = this@ImagingStudySurrogate.subject,
       encounter = this@ImagingStudySurrogate.encounter,
       started =
@@ -287,10 +285,10 @@ internal data class ImagingStudySurrogate(
           FhirDateTime.fromString(this@ImagingStudySurrogate.started),
           this@ImagingStudySurrogate._started,
         ),
-      basedOn = this@ImagingStudySurrogate.basedOn ?: mutableListOf(),
+      basedOn = this@ImagingStudySurrogate.basedOn ?: listOf(),
       referrer = this@ImagingStudySurrogate.referrer,
-      interpreter = this@ImagingStudySurrogate.interpreter ?: mutableListOf(),
-      endpoint = this@ImagingStudySurrogate.endpoint ?: mutableListOf(),
+      interpreter = this@ImagingStudySurrogate.interpreter ?: listOf(),
+      endpoint = this@ImagingStudySurrogate.endpoint ?: listOf(),
       numberOfSeries =
         UnsignedInt.of(
           this@ImagingStudySurrogate.numberOfSeries,
@@ -302,17 +300,17 @@ internal data class ImagingStudySurrogate(
           this@ImagingStudySurrogate._numberOfInstances,
         ),
       procedureReference = this@ImagingStudySurrogate.procedureReference,
-      procedureCode = this@ImagingStudySurrogate.procedureCode ?: mutableListOf(),
+      procedureCode = this@ImagingStudySurrogate.procedureCode ?: listOf(),
       location = this@ImagingStudySurrogate.location,
-      reasonCode = this@ImagingStudySurrogate.reasonCode ?: mutableListOf(),
-      reasonReference = this@ImagingStudySurrogate.reasonReference ?: mutableListOf(),
-      note = this@ImagingStudySurrogate.note ?: mutableListOf(),
+      reasonCode = this@ImagingStudySurrogate.reasonCode ?: listOf(),
+      reasonReference = this@ImagingStudySurrogate.reasonReference ?: listOf(),
+      note = this@ImagingStudySurrogate.note ?: listOf(),
       description =
         R4bString.of(
           this@ImagingStudySurrogate.description,
           this@ImagingStudySurrogate._description,
         ),
-      series = this@ImagingStudySurrogate.series ?: mutableListOf(),
+      series = this@ImagingStudySurrogate.series ?: listOf(),
     )
 
   public companion object {

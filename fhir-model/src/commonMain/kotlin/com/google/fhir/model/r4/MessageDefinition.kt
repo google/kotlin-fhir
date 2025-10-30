@@ -25,7 +25,7 @@ import com.google.fhir.model.r4.serializers.MessageDefinitionSerializer
 import com.google.fhir.model.r4.terminologies.PublicationStatus
 import com.google.fhir.model.r4.terminologies.ResourceType
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -44,12 +44,12 @@ public data class MessageDefinition(
    * The only time that a resource does not have an id is when it is being submitted to the server
    * using a create operation.
    */
-  override var id: kotlin.String? = null,
+  override val id: kotlin.String? = null,
   /**
    * The metadata about the resource. This is content that is maintained by the infrastructure.
    * Changes to the content might not always be associated with version changes to the resource.
    */
-  override var meta: Meta? = null,
+  override val meta: Meta? = null,
   /**
    * A reference to a set of rules that were followed when the resource was constructed, and which
    * must be understood when processing the content. Often, this is a reference to an implementation
@@ -63,7 +63,7 @@ public data class MessageDefinition(
    * to an implementation guide that defines these special rules as part of it's narrative along
    * with other profiles, value sets, etc.
    */
-  override var implicitRules: Uri? = null,
+  override val implicitRules: Uri? = null,
   /**
    * The base language in which the resource is written.
    *
@@ -75,7 +75,7 @@ public data class MessageDefinition(
    * language is specified, it should it also be specified on the div element in the html (see rules
    * in HTML5 for information about the relationship between xml:lang and the html lang attribute).
    */
-  override var language: Code? = null,
+  override val language: Code? = null,
   /**
    * A human-readable narrative that contains a summary of the resource and can be used to represent
    * the content of the resource to a human. The narrative need not encode all the structured data,
@@ -89,7 +89,7 @@ public data class MessageDefinition(
    * legacy systems where information is captured as a "text blob" or where text is additionally
    * entered raw or narrated and encoded information is added later.
    */
-  override var text: Narrative? = null,
+  override val text: Narrative? = null,
   /**
    * These resources do not have an independent existence apart from the resource that contains
    * them - they cannot be identified independently, and nor can they have their own independent
@@ -100,7 +100,7 @@ public data class MessageDefinition(
    * resources may have profiles and tags In their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: MutableList<Resource> = mutableListOf(),
+  override val contained: List<Resource> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and manageable, there is a strict set of
@@ -113,7 +113,7 @@ public data class MessageDefinition(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: MutableList<Extension> = mutableListOf(),
+  override val extension: List<Extension> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -132,7 +132,7 @@ public data class MessageDefinition(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: MutableList<Extension> = mutableListOf(),
+  override val modifierExtension: List<Extension> = listOf(),
   /**
    * The business identifier that is used to reference the MessageDefinition and *is* expected to be
    * consistent from server to server.
@@ -148,7 +148,7 @@ public data class MessageDefinition(
    * change. Implementations can use the [meta.source](resource.html#meta) element to indicate where
    * the current master source of the resource can be found.
    */
-  public var url: Uri? = null,
+  public val url: Uri? = null,
   /**
    * A formal identifier that is used to identify this message definition when it is represented in
    * other formats, or referenced in a specification, model, design or an instance.
@@ -157,7 +157,7 @@ public data class MessageDefinition(
    * type, and can then identify this message definition outside of FHIR, where it is not possible
    * to use the logical URI.
    */
-  public var identifier: MutableList<Identifier> = mutableListOf(),
+  public val identifier: List<Identifier> = listOf(),
   /**
    * The identifier that is used to identify this version of the message definition when it is
    * referenced in a specification, model, design or instance. This is an arbitrary value managed by
@@ -169,7 +169,7 @@ public data class MessageDefinition(
    * versions. The version can be appended to the url in a reference to allow a reference to a
    * particular business version of the message definition with the format [url]|[version].
    */
-  public var version: String? = null,
+  public val version: String? = null,
   /**
    * A natural language name identifying the message definition. This name should be usable as an
    * identifier for the module by machine processing applications such as code generation.
@@ -177,29 +177,29 @@ public data class MessageDefinition(
    * The name is not expected to be globally unique. The name should be a simple alphanumeric type
    * name to ensure that it is machine-processing friendly.
    */
-  public var name: String? = null,
+  public val name: String? = null,
   /**
    * A short, descriptive, user-friendly title for the message definition.
    *
    * This name does not need to be machine-processing friendly and may contain punctuation,
    * white-space, etc.
    */
-  public var title: String? = null,
+  public val title: String? = null,
   /** A MessageDefinition that is superseded by this definition. */
-  public var replaces: MutableList<Canonical> = mutableListOf(),
+  public val replaces: List<Canonical> = listOf(),
   /**
    * The status of this message definition. Enables tracking the life-cycle of the content.
    *
    * Allows filtering of message definitions that are appropriate for use versus not.
    */
-  public var status: Enumeration<PublicationStatus>,
+  public val status: Enumeration<PublicationStatus>,
   /**
    * A Boolean value to indicate that this message definition is authored for testing purposes (or
    * education/evaluation/marketing) and is not intended to be used for genuine usage.
    *
    * Allows filtering of message definitions that are appropriate for use versus not.
    */
-  public var experimental: Boolean? = null,
+  public val experimental: Boolean? = null,
   /**
    * The date (and optionally time) when the message definition was published. The date must change
    * when the business version changes and it must change if the status code changes. In addition,
@@ -209,7 +209,7 @@ public data class MessageDefinition(
    * secondary representation of the message definition. Additional specific dates may be added as
    * extensions or be found by consulting Provenances associated with past versions of the resource.
    */
-  public var date: DateTime,
+  public val date: DateTime,
   /**
    * The name of the organization or individual that published the message definition.
    *
@@ -220,13 +220,13 @@ public data class MessageDefinition(
    * contact for questions or issues with the message definition. This item SHOULD be populated
    * unless the information is available from context.
    */
-  public var publisher: String? = null,
+  public val publisher: String? = null,
   /**
    * Contact details to assist a user in finding and communicating with the publisher.
    *
    * May be a web site, an email address, a telephone number, etc.
    */
-  public var contact: MutableList<ContactDetail> = mutableListOf(),
+  public val contact: List<ContactDetail> = listOf(),
   /**
    * A free text natural language description of the message definition from a consumer's
    * perspective.
@@ -238,7 +238,7 @@ public data class MessageDefinition(
    * information is available from context (e.g. the language of the message definition is presumed
    * to be the predominant language in the place the message definition was created).
    */
-  public var description: Markdown? = null,
+  public val description: Markdown? = null,
   /**
    * The content was developed with a focus and intent of supporting the contexts that are listed.
    * These contexts may be general categories (gender, age, ...) or may be references to specific
@@ -248,14 +248,14 @@ public data class MessageDefinition(
    * When multiple useContexts are specified, there is no expectation that all or any of the
    * contexts apply.
    */
-  public var useContext: MutableList<UsageContext> = mutableListOf(),
+  public val useContext: List<UsageContext> = listOf(),
   /**
    * A legal or geographic region in which the message definition is intended to be used.
    *
    * It may be possible for the message definition to be used in jurisdictions other than those for
    * which it was originally designed or intended.
    */
-  public var jurisdiction: MutableList<CodeableConcept> = mutableListOf(),
+  public val jurisdiction: List<CodeableConcept> = listOf(),
   /**
    * Explanation of why this message definition is needed and why it has been designed as it has.
    *
@@ -264,31 +264,31 @@ public data class MessageDefinition(
    * may be used to point to source materials or specifications that drove the structure of this
    * message definition.
    */
-  public var purpose: Markdown? = null,
+  public val purpose: Markdown? = null,
   /**
    * A copyright statement relating to the message definition and/or its contents. Copyright
    * statements are generally legal restrictions on the use and publishing of the message
    * definition.
    */
-  public var copyright: Markdown? = null,
+  public val copyright: Markdown? = null,
   /** The MessageDefinition that is the basis for the contents of this resource. */
-  public var base: Canonical? = null,
+  public val base: Canonical? = null,
   /**
    * Identifies a protocol or workflow that this MessageDefinition represents a step in.
    *
    * It should be possible to use MessageDefinition to describe a message to be used by certain
    * steps in a particular protocol as part of a PlanDefinition or ActivityDefinition.
    */
-  public var parent: MutableList<Canonical> = mutableListOf(),
+  public val parent: List<Canonical> = listOf(),
   /** Event code or link to the EventDefinition. */
-  public var event: Event,
+  public val event: Event,
   /** The impact of the content of the message. */
-  public var category: Enumeration<MessageSignificanceCategory>? = null,
+  public val category: Enumeration<MessageSignificanceCategory>? = null,
   /**
    * Identifies the resource (or resources) that are being addressed by the event. For example, the
    * Encounter for an admit message or two Account records for a merge.
    */
-  public var focus: MutableList<Focus> = mutableListOf(),
+  public val focus: List<Focus> = listOf(),
   /**
    * Declare at a message definition level whether a response is required or only upon error or
    * success, or never.
@@ -297,7 +297,7 @@ public data class MessageDefinition(
    * acknowledgement) in HL7 Version 2 to declare at a message instance level whether a response is
    * required or only upon error or success, or never.
    */
-  public var responseRequired: Enumeration<MessageheaderResponseRequest>? = null,
+  public val responseRequired: Enumeration<MessageheaderResponseRequest>? = null,
   /**
    * Indicates what types of messages may be sent as an application-level response to this message.
    *
@@ -305,14 +305,14 @@ public data class MessageDefinition(
    * request message. To define a complete workflow scenario, look to the [[PlanDefinition]]
    * resource which allows the definition of complex orchestrations, conditionality, etc.
    */
-  public var allowedResponse: MutableList<AllowedResponse> = mutableListOf(),
+  public val allowedResponse: List<AllowedResponse> = listOf(),
   /**
    * Canonical reference to a GraphDefinition. If a URL is provided, it is the canonical reference
    * to a [GraphDefinition](graphdefinition.html) that it controls what resources are to be added to
    * the bundle when building the document. The GraphDefinition can also specify profiles that apply
    * to the various resources.
    */
-  public var graph: MutableList<Canonical> = mutableListOf(),
+  public val graph: List<Canonical> = listOf(),
 ) : DomainResource() {
   /**
    * Identifies the resource (or resources) that are being addressed by the event. For example, the
@@ -324,7 +324,7 @@ public data class MessageDefinition(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and manageable, there is a strict set of
@@ -337,7 +337,7 @@ public data class MessageDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -356,14 +356,14 @@ public data class MessageDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /**
      * The kind of resource that must be the focus for this message.
      *
      * Multiple focuses addressing different resources may occasionally occur. E.g. to link or
      * unlink a resource from a particular account or encounter, etc.
      */
-    public var code: Enumeration<ResourceType>,
+    public val code: Enumeration<ResourceType>,
     /**
      * A profile that reflects constraints for the focal resource (and potentially for related
      * resources).
@@ -372,17 +372,17 @@ public data class MessageDefinition(
      * single resource and there is no need to include referenced resources or otherwise enforce the
      * presence of particular elements, it can be omitted.
      */
-    public var profile: Canonical? = null,
+    public val profile: Canonical? = null,
     /**
      * Identifies the minimum number of resources of this type that must be pointed to by a message
      * in order for it to be valid against this MessageDefinition.
      */
-    public var min: UnsignedInt,
+    public val min: UnsignedInt,
     /**
      * Identifies the maximum number of resources of this type that must be pointed to by a message
      * in order for it to be valid against this MessageDefinition.
      */
-    public var max: String? = null,
+    public val max: String? = null,
   ) : BackboneElement()
 
   /**
@@ -394,7 +394,7 @@ public data class MessageDefinition(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and manageable, there is a strict set of
@@ -407,7 +407,7 @@ public data class MessageDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -426,14 +426,14 @@ public data class MessageDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /** A reference to the message definition that must be adhered to by this supported response. */
-    public var message: Canonical,
+    public val message: Canonical,
     /**
      * Provides a description of the circumstances in which this response should be used (as opposed
      * to one of the alternative responses).
      */
-    public var situation: Markdown? = null,
+    public val situation: Markdown? = null,
   ) : BackboneElement()
 
   @Serializable(with = MessageDefinitionEventSerializer::class)

@@ -39,36 +39,33 @@ import com.google.fhir.model.r4b.serializers.DoubleSerializer
 import com.google.fhir.model.r4b.serializers.LocalTimeSerializer
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class ClinicalUseDefinitionContraindicationSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var diseaseSymptomProcedure: CodeableReference? = null,
   public var diseaseStatus: CodeableReference? = null,
-  public var comorbidity: MutableList<CodeableReference>? = null,
-  public var indication: MutableList<Reference>? = null,
-  public var otherTherapy: MutableList<ClinicalUseDefinition.Contraindication.OtherTherapy>? = null,
+  public var comorbidity: List<CodeableReference>? = null,
+  public var indication: List<Reference>? = null,
+  public var otherTherapy: List<ClinicalUseDefinition.Contraindication.OtherTherapy>? = null,
 ) {
   public fun toModel(): ClinicalUseDefinition.Contraindication =
     ClinicalUseDefinition.Contraindication(
       id = this@ClinicalUseDefinitionContraindicationSurrogate.id,
-      extension = this@ClinicalUseDefinitionContraindicationSurrogate.extension ?: mutableListOf(),
+      extension = this@ClinicalUseDefinitionContraindicationSurrogate.extension ?: listOf(),
       modifierExtension =
-        this@ClinicalUseDefinitionContraindicationSurrogate.modifierExtension ?: mutableListOf(),
+        this@ClinicalUseDefinitionContraindicationSurrogate.modifierExtension ?: listOf(),
       diseaseSymptomProcedure =
         this@ClinicalUseDefinitionContraindicationSurrogate.diseaseSymptomProcedure,
       diseaseStatus = this@ClinicalUseDefinitionContraindicationSurrogate.diseaseStatus,
-      comorbidity =
-        this@ClinicalUseDefinitionContraindicationSurrogate.comorbidity ?: mutableListOf(),
-      indication =
-        this@ClinicalUseDefinitionContraindicationSurrogate.indication ?: mutableListOf(),
-      otherTherapy =
-        this@ClinicalUseDefinitionContraindicationSurrogate.otherTherapy ?: mutableListOf(),
+      comorbidity = this@ClinicalUseDefinitionContraindicationSurrogate.comorbidity ?: listOf(),
+      indication = this@ClinicalUseDefinitionContraindicationSurrogate.indication ?: listOf(),
+      otherTherapy = this@ClinicalUseDefinitionContraindicationSurrogate.otherTherapy ?: listOf(),
     )
 
   public companion object {
@@ -93,8 +90,8 @@ internal data class ClinicalUseDefinitionContraindicationSurrogate(
 @Serializable
 internal data class ClinicalUseDefinitionContraindicationOtherTherapySurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var relationshipType: CodeableConcept,
   public var therapy: CodeableReference,
 ) {
@@ -102,11 +99,10 @@ internal data class ClinicalUseDefinitionContraindicationOtherTherapySurrogate(
     ClinicalUseDefinition.Contraindication.OtherTherapy(
       id = this@ClinicalUseDefinitionContraindicationOtherTherapySurrogate.id,
       extension =
-        this@ClinicalUseDefinitionContraindicationOtherTherapySurrogate.extension
-          ?: mutableListOf(),
+        this@ClinicalUseDefinitionContraindicationOtherTherapySurrogate.extension ?: listOf(),
       modifierExtension =
         this@ClinicalUseDefinitionContraindicationOtherTherapySurrogate.modifierExtension
-          ?: mutableListOf(),
+          ?: listOf(),
       relationshipType =
         this@ClinicalUseDefinitionContraindicationOtherTherapySurrogate.relationshipType,
       therapy = this@ClinicalUseDefinitionContraindicationOtherTherapySurrogate.therapy,
@@ -131,31 +127,31 @@ internal data class ClinicalUseDefinitionContraindicationOtherTherapySurrogate(
 @Serializable
 internal data class ClinicalUseDefinitionIndicationSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var diseaseSymptomProcedure: CodeableReference? = null,
   public var diseaseStatus: CodeableReference? = null,
-  public var comorbidity: MutableList<CodeableReference>? = null,
+  public var comorbidity: List<CodeableReference>? = null,
   public var intendedEffect: CodeableReference? = null,
   public var duration: ClinicalUseDefinition.Indication.Duration? = null,
-  public var undesirableEffect: MutableList<Reference>? = null,
-  public var otherTherapy: MutableList<ClinicalUseDefinition.Contraindication.OtherTherapy>? = null,
+  public var undesirableEffect: List<Reference>? = null,
+  public var otherTherapy: List<ClinicalUseDefinition.Contraindication.OtherTherapy>? = null,
 ) {
   public fun toModel(): ClinicalUseDefinition.Indication =
     ClinicalUseDefinition.Indication(
       id = this@ClinicalUseDefinitionIndicationSurrogate.id,
-      extension = this@ClinicalUseDefinitionIndicationSurrogate.extension ?: mutableListOf(),
+      extension = this@ClinicalUseDefinitionIndicationSurrogate.extension ?: listOf(),
       modifierExtension =
-        this@ClinicalUseDefinitionIndicationSurrogate.modifierExtension ?: mutableListOf(),
+        this@ClinicalUseDefinitionIndicationSurrogate.modifierExtension ?: listOf(),
       diseaseSymptomProcedure =
         this@ClinicalUseDefinitionIndicationSurrogate.diseaseSymptomProcedure,
       diseaseStatus = this@ClinicalUseDefinitionIndicationSurrogate.diseaseStatus,
-      comorbidity = this@ClinicalUseDefinitionIndicationSurrogate.comorbidity ?: mutableListOf(),
+      comorbidity = this@ClinicalUseDefinitionIndicationSurrogate.comorbidity ?: listOf(),
       intendedEffect = this@ClinicalUseDefinitionIndicationSurrogate.intendedEffect,
       duration = this@ClinicalUseDefinitionIndicationSurrogate.duration,
       undesirableEffect =
-        this@ClinicalUseDefinitionIndicationSurrogate.undesirableEffect ?: mutableListOf(),
-      otherTherapy = this@ClinicalUseDefinitionIndicationSurrogate.otherTherapy ?: mutableListOf(),
+        this@ClinicalUseDefinitionIndicationSurrogate.undesirableEffect ?: listOf(),
+      otherTherapy = this@ClinicalUseDefinitionIndicationSurrogate.otherTherapy ?: listOf(),
     )
 
   public companion object {
@@ -182,25 +178,25 @@ internal data class ClinicalUseDefinitionIndicationSurrogate(
 @Serializable
 internal data class ClinicalUseDefinitionInteractionSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var interactant: MutableList<ClinicalUseDefinition.Interaction.Interactant>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
+  public var interactant: List<ClinicalUseDefinition.Interaction.Interactant>? = null,
   public var type: CodeableConcept? = null,
   public var effect: CodeableReference? = null,
   public var incidence: CodeableConcept? = null,
-  public var management: MutableList<CodeableConcept>? = null,
+  public var management: List<CodeableConcept>? = null,
 ) {
   public fun toModel(): ClinicalUseDefinition.Interaction =
     ClinicalUseDefinition.Interaction(
       id = this@ClinicalUseDefinitionInteractionSurrogate.id,
-      extension = this@ClinicalUseDefinitionInteractionSurrogate.extension ?: mutableListOf(),
+      extension = this@ClinicalUseDefinitionInteractionSurrogate.extension ?: listOf(),
       modifierExtension =
-        this@ClinicalUseDefinitionInteractionSurrogate.modifierExtension ?: mutableListOf(),
-      interactant = this@ClinicalUseDefinitionInteractionSurrogate.interactant ?: mutableListOf(),
+        this@ClinicalUseDefinitionInteractionSurrogate.modifierExtension ?: listOf(),
+      interactant = this@ClinicalUseDefinitionInteractionSurrogate.interactant ?: listOf(),
       type = this@ClinicalUseDefinitionInteractionSurrogate.type,
       effect = this@ClinicalUseDefinitionInteractionSurrogate.effect,
       incidence = this@ClinicalUseDefinitionInteractionSurrogate.incidence,
-      management = this@ClinicalUseDefinitionInteractionSurrogate.management ?: mutableListOf(),
+      management = this@ClinicalUseDefinitionInteractionSurrogate.management ?: listOf(),
     )
 
   public companion object {
@@ -225,18 +221,16 @@ internal data class ClinicalUseDefinitionInteractionSurrogate(
 @Serializable
 internal data class ClinicalUseDefinitionInteractionInteractantSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var item: ClinicalUseDefinition.Interaction.Interactant.Item,
 ) {
   public fun toModel(): ClinicalUseDefinition.Interaction.Interactant =
     ClinicalUseDefinition.Interaction.Interactant(
       id = this@ClinicalUseDefinitionInteractionInteractantSurrogate.id,
-      extension =
-        this@ClinicalUseDefinitionInteractionInteractantSurrogate.extension ?: mutableListOf(),
+      extension = this@ClinicalUseDefinitionInteractionInteractantSurrogate.extension ?: listOf(),
       modifierExtension =
-        this@ClinicalUseDefinitionInteractionInteractantSurrogate.modifierExtension
-          ?: mutableListOf(),
+        this@ClinicalUseDefinitionInteractionInteractantSurrogate.modifierExtension ?: listOf(),
       item = this@ClinicalUseDefinitionInteractionInteractantSurrogate.item,
     )
 
@@ -258,8 +252,8 @@ internal data class ClinicalUseDefinitionInteractionInteractantSurrogate(
 @Serializable
 internal data class ClinicalUseDefinitionUndesirableEffectSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var symptomConditionEffect: CodeableReference? = null,
   public var classification: CodeableConcept? = null,
   public var frequencyOfOccurrence: CodeableConcept? = null,
@@ -267,9 +261,9 @@ internal data class ClinicalUseDefinitionUndesirableEffectSurrogate(
   public fun toModel(): ClinicalUseDefinition.UndesirableEffect =
     ClinicalUseDefinition.UndesirableEffect(
       id = this@ClinicalUseDefinitionUndesirableEffectSurrogate.id,
-      extension = this@ClinicalUseDefinitionUndesirableEffectSurrogate.extension ?: mutableListOf(),
+      extension = this@ClinicalUseDefinitionUndesirableEffectSurrogate.extension ?: listOf(),
       modifierExtension =
-        this@ClinicalUseDefinitionUndesirableEffectSurrogate.modifierExtension ?: mutableListOf(),
+        this@ClinicalUseDefinitionUndesirableEffectSurrogate.modifierExtension ?: listOf(),
       symptomConditionEffect =
         this@ClinicalUseDefinitionUndesirableEffectSurrogate.symptomConditionEffect,
       classification = this@ClinicalUseDefinitionUndesirableEffectSurrogate.classification,
@@ -297,8 +291,8 @@ internal data class ClinicalUseDefinitionUndesirableEffectSurrogate(
 @Serializable
 internal data class ClinicalUseDefinitionWarningSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var description: KotlinString? = null,
   public var _description: Element? = null,
   public var code: CodeableConcept? = null,
@@ -306,9 +300,8 @@ internal data class ClinicalUseDefinitionWarningSurrogate(
   public fun toModel(): ClinicalUseDefinition.Warning =
     ClinicalUseDefinition.Warning(
       id = this@ClinicalUseDefinitionWarningSurrogate.id,
-      extension = this@ClinicalUseDefinitionWarningSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@ClinicalUseDefinitionWarningSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@ClinicalUseDefinitionWarningSurrogate.extension ?: listOf(),
+      modifierExtension = this@ClinicalUseDefinitionWarningSurrogate.modifierExtension ?: listOf(),
       description =
         Markdown.of(
           this@ClinicalUseDefinitionWarningSurrogate.description,
@@ -396,19 +389,19 @@ internal data class ClinicalUseDefinitionSurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: MutableList<Resource>? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var identifier: MutableList<Identifier>? = null,
+  public var contained: List<Resource>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
+  public var identifier: List<Identifier>? = null,
   public var type: KotlinString? = null,
   public var _type: Element? = null,
-  public var category: MutableList<CodeableConcept>? = null,
-  public var subject: MutableList<Reference>? = null,
+  public var category: List<CodeableConcept>? = null,
+  public var subject: List<Reference>? = null,
   public var status: CodeableConcept? = null,
   public var contraindication: ClinicalUseDefinition.Contraindication? = null,
   public var indication: ClinicalUseDefinition.Indication? = null,
   public var interaction: ClinicalUseDefinition.Interaction? = null,
-  public var population: MutableList<Reference>? = null,
+  public var population: List<Reference>? = null,
   public var undesirableEffect: ClinicalUseDefinition.UndesirableEffect? = null,
   public var warning: ClinicalUseDefinition.Warning? = null,
 ) {
@@ -427,10 +420,10 @@ internal data class ClinicalUseDefinitionSurrogate(
           this@ClinicalUseDefinitionSurrogate._language,
         ),
       text = this@ClinicalUseDefinitionSurrogate.text,
-      contained = this@ClinicalUseDefinitionSurrogate.contained ?: mutableListOf(),
-      extension = this@ClinicalUseDefinitionSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@ClinicalUseDefinitionSurrogate.modifierExtension ?: mutableListOf(),
-      identifier = this@ClinicalUseDefinitionSurrogate.identifier ?: mutableListOf(),
+      contained = this@ClinicalUseDefinitionSurrogate.contained ?: listOf(),
+      extension = this@ClinicalUseDefinitionSurrogate.extension ?: listOf(),
+      modifierExtension = this@ClinicalUseDefinitionSurrogate.modifierExtension ?: listOf(),
+      identifier = this@ClinicalUseDefinitionSurrogate.identifier ?: listOf(),
       type =
         Enumeration.of(
           ClinicalUseDefinition.ClinicalUseDefinitionType.fromCode(
@@ -438,13 +431,13 @@ internal data class ClinicalUseDefinitionSurrogate(
           ),
           this@ClinicalUseDefinitionSurrogate._type,
         ),
-      category = this@ClinicalUseDefinitionSurrogate.category ?: mutableListOf(),
-      subject = this@ClinicalUseDefinitionSurrogate.subject ?: mutableListOf(),
+      category = this@ClinicalUseDefinitionSurrogate.category ?: listOf(),
+      subject = this@ClinicalUseDefinitionSurrogate.subject ?: listOf(),
       status = this@ClinicalUseDefinitionSurrogate.status,
       contraindication = this@ClinicalUseDefinitionSurrogate.contraindication,
       indication = this@ClinicalUseDefinitionSurrogate.indication,
       interaction = this@ClinicalUseDefinitionSurrogate.interaction,
-      population = this@ClinicalUseDefinitionSurrogate.population ?: mutableListOf(),
+      population = this@ClinicalUseDefinitionSurrogate.population ?: listOf(),
       undesirableEffect = this@ClinicalUseDefinitionSurrogate.undesirableEffect,
       warning = this@ClinicalUseDefinitionSurrogate.warning,
     )

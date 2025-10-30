@@ -21,7 +21,7 @@ package com.google.fhir.model.r4b
 import com.google.fhir.model.r4b.serializers.MediaCreatedSerializer
 import com.google.fhir.model.r4b.serializers.MediaSerializer
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -39,12 +39,12 @@ public data class Media(
    * The only time that a resource does not have an id is when it is being submitted to the server
    * using a create operation.
    */
-  override var id: kotlin.String? = null,
+  override val id: kotlin.String? = null,
   /**
    * The metadata about the resource. This is content that is maintained by the infrastructure.
    * Changes to the content might not always be associated with version changes to the resource.
    */
-  override var meta: Meta? = null,
+  override val meta: Meta? = null,
   /**
    * A reference to a set of rules that were followed when the resource was constructed, and which
    * must be understood when processing the content. Often, this is a reference to an implementation
@@ -58,7 +58,7 @@ public data class Media(
    * to an implementation guide that defines these special rules as part of it's narrative along
    * with other profiles, value sets, etc.
    */
-  override var implicitRules: Uri? = null,
+  override val implicitRules: Uri? = null,
   /**
    * The base language in which the resource is written.
    *
@@ -70,7 +70,7 @@ public data class Media(
    * language is specified, it should it also be specified on the div element in the html (see rules
    * in HTML5 for information about the relationship between xml:lang and the html lang attribute).
    */
-  override var language: Code? = null,
+  override val language: Code? = null,
   /**
    * A human-readable narrative that contains a summary of the resource and can be used to represent
    * the content of the resource to a human. The narrative need not encode all the structured data,
@@ -84,7 +84,7 @@ public data class Media(
    * legacy systems where information is captured as a "text blob" or where text is additionally
    * entered raw or narrated and encoded information is added later.
    */
-  override var text: Narrative? = null,
+  override val text: Narrative? = null,
   /**
    * These resources do not have an independent existence apart from the resource that contains
    * them - they cannot be identified independently, and nor can they have their own independent
@@ -95,7 +95,7 @@ public data class Media(
    * resources may have profiles and tags In their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: MutableList<Resource> = mutableListOf(),
+  override val contained: List<Resource> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and manageable, there is a strict set of
@@ -108,7 +108,7 @@ public data class Media(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: MutableList<Extension> = mutableListOf(),
+  override val extension: List<Extension> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -127,7 +127,7 @@ public data class Media(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: MutableList<Extension> = mutableListOf(),
+  override val modifierExtension: List<Extension> = listOf(),
   /**
    * Identifiers associated with the image - these may include identifiers for the image itself,
    * identifiers for the context of its collection (e.g. series ids) and context ids such as
@@ -135,9 +135,9 @@ public data class Media(
    *
    * The identifier label and use can be used to determine what kind of identifier it is.
    */
-  public var identifier: MutableList<Identifier> = mutableListOf(),
+  public val identifier: List<Identifier> = listOf(),
   /** A procedure that is fulfilled in whole or in part by the creation of this media. */
-  public var basedOn: MutableList<Reference> = mutableListOf(),
+  public val basedOn: List<Reference> = listOf(),
   /**
    * A larger event of which this particular event is a component or step.
    *
@@ -145,7 +145,7 @@ public data class Media(
    *
    * [The allowed reference resources may be adjusted as appropriate for the event resource].
    */
-  public var partOf: MutableList<Reference> = mutableListOf(),
+  public val partOf: List<Reference> = listOf(),
   /**
    * The current state of the {{title}}.
    *
@@ -155,29 +155,29 @@ public data class Media(
    * Unknown does not represent "other" - one of the defined statuses must apply. Unknown is used
    * when the authoring system is not sure what the current status is.
    */
-  public var status: Enumeration<EventStatus>,
+  public val status: Enumeration<EventStatus>,
   /**
    * A code that classifies whether the media is an image, video or audio recording or some other
    * media category.
    */
-  public var type: CodeableConcept? = null,
+  public val type: CodeableConcept? = null,
   /**
    * Details of the type of the media - usually, how it was acquired (what type of device). If
    * images sourced from a DICOM system, are wrapped in a Media resource, then this is the modality.
    */
-  public var modality: CodeableConcept? = null,
+  public val modality: CodeableConcept? = null,
   /** The name of the imaging view e.g. Lateral or Antero-posterior (AP). */
-  public var view: CodeableConcept? = null,
+  public val view: CodeableConcept? = null,
   /** Who/What this Media is a record of. */
-  public var subject: Reference? = null,
+  public val subject: Reference? = null,
   /**
    * The encounter that establishes the context for this media.
    *
    * This will typically be the encounter the media occurred within.
    */
-  public var encounter: Reference? = null,
+  public val encounter: Reference? = null,
   /** The date and time(s) at which the media was collected. */
-  public var created: Created? = null,
+  public val created: Created? = null,
   /**
    * The date and time this version of the media was made available to providers, typically after
    * having been reviewed.
@@ -188,15 +188,15 @@ public data class Media(
    * non-clinically significant update that does not require the new version to be reviewed and
    * verified again.
    */
-  public var issued: Instant? = null,
+  public val issued: Instant? = null,
   /** The person who administered the collection of the image. */
-  public var `operator`: Reference? = null,
+  public val `operator`: Reference? = null,
   /**
    * Describes why the event occurred in coded or textual form.
    *
    * Textual reasons can be captured using reasonCode.text.
    */
-  public var reasonCode: MutableList<CodeableConcept> = mutableListOf(),
+  public val reasonCode: List<CodeableConcept> = listOf(),
   /**
    * Indicates the site on the subject's body where the observation was made (i.e. the target site).
    *
@@ -206,9 +206,9 @@ public data class Media(
    * If the use case requires BodySite to be handled as a separate resource (e.g. to identify and
    * track separately) then use the standard extension[ bodySite](extension-bodysite.html).
    */
-  public var bodySite: CodeableConcept? = null,
+  public val bodySite: CodeableConcept? = null,
   /** The name of the device / manufacturer of the device that was used to make the recording. */
-  public var deviceName: String? = null,
+  public val deviceName: String? = null,
   /**
    * The device used to collect the media.
    *
@@ -216,11 +216,11 @@ public data class Media(
    * to support collecting a media can be represented using either extension or through the
    * Observation.related element.
    */
-  public var device: Reference? = null,
+  public val device: Reference? = null,
   /** Height of the image in pixels (photo/video). */
-  public var height: PositiveInt? = null,
+  public val height: PositiveInt? = null,
   /** Width of the image in pixels (photo/video). */
-  public var width: PositiveInt? = null,
+  public val width: PositiveInt? = null,
   /**
    * The number of frames in a photo. This is used with a multi-page fax, or an imaging acquisition
    * context that takes multiple slices in a single image, or an animated gif. If there is more than
@@ -230,13 +230,13 @@ public data class Media(
    * if the number of frames is not supplied, the value may be unknown. Applications should not
    * assume that there is only one frame unless it is explicitly stated.
    */
-  public var frames: PositiveInt? = null,
+  public val frames: PositiveInt? = null,
   /**
    * The duration of the recording in seconds - for audio and video.
    *
    * The duration might differ from occurrencePeriod if recording was paused.
    */
-  public var duration: Decimal? = null,
+  public val duration: Decimal? = null,
   /**
    * The actual content of the media - inline or by direct reference to the media source file.
    *
@@ -245,14 +245,14 @@ public data class Media(
    * that covers a period of time (video/sound), the content.creationTime is the end time. Creation
    * time is used for tracking, organizing versions and searching.
    */
-  public var content: Attachment,
+  public val content: Attachment,
   /**
    * Comments made about the media by the performer, subject or other participants.
    *
    * Not to be used for observations, conclusions, etc. Instead use an
    * [Observation](observation.html) based on the Media/ImagingStudy resource.
    */
-  public var note: MutableList<Annotation> = mutableListOf(),
+  public val note: List<Annotation> = listOf(),
 ) : DomainResource() {
   @Serializable(with = MediaCreatedSerializer::class)
   public sealed interface Created {

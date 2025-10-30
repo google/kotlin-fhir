@@ -38,7 +38,7 @@ import com.google.fhir.model.r4b.serializers.LocalTimeSerializer
 import kotlin.Boolean as KotlinBoolean
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
@@ -51,16 +51,16 @@ internal data class ScheduleSurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: MutableList<Resource>? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var identifier: MutableList<Identifier>? = null,
+  public var contained: List<Resource>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
+  public var identifier: List<Identifier>? = null,
   public var active: KotlinBoolean? = null,
   public var _active: Element? = null,
-  public var serviceCategory: MutableList<CodeableConcept>? = null,
-  public var serviceType: MutableList<CodeableConcept>? = null,
-  public var specialty: MutableList<CodeableConcept>? = null,
-  public var actor: MutableList<Reference>? = null,
+  public var serviceCategory: List<CodeableConcept>? = null,
+  public var serviceType: List<CodeableConcept>? = null,
+  public var specialty: List<CodeableConcept>? = null,
+  public var actor: List<Reference>? = null,
   public var planningHorizon: Period? = null,
   public var comment: KotlinString? = null,
   public var _comment: Element? = null,
@@ -73,15 +73,15 @@ internal data class ScheduleSurrogate(
         Uri.of(this@ScheduleSurrogate.implicitRules, this@ScheduleSurrogate._implicitRules),
       language = Code.of(this@ScheduleSurrogate.language, this@ScheduleSurrogate._language),
       text = this@ScheduleSurrogate.text,
-      contained = this@ScheduleSurrogate.contained ?: mutableListOf(),
-      extension = this@ScheduleSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@ScheduleSurrogate.modifierExtension ?: mutableListOf(),
-      identifier = this@ScheduleSurrogate.identifier ?: mutableListOf(),
+      contained = this@ScheduleSurrogate.contained ?: listOf(),
+      extension = this@ScheduleSurrogate.extension ?: listOf(),
+      modifierExtension = this@ScheduleSurrogate.modifierExtension ?: listOf(),
+      identifier = this@ScheduleSurrogate.identifier ?: listOf(),
       active = R4bBoolean.of(this@ScheduleSurrogate.active, this@ScheduleSurrogate._active),
-      serviceCategory = this@ScheduleSurrogate.serviceCategory ?: mutableListOf(),
-      serviceType = this@ScheduleSurrogate.serviceType ?: mutableListOf(),
-      specialty = this@ScheduleSurrogate.specialty ?: mutableListOf(),
-      actor = this@ScheduleSurrogate.actor ?: mutableListOf(),
+      serviceCategory = this@ScheduleSurrogate.serviceCategory ?: listOf(),
+      serviceType = this@ScheduleSurrogate.serviceType ?: listOf(),
+      specialty = this@ScheduleSurrogate.specialty ?: listOf(),
+      actor = this@ScheduleSurrogate.actor ?: listOf(),
       planningHorizon = this@ScheduleSurrogate.planningHorizon,
       comment = R4bString.of(this@ScheduleSurrogate.comment, this@ScheduleSurrogate._comment),
     )

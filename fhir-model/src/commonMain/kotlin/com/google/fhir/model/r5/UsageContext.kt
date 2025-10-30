@@ -22,7 +22,7 @@ import com.google.fhir.model.r5.serializers.UsageContextSerializer
 import com.google.fhir.model.r5.serializers.UsageContextValueSerializer
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 
 /**
@@ -37,7 +37,7 @@ public data class UsageContext(
    * Unique id for the element within a resource (for internal references). This may be any string
    * value that does not contain spaces.
    */
-  override var id: String? = null,
+  override val id: String? = null,
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * element. To make the use of extensions safe and managable, there is a strict set of governance
@@ -50,14 +50,14 @@ public data class UsageContext(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: MutableList<Extension> = mutableListOf(),
+  override val extension: List<Extension> = listOf(),
   /** A code that identifies the type of context being specified by this usage context. */
-  public var code: Coding,
+  public val code: Coding,
   /**
    * A value that defines the context specified in this context of use. The interpretation of the
    * value is defined by the code.
    */
-  public var `value`: Value,
+  public val `value`: Value,
 ) : DataType() {
   @Serializable(with = UsageContextValueSerializer::class)
   public sealed interface Value {

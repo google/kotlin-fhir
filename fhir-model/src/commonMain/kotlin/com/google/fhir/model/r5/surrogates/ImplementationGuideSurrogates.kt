@@ -50,15 +50,15 @@ import com.google.fhir.model.r5.terminologies.ResourceType
 import kotlin.Boolean as KotlinBoolean
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class ImplementationGuideDependsOnSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var uri: KotlinString? = null,
   public var _uri: Element? = null,
   public var packageId: KotlinString? = null,
@@ -71,9 +71,8 @@ internal data class ImplementationGuideDependsOnSurrogate(
   public fun toModel(): ImplementationGuide.DependsOn =
     ImplementationGuide.DependsOn(
       id = this@ImplementationGuideDependsOnSurrogate.id,
-      extension = this@ImplementationGuideDependsOnSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@ImplementationGuideDependsOnSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@ImplementationGuideDependsOnSurrogate.extension ?: listOf(),
+      modifierExtension = this@ImplementationGuideDependsOnSurrogate.modifierExtension ?: listOf(),
       uri =
         Canonical.of(
           this@ImplementationGuideDependsOnSurrogate.uri,
@@ -121,8 +120,8 @@ internal data class ImplementationGuideDependsOnSurrogate(
 @Serializable
 internal data class ImplementationGuideGlobalSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var type: KotlinString? = null,
   public var _type: Element? = null,
   public var profile: KotlinString? = null,
@@ -131,9 +130,8 @@ internal data class ImplementationGuideGlobalSurrogate(
   public fun toModel(): ImplementationGuide.Global =
     ImplementationGuide.Global(
       id = this@ImplementationGuideGlobalSurrogate.id,
-      extension = this@ImplementationGuideGlobalSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@ImplementationGuideGlobalSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@ImplementationGuideGlobalSurrogate.extension ?: listOf(),
+      modifierExtension = this@ImplementationGuideGlobalSurrogate.modifierExtension ?: listOf(),
       type =
         Enumeration.of(
           ResourceType.fromCode(this@ImplementationGuideGlobalSurrogate.type!!),
@@ -165,25 +163,24 @@ internal data class ImplementationGuideGlobalSurrogate(
 @Serializable
 internal data class ImplementationGuideDefinitionSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var grouping: MutableList<ImplementationGuide.Definition.Grouping>? = null,
-  public var resource: MutableList<ImplementationGuide.Definition.Resource>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
+  public var grouping: List<ImplementationGuide.Definition.Grouping>? = null,
+  public var resource: List<ImplementationGuide.Definition.Resource>? = null,
   public var page: ImplementationGuide.Definition.Page? = null,
-  public var parameter: MutableList<ImplementationGuide.Definition.Parameter>? = null,
-  public var template: MutableList<ImplementationGuide.Definition.Template>? = null,
+  public var parameter: List<ImplementationGuide.Definition.Parameter>? = null,
+  public var template: List<ImplementationGuide.Definition.Template>? = null,
 ) {
   public fun toModel(): ImplementationGuide.Definition =
     ImplementationGuide.Definition(
       id = this@ImplementationGuideDefinitionSurrogate.id,
-      extension = this@ImplementationGuideDefinitionSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@ImplementationGuideDefinitionSurrogate.modifierExtension ?: mutableListOf(),
-      grouping = this@ImplementationGuideDefinitionSurrogate.grouping ?: mutableListOf(),
-      resource = this@ImplementationGuideDefinitionSurrogate.resource ?: mutableListOf(),
+      extension = this@ImplementationGuideDefinitionSurrogate.extension ?: listOf(),
+      modifierExtension = this@ImplementationGuideDefinitionSurrogate.modifierExtension ?: listOf(),
+      grouping = this@ImplementationGuideDefinitionSurrogate.grouping ?: listOf(),
+      resource = this@ImplementationGuideDefinitionSurrogate.resource ?: listOf(),
       page = this@ImplementationGuideDefinitionSurrogate.page,
-      parameter = this@ImplementationGuideDefinitionSurrogate.parameter ?: mutableListOf(),
-      template = this@ImplementationGuideDefinitionSurrogate.template ?: mutableListOf(),
+      parameter = this@ImplementationGuideDefinitionSurrogate.parameter ?: listOf(),
+      template = this@ImplementationGuideDefinitionSurrogate.template ?: listOf(),
     )
 
   public companion object {
@@ -208,8 +205,8 @@ internal data class ImplementationGuideDefinitionSurrogate(
 @Serializable
 internal data class ImplementationGuideDefinitionGroupingSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var name: KotlinString? = null,
   public var _name: Element? = null,
   public var description: KotlinString? = null,
@@ -218,9 +215,9 @@ internal data class ImplementationGuideDefinitionGroupingSurrogate(
   public fun toModel(): ImplementationGuide.Definition.Grouping =
     ImplementationGuide.Definition.Grouping(
       id = this@ImplementationGuideDefinitionGroupingSurrogate.id,
-      extension = this@ImplementationGuideDefinitionGroupingSurrogate.extension ?: mutableListOf(),
+      extension = this@ImplementationGuideDefinitionGroupingSurrogate.extension ?: listOf(),
       modifierExtension =
-        this@ImplementationGuideDefinitionGroupingSurrogate.modifierExtension ?: mutableListOf(),
+        this@ImplementationGuideDefinitionGroupingSurrogate.modifierExtension ?: listOf(),
       name =
         R5String.of(
           this@ImplementationGuideDefinitionGroupingSurrogate.name,
@@ -254,35 +251,35 @@ internal data class ImplementationGuideDefinitionGroupingSurrogate(
 @Serializable
 internal data class ImplementationGuideDefinitionResourceSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var reference: Reference,
-  public var fhirVersion: MutableList<KotlinString?>? = null,
-  public var _fhirVersion: MutableList<Element?>? = null,
+  public var fhirVersion: List<KotlinString?>? = null,
+  public var _fhirVersion: List<Element?>? = null,
   public var name: KotlinString? = null,
   public var _name: Element? = null,
   public var description: KotlinString? = null,
   public var _description: Element? = null,
   public var isExample: KotlinBoolean? = null,
   public var _isExample: Element? = null,
-  public var profile: MutableList<KotlinString?>? = null,
-  public var _profile: MutableList<Element?>? = null,
+  public var profile: List<KotlinString?>? = null,
+  public var _profile: List<Element?>? = null,
   public var groupingId: KotlinString? = null,
   public var _groupingId: Element? = null,
 ) {
   public fun toModel(): ImplementationGuide.Definition.Resource =
     ImplementationGuide.Definition.Resource(
       id = this@ImplementationGuideDefinitionResourceSurrogate.id,
-      extension = this@ImplementationGuideDefinitionResourceSurrogate.extension ?: mutableListOf(),
+      extension = this@ImplementationGuideDefinitionResourceSurrogate.extension ?: listOf(),
       modifierExtension =
-        this@ImplementationGuideDefinitionResourceSurrogate.modifierExtension ?: mutableListOf(),
+        this@ImplementationGuideDefinitionResourceSurrogate.modifierExtension ?: listOf(),
       reference = this@ImplementationGuideDefinitionResourceSurrogate.reference,
       fhirVersion =
         if (
           this@ImplementationGuideDefinitionResourceSurrogate.fhirVersion == null &&
             this@ImplementationGuideDefinitionResourceSurrogate._fhirVersion == null
         ) {
-          mutableListOf()
+          listOf()
         } else {
           (this@ImplementationGuideDefinitionResourceSurrogate.fhirVersion
               ?: List(this@ImplementationGuideDefinitionResourceSurrogate._fhirVersion!!.size) {
@@ -297,7 +294,7 @@ internal data class ImplementationGuideDefinitionResourceSurrogate(
             .map { (value, element) ->
               Enumeration.of(value.let { FHIRVersion.fromCode(it!!) }, element)
             }
-            .toMutableList()
+            .toList()
         },
       name =
         R5String.of(
@@ -319,7 +316,7 @@ internal data class ImplementationGuideDefinitionResourceSurrogate(
           this@ImplementationGuideDefinitionResourceSurrogate.profile == null &&
             this@ImplementationGuideDefinitionResourceSurrogate._profile == null
         ) {
-          mutableListOf()
+          listOf()
         } else {
           (this@ImplementationGuideDefinitionResourceSurrogate.profile
               ?: List(this@ImplementationGuideDefinitionResourceSurrogate._profile!!.size) { null })
@@ -328,7 +325,7 @@ internal data class ImplementationGuideDefinitionResourceSurrogate(
                 ?: List(this@ImplementationGuideDefinitionResourceSurrogate.profile!!.size) { null }
             )
             .map { (value, element) -> Canonical.of(value, element)!! }
-            .toMutableList()
+            .toList()
         },
       groupingId =
         Id.of(
@@ -350,14 +347,14 @@ internal data class ImplementationGuideDefinitionResourceSurrogate(
           fhirVersion =
             this@with.fhirVersion
               .map { it.value?.getCode() }
-              .toMutableList()
+              .toList()
               .takeUnless { it.all { it == null } },
           _fhirVersion =
             this@with.fhirVersion
               .map { it.toElement() }
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
-              ?.toMutableList(),
+              ?.toList(),
           name = this@with.name?.value,
           _name = this@with.name?.toElement(),
           description = this@with.description?.value,
@@ -365,13 +362,13 @@ internal data class ImplementationGuideDefinitionResourceSurrogate(
           isExample = this@with.isExample?.value,
           _isExample = this@with.isExample?.toElement(),
           profile =
-            this@with.profile.map { it.value }.toMutableList().takeUnless { it.all { it == null } },
+            this@with.profile.map { it.value }.toList().takeUnless { it.all { it == null } },
           _profile =
             this@with.profile
               .map { it.toElement() }
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
-              ?.toMutableList(),
+              ?.toList(),
           groupingId = this@with.groupingId?.value,
           _groupingId = this@with.groupingId?.toElement(),
         )
@@ -382,8 +379,8 @@ internal data class ImplementationGuideDefinitionResourceSurrogate(
 @Serializable
 internal data class ImplementationGuideDefinitionPageSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var source: ImplementationGuide.Definition.Page.Source? = null,
   public var name: KotlinString? = null,
   public var _name: Element? = null,
@@ -391,14 +388,14 @@ internal data class ImplementationGuideDefinitionPageSurrogate(
   public var _title: Element? = null,
   public var generation: KotlinString? = null,
   public var _generation: Element? = null,
-  public var page: MutableList<ImplementationGuide.Definition.Page>? = null,
+  public var page: List<ImplementationGuide.Definition.Page>? = null,
 ) {
   public fun toModel(): ImplementationGuide.Definition.Page =
     ImplementationGuide.Definition.Page(
       id = this@ImplementationGuideDefinitionPageSurrogate.id,
-      extension = this@ImplementationGuideDefinitionPageSurrogate.extension ?: mutableListOf(),
+      extension = this@ImplementationGuideDefinitionPageSurrogate.extension ?: listOf(),
       modifierExtension =
-        this@ImplementationGuideDefinitionPageSurrogate.modifierExtension ?: mutableListOf(),
+        this@ImplementationGuideDefinitionPageSurrogate.modifierExtension ?: listOf(),
       source = this@ImplementationGuideDefinitionPageSurrogate.source,
       name =
         Url.of(
@@ -417,7 +414,7 @@ internal data class ImplementationGuideDefinitionPageSurrogate(
           ),
           this@ImplementationGuideDefinitionPageSurrogate._generation,
         ),
-      page = this@ImplementationGuideDefinitionPageSurrogate.page ?: mutableListOf(),
+      page = this@ImplementationGuideDefinitionPageSurrogate.page ?: listOf(),
     )
 
   public companion object {
@@ -445,8 +442,8 @@ internal data class ImplementationGuideDefinitionPageSurrogate(
 @Serializable
 internal data class ImplementationGuideDefinitionParameterSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var code: Coding,
   public var `value`: KotlinString? = null,
   public var _value: Element? = null,
@@ -454,9 +451,9 @@ internal data class ImplementationGuideDefinitionParameterSurrogate(
   public fun toModel(): ImplementationGuide.Definition.Parameter =
     ImplementationGuide.Definition.Parameter(
       id = this@ImplementationGuideDefinitionParameterSurrogate.id,
-      extension = this@ImplementationGuideDefinitionParameterSurrogate.extension ?: mutableListOf(),
+      extension = this@ImplementationGuideDefinitionParameterSurrogate.extension ?: listOf(),
       modifierExtension =
-        this@ImplementationGuideDefinitionParameterSurrogate.modifierExtension ?: mutableListOf(),
+        this@ImplementationGuideDefinitionParameterSurrogate.modifierExtension ?: listOf(),
       code = this@ImplementationGuideDefinitionParameterSurrogate.code,
       `value` =
         R5String.of(
@@ -485,8 +482,8 @@ internal data class ImplementationGuideDefinitionParameterSurrogate(
 @Serializable
 internal data class ImplementationGuideDefinitionTemplateSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var code: KotlinString? = null,
   public var _code: Element? = null,
   public var source: KotlinString? = null,
@@ -497,9 +494,9 @@ internal data class ImplementationGuideDefinitionTemplateSurrogate(
   public fun toModel(): ImplementationGuide.Definition.Template =
     ImplementationGuide.Definition.Template(
       id = this@ImplementationGuideDefinitionTemplateSurrogate.id,
-      extension = this@ImplementationGuideDefinitionTemplateSurrogate.extension ?: mutableListOf(),
+      extension = this@ImplementationGuideDefinitionTemplateSurrogate.extension ?: listOf(),
       modifierExtension =
-        this@ImplementationGuideDefinitionTemplateSurrogate.modifierExtension ?: mutableListOf(),
+        this@ImplementationGuideDefinitionTemplateSurrogate.modifierExtension ?: listOf(),
       code =
         Code.of(
           this@ImplementationGuideDefinitionTemplateSurrogate.code,
@@ -540,36 +537,35 @@ internal data class ImplementationGuideDefinitionTemplateSurrogate(
 @Serializable
 internal data class ImplementationGuideManifestSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var rendering: KotlinString? = null,
   public var _rendering: Element? = null,
-  public var resource: MutableList<ImplementationGuide.Manifest.Resource>? = null,
-  public var page: MutableList<ImplementationGuide.Manifest.Page>? = null,
-  public var image: MutableList<KotlinString?>? = null,
-  public var _image: MutableList<Element?>? = null,
-  public var other: MutableList<KotlinString?>? = null,
-  public var _other: MutableList<Element?>? = null,
+  public var resource: List<ImplementationGuide.Manifest.Resource>? = null,
+  public var page: List<ImplementationGuide.Manifest.Page>? = null,
+  public var image: List<KotlinString?>? = null,
+  public var _image: List<Element?>? = null,
+  public var other: List<KotlinString?>? = null,
+  public var _other: List<Element?>? = null,
 ) {
   public fun toModel(): ImplementationGuide.Manifest =
     ImplementationGuide.Manifest(
       id = this@ImplementationGuideManifestSurrogate.id,
-      extension = this@ImplementationGuideManifestSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@ImplementationGuideManifestSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@ImplementationGuideManifestSurrogate.extension ?: listOf(),
+      modifierExtension = this@ImplementationGuideManifestSurrogate.modifierExtension ?: listOf(),
       rendering =
         Url.of(
           this@ImplementationGuideManifestSurrogate.rendering,
           this@ImplementationGuideManifestSurrogate._rendering,
         ),
-      resource = this@ImplementationGuideManifestSurrogate.resource ?: mutableListOf(),
-      page = this@ImplementationGuideManifestSurrogate.page ?: mutableListOf(),
+      resource = this@ImplementationGuideManifestSurrogate.resource ?: listOf(),
+      page = this@ImplementationGuideManifestSurrogate.page ?: listOf(),
       image =
         if (
           this@ImplementationGuideManifestSurrogate.image == null &&
             this@ImplementationGuideManifestSurrogate._image == null
         ) {
-          mutableListOf()
+          listOf()
         } else {
           (this@ImplementationGuideManifestSurrogate.image
               ?: List(this@ImplementationGuideManifestSurrogate._image!!.size) { null })
@@ -578,14 +574,14 @@ internal data class ImplementationGuideManifestSurrogate(
                 ?: List(this@ImplementationGuideManifestSurrogate.image!!.size) { null }
             )
             .map { (value, element) -> R5String.of(value, element)!! }
-            .toMutableList()
+            .toList()
         },
       other =
         if (
           this@ImplementationGuideManifestSurrogate.other == null &&
             this@ImplementationGuideManifestSurrogate._other == null
         ) {
-          mutableListOf()
+          listOf()
         } else {
           (this@ImplementationGuideManifestSurrogate.other
               ?: List(this@ImplementationGuideManifestSurrogate._other!!.size) { null })
@@ -594,7 +590,7 @@ internal data class ImplementationGuideManifestSurrogate(
                 ?: List(this@ImplementationGuideManifestSurrogate.other!!.size) { null }
             )
             .map { (value, element) -> R5String.of(value, element)!! }
-            .toMutableList()
+            .toList()
         },
     )
 
@@ -611,22 +607,20 @@ internal data class ImplementationGuideManifestSurrogate(
           _rendering = this@with.rendering?.toElement(),
           resource = this@with.resource.takeIf { it.isNotEmpty() },
           page = this@with.page.takeIf { it.isNotEmpty() },
-          image =
-            this@with.image.map { it.value }.toMutableList().takeUnless { it.all { it == null } },
+          image = this@with.image.map { it.value }.toList().takeUnless { it.all { it == null } },
           _image =
             this@with.image
               .map { it.toElement() }
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
-              ?.toMutableList(),
-          other =
-            this@with.other.map { it.value }.toMutableList().takeUnless { it.all { it == null } },
+              ?.toList(),
+          other = this@with.other.map { it.value }.toList().takeUnless { it.all { it == null } },
           _other =
             this@with.other
               .map { it.toElement() }
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
-              ?.toMutableList(),
+              ?.toList(),
         )
       }
   }
@@ -635,22 +629,22 @@ internal data class ImplementationGuideManifestSurrogate(
 @Serializable
 internal data class ImplementationGuideManifestResourceSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var reference: Reference,
   public var isExample: KotlinBoolean? = null,
   public var _isExample: Element? = null,
-  public var profile: MutableList<KotlinString?>? = null,
-  public var _profile: MutableList<Element?>? = null,
+  public var profile: List<KotlinString?>? = null,
+  public var _profile: List<Element?>? = null,
   public var relativePath: KotlinString? = null,
   public var _relativePath: Element? = null,
 ) {
   public fun toModel(): ImplementationGuide.Manifest.Resource =
     ImplementationGuide.Manifest.Resource(
       id = this@ImplementationGuideManifestResourceSurrogate.id,
-      extension = this@ImplementationGuideManifestResourceSurrogate.extension ?: mutableListOf(),
+      extension = this@ImplementationGuideManifestResourceSurrogate.extension ?: listOf(),
       modifierExtension =
-        this@ImplementationGuideManifestResourceSurrogate.modifierExtension ?: mutableListOf(),
+        this@ImplementationGuideManifestResourceSurrogate.modifierExtension ?: listOf(),
       reference = this@ImplementationGuideManifestResourceSurrogate.reference,
       isExample =
         R5Boolean.of(
@@ -662,7 +656,7 @@ internal data class ImplementationGuideManifestResourceSurrogate(
           this@ImplementationGuideManifestResourceSurrogate.profile == null &&
             this@ImplementationGuideManifestResourceSurrogate._profile == null
         ) {
-          mutableListOf()
+          listOf()
         } else {
           (this@ImplementationGuideManifestResourceSurrogate.profile
               ?: List(this@ImplementationGuideManifestResourceSurrogate._profile!!.size) { null })
@@ -671,7 +665,7 @@ internal data class ImplementationGuideManifestResourceSurrogate(
                 ?: List(this@ImplementationGuideManifestResourceSurrogate.profile!!.size) { null }
             )
             .map { (value, element) -> Canonical.of(value, element)!! }
-            .toMutableList()
+            .toList()
         },
       relativePath =
         Url.of(
@@ -693,13 +687,13 @@ internal data class ImplementationGuideManifestResourceSurrogate(
           isExample = this@with.isExample?.value,
           _isExample = this@with.isExample?.toElement(),
           profile =
-            this@with.profile.map { it.value }.toMutableList().takeUnless { it.all { it == null } },
+            this@with.profile.map { it.value }.toList().takeUnless { it.all { it == null } },
           _profile =
             this@with.profile
               .map { it.toElement() }
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
-              ?.toMutableList(),
+              ?.toList(),
           relativePath = this@with.relativePath?.value,
           _relativePath = this@with.relativePath?.toElement(),
         )
@@ -710,21 +704,21 @@ internal data class ImplementationGuideManifestResourceSurrogate(
 @Serializable
 internal data class ImplementationGuideManifestPageSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var name: KotlinString? = null,
   public var _name: Element? = null,
   public var title: KotlinString? = null,
   public var _title: Element? = null,
-  public var anchor: MutableList<KotlinString?>? = null,
-  public var _anchor: MutableList<Element?>? = null,
+  public var anchor: List<KotlinString?>? = null,
+  public var _anchor: List<Element?>? = null,
 ) {
   public fun toModel(): ImplementationGuide.Manifest.Page =
     ImplementationGuide.Manifest.Page(
       id = this@ImplementationGuideManifestPageSurrogate.id,
-      extension = this@ImplementationGuideManifestPageSurrogate.extension ?: mutableListOf(),
+      extension = this@ImplementationGuideManifestPageSurrogate.extension ?: listOf(),
       modifierExtension =
-        this@ImplementationGuideManifestPageSurrogate.modifierExtension ?: mutableListOf(),
+        this@ImplementationGuideManifestPageSurrogate.modifierExtension ?: listOf(),
       name =
         R5String.of(
           this@ImplementationGuideManifestPageSurrogate.name,
@@ -740,7 +734,7 @@ internal data class ImplementationGuideManifestPageSurrogate(
           this@ImplementationGuideManifestPageSurrogate.anchor == null &&
             this@ImplementationGuideManifestPageSurrogate._anchor == null
         ) {
-          mutableListOf()
+          listOf()
         } else {
           (this@ImplementationGuideManifestPageSurrogate.anchor
               ?: List(this@ImplementationGuideManifestPageSurrogate._anchor!!.size) { null })
@@ -749,7 +743,7 @@ internal data class ImplementationGuideManifestPageSurrogate(
                 ?: List(this@ImplementationGuideManifestPageSurrogate.anchor!!.size) { null }
             )
             .map { (value, element) -> R5String.of(value, element)!! }
-            .toMutableList()
+            .toList()
         },
     )
 
@@ -766,14 +760,13 @@ internal data class ImplementationGuideManifestPageSurrogate(
           _name = this@with.name.toElement(),
           title = this@with.title?.value,
           _title = this@with.title?.toElement(),
-          anchor =
-            this@with.anchor.map { it.value }.toMutableList().takeUnless { it.all { it == null } },
+          anchor = this@with.anchor.map { it.value }.toList().takeUnless { it.all { it == null } },
           _anchor =
             this@with.anchor
               .map { it.toElement() }
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
-              ?.toMutableList(),
+              ?.toList(),
         )
       }
   }
@@ -859,12 +852,12 @@ internal data class ImplementationGuideSurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: MutableList<Resource>? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var contained: List<Resource>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var url: KotlinString? = null,
   public var _url: Element? = null,
-  public var identifier: MutableList<Identifier>? = null,
+  public var identifier: List<Identifier>? = null,
   public var version: KotlinString? = null,
   public var _version: Element? = null,
   public var versionAlgorithm: ImplementationGuide.VersionAlgorithm? = null,
@@ -880,11 +873,11 @@ internal data class ImplementationGuideSurrogate(
   public var _date: Element? = null,
   public var publisher: KotlinString? = null,
   public var _publisher: Element? = null,
-  public var contact: MutableList<ContactDetail>? = null,
+  public var contact: List<ContactDetail>? = null,
   public var description: KotlinString? = null,
   public var _description: Element? = null,
-  public var useContext: MutableList<UsageContext>? = null,
-  public var jurisdiction: MutableList<CodeableConcept>? = null,
+  public var useContext: List<UsageContext>? = null,
+  public var jurisdiction: List<CodeableConcept>? = null,
   public var purpose: KotlinString? = null,
   public var _purpose: Element? = null,
   public var copyright: KotlinString? = null,
@@ -895,10 +888,10 @@ internal data class ImplementationGuideSurrogate(
   public var _packageId: Element? = null,
   public var license: KotlinString? = null,
   public var _license: Element? = null,
-  public var fhirVersion: MutableList<KotlinString?>? = null,
-  public var _fhirVersion: MutableList<Element?>? = null,
-  public var dependsOn: MutableList<ImplementationGuide.DependsOn>? = null,
-  public var global: MutableList<ImplementationGuide.Global>? = null,
+  public var fhirVersion: List<KotlinString?>? = null,
+  public var _fhirVersion: List<Element?>? = null,
+  public var dependsOn: List<ImplementationGuide.DependsOn>? = null,
+  public var global: List<ImplementationGuide.Global>? = null,
   public var definition: ImplementationGuide.Definition? = null,
   public var manifest: ImplementationGuide.Manifest? = null,
 ) {
@@ -917,11 +910,11 @@ internal data class ImplementationGuideSurrogate(
           this@ImplementationGuideSurrogate._language,
         ),
       text = this@ImplementationGuideSurrogate.text,
-      contained = this@ImplementationGuideSurrogate.contained ?: mutableListOf(),
-      extension = this@ImplementationGuideSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@ImplementationGuideSurrogate.modifierExtension ?: mutableListOf(),
+      contained = this@ImplementationGuideSurrogate.contained ?: listOf(),
+      extension = this@ImplementationGuideSurrogate.extension ?: listOf(),
+      modifierExtension = this@ImplementationGuideSurrogate.modifierExtension ?: listOf(),
       url = Uri.of(this@ImplementationGuideSurrogate.url, this@ImplementationGuideSurrogate._url)!!,
-      identifier = this@ImplementationGuideSurrogate.identifier ?: mutableListOf(),
+      identifier = this@ImplementationGuideSurrogate.identifier ?: listOf(),
       version =
         R5String.of(
           this@ImplementationGuideSurrogate.version,
@@ -958,14 +951,14 @@ internal data class ImplementationGuideSurrogate(
           this@ImplementationGuideSurrogate.publisher,
           this@ImplementationGuideSurrogate._publisher,
         ),
-      contact = this@ImplementationGuideSurrogate.contact ?: mutableListOf(),
+      contact = this@ImplementationGuideSurrogate.contact ?: listOf(),
       description =
         Markdown.of(
           this@ImplementationGuideSurrogate.description,
           this@ImplementationGuideSurrogate._description,
         ),
-      useContext = this@ImplementationGuideSurrogate.useContext ?: mutableListOf(),
-      jurisdiction = this@ImplementationGuideSurrogate.jurisdiction ?: mutableListOf(),
+      useContext = this@ImplementationGuideSurrogate.useContext ?: listOf(),
+      jurisdiction = this@ImplementationGuideSurrogate.jurisdiction ?: listOf(),
       purpose =
         Markdown.of(
           this@ImplementationGuideSurrogate.purpose,
@@ -998,7 +991,7 @@ internal data class ImplementationGuideSurrogate(
           this@ImplementationGuideSurrogate.fhirVersion == null &&
             this@ImplementationGuideSurrogate._fhirVersion == null
         ) {
-          mutableListOf()
+          listOf()
         } else {
           (this@ImplementationGuideSurrogate.fhirVersion
               ?: List(this@ImplementationGuideSurrogate._fhirVersion!!.size) { null })
@@ -1009,10 +1002,10 @@ internal data class ImplementationGuideSurrogate(
             .map { (value, element) ->
               Enumeration.of(value.let { FHIRVersion.fromCode(it!!) }, element)
             }
-            .toMutableList()
+            .toList()
         },
-      dependsOn = this@ImplementationGuideSurrogate.dependsOn ?: mutableListOf(),
-      global = this@ImplementationGuideSurrogate.global ?: mutableListOf(),
+      dependsOn = this@ImplementationGuideSurrogate.dependsOn ?: listOf(),
+      global = this@ImplementationGuideSurrogate.global ?: listOf(),
       definition = this@ImplementationGuideSurrogate.definition,
       manifest = this@ImplementationGuideSurrogate.manifest,
     )
@@ -1067,14 +1060,14 @@ internal data class ImplementationGuideSurrogate(
           fhirVersion =
             this@with.fhirVersion
               .map { it.value?.getCode() }
-              .toMutableList()
+              .toList()
               .takeUnless { it.all { it == null } },
           _fhirVersion =
             this@with.fhirVersion
               .map { it.toElement() }
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
-              ?.toMutableList(),
+              ?.toList(),
           dependsOn = this@with.dependsOn.takeIf { it.isNotEmpty() },
           global = this@with.global.takeIf { it.isNotEmpty() },
           definition = this@with.definition,

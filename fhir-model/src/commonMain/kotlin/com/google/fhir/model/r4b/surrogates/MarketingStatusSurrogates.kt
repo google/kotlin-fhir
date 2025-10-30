@@ -30,15 +30,15 @@ import com.google.fhir.model.r4b.serializers.DoubleSerializer
 import com.google.fhir.model.r4b.serializers.LocalTimeSerializer
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class MarketingStatusSurrogate(
   public var id: String? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var country: CodeableConcept? = null,
   public var jurisdiction: CodeableConcept? = null,
   public var status: CodeableConcept,
@@ -49,8 +49,8 @@ internal data class MarketingStatusSurrogate(
   public fun toModel(): MarketingStatus =
     MarketingStatus(
       id = this@MarketingStatusSurrogate.id,
-      extension = this@MarketingStatusSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@MarketingStatusSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@MarketingStatusSurrogate.extension ?: listOf(),
+      modifierExtension = this@MarketingStatusSurrogate.modifierExtension ?: listOf(),
       country = this@MarketingStatusSurrogate.country,
       jurisdiction = this@MarketingStatusSurrogate.jurisdiction,
       status = this@MarketingStatusSurrogate.status,

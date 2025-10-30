@@ -22,7 +22,7 @@ import com.google.fhir.model.r5.serializers.GuidanceResponseModuleSerializer
 import com.google.fhir.model.r5.serializers.GuidanceResponseSerializer
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -41,12 +41,12 @@ public data class GuidanceResponse(
    * like the create and conditional update. Otherwise, the use of the resouce id depends on the
    * given use case.
    */
-  override var id: String? = null,
+  override val id: String? = null,
   /**
    * The metadata about the resource. This is content that is maintained by the infrastructure.
    * Changes to the content might not always be associated with version changes to the resource.
    */
-  override var meta: Meta? = null,
+  override val meta: Meta? = null,
   /**
    * A reference to a set of rules that were followed when the resource was constructed, and which
    * must be understood when processing the content. Often, this is a reference to an implementation
@@ -60,7 +60,7 @@ public data class GuidanceResponse(
    * to an implementation guide that defines these special rules as part of its narrative along with
    * other profiles, value sets, etc.
    */
-  override var implicitRules: Uri? = null,
+  override val implicitRules: Uri? = null,
   /**
    * The base language in which the resource is written.
    *
@@ -72,7 +72,7 @@ public data class GuidanceResponse(
    * language is specified, it should it also be specified on the div element in the html (see rules
    * in HTML5 for information about the relationship between xml:lang and the html lang attribute).
    */
-  override var language: Code? = null,
+  override val language: Code? = null,
   /**
    * A human-readable narrative that contains a summary of the resource and can be used to represent
    * the content of the resource to a human. The narrative need not encode all the structured data,
@@ -86,7 +86,7 @@ public data class GuidanceResponse(
    * legacy systems where information is captured as a "text blob" or where text is additionally
    * entered raw or narrated and encoded information is added later.
    */
-  override var text: Narrative? = null,
+  override val text: Narrative? = null,
   /**
    * These resources do not have an independent existence apart from the resource that contains
    * them - they cannot be identified independently, nor can they have their own independent
@@ -98,7 +98,7 @@ public data class GuidanceResponse(
    * resources may have profiles and tags in their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: MutableList<Resource> = mutableListOf(),
+  override val contained: List<Resource> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and managable, there is a strict set of governance
@@ -111,7 +111,7 @@ public data class GuidanceResponse(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: MutableList<Extension> = mutableListOf(),
+  override val extension: List<Extension> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -130,17 +130,17 @@ public data class GuidanceResponse(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: MutableList<Extension> = mutableListOf(),
+  override val modifierExtension: List<Extension> = listOf(),
   /**
    * The identifier of the request associated with this response. If an identifier was given as part
    * of the request, it will be reproduced here to enable the requester to more easily identify the
    * response in a multi-request scenario.
    */
-  public var requestIdentifier: Identifier? = null,
+  public val requestIdentifier: Identifier? = null,
   /** Allows a service to provide unique, business identifiers for the response. */
-  public var identifier: MutableList<Identifier> = mutableListOf(),
+  public val identifier: List<Identifier> = listOf(),
   /** An identifier, CodeableConcept or canonical reference to the guidance that was requested. */
-  public var module: Module,
+  public val module: Module,
   /**
    * The status of the response. If the evaluation is completed successfully, the status will
    * indicate success. However, in order to complete the evaluation, the engine may require more
@@ -153,9 +153,9 @@ public data class GuidanceResponse(
    * This element is labeled as a modifier because the status contains codes that mark the resource
    * as not currently valid.
    */
-  public var status: Enumeration<GuidanceResponseStatus>,
+  public val status: Enumeration<GuidanceResponseStatus>,
   /** The patient for which the request was processed. */
-  public var subject: Reference? = null,
+  public val subject: Reference? = null,
   /**
    * The encounter during which this response was created or to which the creation of this record is
    * tightly associated.
@@ -164,11 +164,11 @@ public data class GuidanceResponse(
    * initiated prior to or after the official copmletion of an encounter but still be tied to the
    * context of the encounter.
    */
-  public var encounter: Reference? = null,
+  public val encounter: Reference? = null,
   /** Indicates when the guidance response was processed. */
-  public var occurrenceDateTime: DateTime? = null,
+  public val occurrenceDateTime: DateTime? = null,
   /** Provides a reference to the device that performed the guidance. */
-  public var performer: Reference? = null,
+  public val performer: Reference? = null,
   /**
    * Describes the reason for the guidance response in coded or textual form, or Indicates the
    * reason the request was initiated. This is typically provided as a parameter to the evaluation
@@ -184,31 +184,31 @@ public data class GuidanceResponse(
    * [http://hl7.org/fhir/StructureDefinition/targetPath](http://hl7.org/fhir/extensions/StructureDefinition-targetPath.html)
    * extensions to indicate the specific elements relevant to providing the reason for the guidance.
    */
-  public var reason: MutableList<CodeableReference> = mutableListOf(),
+  public val reason: List<CodeableReference> = listOf(),
   /** Provides a mechanism to communicate additional information about the response. */
-  public var note: MutableList<Annotation> = mutableListOf(),
+  public val note: List<Annotation> = listOf(),
   /**
    * Messages resulting from the evaluation of the artifact or artifacts. As part of evaluating the
    * request, the engine may produce informational or warning messages. These messages will be
    * provided by this element.
    */
-  public var evaluationMessage: Reference? = null,
+  public val evaluationMessage: Reference? = null,
   /**
    * The output parameters of the evaluation, if any. Many modules will result in the return of
    * specific resources such as procedure or communication requests that are returned as part of the
    * operation result. However, modules may define specific outputs that would be returned as the
    * result of the evaluation, and these would be returned in this element.
    */
-  public var outputParameters: Reference? = null,
+  public val outputParameters: Reference? = null,
   /** The actions, if any, produced by the evaluation of the artifact. */
-  public var result: MutableList<Reference> = mutableListOf(),
+  public val result: List<Reference> = listOf(),
   /**
    * If the evaluation could not be completed due to lack of information, or additional information
    * would potentially result in a more accurate response, this element will a description of the
    * data required in order to proceed with the evaluation. A subsequent request to the service
    * should include this data.
    */
-  public var dataRequirement: MutableList<DataRequirement> = mutableListOf(),
+  public val dataRequirement: List<DataRequirement> = listOf(),
 ) : DomainResource() {
   @Serializable(with = GuidanceResponseModuleSerializer::class)
   public sealed interface Module {

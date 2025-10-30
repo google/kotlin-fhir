@@ -50,16 +50,16 @@ import kotlin.Boolean as KotlinBoolean
 import kotlin.Int
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class AppointmentParticipantSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var type: MutableList<CodeableConcept>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
+  public var type: List<CodeableConcept>? = null,
   public var period: Period? = null,
   public var actor: Reference? = null,
   public var required: KotlinBoolean? = null,
@@ -70,9 +70,9 @@ internal data class AppointmentParticipantSurrogate(
   public fun toModel(): Appointment.Participant =
     Appointment.Participant(
       id = this@AppointmentParticipantSurrogate.id,
-      extension = this@AppointmentParticipantSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@AppointmentParticipantSurrogate.modifierExtension ?: mutableListOf(),
-      type = this@AppointmentParticipantSurrogate.type ?: mutableListOf(),
+      extension = this@AppointmentParticipantSurrogate.extension ?: listOf(),
+      modifierExtension = this@AppointmentParticipantSurrogate.modifierExtension ?: listOf(),
+      type = this@AppointmentParticipantSurrogate.type ?: listOf(),
       period = this@AppointmentParticipantSurrogate.period,
       actor = this@AppointmentParticipantSurrogate.actor,
       required =
@@ -109,30 +109,29 @@ internal data class AppointmentParticipantSurrogate(
 @Serializable
 internal data class AppointmentRecurrenceTemplateSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var timezone: CodeableConcept? = null,
   public var recurrenceType: CodeableConcept,
   public var lastOccurrenceDate: KotlinString? = null,
   public var _lastOccurrenceDate: Element? = null,
   public var occurrenceCount: Int? = null,
   public var _occurrenceCount: Element? = null,
-  public var occurrenceDate: MutableList<KotlinString?>? = null,
-  public var _occurrenceDate: MutableList<Element?>? = null,
+  public var occurrenceDate: List<KotlinString?>? = null,
+  public var _occurrenceDate: List<Element?>? = null,
   public var weeklyTemplate: Appointment.RecurrenceTemplate.WeeklyTemplate? = null,
   public var monthlyTemplate: Appointment.RecurrenceTemplate.MonthlyTemplate? = null,
   public var yearlyTemplate: Appointment.RecurrenceTemplate.YearlyTemplate? = null,
-  public var excludingDate: MutableList<KotlinString?>? = null,
-  public var _excludingDate: MutableList<Element?>? = null,
-  public var excludingRecurrenceId: MutableList<Int?>? = null,
-  public var _excludingRecurrenceId: MutableList<Element?>? = null,
+  public var excludingDate: List<KotlinString?>? = null,
+  public var _excludingDate: List<Element?>? = null,
+  public var excludingRecurrenceId: List<Int?>? = null,
+  public var _excludingRecurrenceId: List<Element?>? = null,
 ) {
   public fun toModel(): Appointment.RecurrenceTemplate =
     Appointment.RecurrenceTemplate(
       id = this@AppointmentRecurrenceTemplateSurrogate.id,
-      extension = this@AppointmentRecurrenceTemplateSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@AppointmentRecurrenceTemplateSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@AppointmentRecurrenceTemplateSurrogate.extension ?: listOf(),
+      modifierExtension = this@AppointmentRecurrenceTemplateSurrogate.modifierExtension ?: listOf(),
       timezone = this@AppointmentRecurrenceTemplateSurrogate.timezone,
       recurrenceType = this@AppointmentRecurrenceTemplateSurrogate.recurrenceType,
       lastOccurrenceDate =
@@ -150,7 +149,7 @@ internal data class AppointmentRecurrenceTemplateSurrogate(
           this@AppointmentRecurrenceTemplateSurrogate.occurrenceDate == null &&
             this@AppointmentRecurrenceTemplateSurrogate._occurrenceDate == null
         ) {
-          mutableListOf()
+          listOf()
         } else {
           (this@AppointmentRecurrenceTemplateSurrogate.occurrenceDate
               ?: List(this@AppointmentRecurrenceTemplateSurrogate._occurrenceDate!!.size) { null })
@@ -159,7 +158,7 @@ internal data class AppointmentRecurrenceTemplateSurrogate(
                 ?: List(this@AppointmentRecurrenceTemplateSurrogate.occurrenceDate!!.size) { null }
             )
             .map { (value, element) -> Date.of(FhirDate.fromString(value), element)!! }
-            .toMutableList()
+            .toList()
         },
       weeklyTemplate = this@AppointmentRecurrenceTemplateSurrogate.weeklyTemplate,
       monthlyTemplate = this@AppointmentRecurrenceTemplateSurrogate.monthlyTemplate,
@@ -169,7 +168,7 @@ internal data class AppointmentRecurrenceTemplateSurrogate(
           this@AppointmentRecurrenceTemplateSurrogate.excludingDate == null &&
             this@AppointmentRecurrenceTemplateSurrogate._excludingDate == null
         ) {
-          mutableListOf()
+          listOf()
         } else {
           (this@AppointmentRecurrenceTemplateSurrogate.excludingDate
               ?: List(this@AppointmentRecurrenceTemplateSurrogate._excludingDate!!.size) { null })
@@ -178,14 +177,14 @@ internal data class AppointmentRecurrenceTemplateSurrogate(
                 ?: List(this@AppointmentRecurrenceTemplateSurrogate.excludingDate!!.size) { null }
             )
             .map { (value, element) -> Date.of(FhirDate.fromString(value), element)!! }
-            .toMutableList()
+            .toList()
         },
       excludingRecurrenceId =
         if (
           this@AppointmentRecurrenceTemplateSurrogate.excludingRecurrenceId == null &&
             this@AppointmentRecurrenceTemplateSurrogate._excludingRecurrenceId == null
         ) {
-          mutableListOf()
+          listOf()
         } else {
           (this@AppointmentRecurrenceTemplateSurrogate.excludingRecurrenceId
               ?: List(this@AppointmentRecurrenceTemplateSurrogate._excludingRecurrenceId!!.size) {
@@ -198,7 +197,7 @@ internal data class AppointmentRecurrenceTemplateSurrogate(
                 }
             )
             .map { (value, element) -> PositiveInt.of(value, element)!! }
-            .toMutableList()
+            .toList()
         },
     )
 
@@ -220,39 +219,39 @@ internal data class AppointmentRecurrenceTemplateSurrogate(
           occurrenceDate =
             this@with.occurrenceDate
               .map { it.value?.toString() }
-              .toMutableList()
+              .toList()
               .takeUnless { it.all { it == null } },
           _occurrenceDate =
             this@with.occurrenceDate
               .map { it.toElement() }
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
-              ?.toMutableList(),
+              ?.toList(),
           weeklyTemplate = this@with.weeklyTemplate,
           monthlyTemplate = this@with.monthlyTemplate,
           yearlyTemplate = this@with.yearlyTemplate,
           excludingDate =
             this@with.excludingDate
               .map { it.value?.toString() }
-              .toMutableList()
+              .toList()
               .takeUnless { it.all { it == null } },
           _excludingDate =
             this@with.excludingDate
               .map { it.toElement() }
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
-              ?.toMutableList(),
+              ?.toList(),
           excludingRecurrenceId =
             this@with.excludingRecurrenceId
               .map { it.value }
-              .toMutableList()
+              .toList()
               .takeUnless { it.all { it == null } },
           _excludingRecurrenceId =
             this@with.excludingRecurrenceId
               .map { it.toElement() }
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
-              ?.toMutableList(),
+              ?.toList(),
         )
       }
   }
@@ -261,8 +260,8 @@ internal data class AppointmentRecurrenceTemplateSurrogate(
 @Serializable
 internal data class AppointmentRecurrenceTemplateWeeklyTemplateSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var monday: KotlinBoolean? = null,
   public var _monday: Element? = null,
   public var tuesday: KotlinBoolean? = null,
@@ -283,11 +282,9 @@ internal data class AppointmentRecurrenceTemplateWeeklyTemplateSurrogate(
   public fun toModel(): Appointment.RecurrenceTemplate.WeeklyTemplate =
     Appointment.RecurrenceTemplate.WeeklyTemplate(
       id = this@AppointmentRecurrenceTemplateWeeklyTemplateSurrogate.id,
-      extension =
-        this@AppointmentRecurrenceTemplateWeeklyTemplateSurrogate.extension ?: mutableListOf(),
+      extension = this@AppointmentRecurrenceTemplateWeeklyTemplateSurrogate.extension ?: listOf(),
       modifierExtension =
-        this@AppointmentRecurrenceTemplateWeeklyTemplateSurrogate.modifierExtension
-          ?: mutableListOf(),
+        this@AppointmentRecurrenceTemplateWeeklyTemplateSurrogate.modifierExtension ?: listOf(),
       monday =
         R5Boolean.of(
           this@AppointmentRecurrenceTemplateWeeklyTemplateSurrogate.monday,
@@ -363,8 +360,8 @@ internal data class AppointmentRecurrenceTemplateWeeklyTemplateSurrogate(
 @Serializable
 internal data class AppointmentRecurrenceTemplateMonthlyTemplateSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var dayOfMonth: Int? = null,
   public var _dayOfMonth: Element? = null,
   public var nthWeekOfMonth: Coding? = null,
@@ -375,11 +372,9 @@ internal data class AppointmentRecurrenceTemplateMonthlyTemplateSurrogate(
   public fun toModel(): Appointment.RecurrenceTemplate.MonthlyTemplate =
     Appointment.RecurrenceTemplate.MonthlyTemplate(
       id = this@AppointmentRecurrenceTemplateMonthlyTemplateSurrogate.id,
-      extension =
-        this@AppointmentRecurrenceTemplateMonthlyTemplateSurrogate.extension ?: mutableListOf(),
+      extension = this@AppointmentRecurrenceTemplateMonthlyTemplateSurrogate.extension ?: listOf(),
       modifierExtension =
-        this@AppointmentRecurrenceTemplateMonthlyTemplateSurrogate.modifierExtension
-          ?: mutableListOf(),
+        this@AppointmentRecurrenceTemplateMonthlyTemplateSurrogate.modifierExtension ?: listOf(),
       dayOfMonth =
         PositiveInt.of(
           this@AppointmentRecurrenceTemplateMonthlyTemplateSurrogate.dayOfMonth,
@@ -417,19 +412,17 @@ internal data class AppointmentRecurrenceTemplateMonthlyTemplateSurrogate(
 @Serializable
 internal data class AppointmentRecurrenceTemplateYearlyTemplateSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var yearInterval: Int? = null,
   public var _yearInterval: Element? = null,
 ) {
   public fun toModel(): Appointment.RecurrenceTemplate.YearlyTemplate =
     Appointment.RecurrenceTemplate.YearlyTemplate(
       id = this@AppointmentRecurrenceTemplateYearlyTemplateSurrogate.id,
-      extension =
-        this@AppointmentRecurrenceTemplateYearlyTemplateSurrogate.extension ?: mutableListOf(),
+      extension = this@AppointmentRecurrenceTemplateYearlyTemplateSurrogate.extension ?: listOf(),
       modifierExtension =
-        this@AppointmentRecurrenceTemplateYearlyTemplateSurrogate.modifierExtension
-          ?: mutableListOf(),
+        this@AppointmentRecurrenceTemplateYearlyTemplateSurrogate.modifierExtension ?: listOf(),
       yearInterval =
         PositiveInt.of(
           this@AppointmentRecurrenceTemplateYearlyTemplateSurrogate.yearInterval,
@@ -462,25 +455,25 @@ internal data class AppointmentSurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: MutableList<Resource>? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var identifier: MutableList<Identifier>? = null,
+  public var contained: List<Resource>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
+  public var identifier: List<Identifier>? = null,
   public var status: KotlinString? = null,
   public var _status: Element? = null,
   public var cancellationReason: CodeableConcept? = null,
-  public var `class`: MutableList<CodeableConcept>? = null,
-  public var serviceCategory: MutableList<CodeableConcept>? = null,
-  public var serviceType: MutableList<CodeableReference>? = null,
-  public var specialty: MutableList<CodeableConcept>? = null,
+  public var `class`: List<CodeableConcept>? = null,
+  public var serviceCategory: List<CodeableConcept>? = null,
+  public var serviceType: List<CodeableReference>? = null,
+  public var specialty: List<CodeableConcept>? = null,
   public var appointmentType: CodeableConcept? = null,
-  public var reason: MutableList<CodeableReference>? = null,
+  public var reason: List<CodeableReference>? = null,
   public var priority: CodeableConcept? = null,
   public var description: KotlinString? = null,
   public var _description: Element? = null,
-  public var replaces: MutableList<Reference>? = null,
-  public var virtualService: MutableList<VirtualServiceDetail>? = null,
-  public var supportingInformation: MutableList<Reference>? = null,
+  public var replaces: List<Reference>? = null,
+  public var virtualService: List<VirtualServiceDetail>? = null,
+  public var supportingInformation: List<Reference>? = null,
   public var previousAppointment: Reference? = null,
   public var originatingAppointment: Reference? = null,
   public var start: KotlinString? = null,
@@ -489,23 +482,23 @@ internal data class AppointmentSurrogate(
   public var _end: Element? = null,
   public var minutesDuration: Int? = null,
   public var _minutesDuration: Element? = null,
-  public var requestedPeriod: MutableList<Period>? = null,
-  public var slot: MutableList<Reference>? = null,
-  public var account: MutableList<Reference>? = null,
+  public var requestedPeriod: List<Period>? = null,
+  public var slot: List<Reference>? = null,
+  public var account: List<Reference>? = null,
   public var created: KotlinString? = null,
   public var _created: Element? = null,
   public var cancellationDate: KotlinString? = null,
   public var _cancellationDate: Element? = null,
-  public var note: MutableList<Annotation>? = null,
-  public var patientInstruction: MutableList<CodeableReference>? = null,
-  public var basedOn: MutableList<Reference>? = null,
+  public var note: List<Annotation>? = null,
+  public var patientInstruction: List<CodeableReference>? = null,
+  public var basedOn: List<Reference>? = null,
   public var subject: Reference? = null,
-  public var participant: MutableList<Appointment.Participant>? = null,
+  public var participant: List<Appointment.Participant>? = null,
   public var recurrenceId: Int? = null,
   public var _recurrenceId: Element? = null,
   public var occurrenceChanged: KotlinBoolean? = null,
   public var _occurrenceChanged: Element? = null,
-  public var recurrenceTemplate: MutableList<Appointment.RecurrenceTemplate>? = null,
+  public var recurrenceTemplate: List<Appointment.RecurrenceTemplate>? = null,
 ) {
   public fun toModel(): Appointment =
     Appointment(
@@ -515,28 +508,28 @@ internal data class AppointmentSurrogate(
         Uri.of(this@AppointmentSurrogate.implicitRules, this@AppointmentSurrogate._implicitRules),
       language = Code.of(this@AppointmentSurrogate.language, this@AppointmentSurrogate._language),
       text = this@AppointmentSurrogate.text,
-      contained = this@AppointmentSurrogate.contained ?: mutableListOf(),
-      extension = this@AppointmentSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@AppointmentSurrogate.modifierExtension ?: mutableListOf(),
-      identifier = this@AppointmentSurrogate.identifier ?: mutableListOf(),
+      contained = this@AppointmentSurrogate.contained ?: listOf(),
+      extension = this@AppointmentSurrogate.extension ?: listOf(),
+      modifierExtension = this@AppointmentSurrogate.modifierExtension ?: listOf(),
+      identifier = this@AppointmentSurrogate.identifier ?: listOf(),
       status =
         Enumeration.of(
           Appointment.AppointmentStatus.fromCode(this@AppointmentSurrogate.status!!),
           this@AppointmentSurrogate._status,
         ),
       cancellationReason = this@AppointmentSurrogate.cancellationReason,
-      `class` = this@AppointmentSurrogate.`class` ?: mutableListOf(),
-      serviceCategory = this@AppointmentSurrogate.serviceCategory ?: mutableListOf(),
-      serviceType = this@AppointmentSurrogate.serviceType ?: mutableListOf(),
-      specialty = this@AppointmentSurrogate.specialty ?: mutableListOf(),
+      `class` = this@AppointmentSurrogate.`class` ?: listOf(),
+      serviceCategory = this@AppointmentSurrogate.serviceCategory ?: listOf(),
+      serviceType = this@AppointmentSurrogate.serviceType ?: listOf(),
+      specialty = this@AppointmentSurrogate.specialty ?: listOf(),
       appointmentType = this@AppointmentSurrogate.appointmentType,
-      reason = this@AppointmentSurrogate.reason ?: mutableListOf(),
+      reason = this@AppointmentSurrogate.reason ?: listOf(),
       priority = this@AppointmentSurrogate.priority,
       description =
         R5String.of(this@AppointmentSurrogate.description, this@AppointmentSurrogate._description),
-      replaces = this@AppointmentSurrogate.replaces ?: mutableListOf(),
-      virtualService = this@AppointmentSurrogate.virtualService ?: mutableListOf(),
-      supportingInformation = this@AppointmentSurrogate.supportingInformation ?: mutableListOf(),
+      replaces = this@AppointmentSurrogate.replaces ?: listOf(),
+      virtualService = this@AppointmentSurrogate.virtualService ?: listOf(),
+      supportingInformation = this@AppointmentSurrogate.supportingInformation ?: listOf(),
       previousAppointment = this@AppointmentSurrogate.previousAppointment,
       originatingAppointment = this@AppointmentSurrogate.originatingAppointment,
       start =
@@ -554,9 +547,9 @@ internal data class AppointmentSurrogate(
           this@AppointmentSurrogate.minutesDuration,
           this@AppointmentSurrogate._minutesDuration,
         ),
-      requestedPeriod = this@AppointmentSurrogate.requestedPeriod ?: mutableListOf(),
-      slot = this@AppointmentSurrogate.slot ?: mutableListOf(),
-      account = this@AppointmentSurrogate.account ?: mutableListOf(),
+      requestedPeriod = this@AppointmentSurrogate.requestedPeriod ?: listOf(),
+      slot = this@AppointmentSurrogate.slot ?: listOf(),
+      account = this@AppointmentSurrogate.account ?: listOf(),
       created =
         DateTime.of(
           FhirDateTime.fromString(this@AppointmentSurrogate.created),
@@ -567,11 +560,11 @@ internal data class AppointmentSurrogate(
           FhirDateTime.fromString(this@AppointmentSurrogate.cancellationDate),
           this@AppointmentSurrogate._cancellationDate,
         ),
-      note = this@AppointmentSurrogate.note ?: mutableListOf(),
-      patientInstruction = this@AppointmentSurrogate.patientInstruction ?: mutableListOf(),
-      basedOn = this@AppointmentSurrogate.basedOn ?: mutableListOf(),
+      note = this@AppointmentSurrogate.note ?: listOf(),
+      patientInstruction = this@AppointmentSurrogate.patientInstruction ?: listOf(),
+      basedOn = this@AppointmentSurrogate.basedOn ?: listOf(),
       subject = this@AppointmentSurrogate.subject,
-      participant = this@AppointmentSurrogate.participant ?: mutableListOf(),
+      participant = this@AppointmentSurrogate.participant ?: listOf(),
       recurrenceId =
         PositiveInt.of(
           this@AppointmentSurrogate.recurrenceId,
@@ -582,7 +575,7 @@ internal data class AppointmentSurrogate(
           this@AppointmentSurrogate.occurrenceChanged,
           this@AppointmentSurrogate._occurrenceChanged,
         ),
-      recurrenceTemplate = this@AppointmentSurrogate.recurrenceTemplate ?: mutableListOf(),
+      recurrenceTemplate = this@AppointmentSurrogate.recurrenceTemplate ?: listOf(),
     )
 
   public companion object {

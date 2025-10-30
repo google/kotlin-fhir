@@ -43,15 +43,15 @@ import kotlin.Double
 import kotlin.Int
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class MolecularSequenceReferenceSeqSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var chromosome: CodeableConcept? = null,
   public var genomeBuild: KotlinString? = null,
   public var _genomeBuild: Element? = null,
@@ -71,9 +71,8 @@ internal data class MolecularSequenceReferenceSeqSurrogate(
   public fun toModel(): MolecularSequence.ReferenceSeq =
     MolecularSequence.ReferenceSeq(
       id = this@MolecularSequenceReferenceSeqSurrogate.id,
-      extension = this@MolecularSequenceReferenceSeqSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@MolecularSequenceReferenceSeqSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@MolecularSequenceReferenceSeqSurrogate.extension ?: listOf(),
+      modifierExtension = this@MolecularSequenceReferenceSeqSurrogate.modifierExtension ?: listOf(),
       chromosome = this@MolecularSequenceReferenceSeqSurrogate.chromosome,
       genomeBuild =
         R4String.of(
@@ -145,8 +144,8 @@ internal data class MolecularSequenceReferenceSeqSurrogate(
 @Serializable
 internal data class MolecularSequenceVariantSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var start: Int? = null,
   public var _start: Element? = null,
   public var end: Int? = null,
@@ -162,9 +161,8 @@ internal data class MolecularSequenceVariantSurrogate(
   public fun toModel(): MolecularSequence.Variant =
     MolecularSequence.Variant(
       id = this@MolecularSequenceVariantSurrogate.id,
-      extension = this@MolecularSequenceVariantSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@MolecularSequenceVariantSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@MolecularSequenceVariantSurrogate.extension ?: listOf(),
+      modifierExtension = this@MolecularSequenceVariantSurrogate.modifierExtension ?: listOf(),
       start =
         Integer.of(
           this@MolecularSequenceVariantSurrogate.start,
@@ -219,8 +217,8 @@ internal data class MolecularSequenceVariantSurrogate(
 @Serializable
 internal data class MolecularSequenceQualitySurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var type: KotlinString? = null,
   public var _type: Element? = null,
   public var standardSequence: CodeableConcept? = null,
@@ -251,9 +249,8 @@ internal data class MolecularSequenceQualitySurrogate(
   public fun toModel(): MolecularSequence.Quality =
     MolecularSequence.Quality(
       id = this@MolecularSequenceQualitySurrogate.id,
-      extension = this@MolecularSequenceQualitySurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@MolecularSequenceQualitySurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@MolecularSequenceQualitySurrogate.extension ?: listOf(),
+      modifierExtension = this@MolecularSequenceQualitySurrogate.modifierExtension ?: listOf(),
       type =
         Enumeration.of(
           MolecularSequence.QualityType.fromCode(this@MolecularSequenceQualitySurrogate.type!!),
@@ -356,35 +353,34 @@ internal data class MolecularSequenceQualitySurrogate(
 @Serializable
 internal data class MolecularSequenceQualityRocSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var score: MutableList<Int?>? = null,
-  public var _score: MutableList<Element?>? = null,
-  public var numTP: MutableList<Int?>? = null,
-  public var _numTP: MutableList<Element?>? = null,
-  public var numFP: MutableList<Int?>? = null,
-  public var _numFP: MutableList<Element?>? = null,
-  public var numFN: MutableList<Int?>? = null,
-  public var _numFN: MutableList<Element?>? = null,
-  public var precision: MutableList<Double?>? = null,
-  public var _precision: MutableList<Element?>? = null,
-  public var sensitivity: MutableList<Double?>? = null,
-  public var _sensitivity: MutableList<Element?>? = null,
-  public var fMeasure: MutableList<Double?>? = null,
-  public var _fMeasure: MutableList<Element?>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
+  public var score: List<Int?>? = null,
+  public var _score: List<Element?>? = null,
+  public var numTP: List<Int?>? = null,
+  public var _numTP: List<Element?>? = null,
+  public var numFP: List<Int?>? = null,
+  public var _numFP: List<Element?>? = null,
+  public var numFN: List<Int?>? = null,
+  public var _numFN: List<Element?>? = null,
+  public var precision: List<Double?>? = null,
+  public var _precision: List<Element?>? = null,
+  public var sensitivity: List<Double?>? = null,
+  public var _sensitivity: List<Element?>? = null,
+  public var fMeasure: List<Double?>? = null,
+  public var _fMeasure: List<Element?>? = null,
 ) {
   public fun toModel(): MolecularSequence.Quality.Roc =
     MolecularSequence.Quality.Roc(
       id = this@MolecularSequenceQualityRocSurrogate.id,
-      extension = this@MolecularSequenceQualityRocSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@MolecularSequenceQualityRocSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@MolecularSequenceQualityRocSurrogate.extension ?: listOf(),
+      modifierExtension = this@MolecularSequenceQualityRocSurrogate.modifierExtension ?: listOf(),
       score =
         if (
           this@MolecularSequenceQualityRocSurrogate.score == null &&
             this@MolecularSequenceQualityRocSurrogate._score == null
         ) {
-          mutableListOf()
+          listOf()
         } else {
           (this@MolecularSequenceQualityRocSurrogate.score
               ?: List(this@MolecularSequenceQualityRocSurrogate._score!!.size) { null })
@@ -393,14 +389,14 @@ internal data class MolecularSequenceQualityRocSurrogate(
                 ?: List(this@MolecularSequenceQualityRocSurrogate.score!!.size) { null }
             )
             .map { (value, element) -> Integer.of(value, element)!! }
-            .toMutableList()
+            .toList()
         },
       numTP =
         if (
           this@MolecularSequenceQualityRocSurrogate.numTP == null &&
             this@MolecularSequenceQualityRocSurrogate._numTP == null
         ) {
-          mutableListOf()
+          listOf()
         } else {
           (this@MolecularSequenceQualityRocSurrogate.numTP
               ?: List(this@MolecularSequenceQualityRocSurrogate._numTP!!.size) { null })
@@ -409,14 +405,14 @@ internal data class MolecularSequenceQualityRocSurrogate(
                 ?: List(this@MolecularSequenceQualityRocSurrogate.numTP!!.size) { null }
             )
             .map { (value, element) -> Integer.of(value, element)!! }
-            .toMutableList()
+            .toList()
         },
       numFP =
         if (
           this@MolecularSequenceQualityRocSurrogate.numFP == null &&
             this@MolecularSequenceQualityRocSurrogate._numFP == null
         ) {
-          mutableListOf()
+          listOf()
         } else {
           (this@MolecularSequenceQualityRocSurrogate.numFP
               ?: List(this@MolecularSequenceQualityRocSurrogate._numFP!!.size) { null })
@@ -425,14 +421,14 @@ internal data class MolecularSequenceQualityRocSurrogate(
                 ?: List(this@MolecularSequenceQualityRocSurrogate.numFP!!.size) { null }
             )
             .map { (value, element) -> Integer.of(value, element)!! }
-            .toMutableList()
+            .toList()
         },
       numFN =
         if (
           this@MolecularSequenceQualityRocSurrogate.numFN == null &&
             this@MolecularSequenceQualityRocSurrogate._numFN == null
         ) {
-          mutableListOf()
+          listOf()
         } else {
           (this@MolecularSequenceQualityRocSurrogate.numFN
               ?: List(this@MolecularSequenceQualityRocSurrogate._numFN!!.size) { null })
@@ -441,14 +437,14 @@ internal data class MolecularSequenceQualityRocSurrogate(
                 ?: List(this@MolecularSequenceQualityRocSurrogate.numFN!!.size) { null }
             )
             .map { (value, element) -> Integer.of(value, element)!! }
-            .toMutableList()
+            .toList()
         },
       precision =
         if (
           this@MolecularSequenceQualityRocSurrogate.precision == null &&
             this@MolecularSequenceQualityRocSurrogate._precision == null
         ) {
-          mutableListOf()
+          listOf()
         } else {
           (this@MolecularSequenceQualityRocSurrogate.precision
               ?: List(this@MolecularSequenceQualityRocSurrogate._precision!!.size) { null })
@@ -457,14 +453,14 @@ internal data class MolecularSequenceQualityRocSurrogate(
                 ?: List(this@MolecularSequenceQualityRocSurrogate.precision!!.size) { null }
             )
             .map { (value, element) -> Decimal.of(value, element)!! }
-            .toMutableList()
+            .toList()
         },
       sensitivity =
         if (
           this@MolecularSequenceQualityRocSurrogate.sensitivity == null &&
             this@MolecularSequenceQualityRocSurrogate._sensitivity == null
         ) {
-          mutableListOf()
+          listOf()
         } else {
           (this@MolecularSequenceQualityRocSurrogate.sensitivity
               ?: List(this@MolecularSequenceQualityRocSurrogate._sensitivity!!.size) { null })
@@ -473,14 +469,14 @@ internal data class MolecularSequenceQualityRocSurrogate(
                 ?: List(this@MolecularSequenceQualityRocSurrogate.sensitivity!!.size) { null }
             )
             .map { (value, element) -> Decimal.of(value, element)!! }
-            .toMutableList()
+            .toList()
         },
       fMeasure =
         if (
           this@MolecularSequenceQualityRocSurrogate.fMeasure == null &&
             this@MolecularSequenceQualityRocSurrogate._fMeasure == null
         ) {
-          mutableListOf()
+          listOf()
         } else {
           (this@MolecularSequenceQualityRocSurrogate.fMeasure
               ?: List(this@MolecularSequenceQualityRocSurrogate._fMeasure!!.size) { null })
@@ -489,7 +485,7 @@ internal data class MolecularSequenceQualityRocSurrogate(
                 ?: List(this@MolecularSequenceQualityRocSurrogate.fMeasure!!.size) { null }
             )
             .map { (value, element) -> Decimal.of(value, element)!! }
-            .toMutableList()
+            .toList()
         },
     )
 
@@ -502,71 +498,67 @@ internal data class MolecularSequenceQualityRocSurrogate(
           id = this@with.id,
           extension = this@with.extension.takeIf { it.isNotEmpty() },
           modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
-          score =
-            this@with.score.map { it.value }.toMutableList().takeUnless { it.all { it == null } },
+          score = this@with.score.map { it.value }.toList().takeUnless { it.all { it == null } },
           _score =
             this@with.score
               .map { it.toElement() }
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
-              ?.toMutableList(),
-          numTP =
-            this@with.numTP.map { it.value }.toMutableList().takeUnless { it.all { it == null } },
+              ?.toList(),
+          numTP = this@with.numTP.map { it.value }.toList().takeUnless { it.all { it == null } },
           _numTP =
             this@with.numTP
               .map { it.toElement() }
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
-              ?.toMutableList(),
-          numFP =
-            this@with.numFP.map { it.value }.toMutableList().takeUnless { it.all { it == null } },
+              ?.toList(),
+          numFP = this@with.numFP.map { it.value }.toList().takeUnless { it.all { it == null } },
           _numFP =
             this@with.numFP
               .map { it.toElement() }
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
-              ?.toMutableList(),
-          numFN =
-            this@with.numFN.map { it.value }.toMutableList().takeUnless { it.all { it == null } },
+              ?.toList(),
+          numFN = this@with.numFN.map { it.value }.toList().takeUnless { it.all { it == null } },
           _numFN =
             this@with.numFN
               .map { it.toElement() }
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
-              ?.toMutableList(),
+              ?.toList(),
           precision =
             this@with.precision
               .map { it.value?.toString()?.toDouble() }
-              .toMutableList()
+              .toList()
               .takeUnless { it.all { it == null } },
           _precision =
             this@with.precision
               .map { it.toElement() }
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
-              ?.toMutableList(),
+              ?.toList(),
           sensitivity =
             this@with.sensitivity
               .map { it.value?.toString()?.toDouble() }
-              .toMutableList()
+              .toList()
               .takeUnless { it.all { it == null } },
           _sensitivity =
             this@with.sensitivity
               .map { it.toElement() }
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
-              ?.toMutableList(),
+              ?.toList(),
           fMeasure =
             this@with.fMeasure
               .map { it.value?.toString()?.toDouble() }
-              .toMutableList()
+              .toList()
               .takeUnless { it.all { it == null } },
           _fMeasure =
             this@with.fMeasure
               .map { it.toElement() }
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
-              ?.toMutableList(),
+              ?.toList(),
         )
       }
   }
@@ -575,8 +567,8 @@ internal data class MolecularSequenceQualityRocSurrogate(
 @Serializable
 internal data class MolecularSequenceRepositorySurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var type: KotlinString? = null,
   public var _type: Element? = null,
   public var url: KotlinString? = null,
@@ -593,9 +585,8 @@ internal data class MolecularSequenceRepositorySurrogate(
   public fun toModel(): MolecularSequence.Repository =
     MolecularSequence.Repository(
       id = this@MolecularSequenceRepositorySurrogate.id,
-      extension = this@MolecularSequenceRepositorySurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@MolecularSequenceRepositorySurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@MolecularSequenceRepositorySurrogate.extension ?: listOf(),
+      modifierExtension = this@MolecularSequenceRepositorySurrogate.modifierExtension ?: listOf(),
       type =
         Enumeration.of(
           MolecularSequence.RepositoryType.fromCode(
@@ -659,8 +650,8 @@ internal data class MolecularSequenceRepositorySurrogate(
 @Serializable
 internal data class MolecularSequenceStructureVariantSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var variantType: CodeableConcept? = null,
   public var exact: KotlinBoolean? = null,
   public var _exact: Element? = null,
@@ -672,9 +663,9 @@ internal data class MolecularSequenceStructureVariantSurrogate(
   public fun toModel(): MolecularSequence.StructureVariant =
     MolecularSequence.StructureVariant(
       id = this@MolecularSequenceStructureVariantSurrogate.id,
-      extension = this@MolecularSequenceStructureVariantSurrogate.extension ?: mutableListOf(),
+      extension = this@MolecularSequenceStructureVariantSurrogate.extension ?: listOf(),
       modifierExtension =
-        this@MolecularSequenceStructureVariantSurrogate.modifierExtension ?: mutableListOf(),
+        this@MolecularSequenceStructureVariantSurrogate.modifierExtension ?: listOf(),
       variantType = this@MolecularSequenceStructureVariantSurrogate.variantType,
       exact =
         R4Boolean.of(
@@ -714,8 +705,8 @@ internal data class MolecularSequenceStructureVariantSurrogate(
 @Serializable
 internal data class MolecularSequenceStructureVariantOuterSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var start: Int? = null,
   public var _start: Element? = null,
   public var end: Int? = null,
@@ -724,9 +715,9 @@ internal data class MolecularSequenceStructureVariantOuterSurrogate(
   public fun toModel(): MolecularSequence.StructureVariant.Outer =
     MolecularSequence.StructureVariant.Outer(
       id = this@MolecularSequenceStructureVariantOuterSurrogate.id,
-      extension = this@MolecularSequenceStructureVariantOuterSurrogate.extension ?: mutableListOf(),
+      extension = this@MolecularSequenceStructureVariantOuterSurrogate.extension ?: listOf(),
       modifierExtension =
-        this@MolecularSequenceStructureVariantOuterSurrogate.modifierExtension ?: mutableListOf(),
+        this@MolecularSequenceStructureVariantOuterSurrogate.modifierExtension ?: listOf(),
       start =
         Integer.of(
           this@MolecularSequenceStructureVariantOuterSurrogate.start,
@@ -760,8 +751,8 @@ internal data class MolecularSequenceStructureVariantOuterSurrogate(
 @Serializable
 internal data class MolecularSequenceStructureVariantInnerSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var start: Int? = null,
   public var _start: Element? = null,
   public var end: Int? = null,
@@ -770,9 +761,9 @@ internal data class MolecularSequenceStructureVariantInnerSurrogate(
   public fun toModel(): MolecularSequence.StructureVariant.Inner =
     MolecularSequence.StructureVariant.Inner(
       id = this@MolecularSequenceStructureVariantInnerSurrogate.id,
-      extension = this@MolecularSequenceStructureVariantInnerSurrogate.extension ?: mutableListOf(),
+      extension = this@MolecularSequenceStructureVariantInnerSurrogate.extension ?: listOf(),
       modifierExtension =
-        this@MolecularSequenceStructureVariantInnerSurrogate.modifierExtension ?: mutableListOf(),
+        this@MolecularSequenceStructureVariantInnerSurrogate.modifierExtension ?: listOf(),
       start =
         Integer.of(
           this@MolecularSequenceStructureVariantInnerSurrogate.start,
@@ -812,10 +803,10 @@ internal data class MolecularSequenceSurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: MutableList<Resource>? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var identifier: MutableList<Identifier>? = null,
+  public var contained: List<Resource>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
+  public var identifier: List<Identifier>? = null,
   public var type: KotlinString? = null,
   public var _type: Element? = null,
   public var coordinateSystem: Int? = null,
@@ -826,15 +817,15 @@ internal data class MolecularSequenceSurrogate(
   public var performer: Reference? = null,
   public var quantity: Quantity? = null,
   public var referenceSeq: MolecularSequence.ReferenceSeq? = null,
-  public var variant: MutableList<MolecularSequence.Variant>? = null,
+  public var variant: List<MolecularSequence.Variant>? = null,
   public var observedSeq: KotlinString? = null,
   public var _observedSeq: Element? = null,
-  public var quality: MutableList<MolecularSequence.Quality>? = null,
+  public var quality: List<MolecularSequence.Quality>? = null,
   public var readCoverage: Int? = null,
   public var _readCoverage: Element? = null,
-  public var repository: MutableList<MolecularSequence.Repository>? = null,
-  public var pointer: MutableList<Reference>? = null,
-  public var structureVariant: MutableList<MolecularSequence.StructureVariant>? = null,
+  public var repository: List<MolecularSequence.Repository>? = null,
+  public var pointer: List<Reference>? = null,
+  public var structureVariant: List<MolecularSequence.StructureVariant>? = null,
 ) {
   public fun toModel(): MolecularSequence =
     MolecularSequence(
@@ -851,10 +842,10 @@ internal data class MolecularSequenceSurrogate(
           this@MolecularSequenceSurrogate._language,
         ),
       text = this@MolecularSequenceSurrogate.text,
-      contained = this@MolecularSequenceSurrogate.contained ?: mutableListOf(),
-      extension = this@MolecularSequenceSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@MolecularSequenceSurrogate.modifierExtension ?: mutableListOf(),
-      identifier = this@MolecularSequenceSurrogate.identifier ?: mutableListOf(),
+      contained = this@MolecularSequenceSurrogate.contained ?: listOf(),
+      extension = this@MolecularSequenceSurrogate.extension ?: listOf(),
+      modifierExtension = this@MolecularSequenceSurrogate.modifierExtension ?: listOf(),
+      identifier = this@MolecularSequenceSurrogate.identifier ?: listOf(),
       type =
         this@MolecularSequenceSurrogate.type?.let {
           Enumeration.of(
@@ -873,21 +864,21 @@ internal data class MolecularSequenceSurrogate(
       performer = this@MolecularSequenceSurrogate.performer,
       quantity = this@MolecularSequenceSurrogate.quantity,
       referenceSeq = this@MolecularSequenceSurrogate.referenceSeq,
-      variant = this@MolecularSequenceSurrogate.variant ?: mutableListOf(),
+      variant = this@MolecularSequenceSurrogate.variant ?: listOf(),
       observedSeq =
         R4String.of(
           this@MolecularSequenceSurrogate.observedSeq,
           this@MolecularSequenceSurrogate._observedSeq,
         ),
-      quality = this@MolecularSequenceSurrogate.quality ?: mutableListOf(),
+      quality = this@MolecularSequenceSurrogate.quality ?: listOf(),
       readCoverage =
         Integer.of(
           this@MolecularSequenceSurrogate.readCoverage,
           this@MolecularSequenceSurrogate._readCoverage,
         ),
-      repository = this@MolecularSequenceSurrogate.repository ?: mutableListOf(),
-      pointer = this@MolecularSequenceSurrogate.pointer ?: mutableListOf(),
-      structureVariant = this@MolecularSequenceSurrogate.structureVariant ?: mutableListOf(),
+      repository = this@MolecularSequenceSurrogate.repository ?: listOf(),
+      pointer = this@MolecularSequenceSurrogate.pointer ?: listOf(),
+      structureVariant = this@MolecularSequenceSurrogate.structureVariant ?: listOf(),
     )
 
   public companion object {

@@ -22,7 +22,7 @@ import com.google.fhir.model.r5.serializers.CareTeamParticipantCoverageSerialize
 import com.google.fhir.model.r5.serializers.CareTeamParticipantSerializer
 import com.google.fhir.model.r5.serializers.CareTeamSerializer
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -41,12 +41,12 @@ public data class CareTeam(
    * like the create and conditional update. Otherwise, the use of the resouce id depends on the
    * given use case.
    */
-  override var id: kotlin.String? = null,
+  override val id: kotlin.String? = null,
   /**
    * The metadata about the resource. This is content that is maintained by the infrastructure.
    * Changes to the content might not always be associated with version changes to the resource.
    */
-  override var meta: Meta? = null,
+  override val meta: Meta? = null,
   /**
    * A reference to a set of rules that were followed when the resource was constructed, and which
    * must be understood when processing the content. Often, this is a reference to an implementation
@@ -60,7 +60,7 @@ public data class CareTeam(
    * to an implementation guide that defines these special rules as part of its narrative along with
    * other profiles, value sets, etc.
    */
-  override var implicitRules: Uri? = null,
+  override val implicitRules: Uri? = null,
   /**
    * The base language in which the resource is written.
    *
@@ -72,7 +72,7 @@ public data class CareTeam(
    * language is specified, it should it also be specified on the div element in the html (see rules
    * in HTML5 for information about the relationship between xml:lang and the html lang attribute).
    */
-  override var language: Code? = null,
+  override val language: Code? = null,
   /**
    * A human-readable narrative that contains a summary of the resource and can be used to represent
    * the content of the resource to a human. The narrative need not encode all the structured data,
@@ -86,7 +86,7 @@ public data class CareTeam(
    * legacy systems where information is captured as a "text blob" or where text is additionally
    * entered raw or narrated and encoded information is added later.
    */
-  override var text: Narrative? = null,
+  override val text: Narrative? = null,
   /**
    * These resources do not have an independent existence apart from the resource that contains
    * them - they cannot be identified independently, nor can they have their own independent
@@ -98,7 +98,7 @@ public data class CareTeam(
    * resources may have profiles and tags in their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: MutableList<Resource> = mutableListOf(),
+  override val contained: List<Resource> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and managable, there is a strict set of governance
@@ -111,7 +111,7 @@ public data class CareTeam(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: MutableList<Extension> = mutableListOf(),
+  override val extension: List<Extension> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -130,7 +130,7 @@ public data class CareTeam(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: MutableList<Extension> = mutableListOf(),
+  override val modifierExtension: List<Extension> = listOf(),
   /**
    * Business identifiers assigned to this care team by the performer or other systems which remain
    * constant as the resource is updated and propagates from server to server.
@@ -142,21 +142,21 @@ public data class CareTeam(
    * resource types. For example, multiple Patient and a Person resource instance might share the
    * same social insurance number.
    */
-  public var identifier: MutableList<Identifier> = mutableListOf(),
+  public val identifier: List<Identifier> = listOf(),
   /**
    * Indicates the current state of the care team.
    *
    * This element is labeled as a modifier because the status contains the code entered-in-error
    * that marks the care team as not currently valid.
    */
-  public var status: Enumeration<CareTeamStatus>? = null,
+  public val status: Enumeration<CareTeamStatus>? = null,
   /**
    * Identifies what kind of team. This is to support differentiation between multiple co-existing
    * teams, such as care plan team, episode of care team, longitudinal care team.
    *
    * There may be multiple axis of categorization and one team may serve multiple purposes.
    */
-  public var category: MutableList<CodeableConcept> = mutableListOf(),
+  public val category: List<CodeableConcept> = listOf(),
   /**
    * A label for human use intended to distinguish like teams. E.g. the "red" vs. "green" trauma
    * teams.
@@ -165,31 +165,31 @@ public data class CareTeam(
    * semantics of the team (e.g. "Red trauma team"), but its primary purpose is to distinguish
    * between identical teams in a human-friendly way. ("Team 18735" isn't as friendly.).
    */
-  public var name: String? = null,
+  public val name: String? = null,
   /**
    * Identifies the patient or group whose intended care is handled by the team.
    *
    * Use Group for care provision to all members of the group (e.g. group therapy). Use Patient for
    * care provision to an individual patient.
    */
-  public var subject: Reference? = null,
+  public val subject: Reference? = null,
   /** Indicates when the team did (or is intended to) come into effect and end. */
-  public var period: Period? = null,
+  public val period: Period? = null,
   /** Identifies all people and organizations who are expected to be involved in the care team. */
-  public var participant: MutableList<Participant> = mutableListOf(),
+  public val participant: List<Participant> = listOf(),
   /** Describes why the care team exists. */
-  public var reason: MutableList<CodeableReference> = mutableListOf(),
+  public val reason: List<CodeableReference> = listOf(),
   /** The organization responsible for the care team. */
-  public var managingOrganization: MutableList<Reference> = mutableListOf(),
+  public val managingOrganization: List<Reference> = listOf(),
   /**
    * A central contact detail for the care team (that applies to all members).
    *
    * The ContactPoint.use code of home is not appropriate to use. These contacts are not the contact
    * details of individual care team members.
    */
-  public var telecom: MutableList<ContactPoint> = mutableListOf(),
+  public val telecom: List<ContactPoint> = listOf(),
   /** Comments made about the CareTeam. */
-  public var note: MutableList<Annotation> = mutableListOf(),
+  public val note: List<Annotation> = listOf(),
 ) : DomainResource() {
   /** Identifies all people and organizations who are expected to be involved in the care team. */
   @Serializable(with = CareTeamParticipantSerializer::class)
@@ -198,7 +198,7 @@ public data class CareTeam(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -211,7 +211,7 @@ public data class CareTeam(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -230,7 +230,7 @@ public data class CareTeam(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /**
      * Indicates specific responsibility of an individual within the care team, such as "Primary
      * care physician", "Trained social worker counselor", "Caregiver", etc.
@@ -240,7 +240,7 @@ public data class CareTeam(
      * properties of the Patient resource directly. If a participant has multiple roles within the
      * team, then there should be multiple participants.
      */
-    public var role: CodeableConcept? = null,
+    public val role: CodeableConcept? = null,
     /**
      * The specific person or organization who is participating/expected to participate in the care
      * team.
@@ -250,16 +250,16 @@ public data class CareTeam(
      * Member is optional because some participants may be known only by their role, particularly in
      * draft plans.
      */
-    public var member: Reference? = null,
+    public val member: Reference? = null,
     /** The organization of the practitioner. */
-    public var onBehalfOf: Reference? = null,
+    public val onBehalfOf: Reference? = null,
     /**
      * When the member is generally available within this care team.
      *
      * This is populated while creating / managing the CareTeam to ensure there is coverage when
      * servicing CarePlan activities from the Schedule.
      */
-    public var coverage: Coverage? = null,
+    public val coverage: Coverage? = null,
   ) : BackboneElement() {
     @Serializable(with = CareTeamParticipantCoverageSerializer::class)
     public sealed interface Coverage {

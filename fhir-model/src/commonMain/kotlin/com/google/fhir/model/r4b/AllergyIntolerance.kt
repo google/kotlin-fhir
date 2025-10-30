@@ -22,7 +22,7 @@ import com.google.fhir.model.r4b.serializers.AllergyIntoleranceOnsetSerializer
 import com.google.fhir.model.r4b.serializers.AllergyIntoleranceReactionSerializer
 import com.google.fhir.model.r4b.serializers.AllergyIntoleranceSerializer
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -40,12 +40,12 @@ public data class AllergyIntolerance(
    * The only time that a resource does not have an id is when it is being submitted to the server
    * using a create operation.
    */
-  override var id: kotlin.String? = null,
+  override val id: kotlin.String? = null,
   /**
    * The metadata about the resource. This is content that is maintained by the infrastructure.
    * Changes to the content might not always be associated with version changes to the resource.
    */
-  override var meta: Meta? = null,
+  override val meta: Meta? = null,
   /**
    * A reference to a set of rules that were followed when the resource was constructed, and which
    * must be understood when processing the content. Often, this is a reference to an implementation
@@ -59,7 +59,7 @@ public data class AllergyIntolerance(
    * to an implementation guide that defines these special rules as part of it's narrative along
    * with other profiles, value sets, etc.
    */
-  override var implicitRules: Uri? = null,
+  override val implicitRules: Uri? = null,
   /**
    * The base language in which the resource is written.
    *
@@ -71,7 +71,7 @@ public data class AllergyIntolerance(
    * language is specified, it should it also be specified on the div element in the html (see rules
    * in HTML5 for information about the relationship between xml:lang and the html lang attribute).
    */
-  override var language: Code? = null,
+  override val language: Code? = null,
   /**
    * A human-readable narrative that contains a summary of the resource and can be used to represent
    * the content of the resource to a human. The narrative need not encode all the structured data,
@@ -85,7 +85,7 @@ public data class AllergyIntolerance(
    * legacy systems where information is captured as a "text blob" or where text is additionally
    * entered raw or narrated and encoded information is added later.
    */
-  override var text: Narrative? = null,
+  override val text: Narrative? = null,
   /**
    * These resources do not have an independent existence apart from the resource that contains
    * them - they cannot be identified independently, and nor can they have their own independent
@@ -96,7 +96,7 @@ public data class AllergyIntolerance(
    * resources may have profiles and tags In their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: MutableList<Resource> = mutableListOf(),
+  override val contained: List<Resource> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and manageable, there is a strict set of
@@ -109,7 +109,7 @@ public data class AllergyIntolerance(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: MutableList<Extension> = mutableListOf(),
+  override val extension: List<Extension> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -128,7 +128,7 @@ public data class AllergyIntolerance(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: MutableList<Extension> = mutableListOf(),
+  override val modifierExtension: List<Extension> = listOf(),
   /**
    * Business identifiers assigned to this AllergyIntolerance by the performer or other systems
    * which remain constant as the resource is updated and propagates from server to server.
@@ -140,7 +140,7 @@ public data class AllergyIntolerance(
    * resource types. For example, multiple Patient and a Person resource instance might share the
    * same social insurance number.
    */
-  public var identifier: MutableList<Identifier> = mutableListOf(),
+  public val identifier: List<Identifier> = listOf(),
   /**
    * The clinical status of the allergy or intolerance.
    *
@@ -149,7 +149,7 @@ public data class AllergyIntolerance(
    * that there might need to be more specificity than the required FHIR value set allows. For
    * example, a SNOMED coding might allow for additional specificity.
    */
-  public var clinicalStatus: CodeableConcept? = null,
+  public val clinicalStatus: CodeableConcept? = null,
   /**
    * Assertion about certainty associated with the propensity, or potential risk, of a reaction to
    * the identified substance (including pharmaceutical product).
@@ -158,7 +158,7 @@ public data class AllergyIntolerance(
    * involved, such that there might need to be more specificity than the required FHIR value set
    * allows. For example, a SNOMED coding might allow for additional specificity.
    */
-  public var verificationStatus: CodeableConcept? = null,
+  public val verificationStatus: CodeableConcept? = null,
   /**
    * Identification of the underlying physiological mechanism for the reaction risk.
    *
@@ -175,7 +175,7 @@ public data class AllergyIntolerance(
    * particular substance. If, as is commonly the case, it is unclear whether the reaction is due to
    * an allergy or an intolerance, then the type element should be omitted from the resource.
    */
-  public var type: Enumeration<AllergyIntoleranceType>? = null,
+  public val type: Enumeration<AllergyIntoleranceType>? = null,
   /**
    * Category of the identified substance.
    *
@@ -188,7 +188,7 @@ public data class AllergyIntolerance(
    * modifier to get allergies that don't have a category. Additionally, category should be used
    * with caution because category can be subjective based on the sender.
    */
-  public var category: MutableList<Enumeration<AllergyIntoleranceCategory>> = mutableListOf(),
+  public val category: List<Enumeration<AllergyIntoleranceCategory>> = listOf(),
   /**
    * Estimate of the potential clinical harm, or seriousness, of the reaction to the identified
    * substance.
@@ -205,7 +205,7 @@ public data class AllergyIntolerance(
    * the term "severity" to represent both. Criticality is the worst it could be in the future (i.e.
    * situation-agnostic) whereas severity is situation-dependent.
    */
-  public var criticality: Enumeration<AllergyIntoleranceCriticality>? = null,
+  public val criticality: Enumeration<AllergyIntoleranceCriticality>? = null,
   /**
    * Code for an allergy or intolerance statement (either a positive or a negated/excluded
    * statement). This may be a code for a substance or pharmaceutical product that is considered to
@@ -240,27 +240,27 @@ public data class AllergyIntolerance(
    * 'substanceExposureRisk' extension is present, the AllergyIntolerance.code element SHALL be
    * omitted.
    */
-  public var code: CodeableConcept? = null,
+  public val code: CodeableConcept? = null,
   /** The patient who has the allergy or intolerance. */
-  public var patient: Reference,
+  public val patient: Reference,
   /** The encounter when the allergy or intolerance was asserted. */
-  public var encounter: Reference? = null,
+  public val encounter: Reference? = null,
   /** Estimated or actual date, date-time, or age when allergy or intolerance was identified. */
-  public var onset: Onset? = null,
+  public val onset: Onset? = null,
   /**
    * The recordedDate represents when this particular AllergyIntolerance record was created in the
    * system, which is often a system-generated date.
    */
-  public var recordedDate: DateTime? = null,
+  public val recordedDate: DateTime? = null,
   /** Individual who recorded the record and takes responsibility for its content. */
-  public var recorder: Reference? = null,
+  public val recorder: Reference? = null,
   /**
    * The source of the information about the allergy that is recorded.
    *
    * The recorder takes responsibility for the content, but can reference the source from where they
    * got it.
    */
-  public var asserter: Reference? = null,
+  public val asserter: Reference? = null,
   /**
    * Represents the date and/or time of the last known occurrence of a reaction event.
    *
@@ -268,7 +268,7 @@ public data class AllergyIntolerance(
    * representation of the date of last occurrence is required e.g. 'In Childhood, '10 years ago'
    * the Comment element should be used.
    */
-  public var lastOccurrence: DateTime? = null,
+  public val lastOccurrence: DateTime? = null,
   /**
    * Additional narrative about the propensity for the Adverse Reaction, not captured in other
    * fields.
@@ -280,9 +280,9 @@ public data class AllergyIntolerance(
    * episode notes and descriptions, use AllergyIntolerance.event.description and
    * AllergyIntolerance.event.notes.
    */
-  public var note: MutableList<Annotation> = mutableListOf(),
+  public val note: List<Annotation> = listOf(),
   /** Details about each adverse reaction event linked to exposure to the identified substance. */
-  public var reaction: MutableList<Reaction> = mutableListOf(),
+  public val reaction: List<Reaction> = listOf(),
 ) : DomainResource() {
   /** Details about each adverse reaction event linked to exposure to the identified substance. */
   @Serializable(with = AllergyIntoleranceReactionSerializer::class)
@@ -291,7 +291,7 @@ public data class AllergyIntolerance(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and manageable, there is a strict set of
@@ -304,7 +304,7 @@ public data class AllergyIntolerance(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -323,7 +323,7 @@ public data class AllergyIntolerance(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /**
      * Identification of the specific substance (or pharmaceutical product) considered to be
      * responsible for the Adverse Reaction event. Note: the substance for a specific reaction may
@@ -344,7 +344,7 @@ public data class AllergyIntolerance(
      * of the value in the 'code' and 'reaction.substance' elements is acceptable when a specific
      * substance has been recorded in 'code'.
      */
-    public var substance: CodeableConcept? = null,
+    public val substance: CodeableConcept? = null,
     /**
      * Clinical symptoms and/or signs that are observed or associated with the adverse reaction
      * event.
@@ -355,7 +355,7 @@ public data class AllergyIntolerance(
      * screen as part of a list of adverse reactions, as recommended in the UK NHS CUI guidelines.
      * Terminologies commonly used include, but are not limited to, SNOMED CT or ICD10.
      */
-    public var manifestation: MutableList<CodeableConcept> = mutableListOf(),
+    public val manifestation: List<CodeableConcept> = listOf(),
     /**
      * Text description about the reaction as a whole, including details of the manifestation if
      * required.
@@ -366,9 +366,9 @@ public data class AllergyIntolerance(
      * For example: at the age of four, the patient was given penicillin for strep throat and
      * subsequently developed severe hives.
      */
-    public var description: String? = null,
+    public val description: String? = null,
     /** Record of the date and/or time of the onset of the Reaction. */
-    public var onset: DateTime? = null,
+    public val onset: DateTime? = null,
     /**
      * Clinical assessment of the severity of the reaction event as a whole, potentially considering
      * multiple different manifestations.
@@ -377,13 +377,13 @@ public data class AllergyIntolerance(
      * practice domains where objective scales have been applied. Objective scales can be included
      * in this model as extensions.
      */
-    public var severity: Enumeration<AllergyIntoleranceSeverity>? = null,
+    public val severity: Enumeration<AllergyIntoleranceSeverity>? = null,
     /**
      * Identification of the route by which the subject was exposed to the substance.
      *
      * Coding of the route of exposure with a terminology should be used wherever possible.
      */
-    public var exposureRoute: CodeableConcept? = null,
+    public val exposureRoute: CodeableConcept? = null,
     /**
      * Additional text about the adverse reaction event not captured in other fields.
      *
@@ -391,7 +391,7 @@ public data class AllergyIntolerance(
      * captured in the description. For example: Clinical records are no longer available, recorded
      * based on information provided to the patient by her mother and her mother is deceased.
      */
-    public var note: MutableList<Annotation> = mutableListOf(),
+    public val note: List<Annotation> = listOf(),
   ) : BackboneElement()
 
   @Serializable(with = AllergyIntoleranceOnsetSerializer::class)

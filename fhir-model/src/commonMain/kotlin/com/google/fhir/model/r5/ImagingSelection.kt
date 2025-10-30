@@ -24,7 +24,7 @@ import com.google.fhir.model.r5.serializers.ImagingSelectionInstanceSerializer
 import com.google.fhir.model.r5.serializers.ImagingSelectionPerformerSerializer
 import com.google.fhir.model.r5.serializers.ImagingSelectionSerializer
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -45,12 +45,12 @@ public data class ImagingSelection(
    * like the create and conditional update. Otherwise, the use of the resouce id depends on the
    * given use case.
    */
-  override var id: kotlin.String? = null,
+  override val id: kotlin.String? = null,
   /**
    * The metadata about the resource. This is content that is maintained by the infrastructure.
    * Changes to the content might not always be associated with version changes to the resource.
    */
-  override var meta: Meta? = null,
+  override val meta: Meta? = null,
   /**
    * A reference to a set of rules that were followed when the resource was constructed, and which
    * must be understood when processing the content. Often, this is a reference to an implementation
@@ -64,7 +64,7 @@ public data class ImagingSelection(
    * to an implementation guide that defines these special rules as part of its narrative along with
    * other profiles, value sets, etc.
    */
-  override var implicitRules: Uri? = null,
+  override val implicitRules: Uri? = null,
   /**
    * The base language in which the resource is written.
    *
@@ -76,7 +76,7 @@ public data class ImagingSelection(
    * language is specified, it should it also be specified on the div element in the html (see rules
    * in HTML5 for information about the relationship between xml:lang and the html lang attribute).
    */
-  override var language: Code? = null,
+  override val language: Code? = null,
   /**
    * A human-readable narrative that contains a summary of the resource and can be used to represent
    * the content of the resource to a human. The narrative need not encode all the structured data,
@@ -90,7 +90,7 @@ public data class ImagingSelection(
    * legacy systems where information is captured as a "text blob" or where text is additionally
    * entered raw or narrated and encoded information is added later.
    */
-  override var text: Narrative? = null,
+  override val text: Narrative? = null,
   /**
    * These resources do not have an independent existence apart from the resource that contains
    * them - they cannot be identified independently, nor can they have their own independent
@@ -102,7 +102,7 @@ public data class ImagingSelection(
    * resources may have profiles and tags in their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: MutableList<Resource> = mutableListOf(),
+  override val contained: List<Resource> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and managable, there is a strict set of governance
@@ -115,7 +115,7 @@ public data class ImagingSelection(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: MutableList<Extension> = mutableListOf(),
+  override val extension: List<Extension> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -134,14 +134,14 @@ public data class ImagingSelection(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: MutableList<Extension> = mutableListOf(),
+  override val modifierExtension: List<Extension> = listOf(),
   /**
    * A unique identifier assigned to this imaging selection.
    *
    * This is a business identifier, not a resource identifier -- see discussion under
    * [Business Identifiers](resource.html#identifiers).
    */
-  public var identifier: MutableList<Identifier> = mutableListOf(),
+  public val identifier: List<Identifier> = listOf(),
   /**
    * The current state of the ImagingSelection resource. This is not the status of any ImagingStudy,
    * ServiceRequest, or Task resources associated with the ImagingSelection.
@@ -149,36 +149,36 @@ public data class ImagingSelection(
    * Unknown does not represent "other" - one of the defined statuses must apply. Unknown is used
    * when the authoring system is not sure what the current status is.
    */
-  public var status: Enumeration<ImagingSelectionStatus>,
+  public val status: Enumeration<ImagingSelectionStatus>,
   /**
    * The patient, or group of patients, location, device, organization, procedure or practitioner
    * this imaging selection is about and into whose or what record the imaging selection is placed.
    */
-  public var subject: Reference? = null,
+  public val subject: Reference? = null,
   /** The date and time this imaging selection was created. */
-  public var issued: Instant? = null,
+  public val issued: Instant? = null,
   /** Selector of the instances – human or machine. */
-  public var performer: MutableList<Performer> = mutableListOf(),
+  public val performer: List<Performer> = listOf(),
   /** A list of the diagnostic requests that resulted in this imaging selection being performed. */
-  public var basedOn: MutableList<Reference> = mutableListOf(),
+  public val basedOn: List<Reference> = listOf(),
   /** Classifies the imaging selection. */
-  public var category: MutableList<CodeableConcept> = mutableListOf(),
+  public val category: List<CodeableConcept> = listOf(),
   /**
    * Reason for referencing the selected content.
    *
    * *All* code-value and, if present, component.code-component.value pairs need to be taken into
    * account to correctly understand the meaning of the observation.
    */
-  public var code: CodeableConcept,
+  public val code: CodeableConcept,
   /**
    * The Study Instance UID for the DICOM Study from which the images were selected.
    *
    * See
    * [DICOM PS3.3 C.7.2](http://dicom.nema.org/medical/dicom/current/output/chtml/part03/sect_C.7.2.html).
    */
-  public var studyUid: Id? = null,
+  public val studyUid: Id? = null,
   /** The imaging study from which the imaging selection is made. */
-  public var derivedFrom: MutableList<Reference> = mutableListOf(),
+  public val derivedFrom: List<Reference> = listOf(),
   /**
    * The network service providing retrieval access to the selected images, frames, etc. See
    * implementation notes for information about using DICOM endpoints.
@@ -187,21 +187,21 @@ public data class ImagingSelection(
    * native or rendered (e.g., JPG, PNG) formats using a RESTful API; DICOM WADO-URI, which can
    * similarly retrieve native or rendered instances, except using an HTTP query-based approach.
    */
-  public var endpoint: MutableList<Reference> = mutableListOf(),
+  public val endpoint: List<Reference> = listOf(),
   /**
    * The Series Instance UID for the DICOM Series from which the images were selected.
    *
    * See
    * [DICOM PS3.3 C.7.3](http://dicom.nema.org/medical/dicom/current/output/chtml/part03/sect_C.7.3.html).
    */
-  public var seriesUid: Id? = null,
+  public val seriesUid: Id? = null,
   /**
    * The Series Number for the DICOM Series from which the images were selected.
    *
    * See
    * [DICOM PS3.3 C.7.3](http://dicom.nema.org/medical/dicom/current/output/chtml/part03/sect_C.7.3.html).
    */
-  public var seriesNumber: UnsignedInt? = null,
+  public val seriesNumber: UnsignedInt? = null,
   /**
    * The Frame of Reference UID identifying the coordinate system that conveys spatial and/or
    * temporal information for the selected images or frames.
@@ -209,13 +209,13 @@ public data class ImagingSelection(
    * See
    * [DICOM PS3.3 C.7.4.1](http://dicom.nema.org/medical/dicom/current/output/chtml/part03/sect_C.7.4.html).
    */
-  public var frameOfReferenceUid: Id? = null,
+  public val frameOfReferenceUid: Id? = null,
   /**
    * The anatomic structures examined. See DICOM Part 16 Annex L
    * (http://dicom.nema.org/medical/dicom/current/output/chtml/part16/chapter_L.html) for DICOM to
    * SNOMED-CT mappings.
    */
-  public var bodySite: CodeableReference? = null,
+  public val bodySite: CodeableReference? = null,
   /**
    * The actual focus of an observation when it is not the patient of record representing something
    * or someone associated with the patient such as a spouse, parent, fetus, or donor. For example,
@@ -228,9 +228,9 @@ public data class ImagingSelection(
    * An imaging selection may reference a DICOM resource that itself references other DICOM
    * resources. e.g. a presentation state references a set of source images or frames.
    */
-  public var focus: MutableList<Reference> = mutableListOf(),
+  public val focus: List<Reference> = listOf(),
   /** Each imaging selection includes one or more selected DICOM SOP instances. */
-  public var instance: MutableList<Instance> = mutableListOf(),
+  public val instance: List<Instance> = listOf(),
 ) : DomainResource() {
   /** Selector of the instances – human or machine. */
   @Serializable(with = ImagingSelectionPerformerSerializer::class)
@@ -239,7 +239,7 @@ public data class ImagingSelection(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -252,7 +252,7 @@ public data class ImagingSelection(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -271,11 +271,11 @@ public data class ImagingSelection(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /** Distinguishes the type of involvement of the performer. */
-    public var function: CodeableConcept? = null,
+    public val function: CodeableConcept? = null,
     /** Author – human or machine. */
-    public var actor: Reference? = null,
+    public val actor: Reference? = null,
   ) : BackboneElement()
 
   /** Each imaging selection includes one or more selected DICOM SOP instances. */
@@ -285,7 +285,7 @@ public data class ImagingSelection(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -298,7 +298,7 @@ public data class ImagingSelection(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -317,14 +317,14 @@ public data class ImagingSelection(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /**
      * The SOP Instance UID for the selected DICOM instance.
      *
      * See
      * [DICOM PS3.3 C.12.1](http://dicom.nema.org/medical/dicom/current/output/chtml/part03/sect_C.12.html).
      */
-    public var uid: Id,
+    public val uid: Id,
     /**
      * The Instance Number for the selected DICOM instance.
      *
@@ -333,14 +333,14 @@ public data class ImagingSelection(
      * Note: A multiframe instance has a single instance number with each frame identified by a
      * frame number.
      */
-    public var number: UnsignedInt? = null,
+    public val number: UnsignedInt? = null,
     /**
      * The SOP Class UID for the selected DICOM instance.
      *
      * See
      * [DICOM PS3.3 C.12.1](http://dicom.nema.org/medical/dicom/current/output/chtml/part03/sect_C.12.html).
      */
-    public var sopClass: Coding? = null,
+    public val sopClass: Coding? = null,
     /**
      * Selected subset of the SOP Instance. The content and format of the subset item is determined
      * by the SOP Class of the selected instance. May be one of:
@@ -351,18 +351,18 @@ public data class ImagingSelection(
      * - A list of Region of Interest (ROI) numbers selected from a radiotherapy structure set SOP
      *   Instance.
      */
-    public var subset: MutableList<String> = mutableListOf(),
+    public val subset: List<String> = listOf(),
     /**
      * Each imaging selection instance or frame list might includes an image region, specified by a
      * region type and a set of 2D coordinates. If the parent imagingSelection.instance contains a
      * subset element of type frame, the image region applies to all frames in the subset list.
      */
-    public var imageRegion2D: MutableList<ImageRegion2D> = mutableListOf(),
+    public val imageRegion2D: List<ImageRegion2D> = listOf(),
     /**
      * Each imaging selection might includes a 3D image region, specified by a region type and a set
      * of 3D coordinates.
      */
-    public var imageRegion3D: MutableList<ImageRegion3D> = mutableListOf(),
+    public val imageRegion3D: List<ImageRegion3D> = listOf(),
   ) : BackboneElement() {
     /**
      * Each imaging selection instance or frame list might includes an image region, specified by a
@@ -375,7 +375,7 @@ public data class ImagingSelection(
        * Unique id for the element within a resource (for internal references). This may be any
        * string value that does not contain spaces.
        */
-      override var id: kotlin.String? = null,
+      override val id: kotlin.String? = null,
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -388,7 +388,7 @@ public data class ImagingSelection(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: MutableList<Extension> = mutableListOf(),
+      override val extension: List<Extension> = listOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -407,14 +407,14 @@ public data class ImagingSelection(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: MutableList<Extension> = mutableListOf(),
+      override val modifierExtension: List<Extension> = listOf(),
       /**
        * Specifies the type of image region.
        *
        * See
        * [DICOM PS3.3 C.10.5.1.2](https://dicom.nema.org/medical/dicom/current/output/chtml/part03/sect_C.10.5.html#sect_C.10.5.1.2).
        */
-      public var regionType: Enumeration<ImagingSelection2DGraphicType>,
+      public val regionType: Enumeration<ImagingSelection2DGraphicType>,
       /**
        * The coordinates describing the image region. Encoded as a set of (column, row) pairs that
        * denote positions in the selected image / frames specified with sub-pixel resolution. The
@@ -425,7 +425,7 @@ public data class ImagingSelection(
        * For a description of how 2D coordinates are encoded, see
        * [DICOM PS3.3 C.18.6](http://dicom.nema.org/medical/dicom/current/output/chtml/part03/sect_C.18.6.html).
        */
-      public var coordinate: MutableList<Decimal> = mutableListOf(),
+      public val coordinate: List<Decimal> = listOf(),
     ) : BackboneElement()
 
     /**
@@ -438,7 +438,7 @@ public data class ImagingSelection(
        * Unique id for the element within a resource (for internal references). This may be any
        * string value that does not contain spaces.
        */
-      override var id: kotlin.String? = null,
+      override val id: kotlin.String? = null,
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -451,7 +451,7 @@ public data class ImagingSelection(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: MutableList<Extension> = mutableListOf(),
+      override val extension: List<Extension> = listOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -470,14 +470,14 @@ public data class ImagingSelection(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: MutableList<Extension> = mutableListOf(),
+      override val modifierExtension: List<Extension> = listOf(),
       /**
        * Specifies the type of image region.
        *
        * See
        * [DICOM PS3.3 C.18.9.1.2](http://dicom.nema.org/medical/dicom/current/output/chtml/part03/sect_C.18.9.html#sect_C.18.9.1.2).
        */
-      public var regionType: Enumeration<ImagingSelection3DGraphicType>,
+      public val regionType: Enumeration<ImagingSelection3DGraphicType>,
       /**
        * The coordinates describing the image region. Encoded as an ordered set of (x,y,z) triplets
        * (in mm and may be negative) that define a region of interest in the patient-relative
@@ -486,7 +486,7 @@ public data class ImagingSelection(
        * For a description of how 3D coordinates are encoded, see
        * [DICOM PS3.3 C.18.9](http://dicom.nema.org/medical/dicom/current/output/chtml/part03/sect_C.18.9.html).
        */
-      public var coordinate: MutableList<Decimal> = mutableListOf(),
+      public val coordinate: List<Decimal> = listOf(),
     ) : BackboneElement()
   }
 

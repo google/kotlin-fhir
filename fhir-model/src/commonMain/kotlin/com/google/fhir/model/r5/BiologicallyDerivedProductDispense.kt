@@ -21,7 +21,7 @@ package com.google.fhir.model.r5
 import com.google.fhir.model.r5.serializers.BiologicallyDerivedProductDispensePerformerSerializer
 import com.google.fhir.model.r5.serializers.BiologicallyDerivedProductDispenseSerializer
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -37,12 +37,12 @@ public data class BiologicallyDerivedProductDispense(
    * like the create and conditional update. Otherwise, the use of the resouce id depends on the
    * given use case.
    */
-  override var id: kotlin.String? = null,
+  override val id: kotlin.String? = null,
   /**
    * The metadata about the resource. This is content that is maintained by the infrastructure.
    * Changes to the content might not always be associated with version changes to the resource.
    */
-  override var meta: Meta? = null,
+  override val meta: Meta? = null,
   /**
    * A reference to a set of rules that were followed when the resource was constructed, and which
    * must be understood when processing the content. Often, this is a reference to an implementation
@@ -56,7 +56,7 @@ public data class BiologicallyDerivedProductDispense(
    * to an implementation guide that defines these special rules as part of its narrative along with
    * other profiles, value sets, etc.
    */
-  override var implicitRules: Uri? = null,
+  override val implicitRules: Uri? = null,
   /**
    * The base language in which the resource is written.
    *
@@ -68,7 +68,7 @@ public data class BiologicallyDerivedProductDispense(
    * language is specified, it should it also be specified on the div element in the html (see rules
    * in HTML5 for information about the relationship between xml:lang and the html lang attribute).
    */
-  override var language: Code? = null,
+  override val language: Code? = null,
   /**
    * A human-readable narrative that contains a summary of the resource and can be used to represent
    * the content of the resource to a human. The narrative need not encode all the structured data,
@@ -82,7 +82,7 @@ public data class BiologicallyDerivedProductDispense(
    * legacy systems where information is captured as a "text blob" or where text is additionally
    * entered raw or narrated and encoded information is added later.
    */
-  override var text: Narrative? = null,
+  override val text: Narrative? = null,
   /**
    * These resources do not have an independent existence apart from the resource that contains
    * them - they cannot be identified independently, nor can they have their own independent
@@ -94,7 +94,7 @@ public data class BiologicallyDerivedProductDispense(
    * resources may have profiles and tags in their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: MutableList<Resource> = mutableListOf(),
+  override val contained: List<Resource> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and managable, there is a strict set of governance
@@ -107,7 +107,7 @@ public data class BiologicallyDerivedProductDispense(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: MutableList<Extension> = mutableListOf(),
+  override val extension: List<Extension> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -126,51 +126,51 @@ public data class BiologicallyDerivedProductDispense(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: MutableList<Extension> = mutableListOf(),
+  override val modifierExtension: List<Extension> = listOf(),
   /**
    * Unique instance identifiers assigned to a biologically derived product dispense. Note: This is
    * a business identifier, not a resource identifier.
    */
-  public var identifier: MutableList<Identifier> = mutableListOf(),
+  public val identifier: List<Identifier> = listOf(),
   /**
    * The order or request that the dispense is fulfilling. This is a reference to a ServiceRequest
    * resource.
    */
-  public var basedOn: MutableList<Reference> = mutableListOf(),
+  public val basedOn: List<Reference> = listOf(),
   /** A larger event of which this particular event is a component. */
-  public var partOf: MutableList<Reference> = mutableListOf(),
+  public val partOf: List<Reference> = listOf(),
   /** A code specifying the state of the dispense event. */
-  public var status: Enumeration<BiologicallyDerivedProductDispenseCodes>,
+  public val status: Enumeration<BiologicallyDerivedProductDispenseCodes>,
   /**
    * Indicates the relationship between the donor of the biologically derived product and the
    * intended recipient.
    */
-  public var originRelationshipType: CodeableConcept? = null,
+  public val originRelationshipType: CodeableConcept? = null,
   /** A link to a resource identifying the biologically derived product that is being dispensed. */
-  public var product: Reference,
+  public val product: Reference,
   /** A link to a resource representing the patient that the product is dispensed for. */
-  public var patient: Reference,
+  public val patient: Reference,
   /** Indicates the type of matching associated with the dispense. */
-  public var matchStatus: CodeableConcept? = null,
+  public val matchStatus: CodeableConcept? = null,
   /** Indicates who or what performed an action. */
-  public var performer: MutableList<Performer> = mutableListOf(),
+  public val performer: List<Performer> = listOf(),
   /** The physical location where the dispense was performed. */
-  public var location: Reference? = null,
+  public val location: Reference? = null,
   /**
    * The amount of product in the dispense. Quantity will depend on the product being dispensed.
    * Examples are: volume; cell count; concentration.
    */
-  public var quantity: Quantity? = null,
+  public val quantity: Quantity? = null,
   /** When the product was selected/ matched. */
-  public var preparedDate: DateTime? = null,
+  public val preparedDate: DateTime? = null,
   /** When the product was dispatched for clinical use. */
-  public var whenHandedOver: DateTime? = null,
+  public val whenHandedOver: DateTime? = null,
   /** Link to a resource identifying the physical location that the product was dispatched to. */
-  public var destination: Reference? = null,
+  public val destination: Reference? = null,
   /** Additional notes. */
-  public var note: MutableList<Annotation> = mutableListOf(),
+  public val note: List<Annotation> = listOf(),
   /** Specific instructions for use. */
-  public var usageInstruction: String? = null,
+  public val usageInstruction: String? = null,
 ) : DomainResource() {
   /** Indicates who or what performed an action. */
   @Serializable(with = BiologicallyDerivedProductDispensePerformerSerializer::class)
@@ -179,7 +179,7 @@ public data class BiologicallyDerivedProductDispense(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -192,7 +192,7 @@ public data class BiologicallyDerivedProductDispense(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -211,11 +211,11 @@ public data class BiologicallyDerivedProductDispense(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /** Identifies the function of the performer during the dispense. */
-    public var function: CodeableConcept? = null,
+    public val function: CodeableConcept? = null,
     /** Identifies the person responsible for the action. */
-    public var actor: Reference,
+    public val actor: Reference,
   ) : BackboneElement()
 
   /** BiologicallyDerivedProductDispense Status Codes */

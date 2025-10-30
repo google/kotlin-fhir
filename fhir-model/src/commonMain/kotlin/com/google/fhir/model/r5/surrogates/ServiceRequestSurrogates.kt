@@ -49,26 +49,25 @@ import com.google.fhir.model.r5.serializers.LocalTimeSerializer
 import kotlin.Boolean as KotlinBoolean
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class ServiceRequestOrderDetailSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var parameterFocus: CodeableReference? = null,
-  public var parameter: MutableList<ServiceRequest.OrderDetail.Parameter>? = null,
+  public var parameter: List<ServiceRequest.OrderDetail.Parameter>? = null,
 ) {
   public fun toModel(): ServiceRequest.OrderDetail =
     ServiceRequest.OrderDetail(
       id = this@ServiceRequestOrderDetailSurrogate.id,
-      extension = this@ServiceRequestOrderDetailSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@ServiceRequestOrderDetailSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@ServiceRequestOrderDetailSurrogate.extension ?: listOf(),
+      modifierExtension = this@ServiceRequestOrderDetailSurrogate.modifierExtension ?: listOf(),
       parameterFocus = this@ServiceRequestOrderDetailSurrogate.parameterFocus,
-      parameter = this@ServiceRequestOrderDetailSurrogate.parameter ?: mutableListOf(),
+      parameter = this@ServiceRequestOrderDetailSurrogate.parameter ?: listOf(),
     )
 
   public companion object {
@@ -88,17 +87,17 @@ internal data class ServiceRequestOrderDetailSurrogate(
 @Serializable
 internal data class ServiceRequestOrderDetailParameterSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var code: CodeableConcept,
   public var `value`: ServiceRequest.OrderDetail.Parameter.Value,
 ) {
   public fun toModel(): ServiceRequest.OrderDetail.Parameter =
     ServiceRequest.OrderDetail.Parameter(
       id = this@ServiceRequestOrderDetailParameterSurrogate.id,
-      extension = this@ServiceRequestOrderDetailParameterSurrogate.extension ?: mutableListOf(),
+      extension = this@ServiceRequestOrderDetailParameterSurrogate.extension ?: listOf(),
       modifierExtension =
-        this@ServiceRequestOrderDetailParameterSurrogate.modifierExtension ?: mutableListOf(),
+        this@ServiceRequestOrderDetailParameterSurrogate.modifierExtension ?: listOf(),
       code = this@ServiceRequestOrderDetailParameterSurrogate.code,
       `value` = this@ServiceRequestOrderDetailParameterSurrogate.`value`,
     )
@@ -122,16 +121,16 @@ internal data class ServiceRequestOrderDetailParameterSurrogate(
 @Serializable
 internal data class ServiceRequestPatientInstructionSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var instruction: ServiceRequest.PatientInstruction.Instruction? = null,
 ) {
   public fun toModel(): ServiceRequest.PatientInstruction =
     ServiceRequest.PatientInstruction(
       id = this@ServiceRequestPatientInstructionSurrogate.id,
-      extension = this@ServiceRequestPatientInstructionSurrogate.extension ?: mutableListOf(),
+      extension = this@ServiceRequestPatientInstructionSurrogate.extension ?: listOf(),
       modifierExtension =
-        this@ServiceRequestPatientInstructionSurrogate.modifierExtension ?: mutableListOf(),
+        this@ServiceRequestPatientInstructionSurrogate.modifierExtension ?: listOf(),
       instruction = this@ServiceRequestPatientInstructionSurrogate.instruction,
     )
 
@@ -319,31 +318,31 @@ internal data class ServiceRequestSurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: MutableList<Resource>? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var identifier: MutableList<Identifier>? = null,
-  public var instantiatesCanonical: MutableList<KotlinString?>? = null,
-  public var _instantiatesCanonical: MutableList<Element?>? = null,
-  public var instantiatesUri: MutableList<KotlinString?>? = null,
-  public var _instantiatesUri: MutableList<Element?>? = null,
-  public var basedOn: MutableList<Reference>? = null,
-  public var replaces: MutableList<Reference>? = null,
+  public var contained: List<Resource>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
+  public var identifier: List<Identifier>? = null,
+  public var instantiatesCanonical: List<KotlinString?>? = null,
+  public var _instantiatesCanonical: List<Element?>? = null,
+  public var instantiatesUri: List<KotlinString?>? = null,
+  public var _instantiatesUri: List<Element?>? = null,
+  public var basedOn: List<Reference>? = null,
+  public var replaces: List<Reference>? = null,
   public var requisition: Identifier? = null,
   public var status: KotlinString? = null,
   public var _status: Element? = null,
   public var intent: KotlinString? = null,
   public var _intent: Element? = null,
-  public var category: MutableList<CodeableConcept>? = null,
+  public var category: List<CodeableConcept>? = null,
   public var priority: KotlinString? = null,
   public var _priority: Element? = null,
   public var doNotPerform: KotlinBoolean? = null,
   public var _doNotPerform: Element? = null,
   public var code: CodeableReference? = null,
-  public var orderDetail: MutableList<ServiceRequest.OrderDetail>? = null,
+  public var orderDetail: List<ServiceRequest.OrderDetail>? = null,
   public var quantity: ServiceRequest.Quantity? = null,
   public var subject: Reference,
-  public var focus: MutableList<Reference>? = null,
+  public var focus: List<Reference>? = null,
   public var encounter: Reference? = null,
   public var occurrence: ServiceRequest.Occurrence? = null,
   public var asNeeded: ServiceRequest.AsNeeded? = null,
@@ -351,17 +350,17 @@ internal data class ServiceRequestSurrogate(
   public var _authoredOn: Element? = null,
   public var requester: Reference? = null,
   public var performerType: CodeableConcept? = null,
-  public var performer: MutableList<Reference>? = null,
-  public var location: MutableList<CodeableReference>? = null,
-  public var reason: MutableList<CodeableReference>? = null,
-  public var insurance: MutableList<Reference>? = null,
-  public var supportingInfo: MutableList<CodeableReference>? = null,
-  public var specimen: MutableList<Reference>? = null,
-  public var bodySite: MutableList<CodeableConcept>? = null,
+  public var performer: List<Reference>? = null,
+  public var location: List<CodeableReference>? = null,
+  public var reason: List<CodeableReference>? = null,
+  public var insurance: List<Reference>? = null,
+  public var supportingInfo: List<CodeableReference>? = null,
+  public var specimen: List<Reference>? = null,
+  public var bodySite: List<CodeableConcept>? = null,
   public var bodyStructure: Reference? = null,
-  public var note: MutableList<Annotation>? = null,
-  public var patientInstruction: MutableList<ServiceRequest.PatientInstruction>? = null,
-  public var relevantHistory: MutableList<Reference>? = null,
+  public var note: List<Annotation>? = null,
+  public var patientInstruction: List<ServiceRequest.PatientInstruction>? = null,
+  public var relevantHistory: List<Reference>? = null,
 ) {
   public fun toModel(): ServiceRequest =
     ServiceRequest(
@@ -375,16 +374,16 @@ internal data class ServiceRequestSurrogate(
       language =
         Code.of(this@ServiceRequestSurrogate.language, this@ServiceRequestSurrogate._language),
       text = this@ServiceRequestSurrogate.text,
-      contained = this@ServiceRequestSurrogate.contained ?: mutableListOf(),
-      extension = this@ServiceRequestSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@ServiceRequestSurrogate.modifierExtension ?: mutableListOf(),
-      identifier = this@ServiceRequestSurrogate.identifier ?: mutableListOf(),
+      contained = this@ServiceRequestSurrogate.contained ?: listOf(),
+      extension = this@ServiceRequestSurrogate.extension ?: listOf(),
+      modifierExtension = this@ServiceRequestSurrogate.modifierExtension ?: listOf(),
+      identifier = this@ServiceRequestSurrogate.identifier ?: listOf(),
       instantiatesCanonical =
         if (
           this@ServiceRequestSurrogate.instantiatesCanonical == null &&
             this@ServiceRequestSurrogate._instantiatesCanonical == null
         ) {
-          mutableListOf()
+          listOf()
         } else {
           (this@ServiceRequestSurrogate.instantiatesCanonical
               ?: List(this@ServiceRequestSurrogate._instantiatesCanonical!!.size) { null })
@@ -393,14 +392,14 @@ internal data class ServiceRequestSurrogate(
                 ?: List(this@ServiceRequestSurrogate.instantiatesCanonical!!.size) { null }
             )
             .map { (value, element) -> Canonical.of(value, element)!! }
-            .toMutableList()
+            .toList()
         },
       instantiatesUri =
         if (
           this@ServiceRequestSurrogate.instantiatesUri == null &&
             this@ServiceRequestSurrogate._instantiatesUri == null
         ) {
-          mutableListOf()
+          listOf()
         } else {
           (this@ServiceRequestSurrogate.instantiatesUri
               ?: List(this@ServiceRequestSurrogate._instantiatesUri!!.size) { null })
@@ -409,10 +408,10 @@ internal data class ServiceRequestSurrogate(
                 ?: List(this@ServiceRequestSurrogate.instantiatesUri!!.size) { null }
             )
             .map { (value, element) -> Uri.of(value, element)!! }
-            .toMutableList()
+            .toList()
         },
-      basedOn = this@ServiceRequestSurrogate.basedOn ?: mutableListOf(),
-      replaces = this@ServiceRequestSurrogate.replaces ?: mutableListOf(),
+      basedOn = this@ServiceRequestSurrogate.basedOn ?: listOf(),
+      replaces = this@ServiceRequestSurrogate.replaces ?: listOf(),
       requisition = this@ServiceRequestSurrogate.requisition,
       status =
         Enumeration.of(
@@ -424,7 +423,7 @@ internal data class ServiceRequestSurrogate(
           ServiceRequest.RequestIntent.fromCode(this@ServiceRequestSurrogate.intent!!),
           this@ServiceRequestSurrogate._intent,
         ),
-      category = this@ServiceRequestSurrogate.category ?: mutableListOf(),
+      category = this@ServiceRequestSurrogate.category ?: listOf(),
       priority =
         this@ServiceRequestSurrogate.priority?.let {
           Enumeration.of(
@@ -438,10 +437,10 @@ internal data class ServiceRequestSurrogate(
           this@ServiceRequestSurrogate._doNotPerform,
         ),
       code = this@ServiceRequestSurrogate.code,
-      orderDetail = this@ServiceRequestSurrogate.orderDetail ?: mutableListOf(),
+      orderDetail = this@ServiceRequestSurrogate.orderDetail ?: listOf(),
       quantity = this@ServiceRequestSurrogate.quantity,
       subject = this@ServiceRequestSurrogate.subject,
-      focus = this@ServiceRequestSurrogate.focus ?: mutableListOf(),
+      focus = this@ServiceRequestSurrogate.focus ?: listOf(),
       encounter = this@ServiceRequestSurrogate.encounter,
       occurrence = this@ServiceRequestSurrogate.occurrence,
       asNeeded = this@ServiceRequestSurrogate.asNeeded,
@@ -452,17 +451,17 @@ internal data class ServiceRequestSurrogate(
         ),
       requester = this@ServiceRequestSurrogate.requester,
       performerType = this@ServiceRequestSurrogate.performerType,
-      performer = this@ServiceRequestSurrogate.performer ?: mutableListOf(),
-      location = this@ServiceRequestSurrogate.location ?: mutableListOf(),
-      reason = this@ServiceRequestSurrogate.reason ?: mutableListOf(),
-      insurance = this@ServiceRequestSurrogate.insurance ?: mutableListOf(),
-      supportingInfo = this@ServiceRequestSurrogate.supportingInfo ?: mutableListOf(),
-      specimen = this@ServiceRequestSurrogate.specimen ?: mutableListOf(),
-      bodySite = this@ServiceRequestSurrogate.bodySite ?: mutableListOf(),
+      performer = this@ServiceRequestSurrogate.performer ?: listOf(),
+      location = this@ServiceRequestSurrogate.location ?: listOf(),
+      reason = this@ServiceRequestSurrogate.reason ?: listOf(),
+      insurance = this@ServiceRequestSurrogate.insurance ?: listOf(),
+      supportingInfo = this@ServiceRequestSurrogate.supportingInfo ?: listOf(),
+      specimen = this@ServiceRequestSurrogate.specimen ?: listOf(),
+      bodySite = this@ServiceRequestSurrogate.bodySite ?: listOf(),
       bodyStructure = this@ServiceRequestSurrogate.bodyStructure,
-      note = this@ServiceRequestSurrogate.note ?: mutableListOf(),
-      patientInstruction = this@ServiceRequestSurrogate.patientInstruction ?: mutableListOf(),
-      relevantHistory = this@ServiceRequestSurrogate.relevantHistory ?: mutableListOf(),
+      note = this@ServiceRequestSurrogate.note ?: listOf(),
+      patientInstruction = this@ServiceRequestSurrogate.patientInstruction ?: listOf(),
+      relevantHistory = this@ServiceRequestSurrogate.relevantHistory ?: listOf(),
     )
 
   public companion object {
@@ -483,25 +482,25 @@ internal data class ServiceRequestSurrogate(
           instantiatesCanonical =
             this@with.instantiatesCanonical
               .map { it.value }
-              .toMutableList()
+              .toList()
               .takeUnless { it.all { it == null } },
           _instantiatesCanonical =
             this@with.instantiatesCanonical
               .map { it.toElement() }
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
-              ?.toMutableList(),
+              ?.toList(),
           instantiatesUri =
             this@with.instantiatesUri
               .map { it.value }
-              .toMutableList()
+              .toList()
               .takeUnless { it.all { it == null } },
           _instantiatesUri =
             this@with.instantiatesUri
               .map { it.toElement() }
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
-              ?.toMutableList(),
+              ?.toList(),
           basedOn = this@with.basedOn.takeIf { it.isNotEmpty() },
           replaces = this@with.replaces.takeIf { it.isNotEmpty() },
           requisition = this@with.requisition,

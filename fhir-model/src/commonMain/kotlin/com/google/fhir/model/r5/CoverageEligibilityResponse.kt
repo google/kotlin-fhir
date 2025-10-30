@@ -29,7 +29,7 @@ import com.google.fhir.model.r5.serializers.CoverageEligibilityResponseInsurance
 import com.google.fhir.model.r5.serializers.CoverageEligibilityResponseSerializer
 import com.google.fhir.model.r5.serializers.CoverageEligibilityResponseServicedSerializer
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -48,12 +48,12 @@ public data class CoverageEligibilityResponse(
    * like the create and conditional update. Otherwise, the use of the resouce id depends on the
    * given use case.
    */
-  override var id: kotlin.String? = null,
+  override val id: kotlin.String? = null,
   /**
    * The metadata about the resource. This is content that is maintained by the infrastructure.
    * Changes to the content might not always be associated with version changes to the resource.
    */
-  override var meta: Meta? = null,
+  override val meta: Meta? = null,
   /**
    * A reference to a set of rules that were followed when the resource was constructed, and which
    * must be understood when processing the content. Often, this is a reference to an implementation
@@ -67,7 +67,7 @@ public data class CoverageEligibilityResponse(
    * to an implementation guide that defines these special rules as part of its narrative along with
    * other profiles, value sets, etc.
    */
-  override var implicitRules: Uri? = null,
+  override val implicitRules: Uri? = null,
   /**
    * The base language in which the resource is written.
    *
@@ -79,7 +79,7 @@ public data class CoverageEligibilityResponse(
    * language is specified, it should it also be specified on the div element in the html (see rules
    * in HTML5 for information about the relationship between xml:lang and the html lang attribute).
    */
-  override var language: Code? = null,
+  override val language: Code? = null,
   /**
    * A human-readable narrative that contains a summary of the resource and can be used to represent
    * the content of the resource to a human. The narrative need not encode all the structured data,
@@ -93,7 +93,7 @@ public data class CoverageEligibilityResponse(
    * legacy systems where information is captured as a "text blob" or where text is additionally
    * entered raw or narrated and encoded information is added later.
    */
-  override var text: Narrative? = null,
+  override val text: Narrative? = null,
   /**
    * These resources do not have an independent existence apart from the resource that contains
    * them - they cannot be identified independently, nor can they have their own independent
@@ -105,7 +105,7 @@ public data class CoverageEligibilityResponse(
    * resources may have profiles and tags in their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: MutableList<Resource> = mutableListOf(),
+  override val contained: List<Resource> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and managable, there is a strict set of governance
@@ -118,7 +118,7 @@ public data class CoverageEligibilityResponse(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: MutableList<Extension> = mutableListOf(),
+  override val extension: List<Extension> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -137,33 +137,33 @@ public data class CoverageEligibilityResponse(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: MutableList<Extension> = mutableListOf(),
+  override val modifierExtension: List<Extension> = listOf(),
   /** A unique identifier assigned to this coverage eligiblity request. */
-  public var identifier: MutableList<Identifier> = mutableListOf(),
+  public val identifier: List<Identifier> = listOf(),
   /**
    * The status of the resource instance.
    *
    * This element is labeled as a modifier because the status contains codes that mark the resource
    * as not currently valid.
    */
-  public var status: Enumeration<FinancialResourceStatusCodes>,
+  public val status: Enumeration<FinancialResourceStatusCodes>,
   /**
    * Code to specify whether requesting: prior authorization requirements for some service
    * categories or billing codes; benefits for coverages specified or discovered; discovery and
    * return of coverages for the patient; and/or validation that the specified coverage is in-force
    * at the date/period specified or 'now' if not specified.
    */
-  public var purpose: MutableList<Enumeration<EligibilityResponsePurpose>> = mutableListOf(),
+  public val purpose: List<Enumeration<EligibilityResponsePurpose>> = listOf(),
   /**
    * The party who is the beneficiary of the supplied coverage and for whom eligibility is sought.
    */
-  public var patient: Reference,
+  public val patient: Reference,
   /** Information code for an event with a corresponding date or period. */
-  public var event: MutableList<Event> = mutableListOf(),
+  public val event: List<Event> = listOf(),
   /** The date or dates when the enclosed suite of services were performed or completed. */
-  public var serviced: Serviced? = null,
+  public val serviced: Serviced? = null,
   /** The date this resource was created. */
-  public var created: DateTime,
+  public val created: DateTime,
   /**
    * The provider which is responsible for the request.
    *
@@ -171,9 +171,9 @@ public data class CoverageEligibilityResponse(
    * provision of the individual products and services listed below. This field is the Billing
    * Provider, for example, a facility, provider group, lab or practitioner.
    */
-  public var requestor: Reference? = null,
+  public val requestor: Reference? = null,
   /** Reference to the original request resource. */
-  public var request: Reference,
+  public val request: Reference,
   /**
    * The outcome of the request processing.
    *
@@ -182,11 +182,11 @@ public data class CoverageEligibilityResponse(
    * the adjudication has been undertaken (partial) or that all of the adjudication has been
    * undertaken (complete).
    */
-  public var outcome: Enumeration<EligibilityOutcome>,
+  public val outcome: Enumeration<EligibilityOutcome>,
   /** A human readable description of the status of the adjudication. */
-  public var disposition: String? = null,
+  public val disposition: String? = null,
   /** The Insurer who issued the coverage in question and is the author of the response. */
-  public var insurer: Reference,
+  public val insurer: Reference,
   /**
    * Financial instruments for reimbursement for the health care products and services.
    *
@@ -198,20 +198,20 @@ public data class CoverageEligibilityResponse(
    * 'subrogation=false', should provide a reference to the ClaimResponse containing the
    * adjudication results of the prior claim.
    */
-  public var insurance: MutableList<Insurance> = mutableListOf(),
+  public val insurance: List<Insurance> = listOf(),
   /**
    * A reference from the Insurer to which these services pertain to be used on further
    * communication and as proof that the request occurred.
    */
-  public var preAuthRef: String? = null,
+  public val preAuthRef: String? = null,
   /**
    * A code for the form to be used for printing the content.
    *
    * May be needed to identify specific jurisdictional forms.
    */
-  public var form: CodeableConcept? = null,
+  public val form: CodeableConcept? = null,
   /** Errors encountered during the processing of the request. */
-  public var error: MutableList<Error> = mutableListOf(),
+  public val error: List<Error> = listOf(),
 ) : DomainResource() {
   /** Information code for an event with a corresponding date or period. */
   @Serializable(with = CoverageEligibilityResponseEventSerializer::class)
@@ -220,7 +220,7 @@ public data class CoverageEligibilityResponse(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -233,7 +233,7 @@ public data class CoverageEligibilityResponse(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -252,14 +252,14 @@ public data class CoverageEligibilityResponse(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /** A coded event such as when a service is expected or a card printed. */
-    public var type: CodeableConcept,
+    public val type: CodeableConcept,
     /**
      * A date or period in the past or future indicating when the event occurred or is expectd to
      * occur.
      */
-    public var `when`: When,
+    public val `when`: When,
   ) : BackboneElement() {
     @Serializable(with = CoverageEligibilityResponseEventWhenSerializer::class)
     public sealed interface When {
@@ -291,7 +291,7 @@ public data class CoverageEligibilityResponse(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -304,7 +304,7 @@ public data class CoverageEligibilityResponse(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -323,24 +323,24 @@ public data class CoverageEligibilityResponse(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /**
      * Reference to the insurance card level information contained in the Coverage resource. The
      * coverage issuing insurer will use these details to locate the patient's actual coverage
      * within the insurer's information system.
      */
-    public var coverage: Reference,
+    public val coverage: Reference,
     /**
      * Flag indicating if the coverage provided is inforce currently if no service date(s) specified
      * or for the whole duration of the service dates.
      */
-    public var inforce: Boolean? = null,
+    public val inforce: Boolean? = null,
     /** The term of the benefits documented in this response. */
-    public var benefitPeriod: Period? = null,
+    public val benefitPeriod: Period? = null,
     /**
      * Benefits and optionally current balances, and authorization details by category or service.
      */
-    public var item: MutableList<Item> = mutableListOf(),
+    public val item: List<Item> = listOf(),
   ) : BackboneElement() {
     /**
      * Benefits and optionally current balances, and authorization details by category or service.
@@ -351,7 +351,7 @@ public data class CoverageEligibilityResponse(
        * Unique id for the element within a resource (for internal references). This may be any
        * string value that does not contain spaces.
        */
-      override var id: kotlin.String? = null,
+      override val id: kotlin.String? = null,
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -364,7 +364,7 @@ public data class CoverageEligibilityResponse(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: MutableList<Extension> = mutableListOf(),
+      override val extension: List<Extension> = listOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -383,21 +383,21 @@ public data class CoverageEligibilityResponse(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: MutableList<Extension> = mutableListOf(),
+      override val modifierExtension: List<Extension> = listOf(),
       /**
        * Code to identify the general type of benefits under which products and services are
        * provided.
        *
        * Examples include Medical Care, Periodontics, Renal Dialysis, Vision Coverage.
        */
-      public var category: CodeableConcept? = null,
+      public val category: CodeableConcept? = null,
       /**
        * This contains the product, service, drug or other billing code for the item.
        *
        * Code to indicate the Professional Service or Product supplied (e.g. CTP, HCPCS, USCLS,
        * ICD10, NCPDP, DIN, RxNorm, ACHI, CCI).
        */
-      public var productOrService: CodeableConcept? = null,
+      public val productOrService: CodeableConcept? = null,
       /**
        * Item typification or modifiers codes to convey additional context for the product or
        * service.
@@ -405,55 +405,55 @@ public data class CoverageEligibilityResponse(
        * For example in Oral whether the treatment is cosmetic or associated with TMJ, or for
        * Medical whether the treatment was outside the clinic or out of office hours.
        */
-      public var modifier: MutableList<CodeableConcept> = mutableListOf(),
+      public val modifier: List<CodeableConcept> = listOf(),
       /** The practitioner who is eligible for the provision of the product or service. */
-      public var provider: Reference? = null,
+      public val provider: Reference? = null,
       /**
        * True if the indicated class of service is excluded from the plan, missing or False
        * indicates the product or service is included in the coverage.
        */
-      public var excluded: Boolean? = null,
+      public val excluded: Boolean? = null,
       /**
        * A short name or tag for the benefit.
        *
        * For example: MED01, or DENT2.
        */
-      public var name: String? = null,
+      public val name: String? = null,
       /**
        * A richer description of the benefit or services covered.
        *
        * For example 'DENT2 covers 100% of basic, 50% of major but excludes Ortho, Implants and
        * Cosmetic services'.
        */
-      public var description: String? = null,
+      public val description: String? = null,
       /**
        * Is a flag to indicate whether the benefits refer to in-network providers or out-of-network
        * providers.
        */
-      public var network: CodeableConcept? = null,
+      public val network: CodeableConcept? = null,
       /** Indicates if the benefits apply to an individual or to the family. */
-      public var unit: CodeableConcept? = null,
+      public val unit: CodeableConcept? = null,
       /**
        * The term or period of the values such as 'maximum lifetime benefit' or 'maximum annual
        * visits'.
        */
-      public var term: CodeableConcept? = null,
+      public val term: CodeableConcept? = null,
       /** Benefits used to date. */
-      public var benefit: MutableList<Benefit> = mutableListOf(),
+      public val benefit: List<Benefit> = listOf(),
       /**
        * A boolean flag indicating whether a preauthorization is required prior to actual service
        * delivery.
        */
-      public var authorizationRequired: Boolean? = null,
+      public val authorizationRequired: Boolean? = null,
       /**
        * Codes or comments regarding information or actions associated with the preauthorization.
        */
-      public var authorizationSupporting: MutableList<CodeableConcept> = mutableListOf(),
+      public val authorizationSupporting: List<CodeableConcept> = listOf(),
       /**
        * A web location for obtaining requirements or descriptive information regarding the
        * preauthorization.
        */
-      public var authorizationUrl: Uri? = null,
+      public val authorizationUrl: Uri? = null,
     ) : BackboneElement() {
       /** Benefits used to date. */
       @Serializable(with = CoverageEligibilityResponseInsuranceItemBenefitSerializer::class)
@@ -462,7 +462,7 @@ public data class CoverageEligibilityResponse(
          * Unique id for the element within a resource (for internal references). This may be any
          * string value that does not contain spaces.
          */
-        override var id: kotlin.String? = null,
+        override val id: kotlin.String? = null,
         /**
          * May be used to represent additional information that is not part of the basic definition
          * of the element. To make the use of extensions safe and managable, there is a strict set
@@ -475,7 +475,7 @@ public data class CoverageEligibilityResponse(
          * extensions. The use of extensions is what allows the FHIR specification to retain a core
          * level of simplicity for everyone.
          */
-        override var extension: MutableList<Extension> = mutableListOf(),
+        override val extension: List<Extension> = listOf(),
         /**
          * May be used to represent additional information that is not part of the basic definition
          * of the element and that modifies the understanding of the element in which it is
@@ -494,17 +494,17 @@ public data class CoverageEligibilityResponse(
          * extensions. The use of extensions is what allows the FHIR specification to retain a core
          * level of simplicity for everyone.
          */
-        override var modifierExtension: MutableList<Extension> = mutableListOf(),
+        override val modifierExtension: List<Extension> = listOf(),
         /**
          * Classification of benefit being provided.
          *
          * For example: deductible, visits, benefit amount.
          */
-        public var type: CodeableConcept,
+        public val type: CodeableConcept,
         /** The quantity of the benefit which is permitted under the coverage. */
-        public var allowed: Allowed? = null,
+        public val allowed: Allowed? = null,
         /** The quantity of the benefit which have been consumed to date. */
-        public var used: Used? = null,
+        public val used: Used? = null,
       ) : BackboneElement() {
         @Serializable(
           with = CoverageEligibilityResponseInsuranceItemBenefitAllowedSerializer::class
@@ -576,7 +576,7 @@ public data class CoverageEligibilityResponse(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -589,7 +589,7 @@ public data class CoverageEligibilityResponse(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -608,12 +608,12 @@ public data class CoverageEligibilityResponse(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /**
      * An error code,from a specified code system, which details why the eligibility check could not
      * be performed.
      */
-    public var code: CodeableConcept,
+    public val code: CodeableConcept,
     /**
      * A [simple subset of FHIRPath](fhirpath.html#simple) limited to element names, repetition
      * indicators and the default child accessor that identifies one of the elements in the resource
@@ -622,7 +622,7 @@ public data class CoverageEligibilityResponse(
      * The root of the FHIRPath is the resource or bundle that generated OperationOutcome. Each
      * FHIRPath SHALL resolve to a single node.
      */
-    public var expression: MutableList<String> = mutableListOf(),
+    public val expression: List<String> = listOf(),
   ) : BackboneElement()
 
   @Serializable(with = CoverageEligibilityResponseServicedSerializer::class)

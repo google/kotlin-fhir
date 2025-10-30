@@ -27,7 +27,7 @@ import com.google.fhir.model.r4.serializers.NutritionOrderOralDietTextureSeriali
 import com.google.fhir.model.r4.serializers.NutritionOrderSerializer
 import com.google.fhir.model.r4.serializers.NutritionOrderSupplementSerializer
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -45,12 +45,12 @@ public data class NutritionOrder(
    * The only time that a resource does not have an id is when it is being submitted to the server
    * using a create operation.
    */
-  override var id: kotlin.String? = null,
+  override val id: kotlin.String? = null,
   /**
    * The metadata about the resource. This is content that is maintained by the infrastructure.
    * Changes to the content might not always be associated with version changes to the resource.
    */
-  override var meta: Meta? = null,
+  override val meta: Meta? = null,
   /**
    * A reference to a set of rules that were followed when the resource was constructed, and which
    * must be understood when processing the content. Often, this is a reference to an implementation
@@ -64,7 +64,7 @@ public data class NutritionOrder(
    * to an implementation guide that defines these special rules as part of it's narrative along
    * with other profiles, value sets, etc.
    */
-  override var implicitRules: Uri? = null,
+  override val implicitRules: Uri? = null,
   /**
    * The base language in which the resource is written.
    *
@@ -76,7 +76,7 @@ public data class NutritionOrder(
    * language is specified, it should it also be specified on the div element in the html (see rules
    * in HTML5 for information about the relationship between xml:lang and the html lang attribute).
    */
-  override var language: Code? = null,
+  override val language: Code? = null,
   /**
    * A human-readable narrative that contains a summary of the resource and can be used to represent
    * the content of the resource to a human. The narrative need not encode all the structured data,
@@ -90,7 +90,7 @@ public data class NutritionOrder(
    * legacy systems where information is captured as a "text blob" or where text is additionally
    * entered raw or narrated and encoded information is added later.
    */
-  override var text: Narrative? = null,
+  override val text: Narrative? = null,
   /**
    * These resources do not have an independent existence apart from the resource that contains
    * them - they cannot be identified independently, and nor can they have their own independent
@@ -101,7 +101,7 @@ public data class NutritionOrder(
    * resources may have profiles and tags In their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: MutableList<Resource> = mutableListOf(),
+  override val contained: List<Resource> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and manageable, there is a strict set of
@@ -114,7 +114,7 @@ public data class NutritionOrder(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: MutableList<Extension> = mutableListOf(),
+  override val extension: List<Extension> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -133,14 +133,14 @@ public data class NutritionOrder(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: MutableList<Extension> = mutableListOf(),
+  override val modifierExtension: List<Extension> = listOf(),
   /**
    * Identifiers assigned to this order by the order sender or by the order receiver.
    *
    * The Identifier.type element can be to indicate filler vs. placer if needed. This is explained
    * in further detail [here](servicerequest.html#notes).
    */
-  public var identifier: MutableList<Identifier> = mutableListOf(),
+  public val identifier: List<Identifier> = listOf(),
   /**
    * The URL pointing to a FHIR-defined protocol, guideline, orderset or other definition that is
    * adhered to in whole or in part by this NutritionOrder.
@@ -152,19 +152,19 @@ public data class NutritionOrder(
    * resource types. For example, multiple Patient and a Person resource instance might share the
    * same social insurance number.
    */
-  public var instantiatesCanonical: MutableList<Canonical> = mutableListOf(),
+  public val instantiatesCanonical: List<Canonical> = listOf(),
   /**
    * The URL pointing to an externally maintained protocol, guideline, orderset or other definition
    * that is adhered to in whole or in part by this NutritionOrder.
    *
    * This might be an HTML page, PDF, etc. or could just be a non-resolvable URI identifier.
    */
-  public var instantiatesUri: MutableList<Uri> = mutableListOf(),
+  public val instantiatesUri: List<Uri> = listOf(),
   /**
    * The URL pointing to a protocol, guideline, orderset or other definition that is adhered to in
    * whole or in part by this NutritionOrder.
    */
-  public var instantiates: MutableList<Uri> = mutableListOf(),
+  public val instantiates: List<Uri> = listOf(),
   /**
    * The workflow status of the nutrition order/request.
    *
@@ -173,7 +173,7 @@ public data class NutritionOrder(
    * labeled as a modifier because the status contains codes that mark the resource as not currently
    * valid.
    */
-  public var status: Enumeration<RequestStatus>,
+  public val status: Enumeration<RequestStatus>,
   /**
    * Indicates the level of authority/intentionality associated with the NutrionOrder and where the
    * request fits into the workflow chain.
@@ -184,24 +184,24 @@ public data class NutritionOrder(
    * Expectation is that the set of codes is mutually exclusive or a strict all-encompassing
    * hierarchy.
    */
-  public var intent: Enumeration<RequestIntent>,
+  public val intent: Enumeration<RequestIntent>,
   /**
    * The person (patient) who needs the nutrition order for an oral diet, nutritional supplement
    * and/or enteral or formula feeding.
    */
-  public var patient: Reference,
+  public val patient: Reference,
   /**
    * An encounter that provides additional information about the healthcare context in which this
    * request is made.
    */
-  public var encounter: Reference? = null,
+  public val encounter: Reference? = null,
   /** The date and time that this nutrition order was requested. */
-  public var dateTime: DateTime,
+  public val dateTime: DateTime,
   /**
    * The practitioner that holds legal responsibility for ordering the diet, nutritional supplement,
    * or formula feedings.
    */
-  public var orderer: Reference? = null,
+  public val orderer: Reference? = null,
   /**
    * A link to a record of allergies or intolerances which should be included in the nutrition
    * order.
@@ -209,7 +209,7 @@ public data class NutritionOrder(
    * Information on a patient's food allergies and intolerances to inform healthcare personnel about
    * the type of foods that the patient shouldn't receive or consume.
    */
-  public var allergyIntolerance: MutableList<Reference> = mutableListOf(),
+  public val allergyIntolerance: List<Reference> = listOf(),
   /**
    * This modifier is used to convey order-specific modifiers about the type of food that should be
    * given. These can be derived from patient allergies, intolerances, or preferences such as Halal,
@@ -219,7 +219,7 @@ public data class NutritionOrder(
    * Information on a patient's food preferences that inform healthcare personnel about the food
    * that the patient should receive or consume.
    */
-  public var foodPreferenceModifier: MutableList<CodeableConcept> = mutableListOf(),
+  public val foodPreferenceModifier: List<CodeableConcept> = listOf(),
   /**
    * This modifier is used to convey Order-specific modifier about the type of oral food or oral
    * fluids that should not be given. These can be derived from patient allergies, intolerances, or
@@ -233,19 +233,19 @@ public data class NutritionOrder(
    * Information on a patient's food allergies, intolerances and preferences to inform healthcare
    * personnel about the type of foods that the patient shouldn't receive or consume.
    */
-  public var excludeFoodModifier: MutableList<CodeableConcept> = mutableListOf(),
+  public val excludeFoodModifier: List<CodeableConcept> = listOf(),
   /** Diet given orally in contrast to enteral (tube) feeding. */
-  public var oralDiet: OralDiet? = null,
+  public val oralDiet: OralDiet? = null,
   /**
    * Oral nutritional products given in order to add further nutritional value to the patient's
    * diet.
    */
-  public var supplement: MutableList<Supplement> = mutableListOf(),
+  public val supplement: List<Supplement> = listOf(),
   /**
    * Feeding provided through the gastrointestinal tract via a tube, catheter, or stoma that
    * delivers nutrition distal to the oral cavity.
    */
-  public var enteralFormula: EnteralFormula? = null,
+  public val enteralFormula: EnteralFormula? = null,
   /**
    * Comments made about the {{title}} by the requester, performer, subject or other participants.
    *
@@ -253,7 +253,7 @@ public data class NutritionOrder(
    * represented in the `.oralDiet.instruction`, `supplement.instruction`, or
    * `enteralFormula.administrationInstruction` elements.
    */
-  public var note: MutableList<Annotation> = mutableListOf(),
+  public val note: List<Annotation> = listOf(),
 ) : DomainResource() {
   /** Diet given orally in contrast to enteral (tube) feeding. */
   @Serializable(with = NutritionOrderOralDietSerializer::class)
@@ -262,7 +262,7 @@ public data class NutritionOrder(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and manageable, there is a strict set of
@@ -275,7 +275,7 @@ public data class NutritionOrder(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -294,36 +294,36 @@ public data class NutritionOrder(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /** The kind of diet or dietary restriction such as fiber restricted diet or diabetic diet. */
-    public var type: MutableList<CodeableConcept> = mutableListOf(),
+    public val type: List<CodeableConcept> = listOf(),
     /**
      * The time period and frequency at which the diet should be given. The diet should be given for
      * the combination of all schedules if more than one schedule is present.
      */
-    public var schedule: MutableList<Timing> = mutableListOf(),
+    public val schedule: List<Timing> = listOf(),
     /**
      * Class that defines the quantity and type of nutrient modifications (for example carbohydrate,
      * fiber or sodium) required for the oral diet.
      */
-    public var nutrient: MutableList<Nutrient> = mutableListOf(),
+    public val nutrient: List<Nutrient> = listOf(),
     /**
      * Class that describes any texture modifications required for the patient to safely consume
      * various types of solid foods.
      */
-    public var texture: MutableList<Texture> = mutableListOf(),
+    public val texture: List<Texture> = listOf(),
     /**
      * The required consistency (e.g. honey-thick, nectar-thick, thin, thickened.) of liquids or
      * fluids served to the patient.
      */
-    public var fluidConsistencyType: MutableList<CodeableConcept> = mutableListOf(),
+    public val fluidConsistencyType: List<CodeableConcept> = listOf(),
     /**
      * Free text or additional instructions or information pertaining to the oral diet.
      *
      * Free text dosage instructions can be used for cases where the instructions are too complex to
      * code.
      */
-    public var instruction: String? = null,
+    public val instruction: String? = null,
   ) : BackboneElement() {
     /**
      * Class that defines the quantity and type of nutrient modifications (for example carbohydrate,
@@ -335,7 +335,7 @@ public data class NutritionOrder(
        * Unique id for the element within a resource (for internal references). This may be any
        * string value that does not contain spaces.
        */
-      override var id: kotlin.String? = null,
+      override val id: kotlin.String? = null,
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element. To make the use of extensions safe and manageable, there is a strict set of
@@ -348,7 +348,7 @@ public data class NutritionOrder(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: MutableList<Extension> = mutableListOf(),
+      override val extension: List<Extension> = listOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -367,11 +367,11 @@ public data class NutritionOrder(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: MutableList<Extension> = mutableListOf(),
+      override val modifierExtension: List<Extension> = listOf(),
       /** The nutrient that is being modified such as carbohydrate or sodium. */
-      public var modifier: CodeableConcept? = null,
+      public val modifier: CodeableConcept? = null,
       /** The quantity of the specified nutrient to include in diet. */
-      public var amount: Quantity? = null,
+      public val amount: Quantity? = null,
     ) : BackboneElement()
 
     /**
@@ -384,7 +384,7 @@ public data class NutritionOrder(
        * Unique id for the element within a resource (for internal references). This may be any
        * string value that does not contain spaces.
        */
-      override var id: kotlin.String? = null,
+      override val id: kotlin.String? = null,
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element. To make the use of extensions safe and manageable, there is a strict set of
@@ -397,7 +397,7 @@ public data class NutritionOrder(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: MutableList<Extension> = mutableListOf(),
+      override val extension: List<Extension> = listOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -416,21 +416,21 @@ public data class NutritionOrder(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: MutableList<Extension> = mutableListOf(),
+      override val modifierExtension: List<Extension> = listOf(),
       /**
        * Any texture modifications (for solid foods) that should be made, e.g. easy to chew,
        * chopped, ground, and pureed.
        *
        * Coupled with the foodType (Meat).
        */
-      public var modifier: CodeableConcept? = null,
+      public val modifier: CodeableConcept? = null,
       /**
        * The food type(s) (e.g. meats, all foods) that the texture modification applies to. This
        * could be all foods types.
        *
        * Coupled with the `texture.modifier`; could be (All Foods).
        */
-      public var foodType: CodeableConcept? = null,
+      public val foodType: CodeableConcept? = null,
     ) : BackboneElement()
   }
 
@@ -444,7 +444,7 @@ public data class NutritionOrder(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and manageable, there is a strict set of
@@ -457,7 +457,7 @@ public data class NutritionOrder(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -476,28 +476,28 @@ public data class NutritionOrder(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /**
      * The kind of nutritional supplement product required such as a high protein or pediatric clear
      * liquid supplement.
      */
-    public var type: CodeableConcept? = null,
+    public val type: CodeableConcept? = null,
     /** The product or brand name of the nutritional supplement such as "Acme Protein Shake". */
-    public var productName: String? = null,
+    public val productName: String? = null,
     /**
      * The time period and frequency at which the supplement(s) should be given. The supplement
      * should be given for the combination of all schedules if more than one schedule is present.
      */
-    public var schedule: MutableList<Timing> = mutableListOf(),
+    public val schedule: List<Timing> = listOf(),
     /** The amount of the nutritional supplement to be given. */
-    public var quantity: Quantity? = null,
+    public val quantity: Quantity? = null,
     /**
      * Free text or additional instructions or information pertaining to the oral supplement.
      *
      * Free text dosage instructions can be used for cases where the instructions are too complex to
      * code.
      */
-    public var instruction: String? = null,
+    public val instruction: String? = null,
   ) : BackboneElement()
 
   /**
@@ -510,7 +510,7 @@ public data class NutritionOrder(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and manageable, there is a strict set of
@@ -523,7 +523,7 @@ public data class NutritionOrder(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -542,36 +542,36 @@ public data class NutritionOrder(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /**
      * The type of enteral or infant formula such as an adult standard formula with fiber or a
      * soy-based infant formula.
      */
-    public var baseFormulaType: CodeableConcept? = null,
+    public val baseFormulaType: CodeableConcept? = null,
     /**
      * The product or brand name of the enteral or infant formula product such as "ACME Adult
      * Standard Formula".
      */
-    public var baseFormulaProductName: String? = null,
+    public val baseFormulaProductName: String? = null,
     /**
      * Indicates the type of modular component such as protein, carbohydrate, fat or fiber to be
      * provided in addition to or mixed with the base formula.
      */
-    public var additiveType: CodeableConcept? = null,
+    public val additiveType: CodeableConcept? = null,
     /** The product or brand name of the type of modular component to be added to the formula. */
-    public var additiveProductName: String? = null,
+    public val additiveProductName: String? = null,
     /**
      * The amount of energy (calories) that the formula should provide per specified volume,
      * typically per mL or fluid oz. For example, an infant may require a formula that provides 24
      * calories per fluid ounce or an adult may require an enteral formula that provides 1.5
      * calorie/mL.
      */
-    public var caloricDensity: Quantity? = null,
+    public val caloricDensity: Quantity? = null,
     /**
      * The route or physiological path of administration into the patient's gastrointestinal tract
      * for purposes of providing the formula feeding, e.g. nasogastric tube.
      */
-    public var routeofAdministration: CodeableConcept? = null,
+    public val routeofAdministration: CodeableConcept? = null,
     /**
      * Formula administration instructions as structured data. This repeating structure allows for
      * changing the administration rate or volume over time for both bolus and continuous feeding.
@@ -581,12 +581,12 @@ public data class NutritionOrder(
      * See implementation notes below for further discussion on how to order continuous vs bolus
      * enteral feeding using this resource.
      */
-    public var administration: MutableList<Administration> = mutableListOf(),
+    public val administration: List<Administration> = listOf(),
     /**
      * The maximum total quantity of formula that may be administered to a subject over the period
      * of time, e.g. 1440 mL over 24 hours.
      */
-    public var maxVolumeToDeliver: Quantity? = null,
+    public val maxVolumeToDeliver: Quantity? = null,
     /**
      * Free text formula administration, feeding instructions or additional instructions or
      * information.
@@ -594,7 +594,7 @@ public data class NutritionOrder(
      * Free text dosage instructions can be used for cases where the instructions are too complex to
      * code.
      */
-    public var administrationInstruction: String? = null,
+    public val administrationInstruction: String? = null,
   ) : BackboneElement() {
     /**
      * Formula administration instructions as structured data. This repeating structure allows for
@@ -608,7 +608,7 @@ public data class NutritionOrder(
        * Unique id for the element within a resource (for internal references). This may be any
        * string value that does not contain spaces.
        */
-      override var id: kotlin.String? = null,
+      override val id: kotlin.String? = null,
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element. To make the use of extensions safe and manageable, there is a strict set of
@@ -621,7 +621,7 @@ public data class NutritionOrder(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: MutableList<Extension> = mutableListOf(),
+      override val extension: List<Extension> = listOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -640,16 +640,16 @@ public data class NutritionOrder(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: MutableList<Extension> = mutableListOf(),
+      override val modifierExtension: List<Extension> = listOf(),
       /**
        * The time period and frequency at which the enteral formula should be delivered to the
        * patient.
        */
-      public var schedule: Timing? = null,
+      public val schedule: Timing? = null,
       /**
        * The volume of formula to provide to the patient per the specified administration schedule.
        */
-      public var quantity: Quantity? = null,
+      public val quantity: Quantity? = null,
       /**
        * The rate of administration of formula via a feeding pump, e.g. 60 mL per hour, according to
        * the specified schedule.
@@ -658,7 +658,7 @@ public data class NutritionOrder(
        * Quantity. For example, the Ratio datatype is used for "200 mL/4 hrs" versus the Quantity
        * datatype for "50 mL/hr".
        */
-      public var rate: Rate? = null,
+      public val rate: Rate? = null,
     ) : BackboneElement() {
       @Serializable(with = NutritionOrderEnteralFormulaAdministrationRateSerializer::class)
       public sealed interface Rate {

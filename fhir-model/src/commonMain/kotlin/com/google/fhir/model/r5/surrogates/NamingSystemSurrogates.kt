@@ -48,15 +48,15 @@ import com.google.fhir.model.r5.terminologies.PublicationStatus
 import kotlin.Boolean as KotlinBoolean
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class NamingSystemUniqueIdSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var type: KotlinString? = null,
   public var _type: Element? = null,
   public var `value`: KotlinString? = null,
@@ -72,8 +72,8 @@ internal data class NamingSystemUniqueIdSurrogate(
   public fun toModel(): NamingSystem.UniqueId =
     NamingSystem.UniqueId(
       id = this@NamingSystemUniqueIdSurrogate.id,
-      extension = this@NamingSystemUniqueIdSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@NamingSystemUniqueIdSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@NamingSystemUniqueIdSurrogate.extension ?: listOf(),
+      modifierExtension = this@NamingSystemUniqueIdSurrogate.modifierExtension ?: listOf(),
       type =
         Enumeration.of(
           NamingSystem.NamingSystemIdentifierType.fromCode(
@@ -165,12 +165,12 @@ internal data class NamingSystemSurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: MutableList<Resource>? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var contained: List<Resource>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var url: KotlinString? = null,
   public var _url: Element? = null,
-  public var identifier: MutableList<Identifier>? = null,
+  public var identifier: List<Identifier>? = null,
   public var version: KotlinString? = null,
   public var _version: Element? = null,
   public var versionAlgorithm: NamingSystem.VersionAlgorithm? = null,
@@ -188,14 +188,14 @@ internal data class NamingSystemSurrogate(
   public var _date: Element? = null,
   public var publisher: KotlinString? = null,
   public var _publisher: Element? = null,
-  public var contact: MutableList<ContactDetail>? = null,
+  public var contact: List<ContactDetail>? = null,
   public var responsible: KotlinString? = null,
   public var _responsible: Element? = null,
   public var type: CodeableConcept? = null,
   public var description: KotlinString? = null,
   public var _description: Element? = null,
-  public var useContext: MutableList<UsageContext>? = null,
-  public var jurisdiction: MutableList<CodeableConcept>? = null,
+  public var useContext: List<UsageContext>? = null,
+  public var jurisdiction: List<CodeableConcept>? = null,
   public var purpose: KotlinString? = null,
   public var _purpose: Element? = null,
   public var copyright: KotlinString? = null,
@@ -207,15 +207,15 @@ internal data class NamingSystemSurrogate(
   public var lastReviewDate: KotlinString? = null,
   public var _lastReviewDate: Element? = null,
   public var effectivePeriod: Period? = null,
-  public var topic: MutableList<CodeableConcept>? = null,
-  public var author: MutableList<ContactDetail>? = null,
-  public var editor: MutableList<ContactDetail>? = null,
-  public var reviewer: MutableList<ContactDetail>? = null,
-  public var endorser: MutableList<ContactDetail>? = null,
-  public var relatedArtifact: MutableList<RelatedArtifact>? = null,
+  public var topic: List<CodeableConcept>? = null,
+  public var author: List<ContactDetail>? = null,
+  public var editor: List<ContactDetail>? = null,
+  public var reviewer: List<ContactDetail>? = null,
+  public var endorser: List<ContactDetail>? = null,
+  public var relatedArtifact: List<RelatedArtifact>? = null,
   public var usage: KotlinString? = null,
   public var _usage: Element? = null,
-  public var uniqueId: MutableList<NamingSystem.UniqueId>? = null,
+  public var uniqueId: List<NamingSystem.UniqueId>? = null,
 ) {
   public fun toModel(): NamingSystem =
     NamingSystem(
@@ -225,11 +225,11 @@ internal data class NamingSystemSurrogate(
         Uri.of(this@NamingSystemSurrogate.implicitRules, this@NamingSystemSurrogate._implicitRules),
       language = Code.of(this@NamingSystemSurrogate.language, this@NamingSystemSurrogate._language),
       text = this@NamingSystemSurrogate.text,
-      contained = this@NamingSystemSurrogate.contained ?: mutableListOf(),
-      extension = this@NamingSystemSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@NamingSystemSurrogate.modifierExtension ?: mutableListOf(),
+      contained = this@NamingSystemSurrogate.contained ?: listOf(),
+      extension = this@NamingSystemSurrogate.extension ?: listOf(),
+      modifierExtension = this@NamingSystemSurrogate.modifierExtension ?: listOf(),
       url = Uri.of(this@NamingSystemSurrogate.url, this@NamingSystemSurrogate._url),
-      identifier = this@NamingSystemSurrogate.identifier ?: mutableListOf(),
+      identifier = this@NamingSystemSurrogate.identifier ?: listOf(),
       version =
         R5String.of(this@NamingSystemSurrogate.version, this@NamingSystemSurrogate._version),
       versionAlgorithm = this@NamingSystemSurrogate.versionAlgorithm,
@@ -257,7 +257,7 @@ internal data class NamingSystemSurrogate(
         )!!,
       publisher =
         R5String.of(this@NamingSystemSurrogate.publisher, this@NamingSystemSurrogate._publisher),
-      contact = this@NamingSystemSurrogate.contact ?: mutableListOf(),
+      contact = this@NamingSystemSurrogate.contact ?: listOf(),
       responsible =
         R5String.of(
           this@NamingSystemSurrogate.responsible,
@@ -269,8 +269,8 @@ internal data class NamingSystemSurrogate(
           this@NamingSystemSurrogate.description,
           this@NamingSystemSurrogate._description,
         ),
-      useContext = this@NamingSystemSurrogate.useContext ?: mutableListOf(),
-      jurisdiction = this@NamingSystemSurrogate.jurisdiction ?: mutableListOf(),
+      useContext = this@NamingSystemSurrogate.useContext ?: listOf(),
+      jurisdiction = this@NamingSystemSurrogate.jurisdiction ?: listOf(),
       purpose =
         Markdown.of(this@NamingSystemSurrogate.purpose, this@NamingSystemSurrogate._purpose),
       copyright =
@@ -291,14 +291,14 @@ internal data class NamingSystemSurrogate(
           this@NamingSystemSurrogate._lastReviewDate,
         ),
       effectivePeriod = this@NamingSystemSurrogate.effectivePeriod,
-      topic = this@NamingSystemSurrogate.topic ?: mutableListOf(),
-      author = this@NamingSystemSurrogate.author ?: mutableListOf(),
-      editor = this@NamingSystemSurrogate.editor ?: mutableListOf(),
-      reviewer = this@NamingSystemSurrogate.reviewer ?: mutableListOf(),
-      endorser = this@NamingSystemSurrogate.endorser ?: mutableListOf(),
-      relatedArtifact = this@NamingSystemSurrogate.relatedArtifact ?: mutableListOf(),
+      topic = this@NamingSystemSurrogate.topic ?: listOf(),
+      author = this@NamingSystemSurrogate.author ?: listOf(),
+      editor = this@NamingSystemSurrogate.editor ?: listOf(),
+      reviewer = this@NamingSystemSurrogate.reviewer ?: listOf(),
+      endorser = this@NamingSystemSurrogate.endorser ?: listOf(),
+      relatedArtifact = this@NamingSystemSurrogate.relatedArtifact ?: listOf(),
       usage = R5String.of(this@NamingSystemSurrogate.usage, this@NamingSystemSurrogate._usage),
-      uniqueId = this@NamingSystemSurrogate.uniqueId ?: mutableListOf(),
+      uniqueId = this@NamingSystemSurrogate.uniqueId ?: listOf(),
     )
 
   public companion object {

@@ -25,7 +25,7 @@ import com.google.fhir.model.r5.serializers.ObservationDefinitionVersionAlgorith
 import com.google.fhir.model.r5.terminologies.AdministrativeGender
 import com.google.fhir.model.r5.terminologies.PublicationStatus
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -44,12 +44,12 @@ public data class ObservationDefinition(
    * like the create and conditional update. Otherwise, the use of the resouce id depends on the
    * given use case.
    */
-  override var id: kotlin.String? = null,
+  override val id: kotlin.String? = null,
   /**
    * The metadata about the resource. This is content that is maintained by the infrastructure.
    * Changes to the content might not always be associated with version changes to the resource.
    */
-  override var meta: Meta? = null,
+  override val meta: Meta? = null,
   /**
    * A reference to a set of rules that were followed when the resource was constructed, and which
    * must be understood when processing the content. Often, this is a reference to an implementation
@@ -63,7 +63,7 @@ public data class ObservationDefinition(
    * to an implementation guide that defines these special rules as part of its narrative along with
    * other profiles, value sets, etc.
    */
-  override var implicitRules: Uri? = null,
+  override val implicitRules: Uri? = null,
   /**
    * The base language in which the resource is written.
    *
@@ -75,7 +75,7 @@ public data class ObservationDefinition(
    * language is specified, it should it also be specified on the div element in the html (see rules
    * in HTML5 for information about the relationship between xml:lang and the html lang attribute).
    */
-  override var language: Code? = null,
+  override val language: Code? = null,
   /**
    * A human-readable narrative that contains a summary of the resource and can be used to represent
    * the content of the resource to a human. The narrative need not encode all the structured data,
@@ -89,7 +89,7 @@ public data class ObservationDefinition(
    * legacy systems where information is captured as a "text blob" or where text is additionally
    * entered raw or narrated and encoded information is added later.
    */
-  override var text: Narrative? = null,
+  override val text: Narrative? = null,
   /**
    * These resources do not have an independent existence apart from the resource that contains
    * them - they cannot be identified independently, nor can they have their own independent
@@ -101,7 +101,7 @@ public data class ObservationDefinition(
    * resources may have profiles and tags in their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: MutableList<Resource> = mutableListOf(),
+  override val contained: List<Resource> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and managable, there is a strict set of governance
@@ -114,7 +114,7 @@ public data class ObservationDefinition(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: MutableList<Extension> = mutableListOf(),
+  override val extension: List<Extension> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -133,7 +133,7 @@ public data class ObservationDefinition(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: MutableList<Extension> = mutableListOf(),
+  override val modifierExtension: List<Extension> = listOf(),
   /**
    * An absolute URL that is used to identify this ObservationDefinition when it is referenced in a
    * specification, model, design or an instance. This SHALL be a URL, SHOULD be globally unique,
@@ -144,7 +144,7 @@ public data class ObservationDefinition(
    * Can be a urn:uuid: or a urn:oid:, but real http: addresses are preferred. This is the URI that
    * will be used when making canonical references to this resource.
    */
-  public var url: Uri? = null,
+  public val url: Uri? = null,
   /**
    * Business identifiers assigned to this ObservationDefinition. by the performer and/or other
    * systems. These identifiers remain constant as the resource is updated and propagates from
@@ -155,7 +155,7 @@ public data class ObservationDefinition(
    * occasionally dictate that multiple resource instances with the same identifier can exist -
    * possibly even with different resource types.
    */
-  public var identifier: Identifier? = null,
+  public val identifier: Identifier? = null,
   /**
    * The identifier that is used to identify this version of the ObservationDefinition when it is
    * referenced in a specification, model, design or instance. This is an arbitrary value managed by
@@ -166,7 +166,7 @@ public data class ObservationDefinition(
    * There may be multiple different instances of an observationDefinition that have the same
    * identifier but different versions.
    */
-  public var version: String? = null,
+  public val version: String? = null,
   /**
    * Indicates the mechanism used to compare versions to determine which is more current.
    *
@@ -175,7 +175,7 @@ public data class ObservationDefinition(
    * positive number if version2 and a 0 if the version ordering can't be successfully be
    * determined.
    */
-  public var versionAlgorithm: VersionAlgorithm? = null,
+  public val versionAlgorithm: VersionAlgorithm? = null,
   /**
    * A natural language name identifying the ObservationDefinition. This name should be usable as an
    * identifier for the module by machine processing applications such as code generation.
@@ -183,9 +183,9 @@ public data class ObservationDefinition(
    * The name is not expected to be globally unique. The name should be a simple alphanumeric type
    * name to ensure that it is machine-processing friendly.
    */
-  public var name: String? = null,
+  public val name: String? = null,
   /** A short, descriptive, user-friendly title for the ObservationDefinition. */
-  public var title: String? = null,
+  public val title: String? = null,
   /**
    * The current state of the ObservationDefinition.
    *
@@ -197,14 +197,14 @@ public data class ObservationDefinition(
    * See guidance around (not) making local changes to elements
    * [here](canonicalresource.html#localization).
    */
-  public var status: Enumeration<PublicationStatus>,
+  public val status: Enumeration<PublicationStatus>,
   /**
    * A flag to indicate that this ObservationDefinition is authored for testing purposes (or
    * education/evaluation/marketing), and is not intended to be used for genuine usage.
    *
    * Allows filtering of ObservationDefinition that are appropriate for use vs. not.
    */
-  public var experimental: Boolean? = null,
+  public val experimental: Boolean? = null,
   /**
    * The date (and optionally time) when the ObservationDefinition was last significantly changed.
    * The date must change when the business version changes and it must change if the status code
@@ -220,12 +220,12 @@ public data class ObservationDefinition(
    * See guidance around (not) making local changes to elements
    * [here](canonicalresource.html#localization).
    */
-  public var date: DateTime? = null,
+  public val date: DateTime? = null,
   /**
    * Helps establish the "authority/credibility" of the ObservationDefinition. May also allow for
    * contact.
    */
-  public var publisher: String? = null,
+  public val publisher: String? = null,
   /**
    * Contact details to assist a user in finding and communicating with the publisher.
    *
@@ -234,7 +234,7 @@ public data class ObservationDefinition(
    * See guidance around (not) making local changes to elements
    * [here](canonicalresource.html#localization).
    */
-  public var contact: MutableList<ContactDetail> = mutableListOf(),
+  public val contact: List<ContactDetail> = listOf(),
   /**
    * A free text natural language description of the ObservationDefinition from the consumer's
    * perspective.
@@ -244,7 +244,7 @@ public data class ObservationDefinition(
    * is not a rendering of the module as conveyed in the text field of the resource itself. This
    * item SHOULD be populated unless the information is available from context.
    */
-  public var description: Markdown? = null,
+  public val description: Markdown? = null,
   /**
    * The content was developed with a focus and intent of supporting the contexts that are listed.
    * These contexts may be general categories (gender, age, ...) or may be references to specific
@@ -254,7 +254,7 @@ public data class ObservationDefinition(
    * When multiple usageContexts are specified, there is no expectation for whether all or any of
    * the contexts apply.
    */
-  public var useContext: MutableList<UsageContext> = mutableListOf(),
+  public val useContext: List<UsageContext> = listOf(),
   /**
    * A jurisdiction in which the ObservationDefinition is intended to be used.
    *
@@ -266,7 +266,7 @@ public data class ObservationDefinition(
    * http://terminology.hl7.org/CodeSystem/usage-context-type#jurisdiction and
    * useContext.valueCodeableConcept indicating the jurisdiction.)
    */
-  public var jurisdiction: MutableList<CodeableConcept> = mutableListOf(),
+  public val jurisdiction: List<CodeableConcept> = listOf(),
   /**
    * Explains why this ObservationDefinition is needed and why it has been designed as it has.
    *
@@ -275,13 +275,13 @@ public data class ObservationDefinition(
    * may be used to point to source materials or specifications that drove the structure of this
    * ObservationDefinition.
    */
-  public var purpose: Markdown? = null,
+  public val purpose: Markdown? = null,
   /**
    * Copyright statement relating to the ObservationDefinition and/or its contents. Copyright
    * statements are generally legal restrictions on the use and publishing of the
    * ObservationDefinition.
    */
-  public var copyright: Markdown? = null,
+  public val copyright: Markdown? = null,
   /**
    * A short string (<50 characters), suitable for inclusion in a page footer that identifies the
    * copyright holder, effective period, and optionally whether rights are resctricted. (e.g. 'All
@@ -291,7 +291,7 @@ public data class ObservationDefinition(
    * rendering the notation. Full details about licensing, restrictions, warrantees, etc. goes in
    * the more general 'copyright' element.
    */
-  public var copyrightLabel: String? = null,
+  public val copyrightLabel: String? = null,
   /**
    * The date on which the asset content was approved by the publisher. Approval happens once when
    * the content is officially approved for usage.
@@ -302,7 +302,7 @@ public data class ObservationDefinition(
    * See guidance around (not) making local changes to elements
    * [here](canonicalresource.html#localization).
    */
-  public var approvalDate: Date? = null,
+  public val approvalDate: Date? = null,
   /**
    * The date on which the asset content was last reviewed. Review happens periodically after that,
    * but doesn't change the original approval date.
@@ -312,7 +312,7 @@ public data class ObservationDefinition(
    * See guidance around (not) making local changes to elements
    * [here](canonicalresource.html#localization).
    */
-  public var lastReviewDate: Date? = null,
+  public val lastReviewDate: Date? = null,
   /**
    * The period during which the ObservationDefinition content was or is planned to be effective.
    *
@@ -323,29 +323,29 @@ public data class ObservationDefinition(
    * See guidance around (not) making local changes to elements
    * [here](canonicalresource.html#localization).
    */
-  public var effectivePeriod: Period? = null,
+  public val effectivePeriod: Period? = null,
   /**
    * The canonical URL pointing to another FHIR-defined ObservationDefinition that is adhered to in
    * whole or in part by this definition.
    */
-  public var derivedFromCanonical: MutableList<Canonical> = mutableListOf(),
+  public val derivedFromCanonical: List<Canonical> = listOf(),
   /**
    * The URL pointing to an externally-defined observation definition, guideline or other definition
    * that is adhered to in whole or in part by this definition.
    */
-  public var derivedFromUri: MutableList<Uri> = mutableListOf(),
+  public val derivedFromUri: List<Uri> = listOf(),
   /**
    * A code that describes the intended kind of subject of Observation instances conforming to this
    * ObservationDefinition.
    *
    * Examples: person, animal, device, air, surface ….
    */
-  public var subject: MutableList<CodeableConcept> = mutableListOf(),
+  public val subject: List<CodeableConcept> = listOf(),
   /**
    * The type of individual/organization/device that is expected to act upon instances of this
    * definition.
    */
-  public var performerType: CodeableConcept? = null,
+  public val performerType: CodeableConcept? = null,
   /**
    * A code that classifies the general type of observation.
    *
@@ -354,21 +354,21 @@ public data class ObservationDefinition(
    * ObservationDefinition. The level of granularity is defined by the category concepts in the
    * value set.
    */
-  public var category: MutableList<CodeableConcept> = mutableListOf(),
+  public val category: List<CodeableConcept> = listOf(),
   /** Describes what will be observed. Sometimes this is called the observation "name". */
-  public var code: CodeableConcept,
+  public val code: CodeableConcept,
   /**
    * The data types allowed for the value element of the instance observations conforming to this
    * ObservationDefinition.
    */
-  public var permittedDataType: MutableList<Enumeration<ObservationDataType>> = mutableListOf(),
+  public val permittedDataType: List<Enumeration<ObservationDataType>> = listOf(),
   /**
    * Multiple results allowed for observations conforming to this ObservationDefinition.
    *
    * An example of observation allowing multiple results is "bacteria identified by culture".
    * Conversely, the measurement of a potassium level allows a single result.
    */
-  public var multipleResultsAllowed: Boolean? = null,
+  public val multipleResultsAllowed: Boolean? = null,
   /**
    * The site on the subject's body where the observation is to be made.
    *
@@ -376,52 +376,52 @@ public data class ObservationDefinition(
    * part is not implied by code found in ObservationDefinition.code. Not used for in vitro
    * diagnostic observations. Example: 14975008 |Forearm structure|.
    */
-  public var bodySite: CodeableConcept? = null,
+  public val bodySite: CodeableConcept? = null,
   /**
    * The method or technique used to perform the observation.
    *
    * Only used if not implicit in observation code Example: 702659008 |Automated count technique|.
    */
-  public var method: CodeableConcept? = null,
+  public val method: CodeableConcept? = null,
   /**
    * The kind of specimen that this type of observation is produced on.
    *
    * Only used for in vitro observations. When multiple occurrences of specimen are present, they
    * are to be combined with a logical AND: all specified specimens are needed for the observation.
    */
-  public var specimen: MutableList<Reference> = mutableListOf(),
+  public val specimen: List<Reference> = listOf(),
   /**
    * The measurement model of device or actual device used to produce observations of this type.
    *
    * When multiple occurrences of device are present, they are to be combined with a logical OR: at
    * least one of the specified devices is used to produce the observation.
    */
-  public var device: MutableList<Reference> = mutableListOf(),
+  public val device: List<Reference> = listOf(),
   /**
    * The preferred name to be used when reporting the results of observations conforming to this
    * ObservationDefinition.
    */
-  public var preferredReportName: String? = null,
+  public val preferredReportName: String? = null,
   /**
    * Units allowed for the valueQuantity element in the instance observations conforming to this
    * ObservationDefinition.
    */
-  public var permittedUnit: MutableList<Coding> = mutableListOf(),
+  public val permittedUnit: List<Coding> = listOf(),
   /**
    * A set of qualified values associated with a context and a set of conditions - provides a range
    * for quantitative and ordinal observations and a collection of value sets for qualitative
    * observations.
    */
-  public var qualifiedValue: MutableList<QualifiedValue> = mutableListOf(),
+  public val qualifiedValue: List<QualifiedValue> = listOf(),
   /**
    * This ObservationDefinition defines a group observation (e.g. a battery, a panel of tests, a set
    * of vital sign measurements) that includes the target as a member of the group.
    */
-  public var hasMember: MutableList<Reference> = mutableListOf(),
+  public val hasMember: List<Reference> = listOf(),
   /**
    * Some observations have multiple component observations, expressed as separate code value pairs.
    */
-  public var component: MutableList<Component> = mutableListOf(),
+  public val component: List<Component> = listOf(),
 ) : DomainResource() {
   /**
    * A set of qualified values associated with a context and a set of conditions - provides a range
@@ -434,7 +434,7 @@ public data class ObservationDefinition(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -447,7 +447,7 @@ public data class ObservationDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -466,57 +466,57 @@ public data class ObservationDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /** A concept defining the context for this set of qualified values. */
-    public var context: CodeableConcept? = null,
+    public val context: CodeableConcept? = null,
     /**
      * The target population this set of qualified values applies to.
      *
      * If this element is not present then the global population is assumed.
      */
-    public var appliesTo: MutableList<CodeableConcept> = mutableListOf(),
+    public val appliesTo: List<CodeableConcept> = listOf(),
     /** The gender this set of qualified values applies to. */
-    public var gender: Enumeration<AdministrativeGender>? = null,
+    public val gender: Enumeration<AdministrativeGender>? = null,
     /**
      * The age range this set of qualified values applies to.
      *
      * Some analytes vary greatly over age.
      */
-    public var age: Range? = null,
+    public val age: Range? = null,
     /** The gestational age this set of qualified values applies to. */
-    public var gestationalAge: Range? = null,
+    public val gestationalAge: Range? = null,
     /** Text based condition for which the the set of qualified values is valid. */
-    public var condition: String? = null,
+    public val condition: String? = null,
     /**
      * The category of range of values for continuous or ordinal observations that match the
      * criteria of this set of qualified values.
      */
-    public var rangeCategory: Enumeration<ObservationRangeCategory>? = null,
+    public val rangeCategory: Enumeration<ObservationRangeCategory>? = null,
     /**
      * The range of values defined for continuous or ordinal observations that match the criteria of
      * this set of qualified values.
      */
-    public var range: Range? = null,
+    public val range: Range? = null,
     /**
      * The set of valid coded results for qualitative observations that match the criteria of this
      * set of qualified values.
      */
-    public var validCodedValueSet: Canonical? = null,
+    public val validCodedValueSet: Canonical? = null,
     /**
      * The set of normal coded results for qualitative observations that match the criteria of this
      * set of qualified values.
      */
-    public var normalCodedValueSet: Canonical? = null,
+    public val normalCodedValueSet: Canonical? = null,
     /**
      * The set of abnormal coded results for qualitative observations that match the criteria of
      * this set of qualified values.
      */
-    public var abnormalCodedValueSet: Canonical? = null,
+    public val abnormalCodedValueSet: Canonical? = null,
     /**
      * The set of critical coded results for qualitative observations that match the criteria of
      * this set of qualified values.
      */
-    public var criticalCodedValueSet: Canonical? = null,
+    public val criticalCodedValueSet: Canonical? = null,
   ) : BackboneElement()
 
   /**
@@ -528,7 +528,7 @@ public data class ObservationDefinition(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -541,7 +541,7 @@ public data class ObservationDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -560,24 +560,24 @@ public data class ObservationDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /** Describes what will be observed. */
-    public var code: CodeableConcept,
+    public val code: CodeableConcept,
     /**
      * The data types allowed for the value element of the instance of this component observations.
      */
-    public var permittedDataType: MutableList<Enumeration<ObservationDataType>> = mutableListOf(),
+    public val permittedDataType: List<Enumeration<ObservationDataType>> = listOf(),
     /**
      * Units allowed for the valueQuantity element in the instance observations conforming to this
      * ObservationDefinition.
      */
-    public var permittedUnit: MutableList<Coding> = mutableListOf(),
+    public val permittedUnit: List<Coding> = listOf(),
     /**
      * A set of qualified values associated with a context and a set of conditions - provides a
      * range for quantitative and ordinal observations and a collection of value sets for
      * qualitative observations.
      */
-    public var qualifiedValue: MutableList<QualifiedValue> = mutableListOf(),
+    public val qualifiedValue: List<QualifiedValue> = listOf(),
   ) : BackboneElement()
 
   @Serializable(with = ObservationDefinitionVersionAlgorithmSerializer::class)

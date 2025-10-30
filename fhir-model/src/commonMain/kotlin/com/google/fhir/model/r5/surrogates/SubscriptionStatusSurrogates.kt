@@ -38,28 +38,28 @@ import com.google.fhir.model.r5.serializers.DoubleSerializer
 import com.google.fhir.model.r5.serializers.LocalTimeSerializer
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class SubscriptionStatusNotificationEventSurrogate(
   public var id: String? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var eventNumber: String? = null,
   public var _eventNumber: Element? = null,
   public var timestamp: String? = null,
   public var _timestamp: Element? = null,
   public var focus: Reference? = null,
-  public var additionalContext: MutableList<Reference>? = null,
+  public var additionalContext: List<Reference>? = null,
 ) {
   public fun toModel(): SubscriptionStatus.NotificationEvent =
     SubscriptionStatus.NotificationEvent(
       id = this@SubscriptionStatusNotificationEventSurrogate.id,
-      extension = this@SubscriptionStatusNotificationEventSurrogate.extension ?: mutableListOf(),
+      extension = this@SubscriptionStatusNotificationEventSurrogate.extension ?: listOf(),
       modifierExtension =
-        this@SubscriptionStatusNotificationEventSurrogate.modifierExtension ?: mutableListOf(),
+        this@SubscriptionStatusNotificationEventSurrogate.modifierExtension ?: listOf(),
       eventNumber =
         Integer64.of(
           this@SubscriptionStatusNotificationEventSurrogate.eventNumber?.toLong(),
@@ -72,7 +72,7 @@ internal data class SubscriptionStatusNotificationEventSurrogate(
         ),
       focus = this@SubscriptionStatusNotificationEventSurrogate.focus,
       additionalContext =
-        this@SubscriptionStatusNotificationEventSurrogate.additionalContext ?: mutableListOf(),
+        this@SubscriptionStatusNotificationEventSurrogate.additionalContext ?: listOf(),
     )
 
   public companion object {
@@ -104,20 +104,20 @@ internal data class SubscriptionStatusSurrogate(
   public var language: String? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: MutableList<Resource>? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var contained: List<Resource>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var status: String? = null,
   public var _status: Element? = null,
   public var type: String? = null,
   public var _type: Element? = null,
   public var eventsSinceSubscriptionStart: String? = null,
   public var _eventsSinceSubscriptionStart: Element? = null,
-  public var notificationEvent: MutableList<SubscriptionStatus.NotificationEvent>? = null,
+  public var notificationEvent: List<SubscriptionStatus.NotificationEvent>? = null,
   public var subscription: Reference,
   public var topic: String? = null,
   public var _topic: Element? = null,
-  public var error: MutableList<CodeableConcept>? = null,
+  public var error: List<CodeableConcept>? = null,
 ) {
   public fun toModel(): SubscriptionStatus =
     SubscriptionStatus(
@@ -134,9 +134,9 @@ internal data class SubscriptionStatusSurrogate(
           this@SubscriptionStatusSurrogate._language,
         ),
       text = this@SubscriptionStatusSurrogate.text,
-      contained = this@SubscriptionStatusSurrogate.contained ?: mutableListOf(),
-      extension = this@SubscriptionStatusSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@SubscriptionStatusSurrogate.modifierExtension ?: mutableListOf(),
+      contained = this@SubscriptionStatusSurrogate.contained ?: listOf(),
+      extension = this@SubscriptionStatusSurrogate.extension ?: listOf(),
+      modifierExtension = this@SubscriptionStatusSurrogate.modifierExtension ?: listOf(),
       status =
         this@SubscriptionStatusSurrogate.status?.let {
           Enumeration.of(
@@ -156,14 +156,14 @@ internal data class SubscriptionStatusSurrogate(
           this@SubscriptionStatusSurrogate.eventsSinceSubscriptionStart?.toLong(),
           this@SubscriptionStatusSurrogate._eventsSinceSubscriptionStart,
         ),
-      notificationEvent = this@SubscriptionStatusSurrogate.notificationEvent ?: mutableListOf(),
+      notificationEvent = this@SubscriptionStatusSurrogate.notificationEvent ?: listOf(),
       subscription = this@SubscriptionStatusSurrogate.subscription,
       topic =
         Canonical.of(
           this@SubscriptionStatusSurrogate.topic,
           this@SubscriptionStatusSurrogate._topic,
         ),
-      error = this@SubscriptionStatusSurrogate.error ?: mutableListOf(),
+      error = this@SubscriptionStatusSurrogate.error ?: listOf(),
     )
 
   public companion object {

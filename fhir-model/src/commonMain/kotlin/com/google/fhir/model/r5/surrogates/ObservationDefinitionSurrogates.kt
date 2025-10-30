@@ -51,17 +51,17 @@ import com.google.fhir.model.r5.terminologies.PublicationStatus
 import kotlin.Boolean as KotlinBoolean
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class ObservationDefinitionQualifiedValueSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var context: CodeableConcept? = null,
-  public var appliesTo: MutableList<CodeableConcept>? = null,
+  public var appliesTo: List<CodeableConcept>? = null,
   public var gender: KotlinString? = null,
   public var _gender: Element? = null,
   public var age: Range? = null,
@@ -83,11 +83,11 @@ internal data class ObservationDefinitionQualifiedValueSurrogate(
   public fun toModel(): ObservationDefinition.QualifiedValue =
     ObservationDefinition.QualifiedValue(
       id = this@ObservationDefinitionQualifiedValueSurrogate.id,
-      extension = this@ObservationDefinitionQualifiedValueSurrogate.extension ?: mutableListOf(),
+      extension = this@ObservationDefinitionQualifiedValueSurrogate.extension ?: listOf(),
       modifierExtension =
-        this@ObservationDefinitionQualifiedValueSurrogate.modifierExtension ?: mutableListOf(),
+        this@ObservationDefinitionQualifiedValueSurrogate.modifierExtension ?: listOf(),
       context = this@ObservationDefinitionQualifiedValueSurrogate.context,
-      appliesTo = this@ObservationDefinitionQualifiedValueSurrogate.appliesTo ?: mutableListOf(),
+      appliesTo = this@ObservationDefinitionQualifiedValueSurrogate.appliesTo ?: listOf(),
       gender =
         this@ObservationDefinitionQualifiedValueSurrogate.gender?.let {
           Enumeration.of(
@@ -168,27 +168,27 @@ internal data class ObservationDefinitionQualifiedValueSurrogate(
 @Serializable
 internal data class ObservationDefinitionComponentSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var code: CodeableConcept,
-  public var permittedDataType: MutableList<KotlinString?>? = null,
-  public var _permittedDataType: MutableList<Element?>? = null,
-  public var permittedUnit: MutableList<Coding>? = null,
-  public var qualifiedValue: MutableList<ObservationDefinition.QualifiedValue>? = null,
+  public var permittedDataType: List<KotlinString?>? = null,
+  public var _permittedDataType: List<Element?>? = null,
+  public var permittedUnit: List<Coding>? = null,
+  public var qualifiedValue: List<ObservationDefinition.QualifiedValue>? = null,
 ) {
   public fun toModel(): ObservationDefinition.Component =
     ObservationDefinition.Component(
       id = this@ObservationDefinitionComponentSurrogate.id,
-      extension = this@ObservationDefinitionComponentSurrogate.extension ?: mutableListOf(),
+      extension = this@ObservationDefinitionComponentSurrogate.extension ?: listOf(),
       modifierExtension =
-        this@ObservationDefinitionComponentSurrogate.modifierExtension ?: mutableListOf(),
+        this@ObservationDefinitionComponentSurrogate.modifierExtension ?: listOf(),
       code = this@ObservationDefinitionComponentSurrogate.code,
       permittedDataType =
         if (
           this@ObservationDefinitionComponentSurrogate.permittedDataType == null &&
             this@ObservationDefinitionComponentSurrogate._permittedDataType == null
         ) {
-          mutableListOf()
+          listOf()
         } else {
           (this@ObservationDefinitionComponentSurrogate.permittedDataType
               ?: List(this@ObservationDefinitionComponentSurrogate._permittedDataType!!.size) {
@@ -206,11 +206,10 @@ internal data class ObservationDefinitionComponentSurrogate(
                 element,
               )
             }
-            .toMutableList()
+            .toList()
         },
-      permittedUnit = this@ObservationDefinitionComponentSurrogate.permittedUnit ?: mutableListOf(),
-      qualifiedValue =
-        this@ObservationDefinitionComponentSurrogate.qualifiedValue ?: mutableListOf(),
+      permittedUnit = this@ObservationDefinitionComponentSurrogate.permittedUnit ?: listOf(),
+      qualifiedValue = this@ObservationDefinitionComponentSurrogate.qualifiedValue ?: listOf(),
     )
 
   public companion object {
@@ -226,14 +225,14 @@ internal data class ObservationDefinitionComponentSurrogate(
           permittedDataType =
             this@with.permittedDataType
               .map { it.value?.getCode() }
-              .toMutableList()
+              .toList()
               .takeUnless { it.all { it == null } },
           _permittedDataType =
             this@with.permittedDataType
               .map { it.toElement() }
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
-              ?.toMutableList(),
+              ?.toList(),
           permittedUnit = this@with.permittedUnit.takeIf { it.isNotEmpty() },
           qualifiedValue = this@with.qualifiedValue.takeIf { it.isNotEmpty() },
         )
@@ -279,9 +278,9 @@ internal data class ObservationDefinitionSurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: MutableList<Resource>? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var contained: List<Resource>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var url: KotlinString? = null,
   public var _url: Element? = null,
   public var identifier: Identifier? = null,
@@ -300,11 +299,11 @@ internal data class ObservationDefinitionSurrogate(
   public var _date: Element? = null,
   public var publisher: KotlinString? = null,
   public var _publisher: Element? = null,
-  public var contact: MutableList<ContactDetail>? = null,
+  public var contact: List<ContactDetail>? = null,
   public var description: KotlinString? = null,
   public var _description: Element? = null,
-  public var useContext: MutableList<UsageContext>? = null,
-  public var jurisdiction: MutableList<CodeableConcept>? = null,
+  public var useContext: List<UsageContext>? = null,
+  public var jurisdiction: List<CodeableConcept>? = null,
   public var purpose: KotlinString? = null,
   public var _purpose: Element? = null,
   public var copyright: KotlinString? = null,
@@ -316,28 +315,28 @@ internal data class ObservationDefinitionSurrogate(
   public var lastReviewDate: KotlinString? = null,
   public var _lastReviewDate: Element? = null,
   public var effectivePeriod: Period? = null,
-  public var derivedFromCanonical: MutableList<KotlinString?>? = null,
-  public var _derivedFromCanonical: MutableList<Element?>? = null,
-  public var derivedFromUri: MutableList<KotlinString?>? = null,
-  public var _derivedFromUri: MutableList<Element?>? = null,
-  public var subject: MutableList<CodeableConcept>? = null,
+  public var derivedFromCanonical: List<KotlinString?>? = null,
+  public var _derivedFromCanonical: List<Element?>? = null,
+  public var derivedFromUri: List<KotlinString?>? = null,
+  public var _derivedFromUri: List<Element?>? = null,
+  public var subject: List<CodeableConcept>? = null,
   public var performerType: CodeableConcept? = null,
-  public var category: MutableList<CodeableConcept>? = null,
+  public var category: List<CodeableConcept>? = null,
   public var code: CodeableConcept,
-  public var permittedDataType: MutableList<KotlinString?>? = null,
-  public var _permittedDataType: MutableList<Element?>? = null,
+  public var permittedDataType: List<KotlinString?>? = null,
+  public var _permittedDataType: List<Element?>? = null,
   public var multipleResultsAllowed: KotlinBoolean? = null,
   public var _multipleResultsAllowed: Element? = null,
   public var bodySite: CodeableConcept? = null,
   public var method: CodeableConcept? = null,
-  public var specimen: MutableList<Reference>? = null,
-  public var device: MutableList<Reference>? = null,
+  public var specimen: List<Reference>? = null,
+  public var device: List<Reference>? = null,
   public var preferredReportName: KotlinString? = null,
   public var _preferredReportName: Element? = null,
-  public var permittedUnit: MutableList<Coding>? = null,
-  public var qualifiedValue: MutableList<ObservationDefinition.QualifiedValue>? = null,
-  public var hasMember: MutableList<Reference>? = null,
-  public var component: MutableList<ObservationDefinition.Component>? = null,
+  public var permittedUnit: List<Coding>? = null,
+  public var qualifiedValue: List<ObservationDefinition.QualifiedValue>? = null,
+  public var hasMember: List<Reference>? = null,
+  public var component: List<ObservationDefinition.Component>? = null,
 ) {
   public fun toModel(): ObservationDefinition =
     ObservationDefinition(
@@ -354,9 +353,9 @@ internal data class ObservationDefinitionSurrogate(
           this@ObservationDefinitionSurrogate._language,
         ),
       text = this@ObservationDefinitionSurrogate.text,
-      contained = this@ObservationDefinitionSurrogate.contained ?: mutableListOf(),
-      extension = this@ObservationDefinitionSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@ObservationDefinitionSurrogate.modifierExtension ?: mutableListOf(),
+      contained = this@ObservationDefinitionSurrogate.contained ?: listOf(),
+      extension = this@ObservationDefinitionSurrogate.extension ?: listOf(),
+      modifierExtension = this@ObservationDefinitionSurrogate.modifierExtension ?: listOf(),
       url =
         Uri.of(this@ObservationDefinitionSurrogate.url, this@ObservationDefinitionSurrogate._url),
       identifier = this@ObservationDefinitionSurrogate.identifier,
@@ -396,14 +395,14 @@ internal data class ObservationDefinitionSurrogate(
           this@ObservationDefinitionSurrogate.publisher,
           this@ObservationDefinitionSurrogate._publisher,
         ),
-      contact = this@ObservationDefinitionSurrogate.contact ?: mutableListOf(),
+      contact = this@ObservationDefinitionSurrogate.contact ?: listOf(),
       description =
         Markdown.of(
           this@ObservationDefinitionSurrogate.description,
           this@ObservationDefinitionSurrogate._description,
         ),
-      useContext = this@ObservationDefinitionSurrogate.useContext ?: mutableListOf(),
-      jurisdiction = this@ObservationDefinitionSurrogate.jurisdiction ?: mutableListOf(),
+      useContext = this@ObservationDefinitionSurrogate.useContext ?: listOf(),
+      jurisdiction = this@ObservationDefinitionSurrogate.jurisdiction ?: listOf(),
       purpose =
         Markdown.of(
           this@ObservationDefinitionSurrogate.purpose,
@@ -435,7 +434,7 @@ internal data class ObservationDefinitionSurrogate(
           this@ObservationDefinitionSurrogate.derivedFromCanonical == null &&
             this@ObservationDefinitionSurrogate._derivedFromCanonical == null
         ) {
-          mutableListOf()
+          listOf()
         } else {
           (this@ObservationDefinitionSurrogate.derivedFromCanonical
               ?: List(this@ObservationDefinitionSurrogate._derivedFromCanonical!!.size) { null })
@@ -444,14 +443,14 @@ internal data class ObservationDefinitionSurrogate(
                 ?: List(this@ObservationDefinitionSurrogate.derivedFromCanonical!!.size) { null }
             )
             .map { (value, element) -> Canonical.of(value, element)!! }
-            .toMutableList()
+            .toList()
         },
       derivedFromUri =
         if (
           this@ObservationDefinitionSurrogate.derivedFromUri == null &&
             this@ObservationDefinitionSurrogate._derivedFromUri == null
         ) {
-          mutableListOf()
+          listOf()
         } else {
           (this@ObservationDefinitionSurrogate.derivedFromUri
               ?: List(this@ObservationDefinitionSurrogate._derivedFromUri!!.size) { null })
@@ -460,18 +459,18 @@ internal data class ObservationDefinitionSurrogate(
                 ?: List(this@ObservationDefinitionSurrogate.derivedFromUri!!.size) { null }
             )
             .map { (value, element) -> Uri.of(value, element)!! }
-            .toMutableList()
+            .toList()
         },
-      subject = this@ObservationDefinitionSurrogate.subject ?: mutableListOf(),
+      subject = this@ObservationDefinitionSurrogate.subject ?: listOf(),
       performerType = this@ObservationDefinitionSurrogate.performerType,
-      category = this@ObservationDefinitionSurrogate.category ?: mutableListOf(),
+      category = this@ObservationDefinitionSurrogate.category ?: listOf(),
       code = this@ObservationDefinitionSurrogate.code,
       permittedDataType =
         if (
           this@ObservationDefinitionSurrogate.permittedDataType == null &&
             this@ObservationDefinitionSurrogate._permittedDataType == null
         ) {
-          mutableListOf()
+          listOf()
         } else {
           (this@ObservationDefinitionSurrogate.permittedDataType
               ?: List(this@ObservationDefinitionSurrogate._permittedDataType!!.size) { null })
@@ -485,7 +484,7 @@ internal data class ObservationDefinitionSurrogate(
                 element,
               )
             }
-            .toMutableList()
+            .toList()
         },
       multipleResultsAllowed =
         R5Boolean.of(
@@ -494,17 +493,17 @@ internal data class ObservationDefinitionSurrogate(
         ),
       bodySite = this@ObservationDefinitionSurrogate.bodySite,
       method = this@ObservationDefinitionSurrogate.method,
-      specimen = this@ObservationDefinitionSurrogate.specimen ?: mutableListOf(),
-      device = this@ObservationDefinitionSurrogate.device ?: mutableListOf(),
+      specimen = this@ObservationDefinitionSurrogate.specimen ?: listOf(),
+      device = this@ObservationDefinitionSurrogate.device ?: listOf(),
       preferredReportName =
         R5String.of(
           this@ObservationDefinitionSurrogate.preferredReportName,
           this@ObservationDefinitionSurrogate._preferredReportName,
         ),
-      permittedUnit = this@ObservationDefinitionSurrogate.permittedUnit ?: mutableListOf(),
-      qualifiedValue = this@ObservationDefinitionSurrogate.qualifiedValue ?: mutableListOf(),
-      hasMember = this@ObservationDefinitionSurrogate.hasMember ?: mutableListOf(),
-      component = this@ObservationDefinitionSurrogate.component ?: mutableListOf(),
+      permittedUnit = this@ObservationDefinitionSurrogate.permittedUnit ?: listOf(),
+      qualifiedValue = this@ObservationDefinitionSurrogate.qualifiedValue ?: listOf(),
+      hasMember = this@ObservationDefinitionSurrogate.hasMember ?: listOf(),
+      component = this@ObservationDefinitionSurrogate.component ?: listOf(),
     )
 
   public companion object {
@@ -558,25 +557,22 @@ internal data class ObservationDefinitionSurrogate(
           derivedFromCanonical =
             this@with.derivedFromCanonical
               .map { it.value }
-              .toMutableList()
+              .toList()
               .takeUnless { it.all { it == null } },
           _derivedFromCanonical =
             this@with.derivedFromCanonical
               .map { it.toElement() }
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
-              ?.toMutableList(),
+              ?.toList(),
           derivedFromUri =
-            this@with.derivedFromUri
-              .map { it.value }
-              .toMutableList()
-              .takeUnless { it.all { it == null } },
+            this@with.derivedFromUri.map { it.value }.toList().takeUnless { it.all { it == null } },
           _derivedFromUri =
             this@with.derivedFromUri
               .map { it.toElement() }
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
-              ?.toMutableList(),
+              ?.toList(),
           subject = this@with.subject.takeIf { it.isNotEmpty() },
           performerType = this@with.performerType,
           category = this@with.category.takeIf { it.isNotEmpty() },
@@ -584,14 +580,14 @@ internal data class ObservationDefinitionSurrogate(
           permittedDataType =
             this@with.permittedDataType
               .map { it.value?.getCode() }
-              .toMutableList()
+              .toList()
               .takeUnless { it.all { it == null } },
           _permittedDataType =
             this@with.permittedDataType
               .map { it.toElement() }
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
-              ?.toMutableList(),
+              ?.toList(),
           multipleResultsAllowed = this@with.multipleResultsAllowed?.value,
           _multipleResultsAllowed = this@with.multipleResultsAllowed?.toElement(),
           bodySite = this@with.bodySite,

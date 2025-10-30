@@ -38,7 +38,7 @@ import com.google.fhir.model.r5.serializers.DoubleSerializer
 import com.google.fhir.model.r5.serializers.LocalTimeSerializer
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
@@ -83,7 +83,7 @@ internal data class TriggerDefinitionTimingSurrogate(
 @Serializable
 internal data class TriggerDefinitionSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
   public var type: KotlinString? = null,
   public var _type: Element? = null,
   public var name: KotlinString? = null,
@@ -92,13 +92,13 @@ internal data class TriggerDefinitionSurrogate(
   public var subscriptionTopic: KotlinString? = null,
   public var _subscriptionTopic: Element? = null,
   public var timing: TriggerDefinition.Timing? = null,
-  public var `data`: MutableList<DataRequirement>? = null,
+  public var `data`: List<DataRequirement>? = null,
   public var condition: Expression? = null,
 ) {
   public fun toModel(): TriggerDefinition =
     TriggerDefinition(
       id = this@TriggerDefinitionSurrogate.id,
-      extension = this@TriggerDefinitionSurrogate.extension ?: mutableListOf(),
+      extension = this@TriggerDefinitionSurrogate.extension ?: listOf(),
       type =
         Enumeration.of(
           TriggerDefinition.TriggerType.fromCode(this@TriggerDefinitionSurrogate.type!!),
@@ -113,7 +113,7 @@ internal data class TriggerDefinitionSurrogate(
           this@TriggerDefinitionSurrogate._subscriptionTopic,
         ),
       timing = this@TriggerDefinitionSurrogate.timing,
-      `data` = this@TriggerDefinitionSurrogate.`data` ?: mutableListOf(),
+      `data` = this@TriggerDefinitionSurrogate.`data` ?: listOf(),
       condition = this@TriggerDefinitionSurrogate.condition,
     )
 

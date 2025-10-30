@@ -32,14 +32,14 @@ import kotlin.Double
 import kotlin.Int
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class SampledDataSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
   public var origin: Quantity,
   public var period: Double? = null,
   public var _period: Element? = null,
@@ -57,7 +57,7 @@ internal data class SampledDataSurrogate(
   public fun toModel(): SampledData =
     SampledData(
       id = this@SampledDataSurrogate.id,
-      extension = this@SampledDataSurrogate.extension ?: mutableListOf(),
+      extension = this@SampledDataSurrogate.extension ?: listOf(),
       origin = this@SampledDataSurrogate.origin,
       period = Decimal.of(this@SampledDataSurrogate.period, this@SampledDataSurrogate._period)!!,
       factor = Decimal.of(this@SampledDataSurrogate.factor, this@SampledDataSurrogate._factor),

@@ -45,15 +45,15 @@ import com.google.fhir.model.r5.terminologies.NoteType
 import kotlin.Int
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class PaymentReconciliationAllocationSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var identifier: Identifier? = null,
   public var predecessor: Identifier? = null,
   public var target: Reference? = null,
@@ -72,9 +72,9 @@ internal data class PaymentReconciliationAllocationSurrogate(
   public fun toModel(): PaymentReconciliation.Allocation =
     PaymentReconciliation.Allocation(
       id = this@PaymentReconciliationAllocationSurrogate.id,
-      extension = this@PaymentReconciliationAllocationSurrogate.extension ?: mutableListOf(),
+      extension = this@PaymentReconciliationAllocationSurrogate.extension ?: listOf(),
       modifierExtension =
-        this@PaymentReconciliationAllocationSurrogate.modifierExtension ?: mutableListOf(),
+        this@PaymentReconciliationAllocationSurrogate.modifierExtension ?: listOf(),
       identifier = this@PaymentReconciliationAllocationSurrogate.identifier,
       predecessor = this@PaymentReconciliationAllocationSurrogate.predecessor,
       target = this@PaymentReconciliationAllocationSurrogate.target,
@@ -125,8 +125,8 @@ internal data class PaymentReconciliationAllocationSurrogate(
 @Serializable
 internal data class PaymentReconciliationProcessNoteSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var type: KotlinString? = null,
   public var _type: Element? = null,
   public var text: KotlinString? = null,
@@ -135,9 +135,9 @@ internal data class PaymentReconciliationProcessNoteSurrogate(
   public fun toModel(): PaymentReconciliation.ProcessNote =
     PaymentReconciliation.ProcessNote(
       id = this@PaymentReconciliationProcessNoteSurrogate.id,
-      extension = this@PaymentReconciliationProcessNoteSurrogate.extension ?: mutableListOf(),
+      extension = this@PaymentReconciliationProcessNoteSurrogate.extension ?: listOf(),
       modifierExtension =
-        this@PaymentReconciliationProcessNoteSurrogate.modifierExtension ?: mutableListOf(),
+        this@PaymentReconciliationProcessNoteSurrogate.modifierExtension ?: listOf(),
       type =
         this@PaymentReconciliationProcessNoteSurrogate.type?.let {
           Enumeration.of(
@@ -216,10 +216,10 @@ internal data class PaymentReconciliationSurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: MutableList<Resource>? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var identifier: MutableList<Identifier>? = null,
+  public var contained: List<Resource>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
+  public var identifier: List<Identifier>? = null,
   public var type: CodeableConcept,
   public var status: KotlinString? = null,
   public var _status: Element? = null,
@@ -256,9 +256,9 @@ internal data class PaymentReconciliationSurrogate(
   public var returnedAmount: Money? = null,
   public var amount: Money,
   public var paymentIdentifier: Identifier? = null,
-  public var allocation: MutableList<PaymentReconciliation.Allocation>? = null,
+  public var allocation: List<PaymentReconciliation.Allocation>? = null,
   public var formCode: CodeableConcept? = null,
-  public var processNote: MutableList<PaymentReconciliation.ProcessNote>? = null,
+  public var processNote: List<PaymentReconciliation.ProcessNote>? = null,
 ) {
   public fun toModel(): PaymentReconciliation =
     PaymentReconciliation(
@@ -275,10 +275,10 @@ internal data class PaymentReconciliationSurrogate(
           this@PaymentReconciliationSurrogate._language,
         ),
       text = this@PaymentReconciliationSurrogate.text,
-      contained = this@PaymentReconciliationSurrogate.contained ?: mutableListOf(),
-      extension = this@PaymentReconciliationSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@PaymentReconciliationSurrogate.modifierExtension ?: mutableListOf(),
-      identifier = this@PaymentReconciliationSurrogate.identifier ?: mutableListOf(),
+      contained = this@PaymentReconciliationSurrogate.contained ?: listOf(),
+      extension = this@PaymentReconciliationSurrogate.extension ?: listOf(),
+      modifierExtension = this@PaymentReconciliationSurrogate.modifierExtension ?: listOf(),
+      identifier = this@PaymentReconciliationSurrogate.identifier ?: listOf(),
       type = this@PaymentReconciliationSurrogate.type,
       status =
         Enumeration.of(
@@ -352,9 +352,9 @@ internal data class PaymentReconciliationSurrogate(
       returnedAmount = this@PaymentReconciliationSurrogate.returnedAmount,
       amount = this@PaymentReconciliationSurrogate.amount,
       paymentIdentifier = this@PaymentReconciliationSurrogate.paymentIdentifier,
-      allocation = this@PaymentReconciliationSurrogate.allocation ?: mutableListOf(),
+      allocation = this@PaymentReconciliationSurrogate.allocation ?: listOf(),
       formCode = this@PaymentReconciliationSurrogate.formCode,
-      processNote = this@PaymentReconciliationSurrogate.processNote ?: mutableListOf(),
+      processNote = this@PaymentReconciliationSurrogate.processNote ?: listOf(),
     )
 
   public companion object {

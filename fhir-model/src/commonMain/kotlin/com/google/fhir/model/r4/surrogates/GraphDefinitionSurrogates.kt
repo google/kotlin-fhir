@@ -46,15 +46,15 @@ import kotlin.Boolean as KotlinBoolean
 import kotlin.Int
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class GraphDefinitionLinkSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var path: KotlinString? = null,
   public var _path: Element? = null,
   public var sliceName: KotlinString? = null,
@@ -65,13 +65,13 @@ internal data class GraphDefinitionLinkSurrogate(
   public var _max: Element? = null,
   public var description: KotlinString? = null,
   public var _description: Element? = null,
-  public var target: MutableList<GraphDefinition.Link.Target>? = null,
+  public var target: List<GraphDefinition.Link.Target>? = null,
 ) {
   public fun toModel(): GraphDefinition.Link =
     GraphDefinition.Link(
       id = this@GraphDefinitionLinkSurrogate.id,
-      extension = this@GraphDefinitionLinkSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@GraphDefinitionLinkSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@GraphDefinitionLinkSurrogate.extension ?: listOf(),
+      modifierExtension = this@GraphDefinitionLinkSurrogate.modifierExtension ?: listOf(),
       path =
         R4String.of(
           this@GraphDefinitionLinkSurrogate.path,
@@ -91,7 +91,7 @@ internal data class GraphDefinitionLinkSurrogate(
           this@GraphDefinitionLinkSurrogate.description,
           this@GraphDefinitionLinkSurrogate._description,
         ),
-      target = this@GraphDefinitionLinkSurrogate.target ?: mutableListOf(),
+      target = this@GraphDefinitionLinkSurrogate.target ?: listOf(),
     )
 
   public companion object {
@@ -120,23 +120,22 @@ internal data class GraphDefinitionLinkSurrogate(
 @Serializable
 internal data class GraphDefinitionLinkTargetSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var type: KotlinString? = null,
   public var _type: Element? = null,
   public var params: KotlinString? = null,
   public var _params: Element? = null,
   public var profile: KotlinString? = null,
   public var _profile: Element? = null,
-  public var compartment: MutableList<GraphDefinition.Link.Target.Compartment>? = null,
-  public var link: MutableList<GraphDefinition.Link>? = null,
+  public var compartment: List<GraphDefinition.Link.Target.Compartment>? = null,
+  public var link: List<GraphDefinition.Link>? = null,
 ) {
   public fun toModel(): GraphDefinition.Link.Target =
     GraphDefinition.Link.Target(
       id = this@GraphDefinitionLinkTargetSurrogate.id,
-      extension = this@GraphDefinitionLinkTargetSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@GraphDefinitionLinkTargetSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@GraphDefinitionLinkTargetSurrogate.extension ?: listOf(),
+      modifierExtension = this@GraphDefinitionLinkTargetSurrogate.modifierExtension ?: listOf(),
       type =
         Enumeration.of(
           ResourceType.fromCode(this@GraphDefinitionLinkTargetSurrogate.type!!),
@@ -152,8 +151,8 @@ internal data class GraphDefinitionLinkTargetSurrogate(
           this@GraphDefinitionLinkTargetSurrogate.profile,
           this@GraphDefinitionLinkTargetSurrogate._profile,
         ),
-      compartment = this@GraphDefinitionLinkTargetSurrogate.compartment ?: mutableListOf(),
-      link = this@GraphDefinitionLinkTargetSurrogate.link ?: mutableListOf(),
+      compartment = this@GraphDefinitionLinkTargetSurrogate.compartment ?: listOf(),
+      link = this@GraphDefinitionLinkTargetSurrogate.link ?: listOf(),
     )
 
   public companion object {
@@ -179,8 +178,8 @@ internal data class GraphDefinitionLinkTargetSurrogate(
 @Serializable
 internal data class GraphDefinitionLinkTargetCompartmentSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var use: KotlinString? = null,
   public var _use: Element? = null,
   public var code: KotlinString? = null,
@@ -195,9 +194,9 @@ internal data class GraphDefinitionLinkTargetCompartmentSurrogate(
   public fun toModel(): GraphDefinition.Link.Target.Compartment =
     GraphDefinition.Link.Target.Compartment(
       id = this@GraphDefinitionLinkTargetCompartmentSurrogate.id,
-      extension = this@GraphDefinitionLinkTargetCompartmentSurrogate.extension ?: mutableListOf(),
+      extension = this@GraphDefinitionLinkTargetCompartmentSurrogate.extension ?: listOf(),
       modifierExtension =
-        this@GraphDefinitionLinkTargetCompartmentSurrogate.modifierExtension ?: mutableListOf(),
+        this@GraphDefinitionLinkTargetCompartmentSurrogate.modifierExtension ?: listOf(),
       use =
         Enumeration.of(
           GraphDefinition.GraphCompartmentUse.fromCode(
@@ -264,9 +263,9 @@ internal data class GraphDefinitionSurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: MutableList<Resource>? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var contained: List<Resource>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var url: KotlinString? = null,
   public var _url: Element? = null,
   public var version: KotlinString? = null,
@@ -281,18 +280,18 @@ internal data class GraphDefinitionSurrogate(
   public var _date: Element? = null,
   public var publisher: KotlinString? = null,
   public var _publisher: Element? = null,
-  public var contact: MutableList<ContactDetail>? = null,
+  public var contact: List<ContactDetail>? = null,
   public var description: KotlinString? = null,
   public var _description: Element? = null,
-  public var useContext: MutableList<UsageContext>? = null,
-  public var jurisdiction: MutableList<CodeableConcept>? = null,
+  public var useContext: List<UsageContext>? = null,
+  public var jurisdiction: List<CodeableConcept>? = null,
   public var purpose: KotlinString? = null,
   public var _purpose: Element? = null,
   public var start: KotlinString? = null,
   public var _start: Element? = null,
   public var profile: KotlinString? = null,
   public var _profile: Element? = null,
-  public var link: MutableList<GraphDefinition.Link>? = null,
+  public var link: List<GraphDefinition.Link>? = null,
 ) {
   public fun toModel(): GraphDefinition =
     GraphDefinition(
@@ -306,9 +305,9 @@ internal data class GraphDefinitionSurrogate(
       language =
         Code.of(this@GraphDefinitionSurrogate.language, this@GraphDefinitionSurrogate._language),
       text = this@GraphDefinitionSurrogate.text,
-      contained = this@GraphDefinitionSurrogate.contained ?: mutableListOf(),
-      extension = this@GraphDefinitionSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@GraphDefinitionSurrogate.modifierExtension ?: mutableListOf(),
+      contained = this@GraphDefinitionSurrogate.contained ?: listOf(),
+      extension = this@GraphDefinitionSurrogate.extension ?: listOf(),
+      modifierExtension = this@GraphDefinitionSurrogate.modifierExtension ?: listOf(),
       url = Uri.of(this@GraphDefinitionSurrogate.url, this@GraphDefinitionSurrogate._url),
       version =
         R4String.of(this@GraphDefinitionSurrogate.version, this@GraphDefinitionSurrogate._version),
@@ -333,14 +332,14 @@ internal data class GraphDefinitionSurrogate(
           this@GraphDefinitionSurrogate.publisher,
           this@GraphDefinitionSurrogate._publisher,
         ),
-      contact = this@GraphDefinitionSurrogate.contact ?: mutableListOf(),
+      contact = this@GraphDefinitionSurrogate.contact ?: listOf(),
       description =
         Markdown.of(
           this@GraphDefinitionSurrogate.description,
           this@GraphDefinitionSurrogate._description,
         ),
-      useContext = this@GraphDefinitionSurrogate.useContext ?: mutableListOf(),
-      jurisdiction = this@GraphDefinitionSurrogate.jurisdiction ?: mutableListOf(),
+      useContext = this@GraphDefinitionSurrogate.useContext ?: listOf(),
+      jurisdiction = this@GraphDefinitionSurrogate.jurisdiction ?: listOf(),
       purpose =
         Markdown.of(this@GraphDefinitionSurrogate.purpose, this@GraphDefinitionSurrogate._purpose),
       start =
@@ -350,7 +349,7 @@ internal data class GraphDefinitionSurrogate(
         ),
       profile =
         Canonical.of(this@GraphDefinitionSurrogate.profile, this@GraphDefinitionSurrogate._profile),
-      link = this@GraphDefinitionSurrogate.link ?: mutableListOf(),
+      link = this@GraphDefinitionSurrogate.link ?: listOf(),
     )
 
   public companion object {

@@ -39,32 +39,31 @@ import com.google.fhir.model.r4b.serializers.DoubleSerializer
 import com.google.fhir.model.r4b.serializers.LocalTimeSerializer
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class RegulatedAuthorizationCaseSurrogate(
   public var id: String? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var identifier: Identifier? = null,
   public var type: CodeableConcept? = null,
   public var status: CodeableConcept? = null,
   public var date: RegulatedAuthorization.Case.Date? = null,
-  public var application: MutableList<RegulatedAuthorization.Case>? = null,
+  public var application: List<RegulatedAuthorization.Case>? = null,
 ) {
   public fun toModel(): RegulatedAuthorization.Case =
     RegulatedAuthorization.Case(
       id = this@RegulatedAuthorizationCaseSurrogate.id,
-      extension = this@RegulatedAuthorizationCaseSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@RegulatedAuthorizationCaseSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@RegulatedAuthorizationCaseSurrogate.extension ?: listOf(),
+      modifierExtension = this@RegulatedAuthorizationCaseSurrogate.modifierExtension ?: listOf(),
       identifier = this@RegulatedAuthorizationCaseSurrogate.identifier,
       type = this@RegulatedAuthorizationCaseSurrogate.type,
       status = this@RegulatedAuthorizationCaseSurrogate.status,
       date = this@RegulatedAuthorizationCaseSurrogate.date,
-      application = this@RegulatedAuthorizationCaseSurrogate.application ?: mutableListOf(),
+      application = this@RegulatedAuthorizationCaseSurrogate.application ?: listOf(),
     )
 
   public companion object {
@@ -122,22 +121,22 @@ internal data class RegulatedAuthorizationSurrogate(
   public var language: String? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: MutableList<Resource>? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var identifier: MutableList<Identifier>? = null,
-  public var subject: MutableList<Reference>? = null,
+  public var contained: List<Resource>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
+  public var identifier: List<Identifier>? = null,
+  public var subject: List<Reference>? = null,
   public var type: CodeableConcept? = null,
   public var description: String? = null,
   public var _description: Element? = null,
-  public var region: MutableList<CodeableConcept>? = null,
+  public var region: List<CodeableConcept>? = null,
   public var status: CodeableConcept? = null,
   public var statusDate: String? = null,
   public var _statusDate: Element? = null,
   public var validityPeriod: Period? = null,
   public var indication: CodeableReference? = null,
   public var intendedUse: CodeableConcept? = null,
-  public var basis: MutableList<CodeableConcept>? = null,
+  public var basis: List<CodeableConcept>? = null,
   public var holder: Reference? = null,
   public var regulator: Reference? = null,
   public var case: RegulatedAuthorization.Case? = null,
@@ -157,18 +156,18 @@ internal data class RegulatedAuthorizationSurrogate(
           this@RegulatedAuthorizationSurrogate._language,
         ),
       text = this@RegulatedAuthorizationSurrogate.text,
-      contained = this@RegulatedAuthorizationSurrogate.contained ?: mutableListOf(),
-      extension = this@RegulatedAuthorizationSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@RegulatedAuthorizationSurrogate.modifierExtension ?: mutableListOf(),
-      identifier = this@RegulatedAuthorizationSurrogate.identifier ?: mutableListOf(),
-      subject = this@RegulatedAuthorizationSurrogate.subject ?: mutableListOf(),
+      contained = this@RegulatedAuthorizationSurrogate.contained ?: listOf(),
+      extension = this@RegulatedAuthorizationSurrogate.extension ?: listOf(),
+      modifierExtension = this@RegulatedAuthorizationSurrogate.modifierExtension ?: listOf(),
+      identifier = this@RegulatedAuthorizationSurrogate.identifier ?: listOf(),
+      subject = this@RegulatedAuthorizationSurrogate.subject ?: listOf(),
       type = this@RegulatedAuthorizationSurrogate.type,
       description =
         Markdown.of(
           this@RegulatedAuthorizationSurrogate.description,
           this@RegulatedAuthorizationSurrogate._description,
         ),
-      region = this@RegulatedAuthorizationSurrogate.region ?: mutableListOf(),
+      region = this@RegulatedAuthorizationSurrogate.region ?: listOf(),
       status = this@RegulatedAuthorizationSurrogate.status,
       statusDate =
         DateTime.of(
@@ -178,7 +177,7 @@ internal data class RegulatedAuthorizationSurrogate(
       validityPeriod = this@RegulatedAuthorizationSurrogate.validityPeriod,
       indication = this@RegulatedAuthorizationSurrogate.indication,
       intendedUse = this@RegulatedAuthorizationSurrogate.intendedUse,
-      basis = this@RegulatedAuthorizationSurrogate.basis ?: mutableListOf(),
+      basis = this@RegulatedAuthorizationSurrogate.basis ?: listOf(),
       holder = this@RegulatedAuthorizationSurrogate.holder,
       regulator = this@RegulatedAuthorizationSurrogate.regulator,
       case = this@RegulatedAuthorizationSurrogate.case,

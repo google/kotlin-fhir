@@ -85,7 +85,7 @@ import kotlin.Double
 import kotlin.Int
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.datetime.LocalTime
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
@@ -93,8 +93,8 @@ import kotlinx.serialization.UseSerializers
 @Serializable
 internal data class StructureMapStructureSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var url: KotlinString? = null,
   public var _url: Element? = null,
   public var mode: KotlinString? = null,
@@ -107,8 +107,8 @@ internal data class StructureMapStructureSurrogate(
   public fun toModel(): StructureMap.Structure =
     StructureMap.Structure(
       id = this@StructureMapStructureSurrogate.id,
-      extension = this@StructureMapStructureSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@StructureMapStructureSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@StructureMapStructureSurrogate.extension ?: listOf(),
+      modifierExtension = this@StructureMapStructureSurrogate.modifierExtension ?: listOf(),
       url =
         Canonical.of(
           this@StructureMapStructureSurrogate.url,
@@ -154,8 +154,8 @@ internal data class StructureMapStructureSurrogate(
 @Serializable
 internal data class StructureMapGroupSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var name: KotlinString? = null,
   public var _name: Element? = null,
   public var extends: KotlinString? = null,
@@ -164,14 +164,14 @@ internal data class StructureMapGroupSurrogate(
   public var _typeMode: Element? = null,
   public var documentation: KotlinString? = null,
   public var _documentation: Element? = null,
-  public var input: MutableList<StructureMap.Group.Input>? = null,
-  public var rule: MutableList<StructureMap.Group.Rule>? = null,
+  public var input: List<StructureMap.Group.Input>? = null,
+  public var rule: List<StructureMap.Group.Rule>? = null,
 ) {
   public fun toModel(): StructureMap.Group =
     StructureMap.Group(
       id = this@StructureMapGroupSurrogate.id,
-      extension = this@StructureMapGroupSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@StructureMapGroupSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@StructureMapGroupSurrogate.extension ?: listOf(),
+      modifierExtension = this@StructureMapGroupSurrogate.modifierExtension ?: listOf(),
       name = Id.of(this@StructureMapGroupSurrogate.name, this@StructureMapGroupSurrogate._name)!!,
       extends =
         Id.of(this@StructureMapGroupSurrogate.extends, this@StructureMapGroupSurrogate._extends),
@@ -187,8 +187,8 @@ internal data class StructureMapGroupSurrogate(
           this@StructureMapGroupSurrogate.documentation,
           this@StructureMapGroupSurrogate._documentation,
         ),
-      input = this@StructureMapGroupSurrogate.input ?: mutableListOf(),
-      rule = this@StructureMapGroupSurrogate.rule ?: mutableListOf(),
+      input = this@StructureMapGroupSurrogate.input ?: listOf(),
+      rule = this@StructureMapGroupSurrogate.rule ?: listOf(),
     )
 
   public companion object {
@@ -216,8 +216,8 @@ internal data class StructureMapGroupSurrogate(
 @Serializable
 internal data class StructureMapGroupInputSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var name: KotlinString? = null,
   public var _name: Element? = null,
   public var type: KotlinString? = null,
@@ -230,8 +230,8 @@ internal data class StructureMapGroupInputSurrogate(
   public fun toModel(): StructureMap.Group.Input =
     StructureMap.Group.Input(
       id = this@StructureMapGroupInputSurrogate.id,
-      extension = this@StructureMapGroupInputSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@StructureMapGroupInputSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@StructureMapGroupInputSurrogate.extension ?: listOf(),
+      modifierExtension = this@StructureMapGroupInputSurrogate.modifierExtension ?: listOf(),
       name =
         Id.of(
           this@StructureMapGroupInputSurrogate.name,
@@ -277,31 +277,31 @@ internal data class StructureMapGroupInputSurrogate(
 @Serializable
 internal data class StructureMapGroupRuleSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var name: KotlinString? = null,
   public var _name: Element? = null,
-  public var source: MutableList<StructureMap.Group.Rule.Source>? = null,
-  public var target: MutableList<StructureMap.Group.Rule.Target>? = null,
-  public var rule: MutableList<StructureMap.Group.Rule>? = null,
-  public var dependent: MutableList<StructureMap.Group.Rule.Dependent>? = null,
+  public var source: List<StructureMap.Group.Rule.Source>? = null,
+  public var target: List<StructureMap.Group.Rule.Target>? = null,
+  public var rule: List<StructureMap.Group.Rule>? = null,
+  public var dependent: List<StructureMap.Group.Rule.Dependent>? = null,
   public var documentation: KotlinString? = null,
   public var _documentation: Element? = null,
 ) {
   public fun toModel(): StructureMap.Group.Rule =
     StructureMap.Group.Rule(
       id = this@StructureMapGroupRuleSurrogate.id,
-      extension = this@StructureMapGroupRuleSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@StructureMapGroupRuleSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@StructureMapGroupRuleSurrogate.extension ?: listOf(),
+      modifierExtension = this@StructureMapGroupRuleSurrogate.modifierExtension ?: listOf(),
       name =
         Id.of(
           this@StructureMapGroupRuleSurrogate.name,
           this@StructureMapGroupRuleSurrogate._name,
         )!!,
-      source = this@StructureMapGroupRuleSurrogate.source ?: mutableListOf(),
-      target = this@StructureMapGroupRuleSurrogate.target ?: mutableListOf(),
-      rule = this@StructureMapGroupRuleSurrogate.rule ?: mutableListOf(),
-      dependent = this@StructureMapGroupRuleSurrogate.dependent ?: mutableListOf(),
+      source = this@StructureMapGroupRuleSurrogate.source ?: listOf(),
+      target = this@StructureMapGroupRuleSurrogate.target ?: listOf(),
+      rule = this@StructureMapGroupRuleSurrogate.rule ?: listOf(),
+      dependent = this@StructureMapGroupRuleSurrogate.dependent ?: listOf(),
       documentation =
         R4bString.of(
           this@StructureMapGroupRuleSurrogate.documentation,
@@ -332,8 +332,8 @@ internal data class StructureMapGroupRuleSurrogate(
 @Serializable
 internal data class StructureMapGroupRuleSourceSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var context: KotlinString? = null,
   public var _context: Element? = null,
   public var min: Int? = null,
@@ -359,9 +359,8 @@ internal data class StructureMapGroupRuleSourceSurrogate(
   public fun toModel(): StructureMap.Group.Rule.Source =
     StructureMap.Group.Rule.Source(
       id = this@StructureMapGroupRuleSourceSurrogate.id,
-      extension = this@StructureMapGroupRuleSourceSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@StructureMapGroupRuleSourceSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@StructureMapGroupRuleSourceSurrogate.extension ?: listOf(),
+      modifierExtension = this@StructureMapGroupRuleSourceSurrogate.modifierExtension ?: listOf(),
       context =
         Id.of(
           this@StructureMapGroupRuleSourceSurrogate.context,
@@ -455,8 +454,8 @@ internal data class StructureMapGroupRuleSourceSurrogate(
 @Serializable
 internal data class StructureMapGroupRuleTargetSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var context: KotlinString? = null,
   public var _context: Element? = null,
   public var contextType: KotlinString? = null,
@@ -465,20 +464,19 @@ internal data class StructureMapGroupRuleTargetSurrogate(
   public var _element: Element? = null,
   public var variable: KotlinString? = null,
   public var _variable: Element? = null,
-  public var listMode: MutableList<KotlinString?>? = null,
-  public var _listMode: MutableList<Element?>? = null,
+  public var listMode: List<KotlinString?>? = null,
+  public var _listMode: List<Element?>? = null,
   public var listRuleId: KotlinString? = null,
   public var _listRuleId: Element? = null,
   public var transform: KotlinString? = null,
   public var _transform: Element? = null,
-  public var parameter: MutableList<StructureMap.Group.Rule.Target.Parameter>? = null,
+  public var parameter: List<StructureMap.Group.Rule.Target.Parameter>? = null,
 ) {
   public fun toModel(): StructureMap.Group.Rule.Target =
     StructureMap.Group.Rule.Target(
       id = this@StructureMapGroupRuleTargetSurrogate.id,
-      extension = this@StructureMapGroupRuleTargetSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@StructureMapGroupRuleTargetSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@StructureMapGroupRuleTargetSurrogate.extension ?: listOf(),
+      modifierExtension = this@StructureMapGroupRuleTargetSurrogate.modifierExtension ?: listOf(),
       context =
         Id.of(
           this@StructureMapGroupRuleTargetSurrogate.context,
@@ -506,7 +504,7 @@ internal data class StructureMapGroupRuleTargetSurrogate(
           this@StructureMapGroupRuleTargetSurrogate.listMode == null &&
             this@StructureMapGroupRuleTargetSurrogate._listMode == null
         ) {
-          mutableListOf()
+          listOf()
         } else {
           (this@StructureMapGroupRuleTargetSurrogate.listMode
               ?: List(this@StructureMapGroupRuleTargetSurrogate._listMode!!.size) { null })
@@ -520,7 +518,7 @@ internal data class StructureMapGroupRuleTargetSurrogate(
                 element,
               )
             }
-            .toMutableList()
+            .toList()
         },
       listRuleId =
         Id.of(
@@ -534,7 +532,7 @@ internal data class StructureMapGroupRuleTargetSurrogate(
             this@StructureMapGroupRuleTargetSurrogate._transform,
           )
         },
-      parameter = this@StructureMapGroupRuleTargetSurrogate.parameter ?: mutableListOf(),
+      parameter = this@StructureMapGroupRuleTargetSurrogate.parameter ?: listOf(),
     )
 
   public companion object {
@@ -557,14 +555,14 @@ internal data class StructureMapGroupRuleTargetSurrogate(
           listMode =
             this@with.listMode
               .map { it.value?.getCode() }
-              .toMutableList()
+              .toList()
               .takeUnless { it.all { it == null } },
           _listMode =
             this@with.listMode
               .map { it.toElement() }
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
-              ?.toMutableList(),
+              ?.toList(),
           listRuleId = this@with.listRuleId?.value,
           _listRuleId = this@with.listRuleId?.toElement(),
           transform = this@with.transform?.value?.getCode(),
@@ -578,16 +576,16 @@ internal data class StructureMapGroupRuleTargetSurrogate(
 @Serializable
 internal data class StructureMapGroupRuleTargetParameterSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var `value`: StructureMap.Group.Rule.Target.Parameter.Value,
 ) {
   public fun toModel(): StructureMap.Group.Rule.Target.Parameter =
     StructureMap.Group.Rule.Target.Parameter(
       id = this@StructureMapGroupRuleTargetParameterSurrogate.id,
-      extension = this@StructureMapGroupRuleTargetParameterSurrogate.extension ?: mutableListOf(),
+      extension = this@StructureMapGroupRuleTargetParameterSurrogate.extension ?: listOf(),
       modifierExtension =
-        this@StructureMapGroupRuleTargetParameterSurrogate.modifierExtension ?: mutableListOf(),
+        this@StructureMapGroupRuleTargetParameterSurrogate.modifierExtension ?: listOf(),
       `value` = this@StructureMapGroupRuleTargetParameterSurrogate.`value`,
     )
 
@@ -609,19 +607,19 @@ internal data class StructureMapGroupRuleTargetParameterSurrogate(
 @Serializable
 internal data class StructureMapGroupRuleDependentSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var name: KotlinString? = null,
   public var _name: Element? = null,
-  public var variable: MutableList<KotlinString?>? = null,
-  public var _variable: MutableList<Element?>? = null,
+  public var variable: List<KotlinString?>? = null,
+  public var _variable: List<Element?>? = null,
 ) {
   public fun toModel(): StructureMap.Group.Rule.Dependent =
     StructureMap.Group.Rule.Dependent(
       id = this@StructureMapGroupRuleDependentSurrogate.id,
-      extension = this@StructureMapGroupRuleDependentSurrogate.extension ?: mutableListOf(),
+      extension = this@StructureMapGroupRuleDependentSurrogate.extension ?: listOf(),
       modifierExtension =
-        this@StructureMapGroupRuleDependentSurrogate.modifierExtension ?: mutableListOf(),
+        this@StructureMapGroupRuleDependentSurrogate.modifierExtension ?: listOf(),
       name =
         Id.of(
           this@StructureMapGroupRuleDependentSurrogate.name,
@@ -632,7 +630,7 @@ internal data class StructureMapGroupRuleDependentSurrogate(
           this@StructureMapGroupRuleDependentSurrogate.variable == null &&
             this@StructureMapGroupRuleDependentSurrogate._variable == null
         ) {
-          mutableListOf()
+          listOf()
         } else {
           (this@StructureMapGroupRuleDependentSurrogate.variable
               ?: List(this@StructureMapGroupRuleDependentSurrogate._variable!!.size) { null })
@@ -641,7 +639,7 @@ internal data class StructureMapGroupRuleDependentSurrogate(
                 ?: List(this@StructureMapGroupRuleDependentSurrogate.variable!!.size) { null }
             )
             .map { (value, element) -> R4bString.of(value, element)!! }
-            .toMutableList()
+            .toList()
         },
     )
 
@@ -657,16 +655,13 @@ internal data class StructureMapGroupRuleDependentSurrogate(
           name = this@with.name.value,
           _name = this@with.name.toElement(),
           variable =
-            this@with.variable
-              .map { it.value }
-              .toMutableList()
-              .takeUnless { it.all { it == null } },
+            this@with.variable.map { it.value }.toList().takeUnless { it.all { it == null } },
           _variable =
             this@with.variable
               .map { it.toElement() }
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
-              ?.toMutableList(),
+              ?.toList(),
         )
       }
   }
@@ -1006,12 +1001,12 @@ internal data class StructureMapSurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: MutableList<Resource>? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var contained: List<Resource>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var url: KotlinString? = null,
   public var _url: Element? = null,
-  public var identifier: MutableList<Identifier>? = null,
+  public var identifier: List<Identifier>? = null,
   public var version: KotlinString? = null,
   public var _version: Element? = null,
   public var name: KotlinString? = null,
@@ -1026,19 +1021,19 @@ internal data class StructureMapSurrogate(
   public var _date: Element? = null,
   public var publisher: KotlinString? = null,
   public var _publisher: Element? = null,
-  public var contact: MutableList<ContactDetail>? = null,
+  public var contact: List<ContactDetail>? = null,
   public var description: KotlinString? = null,
   public var _description: Element? = null,
-  public var useContext: MutableList<UsageContext>? = null,
-  public var jurisdiction: MutableList<CodeableConcept>? = null,
+  public var useContext: List<UsageContext>? = null,
+  public var jurisdiction: List<CodeableConcept>? = null,
   public var purpose: KotlinString? = null,
   public var _purpose: Element? = null,
   public var copyright: KotlinString? = null,
   public var _copyright: Element? = null,
-  public var structure: MutableList<StructureMap.Structure>? = null,
-  public var `import`: MutableList<KotlinString?>? = null,
-  public var _import: MutableList<Element?>? = null,
-  public var group: MutableList<StructureMap.Group>? = null,
+  public var structure: List<StructureMap.Structure>? = null,
+  public var `import`: List<KotlinString?>? = null,
+  public var _import: List<Element?>? = null,
+  public var group: List<StructureMap.Group>? = null,
 ) {
   public fun toModel(): StructureMap =
     StructureMap(
@@ -1048,11 +1043,11 @@ internal data class StructureMapSurrogate(
         Uri.of(this@StructureMapSurrogate.implicitRules, this@StructureMapSurrogate._implicitRules),
       language = Code.of(this@StructureMapSurrogate.language, this@StructureMapSurrogate._language),
       text = this@StructureMapSurrogate.text,
-      contained = this@StructureMapSurrogate.contained ?: mutableListOf(),
-      extension = this@StructureMapSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@StructureMapSurrogate.modifierExtension ?: mutableListOf(),
+      contained = this@StructureMapSurrogate.contained ?: listOf(),
+      extension = this@StructureMapSurrogate.extension ?: listOf(),
+      modifierExtension = this@StructureMapSurrogate.modifierExtension ?: listOf(),
       url = Uri.of(this@StructureMapSurrogate.url, this@StructureMapSurrogate._url)!!,
-      identifier = this@StructureMapSurrogate.identifier ?: mutableListOf(),
+      identifier = this@StructureMapSurrogate.identifier ?: listOf(),
       version =
         R4bString.of(this@StructureMapSurrogate.version, this@StructureMapSurrogate._version),
       name = R4bString.of(this@StructureMapSurrogate.name, this@StructureMapSurrogate._name)!!,
@@ -1074,24 +1069,24 @@ internal data class StructureMapSurrogate(
         ),
       publisher =
         R4bString.of(this@StructureMapSurrogate.publisher, this@StructureMapSurrogate._publisher),
-      contact = this@StructureMapSurrogate.contact ?: mutableListOf(),
+      contact = this@StructureMapSurrogate.contact ?: listOf(),
       description =
         Markdown.of(
           this@StructureMapSurrogate.description,
           this@StructureMapSurrogate._description,
         ),
-      useContext = this@StructureMapSurrogate.useContext ?: mutableListOf(),
-      jurisdiction = this@StructureMapSurrogate.jurisdiction ?: mutableListOf(),
+      useContext = this@StructureMapSurrogate.useContext ?: listOf(),
+      jurisdiction = this@StructureMapSurrogate.jurisdiction ?: listOf(),
       purpose =
         Markdown.of(this@StructureMapSurrogate.purpose, this@StructureMapSurrogate._purpose),
       copyright =
         Markdown.of(this@StructureMapSurrogate.copyright, this@StructureMapSurrogate._copyright),
-      structure = this@StructureMapSurrogate.structure ?: mutableListOf(),
+      structure = this@StructureMapSurrogate.structure ?: listOf(),
       `import` =
         if (
           this@StructureMapSurrogate.`import` == null && this@StructureMapSurrogate._import == null
         ) {
-          mutableListOf()
+          listOf()
         } else {
           (this@StructureMapSurrogate.`import`
               ?: List(this@StructureMapSurrogate._import!!.size) { null })
@@ -1100,9 +1095,9 @@ internal data class StructureMapSurrogate(
                 ?: List(this@StructureMapSurrogate.`import`!!.size) { null }
             )
             .map { (value, element) -> Canonical.of(value, element)!! }
-            .toMutableList()
+            .toList()
         },
-      group = this@StructureMapSurrogate.group ?: mutableListOf(),
+      group = this@StructureMapSurrogate.group ?: listOf(),
     )
 
   public companion object {
@@ -1147,16 +1142,13 @@ internal data class StructureMapSurrogate(
           _copyright = this@with.copyright?.toElement(),
           structure = this@with.structure.takeIf { it.isNotEmpty() },
           `import` =
-            this@with.`import`
-              .map { it.value }
-              .toMutableList()
-              .takeUnless { it.all { it == null } },
+            this@with.`import`.map { it.value }.toList().takeUnless { it.all { it == null } },
           _import =
             this@with.`import`
               .map { it.toElement() }
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
-              ?.toMutableList(),
+              ?.toList(),
           group = this@with.group.takeIf { it.isNotEmpty() },
         )
       }

@@ -57,7 +57,7 @@ import kotlin.Double
 import kotlin.Int
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.datetime.LocalTime
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
@@ -65,8 +65,8 @@ import kotlinx.serialization.UseSerializers
 @Serializable
 internal data class ContractContentDefinitionSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var type: CodeableConcept,
   public var subType: CodeableConcept? = null,
   public var publisher: Reference? = null,
@@ -80,9 +80,8 @@ internal data class ContractContentDefinitionSurrogate(
   public fun toModel(): Contract.ContentDefinition =
     Contract.ContentDefinition(
       id = this@ContractContentDefinitionSurrogate.id,
-      extension = this@ContractContentDefinitionSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@ContractContentDefinitionSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@ContractContentDefinitionSurrogate.extension ?: listOf(),
+      modifierExtension = this@ContractContentDefinitionSurrogate.modifierExtension ?: listOf(),
       type = this@ContractContentDefinitionSurrogate.type,
       subType = this@ContractContentDefinitionSurrogate.subType,
       publisher = this@ContractContentDefinitionSurrogate.publisher,
@@ -129,8 +128,8 @@ internal data class ContractContentDefinitionSurrogate(
 @Serializable
 internal data class ContractTermSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var identifier: Identifier? = null,
   public var issued: KotlinString? = null,
   public var _issued: Element? = null,
@@ -140,17 +139,17 @@ internal data class ContractTermSurrogate(
   public var subType: CodeableConcept? = null,
   public var text: KotlinString? = null,
   public var _text: Element? = null,
-  public var securityLabel: MutableList<Contract.Term.SecurityLabel>? = null,
+  public var securityLabel: List<Contract.Term.SecurityLabel>? = null,
   public var offer: Contract.Term.Offer,
-  public var asset: MutableList<Contract.Term.Asset>? = null,
-  public var action: MutableList<Contract.Term.Action>? = null,
-  public var group: MutableList<Contract.Term>? = null,
+  public var asset: List<Contract.Term.Asset>? = null,
+  public var action: List<Contract.Term.Action>? = null,
+  public var group: List<Contract.Term>? = null,
 ) {
   public fun toModel(): Contract.Term =
     Contract.Term(
       id = this@ContractTermSurrogate.id,
-      extension = this@ContractTermSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@ContractTermSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@ContractTermSurrogate.extension ?: listOf(),
+      modifierExtension = this@ContractTermSurrogate.modifierExtension ?: listOf(),
       identifier = this@ContractTermSurrogate.identifier,
       issued =
         DateTime.of(
@@ -162,11 +161,11 @@ internal data class ContractTermSurrogate(
       type = this@ContractTermSurrogate.type,
       subType = this@ContractTermSurrogate.subType,
       text = R4bString.of(this@ContractTermSurrogate.text, this@ContractTermSurrogate._text),
-      securityLabel = this@ContractTermSurrogate.securityLabel ?: mutableListOf(),
+      securityLabel = this@ContractTermSurrogate.securityLabel ?: listOf(),
       offer = this@ContractTermSurrogate.offer,
-      asset = this@ContractTermSurrogate.asset ?: mutableListOf(),
-      action = this@ContractTermSurrogate.action ?: mutableListOf(),
-      group = this@ContractTermSurrogate.group ?: mutableListOf(),
+      asset = this@ContractTermSurrogate.asset ?: listOf(),
+      action = this@ContractTermSurrogate.action ?: listOf(),
+      group = this@ContractTermSurrogate.group ?: listOf(),
     )
 
   public companion object {
@@ -198,26 +197,25 @@ internal data class ContractTermSurrogate(
 @Serializable
 internal data class ContractTermSecurityLabelSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var number: MutableList<Int?>? = null,
-  public var _number: MutableList<Element?>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
+  public var number: List<Int?>? = null,
+  public var _number: List<Element?>? = null,
   public var classification: Coding,
-  public var category: MutableList<Coding>? = null,
-  public var control: MutableList<Coding>? = null,
+  public var category: List<Coding>? = null,
+  public var control: List<Coding>? = null,
 ) {
   public fun toModel(): Contract.Term.SecurityLabel =
     Contract.Term.SecurityLabel(
       id = this@ContractTermSecurityLabelSurrogate.id,
-      extension = this@ContractTermSecurityLabelSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@ContractTermSecurityLabelSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@ContractTermSecurityLabelSurrogate.extension ?: listOf(),
+      modifierExtension = this@ContractTermSecurityLabelSurrogate.modifierExtension ?: listOf(),
       number =
         if (
           this@ContractTermSecurityLabelSurrogate.number == null &&
             this@ContractTermSecurityLabelSurrogate._number == null
         ) {
-          mutableListOf()
+          listOf()
         } else {
           (this@ContractTermSecurityLabelSurrogate.number
               ?: List(this@ContractTermSecurityLabelSurrogate._number!!.size) { null })
@@ -226,11 +224,11 @@ internal data class ContractTermSecurityLabelSurrogate(
                 ?: List(this@ContractTermSecurityLabelSurrogate.number!!.size) { null }
             )
             .map { (value, element) -> UnsignedInt.of(value, element)!! }
-            .toMutableList()
+            .toList()
         },
       classification = this@ContractTermSecurityLabelSurrogate.classification,
-      category = this@ContractTermSecurityLabelSurrogate.category ?: mutableListOf(),
-      control = this@ContractTermSecurityLabelSurrogate.control ?: mutableListOf(),
+      category = this@ContractTermSecurityLabelSurrogate.category ?: listOf(),
+      control = this@ContractTermSecurityLabelSurrogate.control ?: listOf(),
     )
 
   public companion object {
@@ -240,14 +238,13 @@ internal data class ContractTermSecurityLabelSurrogate(
           id = this@with.id,
           extension = this@with.extension.takeIf { it.isNotEmpty() },
           modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
-          number =
-            this@with.number.map { it.value }.toMutableList().takeUnless { it.all { it == null } },
+          number = this@with.number.map { it.value }.toList().takeUnless { it.all { it == null } },
           _number =
             this@with.number
               .map { it.toElement() }
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
-              ?.toMutableList(),
+              ?.toList(),
           classification = this@with.classification,
           category = this@with.category.takeIf { it.isNotEmpty() },
           control = this@with.control.takeIf { it.isNotEmpty() },
@@ -259,34 +256,34 @@ internal data class ContractTermSecurityLabelSurrogate(
 @Serializable
 internal data class ContractTermOfferSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var identifier: MutableList<Identifier>? = null,
-  public var party: MutableList<Contract.Term.Offer.Party>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
+  public var identifier: List<Identifier>? = null,
+  public var party: List<Contract.Term.Offer.Party>? = null,
   public var topic: Reference? = null,
   public var type: CodeableConcept? = null,
   public var decision: CodeableConcept? = null,
-  public var decisionMode: MutableList<CodeableConcept>? = null,
-  public var answer: MutableList<Contract.Term.Offer.Answer>? = null,
+  public var decisionMode: List<CodeableConcept>? = null,
+  public var answer: List<Contract.Term.Offer.Answer>? = null,
   public var text: KotlinString? = null,
   public var _text: Element? = null,
-  public var linkId: MutableList<KotlinString?>? = null,
-  public var _linkId: MutableList<Element?>? = null,
-  public var securityLabelNumber: MutableList<Int?>? = null,
-  public var _securityLabelNumber: MutableList<Element?>? = null,
+  public var linkId: List<KotlinString?>? = null,
+  public var _linkId: List<Element?>? = null,
+  public var securityLabelNumber: List<Int?>? = null,
+  public var _securityLabelNumber: List<Element?>? = null,
 ) {
   public fun toModel(): Contract.Term.Offer =
     Contract.Term.Offer(
       id = this@ContractTermOfferSurrogate.id,
-      extension = this@ContractTermOfferSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@ContractTermOfferSurrogate.modifierExtension ?: mutableListOf(),
-      identifier = this@ContractTermOfferSurrogate.identifier ?: mutableListOf(),
-      party = this@ContractTermOfferSurrogate.party ?: mutableListOf(),
+      extension = this@ContractTermOfferSurrogate.extension ?: listOf(),
+      modifierExtension = this@ContractTermOfferSurrogate.modifierExtension ?: listOf(),
+      identifier = this@ContractTermOfferSurrogate.identifier ?: listOf(),
+      party = this@ContractTermOfferSurrogate.party ?: listOf(),
       topic = this@ContractTermOfferSurrogate.topic,
       type = this@ContractTermOfferSurrogate.type,
       decision = this@ContractTermOfferSurrogate.decision,
-      decisionMode = this@ContractTermOfferSurrogate.decisionMode ?: mutableListOf(),
-      answer = this@ContractTermOfferSurrogate.answer ?: mutableListOf(),
+      decisionMode = this@ContractTermOfferSurrogate.decisionMode ?: listOf(),
+      answer = this@ContractTermOfferSurrogate.answer ?: listOf(),
       text =
         R4bString.of(this@ContractTermOfferSurrogate.text, this@ContractTermOfferSurrogate._text),
       linkId =
@@ -294,7 +291,7 @@ internal data class ContractTermOfferSurrogate(
           this@ContractTermOfferSurrogate.linkId == null &&
             this@ContractTermOfferSurrogate._linkId == null
         ) {
-          mutableListOf()
+          listOf()
         } else {
           (this@ContractTermOfferSurrogate.linkId
               ?: List(this@ContractTermOfferSurrogate._linkId!!.size) { null })
@@ -303,14 +300,14 @@ internal data class ContractTermOfferSurrogate(
                 ?: List(this@ContractTermOfferSurrogate.linkId!!.size) { null }
             )
             .map { (value, element) -> R4bString.of(value, element)!! }
-            .toMutableList()
+            .toList()
         },
       securityLabelNumber =
         if (
           this@ContractTermOfferSurrogate.securityLabelNumber == null &&
             this@ContractTermOfferSurrogate._securityLabelNumber == null
         ) {
-          mutableListOf()
+          listOf()
         } else {
           (this@ContractTermOfferSurrogate.securityLabelNumber
               ?: List(this@ContractTermOfferSurrogate._securityLabelNumber!!.size) { null })
@@ -319,7 +316,7 @@ internal data class ContractTermOfferSurrogate(
                 ?: List(this@ContractTermOfferSurrogate.securityLabelNumber!!.size) { null }
             )
             .map { (value, element) -> UnsignedInt.of(value, element)!! }
-            .toMutableList()
+            .toList()
         },
     )
 
@@ -339,25 +336,24 @@ internal data class ContractTermOfferSurrogate(
           answer = this@with.answer.takeIf { it.isNotEmpty() },
           text = this@with.text?.value,
           _text = this@with.text?.toElement(),
-          linkId =
-            this@with.linkId.map { it.value }.toMutableList().takeUnless { it.all { it == null } },
+          linkId = this@with.linkId.map { it.value }.toList().takeUnless { it.all { it == null } },
           _linkId =
             this@with.linkId
               .map { it.toElement() }
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
-              ?.toMutableList(),
+              ?.toList(),
           securityLabelNumber =
             this@with.securityLabelNumber
               .map { it.value }
-              .toMutableList()
+              .toList()
               .takeUnless { it.all { it == null } },
           _securityLabelNumber =
             this@with.securityLabelNumber
               .map { it.toElement() }
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
-              ?.toMutableList(),
+              ?.toList(),
         )
       }
   }
@@ -366,17 +362,17 @@ internal data class ContractTermOfferSurrogate(
 @Serializable
 internal data class ContractTermOfferPartySurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var reference: MutableList<Reference>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
+  public var reference: List<Reference>? = null,
   public var role: CodeableConcept,
 ) {
   public fun toModel(): Contract.Term.Offer.Party =
     Contract.Term.Offer.Party(
       id = this@ContractTermOfferPartySurrogate.id,
-      extension = this@ContractTermOfferPartySurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@ContractTermOfferPartySurrogate.modifierExtension ?: mutableListOf(),
-      reference = this@ContractTermOfferPartySurrogate.reference ?: mutableListOf(),
+      extension = this@ContractTermOfferPartySurrogate.extension ?: listOf(),
+      modifierExtension = this@ContractTermOfferPartySurrogate.modifierExtension ?: listOf(),
+      reference = this@ContractTermOfferPartySurrogate.reference ?: listOf(),
       role = this@ContractTermOfferPartySurrogate.role,
     )
 
@@ -397,16 +393,15 @@ internal data class ContractTermOfferPartySurrogate(
 @Serializable
 internal data class ContractTermOfferAnswerSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var `value`: Contract.Term.Offer.Answer.Value,
 ) {
   public fun toModel(): Contract.Term.Offer.Answer =
     Contract.Term.Offer.Answer(
       id = this@ContractTermOfferAnswerSurrogate.id,
-      extension = this@ContractTermOfferAnswerSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@ContractTermOfferAnswerSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@ContractTermOfferAnswerSurrogate.extension ?: listOf(),
+      modifierExtension = this@ContractTermOfferAnswerSurrogate.modifierExtension ?: listOf(),
       `value` = this@ContractTermOfferAnswerSurrogate.`value`,
     )
 
@@ -426,47 +421,47 @@ internal data class ContractTermOfferAnswerSurrogate(
 @Serializable
 internal data class ContractTermAssetSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var scope: CodeableConcept? = null,
-  public var type: MutableList<CodeableConcept>? = null,
-  public var typeReference: MutableList<Reference>? = null,
-  public var subtype: MutableList<CodeableConcept>? = null,
+  public var type: List<CodeableConcept>? = null,
+  public var typeReference: List<Reference>? = null,
+  public var subtype: List<CodeableConcept>? = null,
   public var relationship: Coding? = null,
-  public var context: MutableList<Contract.Term.Asset.Context>? = null,
+  public var context: List<Contract.Term.Asset.Context>? = null,
   public var condition: KotlinString? = null,
   public var _condition: Element? = null,
-  public var periodType: MutableList<CodeableConcept>? = null,
-  public var period: MutableList<Period>? = null,
-  public var usePeriod: MutableList<Period>? = null,
+  public var periodType: List<CodeableConcept>? = null,
+  public var period: List<Period>? = null,
+  public var usePeriod: List<Period>? = null,
   public var text: KotlinString? = null,
   public var _text: Element? = null,
-  public var linkId: MutableList<KotlinString?>? = null,
-  public var _linkId: MutableList<Element?>? = null,
-  public var answer: MutableList<Contract.Term.Offer.Answer>? = null,
-  public var securityLabelNumber: MutableList<Int?>? = null,
-  public var _securityLabelNumber: MutableList<Element?>? = null,
-  public var valuedItem: MutableList<Contract.Term.Asset.ValuedItem>? = null,
+  public var linkId: List<KotlinString?>? = null,
+  public var _linkId: List<Element?>? = null,
+  public var answer: List<Contract.Term.Offer.Answer>? = null,
+  public var securityLabelNumber: List<Int?>? = null,
+  public var _securityLabelNumber: List<Element?>? = null,
+  public var valuedItem: List<Contract.Term.Asset.ValuedItem>? = null,
 ) {
   public fun toModel(): Contract.Term.Asset =
     Contract.Term.Asset(
       id = this@ContractTermAssetSurrogate.id,
-      extension = this@ContractTermAssetSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@ContractTermAssetSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@ContractTermAssetSurrogate.extension ?: listOf(),
+      modifierExtension = this@ContractTermAssetSurrogate.modifierExtension ?: listOf(),
       scope = this@ContractTermAssetSurrogate.scope,
-      type = this@ContractTermAssetSurrogate.type ?: mutableListOf(),
-      typeReference = this@ContractTermAssetSurrogate.typeReference ?: mutableListOf(),
-      subtype = this@ContractTermAssetSurrogate.subtype ?: mutableListOf(),
+      type = this@ContractTermAssetSurrogate.type ?: listOf(),
+      typeReference = this@ContractTermAssetSurrogate.typeReference ?: listOf(),
+      subtype = this@ContractTermAssetSurrogate.subtype ?: listOf(),
       relationship = this@ContractTermAssetSurrogate.relationship,
-      context = this@ContractTermAssetSurrogate.context ?: mutableListOf(),
+      context = this@ContractTermAssetSurrogate.context ?: listOf(),
       condition =
         R4bString.of(
           this@ContractTermAssetSurrogate.condition,
           this@ContractTermAssetSurrogate._condition,
         ),
-      periodType = this@ContractTermAssetSurrogate.periodType ?: mutableListOf(),
-      period = this@ContractTermAssetSurrogate.period ?: mutableListOf(),
-      usePeriod = this@ContractTermAssetSurrogate.usePeriod ?: mutableListOf(),
+      periodType = this@ContractTermAssetSurrogate.periodType ?: listOf(),
+      period = this@ContractTermAssetSurrogate.period ?: listOf(),
+      usePeriod = this@ContractTermAssetSurrogate.usePeriod ?: listOf(),
       text =
         R4bString.of(this@ContractTermAssetSurrogate.text, this@ContractTermAssetSurrogate._text),
       linkId =
@@ -474,7 +469,7 @@ internal data class ContractTermAssetSurrogate(
           this@ContractTermAssetSurrogate.linkId == null &&
             this@ContractTermAssetSurrogate._linkId == null
         ) {
-          mutableListOf()
+          listOf()
         } else {
           (this@ContractTermAssetSurrogate.linkId
               ?: List(this@ContractTermAssetSurrogate._linkId!!.size) { null })
@@ -483,15 +478,15 @@ internal data class ContractTermAssetSurrogate(
                 ?: List(this@ContractTermAssetSurrogate.linkId!!.size) { null }
             )
             .map { (value, element) -> R4bString.of(value, element)!! }
-            .toMutableList()
+            .toList()
         },
-      answer = this@ContractTermAssetSurrogate.answer ?: mutableListOf(),
+      answer = this@ContractTermAssetSurrogate.answer ?: listOf(),
       securityLabelNumber =
         if (
           this@ContractTermAssetSurrogate.securityLabelNumber == null &&
             this@ContractTermAssetSurrogate._securityLabelNumber == null
         ) {
-          mutableListOf()
+          listOf()
         } else {
           (this@ContractTermAssetSurrogate.securityLabelNumber
               ?: List(this@ContractTermAssetSurrogate._securityLabelNumber!!.size) { null })
@@ -500,9 +495,9 @@ internal data class ContractTermAssetSurrogate(
                 ?: List(this@ContractTermAssetSurrogate.securityLabelNumber!!.size) { null }
             )
             .map { (value, element) -> UnsignedInt.of(value, element)!! }
-            .toMutableList()
+            .toList()
         },
-      valuedItem = this@ContractTermAssetSurrogate.valuedItem ?: mutableListOf(),
+      valuedItem = this@ContractTermAssetSurrogate.valuedItem ?: listOf(),
     )
 
   public companion object {
@@ -525,26 +520,25 @@ internal data class ContractTermAssetSurrogate(
           usePeriod = this@with.usePeriod.takeIf { it.isNotEmpty() },
           text = this@with.text?.value,
           _text = this@with.text?.toElement(),
-          linkId =
-            this@with.linkId.map { it.value }.toMutableList().takeUnless { it.all { it == null } },
+          linkId = this@with.linkId.map { it.value }.toList().takeUnless { it.all { it == null } },
           _linkId =
             this@with.linkId
               .map { it.toElement() }
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
-              ?.toMutableList(),
+              ?.toList(),
           answer = this@with.answer.takeIf { it.isNotEmpty() },
           securityLabelNumber =
             this@with.securityLabelNumber
               .map { it.value }
-              .toMutableList()
+              .toList()
               .takeUnless { it.all { it == null } },
           _securityLabelNumber =
             this@with.securityLabelNumber
               .map { it.toElement() }
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
-              ?.toMutableList(),
+              ?.toList(),
           valuedItem = this@with.valuedItem.takeIf { it.isNotEmpty() },
         )
       }
@@ -554,21 +548,20 @@ internal data class ContractTermAssetSurrogate(
 @Serializable
 internal data class ContractTermAssetContextSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var reference: Reference? = null,
-  public var code: MutableList<CodeableConcept>? = null,
+  public var code: List<CodeableConcept>? = null,
   public var text: KotlinString? = null,
   public var _text: Element? = null,
 ) {
   public fun toModel(): Contract.Term.Asset.Context =
     Contract.Term.Asset.Context(
       id = this@ContractTermAssetContextSurrogate.id,
-      extension = this@ContractTermAssetContextSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@ContractTermAssetContextSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@ContractTermAssetContextSurrogate.extension ?: listOf(),
+      modifierExtension = this@ContractTermAssetContextSurrogate.modifierExtension ?: listOf(),
       reference = this@ContractTermAssetContextSurrogate.reference,
-      code = this@ContractTermAssetContextSurrogate.code ?: mutableListOf(),
+      code = this@ContractTermAssetContextSurrogate.code ?: listOf(),
       text =
         R4bString.of(
           this@ContractTermAssetContextSurrogate.text,
@@ -595,8 +588,8 @@ internal data class ContractTermAssetContextSurrogate(
 @Serializable
 internal data class ContractTermAssetValuedItemSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var entity: Contract.Term.Asset.ValuedItem.Entity? = null,
   public var identifier: Identifier? = null,
   public var effectiveTime: KotlinString? = null,
@@ -614,17 +607,16 @@ internal data class ContractTermAssetValuedItemSurrogate(
   public var _paymentDate: Element? = null,
   public var responsible: Reference? = null,
   public var recipient: Reference? = null,
-  public var linkId: MutableList<KotlinString?>? = null,
-  public var _linkId: MutableList<Element?>? = null,
-  public var securityLabelNumber: MutableList<Int?>? = null,
-  public var _securityLabelNumber: MutableList<Element?>? = null,
+  public var linkId: List<KotlinString?>? = null,
+  public var _linkId: List<Element?>? = null,
+  public var securityLabelNumber: List<Int?>? = null,
+  public var _securityLabelNumber: List<Element?>? = null,
 ) {
   public fun toModel(): Contract.Term.Asset.ValuedItem =
     Contract.Term.Asset.ValuedItem(
       id = this@ContractTermAssetValuedItemSurrogate.id,
-      extension = this@ContractTermAssetValuedItemSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@ContractTermAssetValuedItemSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@ContractTermAssetValuedItemSurrogate.extension ?: listOf(),
+      modifierExtension = this@ContractTermAssetValuedItemSurrogate.modifierExtension ?: listOf(),
       entity = this@ContractTermAssetValuedItemSurrogate.entity,
       identifier = this@ContractTermAssetValuedItemSurrogate.identifier,
       effectiveTime =
@@ -662,7 +654,7 @@ internal data class ContractTermAssetValuedItemSurrogate(
           this@ContractTermAssetValuedItemSurrogate.linkId == null &&
             this@ContractTermAssetValuedItemSurrogate._linkId == null
         ) {
-          mutableListOf()
+          listOf()
         } else {
           (this@ContractTermAssetValuedItemSurrogate.linkId
               ?: List(this@ContractTermAssetValuedItemSurrogate._linkId!!.size) { null })
@@ -671,14 +663,14 @@ internal data class ContractTermAssetValuedItemSurrogate(
                 ?: List(this@ContractTermAssetValuedItemSurrogate.linkId!!.size) { null }
             )
             .map { (value, element) -> R4bString.of(value, element)!! }
-            .toMutableList()
+            .toList()
         },
       securityLabelNumber =
         if (
           this@ContractTermAssetValuedItemSurrogate.securityLabelNumber == null &&
             this@ContractTermAssetValuedItemSurrogate._securityLabelNumber == null
         ) {
-          mutableListOf()
+          listOf()
         } else {
           (this@ContractTermAssetValuedItemSurrogate.securityLabelNumber
               ?: List(this@ContractTermAssetValuedItemSurrogate._securityLabelNumber!!.size) {
@@ -691,7 +683,7 @@ internal data class ContractTermAssetValuedItemSurrogate(
                 }
             )
             .map { (value, element) -> UnsignedInt.of(value, element)!! }
-            .toMutableList()
+            .toList()
         },
     )
 
@@ -721,25 +713,24 @@ internal data class ContractTermAssetValuedItemSurrogate(
           _paymentDate = this@with.paymentDate?.toElement(),
           responsible = this@with.responsible,
           recipient = this@with.recipient,
-          linkId =
-            this@with.linkId.map { it.value }.toMutableList().takeUnless { it.all { it == null } },
+          linkId = this@with.linkId.map { it.value }.toList().takeUnless { it.all { it == null } },
           _linkId =
             this@with.linkId
               .map { it.toElement() }
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
-              ?.toMutableList(),
+              ?.toList(),
           securityLabelNumber =
             this@with.securityLabelNumber
               .map { it.value }
-              .toMutableList()
+              .toList()
               .takeUnless { it.all { it == null } },
           _securityLabelNumber =
             this@with.securityLabelNumber
               .map { it.toElement() }
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
-              ?.toMutableList(),
+              ?.toList(),
         )
       }
   }
@@ -748,57 +739,57 @@ internal data class ContractTermAssetValuedItemSurrogate(
 @Serializable
 internal data class ContractTermActionSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var doNotPerform: KotlinBoolean? = null,
   public var _doNotPerform: Element? = null,
   public var type: CodeableConcept,
-  public var subject: MutableList<Contract.Term.Action.Subject>? = null,
+  public var subject: List<Contract.Term.Action.Subject>? = null,
   public var intent: CodeableConcept,
-  public var linkId: MutableList<KotlinString?>? = null,
-  public var _linkId: MutableList<Element?>? = null,
+  public var linkId: List<KotlinString?>? = null,
+  public var _linkId: List<Element?>? = null,
   public var status: CodeableConcept,
   public var context: Reference? = null,
-  public var contextLinkId: MutableList<KotlinString?>? = null,
-  public var _contextLinkId: MutableList<Element?>? = null,
+  public var contextLinkId: List<KotlinString?>? = null,
+  public var _contextLinkId: List<Element?>? = null,
   public var occurrence: Contract.Term.Action.Occurrence? = null,
-  public var requester: MutableList<Reference>? = null,
-  public var requesterLinkId: MutableList<KotlinString?>? = null,
-  public var _requesterLinkId: MutableList<Element?>? = null,
-  public var performerType: MutableList<CodeableConcept>? = null,
+  public var requester: List<Reference>? = null,
+  public var requesterLinkId: List<KotlinString?>? = null,
+  public var _requesterLinkId: List<Element?>? = null,
+  public var performerType: List<CodeableConcept>? = null,
   public var performerRole: CodeableConcept? = null,
   public var performer: Reference? = null,
-  public var performerLinkId: MutableList<KotlinString?>? = null,
-  public var _performerLinkId: MutableList<Element?>? = null,
-  public var reasonCode: MutableList<CodeableConcept>? = null,
-  public var reasonReference: MutableList<Reference>? = null,
-  public var reason: MutableList<KotlinString?>? = null,
-  public var _reason: MutableList<Element?>? = null,
-  public var reasonLinkId: MutableList<KotlinString?>? = null,
-  public var _reasonLinkId: MutableList<Element?>? = null,
-  public var note: MutableList<Annotation>? = null,
-  public var securityLabelNumber: MutableList<Int?>? = null,
-  public var _securityLabelNumber: MutableList<Element?>? = null,
+  public var performerLinkId: List<KotlinString?>? = null,
+  public var _performerLinkId: List<Element?>? = null,
+  public var reasonCode: List<CodeableConcept>? = null,
+  public var reasonReference: List<Reference>? = null,
+  public var reason: List<KotlinString?>? = null,
+  public var _reason: List<Element?>? = null,
+  public var reasonLinkId: List<KotlinString?>? = null,
+  public var _reasonLinkId: List<Element?>? = null,
+  public var note: List<Annotation>? = null,
+  public var securityLabelNumber: List<Int?>? = null,
+  public var _securityLabelNumber: List<Element?>? = null,
 ) {
   public fun toModel(): Contract.Term.Action =
     Contract.Term.Action(
       id = this@ContractTermActionSurrogate.id,
-      extension = this@ContractTermActionSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@ContractTermActionSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@ContractTermActionSurrogate.extension ?: listOf(),
+      modifierExtension = this@ContractTermActionSurrogate.modifierExtension ?: listOf(),
       doNotPerform =
         R4bBoolean.of(
           this@ContractTermActionSurrogate.doNotPerform,
           this@ContractTermActionSurrogate._doNotPerform,
         ),
       type = this@ContractTermActionSurrogate.type,
-      subject = this@ContractTermActionSurrogate.subject ?: mutableListOf(),
+      subject = this@ContractTermActionSurrogate.subject ?: listOf(),
       intent = this@ContractTermActionSurrogate.intent,
       linkId =
         if (
           this@ContractTermActionSurrogate.linkId == null &&
             this@ContractTermActionSurrogate._linkId == null
         ) {
-          mutableListOf()
+          listOf()
         } else {
           (this@ContractTermActionSurrogate.linkId
               ?: List(this@ContractTermActionSurrogate._linkId!!.size) { null })
@@ -807,7 +798,7 @@ internal data class ContractTermActionSurrogate(
                 ?: List(this@ContractTermActionSurrogate.linkId!!.size) { null }
             )
             .map { (value, element) -> R4bString.of(value, element)!! }
-            .toMutableList()
+            .toList()
         },
       status = this@ContractTermActionSurrogate.status,
       context = this@ContractTermActionSurrogate.context,
@@ -816,7 +807,7 @@ internal data class ContractTermActionSurrogate(
           this@ContractTermActionSurrogate.contextLinkId == null &&
             this@ContractTermActionSurrogate._contextLinkId == null
         ) {
-          mutableListOf()
+          listOf()
         } else {
           (this@ContractTermActionSurrogate.contextLinkId
               ?: List(this@ContractTermActionSurrogate._contextLinkId!!.size) { null })
@@ -825,16 +816,16 @@ internal data class ContractTermActionSurrogate(
                 ?: List(this@ContractTermActionSurrogate.contextLinkId!!.size) { null }
             )
             .map { (value, element) -> R4bString.of(value, element)!! }
-            .toMutableList()
+            .toList()
         },
       occurrence = this@ContractTermActionSurrogate.occurrence,
-      requester = this@ContractTermActionSurrogate.requester ?: mutableListOf(),
+      requester = this@ContractTermActionSurrogate.requester ?: listOf(),
       requesterLinkId =
         if (
           this@ContractTermActionSurrogate.requesterLinkId == null &&
             this@ContractTermActionSurrogate._requesterLinkId == null
         ) {
-          mutableListOf()
+          listOf()
         } else {
           (this@ContractTermActionSurrogate.requesterLinkId
               ?: List(this@ContractTermActionSurrogate._requesterLinkId!!.size) { null })
@@ -843,9 +834,9 @@ internal data class ContractTermActionSurrogate(
                 ?: List(this@ContractTermActionSurrogate.requesterLinkId!!.size) { null }
             )
             .map { (value, element) -> R4bString.of(value, element)!! }
-            .toMutableList()
+            .toList()
         },
-      performerType = this@ContractTermActionSurrogate.performerType ?: mutableListOf(),
+      performerType = this@ContractTermActionSurrogate.performerType ?: listOf(),
       performerRole = this@ContractTermActionSurrogate.performerRole,
       performer = this@ContractTermActionSurrogate.performer,
       performerLinkId =
@@ -853,7 +844,7 @@ internal data class ContractTermActionSurrogate(
           this@ContractTermActionSurrogate.performerLinkId == null &&
             this@ContractTermActionSurrogate._performerLinkId == null
         ) {
-          mutableListOf()
+          listOf()
         } else {
           (this@ContractTermActionSurrogate.performerLinkId
               ?: List(this@ContractTermActionSurrogate._performerLinkId!!.size) { null })
@@ -862,16 +853,16 @@ internal data class ContractTermActionSurrogate(
                 ?: List(this@ContractTermActionSurrogate.performerLinkId!!.size) { null }
             )
             .map { (value, element) -> R4bString.of(value, element)!! }
-            .toMutableList()
+            .toList()
         },
-      reasonCode = this@ContractTermActionSurrogate.reasonCode ?: mutableListOf(),
-      reasonReference = this@ContractTermActionSurrogate.reasonReference ?: mutableListOf(),
+      reasonCode = this@ContractTermActionSurrogate.reasonCode ?: listOf(),
+      reasonReference = this@ContractTermActionSurrogate.reasonReference ?: listOf(),
       reason =
         if (
           this@ContractTermActionSurrogate.reason == null &&
             this@ContractTermActionSurrogate._reason == null
         ) {
-          mutableListOf()
+          listOf()
         } else {
           (this@ContractTermActionSurrogate.reason
               ?: List(this@ContractTermActionSurrogate._reason!!.size) { null })
@@ -880,14 +871,14 @@ internal data class ContractTermActionSurrogate(
                 ?: List(this@ContractTermActionSurrogate.reason!!.size) { null }
             )
             .map { (value, element) -> R4bString.of(value, element)!! }
-            .toMutableList()
+            .toList()
         },
       reasonLinkId =
         if (
           this@ContractTermActionSurrogate.reasonLinkId == null &&
             this@ContractTermActionSurrogate._reasonLinkId == null
         ) {
-          mutableListOf()
+          listOf()
         } else {
           (this@ContractTermActionSurrogate.reasonLinkId
               ?: List(this@ContractTermActionSurrogate._reasonLinkId!!.size) { null })
@@ -896,15 +887,15 @@ internal data class ContractTermActionSurrogate(
                 ?: List(this@ContractTermActionSurrogate.reasonLinkId!!.size) { null }
             )
             .map { (value, element) -> R4bString.of(value, element)!! }
-            .toMutableList()
+            .toList()
         },
-      note = this@ContractTermActionSurrogate.note ?: mutableListOf(),
+      note = this@ContractTermActionSurrogate.note ?: listOf(),
       securityLabelNumber =
         if (
           this@ContractTermActionSurrogate.securityLabelNumber == null &&
             this@ContractTermActionSurrogate._securityLabelNumber == null
         ) {
-          mutableListOf()
+          listOf()
         } else {
           (this@ContractTermActionSurrogate.securityLabelNumber
               ?: List(this@ContractTermActionSurrogate._securityLabelNumber!!.size) { null })
@@ -913,7 +904,7 @@ internal data class ContractTermActionSurrogate(
                 ?: List(this@ContractTermActionSurrogate.securityLabelNumber!!.size) { null }
             )
             .map { (value, element) -> UnsignedInt.of(value, element)!! }
-            .toMutableList()
+            .toList()
         },
     )
 
@@ -929,87 +920,79 @@ internal data class ContractTermActionSurrogate(
           type = this@with.type,
           subject = this@with.subject.takeIf { it.isNotEmpty() },
           intent = this@with.intent,
-          linkId =
-            this@with.linkId.map { it.value }.toMutableList().takeUnless { it.all { it == null } },
+          linkId = this@with.linkId.map { it.value }.toList().takeUnless { it.all { it == null } },
           _linkId =
             this@with.linkId
               .map { it.toElement() }
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
-              ?.toMutableList(),
+              ?.toList(),
           status = this@with.status,
           context = this@with.context,
           contextLinkId =
-            this@with.contextLinkId
-              .map { it.value }
-              .toMutableList()
-              .takeUnless { it.all { it == null } },
+            this@with.contextLinkId.map { it.value }.toList().takeUnless { it.all { it == null } },
           _contextLinkId =
             this@with.contextLinkId
               .map { it.toElement() }
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
-              ?.toMutableList(),
+              ?.toList(),
           occurrence = this@with.occurrence,
           requester = this@with.requester.takeIf { it.isNotEmpty() },
           requesterLinkId =
             this@with.requesterLinkId
               .map { it.value }
-              .toMutableList()
+              .toList()
               .takeUnless { it.all { it == null } },
           _requesterLinkId =
             this@with.requesterLinkId
               .map { it.toElement() }
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
-              ?.toMutableList(),
+              ?.toList(),
           performerType = this@with.performerType.takeIf { it.isNotEmpty() },
           performerRole = this@with.performerRole,
           performer = this@with.performer,
           performerLinkId =
             this@with.performerLinkId
               .map { it.value }
-              .toMutableList()
+              .toList()
               .takeUnless { it.all { it == null } },
           _performerLinkId =
             this@with.performerLinkId
               .map { it.toElement() }
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
-              ?.toMutableList(),
+              ?.toList(),
           reasonCode = this@with.reasonCode.takeIf { it.isNotEmpty() },
           reasonReference = this@with.reasonReference.takeIf { it.isNotEmpty() },
-          reason =
-            this@with.reason.map { it.value }.toMutableList().takeUnless { it.all { it == null } },
+          reason = this@with.reason.map { it.value }.toList().takeUnless { it.all { it == null } },
           _reason =
             this@with.reason
               .map { it.toElement() }
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
-              ?.toMutableList(),
+              ?.toList(),
           reasonLinkId =
-            this@with.reasonLinkId
-              .map { it.value }
-              .toMutableList()
-              .takeUnless { it.all { it == null } },
+            this@with.reasonLinkId.map { it.value }.toList().takeUnless { it.all { it == null } },
           _reasonLinkId =
             this@with.reasonLinkId
               .map { it.toElement() }
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
-              ?.toMutableList(),
+              ?.toList(),
           note = this@with.note.takeIf { it.isNotEmpty() },
           securityLabelNumber =
             this@with.securityLabelNumber
               .map { it.value }
-              .toMutableList()
+              .toList()
               .takeUnless { it.all { it == null } },
           _securityLabelNumber =
             this@with.securityLabelNumber
               .map { it.toElement() }
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
-              ?.toMutableList(),
+              ?.toList(),
         )
       }
   }
@@ -1018,18 +1001,17 @@ internal data class ContractTermActionSurrogate(
 @Serializable
 internal data class ContractTermActionSubjectSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var reference: MutableList<Reference>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
+  public var reference: List<Reference>? = null,
   public var role: CodeableConcept? = null,
 ) {
   public fun toModel(): Contract.Term.Action.Subject =
     Contract.Term.Action.Subject(
       id = this@ContractTermActionSubjectSurrogate.id,
-      extension = this@ContractTermActionSubjectSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@ContractTermActionSubjectSurrogate.modifierExtension ?: mutableListOf(),
-      reference = this@ContractTermActionSubjectSurrogate.reference ?: mutableListOf(),
+      extension = this@ContractTermActionSubjectSurrogate.extension ?: listOf(),
+      modifierExtension = this@ContractTermActionSubjectSurrogate.modifierExtension ?: listOf(),
+      reference = this@ContractTermActionSubjectSurrogate.reference ?: listOf(),
       role = this@ContractTermActionSubjectSurrogate.role,
     )
 
@@ -1050,20 +1032,20 @@ internal data class ContractTermActionSubjectSurrogate(
 @Serializable
 internal data class ContractSignerSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var type: Coding,
   public var party: Reference,
-  public var signature: MutableList<Signature>? = null,
+  public var signature: List<Signature>? = null,
 ) {
   public fun toModel(): Contract.Signer =
     Contract.Signer(
       id = this@ContractSignerSurrogate.id,
-      extension = this@ContractSignerSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@ContractSignerSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@ContractSignerSurrogate.extension ?: listOf(),
+      modifierExtension = this@ContractSignerSurrogate.modifierExtension ?: listOf(),
       type = this@ContractSignerSurrogate.type,
       party = this@ContractSignerSurrogate.party,
-      signature = this@ContractSignerSurrogate.signature ?: mutableListOf(),
+      signature = this@ContractSignerSurrogate.signature ?: listOf(),
     )
 
   public companion object {
@@ -1084,15 +1066,15 @@ internal data class ContractSignerSurrogate(
 @Serializable
 internal data class ContractFriendlySurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var content: Contract.Friendly.Content,
 ) {
   public fun toModel(): Contract.Friendly =
     Contract.Friendly(
       id = this@ContractFriendlySurrogate.id,
-      extension = this@ContractFriendlySurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@ContractFriendlySurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@ContractFriendlySurrogate.extension ?: listOf(),
+      modifierExtension = this@ContractFriendlySurrogate.modifierExtension ?: listOf(),
       content = this@ContractFriendlySurrogate.content,
     )
 
@@ -1112,15 +1094,15 @@ internal data class ContractFriendlySurrogate(
 @Serializable
 internal data class ContractLegalSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var content: Contract.Legal.Content,
 ) {
   public fun toModel(): Contract.Legal =
     Contract.Legal(
       id = this@ContractLegalSurrogate.id,
-      extension = this@ContractLegalSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@ContractLegalSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@ContractLegalSurrogate.extension ?: listOf(),
+      modifierExtension = this@ContractLegalSurrogate.modifierExtension ?: listOf(),
       content = this@ContractLegalSurrogate.content,
     )
 
@@ -1140,15 +1122,15 @@ internal data class ContractLegalSurrogate(
 @Serializable
 internal data class ContractRuleSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var content: Contract.Rule.Content,
 ) {
   public fun toModel(): Contract.Rule =
     Contract.Rule(
       id = this@ContractRuleSurrogate.id,
-      extension = this@ContractRuleSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@ContractRuleSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@ContractRuleSurrogate.extension ?: listOf(),
+      modifierExtension = this@ContractRuleSurrogate.modifierExtension ?: listOf(),
       content = this@ContractRuleSurrogate.content,
     )
 
@@ -1456,10 +1438,10 @@ internal data class ContractSurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: MutableList<Resource>? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var identifier: MutableList<Identifier>? = null,
+  public var contained: List<Resource>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
+  public var identifier: List<Identifier>? = null,
   public var url: KotlinString? = null,
   public var _url: Element? = null,
   public var version: KotlinString? = null,
@@ -1475,31 +1457,31 @@ internal data class ContractSurrogate(
   public var _issued: Element? = null,
   public var applies: Period? = null,
   public var expirationType: CodeableConcept? = null,
-  public var subject: MutableList<Reference>? = null,
-  public var authority: MutableList<Reference>? = null,
-  public var domain: MutableList<Reference>? = null,
-  public var site: MutableList<Reference>? = null,
+  public var subject: List<Reference>? = null,
+  public var authority: List<Reference>? = null,
+  public var domain: List<Reference>? = null,
+  public var site: List<Reference>? = null,
   public var name: KotlinString? = null,
   public var _name: Element? = null,
   public var title: KotlinString? = null,
   public var _title: Element? = null,
   public var subtitle: KotlinString? = null,
   public var _subtitle: Element? = null,
-  public var alias: MutableList<KotlinString?>? = null,
-  public var _alias: MutableList<Element?>? = null,
+  public var alias: List<KotlinString?>? = null,
+  public var _alias: List<Element?>? = null,
   public var author: Reference? = null,
   public var scope: CodeableConcept? = null,
   public var topic: Contract.Topic? = null,
   public var type: CodeableConcept? = null,
-  public var subType: MutableList<CodeableConcept>? = null,
+  public var subType: List<CodeableConcept>? = null,
   public var contentDefinition: Contract.ContentDefinition? = null,
-  public var term: MutableList<Contract.Term>? = null,
-  public var supportingInfo: MutableList<Reference>? = null,
-  public var relevantHistory: MutableList<Reference>? = null,
-  public var signer: MutableList<Contract.Signer>? = null,
-  public var friendly: MutableList<Contract.Friendly>? = null,
-  public var legal: MutableList<Contract.Legal>? = null,
-  public var rule: MutableList<Contract.Rule>? = null,
+  public var term: List<Contract.Term>? = null,
+  public var supportingInfo: List<Reference>? = null,
+  public var relevantHistory: List<Reference>? = null,
+  public var signer: List<Contract.Signer>? = null,
+  public var friendly: List<Contract.Friendly>? = null,
+  public var legal: List<Contract.Legal>? = null,
+  public var rule: List<Contract.Rule>? = null,
   public var legallyBinding: Contract.LegallyBinding? = null,
 ) {
   public fun toModel(): Contract =
@@ -1510,10 +1492,10 @@ internal data class ContractSurrogate(
         Uri.of(this@ContractSurrogate.implicitRules, this@ContractSurrogate._implicitRules),
       language = Code.of(this@ContractSurrogate.language, this@ContractSurrogate._language),
       text = this@ContractSurrogate.text,
-      contained = this@ContractSurrogate.contained ?: mutableListOf(),
-      extension = this@ContractSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@ContractSurrogate.modifierExtension ?: mutableListOf(),
-      identifier = this@ContractSurrogate.identifier ?: mutableListOf(),
+      contained = this@ContractSurrogate.contained ?: listOf(),
+      extension = this@ContractSurrogate.extension ?: listOf(),
+      modifierExtension = this@ContractSurrogate.modifierExtension ?: listOf(),
+      identifier = this@ContractSurrogate.identifier ?: listOf(),
       url = Uri.of(this@ContractSurrogate.url, this@ContractSurrogate._url),
       version = R4bString.of(this@ContractSurrogate.version, this@ContractSurrogate._version),
       status =
@@ -1535,37 +1517,37 @@ internal data class ContractSurrogate(
         ),
       applies = this@ContractSurrogate.applies,
       expirationType = this@ContractSurrogate.expirationType,
-      subject = this@ContractSurrogate.subject ?: mutableListOf(),
-      authority = this@ContractSurrogate.authority ?: mutableListOf(),
-      domain = this@ContractSurrogate.domain ?: mutableListOf(),
-      site = this@ContractSurrogate.site ?: mutableListOf(),
+      subject = this@ContractSurrogate.subject ?: listOf(),
+      authority = this@ContractSurrogate.authority ?: listOf(),
+      domain = this@ContractSurrogate.domain ?: listOf(),
+      site = this@ContractSurrogate.site ?: listOf(),
       name = R4bString.of(this@ContractSurrogate.name, this@ContractSurrogate._name),
       title = R4bString.of(this@ContractSurrogate.title, this@ContractSurrogate._title),
       subtitle = R4bString.of(this@ContractSurrogate.subtitle, this@ContractSurrogate._subtitle),
       alias =
         if (this@ContractSurrogate.alias == null && this@ContractSurrogate._alias == null) {
-          mutableListOf()
+          listOf()
         } else {
           (this@ContractSurrogate.alias ?: List(this@ContractSurrogate._alias!!.size) { null })
             .zip(
               this@ContractSurrogate._alias ?: List(this@ContractSurrogate.alias!!.size) { null }
             )
             .map { (value, element) -> R4bString.of(value, element)!! }
-            .toMutableList()
+            .toList()
         },
       author = this@ContractSurrogate.author,
       scope = this@ContractSurrogate.scope,
       topic = this@ContractSurrogate.topic,
       type = this@ContractSurrogate.type,
-      subType = this@ContractSurrogate.subType ?: mutableListOf(),
+      subType = this@ContractSurrogate.subType ?: listOf(),
       contentDefinition = this@ContractSurrogate.contentDefinition,
-      term = this@ContractSurrogate.term ?: mutableListOf(),
-      supportingInfo = this@ContractSurrogate.supportingInfo ?: mutableListOf(),
-      relevantHistory = this@ContractSurrogate.relevantHistory ?: mutableListOf(),
-      signer = this@ContractSurrogate.signer ?: mutableListOf(),
-      friendly = this@ContractSurrogate.friendly ?: mutableListOf(),
-      legal = this@ContractSurrogate.legal ?: mutableListOf(),
-      rule = this@ContractSurrogate.rule ?: mutableListOf(),
+      term = this@ContractSurrogate.term ?: listOf(),
+      supportingInfo = this@ContractSurrogate.supportingInfo ?: listOf(),
+      relevantHistory = this@ContractSurrogate.relevantHistory ?: listOf(),
+      signer = this@ContractSurrogate.signer ?: listOf(),
+      friendly = this@ContractSurrogate.friendly ?: listOf(),
+      legal = this@ContractSurrogate.legal ?: listOf(),
+      rule = this@ContractSurrogate.rule ?: listOf(),
       legallyBinding = this@ContractSurrogate.legallyBinding,
     )
 
@@ -1609,14 +1591,13 @@ internal data class ContractSurrogate(
           _title = this@with.title?.toElement(),
           subtitle = this@with.subtitle?.value,
           _subtitle = this@with.subtitle?.toElement(),
-          alias =
-            this@with.alias.map { it.value }.toMutableList().takeUnless { it.all { it == null } },
+          alias = this@with.alias.map { it.value }.toList().takeUnless { it.all { it == null } },
           _alias =
             this@with.alias
               .map { it.toElement() }
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
-              ?.toMutableList(),
+              ?.toList(),
           author = this@with.author,
           scope = this@with.scope,
           topic = this@with.topic,

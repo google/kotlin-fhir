@@ -46,24 +46,24 @@ import com.google.fhir.model.r5.terminologies.PublicationStatus
 import kotlin.Boolean as KotlinBoolean
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class ConditionDefinitionObservationSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var category: CodeableConcept? = null,
   public var code: CodeableConcept? = null,
 ) {
   public fun toModel(): ConditionDefinition.Observation =
     ConditionDefinition.Observation(
       id = this@ConditionDefinitionObservationSurrogate.id,
-      extension = this@ConditionDefinitionObservationSurrogate.extension ?: mutableListOf(),
+      extension = this@ConditionDefinitionObservationSurrogate.extension ?: listOf(),
       modifierExtension =
-        this@ConditionDefinitionObservationSurrogate.modifierExtension ?: mutableListOf(),
+        this@ConditionDefinitionObservationSurrogate.modifierExtension ?: listOf(),
       category = this@ConditionDefinitionObservationSurrogate.category,
       code = this@ConditionDefinitionObservationSurrogate.code,
     )
@@ -87,17 +87,16 @@ internal data class ConditionDefinitionObservationSurrogate(
 @Serializable
 internal data class ConditionDefinitionMedicationSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var category: CodeableConcept? = null,
   public var code: CodeableConcept? = null,
 ) {
   public fun toModel(): ConditionDefinition.Medication =
     ConditionDefinition.Medication(
       id = this@ConditionDefinitionMedicationSurrogate.id,
-      extension = this@ConditionDefinitionMedicationSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@ConditionDefinitionMedicationSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@ConditionDefinitionMedicationSurrogate.extension ?: listOf(),
+      modifierExtension = this@ConditionDefinitionMedicationSurrogate.modifierExtension ?: listOf(),
       category = this@ConditionDefinitionMedicationSurrogate.category,
       code = this@ConditionDefinitionMedicationSurrogate.code,
     )
@@ -121,8 +120,8 @@ internal data class ConditionDefinitionMedicationSurrogate(
 @Serializable
 internal data class ConditionDefinitionPreconditionSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var type: KotlinString? = null,
   public var _type: Element? = null,
   public var code: CodeableConcept,
@@ -131,9 +130,9 @@ internal data class ConditionDefinitionPreconditionSurrogate(
   public fun toModel(): ConditionDefinition.Precondition =
     ConditionDefinition.Precondition(
       id = this@ConditionDefinitionPreconditionSurrogate.id,
-      extension = this@ConditionDefinitionPreconditionSurrogate.extension ?: mutableListOf(),
+      extension = this@ConditionDefinitionPreconditionSurrogate.extension ?: listOf(),
       modifierExtension =
-        this@ConditionDefinitionPreconditionSurrogate.modifierExtension ?: mutableListOf(),
+        this@ConditionDefinitionPreconditionSurrogate.modifierExtension ?: listOf(),
       type =
         Enumeration.of(
           ConditionDefinition.ConditionPreconditionType.fromCode(
@@ -166,8 +165,8 @@ internal data class ConditionDefinitionPreconditionSurrogate(
 @Serializable
 internal data class ConditionDefinitionQuestionnaireSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var purpose: KotlinString? = null,
   public var _purpose: Element? = null,
   public var reference: Reference,
@@ -175,9 +174,9 @@ internal data class ConditionDefinitionQuestionnaireSurrogate(
   public fun toModel(): ConditionDefinition.Questionnaire =
     ConditionDefinition.Questionnaire(
       id = this@ConditionDefinitionQuestionnaireSurrogate.id,
-      extension = this@ConditionDefinitionQuestionnaireSurrogate.extension ?: mutableListOf(),
+      extension = this@ConditionDefinitionQuestionnaireSurrogate.extension ?: listOf(),
       modifierExtension =
-        this@ConditionDefinitionQuestionnaireSurrogate.modifierExtension ?: mutableListOf(),
+        this@ConditionDefinitionQuestionnaireSurrogate.modifierExtension ?: listOf(),
       purpose =
         Enumeration.of(
           ConditionDefinition.ConditionQuestionnairePurpose.fromCode(
@@ -208,17 +207,16 @@ internal data class ConditionDefinitionQuestionnaireSurrogate(
 @Serializable
 internal data class ConditionDefinitionPlanSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var role: CodeableConcept? = null,
   public var reference: Reference,
 ) {
   public fun toModel(): ConditionDefinition.Plan =
     ConditionDefinition.Plan(
       id = this@ConditionDefinitionPlanSurrogate.id,
-      extension = this@ConditionDefinitionPlanSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@ConditionDefinitionPlanSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@ConditionDefinitionPlanSurrogate.extension ?: listOf(),
+      modifierExtension = this@ConditionDefinitionPlanSurrogate.modifierExtension ?: listOf(),
       role = this@ConditionDefinitionPlanSurrogate.role,
       reference = this@ConditionDefinitionPlanSurrogate.reference,
     )
@@ -299,12 +297,12 @@ internal data class ConditionDefinitionSurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: MutableList<Resource>? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var contained: List<Resource>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var url: KotlinString? = null,
   public var _url: Element? = null,
-  public var identifier: MutableList<Identifier>? = null,
+  public var identifier: List<Identifier>? = null,
   public var version: KotlinString? = null,
   public var _version: Element? = null,
   public var versionAlgorithm: ConditionDefinition.VersionAlgorithm? = null,
@@ -322,11 +320,11 @@ internal data class ConditionDefinitionSurrogate(
   public var _date: Element? = null,
   public var publisher: KotlinString? = null,
   public var _publisher: Element? = null,
-  public var contact: MutableList<ContactDetail>? = null,
+  public var contact: List<ContactDetail>? = null,
   public var description: KotlinString? = null,
   public var _description: Element? = null,
-  public var useContext: MutableList<UsageContext>? = null,
-  public var jurisdiction: MutableList<CodeableConcept>? = null,
+  public var useContext: List<UsageContext>? = null,
+  public var jurisdiction: List<CodeableConcept>? = null,
   public var code: CodeableConcept,
   public var severity: CodeableConcept? = null,
   public var bodySite: CodeableConcept? = null,
@@ -337,14 +335,14 @@ internal data class ConditionDefinitionSurrogate(
   public var _hasBodySite: Element? = null,
   public var hasStage: KotlinBoolean? = null,
   public var _hasStage: Element? = null,
-  public var definition: MutableList<KotlinString?>? = null,
-  public var _definition: MutableList<Element?>? = null,
-  public var observation: MutableList<ConditionDefinition.Observation>? = null,
-  public var medication: MutableList<ConditionDefinition.Medication>? = null,
-  public var precondition: MutableList<ConditionDefinition.Precondition>? = null,
-  public var team: MutableList<Reference>? = null,
-  public var questionnaire: MutableList<ConditionDefinition.Questionnaire>? = null,
-  public var plan: MutableList<ConditionDefinition.Plan>? = null,
+  public var definition: List<KotlinString?>? = null,
+  public var _definition: List<Element?>? = null,
+  public var observation: List<ConditionDefinition.Observation>? = null,
+  public var medication: List<ConditionDefinition.Medication>? = null,
+  public var precondition: List<ConditionDefinition.Precondition>? = null,
+  public var team: List<Reference>? = null,
+  public var questionnaire: List<ConditionDefinition.Questionnaire>? = null,
+  public var plan: List<ConditionDefinition.Plan>? = null,
 ) {
   public fun toModel(): ConditionDefinition =
     ConditionDefinition(
@@ -361,11 +359,11 @@ internal data class ConditionDefinitionSurrogate(
           this@ConditionDefinitionSurrogate._language,
         ),
       text = this@ConditionDefinitionSurrogate.text,
-      contained = this@ConditionDefinitionSurrogate.contained ?: mutableListOf(),
-      extension = this@ConditionDefinitionSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@ConditionDefinitionSurrogate.modifierExtension ?: mutableListOf(),
+      contained = this@ConditionDefinitionSurrogate.contained ?: listOf(),
+      extension = this@ConditionDefinitionSurrogate.extension ?: listOf(),
+      modifierExtension = this@ConditionDefinitionSurrogate.modifierExtension ?: listOf(),
       url = Uri.of(this@ConditionDefinitionSurrogate.url, this@ConditionDefinitionSurrogate._url),
-      identifier = this@ConditionDefinitionSurrogate.identifier ?: mutableListOf(),
+      identifier = this@ConditionDefinitionSurrogate.identifier ?: listOf(),
       version =
         R5String.of(
           this@ConditionDefinitionSurrogate.version,
@@ -407,14 +405,14 @@ internal data class ConditionDefinitionSurrogate(
           this@ConditionDefinitionSurrogate.publisher,
           this@ConditionDefinitionSurrogate._publisher,
         ),
-      contact = this@ConditionDefinitionSurrogate.contact ?: mutableListOf(),
+      contact = this@ConditionDefinitionSurrogate.contact ?: listOf(),
       description =
         Markdown.of(
           this@ConditionDefinitionSurrogate.description,
           this@ConditionDefinitionSurrogate._description,
         ),
-      useContext = this@ConditionDefinitionSurrogate.useContext ?: mutableListOf(),
-      jurisdiction = this@ConditionDefinitionSurrogate.jurisdiction ?: mutableListOf(),
+      useContext = this@ConditionDefinitionSurrogate.useContext ?: listOf(),
+      jurisdiction = this@ConditionDefinitionSurrogate.jurisdiction ?: listOf(),
       code = this@ConditionDefinitionSurrogate.code,
       severity = this@ConditionDefinitionSurrogate.severity,
       bodySite = this@ConditionDefinitionSurrogate.bodySite,
@@ -439,7 +437,7 @@ internal data class ConditionDefinitionSurrogate(
           this@ConditionDefinitionSurrogate.definition == null &&
             this@ConditionDefinitionSurrogate._definition == null
         ) {
-          mutableListOf()
+          listOf()
         } else {
           (this@ConditionDefinitionSurrogate.definition
               ?: List(this@ConditionDefinitionSurrogate._definition!!.size) { null })
@@ -448,14 +446,14 @@ internal data class ConditionDefinitionSurrogate(
                 ?: List(this@ConditionDefinitionSurrogate.definition!!.size) { null }
             )
             .map { (value, element) -> Uri.of(value, element)!! }
-            .toMutableList()
+            .toList()
         },
-      observation = this@ConditionDefinitionSurrogate.observation ?: mutableListOf(),
-      medication = this@ConditionDefinitionSurrogate.medication ?: mutableListOf(),
-      precondition = this@ConditionDefinitionSurrogate.precondition ?: mutableListOf(),
-      team = this@ConditionDefinitionSurrogate.team ?: mutableListOf(),
-      questionnaire = this@ConditionDefinitionSurrogate.questionnaire ?: mutableListOf(),
-      plan = this@ConditionDefinitionSurrogate.plan ?: mutableListOf(),
+      observation = this@ConditionDefinitionSurrogate.observation ?: listOf(),
+      medication = this@ConditionDefinitionSurrogate.medication ?: listOf(),
+      precondition = this@ConditionDefinitionSurrogate.precondition ?: listOf(),
+      team = this@ConditionDefinitionSurrogate.team ?: listOf(),
+      questionnaire = this@ConditionDefinitionSurrogate.questionnaire ?: listOf(),
+      plan = this@ConditionDefinitionSurrogate.plan ?: listOf(),
     )
 
   public companion object {
@@ -508,16 +506,13 @@ internal data class ConditionDefinitionSurrogate(
           hasStage = this@with.hasStage?.value,
           _hasStage = this@with.hasStage?.toElement(),
           definition =
-            this@with.definition
-              .map { it.value }
-              .toMutableList()
-              .takeUnless { it.all { it == null } },
+            this@with.definition.map { it.value }.toList().takeUnless { it.all { it == null } },
           _definition =
             this@with.definition
               .map { it.toElement() }
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
-              ?.toMutableList(),
+              ?.toList(),
           observation = this@with.observation.takeIf { it.isNotEmpty() },
           medication = this@with.medication.takeIf { it.isNotEmpty() },
           precondition = this@with.precondition.takeIf { it.isNotEmpty() },

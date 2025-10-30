@@ -26,7 +26,7 @@ import com.google.fhir.model.r4b.serializers.AdministrableProductDefinitionRoute
 import com.google.fhir.model.r4b.serializers.AdministrableProductDefinitionSerializer
 import com.google.fhir.model.r4b.terminologies.PublicationStatus
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -44,12 +44,12 @@ public data class AdministrableProductDefinition(
    * The only time that a resource does not have an id is when it is being submitted to the server
    * using a create operation.
    */
-  override var id: kotlin.String? = null,
+  override val id: kotlin.String? = null,
   /**
    * The metadata about the resource. This is content that is maintained by the infrastructure.
    * Changes to the content might not always be associated with version changes to the resource.
    */
-  override var meta: Meta? = null,
+  override val meta: Meta? = null,
   /**
    * A reference to a set of rules that were followed when the resource was constructed, and which
    * must be understood when processing the content. Often, this is a reference to an implementation
@@ -63,7 +63,7 @@ public data class AdministrableProductDefinition(
    * to an implementation guide that defines these special rules as part of it's narrative along
    * with other profiles, value sets, etc.
    */
-  override var implicitRules: Uri? = null,
+  override val implicitRules: Uri? = null,
   /**
    * The base language in which the resource is written.
    *
@@ -75,7 +75,7 @@ public data class AdministrableProductDefinition(
    * language is specified, it should it also be specified on the div element in the html (see rules
    * in HTML5 for information about the relationship between xml:lang and the html lang attribute).
    */
-  override var language: Code? = null,
+  override val language: Code? = null,
   /**
    * A human-readable narrative that contains a summary of the resource and can be used to represent
    * the content of the resource to a human. The narrative need not encode all the structured data,
@@ -89,7 +89,7 @@ public data class AdministrableProductDefinition(
    * legacy systems where information is captured as a "text blob" or where text is additionally
    * entered raw or narrated and encoded information is added later.
    */
-  override var text: Narrative? = null,
+  override val text: Narrative? = null,
   /**
    * These resources do not have an independent existence apart from the resource that contains
    * them - they cannot be identified independently, and nor can they have their own independent
@@ -100,7 +100,7 @@ public data class AdministrableProductDefinition(
    * resources may have profiles and tags In their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: MutableList<Resource> = mutableListOf(),
+  override val contained: List<Resource> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and manageable, there is a strict set of
@@ -113,7 +113,7 @@ public data class AdministrableProductDefinition(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: MutableList<Extension> = mutableListOf(),
+  override val extension: List<Extension> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -132,15 +132,15 @@ public data class AdministrableProductDefinition(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: MutableList<Extension> = mutableListOf(),
+  override val modifierExtension: List<Extension> = listOf(),
   /** An identifier for the administrable product. */
-  public var identifier: MutableList<Identifier> = mutableListOf(),
+  public val identifier: List<Identifier> = listOf(),
   /**
    * The status of this administrable product. Enables tracking the life-cycle of the content.
    *
    * Allows filtering of administrable products that are appropriate for use versus not.
    */
-  public var status: Enumeration<PublicationStatus>,
+  public val status: Enumeration<PublicationStatus>,
   /**
    * References a product from which one or more of the constituent parts of that product can be
    * prepared and used as described by this administrable product. If this administrable product
@@ -149,7 +149,7 @@ public data class AdministrableProductDefinition(
    * the 'producedFrom' which refers to the specific components of the product that are used in this
    * preparation, rather than the product as a whole.
    */
-  public var formOf: MutableList<Reference> = mutableListOf(),
+  public val formOf: List<Reference> = listOf(),
   /**
    * The dose form of the final product after necessary reconstitution or processing. Contrasts to
    * the manufactured dose form (see ManufacturedItemDefinition). If the manufactured form was
@@ -157,12 +157,12 @@ public data class AdministrableProductDefinition(
    * injection' (once mixed with another item having manufactured form 'solvent for solution for
    * injection').
    */
-  public var administrableDoseForm: CodeableConcept? = null,
+  public val administrableDoseForm: CodeableConcept? = null,
   /**
    * The presentation type in which this item is given to a patient. e.g. for a spray - 'puff' (as
    * in 'contains 100 mcg per puff'), or for a liquid - 'vial' (as in 'contains 5 ml per vial').
    */
-  public var unitOfPresentation: CodeableConcept? = null,
+  public val unitOfPresentation: CodeableConcept? = null,
   /**
    * Indicates the specific manufactured items that are part of the 'formOf' product that are used
    * in the preparation of this specific administrable form. In some cases, an administrable form
@@ -172,7 +172,7 @@ public data class AdministrableProductDefinition(
    * powder available as part of an overall product, but not involve applying the also supplied
    * cream.
    */
-  public var producedFrom: MutableList<Reference> = mutableListOf(),
+  public val producedFrom: List<Reference> = listOf(),
   /**
    * The ingredients of this administrable medicinal product. This is only needed if the ingredients
    * are not specified either using ManufacturedItemDefiniton (via
@@ -180,21 +180,21 @@ public data class AdministrableProductDefinition(
    * this, or using by incoming references from the Ingredient resource, to state in detail which
    * substances exist within this. This element allows a basic coded ingredient to be used.
    */
-  public var ingredient: MutableList<CodeableConcept> = mutableListOf(),
+  public val ingredient: List<CodeableConcept> = listOf(),
   /**
    * A device that is integral to the medicinal product, in effect being considered as an
    * "ingredient" of the medicinal product. This is not intended for devices that are just
    * co-packaged.
    */
-  public var device: Reference? = null,
+  public val device: Reference? = null,
   /** Characteristics e.g. a product's onset of action. */
-  public var `property`: MutableList<Property> = mutableListOf(),
+  public val `property`: List<Property> = listOf(),
   /**
    * The path by which the product is taken into or makes contact with the body. In some regions
    * this is referred to as the licenced or approved route. RouteOfAdministration cannot be used
    * when the 'formOf' product already uses MedicinalProductDefinition.route (and vice versa).
    */
-  public var routeOfAdministration: MutableList<RouteOfAdministration> = mutableListOf(),
+  public val routeOfAdministration: List<RouteOfAdministration> = listOf(),
 ) : DomainResource() {
   /** Characteristics e.g. a product's onset of action. */
   @Serializable(with = AdministrableProductDefinitionPropertySerializer::class)
@@ -203,7 +203,7 @@ public data class AdministrableProductDefinition(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and manageable, there is a strict set of
@@ -216,7 +216,7 @@ public data class AdministrableProductDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -235,13 +235,13 @@ public data class AdministrableProductDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /** A code expressing the type of characteristic. */
-    public var type: CodeableConcept,
+    public val type: CodeableConcept,
     /** A value for the characteristic. */
-    public var `value`: Value? = null,
+    public val `value`: Value? = null,
     /** The status of characteristic e.g. assigned or pending. */
-    public var status: CodeableConcept? = null,
+    public val status: CodeableConcept? = null,
   ) : BackboneElement() {
     @Serializable(with = AdministrableProductDefinitionPropertyValueSerializer::class)
     public sealed interface Value {
@@ -298,7 +298,7 @@ public data class AdministrableProductDefinition(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and manageable, there is a strict set of
@@ -311,7 +311,7 @@ public data class AdministrableProductDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -330,30 +330,30 @@ public data class AdministrableProductDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /** Coded expression for the route. */
-    public var code: CodeableConcept,
+    public val code: CodeableConcept,
     /**
      * The first dose (dose quantity) administered can be specified for the product, using a
      * numerical value and its unit of measurement.
      */
-    public var firstDose: Quantity? = null,
+    public val firstDose: Quantity? = null,
     /**
      * The maximum single dose that can be administered, specified using a numerical value and its
      * unit of measurement.
      */
-    public var maxSingleDose: Quantity? = null,
+    public val maxSingleDose: Quantity? = null,
     /**
      * The maximum dose per day (maximum dose quantity to be administered in any one 24-h period)
      * that can be administered.
      */
-    public var maxDosePerDay: Quantity? = null,
+    public val maxDosePerDay: Quantity? = null,
     /** The maximum dose per treatment period that can be administered. */
-    public var maxDosePerTreatmentPeriod: Ratio? = null,
+    public val maxDosePerTreatmentPeriod: Ratio? = null,
     /** The maximum treatment period during which the product can be administered. */
-    public var maxTreatmentPeriod: Duration? = null,
+    public val maxTreatmentPeriod: Duration? = null,
     /** A species for which this route applies. */
-    public var targetSpecies: MutableList<TargetSpecies> = mutableListOf(),
+    public val targetSpecies: List<TargetSpecies> = listOf(),
   ) : BackboneElement() {
     /** A species for which this route applies. */
     @Serializable(
@@ -364,7 +364,7 @@ public data class AdministrableProductDefinition(
        * Unique id for the element within a resource (for internal references). This may be any
        * string value that does not contain spaces.
        */
-      override var id: kotlin.String? = null,
+      override val id: kotlin.String? = null,
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element. To make the use of extensions safe and manageable, there is a strict set of
@@ -377,7 +377,7 @@ public data class AdministrableProductDefinition(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: MutableList<Extension> = mutableListOf(),
+      override val extension: List<Extension> = listOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -396,11 +396,11 @@ public data class AdministrableProductDefinition(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: MutableList<Extension> = mutableListOf(),
+      override val modifierExtension: List<Extension> = listOf(),
       /** Coded expression for the species. */
-      public var code: CodeableConcept,
+      public val code: CodeableConcept,
       /** A species specific time during which consumption of animal product is not appropriate. */
-      public var withdrawalPeriod: MutableList<WithdrawalPeriod> = mutableListOf(),
+      public val withdrawalPeriod: List<WithdrawalPeriod> = listOf(),
     ) : BackboneElement() {
       /** A species specific time during which consumption of animal product is not appropriate. */
       @Serializable(
@@ -412,7 +412,7 @@ public data class AdministrableProductDefinition(
          * Unique id for the element within a resource (for internal references). This may be any
          * string value that does not contain spaces.
          */
-        override var id: kotlin.String? = null,
+        override val id: kotlin.String? = null,
         /**
          * May be used to represent additional information that is not part of the basic definition
          * of the element. To make the use of extensions safe and manageable, there is a strict set
@@ -425,7 +425,7 @@ public data class AdministrableProductDefinition(
          * extensions. The use of extensions is what allows the FHIR specification to retain a core
          * level of simplicity for everyone.
          */
-        override var extension: MutableList<Extension> = mutableListOf(),
+        override val extension: List<Extension> = listOf(),
         /**
          * May be used to represent additional information that is not part of the basic definition
          * of the element and that modifies the understanding of the element in which it is
@@ -444,16 +444,16 @@ public data class AdministrableProductDefinition(
          * extensions. The use of extensions is what allows the FHIR specification to retain a core
          * level of simplicity for everyone.
          */
-        override var modifierExtension: MutableList<Extension> = mutableListOf(),
+        override val modifierExtension: List<Extension> = listOf(),
         /**
          * Coded expression for the type of tissue for which the withdrawal period applies, e.g.
          * meat, milk.
          */
-        public var tissue: CodeableConcept,
+        public val tissue: CodeableConcept,
         /** A value for the time. */
-        public var `value`: Quantity,
+        public val `value`: Quantity,
         /** Extra information about the withdrawal period. */
-        public var supportingInformation: String? = null,
+        public val supportingInformation: String? = null,
       ) : BackboneElement()
     }
   }

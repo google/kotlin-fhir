@@ -21,7 +21,7 @@ package com.google.fhir.model.r4
 import com.google.fhir.model.r4.serializers.NarrativeSerializer
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 
 /**
@@ -34,7 +34,7 @@ public data class Narrative(
    * Unique id for the element within a resource (for internal references). This may be any string
    * value that does not contain spaces.
    */
-  override var id: String? = null,
+  override val id: String? = null,
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * element. To make the use of extensions safe and manageable, there is a strict set of governance
@@ -47,12 +47,12 @@ public data class Narrative(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: MutableList<Extension> = mutableListOf(),
+  override val extension: List<Extension> = listOf(),
   /**
    * The status of the narrative - whether it's entirely generated (from just the defined data or
    * the extensions too), or whether a human authored it and it may contain additional data.
    */
-  public var status: Enumeration<NarrativeStatus>,
+  public val status: Enumeration<NarrativeStatus>,
   /**
    * The actual narrative content, a stripped down version of XHTML.
    *
@@ -62,7 +62,7 @@ public data class Narrative(
    * contain a head, a body, external stylesheet references, scripts, forms, base/link/xlink,
    * frames, iframes and objects.
    */
-  public var div: Xhtml,
+  public val div: Xhtml,
 ) : Element() {
   /** The status of a resource narrative. */
   public enum class NarrativeStatus(

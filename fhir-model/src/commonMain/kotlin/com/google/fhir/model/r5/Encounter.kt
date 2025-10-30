@@ -26,7 +26,7 @@ import com.google.fhir.model.r5.serializers.EncounterReasonSerializer
 import com.google.fhir.model.r5.serializers.EncounterSerializer
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -45,12 +45,12 @@ public data class Encounter(
    * like the create and conditional update. Otherwise, the use of the resouce id depends on the
    * given use case.
    */
-  override var id: String? = null,
+  override val id: String? = null,
   /**
    * The metadata about the resource. This is content that is maintained by the infrastructure.
    * Changes to the content might not always be associated with version changes to the resource.
    */
-  override var meta: Meta? = null,
+  override val meta: Meta? = null,
   /**
    * A reference to a set of rules that were followed when the resource was constructed, and which
    * must be understood when processing the content. Often, this is a reference to an implementation
@@ -64,7 +64,7 @@ public data class Encounter(
    * to an implementation guide that defines these special rules as part of its narrative along with
    * other profiles, value sets, etc.
    */
-  override var implicitRules: Uri? = null,
+  override val implicitRules: Uri? = null,
   /**
    * The base language in which the resource is written.
    *
@@ -76,7 +76,7 @@ public data class Encounter(
    * language is specified, it should it also be specified on the div element in the html (see rules
    * in HTML5 for information about the relationship between xml:lang and the html lang attribute).
    */
-  override var language: Code? = null,
+  override val language: Code? = null,
   /**
    * A human-readable narrative that contains a summary of the resource and can be used to represent
    * the content of the resource to a human. The narrative need not encode all the structured data,
@@ -90,7 +90,7 @@ public data class Encounter(
    * legacy systems where information is captured as a "text blob" or where text is additionally
    * entered raw or narrated and encoded information is added later.
    */
-  override var text: Narrative? = null,
+  override val text: Narrative? = null,
   /**
    * These resources do not have an independent existence apart from the resource that contains
    * them - they cannot be identified independently, nor can they have their own independent
@@ -102,7 +102,7 @@ public data class Encounter(
    * resources may have profiles and tags in their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: MutableList<Resource> = mutableListOf(),
+  override val contained: List<Resource> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and managable, there is a strict set of governance
@@ -115,7 +115,7 @@ public data class Encounter(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: MutableList<Extension> = mutableListOf(),
+  override val extension: List<Extension> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -134,9 +134,9 @@ public data class Encounter(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: MutableList<Extension> = mutableListOf(),
+  override val modifierExtension: List<Extension> = listOf(),
   /** Identifier(s) by which this encounter is known. */
-  public var identifier: MutableList<Identifier> = mutableListOf(),
+  public val identifier: List<Identifier> = listOf(),
   /**
    * The current state of the encounter (not the state of the patient within the encounter - that is
    * subjectState).
@@ -144,23 +144,23 @@ public data class Encounter(
    * Note that internal business rules will determine the appropriate transitions that may occur
    * between statuses (and also classes).
    */
-  public var status: Enumeration<EncounterStatus>,
+  public val status: Enumeration<EncounterStatus>,
   /**
    * Concepts representing classification of patient encounter such as ambulatory (outpatient),
    * inpatient, emergency, home health or others due to local variations.
    */
-  public var `class`: MutableList<CodeableConcept> = mutableListOf(),
+  public val `class`: List<CodeableConcept> = listOf(),
   /** Indicates the urgency of the encounter. */
-  public var priority: CodeableConcept? = null,
+  public val priority: CodeableConcept? = null,
   /**
    * Specific type of encounter (e.g. e-mail consultation, surgical day-care, skilled nursing,
    * rehabilitation).
    *
    * Since there are many ways to further classify encounters, this element is 0..*.
    */
-  public var type: MutableList<CodeableConcept> = mutableListOf(),
+  public val type: List<CodeableConcept> = listOf(),
   /** Broad categorization of the service that is to be provided (e.g. cardiology). */
-  public var serviceType: MutableList<CodeableReference> = mutableListOf(),
+  public val serviceType: List<CodeableReference> = listOf(),
   /**
    * The patient or group related to this encounter. In some use-cases the patient MAY not be
    * present, such as a case meeting about a patient between several practitioners or a careteam.
@@ -172,7 +172,7 @@ public data class Encounter(
    * patients) or alternately in veterinary care a herd of sheep receiving treatment (where the
    * animals are not individually tracked).
    */
-  public var subject: Reference? = null,
+  public val subject: Reference? = null,
   /**
    * The subjectStatus value can be used to track the patient's status within the encounter. It
    * details whether the patient has arrived or departed, has been triaged or is currently in a
@@ -184,7 +184,7 @@ public data class Encounter(
    * sectors may use a different set of these values, or their own custom set in place of this
    * example valueset provided.
    */
-  public var subjectStatus: CodeableConcept? = null,
+  public val subjectStatus: CodeableConcept? = null,
   /**
    * Where a specific encounter should be classified as a part of a specific episode(s) of care this
    * field should be used. This association can facilitate grouping of related encounters together
@@ -193,15 +193,15 @@ public data class Encounter(
    * episode of care and grouped on entry rather than editing the episode of care to append another
    * encounter to it (the episode of care could span years).
    */
-  public var episodeOfCare: MutableList<Reference> = mutableListOf(),
+  public val episodeOfCare: List<Reference> = listOf(),
   /** The request this encounter satisfies (e.g. incoming referral or procedure request). */
-  public var basedOn: MutableList<Reference> = mutableListOf(),
+  public val basedOn: List<Reference> = listOf(),
   /**
    * The group(s) of individuals, organizations that are allocated to participate in this encounter.
    * The participants backbone will record the actuals of when these individuals participated during
    * the encounter.
    */
-  public var careTeam: MutableList<Reference> = mutableListOf(),
+  public val careTeam: List<Reference> = listOf(),
   /**
    * Another Encounter of which this encounter is a part of (administratively or in time).
    *
@@ -209,7 +209,7 @@ public data class Encounter(
    *
    * Refer to the Notes section in the Patient resource for further details.
    */
-  public var partOf: Reference? = null,
+  public val partOf: Reference? = null,
   /**
    * The organization that is primarily responsible for this Encounter's services. This MAY be the
    * same as the organization on the Patient record, however it could be different, such as if the
@@ -217,7 +217,7 @@ public data class Encounter(
    * seperately) for an external consultation. Refer to the colonoscopy example on the Encounter
    * examples tab.
    */
-  public var serviceProvider: Reference? = null,
+  public val serviceProvider: Reference? = null,
   /**
    * The list of people responsible for providing the service.
    *
@@ -225,9 +225,9 @@ public data class Encounter(
    * subject may be absent from the participation.actor for cases where the patient (or group) is
    * not present, such as during a case review conference.
    */
-  public var participant: MutableList<Participant> = mutableListOf(),
+  public val participant: List<Participant> = listOf(),
   /** The appointment that scheduled this encounter. */
-  public var appointment: MutableList<Reference> = mutableListOf(),
+  public val appointment: List<Reference> = listOf(),
   /**
    * Connection details of a virtual service (e.g. conference call).
    *
@@ -241,17 +241,17 @@ public data class Encounter(
    * If each participant would have a different meeting link, an extension using the
    * VirtualServiceContactDetail can be applied to the Encounter.participant BackboneElement.
    */
-  public var virtualService: MutableList<VirtualServiceDetail> = mutableListOf(),
+  public val virtualService: List<VirtualServiceDetail> = listOf(),
   /**
    * The actual start and end time of the encounter.
    *
    * If not (yet) known, the end of the Period may be omitted.
    */
-  public var actualPeriod: Period? = null,
+  public val actualPeriod: Period? = null,
   /** The planned start date/time (or admission date) of the encounter. */
-  public var plannedStartDate: DateTime? = null,
+  public val plannedStartDate: DateTime? = null,
   /** The planned end date/time (or discharge date) of the encounter. */
-  public var plannedEndDate: DateTime? = null,
+  public val plannedEndDate: DateTime? = null,
   /**
    * Actual quantity of time the encounter lasted. This excludes the time during leaves of absence.
    *
@@ -263,7 +263,7 @@ public data class Encounter(
    *
    * May differ from the time in `Encounter.period` due to leave of absence(s).
    */
-  public var length: Duration? = null,
+  public val length: Duration? = null,
   /**
    * The list of medical reasons that are expected to be addressed during the episode of care.
    *
@@ -278,33 +278,33 @@ public data class Encounter(
    * Examples: pregnancy would use HealthcareService or a coding as the reason patient home
    * monitoring could use Condition as the reason
    */
-  public var reason: MutableList<Reason> = mutableListOf(),
+  public val reason: List<Reason> = listOf(),
   /**
    * The list of diagnosis relevant to this encounter.
    *
    * Also note that for the purpose of billing, the diagnoses are recorded in the account where they
    * can be ranked appropriately for how the invoicing/claiming documentation needs to be prepared.
    */
-  public var diagnosis: MutableList<Diagnosis> = mutableListOf(),
+  public val diagnosis: List<Diagnosis> = listOf(),
   /**
    * The set of accounts that may be used for billing for this Encounter.
    *
    * The billing system may choose to allocate billable items associated with the Encounter to
    * different referenced Accounts based on internal business rules.
    */
-  public var account: MutableList<Reference> = mutableListOf(),
+  public val account: List<Reference> = listOf(),
   /**
    * Diet preferences reported by the patient.
    *
    * For example, a patient may request both a dairy-free and nut-free diet preference (not mutually
    * exclusive).
    */
-  public var dietPreference: MutableList<CodeableConcept> = mutableListOf(),
+  public val dietPreference: List<CodeableConcept> = listOf(),
   /**
    * Any special requests that have been made for this encounter, such as the provision of specific
    * equipment or other things.
    */
-  public var specialArrangement: MutableList<CodeableConcept> = mutableListOf(),
+  public val specialArrangement: List<CodeableConcept> = listOf(),
   /**
    * Special courtesies that may be provided to the patient during the encounter (VIP, board member,
    * professional courtesy).
@@ -320,7 +320,7 @@ public data class Encounter(
    * It is not specifically intended to be used for securing the specific record - that is the
    * purpose of the security meta tag, and where appropriate, both fields could be used.
    */
-  public var specialCourtesy: MutableList<CodeableConcept> = mutableListOf(),
+  public val specialCourtesy: List<CodeableConcept> = listOf(),
   /**
    * Details about the stay during which a healthcare service is provided.
    *
@@ -333,14 +333,14 @@ public data class Encounter(
    * The duration recorded in the period of this encounter covers the entire scope of this admission
    * record.
    */
-  public var admission: Admission? = null,
+  public val admission: Admission? = null,
   /**
    * List of locations where the patient has been during this encounter.
    *
    * Virtual encounters can be recorded in the Encounter by specifying a location reference to a
    * location of type "kind" such as "client's home" and an encounter.class = "virtual".
    */
-  public var location: MutableList<Location> = mutableListOf(),
+  public val location: List<Location> = listOf(),
 ) : DomainResource() {
   /** The list of people responsible for providing the service. */
   @Serializable(with = EncounterParticipantSerializer::class)
@@ -349,7 +349,7 @@ public data class Encounter(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: String? = null,
+    override val id: String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -362,7 +362,7 @@ public data class Encounter(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -381,7 +381,7 @@ public data class Encounter(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /**
      * Role of participant in encounter.
      *
@@ -391,12 +391,12 @@ public data class Encounter(
      * Consulting Dr). This is different to the practitioner roles which are functional roles,
      * derived from terms of employment, education, licensing, etc.
      */
-    public var type: MutableList<CodeableConcept> = mutableListOf(),
+    public val type: List<CodeableConcept> = listOf(),
     /**
      * The period of time that the specified participant participated in the encounter. These can
      * overlap or be sub-sets of the overall encounter's period.
      */
-    public var period: Period? = null,
+    public val period: Period? = null,
     /**
      * Person involved in the encounter, the patient/group is also included here to indicate that
      * the patient was actually participating in the encounter. Not including the patient here
@@ -419,7 +419,7 @@ public data class Encounter(
      * If the individual is not specified during planning, then it is expected that the individual
      * will be filled in at a later stage prior to the encounter commencing.
      */
-    public var actor: Reference? = null,
+    public val actor: Reference? = null,
   ) : BackboneElement()
 
   /** The list of medical reasons that are expected to be addressed during the episode of care. */
@@ -429,7 +429,7 @@ public data class Encounter(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: String? = null,
+    override val id: String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -442,7 +442,7 @@ public data class Encounter(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -461,17 +461,17 @@ public data class Encounter(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /**
      * What the reason value should be used as e.g. Chief Complaint, Health Concern, Health
      * Maintenance (including screening).
      */
-    public var use: MutableList<CodeableConcept> = mutableListOf(),
+    public val use: List<CodeableConcept> = listOf(),
     /**
      * Reason the encounter takes place, expressed as a code or a reference to another resource. For
      * admissions, this can be used for a coded admission diagnosis.
      */
-    public var `value`: MutableList<CodeableReference> = mutableListOf(),
+    public val `value`: List<CodeableReference> = listOf(),
   ) : BackboneElement()
 
   /** The list of diagnosis relevant to this encounter. */
@@ -481,7 +481,7 @@ public data class Encounter(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: String? = null,
+    override val id: String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -494,7 +494,7 @@ public data class Encounter(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -513,14 +513,14 @@ public data class Encounter(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /**
      * The coded diagnosis or a reference to a Condition (with other resources referenced in the
      * evidence.detail), the use property will indicate the purpose of this specific diagnosis.
      */
-    public var condition: MutableList<CodeableReference> = mutableListOf(),
+    public val condition: List<CodeableReference> = listOf(),
     /** Role that this diagnosis has within the encounter (e.g. admission, billing, discharge …). */
-    public var use: MutableList<CodeableConcept> = mutableListOf(),
+    public val use: List<CodeableConcept> = listOf(),
   ) : BackboneElement()
 
   /**
@@ -535,7 +535,7 @@ public data class Encounter(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: String? = null,
+    override val id: String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -548,7 +548,7 @@ public data class Encounter(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -567,22 +567,22 @@ public data class Encounter(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /** Pre-admission identifier. */
-    public var preAdmissionIdentifier: Identifier? = null,
+    public val preAdmissionIdentifier: Identifier? = null,
     /** The location/organization from which the patient came before admission. */
-    public var origin: Reference? = null,
+    public val origin: Reference? = null,
     /** From where patient was admitted (physician referral, transfer). */
-    public var admitSource: CodeableConcept? = null,
+    public val admitSource: CodeableConcept? = null,
     /**
      * Indicates that this encounter is directly related to a prior admission, often because the
      * conditions addressed in the prior admission were not fully addressed.
      */
-    public var reAdmission: CodeableConcept? = null,
+    public val reAdmission: CodeableConcept? = null,
     /** Location/organization to which the patient is discharged. */
-    public var destination: Reference? = null,
+    public val destination: Reference? = null,
     /** Category or kind of location after discharge. */
-    public var dischargeDisposition: CodeableConcept? = null,
+    public val dischargeDisposition: CodeableConcept? = null,
   ) : BackboneElement()
 
   /** List of locations where the patient has been during this encounter. */
@@ -592,7 +592,7 @@ public data class Encounter(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: String? = null,
+    override val id: String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -605,7 +605,7 @@ public data class Encounter(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -624,9 +624,9 @@ public data class Encounter(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /** The location where the encounter takes place. */
-    public var location: Reference,
+    public val location: Reference,
     /**
      * The status of the participants' presence at the specified location during the period
      * specified. If the participant is no longer at the location, then the period will have an end
@@ -635,7 +635,7 @@ public data class Encounter(
      * When the patient is no longer active at a location, then the period end date is entered, and
      * the status may be changed to completed.
      */
-    public var status: Enumeration<EncounterLocationStatus>? = null,
+    public val status: Enumeration<EncounterLocationStatus>? = null,
     /**
      * This will be used to specify the required levels (bed/ward/room/etc.) desired to be recorded
      * to simplify either messaging or query.
@@ -646,9 +646,9 @@ public data class Encounter(
      * There may be many levels in the hierachy, and this may only pic specific levels that are
      * required for a specific usage scenario.
      */
-    public var form: CodeableConcept? = null,
+    public val form: CodeableConcept? = null,
     /** Time period during which the patient was present at the location. */
-    public var period: Period? = null,
+    public val period: Period? = null,
   ) : BackboneElement()
 
   /** The status of the location. */

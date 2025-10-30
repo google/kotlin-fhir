@@ -29,7 +29,7 @@ import com.google.fhir.model.r5.serializers.InsurancePlanPlanSpecificCostSeriali
 import com.google.fhir.model.r5.serializers.InsurancePlanSerializer
 import com.google.fhir.model.r5.terminologies.PublicationStatus
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -45,12 +45,12 @@ public data class InsurancePlan(
    * like the create and conditional update. Otherwise, the use of the resouce id depends on the
    * given use case.
    */
-  override var id: kotlin.String? = null,
+  override val id: kotlin.String? = null,
   /**
    * The metadata about the resource. This is content that is maintained by the infrastructure.
    * Changes to the content might not always be associated with version changes to the resource.
    */
-  override var meta: Meta? = null,
+  override val meta: Meta? = null,
   /**
    * A reference to a set of rules that were followed when the resource was constructed, and which
    * must be understood when processing the content. Often, this is a reference to an implementation
@@ -64,7 +64,7 @@ public data class InsurancePlan(
    * to an implementation guide that defines these special rules as part of its narrative along with
    * other profiles, value sets, etc.
    */
-  override var implicitRules: Uri? = null,
+  override val implicitRules: Uri? = null,
   /**
    * The base language in which the resource is written.
    *
@@ -76,7 +76,7 @@ public data class InsurancePlan(
    * language is specified, it should it also be specified on the div element in the html (see rules
    * in HTML5 for information about the relationship between xml:lang and the html lang attribute).
    */
-  override var language: Code? = null,
+  override val language: Code? = null,
   /**
    * A human-readable narrative that contains a summary of the resource and can be used to represent
    * the content of the resource to a human. The narrative need not encode all the structured data,
@@ -90,7 +90,7 @@ public data class InsurancePlan(
    * legacy systems where information is captured as a "text blob" or where text is additionally
    * entered raw or narrated and encoded information is added later.
    */
-  override var text: Narrative? = null,
+  override val text: Narrative? = null,
   /**
    * These resources do not have an independent existence apart from the resource that contains
    * them - they cannot be identified independently, nor can they have their own independent
@@ -102,7 +102,7 @@ public data class InsurancePlan(
    * resources may have profiles and tags in their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: MutableList<Resource> = mutableListOf(),
+  override val contained: List<Resource> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and managable, there is a strict set of governance
@@ -115,7 +115,7 @@ public data class InsurancePlan(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: MutableList<Extension> = mutableListOf(),
+  override val extension: List<Extension> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -134,23 +134,23 @@ public data class InsurancePlan(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: MutableList<Extension> = mutableListOf(),
+  override val modifierExtension: List<Extension> = listOf(),
   /**
    * Business identifiers assigned to this health insurance product which remain constant as the
    * resource is updated and propagates from server to server.
    */
-  public var identifier: MutableList<Identifier> = mutableListOf(),
+  public val identifier: List<Identifier> = listOf(),
   /** The current state of the health insurance product. */
-  public var status: Enumeration<PublicationStatus>? = null,
+  public val status: Enumeration<PublicationStatus>? = null,
   /** The kind of health insurance product. */
-  public var type: MutableList<CodeableConcept> = mutableListOf(),
+  public val type: List<CodeableConcept> = listOf(),
   /**
    * Official name of the health insurance product as designated by the owner.
    *
    * If the name of the product/plan changes, consider putting the old name in the alias column so
    * that it can still be located through searches.
    */
-  public var name: String? = null,
+  public val name: String? = null,
   /**
    * A list of alternate names that the product is known as, or was known as in the past.
    *
@@ -158,22 +158,22 @@ public data class InsurancePlan(
    * when names were used, but to assist in searching so that older names can still result in
    * identifying the product/plan.
    */
-  public var alias: MutableList<String> = mutableListOf(),
+  public val alias: List<String> = listOf(),
   /** The period of time that the health insurance product is available. */
-  public var period: Period? = null,
+  public val period: Period? = null,
   /**
    * The entity that is providing the health insurance product and underwriting the risk. This is
    * typically an insurance carriers, other third-party payers, or health plan sponsors comonly
    * referred to as 'payers'.
    */
-  public var ownedBy: Reference? = null,
+  public val ownedBy: Reference? = null,
   /**
    * An organization which administer other services such as underwriting, customer service and/or
    * claims processing on behalf of the health insurance product owner.
    */
-  public var administeredBy: Reference? = null,
+  public val administeredBy: Reference? = null,
   /** The geographic region in which a health insurance product's benefits apply. */
-  public var coverageArea: MutableList<Reference> = mutableListOf(),
+  public val coverageArea: List<Reference> = listOf(),
   /**
    * The contact details of communication devices available relevant to the specific Insurance
    * Plan/Product. This can include addresses, phone numbers, fax numbers, mobile numbers, email
@@ -181,21 +181,21 @@ public data class InsurancePlan(
    *
    * The address/telecom use code 'home' are not to be used.
    */
-  public var contact: MutableList<ExtendedContactDetail> = mutableListOf(),
+  public val contact: List<ExtendedContactDetail> = listOf(),
   /**
    * The technical endpoints providing access to services operated for the health insurance product.
    */
-  public var endpoint: MutableList<Reference> = mutableListOf(),
+  public val endpoint: List<Reference> = listOf(),
   /**
    * Reference to the network included in the health insurance product.
    *
    * Networks are represented as a hierarchy of organization resources.
    */
-  public var network: MutableList<Reference> = mutableListOf(),
+  public val network: List<Reference> = listOf(),
   /** Details about the coverage offered by the insurance product. */
-  public var coverage: MutableList<Coverage> = mutableListOf(),
+  public val coverage: List<Coverage> = listOf(),
   /** Details about an insurance plan. */
-  public var plan: MutableList<Plan> = mutableListOf(),
+  public val plan: List<Plan> = listOf(),
 ) : DomainResource() {
   /** Details about the coverage offered by the insurance product. */
   @Serializable(with = InsurancePlanCoverageSerializer::class)
@@ -204,7 +204,7 @@ public data class InsurancePlan(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -217,7 +217,7 @@ public data class InsurancePlan(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -236,20 +236,20 @@ public data class InsurancePlan(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /**
      * Type of coverage (Medical; Dental; Mental Health; Substance Abuse; Vision; Drug; Short Term;
      * Long Term Care; Hospice; Home Health).
      */
-    public var type: CodeableConcept,
+    public val type: CodeableConcept,
     /**
      * Reference to the network that providing the type of coverage.
      *
      * Networks are represented as a hierarchy of organization resources.
      */
-    public var network: MutableList<Reference> = mutableListOf(),
+    public val network: List<Reference> = listOf(),
     /** Specific benefits under this type of coverage. */
-    public var benefit: MutableList<Benefit> = mutableListOf(),
+    public val benefit: List<Benefit> = listOf(),
   ) : BackboneElement() {
     /** Specific benefits under this type of coverage. */
     @Serializable(with = InsurancePlanCoverageBenefitSerializer::class)
@@ -258,7 +258,7 @@ public data class InsurancePlan(
        * Unique id for the element within a resource (for internal references). This may be any
        * string value that does not contain spaces.
        */
-      override var id: kotlin.String? = null,
+      override val id: kotlin.String? = null,
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -271,7 +271,7 @@ public data class InsurancePlan(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: MutableList<Extension> = mutableListOf(),
+      override val extension: List<Extension> = listOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -290,13 +290,13 @@ public data class InsurancePlan(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: MutableList<Extension> = mutableListOf(),
+      override val modifierExtension: List<Extension> = listOf(),
       /** Type of benefit (primary care; speciality care; inpatient; outpatient). */
-      public var type: CodeableConcept,
+      public val type: CodeableConcept,
       /** The referral requirements to have access/coverage for this benefit. */
-      public var requirement: String? = null,
+      public val requirement: String? = null,
       /** The specific limits on the benefit. */
-      public var limit: MutableList<Limit> = mutableListOf(),
+      public val limit: List<Limit> = listOf(),
     ) : BackboneElement() {
       /** The specific limits on the benefit. */
       @Serializable(with = InsurancePlanCoverageBenefitLimitSerializer::class)
@@ -305,7 +305,7 @@ public data class InsurancePlan(
          * Unique id for the element within a resource (for internal references). This may be any
          * string value that does not contain spaces.
          */
-        override var id: kotlin.String? = null,
+        override val id: kotlin.String? = null,
         /**
          * May be used to represent additional information that is not part of the basic definition
          * of the element. To make the use of extensions safe and managable, there is a strict set
@@ -318,7 +318,7 @@ public data class InsurancePlan(
          * extensions. The use of extensions is what allows the FHIR specification to retain a core
          * level of simplicity for everyone.
          */
-        override var extension: MutableList<Extension> = mutableListOf(),
+        override val extension: List<Extension> = listOf(),
         /**
          * May be used to represent additional information that is not part of the basic definition
          * of the element and that modifies the understanding of the element in which it is
@@ -337,20 +337,20 @@ public data class InsurancePlan(
          * extensions. The use of extensions is what allows the FHIR specification to retain a core
          * level of simplicity for everyone.
          */
-        override var modifierExtension: MutableList<Extension> = mutableListOf(),
+        override val modifierExtension: List<Extension> = listOf(),
         /**
          * The maximum amount of a service item a plan will pay for a covered benefit. For examples.
          * wellness visits, or eyeglasses.
          *
          * May also be called “eligible expense,” “payment allowance,” or “negotiated rate.”.
          */
-        public var `value`: Quantity? = null,
+        public val `value`: Quantity? = null,
         /**
          * The specific limit on the benefit.
          *
          * Use `CodeableConcept.text` element if the data is free (uncoded) text.
          */
-        public var code: CodeableConcept? = null,
+        public val code: CodeableConcept? = null,
       ) : BackboneElement()
     }
   }
@@ -362,7 +362,7 @@ public data class InsurancePlan(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -375,7 +375,7 @@ public data class InsurancePlan(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -394,26 +394,26 @@ public data class InsurancePlan(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /**
      * Business identifiers assigned to this health insurance plan which remain constant as the
      * resource is updated and propagates from server to server.
      */
-    public var identifier: MutableList<Identifier> = mutableListOf(),
+    public val identifier: List<Identifier> = listOf(),
     /** Type of plan. For example, "Platinum" or "High Deductable". */
-    public var type: CodeableConcept? = null,
+    public val type: CodeableConcept? = null,
     /** The geographic region in which a health insurance plan's benefits apply. */
-    public var coverageArea: MutableList<Reference> = mutableListOf(),
+    public val coverageArea: List<Reference> = listOf(),
     /**
      * Reference to the network that providing the type of coverage.
      *
      * Networks are represented as a hierarchy of organization resources.
      */
-    public var network: MutableList<Reference> = mutableListOf(),
+    public val network: List<Reference> = listOf(),
     /** Overall costs associated with the plan. */
-    public var generalCost: MutableList<GeneralCost> = mutableListOf(),
+    public val generalCost: List<GeneralCost> = listOf(),
     /** Costs associated with the coverage provided by the product. */
-    public var specificCost: MutableList<SpecificCost> = mutableListOf(),
+    public val specificCost: List<SpecificCost> = listOf(),
   ) : BackboneElement() {
     /** Overall costs associated with the plan. */
     @Serializable(with = InsurancePlanPlanGeneralCostSerializer::class)
@@ -422,7 +422,7 @@ public data class InsurancePlan(
        * Unique id for the element within a resource (for internal references). This may be any
        * string value that does not contain spaces.
        */
-      override var id: kotlin.String? = null,
+      override val id: kotlin.String? = null,
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -435,7 +435,7 @@ public data class InsurancePlan(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: MutableList<Extension> = mutableListOf(),
+      override val extension: List<Extension> = listOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -454,15 +454,15 @@ public data class InsurancePlan(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: MutableList<Extension> = mutableListOf(),
+      override val modifierExtension: List<Extension> = listOf(),
       /** Type of cost. */
-      public var type: CodeableConcept? = null,
+      public val type: CodeableConcept? = null,
       /** Number of participants enrolled in the plan. */
-      public var groupSize: PositiveInt? = null,
+      public val groupSize: PositiveInt? = null,
       /** Value of the cost. */
-      public var cost: Money? = null,
+      public val cost: Money? = null,
       /** Additional information about the general costs associated with this plan. */
-      public var comment: String? = null,
+      public val comment: String? = null,
     ) : BackboneElement()
 
     /** Costs associated with the coverage provided by the product. */
@@ -472,7 +472,7 @@ public data class InsurancePlan(
        * Unique id for the element within a resource (for internal references). This may be any
        * string value that does not contain spaces.
        */
-      override var id: kotlin.String? = null,
+      override val id: kotlin.String? = null,
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -485,7 +485,7 @@ public data class InsurancePlan(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: MutableList<Extension> = mutableListOf(),
+      override val extension: List<Extension> = listOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -504,14 +504,14 @@ public data class InsurancePlan(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: MutableList<Extension> = mutableListOf(),
+      override val modifierExtension: List<Extension> = listOf(),
       /**
        * General category of benefit (Medical; Dental; Vision; Drug; Mental Health; Substance Abuse;
        * Hospice, Home Health).
        */
-      public var category: CodeableConcept,
+      public val category: CodeableConcept,
       /** List of the specific benefits under this category of benefit. */
-      public var benefit: MutableList<Benefit> = mutableListOf(),
+      public val benefit: List<Benefit> = listOf(),
     ) : BackboneElement() {
       /** List of the specific benefits under this category of benefit. */
       @Serializable(with = InsurancePlanPlanSpecificCostBenefitSerializer::class)
@@ -520,7 +520,7 @@ public data class InsurancePlan(
          * Unique id for the element within a resource (for internal references). This may be any
          * string value that does not contain spaces.
          */
-        override var id: kotlin.String? = null,
+        override val id: kotlin.String? = null,
         /**
          * May be used to represent additional information that is not part of the basic definition
          * of the element. To make the use of extensions safe and managable, there is a strict set
@@ -533,7 +533,7 @@ public data class InsurancePlan(
          * extensions. The use of extensions is what allows the FHIR specification to retain a core
          * level of simplicity for everyone.
          */
-        override var extension: MutableList<Extension> = mutableListOf(),
+        override val extension: List<Extension> = listOf(),
         /**
          * May be used to represent additional information that is not part of the basic definition
          * of the element and that modifies the understanding of the element in which it is
@@ -552,14 +552,14 @@ public data class InsurancePlan(
          * extensions. The use of extensions is what allows the FHIR specification to retain a core
          * level of simplicity for everyone.
          */
-        override var modifierExtension: MutableList<Extension> = mutableListOf(),
+        override val modifierExtension: List<Extension> = listOf(),
         /**
          * Type of specific benefit (preventative; primary care office visit; speciality office
          * visit; hospitalization; emergency room; urgent care).
          */
-        public var type: CodeableConcept,
+        public val type: CodeableConcept,
         /** List of the costs associated with a specific benefit. */
-        public var cost: MutableList<Cost> = mutableListOf(),
+        public val cost: List<Cost> = listOf(),
       ) : BackboneElement() {
         /** List of the costs associated with a specific benefit. */
         @Serializable(with = InsurancePlanPlanSpecificCostBenefitCostSerializer::class)
@@ -568,7 +568,7 @@ public data class InsurancePlan(
            * Unique id for the element within a resource (for internal references). This may be any
            * string value that does not contain spaces.
            */
-          override var id: kotlin.String? = null,
+          override val id: kotlin.String? = null,
           /**
            * May be used to represent additional information that is not part of the basic
            * definition of the element. To make the use of extensions safe and managable, there is a
@@ -581,7 +581,7 @@ public data class InsurancePlan(
            * defines the extensions. The use of extensions is what allows the FHIR specification to
            * retain a core level of simplicity for everyone.
            */
-          override var extension: MutableList<Extension> = mutableListOf(),
+          override val extension: List<Extension> = listOf(),
           /**
            * May be used to represent additional information that is not part of the basic
            * definition of the element and that modifies the understanding of the element in which
@@ -600,24 +600,24 @@ public data class InsurancePlan(
            * defines the extensions. The use of extensions is what allows the FHIR specification to
            * retain a core level of simplicity for everyone.
            */
-          override var modifierExtension: MutableList<Extension> = mutableListOf(),
+          override val modifierExtension: List<Extension> = listOf(),
           /** Type of cost (copay; individual cap; family cap; coinsurance; deductible). */
-          public var type: CodeableConcept,
+          public val type: CodeableConcept,
           /**
            * Whether the cost applies to in-network or out-of-network providers (in-network;
            * out-of-network; other).
            */
-          public var applicability: CodeableConcept? = null,
+          public val applicability: CodeableConcept? = null,
           /**
            * Additional information about the cost, such as information about funding sources (e.g.
            * HSA, HRA, FSA, RRA).
            */
-          public var qualifiers: MutableList<CodeableConcept> = mutableListOf(),
+          public val qualifiers: List<CodeableConcept> = listOf(),
           /**
            * The actual cost value. (some of the costs may be represented as percentages rather than
            * currency, e.g. 10% coinsurance).
            */
-          public var `value`: Quantity? = null,
+          public val `value`: Quantity? = null,
         ) : BackboneElement()
       }
     }

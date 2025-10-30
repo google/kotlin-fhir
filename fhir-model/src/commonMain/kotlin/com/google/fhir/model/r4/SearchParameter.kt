@@ -24,7 +24,7 @@ import com.google.fhir.model.r4.terminologies.PublicationStatus
 import com.google.fhir.model.r4.terminologies.ResourceType
 import com.google.fhir.model.r4.terminologies.SearchParamType
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -42,12 +42,12 @@ public data class SearchParameter(
    * The only time that a resource does not have an id is when it is being submitted to the server
    * using a create operation.
    */
-  override var id: kotlin.String? = null,
+  override val id: kotlin.String? = null,
   /**
    * The metadata about the resource. This is content that is maintained by the infrastructure.
    * Changes to the content might not always be associated with version changes to the resource.
    */
-  override var meta: Meta? = null,
+  override val meta: Meta? = null,
   /**
    * A reference to a set of rules that were followed when the resource was constructed, and which
    * must be understood when processing the content. Often, this is a reference to an implementation
@@ -61,7 +61,7 @@ public data class SearchParameter(
    * to an implementation guide that defines these special rules as part of it's narrative along
    * with other profiles, value sets, etc.
    */
-  override var implicitRules: Uri? = null,
+  override val implicitRules: Uri? = null,
   /**
    * The base language in which the resource is written.
    *
@@ -73,7 +73,7 @@ public data class SearchParameter(
    * language is specified, it should it also be specified on the div element in the html (see rules
    * in HTML5 for information about the relationship between xml:lang and the html lang attribute).
    */
-  override var language: Code? = null,
+  override val language: Code? = null,
   /**
    * A human-readable narrative that contains a summary of the resource and can be used to represent
    * the content of the resource to a human. The narrative need not encode all the structured data,
@@ -87,7 +87,7 @@ public data class SearchParameter(
    * legacy systems where information is captured as a "text blob" or where text is additionally
    * entered raw or narrated and encoded information is added later.
    */
-  override var text: Narrative? = null,
+  override val text: Narrative? = null,
   /**
    * These resources do not have an independent existence apart from the resource that contains
    * them - they cannot be identified independently, and nor can they have their own independent
@@ -98,7 +98,7 @@ public data class SearchParameter(
    * resources may have profiles and tags In their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: MutableList<Resource> = mutableListOf(),
+  override val contained: List<Resource> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and manageable, there is a strict set of
@@ -111,7 +111,7 @@ public data class SearchParameter(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: MutableList<Extension> = mutableListOf(),
+  override val extension: List<Extension> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -130,7 +130,7 @@ public data class SearchParameter(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: MutableList<Extension> = mutableListOf(),
+  override val modifierExtension: List<Extension> = listOf(),
   /**
    * An absolute URI that is used to identify this search parameter when it is referenced in a
    * specification, model, design or an instance; also called its canonical identifier. This SHOULD
@@ -149,7 +149,7 @@ public data class SearchParameter(
    * change. Implementations can use the [meta.source](resource.html#meta) element to indicate where
    * the current master source of the resource can be found.
    */
-  public var url: Uri,
+  public val url: Uri,
   /**
    * The identifier that is used to identify this version of the search parameter when it is
    * referenced in a specification, model, design or instance. This is an arbitrary value managed by
@@ -161,7 +161,7 @@ public data class SearchParameter(
    * versions. The version can be appended to the url in a reference to allow a reference to a
    * particular business version of the search parameter with the format [url]|[version].
    */
-  public var version: String? = null,
+  public val version: String? = null,
   /**
    * A natural language name identifying the search parameter. This name should be usable as an
    * identifier for the module by machine processing applications such as code generation.
@@ -169,7 +169,7 @@ public data class SearchParameter(
    * The name is not expected to be globally unique. The name should be a simple alphanumeric type
    * name to ensure that it is machine-processing friendly.
    */
-  public var name: String,
+  public val name: String,
   /**
    * Where this search parameter is originally defined. If a derivedFrom is provided, then the
    * details in the search parameter must be consistent with the definition from which it is
@@ -181,20 +181,20 @@ public data class SearchParameter(
    * [`value-quantity`](http://hl7.org/fhir/SearchParameter/Observation-value-quantity), but detail
    * how it is supported by the server.
    */
-  public var derivedFrom: Canonical? = null,
+  public val derivedFrom: Canonical? = null,
   /**
    * The status of this search parameter. Enables tracking the life-cycle of the content.
    *
    * Allows filtering of search parameters that are appropriate for use versus not.
    */
-  public var status: Enumeration<PublicationStatus>,
+  public val status: Enumeration<PublicationStatus>,
   /**
    * A Boolean value to indicate that this search parameter is authored for testing purposes (or
    * education/evaluation/marketing) and is not intended to be used for genuine usage.
    *
    * Allows filtering of search parameters that are appropriate for use versus not.
    */
-  public var experimental: Boolean? = null,
+  public val experimental: Boolean? = null,
   /**
    * The date (and optionally time) when the search parameter was published. The date must change
    * when the business version changes and it must change if the status code changes. In addition,
@@ -204,7 +204,7 @@ public data class SearchParameter(
    * secondary representation of the search parameter. Additional specific dates may be added as
    * extensions or be found by consulting Provenances associated with past versions of the resource.
    */
-  public var date: DateTime? = null,
+  public val date: DateTime? = null,
   /**
    * The name of the organization or individual that published the search parameter.
    *
@@ -215,13 +215,13 @@ public data class SearchParameter(
    * contact for questions or issues with the search parameter. This item SHOULD be populated unless
    * the information is available from context.
    */
-  public var publisher: String? = null,
+  public val publisher: String? = null,
   /**
    * Contact details to assist a user in finding and communicating with the publisher.
    *
    * May be a web site, an email address, a telephone number, etc.
    */
-  public var contact: MutableList<ContactDetail> = mutableListOf(),
+  public val contact: List<ContactDetail> = listOf(),
   /**
    * And how it used.
    *
@@ -232,7 +232,7 @@ public data class SearchParameter(
    * information is available from context (e.g. the language of the search parameter is presumed to
    * be the predominant language in the place the search parameter was created).
    */
-  public var description: Markdown,
+  public val description: Markdown,
   /**
    * The content was developed with a focus and intent of supporting the contexts that are listed.
    * These contexts may be general categories (gender, age, ...) or may be references to specific
@@ -242,14 +242,14 @@ public data class SearchParameter(
    * When multiple useContexts are specified, there is no expectation that all or any of the
    * contexts apply.
    */
-  public var useContext: MutableList<UsageContext> = mutableListOf(),
+  public val useContext: List<UsageContext> = listOf(),
   /**
    * A legal or geographic region in which the search parameter is intended to be used.
    *
    * It may be possible for the search parameter to be used in jurisdictions other than those for
    * which it was originally designed or intended.
    */
-  public var jurisdiction: MutableList<CodeableConcept> = mutableListOf(),
+  public val jurisdiction: List<CodeableConcept> = listOf(),
   /**
    * Explanation of why this search parameter is needed and why it has been designed as it has.
    *
@@ -258,14 +258,14 @@ public data class SearchParameter(
    * may be used to point to source materials or specifications that drove the structure of this
    * search parameter.
    */
-  public var purpose: Markdown? = null,
+  public val purpose: Markdown? = null,
   /**
    * The code used in the URL or the parameter name in a parameters resource for this search
    * parameter.
    *
    * For maximum compatibility, use only lowercase ASCII characters.
    */
-  public var code: Code,
+  public val code: Code,
   /**
    * The base resource type(s) that this search parameter can be used against.
    *
@@ -273,9 +273,9 @@ public data class SearchParameter(
    * apply to more than one resource type, they can be used against any of the listed resource
    * types, or in a cross-type search (see [Cross Resource Search](http.html#xres-search)).
    */
-  public var base: MutableList<Enumeration<ResourceType>> = mutableListOf(),
+  public val base: List<Enumeration<ResourceType>> = listOf(),
   /** The type of value that a search parameter may contain, and how the content is interpreted. */
-  public var type: Enumeration<SearchParamType>,
+  public val type: Enumeration<SearchParamType>,
   /**
    * A FHIRPath expression that returns a set of elements for the search parameter.
    *
@@ -285,7 +285,7 @@ public data class SearchParameter(
    * search parameters, the outcome of the expression must a collection of base elements from which
    * the composites are derived.
    */
-  public var expression: String? = null,
+  public val expression: String? = null,
   /**
    * An XPath expression that returns a set of elements for the search parameter.
    *
@@ -293,31 +293,31 @@ public data class SearchParameter(
    * required to determine quite how to handle them; e.g. CodeableConcepts may contain text and/or
    * multiple codings, where the codings themselves contain a code and a system.
    */
-  public var xpath: String? = null,
+  public val xpath: String? = null,
   /**
    * How the search parameter relates to the set of elements returned by evaluating the xpath query.
    */
-  public var xpathUsage: Enumeration<XPathUsageType>? = null,
+  public val xpathUsage: Enumeration<XPathUsageType>? = null,
   /** Types of resource (if a resource is referenced). */
-  public var target: MutableList<Enumeration<ResourceType>> = mutableListOf(),
+  public val target: List<Enumeration<ResourceType>> = listOf(),
   /**
    * Whether multiple values are allowed for each time the parameter exists. Values are separated by
    * commas, and the parameter matches if any of the values match.
    */
-  public var multipleOr: Boolean? = null,
+  public val multipleOr: Boolean? = null,
   /**
    * Whether multiple parameters are allowed - e.g. more than one parameter with the same name. The
    * search matches if all the parameters match.
    */
-  public var multipleAnd: Boolean? = null,
+  public val multipleAnd: Boolean? = null,
   /**
    * Comparators supported for the search parameter.
    *
    * If no comparators are listed, clients should not expect servers to support any comparators.
    */
-  public var comparator: MutableList<Enumeration<SearchComparator>> = mutableListOf(),
+  public val comparator: List<Enumeration<SearchComparator>> = listOf(),
   /** A modifier supported for the search parameter. */
-  public var modifier: MutableList<Enumeration<SearchModifierCode>> = mutableListOf(),
+  public val modifier: List<Enumeration<SearchModifierCode>> = listOf(),
   /**
    * Contains the names of any search parameters which may be chained to the containing search
    * parameter. Chained parameters may be added to search parameters of type reference and specify
@@ -328,9 +328,9 @@ public data class SearchParameter(
    * Systems are not required to list all the chain names they support, but if they don't list them,
    * clients might not know to use them.
    */
-  public var chain: MutableList<String> = mutableListOf(),
+  public val chain: List<String> = listOf(),
   /** Used to define the parts of a composite search parameter. */
-  public var component: MutableList<Component> = mutableListOf(),
+  public val component: List<Component> = listOf(),
 ) : DomainResource() {
   /** Used to define the parts of a composite search parameter. */
   @Serializable(with = SearchParameterComponentSerializer::class)
@@ -339,7 +339,7 @@ public data class SearchParameter(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and manageable, there is a strict set of
@@ -352,7 +352,7 @@ public data class SearchParameter(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -371,9 +371,9 @@ public data class SearchParameter(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /** The definition of the search parameter that describes this part. */
-    public var definition: Canonical,
+    public val definition: Canonical,
     /**
      * A sub-expression that defines how to extract values for this component from the output of the
      * main SearchParameter.expression.
@@ -381,7 +381,7 @@ public data class SearchParameter(
      * This expression overrides the expression in the definition and extracts the index values from
      * the outcome of the composite expression.
      */
-    public var expression: String,
+    public val expression: String,
   ) : BackboneElement()
 
   /**

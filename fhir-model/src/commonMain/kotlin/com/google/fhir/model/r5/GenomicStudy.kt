@@ -26,7 +26,7 @@ import com.google.fhir.model.r5.serializers.GenomicStudyAnalysisPerformerSeriali
 import com.google.fhir.model.r5.serializers.GenomicStudyAnalysisSerializer
 import com.google.fhir.model.r5.serializers.GenomicStudySerializer
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -42,12 +42,12 @@ public data class GenomicStudy(
    * like the create and conditional update. Otherwise, the use of the resouce id depends on the
    * given use case.
    */
-  override var id: kotlin.String? = null,
+  override val id: kotlin.String? = null,
   /**
    * The metadata about the resource. This is content that is maintained by the infrastructure.
    * Changes to the content might not always be associated with version changes to the resource.
    */
-  override var meta: Meta? = null,
+  override val meta: Meta? = null,
   /**
    * A reference to a set of rules that were followed when the resource was constructed, and which
    * must be understood when processing the content. Often, this is a reference to an implementation
@@ -61,7 +61,7 @@ public data class GenomicStudy(
    * to an implementation guide that defines these special rules as part of its narrative along with
    * other profiles, value sets, etc.
    */
-  override var implicitRules: Uri? = null,
+  override val implicitRules: Uri? = null,
   /**
    * The base language in which the resource is written.
    *
@@ -73,7 +73,7 @@ public data class GenomicStudy(
    * language is specified, it should it also be specified on the div element in the html (see rules
    * in HTML5 for information about the relationship between xml:lang and the html lang attribute).
    */
-  override var language: Code? = null,
+  override val language: Code? = null,
   /**
    * A human-readable narrative that contains a summary of the resource and can be used to represent
    * the content of the resource to a human. The narrative need not encode all the structured data,
@@ -87,7 +87,7 @@ public data class GenomicStudy(
    * legacy systems where information is captured as a "text blob" or where text is additionally
    * entered raw or narrated and encoded information is added later.
    */
-  override var text: Narrative? = null,
+  override val text: Narrative? = null,
   /**
    * These resources do not have an independent existence apart from the resource that contains
    * them - they cannot be identified independently, nor can they have their own independent
@@ -99,7 +99,7 @@ public data class GenomicStudy(
    * resources may have profiles and tags in their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: MutableList<Resource> = mutableListOf(),
+  override val contained: List<Resource> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and managable, there is a strict set of governance
@@ -112,7 +112,7 @@ public data class GenomicStudy(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: MutableList<Extension> = mutableListOf(),
+  override val extension: List<Extension> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -131,40 +131,40 @@ public data class GenomicStudy(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: MutableList<Extension> = mutableListOf(),
+  override val modifierExtension: List<Extension> = listOf(),
   /** Identifiers for this genomic study. */
-  public var identifier: MutableList<Identifier> = mutableListOf(),
+  public val identifier: List<Identifier> = listOf(),
   /** The status of the genomic study. */
-  public var status: Enumeration<GenomicStudyStatus>,
+  public val status: Enumeration<GenomicStudyStatus>,
   /**
    * The type of the study, e.g., Familial variant segregation, Functional variation detection, or
    * Gene expression profiling.
    */
-  public var type: MutableList<CodeableConcept> = mutableListOf(),
+  public val type: List<CodeableConcept> = listOf(),
   /** The primary subject of the genomic study. */
-  public var subject: Reference,
+  public val subject: Reference,
   /** The healthcare event with which this genomics study is associated. */
-  public var encounter: Reference? = null,
+  public val encounter: Reference? = null,
   /** When the genomic study was started. */
-  public var startDate: DateTime? = null,
+  public val startDate: DateTime? = null,
   /** Event resources that the genomic study is based on. */
-  public var basedOn: MutableList<Reference> = mutableListOf(),
+  public val basedOn: List<Reference> = listOf(),
   /** Healthcare professional who requested or referred the genomic study. */
-  public var referrer: Reference? = null,
+  public val referrer: Reference? = null,
   /** Healthcare professionals who interpreted the genomic study. */
-  public var interpreter: MutableList<Reference> = mutableListOf(),
+  public val interpreter: List<Reference> = listOf(),
   /** Why the genomic study was performed. */
-  public var reason: MutableList<CodeableReference> = mutableListOf(),
+  public val reason: List<CodeableReference> = listOf(),
   /** The defined protocol that describes the study. */
-  public var instantiatesCanonical: Canonical? = null,
+  public val instantiatesCanonical: Canonical? = null,
   /** The URL pointing to an externally maintained protocol that describes the study. */
-  public var instantiatesUri: Uri? = null,
+  public val instantiatesUri: Uri? = null,
   /** Comments related to the genomic study. */
-  public var note: MutableList<Annotation> = mutableListOf(),
+  public val note: List<Annotation> = listOf(),
   /** Description of the genomic study. */
-  public var description: Markdown? = null,
+  public val description: Markdown? = null,
   /** The details about a specific analysis that was performed in this GenomicStudy. */
-  public var analysis: MutableList<Analysis> = mutableListOf(),
+  public val analysis: List<Analysis> = listOf(),
 ) : DomainResource() {
   /** The details about a specific analysis that was performed in this GenomicStudy. */
   @Serializable(with = GenomicStudyAnalysisSerializer::class)
@@ -173,7 +173,7 @@ public data class GenomicStudy(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -186,7 +186,7 @@ public data class GenomicStudy(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -205,26 +205,26 @@ public data class GenomicStudy(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /** Identifiers for the analysis event. */
-    public var identifier: MutableList<Identifier> = mutableListOf(),
+    public val identifier: List<Identifier> = listOf(),
     /**
      * Type of the methods used in the analysis, e.g., Fluorescence in situ hybridization (FISH),
      * Karyotyping, or Microsatellite instability testing (MSI).
      */
-    public var methodType: MutableList<CodeableConcept> = mutableListOf(),
+    public val methodType: List<CodeableConcept> = listOf(),
     /**
      * Type of the genomic changes studied in the analysis, e.g., DNA, RNA, or amino acid change.
      */
-    public var changeType: MutableList<CodeableConcept> = mutableListOf(),
+    public val changeType: List<CodeableConcept> = listOf(),
     /** The reference genome build that is used in this analysis. */
-    public var genomeBuild: CodeableConcept? = null,
+    public val genomeBuild: CodeableConcept? = null,
     /** The defined protocol that describes the analysis. */
-    public var instantiatesCanonical: Canonical? = null,
+    public val instantiatesCanonical: Canonical? = null,
     /** The URL pointing to an externally maintained protocol that describes the analysis. */
-    public var instantiatesUri: Uri? = null,
+    public val instantiatesUri: Uri? = null,
     /** Name of the analysis event (human friendly). */
-    public var title: String? = null,
+    public val title: String? = null,
     /**
      * The focus of a genomic analysis when it is not the patient of record representing something
      * or someone associated with the patient such as a spouse, parent, child, or sibling. For
@@ -234,29 +234,29 @@ public data class GenomicStudy(
      * If the focus of the analysis is not known, the value of this field SHALL use the data absent
      * extension.
      */
-    public var focus: MutableList<Reference> = mutableListOf(),
+    public val focus: List<Reference> = listOf(),
     /** The specimen used in the analysis event. */
-    public var specimen: MutableList<Reference> = mutableListOf(),
+    public val specimen: List<Reference> = listOf(),
     /** The date of the analysis event. */
-    public var date: DateTime? = null,
+    public val date: DateTime? = null,
     /** Any notes capture with the analysis event. */
-    public var note: MutableList<Annotation> = mutableListOf(),
+    public val note: List<Annotation> = listOf(),
     /** The protocol that was performed for the analysis event. */
-    public var protocolPerformed: Reference? = null,
+    public val protocolPerformed: Reference? = null,
     /** The genomic regions to be studied in the analysis (BED file). */
-    public var regionsStudied: MutableList<Reference> = mutableListOf(),
+    public val regionsStudied: List<Reference> = listOf(),
     /** Genomic regions actually called in the analysis event (BED file). */
-    public var regionsCalled: MutableList<Reference> = mutableListOf(),
+    public val regionsCalled: List<Reference> = listOf(),
     /** Inputs for the analysis event. */
-    public var input: MutableList<Input> = mutableListOf(),
+    public val input: List<Input> = listOf(),
     /** Outputs for the analysis event. */
-    public var output: MutableList<Output> = mutableListOf(),
+    public val output: List<Output> = listOf(),
     /** Performer for the analysis event. */
-    public var performer: MutableList<Performer> = mutableListOf(),
+    public val performer: List<Performer> = listOf(),
     /**
      * Devices used for the analysis (e.g., instruments, software), with settings and parameters.
      */
-    public var device: MutableList<Device> = mutableListOf(),
+    public val device: List<Device> = listOf(),
   ) : BackboneElement() {
     /** Inputs for the analysis event. */
     @Serializable(with = GenomicStudyAnalysisInputSerializer::class)
@@ -265,7 +265,7 @@ public data class GenomicStudy(
        * Unique id for the element within a resource (for internal references). This may be any
        * string value that does not contain spaces.
        */
-      override var id: kotlin.String? = null,
+      override val id: kotlin.String? = null,
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -278,7 +278,7 @@ public data class GenomicStudy(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: MutableList<Extension> = mutableListOf(),
+      override val extension: List<Extension> = listOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -297,13 +297,13 @@ public data class GenomicStudy(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: MutableList<Extension> = mutableListOf(),
+      override val modifierExtension: List<Extension> = listOf(),
       /** File containing input data. */
-      public var `file`: Reference? = null,
+      public val `file`: Reference? = null,
       /** Type of input data, e.g., BAM, CRAM, or FASTA. */
-      public var type: CodeableConcept? = null,
+      public val type: CodeableConcept? = null,
       /** The analysis event or other GenomicStudy that generated this input file. */
-      public var generatedBy: GeneratedBy? = null,
+      public val generatedBy: GeneratedBy? = null,
     ) : BackboneElement() {
       @Serializable(with = GenomicStudyAnalysisInputGeneratedBySerializer::class)
       public sealed interface GeneratedBy {
@@ -337,7 +337,7 @@ public data class GenomicStudy(
        * Unique id for the element within a resource (for internal references). This may be any
        * string value that does not contain spaces.
        */
-      override var id: kotlin.String? = null,
+      override val id: kotlin.String? = null,
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -350,7 +350,7 @@ public data class GenomicStudy(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: MutableList<Extension> = mutableListOf(),
+      override val extension: List<Extension> = listOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -369,11 +369,11 @@ public data class GenomicStudy(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: MutableList<Extension> = mutableListOf(),
+      override val modifierExtension: List<Extension> = listOf(),
       /** File containing output data. */
-      public var `file`: Reference? = null,
+      public val `file`: Reference? = null,
       /** Type of output data, e.g., VCF, MAF, or BAM. */
-      public var type: CodeableConcept? = null,
+      public val type: CodeableConcept? = null,
     ) : BackboneElement()
 
     /** Performer for the analysis event. */
@@ -383,7 +383,7 @@ public data class GenomicStudy(
        * Unique id for the element within a resource (for internal references). This may be any
        * string value that does not contain spaces.
        */
-      override var id: kotlin.String? = null,
+      override val id: kotlin.String? = null,
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -396,7 +396,7 @@ public data class GenomicStudy(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: MutableList<Extension> = mutableListOf(),
+      override val extension: List<Extension> = listOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -415,14 +415,14 @@ public data class GenomicStudy(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: MutableList<Extension> = mutableListOf(),
+      override val modifierExtension: List<Extension> = listOf(),
       /**
        * The organization, healthcare professional, or others who participated in performing this
        * analysis.
        */
-      public var actor: Reference? = null,
+      public val actor: Reference? = null,
       /** Role of the actor for this analysis. */
-      public var role: CodeableConcept? = null,
+      public val role: CodeableConcept? = null,
     ) : BackboneElement()
 
     /**
@@ -434,7 +434,7 @@ public data class GenomicStudy(
        * Unique id for the element within a resource (for internal references). This may be any
        * string value that does not contain spaces.
        */
-      override var id: kotlin.String? = null,
+      override val id: kotlin.String? = null,
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -447,7 +447,7 @@ public data class GenomicStudy(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: MutableList<Extension> = mutableListOf(),
+      override val extension: List<Extension> = listOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -466,11 +466,11 @@ public data class GenomicStudy(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: MutableList<Extension> = mutableListOf(),
+      override val modifierExtension: List<Extension> = listOf(),
       /** Device used for the analysis. */
-      public var device: Reference? = null,
+      public val device: Reference? = null,
       /** Specific function for the device used for the analysis. */
-      public var function: CodeableConcept? = null,
+      public val function: CodeableConcept? = null,
     ) : BackboneElement()
   }
 

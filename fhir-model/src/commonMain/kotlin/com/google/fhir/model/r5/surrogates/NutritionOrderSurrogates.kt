@@ -47,34 +47,33 @@ import com.google.fhir.model.r5.serializers.LocalTimeSerializer
 import kotlin.Boolean as KotlinBoolean
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class NutritionOrderOralDietSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var type: MutableList<CodeableConcept>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
+  public var type: List<CodeableConcept>? = null,
   public var schedule: NutritionOrder.OralDiet.Schedule? = null,
-  public var nutrient: MutableList<NutritionOrder.OralDiet.Nutrient>? = null,
-  public var texture: MutableList<NutritionOrder.OralDiet.Texture>? = null,
-  public var fluidConsistencyType: MutableList<CodeableConcept>? = null,
+  public var nutrient: List<NutritionOrder.OralDiet.Nutrient>? = null,
+  public var texture: List<NutritionOrder.OralDiet.Texture>? = null,
+  public var fluidConsistencyType: List<CodeableConcept>? = null,
   public var instruction: KotlinString? = null,
   public var _instruction: Element? = null,
 ) {
   public fun toModel(): NutritionOrder.OralDiet =
     NutritionOrder.OralDiet(
       id = this@NutritionOrderOralDietSurrogate.id,
-      extension = this@NutritionOrderOralDietSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@NutritionOrderOralDietSurrogate.modifierExtension ?: mutableListOf(),
-      type = this@NutritionOrderOralDietSurrogate.type ?: mutableListOf(),
+      extension = this@NutritionOrderOralDietSurrogate.extension ?: listOf(),
+      modifierExtension = this@NutritionOrderOralDietSurrogate.modifierExtension ?: listOf(),
+      type = this@NutritionOrderOralDietSurrogate.type ?: listOf(),
       schedule = this@NutritionOrderOralDietSurrogate.schedule,
-      nutrient = this@NutritionOrderOralDietSurrogate.nutrient ?: mutableListOf(),
-      texture = this@NutritionOrderOralDietSurrogate.texture ?: mutableListOf(),
-      fluidConsistencyType =
-        this@NutritionOrderOralDietSurrogate.fluidConsistencyType ?: mutableListOf(),
+      nutrient = this@NutritionOrderOralDietSurrogate.nutrient ?: listOf(),
+      texture = this@NutritionOrderOralDietSurrogate.texture ?: listOf(),
+      fluidConsistencyType = this@NutritionOrderOralDietSurrogate.fluidConsistencyType ?: listOf(),
       instruction =
         R5String.of(
           this@NutritionOrderOralDietSurrogate.instruction,
@@ -104,9 +103,9 @@ internal data class NutritionOrderOralDietSurrogate(
 @Serializable
 internal data class NutritionOrderOralDietScheduleSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var timing: MutableList<Timing>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
+  public var timing: List<Timing>? = null,
   public var asNeeded: KotlinBoolean? = null,
   public var _asNeeded: Element? = null,
   public var asNeededFor: CodeableConcept? = null,
@@ -114,10 +113,10 @@ internal data class NutritionOrderOralDietScheduleSurrogate(
   public fun toModel(): NutritionOrder.OralDiet.Schedule =
     NutritionOrder.OralDiet.Schedule(
       id = this@NutritionOrderOralDietScheduleSurrogate.id,
-      extension = this@NutritionOrderOralDietScheduleSurrogate.extension ?: mutableListOf(),
+      extension = this@NutritionOrderOralDietScheduleSurrogate.extension ?: listOf(),
       modifierExtension =
-        this@NutritionOrderOralDietScheduleSurrogate.modifierExtension ?: mutableListOf(),
-      timing = this@NutritionOrderOralDietScheduleSurrogate.timing ?: mutableListOf(),
+        this@NutritionOrderOralDietScheduleSurrogate.modifierExtension ?: listOf(),
+      timing = this@NutritionOrderOralDietScheduleSurrogate.timing ?: listOf(),
       asNeeded =
         R5Boolean.of(
           this@NutritionOrderOralDietScheduleSurrogate.asNeeded,
@@ -147,17 +146,17 @@ internal data class NutritionOrderOralDietScheduleSurrogate(
 @Serializable
 internal data class NutritionOrderOralDietNutrientSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var modifier: CodeableConcept? = null,
   public var amount: Quantity? = null,
 ) {
   public fun toModel(): NutritionOrder.OralDiet.Nutrient =
     NutritionOrder.OralDiet.Nutrient(
       id = this@NutritionOrderOralDietNutrientSurrogate.id,
-      extension = this@NutritionOrderOralDietNutrientSurrogate.extension ?: mutableListOf(),
+      extension = this@NutritionOrderOralDietNutrientSurrogate.extension ?: listOf(),
       modifierExtension =
-        this@NutritionOrderOralDietNutrientSurrogate.modifierExtension ?: mutableListOf(),
+        this@NutritionOrderOralDietNutrientSurrogate.modifierExtension ?: listOf(),
       modifier = this@NutritionOrderOralDietNutrientSurrogate.modifier,
       amount = this@NutritionOrderOralDietNutrientSurrogate.amount,
     )
@@ -181,17 +180,16 @@ internal data class NutritionOrderOralDietNutrientSurrogate(
 @Serializable
 internal data class NutritionOrderOralDietTextureSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var modifier: CodeableConcept? = null,
   public var foodType: CodeableConcept? = null,
 ) {
   public fun toModel(): NutritionOrder.OralDiet.Texture =
     NutritionOrder.OralDiet.Texture(
       id = this@NutritionOrderOralDietTextureSurrogate.id,
-      extension = this@NutritionOrderOralDietTextureSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@NutritionOrderOralDietTextureSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@NutritionOrderOralDietTextureSurrogate.extension ?: listOf(),
+      modifierExtension = this@NutritionOrderOralDietTextureSurrogate.modifierExtension ?: listOf(),
       modifier = this@NutritionOrderOralDietTextureSurrogate.modifier,
       foodType = this@NutritionOrderOralDietTextureSurrogate.foodType,
     )
@@ -215,8 +213,8 @@ internal data class NutritionOrderOralDietTextureSurrogate(
 @Serializable
 internal data class NutritionOrderSupplementSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var type: CodeableReference? = null,
   public var productName: KotlinString? = null,
   public var _productName: Element? = null,
@@ -228,9 +226,8 @@ internal data class NutritionOrderSupplementSurrogate(
   public fun toModel(): NutritionOrder.Supplement =
     NutritionOrder.Supplement(
       id = this@NutritionOrderSupplementSurrogate.id,
-      extension = this@NutritionOrderSupplementSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@NutritionOrderSupplementSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@NutritionOrderSupplementSurrogate.extension ?: listOf(),
+      modifierExtension = this@NutritionOrderSupplementSurrogate.modifierExtension ?: listOf(),
       type = this@NutritionOrderSupplementSurrogate.type,
       productName =
         R5String.of(
@@ -268,9 +265,9 @@ internal data class NutritionOrderSupplementSurrogate(
 @Serializable
 internal data class NutritionOrderSupplementScheduleSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var timing: MutableList<Timing>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
+  public var timing: List<Timing>? = null,
   public var asNeeded: KotlinBoolean? = null,
   public var _asNeeded: Element? = null,
   public var asNeededFor: CodeableConcept? = null,
@@ -278,10 +275,10 @@ internal data class NutritionOrderSupplementScheduleSurrogate(
   public fun toModel(): NutritionOrder.Supplement.Schedule =
     NutritionOrder.Supplement.Schedule(
       id = this@NutritionOrderSupplementScheduleSurrogate.id,
-      extension = this@NutritionOrderSupplementScheduleSurrogate.extension ?: mutableListOf(),
+      extension = this@NutritionOrderSupplementScheduleSurrogate.extension ?: listOf(),
       modifierExtension =
-        this@NutritionOrderSupplementScheduleSurrogate.modifierExtension ?: mutableListOf(),
-      timing = this@NutritionOrderSupplementScheduleSurrogate.timing ?: mutableListOf(),
+        this@NutritionOrderSupplementScheduleSurrogate.modifierExtension ?: listOf(),
+      timing = this@NutritionOrderSupplementScheduleSurrogate.timing ?: listOf(),
       asNeeded =
         R5Boolean.of(
           this@NutritionOrderSupplementScheduleSurrogate.asNeeded,
@@ -311,16 +308,16 @@ internal data class NutritionOrderSupplementScheduleSurrogate(
 @Serializable
 internal data class NutritionOrderEnteralFormulaSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var baseFormulaType: CodeableReference? = null,
   public var baseFormulaProductName: KotlinString? = null,
   public var _baseFormulaProductName: Element? = null,
-  public var deliveryDevice: MutableList<CodeableReference>? = null,
-  public var additive: MutableList<NutritionOrder.EnteralFormula.Additive>? = null,
+  public var deliveryDevice: List<CodeableReference>? = null,
+  public var additive: List<NutritionOrder.EnteralFormula.Additive>? = null,
   public var caloricDensity: Quantity? = null,
   public var routeOfAdministration: CodeableConcept? = null,
-  public var administration: MutableList<NutritionOrder.EnteralFormula.Administration>? = null,
+  public var administration: List<NutritionOrder.EnteralFormula.Administration>? = null,
   public var maxVolumeToDeliver: Quantity? = null,
   public var administrationInstruction: KotlinString? = null,
   public var _administrationInstruction: Element? = null,
@@ -328,20 +325,19 @@ internal data class NutritionOrderEnteralFormulaSurrogate(
   public fun toModel(): NutritionOrder.EnteralFormula =
     NutritionOrder.EnteralFormula(
       id = this@NutritionOrderEnteralFormulaSurrogate.id,
-      extension = this@NutritionOrderEnteralFormulaSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@NutritionOrderEnteralFormulaSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@NutritionOrderEnteralFormulaSurrogate.extension ?: listOf(),
+      modifierExtension = this@NutritionOrderEnteralFormulaSurrogate.modifierExtension ?: listOf(),
       baseFormulaType = this@NutritionOrderEnteralFormulaSurrogate.baseFormulaType,
       baseFormulaProductName =
         R5String.of(
           this@NutritionOrderEnteralFormulaSurrogate.baseFormulaProductName,
           this@NutritionOrderEnteralFormulaSurrogate._baseFormulaProductName,
         ),
-      deliveryDevice = this@NutritionOrderEnteralFormulaSurrogate.deliveryDevice ?: mutableListOf(),
-      additive = this@NutritionOrderEnteralFormulaSurrogate.additive ?: mutableListOf(),
+      deliveryDevice = this@NutritionOrderEnteralFormulaSurrogate.deliveryDevice ?: listOf(),
+      additive = this@NutritionOrderEnteralFormulaSurrogate.additive ?: listOf(),
       caloricDensity = this@NutritionOrderEnteralFormulaSurrogate.caloricDensity,
       routeOfAdministration = this@NutritionOrderEnteralFormulaSurrogate.routeOfAdministration,
-      administration = this@NutritionOrderEnteralFormulaSurrogate.administration ?: mutableListOf(),
+      administration = this@NutritionOrderEnteralFormulaSurrogate.administration ?: listOf(),
       maxVolumeToDeliver = this@NutritionOrderEnteralFormulaSurrogate.maxVolumeToDeliver,
       administrationInstruction =
         Markdown.of(
@@ -378,8 +374,8 @@ internal data class NutritionOrderEnteralFormulaSurrogate(
 @Serializable
 internal data class NutritionOrderEnteralFormulaAdditiveSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var type: CodeableReference? = null,
   public var productName: KotlinString? = null,
   public var _productName: Element? = null,
@@ -388,9 +384,9 @@ internal data class NutritionOrderEnteralFormulaAdditiveSurrogate(
   public fun toModel(): NutritionOrder.EnteralFormula.Additive =
     NutritionOrder.EnteralFormula.Additive(
       id = this@NutritionOrderEnteralFormulaAdditiveSurrogate.id,
-      extension = this@NutritionOrderEnteralFormulaAdditiveSurrogate.extension ?: mutableListOf(),
+      extension = this@NutritionOrderEnteralFormulaAdditiveSurrogate.extension ?: listOf(),
       modifierExtension =
-        this@NutritionOrderEnteralFormulaAdditiveSurrogate.modifierExtension ?: mutableListOf(),
+        this@NutritionOrderEnteralFormulaAdditiveSurrogate.modifierExtension ?: listOf(),
       type = this@NutritionOrderEnteralFormulaAdditiveSurrogate.type,
       productName =
         R5String.of(
@@ -421,8 +417,8 @@ internal data class NutritionOrderEnteralFormulaAdditiveSurrogate(
 @Serializable
 internal data class NutritionOrderEnteralFormulaAdministrationSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var schedule: NutritionOrder.EnteralFormula.Administration.Schedule? = null,
   public var quantity: Quantity? = null,
   public var rate: NutritionOrder.EnteralFormula.Administration.Rate? = null,
@@ -430,11 +426,9 @@ internal data class NutritionOrderEnteralFormulaAdministrationSurrogate(
   public fun toModel(): NutritionOrder.EnteralFormula.Administration =
     NutritionOrder.EnteralFormula.Administration(
       id = this@NutritionOrderEnteralFormulaAdministrationSurrogate.id,
-      extension =
-        this@NutritionOrderEnteralFormulaAdministrationSurrogate.extension ?: mutableListOf(),
+      extension = this@NutritionOrderEnteralFormulaAdministrationSurrogate.extension ?: listOf(),
       modifierExtension =
-        this@NutritionOrderEnteralFormulaAdministrationSurrogate.modifierExtension
-          ?: mutableListOf(),
+        this@NutritionOrderEnteralFormulaAdministrationSurrogate.modifierExtension ?: listOf(),
       schedule = this@NutritionOrderEnteralFormulaAdministrationSurrogate.schedule,
       quantity = this@NutritionOrderEnteralFormulaAdministrationSurrogate.quantity,
       rate = this@NutritionOrderEnteralFormulaAdministrationSurrogate.rate,
@@ -460,9 +454,9 @@ internal data class NutritionOrderEnteralFormulaAdministrationSurrogate(
 @Serializable
 internal data class NutritionOrderEnteralFormulaAdministrationScheduleSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var timing: MutableList<Timing>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
+  public var timing: List<Timing>? = null,
   public var asNeeded: KotlinBoolean? = null,
   public var _asNeeded: Element? = null,
   public var asNeededFor: CodeableConcept? = null,
@@ -471,13 +465,11 @@ internal data class NutritionOrderEnteralFormulaAdministrationScheduleSurrogate(
     NutritionOrder.EnteralFormula.Administration.Schedule(
       id = this@NutritionOrderEnteralFormulaAdministrationScheduleSurrogate.id,
       extension =
-        this@NutritionOrderEnteralFormulaAdministrationScheduleSurrogate.extension
-          ?: mutableListOf(),
+        this@NutritionOrderEnteralFormulaAdministrationScheduleSurrogate.extension ?: listOf(),
       modifierExtension =
         this@NutritionOrderEnteralFormulaAdministrationScheduleSurrogate.modifierExtension
-          ?: mutableListOf(),
-      timing =
-        this@NutritionOrderEnteralFormulaAdministrationScheduleSurrogate.timing ?: mutableListOf(),
+          ?: listOf(),
+      timing = this@NutritionOrderEnteralFormulaAdministrationScheduleSurrogate.timing ?: listOf(),
       asNeeded =
         R5Boolean.of(
           this@NutritionOrderEnteralFormulaAdministrationScheduleSurrogate.asNeeded,
@@ -537,17 +529,17 @@ internal data class NutritionOrderSurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: MutableList<Resource>? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var identifier: MutableList<Identifier>? = null,
-  public var instantiatesCanonical: MutableList<KotlinString?>? = null,
-  public var _instantiatesCanonical: MutableList<Element?>? = null,
-  public var instantiatesUri: MutableList<KotlinString?>? = null,
-  public var _instantiatesUri: MutableList<Element?>? = null,
-  public var instantiates: MutableList<KotlinString?>? = null,
-  public var _instantiates: MutableList<Element?>? = null,
-  public var basedOn: MutableList<Reference>? = null,
+  public var contained: List<Resource>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
+  public var identifier: List<Identifier>? = null,
+  public var instantiatesCanonical: List<KotlinString?>? = null,
+  public var _instantiatesCanonical: List<Element?>? = null,
+  public var instantiatesUri: List<KotlinString?>? = null,
+  public var _instantiatesUri: List<Element?>? = null,
+  public var instantiates: List<KotlinString?>? = null,
+  public var _instantiates: List<Element?>? = null,
+  public var basedOn: List<Reference>? = null,
   public var groupIdentifier: Identifier? = null,
   public var status: KotlinString? = null,
   public var _status: Element? = null,
@@ -557,20 +549,20 @@ internal data class NutritionOrderSurrogate(
   public var _priority: Element? = null,
   public var subject: Reference,
   public var encounter: Reference? = null,
-  public var supportingInformation: MutableList<Reference>? = null,
+  public var supportingInformation: List<Reference>? = null,
   public var dateTime: KotlinString? = null,
   public var _dateTime: Element? = null,
   public var orderer: Reference? = null,
-  public var performer: MutableList<CodeableReference>? = null,
-  public var allergyIntolerance: MutableList<Reference>? = null,
-  public var foodPreferenceModifier: MutableList<CodeableConcept>? = null,
-  public var excludeFoodModifier: MutableList<CodeableConcept>? = null,
+  public var performer: List<CodeableReference>? = null,
+  public var allergyIntolerance: List<Reference>? = null,
+  public var foodPreferenceModifier: List<CodeableConcept>? = null,
+  public var excludeFoodModifier: List<CodeableConcept>? = null,
   public var outsideFoodAllowed: KotlinBoolean? = null,
   public var _outsideFoodAllowed: Element? = null,
   public var oralDiet: NutritionOrder.OralDiet? = null,
-  public var supplement: MutableList<NutritionOrder.Supplement>? = null,
+  public var supplement: List<NutritionOrder.Supplement>? = null,
   public var enteralFormula: NutritionOrder.EnteralFormula? = null,
-  public var note: MutableList<Annotation>? = null,
+  public var note: List<Annotation>? = null,
 ) {
   public fun toModel(): NutritionOrder =
     NutritionOrder(
@@ -584,16 +576,16 @@ internal data class NutritionOrderSurrogate(
       language =
         Code.of(this@NutritionOrderSurrogate.language, this@NutritionOrderSurrogate._language),
       text = this@NutritionOrderSurrogate.text,
-      contained = this@NutritionOrderSurrogate.contained ?: mutableListOf(),
-      extension = this@NutritionOrderSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@NutritionOrderSurrogate.modifierExtension ?: mutableListOf(),
-      identifier = this@NutritionOrderSurrogate.identifier ?: mutableListOf(),
+      contained = this@NutritionOrderSurrogate.contained ?: listOf(),
+      extension = this@NutritionOrderSurrogate.extension ?: listOf(),
+      modifierExtension = this@NutritionOrderSurrogate.modifierExtension ?: listOf(),
+      identifier = this@NutritionOrderSurrogate.identifier ?: listOf(),
       instantiatesCanonical =
         if (
           this@NutritionOrderSurrogate.instantiatesCanonical == null &&
             this@NutritionOrderSurrogate._instantiatesCanonical == null
         ) {
-          mutableListOf()
+          listOf()
         } else {
           (this@NutritionOrderSurrogate.instantiatesCanonical
               ?: List(this@NutritionOrderSurrogate._instantiatesCanonical!!.size) { null })
@@ -602,14 +594,14 @@ internal data class NutritionOrderSurrogate(
                 ?: List(this@NutritionOrderSurrogate.instantiatesCanonical!!.size) { null }
             )
             .map { (value, element) -> Canonical.of(value, element)!! }
-            .toMutableList()
+            .toList()
         },
       instantiatesUri =
         if (
           this@NutritionOrderSurrogate.instantiatesUri == null &&
             this@NutritionOrderSurrogate._instantiatesUri == null
         ) {
-          mutableListOf()
+          listOf()
         } else {
           (this@NutritionOrderSurrogate.instantiatesUri
               ?: List(this@NutritionOrderSurrogate._instantiatesUri!!.size) { null })
@@ -618,14 +610,14 @@ internal data class NutritionOrderSurrogate(
                 ?: List(this@NutritionOrderSurrogate.instantiatesUri!!.size) { null }
             )
             .map { (value, element) -> Uri.of(value, element)!! }
-            .toMutableList()
+            .toList()
         },
       instantiates =
         if (
           this@NutritionOrderSurrogate.instantiates == null &&
             this@NutritionOrderSurrogate._instantiates == null
         ) {
-          mutableListOf()
+          listOf()
         } else {
           (this@NutritionOrderSurrogate.instantiates
               ?: List(this@NutritionOrderSurrogate._instantiates!!.size) { null })
@@ -634,9 +626,9 @@ internal data class NutritionOrderSurrogate(
                 ?: List(this@NutritionOrderSurrogate.instantiates!!.size) { null }
             )
             .map { (value, element) -> Uri.of(value, element)!! }
-            .toMutableList()
+            .toList()
         },
-      basedOn = this@NutritionOrderSurrogate.basedOn ?: mutableListOf(),
+      basedOn = this@NutritionOrderSurrogate.basedOn ?: listOf(),
       groupIdentifier = this@NutritionOrderSurrogate.groupIdentifier,
       status =
         Enumeration.of(
@@ -657,27 +649,26 @@ internal data class NutritionOrderSurrogate(
         },
       subject = this@NutritionOrderSurrogate.subject,
       encounter = this@NutritionOrderSurrogate.encounter,
-      supportingInformation = this@NutritionOrderSurrogate.supportingInformation ?: mutableListOf(),
+      supportingInformation = this@NutritionOrderSurrogate.supportingInformation ?: listOf(),
       dateTime =
         DateTime.of(
           FhirDateTime.fromString(this@NutritionOrderSurrogate.dateTime),
           this@NutritionOrderSurrogate._dateTime,
         )!!,
       orderer = this@NutritionOrderSurrogate.orderer,
-      performer = this@NutritionOrderSurrogate.performer ?: mutableListOf(),
-      allergyIntolerance = this@NutritionOrderSurrogate.allergyIntolerance ?: mutableListOf(),
-      foodPreferenceModifier =
-        this@NutritionOrderSurrogate.foodPreferenceModifier ?: mutableListOf(),
-      excludeFoodModifier = this@NutritionOrderSurrogate.excludeFoodModifier ?: mutableListOf(),
+      performer = this@NutritionOrderSurrogate.performer ?: listOf(),
+      allergyIntolerance = this@NutritionOrderSurrogate.allergyIntolerance ?: listOf(),
+      foodPreferenceModifier = this@NutritionOrderSurrogate.foodPreferenceModifier ?: listOf(),
+      excludeFoodModifier = this@NutritionOrderSurrogate.excludeFoodModifier ?: listOf(),
       outsideFoodAllowed =
         R5Boolean.of(
           this@NutritionOrderSurrogate.outsideFoodAllowed,
           this@NutritionOrderSurrogate._outsideFoodAllowed,
         ),
       oralDiet = this@NutritionOrderSurrogate.oralDiet,
-      supplement = this@NutritionOrderSurrogate.supplement ?: mutableListOf(),
+      supplement = this@NutritionOrderSurrogate.supplement ?: listOf(),
       enteralFormula = this@NutritionOrderSurrogate.enteralFormula,
-      note = this@NutritionOrderSurrogate.note ?: mutableListOf(),
+      note = this@NutritionOrderSurrogate.note ?: listOf(),
     )
 
   public companion object {
@@ -698,36 +689,33 @@ internal data class NutritionOrderSurrogate(
           instantiatesCanonical =
             this@with.instantiatesCanonical
               .map { it.value }
-              .toMutableList()
+              .toList()
               .takeUnless { it.all { it == null } },
           _instantiatesCanonical =
             this@with.instantiatesCanonical
               .map { it.toElement() }
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
-              ?.toMutableList(),
+              ?.toList(),
           instantiatesUri =
             this@with.instantiatesUri
               .map { it.value }
-              .toMutableList()
+              .toList()
               .takeUnless { it.all { it == null } },
           _instantiatesUri =
             this@with.instantiatesUri
               .map { it.toElement() }
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
-              ?.toMutableList(),
+              ?.toList(),
           instantiates =
-            this@with.instantiates
-              .map { it.value }
-              .toMutableList()
-              .takeUnless { it.all { it == null } },
+            this@with.instantiates.map { it.value }.toList().takeUnless { it.all { it == null } },
           _instantiates =
             this@with.instantiates
               .map { it.toElement() }
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
-              ?.toMutableList(),
+              ?.toList(),
           basedOn = this@with.basedOn.takeIf { it.isNotEmpty() },
           groupIdentifier = this@with.groupIdentifier,
           status = this@with.status.value?.getCode(),

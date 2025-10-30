@@ -20,7 +20,7 @@ package com.google.fhir.model.r5
 
 import com.google.fhir.model.r5.serializers.ContributorSerializer
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 
 /**
@@ -33,7 +33,7 @@ public data class Contributor(
    * Unique id for the element within a resource (for internal references). This may be any string
    * value that does not contain spaces.
    */
-  override var id: kotlin.String? = null,
+  override val id: kotlin.String? = null,
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * element. To make the use of extensions safe and managable, there is a strict set of governance
@@ -46,13 +46,13 @@ public data class Contributor(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: MutableList<Extension> = mutableListOf(),
+  override val extension: List<Extension> = listOf(),
   /** The type of contributor. */
-  public var type: Enumeration<ContributorType>,
+  public val type: Enumeration<ContributorType>,
   /** The name of the individual or organization responsible for the contribution. */
-  public var name: String,
+  public val name: String,
   /** Contact details to assist a user in finding and communicating with the contributor. */
-  public var contact: MutableList<ContactDetail> = mutableListOf(),
+  public val contact: List<ContactDetail> = listOf(),
 ) : DataType() {
   /** The type of contributor. */
   public enum class ContributorType(

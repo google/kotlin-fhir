@@ -39,24 +39,23 @@ import com.google.fhir.model.r4b.serializers.LocalTimeSerializer
 import com.google.fhir.model.r4b.terminologies.DocumentReferenceStatus
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class DocumentManifestRelatedSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var identifier: Identifier? = null,
   public var ref: Reference? = null,
 ) {
   public fun toModel(): DocumentManifest.Related =
     DocumentManifest.Related(
       id = this@DocumentManifestRelatedSurrogate.id,
-      extension = this@DocumentManifestRelatedSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@DocumentManifestRelatedSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@DocumentManifestRelatedSurrogate.extension ?: listOf(),
+      modifierExtension = this@DocumentManifestRelatedSurrogate.modifierExtension ?: listOf(),
       identifier = this@DocumentManifestRelatedSurrogate.identifier,
       ref = this@DocumentManifestRelatedSurrogate.ref,
     )
@@ -84,25 +83,25 @@ internal data class DocumentManifestSurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: MutableList<Resource>? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var contained: List<Resource>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var masterIdentifier: Identifier? = null,
-  public var identifier: MutableList<Identifier>? = null,
+  public var identifier: List<Identifier>? = null,
   public var status: KotlinString? = null,
   public var _status: Element? = null,
   public var type: CodeableConcept? = null,
   public var subject: Reference? = null,
   public var created: KotlinString? = null,
   public var _created: Element? = null,
-  public var author: MutableList<Reference>? = null,
-  public var recipient: MutableList<Reference>? = null,
+  public var author: List<Reference>? = null,
+  public var recipient: List<Reference>? = null,
   public var source: KotlinString? = null,
   public var _source: Element? = null,
   public var description: KotlinString? = null,
   public var _description: Element? = null,
-  public var content: MutableList<Reference>? = null,
-  public var related: MutableList<DocumentManifest.Related>? = null,
+  public var content: List<Reference>? = null,
+  public var related: List<DocumentManifest.Related>? = null,
 ) {
   public fun toModel(): DocumentManifest =
     DocumentManifest(
@@ -116,11 +115,11 @@ internal data class DocumentManifestSurrogate(
       language =
         Code.of(this@DocumentManifestSurrogate.language, this@DocumentManifestSurrogate._language),
       text = this@DocumentManifestSurrogate.text,
-      contained = this@DocumentManifestSurrogate.contained ?: mutableListOf(),
-      extension = this@DocumentManifestSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@DocumentManifestSurrogate.modifierExtension ?: mutableListOf(),
+      contained = this@DocumentManifestSurrogate.contained ?: listOf(),
+      extension = this@DocumentManifestSurrogate.extension ?: listOf(),
+      modifierExtension = this@DocumentManifestSurrogate.modifierExtension ?: listOf(),
       masterIdentifier = this@DocumentManifestSurrogate.masterIdentifier,
-      identifier = this@DocumentManifestSurrogate.identifier ?: mutableListOf(),
+      identifier = this@DocumentManifestSurrogate.identifier ?: listOf(),
       status =
         Enumeration.of(
           DocumentReferenceStatus.fromCode(this@DocumentManifestSurrogate.status!!),
@@ -133,8 +132,8 @@ internal data class DocumentManifestSurrogate(
           FhirDateTime.fromString(this@DocumentManifestSurrogate.created),
           this@DocumentManifestSurrogate._created,
         ),
-      author = this@DocumentManifestSurrogate.author ?: mutableListOf(),
-      recipient = this@DocumentManifestSurrogate.recipient ?: mutableListOf(),
+      author = this@DocumentManifestSurrogate.author ?: listOf(),
+      recipient = this@DocumentManifestSurrogate.recipient ?: listOf(),
       source =
         Uri.of(this@DocumentManifestSurrogate.source, this@DocumentManifestSurrogate._source),
       description =
@@ -142,8 +141,8 @@ internal data class DocumentManifestSurrogate(
           this@DocumentManifestSurrogate.description,
           this@DocumentManifestSurrogate._description,
         ),
-      content = this@DocumentManifestSurrogate.content ?: mutableListOf(),
-      related = this@DocumentManifestSurrogate.related ?: mutableListOf(),
+      content = this@DocumentManifestSurrogate.content ?: listOf(),
+      related = this@DocumentManifestSurrogate.related ?: listOf(),
     )
 
   public companion object {

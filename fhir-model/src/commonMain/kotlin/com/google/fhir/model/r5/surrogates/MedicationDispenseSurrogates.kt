@@ -44,24 +44,23 @@ import com.google.fhir.model.r5.serializers.LocalTimeSerializer
 import kotlin.Boolean as KotlinBoolean
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class MedicationDispensePerformerSurrogate(
   public var id: String? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var function: CodeableConcept? = null,
   public var actor: Reference,
 ) {
   public fun toModel(): MedicationDispense.Performer =
     MedicationDispense.Performer(
       id = this@MedicationDispensePerformerSurrogate.id,
-      extension = this@MedicationDispensePerformerSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@MedicationDispensePerformerSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@MedicationDispensePerformerSurrogate.extension ?: listOf(),
+      modifierExtension = this@MedicationDispensePerformerSurrogate.modifierExtension ?: listOf(),
       function = this@MedicationDispensePerformerSurrogate.function,
       actor = this@MedicationDispensePerformerSurrogate.actor,
     )
@@ -85,27 +84,27 @@ internal data class MedicationDispensePerformerSurrogate(
 @Serializable
 internal data class MedicationDispenseSubstitutionSurrogate(
   public var id: String? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var wasSubstituted: KotlinBoolean? = null,
   public var _wasSubstituted: Element? = null,
   public var type: CodeableConcept? = null,
-  public var reason: MutableList<CodeableConcept>? = null,
+  public var reason: List<CodeableConcept>? = null,
   public var responsibleParty: Reference? = null,
 ) {
   public fun toModel(): MedicationDispense.Substitution =
     MedicationDispense.Substitution(
       id = this@MedicationDispenseSubstitutionSurrogate.id,
-      extension = this@MedicationDispenseSubstitutionSurrogate.extension ?: mutableListOf(),
+      extension = this@MedicationDispenseSubstitutionSurrogate.extension ?: listOf(),
       modifierExtension =
-        this@MedicationDispenseSubstitutionSurrogate.modifierExtension ?: mutableListOf(),
+        this@MedicationDispenseSubstitutionSurrogate.modifierExtension ?: listOf(),
       wasSubstituted =
         R5Boolean.of(
           this@MedicationDispenseSubstitutionSurrogate.wasSubstituted,
           this@MedicationDispenseSubstitutionSurrogate._wasSubstituted,
         )!!,
       type = this@MedicationDispenseSubstitutionSurrogate.type,
-      reason = this@MedicationDispenseSubstitutionSurrogate.reason ?: mutableListOf(),
+      reason = this@MedicationDispenseSubstitutionSurrogate.reason ?: listOf(),
       responsibleParty = this@MedicationDispenseSubstitutionSurrogate.responsibleParty,
     )
 
@@ -137,25 +136,25 @@ internal data class MedicationDispenseSurrogate(
   public var language: String? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: MutableList<Resource>? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var identifier: MutableList<Identifier>? = null,
-  public var basedOn: MutableList<Reference>? = null,
-  public var partOf: MutableList<Reference>? = null,
+  public var contained: List<Resource>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
+  public var identifier: List<Identifier>? = null,
+  public var basedOn: List<Reference>? = null,
+  public var partOf: List<Reference>? = null,
   public var status: String? = null,
   public var _status: Element? = null,
   public var notPerformedReason: CodeableReference? = null,
   public var statusChanged: String? = null,
   public var _statusChanged: Element? = null,
-  public var category: MutableList<CodeableConcept>? = null,
+  public var category: List<CodeableConcept>? = null,
   public var medication: CodeableReference,
   public var subject: Reference,
   public var encounter: Reference? = null,
-  public var supportingInformation: MutableList<Reference>? = null,
-  public var performer: MutableList<MedicationDispense.Performer>? = null,
+  public var supportingInformation: List<Reference>? = null,
+  public var performer: List<MedicationDispense.Performer>? = null,
   public var location: Reference? = null,
-  public var authorizingPrescription: MutableList<Reference>? = null,
+  public var authorizingPrescription: List<Reference>? = null,
   public var type: CodeableConcept? = null,
   public var quantity: Quantity? = null,
   public var daysSupply: Quantity? = null,
@@ -166,13 +165,13 @@ internal data class MedicationDispenseSurrogate(
   public var whenHandedOver: String? = null,
   public var _whenHandedOver: Element? = null,
   public var destination: Reference? = null,
-  public var `receiver`: MutableList<Reference>? = null,
-  public var note: MutableList<Annotation>? = null,
+  public var `receiver`: List<Reference>? = null,
+  public var note: List<Annotation>? = null,
   public var renderedDosageInstruction: String? = null,
   public var _renderedDosageInstruction: Element? = null,
-  public var dosageInstruction: MutableList<Dosage>? = null,
+  public var dosageInstruction: List<Dosage>? = null,
   public var substitution: MedicationDispense.Substitution? = null,
-  public var eventHistory: MutableList<Reference>? = null,
+  public var eventHistory: List<Reference>? = null,
 ) {
   public fun toModel(): MedicationDispense =
     MedicationDispense(
@@ -189,12 +188,12 @@ internal data class MedicationDispenseSurrogate(
           this@MedicationDispenseSurrogate._language,
         ),
       text = this@MedicationDispenseSurrogate.text,
-      contained = this@MedicationDispenseSurrogate.contained ?: mutableListOf(),
-      extension = this@MedicationDispenseSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@MedicationDispenseSurrogate.modifierExtension ?: mutableListOf(),
-      identifier = this@MedicationDispenseSurrogate.identifier ?: mutableListOf(),
-      basedOn = this@MedicationDispenseSurrogate.basedOn ?: mutableListOf(),
-      partOf = this@MedicationDispenseSurrogate.partOf ?: mutableListOf(),
+      contained = this@MedicationDispenseSurrogate.contained ?: listOf(),
+      extension = this@MedicationDispenseSurrogate.extension ?: listOf(),
+      modifierExtension = this@MedicationDispenseSurrogate.modifierExtension ?: listOf(),
+      identifier = this@MedicationDispenseSurrogate.identifier ?: listOf(),
+      basedOn = this@MedicationDispenseSurrogate.basedOn ?: listOf(),
+      partOf = this@MedicationDispenseSurrogate.partOf ?: listOf(),
       status =
         Enumeration.of(
           MedicationDispense.MedicationDispenseStatusCodes.fromCode(
@@ -208,16 +207,15 @@ internal data class MedicationDispenseSurrogate(
           FhirDateTime.fromString(this@MedicationDispenseSurrogate.statusChanged),
           this@MedicationDispenseSurrogate._statusChanged,
         ),
-      category = this@MedicationDispenseSurrogate.category ?: mutableListOf(),
+      category = this@MedicationDispenseSurrogate.category ?: listOf(),
       medication = this@MedicationDispenseSurrogate.medication,
       subject = this@MedicationDispenseSurrogate.subject,
       encounter = this@MedicationDispenseSurrogate.encounter,
-      supportingInformation =
-        this@MedicationDispenseSurrogate.supportingInformation ?: mutableListOf(),
-      performer = this@MedicationDispenseSurrogate.performer ?: mutableListOf(),
+      supportingInformation = this@MedicationDispenseSurrogate.supportingInformation ?: listOf(),
+      performer = this@MedicationDispenseSurrogate.performer ?: listOf(),
       location = this@MedicationDispenseSurrogate.location,
       authorizingPrescription =
-        this@MedicationDispenseSurrogate.authorizingPrescription ?: mutableListOf(),
+        this@MedicationDispenseSurrogate.authorizingPrescription ?: listOf(),
       type = this@MedicationDispenseSurrogate.type,
       quantity = this@MedicationDispenseSurrogate.quantity,
       daysSupply = this@MedicationDispenseSurrogate.daysSupply,
@@ -237,16 +235,16 @@ internal data class MedicationDispenseSurrogate(
           this@MedicationDispenseSurrogate._whenHandedOver,
         ),
       destination = this@MedicationDispenseSurrogate.destination,
-      `receiver` = this@MedicationDispenseSurrogate.`receiver` ?: mutableListOf(),
-      note = this@MedicationDispenseSurrogate.note ?: mutableListOf(),
+      `receiver` = this@MedicationDispenseSurrogate.`receiver` ?: listOf(),
+      note = this@MedicationDispenseSurrogate.note ?: listOf(),
       renderedDosageInstruction =
         Markdown.of(
           this@MedicationDispenseSurrogate.renderedDosageInstruction,
           this@MedicationDispenseSurrogate._renderedDosageInstruction,
         ),
-      dosageInstruction = this@MedicationDispenseSurrogate.dosageInstruction ?: mutableListOf(),
+      dosageInstruction = this@MedicationDispenseSurrogate.dosageInstruction ?: listOf(),
       substitution = this@MedicationDispenseSurrogate.substitution,
-      eventHistory = this@MedicationDispenseSurrogate.eventHistory ?: mutableListOf(),
+      eventHistory = this@MedicationDispenseSurrogate.eventHistory ?: listOf(),
     )
 
   public companion object {

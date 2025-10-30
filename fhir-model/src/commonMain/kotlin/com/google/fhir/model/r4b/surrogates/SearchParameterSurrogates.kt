@@ -45,15 +45,15 @@ import com.google.fhir.model.r4b.terminologies.SearchParamType
 import kotlin.Boolean as KotlinBoolean
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class SearchParameterComponentSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var definition: KotlinString? = null,
   public var _definition: Element? = null,
   public var expression: KotlinString? = null,
@@ -62,9 +62,8 @@ internal data class SearchParameterComponentSurrogate(
   public fun toModel(): SearchParameter.Component =
     SearchParameter.Component(
       id = this@SearchParameterComponentSurrogate.id,
-      extension = this@SearchParameterComponentSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@SearchParameterComponentSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@SearchParameterComponentSurrogate.extension ?: listOf(),
+      modifierExtension = this@SearchParameterComponentSurrogate.modifierExtension ?: listOf(),
       definition =
         Canonical.of(
           this@SearchParameterComponentSurrogate.definition,
@@ -102,9 +101,9 @@ internal data class SearchParameterSurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: MutableList<Resource>? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var contained: List<Resource>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var url: KotlinString? = null,
   public var _url: Element? = null,
   public var version: KotlinString? = null,
@@ -121,17 +120,17 @@ internal data class SearchParameterSurrogate(
   public var _date: Element? = null,
   public var publisher: KotlinString? = null,
   public var _publisher: Element? = null,
-  public var contact: MutableList<ContactDetail>? = null,
+  public var contact: List<ContactDetail>? = null,
   public var description: KotlinString? = null,
   public var _description: Element? = null,
-  public var useContext: MutableList<UsageContext>? = null,
-  public var jurisdiction: MutableList<CodeableConcept>? = null,
+  public var useContext: List<UsageContext>? = null,
+  public var jurisdiction: List<CodeableConcept>? = null,
   public var purpose: KotlinString? = null,
   public var _purpose: Element? = null,
   public var code: KotlinString? = null,
   public var _code: Element? = null,
-  public var base: MutableList<KotlinString?>? = null,
-  public var _base: MutableList<Element?>? = null,
+  public var base: List<KotlinString?>? = null,
+  public var _base: List<Element?>? = null,
   public var type: KotlinString? = null,
   public var _type: Element? = null,
   public var expression: KotlinString? = null,
@@ -140,19 +139,19 @@ internal data class SearchParameterSurrogate(
   public var _xpath: Element? = null,
   public var xpathUsage: KotlinString? = null,
   public var _xpathUsage: Element? = null,
-  public var target: MutableList<KotlinString?>? = null,
-  public var _target: MutableList<Element?>? = null,
+  public var target: List<KotlinString?>? = null,
+  public var _target: List<Element?>? = null,
   public var multipleOr: KotlinBoolean? = null,
   public var _multipleOr: Element? = null,
   public var multipleAnd: KotlinBoolean? = null,
   public var _multipleAnd: Element? = null,
-  public var comparator: MutableList<KotlinString?>? = null,
-  public var _comparator: MutableList<Element?>? = null,
-  public var modifier: MutableList<KotlinString?>? = null,
-  public var _modifier: MutableList<Element?>? = null,
-  public var chain: MutableList<KotlinString?>? = null,
-  public var _chain: MutableList<Element?>? = null,
-  public var component: MutableList<SearchParameter.Component>? = null,
+  public var comparator: List<KotlinString?>? = null,
+  public var _comparator: List<Element?>? = null,
+  public var modifier: List<KotlinString?>? = null,
+  public var _modifier: List<Element?>? = null,
+  public var chain: List<KotlinString?>? = null,
+  public var _chain: List<Element?>? = null,
+  public var component: List<SearchParameter.Component>? = null,
 ) {
   public fun toModel(): SearchParameter =
     SearchParameter(
@@ -166,9 +165,9 @@ internal data class SearchParameterSurrogate(
       language =
         Code.of(this@SearchParameterSurrogate.language, this@SearchParameterSurrogate._language),
       text = this@SearchParameterSurrogate.text,
-      contained = this@SearchParameterSurrogate.contained ?: mutableListOf(),
-      extension = this@SearchParameterSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@SearchParameterSurrogate.modifierExtension ?: mutableListOf(),
+      contained = this@SearchParameterSurrogate.contained ?: listOf(),
+      extension = this@SearchParameterSurrogate.extension ?: listOf(),
+      modifierExtension = this@SearchParameterSurrogate.modifierExtension ?: listOf(),
       url = Uri.of(this@SearchParameterSurrogate.url, this@SearchParameterSurrogate._url)!!,
       version =
         R4bString.of(this@SearchParameterSurrogate.version, this@SearchParameterSurrogate._version),
@@ -199,14 +198,14 @@ internal data class SearchParameterSurrogate(
           this@SearchParameterSurrogate.publisher,
           this@SearchParameterSurrogate._publisher,
         ),
-      contact = this@SearchParameterSurrogate.contact ?: mutableListOf(),
+      contact = this@SearchParameterSurrogate.contact ?: listOf(),
       description =
         Markdown.of(
           this@SearchParameterSurrogate.description,
           this@SearchParameterSurrogate._description,
         )!!,
-      useContext = this@SearchParameterSurrogate.useContext ?: mutableListOf(),
-      jurisdiction = this@SearchParameterSurrogate.jurisdiction ?: mutableListOf(),
+      useContext = this@SearchParameterSurrogate.useContext ?: listOf(),
+      jurisdiction = this@SearchParameterSurrogate.jurisdiction ?: listOf(),
       purpose =
         Markdown.of(this@SearchParameterSurrogate.purpose, this@SearchParameterSurrogate._purpose),
       code = Code.of(this@SearchParameterSurrogate.code, this@SearchParameterSurrogate._code)!!,
@@ -214,7 +213,7 @@ internal data class SearchParameterSurrogate(
         if (
           this@SearchParameterSurrogate.base == null && this@SearchParameterSurrogate._base == null
         ) {
-          mutableListOf()
+          listOf()
         } else {
           (this@SearchParameterSurrogate.base
               ?: List(this@SearchParameterSurrogate._base!!.size) { null })
@@ -225,7 +224,7 @@ internal data class SearchParameterSurrogate(
             .map { (value, element) ->
               Enumeration.of(value.let { ResourceType.fromCode(it!!) }, element)
             }
-            .toMutableList()
+            .toList()
         },
       type =
         Enumeration.of(
@@ -251,7 +250,7 @@ internal data class SearchParameterSurrogate(
           this@SearchParameterSurrogate.target == null &&
             this@SearchParameterSurrogate._target == null
         ) {
-          mutableListOf()
+          listOf()
         } else {
           (this@SearchParameterSurrogate.target
               ?: List(this@SearchParameterSurrogate._target!!.size) { null })
@@ -262,7 +261,7 @@ internal data class SearchParameterSurrogate(
             .map { (value, element) ->
               Enumeration.of(value.let { ResourceType.fromCode(it!!) }, element)
             }
-            .toMutableList()
+            .toList()
         },
       multipleOr =
         R4bBoolean.of(
@@ -279,7 +278,7 @@ internal data class SearchParameterSurrogate(
           this@SearchParameterSurrogate.comparator == null &&
             this@SearchParameterSurrogate._comparator == null
         ) {
-          mutableListOf()
+          listOf()
         } else {
           (this@SearchParameterSurrogate.comparator
               ?: List(this@SearchParameterSurrogate._comparator!!.size) { null })
@@ -290,14 +289,14 @@ internal data class SearchParameterSurrogate(
             .map { (value, element) ->
               Enumeration.of(value.let { SearchParameter.SearchComparator.fromCode(it!!) }, element)
             }
-            .toMutableList()
+            .toList()
         },
       modifier =
         if (
           this@SearchParameterSurrogate.modifier == null &&
             this@SearchParameterSurrogate._modifier == null
         ) {
-          mutableListOf()
+          listOf()
         } else {
           (this@SearchParameterSurrogate.modifier
               ?: List(this@SearchParameterSurrogate._modifier!!.size) { null })
@@ -311,14 +310,14 @@ internal data class SearchParameterSurrogate(
                 element,
               )
             }
-            .toMutableList()
+            .toList()
         },
       chain =
         if (
           this@SearchParameterSurrogate.chain == null &&
             this@SearchParameterSurrogate._chain == null
         ) {
-          mutableListOf()
+          listOf()
         } else {
           (this@SearchParameterSurrogate.chain
               ?: List(this@SearchParameterSurrogate._chain!!.size) { null })
@@ -327,9 +326,9 @@ internal data class SearchParameterSurrogate(
                 ?: List(this@SearchParameterSurrogate.chain!!.size) { null }
             )
             .map { (value, element) -> R4bString.of(value, element)!! }
-            .toMutableList()
+            .toList()
         },
-      component = this@SearchParameterSurrogate.component ?: mutableListOf(),
+      component = this@SearchParameterSurrogate.component ?: listOf(),
     )
 
   public companion object {
@@ -374,14 +373,14 @@ internal data class SearchParameterSurrogate(
           base =
             this@with.base
               .map { it.value?.getCode() }
-              .toMutableList()
+              .toList()
               .takeUnless { it.all { it == null } },
           _base =
             this@with.base
               .map { it.toElement() }
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
-              ?.toMutableList(),
+              ?.toList(),
           type = this@with.type.value?.getCode(),
           _type = this@with.type.toElement(),
           expression = this@with.expression?.value,
@@ -393,14 +392,14 @@ internal data class SearchParameterSurrogate(
           target =
             this@with.target
               .map { it.value?.getCode() }
-              .toMutableList()
+              .toList()
               .takeUnless { it.all { it == null } },
           _target =
             this@with.target
               .map { it.toElement() }
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
-              ?.toMutableList(),
+              ?.toList(),
           multipleOr = this@with.multipleOr?.value,
           _multipleOr = this@with.multipleOr?.toElement(),
           multipleAnd = this@with.multipleAnd?.value,
@@ -408,33 +407,32 @@ internal data class SearchParameterSurrogate(
           comparator =
             this@with.comparator
               .map { it.value?.getCode() }
-              .toMutableList()
+              .toList()
               .takeUnless { it.all { it == null } },
           _comparator =
             this@with.comparator
               .map { it.toElement() }
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
-              ?.toMutableList(),
+              ?.toList(),
           modifier =
             this@with.modifier
               .map { it.value?.getCode() }
-              .toMutableList()
+              .toList()
               .takeUnless { it.all { it == null } },
           _modifier =
             this@with.modifier
               .map { it.toElement() }
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
-              ?.toMutableList(),
-          chain =
-            this@with.chain.map { it.value }.toMutableList().takeUnless { it.all { it == null } },
+              ?.toList(),
+          chain = this@with.chain.map { it.value }.toList().takeUnless { it.all { it == null } },
           _chain =
             this@with.chain
               .map { it.toElement() }
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
-              ?.toMutableList(),
+              ?.toList(),
           component = this@with.component.takeIf { it.isNotEmpty() },
         )
       }

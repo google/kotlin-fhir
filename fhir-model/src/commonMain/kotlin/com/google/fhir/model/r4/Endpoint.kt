@@ -20,7 +20,7 @@ package com.google.fhir.model.r4
 
 import com.google.fhir.model.r4.serializers.EndpointSerializer
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -39,12 +39,12 @@ public data class Endpoint(
    * The only time that a resource does not have an id is when it is being submitted to the server
    * using a create operation.
    */
-  override var id: kotlin.String? = null,
+  override val id: kotlin.String? = null,
   /**
    * The metadata about the resource. This is content that is maintained by the infrastructure.
    * Changes to the content might not always be associated with version changes to the resource.
    */
-  override var meta: Meta? = null,
+  override val meta: Meta? = null,
   /**
    * A reference to a set of rules that were followed when the resource was constructed, and which
    * must be understood when processing the content. Often, this is a reference to an implementation
@@ -58,7 +58,7 @@ public data class Endpoint(
    * to an implementation guide that defines these special rules as part of it's narrative along
    * with other profiles, value sets, etc.
    */
-  override var implicitRules: Uri? = null,
+  override val implicitRules: Uri? = null,
   /**
    * The base language in which the resource is written.
    *
@@ -70,7 +70,7 @@ public data class Endpoint(
    * language is specified, it should it also be specified on the div element in the html (see rules
    * in HTML5 for information about the relationship between xml:lang and the html lang attribute).
    */
-  override var language: Code? = null,
+  override val language: Code? = null,
   /**
    * A human-readable narrative that contains a summary of the resource and can be used to represent
    * the content of the resource to a human. The narrative need not encode all the structured data,
@@ -84,7 +84,7 @@ public data class Endpoint(
    * legacy systems where information is captured as a "text blob" or where text is additionally
    * entered raw or narrated and encoded information is added later.
    */
-  override var text: Narrative? = null,
+  override val text: Narrative? = null,
   /**
    * These resources do not have an independent existence apart from the resource that contains
    * them - they cannot be identified independently, and nor can they have their own independent
@@ -95,7 +95,7 @@ public data class Endpoint(
    * resources may have profiles and tags In their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: MutableList<Resource> = mutableListOf(),
+  override val contained: List<Resource> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and manageable, there is a strict set of
@@ -108,7 +108,7 @@ public data class Endpoint(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: MutableList<Extension> = mutableListOf(),
+  override val extension: List<Extension> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -127,19 +127,19 @@ public data class Endpoint(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: MutableList<Extension> = mutableListOf(),
+  override val modifierExtension: List<Extension> = listOf(),
   /**
    * Identifier for the organization that is used to identify the endpoint across multiple disparate
    * systems.
    */
-  public var identifier: MutableList<Identifier> = mutableListOf(),
+  public val identifier: List<Identifier> = listOf(),
   /**
    * active | suspended | error | off | test.
    *
    * This element is labeled as a modifier because the status contains codes that mark the endpoint
    * as not currently valid.
    */
-  public var status: Enumeration<EndpointStatus>,
+  public val status: Enumeration<EndpointStatus>,
   /**
    * A coded value that represents the technical details of the usage of this endpoint, such as what
    * WSDLs should be used in what way. (e.g. XDS.b/DICOM/cds-hook).
@@ -147,9 +147,9 @@ public data class Endpoint(
    * For additional connectivity details for the protocol, extensions will be used at this point, as
    * in the XDS example.
    */
-  public var connectionType: Coding,
+  public val connectionType: Coding,
   /** A friendly name that this endpoint can be referred to with. */
-  public var name: String? = null,
+  public val name: String? = null,
   /**
    * The organization that manages this endpoint (even if technically another organization is
    * hosting this in the cloud, it is the organization associated with the data).
@@ -160,14 +160,14 @@ public data class Endpoint(
    * endpoint, and don't have to be within the same organization resource, but most likely within
    * the same organizational hierarchy.
    */
-  public var managingOrganization: Reference? = null,
+  public val managingOrganization: Reference? = null,
   /**
    * Contact details for a human to contact about the subscription. The primary use of this for
    * system administrator troubleshooting.
    */
-  public var contact: MutableList<ContactPoint> = mutableListOf(),
+  public val contact: List<ContactPoint> = listOf(),
   /** The interval during which the endpoint is expected to be operational. */
-  public var period: Period? = null,
+  public val period: Period? = null,
   /**
    * The payload type describes the acceptable content that can be communicated on the endpoint.
    *
@@ -175,7 +175,7 @@ public data class Endpoint(
    * indicates the specific document/schema that is being transferred; e.g. DischargeSummary or
    * CarePlan.
    */
-  public var payloadType: MutableList<CodeableConcept> = mutableListOf(),
+  public val payloadType: List<CodeableConcept> = listOf(),
   /**
    * The mime type to send the payload in - e.g. application/fhir+xml, application/fhir+json. If the
    * mime type is not specified, then the sender could send any content (including no content
@@ -184,7 +184,7 @@ public data class Endpoint(
    * Sending the payload has obvious security consequences. The server is responsible for ensuring
    * that the content is appropriately secured.
    */
-  public var payloadMimeType: MutableList<Code> = mutableListOf(),
+  public val payloadMimeType: List<Code> = listOf(),
   /**
    * The uri that describes the actual end-point to connect to.
    *
@@ -202,14 +202,14 @@ public data class Endpoint(
    * and not
    * "https://pacs.hospital.org/wado-rs/studies/1.2.250.1.59.40211.12345678.678910/series/1.2.250.1.59.40211.789001276.14556172.67789/instances/...".
    */
-  public var address: Url,
+  public val address: Url,
   /**
    * Additional headers / information to send as part of the notification.
    *
    * Exactly what these mean depends on the channel type. The can convey additional information to
    * the recipient and/or meet security requirements.
    */
-  public var `header`: MutableList<String> = mutableListOf(),
+  public val `header`: List<String> = listOf(),
 ) : DomainResource() {
   /** The status of the endpoint. */
   public enum class EndpointStatus(

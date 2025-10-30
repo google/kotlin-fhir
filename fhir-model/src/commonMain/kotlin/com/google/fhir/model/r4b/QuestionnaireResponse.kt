@@ -23,7 +23,7 @@ import com.google.fhir.model.r4b.serializers.QuestionnaireResponseItemAnswerValu
 import com.google.fhir.model.r4b.serializers.QuestionnaireResponseItemSerializer
 import com.google.fhir.model.r4b.serializers.QuestionnaireResponseSerializer
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -42,12 +42,12 @@ public data class QuestionnaireResponse(
    * The only time that a resource does not have an id is when it is being submitted to the server
    * using a create operation.
    */
-  override var id: kotlin.String? = null,
+  override val id: kotlin.String? = null,
   /**
    * The metadata about the resource. This is content that is maintained by the infrastructure.
    * Changes to the content might not always be associated with version changes to the resource.
    */
-  override var meta: Meta? = null,
+  override val meta: Meta? = null,
   /**
    * A reference to a set of rules that were followed when the resource was constructed, and which
    * must be understood when processing the content. Often, this is a reference to an implementation
@@ -61,7 +61,7 @@ public data class QuestionnaireResponse(
    * to an implementation guide that defines these special rules as part of it's narrative along
    * with other profiles, value sets, etc.
    */
-  override var implicitRules: Uri? = null,
+  override val implicitRules: Uri? = null,
   /**
    * The base language in which the resource is written.
    *
@@ -73,7 +73,7 @@ public data class QuestionnaireResponse(
    * language is specified, it should it also be specified on the div element in the html (see rules
    * in HTML5 for information about the relationship between xml:lang and the html lang attribute).
    */
-  override var language: Code? = null,
+  override val language: Code? = null,
   /**
    * A human-readable narrative that contains a summary of the resource and can be used to represent
    * the content of the resource to a human. The narrative need not encode all the structured data,
@@ -87,7 +87,7 @@ public data class QuestionnaireResponse(
    * legacy systems where information is captured as a "text blob" or where text is additionally
    * entered raw or narrated and encoded information is added later.
    */
-  override var text: Narrative? = null,
+  override val text: Narrative? = null,
   /**
    * These resources do not have an independent existence apart from the resource that contains
    * them - they cannot be identified independently, and nor can they have their own independent
@@ -98,7 +98,7 @@ public data class QuestionnaireResponse(
    * resources may have profiles and tags In their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: MutableList<Resource> = mutableListOf(),
+  override val contained: List<Resource> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and manageable, there is a strict set of
@@ -111,7 +111,7 @@ public data class QuestionnaireResponse(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: MutableList<Extension> = mutableListOf(),
+  override val extension: List<Extension> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -130,18 +130,18 @@ public data class QuestionnaireResponse(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: MutableList<Extension> = mutableListOf(),
+  override val modifierExtension: List<Extension> = listOf(),
   /**
    * A business identifier assigned to a particular completed (or partially completed)
    * questionnaire.
    */
-  public var identifier: Identifier? = null,
+  public val identifier: Identifier? = null,
   /**
    * The order, proposal or plan that is fulfilled in whole or in part by this
    * QuestionnaireResponse. For example, a ServiceRequest seeking an intake assessment or a decision
    * support recommendation to assess for post-partum depression.
    */
-  public var basedOn: MutableList<Reference> = mutableListOf(),
+  public val basedOn: List<Reference> = listOf(),
   /**
    * A procedure or observation that this questionnaire was performed as part of the execution of.
    * For example, the surgery a checklist was executed as part of.
@@ -150,7 +150,7 @@ public data class QuestionnaireResponse(
    * answers that reference the child questionnaire. For relationships to referrals, and other types
    * of requests, use basedOn.
    */
-  public var partOf: MutableList<Reference> = mutableListOf(),
+  public val partOf: List<Reference> = listOf(),
   /**
    * The Questionnaire that defines and organizes the questions for which answers are being
    * provided.
@@ -159,14 +159,14 @@ public data class QuestionnaireResponse(
    * must be consistent with the Questionnaire (i.e. questions must be organized into the same
    * groups, nested questions must still be nested, etc.).
    */
-  public var questionnaire: Canonical? = null,
+  public val questionnaire: Canonical? = null,
   /**
    * The position of the questionnaire response within its overall lifecycle.
    *
    * This element is labeled as a modifier because the status contains codes that mark the resource
    * as not currently valid.
    */
-  public var status: Enumeration<QuestionnaireResponseStatus>,
+  public val status: Enumeration<QuestionnaireResponseStatus>,
   /**
    * The subject of the questionnaire response. This could be a patient, organization, practitioner,
    * device, etc. This is who/what the answers apply to, but is not necessarily the source of
@@ -175,7 +175,7 @@ public data class QuestionnaireResponse(
    * If the Questionnaire declared a subjectType, the resource pointed to by this element must be an
    * instance of one of the listed types.
    */
-  public var subject: Reference? = null,
+  public val subject: Reference? = null,
   /**
    * The Encounter during which this questionnaire response was created or to which the creation of
    * this record is tightly associated.
@@ -185,7 +185,7 @@ public data class QuestionnaireResponse(
    * context of the encounter. A questionnaire that was initiated during an encounter but not fully
    * completed during the encounter would still generally be associated with the encounter.
    */
-  public var encounter: Reference? = null,
+  public val encounter: Reference? = null,
   /**
    * The date and/or time that this set of answers were last changed.
    *
@@ -195,7 +195,7 @@ public data class QuestionnaireResponse(
    * This element is optional to allow for systems that might not know the value, however it SHOULD
    * be populated if possible.
    */
-  public var authored: DateTime? = null,
+  public val authored: DateTime? = null,
   /**
    * Person who received the answers to the questions in the QuestionnaireResponse and recorded them
    * in the system.
@@ -204,13 +204,13 @@ public data class QuestionnaireResponse(
    * textual answer is a matter of interpretation. Authoring by device would indicate that some
    * portion of the questionnaire had been auto-populated.
    */
-  public var author: Reference? = null,
+  public val author: Reference? = null,
   /**
    * The person who answered the questions about the subject.
    *
    * If not specified, no inference can be made about who provided the data.
    */
-  public var source: Reference? = null,
+  public val source: Reference? = null,
   /**
    * A group or question item from the original questionnaire for which answers are provided.
    *
@@ -218,7 +218,7 @@ public data class QuestionnaireResponse(
    * questions, nesting must occur within each answer because some questions may have multiple
    * answers (and the nesting occurs for each answer).
    */
-  public var item: MutableList<Item> = mutableListOf(),
+  public val item: List<Item> = listOf(),
 ) : DomainResource() {
   /** A group or question item from the original questionnaire for which answers are provided. */
   @Serializable(with = QuestionnaireResponseItemSerializer::class)
@@ -227,7 +227,7 @@ public data class QuestionnaireResponse(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and manageable, there is a strict set of
@@ -240,7 +240,7 @@ public data class QuestionnaireResponse(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -259,12 +259,12 @@ public data class QuestionnaireResponse(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /**
      * The item from the Questionnaire that corresponds to this item in the QuestionnaireResponse
      * resource.
      */
-    public var linkId: String,
+    public val linkId: String,
     /**
      * A reference to an [ElementDefinition](elementdefinition.html) that provides the details for
      * the item.
@@ -276,20 +276,20 @@ public data class QuestionnaireResponse(
      * There is no need for this element if the item pointed to by the linkId has a definition
      * listed.
      */
-    public var definition: Uri? = null,
+    public val definition: Uri? = null,
     /**
      * Text that is displayed above the contents of the group or as the text of the question being
      * answered.
      */
-    public var text: String? = null,
+    public val text: String? = null,
     /**
      * The respondent's answer(s) to the question.
      *
      * The value is nested because we cannot have a repeating structure that has variable type.
      */
-    public var answer: MutableList<Answer> = mutableListOf(),
+    public val answer: List<Answer> = listOf(),
     /** Questions or sub-groups nested beneath a question or group. */
-    public var item: MutableList<Item> = mutableListOf(),
+    public val item: List<Item> = listOf(),
   ) : BackboneElement() {
     /** The respondent's answer(s) to the question. */
     @Serializable(with = QuestionnaireResponseItemAnswerSerializer::class)
@@ -298,7 +298,7 @@ public data class QuestionnaireResponse(
        * Unique id for the element within a resource (for internal references). This may be any
        * string value that does not contain spaces.
        */
-      override var id: kotlin.String? = null,
+      override val id: kotlin.String? = null,
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element. To make the use of extensions safe and manageable, there is a strict set of
@@ -311,7 +311,7 @@ public data class QuestionnaireResponse(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: MutableList<Extension> = mutableListOf(),
+      override val extension: List<Extension> = listOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -330,7 +330,7 @@ public data class QuestionnaireResponse(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: MutableList<Extension> = mutableListOf(),
+      override val modifierExtension: List<Extension> = listOf(),
       /**
        * The answer (or one of the answers) provided by the respondent to the question.
        *
@@ -340,9 +340,9 @@ public data class QuestionnaireResponse(
        * introduced through extensions. Must match the datatype specified by Questionnaire.item.type
        * in the corresponding Questionnaire.
        */
-      public var `value`: Value? = null,
+      public val `value`: Value? = null,
       /** Nested groups and/or questions found within this particular answer. */
-      public var item: MutableList<Item> = mutableListOf(),
+      public val item: List<Item> = listOf(),
     ) : BackboneElement() {
       @Serializable(with = QuestionnaireResponseItemAnswerValueSerializer::class)
       public sealed interface Value {

@@ -52,31 +52,30 @@ import kotlin.Boolean as KotlinBoolean
 import kotlin.Int
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class DeviceDefinitionUdiDeviceIdentifierSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var deviceIdentifier: KotlinString? = null,
   public var _deviceIdentifier: Element? = null,
   public var issuer: KotlinString? = null,
   public var _issuer: Element? = null,
   public var jurisdiction: KotlinString? = null,
   public var _jurisdiction: Element? = null,
-  public var marketDistribution:
-    MutableList<DeviceDefinition.UdiDeviceIdentifier.MarketDistribution>? =
+  public var marketDistribution: List<DeviceDefinition.UdiDeviceIdentifier.MarketDistribution>? =
     null,
 ) {
   public fun toModel(): DeviceDefinition.UdiDeviceIdentifier =
     DeviceDefinition.UdiDeviceIdentifier(
       id = this@DeviceDefinitionUdiDeviceIdentifierSurrogate.id,
-      extension = this@DeviceDefinitionUdiDeviceIdentifierSurrogate.extension ?: mutableListOf(),
+      extension = this@DeviceDefinitionUdiDeviceIdentifierSurrogate.extension ?: listOf(),
       modifierExtension =
-        this@DeviceDefinitionUdiDeviceIdentifierSurrogate.modifierExtension ?: mutableListOf(),
+        this@DeviceDefinitionUdiDeviceIdentifierSurrogate.modifierExtension ?: listOf(),
       deviceIdentifier =
         R5String.of(
           this@DeviceDefinitionUdiDeviceIdentifierSurrogate.deviceIdentifier,
@@ -93,7 +92,7 @@ internal data class DeviceDefinitionUdiDeviceIdentifierSurrogate(
           this@DeviceDefinitionUdiDeviceIdentifierSurrogate._jurisdiction,
         )!!,
       marketDistribution =
-        this@DeviceDefinitionUdiDeviceIdentifierSurrogate.marketDistribution ?: mutableListOf(),
+        this@DeviceDefinitionUdiDeviceIdentifierSurrogate.marketDistribution ?: listOf(),
     )
 
   public companion object {
@@ -120,8 +119,8 @@ internal data class DeviceDefinitionUdiDeviceIdentifierSurrogate(
 @Serializable
 internal data class DeviceDefinitionUdiDeviceIdentifierMarketDistributionSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var marketPeriod: Period,
   public var subJurisdiction: KotlinString? = null,
   public var _subJurisdiction: Element? = null,
@@ -130,11 +129,10 @@ internal data class DeviceDefinitionUdiDeviceIdentifierMarketDistributionSurroga
     DeviceDefinition.UdiDeviceIdentifier.MarketDistribution(
       id = this@DeviceDefinitionUdiDeviceIdentifierMarketDistributionSurrogate.id,
       extension =
-        this@DeviceDefinitionUdiDeviceIdentifierMarketDistributionSurrogate.extension
-          ?: mutableListOf(),
+        this@DeviceDefinitionUdiDeviceIdentifierMarketDistributionSurrogate.extension ?: listOf(),
       modifierExtension =
         this@DeviceDefinitionUdiDeviceIdentifierMarketDistributionSurrogate.modifierExtension
-          ?: mutableListOf(),
+          ?: listOf(),
       marketPeriod =
         this@DeviceDefinitionUdiDeviceIdentifierMarketDistributionSurrogate.marketPeriod,
       subJurisdiction =
@@ -164,8 +162,8 @@ internal data class DeviceDefinitionUdiDeviceIdentifierMarketDistributionSurroga
 @Serializable
 internal data class DeviceDefinitionRegulatoryIdentifierSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var type: KotlinString? = null,
   public var _type: Element? = null,
   public var deviceIdentifier: KotlinString? = null,
@@ -178,9 +176,9 @@ internal data class DeviceDefinitionRegulatoryIdentifierSurrogate(
   public fun toModel(): DeviceDefinition.RegulatoryIdentifier =
     DeviceDefinition.RegulatoryIdentifier(
       id = this@DeviceDefinitionRegulatoryIdentifierSurrogate.id,
-      extension = this@DeviceDefinitionRegulatoryIdentifierSurrogate.extension ?: mutableListOf(),
+      extension = this@DeviceDefinitionRegulatoryIdentifierSurrogate.extension ?: listOf(),
       modifierExtension =
-        this@DeviceDefinitionRegulatoryIdentifierSurrogate.modifierExtension ?: mutableListOf(),
+        this@DeviceDefinitionRegulatoryIdentifierSurrogate.modifierExtension ?: listOf(),
       type =
         Enumeration.of(
           DeviceDefinition.DeviceDefinitionRegulatoryIdentifierType.fromCode(
@@ -230,8 +228,8 @@ internal data class DeviceDefinitionRegulatoryIdentifierSurrogate(
 @Serializable
 internal data class DeviceDefinitionDeviceNameSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var name: KotlinString? = null,
   public var _name: Element? = null,
   public var type: KotlinString? = null,
@@ -240,9 +238,8 @@ internal data class DeviceDefinitionDeviceNameSurrogate(
   public fun toModel(): DeviceDefinition.DeviceName =
     DeviceDefinition.DeviceName(
       id = this@DeviceDefinitionDeviceNameSurrogate.id,
-      extension = this@DeviceDefinitionDeviceNameSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@DeviceDefinitionDeviceNameSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@DeviceDefinitionDeviceNameSurrogate.extension ?: listOf(),
+      modifierExtension = this@DeviceDefinitionDeviceNameSurrogate.modifierExtension ?: listOf(),
       name =
         R5String.of(
           this@DeviceDefinitionDeviceNameSurrogate.name,
@@ -274,19 +271,19 @@ internal data class DeviceDefinitionDeviceNameSurrogate(
 @Serializable
 internal data class DeviceDefinitionClassificationSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var type: CodeableConcept,
-  public var justification: MutableList<RelatedArtifact>? = null,
+  public var justification: List<RelatedArtifact>? = null,
 ) {
   public fun toModel(): DeviceDefinition.Classification =
     DeviceDefinition.Classification(
       id = this@DeviceDefinitionClassificationSurrogate.id,
-      extension = this@DeviceDefinitionClassificationSurrogate.extension ?: mutableListOf(),
+      extension = this@DeviceDefinitionClassificationSurrogate.extension ?: listOf(),
       modifierExtension =
-        this@DeviceDefinitionClassificationSurrogate.modifierExtension ?: mutableListOf(),
+        this@DeviceDefinitionClassificationSurrogate.modifierExtension ?: listOf(),
       type = this@DeviceDefinitionClassificationSurrogate.type,
-      justification = this@DeviceDefinitionClassificationSurrogate.justification ?: mutableListOf(),
+      justification = this@DeviceDefinitionClassificationSurrogate.justification ?: listOf(),
     )
 
   public companion object {
@@ -308,20 +305,19 @@ internal data class DeviceDefinitionClassificationSurrogate(
 @Serializable
 internal data class DeviceDefinitionConformsToSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var category: CodeableConcept? = null,
   public var specification: CodeableConcept,
-  public var version: MutableList<KotlinString?>? = null,
-  public var _version: MutableList<Element?>? = null,
-  public var source: MutableList<RelatedArtifact>? = null,
+  public var version: List<KotlinString?>? = null,
+  public var _version: List<Element?>? = null,
+  public var source: List<RelatedArtifact>? = null,
 ) {
   public fun toModel(): DeviceDefinition.ConformsTo =
     DeviceDefinition.ConformsTo(
       id = this@DeviceDefinitionConformsToSurrogate.id,
-      extension = this@DeviceDefinitionConformsToSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@DeviceDefinitionConformsToSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@DeviceDefinitionConformsToSurrogate.extension ?: listOf(),
+      modifierExtension = this@DeviceDefinitionConformsToSurrogate.modifierExtension ?: listOf(),
       category = this@DeviceDefinitionConformsToSurrogate.category,
       specification = this@DeviceDefinitionConformsToSurrogate.specification,
       version =
@@ -329,7 +325,7 @@ internal data class DeviceDefinitionConformsToSurrogate(
           this@DeviceDefinitionConformsToSurrogate.version == null &&
             this@DeviceDefinitionConformsToSurrogate._version == null
         ) {
-          mutableListOf()
+          listOf()
         } else {
           (this@DeviceDefinitionConformsToSurrogate.version
               ?: List(this@DeviceDefinitionConformsToSurrogate._version!!.size) { null })
@@ -338,9 +334,9 @@ internal data class DeviceDefinitionConformsToSurrogate(
                 ?: List(this@DeviceDefinitionConformsToSurrogate.version!!.size) { null }
             )
             .map { (value, element) -> R5String.of(value, element)!! }
-            .toMutableList()
+            .toList()
         },
-      source = this@DeviceDefinitionConformsToSurrogate.source ?: mutableListOf(),
+      source = this@DeviceDefinitionConformsToSurrogate.source ?: listOf(),
     )
 
   public companion object {
@@ -353,13 +349,13 @@ internal data class DeviceDefinitionConformsToSurrogate(
           category = this@with.category,
           specification = this@with.specification,
           version =
-            this@with.version.map { it.value }.toMutableList().takeUnless { it.all { it == null } },
+            this@with.version.map { it.value }.toList().takeUnless { it.all { it == null } },
           _version =
             this@with.version
               .map { it.toElement() }
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
-              ?.toMutableList(),
+              ?.toList(),
           source = this@with.source.takeIf { it.isNotEmpty() },
         )
       }
@@ -369,8 +365,8 @@ internal data class DeviceDefinitionConformsToSurrogate(
 @Serializable
 internal data class DeviceDefinitionHasPartSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var reference: Reference,
   public var count: Int? = null,
   public var _count: Element? = null,
@@ -378,9 +374,8 @@ internal data class DeviceDefinitionHasPartSurrogate(
   public fun toModel(): DeviceDefinition.HasPart =
     DeviceDefinition.HasPart(
       id = this@DeviceDefinitionHasPartSurrogate.id,
-      extension = this@DeviceDefinitionHasPartSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@DeviceDefinitionHasPartSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@DeviceDefinitionHasPartSurrogate.extension ?: listOf(),
+      modifierExtension = this@DeviceDefinitionHasPartSurrogate.modifierExtension ?: listOf(),
       reference = this@DeviceDefinitionHasPartSurrogate.reference,
       count =
         Integer.of(
@@ -407,22 +402,21 @@ internal data class DeviceDefinitionHasPartSurrogate(
 @Serializable
 internal data class DeviceDefinitionPackagingSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var identifier: Identifier? = null,
   public var type: CodeableConcept? = null,
   public var count: Int? = null,
   public var _count: Element? = null,
-  public var distributor: MutableList<DeviceDefinition.Packaging.Distributor>? = null,
-  public var udiDeviceIdentifier: MutableList<DeviceDefinition.UdiDeviceIdentifier>? = null,
-  public var packaging: MutableList<DeviceDefinition.Packaging>? = null,
+  public var distributor: List<DeviceDefinition.Packaging.Distributor>? = null,
+  public var udiDeviceIdentifier: List<DeviceDefinition.UdiDeviceIdentifier>? = null,
+  public var packaging: List<DeviceDefinition.Packaging>? = null,
 ) {
   public fun toModel(): DeviceDefinition.Packaging =
     DeviceDefinition.Packaging(
       id = this@DeviceDefinitionPackagingSurrogate.id,
-      extension = this@DeviceDefinitionPackagingSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@DeviceDefinitionPackagingSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@DeviceDefinitionPackagingSurrogate.extension ?: listOf(),
+      modifierExtension = this@DeviceDefinitionPackagingSurrogate.modifierExtension ?: listOf(),
       identifier = this@DeviceDefinitionPackagingSurrogate.identifier,
       type = this@DeviceDefinitionPackagingSurrogate.type,
       count =
@@ -430,10 +424,9 @@ internal data class DeviceDefinitionPackagingSurrogate(
           this@DeviceDefinitionPackagingSurrogate.count,
           this@DeviceDefinitionPackagingSurrogate._count,
         ),
-      distributor = this@DeviceDefinitionPackagingSurrogate.distributor ?: mutableListOf(),
-      udiDeviceIdentifier =
-        this@DeviceDefinitionPackagingSurrogate.udiDeviceIdentifier ?: mutableListOf(),
-      packaging = this@DeviceDefinitionPackagingSurrogate.packaging ?: mutableListOf(),
+      distributor = this@DeviceDefinitionPackagingSurrogate.distributor ?: listOf(),
+      udiDeviceIdentifier = this@DeviceDefinitionPackagingSurrogate.udiDeviceIdentifier ?: listOf(),
+      packaging = this@DeviceDefinitionPackagingSurrogate.packaging ?: listOf(),
     )
 
   public companion object {
@@ -458,25 +451,25 @@ internal data class DeviceDefinitionPackagingSurrogate(
 @Serializable
 internal data class DeviceDefinitionPackagingDistributorSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var name: KotlinString? = null,
   public var _name: Element? = null,
-  public var organizationReference: MutableList<Reference>? = null,
+  public var organizationReference: List<Reference>? = null,
 ) {
   public fun toModel(): DeviceDefinition.Packaging.Distributor =
     DeviceDefinition.Packaging.Distributor(
       id = this@DeviceDefinitionPackagingDistributorSurrogate.id,
-      extension = this@DeviceDefinitionPackagingDistributorSurrogate.extension ?: mutableListOf(),
+      extension = this@DeviceDefinitionPackagingDistributorSurrogate.extension ?: listOf(),
       modifierExtension =
-        this@DeviceDefinitionPackagingDistributorSurrogate.modifierExtension ?: mutableListOf(),
+        this@DeviceDefinitionPackagingDistributorSurrogate.modifierExtension ?: listOf(),
       name =
         R5String.of(
           this@DeviceDefinitionPackagingDistributorSurrogate.name,
           this@DeviceDefinitionPackagingDistributorSurrogate._name,
         ),
       organizationReference =
-        this@DeviceDefinitionPackagingDistributorSurrogate.organizationReference ?: mutableListOf(),
+        this@DeviceDefinitionPackagingDistributorSurrogate.organizationReference ?: listOf(),
     )
 
   public companion object {
@@ -499,8 +492,8 @@ internal data class DeviceDefinitionPackagingDistributorSurrogate(
 @Serializable
 internal data class DeviceDefinitionVersionSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var type: CodeableConcept? = null,
   public var component: Identifier? = null,
   public var `value`: KotlinString? = null,
@@ -509,9 +502,8 @@ internal data class DeviceDefinitionVersionSurrogate(
   public fun toModel(): DeviceDefinition.Version =
     DeviceDefinition.Version(
       id = this@DeviceDefinitionVersionSurrogate.id,
-      extension = this@DeviceDefinitionVersionSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@DeviceDefinitionVersionSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@DeviceDefinitionVersionSurrogate.extension ?: listOf(),
+      modifierExtension = this@DeviceDefinitionVersionSurrogate.modifierExtension ?: listOf(),
       type = this@DeviceDefinitionVersionSurrogate.type,
       component = this@DeviceDefinitionVersionSurrogate.component,
       `value` =
@@ -540,17 +532,16 @@ internal data class DeviceDefinitionVersionSurrogate(
 @Serializable
 internal data class DeviceDefinitionPropertySurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var type: CodeableConcept,
   public var `value`: DeviceDefinition.Property.Value,
 ) {
   public fun toModel(): DeviceDefinition.Property =
     DeviceDefinition.Property(
       id = this@DeviceDefinitionPropertySurrogate.id,
-      extension = this@DeviceDefinitionPropertySurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@DeviceDefinitionPropertySurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@DeviceDefinitionPropertySurrogate.extension ?: listOf(),
+      modifierExtension = this@DeviceDefinitionPropertySurrogate.modifierExtension ?: listOf(),
       type = this@DeviceDefinitionPropertySurrogate.type,
       `value` = this@DeviceDefinitionPropertySurrogate.`value`,
     )
@@ -572,16 +563,16 @@ internal data class DeviceDefinitionPropertySurrogate(
 @Serializable
 internal data class DeviceDefinitionLinkSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var relation: Coding,
   public var relatedDevice: CodeableReference,
 ) {
   public fun toModel(): DeviceDefinition.Link =
     DeviceDefinition.Link(
       id = this@DeviceDefinitionLinkSurrogate.id,
-      extension = this@DeviceDefinitionLinkSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@DeviceDefinitionLinkSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@DeviceDefinitionLinkSurrogate.extension ?: listOf(),
+      modifierExtension = this@DeviceDefinitionLinkSurrogate.modifierExtension ?: listOf(),
       relation = this@DeviceDefinitionLinkSurrogate.relation,
       relatedDevice = this@DeviceDefinitionLinkSurrogate.relatedDevice,
     )
@@ -603,8 +594,8 @@ internal data class DeviceDefinitionLinkSurrogate(
 @Serializable
 internal data class DeviceDefinitionMaterialSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var substance: CodeableConcept,
   public var alternate: KotlinBoolean? = null,
   public var _alternate: Element? = null,
@@ -614,9 +605,8 @@ internal data class DeviceDefinitionMaterialSurrogate(
   public fun toModel(): DeviceDefinition.Material =
     DeviceDefinition.Material(
       id = this@DeviceDefinitionMaterialSurrogate.id,
-      extension = this@DeviceDefinitionMaterialSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@DeviceDefinitionMaterialSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@DeviceDefinitionMaterialSurrogate.extension ?: listOf(),
+      modifierExtension = this@DeviceDefinitionMaterialSurrogate.modifierExtension ?: listOf(),
       substance = this@DeviceDefinitionMaterialSurrogate.substance,
       alternate =
         R5Boolean.of(
@@ -650,35 +640,33 @@ internal data class DeviceDefinitionMaterialSurrogate(
 @Serializable
 internal data class DeviceDefinitionGuidelineSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var useContext: MutableList<UsageContext>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
+  public var useContext: List<UsageContext>? = null,
   public var usageInstruction: KotlinString? = null,
   public var _usageInstruction: Element? = null,
-  public var relatedArtifact: MutableList<RelatedArtifact>? = null,
-  public var indication: MutableList<CodeableConcept>? = null,
-  public var contraindication: MutableList<CodeableConcept>? = null,
-  public var warning: MutableList<CodeableConcept>? = null,
+  public var relatedArtifact: List<RelatedArtifact>? = null,
+  public var indication: List<CodeableConcept>? = null,
+  public var contraindication: List<CodeableConcept>? = null,
+  public var warning: List<CodeableConcept>? = null,
   public var intendedUse: KotlinString? = null,
   public var _intendedUse: Element? = null,
 ) {
   public fun toModel(): DeviceDefinition.Guideline =
     DeviceDefinition.Guideline(
       id = this@DeviceDefinitionGuidelineSurrogate.id,
-      extension = this@DeviceDefinitionGuidelineSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@DeviceDefinitionGuidelineSurrogate.modifierExtension ?: mutableListOf(),
-      useContext = this@DeviceDefinitionGuidelineSurrogate.useContext ?: mutableListOf(),
+      extension = this@DeviceDefinitionGuidelineSurrogate.extension ?: listOf(),
+      modifierExtension = this@DeviceDefinitionGuidelineSurrogate.modifierExtension ?: listOf(),
+      useContext = this@DeviceDefinitionGuidelineSurrogate.useContext ?: listOf(),
       usageInstruction =
         Markdown.of(
           this@DeviceDefinitionGuidelineSurrogate.usageInstruction,
           this@DeviceDefinitionGuidelineSurrogate._usageInstruction,
         ),
-      relatedArtifact = this@DeviceDefinitionGuidelineSurrogate.relatedArtifact ?: mutableListOf(),
-      indication = this@DeviceDefinitionGuidelineSurrogate.indication ?: mutableListOf(),
-      contraindication =
-        this@DeviceDefinitionGuidelineSurrogate.contraindication ?: mutableListOf(),
-      warning = this@DeviceDefinitionGuidelineSurrogate.warning ?: mutableListOf(),
+      relatedArtifact = this@DeviceDefinitionGuidelineSurrogate.relatedArtifact ?: listOf(),
+      indication = this@DeviceDefinitionGuidelineSurrogate.indication ?: listOf(),
+      contraindication = this@DeviceDefinitionGuidelineSurrogate.contraindication ?: listOf(),
+      warning = this@DeviceDefinitionGuidelineSurrogate.warning ?: listOf(),
       intendedUse =
         R5String.of(
           this@DeviceDefinitionGuidelineSurrogate.intendedUse,
@@ -710,8 +698,8 @@ internal data class DeviceDefinitionGuidelineSurrogate(
 @Serializable
 internal data class DeviceDefinitionCorrectiveActionSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var recall: KotlinBoolean? = null,
   public var _recall: Element? = null,
   public var scope: KotlinString? = null,
@@ -721,9 +709,9 @@ internal data class DeviceDefinitionCorrectiveActionSurrogate(
   public fun toModel(): DeviceDefinition.CorrectiveAction =
     DeviceDefinition.CorrectiveAction(
       id = this@DeviceDefinitionCorrectiveActionSurrogate.id,
-      extension = this@DeviceDefinitionCorrectiveActionSurrogate.extension ?: mutableListOf(),
+      extension = this@DeviceDefinitionCorrectiveActionSurrogate.extension ?: listOf(),
       modifierExtension =
-        this@DeviceDefinitionCorrectiveActionSurrogate.modifierExtension ?: mutableListOf(),
+        this@DeviceDefinitionCorrectiveActionSurrogate.modifierExtension ?: listOf(),
       recall =
         R5Boolean.of(
           this@DeviceDefinitionCorrectiveActionSurrogate.recall,
@@ -761,23 +749,22 @@ internal data class DeviceDefinitionCorrectiveActionSurrogate(
 @Serializable
 internal data class DeviceDefinitionChargeItemSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var chargeItemCode: CodeableReference,
   public var count: Quantity,
   public var effectivePeriod: Period? = null,
-  public var useContext: MutableList<UsageContext>? = null,
+  public var useContext: List<UsageContext>? = null,
 ) {
   public fun toModel(): DeviceDefinition.ChargeItem =
     DeviceDefinition.ChargeItem(
       id = this@DeviceDefinitionChargeItemSurrogate.id,
-      extension = this@DeviceDefinitionChargeItemSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@DeviceDefinitionChargeItemSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@DeviceDefinitionChargeItemSurrogate.extension ?: listOf(),
+      modifierExtension = this@DeviceDefinitionChargeItemSurrogate.modifierExtension ?: listOf(),
       chargeItemCode = this@DeviceDefinitionChargeItemSurrogate.chargeItemCode,
       count = this@DeviceDefinitionChargeItemSurrogate.count,
       effectivePeriod = this@DeviceDefinitionChargeItemSurrogate.effectivePeriod,
-      useContext = this@DeviceDefinitionChargeItemSurrogate.useContext ?: mutableListOf(),
+      useContext = this@DeviceDefinitionChargeItemSurrogate.useContext ?: listOf(),
     )
 
   public companion object {
@@ -859,39 +846,39 @@ internal data class DeviceDefinitionSurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: MutableList<Resource>? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var contained: List<Resource>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var description: KotlinString? = null,
   public var _description: Element? = null,
-  public var identifier: MutableList<Identifier>? = null,
-  public var udiDeviceIdentifier: MutableList<DeviceDefinition.UdiDeviceIdentifier>? = null,
-  public var regulatoryIdentifier: MutableList<DeviceDefinition.RegulatoryIdentifier>? = null,
+  public var identifier: List<Identifier>? = null,
+  public var udiDeviceIdentifier: List<DeviceDefinition.UdiDeviceIdentifier>? = null,
+  public var regulatoryIdentifier: List<DeviceDefinition.RegulatoryIdentifier>? = null,
   public var partNumber: KotlinString? = null,
   public var _partNumber: Element? = null,
   public var manufacturer: Reference? = null,
-  public var deviceName: MutableList<DeviceDefinition.DeviceName>? = null,
+  public var deviceName: List<DeviceDefinition.DeviceName>? = null,
   public var modelNumber: KotlinString? = null,
   public var _modelNumber: Element? = null,
-  public var classification: MutableList<DeviceDefinition.Classification>? = null,
-  public var conformsTo: MutableList<DeviceDefinition.ConformsTo>? = null,
-  public var hasPart: MutableList<DeviceDefinition.HasPart>? = null,
-  public var packaging: MutableList<DeviceDefinition.Packaging>? = null,
-  public var version: MutableList<DeviceDefinition.Version>? = null,
-  public var safety: MutableList<CodeableConcept>? = null,
-  public var shelfLifeStorage: MutableList<ProductShelfLife>? = null,
-  public var languageCode: MutableList<CodeableConcept>? = null,
-  public var `property`: MutableList<DeviceDefinition.Property>? = null,
+  public var classification: List<DeviceDefinition.Classification>? = null,
+  public var conformsTo: List<DeviceDefinition.ConformsTo>? = null,
+  public var hasPart: List<DeviceDefinition.HasPart>? = null,
+  public var packaging: List<DeviceDefinition.Packaging>? = null,
+  public var version: List<DeviceDefinition.Version>? = null,
+  public var safety: List<CodeableConcept>? = null,
+  public var shelfLifeStorage: List<ProductShelfLife>? = null,
+  public var languageCode: List<CodeableConcept>? = null,
+  public var `property`: List<DeviceDefinition.Property>? = null,
   public var owner: Reference? = null,
-  public var contact: MutableList<ContactPoint>? = null,
-  public var link: MutableList<DeviceDefinition.Link>? = null,
-  public var note: MutableList<Annotation>? = null,
-  public var material: MutableList<DeviceDefinition.Material>? = null,
-  public var productionIdentifierInUDI: MutableList<KotlinString?>? = null,
-  public var _productionIdentifierInUDI: MutableList<Element?>? = null,
+  public var contact: List<ContactPoint>? = null,
+  public var link: List<DeviceDefinition.Link>? = null,
+  public var note: List<Annotation>? = null,
+  public var material: List<DeviceDefinition.Material>? = null,
+  public var productionIdentifierInUDI: List<KotlinString?>? = null,
+  public var _productionIdentifierInUDI: List<Element?>? = null,
   public var guideline: DeviceDefinition.Guideline? = null,
   public var correctiveAction: DeviceDefinition.CorrectiveAction? = null,
-  public var chargeItem: MutableList<DeviceDefinition.ChargeItem>? = null,
+  public var chargeItem: List<DeviceDefinition.ChargeItem>? = null,
 ) {
   public fun toModel(): DeviceDefinition =
     DeviceDefinition(
@@ -905,49 +892,49 @@ internal data class DeviceDefinitionSurrogate(
       language =
         Code.of(this@DeviceDefinitionSurrogate.language, this@DeviceDefinitionSurrogate._language),
       text = this@DeviceDefinitionSurrogate.text,
-      contained = this@DeviceDefinitionSurrogate.contained ?: mutableListOf(),
-      extension = this@DeviceDefinitionSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@DeviceDefinitionSurrogate.modifierExtension ?: mutableListOf(),
+      contained = this@DeviceDefinitionSurrogate.contained ?: listOf(),
+      extension = this@DeviceDefinitionSurrogate.extension ?: listOf(),
+      modifierExtension = this@DeviceDefinitionSurrogate.modifierExtension ?: listOf(),
       description =
         Markdown.of(
           this@DeviceDefinitionSurrogate.description,
           this@DeviceDefinitionSurrogate._description,
         ),
-      identifier = this@DeviceDefinitionSurrogate.identifier ?: mutableListOf(),
-      udiDeviceIdentifier = this@DeviceDefinitionSurrogate.udiDeviceIdentifier ?: mutableListOf(),
-      regulatoryIdentifier = this@DeviceDefinitionSurrogate.regulatoryIdentifier ?: mutableListOf(),
+      identifier = this@DeviceDefinitionSurrogate.identifier ?: listOf(),
+      udiDeviceIdentifier = this@DeviceDefinitionSurrogate.udiDeviceIdentifier ?: listOf(),
+      regulatoryIdentifier = this@DeviceDefinitionSurrogate.regulatoryIdentifier ?: listOf(),
       partNumber =
         R5String.of(
           this@DeviceDefinitionSurrogate.partNumber,
           this@DeviceDefinitionSurrogate._partNumber,
         ),
       manufacturer = this@DeviceDefinitionSurrogate.manufacturer,
-      deviceName = this@DeviceDefinitionSurrogate.deviceName ?: mutableListOf(),
+      deviceName = this@DeviceDefinitionSurrogate.deviceName ?: listOf(),
       modelNumber =
         R5String.of(
           this@DeviceDefinitionSurrogate.modelNumber,
           this@DeviceDefinitionSurrogate._modelNumber,
         ),
-      classification = this@DeviceDefinitionSurrogate.classification ?: mutableListOf(),
-      conformsTo = this@DeviceDefinitionSurrogate.conformsTo ?: mutableListOf(),
-      hasPart = this@DeviceDefinitionSurrogate.hasPart ?: mutableListOf(),
-      packaging = this@DeviceDefinitionSurrogate.packaging ?: mutableListOf(),
-      version = this@DeviceDefinitionSurrogate.version ?: mutableListOf(),
-      safety = this@DeviceDefinitionSurrogate.safety ?: mutableListOf(),
-      shelfLifeStorage = this@DeviceDefinitionSurrogate.shelfLifeStorage ?: mutableListOf(),
-      languageCode = this@DeviceDefinitionSurrogate.languageCode ?: mutableListOf(),
-      `property` = this@DeviceDefinitionSurrogate.`property` ?: mutableListOf(),
+      classification = this@DeviceDefinitionSurrogate.classification ?: listOf(),
+      conformsTo = this@DeviceDefinitionSurrogate.conformsTo ?: listOf(),
+      hasPart = this@DeviceDefinitionSurrogate.hasPart ?: listOf(),
+      packaging = this@DeviceDefinitionSurrogate.packaging ?: listOf(),
+      version = this@DeviceDefinitionSurrogate.version ?: listOf(),
+      safety = this@DeviceDefinitionSurrogate.safety ?: listOf(),
+      shelfLifeStorage = this@DeviceDefinitionSurrogate.shelfLifeStorage ?: listOf(),
+      languageCode = this@DeviceDefinitionSurrogate.languageCode ?: listOf(),
+      `property` = this@DeviceDefinitionSurrogate.`property` ?: listOf(),
       owner = this@DeviceDefinitionSurrogate.owner,
-      contact = this@DeviceDefinitionSurrogate.contact ?: mutableListOf(),
-      link = this@DeviceDefinitionSurrogate.link ?: mutableListOf(),
-      note = this@DeviceDefinitionSurrogate.note ?: mutableListOf(),
-      material = this@DeviceDefinitionSurrogate.material ?: mutableListOf(),
+      contact = this@DeviceDefinitionSurrogate.contact ?: listOf(),
+      link = this@DeviceDefinitionSurrogate.link ?: listOf(),
+      note = this@DeviceDefinitionSurrogate.note ?: listOf(),
+      material = this@DeviceDefinitionSurrogate.material ?: listOf(),
       productionIdentifierInUDI =
         if (
           this@DeviceDefinitionSurrogate.productionIdentifierInUDI == null &&
             this@DeviceDefinitionSurrogate._productionIdentifierInUDI == null
         ) {
-          mutableListOf()
+          listOf()
         } else {
           (this@DeviceDefinitionSurrogate.productionIdentifierInUDI
               ?: List(this@DeviceDefinitionSurrogate._productionIdentifierInUDI!!.size) { null })
@@ -961,11 +948,11 @@ internal data class DeviceDefinitionSurrogate(
                 element,
               )
             }
-            .toMutableList()
+            .toList()
         },
       guideline = this@DeviceDefinitionSurrogate.guideline,
       correctiveAction = this@DeviceDefinitionSurrogate.correctiveAction,
-      chargeItem = this@DeviceDefinitionSurrogate.chargeItem ?: mutableListOf(),
+      chargeItem = this@DeviceDefinitionSurrogate.chargeItem ?: listOf(),
     )
 
   public companion object {
@@ -1010,14 +997,14 @@ internal data class DeviceDefinitionSurrogate(
           productionIdentifierInUDI =
             this@with.productionIdentifierInUDI
               .map { it.value?.getCode() }
-              .toMutableList()
+              .toList()
               .takeUnless { it.all { it == null } },
           _productionIdentifierInUDI =
             this@with.productionIdentifierInUDI
               .map { it.toElement() }
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
-              ?.toMutableList(),
+              ?.toList(),
           guideline = this@with.guideline,
           correctiveAction = this@with.correctiveAction,
           chargeItem = this@with.chargeItem.takeIf { it.isNotEmpty() },

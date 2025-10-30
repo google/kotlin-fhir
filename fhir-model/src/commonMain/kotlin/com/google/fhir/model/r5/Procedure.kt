@@ -25,7 +25,7 @@ import com.google.fhir.model.r5.serializers.ProcedureReportedSerializer
 import com.google.fhir.model.r5.serializers.ProcedureSerializer
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -47,12 +47,12 @@ public data class Procedure(
    * like the create and conditional update. Otherwise, the use of the resouce id depends on the
    * given use case.
    */
-  override var id: String? = null,
+  override val id: String? = null,
   /**
    * The metadata about the resource. This is content that is maintained by the infrastructure.
    * Changes to the content might not always be associated with version changes to the resource.
    */
-  override var meta: Meta? = null,
+  override val meta: Meta? = null,
   /**
    * A reference to a set of rules that were followed when the resource was constructed, and which
    * must be understood when processing the content. Often, this is a reference to an implementation
@@ -66,7 +66,7 @@ public data class Procedure(
    * to an implementation guide that defines these special rules as part of its narrative along with
    * other profiles, value sets, etc.
    */
-  override var implicitRules: Uri? = null,
+  override val implicitRules: Uri? = null,
   /**
    * The base language in which the resource is written.
    *
@@ -78,7 +78,7 @@ public data class Procedure(
    * language is specified, it should it also be specified on the div element in the html (see rules
    * in HTML5 for information about the relationship between xml:lang and the html lang attribute).
    */
-  override var language: Code? = null,
+  override val language: Code? = null,
   /**
    * A human-readable narrative that contains a summary of the resource and can be used to represent
    * the content of the resource to a human. The narrative need not encode all the structured data,
@@ -92,7 +92,7 @@ public data class Procedure(
    * legacy systems where information is captured as a "text blob" or where text is additionally
    * entered raw or narrated and encoded information is added later.
    */
-  override var text: Narrative? = null,
+  override val text: Narrative? = null,
   /**
    * These resources do not have an independent existence apart from the resource that contains
    * them - they cannot be identified independently, nor can they have their own independent
@@ -104,7 +104,7 @@ public data class Procedure(
    * resources may have profiles and tags in their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: MutableList<Resource> = mutableListOf(),
+  override val contained: List<Resource> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and managable, there is a strict set of governance
@@ -117,7 +117,7 @@ public data class Procedure(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: MutableList<Extension> = mutableListOf(),
+  override val extension: List<Extension> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -136,7 +136,7 @@ public data class Procedure(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: MutableList<Extension> = mutableListOf(),
+  override val modifierExtension: List<Extension> = listOf(),
   /**
    * Business identifiers assigned to this procedure by the performer or other systems which remain
    * constant as the resource is updated and is propagated from server to server.
@@ -148,21 +148,21 @@ public data class Procedure(
    * resource types. For example, multiple Patient and Person resource instances might share the
    * same social insurance number.
    */
-  public var identifier: MutableList<Identifier> = mutableListOf(),
+  public val identifier: List<Identifier> = listOf(),
   /**
    * The URL pointing to a FHIR-defined protocol, guideline, order set or other definition that is
    * adhered to in whole or in part by this Procedure.
    */
-  public var instantiatesCanonical: MutableList<Canonical> = mutableListOf(),
+  public val instantiatesCanonical: List<Canonical> = listOf(),
   /**
    * The URL pointing to an externally maintained protocol, guideline, order set or other definition
    * that is adhered to in whole or in part by this Procedure.
    *
    * This might be an HTML page, PDF, etc. or could just be a non-resolvable URI identifier.
    */
-  public var instantiatesUri: MutableList<Uri> = mutableListOf(),
+  public val instantiatesUri: List<Uri> = listOf(),
   /** A reference to a resource that contains details of the request for this procedure. */
-  public var basedOn: MutableList<Reference> = mutableListOf(),
+  public val basedOn: List<Reference> = listOf(),
   /**
    * A larger event of which this particular procedure is a component or step.
    *
@@ -172,7 +172,7 @@ public data class Procedure(
    * insert the IV port for an IV medication administration is part of the medication administration
    * (Procedure.partOf = MedicationAdministration).
    */
-  public var partOf: MutableList<Reference> = mutableListOf(),
+  public val partOf: List<Reference> = listOf(),
   /**
    * A code specifying the state of the procedure. Generally, this will be the in-progress or
    * completed state.
@@ -184,24 +184,24 @@ public data class Procedure(
    * This element is labeled as a modifier because the status contains codes that mark the resource
    * as not currently valid.
    */
-  public var status: Enumeration<EventStatus>,
+  public val status: Enumeration<EventStatus>,
   /**
    * Captures the reason for the current state of the procedure.
    *
    * This is generally only used for "exception" statuses such as "not-done", "suspended" or
    * "aborted". The reason for performing the event at all is captured in reasonCode, not here.
    */
-  public var statusReason: CodeableConcept? = null,
+  public val statusReason: CodeableConcept? = null,
   /**
    * A code that classifies the procedure for searching, sorting and display purposes (e.g.
    * "Surgical Procedure").
    */
-  public var category: MutableList<CodeableConcept> = mutableListOf(),
+  public val category: List<CodeableConcept> = listOf(),
   /**
    * The specific procedure that is performed. Use text if the exact nature of the procedure cannot
    * be coded (e.g. "Laparoscopic Appendectomy").
    */
-  public var code: CodeableConcept? = null,
+  public val code: CodeableConcept? = null,
   /**
    * On whom or on what the procedure was performed. This is usually an individual human, but can
    * also be performed on animals, groups of humans or animals, organizations or practitioners (for
@@ -209,7 +209,7 @@ public data class Procedure(
    * actual focus of the procedure is different from the subject, the focus element specifies the
    * actual focus of the procedure.
    */
-  public var subject: Reference,
+  public val subject: Reference,
   /**
    * Who is the target of the procedure when it is not the subject of record only. If focus is not
    * present, then subject is the focus. If focus is present and the subject is one of the targets
@@ -220,7 +220,7 @@ public data class Procedure(
    * when recording the target of the education, training, or counseling is the parent or relative
    * of a patient.
    */
-  public var focus: Reference? = null,
+  public val focus: Reference? = null,
   /**
    * The Encounter during which this Procedure was created or performed or to which the creation of
    * this record is tightly associated.
@@ -229,7 +229,7 @@ public data class Procedure(
    * initiated prior to or after the official completion of an encounter but still be tied to the
    * context of the encounter.
    */
-  public var encounter: Reference? = null,
+  public val encounter: Reference? = null,
   /**
    * Estimated or actual date, date-time, period, or age when the procedure did occur or is
    * occurring. Allows a period to support complex procedures that span more than one date, and also
@@ -248,26 +248,26 @@ public data class Procedure(
    * other procedures performed and documented during the encounter might have more precise UTC
    * timestamps with timezone.
    */
-  public var occurrence: Occurrence? = null,
+  public val occurrence: Occurrence? = null,
   /**
    * The date the occurrence of the procedure was first captured in the record regardless of
    * Procedure.status (potentially after the occurrence of the event).
    */
-  public var recorded: DateTime? = null,
+  public val recorded: DateTime? = null,
   /** Individual who recorded the record and takes responsibility for its content. */
-  public var recorder: Reference? = null,
+  public val recorder: Reference? = null,
   /**
    * Indicates if this record was captured as a secondary 'reported' record rather than as an
    * original primary source-of-truth record. It may also indicate the source of the report.
    */
-  public var reported: Reported? = null,
+  public val reported: Reported? = null,
   /** Indicates who or what performed the procedure and how they were involved. */
-  public var performer: MutableList<Performer> = mutableListOf(),
+  public val performer: List<Performer> = listOf(),
   /**
    * The location where the procedure actually happened. E.g. a newborn at home, a tracheostomy at a
    * restaurant.
    */
-  public var location: Reference? = null,
+  public val location: Reference? = null,
   /**
    * The coded reason or reference why the procedure was performed. This may be a coded entity of
    * some type, be present as text, or be a reference to one of several resources that justify the
@@ -278,7 +278,7 @@ public data class Procedure(
    * conveyed, such as onset date. For a single Procedure.reason, if both Procedure.reason.concept
    * and Procedure.reason.reference are present, they are expected to be consistent with each other.
    */
-  public var reason: MutableList<CodeableReference> = mutableListOf(),
+  public val reason: List<CodeableReference> = listOf(),
   /**
    * Detailed and structured anatomical location information. Multiple locations are allowed - e.g.
    * multiple punch biopsies of a lesion.
@@ -287,20 +287,20 @@ public data class Procedure(
    * separately) then use the standard extension
    * [http://hl7.org/fhir/StructureDefinition/procedure-targetBodyStructure](http://hl7.org/fhir/extensions/StructureDefinition-procedure-targetBodyStructure.html).
    */
-  public var bodySite: MutableList<CodeableConcept> = mutableListOf(),
+  public val bodySite: List<CodeableConcept> = listOf(),
   /**
    * The outcome of the procedure - did it resolve the reasons for the procedure being performed?
    *
    * If outcome contains narrative text only, it can be captured using the CodeableConcept.text.
    */
-  public var outcome: CodeableConcept? = null,
+  public val outcome: CodeableConcept? = null,
   /**
    * This could be a histology result, pathology report, surgical report, etc.
    *
    * There could potentially be multiple reports - e.g. if this was a procedure which took multiple
    * biopsies resulting in a number of anatomical pathology reports.
    */
-  public var report: MutableList<Reference> = mutableListOf(),
+  public val report: List<Reference> = listOf(),
   /**
    * Any complications that occurred during the procedure, or in the immediate post-performance
    * period. These are generally tracked separately from the notes, which will typically describe
@@ -309,33 +309,33 @@ public data class Procedure(
    * If complications are only expressed by the narrative text, they can be captured using the
    * CodeableReference.concept.text.
    */
-  public var complication: MutableList<CodeableReference> = mutableListOf(),
+  public val complication: List<CodeableReference> = listOf(),
   /**
    * If the procedure required specific follow up - e.g. removal of sutures. The follow up may be
    * represented as a simple note or could potentially be more complex, in which case the CarePlan
    * resource can be used.
    */
-  public var followUp: MutableList<CodeableConcept> = mutableListOf(),
+  public val followUp: List<CodeableConcept> = listOf(),
   /** Any other notes and comments about the procedure. */
-  public var note: MutableList<Annotation> = mutableListOf(),
+  public val note: List<Annotation> = listOf(),
   /**
    * A device that is implanted, removed or otherwise manipulated (calibration, battery replacement,
    * fitting a prosthesis, attaching a wound-vac, etc.) as a focal portion of the Procedure.
    */
-  public var focalDevice: MutableList<FocalDevice> = mutableListOf(),
+  public val focalDevice: List<FocalDevice> = listOf(),
   /**
    * Identifies medications, devices and any other substance used as part of the procedure.
    *
    * For devices actually implanted or removed, use Procedure.focalDevice.manipulated.
    */
-  public var used: MutableList<CodeableReference> = mutableListOf(),
+  public val used: List<CodeableReference> = listOf(),
   /**
    * Other resources from the patient record that may be relevant to the procedure. The information
    * from these resources was either used to create the instance or is provided to help with its
    * interpretation. This extension should not be used if more specific inline elements or
    * extensions are available.
    */
-  public var supportingInfo: MutableList<Reference> = mutableListOf(),
+  public val supportingInfo: List<Reference> = listOf(),
 ) : DomainResource() {
   /** Indicates who or what performed the procedure and how they were involved. */
   @Serializable(with = ProcedurePerformerSerializer::class)
@@ -344,7 +344,7 @@ public data class Procedure(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: String? = null,
+    override val id: String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -357,7 +357,7 @@ public data class Procedure(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -376,14 +376,14 @@ public data class Procedure(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /**
      * Distinguishes the type of involvement of the performer in the procedure. For example,
      * surgeon, anaesthetist, endoscopist.
      */
-    public var function: CodeableConcept? = null,
+    public val function: CodeableConcept? = null,
     /** Indicates who or what performed the procedure. */
-    public var actor: Reference,
+    public val actor: Reference,
     /**
      * The Organization the Patient, RelatedPerson, Device, CareTeam, and HealthcareService was
      * acting on behalf of.
@@ -392,9 +392,9 @@ public data class Procedure(
      * associated with multiple organizations. This element indicates which organization they were
      * acting on behalf of when performing the action.
      */
-    public var onBehalfOf: Reference? = null,
+    public val onBehalfOf: Reference? = null,
     /** Time period during which the performer performed the procedure. */
-    public var period: Period? = null,
+    public val period: Period? = null,
   ) : BackboneElement()
 
   /**
@@ -407,7 +407,7 @@ public data class Procedure(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: String? = null,
+    override val id: String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -420,7 +420,7 @@ public data class Procedure(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -439,11 +439,11 @@ public data class Procedure(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /** The kind of change that happened to the device during the procedure. */
-    public var action: CodeableConcept? = null,
+    public val action: CodeableConcept? = null,
     /** The device that was manipulated (changed) during the procedure. */
-    public var manipulated: Reference,
+    public val manipulated: Reference,
   ) : BackboneElement()
 
   @Serializable(with = ProcedureOccurrenceSerializer::class)

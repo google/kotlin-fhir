@@ -50,7 +50,7 @@ import kotlin.Double
 import kotlin.Int
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.datetime.LocalTime
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
@@ -58,23 +58,22 @@ import kotlinx.serialization.UseSerializers
 @Serializable
 internal data class QuestionnaireResponseItemSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var linkId: KotlinString? = null,
   public var _linkId: Element? = null,
   public var definition: KotlinString? = null,
   public var _definition: Element? = null,
   public var text: KotlinString? = null,
   public var _text: Element? = null,
-  public var answer: MutableList<QuestionnaireResponse.Item.Answer>? = null,
-  public var item: MutableList<QuestionnaireResponse.Item>? = null,
+  public var answer: List<QuestionnaireResponse.Item.Answer>? = null,
+  public var item: List<QuestionnaireResponse.Item>? = null,
 ) {
   public fun toModel(): QuestionnaireResponse.Item =
     QuestionnaireResponse.Item(
       id = this@QuestionnaireResponseItemSurrogate.id,
-      extension = this@QuestionnaireResponseItemSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@QuestionnaireResponseItemSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@QuestionnaireResponseItemSurrogate.extension ?: listOf(),
+      modifierExtension = this@QuestionnaireResponseItemSurrogate.modifierExtension ?: listOf(),
       linkId =
         R4String.of(
           this@QuestionnaireResponseItemSurrogate.linkId,
@@ -90,8 +89,8 @@ internal data class QuestionnaireResponseItemSurrogate(
           this@QuestionnaireResponseItemSurrogate.text,
           this@QuestionnaireResponseItemSurrogate._text,
         ),
-      answer = this@QuestionnaireResponseItemSurrogate.answer ?: mutableListOf(),
-      item = this@QuestionnaireResponseItemSurrogate.item ?: mutableListOf(),
+      answer = this@QuestionnaireResponseItemSurrogate.answer ?: listOf(),
+      item = this@QuestionnaireResponseItemSurrogate.item ?: listOf(),
     )
 
   public companion object {
@@ -117,19 +116,19 @@ internal data class QuestionnaireResponseItemSurrogate(
 @Serializable
 internal data class QuestionnaireResponseItemAnswerSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var `value`: QuestionnaireResponse.Item.Answer.Value? = null,
-  public var item: MutableList<QuestionnaireResponse.Item>? = null,
+  public var item: List<QuestionnaireResponse.Item>? = null,
 ) {
   public fun toModel(): QuestionnaireResponse.Item.Answer =
     QuestionnaireResponse.Item.Answer(
       id = this@QuestionnaireResponseItemAnswerSurrogate.id,
-      extension = this@QuestionnaireResponseItemAnswerSurrogate.extension ?: mutableListOf(),
+      extension = this@QuestionnaireResponseItemAnswerSurrogate.extension ?: listOf(),
       modifierExtension =
-        this@QuestionnaireResponseItemAnswerSurrogate.modifierExtension ?: mutableListOf(),
+        this@QuestionnaireResponseItemAnswerSurrogate.modifierExtension ?: listOf(),
       `value` = this@QuestionnaireResponseItemAnswerSurrogate.`value`,
-      item = this@QuestionnaireResponseItemAnswerSurrogate.item ?: mutableListOf(),
+      item = this@QuestionnaireResponseItemAnswerSurrogate.item ?: listOf(),
     )
 
   public companion object {
@@ -251,12 +250,12 @@ internal data class QuestionnaireResponseSurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: MutableList<Resource>? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var contained: List<Resource>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var identifier: Identifier? = null,
-  public var basedOn: MutableList<Reference>? = null,
-  public var partOf: MutableList<Reference>? = null,
+  public var basedOn: List<Reference>? = null,
+  public var partOf: List<Reference>? = null,
   public var questionnaire: KotlinString? = null,
   public var _questionnaire: Element? = null,
   public var status: KotlinString? = null,
@@ -267,7 +266,7 @@ internal data class QuestionnaireResponseSurrogate(
   public var _authored: Element? = null,
   public var author: Reference? = null,
   public var source: Reference? = null,
-  public var item: MutableList<QuestionnaireResponse.Item>? = null,
+  public var item: List<QuestionnaireResponse.Item>? = null,
 ) {
   public fun toModel(): QuestionnaireResponse =
     QuestionnaireResponse(
@@ -284,12 +283,12 @@ internal data class QuestionnaireResponseSurrogate(
           this@QuestionnaireResponseSurrogate._language,
         ),
       text = this@QuestionnaireResponseSurrogate.text,
-      contained = this@QuestionnaireResponseSurrogate.contained ?: mutableListOf(),
-      extension = this@QuestionnaireResponseSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@QuestionnaireResponseSurrogate.modifierExtension ?: mutableListOf(),
+      contained = this@QuestionnaireResponseSurrogate.contained ?: listOf(),
+      extension = this@QuestionnaireResponseSurrogate.extension ?: listOf(),
+      modifierExtension = this@QuestionnaireResponseSurrogate.modifierExtension ?: listOf(),
       identifier = this@QuestionnaireResponseSurrogate.identifier,
-      basedOn = this@QuestionnaireResponseSurrogate.basedOn ?: mutableListOf(),
-      partOf = this@QuestionnaireResponseSurrogate.partOf ?: mutableListOf(),
+      basedOn = this@QuestionnaireResponseSurrogate.basedOn ?: listOf(),
+      partOf = this@QuestionnaireResponseSurrogate.partOf ?: listOf(),
       questionnaire =
         Canonical.of(
           this@QuestionnaireResponseSurrogate.questionnaire,
@@ -311,7 +310,7 @@ internal data class QuestionnaireResponseSurrogate(
         ),
       author = this@QuestionnaireResponseSurrogate.author,
       source = this@QuestionnaireResponseSurrogate.source,
-      item = this@QuestionnaireResponseSurrogate.item ?: mutableListOf(),
+      item = this@QuestionnaireResponseSurrogate.item ?: listOf(),
     )
 
   public companion object {

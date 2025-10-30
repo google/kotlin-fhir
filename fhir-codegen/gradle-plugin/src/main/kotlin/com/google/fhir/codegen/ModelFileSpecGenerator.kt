@@ -340,7 +340,6 @@ private fun TypeSpec.Builder.buildProperties(
 
       val property =
         PropertySpec.builder(name, type)
-          .mutable()
           .apply {
             if (structureDefinition == null || structureDefinition.hasPrimaryConstructor) {
               initializer(name)
@@ -694,14 +693,9 @@ private fun TypeSpec.Builder.addDataTypeFunction(type: Type, sealedInterfaceClas
  * - Elements with min cardinality "0" should default to null
  */
 fun ParameterSpec.Builder.setDefaultValue(element: Element) = apply {
-  if (element.id == "xhtml.extension") {
-    // The cardinality of this element in the base class is 0..*, but it is overridden in xhtml to
-    // be 0..0. Therefore, using the cardinality defined here would result in an compilation error.
-    // TODO: Deprecate this element in the generated Xhtml class, possibly with @Deprecated
-    // annotation.
-    defaultValue("mutableListOf()")
-  } else if (element.max == "*") {
-    defaultValue("mutableListOf()")
+  if (element.max == "*" || element.id == "xhtml.extension") {
+    // The extension field of XHTML needs to be a list despite the cardinality of 0..0.
+    defaultValue("listOf()")
   } else if (element.min == 0) {
     defaultValue("null")
   }

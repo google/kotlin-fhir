@@ -43,15 +43,15 @@ import com.google.fhir.model.r4.serializers.DoubleSerializer
 import com.google.fhir.model.r4.serializers.LocalTimeSerializer
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class ProcedurePerformerSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var function: CodeableConcept? = null,
   public var actor: Reference,
   public var onBehalfOf: Reference? = null,
@@ -59,8 +59,8 @@ internal data class ProcedurePerformerSurrogate(
   public fun toModel(): Procedure.Performer =
     Procedure.Performer(
       id = this@ProcedurePerformerSurrogate.id,
-      extension = this@ProcedurePerformerSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@ProcedurePerformerSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@ProcedurePerformerSurrogate.extension ?: listOf(),
+      modifierExtension = this@ProcedurePerformerSurrogate.modifierExtension ?: listOf(),
       function = this@ProcedurePerformerSurrogate.function,
       actor = this@ProcedurePerformerSurrogate.actor,
       onBehalfOf = this@ProcedurePerformerSurrogate.onBehalfOf,
@@ -84,16 +84,16 @@ internal data class ProcedurePerformerSurrogate(
 @Serializable
 internal data class ProcedureFocalDeviceSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var action: CodeableConcept? = null,
   public var manipulated: Reference,
 ) {
   public fun toModel(): Procedure.FocalDevice =
     Procedure.FocalDevice(
       id = this@ProcedureFocalDeviceSurrogate.id,
-      extension = this@ProcedureFocalDeviceSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@ProcedureFocalDeviceSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@ProcedureFocalDeviceSurrogate.extension ?: listOf(),
+      modifierExtension = this@ProcedureFocalDeviceSurrogate.modifierExtension ?: listOf(),
       action = this@ProcedureFocalDeviceSurrogate.action,
       manipulated = this@ProcedureFocalDeviceSurrogate.manipulated,
     )
@@ -162,16 +162,16 @@ internal data class ProcedureSurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: MutableList<Resource>? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var identifier: MutableList<Identifier>? = null,
-  public var instantiatesCanonical: MutableList<KotlinString?>? = null,
-  public var _instantiatesCanonical: MutableList<Element?>? = null,
-  public var instantiatesUri: MutableList<KotlinString?>? = null,
-  public var _instantiatesUri: MutableList<Element?>? = null,
-  public var basedOn: MutableList<Reference>? = null,
-  public var partOf: MutableList<Reference>? = null,
+  public var contained: List<Resource>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
+  public var identifier: List<Identifier>? = null,
+  public var instantiatesCanonical: List<KotlinString?>? = null,
+  public var _instantiatesCanonical: List<Element?>? = null,
+  public var instantiatesUri: List<KotlinString?>? = null,
+  public var _instantiatesUri: List<Element?>? = null,
+  public var basedOn: List<Reference>? = null,
+  public var partOf: List<Reference>? = null,
   public var status: KotlinString? = null,
   public var _status: Element? = null,
   public var statusReason: CodeableConcept? = null,
@@ -182,20 +182,20 @@ internal data class ProcedureSurrogate(
   public var performed: Procedure.Performed? = null,
   public var recorder: Reference? = null,
   public var asserter: Reference? = null,
-  public var performer: MutableList<Procedure.Performer>? = null,
+  public var performer: List<Procedure.Performer>? = null,
   public var location: Reference? = null,
-  public var reasonCode: MutableList<CodeableConcept>? = null,
-  public var reasonReference: MutableList<Reference>? = null,
-  public var bodySite: MutableList<CodeableConcept>? = null,
+  public var reasonCode: List<CodeableConcept>? = null,
+  public var reasonReference: List<Reference>? = null,
+  public var bodySite: List<CodeableConcept>? = null,
   public var outcome: CodeableConcept? = null,
-  public var report: MutableList<Reference>? = null,
-  public var complication: MutableList<CodeableConcept>? = null,
-  public var complicationDetail: MutableList<Reference>? = null,
-  public var followUp: MutableList<CodeableConcept>? = null,
-  public var note: MutableList<Annotation>? = null,
-  public var focalDevice: MutableList<Procedure.FocalDevice>? = null,
-  public var usedReference: MutableList<Reference>? = null,
-  public var usedCode: MutableList<CodeableConcept>? = null,
+  public var report: List<Reference>? = null,
+  public var complication: List<CodeableConcept>? = null,
+  public var complicationDetail: List<Reference>? = null,
+  public var followUp: List<CodeableConcept>? = null,
+  public var note: List<Annotation>? = null,
+  public var focalDevice: List<Procedure.FocalDevice>? = null,
+  public var usedReference: List<Reference>? = null,
+  public var usedCode: List<CodeableConcept>? = null,
 ) {
   public fun toModel(): Procedure =
     Procedure(
@@ -205,16 +205,16 @@ internal data class ProcedureSurrogate(
         Uri.of(this@ProcedureSurrogate.implicitRules, this@ProcedureSurrogate._implicitRules),
       language = Code.of(this@ProcedureSurrogate.language, this@ProcedureSurrogate._language),
       text = this@ProcedureSurrogate.text,
-      contained = this@ProcedureSurrogate.contained ?: mutableListOf(),
-      extension = this@ProcedureSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@ProcedureSurrogate.modifierExtension ?: mutableListOf(),
-      identifier = this@ProcedureSurrogate.identifier ?: mutableListOf(),
+      contained = this@ProcedureSurrogate.contained ?: listOf(),
+      extension = this@ProcedureSurrogate.extension ?: listOf(),
+      modifierExtension = this@ProcedureSurrogate.modifierExtension ?: listOf(),
+      identifier = this@ProcedureSurrogate.identifier ?: listOf(),
       instantiatesCanonical =
         if (
           this@ProcedureSurrogate.instantiatesCanonical == null &&
             this@ProcedureSurrogate._instantiatesCanonical == null
         ) {
-          mutableListOf()
+          listOf()
         } else {
           (this@ProcedureSurrogate.instantiatesCanonical
               ?: List(this@ProcedureSurrogate._instantiatesCanonical!!.size) { null })
@@ -223,14 +223,14 @@ internal data class ProcedureSurrogate(
                 ?: List(this@ProcedureSurrogate.instantiatesCanonical!!.size) { null }
             )
             .map { (value, element) -> Canonical.of(value, element)!! }
-            .toMutableList()
+            .toList()
         },
       instantiatesUri =
         if (
           this@ProcedureSurrogate.instantiatesUri == null &&
             this@ProcedureSurrogate._instantiatesUri == null
         ) {
-          mutableListOf()
+          listOf()
         } else {
           (this@ProcedureSurrogate.instantiatesUri
               ?: List(this@ProcedureSurrogate._instantiatesUri!!.size) { null })
@@ -239,10 +239,10 @@ internal data class ProcedureSurrogate(
                 ?: List(this@ProcedureSurrogate.instantiatesUri!!.size) { null }
             )
             .map { (value, element) -> Uri.of(value, element)!! }
-            .toMutableList()
+            .toList()
         },
-      basedOn = this@ProcedureSurrogate.basedOn ?: mutableListOf(),
-      partOf = this@ProcedureSurrogate.partOf ?: mutableListOf(),
+      basedOn = this@ProcedureSurrogate.basedOn ?: listOf(),
+      partOf = this@ProcedureSurrogate.partOf ?: listOf(),
       status =
         Enumeration.of(
           Procedure.EventStatus.fromCode(this@ProcedureSurrogate.status!!),
@@ -256,20 +256,20 @@ internal data class ProcedureSurrogate(
       performed = this@ProcedureSurrogate.performed,
       recorder = this@ProcedureSurrogate.recorder,
       asserter = this@ProcedureSurrogate.asserter,
-      performer = this@ProcedureSurrogate.performer ?: mutableListOf(),
+      performer = this@ProcedureSurrogate.performer ?: listOf(),
       location = this@ProcedureSurrogate.location,
-      reasonCode = this@ProcedureSurrogate.reasonCode ?: mutableListOf(),
-      reasonReference = this@ProcedureSurrogate.reasonReference ?: mutableListOf(),
-      bodySite = this@ProcedureSurrogate.bodySite ?: mutableListOf(),
+      reasonCode = this@ProcedureSurrogate.reasonCode ?: listOf(),
+      reasonReference = this@ProcedureSurrogate.reasonReference ?: listOf(),
+      bodySite = this@ProcedureSurrogate.bodySite ?: listOf(),
       outcome = this@ProcedureSurrogate.outcome,
-      report = this@ProcedureSurrogate.report ?: mutableListOf(),
-      complication = this@ProcedureSurrogate.complication ?: mutableListOf(),
-      complicationDetail = this@ProcedureSurrogate.complicationDetail ?: mutableListOf(),
-      followUp = this@ProcedureSurrogate.followUp ?: mutableListOf(),
-      note = this@ProcedureSurrogate.note ?: mutableListOf(),
-      focalDevice = this@ProcedureSurrogate.focalDevice ?: mutableListOf(),
-      usedReference = this@ProcedureSurrogate.usedReference ?: mutableListOf(),
-      usedCode = this@ProcedureSurrogate.usedCode ?: mutableListOf(),
+      report = this@ProcedureSurrogate.report ?: listOf(),
+      complication = this@ProcedureSurrogate.complication ?: listOf(),
+      complicationDetail = this@ProcedureSurrogate.complicationDetail ?: listOf(),
+      followUp = this@ProcedureSurrogate.followUp ?: listOf(),
+      note = this@ProcedureSurrogate.note ?: listOf(),
+      focalDevice = this@ProcedureSurrogate.focalDevice ?: listOf(),
+      usedReference = this@ProcedureSurrogate.usedReference ?: listOf(),
+      usedCode = this@ProcedureSurrogate.usedCode ?: listOf(),
     )
 
   public companion object {
@@ -290,25 +290,25 @@ internal data class ProcedureSurrogate(
           instantiatesCanonical =
             this@with.instantiatesCanonical
               .map { it.value }
-              .toMutableList()
+              .toList()
               .takeUnless { it.all { it == null } },
           _instantiatesCanonical =
             this@with.instantiatesCanonical
               .map { it.toElement() }
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
-              ?.toMutableList(),
+              ?.toList(),
           instantiatesUri =
             this@with.instantiatesUri
               .map { it.value }
-              .toMutableList()
+              .toList()
               .takeUnless { it.all { it == null } },
           _instantiatesUri =
             this@with.instantiatesUri
               .map { it.toElement() }
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
-              ?.toMutableList(),
+              ?.toList(),
           basedOn = this@with.basedOn.takeIf { it.isNotEmpty() },
           partOf = this@with.partOf.takeIf { it.isNotEmpty() },
           status = this@with.status.value?.getCode(),

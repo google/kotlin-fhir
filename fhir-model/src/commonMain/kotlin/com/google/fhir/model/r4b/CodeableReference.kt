@@ -21,7 +21,7 @@ package com.google.fhir.model.r4b
 import com.google.fhir.model.r4b.serializers.CodeableReferenceSerializer
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 
 /**
@@ -34,7 +34,7 @@ public data class CodeableReference(
    * Unique id for the element within a resource (for internal references). This may be any string
    * value that does not contain spaces.
    */
-  override var id: String? = null,
+  override val id: String? = null,
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * element. To make the use of extensions safe and manageable, there is a strict set of governance
@@ -47,14 +47,14 @@ public data class CodeableReference(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: MutableList<Extension> = mutableListOf(),
+  override val extension: List<Extension> = listOf(),
   /**
    * A reference to a concept - e.g. the information is identified by its general class to the
    * degree of precision found in the terminology.
    */
-  public var concept: CodeableConcept? = null,
+  public val concept: CodeableConcept? = null,
   /**
    * A reference to a resource the provides exact details about the information being referenced.
    */
-  public var reference: Reference? = null,
+  public val reference: Reference? = null,
 ) : Element()

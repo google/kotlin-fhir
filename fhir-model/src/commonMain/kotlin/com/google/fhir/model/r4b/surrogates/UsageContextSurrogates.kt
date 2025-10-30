@@ -30,7 +30,7 @@ import com.google.fhir.model.r4b.serializers.DoubleSerializer
 import com.google.fhir.model.r4b.serializers.LocalTimeSerializer
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
@@ -65,14 +65,14 @@ internal data class UsageContextValueSurrogate(
 @Serializable
 internal data class UsageContextSurrogate(
   public var id: String? = null,
-  public var extension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
   public var code: Coding,
   public var `value`: UsageContext.Value,
 ) {
   public fun toModel(): UsageContext =
     UsageContext(
       id = this@UsageContextSurrogate.id,
-      extension = this@UsageContextSurrogate.extension ?: mutableListOf(),
+      extension = this@UsageContextSurrogate.extension ?: listOf(),
       code = this@UsageContextSurrogate.code,
       `value` = this@UsageContextSurrogate.`value`,
     )

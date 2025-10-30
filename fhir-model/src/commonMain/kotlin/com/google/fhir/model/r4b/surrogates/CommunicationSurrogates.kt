@@ -41,22 +41,22 @@ import com.google.fhir.model.r4b.serializers.DoubleSerializer
 import com.google.fhir.model.r4b.serializers.LocalTimeSerializer
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class CommunicationPayloadSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var content: Communication.Payload.Content,
 ) {
   public fun toModel(): Communication.Payload =
     Communication.Payload(
       id = this@CommunicationPayloadSurrogate.id,
-      extension = this@CommunicationPayloadSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@CommunicationPayloadSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@CommunicationPayloadSurrogate.extension ?: listOf(),
+      modifierExtension = this@CommunicationPayloadSurrogate.modifierExtension ?: listOf(),
       content = this@CommunicationPayloadSurrogate.content,
     )
 
@@ -114,38 +114,38 @@ internal data class CommunicationSurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: MutableList<Resource>? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var identifier: MutableList<Identifier>? = null,
-  public var instantiatesCanonical: MutableList<KotlinString?>? = null,
-  public var _instantiatesCanonical: MutableList<Element?>? = null,
-  public var instantiatesUri: MutableList<KotlinString?>? = null,
-  public var _instantiatesUri: MutableList<Element?>? = null,
-  public var basedOn: MutableList<Reference>? = null,
-  public var partOf: MutableList<Reference>? = null,
-  public var inResponseTo: MutableList<Reference>? = null,
+  public var contained: List<Resource>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
+  public var identifier: List<Identifier>? = null,
+  public var instantiatesCanonical: List<KotlinString?>? = null,
+  public var _instantiatesCanonical: List<Element?>? = null,
+  public var instantiatesUri: List<KotlinString?>? = null,
+  public var _instantiatesUri: List<Element?>? = null,
+  public var basedOn: List<Reference>? = null,
+  public var partOf: List<Reference>? = null,
+  public var inResponseTo: List<Reference>? = null,
   public var status: KotlinString? = null,
   public var _status: Element? = null,
   public var statusReason: CodeableConcept? = null,
-  public var category: MutableList<CodeableConcept>? = null,
+  public var category: List<CodeableConcept>? = null,
   public var priority: KotlinString? = null,
   public var _priority: Element? = null,
-  public var medium: MutableList<CodeableConcept>? = null,
+  public var medium: List<CodeableConcept>? = null,
   public var subject: Reference? = null,
   public var topic: CodeableConcept? = null,
-  public var about: MutableList<Reference>? = null,
+  public var about: List<Reference>? = null,
   public var encounter: Reference? = null,
   public var sent: KotlinString? = null,
   public var _sent: Element? = null,
   public var received: KotlinString? = null,
   public var _received: Element? = null,
-  public var recipient: MutableList<Reference>? = null,
+  public var recipient: List<Reference>? = null,
   public var sender: Reference? = null,
-  public var reasonCode: MutableList<CodeableConcept>? = null,
-  public var reasonReference: MutableList<Reference>? = null,
-  public var payload: MutableList<Communication.Payload>? = null,
-  public var note: MutableList<Annotation>? = null,
+  public var reasonCode: List<CodeableConcept>? = null,
+  public var reasonReference: List<Reference>? = null,
+  public var payload: List<Communication.Payload>? = null,
+  public var note: List<Annotation>? = null,
 ) {
   public fun toModel(): Communication =
     Communication(
@@ -159,16 +159,16 @@ internal data class CommunicationSurrogate(
       language =
         Code.of(this@CommunicationSurrogate.language, this@CommunicationSurrogate._language),
       text = this@CommunicationSurrogate.text,
-      contained = this@CommunicationSurrogate.contained ?: mutableListOf(),
-      extension = this@CommunicationSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@CommunicationSurrogate.modifierExtension ?: mutableListOf(),
-      identifier = this@CommunicationSurrogate.identifier ?: mutableListOf(),
+      contained = this@CommunicationSurrogate.contained ?: listOf(),
+      extension = this@CommunicationSurrogate.extension ?: listOf(),
+      modifierExtension = this@CommunicationSurrogate.modifierExtension ?: listOf(),
+      identifier = this@CommunicationSurrogate.identifier ?: listOf(),
       instantiatesCanonical =
         if (
           this@CommunicationSurrogate.instantiatesCanonical == null &&
             this@CommunicationSurrogate._instantiatesCanonical == null
         ) {
-          mutableListOf()
+          listOf()
         } else {
           (this@CommunicationSurrogate.instantiatesCanonical
               ?: List(this@CommunicationSurrogate._instantiatesCanonical!!.size) { null })
@@ -177,14 +177,14 @@ internal data class CommunicationSurrogate(
                 ?: List(this@CommunicationSurrogate.instantiatesCanonical!!.size) { null }
             )
             .map { (value, element) -> Canonical.of(value, element)!! }
-            .toMutableList()
+            .toList()
         },
       instantiatesUri =
         if (
           this@CommunicationSurrogate.instantiatesUri == null &&
             this@CommunicationSurrogate._instantiatesUri == null
         ) {
-          mutableListOf()
+          listOf()
         } else {
           (this@CommunicationSurrogate.instantiatesUri
               ?: List(this@CommunicationSurrogate._instantiatesUri!!.size) { null })
@@ -193,18 +193,18 @@ internal data class CommunicationSurrogate(
                 ?: List(this@CommunicationSurrogate.instantiatesUri!!.size) { null }
             )
             .map { (value, element) -> Uri.of(value, element)!! }
-            .toMutableList()
+            .toList()
         },
-      basedOn = this@CommunicationSurrogate.basedOn ?: mutableListOf(),
-      partOf = this@CommunicationSurrogate.partOf ?: mutableListOf(),
-      inResponseTo = this@CommunicationSurrogate.inResponseTo ?: mutableListOf(),
+      basedOn = this@CommunicationSurrogate.basedOn ?: listOf(),
+      partOf = this@CommunicationSurrogate.partOf ?: listOf(),
+      inResponseTo = this@CommunicationSurrogate.inResponseTo ?: listOf(),
       status =
         Enumeration.of(
           Communication.EventStatus.fromCode(this@CommunicationSurrogate.status!!),
           this@CommunicationSurrogate._status,
         ),
       statusReason = this@CommunicationSurrogate.statusReason,
-      category = this@CommunicationSurrogate.category ?: mutableListOf(),
+      category = this@CommunicationSurrogate.category ?: listOf(),
       priority =
         this@CommunicationSurrogate.priority?.let {
           Enumeration.of(
@@ -212,10 +212,10 @@ internal data class CommunicationSurrogate(
             this@CommunicationSurrogate._priority,
           )
         },
-      medium = this@CommunicationSurrogate.medium ?: mutableListOf(),
+      medium = this@CommunicationSurrogate.medium ?: listOf(),
       subject = this@CommunicationSurrogate.subject,
       topic = this@CommunicationSurrogate.topic,
-      about = this@CommunicationSurrogate.about ?: mutableListOf(),
+      about = this@CommunicationSurrogate.about ?: listOf(),
       encounter = this@CommunicationSurrogate.encounter,
       sent =
         DateTime.of(
@@ -227,12 +227,12 @@ internal data class CommunicationSurrogate(
           FhirDateTime.fromString(this@CommunicationSurrogate.received),
           this@CommunicationSurrogate._received,
         ),
-      recipient = this@CommunicationSurrogate.recipient ?: mutableListOf(),
+      recipient = this@CommunicationSurrogate.recipient ?: listOf(),
       sender = this@CommunicationSurrogate.sender,
-      reasonCode = this@CommunicationSurrogate.reasonCode ?: mutableListOf(),
-      reasonReference = this@CommunicationSurrogate.reasonReference ?: mutableListOf(),
-      payload = this@CommunicationSurrogate.payload ?: mutableListOf(),
-      note = this@CommunicationSurrogate.note ?: mutableListOf(),
+      reasonCode = this@CommunicationSurrogate.reasonCode ?: listOf(),
+      reasonReference = this@CommunicationSurrogate.reasonReference ?: listOf(),
+      payload = this@CommunicationSurrogate.payload ?: listOf(),
+      note = this@CommunicationSurrogate.note ?: listOf(),
     )
 
   public companion object {
@@ -253,25 +253,25 @@ internal data class CommunicationSurrogate(
           instantiatesCanonical =
             this@with.instantiatesCanonical
               .map { it.value }
-              .toMutableList()
+              .toList()
               .takeUnless { it.all { it == null } },
           _instantiatesCanonical =
             this@with.instantiatesCanonical
               .map { it.toElement() }
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
-              ?.toMutableList(),
+              ?.toList(),
           instantiatesUri =
             this@with.instantiatesUri
               .map { it.value }
-              .toMutableList()
+              .toList()
               .takeUnless { it.all { it == null } },
           _instantiatesUri =
             this@with.instantiatesUri
               .map { it.toElement() }
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
-              ?.toMutableList(),
+              ?.toList(),
           basedOn = this@with.basedOn.takeIf { it.isNotEmpty() },
           partOf = this@with.partOf.takeIf { it.isNotEmpty() },
           inResponseTo = this@with.inResponseTo.takeIf { it.isNotEmpty() },

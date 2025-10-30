@@ -21,7 +21,7 @@ package com.google.fhir.model.r5
 import com.google.fhir.model.r5.serializers.OperationOutcomeIssueSerializer
 import com.google.fhir.model.r5.serializers.OperationOutcomeSerializer
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -37,12 +37,12 @@ public data class OperationOutcome(
    * like the create and conditional update. Otherwise, the use of the resouce id depends on the
    * given use case.
    */
-  override var id: kotlin.String? = null,
+  override val id: kotlin.String? = null,
   /**
    * The metadata about the resource. This is content that is maintained by the infrastructure.
    * Changes to the content might not always be associated with version changes to the resource.
    */
-  override var meta: Meta? = null,
+  override val meta: Meta? = null,
   /**
    * A reference to a set of rules that were followed when the resource was constructed, and which
    * must be understood when processing the content. Often, this is a reference to an implementation
@@ -56,7 +56,7 @@ public data class OperationOutcome(
    * to an implementation guide that defines these special rules as part of its narrative along with
    * other profiles, value sets, etc.
    */
-  override var implicitRules: Uri? = null,
+  override val implicitRules: Uri? = null,
   /**
    * The base language in which the resource is written.
    *
@@ -68,7 +68,7 @@ public data class OperationOutcome(
    * language is specified, it should it also be specified on the div element in the html (see rules
    * in HTML5 for information about the relationship between xml:lang and the html lang attribute).
    */
-  override var language: Code? = null,
+  override val language: Code? = null,
   /**
    * A human-readable narrative that contains a summary of the resource and can be used to represent
    * the content of the resource to a human. The narrative need not encode all the structured data,
@@ -82,7 +82,7 @@ public data class OperationOutcome(
    * legacy systems where information is captured as a "text blob" or where text is additionally
    * entered raw or narrated and encoded information is added later.
    */
-  override var text: Narrative? = null,
+  override val text: Narrative? = null,
   /**
    * These resources do not have an independent existence apart from the resource that contains
    * them - they cannot be identified independently, nor can they have their own independent
@@ -94,7 +94,7 @@ public data class OperationOutcome(
    * resources may have profiles and tags in their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: MutableList<Resource> = mutableListOf(),
+  override val contained: List<Resource> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and managable, there is a strict set of governance
@@ -107,7 +107,7 @@ public data class OperationOutcome(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: MutableList<Extension> = mutableListOf(),
+  override val extension: List<Extension> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -126,9 +126,9 @@ public data class OperationOutcome(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: MutableList<Extension> = mutableListOf(),
+  override val modifierExtension: List<Extension> = listOf(),
   /** An error, warning, or information message that results from a system action. */
-  public var issue: MutableList<Issue> = mutableListOf(),
+  public val issue: List<Issue> = listOf(),
 ) : DomainResource() {
   /** An error, warning, or information message that results from a system action. */
   @Serializable(with = OperationOutcomeIssueSerializer::class)
@@ -137,7 +137,7 @@ public data class OperationOutcome(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -150,7 +150,7 @@ public data class OperationOutcome(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -169,9 +169,9 @@ public data class OperationOutcome(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /** Indicates whether the issue indicates a variation from successful processing. */
-    public var severity: Enumeration<IssueSeverity>,
+    public val severity: Enumeration<IssueSeverity>,
     /**
      * Describes the type of the issue. The system that creates an OperationOutcome SHALL choose the
      * most applicable code from the IssueType value set, and may additional provide its own code
@@ -184,21 +184,21 @@ public data class OperationOutcome(
      * which codes. For example, ```code-invalid``` might be a ```warning``` or ```error```,
      * depending on the context
      */
-    public var code: Enumeration<IssueType>,
+    public val code: Enumeration<IssueType>,
     /**
      * Additional details about the error. This may be a text description of the error or a system
      * code that identifies the error.
      *
      * A human readable description of the error issue SHOULD be placed in details.text.
      */
-    public var details: CodeableConcept? = null,
+    public val details: CodeableConcept? = null,
     /**
      * Additional diagnostic information about the issue.
      *
      * This may be a description of how a value is erroneous, a stack dump to help trace the issue
      * or other troubleshooting information.
      */
-    public var diagnostics: String? = null,
+    public val diagnostics: String? = null,
     /**
      * This element is deprecated because it is XML specific. It is replaced by issue.expression,
      * which is format independent, and simpler to parse.
@@ -211,7 +211,7 @@ public data class OperationOutcome(
      * SHALL resolve to a single node. This element is deprecated, and is being replaced by
      * expression.
      */
-    public var location: MutableList<String> = mutableListOf(),
+    public val location: List<String> = listOf(),
     /**
      * A [simple subset of FHIRPath](fhirpath.html#simple) limited to element names, repetition
      * indicators and the default child accessor that identifies one of the elements in the resource
@@ -220,7 +220,7 @@ public data class OperationOutcome(
      * The root of the FHIRPath is the resource or bundle that generated OperationOutcome. Each
      * FHIRPath SHALL resolve to a single node.
      */
-    public var expression: MutableList<String> = mutableListOf(),
+    public val expression: List<String> = listOf(),
   ) : BackboneElement()
 
   /** How the issue affects the success of the action. */

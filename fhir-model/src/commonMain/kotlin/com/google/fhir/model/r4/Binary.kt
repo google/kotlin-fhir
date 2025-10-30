@@ -39,12 +39,12 @@ public data class Binary(
    * The only time that a resource does not have an id is when it is being submitted to the server
    * using a create operation.
    */
-  override var id: String? = null,
+  override val id: String? = null,
   /**
    * The metadata about the resource. This is content that is maintained by the infrastructure.
    * Changes to the content might not always be associated with version changes to the resource.
    */
-  override var meta: Meta? = null,
+  override val meta: Meta? = null,
   /**
    * A reference to a set of rules that were followed when the resource was constructed, and which
    * must be understood when processing the content. Often, this is a reference to an implementation
@@ -58,7 +58,7 @@ public data class Binary(
    * to an implementation guide that defines these special rules as part of it's narrative along
    * with other profiles, value sets, etc.
    */
-  override var implicitRules: Uri? = null,
+  override val implicitRules: Uri? = null,
   /**
    * The base language in which the resource is written.
    *
@@ -70,9 +70,9 @@ public data class Binary(
    * language is specified, it should it also be specified on the div element in the html (see rules
    * in HTML5 for information about the relationship between xml:lang and the html lang attribute).
    */
-  override var language: Code? = null,
+  override val language: Code? = null,
   /** MimeType of the binary content represented as a standard MimeType (BCP 13). */
-  public var contentType: Code,
+  public val contentType: Code,
   /**
    * This element identifies another resource that can be used as a proxy of the security
    * sensitivity to use when deciding and enforcing access control rules for the Binary resource.
@@ -90,12 +90,12 @@ public data class Binary(
    * resources, and/or the binary is content such as an application logo that has less protection
    * than any of the resources that reference it.
    */
-  public var securityContext: Reference? = null,
+  public val securityContext: Reference? = null,
   /**
    * The actual content, base64 encoded.
    *
    * If the content type is itself base64 encoding, then this will be base64 encoded twice - what is
    * created by un-base64ing the content must be the specified content type.
    */
-  public var `data`: Base64Binary? = null,
+  public val `data`: Base64Binary? = null,
 ) : Resource()

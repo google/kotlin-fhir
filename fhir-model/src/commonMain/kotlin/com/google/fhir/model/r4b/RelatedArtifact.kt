@@ -20,7 +20,7 @@ package com.google.fhir.model.r4b
 
 import com.google.fhir.model.r4b.serializers.RelatedArtifactSerializer
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 
 /**
@@ -33,7 +33,7 @@ public data class RelatedArtifact(
    * Unique id for the element within a resource (for internal references). This may be any string
    * value that does not contain spaces.
    */
-  override var id: kotlin.String? = null,
+  override val id: kotlin.String? = null,
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * element. To make the use of extensions safe and manageable, there is a strict set of governance
@@ -46,45 +46,45 @@ public data class RelatedArtifact(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: MutableList<Extension> = mutableListOf(),
+  override val extension: List<Extension> = listOf(),
   /** The type of relationship to the related artifact. */
-  public var type: Enumeration<RelatedArtifactType>,
+  public val type: Enumeration<RelatedArtifactType>,
   /**
    * A short label that can be used to reference the citation from elsewhere in the containing
    * artifact, such as a footnote index.
    */
-  public var label: String? = null,
+  public val label: String? = null,
   /**
    * A brief description of the document or knowledge resource being referenced, suitable for
    * display to a consumer.
    */
-  public var display: String? = null,
+  public val display: String? = null,
   /**
    * A bibliographic citation for the related artifact. This text SHOULD be formatted according to
    * an accepted citation format.
    *
    * Additional structured information about citations should be captured as extensions.
    */
-  public var citation: Markdown? = null,
+  public val citation: Markdown? = null,
   /**
    * A url for the artifact that can be followed to access the actual content.
    *
    * If a document or resource element is present, this element SHALL NOT be provided (use the url
    * or reference in the Attachment or resource reference).
    */
-  public var url: Url? = null,
+  public val url: Url? = null,
   /**
    * The document being referenced, represented as an attachment. This is exclusive with the
    * resource element.
    */
-  public var document: Attachment? = null,
+  public val document: Attachment? = null,
   /**
    * The related resource, such as a library, value set, profile, or other knowledge resource.
    *
    * If the type is predecessor, this is a reference to the succeeding knowledge resource. If the
    * type is successor, this is a reference to the prior knowledge resource.
    */
-  public var resource: Canonical? = null,
+  public val resource: Canonical? = null,
 ) : Element() {
   /** The type of relationship to the related artifact. */
   public enum class RelatedArtifactType(

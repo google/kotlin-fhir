@@ -25,7 +25,7 @@ import com.google.fhir.model.r5.serializers.TransportOutputValueSerializer
 import com.google.fhir.model.r5.serializers.TransportRestrictionSerializer
 import com.google.fhir.model.r5.serializers.TransportSerializer
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -41,12 +41,12 @@ public data class Transport(
    * like the create and conditional update. Otherwise, the use of the resouce id depends on the
    * given use case.
    */
-  override var id: kotlin.String? = null,
+  override val id: kotlin.String? = null,
   /**
    * The metadata about the resource. This is content that is maintained by the infrastructure.
    * Changes to the content might not always be associated with version changes to the resource.
    */
-  override var meta: Meta? = null,
+  override val meta: Meta? = null,
   /**
    * A reference to a set of rules that were followed when the resource was constructed, and which
    * must be understood when processing the content. Often, this is a reference to an implementation
@@ -60,7 +60,7 @@ public data class Transport(
    * to an implementation guide that defines these special rules as part of its narrative along with
    * other profiles, value sets, etc.
    */
-  override var implicitRules: Uri? = null,
+  override val implicitRules: Uri? = null,
   /**
    * The base language in which the resource is written.
    *
@@ -72,7 +72,7 @@ public data class Transport(
    * language is specified, it should it also be specified on the div element in the html (see rules
    * in HTML5 for information about the relationship between xml:lang and the html lang attribute).
    */
-  override var language: Code? = null,
+  override val language: Code? = null,
   /**
    * A human-readable narrative that contains a summary of the resource and can be used to represent
    * the content of the resource to a human. The narrative need not encode all the structured data,
@@ -86,7 +86,7 @@ public data class Transport(
    * legacy systems where information is captured as a "text blob" or where text is additionally
    * entered raw or narrated and encoded information is added later.
    */
-  override var text: Narrative? = null,
+  override val text: Narrative? = null,
   /**
    * These resources do not have an independent existence apart from the resource that contains
    * them - they cannot be identified independently, nor can they have their own independent
@@ -98,7 +98,7 @@ public data class Transport(
    * resources may have profiles and tags in their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: MutableList<Resource> = mutableListOf(),
+  override val contained: List<Resource> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and managable, there is a strict set of governance
@@ -111,7 +111,7 @@ public data class Transport(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: MutableList<Extension> = mutableListOf(),
+  override val extension: List<Extension> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -130,7 +130,7 @@ public data class Transport(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: MutableList<Extension> = mutableListOf(),
+  override val modifierExtension: List<Extension> = listOf(),
   /**
    * Identifier for the transport event that is used to identify it across multiple disparate
    * systems.
@@ -138,17 +138,17 @@ public data class Transport(
    * This identifier is typically assigned by the dispenser, and may be used to reference the
    * delivery when exchanging information about it with other systems.
    */
-  public var identifier: MutableList<Identifier> = mutableListOf(),
+  public val identifier: List<Identifier> = listOf(),
   /**
    * The URL pointing to a *FHIR*-defined protocol, guideline, orderset or other definition that is
    * adhered to in whole or in part by this Transport.
    */
-  public var instantiatesCanonical: Canonical? = null,
+  public val instantiatesCanonical: Canonical? = null,
   /**
    * The URL pointing to an *externally* maintained protocol, guideline, orderset or other
    * definition that is adhered to in whole or in part by this Transport.
    */
-  public var instantiatesUri: Uri? = null,
+  public val instantiatesUri: Uri? = null,
   /**
    * BasedOn refers to a higher-level authorization that triggered the creation of the transport. It
    * references a "request" resource such as a ServiceRequest or Transport, which is distinct from
@@ -156,7 +156,7 @@ public data class Transport(
    * by FocusOn. For example, based on a ServiceRequest (= BasedOn), a transport is created to
    * fulfill a procedureRequest ( = FocusOn ) to transport a specimen to the lab.
    */
-  public var basedOn: MutableList<Reference> = mutableListOf(),
+  public val basedOn: List<Reference> = listOf(),
   /**
    * A shared identifier common to multiple independent Request instances that were
    * activated/authorized more or less simultaneously by a single author. The presence of the same
@@ -164,7 +164,7 @@ public data class Transport(
    * terms of reporting of results, billing, etc. E.g. a requisition number shared by a set of lab
    * tests ordered together, or a prescription number shared by all meds ordered at one time.
    */
-  public var groupIdentifier: Identifier? = null,
+  public val groupIdentifier: Identifier? = null,
   /**
    * A larger event of which this particular event is a component or step.
    *
@@ -172,16 +172,16 @@ public data class Transport(
    *
    * [The allowed reference resources may be adjusted as appropriate for the event resource].
    */
-  public var partOf: MutableList<Reference> = mutableListOf(),
+  public val partOf: List<Reference> = listOf(),
   /** A code specifying the state of the transport event. */
-  public var status: Enumeration<TransportStatus>? = null,
+  public val status: Enumeration<TransportStatus>? = null,
   /**
    * An explanation as to why this transport is held, failed, was refused, etc.
    *
    * This applies to the current status. Look at the history of the transport to see reasons for
    * past statuses.
    */
-  public var statusReason: CodeableConcept? = null,
+  public val statusReason: CodeableConcept? = null,
   /**
    * Indicates the "level" of actionability associated with the Transport, i.e. i+R[9]Cs this a
    * proposed transport, a planned transport, an actionable transport, etc.
@@ -191,59 +191,59 @@ public data class Transport(
    *
    * In most cases, Transports will have an intent of "order".
    */
-  public var intent: Enumeration<TransportIntent>,
+  public val intent: Enumeration<TransportIntent>,
   /** Indicates how quickly the Transport should be addressed with respect to other requests. */
-  public var priority: Enumeration<RequestPriority>? = null,
+  public val priority: Enumeration<RequestPriority>? = null,
   /**
    * A name or code (or both) briefly describing what the transport involves.
    *
    * The title (eg "My Transports", "Outstanding Transports for Patient X") should go into the code.
    */
-  public var code: CodeableConcept? = null,
+  public val code: CodeableConcept? = null,
   /** A free-text description of what is to be performed. */
-  public var description: String? = null,
+  public val description: String? = null,
   /**
    * The request being actioned or the resource being manipulated by this transport.
    *
    * If multiple resources need to be manipulated, use sub-transports. (This ensures that status can
    * be tracked independently for each referenced resource.).
    */
-  public var focus: Reference? = null,
+  public val focus: Reference? = null,
   /**
    * The entity who benefits from the performance of the service specified in the transport (e.g.,
    * the patient).
    */
-  public var `for`: Reference? = null,
+  public val `for`: Reference? = null,
   /**
    * The healthcare event (e.g. a patient and healthcare provider interaction) during which this
    * transport was created.
    */
-  public var encounter: Reference? = null,
+  public val encounter: Reference? = null,
   /** Identifies the completion time of the event (the occurrence). */
-  public var completionTime: DateTime? = null,
+  public val completionTime: DateTime? = null,
   /** The date and time this transport was created. */
-  public var authoredOn: DateTime? = null,
+  public val authoredOn: DateTime? = null,
   /** The date and time of last modification to this transport. */
-  public var lastModified: DateTime? = null,
+  public val lastModified: DateTime? = null,
   /** The creator of the transport. */
-  public var requester: Reference? = null,
+  public val requester: Reference? = null,
   /** The kind of participant that should perform the transport. */
-  public var performerType: MutableList<CodeableConcept> = mutableListOf(),
+  public val performerType: List<CodeableConcept> = listOf(),
   /**
    * Individual organization or Device currently responsible for transport execution.
    *
    * Transports may be created with an owner not yet identified.
    */
-  public var owner: Reference? = null,
+  public val owner: Reference? = null,
   /** Principal physical location where this transport is performed. */
-  public var location: Reference? = null,
+  public val location: Reference? = null,
   /**
    * Insurance plans, coverage extensions, pre-authorizations and/or pre-determinations that may be
    * relevant to the Transport.
    */
-  public var insurance: MutableList<Reference> = mutableListOf(),
+  public val insurance: List<Reference> = listOf(),
   /** Free-text information captured about the transport as it progresses. */
-  public var note: MutableList<Annotation> = mutableListOf(),
+  public val note: List<Annotation> = listOf(),
   /**
    * Links to Provenance records for past versions of this Transport that identify key state
    * transitions or updates that are likely to be relevant to a user looking at the current version
@@ -253,21 +253,21 @@ public data class Transport(
    * resource - as it would be created after this version existed. The Provenance for the current
    * version can be retrieved with a _revinclude.
    */
-  public var relevantHistory: MutableList<Reference> = mutableListOf(),
+  public val relevantHistory: List<Reference> = listOf(),
   /**
    * If the Transport.focus is a request resource and the transport is seeking fulfillment (i.e. is
    * asking for the request to be actioned), this element identifies any limitations on what parts
    * of the referenced request should be actioned.
    */
-  public var restriction: Restriction? = null,
+  public val restriction: Restriction? = null,
   /** Additional information that may be needed in the execution of the transport. */
-  public var input: MutableList<Input> = mutableListOf(),
+  public val input: List<Input> = listOf(),
   /** Outputs produced by the Transport. */
-  public var output: MutableList<Output> = mutableListOf(),
+  public val output: List<Output> = listOf(),
   /** The desired or final location for the transport. */
-  public var requestedLocation: Reference,
+  public val requestedLocation: Reference,
   /** The current location for the entity to be transported. */
-  public var currentLocation: Reference,
+  public val currentLocation: Reference,
   /**
    * A resource reference indicating why this transport needs to be performed.
    *
@@ -276,9 +276,9 @@ public data class Transport(
    * reason indicated on the focus. Use the CodeableConcept text element in `Transport.reasonCode`
    * if the data is free (uncoded) text.
    */
-  public var reason: CodeableReference? = null,
+  public val reason: CodeableReference? = null,
   /** The transport event prior to this one. */
-  public var history: Reference? = null,
+  public val history: Reference? = null,
 ) : DomainResource() {
   /**
    * If the Transport.focus is a request resource and the transport is seeking fulfillment (i.e. is
@@ -291,7 +291,7 @@ public data class Transport(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -304,7 +304,7 @@ public data class Transport(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -323,21 +323,21 @@ public data class Transport(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /** Indicates the number of times the requested action should occur. */
-    public var repetitions: PositiveInt? = null,
+    public val repetitions: PositiveInt? = null,
     /**
      * Over what time-period is fulfillment sought.
      *
      * Note that period.high is the due date representing the time by which the transport should be
      * completed.
      */
-    public var period: Period? = null,
+    public val period: Period? = null,
     /**
      * For requests that are targeted to more than one potential recipient/target, to identify who
      * is fulfillment is sought for.
      */
-    public var recipient: MutableList<Reference> = mutableListOf(),
+    public val recipient: List<Reference> = listOf(),
   ) : BackboneElement()
 
   /** Additional information that may be needed in the execution of the transport. */
@@ -347,7 +347,7 @@ public data class Transport(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -360,7 +360,7 @@ public data class Transport(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -379,7 +379,7 @@ public data class Transport(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /**
      * A code or description indicating how the input is intended to be used as part of the
      * transport execution.
@@ -387,9 +387,9 @@ public data class Transport(
      * If referencing a BPMN workflow or Protocol, the "system" is the URL for the workflow
      * definition and the code is the "name" of the required input.
      */
-    public var type: CodeableConcept,
+    public val type: CodeableConcept,
     /** The value of the input parameter as a basic type. */
-    public var `value`: Value,
+    public val `value`: Value,
   ) : BackboneElement() {
     @Serializable(with = TransportInputValueSerializer::class)
     public sealed interface Value {
@@ -756,7 +756,7 @@ public data class Transport(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -769,7 +769,7 @@ public data class Transport(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -788,11 +788,11 @@ public data class Transport(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /** The name of the Output parameter. */
-    public var type: CodeableConcept,
+    public val type: CodeableConcept,
     /** The value of the Output parameter as a basic type. */
-    public var `value`: Value,
+    public val `value`: Value,
   ) : BackboneElement() {
     @Serializable(with = TransportOutputValueSerializer::class)
     public sealed interface Value {

@@ -26,7 +26,7 @@ import com.google.fhir.model.r5.serializers.MessageHeaderSerializer
 import com.google.fhir.model.r5.serializers.MessageHeaderSourceEndpointSerializer
 import com.google.fhir.model.r5.serializers.MessageHeaderSourceSerializer
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -47,12 +47,12 @@ public data class MessageHeader(
    * like the create and conditional update. Otherwise, the use of the resouce id depends on the
    * given use case.
    */
-  override var id: kotlin.String? = null,
+  override val id: kotlin.String? = null,
   /**
    * The metadata about the resource. This is content that is maintained by the infrastructure.
    * Changes to the content might not always be associated with version changes to the resource.
    */
-  override var meta: Meta? = null,
+  override val meta: Meta? = null,
   /**
    * A reference to a set of rules that were followed when the resource was constructed, and which
    * must be understood when processing the content. Often, this is a reference to an implementation
@@ -66,7 +66,7 @@ public data class MessageHeader(
    * to an implementation guide that defines these special rules as part of its narrative along with
    * other profiles, value sets, etc.
    */
-  override var implicitRules: Uri? = null,
+  override val implicitRules: Uri? = null,
   /**
    * The base language in which the resource is written.
    *
@@ -78,7 +78,7 @@ public data class MessageHeader(
    * language is specified, it should it also be specified on the div element in the html (see rules
    * in HTML5 for information about the relationship between xml:lang and the html lang attribute).
    */
-  override var language: Code? = null,
+  override val language: Code? = null,
   /**
    * A human-readable narrative that contains a summary of the resource and can be used to represent
    * the content of the resource to a human. The narrative need not encode all the structured data,
@@ -92,7 +92,7 @@ public data class MessageHeader(
    * legacy systems where information is captured as a "text blob" or where text is additionally
    * entered raw or narrated and encoded information is added later.
    */
-  override var text: Narrative? = null,
+  override val text: Narrative? = null,
   /**
    * These resources do not have an independent existence apart from the resource that contains
    * them - they cannot be identified independently, nor can they have their own independent
@@ -104,7 +104,7 @@ public data class MessageHeader(
    * resources may have profiles and tags in their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: MutableList<Resource> = mutableListOf(),
+  override val contained: List<Resource> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and managable, there is a strict set of governance
@@ -117,7 +117,7 @@ public data class MessageHeader(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: MutableList<Extension> = mutableListOf(),
+  override val extension: List<Extension> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -136,7 +136,7 @@ public data class MessageHeader(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: MutableList<Extension> = mutableListOf(),
+  override val modifierExtension: List<Extension> = listOf(),
   /**
    * Code that identifies the event this message represents and connects it with its definition.
    * Events defined as part of the FHIR specification are defined by the implementation.
@@ -145,14 +145,14 @@ public data class MessageHeader(
    * The time of the event will be found in the focus resource. The time of the message will be
    * found in [Bundle.timestamp](bundle-definitions.html#Bundle.timestamp).
    */
-  public var event: Event,
+  public val event: Event,
   /**
    * The destination application which the message is intended for.
    *
    * There SHOULD be at least one destination, but in some circumstances, the source system is
    * unaware of any particular destination system.
    */
-  public var destination: MutableList<Destination> = mutableListOf(),
+  public val destination: List<Destination> = listOf(),
   /**
    * Identifies the sending system to allow the use of a trust relationship.
    *
@@ -160,7 +160,7 @@ public data class MessageHeader(
    * therefore cannot differentiate based on source endpoint / authentication alone. Proposing to
    * remove and rely on Task to convey this information.
    */
-  public var sender: Reference? = null,
+  public val sender: Reference? = null,
   /**
    * The logical author of the message - the personor device that decided the described event should
    * happen. When there is more than one candidate, pick the most proximal to the MessageHeader. Can
@@ -169,9 +169,9 @@ public data class MessageHeader(
    * Usually only for the request but can be used in a response.Proposing to remove and rely on Task
    * to convey this information.
    */
-  public var author: Reference? = null,
+  public val author: Reference? = null,
   /** The source application from which this message originated. */
-  public var source: Source,
+  public val source: Source,
   /**
    * The person or organization that accepts overall responsibility for the contents of the message.
    * The implication is that the message event happened under the policies of the responsible party.
@@ -179,17 +179,17 @@ public data class MessageHeader(
    * Usually only for the request but can be used in a response.Proposing to remove and rely on Task
    * to convey this information.
    */
-  public var responsible: Reference? = null,
+  public val responsible: Reference? = null,
   /**
    * Coded indication of the cause for the event - indicates a reason for the occurrence of the
    * event that is a focus of this message.
    */
-  public var reason: CodeableConcept? = null,
+  public val reason: CodeableConcept? = null,
   /**
    * Information about the message that this message is a response to. Only present if this message
    * is a response.
    */
-  public var response: Response? = null,
+  public val response: Response? = null,
   /**
    * The actual data of the message - a reference to the root/focus class of the event. This is
    * allowed to be a Parameters resource.
@@ -200,9 +200,9 @@ public data class MessageHeader(
    * Multiple repetitions are allowed to cater for merges and other situations with multiple focal
    * targets.
    */
-  public var focus: MutableList<Reference> = mutableListOf(),
+  public val focus: List<Reference> = listOf(),
   /** Permanent link to the MessageDefinition for this message. */
-  public var definition: Canonical? = null,
+  public val definition: Canonical? = null,
 ) : DomainResource() {
   /** The destination application which the message is intended for. */
   @Serializable(with = MessageHeaderDestinationSerializer::class)
@@ -211,7 +211,7 @@ public data class MessageHeader(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -224,7 +224,7 @@ public data class MessageHeader(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -243,26 +243,26 @@ public data class MessageHeader(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /**
      * Indicates where the message should be routed.
      *
      * The url may be a non-resolvable URI for systems that do not use standard network-based
      * addresses.
      */
-    public var endpoint: Endpoint? = null,
+    public val endpoint: Endpoint? = null,
     /** Human-readable name for the target system. */
-    public var name: String? = null,
+    public val name: String? = null,
     /**
      * Identifies the target end system in situations where the initial message transmission is to
      * an intermediary system.
      */
-    public var target: Reference? = null,
+    public val target: Reference? = null,
     /**
      * Allows data conveyed by a message to be addressed to a particular person or department when
      * routing to a specific application isn't sufficient.
      */
-    public var `receiver`: Reference? = null,
+    public val `receiver`: Reference? = null,
   ) : BackboneElement() {
     @Serializable(with = MessageHeaderDestinationEndpointSerializer::class)
     public sealed interface Endpoint {
@@ -295,7 +295,7 @@ public data class MessageHeader(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -308,7 +308,7 @@ public data class MessageHeader(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -327,28 +327,28 @@ public data class MessageHeader(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /**
      * Identifies the routing target to send acknowledgements to.
      *
      * The url may be a non-resolvable URI for systems that do not use standard network-based
      * addresses.
      */
-    public var endpoint: Endpoint? = null,
+    public val endpoint: Endpoint? = null,
     /** Human-readable name for the source system. */
-    public var name: String? = null,
+    public val name: String? = null,
     /** May include configuration or other information useful in debugging. */
-    public var software: String? = null,
+    public val software: String? = null,
     /**
      * Can convey versions of multiple systems in situations where a message passes through multiple
      * hands.
      */
-    public var version: String? = null,
+    public val version: String? = null,
     /**
      * An e-mail, phone, website or other contact point to use to resolve issues with message
      * communications.
      */
-    public var contact: ContactPoint? = null,
+    public val contact: ContactPoint? = null,
   ) : BackboneElement() {
     @Serializable(with = MessageHeaderSourceEndpointSerializer::class)
     public sealed interface Endpoint {
@@ -384,7 +384,7 @@ public data class MessageHeader(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -397,7 +397,7 @@ public data class MessageHeader(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -416,9 +416,9 @@ public data class MessageHeader(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /** The Bundle.identifier of the message to which this message is a response. */
-    public var identifier: Identifier,
+    public val identifier: Identifier,
     /**
      * Code that identifies the type of response to the message - whether it was successful or not,
      * and whether it should be resent or not.
@@ -426,14 +426,14 @@ public data class MessageHeader(
      * This is a generic response to the request message. Specific data for the response will be
      * found in MessageHeader.focus.
      */
-    public var code: Enumeration<ResponseType>,
+    public val code: Enumeration<ResponseType>,
     /**
      * Full details of any issues found in the message.
      *
      * This SHALL be contained in the bundle. If any of the issues are errors, the response code
      * SHALL be an error.
      */
-    public var details: Reference? = null,
+    public val details: Reference? = null,
   ) : BackboneElement()
 
   @Serializable(with = MessageHeaderEventSerializer::class)

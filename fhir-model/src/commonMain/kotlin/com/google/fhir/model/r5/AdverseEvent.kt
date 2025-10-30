@@ -34,7 +34,7 @@ import com.google.fhir.model.r5.serializers.AdverseEventSuspectEntityInstanceSer
 import com.google.fhir.model.r5.serializers.AdverseEventSuspectEntitySerializer
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -61,12 +61,12 @@ public data class AdverseEvent(
    * like the create and conditional update. Otherwise, the use of the resouce id depends on the
    * given use case.
    */
-  override var id: String? = null,
+  override val id: String? = null,
   /**
    * The metadata about the resource. This is content that is maintained by the infrastructure.
    * Changes to the content might not always be associated with version changes to the resource.
    */
-  override var meta: Meta? = null,
+  override val meta: Meta? = null,
   /**
    * A reference to a set of rules that were followed when the resource was constructed, and which
    * must be understood when processing the content. Often, this is a reference to an implementation
@@ -80,7 +80,7 @@ public data class AdverseEvent(
    * to an implementation guide that defines these special rules as part of its narrative along with
    * other profiles, value sets, etc.
    */
-  override var implicitRules: Uri? = null,
+  override val implicitRules: Uri? = null,
   /**
    * The base language in which the resource is written.
    *
@@ -92,7 +92,7 @@ public data class AdverseEvent(
    * language is specified, it should it also be specified on the div element in the html (see rules
    * in HTML5 for information about the relationship between xml:lang and the html lang attribute).
    */
-  override var language: Code? = null,
+  override val language: Code? = null,
   /**
    * A human-readable narrative that contains a summary of the resource and can be used to represent
    * the content of the resource to a human. The narrative need not encode all the structured data,
@@ -106,7 +106,7 @@ public data class AdverseEvent(
    * legacy systems where information is captured as a "text blob" or where text is additionally
    * entered raw or narrated and encoded information is added later.
    */
-  override var text: Narrative? = null,
+  override val text: Narrative? = null,
   /**
    * These resources do not have an independent existence apart from the resource that contains
    * them - they cannot be identified independently, nor can they have their own independent
@@ -118,7 +118,7 @@ public data class AdverseEvent(
    * resources may have profiles and tags in their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: MutableList<Resource> = mutableListOf(),
+  override val contained: List<Resource> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and managable, there is a strict set of governance
@@ -131,7 +131,7 @@ public data class AdverseEvent(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: MutableList<Extension> = mutableListOf(),
+  override val extension: List<Extension> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -150,7 +150,7 @@ public data class AdverseEvent(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: MutableList<Extension> = mutableListOf(),
+  override val modifierExtension: List<Extension> = listOf(),
   /**
    * Business identifiers assigned to this adverse event by the performer or other systems which
    * remain constant as the resource is updated and propagates from server to server.
@@ -162,14 +162,14 @@ public data class AdverseEvent(
    * resource types. For example, multiple Patient and a Person resource instance might share the
    * same social insurance number.
    */
-  public var identifier: MutableList<Identifier> = mutableListOf(),
+  public val identifier: List<Identifier> = listOf(),
   /**
    * The current state of the adverse event or potential adverse event.
    *
    * This is not the reporting of the event to any regulatory or quality organization. This is not
    * the outcome of the patient's condition.
    */
-  public var status: Enumeration<AdverseEventStatus>,
+  public val status: Enumeration<AdverseEventStatus>,
   /**
    * Whether the event actually happened or was a near miss. Note that this is independent of
    * whether anyone was affected or harmed or how severely.
@@ -180,21 +180,21 @@ public data class AdverseEvent(
    * exist and the substance was given, then an adverse reaction should be recorded as an
    * AdverseEvent due to the aberrant workflow.
    */
-  public var actuality: Enumeration<AdverseEventActuality>,
+  public val actuality: Enumeration<AdverseEventActuality>,
   /** The overall type of event, intended for search and filtering purposes. */
-  public var category: MutableList<CodeableConcept> = mutableListOf(),
+  public val category: List<CodeableConcept> = listOf(),
   /**
    * Specific event that occurred or that was averted, such as patient fall, wrong organ removed, or
    * wrong blood transfused.
    */
-  public var code: CodeableConcept? = null,
+  public val code: CodeableConcept? = null,
   /**
    * This subject or group impacted by the event.
    *
    * If AdverseEvent.resultingEffect differs among members of the group, then use Patient as the
    * subject.
    */
-  public var subject: Reference,
+  public val subject: Reference,
   /**
    * The Encounter associated with the start of the AdverseEvent.
    *
@@ -205,11 +205,11 @@ public data class AdverseEvent(
    * given is the associated encounter. If the patient reports the AdverseEvent during a second
    * encounter, that second encounter is not the associated encounter.
    */
-  public var encounter: Reference? = null,
+  public val encounter: Reference? = null,
   /** The date (and perhaps time) when the adverse event occurred. */
-  public var occurrence: Occurrence? = null,
+  public val occurrence: Occurrence? = null,
   /** Estimated or actual date the AdverseEvent began, in the opinion of the reporter. */
-  public var detected: DateTime? = null,
+  public val detected: DateTime? = null,
   /**
    * The date on which the existence of the AdverseEvent was first recorded.
    *
@@ -217,15 +217,15 @@ public data class AdverseEvent(
    * the system, not the date of the most recent update. The date of the last record modification
    * can be retrieved from the resource metadata.
    */
-  public var recordedDate: DateTime? = null,
+  public val recordedDate: DateTime? = null,
   /**
    * Information about the condition that occurred as a result of the adverse event, such as hives
    * due to the exposure to a substance (for example, a drug or a chemical) or a broken leg as a
    * result of the fall.
    */
-  public var resultingEffect: MutableList<Reference> = mutableListOf(),
+  public val resultingEffect: List<Reference> = listOf(),
   /** The information about where the adverse event occurred. */
-  public var location: Reference? = null,
+  public val location: Reference? = null,
   /**
    * Assessment whether this event, or averted event, was of clinical importance.
    *
@@ -237,42 +237,42 @@ public data class AdverseEvent(
    * included and had an asthmatic episode where AdverseEvent.resultingEffect.severity = mild, yet
    * an adverseEvent.seriousness = serious.
    */
-  public var seriousness: CodeableConcept? = null,
+  public val seriousness: CodeableConcept? = null,
   /**
    * Describes the type of outcome from the adverse event, such as resolved, recovering, ongoing,
    * resolved-with-sequelae, or fatal.
    */
-  public var outcome: MutableList<CodeableConcept> = mutableListOf(),
+  public val outcome: List<CodeableConcept> = listOf(),
   /** Information on who recorded the adverse event. May be the patient or a practitioner. */
-  public var recorder: Reference? = null,
+  public val recorder: Reference? = null,
   /** Indicates who or what participated in the adverse event and how they were involved. */
-  public var participant: MutableList<Participant> = mutableListOf(),
+  public val participant: List<Participant> = listOf(),
   /** The research study that the subject is enrolled in. */
-  public var study: MutableList<Reference> = mutableListOf(),
+  public val study: List<Reference> = listOf(),
   /**
    * Considered likely or probable or anticipated in the research study. Whether the reported event
    * matches any of the outcomes for the patient that are considered by the study as known or
    * likely.
    */
-  public var expectedInResearchStudy: Boolean? = null,
+  public val expectedInResearchStudy: Boolean? = null,
   /** Describes the entity that is suspected to have caused the adverse event. */
-  public var suspectEntity: MutableList<SuspectEntity> = mutableListOf(),
+  public val suspectEntity: List<SuspectEntity> = listOf(),
   /**
    * The contributing factors suspected to have increased the probability or severity of the adverse
    * event.
    */
-  public var contributingFactor: MutableList<ContributingFactor> = mutableListOf(),
+  public val contributingFactor: List<ContributingFactor> = listOf(),
   /** Preventive actions that contributed to avoiding the adverse event. */
-  public var preventiveAction: MutableList<PreventiveAction> = mutableListOf(),
+  public val preventiveAction: List<PreventiveAction> = listOf(),
   /**
    * The ameliorating action taken after the adverse event occured in order to reduce the extent of
    * harm.
    */
-  public var mitigatingAction: MutableList<MitigatingAction> = mutableListOf(),
+  public val mitigatingAction: List<MitigatingAction> = listOf(),
   /** Supporting information relevant to the event. */
-  public var supportingInfo: MutableList<SupportingInfo> = mutableListOf(),
+  public val supportingInfo: List<SupportingInfo> = listOf(),
   /** Comments made about the adverse event by the performer, subject or other participants. */
-  public var note: MutableList<Annotation> = mutableListOf(),
+  public val note: List<Annotation> = listOf(),
 ) : DomainResource() {
   /** Indicates who or what participated in the adverse event and how they were involved. */
   @Serializable(with = AdverseEventParticipantSerializer::class)
@@ -281,7 +281,7 @@ public data class AdverseEvent(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: String? = null,
+    override val id: String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -294,7 +294,7 @@ public data class AdverseEvent(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -313,19 +313,19 @@ public data class AdverseEvent(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /**
      * Distinguishes the type of involvement of the actor in the adverse event, such as contributor
      * or informant.
      */
-    public var function: CodeableConcept? = null,
+    public val function: CodeableConcept? = null,
     /**
      * Indicates who or what participated in the event.
      *
      * For example, the physician prescribing a drug, a nurse administering the drug, a device that
      * administered the drug, a witness to the event, or an informant of clinical history.
      */
-    public var actor: Reference,
+    public val actor: Reference,
   ) : BackboneElement()
 
   /** Describes the entity that is suspected to have caused the adverse event. */
@@ -335,7 +335,7 @@ public data class AdverseEvent(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: String? = null,
+    override val id: String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -348,7 +348,7 @@ public data class AdverseEvent(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -367,14 +367,14 @@ public data class AdverseEvent(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /**
      * Identifies the actual instance of what caused the adverse event. May be a substance,
      * medication, medication administration, medication statement or a device.
      */
-    public var instance: Instance,
+    public val instance: Instance,
     /** Information on the possible cause of the event. */
-    public var causality: Causality? = null,
+    public val causality: Causality? = null,
   ) : BackboneElement() {
     /** Information on the possible cause of the event. */
     @Serializable(with = AdverseEventSuspectEntityCausalitySerializer::class)
@@ -383,7 +383,7 @@ public data class AdverseEvent(
        * Unique id for the element within a resource (for internal references). This may be any
        * string value that does not contain spaces.
        */
-      override var id: String? = null,
+      override val id: String? = null,
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -396,7 +396,7 @@ public data class AdverseEvent(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: MutableList<Extension> = mutableListOf(),
+      override val extension: List<Extension> = listOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -415,16 +415,16 @@ public data class AdverseEvent(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: MutableList<Extension> = mutableListOf(),
+      override val modifierExtension: List<Extension> = listOf(),
       /** The method of evaluating the relatedness of the suspected entity to the event. */
-      public var assessmentMethod: CodeableConcept? = null,
+      public val assessmentMethod: CodeableConcept? = null,
       /**
        * The result of the assessment regarding the relatedness of the suspected entity to the
        * event.
        */
-      public var entityRelatedness: CodeableConcept? = null,
+      public val entityRelatedness: CodeableConcept? = null,
       /** The author of the information on the possible cause of the event. */
-      public var author: Reference? = null,
+      public val author: Reference? = null,
     ) : BackboneElement()
 
     @Serializable(with = AdverseEventSuspectEntityInstanceSerializer::class)
@@ -463,7 +463,7 @@ public data class AdverseEvent(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: String? = null,
+    override val id: String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -476,7 +476,7 @@ public data class AdverseEvent(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -495,12 +495,12 @@ public data class AdverseEvent(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /**
      * The item that is suspected to have increased the probability or severity of the adverse
      * event.
      */
-    public var item: Item,
+    public val item: Item,
   ) : BackboneElement() {
     @Serializable(with = AdverseEventContributingFactorItemSerializer::class)
     public sealed interface Item {
@@ -534,7 +534,7 @@ public data class AdverseEvent(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: String? = null,
+    override val id: String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -547,7 +547,7 @@ public data class AdverseEvent(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -566,9 +566,9 @@ public data class AdverseEvent(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /** The action that contributed to avoiding the adverse event. */
-    public var item: Item,
+    public val item: Item,
   ) : BackboneElement() {
     @Serializable(with = AdverseEventPreventiveActionItemSerializer::class)
     public sealed interface Item {
@@ -605,7 +605,7 @@ public data class AdverseEvent(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: String? = null,
+    override val id: String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -618,7 +618,7 @@ public data class AdverseEvent(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -637,12 +637,12 @@ public data class AdverseEvent(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /**
      * The ameliorating action taken after the adverse event occured in order to reduce the extent
      * of harm.
      */
-    public var item: Item,
+    public val item: Item,
   ) : BackboneElement() {
     @Serializable(with = AdverseEventMitigatingActionItemSerializer::class)
     public sealed interface Item {
@@ -676,7 +676,7 @@ public data class AdverseEvent(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: String? = null,
+    override val id: String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -689,7 +689,7 @@ public data class AdverseEvent(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -708,7 +708,7 @@ public data class AdverseEvent(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /**
      * Relevant past history for the subject. In a clinical care context, an example being a patient
      * had an adverse event following a pencillin administration and the patient had a previously
@@ -718,7 +718,7 @@ public data class AdverseEvent(
      * history. For example, a clinical note, staff list, or material safety data sheet (MSDS).
      * Supporting information is not a contributing factor, preventive action, or mitigating action.
      */
-    public var item: Item,
+    public val item: Item,
   ) : BackboneElement() {
     @Serializable(with = AdverseEventSupportingInfoItemSerializer::class)
     public sealed interface Item {

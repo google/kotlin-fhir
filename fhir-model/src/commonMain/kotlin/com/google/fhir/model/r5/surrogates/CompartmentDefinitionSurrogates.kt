@@ -43,19 +43,19 @@ import com.google.fhir.model.r5.terminologies.ResourceType
 import kotlin.Boolean as KotlinBoolean
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class CompartmentDefinitionResourceSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var code: KotlinString? = null,
   public var _code: Element? = null,
-  public var `param`: MutableList<KotlinString?>? = null,
-  public var _param: MutableList<Element?>? = null,
+  public var `param`: List<KotlinString?>? = null,
+  public var _param: List<Element?>? = null,
   public var documentation: KotlinString? = null,
   public var _documentation: Element? = null,
   public var startParam: KotlinString? = null,
@@ -66,9 +66,8 @@ internal data class CompartmentDefinitionResourceSurrogate(
   public fun toModel(): CompartmentDefinition.Resource =
     CompartmentDefinition.Resource(
       id = this@CompartmentDefinitionResourceSurrogate.id,
-      extension = this@CompartmentDefinitionResourceSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@CompartmentDefinitionResourceSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@CompartmentDefinitionResourceSurrogate.extension ?: listOf(),
+      modifierExtension = this@CompartmentDefinitionResourceSurrogate.modifierExtension ?: listOf(),
       code =
         Enumeration.of(
           ResourceType.fromCode(this@CompartmentDefinitionResourceSurrogate.code!!),
@@ -79,7 +78,7 @@ internal data class CompartmentDefinitionResourceSurrogate(
           this@CompartmentDefinitionResourceSurrogate.`param` == null &&
             this@CompartmentDefinitionResourceSurrogate._param == null
         ) {
-          mutableListOf()
+          listOf()
         } else {
           (this@CompartmentDefinitionResourceSurrogate.`param`
               ?: List(this@CompartmentDefinitionResourceSurrogate._param!!.size) { null })
@@ -88,7 +87,7 @@ internal data class CompartmentDefinitionResourceSurrogate(
                 ?: List(this@CompartmentDefinitionResourceSurrogate.`param`!!.size) { null }
             )
             .map { (value, element) -> R5String.of(value, element)!! }
-            .toMutableList()
+            .toList()
         },
       documentation =
         R5String.of(
@@ -119,13 +118,13 @@ internal data class CompartmentDefinitionResourceSurrogate(
           code = this@with.code.value?.getCode(),
           _code = this@with.code.toElement(),
           `param` =
-            this@with.`param`.map { it.value }.toMutableList().takeUnless { it.all { it == null } },
+            this@with.`param`.map { it.value }.toList().takeUnless { it.all { it == null } },
           _param =
             this@with.`param`
               .map { it.toElement() }
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
-              ?.toMutableList(),
+              ?.toList(),
           documentation = this@with.documentation?.value,
           _documentation = this@with.documentation?.toElement(),
           startParam = this@with.startParam?.value,
@@ -175,9 +174,9 @@ internal data class CompartmentDefinitionSurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: MutableList<Resource>? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var contained: List<Resource>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var url: KotlinString? = null,
   public var _url: Element? = null,
   public var version: KotlinString? = null,
@@ -195,17 +194,17 @@ internal data class CompartmentDefinitionSurrogate(
   public var _date: Element? = null,
   public var publisher: KotlinString? = null,
   public var _publisher: Element? = null,
-  public var contact: MutableList<ContactDetail>? = null,
+  public var contact: List<ContactDetail>? = null,
   public var description: KotlinString? = null,
   public var _description: Element? = null,
-  public var useContext: MutableList<UsageContext>? = null,
+  public var useContext: List<UsageContext>? = null,
   public var purpose: KotlinString? = null,
   public var _purpose: Element? = null,
   public var code: KotlinString? = null,
   public var _code: Element? = null,
   public var search: KotlinBoolean? = null,
   public var _search: Element? = null,
-  public var resource: MutableList<CompartmentDefinition.Resource>? = null,
+  public var resource: List<CompartmentDefinition.Resource>? = null,
 ) {
   public fun toModel(): CompartmentDefinition =
     CompartmentDefinition(
@@ -222,9 +221,9 @@ internal data class CompartmentDefinitionSurrogate(
           this@CompartmentDefinitionSurrogate._language,
         ),
       text = this@CompartmentDefinitionSurrogate.text,
-      contained = this@CompartmentDefinitionSurrogate.contained ?: mutableListOf(),
-      extension = this@CompartmentDefinitionSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@CompartmentDefinitionSurrogate.modifierExtension ?: mutableListOf(),
+      contained = this@CompartmentDefinitionSurrogate.contained ?: listOf(),
+      extension = this@CompartmentDefinitionSurrogate.extension ?: listOf(),
+      modifierExtension = this@CompartmentDefinitionSurrogate.modifierExtension ?: listOf(),
       url =
         Uri.of(this@CompartmentDefinitionSurrogate.url, this@CompartmentDefinitionSurrogate._url)!!,
       version =
@@ -263,13 +262,13 @@ internal data class CompartmentDefinitionSurrogate(
           this@CompartmentDefinitionSurrogate.publisher,
           this@CompartmentDefinitionSurrogate._publisher,
         ),
-      contact = this@CompartmentDefinitionSurrogate.contact ?: mutableListOf(),
+      contact = this@CompartmentDefinitionSurrogate.contact ?: listOf(),
       description =
         Markdown.of(
           this@CompartmentDefinitionSurrogate.description,
           this@CompartmentDefinitionSurrogate._description,
         ),
-      useContext = this@CompartmentDefinitionSurrogate.useContext ?: mutableListOf(),
+      useContext = this@CompartmentDefinitionSurrogate.useContext ?: listOf(),
       purpose =
         Markdown.of(
           this@CompartmentDefinitionSurrogate.purpose,
@@ -287,7 +286,7 @@ internal data class CompartmentDefinitionSurrogate(
           this@CompartmentDefinitionSurrogate.search,
           this@CompartmentDefinitionSurrogate._search,
         )!!,
-      resource = this@CompartmentDefinitionSurrogate.resource ?: mutableListOf(),
+      resource = this@CompartmentDefinitionSurrogate.resource ?: listOf(),
     )
 
   public companion object {

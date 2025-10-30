@@ -21,7 +21,7 @@ package com.google.fhir.model.r5
 import com.google.fhir.model.r5.serializers.TriggerDefinitionSerializer
 import com.google.fhir.model.r5.serializers.TriggerDefinitionTimingSerializer
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 
 /**
@@ -34,7 +34,7 @@ public data class TriggerDefinition(
    * Unique id for the element within a resource (for internal references). This may be any string
    * value that does not contain spaces.
    */
-  override var id: kotlin.String? = null,
+  override val id: kotlin.String? = null,
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * element. To make the use of extensions safe and managable, there is a strict set of governance
@@ -47,9 +47,9 @@ public data class TriggerDefinition(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: MutableList<Extension> = mutableListOf(),
+  override val extension: List<Extension> = listOf(),
   /** The type of triggering event. */
-  public var type: Enumeration<TriggerType>,
+  public val type: Enumeration<TriggerType>,
   /**
    * A formal name for the event. This may be an absolute URI that identifies the event formally
    * (e.g. from a trigger registry), or a simple relative URI that identifies the event in a local
@@ -59,23 +59,23 @@ public data class TriggerDefinition(
    * is provided for a type other than named events, it is considered to be a shorthand for the
    * semantics described by the formal description of the event.
    */
-  public var name: String? = null,
+  public val name: String? = null,
   /** A code that identifies the event. */
-  public var code: CodeableConcept? = null,
+  public val code: CodeableConcept? = null,
   /**
    * A reference to a SubscriptionTopic resource that defines the event. If this element is
    * provided, no other information about the trigger definition may be supplied.
    */
-  public var subscriptionTopic: Canonical? = null,
+  public val subscriptionTopic: Canonical? = null,
   /** The timing of the event (if this is a periodic trigger). */
-  public var timing: Timing? = null,
+  public val timing: Timing? = null,
   /**
    * The triggering data of the event (if this is a data trigger). If more than one data is
    * requirement is specified, then all the data requirements must be true.
    *
    * This element shall be present for any data type trigger.
    */
-  public var `data`: MutableList<DataRequirement> = mutableListOf(),
+  public val `data`: List<DataRequirement> = listOf(),
   /**
    * A boolean-valued expression that is evaluated in the context of the container of the trigger
    * definition and returns whether or not the trigger fires.
@@ -91,7 +91,7 @@ public data class TriggerDefinition(
    * delta comparisons on events of type data-changed, data-modified, and data-deleted which will
    * always have the same type.
    */
-  public var condition: Expression? = null,
+  public val condition: Expression? = null,
 ) : DataType() {
   @Serializable(with = TriggerDefinitionTimingSerializer::class)
   public sealed interface Timing {

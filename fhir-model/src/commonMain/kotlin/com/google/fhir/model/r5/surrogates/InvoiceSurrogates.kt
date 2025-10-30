@@ -47,23 +47,23 @@ import com.google.fhir.model.r5.serializers.LocalTimeSerializer
 import kotlin.Int
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class InvoiceParticipantSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var role: CodeableConcept? = null,
   public var actor: Reference,
 ) {
   public fun toModel(): Invoice.Participant =
     Invoice.Participant(
       id = this@InvoiceParticipantSurrogate.id,
-      extension = this@InvoiceParticipantSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@InvoiceParticipantSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@InvoiceParticipantSurrogate.extension ?: listOf(),
+      modifierExtension = this@InvoiceParticipantSurrogate.modifierExtension ?: listOf(),
       role = this@InvoiceParticipantSurrogate.role,
       actor = this@InvoiceParticipantSurrogate.actor,
     )
@@ -85,19 +85,19 @@ internal data class InvoiceParticipantSurrogate(
 @Serializable
 internal data class InvoiceLineItemSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var sequence: Int? = null,
   public var _sequence: Element? = null,
   public var serviced: Invoice.LineItem.Serviced? = null,
   public var chargeItem: Invoice.LineItem.ChargeItem,
-  public var priceComponent: MutableList<MonetaryComponent>? = null,
+  public var priceComponent: List<MonetaryComponent>? = null,
 ) {
   public fun toModel(): Invoice.LineItem =
     Invoice.LineItem(
       id = this@InvoiceLineItemSurrogate.id,
-      extension = this@InvoiceLineItemSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@InvoiceLineItemSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@InvoiceLineItemSurrogate.extension ?: listOf(),
+      modifierExtension = this@InvoiceLineItemSurrogate.modifierExtension ?: listOf(),
       sequence =
         PositiveInt.of(
           this@InvoiceLineItemSurrogate.sequence,
@@ -105,7 +105,7 @@ internal data class InvoiceLineItemSurrogate(
         ),
       serviced = this@InvoiceLineItemSurrogate.serviced,
       chargeItem = this@InvoiceLineItemSurrogate.chargeItem,
-      priceComponent = this@InvoiceLineItemSurrogate.priceComponent ?: mutableListOf(),
+      priceComponent = this@InvoiceLineItemSurrogate.priceComponent ?: listOf(),
     )
 
   public companion object {
@@ -210,10 +210,10 @@ internal data class InvoiceSurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: MutableList<Resource>? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var identifier: MutableList<Identifier>? = null,
+  public var contained: List<Resource>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
+  public var identifier: List<Identifier>? = null,
   public var status: KotlinString? = null,
   public var _status: Element? = null,
   public var cancelledReason: KotlinString? = null,
@@ -226,16 +226,16 @@ internal data class InvoiceSurrogate(
   public var creation: KotlinString? = null,
   public var _creation: Element? = null,
   public var period: Invoice.Period? = null,
-  public var participant: MutableList<Invoice.Participant>? = null,
+  public var participant: List<Invoice.Participant>? = null,
   public var issuer: Reference? = null,
   public var account: Reference? = null,
-  public var lineItem: MutableList<Invoice.LineItem>? = null,
-  public var totalPriceComponent: MutableList<MonetaryComponent>? = null,
+  public var lineItem: List<Invoice.LineItem>? = null,
+  public var totalPriceComponent: List<MonetaryComponent>? = null,
   public var totalNet: Money? = null,
   public var totalGross: Money? = null,
   public var paymentTerms: KotlinString? = null,
   public var _paymentTerms: Element? = null,
-  public var note: MutableList<Annotation>? = null,
+  public var note: List<Annotation>? = null,
 ) {
   public fun toModel(): Invoice =
     Invoice(
@@ -245,10 +245,10 @@ internal data class InvoiceSurrogate(
         Uri.of(this@InvoiceSurrogate.implicitRules, this@InvoiceSurrogate._implicitRules),
       language = Code.of(this@InvoiceSurrogate.language, this@InvoiceSurrogate._language),
       text = this@InvoiceSurrogate.text,
-      contained = this@InvoiceSurrogate.contained ?: mutableListOf(),
-      extension = this@InvoiceSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@InvoiceSurrogate.modifierExtension ?: mutableListOf(),
-      identifier = this@InvoiceSurrogate.identifier ?: mutableListOf(),
+      contained = this@InvoiceSurrogate.contained ?: listOf(),
+      extension = this@InvoiceSurrogate.extension ?: listOf(),
+      modifierExtension = this@InvoiceSurrogate.modifierExtension ?: listOf(),
+      identifier = this@InvoiceSurrogate.identifier ?: listOf(),
       status =
         Enumeration.of(
           Invoice.InvoiceStatus.fromCode(this@InvoiceSurrogate.status!!),
@@ -270,16 +270,16 @@ internal data class InvoiceSurrogate(
           this@InvoiceSurrogate._creation,
         ),
       period = this@InvoiceSurrogate.period,
-      participant = this@InvoiceSurrogate.participant ?: mutableListOf(),
+      participant = this@InvoiceSurrogate.participant ?: listOf(),
       issuer = this@InvoiceSurrogate.issuer,
       account = this@InvoiceSurrogate.account,
-      lineItem = this@InvoiceSurrogate.lineItem ?: mutableListOf(),
-      totalPriceComponent = this@InvoiceSurrogate.totalPriceComponent ?: mutableListOf(),
+      lineItem = this@InvoiceSurrogate.lineItem ?: listOf(),
+      totalPriceComponent = this@InvoiceSurrogate.totalPriceComponent ?: listOf(),
       totalNet = this@InvoiceSurrogate.totalNet,
       totalGross = this@InvoiceSurrogate.totalGross,
       paymentTerms =
         Markdown.of(this@InvoiceSurrogate.paymentTerms, this@InvoiceSurrogate._paymentTerms),
-      note = this@InvoiceSurrogate.note ?: mutableListOf(),
+      note = this@InvoiceSurrogate.note ?: listOf(),
     )
 
   public companion object {

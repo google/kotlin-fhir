@@ -36,14 +36,14 @@ import com.google.fhir.model.r4b.terminologies.CommonLanguages
 import kotlin.Int
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class AttachmentSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
   public var contentType: KotlinString? = null,
   public var _contentType: Element? = null,
   public var language: KotlinString? = null,
@@ -64,7 +64,7 @@ internal data class AttachmentSurrogate(
   public fun toModel(): Attachment =
     Attachment(
       id = this@AttachmentSurrogate.id,
-      extension = this@AttachmentSurrogate.extension ?: mutableListOf(),
+      extension = this@AttachmentSurrogate.extension ?: listOf(),
       contentType =
         Code.of(this@AttachmentSurrogate.contentType, this@AttachmentSurrogate._contentType),
       language =

@@ -53,17 +53,17 @@ import com.google.fhir.model.r4.terminologies.PublicationStatus
 import kotlin.Boolean as KotlinBoolean
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class ResearchElementDefinitionCharacteristicSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var definition: ResearchElementDefinition.Characteristic.Definition,
-  public var usageContext: MutableList<UsageContext>? = null,
+  public var usageContext: List<UsageContext>? = null,
   public var exclude: KotlinBoolean? = null,
   public var _exclude: Element? = null,
   public var unitOfMeasure: CodeableConcept? = null,
@@ -84,13 +84,11 @@ internal data class ResearchElementDefinitionCharacteristicSurrogate(
   public fun toModel(): ResearchElementDefinition.Characteristic =
     ResearchElementDefinition.Characteristic(
       id = this@ResearchElementDefinitionCharacteristicSurrogate.id,
-      extension =
-        this@ResearchElementDefinitionCharacteristicSurrogate.extension ?: mutableListOf(),
+      extension = this@ResearchElementDefinitionCharacteristicSurrogate.extension ?: listOf(),
       modifierExtension =
-        this@ResearchElementDefinitionCharacteristicSurrogate.modifierExtension ?: mutableListOf(),
+        this@ResearchElementDefinitionCharacteristicSurrogate.modifierExtension ?: listOf(),
       definition = this@ResearchElementDefinitionCharacteristicSurrogate.definition,
-      usageContext =
-        this@ResearchElementDefinitionCharacteristicSurrogate.usageContext ?: mutableListOf(),
+      usageContext = this@ResearchElementDefinitionCharacteristicSurrogate.usageContext ?: listOf(),
       exclude =
         R4Boolean.of(
           this@ResearchElementDefinitionCharacteristicSurrogate.exclude,
@@ -312,12 +310,12 @@ internal data class ResearchElementDefinitionSurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: MutableList<Resource>? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var contained: List<Resource>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var url: KotlinString? = null,
   public var _url: Element? = null,
-  public var identifier: MutableList<Identifier>? = null,
+  public var identifier: List<Identifier>? = null,
   public var version: KotlinString? = null,
   public var _version: Element? = null,
   public var name: KotlinString? = null,
@@ -337,13 +335,13 @@ internal data class ResearchElementDefinitionSurrogate(
   public var _date: Element? = null,
   public var publisher: KotlinString? = null,
   public var _publisher: Element? = null,
-  public var contact: MutableList<ContactDetail>? = null,
+  public var contact: List<ContactDetail>? = null,
   public var description: KotlinString? = null,
   public var _description: Element? = null,
-  public var comment: MutableList<KotlinString?>? = null,
-  public var _comment: MutableList<Element?>? = null,
-  public var useContext: MutableList<UsageContext>? = null,
-  public var jurisdiction: MutableList<CodeableConcept>? = null,
+  public var comment: List<KotlinString?>? = null,
+  public var _comment: List<Element?>? = null,
+  public var useContext: List<UsageContext>? = null,
+  public var jurisdiction: List<CodeableConcept>? = null,
   public var purpose: KotlinString? = null,
   public var _purpose: Element? = null,
   public var usage: KotlinString? = null,
@@ -355,19 +353,19 @@ internal data class ResearchElementDefinitionSurrogate(
   public var lastReviewDate: KotlinString? = null,
   public var _lastReviewDate: Element? = null,
   public var effectivePeriod: Period? = null,
-  public var topic: MutableList<CodeableConcept>? = null,
-  public var author: MutableList<ContactDetail>? = null,
-  public var editor: MutableList<ContactDetail>? = null,
-  public var reviewer: MutableList<ContactDetail>? = null,
-  public var endorser: MutableList<ContactDetail>? = null,
-  public var relatedArtifact: MutableList<RelatedArtifact>? = null,
-  public var library: MutableList<KotlinString?>? = null,
-  public var _library: MutableList<Element?>? = null,
+  public var topic: List<CodeableConcept>? = null,
+  public var author: List<ContactDetail>? = null,
+  public var editor: List<ContactDetail>? = null,
+  public var reviewer: List<ContactDetail>? = null,
+  public var endorser: List<ContactDetail>? = null,
+  public var relatedArtifact: List<RelatedArtifact>? = null,
+  public var library: List<KotlinString?>? = null,
+  public var _library: List<Element?>? = null,
   public var type: KotlinString? = null,
   public var _type: Element? = null,
   public var variableType: KotlinString? = null,
   public var _variableType: Element? = null,
-  public var characteristic: MutableList<ResearchElementDefinition.Characteristic>? = null,
+  public var characteristic: List<ResearchElementDefinition.Characteristic>? = null,
 ) {
   public fun toModel(): ResearchElementDefinition =
     ResearchElementDefinition(
@@ -384,16 +382,15 @@ internal data class ResearchElementDefinitionSurrogate(
           this@ResearchElementDefinitionSurrogate._language,
         ),
       text = this@ResearchElementDefinitionSurrogate.text,
-      contained = this@ResearchElementDefinitionSurrogate.contained ?: mutableListOf(),
-      extension = this@ResearchElementDefinitionSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@ResearchElementDefinitionSurrogate.modifierExtension ?: mutableListOf(),
+      contained = this@ResearchElementDefinitionSurrogate.contained ?: listOf(),
+      extension = this@ResearchElementDefinitionSurrogate.extension ?: listOf(),
+      modifierExtension = this@ResearchElementDefinitionSurrogate.modifierExtension ?: listOf(),
       url =
         Uri.of(
           this@ResearchElementDefinitionSurrogate.url,
           this@ResearchElementDefinitionSurrogate._url,
         ),
-      identifier = this@ResearchElementDefinitionSurrogate.identifier ?: mutableListOf(),
+      identifier = this@ResearchElementDefinitionSurrogate.identifier ?: listOf(),
       version =
         R4String.of(
           this@ResearchElementDefinitionSurrogate.version,
@@ -440,7 +437,7 @@ internal data class ResearchElementDefinitionSurrogate(
           this@ResearchElementDefinitionSurrogate.publisher,
           this@ResearchElementDefinitionSurrogate._publisher,
         ),
-      contact = this@ResearchElementDefinitionSurrogate.contact ?: mutableListOf(),
+      contact = this@ResearchElementDefinitionSurrogate.contact ?: listOf(),
       description =
         Markdown.of(
           this@ResearchElementDefinitionSurrogate.description,
@@ -451,7 +448,7 @@ internal data class ResearchElementDefinitionSurrogate(
           this@ResearchElementDefinitionSurrogate.comment == null &&
             this@ResearchElementDefinitionSurrogate._comment == null
         ) {
-          mutableListOf()
+          listOf()
         } else {
           (this@ResearchElementDefinitionSurrogate.comment
               ?: List(this@ResearchElementDefinitionSurrogate._comment!!.size) { null })
@@ -460,10 +457,10 @@ internal data class ResearchElementDefinitionSurrogate(
                 ?: List(this@ResearchElementDefinitionSurrogate.comment!!.size) { null }
             )
             .map { (value, element) -> R4String.of(value, element)!! }
-            .toMutableList()
+            .toList()
         },
-      useContext = this@ResearchElementDefinitionSurrogate.useContext ?: mutableListOf(),
-      jurisdiction = this@ResearchElementDefinitionSurrogate.jurisdiction ?: mutableListOf(),
+      useContext = this@ResearchElementDefinitionSurrogate.useContext ?: listOf(),
+      jurisdiction = this@ResearchElementDefinitionSurrogate.jurisdiction ?: listOf(),
       purpose =
         Markdown.of(
           this@ResearchElementDefinitionSurrogate.purpose,
@@ -490,18 +487,18 @@ internal data class ResearchElementDefinitionSurrogate(
           this@ResearchElementDefinitionSurrogate._lastReviewDate,
         ),
       effectivePeriod = this@ResearchElementDefinitionSurrogate.effectivePeriod,
-      topic = this@ResearchElementDefinitionSurrogate.topic ?: mutableListOf(),
-      author = this@ResearchElementDefinitionSurrogate.author ?: mutableListOf(),
-      editor = this@ResearchElementDefinitionSurrogate.editor ?: mutableListOf(),
-      reviewer = this@ResearchElementDefinitionSurrogate.reviewer ?: mutableListOf(),
-      endorser = this@ResearchElementDefinitionSurrogate.endorser ?: mutableListOf(),
-      relatedArtifact = this@ResearchElementDefinitionSurrogate.relatedArtifact ?: mutableListOf(),
+      topic = this@ResearchElementDefinitionSurrogate.topic ?: listOf(),
+      author = this@ResearchElementDefinitionSurrogate.author ?: listOf(),
+      editor = this@ResearchElementDefinitionSurrogate.editor ?: listOf(),
+      reviewer = this@ResearchElementDefinitionSurrogate.reviewer ?: listOf(),
+      endorser = this@ResearchElementDefinitionSurrogate.endorser ?: listOf(),
+      relatedArtifact = this@ResearchElementDefinitionSurrogate.relatedArtifact ?: listOf(),
       library =
         if (
           this@ResearchElementDefinitionSurrogate.library == null &&
             this@ResearchElementDefinitionSurrogate._library == null
         ) {
-          mutableListOf()
+          listOf()
         } else {
           (this@ResearchElementDefinitionSurrogate.library
               ?: List(this@ResearchElementDefinitionSurrogate._library!!.size) { null })
@@ -510,7 +507,7 @@ internal data class ResearchElementDefinitionSurrogate(
                 ?: List(this@ResearchElementDefinitionSurrogate.library!!.size) { null }
             )
             .map { (value, element) -> Canonical.of(value, element)!! }
-            .toMutableList()
+            .toList()
         },
       type =
         Enumeration.of(
@@ -526,7 +523,7 @@ internal data class ResearchElementDefinitionSurrogate(
             this@ResearchElementDefinitionSurrogate._variableType,
           )
         },
-      characteristic = this@ResearchElementDefinitionSurrogate.characteristic ?: mutableListOf(),
+      characteristic = this@ResearchElementDefinitionSurrogate.characteristic ?: listOf(),
     )
 
   public companion object {
@@ -569,13 +566,13 @@ internal data class ResearchElementDefinitionSurrogate(
           description = this@with.description?.value,
           _description = this@with.description?.toElement(),
           comment =
-            this@with.comment.map { it.value }.toMutableList().takeUnless { it.all { it == null } },
+            this@with.comment.map { it.value }.toList().takeUnless { it.all { it == null } },
           _comment =
             this@with.comment
               .map { it.toElement() }
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
-              ?.toMutableList(),
+              ?.toList(),
           useContext = this@with.useContext.takeIf { it.isNotEmpty() },
           jurisdiction = this@with.jurisdiction.takeIf { it.isNotEmpty() },
           purpose = this@with.purpose?.value,
@@ -596,13 +593,13 @@ internal data class ResearchElementDefinitionSurrogate(
           endorser = this@with.endorser.takeIf { it.isNotEmpty() },
           relatedArtifact = this@with.relatedArtifact.takeIf { it.isNotEmpty() },
           library =
-            this@with.library.map { it.value }.toMutableList().takeUnless { it.all { it == null } },
+            this@with.library.map { it.value }.toList().takeUnless { it.all { it == null } },
           _library =
             this@with.library
               .map { it.toElement() }
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
-              ?.toMutableList(),
+              ?.toList(),
           type = this@with.type.value?.getCode(),
           _type = this@with.type.toElement(),
           variableType = this@with.variableType?.value?.getCode(),

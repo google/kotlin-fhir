@@ -26,7 +26,7 @@ import com.google.fhir.model.r4.serializers.SpecimenDefinitionTypeTestedContaine
 import com.google.fhir.model.r4.serializers.SpecimenDefinitionTypeTestedHandlingSerializer
 import com.google.fhir.model.r4.serializers.SpecimenDefinitionTypeTestedSerializer
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -41,12 +41,12 @@ public data class SpecimenDefinition(
    * The only time that a resource does not have an id is when it is being submitted to the server
    * using a create operation.
    */
-  override var id: kotlin.String? = null,
+  override val id: kotlin.String? = null,
   /**
    * The metadata about the resource. This is content that is maintained by the infrastructure.
    * Changes to the content might not always be associated with version changes to the resource.
    */
-  override var meta: Meta? = null,
+  override val meta: Meta? = null,
   /**
    * A reference to a set of rules that were followed when the resource was constructed, and which
    * must be understood when processing the content. Often, this is a reference to an implementation
@@ -60,7 +60,7 @@ public data class SpecimenDefinition(
    * to an implementation guide that defines these special rules as part of it's narrative along
    * with other profiles, value sets, etc.
    */
-  override var implicitRules: Uri? = null,
+  override val implicitRules: Uri? = null,
   /**
    * The base language in which the resource is written.
    *
@@ -72,7 +72,7 @@ public data class SpecimenDefinition(
    * language is specified, it should it also be specified on the div element in the html (see rules
    * in HTML5 for information about the relationship between xml:lang and the html lang attribute).
    */
-  override var language: Code? = null,
+  override val language: Code? = null,
   /**
    * A human-readable narrative that contains a summary of the resource and can be used to represent
    * the content of the resource to a human. The narrative need not encode all the structured data,
@@ -86,7 +86,7 @@ public data class SpecimenDefinition(
    * legacy systems where information is captured as a "text blob" or where text is additionally
    * entered raw or narrated and encoded information is added later.
    */
-  override var text: Narrative? = null,
+  override val text: Narrative? = null,
   /**
    * These resources do not have an independent existence apart from the resource that contains
    * them - they cannot be identified independently, and nor can they have their own independent
@@ -97,7 +97,7 @@ public data class SpecimenDefinition(
    * resources may have profiles and tags In their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: MutableList<Resource> = mutableListOf(),
+  override val contained: List<Resource> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and manageable, there is a strict set of
@@ -110,7 +110,7 @@ public data class SpecimenDefinition(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: MutableList<Extension> = mutableListOf(),
+  override val extension: List<Extension> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -129,19 +129,19 @@ public data class SpecimenDefinition(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: MutableList<Extension> = mutableListOf(),
+  override val modifierExtension: List<Extension> = listOf(),
   /** A business identifier associated with the kind of specimen. */
-  public var identifier: Identifier? = null,
+  public val identifier: Identifier? = null,
   /** The kind of material to be collected. */
-  public var typeCollected: CodeableConcept? = null,
+  public val typeCollected: CodeableConcept? = null,
   /** Preparation of the patient for specimen collection. */
-  public var patientPreparation: MutableList<CodeableConcept> = mutableListOf(),
+  public val patientPreparation: List<CodeableConcept> = listOf(),
   /** Time aspect of specimen collection (duration or offset). */
-  public var timeAspect: String? = null,
+  public val timeAspect: String? = null,
   /** The action to be performed for collecting the specimen. */
-  public var collection: MutableList<CodeableConcept> = mutableListOf(),
+  public val collection: List<CodeableConcept> = listOf(),
   /** Specimen conditioned in a container as expected by the testing laboratory. */
-  public var typeTested: MutableList<TypeTested> = mutableListOf(),
+  public val typeTested: List<TypeTested> = listOf(),
 ) : DomainResource() {
   /** Specimen conditioned in a container as expected by the testing laboratory. */
   @Serializable(with = SpecimenDefinitionTypeTestedSerializer::class)
@@ -150,7 +150,7 @@ public data class SpecimenDefinition(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and manageable, there is a strict set of
@@ -163,7 +163,7 @@ public data class SpecimenDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -182,29 +182,29 @@ public data class SpecimenDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /** Primary of secondary specimen. */
-    public var isDerived: Boolean? = null,
+    public val isDerived: Boolean? = null,
     /** The kind of specimen conditioned for testing expected by lab. */
-    public var type: CodeableConcept? = null,
+    public val type: CodeableConcept? = null,
     /** The preference for this type of conditioned specimen. */
-    public var preference: Enumeration<SpecimenContainedPreference>,
+    public val preference: Enumeration<SpecimenContainedPreference>,
     /** The specimen's container. */
-    public var container: Container? = null,
+    public val container: Container? = null,
     /** Requirements for delivery and special handling of this kind of conditioned specimen. */
-    public var requirement: String? = null,
+    public val requirement: String? = null,
     /**
      * The usual time that a specimen of this kind is retained after the ordered tests are
      * completed, for the purpose of additional testing.
      */
-    public var retentionTime: Duration? = null,
+    public val retentionTime: Duration? = null,
     /** Criterion for rejection of the specimen in its container by the laboratory. */
-    public var rejectionCriterion: MutableList<CodeableConcept> = mutableListOf(),
+    public val rejectionCriterion: List<CodeableConcept> = listOf(),
     /**
      * Set of instructions for preservation/transport of the specimen at a defined temperature
      * interval, prior the testing process.
      */
-    public var handling: MutableList<Handling> = mutableListOf(),
+    public val handling: List<Handling> = listOf(),
   ) : BackboneElement() {
     /** The specimen's container. */
     @Serializable(with = SpecimenDefinitionTypeTestedContainerSerializer::class)
@@ -213,7 +213,7 @@ public data class SpecimenDefinition(
        * Unique id for the element within a resource (for internal references). This may be any
        * string value that does not contain spaces.
        */
-      override var id: kotlin.String? = null,
+      override val id: kotlin.String? = null,
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element. To make the use of extensions safe and manageable, there is a strict set of
@@ -226,7 +226,7 @@ public data class SpecimenDefinition(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: MutableList<Extension> = mutableListOf(),
+      override val extension: List<Extension> = listOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -245,26 +245,26 @@ public data class SpecimenDefinition(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: MutableList<Extension> = mutableListOf(),
+      override val modifierExtension: List<Extension> = listOf(),
       /** The type of material of the container. */
-      public var material: CodeableConcept? = null,
+      public val material: CodeableConcept? = null,
       /** The type of container used to contain this kind of specimen. */
-      public var type: CodeableConcept? = null,
+      public val type: CodeableConcept? = null,
       /** Color of container cap. */
-      public var cap: CodeableConcept? = null,
+      public val cap: CodeableConcept? = null,
       /** The textual description of the kind of container. */
-      public var description: String? = null,
+      public val description: String? = null,
       /** The capacity (volume or other measure) of this kind of container. */
-      public var capacity: Quantity? = null,
+      public val capacity: Quantity? = null,
       /** The minimum volume to be conditioned in the container. */
-      public var minimumVolume: MinimumVolume? = null,
+      public val minimumVolume: MinimumVolume? = null,
       /**
        * Substance introduced in the kind of container to preserve, maintain or enhance the
        * specimen. Examples: Formalin, Citrate, EDTA.
        */
-      public var additive: MutableList<Additive> = mutableListOf(),
+      public val additive: List<Additive> = listOf(),
       /** Special processing that should be applied to the container for this kind of specimen. */
-      public var preparation: String? = null,
+      public val preparation: String? = null,
     ) : BackboneElement() {
       /**
        * Substance introduced in the kind of container to preserve, maintain or enhance the
@@ -276,7 +276,7 @@ public data class SpecimenDefinition(
          * Unique id for the element within a resource (for internal references). This may be any
          * string value that does not contain spaces.
          */
-        override var id: kotlin.String? = null,
+        override val id: kotlin.String? = null,
         /**
          * May be used to represent additional information that is not part of the basic definition
          * of the element. To make the use of extensions safe and manageable, there is a strict set
@@ -289,7 +289,7 @@ public data class SpecimenDefinition(
          * extensions. The use of extensions is what allows the FHIR specification to retain a core
          * level of simplicity for everyone.
          */
-        override var extension: MutableList<Extension> = mutableListOf(),
+        override val extension: List<Extension> = listOf(),
         /**
          * May be used to represent additional information that is not part of the basic definition
          * of the element and that modifies the understanding of the element in which it is
@@ -308,12 +308,12 @@ public data class SpecimenDefinition(
          * extensions. The use of extensions is what allows the FHIR specification to retain a core
          * level of simplicity for everyone.
          */
-        override var modifierExtension: MutableList<Extension> = mutableListOf(),
+        override val modifierExtension: List<Extension> = listOf(),
         /**
          * Substance introduced in the kind of container to preserve, maintain or enhance the
          * specimen. Examples: Formalin, Citrate, EDTA.
          */
-        public var additive: Additive,
+        public val additive: Additive,
       ) : BackboneElement() {
         @Serializable(with = SpecimenDefinitionTypeTestedContainerAdditiveAdditiveSerializer::class)
         public sealed interface Additive {
@@ -376,7 +376,7 @@ public data class SpecimenDefinition(
        * Unique id for the element within a resource (for internal references). This may be any
        * string value that does not contain spaces.
        */
-      override var id: kotlin.String? = null,
+      override val id: kotlin.String? = null,
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element. To make the use of extensions safe and manageable, there is a strict set of
@@ -389,7 +389,7 @@ public data class SpecimenDefinition(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: MutableList<Extension> = mutableListOf(),
+      override val extension: List<Extension> = listOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -408,21 +408,21 @@ public data class SpecimenDefinition(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: MutableList<Extension> = mutableListOf(),
+      override val modifierExtension: List<Extension> = listOf(),
       /**
        * It qualifies the interval of temperature, which characterizes an occurrence of handling.
        * Conditions that are not related to temperature may be handled in the instruction element.
        */
-      public var temperatureQualifier: CodeableConcept? = null,
+      public val temperatureQualifier: CodeableConcept? = null,
       /** The temperature interval for this set of handling instructions. */
-      public var temperatureRange: Range? = null,
+      public val temperatureRange: Range? = null,
       /** The maximum time interval of preservation of the specimen with these conditions. */
-      public var maxDuration: Duration? = null,
+      public val maxDuration: Duration? = null,
       /**
        * Additional textual instructions for the preservation or transport of the specimen. For
        * instance, 'Protect from light exposure'.
        */
-      public var instruction: String? = null,
+      public val instruction: String? = null,
     ) : BackboneElement()
   }
 

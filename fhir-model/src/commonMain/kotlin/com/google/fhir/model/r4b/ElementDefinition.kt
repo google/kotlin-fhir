@@ -35,7 +35,7 @@ import com.google.fhir.model.r4b.serializers.ElementDefinitionSlicingSerializer
 import com.google.fhir.model.r4b.serializers.ElementDefinitionTypeSerializer
 import com.google.fhir.model.r4b.terminologies.BindingStrength
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 
 /**
@@ -48,7 +48,7 @@ public data class ElementDefinition(
    * Unique id for the element within a resource (for internal references). This may be any string
    * value that does not contain spaces.
    */
-  override var id: kotlin.String? = null,
+  override val id: kotlin.String? = null,
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * element. To make the use of extensions safe and manageable, there is a strict set of governance
@@ -61,7 +61,7 @@ public data class ElementDefinition(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: MutableList<Extension> = mutableListOf(),
+  override val extension: List<Extension> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * element and that modifies the understanding of the element in which it is contained and/or the
@@ -80,12 +80,12 @@ public data class ElementDefinition(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: MutableList<Extension> = mutableListOf(),
+  override val modifierExtension: List<Extension> = listOf(),
   /**
    * The path identifies the element and is expressed as a "."-separated list of ancestor elements,
    * beginning with the name of the resource or extension.
    */
-  public var path: String,
+  public val path: String,
   /**
    * Codes that define how this element is represented in instances, when the deviation varies from
    * the normal case.
@@ -95,7 +95,7 @@ public data class ElementDefinition(
    * the base standard does). This element is used quite commonly in Logical models when the logical
    * models represent a specific serialization format (e.g. CDA, v2 etc.).
    */
-  public var representation: MutableList<Enumeration<PropertyRepresentation>> = mutableListOf(),
+  public val representation: List<Enumeration<PropertyRepresentation>> = listOf(),
   /**
    * The name of this element definition slice, when slicing is working. The name must be a token
    * with no dots or spaces. This is a unique name referring to a specific set of constraints
@@ -104,7 +104,7 @@ public data class ElementDefinition(
    * The name SHALL be unique within the structure within the context of the constrained resource
    * element. (Though to avoid confusion, uniqueness across all elements is recommended.).
    */
-  public var sliceName: String? = null,
+  public val sliceName: String? = null,
   /**
    * If true, indicates that this slice definition is constraining a slice definition with the same
    * name in an inherited profile. If false, the slice is not overriding any slice in an inherited
@@ -114,7 +114,7 @@ public data class ElementDefinition(
    * If set to true, an ancestor profile SHALL have a slicing definition with this name. If set to
    * false, no ancestor profile is permitted to have a slicing definition with this name.
    */
-  public var sliceIsConstraining: Boolean? = null,
+  public val sliceIsConstraining: Boolean? = null,
   /**
    * A single preferred label which is the text to display beside the element indicating its meaning
    * or to use to prompt for the element in a user display or form.
@@ -122,7 +122,7 @@ public data class ElementDefinition(
    * See also the extension
    * (http://hl7.org/fhir/StructureDefinition/elementdefinition-question)[extension-elementdefinition-question.html].
    */
-  public var label: String? = null,
+  public val label: String? = null,
   /**
    * A code that has the same meaning as the element in a particular terminology.
    *
@@ -133,7 +133,7 @@ public data class ElementDefinition(
    * itself. The mappings may be used to provide more or less granular or structured equivalences in
    * the code system.
    */
-  public var code: MutableList<Coding> = mutableListOf(),
+  public val code: List<Coding> = listOf(),
   /**
    * Indicates that the element is sliced into a set of alternative definitions (i.e. in a structure
    * definition, there are multiple different constraints on a single element in the base resource).
@@ -147,7 +147,7 @@ public data class ElementDefinition(
    * constraints as appropriate. This may include the common constraints on the children of the
    * element.
    */
-  public var slicing: Slicing? = null,
+  public val slicing: Slicing? = null,
   /**
    * A concise description of what this element means (e.g. for use in autogenerated summaries).
    *
@@ -155,7 +155,7 @@ public data class ElementDefinition(
    * have nasty downstream consequences. Please be careful when providing short definitions in a
    * profile.
    */
-  public var short: String? = null,
+  public val short: String? = null,
   /**
    * Provides a complete explanation of the meaning of the data element for human readability. For
    * the case of elements derived from existing elements (e.g. constraints), the definition SHALL be
@@ -166,7 +166,7 @@ public data class ElementDefinition(
    * It is easy for a different definition to change the meaning of an element and this can have
    * nasty downstream consequences. Please be careful when providing definitions in a profile.
    */
-  public var definition: Markdown? = null,
+  public val definition: Markdown? = null,
   /**
    * Explanatory notes and implementation guidance about the data element, including notes about how
    * to use the data properly, exceptions to proper use, etc. (Note: The text you are reading is
@@ -175,7 +175,7 @@ public data class ElementDefinition(
    * If it is possible to capture usage rules using constraints, that mechanism should be used in
    * preference to this element.
    */
-  public var comment: Markdown? = null,
+  public val comment: Markdown? = null,
   /**
    * This element is for traceability of why the element was created and why the constraints exist
    * as they do. This may be used to point to source materials or specifications that drove the
@@ -186,13 +186,13 @@ public data class ElementDefinition(
    * This may be used to point to source materials or specifications that drove the structure of
    * this data element.
    */
-  public var requirements: Markdown? = null,
+  public val requirements: Markdown? = null,
   /** Identifies additional names by which this element might also be known. */
-  public var alias: MutableList<String> = mutableListOf(),
+  public val alias: List<String> = listOf(),
   /** The minimum number of times this element SHALL appear in the instance. */
-  public var min: UnsignedInt? = null,
+  public val min: UnsignedInt? = null,
   /** The maximum number of times this element is permitted to appear in the instance. */
-  public var max: String? = null,
+  public val max: String? = null,
   /**
    * Information about the base definition of the element, provided to make it unnecessary for tools
    * to trace the deviation of the element through the derived and related profiles. When the
@@ -207,7 +207,7 @@ public data class ElementDefinition(
    * base information must always be populated in element definitions in snap shots, even if it is
    * the same.
    */
-  public var base: Base? = null,
+  public val base: Base? = null,
   /**
    * Identifies an element defined elsewhere in the definition whose content rules should be applied
    * to the current element. ContentReferences bring across all the rules that are in the
@@ -217,7 +217,7 @@ public data class ElementDefinition(
    * ContentReferences can only be defined in specializations, not constrained types, and they
    * cannot be changed and always reference the non-constrained definition.
    */
-  public var contentReference: Uri? = null,
+  public val contentReference: Uri? = null,
   /**
    * The data type or resource that the value of this element is permitted to be.
    *
@@ -225,7 +225,7 @@ public data class ElementDefinition(
    * is inherited from the resource. Abstract types are not permitted to appear as a type when
    * multiple types are listed. (I.e. Abstract types cannot be part of a choice).
    */
-  public var type: MutableList<Type> = mutableListOf(),
+  public val type: List<Type> = listOf(),
   /**
    * The value that should be used if there is no value stated in the instance (e.g. 'if not
    * otherwise specified, the abstract is false').
@@ -240,7 +240,7 @@ public data class ElementDefinition(
    * constraints ("profiles") on data types or resources. This element only exists so that default
    * values may be defined in logical models.
    */
-  public var defaultValue: DefaultValue? = null,
+  public val defaultValue: DefaultValue? = null,
   /**
    * The Implicit meaning that is to be understood when this element is missing (e.g. 'when this
    * element is missing, the period is ongoing').
@@ -251,7 +251,7 @@ public data class ElementDefinition(
    * constraining its use in profiles eliminates use cases as possibilities, not merely moving them
    * out of scope.
    */
-  public var meaningWhenMissing: Markdown? = null,
+  public val meaningWhenMissing: Markdown? = null,
   /**
    * If present, indicates that the order of the repeating element has meaning and describes what
    * that meaning is. If absent, it means that the order of the element has no meaning.
@@ -260,7 +260,7 @@ public data class ElementDefinition(
    * defining resources or data types. It can be further refined profiled elements but if absent in
    * the base type, a profile cannot assert meaning.
    */
-  public var orderMeaning: String? = null,
+  public val orderMeaning: String? = null,
   /**
    * Specifies a value that SHALL be exactly the value for this element in the instance. For
    * purposes of comparison, non-significant whitespace is ignored, and all values must be an exact
@@ -269,7 +269,7 @@ public data class ElementDefinition(
    * This is not recommended for Coding and CodeableConcept since these often have highly contextual
    * properties such as version or display.
    */
-  public var fixed: Fixed? = null,
+  public val fixed: Fixed? = null,
   /**
    * Specifies a value that the value in the instance SHALL follow - that is, any value in the
    * pattern must be found in the instance. Other additional values may be found too. This is
@@ -290,7 +290,7 @@ public data class ElementDefinition(
    * Mostly used for fixing values of CodeableConcept. In general, pattern[x] is not intended for
    * use with primitive types, where is has the same meaning as fixed[x].
    */
-  public var pattern: Pattern? = null,
+  public val pattern: Pattern? = null,
   /**
    * A sample value for this element demonstrating the type of information that would typically be
    * found in the element.
@@ -300,7 +300,7 @@ public data class ElementDefinition(
    * quantities would generally be unnecessary.) If the example value is fully populated, the
    * publication tool can generate an instance automatically.
    */
-  public var example: MutableList<Example> = mutableListOf(),
+  public val example: List<Example> = listOf(),
   /**
    * The minimum allowed value for the element. The value is inclusive. This is allowed for the
    * types date, dateTime, instant, time, decimal, integer, and Quantity.
@@ -312,7 +312,7 @@ public data class ElementDefinition(
    * to determine the minimum allowable value. A minimum value for a Quantity is interpreted as an
    * canonical minimum - e.g. you cannot provide 100mg if the minimum value is 10g.
    */
-  public var minValue: MinValue? = null,
+  public val minValue: MinValue? = null,
   /**
    * The maximum allowed value for the element. The value is inclusive. This is allowed for the
    * types date, dateTime, instant, time, decimal, integer, and Quantity.
@@ -324,7 +324,7 @@ public data class ElementDefinition(
    * determine the maximum allowable value. A maximum value for a Quantity is interpreted as an
    * canonical maximum - e.g. you cannot provide 10g if the maximum value is 50mg.
    */
-  public var maxValue: MaxValue? = null,
+  public val maxValue: MaxValue? = null,
   /**
    * Indicates the maximum length in characters that is permitted to be present in conformant
    * instances and which is expected to be supported by conformant consumers that support the
@@ -335,12 +335,12 @@ public data class ElementDefinition(
    * with care and an understanding of the consequences of doing so. If not specified, there is no
    * conformance expectation for length support.
    */
-  public var maxLength: Integer? = null,
+  public val maxLength: Integer? = null,
   /**
    * A reference to an invariant that may make additional statements about the cardinality or value
    * in the instance.
    */
-  public var condition: MutableList<Id> = mutableListOf(),
+  public val condition: List<Id> = listOf(),
   /**
    * Formal constraints such as co-occurrence and other constraints that can be computationally
    * evaluated within the context of the instance.
@@ -348,7 +348,7 @@ public data class ElementDefinition(
    * Constraints should be declared on the "context" element - the lowest element in the hierarchy
    * that is common to all nodes referenced by the constraint.
    */
-  public var constraint: MutableList<Constraint> = mutableListOf(),
+  public val constraint: List<Constraint> = listOf(),
   /**
    * If true, implementations that produce or consume resources SHALL provide "support" for the
    * element in some meaningful way. If false, the element may be ignored and not supported. If
@@ -367,7 +367,7 @@ public data class ElementDefinition(
    * both of these things are more likely to be true for IsModifier elements than for other
    * elements.
    */
-  public var mustSupport: Boolean? = null,
+  public val mustSupport: Boolean? = null,
   /**
    * If true, the value of this element affects the interpretation of the element or resource that
    * contains it, and the value of the element cannot be ignored. Typically, this is used for
@@ -381,12 +381,12 @@ public data class ElementDefinition(
    * that there is no lack of clarity about what to do if it is missing. If it can be missing, the
    * definition SHALL make the meaning of a missing element clear.
    */
-  public var isModifier: Boolean? = null,
+  public val isModifier: Boolean? = null,
   /**
    * Explains how that element affects the interpretation of the resource or element that contains
    * it.
    */
-  public var isModifierReason: String? = null,
+  public val isModifierReason: String? = null,
   /**
    * Whether the element should be included if a client requests a search with the parameter
    * _summary=true.
@@ -400,7 +400,7 @@ public data class ElementDefinition(
    * a parent that is 'mustSupport' and the minimum cardinality is 1 or the element is a modifier,
    * it must be marked as isSummary=true.
    */
-  public var isSummary: Boolean? = null,
+  public val isSummary: Boolean? = null,
   /**
    * Binds to a value set if this element is coded (code, Coding, CodeableConcept, Quantity), or the
    * data types (string, uri).
@@ -409,13 +409,13 @@ public data class ElementDefinition(
    * "required" with a description explaining that no coded values are allowed and what sort of
    * information to put in the "text" element.
    */
-  public var binding: Binding? = null,
+  public val binding: Binding? = null,
   /**
    * Identifies a concept from an external specification that roughly corresponds to this element.
    *
    * Mappings are not necessarily specific enough for safe translation.
    */
-  public var mapping: MutableList<Mapping> = mutableListOf(),
+  public val mapping: List<Mapping> = listOf(),
 ) : BackboneElement() {
   /**
    * Indicates that the element is sliced into a set of alternative definitions (i.e. in a structure
@@ -431,7 +431,7 @@ public data class ElementDefinition(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and manageable, there is a strict set of
@@ -444,7 +444,7 @@ public data class ElementDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * Designates which child elements are used to discriminate between the slices when processing
      * an instance. If one or more discriminators are provided, the value of the child elements in
@@ -453,7 +453,7 @@ public data class ElementDefinition(
      *
      * If there is no discriminator, the content is hard to process, so this should be avoided.
      */
-    public var discriminator: MutableList<Discriminator> = mutableListOf(),
+    public val discriminator: List<Discriminator> = listOf(),
     /**
      * A human-readable text description of how the slicing works. If there is no discriminator,
      * this is required to be present to provide whatever information is possible about how the
@@ -462,7 +462,7 @@ public data class ElementDefinition(
      * If it's really not possible to differentiate them, the design should be re-evaluated to make
      * the content usable.
      */
-    public var description: String? = null,
+    public val description: String? = null,
     /**
      * If the matching elements have to occur in the same order as defined in the profile.
      *
@@ -470,7 +470,7 @@ public data class ElementDefinition(
      * should consider making the order a feature of the rules about the narrative, not the rules
      * about the data - requiring ordered data makes the profile much less re-usable.
      */
-    public var ordered: Boolean? = null,
+    public val ordered: Boolean? = null,
     /**
      * Whether additional slices are allowed or not. When the slices are ordered, profile authors
      * can also say that additional slices are only allowed at the end.
@@ -479,7 +479,7 @@ public data class ElementDefinition(
      * wider contexts, but also means that the content of the resource is not closed, and
      * applications have to decide how to handle content not described by the profile.
      */
-    public var rules: Enumeration<SlicingRules>,
+    public val rules: Enumeration<SlicingRules>,
   ) : Element() {
     /**
      * Designates which child elements are used to discriminate between the slices when processing
@@ -493,7 +493,7 @@ public data class ElementDefinition(
        * Unique id for the element within a resource (for internal references). This may be any
        * string value that does not contain spaces.
        */
-      override var id: kotlin.String? = null,
+      override val id: kotlin.String? = null,
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element. To make the use of extensions safe and manageable, there is a strict set of
@@ -506,16 +506,16 @@ public data class ElementDefinition(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: MutableList<Extension> = mutableListOf(),
+      override val extension: List<Extension> = listOf(),
       /** How the element value is interpreted when discrimination is evaluated. */
-      public var type: Enumeration<DiscriminatorType>,
+      public val type: Enumeration<DiscriminatorType>,
       /**
        * A FHIRPath expression, using [the simple subset of FHIRPath](fhirpath.html#simple), that is
        * used to identify the element on which discrimination is based.
        *
        * The only FHIRPath functions that are allowed are as(type), resolve(), and extension(url).
        */
-      public var path: String,
+      public val path: String,
     ) : Element()
   }
 
@@ -533,7 +533,7 @@ public data class ElementDefinition(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and manageable, there is a strict set of
@@ -546,14 +546,14 @@ public data class ElementDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * The Path that identifies the base element - this matches the ElementDefinition.path for that
      * element. Across FHIR, there is only one base definition of any element - that is, an element
      * definition on a [StructureDefinition](structuredefinition.html#) without a
      * StructureDefinition.base.
      */
-    public var path: String,
+    public val path: String,
     /**
      * Minimum cardinality of the base element identified by the path.
      *
@@ -561,7 +561,7 @@ public data class ElementDefinition(
      * elements of the base resource are generated differently (some reference implementations have
      * done this).
      */
-    public var min: UnsignedInt,
+    public val min: UnsignedInt,
     /**
      * Maximum cardinality of the base element identified by the path.
      *
@@ -569,7 +569,7 @@ public data class ElementDefinition(
      * depending on whether the base element has max > 1. Also, some forms of code generation may
      * differ.
      */
-    public var max: String,
+    public val max: String,
   ) : Element()
 
   /** The data type or resource that the value of this element is permitted to be. */
@@ -579,7 +579,7 @@ public data class ElementDefinition(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and manageable, there is a strict set of
@@ -592,7 +592,7 @@ public data class ElementDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * URL of Data type or Resource that is a(or the) type used for this element. References are
      * URLs that are relative to http://hl7.org/fhir/StructureDefinition e.g. "string" is a
@@ -604,7 +604,7 @@ public data class ElementDefinition(
      * reference to the general definition of a resource (e.g.
      * http://hl7.org/fhir/StructureDefinition/Patient).
      */
-    public var code: Uri,
+    public val code: Uri,
     /**
      * Identifies a profile structure or implementation Guide that applies to the datatype this
      * element refers to. If any profiles are specified, then the content must conform to at least
@@ -616,7 +616,7 @@ public data class ElementDefinition(
      * It is possible to profile backbone element (e.g. part of a resource), using the
      * [profile-element](extension-elementdefinition-profile-element.html) extension.
      */
-    public var profile: MutableList<Canonical> = mutableListOf(),
+    public val profile: List<Canonical> = listOf(),
     /**
      * Used when the type is "Reference" or "canonical", and identifies a profile structure or
      * implementation Guide that applies to the target of the reference this element refers to. If
@@ -626,7 +626,7 @@ public data class ElementDefinition(
      * is specified, the target resource SHALL conform to at least one profile defined in the
      * implementation guide.
      */
-    public var targetProfile: MutableList<Canonical> = mutableListOf(),
+    public val targetProfile: List<Canonical> = listOf(),
     /**
      * If the type is a reference to another resource, how the resource is or can be aggregated - is
      * it a contained resource, or a reference, and if the context is a bundle, is it included in
@@ -634,7 +634,7 @@ public data class ElementDefinition(
      *
      * See [Aggregation Rules](elementdefinition.html#aggregation) for further clarification.
      */
-    public var aggregation: MutableList<Enumeration<AggregationMode>> = mutableListOf(),
+    public val aggregation: List<Enumeration<AggregationMode>> = listOf(),
     /**
      * Whether this reference needs to be version specific or version independent, or whether either
      * can be used.
@@ -643,7 +643,7 @@ public data class ElementDefinition(
      * guides may do this. See [Aggregation Rules](elementdefinition.html#aggregation) for further
      * clarification.
      */
-    public var versioning: Enumeration<ReferenceVersionRules>? = null,
+    public val versioning: Enumeration<ReferenceVersionRules>? = null,
   ) : Element()
 
   /**
@@ -656,7 +656,7 @@ public data class ElementDefinition(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and manageable, there is a strict set of
@@ -669,13 +669,13 @@ public data class ElementDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /** Describes the purpose of this example amoung the set of examples. */
-    public var label: String,
+    public val label: String,
     /**
      * The actual value for the element, which must be one of the types allowed for this element.
      */
-    public var `value`: Value,
+    public val `value`: Value,
   ) : Element() {
     @Serializable(with = ElementDefinitionExampleValueSerializer::class)
     public sealed interface Value {
@@ -1029,7 +1029,7 @@ public data class ElementDefinition(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and manageable, there is a strict set of
@@ -1042,31 +1042,31 @@ public data class ElementDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * Allows identification of which elements have their cardinalities impacted by the constraint.
      * Will not be referenced for constraints that do not affect cardinality.
      */
-    public var key: Id,
+    public val key: Id,
     /**
      * Description of why this constraint is necessary or appropriate.
      *
      * To be used if the reason for the constraint might not be intuitive to all implementers.
      */
-    public var requirements: String? = null,
+    public val requirements: String? = null,
     /**
      * Identifies the impact constraint violation has on the conformance of the instance.
      *
      * This allows constraints to be asserted as "shall" (error) and "should" (warning).
      */
-    public var severity: Enumeration<ConstraintSeverity>,
+    public val severity: Enumeration<ConstraintSeverity>,
     /**
      * Text that can be used to describe the constraint in messages identifying that the constraint
      * has been violated.
      *
      * Should be expressed in business terms as much as possible.
      */
-    public var human: String,
+    public val human: String,
     /**
      * A [FHIRPath](fhirpath.html) expression of constraint that can be executed to see if this
      * constraint is met.
@@ -1074,7 +1074,7 @@ public data class ElementDefinition(
      * In the absense of an expression, the expression is likely not enforceable by validators, and
      * might be missed by many systems.
      */
-    public var expression: String? = null,
+    public val expression: String? = null,
     /**
      * An XPath expression of constraint that can be executed to see if this constraint is met.
      *
@@ -1083,14 +1083,14 @@ public data class ElementDefinition(
      * useful because it does not apply to JSON and other formats and because of XSLT implementation
      * issues, and may be removed in the future.
      */
-    public var xpath: String? = null,
+    public val xpath: String? = null,
     /**
      * A reference to the original source of the constraint, for traceability purposes.
      *
      * This is used when, e.g. rendering, where it is not useful to present inherited constraints
      * when rendering the snapshot.
      */
-    public var source: Canonical? = null,
+    public val source: Canonical? = null,
   ) : Element()
 
   /**
@@ -1103,7 +1103,7 @@ public data class ElementDefinition(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and manageable, there is a strict set of
@@ -1116,23 +1116,23 @@ public data class ElementDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * Indicates the degree of conformance expectations associated with this binding - that is, the
      * degree to which the provided value set must be adhered to in the instances.
      *
      * For further discussion, see [Using Terminologies](terminologies.html).
      */
-    public var strength: Enumeration<BindingStrength>,
+    public val strength: Enumeration<BindingStrength>,
     /** Describes the intended use of this particular set of codes. */
-    public var description: String? = null,
+    public val description: String? = null,
     /**
      * Refers to the value set that identifies the set of codes the binding refers to.
      *
      * The reference may be version-specific or not (e.g. have a |[version] at the end of the
      * canonical URL).
      */
-    public var valueSet: Canonical? = null,
+    public val valueSet: Canonical? = null,
   ) : Element()
 
   /**
@@ -1144,7 +1144,7 @@ public data class ElementDefinition(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and manageable, there is a strict set of
@@ -1157,15 +1157,15 @@ public data class ElementDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /** An internal reference to the definition of a mapping. */
-    public var identity: Id,
+    public val identity: Id,
     /**
      * Identifies the computable language in which mapping.map is expressed.
      *
      * If omitted, then there can be no expectation of computational interpretation of the mapping.
      */
-    public var language: Code? = null,
+    public val language: Code? = null,
     /**
      * Expresses what part of the target specification corresponds to this element.
      *
@@ -1173,9 +1173,9 @@ public data class ElementDefinition(
      * Multiple mappings may be possible and may include constraints on other resource elements that
      * identify when a particular mapping applies.
      */
-    public var map: String,
+    public val map: String,
     /** Comments that provide information about the mapping or its use. */
-    public var comment: String? = null,
+    public val comment: String? = null,
   ) : Element()
 
   @Serializable(with = ElementDefinitionDefaultValueSerializer::class)

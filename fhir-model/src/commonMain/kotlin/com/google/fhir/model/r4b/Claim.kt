@@ -38,7 +38,7 @@ import com.google.fhir.model.r4b.serializers.ClaimSupportingInfoSerializer
 import com.google.fhir.model.r4b.serializers.ClaimSupportingInfoTimingSerializer
 import com.google.fhir.model.r4b.serializers.ClaimSupportingInfoValueSerializer
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -56,12 +56,12 @@ public data class Claim(
    * The only time that a resource does not have an id is when it is being submitted to the server
    * using a create operation.
    */
-  override var id: kotlin.String? = null,
+  override val id: kotlin.String? = null,
   /**
    * The metadata about the resource. This is content that is maintained by the infrastructure.
    * Changes to the content might not always be associated with version changes to the resource.
    */
-  override var meta: Meta? = null,
+  override val meta: Meta? = null,
   /**
    * A reference to a set of rules that were followed when the resource was constructed, and which
    * must be understood when processing the content. Often, this is a reference to an implementation
@@ -75,7 +75,7 @@ public data class Claim(
    * to an implementation guide that defines these special rules as part of it's narrative along
    * with other profiles, value sets, etc.
    */
-  override var implicitRules: Uri? = null,
+  override val implicitRules: Uri? = null,
   /**
    * The base language in which the resource is written.
    *
@@ -87,7 +87,7 @@ public data class Claim(
    * language is specified, it should it also be specified on the div element in the html (see rules
    * in HTML5 for information about the relationship between xml:lang and the html lang attribute).
    */
-  override var language: Code? = null,
+  override val language: Code? = null,
   /**
    * A human-readable narrative that contains a summary of the resource and can be used to represent
    * the content of the resource to a human. The narrative need not encode all the structured data,
@@ -101,7 +101,7 @@ public data class Claim(
    * legacy systems where information is captured as a "text blob" or where text is additionally
    * entered raw or narrated and encoded information is added later.
    */
-  override var text: Narrative? = null,
+  override val text: Narrative? = null,
   /**
    * These resources do not have an independent existence apart from the resource that contains
    * them - they cannot be identified independently, and nor can they have their own independent
@@ -112,7 +112,7 @@ public data class Claim(
    * resources may have profiles and tags In their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: MutableList<Resource> = mutableListOf(),
+  override val contained: List<Resource> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and manageable, there is a strict set of
@@ -125,7 +125,7 @@ public data class Claim(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: MutableList<Extension> = mutableListOf(),
+  override val extension: List<Extension> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -144,16 +144,16 @@ public data class Claim(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: MutableList<Extension> = mutableListOf(),
+  override val modifierExtension: List<Extension> = listOf(),
   /** A unique identifier assigned to this claim. */
-  public var identifier: MutableList<Identifier> = mutableListOf(),
+  public val identifier: List<Identifier> = listOf(),
   /**
    * The status of the resource instance.
    *
    * This element is labeled as a modifier because the status contains codes that mark the resource
    * as not currently valid.
    */
-  public var status: Enumeration<FinancialResourceStatusCodes>,
+  public val status: Enumeration<FinancialResourceStatusCodes>,
   /**
    * The category of claim, e.g. oral, pharmacy, vision, institutional, professional.
    *
@@ -161,7 +161,7 @@ public data class Claim(
    * variants on those terms, as the general styles of claims. The valueset is extensible to
    * accommodate other jurisdictional requirements.
    */
-  public var type: CodeableConcept,
+  public val type: CodeableConcept,
   /**
    * A finer grained suite of claim type codes which may convey additional information such as
    * Inpatient vs Outpatient and/or a specialty service.
@@ -169,19 +169,19 @@ public data class Claim(
    * This may contain the local bill type codes, for example the US UB-04 bill type code or the CMS
    * bill type.
    */
-  public var subType: CodeableConcept? = null,
+  public val subType: CodeableConcept? = null,
   /**
    * A code to indicate whether the nature of the request is: to request adjudication of products
    * and services previously rendered; or requesting authorization and adjudication for provision in
    * the future; or requesting the non-binding adjudication of the listed products and services
    * which could be provided in the future.
    */
-  public var use: Enumeration<Use>,
+  public val use: Enumeration<Use>,
   /**
    * The party to whom the professional services and/or products have been supplied or are being
    * considered and for whom actual or forecast reimbursement is sought.
    */
-  public var patient: Reference,
+  public val patient: Reference,
   /**
    * The period for which charges are being submitted.
    *
@@ -189,7 +189,7 @@ public data class Claim(
    * preauthorizations and predeterminations. Typically line item dates of service should fall
    * within the billing period if one is specified.
    */
-  public var billablePeriod: Period? = null,
+  public val billablePeriod: Period? = null,
   /**
    * The date this resource was created.
    *
@@ -197,11 +197,11 @@ public data class Claim(
    * creation date of a source document prior to digitization. Typically for claims all services
    * must be completed as of this date.
    */
-  public var created: DateTime,
+  public val created: DateTime,
   /** Individual who created the claim, predetermination or preauthorization. */
-  public var enterer: Reference? = null,
+  public val enterer: Reference? = null,
   /** The Insurer who is target of the request. */
-  public var insurer: Reference? = null,
+  public val insurer: Reference? = null,
   /**
    * The provider which is responsible for the claim, predetermination or preauthorization.
    *
@@ -209,7 +209,7 @@ public data class Claim(
    * necessarily professionally responsible for the provision of the individual products and
    * services listed below.
    */
-  public var provider: Reference,
+  public val provider: Reference,
   /**
    * The provider-required urgency of processing the request. Typical values include: stat, routine
    * deferred.
@@ -217,22 +217,22 @@ public data class Claim(
    * If a claim processor is unable to complete the processing as per the priority then they should
    * generate and error and not process the request.
    */
-  public var priority: CodeableConcept,
+  public val priority: CodeableConcept,
   /**
    * A code to indicate whether and for whom funds are to be reserved for future claims.
    *
    * This field is only used for preauthorizations.
    */
-  public var fundsReserve: CodeableConcept? = null,
+  public val fundsReserve: CodeableConcept? = null,
   /**
    * Other claims which are related to this claim such as prior submissions or claims for related
    * services or for the same event.
    *
    * For example, for the original treatment and follow-up exams.
    */
-  public var related: MutableList<Related> = mutableListOf(),
+  public val related: List<Related> = listOf(),
   /** Prescription to support the dispensing of pharmacy, device or vision products. */
-  public var prescription: Reference? = null,
+  public val prescription: Reference? = null,
   /**
    * Original prescription which has been superseded by this prescription to support the dispensing
    * of pharmacy services, medications or products.
@@ -243,7 +243,7 @@ public data class Claim(
    * prescription from the pharmacy becomes the 'prescription' and that from the physician becomes
    * the 'original prescription'.
    */
-  public var originalPrescription: Reference? = null,
+  public val originalPrescription: Reference? = null,
   /**
    * The party to be reimbursed for cost of the products and services according to the terms of the
    * policy.
@@ -251,29 +251,29 @@ public data class Claim(
    * Often providers agree to receive the benefits payable to reduce the near-term costs to the
    * patient. The insurer may decline to pay the provider and choose to pay the subscriber instead.
    */
-  public var payee: Payee? = null,
+  public val payee: Payee? = null,
   /**
    * A reference to a referral resource.
    *
    * The referral resource which lists the date, practitioner, reason and other supporting
    * information.
    */
-  public var referral: Reference? = null,
+  public val referral: Reference? = null,
   /** Facility where the services were provided. */
-  public var facility: Reference? = null,
+  public val facility: Reference? = null,
   /** The members of the team who provided the products and services. */
-  public var careTeam: MutableList<CareTeam> = mutableListOf(),
+  public val careTeam: List<CareTeam> = listOf(),
   /**
    * Additional information codes regarding exceptions, special considerations, the condition,
    * situation, prior or concurrent issues.
    *
    * Often there are multiple jurisdiction specific valuesets which are required.
    */
-  public var supportingInfo: MutableList<SupportingInfo> = mutableListOf(),
+  public val supportingInfo: List<SupportingInfo> = listOf(),
   /** Information about diagnoses relevant to the claim items. */
-  public var diagnosis: MutableList<Diagnosis> = mutableListOf(),
+  public val diagnosis: List<Diagnosis> = listOf(),
   /** Procedures performed on the patient relevant to the billing items with the claim. */
-  public var procedure: MutableList<Procedure> = mutableListOf(),
+  public val procedure: List<Procedure> = listOf(),
   /**
    * Financial instruments for reimbursement for the health care products and services specified on
    * the claim.
@@ -286,19 +286,19 @@ public data class Claim(
    * 'Coverage.subrogation=false', should provide a reference to the ClaimResponse containing the
    * adjudication results of the prior claim.
    */
-  public var insurance: MutableList<Insurance> = mutableListOf(),
+  public val insurance: List<Insurance> = listOf(),
   /**
    * Details of an accident which resulted in injuries which required the products and services
    * listed in the claim.
    */
-  public var accident: Accident? = null,
+  public val accident: Accident? = null,
   /**
    * A claim line. Either a simple product or service or a 'group' of details which can each be a
    * simple items or groups of sub-details.
    */
-  public var item: MutableList<Item> = mutableListOf(),
+  public val item: List<Item> = listOf(),
   /** The total value of the all the items in the claim. */
-  public var total: Money? = null,
+  public val total: Money? = null,
 ) : DomainResource() {
   /**
    * Other claims which are related to this claim such as prior submissions or claims for related
@@ -310,7 +310,7 @@ public data class Claim(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and manageable, there is a strict set of
@@ -323,7 +323,7 @@ public data class Claim(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -342,22 +342,22 @@ public data class Claim(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /** Reference to a related claim. */
-    public var claim: Reference? = null,
+    public val claim: Reference? = null,
     /**
      * A code to convey how the claims are related.
      *
      * For example, prior claim or umbrella.
      */
-    public var relationship: CodeableConcept? = null,
+    public val relationship: CodeableConcept? = null,
     /**
      * An alternate organizational reference to the case or file to which this particular claim
      * pertains.
      *
      * For example, Property/Casualty insurer claim # or Workers Compensation case # .
      */
-    public var reference: Identifier? = null,
+    public val reference: Identifier? = null,
   ) : BackboneElement()
 
   /**
@@ -370,7 +370,7 @@ public data class Claim(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and manageable, there is a strict set of
@@ -383,7 +383,7 @@ public data class Claim(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -402,15 +402,15 @@ public data class Claim(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /** Type of Party to be reimbursed: subscriber, provider, other. */
-    public var type: CodeableConcept,
+    public val type: CodeableConcept,
     /**
      * Reference to the individual or organization to whom any payment will be made.
      *
      * Not required if the payee is 'subscriber' or 'provider'.
      */
-    public var party: Reference? = null,
+    public val party: Reference? = null,
   ) : BackboneElement()
 
   /** The members of the team who provided the products and services. */
@@ -420,7 +420,7 @@ public data class Claim(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and manageable, there is a strict set of
@@ -433,7 +433,7 @@ public data class Claim(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -452,26 +452,26 @@ public data class Claim(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /** A number to uniquely identify care team entries. */
-    public var sequence: PositiveInt,
+    public val sequence: PositiveInt,
     /** Member of the team who provided the product or service. */
-    public var provider: Reference,
+    public val provider: Reference,
     /**
      * The party who is billing and/or responsible for the claimed products or services.
      *
      * Responsible might not be required when there is only a single provider listed.
      */
-    public var responsible: Boolean? = null,
+    public val responsible: Boolean? = null,
     /**
      * The lead, assisting or supervising practitioner and their discipline if a multidisciplinary
      * team.
      *
      * Role might not be required when there is only a single provider listed.
      */
-    public var role: CodeableConcept? = null,
+    public val role: CodeableConcept? = null,
     /** The qualification of the practitioner which is applicable for this service. */
-    public var qualification: CodeableConcept? = null,
+    public val qualification: CodeableConcept? = null,
   ) : BackboneElement()
 
   /**
@@ -484,7 +484,7 @@ public data class Claim(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and manageable, there is a strict set of
@@ -497,7 +497,7 @@ public data class Claim(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -516,23 +516,23 @@ public data class Claim(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /** A number to uniquely identify supporting information entries. */
-    public var sequence: PositiveInt,
+    public val sequence: PositiveInt,
     /**
      * The general class of the information supplied: information; exception; accident, employment;
      * onset, etc.
      *
      * This may contain a category for the local bill type codes.
      */
-    public var category: CodeableConcept,
+    public val category: CodeableConcept,
     /**
      * System and code pertaining to the specific information regarding special conditions relating
      * to the setting, treatment or patient for which care is sought.
      */
-    public var code: CodeableConcept? = null,
+    public val code: CodeableConcept? = null,
     /** The date when or period to which this information refers. */
-    public var timing: Timing? = null,
+    public val timing: Timing? = null,
     /**
      * Additional data or information such as resources, documents, images etc. including references
      * to the data or the actual inclusion of the data.
@@ -540,14 +540,14 @@ public data class Claim(
      * Could be used to provide references to other resources, document. For example could contain a
      * PDF in an Attachment of the Police Report for an Accident.
      */
-    public var `value`: Value? = null,
+    public val `value`: Value? = null,
     /**
      * Provides the reason in the situation where a reason code is required in addition to the
      * content.
      *
      * For example: the reason for the additional stay, or why a tooth is missing.
      */
-    public var reason: CodeableConcept? = null,
+    public val reason: CodeableConcept? = null,
   ) : BackboneElement() {
     @Serializable(with = ClaimSupportingInfoTimingSerializer::class)
     public sealed interface Timing {
@@ -620,7 +620,7 @@ public data class Claim(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and manageable, there is a strict set of
@@ -633,7 +633,7 @@ public data class Claim(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -652,26 +652,26 @@ public data class Claim(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /**
      * A number to uniquely identify diagnosis entries.
      *
      * Diagnosis are presented in list order to their expected importance: primary, secondary, etc.
      */
-    public var sequence: PositiveInt,
+    public val sequence: PositiveInt,
     /**
      * The nature of illness or problem in a coded form or as a reference to an external defined
      * Condition.
      */
-    public var diagnosis: Diagnosis,
+    public val diagnosis: Diagnosis,
     /**
      * When the condition was observed or the relative ranking.
      *
      * For example: admitting, primary, secondary, discharge.
      */
-    public var type: MutableList<CodeableConcept> = mutableListOf(),
+    public val type: List<CodeableConcept> = listOf(),
     /** Indication of whether the diagnosis was present on admission to a facility. */
-    public var onAdmission: CodeableConcept? = null,
+    public val onAdmission: CodeableConcept? = null,
     /**
      * A package billing code or bundle code used to group products and services to a particular
      * health condition (such as heart attack) which is based on a predetermined grouping code
@@ -682,7 +682,7 @@ public data class Claim(
      * item (and possible subsequent claims) would refer to the DRG for those line items that were
      * for services related to the heart attack event.
      */
-    public var packageCode: CodeableConcept? = null,
+    public val packageCode: CodeableConcept? = null,
   ) : BackboneElement() {
     @Serializable(with = ClaimDiagnosisDiagnosisSerializer::class)
     public sealed interface Diagnosis {
@@ -717,7 +717,7 @@ public data class Claim(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and manageable, there is a strict set of
@@ -730,7 +730,7 @@ public data class Claim(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -749,24 +749,24 @@ public data class Claim(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /** A number to uniquely identify procedure entries. */
-    public var sequence: PositiveInt,
+    public val sequence: PositiveInt,
     /**
      * When the condition was observed or the relative ranking.
      *
      * For example: primary, secondary.
      */
-    public var type: MutableList<CodeableConcept> = mutableListOf(),
+    public val type: List<CodeableConcept> = listOf(),
     /** Date and optionally time the procedure was performed. */
-    public var date: DateTime? = null,
+    public val date: DateTime? = null,
     /**
      * The code or reference to a Procedure resource which identifies the clinical intervention
      * performed.
      */
-    public var procedure: Procedure,
+    public val procedure: Procedure,
     /** Unique Device Identifiers associated with this line item. */
-    public var udi: MutableList<Reference> = mutableListOf(),
+    public val udi: List<Reference> = listOf(),
   ) : BackboneElement() {
     @Serializable(with = ClaimProcedureProcedureSerializer::class)
     public sealed interface Procedure {
@@ -804,7 +804,7 @@ public data class Claim(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and manageable, there is a strict set of
@@ -817,7 +817,7 @@ public data class Claim(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -836,12 +836,12 @@ public data class Claim(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /**
      * A number to uniquely identify insurance entries and provide a sequence of coverages to convey
      * coordination of benefit order.
      */
-    public var sequence: PositiveInt,
+    public val sequence: PositiveInt,
     /**
      * A flag to indicate that this Coverage is to be used for adjudication of this claim when set
      * to true.
@@ -853,7 +853,7 @@ public data class Claim(
      * this claim. Other claims would be created to request adjudication against the other listed
      * policies.
      */
-    public var focal: Boolean,
+    public val focal: Boolean,
     /**
      * The business identifier to be used when the claim is sent for adjudication against this
      * insurance policy.
@@ -862,18 +862,18 @@ public data class Claim(
      * claims to insurers that appear after them in the list. This element is not required when
      * 'subrogation=true'.
      */
-    public var identifier: Identifier? = null,
+    public val identifier: Identifier? = null,
     /**
      * Reference to the insurance card level information contained in the Coverage resource. The
      * coverage issuing insurer will use these details to locate the patient's actual coverage
      * within the insurer's information system.
      */
-    public var coverage: Reference,
+    public val coverage: Reference,
     /**
      * A business agreement number established between the provider and the insurer for special
      * business processing purposes.
      */
-    public var businessArrangement: String? = null,
+    public val businessArrangement: String? = null,
     /**
      * Reference numbers previously provided by the insurer to the provider to be quoted on
      * subsequent claims containing services or products related to the prior authorization.
@@ -881,14 +881,14 @@ public data class Claim(
      * This value is an alphanumeric string that may be provided over the phone, via text, via
      * paper, or within a ClaimResponse resource and is not a FHIR Identifier.
      */
-    public var preAuthRef: MutableList<String> = mutableListOf(),
+    public val preAuthRef: List<String> = listOf(),
     /**
      * The result of the adjudication of the line items for the Coverage specified in this
      * insurance.
      *
      * Must not be specified when 'focal=true' for this insurance.
      */
-    public var claimResponse: Reference? = null,
+    public val claimResponse: Reference? = null,
   ) : BackboneElement()
 
   /**
@@ -901,7 +901,7 @@ public data class Claim(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and manageable, there is a strict set of
@@ -914,7 +914,7 @@ public data class Claim(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -933,21 +933,21 @@ public data class Claim(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /**
      * Date of an accident event related to the products and services contained in the claim.
      *
      * The date of the accident has to precede the dates of the products and services but within a
      * reasonable timeframe.
      */
-    public var date: Date,
+    public val date: Date,
     /**
      * The type or context of the accident event for the purposes of selection of potential
      * insurance coverages and determination of coordination between insurers.
      */
-    public var type: CodeableConcept? = null,
+    public val type: CodeableConcept? = null,
     /** The physical location of the accident event. */
-    public var location: Location? = null,
+    public val location: Location? = null,
   ) : BackboneElement() {
     @Serializable(with = ClaimAccidentLocationSerializer::class)
     public sealed interface Location {
@@ -983,7 +983,7 @@ public data class Claim(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and manageable, there is a strict set of
@@ -996,7 +996,7 @@ public data class Claim(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -1015,28 +1015,28 @@ public data class Claim(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /** A number to uniquely identify item entries. */
-    public var sequence: PositiveInt,
+    public val sequence: PositiveInt,
     /** CareTeam members related to this service or product. */
-    public var careTeamSequence: MutableList<PositiveInt> = mutableListOf(),
+    public val careTeamSequence: List<PositiveInt> = listOf(),
     /** Diagnosis applicable for this service or product. */
-    public var diagnosisSequence: MutableList<PositiveInt> = mutableListOf(),
+    public val diagnosisSequence: List<PositiveInt> = listOf(),
     /** Procedures applicable for this service or product. */
-    public var procedureSequence: MutableList<PositiveInt> = mutableListOf(),
+    public val procedureSequence: List<PositiveInt> = listOf(),
     /**
      * Exceptions, special conditions and supporting information applicable for this service or
      * product.
      */
-    public var informationSequence: MutableList<PositiveInt> = mutableListOf(),
+    public val informationSequence: List<PositiveInt> = listOf(),
     /** The type of revenue or cost center providing the product and/or service. */
-    public var revenue: CodeableConcept? = null,
+    public val revenue: CodeableConcept? = null,
     /**
      * Code to identify the general type of benefits under which products and services are provided.
      *
      * Examples include Medical Care, Periodontics, Renal Dialysis, Vision Coverage.
      */
-    public var category: CodeableConcept? = null,
+    public val category: CodeableConcept? = null,
     /**
      * When the value is a group code then this item collects a set of related claim details,
      * otherwise this contains the product, service, drug or other billing code for the item.
@@ -1046,31 +1046,31 @@ public data class Claim(
      * ACHI, CCI). If a grouping item then use a group code to indicate the type of thing being
      * grouped e.g. 'glasses' or 'compound'.
      */
-    public var productOrService: CodeableConcept,
+    public val productOrService: CodeableConcept,
     /**
      * Item typification or modifiers codes to convey additional context for the product or service.
      *
      * For example in Oral whether the treatment is cosmetic or associated with TMJ, or for Medical
      * whether the treatment was outside the clinic or outside of office hours.
      */
-    public var modifier: MutableList<CodeableConcept> = mutableListOf(),
+    public val modifier: List<CodeableConcept> = listOf(),
     /**
      * Identifies the program under which this may be recovered.
      *
      * For example: Neonatal program, child dental program or drug users recovery program.
      */
-    public var programCode: MutableList<CodeableConcept> = mutableListOf(),
+    public val programCode: List<CodeableConcept> = listOf(),
     /** The date or dates when the service or product was supplied, performed or completed. */
-    public var serviced: Serviced? = null,
+    public val serviced: Serviced? = null,
     /** Where the product or service was provided. */
-    public var location: Location? = null,
+    public val location: Location? = null,
     /** The number of repetitions of a service or product. */
-    public var quantity: Quantity? = null,
+    public val quantity: Quantity? = null,
     /**
      * If the item is not a group then this is the fee for the product or service, otherwise this is
      * the total of the fees for the details of the group.
      */
-    public var unitPrice: Money? = null,
+    public val unitPrice: Money? = null,
     /**
      * A real number that represents a multiplier used in determining the overall value of services
      * delivered and/or goods received. The concept of a Factor allows for a discount or surcharge
@@ -1078,25 +1078,25 @@ public data class Claim(
      *
      * To show a 10% senior's discount, the value entered is: 0.90 (1.00 - 0.10).
      */
-    public var factor: Decimal? = null,
+    public val factor: Decimal? = null,
     /**
      * The quantity times the unit price for an additional service or product or charge.
      *
      * For example, the formula: quantity * unitPrice * factor = net. Quantity and factor are
      * assumed to be 1 if not supplied.
      */
-    public var net: Money? = null,
+    public val net: Money? = null,
     /** Unique Device Identifiers associated with this line item. */
-    public var udi: MutableList<Reference> = mutableListOf(),
+    public val udi: List<Reference> = listOf(),
     /**
      * Physical service site on the patient (limb, tooth, etc.).
      *
      * For example: Providing a tooth code, allows an insurer to identify a provider performing a
      * filling on a tooth that was previously removed.
      */
-    public var bodySite: CodeableConcept? = null,
+    public val bodySite: CodeableConcept? = null,
     /** A region or surface of the bodySite, e.g. limb region or tooth surface(s). */
-    public var subSite: MutableList<CodeableConcept> = mutableListOf(),
+    public val subSite: List<CodeableConcept> = listOf(),
     /**
      * The Encounters during which this Claim was created or to which the creation of this record is
      * tightly associated.
@@ -1105,12 +1105,12 @@ public data class Claim(
      * initiated prior to or after the official completion of an encounter but still be tied to the
      * context of the encounter.
      */
-    public var encounter: MutableList<Reference> = mutableListOf(),
+    public val encounter: List<Reference> = listOf(),
     /**
      * A claim detail line. Either a simple (a product or service) or a 'group' of sub-details which
      * are simple items.
      */
-    public var detail: MutableList<Detail> = mutableListOf(),
+    public val detail: List<Detail> = listOf(),
   ) : BackboneElement() {
     /**
      * A claim detail line. Either a simple (a product or service) or a 'group' of sub-details which
@@ -1122,7 +1122,7 @@ public data class Claim(
        * Unique id for the element within a resource (for internal references). This may be any
        * string value that does not contain spaces.
        */
-      override var id: kotlin.String? = null,
+      override val id: kotlin.String? = null,
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element. To make the use of extensions safe and manageable, there is a strict set of
@@ -1135,7 +1135,7 @@ public data class Claim(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: MutableList<Extension> = mutableListOf(),
+      override val extension: List<Extension> = listOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -1154,18 +1154,18 @@ public data class Claim(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: MutableList<Extension> = mutableListOf(),
+      override val modifierExtension: List<Extension> = listOf(),
       /** A number to uniquely identify item entries. */
-      public var sequence: PositiveInt,
+      public val sequence: PositiveInt,
       /** The type of revenue or cost center providing the product and/or service. */
-      public var revenue: CodeableConcept? = null,
+      public val revenue: CodeableConcept? = null,
       /**
        * Code to identify the general type of benefits under which products and services are
        * provided.
        *
        * Examples include Medical Care, Periodontics, Renal Dialysis, Vision Coverage.
        */
-      public var category: CodeableConcept? = null,
+      public val category: CodeableConcept? = null,
       /**
        * When the value is a group code then this item collects a set of related claim details,
        * otherwise this contains the product, service, drug or other billing code for the item.
@@ -1175,7 +1175,7 @@ public data class Claim(
        * RxNorm, ACHI, CCI). If a grouping item then use a group code to indicate the type of thing
        * being grouped e.g. 'glasses' or 'compound'.
        */
-      public var productOrService: CodeableConcept,
+      public val productOrService: CodeableConcept,
       /**
        * Item typification or modifiers codes to convey additional context for the product or
        * service.
@@ -1183,20 +1183,20 @@ public data class Claim(
        * For example in Oral whether the treatment is cosmetic or associated with TMJ, or for
        * Medical whether the treatment was outside the clinic or out of office hours.
        */
-      public var modifier: MutableList<CodeableConcept> = mutableListOf(),
+      public val modifier: List<CodeableConcept> = listOf(),
       /**
        * Identifies the program under which this may be recovered.
        *
        * For example: Neonatal program, child dental program or drug users recovery program.
        */
-      public var programCode: MutableList<CodeableConcept> = mutableListOf(),
+      public val programCode: List<CodeableConcept> = listOf(),
       /** The number of repetitions of a service or product. */
-      public var quantity: Quantity? = null,
+      public val quantity: Quantity? = null,
       /**
        * If the item is not a group then this is the fee for the product or service, otherwise this
        * is the total of the fees for the details of the group.
        */
-      public var unitPrice: Money? = null,
+      public val unitPrice: Money? = null,
       /**
        * A real number that represents a multiplier used in determining the overall value of
        * services delivered and/or goods received. The concept of a Factor allows for a discount or
@@ -1204,21 +1204,21 @@ public data class Claim(
        *
        * To show a 10% senior's discount, the value entered is: 0.90 (1.00 - 0.10).
        */
-      public var factor: Decimal? = null,
+      public val factor: Decimal? = null,
       /**
        * The quantity times the unit price for an additional service or product or charge.
        *
        * For example, the formula: quantity * unitPrice * factor = net. Quantity and factor are
        * assumed to be 1 if not supplied.
        */
-      public var net: Money? = null,
+      public val net: Money? = null,
       /** Unique Device Identifiers associated with this line item. */
-      public var udi: MutableList<Reference> = mutableListOf(),
+      public val udi: List<Reference> = listOf(),
       /**
        * A claim detail line. Either a simple (a product or service) or a 'group' of sub-details
        * which are simple items.
        */
-      public var subDetail: MutableList<SubDetail> = mutableListOf(),
+      public val subDetail: List<SubDetail> = listOf(),
     ) : BackboneElement() {
       /**
        * A claim detail line. Either a simple (a product or service) or a 'group' of sub-details
@@ -1230,7 +1230,7 @@ public data class Claim(
          * Unique id for the element within a resource (for internal references). This may be any
          * string value that does not contain spaces.
          */
-        override var id: kotlin.String? = null,
+        override val id: kotlin.String? = null,
         /**
          * May be used to represent additional information that is not part of the basic definition
          * of the element. To make the use of extensions safe and manageable, there is a strict set
@@ -1243,7 +1243,7 @@ public data class Claim(
          * extensions. The use of extensions is what allows the FHIR specification to retain a core
          * level of simplicity for everyone.
          */
-        override var extension: MutableList<Extension> = mutableListOf(),
+        override val extension: List<Extension> = listOf(),
         /**
          * May be used to represent additional information that is not part of the basic definition
          * of the element and that modifies the understanding of the element in which it is
@@ -1262,18 +1262,18 @@ public data class Claim(
          * extensions. The use of extensions is what allows the FHIR specification to retain a core
          * level of simplicity for everyone.
          */
-        override var modifierExtension: MutableList<Extension> = mutableListOf(),
+        override val modifierExtension: List<Extension> = listOf(),
         /** A number to uniquely identify item entries. */
-        public var sequence: PositiveInt,
+        public val sequence: PositiveInt,
         /** The type of revenue or cost center providing the product and/or service. */
-        public var revenue: CodeableConcept? = null,
+        public val revenue: CodeableConcept? = null,
         /**
          * Code to identify the general type of benefits under which products and services are
          * provided.
          *
          * Examples include Medical Care, Periodontics, Renal Dialysis, Vision Coverage.
          */
-        public var category: CodeableConcept? = null,
+        public val category: CodeableConcept? = null,
         /**
          * When the value is a group code then this item collects a set of related claim details,
          * otherwise this contains the product, service, drug or other billing code for the item.
@@ -1283,7 +1283,7 @@ public data class Claim(
          * RxNorm, ACHI, CCI). If a grouping item then use a group code to indicate the type of
          * thing being grouped e.g. 'glasses' or 'compound'.
          */
-        public var productOrService: CodeableConcept,
+        public val productOrService: CodeableConcept,
         /**
          * Item typification or modifiers codes to convey additional context for the product or
          * service.
@@ -1291,20 +1291,20 @@ public data class Claim(
          * For example in Oral whether the treatment is cosmetic or associated with TMJ, or for
          * Medical whether the treatment was outside the clinic or out of office hours.
          */
-        public var modifier: MutableList<CodeableConcept> = mutableListOf(),
+        public val modifier: List<CodeableConcept> = listOf(),
         /**
          * Identifies the program under which this may be recovered.
          *
          * For example: Neonatal program, child dental program or drug users recovery program.
          */
-        public var programCode: MutableList<CodeableConcept> = mutableListOf(),
+        public val programCode: List<CodeableConcept> = listOf(),
         /** The number of repetitions of a service or product. */
-        public var quantity: Quantity? = null,
+        public val quantity: Quantity? = null,
         /**
          * If the item is not a group then this is the fee for the product or service, otherwise
          * this is the total of the fees for the details of the group.
          */
-        public var unitPrice: Money? = null,
+        public val unitPrice: Money? = null,
         /**
          * A real number that represents a multiplier used in determining the overall value of
          * services delivered and/or goods received. The concept of a Factor allows for a discount
@@ -1312,16 +1312,16 @@ public data class Claim(
          *
          * To show a 10% senior's discount, the value entered is: 0.90 (1.00 - 0.10).
          */
-        public var factor: Decimal? = null,
+        public val factor: Decimal? = null,
         /**
          * The quantity times the unit price for an additional service or product or charge.
          *
          * For example, the formula: quantity * unitPrice * factor = net. Quantity and factor are
          * assumed to be 1 if not supplied.
          */
-        public var net: Money? = null,
+        public val net: Money? = null,
         /** Unique Device Identifiers associated with this line item. */
-        public var udi: MutableList<Reference> = mutableListOf(),
+        public val udi: List<Reference> = listOf(),
       ) : BackboneElement()
     }
 

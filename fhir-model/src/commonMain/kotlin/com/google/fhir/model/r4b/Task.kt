@@ -25,7 +25,7 @@ import com.google.fhir.model.r4b.serializers.TaskOutputValueSerializer
 import com.google.fhir.model.r4b.serializers.TaskRestrictionSerializer
 import com.google.fhir.model.r4b.serializers.TaskSerializer
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -40,12 +40,12 @@ public data class Task(
    * The only time that a resource does not have an id is when it is being submitted to the server
    * using a create operation.
    */
-  override var id: kotlin.String? = null,
+  override val id: kotlin.String? = null,
   /**
    * The metadata about the resource. This is content that is maintained by the infrastructure.
    * Changes to the content might not always be associated with version changes to the resource.
    */
-  override var meta: Meta? = null,
+  override val meta: Meta? = null,
   /**
    * A reference to a set of rules that were followed when the resource was constructed, and which
    * must be understood when processing the content. Often, this is a reference to an implementation
@@ -59,7 +59,7 @@ public data class Task(
    * to an implementation guide that defines these special rules as part of it's narrative along
    * with other profiles, value sets, etc.
    */
-  override var implicitRules: Uri? = null,
+  override val implicitRules: Uri? = null,
   /**
    * The base language in which the resource is written.
    *
@@ -71,7 +71,7 @@ public data class Task(
    * language is specified, it should it also be specified on the div element in the html (see rules
    * in HTML5 for information about the relationship between xml:lang and the html lang attribute).
    */
-  override var language: Code? = null,
+  override val language: Code? = null,
   /**
    * A human-readable narrative that contains a summary of the resource and can be used to represent
    * the content of the resource to a human. The narrative need not encode all the structured data,
@@ -85,7 +85,7 @@ public data class Task(
    * legacy systems where information is captured as a "text blob" or where text is additionally
    * entered raw or narrated and encoded information is added later.
    */
-  override var text: Narrative? = null,
+  override val text: Narrative? = null,
   /**
    * These resources do not have an independent existence apart from the resource that contains
    * them - they cannot be identified independently, and nor can they have their own independent
@@ -96,7 +96,7 @@ public data class Task(
    * resources may have profiles and tags In their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: MutableList<Resource> = mutableListOf(),
+  override val contained: List<Resource> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and manageable, there is a strict set of
@@ -109,7 +109,7 @@ public data class Task(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: MutableList<Extension> = mutableListOf(),
+  override val extension: List<Extension> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -128,19 +128,19 @@ public data class Task(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: MutableList<Extension> = mutableListOf(),
+  override val modifierExtension: List<Extension> = listOf(),
   /** The business identifier for this task. */
-  public var identifier: MutableList<Identifier> = mutableListOf(),
+  public val identifier: List<Identifier> = listOf(),
   /**
    * The URL pointing to a *FHIR*-defined protocol, guideline, orderset or other definition that is
    * adhered to in whole or in part by this Task.
    */
-  public var instantiatesCanonical: Canonical? = null,
+  public val instantiatesCanonical: Canonical? = null,
   /**
    * The URL pointing to an *externally* maintained protocol, guideline, orderset or other
    * definition that is adhered to in whole or in part by this Task.
    */
-  public var instantiatesUri: Uri? = null,
+  public val instantiatesUri: Uri? = null,
   /**
    * BasedOn refers to a higher-level authorization that triggered the creation of the task. It
    * references a "request" resource such as a ServiceRequest, MedicationRequest, ServiceRequest,
@@ -149,29 +149,29 @@ public data class Task(
    * BasedOn), a task is created to fulfill a procedureRequest ( = FocusOn ) to collect a specimen
    * from a patient.
    */
-  public var basedOn: MutableList<Reference> = mutableListOf(),
+  public val basedOn: List<Reference> = listOf(),
   /**
    * An identifier that links together multiple tasks and other requests that were created in the
    * same context.
    */
-  public var groupIdentifier: Identifier? = null,
+  public val groupIdentifier: Identifier? = null,
   /**
    * Task that this particular task is part of.
    *
    * This should usually be 0..1.
    */
-  public var partOf: MutableList<Reference> = mutableListOf(),
+  public val partOf: List<Reference> = listOf(),
   /** The current status of the task. */
-  public var status: Enumeration<TaskStatus>,
+  public val status: Enumeration<TaskStatus>,
   /**
    * An explanation as to why this task is held, failed, was refused, etc.
    *
    * This applies to the current status. Look at the history of the task to see reasons for past
    * statuses.
    */
-  public var statusReason: CodeableConcept? = null,
+  public val statusReason: CodeableConcept? = null,
   /** Contains business-specific nuances of the business state. */
-  public var businessStatus: CodeableConcept? = null,
+  public val businessStatus: CodeableConcept? = null,
   /**
    * Indicates the "level" of actionability associated with the Task, i.e. i+R[9]Cs this a proposed
    * task, a planned task, an actionable task, etc.
@@ -180,62 +180,62 @@ public data class Task(
    *
    * In most cases, Tasks will have an intent of "order".
    */
-  public var intent: Enumeration<TaskIntent>,
+  public val intent: Enumeration<TaskIntent>,
   /** Indicates how quickly the Task should be addressed with respect to other requests. */
-  public var priority: Enumeration<RequestPriority>? = null,
+  public val priority: Enumeration<RequestPriority>? = null,
   /**
    * A name or code (or both) briefly describing what the task involves.
    *
    * The title (eg "My Tasks", "Outstanding Tasks for Patient X") should go into the code.
    */
-  public var code: CodeableConcept? = null,
+  public val code: CodeableConcept? = null,
   /** A free-text description of what is to be performed. */
-  public var description: String? = null,
+  public val description: String? = null,
   /**
    * The request being actioned or the resource being manipulated by this task.
    *
    * If multiple resources need to be manipulated, use sub-tasks. (This ensures that status can be
    * tracked independently for each referenced resource.).
    */
-  public var focus: Reference? = null,
+  public val focus: Reference? = null,
   /**
    * The entity who benefits from the performance of the service specified in the task (e.g., the
    * patient).
    */
-  public var `for`: Reference? = null,
+  public val `for`: Reference? = null,
   /**
    * The healthcare event (e.g. a patient and healthcare provider interaction) during which this
    * task was created.
    */
-  public var encounter: Reference? = null,
+  public val encounter: Reference? = null,
   /**
    * Identifies the time action was first taken against the task (start) and/or the time final
    * action was taken against the task prior to marking it as completed (end).
    */
-  public var executionPeriod: Period? = null,
+  public val executionPeriod: Period? = null,
   /** The date and time this task was created. */
-  public var authoredOn: DateTime? = null,
+  public val authoredOn: DateTime? = null,
   /** The date and time of last modification to this task. */
-  public var lastModified: DateTime? = null,
+  public val lastModified: DateTime? = null,
   /** The creator of the task. */
-  public var requester: Reference? = null,
+  public val requester: Reference? = null,
   /** The kind of participant that should perform the task. */
-  public var performerType: MutableList<CodeableConcept> = mutableListOf(),
+  public val performerType: List<CodeableConcept> = listOf(),
   /**
    * Individual organization or Device currently responsible for task execution.
    *
    * Tasks may be created with an owner not yet identified.
    */
-  public var owner: Reference? = null,
+  public val owner: Reference? = null,
   /** Principal physical location where the this task is performed. */
-  public var location: Reference? = null,
+  public val location: Reference? = null,
   /**
    * A description or code indicating why this task needs to be performed.
    *
    * This should only be included if there is no focus or if it differs from the reason indicated on
    * the focus.
    */
-  public var reasonCode: CodeableConcept? = null,
+  public val reasonCode: CodeableConcept? = null,
   /**
    * A resource reference indicating why this task needs to be performed.
    *
@@ -244,14 +244,14 @@ public data class Task(
    * indicated on the focus. Use the CodeableConcept text element in `Task.reasonCode` if the data
    * is free (uncoded) text.
    */
-  public var reasonReference: Reference? = null,
+  public val reasonReference: Reference? = null,
   /**
    * Insurance plans, coverage extensions, pre-authorizations and/or pre-determinations that may be
    * relevant to the Task.
    */
-  public var insurance: MutableList<Reference> = mutableListOf(),
+  public val insurance: List<Reference> = listOf(),
   /** Free-text information captured about the task as it progresses. */
-  public var note: MutableList<Annotation> = mutableListOf(),
+  public val note: List<Annotation> = listOf(),
   /**
    * Links to Provenance records for past versions of this Task that identify key state transitions
    * or updates that are likely to be relevant to a user looking at the current version of the task.
@@ -260,17 +260,17 @@ public data class Task(
    * resource - as it would be created after this version existed. The Provenance for the current
    * version can be retrieved with a _revinclude.
    */
-  public var relevantHistory: MutableList<Reference> = mutableListOf(),
+  public val relevantHistory: List<Reference> = listOf(),
   /**
    * If the Task.focus is a request resource and the task is seeking fulfillment (i.e. is asking for
    * the request to be actioned), this element identifies any limitations on what parts of the
    * referenced request should be actioned.
    */
-  public var restriction: Restriction? = null,
+  public val restriction: Restriction? = null,
   /** Additional information that may be needed in the execution of the task. */
-  public var input: MutableList<Input> = mutableListOf(),
+  public val input: List<Input> = listOf(),
   /** Outputs produced by the Task. */
-  public var output: MutableList<Output> = mutableListOf(),
+  public val output: List<Output> = listOf(),
 ) : DomainResource() {
   /**
    * If the Task.focus is a request resource and the task is seeking fulfillment (i.e. is asking for
@@ -283,7 +283,7 @@ public data class Task(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and manageable, there is a strict set of
@@ -296,7 +296,7 @@ public data class Task(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -315,21 +315,21 @@ public data class Task(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /** Indicates the number of times the requested action should occur. */
-    public var repetitions: PositiveInt? = null,
+    public val repetitions: PositiveInt? = null,
     /**
      * Over what time-period is fulfillment sought.
      *
      * Note that period.high is the due date representing the time by which the task should be
      * completed.
      */
-    public var period: Period? = null,
+    public val period: Period? = null,
     /**
      * For requests that are targeted to more than on potential recipient/target, for whom is
      * fulfillment sought?
      */
-    public var recipient: MutableList<Reference> = mutableListOf(),
+    public val recipient: List<Reference> = listOf(),
   ) : BackboneElement()
 
   /** Additional information that may be needed in the execution of the task. */
@@ -339,7 +339,7 @@ public data class Task(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and manageable, there is a strict set of
@@ -352,7 +352,7 @@ public data class Task(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -371,7 +371,7 @@ public data class Task(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /**
      * A code or description indicating how the input is intended to be used as part of the task
      * execution.
@@ -379,9 +379,9 @@ public data class Task(
      * If referencing a BPMN workflow or Protocol, the "system" is the URL for the workflow
      * definition and the code is the "name" of the required input.
      */
-    public var type: CodeableConcept,
+    public val type: CodeableConcept,
     /** The value of the input parameter as a basic type. */
-    public var `value`: Value,
+    public val `value`: Value,
   ) : BackboneElement() {
     @Serializable(with = TaskInputValueSerializer::class)
     public sealed interface Value {
@@ -723,7 +723,7 @@ public data class Task(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and manageable, there is a strict set of
@@ -736,7 +736,7 @@ public data class Task(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -755,11 +755,11 @@ public data class Task(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /** The name of the Output parameter. */
-    public var type: CodeableConcept,
+    public val type: CodeableConcept,
     /** The value of the Output parameter as a basic type. */
-    public var `value`: Value,
+    public val `value`: Value,
   ) : BackboneElement() {
     @Serializable(with = TaskOutputValueSerializer::class)
     public sealed interface Value {

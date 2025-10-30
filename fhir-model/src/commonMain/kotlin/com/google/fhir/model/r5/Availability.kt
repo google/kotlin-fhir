@@ -22,7 +22,7 @@ import com.google.fhir.model.r5.serializers.AvailabilityAvailableTimeSerializer
 import com.google.fhir.model.r5.serializers.AvailabilityNotAvailableTimeSerializer
 import com.google.fhir.model.r5.serializers.AvailabilitySerializer
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 
 /** Availability Type: Availability data for an {item}. */
@@ -32,7 +32,7 @@ public data class Availability(
    * Unique id for the element within a resource (for internal references). This may be any string
    * value that does not contain spaces.
    */
-  override var id: kotlin.String? = null,
+  override val id: kotlin.String? = null,
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * element. To make the use of extensions safe and managable, there is a strict set of governance
@@ -45,11 +45,11 @@ public data class Availability(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: MutableList<Extension> = mutableListOf(),
+  override val extension: List<Extension> = listOf(),
   /** Times the {item} is available. */
-  public var availableTime: MutableList<AvailableTime> = mutableListOf(),
+  public val availableTime: List<AvailableTime> = listOf(),
   /** Not available during this time due to provided reason. */
-  public var notAvailableTime: MutableList<NotAvailableTime> = mutableListOf(),
+  public val notAvailableTime: List<NotAvailableTime> = listOf(),
 ) : DataType() {
   /** Times the {item} is available. */
   @Serializable(with = AvailabilityAvailableTimeSerializer::class)
@@ -58,7 +58,7 @@ public data class Availability(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -71,23 +71,23 @@ public data class Availability(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /** mon | tue | wed | thu | fri | sat | sun. */
-    public var daysOfWeek: MutableList<Enumeration<DaysOfWeek>> = mutableListOf(),
+    public val daysOfWeek: List<Enumeration<DaysOfWeek>> = listOf(),
     /** Always available? i.e. 24 hour service. */
-    public var allDay: Boolean? = null,
+    public val allDay: Boolean? = null,
     /**
      * Opening time of day (ignored if allDay = true).
      *
      * The timezone is expected to be specified or implied by the context this datatype is used.
      */
-    public var availableStartTime: Time? = null,
+    public val availableStartTime: Time? = null,
     /**
      * Closing time of day (ignored if allDay = true).
      *
      * The timezone is expected to be specified or implied by the context this datatype is used.
      */
-    public var availableEndTime: Time? = null,
+    public val availableEndTime: Time? = null,
   ) : Element()
 
   /** Not available during this time due to provided reason. */
@@ -97,7 +97,7 @@ public data class Availability(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -110,7 +110,7 @@ public data class Availability(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * Reason presented to the user explaining why time not available.
      *
@@ -123,9 +123,9 @@ public data class Availability(
      * the `during` period, unless this was a university hospital and the "summer" period was well
      * known, but would recommend its inclusion anyway.
      */
-    public var description: String? = null,
+    public val description: String? = null,
     /** Service not available during this period. */
-    public var during: Period? = null,
+    public val during: Period? = null,
   ) : Element()
 
   /** The days of the week. */

@@ -31,7 +31,7 @@ import com.google.fhir.model.r4.serializers.ValueSetSerializer
 import com.google.fhir.model.r4.terminologies.CommonLanguages
 import com.google.fhir.model.r4.terminologies.PublicationStatus
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -50,12 +50,12 @@ public data class ValueSet(
    * The only time that a resource does not have an id is when it is being submitted to the server
    * using a create operation.
    */
-  override var id: kotlin.String? = null,
+  override val id: kotlin.String? = null,
   /**
    * The metadata about the resource. This is content that is maintained by the infrastructure.
    * Changes to the content might not always be associated with version changes to the resource.
    */
-  override var meta: Meta? = null,
+  override val meta: Meta? = null,
   /**
    * A reference to a set of rules that were followed when the resource was constructed, and which
    * must be understood when processing the content. Often, this is a reference to an implementation
@@ -69,7 +69,7 @@ public data class ValueSet(
    * to an implementation guide that defines these special rules as part of it's narrative along
    * with other profiles, value sets, etc.
    */
-  override var implicitRules: Uri? = null,
+  override val implicitRules: Uri? = null,
   /**
    * The base language in which the resource is written.
    *
@@ -81,7 +81,7 @@ public data class ValueSet(
    * language is specified, it should it also be specified on the div element in the html (see rules
    * in HTML5 for information about the relationship between xml:lang and the html lang attribute).
    */
-  override var language: Code? = null,
+  override val language: Code? = null,
   /**
    * A human-readable narrative that contains a summary of the resource and can be used to represent
    * the content of the resource to a human. The narrative need not encode all the structured data,
@@ -95,7 +95,7 @@ public data class ValueSet(
    * legacy systems where information is captured as a "text blob" or where text is additionally
    * entered raw or narrated and encoded information is added later.
    */
-  override var text: Narrative? = null,
+  override val text: Narrative? = null,
   /**
    * These resources do not have an independent existence apart from the resource that contains
    * them - they cannot be identified independently, and nor can they have their own independent
@@ -106,7 +106,7 @@ public data class ValueSet(
    * resources may have profiles and tags In their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: MutableList<Resource> = mutableListOf(),
+  override val contained: List<Resource> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and manageable, there is a strict set of
@@ -119,7 +119,7 @@ public data class ValueSet(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: MutableList<Extension> = mutableListOf(),
+  override val extension: List<Extension> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -138,7 +138,7 @@ public data class ValueSet(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: MutableList<Extension> = mutableListOf(),
+  override val modifierExtension: List<Extension> = listOf(),
   /**
    * An absolute URI that is used to identify this value set when it is referenced in a
    * specification, model, design or an instance; also called its canonical identifier. This SHOULD
@@ -157,7 +157,7 @@ public data class ValueSet(
    * change. Implementations can use the [meta.source](resource.html#meta) element to indicate where
    * the current master source of the resource can be found.
    */
-  public var url: Uri? = null,
+  public val url: Uri? = null,
   /**
    * A formal identifier that is used to identify this value set when it is represented in other
    * formats, or referenced in a specification, model, design or an instance.
@@ -166,7 +166,7 @@ public data class ValueSet(
    * type, and can then identify this value set outside of FHIR, where it is not possible to use the
    * logical URI.
    */
-  public var identifier: MutableList<Identifier> = mutableListOf(),
+  public val identifier: List<Identifier> = listOf(),
   /**
    * The identifier that is used to identify this version of the value set when it is referenced in
    * a specification, model, design or instance. This is an arbitrary value managed by the value set
@@ -178,7 +178,7 @@ public data class ValueSet(
    * versions. The version can be appended to the url in a reference to allow a reference to a
    * particular business version of the value set with the format [url]|[version].
    */
-  public var version: String? = null,
+  public val version: String? = null,
   /**
    * A natural language name identifying the value set. This name should be usable as an identifier
    * for the module by machine processing applications such as code generation.
@@ -188,14 +188,14 @@ public data class ValueSet(
    * value set is a contained resource (e.g. an anonymous value set in a profile). Most registries
    * will require a name.
    */
-  public var name: String? = null,
+  public val name: String? = null,
   /**
    * A short, descriptive, user-friendly title for the value set.
    *
    * This name does not need to be machine-processing friendly and may contain punctuation,
    * white-space, etc.
    */
-  public var title: String? = null,
+  public val title: String? = null,
   /**
    * The status of this value set. Enables tracking the life-cycle of the content. The status of the
    * value set applies to the value set definition (ValueSet.compose) and the associated ValueSet
@@ -205,14 +205,14 @@ public data class ValueSet(
    * [valueset-workflowStatus](extension-valueset-workflowstatus.html) extension for additional
    * status information related to the editorial process.
    */
-  public var status: Enumeration<PublicationStatus>,
+  public val status: Enumeration<PublicationStatus>,
   /**
    * A Boolean value to indicate that this value set is authored for testing purposes (or
    * education/evaluation/marketing) and is not intended to be used for genuine usage.
    *
    * Allows filtering of value sets that are appropriate for use versus not.
    */
-  public var experimental: Boolean? = null,
+  public val experimental: Boolean? = null,
   /**
    * The date (and optionally time) when the value set was created or revised (e.g. the 'content
    * logical definition').
@@ -221,7 +221,7 @@ public data class ValueSet(
    * secondary representation of the value set. Additional specific dates may be added as extensions
    * or be found by consulting Provenances associated with past versions of the resource.
    */
-  public var date: DateTime? = null,
+  public val date: DateTime? = null,
   /**
    * The name of the organization or individual that published the value set.
    *
@@ -232,13 +232,13 @@ public data class ValueSet(
    * issues with the value set. This item SHOULD be populated unless the information is available
    * from context.
    */
-  public var publisher: String? = null,
+  public val publisher: String? = null,
   /**
    * Contact details to assist a user in finding and communicating with the publisher.
    *
    * May be a web site, an email address, a telephone number, etc.
    */
-  public var contact: MutableList<ContactDetail> = mutableListOf(),
+  public val contact: List<ContactDetail> = listOf(),
   /**
    * A free text natural language description of the value set from a consumer's perspective. The
    * textual description specifies the span of meanings for concepts to be included within the Value
@@ -256,7 +256,7 @@ public data class ValueSet(
    * the value set is a contained resource (e.g. an anonymous value set in a profile). Most
    * registries will require a description.
    */
-  public var description: Markdown? = null,
+  public val description: Markdown? = null,
   /**
    * The content was developed with a focus and intent of supporting the contexts that are listed.
    * These contexts may be general categories (gender, age, ...) or may be references to specific
@@ -266,14 +266,14 @@ public data class ValueSet(
    * When multiple useContexts are specified, there is no expectation that all or any of the
    * contexts apply.
    */
-  public var useContext: MutableList<UsageContext> = mutableListOf(),
+  public val useContext: List<UsageContext> = listOf(),
   /**
    * A legal or geographic region in which the value set is intended to be used.
    *
    * It may be possible for the value set to be used in jurisdictions other than those for which it
    * was originally designed or intended.
    */
-  public var jurisdiction: MutableList<CodeableConcept> = mutableListOf(),
+  public val jurisdiction: List<CodeableConcept> = listOf(),
   /**
    * If this is set to 'true', then no new versions of the content logical definition can be
    * created. Note: Other metadata might still change.
@@ -286,7 +286,7 @@ public data class ValueSet(
    * such that someone else could safely make changes to the value set definition. Source workflow
    * control must guarantee that the same URI always yields the same definition.
    */
-  public var immutable: Boolean? = null,
+  public val immutable: Boolean? = null,
   /**
    * Explanation of why this value set is needed and why it has been designed as it has.
    *
@@ -294,7 +294,7 @@ public data class ValueSet(
    * ''why'' the resource is either needed or ''why'' it is defined as it is. This may be used to
    * point to source materials or specifications that drove the structure of this value set.
    */
-  public var purpose: Markdown? = null,
+  public val purpose: Markdown? = null,
   /**
    * A copyright statement relating to the value set and/or its contents. Copyright statements are
    * generally legal restrictions on the use and publishing of the value set.
@@ -302,13 +302,13 @@ public data class ValueSet(
    * nullFrequently, the copyright differs between the value set and the codes that are included.
    * The copyright statement should clearly differentiate between these when required.
    */
-  public var copyright: Markdown? = null,
+  public val copyright: Markdown? = null,
   /**
    * A set of criteria that define the contents of the value set by including or excluding codes
    * selected from the specified code system(s) that the value set draws from. This is also known as
    * the Content Logical Definition (CLD).
    */
-  public var compose: Compose? = null,
+  public val compose: Compose? = null,
   /**
    * A value set can also be "expanded", where the value set is turned into a simple collection of
    * enumerated codes. This element holds the expansion, if it has been performed.
@@ -321,7 +321,7 @@ public data class ValueSet(
    * Expansion.parameter is a simplified list of parameters - a subset of the features of the
    * [Parameters](parameters.html) resource.
    */
-  public var expansion: Expansion? = null,
+  public val expansion: Expansion? = null,
 ) : DomainResource() {
   /**
    * A set of criteria that define the contents of the value set by including or excluding codes
@@ -334,7 +334,7 @@ public data class ValueSet(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and manageable, there is a strict set of
@@ -347,7 +347,7 @@ public data class ValueSet(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -366,7 +366,7 @@ public data class ValueSet(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /**
      * The Locked Date is the effective date that is used to determine the version of all referenced
      * Code Systems and Value Set Definitions included in the compose that are not already tied to a
@@ -379,7 +379,7 @@ public data class ValueSet(
      * specifies a version for include and exclude statements, and also specifies a locked date, the
      * specified versions need to be available that date, or the value set will not be usable.
      */
-    public var lockedDate: Date? = null,
+    public val lockedDate: Date? = null,
     /**
      * Whether inactive codes - codes that are not approved for current use - are in the value set.
      * If inactive = true, inactive codes are to be included in the expansion, if inactive = false,
@@ -395,7 +395,7 @@ public data class ValueSet(
      * The Value Set Definition specification defines an ActiveOnly element, which is the reverse of
      * this element e.g. (ValueSet.compose.inactive=FALSE) is the same as (VSD.ActiveOnly=TRUE).
      */
-    public var inactive: Boolean? = null,
+    public val inactive: Boolean? = null,
     /**
      * Include one or more codes from a code system or other value set(s).
      *
@@ -404,7 +404,7 @@ public data class ValueSet(
      * or more value sets are listed, the codes must be in all the value sets. E.g. each include is
      * 'include all the codes that meet all these conditions'.
      */
-    public var include: MutableList<Include> = mutableListOf(),
+    public val include: List<Include> = listOf(),
     /**
      * Exclude one or more codes from the value set based on code system filters and/or other value
      * sets.
@@ -412,7 +412,7 @@ public data class ValueSet(
      * Usually this is used to selectively exclude codes that were included by subsumption in the
      * inclusions. Any display names specified for the codes are ignored.
      */
-    public var exclude: MutableList<Include> = mutableListOf(),
+    public val exclude: List<Include> = listOf(),
   ) : BackboneElement() {
     /** Include one or more codes from a code system or other value set(s). */
     @Serializable(with = ValueSetComposeIncludeSerializer::class)
@@ -421,7 +421,7 @@ public data class ValueSet(
        * Unique id for the element within a resource (for internal references). This may be any
        * string value that does not contain spaces.
        */
-      override var id: kotlin.String? = null,
+      override val id: kotlin.String? = null,
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element. To make the use of extensions safe and manageable, there is a strict set of
@@ -434,7 +434,7 @@ public data class ValueSet(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: MutableList<Extension> = mutableListOf(),
+      override val extension: List<Extension> = listOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -453,7 +453,7 @@ public data class ValueSet(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: MutableList<Extension> = mutableListOf(),
+      override val modifierExtension: List<Extension> = listOf(),
       /**
        * An absolute URI which is the code system from which the selected codes come from.
        *
@@ -461,7 +461,7 @@ public data class ValueSet(
        * codes that are included may contain abstract codes. See ''Coding.system'' for further
        * documentation about the correct value for the system element.
        */
-      public var system: Uri? = null,
+      public val system: Uri? = null,
       /**
        * The version of the code system that the codes are selected from, or the special version '*'
        * for all versions.
@@ -472,7 +472,7 @@ public data class ValueSet(
        * all versions; It is at server discretion regarding expansions and which versions must be
        * supported.
        */
-      public var version: String? = null,
+      public val version: String? = null,
       /**
        * Specifies a concept to be included or excluded.
        *
@@ -480,7 +480,7 @@ public data class ValueSet(
        * significance. Typically, the order of an expansion follows that defined in the compose
        * element.
        */
-      public var concept: MutableList<Concept> = mutableListOf(),
+      public val concept: List<Concept> = listOf(),
       /**
        * Select concepts by specify a matching criterion based on the properties (including
        * relationships) defined by the system, or on filters defined by the system. If multiple
@@ -491,7 +491,7 @@ public data class ValueSet(
        * underlying code system defines the logical concepts but not the literal codes for the
        * concepts. In such cases, the literal definitions may be provided by a third party.
        */
-      public var filter: MutableList<Filter> = mutableListOf(),
+      public val filter: List<Filter> = listOf(),
       /**
        * Selects the concepts found in this value set (based on its value set definition). This is
        * an absolute URI that is a reference to ValueSet.url. If multiple value sets are specified
@@ -503,7 +503,7 @@ public data class ValueSet(
        * resource; in this case, whatever is referred to is an implicit definition of a value set
        * that needs to be clear about how versions are resolved.
        */
-      public var valueSet: MutableList<Canonical> = mutableListOf(),
+      public val valueSet: List<Canonical> = listOf(),
     ) : BackboneElement() {
       /** Specifies a concept to be included or excluded. */
       @Serializable(with = ValueSetComposeIncludeConceptSerializer::class)
@@ -512,7 +512,7 @@ public data class ValueSet(
          * Unique id for the element within a resource (for internal references). This may be any
          * string value that does not contain spaces.
          */
-        override var id: kotlin.String? = null,
+        override val id: kotlin.String? = null,
         /**
          * May be used to represent additional information that is not part of the basic definition
          * of the element. To make the use of extensions safe and manageable, there is a strict set
@@ -525,7 +525,7 @@ public data class ValueSet(
          * extensions. The use of extensions is what allows the FHIR specification to retain a core
          * level of simplicity for everyone.
          */
-        override var extension: MutableList<Extension> = mutableListOf(),
+        override val extension: List<Extension> = listOf(),
         /**
          * May be used to represent additional information that is not part of the basic definition
          * of the element and that modifies the understanding of the element in which it is
@@ -544,13 +544,13 @@ public data class ValueSet(
          * extensions. The use of extensions is what allows the FHIR specification to retain a core
          * level of simplicity for everyone.
          */
-        override var modifierExtension: MutableList<Extension> = mutableListOf(),
+        override val modifierExtension: List<Extension> = listOf(),
         /**
          * Specifies a code for the concept to be included or excluded.
          *
          * Expressions are allowed if defined by the underlying code system.
          */
-        public var code: Code,
+        public val code: Code,
         /**
          * The text to display to the user for this concept in the context of this valueset. If no
          * display is provided, then applications using the value set use the display specified for
@@ -560,7 +560,7 @@ public data class ValueSet(
          * concept is used in this particular value set. See notes in the value set narrative about
          * the correct use of this element.
          */
-        public var display: String? = null,
+        public val display: String? = null,
         /**
          * Additional representations for this concept when used in this value set - other
          * languages, aliases, specialized purposes, used for particular purposes, etc.
@@ -569,7 +569,7 @@ public data class ValueSet(
          * equivalent to a special designation with an implied ```designation.use``` of "primary
          * code" and a language equal to the [Resource Language](resource.html#language).
          */
-        public var designation: MutableList<Designation> = mutableListOf(),
+        public val designation: List<Designation> = listOf(),
       ) : BackboneElement() {
         /**
          * Additional representations for this concept when used in this value set - other
@@ -581,7 +581,7 @@ public data class ValueSet(
            * Unique id for the element within a resource (for internal references). This may be any
            * string value that does not contain spaces.
            */
-          override var id: kotlin.String? = null,
+          override val id: kotlin.String? = null,
           /**
            * May be used to represent additional information that is not part of the basic
            * definition of the element. To make the use of extensions safe and manageable, there is
@@ -594,7 +594,7 @@ public data class ValueSet(
            * defines the extensions. The use of extensions is what allows the FHIR specification to
            * retain a core level of simplicity for everyone.
            */
-          override var extension: MutableList<Extension> = mutableListOf(),
+          override val extension: List<Extension> = listOf(),
           /**
            * May be used to represent additional information that is not part of the basic
            * definition of the element and that modifies the understanding of the element in which
@@ -613,22 +613,22 @@ public data class ValueSet(
            * defines the extensions. The use of extensions is what allows the FHIR specification to
            * retain a core level of simplicity for everyone.
            */
-          override var modifierExtension: MutableList<Extension> = mutableListOf(),
+          override val modifierExtension: List<Extension> = listOf(),
           /**
            * The language this designation is defined for.
            *
            * In the absence of a language, the resource language applies.
            */
-          public var language: Enumeration<CommonLanguages>? = null,
+          public val language: Enumeration<CommonLanguages>? = null,
           /**
            * A code that represents types of uses of designations.
            *
            * If no use is provided, the designation can be assumed to be suitable for general
            * display to a human user.
            */
-          public var use: Coding? = null,
+          public val use: Coding? = null,
           /** The text value for this designation. */
-          public var `value`: String,
+          public val `value`: String,
         ) : BackboneElement()
       }
 
@@ -643,7 +643,7 @@ public data class ValueSet(
          * Unique id for the element within a resource (for internal references). This may be any
          * string value that does not contain spaces.
          */
-        override var id: kotlin.String? = null,
+        override val id: kotlin.String? = null,
         /**
          * May be used to represent additional information that is not part of the basic definition
          * of the element. To make the use of extensions safe and manageable, there is a strict set
@@ -656,7 +656,7 @@ public data class ValueSet(
          * extensions. The use of extensions is what allows the FHIR specification to retain a core
          * level of simplicity for everyone.
          */
-        override var extension: MutableList<Extension> = mutableListOf(),
+        override val extension: List<Extension> = listOf(),
         /**
          * May be used to represent additional information that is not part of the basic definition
          * of the element and that modifies the understanding of the element in which it is
@@ -675,9 +675,9 @@ public data class ValueSet(
          * extensions. The use of extensions is what allows the FHIR specification to retain a core
          * level of simplicity for everyone.
          */
-        override var modifierExtension: MutableList<Extension> = mutableListOf(),
+        override val modifierExtension: List<Extension> = listOf(),
         /** A code that identifies a property or a filter defined in the code system. */
-        public var `property`: Code,
+        public val `property`: Code,
         /**
          * The kind of operation to perform as a part of the filter criteria.
          *
@@ -685,7 +685,7 @@ public data class ValueSet(
          * selected property. In case filter.property represents a filter of the system, the
          * operation SHALL match one of the CodeSystem.filter.operator values.
          */
-        public var op: Enumeration<FilterOperator>,
+        public val op: Enumeration<FilterOperator>,
         /**
          * The match value may be either a code defined by the system, or a string value, which is a
          * regex match on the literal string of the property value (if the filter represents a
@@ -696,7 +696,7 @@ public data class ValueSet(
          * Use regex matching with care - full regex matching on every SNOMED CT term is
          * prohibitive, for example.
          */
-        public var `value`: String,
+        public val `value`: String,
       ) : BackboneElement()
     }
   }
@@ -711,7 +711,7 @@ public data class ValueSet(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and manageable, there is a strict set of
@@ -724,7 +724,7 @@ public data class ValueSet(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -743,7 +743,7 @@ public data class ValueSet(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /**
      * An identifier that uniquely identifies this expansion of the valueset, based on a unique
      * combination of the provided parameters, the system default parameters, and the underlying
@@ -753,14 +753,14 @@ public data class ValueSet(
      *
      * Typically, this uri is a UUID (e.g. urn:uuid:8230ff20-c97a-4167-a59d-dc2cb9df16dd).
      */
-    public var identifier: Uri? = null,
+    public val identifier: Uri? = null,
     /**
      * The time at which the expansion was produced by the expanding system.
      *
      * This SHOULD be a fully populated instant, but in some circumstances, value sets are expanded
      * by hand, and the expansion is published without that precision.
      */
-    public var timestamp: DateTime,
+    public val timestamp: DateTime,
     /**
      * The total number of concepts in the expansion. If the number of concept nodes in this
      * resource is less than the stated number, then the server can return more using the offset
@@ -768,7 +768,7 @@ public data class ValueSet(
      *
      * Paging only applies to flat expansions.
      */
-    public var total: Integer? = null,
+    public val total: Integer? = null,
     /**
      * If paging is being used, the offset at which this resource starts. I.e. this resource is a
      * partial view into the expansion. If paging is not being used, this element SHALL NOT be
@@ -778,7 +778,7 @@ public data class ValueSet(
      * concepts that matched the filter, not the number of concepts in an unfiltered view of the
      * expansion.
      */
-    public var offset: Integer? = null,
+    public val offset: Integer? = null,
     /**
      * A parameter that controlled the expansion process. These parameters may be used by users of
      * expanded value sets to check whether the expansion is suitable for a particular purpose, or
@@ -790,9 +790,9 @@ public data class ValueSet(
      * specified version then this version SHALL be provided as a parameter in the expansion (note
      * that not all code systems have a version).
      */
-    public var parameter: MutableList<Parameter> = mutableListOf(),
+    public val parameter: List<Parameter> = listOf(),
     /** The codes that are contained in the value set expansion. */
-    public var contains: MutableList<Contains> = mutableListOf(),
+    public val contains: List<Contains> = listOf(),
   ) : BackboneElement() {
     /**
      * A parameter that controlled the expansion process. These parameters may be used by users of
@@ -805,7 +805,7 @@ public data class ValueSet(
        * Unique id for the element within a resource (for internal references). This may be any
        * string value that does not contain spaces.
        */
-      override var id: kotlin.String? = null,
+      override val id: kotlin.String? = null,
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element. To make the use of extensions safe and manageable, there is a strict set of
@@ -818,7 +818,7 @@ public data class ValueSet(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: MutableList<Extension> = mutableListOf(),
+      override val extension: List<Extension> = listOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -837,7 +837,7 @@ public data class ValueSet(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: MutableList<Extension> = mutableListOf(),
+      override val modifierExtension: List<Extension> = listOf(),
       /**
        * Name of the input parameter to the $expand operation; may be a server-assigned name for
        * additional default or other server-supplied parameters used to control the expansion
@@ -845,9 +845,9 @@ public data class ValueSet(
        *
        * The names are assigned at the discretion of the server.
        */
-      public var name: String,
+      public val name: String,
       /** The value of the parameter. */
-      public var `value`: Value? = null,
+      public val `value`: Value? = null,
     ) : BackboneElement() {
       @Serializable(with = ValueSetExpansionParameterValueSerializer::class)
       public sealed interface Value {
@@ -909,7 +909,7 @@ public data class ValueSet(
        * Unique id for the element within a resource (for internal references). This may be any
        * string value that does not contain spaces.
        */
-      override var id: kotlin.String? = null,
+      override val id: kotlin.String? = null,
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element. To make the use of extensions safe and manageable, there is a strict set of
@@ -922,7 +922,7 @@ public data class ValueSet(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: MutableList<Extension> = mutableListOf(),
+      override val extension: List<Extension> = listOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -941,12 +941,12 @@ public data class ValueSet(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: MutableList<Extension> = mutableListOf(),
+      override val modifierExtension: List<Extension> = listOf(),
       /**
        * An absolute URI which is the code system in which the code for this item in the expansion
        * is defined.
        */
-      public var system: Uri? = null,
+      public val system: Uri? = null,
       /**
        * If true, this entry is included in the expansion for navigational purposes, and the user
        * cannot select the code directly as a proper value.
@@ -955,7 +955,7 @@ public data class ValueSet(
        * testing). The client should know whether it is appropriate for the user to select an
        * abstract code or not.
        */
-      public var `abstract`: Boolean? = null,
+      public val `abstract`: Boolean? = null,
       /**
        * If the concept is inactive in the code system that defines it. Inactive codes are those
        * that are no longer to be used, but are maintained by the code system for understanding
@@ -964,7 +964,7 @@ public data class ValueSet(
        *
        * This should only have a value if the concept is inactive.
        */
-      public var inactive: Boolean? = null,
+      public val inactive: Boolean? = null,
       /**
        * The version of the code system from this code was taken. Note that a well-maintained code
        * system does not need the version reported, because the meaning of codes is consistent
@@ -974,15 +974,15 @@ public data class ValueSet(
        * The exact value of the version string is specified by the system from which the code is
        * derived.
        */
-      public var version: String? = null,
+      public val version: String? = null,
       /**
        * The code for this item in the expansion hierarchy. If this code is missing the entry in the
        * hierarchy is a place holder (abstract) and does not represent a valid code in the value
        * set.
        */
-      public var code: Code? = null,
+      public val code: Code? = null,
       /** The recommended display for this item in the expansion. */
-      public var display: String? = null,
+      public val display: String? = null,
       /**
        * Additional representations for this item - other languages, aliases, specialized purposes,
        * used for particular purposes, etc. These are relevant when the conditions of the expansion
@@ -990,7 +990,7 @@ public data class ValueSet(
        *
        * The designations provided must be based on the value set and code system definitions.
        */
-      public var designation: MutableList<Compose.Include.Concept.Designation> = mutableListOf(),
+      public val designation: List<Compose.Include.Concept.Designation> = listOf(),
       /**
        * Other codes and entries contained under this entry in the hierarchy.
        *
@@ -999,7 +999,7 @@ public data class ValueSet(
        * exists to provide navigational assistance for helping human users to locate codes in the
        * expansion.
        */
-      public var contains: MutableList<Contains> = mutableListOf(),
+      public val contains: List<Contains> = listOf(),
     ) : BackboneElement()
   }
 

@@ -44,15 +44,15 @@ import com.google.fhir.model.r4b.terminologies.PublicationStatus
 import kotlin.Boolean as KotlinBoolean
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class TerminologyCapabilitiesSoftwareSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var name: KotlinString? = null,
   public var _name: Element? = null,
   public var version: KotlinString? = null,
@@ -61,9 +61,9 @@ internal data class TerminologyCapabilitiesSoftwareSurrogate(
   public fun toModel(): TerminologyCapabilities.Software =
     TerminologyCapabilities.Software(
       id = this@TerminologyCapabilitiesSoftwareSurrogate.id,
-      extension = this@TerminologyCapabilitiesSoftwareSurrogate.extension ?: mutableListOf(),
+      extension = this@TerminologyCapabilitiesSoftwareSurrogate.extension ?: listOf(),
       modifierExtension =
-        this@TerminologyCapabilitiesSoftwareSurrogate.modifierExtension ?: mutableListOf(),
+        this@TerminologyCapabilitiesSoftwareSurrogate.modifierExtension ?: listOf(),
       name =
         R4bString.of(
           this@TerminologyCapabilitiesSoftwareSurrogate.name,
@@ -97,8 +97,8 @@ internal data class TerminologyCapabilitiesSoftwareSurrogate(
 @Serializable
 internal data class TerminologyCapabilitiesImplementationSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var description: KotlinString? = null,
   public var _description: Element? = null,
   public var url: KotlinString? = null,
@@ -107,9 +107,9 @@ internal data class TerminologyCapabilitiesImplementationSurrogate(
   public fun toModel(): TerminologyCapabilities.Implementation =
     TerminologyCapabilities.Implementation(
       id = this@TerminologyCapabilitiesImplementationSurrogate.id,
-      extension = this@TerminologyCapabilitiesImplementationSurrogate.extension ?: mutableListOf(),
+      extension = this@TerminologyCapabilitiesImplementationSurrogate.extension ?: listOf(),
       modifierExtension =
-        this@TerminologyCapabilitiesImplementationSurrogate.modifierExtension ?: mutableListOf(),
+        this@TerminologyCapabilitiesImplementationSurrogate.modifierExtension ?: listOf(),
       description =
         R4bString.of(
           this@TerminologyCapabilitiesImplementationSurrogate.description,
@@ -143,26 +143,26 @@ internal data class TerminologyCapabilitiesImplementationSurrogate(
 @Serializable
 internal data class TerminologyCapabilitiesCodeSystemSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var uri: KotlinString? = null,
   public var _uri: Element? = null,
-  public var version: MutableList<TerminologyCapabilities.CodeSystem.Version>? = null,
+  public var version: List<TerminologyCapabilities.CodeSystem.Version>? = null,
   public var subsumption: KotlinBoolean? = null,
   public var _subsumption: Element? = null,
 ) {
   public fun toModel(): TerminologyCapabilities.CodeSystem =
     TerminologyCapabilities.CodeSystem(
       id = this@TerminologyCapabilitiesCodeSystemSurrogate.id,
-      extension = this@TerminologyCapabilitiesCodeSystemSurrogate.extension ?: mutableListOf(),
+      extension = this@TerminologyCapabilitiesCodeSystemSurrogate.extension ?: listOf(),
       modifierExtension =
-        this@TerminologyCapabilitiesCodeSystemSurrogate.modifierExtension ?: mutableListOf(),
+        this@TerminologyCapabilitiesCodeSystemSurrogate.modifierExtension ?: listOf(),
       uri =
         Canonical.of(
           this@TerminologyCapabilitiesCodeSystemSurrogate.uri,
           this@TerminologyCapabilitiesCodeSystemSurrogate._uri,
         ),
-      version = this@TerminologyCapabilitiesCodeSystemSurrogate.version ?: mutableListOf(),
+      version = this@TerminologyCapabilitiesCodeSystemSurrogate.version ?: listOf(),
       subsumption =
         R4bBoolean.of(
           this@TerminologyCapabilitiesCodeSystemSurrogate.subsumption,
@@ -192,27 +192,26 @@ internal data class TerminologyCapabilitiesCodeSystemSurrogate(
 @Serializable
 internal data class TerminologyCapabilitiesCodeSystemVersionSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var code: KotlinString? = null,
   public var _code: Element? = null,
   public var isDefault: KotlinBoolean? = null,
   public var _isDefault: Element? = null,
   public var compositional: KotlinBoolean? = null,
   public var _compositional: Element? = null,
-  public var language: MutableList<KotlinString?>? = null,
-  public var _language: MutableList<Element?>? = null,
-  public var filter: MutableList<TerminologyCapabilities.CodeSystem.Version.Filter>? = null,
-  public var `property`: MutableList<KotlinString?>? = null,
-  public var _property: MutableList<Element?>? = null,
+  public var language: List<KotlinString?>? = null,
+  public var _language: List<Element?>? = null,
+  public var filter: List<TerminologyCapabilities.CodeSystem.Version.Filter>? = null,
+  public var `property`: List<KotlinString?>? = null,
+  public var _property: List<Element?>? = null,
 ) {
   public fun toModel(): TerminologyCapabilities.CodeSystem.Version =
     TerminologyCapabilities.CodeSystem.Version(
       id = this@TerminologyCapabilitiesCodeSystemVersionSurrogate.id,
-      extension =
-        this@TerminologyCapabilitiesCodeSystemVersionSurrogate.extension ?: mutableListOf(),
+      extension = this@TerminologyCapabilitiesCodeSystemVersionSurrogate.extension ?: listOf(),
       modifierExtension =
-        this@TerminologyCapabilitiesCodeSystemVersionSurrogate.modifierExtension ?: mutableListOf(),
+        this@TerminologyCapabilitiesCodeSystemVersionSurrogate.modifierExtension ?: listOf(),
       code =
         R4bString.of(
           this@TerminologyCapabilitiesCodeSystemVersionSurrogate.code,
@@ -233,7 +232,7 @@ internal data class TerminologyCapabilitiesCodeSystemVersionSurrogate(
           this@TerminologyCapabilitiesCodeSystemVersionSurrogate.language == null &&
             this@TerminologyCapabilitiesCodeSystemVersionSurrogate._language == null
         ) {
-          mutableListOf()
+          listOf()
         } else {
           (this@TerminologyCapabilitiesCodeSystemVersionSurrogate.language
               ?: List(this@TerminologyCapabilitiesCodeSystemVersionSurrogate._language!!.size) {
@@ -246,15 +245,15 @@ internal data class TerminologyCapabilitiesCodeSystemVersionSurrogate(
                 }
             )
             .map { (value, element) -> Code.of(value, element)!! }
-            .toMutableList()
+            .toList()
         },
-      filter = this@TerminologyCapabilitiesCodeSystemVersionSurrogate.filter ?: mutableListOf(),
+      filter = this@TerminologyCapabilitiesCodeSystemVersionSurrogate.filter ?: listOf(),
       `property` =
         if (
           this@TerminologyCapabilitiesCodeSystemVersionSurrogate.`property` == null &&
             this@TerminologyCapabilitiesCodeSystemVersionSurrogate._property == null
         ) {
-          mutableListOf()
+          listOf()
         } else {
           (this@TerminologyCapabilitiesCodeSystemVersionSurrogate.`property`
               ?: List(this@TerminologyCapabilitiesCodeSystemVersionSurrogate._property!!.size) {
@@ -267,7 +266,7 @@ internal data class TerminologyCapabilitiesCodeSystemVersionSurrogate(
                 }
             )
             .map { (value, element) -> Code.of(value, element)!! }
-            .toMutableList()
+            .toList()
         },
     )
 
@@ -287,28 +286,22 @@ internal data class TerminologyCapabilitiesCodeSystemVersionSurrogate(
           compositional = this@with.compositional?.value,
           _compositional = this@with.compositional?.toElement(),
           language =
-            this@with.language
-              .map { it.value }
-              .toMutableList()
-              .takeUnless { it.all { it == null } },
+            this@with.language.map { it.value }.toList().takeUnless { it.all { it == null } },
           _language =
             this@with.language
               .map { it.toElement() }
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
-              ?.toMutableList(),
+              ?.toList(),
           filter = this@with.filter.takeIf { it.isNotEmpty() },
           `property` =
-            this@with.`property`
-              .map { it.value }
-              .toMutableList()
-              .takeUnless { it.all { it == null } },
+            this@with.`property`.map { it.value }.toList().takeUnless { it.all { it == null } },
           _property =
             this@with.`property`
               .map { it.toElement() }
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
-              ?.toMutableList(),
+              ?.toList(),
         )
       }
   }
@@ -317,21 +310,20 @@ internal data class TerminologyCapabilitiesCodeSystemVersionSurrogate(
 @Serializable
 internal data class TerminologyCapabilitiesCodeSystemVersionFilterSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var code: KotlinString? = null,
   public var _code: Element? = null,
-  public var op: MutableList<KotlinString?>? = null,
-  public var _op: MutableList<Element?>? = null,
+  public var op: List<KotlinString?>? = null,
+  public var _op: List<Element?>? = null,
 ) {
   public fun toModel(): TerminologyCapabilities.CodeSystem.Version.Filter =
     TerminologyCapabilities.CodeSystem.Version.Filter(
       id = this@TerminologyCapabilitiesCodeSystemVersionFilterSurrogate.id,
       extension =
-        this@TerminologyCapabilitiesCodeSystemVersionFilterSurrogate.extension ?: mutableListOf(),
+        this@TerminologyCapabilitiesCodeSystemVersionFilterSurrogate.extension ?: listOf(),
       modifierExtension =
-        this@TerminologyCapabilitiesCodeSystemVersionFilterSurrogate.modifierExtension
-          ?: mutableListOf(),
+        this@TerminologyCapabilitiesCodeSystemVersionFilterSurrogate.modifierExtension ?: listOf(),
       code =
         Code.of(
           this@TerminologyCapabilitiesCodeSystemVersionFilterSurrogate.code,
@@ -342,7 +334,7 @@ internal data class TerminologyCapabilitiesCodeSystemVersionFilterSurrogate(
           this@TerminologyCapabilitiesCodeSystemVersionFilterSurrogate.op == null &&
             this@TerminologyCapabilitiesCodeSystemVersionFilterSurrogate._op == null
         ) {
-          mutableListOf()
+          listOf()
         } else {
           (this@TerminologyCapabilitiesCodeSystemVersionFilterSurrogate.op
               ?: List(this@TerminologyCapabilitiesCodeSystemVersionFilterSurrogate._op!!.size) {
@@ -355,7 +347,7 @@ internal data class TerminologyCapabilitiesCodeSystemVersionFilterSurrogate(
                 }
             )
             .map { (value, element) -> Code.of(value, element)!! }
-            .toMutableList()
+            .toList()
         },
     )
 
@@ -370,13 +362,13 @@ internal data class TerminologyCapabilitiesCodeSystemVersionFilterSurrogate(
           modifierExtension = this@with.modifierExtension.takeIf { it.isNotEmpty() },
           code = this@with.code.value,
           _code = this@with.code.toElement(),
-          op = this@with.op.map { it.value }.toMutableList().takeUnless { it.all { it == null } },
+          op = this@with.op.map { it.value }.toList().takeUnless { it.all { it == null } },
           _op =
             this@with.op
               .map { it.toElement() }
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
-              ?.toMutableList(),
+              ?.toList(),
         )
       }
   }
@@ -385,24 +377,24 @@ internal data class TerminologyCapabilitiesCodeSystemVersionFilterSurrogate(
 @Serializable
 internal data class TerminologyCapabilitiesExpansionSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var hierarchical: KotlinBoolean? = null,
   public var _hierarchical: Element? = null,
   public var paging: KotlinBoolean? = null,
   public var _paging: Element? = null,
   public var incomplete: KotlinBoolean? = null,
   public var _incomplete: Element? = null,
-  public var parameter: MutableList<TerminologyCapabilities.Expansion.Parameter>? = null,
+  public var parameter: List<TerminologyCapabilities.Expansion.Parameter>? = null,
   public var textFilter: KotlinString? = null,
   public var _textFilter: Element? = null,
 ) {
   public fun toModel(): TerminologyCapabilities.Expansion =
     TerminologyCapabilities.Expansion(
       id = this@TerminologyCapabilitiesExpansionSurrogate.id,
-      extension = this@TerminologyCapabilitiesExpansionSurrogate.extension ?: mutableListOf(),
+      extension = this@TerminologyCapabilitiesExpansionSurrogate.extension ?: listOf(),
       modifierExtension =
-        this@TerminologyCapabilitiesExpansionSurrogate.modifierExtension ?: mutableListOf(),
+        this@TerminologyCapabilitiesExpansionSurrogate.modifierExtension ?: listOf(),
       hierarchical =
         R4bBoolean.of(
           this@TerminologyCapabilitiesExpansionSurrogate.hierarchical,
@@ -418,7 +410,7 @@ internal data class TerminologyCapabilitiesExpansionSurrogate(
           this@TerminologyCapabilitiesExpansionSurrogate.incomplete,
           this@TerminologyCapabilitiesExpansionSurrogate._incomplete,
         ),
-      parameter = this@TerminologyCapabilitiesExpansionSurrogate.parameter ?: mutableListOf(),
+      parameter = this@TerminologyCapabilitiesExpansionSurrogate.parameter ?: listOf(),
       textFilter =
         Markdown.of(
           this@TerminologyCapabilitiesExpansionSurrogate.textFilter,
@@ -452,8 +444,8 @@ internal data class TerminologyCapabilitiesExpansionSurrogate(
 @Serializable
 internal data class TerminologyCapabilitiesExpansionParameterSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var name: KotlinString? = null,
   public var _name: Element? = null,
   public var documentation: KotlinString? = null,
@@ -462,11 +454,9 @@ internal data class TerminologyCapabilitiesExpansionParameterSurrogate(
   public fun toModel(): TerminologyCapabilities.Expansion.Parameter =
     TerminologyCapabilities.Expansion.Parameter(
       id = this@TerminologyCapabilitiesExpansionParameterSurrogate.id,
-      extension =
-        this@TerminologyCapabilitiesExpansionParameterSurrogate.extension ?: mutableListOf(),
+      extension = this@TerminologyCapabilitiesExpansionParameterSurrogate.extension ?: listOf(),
       modifierExtension =
-        this@TerminologyCapabilitiesExpansionParameterSurrogate.modifierExtension
-          ?: mutableListOf(),
+        this@TerminologyCapabilitiesExpansionParameterSurrogate.modifierExtension ?: listOf(),
       name =
         Code.of(
           this@TerminologyCapabilitiesExpansionParameterSurrogate.name,
@@ -500,17 +490,17 @@ internal data class TerminologyCapabilitiesExpansionParameterSurrogate(
 @Serializable
 internal data class TerminologyCapabilitiesValidateCodeSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var translations: KotlinBoolean? = null,
   public var _translations: Element? = null,
 ) {
   public fun toModel(): TerminologyCapabilities.ValidateCode =
     TerminologyCapabilities.ValidateCode(
       id = this@TerminologyCapabilitiesValidateCodeSurrogate.id,
-      extension = this@TerminologyCapabilitiesValidateCodeSurrogate.extension ?: mutableListOf(),
+      extension = this@TerminologyCapabilitiesValidateCodeSurrogate.extension ?: listOf(),
       modifierExtension =
-        this@TerminologyCapabilitiesValidateCodeSurrogate.modifierExtension ?: mutableListOf(),
+        this@TerminologyCapabilitiesValidateCodeSurrogate.modifierExtension ?: listOf(),
       translations =
         R4bBoolean.of(
           this@TerminologyCapabilitiesValidateCodeSurrogate.translations,
@@ -537,17 +527,17 @@ internal data class TerminologyCapabilitiesValidateCodeSurrogate(
 @Serializable
 internal data class TerminologyCapabilitiesTranslationSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var needsMap: KotlinBoolean? = null,
   public var _needsMap: Element? = null,
 ) {
   public fun toModel(): TerminologyCapabilities.Translation =
     TerminologyCapabilities.Translation(
       id = this@TerminologyCapabilitiesTranslationSurrogate.id,
-      extension = this@TerminologyCapabilitiesTranslationSurrogate.extension ?: mutableListOf(),
+      extension = this@TerminologyCapabilitiesTranslationSurrogate.extension ?: listOf(),
       modifierExtension =
-        this@TerminologyCapabilitiesTranslationSurrogate.modifierExtension ?: mutableListOf(),
+        this@TerminologyCapabilitiesTranslationSurrogate.modifierExtension ?: listOf(),
       needsMap =
         R4bBoolean.of(
           this@TerminologyCapabilitiesTranslationSurrogate.needsMap,
@@ -574,17 +564,17 @@ internal data class TerminologyCapabilitiesTranslationSurrogate(
 @Serializable
 internal data class TerminologyCapabilitiesClosureSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var translation: KotlinBoolean? = null,
   public var _translation: Element? = null,
 ) {
   public fun toModel(): TerminologyCapabilities.Closure =
     TerminologyCapabilities.Closure(
       id = this@TerminologyCapabilitiesClosureSurrogate.id,
-      extension = this@TerminologyCapabilitiesClosureSurrogate.extension ?: mutableListOf(),
+      extension = this@TerminologyCapabilitiesClosureSurrogate.extension ?: listOf(),
       modifierExtension =
-        this@TerminologyCapabilitiesClosureSurrogate.modifierExtension ?: mutableListOf(),
+        this@TerminologyCapabilitiesClosureSurrogate.modifierExtension ?: listOf(),
       translation =
         R4bBoolean.of(
           this@TerminologyCapabilitiesClosureSurrogate.translation,
@@ -617,9 +607,9 @@ internal data class TerminologyCapabilitiesSurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: MutableList<Resource>? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var contained: List<Resource>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var url: KotlinString? = null,
   public var _url: Element? = null,
   public var version: KotlinString? = null,
@@ -636,11 +626,11 @@ internal data class TerminologyCapabilitiesSurrogate(
   public var _date: Element? = null,
   public var publisher: KotlinString? = null,
   public var _publisher: Element? = null,
-  public var contact: MutableList<ContactDetail>? = null,
+  public var contact: List<ContactDetail>? = null,
   public var description: KotlinString? = null,
   public var _description: Element? = null,
-  public var useContext: MutableList<UsageContext>? = null,
-  public var jurisdiction: MutableList<CodeableConcept>? = null,
+  public var useContext: List<UsageContext>? = null,
+  public var jurisdiction: List<CodeableConcept>? = null,
   public var purpose: KotlinString? = null,
   public var _purpose: Element? = null,
   public var copyright: KotlinString? = null,
@@ -651,7 +641,7 @@ internal data class TerminologyCapabilitiesSurrogate(
   public var implementation: TerminologyCapabilities.Implementation? = null,
   public var lockedDate: KotlinBoolean? = null,
   public var _lockedDate: Element? = null,
-  public var codeSystem: MutableList<TerminologyCapabilities.CodeSystem>? = null,
+  public var codeSystem: List<TerminologyCapabilities.CodeSystem>? = null,
   public var expansion: TerminologyCapabilities.Expansion? = null,
   public var codeSearch: KotlinString? = null,
   public var _codeSearch: Element? = null,
@@ -674,10 +664,9 @@ internal data class TerminologyCapabilitiesSurrogate(
           this@TerminologyCapabilitiesSurrogate._language,
         ),
       text = this@TerminologyCapabilitiesSurrogate.text,
-      contained = this@TerminologyCapabilitiesSurrogate.contained ?: mutableListOf(),
-      extension = this@TerminologyCapabilitiesSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@TerminologyCapabilitiesSurrogate.modifierExtension ?: mutableListOf(),
+      contained = this@TerminologyCapabilitiesSurrogate.contained ?: listOf(),
+      extension = this@TerminologyCapabilitiesSurrogate.extension ?: listOf(),
+      modifierExtension = this@TerminologyCapabilitiesSurrogate.modifierExtension ?: listOf(),
       url =
         Uri.of(
           this@TerminologyCapabilitiesSurrogate.url,
@@ -718,14 +707,14 @@ internal data class TerminologyCapabilitiesSurrogate(
           this@TerminologyCapabilitiesSurrogate.publisher,
           this@TerminologyCapabilitiesSurrogate._publisher,
         ),
-      contact = this@TerminologyCapabilitiesSurrogate.contact ?: mutableListOf(),
+      contact = this@TerminologyCapabilitiesSurrogate.contact ?: listOf(),
       description =
         Markdown.of(
           this@TerminologyCapabilitiesSurrogate.description,
           this@TerminologyCapabilitiesSurrogate._description,
         ),
-      useContext = this@TerminologyCapabilitiesSurrogate.useContext ?: mutableListOf(),
-      jurisdiction = this@TerminologyCapabilitiesSurrogate.jurisdiction ?: mutableListOf(),
+      useContext = this@TerminologyCapabilitiesSurrogate.useContext ?: listOf(),
+      jurisdiction = this@TerminologyCapabilitiesSurrogate.jurisdiction ?: listOf(),
       purpose =
         Markdown.of(
           this@TerminologyCapabilitiesSurrogate.purpose,
@@ -750,7 +739,7 @@ internal data class TerminologyCapabilitiesSurrogate(
           this@TerminologyCapabilitiesSurrogate.lockedDate,
           this@TerminologyCapabilitiesSurrogate._lockedDate,
         ),
-      codeSystem = this@TerminologyCapabilitiesSurrogate.codeSystem ?: mutableListOf(),
+      codeSystem = this@TerminologyCapabilitiesSurrogate.codeSystem ?: listOf(),
       expansion = this@TerminologyCapabilitiesSurrogate.expansion,
       codeSearch =
         this@TerminologyCapabilitiesSurrogate.codeSearch?.let {

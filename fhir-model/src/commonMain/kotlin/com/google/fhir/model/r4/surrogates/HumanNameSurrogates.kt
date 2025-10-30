@@ -29,32 +29,32 @@ import com.google.fhir.model.r4.serializers.DoubleSerializer
 import com.google.fhir.model.r4.serializers.LocalTimeSerializer
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class HumanNameSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
   public var use: KotlinString? = null,
   public var _use: Element? = null,
   public var text: KotlinString? = null,
   public var _text: Element? = null,
   public var family: KotlinString? = null,
   public var _family: Element? = null,
-  public var given: MutableList<KotlinString?>? = null,
-  public var _given: MutableList<Element?>? = null,
-  public var prefix: MutableList<KotlinString?>? = null,
-  public var _prefix: MutableList<Element?>? = null,
-  public var suffix: MutableList<KotlinString?>? = null,
-  public var _suffix: MutableList<Element?>? = null,
+  public var given: List<KotlinString?>? = null,
+  public var _given: List<Element?>? = null,
+  public var prefix: List<KotlinString?>? = null,
+  public var _prefix: List<Element?>? = null,
+  public var suffix: List<KotlinString?>? = null,
+  public var _suffix: List<Element?>? = null,
   public var period: Period? = null,
 ) {
   public fun toModel(): HumanName =
     HumanName(
       id = this@HumanNameSurrogate.id,
-      extension = this@HumanNameSurrogate.extension ?: mutableListOf(),
+      extension = this@HumanNameSurrogate.extension ?: listOf(),
       use =
         this@HumanNameSurrogate.use?.let {
           Enumeration.of(HumanName.NameUse.fromCode(it), this@HumanNameSurrogate._use)
@@ -63,18 +63,18 @@ internal data class HumanNameSurrogate(
       family = R4String.of(this@HumanNameSurrogate.family, this@HumanNameSurrogate._family),
       given =
         if (this@HumanNameSurrogate.given == null && this@HumanNameSurrogate._given == null) {
-          mutableListOf()
+          listOf()
         } else {
           (this@HumanNameSurrogate.given ?: List(this@HumanNameSurrogate._given!!.size) { null })
             .zip(
               this@HumanNameSurrogate._given ?: List(this@HumanNameSurrogate.given!!.size) { null }
             )
             .map { (value, element) -> R4String.of(value, element)!! }
-            .toMutableList()
+            .toList()
         },
       prefix =
         if (this@HumanNameSurrogate.prefix == null && this@HumanNameSurrogate._prefix == null) {
-          mutableListOf()
+          listOf()
         } else {
           (this@HumanNameSurrogate.prefix ?: List(this@HumanNameSurrogate._prefix!!.size) { null })
             .zip(
@@ -82,11 +82,11 @@ internal data class HumanNameSurrogate(
                 ?: List(this@HumanNameSurrogate.prefix!!.size) { null }
             )
             .map { (value, element) -> R4String.of(value, element)!! }
-            .toMutableList()
+            .toList()
         },
       suffix =
         if (this@HumanNameSurrogate.suffix == null && this@HumanNameSurrogate._suffix == null) {
-          mutableListOf()
+          listOf()
         } else {
           (this@HumanNameSurrogate.suffix ?: List(this@HumanNameSurrogate._suffix!!.size) { null })
             .zip(
@@ -94,7 +94,7 @@ internal data class HumanNameSurrogate(
                 ?: List(this@HumanNameSurrogate.suffix!!.size) { null }
             )
             .map { (value, element) -> R4String.of(value, element)!! }
-            .toMutableList()
+            .toList()
         },
       period = this@HumanNameSurrogate.period,
     )
@@ -111,30 +111,27 @@ internal data class HumanNameSurrogate(
           _text = this@with.text?.toElement(),
           family = this@with.family?.value,
           _family = this@with.family?.toElement(),
-          given =
-            this@with.given.map { it.value }.toMutableList().takeUnless { it.all { it == null } },
+          given = this@with.given.map { it.value }.toList().takeUnless { it.all { it == null } },
           _given =
             this@with.given
               .map { it.toElement() }
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
-              ?.toMutableList(),
-          prefix =
-            this@with.prefix.map { it.value }.toMutableList().takeUnless { it.all { it == null } },
+              ?.toList(),
+          prefix = this@with.prefix.map { it.value }.toList().takeUnless { it.all { it == null } },
           _prefix =
             this@with.prefix
               .map { it.toElement() }
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
-              ?.toMutableList(),
-          suffix =
-            this@with.suffix.map { it.value }.toMutableList().takeUnless { it.all { it == null } },
+              ?.toList(),
+          suffix = this@with.suffix.map { it.value }.toList().takeUnless { it.all { it == null } },
           _suffix =
             this@with.suffix
               .map { it.toElement() }
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
-              ?.toMutableList(),
+              ?.toList(),
           period = this@with.period,
         )
       }

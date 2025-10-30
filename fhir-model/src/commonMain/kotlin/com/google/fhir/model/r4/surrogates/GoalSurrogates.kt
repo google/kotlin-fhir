@@ -47,15 +47,15 @@ import kotlin.Boolean as KotlinBoolean
 import kotlin.Int
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class GoalTargetSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var measure: CodeableConcept? = null,
   public var detail: Goal.Target.Detail? = null,
   public var due: Goal.Target.Due? = null,
@@ -63,8 +63,8 @@ internal data class GoalTargetSurrogate(
   public fun toModel(): Goal.Target =
     Goal.Target(
       id = this@GoalTargetSurrogate.id,
-      extension = this@GoalTargetSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@GoalTargetSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@GoalTargetSurrogate.extension ?: listOf(),
+      modifierExtension = this@GoalTargetSurrogate.modifierExtension ?: listOf(),
       measure = this@GoalTargetSurrogate.measure,
       detail = this@GoalTargetSurrogate.detail,
       due = this@GoalTargetSurrogate.due,
@@ -200,28 +200,28 @@ internal data class GoalSurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: MutableList<Resource>? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var identifier: MutableList<Identifier>? = null,
+  public var contained: List<Resource>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
+  public var identifier: List<Identifier>? = null,
   public var lifecycleStatus: KotlinString? = null,
   public var _lifecycleStatus: Element? = null,
   public var achievementStatus: CodeableConcept? = null,
-  public var category: MutableList<CodeableConcept>? = null,
+  public var category: List<CodeableConcept>? = null,
   public var priority: CodeableConcept? = null,
   public var description: CodeableConcept,
   public var subject: Reference,
   public var start: Goal.Start? = null,
-  public var target: MutableList<Goal.Target>? = null,
+  public var target: List<Goal.Target>? = null,
   public var statusDate: KotlinString? = null,
   public var _statusDate: Element? = null,
   public var statusReason: KotlinString? = null,
   public var _statusReason: Element? = null,
   public var expressedBy: Reference? = null,
-  public var addresses: MutableList<Reference>? = null,
-  public var note: MutableList<Annotation>? = null,
-  public var outcomeCode: MutableList<CodeableConcept>? = null,
-  public var outcomeReference: MutableList<Reference>? = null,
+  public var addresses: List<Reference>? = null,
+  public var note: List<Annotation>? = null,
+  public var outcomeCode: List<CodeableConcept>? = null,
+  public var outcomeReference: List<Reference>? = null,
 ) {
   public fun toModel(): Goal =
     Goal(
@@ -230,30 +230,30 @@ internal data class GoalSurrogate(
       implicitRules = Uri.of(this@GoalSurrogate.implicitRules, this@GoalSurrogate._implicitRules),
       language = Code.of(this@GoalSurrogate.language, this@GoalSurrogate._language),
       text = this@GoalSurrogate.text,
-      contained = this@GoalSurrogate.contained ?: mutableListOf(),
-      extension = this@GoalSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@GoalSurrogate.modifierExtension ?: mutableListOf(),
-      identifier = this@GoalSurrogate.identifier ?: mutableListOf(),
+      contained = this@GoalSurrogate.contained ?: listOf(),
+      extension = this@GoalSurrogate.extension ?: listOf(),
+      modifierExtension = this@GoalSurrogate.modifierExtension ?: listOf(),
+      identifier = this@GoalSurrogate.identifier ?: listOf(),
       lifecycleStatus =
         Enumeration.of(
           Goal.GoalLifecycleStatus.fromCode(this@GoalSurrogate.lifecycleStatus!!),
           this@GoalSurrogate._lifecycleStatus,
         ),
       achievementStatus = this@GoalSurrogate.achievementStatus,
-      category = this@GoalSurrogate.category ?: mutableListOf(),
+      category = this@GoalSurrogate.category ?: listOf(),
       priority = this@GoalSurrogate.priority,
       description = this@GoalSurrogate.description,
       subject = this@GoalSurrogate.subject,
       start = this@GoalSurrogate.start,
-      target = this@GoalSurrogate.target ?: mutableListOf(),
+      target = this@GoalSurrogate.target ?: listOf(),
       statusDate =
         Date.of(FhirDate.fromString(this@GoalSurrogate.statusDate), this@GoalSurrogate._statusDate),
       statusReason = R4String.of(this@GoalSurrogate.statusReason, this@GoalSurrogate._statusReason),
       expressedBy = this@GoalSurrogate.expressedBy,
-      addresses = this@GoalSurrogate.addresses ?: mutableListOf(),
-      note = this@GoalSurrogate.note ?: mutableListOf(),
-      outcomeCode = this@GoalSurrogate.outcomeCode ?: mutableListOf(),
-      outcomeReference = this@GoalSurrogate.outcomeReference ?: mutableListOf(),
+      addresses = this@GoalSurrogate.addresses ?: listOf(),
+      note = this@GoalSurrogate.note ?: listOf(),
+      outcomeCode = this@GoalSurrogate.outcomeCode ?: listOf(),
+      outcomeReference = this@GoalSurrogate.outcomeReference ?: listOf(),
     )
 
   public companion object {

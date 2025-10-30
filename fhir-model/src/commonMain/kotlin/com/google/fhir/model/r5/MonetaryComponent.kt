@@ -21,7 +21,7 @@ package com.google.fhir.model.r5
 import com.google.fhir.model.r5.serializers.MonetaryComponentSerializer
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 
 /** MonetaryComponent Type: Availability data for an {item}. */
@@ -31,7 +31,7 @@ public data class MonetaryComponent(
    * Unique id for the element within a resource (for internal references). This may be any string
    * value that does not contain spaces.
    */
-  override var id: String? = null,
+  override val id: String? = null,
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * element. To make the use of extensions safe and managable, there is a strict set of governance
@@ -44,15 +44,15 @@ public data class MonetaryComponent(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: MutableList<Extension> = mutableListOf(),
+  override val extension: List<Extension> = listOf(),
   /** base | surcharge | deduction | discount | tax | informational. */
-  public var type: Enumeration<PriceComponentType>,
+  public val type: Enumeration<PriceComponentType>,
   /** Codes may be used to differentiate between kinds of taxes, surcharges, discounts etc. */
-  public var code: CodeableConcept? = null,
+  public val code: CodeableConcept? = null,
   /** Factor used for calculating this component. */
-  public var factor: Decimal? = null,
+  public val factor: Decimal? = null,
   /** Explicit value amount to be used. */
-  public var amount: Money? = null,
+  public val amount: Money? = null,
 ) : DataType() {
   /** Codes indicating the kind of the price component. */
   public enum class PriceComponentType(

@@ -21,7 +21,7 @@ package com.google.fhir.model.r4b
 import com.google.fhir.model.r4b.serializers.ProductShelfLifeSerializer
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 
 /**
@@ -34,7 +34,7 @@ public data class ProductShelfLife(
    * Unique id for the element within a resource (for internal references). This may be any string
    * value that does not contain spaces.
    */
-  override var id: String? = null,
+  override val id: String? = null,
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * element. To make the use of extensions safe and manageable, there is a strict set of governance
@@ -47,7 +47,7 @@ public data class ProductShelfLife(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: MutableList<Extension> = mutableListOf(),
+  override val extension: List<Extension> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * element and that modifies the understanding of the element in which it is contained and/or the
@@ -66,9 +66,9 @@ public data class ProductShelfLife(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: MutableList<Extension> = mutableListOf(),
+  override val modifierExtension: List<Extension> = listOf(),
   /** Unique identifier for the packaged Medicinal Product. */
-  public var identifier: Identifier? = null,
+  public val identifier: Identifier? = null,
   /**
    * This describes the shelf life, taking into account various scenarios such as shelf life of the
    * packaged Medicinal Product itself, shelf life after transformation where necessary and shelf
@@ -76,16 +76,16 @@ public data class ProductShelfLife(
    * appropriate controlled vocabulary The controlled term and the controlled term identifier shall
    * be specified.
    */
-  public var type: CodeableConcept,
+  public val type: CodeableConcept,
   /**
    * The shelf life time period can be specified using a numerical value for the period of time and
    * its unit of time measurement The unit of measurement shall be specified in accordance with ISO
    * 11240 and the resulting terminology The symbol and the symbol identifier shall be used.
    */
-  public var period: Quantity,
+  public val period: Quantity,
   /**
    * Special precautions for storage, if any, can be specified using an appropriate controlled
    * vocabulary The controlled term and the controlled term identifier shall be specified.
    */
-  public var specialPrecautionsForStorage: MutableList<CodeableConcept> = mutableListOf(),
+  public val specialPrecautionsForStorage: List<CodeableConcept> = listOf(),
 ) : BackboneElement()

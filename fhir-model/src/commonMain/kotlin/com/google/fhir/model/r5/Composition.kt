@@ -23,7 +23,7 @@ import com.google.fhir.model.r5.serializers.CompositionEventSerializer
 import com.google.fhir.model.r5.serializers.CompositionSectionSerializer
 import com.google.fhir.model.r5.serializers.CompositionSerializer
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -47,12 +47,12 @@ public data class Composition(
    * like the create and conditional update. Otherwise, the use of the resouce id depends on the
    * given use case.
    */
-  override var id: kotlin.String? = null,
+  override val id: kotlin.String? = null,
   /**
    * The metadata about the resource. This is content that is maintained by the infrastructure.
    * Changes to the content might not always be associated with version changes to the resource.
    */
-  override var meta: Meta? = null,
+  override val meta: Meta? = null,
   /**
    * A reference to a set of rules that were followed when the resource was constructed, and which
    * must be understood when processing the content. Often, this is a reference to an implementation
@@ -66,7 +66,7 @@ public data class Composition(
    * to an implementation guide that defines these special rules as part of its narrative along with
    * other profiles, value sets, etc.
    */
-  override var implicitRules: Uri? = null,
+  override val implicitRules: Uri? = null,
   /**
    * The base language in which the resource is written.
    *
@@ -78,7 +78,7 @@ public data class Composition(
    * language is specified, it should it also be specified on the div element in the html (see rules
    * in HTML5 for information about the relationship between xml:lang and the html lang attribute).
    */
-  override var language: Code? = null,
+  override val language: Code? = null,
   /**
    * A human-readable narrative that contains a summary of the resource and can be used to represent
    * the content of the resource to a human. The narrative need not encode all the structured data,
@@ -92,7 +92,7 @@ public data class Composition(
    * legacy systems where information is captured as a "text blob" or where text is additionally
    * entered raw or narrated and encoded information is added later.
    */
-  override var text: Narrative? = null,
+  override val text: Narrative? = null,
   /**
    * These resources do not have an independent existence apart from the resource that contains
    * them - they cannot be identified independently, nor can they have their own independent
@@ -104,7 +104,7 @@ public data class Composition(
    * resources may have profiles and tags in their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: MutableList<Resource> = mutableListOf(),
+  override val contained: List<Resource> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and managable, there is a strict set of governance
@@ -117,7 +117,7 @@ public data class Composition(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: MutableList<Extension> = mutableListOf(),
+  override val extension: List<Extension> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -136,7 +136,7 @@ public data class Composition(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: MutableList<Extension> = mutableListOf(),
+  override val modifierExtension: List<Extension> = listOf(),
   /**
    * An absolute URI that is used to identify this Composition when it is referenced in a
    * specification, model, design or an instance; also called its canonical identifier. This SHOULD
@@ -147,7 +147,7 @@ public data class Composition(
    * Can be a urn:uuid: or a urn:oid: but real http: addresses are preferred. Multiple instances may
    * share the same URL if they have a distinct version.
    */
-  public var url: Uri? = null,
+  public val url: Uri? = null,
   /**
    * A version-independent identifier for the Composition. This identifier stays constant as the
    * composition is changed over time.
@@ -155,7 +155,7 @@ public data class Composition(
    * Similar to ClinicalDocument/setId in CDA. See discussion in resource definition for how these
    * relate.
    */
-  public var identifier: MutableList<Identifier> = mutableListOf(),
+  public val identifier: List<Identifier> = listOf(),
   /**
    * An explicitly assigned identifer of a variation of the content in the Composition.
    *
@@ -164,7 +164,7 @@ public data class Composition(
    * constant if the resources were moved to a new server, and all got new individual resource
    * versions, for example.
    */
-  public var version: String? = null,
+  public val version: String? = null,
   /**
    * The workflow/clinical status of this composition. The status is a marker for the clinical
    * standing of the document.
@@ -179,7 +179,7 @@ public data class Composition(
    * status for explicitly noting whether this business rule is in effect. This would be handled by
    * an extension if required.
    */
-  public var status: Enumeration<CompositionStatus>,
+  public val status: Enumeration<CompositionStatus>,
   /**
    * Specifies the particular kind of composition (e.g. History and Physical, Discharge Summary,
    * Progress Note). This usually equates to the purpose of making the composition.
@@ -187,12 +187,12 @@ public data class Composition(
    * For Composition type, LOINC is ubiquitous and strongly endorsed by HL7. Most implementation
    * guides will require a specific LOINC code, or use LOINC as an extensible binding.
    */
-  public var type: CodeableConcept,
+  public val type: CodeableConcept,
   /**
    * A categorization for the type of the composition - helps for indexing and searching. This may
    * be implied by or derived from the code specified in the Composition Type.
    */
-  public var category: MutableList<CodeableConcept> = mutableListOf(),
+  public val category: List<CodeableConcept> = listOf(),
   /**
    * Who or what the composition is about. The composition can be about a person, (patient or
    * healthcare practitioner), a device (e.g. a machine) or even a group of subjects (such as a
@@ -200,9 +200,9 @@ public data class Composition(
    *
    * For clinical documents, this is usually the patient.
    */
-  public var subject: MutableList<Reference> = mutableListOf(),
+  public val subject: List<Reference> = listOf(),
   /** Describes the clinical encounter or type of care this documentation is associated with. */
-  public var encounter: Reference? = null,
+  public val encounter: Reference? = null,
   /**
    * The composition editing time, when the composition was last logically changed by the author.
    *
@@ -210,7 +210,7 @@ public data class Composition(
    * without being changed. This means that the date on an amended document is the date of the
    * amendment, not the date of original authorship.
    */
-  public var date: DateTime,
+  public val date: DateTime,
   /**
    * The content was developed with a focus and intent of supporting the contexts that are listed.
    * These contexts may be general categories (gender, age, ...) or may be references to specific
@@ -220,12 +220,12 @@ public data class Composition(
    * When multiple useContexts are specified, there is no expectation that all or any of the
    * contexts apply.
    */
-  public var useContext: MutableList<UsageContext> = mutableListOf(),
+  public val useContext: List<UsageContext> = listOf(),
   /**
    * Identifies who is responsible for the information in the composition, not necessarily who typed
    * it in.
    */
-  public var author: MutableList<Reference> = mutableListOf(),
+  public val author: List<Reference> = listOf(),
   /**
    * A natural language name identifying the {{title}}. This name should be usable as an identifier
    * for the module by machine processing applications such as code generation.
@@ -233,7 +233,7 @@ public data class Composition(
    * The name is not expected to be globally unique. The name should be a simple alphanumeric type
    * name to ensure that it is machine-processing friendly.
    */
-  public var name: String? = null,
+  public val name: String? = null,
   /**
    * Official human-readable label for the composition.
    *
@@ -242,19 +242,19 @@ public data class Composition(
    * there are no known cases where it is useful for title to be omitted, so it is mandatory here.
    * Feedback on this requirement is welcome during the trial use period.
    */
-  public var title: String,
+  public val title: String,
   /**
    * For any additional notes.
    *
    * A comment, general note or annotation not coded elsewhere.
    */
-  public var note: MutableList<Annotation> = mutableListOf(),
+  public val note: List<Annotation> = listOf(),
   /**
    * A participant who has attested to the accuracy of the composition/document.
    *
    * Only list each attester once.
    */
-  public var attester: MutableList<Attester> = mutableListOf(),
+  public val attester: List<Attester> = listOf(),
   /**
    * Identifies the organization or group who is responsible for ongoing maintenance of and access
    * to the composition/document information.
@@ -265,7 +265,7 @@ public data class Composition(
    * information be known when working with a derived document, so providing a custodian is
    * encouraged.
    */
-  public var custodian: Reference? = null,
+  public val custodian: Reference? = null,
   /**
    * Relationships that this composition has with other compositions or documents that already
    * exist.
@@ -287,16 +287,16 @@ public data class Composition(
    * }]
    * ```
    */
-  public var relatesTo: MutableList<RelatedArtifact> = mutableListOf(),
+  public val relatesTo: List<RelatedArtifact> = listOf(),
   /**
    * The clinical service, such as a colonoscopy or an appendectomy, being documented.
    *
    * The event needs to be consistent with the type element, though can provide further information
    * if desired.
    */
-  public var event: MutableList<Event> = mutableListOf(),
+  public val event: List<Event> = listOf(),
   /** The root of the sections that make up the composition. */
-  public var section: MutableList<Section> = mutableListOf(),
+  public val section: List<Section> = listOf(),
 ) : DomainResource() {
   /** A participant who has attested to the accuracy of the composition/document. */
   @Serializable(with = CompositionAttesterSerializer::class)
@@ -305,7 +305,7 @@ public data class Composition(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -318,7 +318,7 @@ public data class Composition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -337,13 +337,13 @@ public data class Composition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /** The type of attestation the authenticator offers. */
-    public var mode: CodeableConcept,
+    public val mode: CodeableConcept,
     /** When the composition was attested by the party. */
-    public var time: DateTime? = null,
+    public val time: DateTime? = null,
     /** Who attested the composition in the specified way. */
-    public var party: Reference? = null,
+    public val party: Reference? = null,
   ) : BackboneElement()
 
   /** The clinical service, such as a colonoscopy or an appendectomy, being documented. */
@@ -353,7 +353,7 @@ public data class Composition(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -366,7 +366,7 @@ public data class Composition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -385,12 +385,12 @@ public data class Composition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /**
      * The period of time covered by the documentation. There is no assertion that the documentation
      * is a complete representation for this period, only that it documents events during this time.
      */
-    public var period: Period? = null,
+    public val period: Period? = null,
     /**
      * Represents the main clinical acts, such as a colonoscopy or an appendectomy, being
      * documented. In some cases, the event is inherent in the typeCode, such as a "History and
@@ -403,7 +403,7 @@ public data class Composition(
      * typeCode, as such a conflict would create an ambiguous situation. This short list of codes is
      * provided to be used as key words for certain types of queries.
      */
-    public var detail: MutableList<CodeableReference> = mutableListOf(),
+    public val detail: List<CodeableReference> = listOf(),
   ) : BackboneElement()
 
   /** The root of the sections that make up the composition. */
@@ -413,7 +413,7 @@ public data class Composition(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -426,7 +426,7 @@ public data class Composition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -445,7 +445,7 @@ public data class Composition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /**
      * The label for this particular section. This will be part of the rendered content for the
      * document, and is often used to build a table of contents.
@@ -457,7 +457,7 @@ public data class Composition(
      * distinguishing title, or documents that only have a single section. Most Implementation
      * Guides will make section title to be a required element.
      */
-    public var title: String? = null,
+    public val title: String? = null,
     /**
      * A code identifying the kind of content contained within the section. This must be consistent
      * with the section title.
@@ -469,12 +469,12 @@ public data class Composition(
      * meaning or interpretation of the resource that is the content of the section in the comments
      * for the section.code.
      */
-    public var code: CodeableConcept? = null,
+    public val code: CodeableConcept? = null,
     /**
      * Identifies who is responsible for the information in this section, not necessarily who typed
      * it in.
      */
-    public var author: MutableList<Reference> = mutableListOf(),
+    public val author: List<Reference> = listOf(),
     /**
      * The actual focus of the section when it is not the subject of the composition, but instead
      * represents something or someone associated with the subject such as (for a patient subject) a
@@ -490,7 +490,7 @@ public data class Composition(
      * a newborn discharge summary concerning the mother, or family history documents, with a
      * section about each family member, though there are many other examples.
      */
-    public var focus: Reference? = null,
+    public val focus: Reference? = null,
     /**
      * A human-readable narrative that contains the attested content of the section, used to
      * represent the content of the resource to a human. The narrative need not encode all the
@@ -500,7 +500,7 @@ public data class Composition(
      * Document profiles may define what content should be represented in the narrative to ensure
      * clinical safety.
      */
-    public var text: Narrative? = null,
+    public val text: Narrative? = null,
     /**
      * Specifies the order applied to the items in the section entries.
      *
@@ -508,13 +508,13 @@ public data class Composition(
      * re-order based on their own preferences as well. If there is no order specified, the order is
      * unknown, though there may still be some order.
      */
-    public var orderedBy: CodeableConcept? = null,
+    public val orderedBy: CodeableConcept? = null,
     /**
      * A reference to the actual resource from which the narrative in the section is derived.
      *
      * If there are no entries in the list, an emptyReason SHOULD be provided.
      */
-    public var entry: MutableList<Reference> = mutableListOf(),
+    public val entry: List<Reference> = listOf(),
     /**
      * If the section is empty, why the list is empty. An empty section typically has some text
      * explaining the empty reason.
@@ -524,14 +524,14 @@ public data class Composition(
      * suppressed, and not for when individual items are omitted - implementers may consider using a
      * text note or a flag on an entry in these cases.
      */
-    public var emptyReason: CodeableConcept? = null,
+    public val emptyReason: CodeableConcept? = null,
     /**
      * A nested sub-section within this section.
      *
      * Nested sections are primarily used to help human readers navigate to particular portions of
      * the document.
      */
-    public var section: MutableList<Section> = mutableListOf(),
+    public val section: List<Section> = listOf(),
   ) : BackboneElement()
 
   /** The workflow/clinical status of the composition. */

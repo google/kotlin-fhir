@@ -50,15 +50,15 @@ import kotlin.Boolean as KotlinBoolean
 import kotlin.Int
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class TestScriptOriginSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var index: Int? = null,
   public var _index: Element? = null,
   public var profile: Coding,
@@ -66,8 +66,8 @@ internal data class TestScriptOriginSurrogate(
   public fun toModel(): TestScript.Origin =
     TestScript.Origin(
       id = this@TestScriptOriginSurrogate.id,
-      extension = this@TestScriptOriginSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@TestScriptOriginSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@TestScriptOriginSurrogate.extension ?: listOf(),
+      modifierExtension = this@TestScriptOriginSurrogate.modifierExtension ?: listOf(),
       index =
         Integer.of(this@TestScriptOriginSurrogate.index, this@TestScriptOriginSurrogate._index)!!,
       profile = this@TestScriptOriginSurrogate.profile,
@@ -91,8 +91,8 @@ internal data class TestScriptOriginSurrogate(
 @Serializable
 internal data class TestScriptDestinationSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var index: Int? = null,
   public var _index: Element? = null,
   public var profile: Coding,
@@ -100,8 +100,8 @@ internal data class TestScriptDestinationSurrogate(
   public fun toModel(): TestScript.Destination =
     TestScript.Destination(
       id = this@TestScriptDestinationSurrogate.id,
-      extension = this@TestScriptDestinationSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@TestScriptDestinationSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@TestScriptDestinationSurrogate.extension ?: listOf(),
+      modifierExtension = this@TestScriptDestinationSurrogate.modifierExtension ?: listOf(),
       index =
         Integer.of(
           this@TestScriptDestinationSurrogate.index,
@@ -128,18 +128,18 @@ internal data class TestScriptDestinationSurrogate(
 @Serializable
 internal data class TestScriptMetadataSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var link: MutableList<TestScript.Metadata.Link>? = null,
-  public var capability: MutableList<TestScript.Metadata.Capability>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
+  public var link: List<TestScript.Metadata.Link>? = null,
+  public var capability: List<TestScript.Metadata.Capability>? = null,
 ) {
   public fun toModel(): TestScript.Metadata =
     TestScript.Metadata(
       id = this@TestScriptMetadataSurrogate.id,
-      extension = this@TestScriptMetadataSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@TestScriptMetadataSurrogate.modifierExtension ?: mutableListOf(),
-      link = this@TestScriptMetadataSurrogate.link ?: mutableListOf(),
-      capability = this@TestScriptMetadataSurrogate.capability ?: mutableListOf(),
+      extension = this@TestScriptMetadataSurrogate.extension ?: listOf(),
+      modifierExtension = this@TestScriptMetadataSurrogate.modifierExtension ?: listOf(),
+      link = this@TestScriptMetadataSurrogate.link ?: listOf(),
+      capability = this@TestScriptMetadataSurrogate.capability ?: listOf(),
     )
 
   public companion object {
@@ -159,8 +159,8 @@ internal data class TestScriptMetadataSurrogate(
 @Serializable
 internal data class TestScriptMetadataLinkSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var url: KotlinString? = null,
   public var _url: Element? = null,
   public var description: KotlinString? = null,
@@ -169,8 +169,8 @@ internal data class TestScriptMetadataLinkSurrogate(
   public fun toModel(): TestScript.Metadata.Link =
     TestScript.Metadata.Link(
       id = this@TestScriptMetadataLinkSurrogate.id,
-      extension = this@TestScriptMetadataLinkSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@TestScriptMetadataLinkSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@TestScriptMetadataLinkSurrogate.extension ?: listOf(),
+      modifierExtension = this@TestScriptMetadataLinkSurrogate.modifierExtension ?: listOf(),
       url =
         Uri.of(
           this@TestScriptMetadataLinkSurrogate.url,
@@ -202,29 +202,28 @@ internal data class TestScriptMetadataLinkSurrogate(
 @Serializable
 internal data class TestScriptMetadataCapabilitySurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var required: KotlinBoolean? = null,
   public var _required: Element? = null,
   public var validated: KotlinBoolean? = null,
   public var _validated: Element? = null,
   public var description: KotlinString? = null,
   public var _description: Element? = null,
-  public var origin: MutableList<Int?>? = null,
-  public var _origin: MutableList<Element?>? = null,
+  public var origin: List<Int?>? = null,
+  public var _origin: List<Element?>? = null,
   public var destination: Int? = null,
   public var _destination: Element? = null,
-  public var link: MutableList<KotlinString?>? = null,
-  public var _link: MutableList<Element?>? = null,
+  public var link: List<KotlinString?>? = null,
+  public var _link: List<Element?>? = null,
   public var capabilities: KotlinString? = null,
   public var _capabilities: Element? = null,
 ) {
   public fun toModel(): TestScript.Metadata.Capability =
     TestScript.Metadata.Capability(
       id = this@TestScriptMetadataCapabilitySurrogate.id,
-      extension = this@TestScriptMetadataCapabilitySurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@TestScriptMetadataCapabilitySurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@TestScriptMetadataCapabilitySurrogate.extension ?: listOf(),
+      modifierExtension = this@TestScriptMetadataCapabilitySurrogate.modifierExtension ?: listOf(),
       required =
         R4bBoolean.of(
           this@TestScriptMetadataCapabilitySurrogate.required,
@@ -245,7 +244,7 @@ internal data class TestScriptMetadataCapabilitySurrogate(
           this@TestScriptMetadataCapabilitySurrogate.origin == null &&
             this@TestScriptMetadataCapabilitySurrogate._origin == null
         ) {
-          mutableListOf()
+          listOf()
         } else {
           (this@TestScriptMetadataCapabilitySurrogate.origin
               ?: List(this@TestScriptMetadataCapabilitySurrogate._origin!!.size) { null })
@@ -254,7 +253,7 @@ internal data class TestScriptMetadataCapabilitySurrogate(
                 ?: List(this@TestScriptMetadataCapabilitySurrogate.origin!!.size) { null }
             )
             .map { (value, element) -> Integer.of(value, element)!! }
-            .toMutableList()
+            .toList()
         },
       destination =
         Integer.of(
@@ -266,7 +265,7 @@ internal data class TestScriptMetadataCapabilitySurrogate(
           this@TestScriptMetadataCapabilitySurrogate.link == null &&
             this@TestScriptMetadataCapabilitySurrogate._link == null
         ) {
-          mutableListOf()
+          listOf()
         } else {
           (this@TestScriptMetadataCapabilitySurrogate.link
               ?: List(this@TestScriptMetadataCapabilitySurrogate._link!!.size) { null })
@@ -275,7 +274,7 @@ internal data class TestScriptMetadataCapabilitySurrogate(
                 ?: List(this@TestScriptMetadataCapabilitySurrogate.link!!.size) { null }
             )
             .map { (value, element) -> Uri.of(value, element)!! }
-            .toMutableList()
+            .toList()
         },
       capabilities =
         Canonical.of(
@@ -299,24 +298,22 @@ internal data class TestScriptMetadataCapabilitySurrogate(
           _validated = this@with.validated.toElement(),
           description = this@with.description?.value,
           _description = this@with.description?.toElement(),
-          origin =
-            this@with.origin.map { it.value }.toMutableList().takeUnless { it.all { it == null } },
+          origin = this@with.origin.map { it.value }.toList().takeUnless { it.all { it == null } },
           _origin =
             this@with.origin
               .map { it.toElement() }
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
-              ?.toMutableList(),
+              ?.toList(),
           destination = this@with.destination?.value,
           _destination = this@with.destination?.toElement(),
-          link =
-            this@with.link.map { it.value }.toMutableList().takeUnless { it.all { it == null } },
+          link = this@with.link.map { it.value }.toList().takeUnless { it.all { it == null } },
           _link =
             this@with.link
               .map { it.toElement() }
               .takeUnless { it.all { it == null } }
               ?.map { it ?: Element() }
-              ?.toMutableList(),
+              ?.toList(),
           capabilities = this@with.capabilities.value,
           _capabilities = this@with.capabilities.toElement(),
         )
@@ -327,8 +324,8 @@ internal data class TestScriptMetadataCapabilitySurrogate(
 @Serializable
 internal data class TestScriptFixtureSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var autocreate: KotlinBoolean? = null,
   public var _autocreate: Element? = null,
   public var autodelete: KotlinBoolean? = null,
@@ -338,8 +335,8 @@ internal data class TestScriptFixtureSurrogate(
   public fun toModel(): TestScript.Fixture =
     TestScript.Fixture(
       id = this@TestScriptFixtureSurrogate.id,
-      extension = this@TestScriptFixtureSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@TestScriptFixtureSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@TestScriptFixtureSurrogate.extension ?: listOf(),
+      modifierExtension = this@TestScriptFixtureSurrogate.modifierExtension ?: listOf(),
       autocreate =
         R4bBoolean.of(
           this@TestScriptFixtureSurrogate.autocreate,
@@ -373,8 +370,8 @@ internal data class TestScriptFixtureSurrogate(
 @Serializable
 internal data class TestScriptVariableSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var name: KotlinString? = null,
   public var _name: Element? = null,
   public var defaultValue: KotlinString? = null,
@@ -395,8 +392,8 @@ internal data class TestScriptVariableSurrogate(
   public fun toModel(): TestScript.Variable =
     TestScript.Variable(
       id = this@TestScriptVariableSurrogate.id,
-      extension = this@TestScriptVariableSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@TestScriptVariableSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@TestScriptVariableSurrogate.extension ?: listOf(),
+      modifierExtension = this@TestScriptVariableSurrogate.modifierExtension ?: listOf(),
       name =
         R4bString.of(
           this@TestScriptVariableSurrogate.name,
@@ -461,16 +458,16 @@ internal data class TestScriptVariableSurrogate(
 @Serializable
 internal data class TestScriptSetupSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var action: MutableList<TestScript.Setup.Action>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
+  public var action: List<TestScript.Setup.Action>? = null,
 ) {
   public fun toModel(): TestScript.Setup =
     TestScript.Setup(
       id = this@TestScriptSetupSurrogate.id,
-      extension = this@TestScriptSetupSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@TestScriptSetupSurrogate.modifierExtension ?: mutableListOf(),
-      action = this@TestScriptSetupSurrogate.action ?: mutableListOf(),
+      extension = this@TestScriptSetupSurrogate.extension ?: listOf(),
+      modifierExtension = this@TestScriptSetupSurrogate.modifierExtension ?: listOf(),
+      action = this@TestScriptSetupSurrogate.action ?: listOf(),
     )
 
   public companion object {
@@ -489,16 +486,16 @@ internal data class TestScriptSetupSurrogate(
 @Serializable
 internal data class TestScriptSetupActionSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var operation: TestScript.Setup.Action.Operation? = null,
   public var assert: TestScript.Setup.Action.Assert? = null,
 ) {
   public fun toModel(): TestScript.Setup.Action =
     TestScript.Setup.Action(
       id = this@TestScriptSetupActionSurrogate.id,
-      extension = this@TestScriptSetupActionSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@TestScriptSetupActionSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@TestScriptSetupActionSurrogate.extension ?: listOf(),
+      modifierExtension = this@TestScriptSetupActionSurrogate.modifierExtension ?: listOf(),
       operation = this@TestScriptSetupActionSurrogate.operation,
       assert = this@TestScriptSetupActionSurrogate.assert,
     )
@@ -520,8 +517,8 @@ internal data class TestScriptSetupActionSurrogate(
 @Serializable
 internal data class TestScriptSetupActionOperationSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var type: Coding? = null,
   public var resource: KotlinString? = null,
   public var _resource: Element? = null,
@@ -543,7 +540,7 @@ internal data class TestScriptSetupActionOperationSurrogate(
   public var _origin: Element? = null,
   public var params: KotlinString? = null,
   public var _params: Element? = null,
-  public var requestHeader: MutableList<TestScript.Setup.Action.Operation.RequestHeader>? = null,
+  public var requestHeader: List<TestScript.Setup.Action.Operation.RequestHeader>? = null,
   public var requestId: KotlinString? = null,
   public var _requestId: Element? = null,
   public var responseId: KotlinString? = null,
@@ -558,9 +555,9 @@ internal data class TestScriptSetupActionOperationSurrogate(
   public fun toModel(): TestScript.Setup.Action.Operation =
     TestScript.Setup.Action.Operation(
       id = this@TestScriptSetupActionOperationSurrogate.id,
-      extension = this@TestScriptSetupActionOperationSurrogate.extension ?: mutableListOf(),
+      extension = this@TestScriptSetupActionOperationSurrogate.extension ?: listOf(),
       modifierExtension =
-        this@TestScriptSetupActionOperationSurrogate.modifierExtension ?: mutableListOf(),
+        this@TestScriptSetupActionOperationSurrogate.modifierExtension ?: listOf(),
       type = this@TestScriptSetupActionOperationSurrogate.type,
       resource =
         this@TestScriptSetupActionOperationSurrogate.resource?.let {
@@ -616,7 +613,7 @@ internal data class TestScriptSetupActionOperationSurrogate(
           this@TestScriptSetupActionOperationSurrogate.params,
           this@TestScriptSetupActionOperationSurrogate._params,
         ),
-      requestHeader = this@TestScriptSetupActionOperationSurrogate.requestHeader ?: mutableListOf(),
+      requestHeader = this@TestScriptSetupActionOperationSurrogate.requestHeader ?: listOf(),
       requestId =
         Id.of(
           this@TestScriptSetupActionOperationSurrogate.requestId,
@@ -693,8 +690,8 @@ internal data class TestScriptSetupActionOperationSurrogate(
 @Serializable
 internal data class TestScriptSetupActionOperationRequestHeaderSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var `field`: KotlinString? = null,
   public var _field: Element? = null,
   public var `value`: KotlinString? = null,
@@ -703,11 +700,9 @@ internal data class TestScriptSetupActionOperationRequestHeaderSurrogate(
   public fun toModel(): TestScript.Setup.Action.Operation.RequestHeader =
     TestScript.Setup.Action.Operation.RequestHeader(
       id = this@TestScriptSetupActionOperationRequestHeaderSurrogate.id,
-      extension =
-        this@TestScriptSetupActionOperationRequestHeaderSurrogate.extension ?: mutableListOf(),
+      extension = this@TestScriptSetupActionOperationRequestHeaderSurrogate.extension ?: listOf(),
       modifierExtension =
-        this@TestScriptSetupActionOperationRequestHeaderSurrogate.modifierExtension
-          ?: mutableListOf(),
+        this@TestScriptSetupActionOperationRequestHeaderSurrogate.modifierExtension ?: listOf(),
       `field` =
         R4bString.of(
           this@TestScriptSetupActionOperationRequestHeaderSurrogate.`field`,
@@ -741,8 +736,8 @@ internal data class TestScriptSetupActionOperationRequestHeaderSurrogate(
 @Serializable
 internal data class TestScriptSetupActionAssertSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var label: KotlinString? = null,
   public var _label: Element? = null,
   public var description: KotlinString? = null,
@@ -791,9 +786,8 @@ internal data class TestScriptSetupActionAssertSurrogate(
   public fun toModel(): TestScript.Setup.Action.Assert =
     TestScript.Setup.Action.Assert(
       id = this@TestScriptSetupActionAssertSurrogate.id,
-      extension = this@TestScriptSetupActionAssertSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@TestScriptSetupActionAssertSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@TestScriptSetupActionAssertSurrogate.extension ?: listOf(),
+      modifierExtension = this@TestScriptSetupActionAssertSurrogate.modifierExtension ?: listOf(),
       label =
         R4bString.of(
           this@TestScriptSetupActionAssertSurrogate.label,
@@ -977,26 +971,26 @@ internal data class TestScriptSetupActionAssertSurrogate(
 @Serializable
 internal data class TestScriptTestSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var name: KotlinString? = null,
   public var _name: Element? = null,
   public var description: KotlinString? = null,
   public var _description: Element? = null,
-  public var action: MutableList<TestScript.Test.Action>? = null,
+  public var action: List<TestScript.Test.Action>? = null,
 ) {
   public fun toModel(): TestScript.Test =
     TestScript.Test(
       id = this@TestScriptTestSurrogate.id,
-      extension = this@TestScriptTestSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@TestScriptTestSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@TestScriptTestSurrogate.extension ?: listOf(),
+      modifierExtension = this@TestScriptTestSurrogate.modifierExtension ?: listOf(),
       name = R4bString.of(this@TestScriptTestSurrogate.name, this@TestScriptTestSurrogate._name),
       description =
         R4bString.of(
           this@TestScriptTestSurrogate.description,
           this@TestScriptTestSurrogate._description,
         ),
-      action = this@TestScriptTestSurrogate.action ?: mutableListOf(),
+      action = this@TestScriptTestSurrogate.action ?: listOf(),
     )
 
   public companion object {
@@ -1019,16 +1013,16 @@ internal data class TestScriptTestSurrogate(
 @Serializable
 internal data class TestScriptTestActionSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var operation: TestScript.Setup.Action.Operation? = null,
   public var assert: TestScript.Setup.Action.Assert? = null,
 ) {
   public fun toModel(): TestScript.Test.Action =
     TestScript.Test.Action(
       id = this@TestScriptTestActionSurrogate.id,
-      extension = this@TestScriptTestActionSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@TestScriptTestActionSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@TestScriptTestActionSurrogate.extension ?: listOf(),
+      modifierExtension = this@TestScriptTestActionSurrogate.modifierExtension ?: listOf(),
       operation = this@TestScriptTestActionSurrogate.operation,
       assert = this@TestScriptTestActionSurrogate.assert,
     )
@@ -1050,16 +1044,16 @@ internal data class TestScriptTestActionSurrogate(
 @Serializable
 internal data class TestScriptTeardownSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var action: MutableList<TestScript.Teardown.Action>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
+  public var action: List<TestScript.Teardown.Action>? = null,
 ) {
   public fun toModel(): TestScript.Teardown =
     TestScript.Teardown(
       id = this@TestScriptTeardownSurrogate.id,
-      extension = this@TestScriptTeardownSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@TestScriptTeardownSurrogate.modifierExtension ?: mutableListOf(),
-      action = this@TestScriptTeardownSurrogate.action ?: mutableListOf(),
+      extension = this@TestScriptTeardownSurrogate.extension ?: listOf(),
+      modifierExtension = this@TestScriptTeardownSurrogate.modifierExtension ?: listOf(),
+      action = this@TestScriptTeardownSurrogate.action ?: listOf(),
     )
 
   public companion object {
@@ -1078,16 +1072,15 @@ internal data class TestScriptTeardownSurrogate(
 @Serializable
 internal data class TestScriptTeardownActionSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var operation: TestScript.Setup.Action.Operation,
 ) {
   public fun toModel(): TestScript.Teardown.Action =
     TestScript.Teardown.Action(
       id = this@TestScriptTeardownActionSurrogate.id,
-      extension = this@TestScriptTeardownActionSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@TestScriptTeardownActionSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@TestScriptTeardownActionSurrogate.extension ?: listOf(),
+      modifierExtension = this@TestScriptTeardownActionSurrogate.modifierExtension ?: listOf(),
       operation = this@TestScriptTeardownActionSurrogate.operation,
     )
 
@@ -1113,9 +1106,9 @@ internal data class TestScriptSurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: MutableList<Resource>? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var contained: List<Resource>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var url: KotlinString? = null,
   public var _url: Element? = null,
   public var identifier: Identifier? = null,
@@ -1133,23 +1126,23 @@ internal data class TestScriptSurrogate(
   public var _date: Element? = null,
   public var publisher: KotlinString? = null,
   public var _publisher: Element? = null,
-  public var contact: MutableList<ContactDetail>? = null,
+  public var contact: List<ContactDetail>? = null,
   public var description: KotlinString? = null,
   public var _description: Element? = null,
-  public var useContext: MutableList<UsageContext>? = null,
-  public var jurisdiction: MutableList<CodeableConcept>? = null,
+  public var useContext: List<UsageContext>? = null,
+  public var jurisdiction: List<CodeableConcept>? = null,
   public var purpose: KotlinString? = null,
   public var _purpose: Element? = null,
   public var copyright: KotlinString? = null,
   public var _copyright: Element? = null,
-  public var origin: MutableList<TestScript.Origin>? = null,
-  public var destination: MutableList<TestScript.Destination>? = null,
+  public var origin: List<TestScript.Origin>? = null,
+  public var destination: List<TestScript.Destination>? = null,
   public var metadata: TestScript.Metadata? = null,
-  public var fixture: MutableList<TestScript.Fixture>? = null,
-  public var profile: MutableList<Reference>? = null,
-  public var variable: MutableList<TestScript.Variable>? = null,
+  public var fixture: List<TestScript.Fixture>? = null,
+  public var profile: List<Reference>? = null,
+  public var variable: List<TestScript.Variable>? = null,
   public var setup: TestScript.Setup? = null,
-  public var test: MutableList<TestScript.Test>? = null,
+  public var test: List<TestScript.Test>? = null,
   public var teardown: TestScript.Teardown? = null,
 ) {
   public fun toModel(): TestScript =
@@ -1160,9 +1153,9 @@ internal data class TestScriptSurrogate(
         Uri.of(this@TestScriptSurrogate.implicitRules, this@TestScriptSurrogate._implicitRules),
       language = Code.of(this@TestScriptSurrogate.language, this@TestScriptSurrogate._language),
       text = this@TestScriptSurrogate.text,
-      contained = this@TestScriptSurrogate.contained ?: mutableListOf(),
-      extension = this@TestScriptSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@TestScriptSurrogate.modifierExtension ?: mutableListOf(),
+      contained = this@TestScriptSurrogate.contained ?: listOf(),
+      extension = this@TestScriptSurrogate.extension ?: listOf(),
+      modifierExtension = this@TestScriptSurrogate.modifierExtension ?: listOf(),
       url = Uri.of(this@TestScriptSurrogate.url, this@TestScriptSurrogate._url)!!,
       identifier = this@TestScriptSurrogate.identifier,
       version = R4bString.of(this@TestScriptSurrogate.version, this@TestScriptSurrogate._version),
@@ -1185,22 +1178,22 @@ internal data class TestScriptSurrogate(
         ),
       publisher =
         R4bString.of(this@TestScriptSurrogate.publisher, this@TestScriptSurrogate._publisher),
-      contact = this@TestScriptSurrogate.contact ?: mutableListOf(),
+      contact = this@TestScriptSurrogate.contact ?: listOf(),
       description =
         Markdown.of(this@TestScriptSurrogate.description, this@TestScriptSurrogate._description),
-      useContext = this@TestScriptSurrogate.useContext ?: mutableListOf(),
-      jurisdiction = this@TestScriptSurrogate.jurisdiction ?: mutableListOf(),
+      useContext = this@TestScriptSurrogate.useContext ?: listOf(),
+      jurisdiction = this@TestScriptSurrogate.jurisdiction ?: listOf(),
       purpose = Markdown.of(this@TestScriptSurrogate.purpose, this@TestScriptSurrogate._purpose),
       copyright =
         Markdown.of(this@TestScriptSurrogate.copyright, this@TestScriptSurrogate._copyright),
-      origin = this@TestScriptSurrogate.origin ?: mutableListOf(),
-      destination = this@TestScriptSurrogate.destination ?: mutableListOf(),
+      origin = this@TestScriptSurrogate.origin ?: listOf(),
+      destination = this@TestScriptSurrogate.destination ?: listOf(),
       metadata = this@TestScriptSurrogate.metadata,
-      fixture = this@TestScriptSurrogate.fixture ?: mutableListOf(),
-      profile = this@TestScriptSurrogate.profile ?: mutableListOf(),
-      variable = this@TestScriptSurrogate.variable ?: mutableListOf(),
+      fixture = this@TestScriptSurrogate.fixture ?: listOf(),
+      profile = this@TestScriptSurrogate.profile ?: listOf(),
+      variable = this@TestScriptSurrogate.variable ?: listOf(),
       setup = this@TestScriptSurrogate.setup,
-      test = this@TestScriptSurrogate.test ?: mutableListOf(),
+      test = this@TestScriptSurrogate.test ?: listOf(),
       teardown = this@TestScriptSurrogate.teardown,
     )
 

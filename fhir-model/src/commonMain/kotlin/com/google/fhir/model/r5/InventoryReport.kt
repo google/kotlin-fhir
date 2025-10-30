@@ -23,7 +23,7 @@ import com.google.fhir.model.r5.serializers.InventoryReportInventoryListingSeria
 import com.google.fhir.model.r5.serializers.InventoryReportSerializer
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -39,12 +39,12 @@ public data class InventoryReport(
    * like the create and conditional update. Otherwise, the use of the resouce id depends on the
    * given use case.
    */
-  override var id: String? = null,
+  override val id: String? = null,
   /**
    * The metadata about the resource. This is content that is maintained by the infrastructure.
    * Changes to the content might not always be associated with version changes to the resource.
    */
-  override var meta: Meta? = null,
+  override val meta: Meta? = null,
   /**
    * A reference to a set of rules that were followed when the resource was constructed, and which
    * must be understood when processing the content. Often, this is a reference to an implementation
@@ -58,7 +58,7 @@ public data class InventoryReport(
    * to an implementation guide that defines these special rules as part of its narrative along with
    * other profiles, value sets, etc.
    */
-  override var implicitRules: Uri? = null,
+  override val implicitRules: Uri? = null,
   /**
    * The base language in which the resource is written.
    *
@@ -70,7 +70,7 @@ public data class InventoryReport(
    * language is specified, it should it also be specified on the div element in the html (see rules
    * in HTML5 for information about the relationship between xml:lang and the html lang attribute).
    */
-  override var language: Code? = null,
+  override val language: Code? = null,
   /**
    * A human-readable narrative that contains a summary of the resource and can be used to represent
    * the content of the resource to a human. The narrative need not encode all the structured data,
@@ -84,7 +84,7 @@ public data class InventoryReport(
    * legacy systems where information is captured as a "text blob" or where text is additionally
    * entered raw or narrated and encoded information is added later.
    */
-  override var text: Narrative? = null,
+  override val text: Narrative? = null,
   /**
    * These resources do not have an independent existence apart from the resource that contains
    * them - they cannot be identified independently, nor can they have their own independent
@@ -96,7 +96,7 @@ public data class InventoryReport(
    * resources may have profiles and tags in their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: MutableList<Resource> = mutableListOf(),
+  override val contained: List<Resource> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and managable, there is a strict set of governance
@@ -109,7 +109,7 @@ public data class InventoryReport(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: MutableList<Extension> = mutableListOf(),
+  override val extension: List<Extension> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -128,33 +128,33 @@ public data class InventoryReport(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: MutableList<Extension> = mutableListOf(),
+  override val modifierExtension: List<Extension> = listOf(),
   /** Business identifier for the InventoryReport. */
-  public var identifier: MutableList<Identifier> = mutableListOf(),
+  public val identifier: List<Identifier> = listOf(),
   /**
    * The status of the inventory check or notification - whether this is draft (e.g. the report is
    * still pending some updates) or active.
    */
-  public var status: Enumeration<InventoryReportStatus>,
+  public val status: Enumeration<InventoryReportStatus>,
   /**
    * Whether the report is about the current inventory count (snapshot) or a differential change in
    * inventory (change).
    */
-  public var countType: Enumeration<InventoryCountType>,
+  public val countType: Enumeration<InventoryCountType>,
   /** What type of operation is being performed - addition or subtraction. */
-  public var operationType: CodeableConcept? = null,
+  public val operationType: CodeableConcept? = null,
   /** The reason for this count - regular count, ad-hoc count, new arrivals, etc. */
-  public var operationTypeReason: CodeableConcept? = null,
+  public val operationTypeReason: CodeableConcept? = null,
   /** When the report has been submitted. */
-  public var reportedDateTime: DateTime,
+  public val reportedDateTime: DateTime,
   /** Who submits the report. */
-  public var reporter: Reference? = null,
+  public val reporter: Reference? = null,
   /** The period the report refers to. */
-  public var reportingPeriod: Period? = null,
+  public val reportingPeriod: Period? = null,
   /** An inventory listing section (grouped by any of the attributes). */
-  public var inventoryListing: MutableList<InventoryListing> = mutableListOf(),
+  public val inventoryListing: List<InventoryListing> = listOf(),
   /** A note associated with the InventoryReport. */
-  public var note: MutableList<Annotation> = mutableListOf(),
+  public val note: List<Annotation> = listOf(),
 ) : DomainResource() {
   /** An inventory listing section (grouped by any of the attributes). */
   @Serializable(with = InventoryReportInventoryListingSerializer::class)
@@ -163,7 +163,7 @@ public data class InventoryReport(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: String? = null,
+    override val id: String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -176,7 +176,7 @@ public data class InventoryReport(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -195,15 +195,15 @@ public data class InventoryReport(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /** Location of the inventory items. */
-    public var location: Reference? = null,
+    public val location: Reference? = null,
     /** The status of the items. */
-    public var itemStatus: CodeableConcept? = null,
+    public val itemStatus: CodeableConcept? = null,
     /** The date and time when the items were counted. */
-    public var countingDateTime: DateTime? = null,
+    public val countingDateTime: DateTime? = null,
     /** The item or items in this listing. */
-    public var item: MutableList<Item> = mutableListOf(),
+    public val item: List<Item> = listOf(),
   ) : BackboneElement() {
     /** The item or items in this listing. */
     @Serializable(with = InventoryReportInventoryListingItemSerializer::class)
@@ -212,7 +212,7 @@ public data class InventoryReport(
        * Unique id for the element within a resource (for internal references). This may be any
        * string value that does not contain spaces.
        */
-      override var id: String? = null,
+      override val id: String? = null,
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -225,7 +225,7 @@ public data class InventoryReport(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: MutableList<Extension> = mutableListOf(),
+      override val extension: List<Extension> = listOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -244,16 +244,16 @@ public data class InventoryReport(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: MutableList<Extension> = mutableListOf(),
+      override val modifierExtension: List<Extension> = listOf(),
       /**
        * The inventory category or classification of the items being reported. This is meant not for
        * defining the product, but for inventory categories e.g. 'pending recount' or 'damaged'.
        */
-      public var category: CodeableConcept? = null,
+      public val category: CodeableConcept? = null,
       /** The quantity of the item or items being reported. */
-      public var quantity: Quantity,
+      public val quantity: Quantity,
       /** The code or reference to the item type. */
-      public var item: CodeableReference,
+      public val item: CodeableReference,
     ) : BackboneElement()
   }
 

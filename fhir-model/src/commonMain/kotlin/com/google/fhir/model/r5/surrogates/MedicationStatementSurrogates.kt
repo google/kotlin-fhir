@@ -43,24 +43,23 @@ import com.google.fhir.model.r5.serializers.DoubleSerializer
 import com.google.fhir.model.r5.serializers.LocalTimeSerializer
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class MedicationStatementAdherenceSurrogate(
   public var id: String? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var code: CodeableConcept,
   public var reason: CodeableConcept? = null,
 ) {
   public fun toModel(): MedicationStatement.Adherence =
     MedicationStatement.Adherence(
       id = this@MedicationStatementAdherenceSurrogate.id,
-      extension = this@MedicationStatementAdherenceSurrogate.extension ?: mutableListOf(),
-      modifierExtension =
-        this@MedicationStatementAdherenceSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@MedicationStatementAdherenceSurrogate.extension ?: listOf(),
+      modifierExtension = this@MedicationStatementAdherenceSurrogate.modifierExtension ?: listOf(),
       code = this@MedicationStatementAdherenceSurrogate.code,
       reason = this@MedicationStatementAdherenceSurrogate.reason,
     )
@@ -122,28 +121,28 @@ internal data class MedicationStatementSurrogate(
   public var language: String? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: MutableList<Resource>? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var identifier: MutableList<Identifier>? = null,
-  public var partOf: MutableList<Reference>? = null,
+  public var contained: List<Resource>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
+  public var identifier: List<Identifier>? = null,
+  public var partOf: List<Reference>? = null,
   public var status: String? = null,
   public var _status: Element? = null,
-  public var category: MutableList<CodeableConcept>? = null,
+  public var category: List<CodeableConcept>? = null,
   public var medication: CodeableReference,
   public var subject: Reference,
   public var encounter: Reference? = null,
   public var effective: MedicationStatement.Effective? = null,
   public var dateAsserted: String? = null,
   public var _dateAsserted: Element? = null,
-  public var informationSource: MutableList<Reference>? = null,
-  public var derivedFrom: MutableList<Reference>? = null,
-  public var reason: MutableList<CodeableReference>? = null,
-  public var note: MutableList<Annotation>? = null,
-  public var relatedClinicalInformation: MutableList<Reference>? = null,
+  public var informationSource: List<Reference>? = null,
+  public var derivedFrom: List<Reference>? = null,
+  public var reason: List<CodeableReference>? = null,
+  public var note: List<Annotation>? = null,
+  public var relatedClinicalInformation: List<Reference>? = null,
   public var renderedDosageInstruction: String? = null,
   public var _renderedDosageInstruction: Element? = null,
-  public var dosage: MutableList<Dosage>? = null,
+  public var dosage: List<Dosage>? = null,
   public var adherence: MedicationStatement.Adherence? = null,
 ) {
   public fun toModel(): MedicationStatement =
@@ -161,11 +160,11 @@ internal data class MedicationStatementSurrogate(
           this@MedicationStatementSurrogate._language,
         ),
       text = this@MedicationStatementSurrogate.text,
-      contained = this@MedicationStatementSurrogate.contained ?: mutableListOf(),
-      extension = this@MedicationStatementSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@MedicationStatementSurrogate.modifierExtension ?: mutableListOf(),
-      identifier = this@MedicationStatementSurrogate.identifier ?: mutableListOf(),
-      partOf = this@MedicationStatementSurrogate.partOf ?: mutableListOf(),
+      contained = this@MedicationStatementSurrogate.contained ?: listOf(),
+      extension = this@MedicationStatementSurrogate.extension ?: listOf(),
+      modifierExtension = this@MedicationStatementSurrogate.modifierExtension ?: listOf(),
+      identifier = this@MedicationStatementSurrogate.identifier ?: listOf(),
+      partOf = this@MedicationStatementSurrogate.partOf ?: listOf(),
       status =
         Enumeration.of(
           MedicationStatement.MedicationStatementStatusCodes.fromCode(
@@ -173,7 +172,7 @@ internal data class MedicationStatementSurrogate(
           ),
           this@MedicationStatementSurrogate._status,
         ),
-      category = this@MedicationStatementSurrogate.category ?: mutableListOf(),
+      category = this@MedicationStatementSurrogate.category ?: listOf(),
       medication = this@MedicationStatementSurrogate.medication,
       subject = this@MedicationStatementSurrogate.subject,
       encounter = this@MedicationStatementSurrogate.encounter,
@@ -183,18 +182,18 @@ internal data class MedicationStatementSurrogate(
           FhirDateTime.fromString(this@MedicationStatementSurrogate.dateAsserted),
           this@MedicationStatementSurrogate._dateAsserted,
         ),
-      informationSource = this@MedicationStatementSurrogate.informationSource ?: mutableListOf(),
-      derivedFrom = this@MedicationStatementSurrogate.derivedFrom ?: mutableListOf(),
-      reason = this@MedicationStatementSurrogate.reason ?: mutableListOf(),
-      note = this@MedicationStatementSurrogate.note ?: mutableListOf(),
+      informationSource = this@MedicationStatementSurrogate.informationSource ?: listOf(),
+      derivedFrom = this@MedicationStatementSurrogate.derivedFrom ?: listOf(),
+      reason = this@MedicationStatementSurrogate.reason ?: listOf(),
+      note = this@MedicationStatementSurrogate.note ?: listOf(),
       relatedClinicalInformation =
-        this@MedicationStatementSurrogate.relatedClinicalInformation ?: mutableListOf(),
+        this@MedicationStatementSurrogate.relatedClinicalInformation ?: listOf(),
       renderedDosageInstruction =
         Markdown.of(
           this@MedicationStatementSurrogate.renderedDosageInstruction,
           this@MedicationStatementSurrogate._renderedDosageInstruction,
         ),
-      dosage = this@MedicationStatementSurrogate.dosage ?: mutableListOf(),
+      dosage = this@MedicationStatementSurrogate.dosage ?: listOf(),
       adherence = this@MedicationStatementSurrogate.adherence,
     )
 

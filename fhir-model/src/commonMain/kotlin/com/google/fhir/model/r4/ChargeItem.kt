@@ -23,7 +23,7 @@ import com.google.fhir.model.r4.serializers.ChargeItemPerformerSerializer
 import com.google.fhir.model.r4.serializers.ChargeItemProductSerializer
 import com.google.fhir.model.r4.serializers.ChargeItemSerializer
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -43,12 +43,12 @@ public data class ChargeItem(
    * The only time that a resource does not have an id is when it is being submitted to the server
    * using a create operation.
    */
-  override var id: kotlin.String? = null,
+  override val id: kotlin.String? = null,
   /**
    * The metadata about the resource. This is content that is maintained by the infrastructure.
    * Changes to the content might not always be associated with version changes to the resource.
    */
-  override var meta: Meta? = null,
+  override val meta: Meta? = null,
   /**
    * A reference to a set of rules that were followed when the resource was constructed, and which
    * must be understood when processing the content. Often, this is a reference to an implementation
@@ -62,7 +62,7 @@ public data class ChargeItem(
    * to an implementation guide that defines these special rules as part of it's narrative along
    * with other profiles, value sets, etc.
    */
-  override var implicitRules: Uri? = null,
+  override val implicitRules: Uri? = null,
   /**
    * The base language in which the resource is written.
    *
@@ -74,7 +74,7 @@ public data class ChargeItem(
    * language is specified, it should it also be specified on the div element in the html (see rules
    * in HTML5 for information about the relationship between xml:lang and the html lang attribute).
    */
-  override var language: Code? = null,
+  override val language: Code? = null,
   /**
    * A human-readable narrative that contains a summary of the resource and can be used to represent
    * the content of the resource to a human. The narrative need not encode all the structured data,
@@ -88,7 +88,7 @@ public data class ChargeItem(
    * legacy systems where information is captured as a "text blob" or where text is additionally
    * entered raw or narrated and encoded information is added later.
    */
-  override var text: Narrative? = null,
+  override val text: Narrative? = null,
   /**
    * These resources do not have an independent existence apart from the resource that contains
    * them - they cannot be identified independently, and nor can they have their own independent
@@ -99,7 +99,7 @@ public data class ChargeItem(
    * resources may have profiles and tags In their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: MutableList<Resource> = mutableListOf(),
+  override val contained: List<Resource> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and manageable, there is a strict set of
@@ -112,7 +112,7 @@ public data class ChargeItem(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: MutableList<Extension> = mutableListOf(),
+  override val extension: List<Extension> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -131,19 +131,19 @@ public data class ChargeItem(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: MutableList<Extension> = mutableListOf(),
+  override val modifierExtension: List<Extension> = listOf(),
   /** Identifiers assigned to this event performer or other systems. */
-  public var identifier: MutableList<Identifier> = mutableListOf(),
+  public val identifier: List<Identifier> = listOf(),
   /**
    * References the (external) source of pricing information, rules of application for the code this
    * ChargeItem uses.
    */
-  public var definitionUri: MutableList<Uri> = mutableListOf(),
+  public val definitionUri: List<Uri> = listOf(),
   /**
    * References the source of pricing information, rules of application for the code this ChargeItem
    * uses.
    */
-  public var definitionCanonical: MutableList<Canonical> = mutableListOf(),
+  public val definitionCanonical: List<Canonical> = listOf(),
   /**
    * The current state of the ChargeItem.
    *
@@ -153,30 +153,30 @@ public data class ChargeItem(
    * This element is labeled as a modifier because the status contains the code entered-in-error
    * that marks the charge item as not currently valid.
    */
-  public var status: Enumeration<ChargeItemStatus>,
+  public val status: Enumeration<ChargeItemStatus>,
   /** ChargeItems can be grouped to larger ChargeItems covering the whole set. */
-  public var partOf: MutableList<Reference> = mutableListOf(),
+  public val partOf: List<Reference> = listOf(),
   /** A code that identifies the charge, like a billing code. */
-  public var code: CodeableConcept,
+  public val code: CodeableConcept,
   /** The individual or set of individuals the action is being or was performed on. */
-  public var subject: Reference,
+  public val subject: Reference,
   /** The encounter or episode of care that establishes the context for this event. */
-  public var context: Reference? = null,
+  public val context: Reference? = null,
   /**
    * Date/time(s) or duration when the charged service was applied.
    *
    * The list of types may be constrained as appropriate for the type of charge item.
    */
-  public var occurrence: Occurrence? = null,
+  public val occurrence: Occurrence? = null,
   /** Indicates who or what performed or participated in the charged service. */
-  public var performer: MutableList<Performer> = mutableListOf(),
+  public val performer: List<Performer> = listOf(),
   /**
    * The organization requesting the service.
    *
    * Practitioners and Devices can be associated with multiple organizations. It has to be made
    * clear, on behalf of which Organization the services have been rendered.
    */
-  public var performingOrganization: Reference? = null,
+  public val performingOrganization: Reference? = null,
   /**
    * The organization performing the service.
    *
@@ -184,7 +184,7 @@ public data class ChargeItem(
    * Organization requested the services to be rendered. (In many cases, this may just be the
    * Department associated with the Encounter.location).
    */
-  public var requestingOrganization: Reference? = null,
+  public val requestingOrganization: Reference? = null,
   /**
    * The financial cost center permits the tracking of charge attribution.
    *
@@ -192,14 +192,14 @@ public data class ChargeItem(
    * identifier of the cost center determined by Reference.identifier.value and
    * Reference.identifier.system, depending on use case requirements.
    */
-  public var costCenter: Reference? = null,
+  public val costCenter: Reference? = null,
   /**
    * Quantity of which the charge item has been serviced.
    *
    * In many cases this may just be a value, if the underlying units are implicit in the definition
    * of the charge item code.
    */
-  public var quantity: Quantity? = null,
+  public val quantity: Quantity? = null,
   /**
    * The anatomical location where the related service has been applied.
    *
@@ -208,7 +208,7 @@ public data class ChargeItem(
    * extension [bodySite](extension-bodysite.html). May be a summary code, or a reference to a very
    * precise definition of the location, or both.
    */
-  public var bodysite: MutableList<CodeableConcept> = mutableListOf(),
+  public val bodysite: List<CodeableConcept> = listOf(),
   /**
    * Factor overriding the factor determined by the rules associated with the code.
    *
@@ -217,7 +217,7 @@ public data class ChargeItem(
    * back catalogue of the billing codes (see ChargeItem.definition). Derived profiles may require a
    * ChargeItem.overrideReason to be provided if either factor or price are manually overridden.
    */
-  public var factorOverride: Decimal? = null,
+  public val factorOverride: Decimal? = null,
   /**
    * Total price of the charge overriding the list price associated with the code.
    *
@@ -226,7 +226,7 @@ public data class ChargeItem(
    * billing codes (see ChargeItem.definition). Derived profiles may require a
    * ChargeItem.overrideReason to be provided if either factor or price are manually overridden.
    */
-  public var priceOverride: Money? = null,
+  public val priceOverride: Money? = null,
   /**
    * If the list price or the rule-based factor associated with the code is overridden, this
    * attribute can capture a text to indicate the reason for this action.
@@ -234,34 +234,34 @@ public data class ChargeItem(
    * Derived Profiles may choose to add invariants requiring this field to be populated if either
    * priceOverride or factorOverride have been filled.
    */
-  public var overrideReason: String? = null,
+  public val overrideReason: String? = null,
   /**
    * The device, practitioner, etc. who entered the charge item.
    *
    * The enterer is also the person considered responsible for factor/price overrides if applicable.
    */
-  public var enterer: Reference? = null,
+  public val enterer: Reference? = null,
   /**
    * Date the charge item was entered.
    *
    * The actual date when the service associated with the charge has been rendered is captured in
    * occurrence[x].
    */
-  public var enteredDate: DateTime? = null,
+  public val enteredDate: DateTime? = null,
   /**
    * Describes why the event occurred in coded or textual form.
    *
    * If the application of the charge item requires a reason to be given, it can be captured here.
    * Textual reasons can be captured using reasonCode.text.
    */
-  public var reason: MutableList<CodeableConcept> = mutableListOf(),
+  public val reason: List<CodeableConcept> = listOf(),
   /** Indicated the rendered service that caused this charge. */
-  public var service: MutableList<Reference> = mutableListOf(),
+  public val service: List<Reference> = listOf(),
   /**
    * Identifies the device, food, drug or other product being charged either by type code or
    * reference to an instance.
    */
-  public var product: Product? = null,
+  public val product: Product? = null,
   /**
    * Account into which this ChargeItems belongs.
    *
@@ -270,11 +270,11 @@ public data class ChargeItem(
    * to decide based on the Encounter/EpisodeOfCare/Patient/Coverage context and the type of
    * ChargeItem, which Account is appropriate.
    */
-  public var account: MutableList<Reference> = mutableListOf(),
+  public val account: List<Reference> = listOf(),
   /** Comments made about the event by the performer, subject or other participants. */
-  public var note: MutableList<Annotation> = mutableListOf(),
+  public val note: List<Annotation> = listOf(),
   /** Further information supporting this charge. */
-  public var supportingInformation: MutableList<Reference> = mutableListOf(),
+  public val supportingInformation: List<Reference> = listOf(),
 ) : DomainResource() {
   /** Indicates who or what performed or participated in the charged service. */
   @Serializable(with = ChargeItemPerformerSerializer::class)
@@ -283,7 +283,7 @@ public data class ChargeItem(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and manageable, there is a strict set of
@@ -296,7 +296,7 @@ public data class ChargeItem(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -315,14 +315,14 @@ public data class ChargeItem(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /**
      * Describes the type of performance or participation(e.g. primary surgeon, anesthesiologiest,
      * etc.).
      */
-    public var function: CodeableConcept? = null,
+    public val function: CodeableConcept? = null,
     /** The device, practitioner, etc. who performed or participated in the service. */
-    public var actor: Reference,
+    public val actor: Reference,
   ) : BackboneElement()
 
   @Serializable(with = ChargeItemOccurrenceSerializer::class)

@@ -27,7 +27,7 @@ import com.google.fhir.model.r5.serializers.PatientSerializer
 import com.google.fhir.model.r5.terminologies.AdministrativeGender
 import kotlin.String
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -46,12 +46,12 @@ public data class Patient(
    * like the create and conditional update. Otherwise, the use of the resouce id depends on the
    * given use case.
    */
-  override var id: String? = null,
+  override val id: String? = null,
   /**
    * The metadata about the resource. This is content that is maintained by the infrastructure.
    * Changes to the content might not always be associated with version changes to the resource.
    */
-  override var meta: Meta? = null,
+  override val meta: Meta? = null,
   /**
    * A reference to a set of rules that were followed when the resource was constructed, and which
    * must be understood when processing the content. Often, this is a reference to an implementation
@@ -65,7 +65,7 @@ public data class Patient(
    * to an implementation guide that defines these special rules as part of its narrative along with
    * other profiles, value sets, etc.
    */
-  override var implicitRules: Uri? = null,
+  override val implicitRules: Uri? = null,
   /**
    * The base language in which the resource is written.
    *
@@ -77,7 +77,7 @@ public data class Patient(
    * language is specified, it should it also be specified on the div element in the html (see rules
    * in HTML5 for information about the relationship between xml:lang and the html lang attribute).
    */
-  override var language: Code? = null,
+  override val language: Code? = null,
   /**
    * A human-readable narrative that contains a summary of the resource and can be used to represent
    * the content of the resource to a human. The narrative need not encode all the structured data,
@@ -91,7 +91,7 @@ public data class Patient(
    * legacy systems where information is captured as a "text blob" or where text is additionally
    * entered raw or narrated and encoded information is added later.
    */
-  override var text: Narrative? = null,
+  override val text: Narrative? = null,
   /**
    * These resources do not have an independent existence apart from the resource that contains
    * them - they cannot be identified independently, nor can they have their own independent
@@ -103,7 +103,7 @@ public data class Patient(
    * resources may have profiles and tags in their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: MutableList<Resource> = mutableListOf(),
+  override val contained: List<Resource> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and managable, there is a strict set of governance
@@ -116,7 +116,7 @@ public data class Patient(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: MutableList<Extension> = mutableListOf(),
+  override val extension: List<Extension> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -135,9 +135,9 @@ public data class Patient(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: MutableList<Extension> = mutableListOf(),
+  override val modifierExtension: List<Extension> = listOf(),
   /** An identifier for this patient. */
-  public var identifier: MutableList<Identifier> = mutableListOf(),
+  public val identifier: List<Identifier> = listOf(),
   /**
    * Whether this patient record is in active use. Many systems use this property to mark as
    * non-current patients, such as those that have not been seen for a period of time based on an
@@ -151,7 +151,7 @@ public data class Patient(
    * If a record is inactive, and linked to an active record, then future patient/record updates
    * should occur on the other patient.
    */
-  public var active: Boolean? = null,
+  public val active: Boolean? = null,
   /**
    * A name associated with the individual.
    *
@@ -160,7 +160,7 @@ public data class Patient(
    * patterns. Animal names may be communicated as given names, and optionally may include a family
    * name.
    */
-  public var name: MutableList<HumanName> = mutableListOf(),
+  public val name: List<HumanName> = listOf(),
   /**
    * A contact detail (e.g. a telephone number or an email address) by which the individual may be
    * contacted.
@@ -170,7 +170,7 @@ public data class Patient(
    * The address might not go directly to the individual, but may reach another party that is able
    * to proxy for the patient (i.e. home phone, or pet owner's phone).
    */
-  public var telecom: MutableList<ContactPoint> = mutableListOf(),
+  public val telecom: List<ContactPoint> = listOf(),
   /**
    * Administrative Gender - the gender that the patient is considered to have for administration
    * and record keeping purposes.
@@ -188,7 +188,7 @@ public data class Patient(
    * See the Patient Gender and Sex section for additional information about communicating patient
    * gender and sex.
    */
-  public var gender: Enumeration<AdministrativeGender>? = null,
+  public val gender: Enumeration<AdministrativeGender>? = null,
   /**
    * The date of birth for the individual.
    *
@@ -196,7 +196,7 @@ public data class Patient(
    * extension "patient-birthTime" available that should be used where Time is required (such as in
    * maternity/infant care systems).
    */
-  public var birthDate: Date? = null,
+  public val birthDate: Date? = null,
   /**
    * Indicates if the individual is deceased or not.
    *
@@ -204,15 +204,15 @@ public data class Patient(
    * individual is deceased. Most systems will interpret the absence of a value as a sign of the
    * person being alive.
    */
-  public var deceased: Deceased? = null,
+  public val deceased: Deceased? = null,
   /**
    * An address for the individual.
    *
    * Patient may have multiple addresses with different uses or applicable periods.
    */
-  public var address: MutableList<Address> = mutableListOf(),
+  public val address: List<Address> = listOf(),
   /** This field contains a patient's most recent marital (civil) status. */
-  public var maritalStatus: CodeableConcept? = null,
+  public val maritalStatus: CodeableConcept? = null,
   /**
    * Indicates whether the patient is part of a multiple (boolean) or indicates the actual birth
    * order (integer).
@@ -222,7 +222,7 @@ public data class Patient(
    * If a boolean value was provided for this triplets example, then all 3 patient records would
    * have valueBoolean=true (the ordering is not indicated).
    */
-  public var multipleBirth: MultipleBirth? = null,
+  public val multipleBirth: MultipleBirth? = null,
   /**
    * Image of the patient.
    *
@@ -231,14 +231,14 @@ public data class Patient(
    * * Limit dimensions to thumbnail.
    * * Keep byte count low to ease resource updates.
    */
-  public var photo: MutableList<Attachment> = mutableListOf(),
+  public val photo: List<Attachment> = listOf(),
   /**
    * A contact party (e.g. guardian, partner, friend) for the patient.
    *
    * Contact covers all kinds of contact parties: family members, business contacts, guardians,
    * caregivers. Not applicable to register pedigree and family ties beyond use of having contact.
    */
-  public var contact: MutableList<Contact> = mutableListOf(),
+  public val contact: List<Contact> = listOf(),
   /**
    * A language which may be used to communicate with the patient about his or her health.
    *
@@ -248,7 +248,7 @@ public data class Patient(
    * instance. If the Patient does not speak the default local language, then the Interpreter
    * Required Standard can be used to explicitly declare that an interpreter is required.
    */
-  public var communication: MutableList<Communication> = mutableListOf(),
+  public val communication: List<Communication> = listOf(),
   /**
    * Patient's nominated care provider.
    *
@@ -262,7 +262,7 @@ public data class Patient(
    *
    * Jurisdictions may decide that they can profile this down to 1 if desired, or 1 per type.
    */
-  public var generalPractitioner: MutableList<Reference> = mutableListOf(),
+  public val generalPractitioner: List<Reference> = listOf(),
   /**
    * Organization that is the custodian of the patient record.
    *
@@ -270,13 +270,13 @@ public data class Patient(
    * have their own Patient record, and may use the Link property to join the records together (or a
    * Person resource which can include confidence ratings for the association).
    */
-  public var managingOrganization: Reference? = null,
+  public val managingOrganization: Reference? = null,
   /**
    * Link to a Patient or RelatedPerson resource that concerns the same actual individual.
    *
    * There is no assumption that linked patient records have mutual links.
    */
-  public var link: MutableList<Link> = mutableListOf(),
+  public val link: List<Link> = listOf(),
 ) : DomainResource() {
   /** A contact party (e.g. guardian, partner, friend) for the patient. */
   @Serializable(with = PatientContactSerializer::class)
@@ -285,7 +285,7 @@ public data class Patient(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: String? = null,
+    override val id: String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -298,7 +298,7 @@ public data class Patient(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -317,11 +317,11 @@ public data class Patient(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /** The nature of the relationship between the patient and the contact person. */
-    public var relationship: MutableList<CodeableConcept> = mutableListOf(),
+    public val relationship: List<CodeableConcept> = listOf(),
     /** A name associated with the contact person. */
-    public var name: HumanName? = null,
+    public val name: HumanName? = null,
     /**
      * A contact detail for the person, e.g. a telephone number or an email address.
      *
@@ -329,23 +329,23 @@ public data class Patient(
      * need to have options for contacting the person urgently, and also to help with
      * identification.
      */
-    public var telecom: MutableList<ContactPoint> = mutableListOf(),
+    public val telecom: List<ContactPoint> = listOf(),
     /** Address for the contact person. */
-    public var address: Address? = null,
+    public val address: Address? = null,
     /**
      * Administrative Gender - the gender that the contact person is considered to have for
      * administration and record keeping purposes.
      */
-    public var gender: Enumeration<AdministrativeGender>? = null,
+    public val gender: Enumeration<AdministrativeGender>? = null,
     /**
      * Organization on behalf of which the contact is acting or for which the contact is working.
      */
-    public var organization: Reference? = null,
+    public val organization: Reference? = null,
     /**
      * The period during which this contact person or organization is valid to be contacted relating
      * to this patient.
      */
-    public var period: Period? = null,
+    public val period: Period? = null,
   ) : BackboneElement()
 
   /** A language which may be used to communicate with the patient about his or her health. */
@@ -355,7 +355,7 @@ public data class Patient(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: String? = null,
+    override val id: String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -368,7 +368,7 @@ public data class Patient(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -387,7 +387,7 @@ public data class Patient(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /**
      * The ISO-639-1 alpha 2 code in lower case for the language, optionally followed by a hyphen
      * and the ISO-3166-1 alpha 2 code for the region in upper case; e.g. "en" for English, or
@@ -397,14 +397,14 @@ public data class Patient(
      * However not all systems actually code this but instead have it as free text. Hence
      * CodeableConcept instead of code as the data type.
      */
-    public var language: CodeableConcept,
+    public val language: CodeableConcept,
     /**
      * Indicates whether or not the patient prefers this language (over other languages he masters
      * up a certain level).
      *
      * This language is specifically identified for communicating healthcare information.
      */
-    public var preferred: Boolean? = null,
+    public val preferred: Boolean? = null,
   ) : BackboneElement()
 
   /** Link to a Patient or RelatedPerson resource that concerns the same actual individual. */
@@ -414,7 +414,7 @@ public data class Patient(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: String? = null,
+    override val id: String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -427,7 +427,7 @@ public data class Patient(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -446,16 +446,16 @@ public data class Patient(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /**
      * Link to a Patient or RelatedPerson resource that concerns the same actual individual.
      *
      * Referencing a RelatedPerson here removes the need to use a Person record to associate a
      * Patient and RelatedPerson as the same individual.
      */
-    public var other: Reference,
+    public val other: Reference,
     /** The type of link between this patient resource and another patient resource. */
-    public var type: Enumeration<LinkType>,
+    public val type: Enumeration<LinkType>,
   ) : BackboneElement()
 
   @Serializable(with = PatientDeceasedSerializer::class)

@@ -44,15 +44,15 @@ import com.google.fhir.model.r5.serializers.LocalTimeSerializer
 import com.google.fhir.model.r5.terminologies.SpecimenCombined
 import kotlin.String as KotlinString
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 
 @Serializable
 internal data class SpecimenFeatureSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var type: CodeableConcept,
   public var description: KotlinString? = null,
   public var _description: Element? = null,
@@ -60,8 +60,8 @@ internal data class SpecimenFeatureSurrogate(
   public fun toModel(): Specimen.Feature =
     Specimen.Feature(
       id = this@SpecimenFeatureSurrogate.id,
-      extension = this@SpecimenFeatureSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@SpecimenFeatureSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@SpecimenFeatureSurrogate.extension ?: listOf(),
+      modifierExtension = this@SpecimenFeatureSurrogate.modifierExtension ?: listOf(),
       type = this@SpecimenFeatureSurrogate.type,
       description =
         R5String.of(
@@ -88,8 +88,8 @@ internal data class SpecimenFeatureSurrogate(
 @Serializable
 internal data class SpecimenCollectionSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var collector: Reference? = null,
   public var collected: Specimen.Collection.Collected? = null,
   public var duration: Duration? = null,
@@ -103,8 +103,8 @@ internal data class SpecimenCollectionSurrogate(
   public fun toModel(): Specimen.Collection =
     Specimen.Collection(
       id = this@SpecimenCollectionSurrogate.id,
-      extension = this@SpecimenCollectionSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@SpecimenCollectionSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@SpecimenCollectionSurrogate.extension ?: listOf(),
+      modifierExtension = this@SpecimenCollectionSurrogate.modifierExtension ?: listOf(),
       collector = this@SpecimenCollectionSurrogate.collector,
       collected = this@SpecimenCollectionSurrogate.collected,
       duration = this@SpecimenCollectionSurrogate.duration,
@@ -140,26 +140,26 @@ internal data class SpecimenCollectionSurrogate(
 @Serializable
 internal data class SpecimenProcessingSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var description: KotlinString? = null,
   public var _description: Element? = null,
   public var method: CodeableConcept? = null,
-  public var additive: MutableList<Reference>? = null,
+  public var additive: List<Reference>? = null,
   public var time: Specimen.Processing.Time? = null,
 ) {
   public fun toModel(): Specimen.Processing =
     Specimen.Processing(
       id = this@SpecimenProcessingSurrogate.id,
-      extension = this@SpecimenProcessingSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@SpecimenProcessingSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@SpecimenProcessingSurrogate.extension ?: listOf(),
+      modifierExtension = this@SpecimenProcessingSurrogate.modifierExtension ?: listOf(),
       description =
         R5String.of(
           this@SpecimenProcessingSurrogate.description,
           this@SpecimenProcessingSurrogate._description,
         ),
       method = this@SpecimenProcessingSurrogate.method,
-      additive = this@SpecimenProcessingSurrogate.additive ?: mutableListOf(),
+      additive = this@SpecimenProcessingSurrogate.additive ?: listOf(),
       time = this@SpecimenProcessingSurrogate.time,
     )
 
@@ -183,8 +183,8 @@ internal data class SpecimenProcessingSurrogate(
 @Serializable
 internal data class SpecimenContainerSurrogate(
   public var id: KotlinString? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
   public var device: Reference,
   public var location: Reference? = null,
   public var specimenQuantity: Quantity? = null,
@@ -192,8 +192,8 @@ internal data class SpecimenContainerSurrogate(
   public fun toModel(): Specimen.Container =
     Specimen.Container(
       id = this@SpecimenContainerSurrogate.id,
-      extension = this@SpecimenContainerSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@SpecimenContainerSurrogate.modifierExtension ?: mutableListOf(),
+      extension = this@SpecimenContainerSurrogate.extension ?: listOf(),
+      modifierExtension = this@SpecimenContainerSurrogate.modifierExtension ?: listOf(),
       device = this@SpecimenContainerSurrogate.device,
       location = this@SpecimenContainerSurrogate.location,
       specimenQuantity = this@SpecimenContainerSurrogate.specimenQuantity,
@@ -303,10 +303,10 @@ internal data class SpecimenSurrogate(
   public var language: KotlinString? = null,
   public var _language: Element? = null,
   public var text: Narrative? = null,
-  public var contained: MutableList<Resource>? = null,
-  public var extension: MutableList<Extension>? = null,
-  public var modifierExtension: MutableList<Extension>? = null,
-  public var identifier: MutableList<Identifier>? = null,
+  public var contained: List<Resource>? = null,
+  public var extension: List<Extension>? = null,
+  public var modifierExtension: List<Extension>? = null,
+  public var identifier: List<Identifier>? = null,
   public var accessionIdentifier: Identifier? = null,
   public var status: KotlinString? = null,
   public var _status: Element? = null,
@@ -314,17 +314,17 @@ internal data class SpecimenSurrogate(
   public var subject: Reference? = null,
   public var receivedTime: KotlinString? = null,
   public var _receivedTime: Element? = null,
-  public var parent: MutableList<Reference>? = null,
-  public var request: MutableList<Reference>? = null,
+  public var parent: List<Reference>? = null,
+  public var request: List<Reference>? = null,
   public var combined: KotlinString? = null,
   public var _combined: Element? = null,
-  public var role: MutableList<CodeableConcept>? = null,
-  public var feature: MutableList<Specimen.Feature>? = null,
+  public var role: List<CodeableConcept>? = null,
+  public var feature: List<Specimen.Feature>? = null,
   public var collection: Specimen.Collection? = null,
-  public var processing: MutableList<Specimen.Processing>? = null,
-  public var container: MutableList<Specimen.Container>? = null,
-  public var condition: MutableList<CodeableConcept>? = null,
-  public var note: MutableList<Annotation>? = null,
+  public var processing: List<Specimen.Processing>? = null,
+  public var container: List<Specimen.Container>? = null,
+  public var condition: List<CodeableConcept>? = null,
+  public var note: List<Annotation>? = null,
 ) {
   public fun toModel(): Specimen =
     Specimen(
@@ -334,10 +334,10 @@ internal data class SpecimenSurrogate(
         Uri.of(this@SpecimenSurrogate.implicitRules, this@SpecimenSurrogate._implicitRules),
       language = Code.of(this@SpecimenSurrogate.language, this@SpecimenSurrogate._language),
       text = this@SpecimenSurrogate.text,
-      contained = this@SpecimenSurrogate.contained ?: mutableListOf(),
-      extension = this@SpecimenSurrogate.extension ?: mutableListOf(),
-      modifierExtension = this@SpecimenSurrogate.modifierExtension ?: mutableListOf(),
-      identifier = this@SpecimenSurrogate.identifier ?: mutableListOf(),
+      contained = this@SpecimenSurrogate.contained ?: listOf(),
+      extension = this@SpecimenSurrogate.extension ?: listOf(),
+      modifierExtension = this@SpecimenSurrogate.modifierExtension ?: listOf(),
+      identifier = this@SpecimenSurrogate.identifier ?: listOf(),
       accessionIdentifier = this@SpecimenSurrogate.accessionIdentifier,
       status =
         this@SpecimenSurrogate.status?.let {
@@ -350,19 +350,19 @@ internal data class SpecimenSurrogate(
           FhirDateTime.fromString(this@SpecimenSurrogate.receivedTime),
           this@SpecimenSurrogate._receivedTime,
         ),
-      parent = this@SpecimenSurrogate.parent ?: mutableListOf(),
-      request = this@SpecimenSurrogate.request ?: mutableListOf(),
+      parent = this@SpecimenSurrogate.parent ?: listOf(),
+      request = this@SpecimenSurrogate.request ?: listOf(),
       combined =
         this@SpecimenSurrogate.combined?.let {
           Enumeration.of(SpecimenCombined.fromCode(it), this@SpecimenSurrogate._combined)
         },
-      role = this@SpecimenSurrogate.role ?: mutableListOf(),
-      feature = this@SpecimenSurrogate.feature ?: mutableListOf(),
+      role = this@SpecimenSurrogate.role ?: listOf(),
+      feature = this@SpecimenSurrogate.feature ?: listOf(),
       collection = this@SpecimenSurrogate.collection,
-      processing = this@SpecimenSurrogate.processing ?: mutableListOf(),
-      container = this@SpecimenSurrogate.container ?: mutableListOf(),
-      condition = this@SpecimenSurrogate.condition ?: mutableListOf(),
-      note = this@SpecimenSurrogate.note ?: mutableListOf(),
+      processing = this@SpecimenSurrogate.processing ?: listOf(),
+      container = this@SpecimenSurrogate.container ?: listOf(),
+      condition = this@SpecimenSurrogate.condition ?: listOf(),
+      note = this@SpecimenSurrogate.note ?: listOf(),
     )
 
   public companion object {

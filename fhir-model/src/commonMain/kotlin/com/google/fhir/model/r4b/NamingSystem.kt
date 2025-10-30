@@ -22,7 +22,7 @@ import com.google.fhir.model.r4b.serializers.NamingSystemSerializer
 import com.google.fhir.model.r4b.serializers.NamingSystemUniqueIdSerializer
 import com.google.fhir.model.r4b.terminologies.PublicationStatus
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -41,12 +41,12 @@ public data class NamingSystem(
    * The only time that a resource does not have an id is when it is being submitted to the server
    * using a create operation.
    */
-  override var id: kotlin.String? = null,
+  override val id: kotlin.String? = null,
   /**
    * The metadata about the resource. This is content that is maintained by the infrastructure.
    * Changes to the content might not always be associated with version changes to the resource.
    */
-  override var meta: Meta? = null,
+  override val meta: Meta? = null,
   /**
    * A reference to a set of rules that were followed when the resource was constructed, and which
    * must be understood when processing the content. Often, this is a reference to an implementation
@@ -60,7 +60,7 @@ public data class NamingSystem(
    * to an implementation guide that defines these special rules as part of it's narrative along
    * with other profiles, value sets, etc.
    */
-  override var implicitRules: Uri? = null,
+  override val implicitRules: Uri? = null,
   /**
    * The base language in which the resource is written.
    *
@@ -72,7 +72,7 @@ public data class NamingSystem(
    * language is specified, it should it also be specified on the div element in the html (see rules
    * in HTML5 for information about the relationship between xml:lang and the html lang attribute).
    */
-  override var language: Code? = null,
+  override val language: Code? = null,
   /**
    * A human-readable narrative that contains a summary of the resource and can be used to represent
    * the content of the resource to a human. The narrative need not encode all the structured data,
@@ -86,7 +86,7 @@ public data class NamingSystem(
    * legacy systems where information is captured as a "text blob" or where text is additionally
    * entered raw or narrated and encoded information is added later.
    */
-  override var text: Narrative? = null,
+  override val text: Narrative? = null,
   /**
    * These resources do not have an independent existence apart from the resource that contains
    * them - they cannot be identified independently, and nor can they have their own independent
@@ -97,7 +97,7 @@ public data class NamingSystem(
    * resources may have profiles and tags In their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: MutableList<Resource> = mutableListOf(),
+  override val contained: List<Resource> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and manageable, there is a strict set of
@@ -110,7 +110,7 @@ public data class NamingSystem(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: MutableList<Extension> = mutableListOf(),
+  override val extension: List<Extension> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -129,7 +129,7 @@ public data class NamingSystem(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: MutableList<Extension> = mutableListOf(),
+  override val modifierExtension: List<Extension> = listOf(),
   /**
    * A natural language name identifying the naming system. This name should be usable as an
    * identifier for the module by machine processing applications such as code generation.
@@ -138,15 +138,15 @@ public data class NamingSystem(
    * name to ensure that it is machine-processing friendly.The"symbolic name" for an OID would be
    * captured as an extension.
    */
-  public var name: String,
+  public val name: String,
   /**
    * The status of this naming system. Enables tracking the life-cycle of the content.
    *
    * Allows filtering of naming systems that are appropriate for use versus not.
    */
-  public var status: Enumeration<PublicationStatus>,
+  public val status: Enumeration<PublicationStatus>,
   /** Indicates the purpose for the naming system - what kinds of things does it make unique? */
-  public var kind: Enumeration<NamingSystemType>,
+  public val kind: Enumeration<NamingSystemType>,
   /**
    * The date (and optionally time) when the naming system was published. The date must change when
    * the business version changes and it must change if the status code changes. In addition, it
@@ -156,7 +156,7 @@ public data class NamingSystem(
    * secondary representation of the naming system. Additional specific dates may be added as
    * extensions or be found by consulting Provenances associated with past versions of the resource.
    */
-  public var date: DateTime,
+  public val date: DateTime,
   /**
    * The name of the organization or individual that published the naming system.
    *
@@ -167,13 +167,13 @@ public data class NamingSystem(
    * questions or issues with the naming system. This item SHOULD be populated unless the
    * information is available from context.
    */
-  public var publisher: String? = null,
+  public val publisher: String? = null,
   /**
    * Contact details to assist a user in finding and communicating with the publisher.
    *
    * May be a web site, an email address, a telephone number, etc.
    */
-  public var contact: MutableList<ContactDetail> = mutableListOf(),
+  public val contact: List<ContactDetail> = listOf(),
   /**
    * The name of the organization that is responsible for issuing identifiers or codes for this
    * namespace and ensuring their non-collision.
@@ -181,14 +181,14 @@ public data class NamingSystem(
    * This is the primary organization. Responsibility for some aspects of a namespace may be
    * delegated.
    */
-  public var responsible: String? = null,
+  public val responsible: String? = null,
   /**
    * Categorizes a naming system for easier search by grouping related naming systems.
    *
    * This will most commonly be used for identifier namespaces, but categories could potentially be
    * useful for code systems and authorities as well.
    */
-  public var type: CodeableConcept? = null,
+  public val type: CodeableConcept? = null,
   /**
    * A free text natural language description of the naming system from a consumer's perspective.
    * Details about what the namespace identifies including scope, granularity, version labeling,
@@ -201,7 +201,7 @@ public data class NamingSystem(
    * is available from context (e.g. the language of the naming system is presumed to be the
    * predominant language in the place the naming system was created).
    */
-  public var description: Markdown? = null,
+  public val description: Markdown? = null,
   /**
    * The content was developed with a focus and intent of supporting the contexts that are listed.
    * These contexts may be general categories (gender, age, ...) or may be references to specific
@@ -211,26 +211,26 @@ public data class NamingSystem(
    * When multiple useContexts are specified, there is no expectation that all or any of the
    * contexts apply.
    */
-  public var useContext: MutableList<UsageContext> = mutableListOf(),
+  public val useContext: List<UsageContext> = listOf(),
   /**
    * A legal or geographic region in which the naming system is intended to be used.
    *
    * It may be possible for the naming system to be used in jurisdictions other than those for which
    * it was originally designed or intended.
    */
-  public var jurisdiction: MutableList<CodeableConcept> = mutableListOf(),
+  public val jurisdiction: List<CodeableConcept> = listOf(),
   /**
    * Provides guidance on the use of the namespace, including the handling of formatting characters,
    * use of upper vs. lower case, etc.
    */
-  public var usage: String? = null,
+  public val usage: String? = null,
   /**
    * Indicates how the system may be identified when referenced in electronic exchange.
    *
    * Multiple identifiers may exist, either due to duplicate registration, regional rules, needs of
    * different communication technologies, etc.
    */
-  public var uniqueId: MutableList<UniqueId> = mutableListOf(),
+  public val uniqueId: List<UniqueId> = listOf(),
 ) : DomainResource() {
   /** Indicates how the system may be identified when referenced in electronic exchange. */
   @Serializable(with = NamingSystemUniqueIdSerializer::class)
@@ -239,7 +239,7 @@ public data class NamingSystem(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and manageable, there is a strict set of
@@ -252,7 +252,7 @@ public data class NamingSystem(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -271,14 +271,14 @@ public data class NamingSystem(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /**
      * Identifies the unique identifier scheme used for this particular identifier.
      *
      * Different identifier types may be used in different types of communications (OIDs for v3,
      * URIs for FHIR, etc.). Other includes RUIDs from v3, standard v2 code name strings, etc.
      */
-    public var type: Enumeration<NamingSystemIdentifierType>,
+    public val type: Enumeration<NamingSystemIdentifierType>,
     /**
      * The string that should be sent over the wire to identify the code system or identifier
      * system.
@@ -286,15 +286,15 @@ public data class NamingSystem(
      * If the value is a URI intended for use as FHIR system identifier, the URI should not contain
      * "\" or "?" or "," since this makes escaping very difficult.
      */
-    public var `value`: String,
+    public val `value`: String,
     /** Indicates whether this identifier is the "preferred" identifier of this type. */
-    public var preferred: Boolean? = null,
+    public val preferred: Boolean? = null,
     /**
      * Notes about the past or intended usage of this identifier.
      *
      * e.g. "must be used in Germany" or "was initially published in error with this value".
      */
-    public var comment: String? = null,
+    public val comment: String? = null,
     /**
      * Identifies the period of time over which this identifier is considered appropriate to refer
      * to the naming system. Outside of this window, the identifier might be non-deterministic.
@@ -303,7 +303,7 @@ public data class NamingSystem(
      * time. (Ideally, an identifier should only ever be associated with a single namespace across
      * all time).
      */
-    public var period: Period? = null,
+    public val period: Period? = null,
   ) : BackboneElement()
 
   /** Identifies the style of unique identifier used to identify a namespace. */

@@ -40,7 +40,7 @@ import com.google.fhir.model.r5.serializers.PlanDefinitionSubjectSerializer
 import com.google.fhir.model.r5.serializers.PlanDefinitionVersionAlgorithmSerializer
 import com.google.fhir.model.r5.terminologies.PublicationStatus
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -61,12 +61,12 @@ public data class PlanDefinition(
    * like the create and conditional update. Otherwise, the use of the resouce id depends on the
    * given use case.
    */
-  override var id: kotlin.String? = null,
+  override val id: kotlin.String? = null,
   /**
    * The metadata about the resource. This is content that is maintained by the infrastructure.
    * Changes to the content might not always be associated with version changes to the resource.
    */
-  override var meta: Meta? = null,
+  override val meta: Meta? = null,
   /**
    * A reference to a set of rules that were followed when the resource was constructed, and which
    * must be understood when processing the content. Often, this is a reference to an implementation
@@ -80,7 +80,7 @@ public data class PlanDefinition(
    * to an implementation guide that defines these special rules as part of its narrative along with
    * other profiles, value sets, etc.
    */
-  override var implicitRules: Uri? = null,
+  override val implicitRules: Uri? = null,
   /**
    * The base language in which the resource is written.
    *
@@ -92,7 +92,7 @@ public data class PlanDefinition(
    * language is specified, it should it also be specified on the div element in the html (see rules
    * in HTML5 for information about the relationship between xml:lang and the html lang attribute).
    */
-  override var language: Code? = null,
+  override val language: Code? = null,
   /**
    * A human-readable narrative that contains a summary of the resource and can be used to represent
    * the content of the resource to a human. The narrative need not encode all the structured data,
@@ -106,7 +106,7 @@ public data class PlanDefinition(
    * legacy systems where information is captured as a "text blob" or where text is additionally
    * entered raw or narrated and encoded information is added later.
    */
-  override var text: Narrative? = null,
+  override val text: Narrative? = null,
   /**
    * These resources do not have an independent existence apart from the resource that contains
    * them - they cannot be identified independently, nor can they have their own independent
@@ -118,7 +118,7 @@ public data class PlanDefinition(
    * resources may have profiles and tags in their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: MutableList<Resource> = mutableListOf(),
+  override val contained: List<Resource> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and managable, there is a strict set of governance
@@ -131,7 +131,7 @@ public data class PlanDefinition(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: MutableList<Extension> = mutableListOf(),
+  override val extension: List<Extension> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -150,7 +150,7 @@ public data class PlanDefinition(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: MutableList<Extension> = mutableListOf(),
+  override val modifierExtension: List<Extension> = listOf(),
   /**
    * An absolute URI that is used to identify this plan definition when it is referenced in a
    * specification, model, design or an instance; also called its canonical identifier. This SHOULD
@@ -169,7 +169,7 @@ public data class PlanDefinition(
    * change. Implementations can use the [meta.source](resource.html#meta) element to indicate where
    * the current master source of the resource can be found.
    */
-  public var url: Uri? = null,
+  public val url: Uri? = null,
   /**
    * A formal identifier that is used to identify this plan definition when it is represented in
    * other formats, or referenced in a specification, model, design or an instance.
@@ -178,7 +178,7 @@ public data class PlanDefinition(
    * type, and can then identify this plan definition outside of FHIR, where it is not possible to
    * use the logical URI.
    */
-  public var identifier: MutableList<Identifier> = mutableListOf(),
+  public val identifier: List<Identifier> = listOf(),
   /**
    * The identifier that is used to identify this version of the plan definition when it is
    * referenced in a specification, model, design or instance. This is an arbitrary value managed by
@@ -194,7 +194,7 @@ public data class PlanDefinition(
    * particular business version of the plan definition with the format [url]|[version]. The version
    * SHOULD NOT contain a '#' - see [Business Version](resource.html#bv-format).
    */
-  public var version: String? = null,
+  public val version: String? = null,
   /**
    * Indicates the mechanism used to compare versions to determine which is more current.
    *
@@ -203,7 +203,7 @@ public data class PlanDefinition(
    * positive number if version2 and a 0 if the version ordering can't be successfully be
    * determined.
    */
-  public var versionAlgorithm: VersionAlgorithm? = null,
+  public val versionAlgorithm: VersionAlgorithm? = null,
   /**
    * A natural language name identifying the plan definition. This name should be usable as an
    * identifier for the module by machine processing applications such as code generation.
@@ -211,24 +211,24 @@ public data class PlanDefinition(
    * The name is not expected to be globally unique. The name should be a simple alphanumeric type
    * name to ensure that it is machine-processing friendly.
    */
-  public var name: String? = null,
+  public val name: String? = null,
   /**
    * A short, descriptive, user-friendly title for the plan definition.
    *
    * This name does not need to be machine-processing friendly and may contain punctuation,
    * white-space, etc.
    */
-  public var title: String? = null,
+  public val title: String? = null,
   /**
    * An explanatory or alternate title for the plan definition giving additional information about
    * its content.
    */
-  public var subtitle: String? = null,
+  public val subtitle: String? = null,
   /**
    * A high-level category for the plan definition that distinguishes the kinds of systems that
    * would be interested in the plan definition.
    */
-  public var type: CodeableConcept? = null,
+  public val type: CodeableConcept? = null,
   /**
    * The status of this plan definition. Enables tracking the life-cycle of the content.
    *
@@ -237,14 +237,14 @@ public data class PlanDefinition(
    * See guidance around (not) making local changes to elements
    * [here](canonicalresource.html#localization).
    */
-  public var status: Enumeration<PublicationStatus>,
+  public val status: Enumeration<PublicationStatus>,
   /**
    * A Boolean value to indicate that this plan definition is authored for testing purposes (or
    * education/evaluation/marketing) and is not intended to be used for genuine usage.
    *
    * Allows filtering of plan definitions that are appropriate for use versus not.
    */
-  public var experimental: Boolean? = null,
+  public val experimental: Boolean? = null,
   /**
    * A code, group definition, or canonical reference that describes or identifies the intended
    * subject of the plan definition. Canonical references are allowed to support the definition of
@@ -256,7 +256,7 @@ public data class PlanDefinition(
    * pharmaceutical quality use cases. To ensure as much backwards-compatibility as possible, it is
    * recommended to only use the new canonical type with these use cases.
    */
-  public var subject: Subject? = null,
+  public val subject: Subject? = null,
   /**
    * The date (and optionally time) when the plan definition was last significantly changed. The
    * date must change when the business version changes and it must change if the status code
@@ -272,7 +272,7 @@ public data class PlanDefinition(
    * See guidance around (not) making local changes to elements
    * [here](canonicalresource.html#localization).
    */
-  public var date: DateTime? = null,
+  public val date: DateTime? = null,
   /**
    * The name of the organization or individual responsible for the release and ongoing maintenance
    * of the plan definition.
@@ -284,7 +284,7 @@ public data class PlanDefinition(
    * questions or issues with the plan definition. This item SHOULD be populated unless the
    * information is available from context.
    */
-  public var publisher: String? = null,
+  public val publisher: String? = null,
   /**
    * Contact details to assist a user in finding and communicating with the publisher.
    *
@@ -293,7 +293,7 @@ public data class PlanDefinition(
    * See guidance around (not) making local changes to elements
    * [here](canonicalresource.html#localization).
    */
-  public var contact: MutableList<ContactDetail> = mutableListOf(),
+  public val contact: List<ContactDetail> = listOf(),
   /**
    * A free text natural language description of the plan definition from a consumer's perspective.
    *
@@ -304,7 +304,7 @@ public data class PlanDefinition(
    * the language of the plan definition is presumed to be the predominant language in the place the
    * plan definition was created).
    */
-  public var description: Markdown? = null,
+  public val description: Markdown? = null,
   /**
    * The content was developed with a focus and intent of supporting the contexts that are listed.
    * These contexts may be general categories (gender, age, ...) or may be references to specific
@@ -314,7 +314,7 @@ public data class PlanDefinition(
    * When multiple useContexts are specified, there is no expectation that all or any of the
    * contexts apply.
    */
-  public var useContext: MutableList<UsageContext> = mutableListOf(),
+  public val useContext: List<UsageContext> = listOf(),
   /**
    * A legal or geographic region in which the plan definition is intended to be used.
    *
@@ -326,7 +326,7 @@ public data class PlanDefinition(
    * http://terminology.hl7.org/CodeSystem/usage-context-type#jurisdiction and
    * useContext.valueCodeableConcept indicating the jurisdiction.)
    */
-  public var jurisdiction: MutableList<CodeableConcept> = mutableListOf(),
+  public val jurisdiction: List<CodeableConcept> = listOf(),
   /**
    * Explanation of why this plan definition is needed and why it has been designed as it has.
    *
@@ -335,9 +335,9 @@ public data class PlanDefinition(
    * may be used to point to source materials or specifications that drove the structure of this
    * plan definition.
    */
-  public var purpose: Markdown? = null,
+  public val purpose: Markdown? = null,
   /** A detailed description of how the plan definition is used from a clinical perspective. */
-  public var usage: Markdown? = null,
+  public val usage: Markdown? = null,
   /**
    * A copyright statement relating to the plan definition and/or its contents. Copyright statements
    * are generally legal restrictions on the use and publishing of the plan definition.
@@ -345,7 +345,7 @@ public data class PlanDefinition(
    * The short copyright declaration (e.g. (c) '2015+ xyz organization' should be sent in the
    * copyrightLabel element.
    */
-  public var copyright: Markdown? = null,
+  public val copyright: Markdown? = null,
   /**
    * A short string (<50 characters), suitable for inclusion in a page footer that identifies the
    * copyright holder, effective period, and optionally whether rights are resctricted. (e.g. 'All
@@ -355,7 +355,7 @@ public data class PlanDefinition(
    * rendering the notation. Full details about licensing, restrictions, warrantees, etc. goes in
    * the more general 'copyright' element.
    */
-  public var copyrightLabel: String? = null,
+  public val copyrightLabel: String? = null,
   /**
    * The date on which the resource content was approved by the publisher. Approval happens once
    * when the content is officially approved for usage.
@@ -366,7 +366,7 @@ public data class PlanDefinition(
    * See guidance around (not) making local changes to elements
    * [here](canonicalresource.html#localization).
    */
-  public var approvalDate: Date? = null,
+  public val approvalDate: Date? = null,
   /**
    * The date on which the resource content was last reviewed. Review happens periodically after
    * approval but does not change the original approval date.
@@ -376,7 +376,7 @@ public data class PlanDefinition(
    * See guidance around (not) making local changes to elements
    * [here](canonicalresource.html#localization).
    */
-  public var lastReviewDate: Date? = null,
+  public val lastReviewDate: Date? = null,
   /**
    * The period during which the plan definition content was or is planned to be in active use.
    *
@@ -387,7 +387,7 @@ public data class PlanDefinition(
    * See guidance around (not) making local changes to elements
    * [here](canonicalresource.html#localization).
    */
-  public var effectivePeriod: Period? = null,
+  public val effectivePeriod: Period? = null,
   /**
    * Descriptive topics related to the content of the plan definition. Topics provide a high-level
    * categorization of the definition that can be useful for filtering and searching.
@@ -397,14 +397,14 @@ public data class PlanDefinition(
    * http://terminology.hl7.org/CodeSystem/usage-context-type#topic and
    * useContext.valueCodeableConcept indicating the topic)
    */
-  public var topic: MutableList<CodeableConcept> = mutableListOf(),
+  public val topic: List<CodeableConcept> = listOf(),
   /**
    * An individiual or organization primarily involved in the creation and maintenance of the
    * content.
    */
-  public var author: MutableList<ContactDetail> = mutableListOf(),
+  public val author: List<ContactDetail> = listOf(),
   /** An individual or organization primarily responsible for internal coherence of the content. */
-  public var editor: MutableList<ContactDetail> = mutableListOf(),
+  public val editor: List<ContactDetail> = listOf(),
   /**
    * An individual or organization asserted by the publisher to be primarily responsible for review
    * of some aspect of the content.
@@ -412,7 +412,7 @@ public data class PlanDefinition(
    * See guidance around (not) making local changes to elements
    * [here](canonicalresource.html#localization).
    */
-  public var reviewer: MutableList<ContactDetail> = mutableListOf(),
+  public val reviewer: List<ContactDetail> = listOf(),
   /**
    * An individual or organization asserted by the publisher to be responsible for officially
    * endorsing the content for use in some setting.
@@ -420,28 +420,28 @@ public data class PlanDefinition(
    * See guidance around (not) making local changes to elements
    * [here](canonicalresource.html#localization).
    */
-  public var endorser: MutableList<ContactDetail> = mutableListOf(),
+  public val endorser: List<ContactDetail> = listOf(),
   /**
    * Related artifacts such as additional documentation, justification, or bibliographic references.
    *
    * Each related artifact is either an attachment, or a reference to another resource, but not
    * both.
    */
-  public var relatedArtifact: MutableList<RelatedArtifact> = mutableListOf(),
+  public val relatedArtifact: List<RelatedArtifact> = listOf(),
   /** A reference to a Library resource containing any formal logic used by the plan definition. */
-  public var library: MutableList<Canonical> = mutableListOf(),
+  public val library: List<Canonical> = listOf(),
   /**
    * A goal describes an expected outcome that activities within the plan are intended to achieve.
    * For example, weight loss, restoring an activity of daily living, obtaining herd immunity via
    * immunization, meeting a process improvement objective, meeting the acceptance criteria for a
    * test as specified by a quality specification, etc.
    */
-  public var goal: MutableList<Goal> = mutableListOf(),
+  public val goal: List<Goal> = listOf(),
   /**
    * Actors represent the individuals or groups involved in the execution of the defined set of
    * activities.
    */
-  public var actor: MutableList<Actor> = mutableListOf(),
+  public val actor: List<Actor> = listOf(),
   /**
    * An action or group of actions to be taken as part of the plan. For example, in clinical care,
    * an action would be to prescribe a particular indicated medication, or perform a particular test
@@ -454,12 +454,12 @@ public data class PlanDefinition(
    * unless otherwise documented in the specific elements. See the PlanDefinition resource for more
    * detailed information.
    */
-  public var action: MutableList<Action> = mutableListOf(),
+  public val action: List<Action> = listOf(),
   /**
    * If a CodeableConcept is present, it indicates the pre-condition for performing the service. For
    * example "pain", "on flare-up", etc.
    */
-  public var asNeeded: AsNeeded? = null,
+  public val asNeeded: AsNeeded? = null,
 ) : DomainResource() {
   /**
    * A goal describes an expected outcome that activities within the plan are intended to achieve.
@@ -473,7 +473,7 @@ public data class PlanDefinition(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -486,7 +486,7 @@ public data class PlanDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -505,33 +505,33 @@ public data class PlanDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /** Indicates a category the goal falls within. */
-    public var category: CodeableConcept? = null,
+    public val category: CodeableConcept? = null,
     /**
      * Human-readable and/or coded description of a specific desired objective of care, such as
      * "control blood pressure" or "negotiate an obstacle course" or "dance with child at wedding".
      *
      * If no code is available, use CodeableConcept.text.
      */
-    public var description: CodeableConcept,
+    public val description: CodeableConcept,
     /**
      * Identifies the expected level of importance associated with reaching/sustaining the defined
      * goal.
      */
-    public var priority: CodeableConcept? = null,
+    public val priority: CodeableConcept? = null,
     /** The event after which the goal should begin being pursued. */
-    public var start: CodeableConcept? = null,
+    public val start: CodeableConcept? = null,
     /** Identifies problems, conditions, issues, or concerns the goal is intended to address. */
-    public var addresses: MutableList<CodeableConcept> = mutableListOf(),
+    public val addresses: List<CodeableConcept> = listOf(),
     /**
      * Didactic or other informational resources associated with the goal that provide further
      * supporting information about the goal. Information resources can include inline text
      * commentary and links to web resources.
      */
-    public var documentation: MutableList<RelatedArtifact> = mutableListOf(),
+    public val documentation: List<RelatedArtifact> = listOf(),
     /** Indicates what should be done and within what timeframe. */
-    public var target: MutableList<Target> = mutableListOf(),
+    public val target: List<Target> = listOf(),
   ) : BackboneElement() {
     /** Indicates what should be done and within what timeframe. */
     @Serializable(with = PlanDefinitionGoalTargetSerializer::class)
@@ -540,7 +540,7 @@ public data class PlanDefinition(
        * Unique id for the element within a resource (for internal references). This may be any
        * string value that does not contain spaces.
        */
-      override var id: kotlin.String? = null,
+      override val id: kotlin.String? = null,
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -553,7 +553,7 @@ public data class PlanDefinition(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: MutableList<Extension> = mutableListOf(),
+      override val extension: List<Extension> = listOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -572,12 +572,12 @@ public data class PlanDefinition(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: MutableList<Extension> = mutableListOf(),
+      override val modifierExtension: List<Extension> = listOf(),
       /**
        * The parameter whose value is to be tracked, e.g. body weight, blood pressure, or hemoglobin
        * A1c level.
        */
-      public var measure: CodeableConcept? = null,
+      public val measure: CodeableConcept? = null,
       /**
        * The target value of the measure to be achieved to signify fulfillment of the goal, e.g. 150
        * pounds or 7.0%, or in the case of pharmaceutical quality - NMT 0.6%, Clear solution, etc.
@@ -590,9 +590,9 @@ public data class PlanDefinition(
        * usually coded, or if the type associated with the goal.target.measure defines a coded
        * value.
        */
-      public var detail: Detail? = null,
+      public val detail: Detail? = null,
       /** Indicates the timeframe after the start of the goal in which the goal should be met. */
-      public var due: Duration? = null,
+      public val due: Duration? = null,
     ) : BackboneElement() {
       @Serializable(with = PlanDefinitionGoalTargetDetailSerializer::class)
       public sealed interface Detail {
@@ -660,7 +660,7 @@ public data class PlanDefinition(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -673,7 +673,7 @@ public data class PlanDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -692,13 +692,13 @@ public data class PlanDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /** A descriptive label for the actor. */
-    public var title: String? = null,
+    public val title: String? = null,
     /** A description of how the actor fits into the overall actions of the plan definition. */
-    public var description: Markdown? = null,
+    public val description: Markdown? = null,
     /** The characteristics of the candidates that could serve as the actor. */
-    public var option: MutableList<Option> = mutableListOf(),
+    public val option: List<Option> = listOf(),
   ) : BackboneElement() {
     /** The characteristics of the candidates that could serve as the actor. */
     @Serializable(with = PlanDefinitionActorOptionSerializer::class)
@@ -707,7 +707,7 @@ public data class PlanDefinition(
        * Unique id for the element within a resource (for internal references). This may be any
        * string value that does not contain spaces.
        */
-      override var id: kotlin.String? = null,
+      override val id: kotlin.String? = null,
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -720,7 +720,7 @@ public data class PlanDefinition(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: MutableList<Extension> = mutableListOf(),
+      override val extension: List<Extension> = listOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -739,20 +739,20 @@ public data class PlanDefinition(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: MutableList<Extension> = mutableListOf(),
+      override val modifierExtension: List<Extension> = listOf(),
       /** The type of participant in the action. */
-      public var type: Enumeration<ActionParticipantType>? = null,
+      public val type: Enumeration<ActionParticipantType>? = null,
       /** The type of participant in the action. */
-      public var typeCanonical: Canonical? = null,
+      public val typeCanonical: Canonical? = null,
       /**
        * The type of participant in the action.
        *
        * When this element is a reference, it SHOULD be a reference to a definitional resource (for
        * example, a location type, rather than a specific location).
        */
-      public var typeReference: Reference? = null,
+      public val typeReference: Reference? = null,
       /** The role the participant should play in performing the described action. */
-      public var role: CodeableConcept? = null,
+      public val role: CodeableConcept? = null,
     ) : BackboneElement()
   }
 
@@ -768,7 +768,7 @@ public data class PlanDefinition(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -781,7 +781,7 @@ public data class PlanDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -800,59 +800,59 @@ public data class PlanDefinition(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /**
      * An identifier that is unique within the PlanDefinition to allow linkage within the realized
      * CarePlan and/or RequestOrchestration.
      */
-    public var linkId: String? = null,
+    public val linkId: String? = null,
     /**
      * A user-visible prefix for the action. For example a section or item numbering such as 1. or
      * A.
      */
-    public var prefix: String? = null,
+    public val prefix: String? = null,
     /**
      * The textual description of the action displayed to a user. For example, when the action is a
      * test to be performed, the title would be the title of the test such as Assay by HPLC.
      */
-    public var title: String? = null,
+    public val title: String? = null,
     /** A brief description of the action used to provide a summary to display to the user. */
-    public var description: Markdown? = null,
+    public val description: Markdown? = null,
     /**
      * A text equivalent of the action to be performed. This provides a human-interpretable
      * description of the action when the definition is consumed by a system that might not be
      * capable of interpreting it dynamically.
      */
-    public var textEquivalent: Markdown? = null,
+    public val textEquivalent: Markdown? = null,
     /** Indicates how quickly the action should be addressed with respect to other actions. */
-    public var priority: Enumeration<RequestPriority>? = null,
+    public val priority: Enumeration<RequestPriority>? = null,
     /**
      * A code that provides a meaning, grouping, or classification for the action or action group.
      * For example, a section may have a LOINC code for the section of a documentation template. In
      * pharmaceutical quality, an action (Test) such as pH could be classified as a physical
      * property.
      */
-    public var code: CodeableConcept? = null,
+    public val code: CodeableConcept? = null,
     /**
      * A description of why this action is necessary or appropriate.
      *
      * This is different than the clinical evidence documentation, it's an actual business
      * description of the reason for performing the action.
      */
-    public var reason: MutableList<CodeableConcept> = mutableListOf(),
+    public val reason: List<CodeableConcept> = listOf(),
     /**
      * Didactic or other informational resources associated with the action that can be provided to
      * the CDS recipient. Information resources can include inline text commentary and links to web
      * resources.
      */
-    public var documentation: MutableList<RelatedArtifact> = mutableListOf(),
+    public val documentation: List<RelatedArtifact> = listOf(),
     /**
      * Identifies goals that this action supports. The reference must be to a goal element defined
      * within this plan definition. In pharmaceutical quality, a goal represents acceptance criteria
      * (Goal) for a given action (Test), so the goalId would be the unique id of a defined goal
      * element establishing the acceptance criteria for the action.
      */
-    public var goalId: MutableList<Id> = mutableListOf(),
+    public val goalId: List<Id> = listOf(),
     /**
      * A code, group definition, or canonical reference that describes the intended subject of the
      * action and its children, if any. Canonical references are allowed to support the definition
@@ -868,30 +868,30 @@ public data class PlanDefinition(
      * subjects supplied in context and by type (i.e. the patient subject would resolve to a
      * resource of type Patient).
      */
-    public var subject: Subject? = null,
+    public val subject: Subject? = null,
     /**
      * A description of when the action should be triggered. When multiple triggers are specified on
      * an action, any triggering event invokes the action.
      */
-    public var trigger: MutableList<TriggerDefinition> = mutableListOf(),
+    public val trigger: List<TriggerDefinition> = listOf(),
     /**
      * An expression that describes applicability criteria or start/stop conditions for the action.
      *
      * When multiple conditions of the same kind are present, the effects are combined using AND
      * semantics, so the overall condition is true only if all the conditions are true.
      */
-    public var condition: MutableList<Condition> = mutableListOf(),
+    public val condition: List<Condition> = listOf(),
     /** Defines input data requirements for the action. */
-    public var input: MutableList<Input> = mutableListOf(),
+    public val input: List<Input> = listOf(),
     /** Defines the outputs of the action, if any. */
-    public var output: MutableList<Output> = mutableListOf(),
+    public val output: List<Output> = listOf(),
     /**
      * A relationship to another action such as "before" or "30-60 minutes after start of".
      *
      * When an action depends on multiple actions, the meaning is that all actions are dependencies,
      * rather than that any of the actions are a dependency.
      */
-    public var relatedAction: MutableList<RelatedAction> = mutableListOf(),
+    public val relatedAction: List<RelatedAction> = listOf(),
     /**
      * An optional value describing when the action should be performed.
      *
@@ -906,28 +906,28 @@ public data class PlanDefinition(
      * range for the expected timing of the resulting activity. When the timing is a Timing, it is
      * establishing a schedule for the timing of the resulting activity.
      */
-    public var timing: Timing? = null,
+    public val timing: Timing? = null,
     /**
      * Identifies the facility where the action will occur; e.g. home, hospital, specific clinic,
      * etc.
      *
      * May reference a specific clinical location or may just identify a type of location.
      */
-    public var location: CodeableReference? = null,
+    public val location: CodeableReference? = null,
     /** Indicates who should participate in performing the action described. */
-    public var participant: MutableList<Participant> = mutableListOf(),
+    public val participant: List<Participant> = listOf(),
     /** The type of action to perform (create, update, remove). */
-    public var type: CodeableConcept? = null,
+    public val type: CodeableConcept? = null,
     /** Defines the grouping behavior for the action and its children. */
-    public var groupingBehavior: Enumeration<ActionGroupingBehavior>? = null,
+    public val groupingBehavior: Enumeration<ActionGroupingBehavior>? = null,
     /** Defines the selection behavior for the action and its children. */
-    public var selectionBehavior: Enumeration<ActionSelectionBehavior>? = null,
+    public val selectionBehavior: Enumeration<ActionSelectionBehavior>? = null,
     /** Defines the required behavior for the action. */
-    public var requiredBehavior: Enumeration<ActionRequiredBehavior>? = null,
+    public val requiredBehavior: Enumeration<ActionRequiredBehavior>? = null,
     /** Defines whether the action should usually be preselected. */
-    public var precheckBehavior: Enumeration<ActionPrecheckBehavior>? = null,
+    public val precheckBehavior: Enumeration<ActionPrecheckBehavior>? = null,
     /** Defines whether the action can be selected multiple times. */
-    public var cardinalityBehavior: Enumeration<ActionCardinalityBehavior>? = null,
+    public val cardinalityBehavior: Enumeration<ActionCardinalityBehavior>? = null,
     /**
      * A reference to an ActivityDefinition that describes the action to be taken in detail, a
      * MessageDefinition describing a message to be snet, a PlanDefinition that describes a series
@@ -938,7 +938,7 @@ public data class PlanDefinition(
      * Note that the definition is optional, and if no definition is specified, a dynamicValue with
      * a root ($this) path can be used to define the entire resource dynamically.
      */
-    public var definition: Definition? = null,
+    public val definition: Definition? = null,
     /**
      * A reference to a StructureMap resource that defines a transform that can be executed to
      * produce the intent resource using the ActivityDefinition instance as the input.
@@ -947,7 +947,7 @@ public data class PlanDefinition(
      * specified here generally takes precedence. In addition, if both a transform and dynamic
      * values are specific, the dynamic values are applied to the result of the transform.
      */
-    public var transform: Canonical? = null,
+    public val transform: Canonical? = null,
     /**
      * Customizations that should be applied to the statically defined resource. For example, if the
      * dosage of a medication must be computed based on the patient's weight, a customization would
@@ -960,14 +960,14 @@ public data class PlanDefinition(
      * by the dynamicValues specified here. In addition, if both a transform and dynamic values are
      * specific, the dynamic values are applied to the result of the transform.
      */
-    public var dynamicValue: MutableList<DynamicValue> = mutableListOf(),
+    public val dynamicValue: List<DynamicValue> = listOf(),
     /**
      * Sub actions that are contained within the action. The behavior of this action determines the
      * functionality of the sub-actions. For example, a selection behavior of at-most-one indicates
      * that of the sub-actions, at most one may be chosen as part of realizing the action
      * definition.
      */
-    public var action: MutableList<Action> = mutableListOf(),
+    public val action: List<Action> = listOf(),
   ) : BackboneElement() {
     /**
      * An expression that describes applicability criteria or start/stop conditions for the action.
@@ -978,7 +978,7 @@ public data class PlanDefinition(
        * Unique id for the element within a resource (for internal references). This may be any
        * string value that does not contain spaces.
        */
-      override var id: kotlin.String? = null,
+      override val id: kotlin.String? = null,
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -991,7 +991,7 @@ public data class PlanDefinition(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: MutableList<Extension> = mutableListOf(),
+      override val extension: List<Extension> = listOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -1010,7 +1010,7 @@ public data class PlanDefinition(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: MutableList<Extension> = mutableListOf(),
+      override val modifierExtension: List<Extension> = listOf(),
       /**
        * The kind of condition.
        *
@@ -1018,14 +1018,14 @@ public data class PlanDefinition(
        * is applied to a given context. Start and stop criteria are carried through application and
        * used to describe enter/exit criteria for an action.
        */
-      public var kind: Enumeration<ActionConditionKind>,
+      public val kind: Enumeration<ActionConditionKind>,
       /**
        * An expression that returns true or false, indicating whether the condition is satisfied.
        *
        * The expression may be inlined or may be a reference to a named expression within a logic
        * library referenced by the library element.
        */
-      public var expression: Expression? = null,
+      public val expression: Expression? = null,
     ) : BackboneElement()
 
     /** Defines input data requirements for the action. */
@@ -1035,7 +1035,7 @@ public data class PlanDefinition(
        * Unique id for the element within a resource (for internal references). This may be any
        * string value that does not contain spaces.
        */
-      override var id: kotlin.String? = null,
+      override val id: kotlin.String? = null,
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -1048,7 +1048,7 @@ public data class PlanDefinition(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: MutableList<Extension> = mutableListOf(),
+      override val extension: List<Extension> = listOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -1067,15 +1067,15 @@ public data class PlanDefinition(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: MutableList<Extension> = mutableListOf(),
+      override val modifierExtension: List<Extension> = listOf(),
       /**
        * A human-readable label for the data requirement used to label data flows in BPMN or similar
        * diagrams. Also provides a human readable label when rendering the data requirement that
        * conveys its purpose to human readers.
        */
-      public var title: String? = null,
+      public val title: String? = null,
       /** Defines the data that is to be provided as input to the action. */
-      public var requirement: DataRequirement? = null,
+      public val requirement: DataRequirement? = null,
       /**
        * Points to an existing input or output element that provides data to this input.
        *
@@ -1083,7 +1083,7 @@ public data class PlanDefinition(
        * specific child actions. It also allows the output of one action to be identified as the
        * input to a different action
        */
-      public var relatedData: Id? = null,
+      public val relatedData: Id? = null,
     ) : BackboneElement()
 
     /** Defines the outputs of the action, if any. */
@@ -1093,7 +1093,7 @@ public data class PlanDefinition(
        * Unique id for the element within a resource (for internal references). This may be any
        * string value that does not contain spaces.
        */
-      override var id: kotlin.String? = null,
+      override val id: kotlin.String? = null,
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -1106,7 +1106,7 @@ public data class PlanDefinition(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: MutableList<Extension> = mutableListOf(),
+      override val extension: List<Extension> = listOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -1125,15 +1125,15 @@ public data class PlanDefinition(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: MutableList<Extension> = mutableListOf(),
+      override val modifierExtension: List<Extension> = listOf(),
       /**
        * A human-readable label for the data requirement used to label data flows in BPMN or similar
        * diagrams. Also provides a human readable label when rendering the data requirement that
        * conveys its purpose to human readers.
        */
-      public var title: String? = null,
+      public val title: String? = null,
       /** Defines the data that results as output from the action. */
-      public var requirement: DataRequirement? = null,
+      public val requirement: DataRequirement? = null,
       /**
        * Points to an existing input or output element that is results as output from the action.
        *
@@ -1141,7 +1141,7 @@ public data class PlanDefinition(
        * output of a parent action. It also allows the input of one action to be identified as the
        * output of a different action
        */
-      public var relatedData: String? = null,
+      public val relatedData: String? = null,
     ) : BackboneElement()
 
     /** A relationship to another action such as "before" or "30-60 minutes after start of". */
@@ -1151,7 +1151,7 @@ public data class PlanDefinition(
        * Unique id for the element within a resource (for internal references). This may be any
        * string value that does not contain spaces.
        */
-      override var id: kotlin.String? = null,
+      override val id: kotlin.String? = null,
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -1164,7 +1164,7 @@ public data class PlanDefinition(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: MutableList<Extension> = mutableListOf(),
+      override val extension: List<Extension> = listOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -1183,18 +1183,18 @@ public data class PlanDefinition(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: MutableList<Extension> = mutableListOf(),
+      override val modifierExtension: List<Extension> = listOf(),
       /** The element id of the target related action. */
-      public var targetId: Id,
+      public val targetId: Id,
       /** The relationship of the start of this action to the related action. */
-      public var relationship: Enumeration<ActionRelationshipType>,
+      public val relationship: Enumeration<ActionRelationshipType>,
       /** The relationship of the end of this action to the related action. */
-      public var endRelationship: Enumeration<ActionRelationshipType>? = null,
+      public val endRelationship: Enumeration<ActionRelationshipType>? = null,
       /**
        * A duration or range of durations to apply to the relationship. For example, 30-60 minutes
        * before.
        */
-      public var offset: Offset? = null,
+      public val offset: Offset? = null,
     ) : BackboneElement() {
       @Serializable(with = PlanDefinitionActionRelatedActionOffsetSerializer::class)
       public sealed interface Offset {
@@ -1226,7 +1226,7 @@ public data class PlanDefinition(
        * Unique id for the element within a resource (for internal references). This may be any
        * string value that does not contain spaces.
        */
-      override var id: kotlin.String? = null,
+      override val id: kotlin.String? = null,
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -1239,7 +1239,7 @@ public data class PlanDefinition(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: MutableList<Extension> = mutableListOf(),
+      override val extension: List<Extension> = listOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -1258,26 +1258,26 @@ public data class PlanDefinition(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: MutableList<Extension> = mutableListOf(),
+      override val modifierExtension: List<Extension> = listOf(),
       /** A reference to the id element of the actor who will participate in this action. */
-      public var actorId: String? = null,
+      public val actorId: String? = null,
       /** The type of participant in the action. */
-      public var type: Enumeration<ActionParticipantType>? = null,
+      public val type: Enumeration<ActionParticipantType>? = null,
       /** The type of participant in the action. */
-      public var typeCanonical: Canonical? = null,
+      public val typeCanonical: Canonical? = null,
       /**
        * The type of participant in the action.
        *
        * When this element is a reference, it SHOULD be a reference to a definitional resource (for
        * example, a location type, rather than a specific location).
        */
-      public var typeReference: Reference? = null,
+      public val typeReference: Reference? = null,
       /** The role the participant should play in performing the described action. */
-      public var role: CodeableConcept? = null,
+      public val role: CodeableConcept? = null,
       /**
        * Indicates how the actor will be involved in the action - author, reviewer, witness, etc.
        */
-      public var function: CodeableConcept? = null,
+      public val function: CodeableConcept? = null,
     ) : BackboneElement()
 
     /**
@@ -1292,7 +1292,7 @@ public data class PlanDefinition(
        * Unique id for the element within a resource (for internal references). This may be any
        * string value that does not contain spaces.
        */
-      override var id: kotlin.String? = null,
+      override val id: kotlin.String? = null,
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element. To make the use of extensions safe and managable, there is a strict set of
@@ -1305,7 +1305,7 @@ public data class PlanDefinition(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: MutableList<Extension> = mutableListOf(),
+      override val extension: List<Extension> = listOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -1324,7 +1324,7 @@ public data class PlanDefinition(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: MutableList<Extension> = mutableListOf(),
+      override val modifierExtension: List<Extension> = listOf(),
       /**
        * The path to the element to be customized. This is the path on the resource that will hold
        * the result of the calculation defined by the expression. The specified path SHALL be a
@@ -1340,14 +1340,14 @@ public data class PlanDefinition(
        * [Simple FHIRPath Subset](fhirpath.html#simple) that allows path traversal, but not
        * calculation.
        */
-      public var path: String? = null,
+      public val path: String? = null,
       /**
        * An expression specifying the value of the customized element.
        *
        * The expression may be inlined or may be a reference to a named expression within a logic
        * library referenced by the library element.
        */
-      public var expression: Expression? = null,
+      public val expression: Expression? = null,
     ) : BackboneElement()
 
     @Serializable(with = PlanDefinitionActionSubjectSerializer::class)

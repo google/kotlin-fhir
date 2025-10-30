@@ -29,7 +29,7 @@ import com.google.fhir.model.r4b.serializers.EvidenceStatisticSerializer
 import com.google.fhir.model.r4b.serializers.EvidenceVariableDefinitionSerializer
 import com.google.fhir.model.r4b.terminologies.PublicationStatus
 import kotlin.Suppress
-import kotlin.collections.MutableList
+import kotlin.collections.List
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -48,12 +48,12 @@ public data class Evidence(
    * The only time that a resource does not have an id is when it is being submitted to the server
    * using a create operation.
    */
-  override var id: kotlin.String? = null,
+  override val id: kotlin.String? = null,
   /**
    * The metadata about the resource. This is content that is maintained by the infrastructure.
    * Changes to the content might not always be associated with version changes to the resource.
    */
-  override var meta: Meta? = null,
+  override val meta: Meta? = null,
   /**
    * A reference to a set of rules that were followed when the resource was constructed, and which
    * must be understood when processing the content. Often, this is a reference to an implementation
@@ -67,7 +67,7 @@ public data class Evidence(
    * to an implementation guide that defines these special rules as part of it's narrative along
    * with other profiles, value sets, etc.
    */
-  override var implicitRules: Uri? = null,
+  override val implicitRules: Uri? = null,
   /**
    * The base language in which the resource is written.
    *
@@ -79,7 +79,7 @@ public data class Evidence(
    * language is specified, it should it also be specified on the div element in the html (see rules
    * in HTML5 for information about the relationship between xml:lang and the html lang attribute).
    */
-  override var language: Code? = null,
+  override val language: Code? = null,
   /**
    * A human-readable narrative that contains a summary of the resource and can be used to represent
    * the content of the resource to a human. The narrative need not encode all the structured data,
@@ -93,7 +93,7 @@ public data class Evidence(
    * legacy systems where information is captured as a "text blob" or where text is additionally
    * entered raw or narrated and encoded information is added later.
    */
-  override var text: Narrative? = null,
+  override val text: Narrative? = null,
   /**
    * These resources do not have an independent existence apart from the resource that contains
    * them - they cannot be identified independently, and nor can they have their own independent
@@ -104,7 +104,7 @@ public data class Evidence(
    * resources may have profiles and tags In their meta elements, but SHALL NOT have security
    * labels.
    */
-  override var contained: MutableList<Resource> = mutableListOf(),
+  override val contained: List<Resource> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource. To make the use of extensions safe and manageable, there is a strict set of
@@ -117,7 +117,7 @@ public data class Evidence(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var extension: MutableList<Extension> = mutableListOf(),
+  override val extension: List<Extension> = listOf(),
   /**
    * May be used to represent additional information that is not part of the basic definition of the
    * resource and that modifies the understanding of the element that contains it and/or the
@@ -136,7 +136,7 @@ public data class Evidence(
    * The use of extensions is what allows the FHIR specification to retain a core level of
    * simplicity for everyone.
    */
-  override var modifierExtension: MutableList<Extension> = mutableListOf(),
+  override val modifierExtension: List<Extension> = listOf(),
   /**
    * An absolute URI that is used to identify this evidence when it is referenced in a
    * specification, model, design or an instance; also called its canonical identifier. This SHOULD
@@ -147,7 +147,7 @@ public data class Evidence(
    * Can be a urn:uuid: or a urn:oid: but real http: addresses are preferred. Multiple instances may
    * share the same URL if they have a distinct version.
    */
-  public var url: Uri? = null,
+  public val url: Uri? = null,
   /**
    * A formal identifier that is used to identify this summary when it is represented in other
    * formats, or referenced in a specification, model, design or an instance.
@@ -156,7 +156,7 @@ public data class Evidence(
    * type, and can then identify this summary outside of FHIR, where it is not possible to use the
    * logical URI.
    */
-  public var identifier: MutableList<Identifier> = mutableListOf(),
+  public val identifier: List<Identifier> = listOf(),
   /**
    * The identifier that is used to identify this version of the summary when it is referenced in a
    * specification, model, design or instance. This is an arbitrary value managed by the summary
@@ -168,7 +168,7 @@ public data class Evidence(
    * defining a new artifact is up to the author. Considerations for making this decision are found
    * in Technical and Business Versions.
    */
-  public var version: String? = null,
+  public val version: String? = null,
   /**
    * A short, descriptive, user-friendly title for the summary.
    *
@@ -176,15 +176,15 @@ public data class Evidence(
    * change. Implementations can use the meta.source element to indicate where the current master
    * source of the resource can be found.
    */
-  public var title: String? = null,
+  public val title: String? = null,
   /** Citation Resource or display of suggested citation for this evidence. */
-  public var citeAs: CiteAs? = null,
+  public val citeAs: CiteAs? = null,
   /**
    * The status of this summary. Enables tracking the life-cycle of the content.
    *
    * Allows filtering of summarys s that are appropriate for use versus not.
    */
-  public var status: Enumeration<PublicationStatus>,
+  public val status: Enumeration<PublicationStatus>,
   /**
    * The date (and optionally time) when the summary was published. The date must change when the
    * business version changes and it must change if the status code changes. In addition, it should
@@ -194,7 +194,7 @@ public data class Evidence(
    * secondary representation of the summary. Additional specific dates may be added as extensions
    * or be found by consulting Provenances associated with past versions of the resource.
    */
-  public var date: DateTime? = null,
+  public val date: DateTime? = null,
   /**
    * The content was developed with a focus and intent of supporting the contexts that are listed.
    * These contexts may be general categories (gender, age, ...) or may be references to specific
@@ -204,7 +204,7 @@ public data class Evidence(
    * When multiple useContexts are specified, there is no expectation that all or any of the
    * contexts apply.
    */
-  public var useContext: MutableList<UsageContext> = mutableListOf(),
+  public val useContext: List<UsageContext> = listOf(),
   /**
    * The date on which the resource content was approved by the publisher. Approval happens once
    * when the content is officially approved for usage.
@@ -212,14 +212,14 @@ public data class Evidence(
    * The 'date' element may be more recent than the approval date because of minor changes or
    * editorial corrections.
    */
-  public var approvalDate: Date? = null,
+  public val approvalDate: Date? = null,
   /**
    * The date on which the resource content was last reviewed. Review happens periodically after
    * approval but does not change the original approval date.
    *
    * If specified, this date follows the original approval date.
    */
-  public var lastReviewDate: Date? = null,
+  public val lastReviewDate: Date? = null,
   /**
    * The name of the organization or individual that published the evidence.
    *
@@ -230,14 +230,14 @@ public data class Evidence(
    * issues with the evidence. This item SHOULD be populated unless the information is available
    * from context.
    */
-  public var publisher: String? = null,
+  public val publisher: String? = null,
   /**
    * Contact details to assist a user in finding and communicating with the publisher.
    *
    * Extensions to ContactDetail include: contactReference, contactAddress, and contributionTime
    * (Details at: http://build.fhir.org/clinicalreasoning-module.html).
    */
-  public var contact: MutableList<ContactDetail> = mutableListOf(),
+  public val contact: List<ContactDetail> = listOf(),
   /**
    * An individiual, organization, or device primarily involved in the creation and maintenance of
    * the content.
@@ -245,7 +245,7 @@ public data class Evidence(
    * Extensions to ContactDetail include: contactReference, contactAddress, and contributionTime
    * (Details at: http://build.fhir.org/clinicalreasoning-module.html).
    */
-  public var author: MutableList<ContactDetail> = mutableListOf(),
+  public val author: List<ContactDetail> = listOf(),
   /**
    * An individiual, organization, or device primarily responsible for internal coherence of the
    * content.
@@ -253,7 +253,7 @@ public data class Evidence(
    * Extensions to ContactDetail include: contactReference, contactAddress, and contributionTime
    * (Details at: http://build.fhir.org/clinicalreasoning-module.html).
    */
-  public var editor: MutableList<ContactDetail> = mutableListOf(),
+  public val editor: List<ContactDetail> = listOf(),
   /**
    * An individiual, organization, or device primarily responsible for review of some aspect of the
    * content.
@@ -261,7 +261,7 @@ public data class Evidence(
    * Extensions to ContactDetail include: contactReference, contactAddress, and contributionTime
    * (Details at: http://build.fhir.org/clinicalreasoning-module.html).
    */
-  public var reviewer: MutableList<ContactDetail> = mutableListOf(),
+  public val reviewer: List<ContactDetail> = listOf(),
   /**
    * An individiual, organization, or device responsible for officially endorsing the content for
    * use in some setting.
@@ -269,9 +269,9 @@ public data class Evidence(
    * Extensions to ContactDetail include: contactReference, contactAddress, and contributionTime
    * (Details at: http://build.fhir.org/clinicalreasoning-module.html).
    */
-  public var endorser: MutableList<ContactDetail> = mutableListOf(),
+  public val endorser: List<ContactDetail> = listOf(),
   /** Link or citation to artifact associated with the summary. */
-  public var relatedArtifact: MutableList<RelatedArtifact> = mutableListOf(),
+  public val relatedArtifact: List<RelatedArtifact> = listOf(),
   /**
    * A free text natural language description of the evidence from a consumer's perspective.
    *
@@ -282,21 +282,21 @@ public data class Evidence(
    * from context (e.g. the language of the evidence is presumed to be the predominant language in
    * the place the evidence was created).
    */
-  public var description: Markdown? = null,
+  public val description: Markdown? = null,
   /** Declarative description of the Evidence. */
-  public var assertion: Markdown? = null,
+  public val assertion: Markdown? = null,
   /** Footnotes and/or explanatory notes. */
-  public var note: MutableList<Annotation> = mutableListOf(),
+  public val note: List<Annotation> = listOf(),
   /** Evidence variable such as population, exposure, or outcome. */
-  public var variableDefinition: MutableList<VariableDefinition> = mutableListOf(),
+  public val variableDefinition: List<VariableDefinition> = listOf(),
   /** The method to combine studies. */
-  public var synthesisType: CodeableConcept? = null,
+  public val synthesisType: CodeableConcept? = null,
   /** The type of study that produced this evidence. */
-  public var studyType: CodeableConcept? = null,
+  public val studyType: CodeableConcept? = null,
   /** Values and parameters for a single statistic. */
-  public var statistic: MutableList<Statistic> = mutableListOf(),
+  public val statistic: List<Statistic> = listOf(),
   /** Assessment of certainty, confidence in the estimates, or quality of the evidence. */
-  public var certainty: MutableList<Certainty> = mutableListOf(),
+  public val certainty: List<Certainty> = listOf(),
 ) : DomainResource() {
   /** Evidence variable such as population, exposure, or outcome. */
   @Serializable(with = EvidenceVariableDefinitionSerializer::class)
@@ -305,7 +305,7 @@ public data class Evidence(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and manageable, there is a strict set of
@@ -318,7 +318,7 @@ public data class Evidence(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -337,21 +337,21 @@ public data class Evidence(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /** A text description or summary of the variable. */
-    public var description: Markdown? = null,
+    public val description: Markdown? = null,
     /** Footnotes and/or explanatory notes. */
-    public var note: MutableList<Annotation> = mutableListOf(),
+    public val note: List<Annotation> = listOf(),
     /**
      * population | subpopulation | exposure | referenceExposure | measuredVariable | confounder.
      */
-    public var variableRole: CodeableConcept,
+    public val variableRole: CodeableConcept,
     /** Definition of the actual variable related to the statistic(s). */
-    public var observed: Reference? = null,
+    public val observed: Reference? = null,
     /** Definition of the intended variable related to the Evidence. */
-    public var intended: Reference? = null,
+    public val intended: Reference? = null,
     /** Indication of quality of match between intended variable to actual variable. */
-    public var directnessMatch: CodeableConcept? = null,
+    public val directnessMatch: CodeableConcept? = null,
   ) : BackboneElement()
 
   /** Values and parameters for a single statistic. */
@@ -361,7 +361,7 @@ public data class Evidence(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and manageable, there is a strict set of
@@ -374,7 +374,7 @@ public data class Evidence(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -393,13 +393,13 @@ public data class Evidence(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /** A description of the content value of the statistic. */
-    public var description: String? = null,
+    public val description: String? = null,
     /** Footnotes and/or explanatory notes. */
-    public var note: MutableList<Annotation> = mutableListOf(),
+    public val note: List<Annotation> = listOf(),
     /** Type of statistic, eg relative risk. */
-    public var statisticType: CodeableConcept? = null,
+    public val statisticType: CodeableConcept? = null,
     /**
      * When the measured variable is handled categorically, the category element is used to define
      * which category the statistic is reporting.
@@ -409,9 +409,9 @@ public data class Evidence(
      * Evidence.variableDefinition[variableRole=measuredVariable].observed=Reference(EvidenceVariable)
      * could facilitate validation within datasets.
      */
-    public var category: CodeableConcept? = null,
+    public val category: CodeableConcept? = null,
     /** Statistic value. */
-    public var quantity: Quantity? = null,
+    public val quantity: Quantity? = null,
     /**
      * The number of events associated with the statistic, where the unit of analysis is different
      * from numberAffected, sampleSize.knownDataCount and sampleSize.numberOfParticipants.
@@ -422,7 +422,7 @@ public data class Evidence(
      * events), use Evidence.statistic.numberOfEvents to record the total number of events rather
      * than the number of participants with events.
      */
-    public var numberOfEvents: UnsignedInt? = null,
+    public val numberOfEvents: UnsignedInt? = null,
     /**
      * The number of participants affected where the unit of analysis is the same as
      * sampleSize.knownDataCount and sampleSize.numberOfParticipants.
@@ -434,13 +434,13 @@ public data class Evidence(
      * have 2 or more events), use Evidence.statistic.numberAffected to record the number of
      * participants with events rather than the total number of events.
      */
-    public var numberAffected: UnsignedInt? = null,
+    public val numberAffected: UnsignedInt? = null,
     /** Number of samples in the statistic. */
-    public var sampleSize: SampleSize? = null,
+    public val sampleSize: SampleSize? = null,
     /** A statistical attribute of the statistic such as a measure of heterogeneity. */
-    public var attributeEstimate: MutableList<AttributeEstimate> = mutableListOf(),
+    public val attributeEstimate: List<AttributeEstimate> = listOf(),
     /** A component of the method to generate the statistic. */
-    public var modelCharacteristic: MutableList<ModelCharacteristic> = mutableListOf(),
+    public val modelCharacteristic: List<ModelCharacteristic> = listOf(),
   ) : BackboneElement() {
     /** Number of samples in the statistic. */
     @Serializable(with = EvidenceStatisticSampleSizeSerializer::class)
@@ -449,7 +449,7 @@ public data class Evidence(
        * Unique id for the element within a resource (for internal references). This may be any
        * string value that does not contain spaces.
        */
-      override var id: kotlin.String? = null,
+      override val id: kotlin.String? = null,
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element. To make the use of extensions safe and manageable, there is a strict set of
@@ -462,7 +462,7 @@ public data class Evidence(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: MutableList<Extension> = mutableListOf(),
+      override val extension: List<Extension> = listOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -481,17 +481,17 @@ public data class Evidence(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: MutableList<Extension> = mutableListOf(),
+      override val modifierExtension: List<Extension> = listOf(),
       /** Human-readable summary of population sample size. */
-      public var description: String? = null,
+      public val description: String? = null,
       /** Footnote or explanatory note about the sample size. */
-      public var note: MutableList<Annotation> = mutableListOf(),
+      public val note: List<Annotation> = listOf(),
       /** Number of participants in the population. */
-      public var numberOfStudies: UnsignedInt? = null,
+      public val numberOfStudies: UnsignedInt? = null,
       /** A human-readable string to clarify or explain concepts about the sample size. */
-      public var numberOfParticipants: UnsignedInt? = null,
+      public val numberOfParticipants: UnsignedInt? = null,
       /** Number of participants with known results for measured variables. */
-      public var knownDataCount: UnsignedInt? = null,
+      public val knownDataCount: UnsignedInt? = null,
     ) : BackboneElement()
 
     /** A statistical attribute of the statistic such as a measure of heterogeneity. */
@@ -501,7 +501,7 @@ public data class Evidence(
        * Unique id for the element within a resource (for internal references). This may be any
        * string value that does not contain spaces.
        */
-      override var id: kotlin.String? = null,
+      override val id: kotlin.String? = null,
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element. To make the use of extensions safe and manageable, there is a strict set of
@@ -514,7 +514,7 @@ public data class Evidence(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: MutableList<Extension> = mutableListOf(),
+      override val extension: List<Extension> = listOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -533,30 +533,30 @@ public data class Evidence(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: MutableList<Extension> = mutableListOf(),
+      override val modifierExtension: List<Extension> = listOf(),
       /** Human-readable summary of the estimate. */
-      public var description: String? = null,
+      public val description: String? = null,
       /** Footnote or explanatory note about the estimate. */
-      public var note: MutableList<Annotation> = mutableListOf(),
+      public val note: List<Annotation> = listOf(),
       /** The type of attribute estimate, eg confidence interval or p value. */
-      public var type: CodeableConcept? = null,
+      public val type: CodeableConcept? = null,
       /**
        * The singular quantity of the attribute estimate, for attribute estimates represented as
        * single values; also used to report unit of measure.
        *
        * Often the p value
        */
-      public var quantity: Quantity? = null,
+      public val quantity: Quantity? = null,
       /** Use 95 for a 95% confidence interval. */
-      public var level: Decimal? = null,
+      public val level: Decimal? = null,
       /** Lower bound of confidence interval. */
-      public var range: Range? = null,
+      public val range: Range? = null,
       /**
        * A nested attribute estimate; which is the attribute estimate of an attribute estimate.
        *
        * A nested attribute estimate; which is the attribute estimate of an attribute estimate
        */
-      public var attributeEstimate: MutableList<AttributeEstimate> = mutableListOf(),
+      public val attributeEstimate: List<AttributeEstimate> = listOf(),
     ) : BackboneElement()
 
     /** A component of the method to generate the statistic. */
@@ -566,7 +566,7 @@ public data class Evidence(
        * Unique id for the element within a resource (for internal references). This may be any
        * string value that does not contain spaces.
        */
-      override var id: kotlin.String? = null,
+      override val id: kotlin.String? = null,
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element. To make the use of extensions safe and manageable, there is a strict set of
@@ -579,7 +579,7 @@ public data class Evidence(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var extension: MutableList<Extension> = mutableListOf(),
+      override val extension: List<Extension> = listOf(),
       /**
        * May be used to represent additional information that is not part of the basic definition of
        * the element and that modifies the understanding of the element in which it is contained
@@ -598,18 +598,18 @@ public data class Evidence(
        * extensions. The use of extensions is what allows the FHIR specification to retain a core
        * level of simplicity for everyone.
        */
-      override var modifierExtension: MutableList<Extension> = mutableListOf(),
+      override val modifierExtension: List<Extension> = listOf(),
       /** Description of a component of the method to generate the statistic. */
-      public var code: CodeableConcept,
+      public val code: CodeableConcept,
       /**
        * Further specification of the quantified value of the component of the method to generate
        * the statistic.
        */
-      public var `value`: Quantity? = null,
+      public val `value`: Quantity? = null,
       /** A variable adjusted for in the adjusted analysis. */
-      public var variable: MutableList<Variable> = mutableListOf(),
+      public val variable: List<Variable> = listOf(),
       /** An attribute of the statistic used as a model characteristic. */
-      public var attributeEstimate: MutableList<AttributeEstimate> = mutableListOf(),
+      public val attributeEstimate: List<AttributeEstimate> = listOf(),
     ) : BackboneElement() {
       /** A variable adjusted for in the adjusted analysis. */
       @Serializable(with = EvidenceStatisticModelCharacteristicVariableSerializer::class)
@@ -618,7 +618,7 @@ public data class Evidence(
          * Unique id for the element within a resource (for internal references). This may be any
          * string value that does not contain spaces.
          */
-        override var id: kotlin.String? = null,
+        override val id: kotlin.String? = null,
         /**
          * May be used to represent additional information that is not part of the basic definition
          * of the element. To make the use of extensions safe and manageable, there is a strict set
@@ -631,7 +631,7 @@ public data class Evidence(
          * extensions. The use of extensions is what allows the FHIR specification to retain a core
          * level of simplicity for everyone.
          */
-        override var extension: MutableList<Extension> = mutableListOf(),
+        override val extension: List<Extension> = listOf(),
         /**
          * May be used to represent additional information that is not part of the basic definition
          * of the element and that modifies the understanding of the element in which it is
@@ -650,17 +650,17 @@ public data class Evidence(
          * extensions. The use of extensions is what allows the FHIR specification to retain a core
          * level of simplicity for everyone.
          */
-        override var modifierExtension: MutableList<Extension> = mutableListOf(),
+        override val modifierExtension: List<Extension> = listOf(),
         /** Description of the variable. */
-        public var variableDefinition: Reference,
+        public val variableDefinition: Reference,
         /** How the variable is classified for use in adjusted analysis. */
-        public var handling: Enumeration<EvidenceVariableHandling>? = null,
+        public val handling: Enumeration<EvidenceVariableHandling>? = null,
         /** Description for grouping of ordinal or polychotomous variables. */
-        public var valueCategory: MutableList<CodeableConcept> = mutableListOf(),
+        public val valueCategory: List<CodeableConcept> = listOf(),
         /** Discrete value for grouping of ordinal or polychotomous variables. */
-        public var valueQuantity: MutableList<Quantity> = mutableListOf(),
+        public val valueQuantity: List<Quantity> = listOf(),
         /** Range of values for grouping of ordinal or polychotomous variables. */
-        public var valueRange: MutableList<Range> = mutableListOf(),
+        public val valueRange: List<Range> = listOf(),
       ) : BackboneElement()
     }
   }
@@ -672,7 +672,7 @@ public data class Evidence(
      * Unique id for the element within a resource (for internal references). This may be any string
      * value that does not contain spaces.
      */
-    override var id: kotlin.String? = null,
+    override val id: kotlin.String? = null,
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element. To make the use of extensions safe and manageable, there is a strict set of
@@ -685,7 +685,7 @@ public data class Evidence(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var extension: MutableList<Extension> = mutableListOf(),
+    override val extension: List<Extension> = listOf(),
     /**
      * May be used to represent additional information that is not part of the basic definition of
      * the element and that modifies the understanding of the element in which it is contained
@@ -704,19 +704,19 @@ public data class Evidence(
      * The use of extensions is what allows the FHIR specification to retain a core level of
      * simplicity for everyone.
      */
-    override var modifierExtension: MutableList<Extension> = mutableListOf(),
+    override val modifierExtension: List<Extension> = listOf(),
     /** Textual description of certainty. */
-    public var description: String? = null,
+    public val description: String? = null,
     /** Footnotes and/or explanatory notes. */
-    public var note: MutableList<Annotation> = mutableListOf(),
+    public val note: List<Annotation> = listOf(),
     /** Aspect of certainty being rated. */
-    public var type: CodeableConcept? = null,
+    public val type: CodeableConcept? = null,
     /** Assessment or judgement of the aspect. */
-    public var rating: CodeableConcept? = null,
+    public val rating: CodeableConcept? = null,
     /** Individual or group who did the rating. */
-    public var rater: String? = null,
+    public val rater: String? = null,
     /** A domain or subdomain of certainty. */
-    public var subcomponent: MutableList<Certainty> = mutableListOf(),
+    public val subcomponent: List<Certainty> = listOf(),
   ) : BackboneElement()
 
   @Serializable(with = EvidenceCiteAsSerializer::class)
