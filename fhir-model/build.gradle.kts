@@ -13,7 +13,7 @@ plugins {
 }
 
 group = "com.google.fhir"
-version = "1.0.0-alpha02"
+version = "1.0.0-beta01"
 
 // Run `./gradlew r4` to generate FHIR models for R4 in `fhir-model/build/generated/r4`
 val codegenTaskR4 = fhirCodegenExtension.newTask("r4") {
