@@ -286,7 +286,7 @@ public data class Claim(
    * 'Coverage.subrogation=false', should provide a reference to the ClaimResponse containing the
    * adjudication results of the prior claim.
    */
-  public val insurance: List<Insurance> = listOf(),
+  public val insurance: List<Insurance>,
   /**
    * Details of an accident which resulted in injuries which required the products and services
    * listed in the claim.

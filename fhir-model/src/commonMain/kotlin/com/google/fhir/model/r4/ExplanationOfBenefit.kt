@@ -349,7 +349,7 @@ public data class ExplanationOfBenefit(
    * 'Coverage.subrogation=false', should provide a reference to the ClaimResponse containing the
    * adjudication results of the prior claim.
    */
-  public val insurance: List<Insurance> = listOf(),
+  public val insurance: List<Insurance>,
   /**
    * Details of a accident which resulted in injuries which required the products and services
    * listed in the claim.

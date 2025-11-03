@@ -22,10 +22,9 @@ import com.google.fhir.codegen.schema.StructureDefinition
 import com.google.fhir.codegen.schema.Type
 import com.google.fhir.codegen.schema.backboneElements
 import com.google.fhir.codegen.schema.capitalized
+import com.google.fhir.codegen.schema.getBindingValueSetUrl
 import com.google.fhir.codegen.schema.getElementName
 import com.google.fhir.codegen.schema.getPathSimpleNames
-import com.google.fhir.codegen.schema.getSurrogatePropertyNameTypeDefaultValueList
-import com.google.fhir.codegen.schema.getValueSetUrl
 import com.google.fhir.codegen.schema.isCommonBinding
 import com.google.fhir.codegen.schema.normalizeEnumName
 import com.google.fhir.codegen.schema.rootElements
@@ -87,7 +86,7 @@ class SurrogateFileSpecGenerator(val codegenContext: CodegenContext) {
       val backboneElementClassName = ClassName(modelClassName.packageName, simpleNames)
       addType(
         this@SurrogateFileSpecGenerator.createSurrogateClassTypeSpec(
-          className = backboneElementClassName,
+          modelClassName = backboneElementClassName,
           elements = elements,
         )
       )
@@ -116,9 +115,11 @@ class SurrogateFileSpecGenerator(val codegenContext: CodegenContext) {
     addTypes(sealedInterfaceSurrogateTypes)
   }
 
-  fun createSurrogateClassTypeSpec(className: ClassName, elements: List<Element>): TypeSpec =
-    TypeSpec.classBuilder(className.toSurrogateClassName())
+  fun createSurrogateClassTypeSpec(modelClassName: ClassName, elements: List<Element>): TypeSpec =
+    TypeSpec.classBuilder(modelClassName.toSurrogateClassName())
       .apply {
+        val propertyMapper =
+          PropertyMapper(PropertyMapper.MappingContext.SURROGATE, modelClassName, emptyMap())
         addAnnotation(Serializable::class)
         addModifiers(KModifier.INTERNAL)
         addModifiers(KModifier.DATA).apply {
@@ -132,7 +133,7 @@ class SurrogateFileSpecGenerator(val codegenContext: CodegenContext) {
                 val property =
                   PropertySpec.builder(
                       propertyName,
-                      ClassName(className.packageName, element.getPathSimpleNames())
+                      ClassName(modelClassName.packageName, element.getPathSimpleNames())
                         .copy(nullable = nullable),
                     )
                     .initializer(propertyName)
@@ -144,15 +145,15 @@ class SurrogateFileSpecGenerator(val codegenContext: CodegenContext) {
                     .build()
                 listOf(Pair(property, parameter))
               } else {
-                element.getSurrogatePropertyNameTypeDefaultValueList(className).map {
+                propertyMapper.mapToProperties(element).map {
                   val property =
-                    PropertySpec.builder(it.first, it.second)
-                      .initializer(it.first)
+                    PropertySpec.builder(it.name, it.typeName)
+                      .initializer(it.name)
                       .mutable()
                       .build()
                   val parameter =
-                    ParameterSpec.builder(it.first, it.second)
-                      .apply { it.third?.let { defaultValue -> defaultValue(defaultValue) } }
+                    ParameterSpec.builder(it.name, it.typeName)
+                      .apply { it.defaultValue?.let { defaultValue(it) } }
                       .build()
                   Pair(property, parameter)
                 }
@@ -165,8 +166,8 @@ class SurrogateFileSpecGenerator(val codegenContext: CodegenContext) {
               .build()
           )
         }
-        addConverterToModelClass(className, elements)
-        addConverterFromModelClass(className, elements)
+        addConverterToModelClass(modelClassName, elements)
+        addConverterFromModelClass(modelClassName, elements)
       }
       .build()
 
@@ -177,22 +178,24 @@ class SurrogateFileSpecGenerator(val codegenContext: CodegenContext) {
    * and Patient.MultipleBirth sealed interfaces respectively.
    */
   private fun createSealedInterfaceSurrogateTypeSpec(
-    className: ClassName,
+    sealedInterfaceClassName: ClassName,
     element: Element,
   ): TypeSpec {
-    val sealedInterfaceSurrogateClassName = className.toSurrogateClassName()
+    val sealedInterfaceSurrogateClassName = sealedInterfaceClassName.toSurrogateClassName()
+    val propertyMapper =
+      PropertyMapper(PropertyMapper.MappingContext.SURROGATE, sealedInterfaceClassName, emptyMap())
     return TypeSpec.classBuilder(sealedInterfaceSurrogateClassName)
       .addAnnotation(Serializable::class)
       .addModifiers(KModifier.INTERNAL)
       .addModifiers(KModifier.DATA)
       .apply {
         val sealedInterfaceSurrogatePropertyParamPair =
-          element.getSurrogatePropertyNameTypeDefaultValueList(className).map {
+          propertyMapper.mapToProperties(element).map {
             val property =
-              PropertySpec.builder(it.first, it.second).initializer(it.first).mutable().build()
+              PropertySpec.builder(it.name, it.typeName).initializer(it.name).mutable().build()
             val parameter =
-              ParameterSpec.builder(it.first, it.second)
-                .apply { it.third?.let { defaultValue -> defaultValue(defaultValue) } }
+              ParameterSpec.builder(it.name, it.typeName)
+                .apply { it.defaultValue?.let { defaultValue(it) } }
                 .build()
             Pair(property, parameter)
           }
@@ -204,12 +207,12 @@ class SurrogateFileSpecGenerator(val codegenContext: CodegenContext) {
             .build()
         )
         addSealedClassSurrogateConverterToModelClass(
-          className,
+          sealedInterfaceClassName,
           sealedInterfaceSurrogateClassName,
           element,
         )
         addSealedClassSurrogateConverterFromModelClass(
-          className,
+          sealedInterfaceClassName,
           sealedInterfaceSurrogateClassName,
           element,
         )
@@ -582,7 +585,7 @@ class SurrogateFileSpecGenerator(val codegenContext: CodegenContext) {
     valueSetMap: Map<String, ValueSet>,
   ): ClassName {
     val elementBasePath: String? = base?.path
-    val valueSetName = valueSetMap.getValue(getValueSetUrl()!!).name.normalizeEnumName()
+    val valueSetName = valueSetMap.getValue(getBindingValueSetUrl()!!).name.normalizeEnumName()
     return when {
       this.isCommonBinding -> ClassName("${modelClassName.packageName}.terminologies", valueSetName)
       !elementBasePath.isNullOrBlank() && path != elementBasePath -> {

@@ -205,7 +205,7 @@ public data class NutritionIntake(
    */
   public val reported: Reported? = null,
   /** What food or fluid product or item was consumed. */
-  public val consumedItem: List<ConsumedItem> = listOf(),
+  public val consumedItem: List<ConsumedItem>,
   /**
    * Total nutrient amounts for the whole meal, product, serving, etc.
    *

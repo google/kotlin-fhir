@@ -59,7 +59,7 @@ public data class Signature(
    * Examples include attesting to: authorship, correct transcription, and witness of specific
    * event. Also known as a &quot;Commitment Type Indication&quot;.
    */
-  public val type: List<Coding> = listOf(),
+  public val type: List<Coding>,
   /**
    * When the digital signature was signed.
    *

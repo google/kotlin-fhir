@@ -159,7 +159,7 @@ public data class VisionPrescription(
    * Contain the details of the individual lens specifications and serves as the authorization for
    * the fullfillment by certified professionals.
    */
-  public val lensSpecification: List<LensSpecification> = listOf(),
+  public val lensSpecification: List<LensSpecification>,
 ) : DomainResource() {
   /**
    * Contain the details of the individual lens specifications and serves as the authorization for

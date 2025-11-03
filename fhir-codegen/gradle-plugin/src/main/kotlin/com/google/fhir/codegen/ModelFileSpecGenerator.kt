@@ -21,10 +21,8 @@ import com.google.fhir.codegen.schema.StructureDefinition
 import com.google.fhir.codegen.schema.Type
 import com.google.fhir.codegen.schema.backboneElements
 import com.google.fhir.codegen.schema.capitalized
+import com.google.fhir.codegen.schema.getBindingValueSetUrl
 import com.google.fhir.codegen.schema.getElementName
-import com.google.fhir.codegen.schema.getEnumerationTypeName
-import com.google.fhir.codegen.schema.getTypeName
-import com.google.fhir.codegen.schema.getValueSetUrl
 import com.google.fhir.codegen.schema.hasPrimaryConstructor
 import com.google.fhir.codegen.schema.isCommonBinding
 import com.google.fhir.codegen.schema.normalizeEnumName
@@ -213,7 +211,7 @@ class ModelFileSpecGenerator(val codegenContext: CodegenContext) {
           """
             if (this === other) return true
             if (other !is ${name.capitalized()}) return false
-        """
+          """
             .trimIndent()
         )
         .addCode(
@@ -278,6 +276,7 @@ class ModelFileSpecGenerator(val codegenContext: CodegenContext) {
               )
             }
             .buildProperties(backboneElementClassName, elements, null, false, valueSetMap)
+            // Recursively add backbone elements inside a backbone element
             .addBackboneElement(
               backboneElement.path,
               backboneElementClassName,
@@ -286,6 +285,7 @@ class ModelFileSpecGenerator(val codegenContext: CodegenContext) {
               valueSetMap,
               createEnumNameToTypeSpecEntry,
             )
+            // Add sealed interfaces inside a backbone element
             .addSealedInterfaces(backboneElementClassName, elements)
             .build()
         )
@@ -311,7 +311,7 @@ class ModelFileSpecGenerator(val codegenContext: CodegenContext) {
     elements
       .filter { it.typeIsEnumeratedCode(valueSetMap) && !it.isCommonBinding }
       .mapNotNull { element ->
-        val valueSet = valueSetMap.getValue(element.getValueSetUrl()!!)
+        val valueSet = valueSetMap.getValue(element.getBindingValueSetUrl()!!)
         val valueSetName = valueSet.name.normalizeEnumName()
         EnumTypeSpecGenerator.generate(valueSetName, valueSet)?.let { typeSpec ->
           valueSetName to typeSpec
@@ -330,19 +330,14 @@ private fun TypeSpec.Builder.buildProperties(
 ): TypeSpec.Builder {
   val propertyParameterPairs =
     elements.map { element ->
-      val name = element.getElementName()
-      val type =
-        if (element.typeIsEnumeratedCode(valueSetMap)) {
-          element.getEnumerationTypeName(modelClassName, valueSetMap)
-        } else {
-          element.getTypeName(modelClassName)
-        }
-
+      val propertyMapper =
+        PropertyMapper(PropertyMapper.MappingContext.MODEL, modelClassName, valueSetMap)
+      val propertyInfo = propertyMapper.mapToProperty(element)
       val property =
-        PropertySpec.builder(name, type)
+        PropertySpec.builder(propertyInfo.name, propertyInfo.typeName)
           .apply {
             if (structureDefinition == null || structureDefinition.hasPrimaryConstructor) {
-              initializer(name)
+              initializer(propertyInfo.name)
             }
 
             if (element.path != element.base?.path) {
@@ -368,7 +363,9 @@ private fun TypeSpec.Builder.buildProperties(
           .build()
 
       val parameter =
-        ParameterSpec.builder(name = name, type = type).setDefaultValue(element).build()
+        ParameterSpec.builder(name = propertyInfo.name, type = propertyInfo.typeName)
+          .apply { propertyInfo.defaultValue?.let { defaultValue(it) } }
+          .build()
 
       return@map Pair(property, parameter)
     }
@@ -382,26 +379,27 @@ private fun TypeSpec.Builder.buildProperties(
         .apply { propertyParameterPairs.forEach { addParameter(it.second) } }
         .build()
     )
-  }
 
-  // Create superclass constructor
-  if (
-    structureDefinition?.kind == StructureDefinition.Kind.PRIMITIVE_TYPE &&
-      structureDefinition.baseDefinition?.substringAfterLast('/')?.capitalized() != "PrimitiveType"
-  ) {
-    elements
-      .filter { it.path != it.base?.path }
-      .forEach {
-        addSuperclassConstructorParameter(
-          "%N",
-          PropertySpec.builder(
-              it.getElementName(),
-              String::class.asTypeName().copy(nullable = true),
-            )
-            .apply { initializer(it.id) }
-            .build(),
-        )
-      }
+    // Create superclass constructor
+    if (
+      structureDefinition?.kind == StructureDefinition.Kind.PRIMITIVE_TYPE &&
+        structureDefinition.baseDefinition?.substringAfterLast('/')?.capitalized() !=
+          "PrimitiveType"
+    ) {
+      elements
+        .filter { it.path != it.base?.path }
+        .forEach {
+          addSuperclassConstructorParameter(
+            "%N",
+            PropertySpec.builder(
+                it.getElementName(),
+                String::class.asTypeName().copy(nullable = true),
+              )
+              .apply { initializer(it.id) }
+              .build(),
+          )
+        }
+    }
   }
   return this
 }
@@ -411,6 +409,9 @@ private fun TypeSpec.Builder.addSealedInterfaces(
   enclosingModelClassName: ClassName,
   elements: List<Element>,
 ): TypeSpec.Builder {
+  val propertyMapper =
+    PropertyMapper(PropertyMapper.MappingContext.MODEL, enclosingModelClassName, emptyMap())
+
   for (element in elements.filter { it.path.endsWith("[x]") }) {
     val sealedInterfaceClassName =
       enclosingModelClassName.nestedClass(element.getElementName().capitalized())
@@ -429,11 +430,11 @@ private fun TypeSpec.Builder.addSealedInterfaces(
                 .addModifiers(KModifier.DATA)
                 .primaryConstructor(
                   FunSpec.constructorBuilder()
-                    .addParameter("value", type.getTypeName(enclosingModelClassName))
+                    .addParameter("value", propertyMapper.mapTypeToClassName(type))
                     .build()
                 )
                 .addProperty(
-                  PropertySpec.builder("value", type.getTypeName(enclosingModelClassName))
+                  PropertySpec.builder("value", propertyMapper.mapTypeToClassName(type))
                     .initializer("value")
                     .build()
                 )
@@ -651,11 +652,13 @@ private fun TypeSpec.Builder.addFromFunction(
     FunSpec.builder("from")
       .addModifiers(KModifier.INTERNAL)
       .apply {
+        val propertyMapper =
+          PropertyMapper(PropertyMapper.MappingContext.MODEL, enclosingModelClassName, emptyMap())
         for (type in typeList) {
           addParameter(
             ParameterSpec(
               "${type.code.replaceFirstChar { it.lowercase() }}Value",
-              type.getTypeName(enclosingModelClassName).copy(nullable = true),
+              propertyMapper.mapTypeToClassName(type).copy(nullable = true),
             )
           )
           addCode(
@@ -686,17 +689,3 @@ private fun TypeSpec.Builder.addDataTypeFunction(type: Type, sealedInterfaceClas
       )
       .build()
   )
-
-/**
- * Sets the default value for a [ParameterSpec] based on the [Element].
- * - Elements with max cardinality "*" should default to a mutable list
- * - Elements with min cardinality "0" should default to null
- */
-fun ParameterSpec.Builder.setDefaultValue(element: Element) = apply {
-  if (element.max == "*" || element.id == "xhtml.extension") {
-    // The extension field of XHTML needs to be a list despite the cardinality of 0..0.
-    defaultValue("listOf()")
-  } else if (element.min == 0) {
-    defaultValue("null")
-  }
-}

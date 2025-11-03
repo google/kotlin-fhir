@@ -196,7 +196,7 @@ public data class Coverage(
    * May provide multiple identifiers such as insurance company identifier or business identifier
    * (BIN number). For selfpay it may provide multiple paying persons and/or organizations.
    */
-  public val payor: List<Reference> = listOf(),
+  public val payor: List<Reference>,
   /**
    * A suite of underwriter specific classifiers.
    *

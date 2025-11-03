@@ -692,7 +692,7 @@ public data class Contract(
          */
         override val modifierExtension: List<Extension> = listOf(),
         /** Participant in the offer. */
-        public val reference: List<Reference> = listOf(),
+        public val reference: List<Reference>,
         /** How the party participates in the offer. */
         public val role: CodeableConcept,
       ) : BackboneElement()
@@ -1243,7 +1243,7 @@ public data class Contract(
          */
         override val modifierExtension: List<Extension> = listOf(),
         /** The entity the action is performed or not performed on or for. */
-        public val reference: List<Reference> = listOf(),
+        public val reference: List<Reference>,
         /** Role type of agent assigned roles in this Contract. */
         public val role: CodeableConcept? = null,
       ) : BackboneElement()
@@ -1352,7 +1352,7 @@ public data class Contract(
     /** Party which is a signator to this Contract. */
     public val party: Reference,
     /** Legally binding Contract DSIG signature contents in Base64. */
-    public val signature: List<Signature> = listOf(),
+    public val signature: List<Signature>,
   ) : BackboneElement()
 
   /**

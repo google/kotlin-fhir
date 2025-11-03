@@ -230,7 +230,7 @@ public data class NamingSystem(
    * Multiple identifiers may exist, either due to duplicate registration, regional rules, needs of
    * different communication technologies, etc.
    */
-  public val uniqueId: List<UniqueId> = listOf(),
+  public val uniqueId: List<UniqueId>,
 ) : DomainResource() {
   /** Indicates how the system may be identified when referenced in electronic exchange. */
   @Serializable(with = NamingSystemUniqueIdSerializer::class)

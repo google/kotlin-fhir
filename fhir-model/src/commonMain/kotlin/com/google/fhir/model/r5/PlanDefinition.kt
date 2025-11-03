@@ -698,7 +698,7 @@ public data class PlanDefinition(
     /** A description of how the actor fits into the overall actions of the plan definition. */
     public val description: Markdown? = null,
     /** The characteristics of the candidates that could serve as the actor. */
-    public val option: List<Option> = listOf(),
+    public val option: List<Option>,
   ) : BackboneElement() {
     /** The characteristics of the candidates that could serve as the actor. */
     @Serializable(with = PlanDefinitionActorOptionSerializer::class)

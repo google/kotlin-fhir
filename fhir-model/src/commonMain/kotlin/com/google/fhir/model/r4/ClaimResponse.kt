@@ -333,7 +333,7 @@ public data class ClaimResponse(
      * items. If this item is a simple product or service then this is the result of the
      * adjudication of this item.
      */
-    public val adjudication: List<Adjudication> = listOf(),
+    public val adjudication: List<Adjudication>,
     /**
      * A claim detail. Either a simple (a product or service) or a 'group' of sub-details which are
      * simple items.
@@ -463,7 +463,7 @@ public data class ClaimResponse(
       /** The numbers associated with notes below which apply to the adjudication of this item. */
       public val noteNumber: List<PositiveInt> = listOf(),
       /** The adjudication results. */
-      public val adjudication: List<Adjudication> = listOf(),
+      public val adjudication: List<Adjudication>,
       /** A sub-detail adjudication of a simple product or service. */
       public val subDetail: List<SubDetail> = listOf(),
     ) : BackboneElement() {
@@ -632,7 +632,7 @@ public data class ClaimResponse(
     /** The numbers associated with notes below which apply to the adjudication of this item. */
     public val noteNumber: List<PositiveInt> = listOf(),
     /** The adjudication results. */
-    public val adjudication: List<Item.Adjudication> = listOf(),
+    public val adjudication: List<Item.Adjudication>,
     /** The second-tier service adjudications for payor added services. */
     public val detail: List<Detail> = listOf(),
   ) : BackboneElement() {
@@ -719,7 +719,7 @@ public data class ClaimResponse(
       /** The numbers associated with notes below which apply to the adjudication of this item. */
       public val noteNumber: List<PositiveInt> = listOf(),
       /** The adjudication results. */
-      public val adjudication: List<Item.Adjudication> = listOf(),
+      public val adjudication: List<Item.Adjudication>,
       /** The third-tier service adjudications for payor added services. */
       public val subDetail: List<SubDetail> = listOf(),
     ) : BackboneElement() {
@@ -806,7 +806,7 @@ public data class ClaimResponse(
         /** The numbers associated with notes below which apply to the adjudication of this item. */
         public val noteNumber: List<PositiveInt> = listOf(),
         /** The adjudication results. */
-        public val adjudication: List<Item.Adjudication> = listOf(),
+        public val adjudication: List<Item.Adjudication>,
       ) : BackboneElement()
     }
 

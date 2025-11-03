@@ -585,7 +585,7 @@ public data class TestScript(
      * whose "metadata.capabilities.validated" flag is true are the primary focus of the test
      * script.
      */
-    public val capability: List<Capability> = listOf(),
+    public val capability: List<Capability>,
   ) : BackboneElement() {
     /** A link to the FHIR specification that this test is covering. */
     @Serializable(with = TestScriptMetadataLinkSerializer::class)
@@ -989,7 +989,7 @@ public data class TestScript(
      * An action should contain either an operation or an assertion but not both. It can contain any
      * number of variables.
      */
-    public val action: List<Action> = listOf(),
+    public val action: List<Action>,
   ) : BackboneElement() {
     /** Action would contain either an operation or an assertion. */
     @Serializable(with = TestScriptSetupActionSerializer::class)
@@ -1688,7 +1688,7 @@ public data class TestScript(
      * An action should contain either an operation or an assertion but not both. It can contain any
      * number of variables.
      */
-    public val action: List<Action> = listOf(),
+    public val action: List<Action>,
   ) : BackboneElement() {
     /** Action would contain either an operation or an assertion. */
     @Serializable(with = TestScriptTestActionSerializer::class)
@@ -1792,7 +1792,7 @@ public data class TestScript(
      * An action should contain either an operation or an assertion but not both. It can contain any
      * number of variables.
      */
-    public val action: List<Action> = listOf(),
+    public val action: List<Action>,
   ) : BackboneElement() {
     /** The teardown action will only contain an operation. */
     @Serializable(with = TestScriptTeardownActionSerializer::class)

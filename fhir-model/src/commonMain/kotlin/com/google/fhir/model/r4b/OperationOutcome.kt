@@ -126,7 +126,7 @@ public data class OperationOutcome(
    */
   override val modifierExtension: List<Extension> = listOf(),
   /** An error, warning, or information message that results from a system action. */
-  public val issue: List<Issue> = listOf(),
+  public val issue: List<Issue>,
 ) : DomainResource() {
   /** An error, warning, or information message that results from a system action. */
   @Serializable(with = OperationOutcomeIssueSerializer::class)

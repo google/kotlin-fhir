@@ -203,7 +203,7 @@ public data class DocumentManifest(
    * be a set of DocumentReference Resources. The reference is to "Any" to support EN 13606 usage,
    * where an extract is DocumentManifest that references List and Composition resources.
    */
-  public val content: List<Reference> = listOf(),
+  public val content: List<Reference>,
   /**
    * Related identifiers or resources associated with the DocumentManifest.
    *

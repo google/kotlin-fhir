@@ -334,7 +334,7 @@ public data class Appointment(
    */
   public val subject: Reference? = null,
   /** List of participants involved in the appointment. */
-  public val participant: List<Participant> = listOf(),
+  public val participant: List<Participant>,
   /** The sequence number that identifies a specific appointment in a recurring pattern. */
   public val recurrenceId: PositiveInt? = null,
   /**

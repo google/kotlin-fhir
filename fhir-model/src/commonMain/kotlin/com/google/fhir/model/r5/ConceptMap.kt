@@ -635,7 +635,7 @@ public data class ConceptMap(
      * value set, but a given concept may be mapped multiple times with different comments or
      * dependencies.
      */
-    public val element: List<Element> = listOf(),
+    public val element: List<Element>,
     /**
      * What to do when there is no mapping to a target concept from the source concept and
      * ConceptMap.group.element.noMap is not true. This provides the "default" to be applied when

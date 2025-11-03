@@ -152,7 +152,7 @@ public data class CoverageEligibilityRequest(
    * return of coverages for the patient; and/or validation that the specified coverage is in-force
    * at the date/period specified or 'now' if not specified.
    */
-  public val purpose: List<Enumeration<EligibilityRequestPurpose>> = listOf(),
+  public val purpose: List<Enumeration<EligibilityRequestPurpose>>,
   /**
    * The party who is the beneficiary of the supplied coverage and for whom eligibility is sought.
    *

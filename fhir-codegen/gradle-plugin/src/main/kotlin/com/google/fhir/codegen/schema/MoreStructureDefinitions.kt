@@ -54,7 +54,7 @@ val StructureDefinition.hasPrimaryConstructor
 /**
  * Specifies type names for specific elements. In the FHIR specification the positiveInt and
  * unsignedInt types have the `value` field with the FHIRPath type
- * "http://hl7.org/fhirpath/System.String". Kotlin Int is used in the generated code.
+ * "http://hl7.org/fhirpath/System.String". Kotlin's [Int] is used in the generated code.
  */
 val elementIdToTypeNameMap =
   mapOf("positiveInt.value" to Int::class, "unsignedInt.value" to Int::class)

@@ -249,7 +249,7 @@ public data class InsurancePlan(
      */
     public val network: List<Reference> = listOf(),
     /** Specific benefits under this type of coverage. */
-    public val benefit: List<Benefit> = listOf(),
+    public val benefit: List<Benefit>,
   ) : BackboneElement() {
     /** Specific benefits under this type of coverage. */
     @Serializable(with = InsurancePlanCoverageBenefitSerializer::class)

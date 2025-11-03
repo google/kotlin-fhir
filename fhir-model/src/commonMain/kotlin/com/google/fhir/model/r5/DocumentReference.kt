@@ -303,7 +303,7 @@ public data class DocumentReference(
    * content element shall not contain different versions of the same content. For version handling
    * use multiple DocumentReference with .relatesTo.
    */
-  public val content: List<Content> = listOf(),
+  public val content: List<Content>,
 ) : DomainResource() {
   /** A participant who has authenticated the accuracy of the document. */
   @Serializable(with = DocumentReferenceAttesterSerializer::class)

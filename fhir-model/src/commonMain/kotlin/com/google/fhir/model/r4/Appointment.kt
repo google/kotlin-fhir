@@ -246,7 +246,7 @@ public data class Appointment(
    */
   public val basedOn: List<Reference> = listOf(),
   /** List of participants involved in the appointment. */
-  public val participant: List<Participant> = listOf(),
+  public val participant: List<Participant>,
   /**
    * A set of date ranges (potentially including times) that the appointment is preferred to be
    * scheduled within.

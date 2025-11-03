@@ -357,7 +357,7 @@ public data class Evidence(
   /** Footnotes and/or explanatory notes. */
   public val note: List<Annotation> = listOf(),
   /** Evidence variable such as population, exposure, or outcome. */
-  public val variableDefinition: List<VariableDefinition> = listOf(),
+  public val variableDefinition: List<VariableDefinition>,
   /** The method to combine studies. */
   public val synthesisType: CodeableConcept? = null,
   /**

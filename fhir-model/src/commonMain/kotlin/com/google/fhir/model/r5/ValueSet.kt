@@ -516,7 +516,7 @@ public data class ValueSet(
      * or more value sets are listed, the codes must be in all the value sets. E.g. each include is
      * 'include all the codes that meet all these conditions'.
      */
-    public val include: List<Include> = listOf(),
+    public val include: List<Include>,
     /**
      * Exclude one or more codes from the value set based on code system filters and/or other value
      * sets.

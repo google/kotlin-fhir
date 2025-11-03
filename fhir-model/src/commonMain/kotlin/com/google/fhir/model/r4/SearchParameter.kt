@@ -273,7 +273,7 @@ public data class SearchParameter(
    * apply to more than one resource type, they can be used against any of the listed resource
    * types, or in a cross-type search (see [Cross Resource Search](http.html#xres-search)).
    */
-  public val base: List<Enumeration<ResourceType>> = listOf(),
+  public val base: List<Enumeration<ResourceType>>,
   /** The type of value that a search parameter may contain, and how the content is interpreted. */
   public val type: Enumeration<SearchParamType>,
   /**

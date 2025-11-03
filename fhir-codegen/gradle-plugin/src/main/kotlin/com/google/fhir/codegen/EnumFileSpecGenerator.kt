@@ -35,11 +35,12 @@ class EnumFileSpecGenerator(val codegenContext: CodegenContext) {
       ?.element
       ?.asSequence()
       ?.filter {
-        it.getValueSetUrl() != null && codegenContext.valueSetMap.containsKey(it.getValueSetUrl())
+        it.getBindingValueSetUrl() != null &&
+          codegenContext.valueSetMap.containsKey(it.getBindingValueSetUrl())
       }
       ?.filterNot { !it.isCommonBinding }
       ?.mapNotNull { element ->
-        val valueSet = codegenContext.valueSetMap.getValue(element.getValueSetUrl()!!)
+        val valueSet = codegenContext.valueSetMap.getValue(element.getBindingValueSetUrl()!!)
         val valueSetName = valueSet.name.normalizeEnumName()
         val enumTypeSpec = EnumTypeSpecGenerator.generate(valueSetName, valueSet)
         enumTypeSpec?.let {

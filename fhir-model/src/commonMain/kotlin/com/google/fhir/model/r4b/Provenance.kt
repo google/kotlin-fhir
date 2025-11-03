@@ -149,7 +149,7 @@ public data class Provenance(
    * then the provenance, or it may submit both using a single transaction. See the notes on
    * transaction for further discussion.
    */
-  public val target: List<Reference> = listOf(),
+  public val target: List<Reference>,
   /**
    * The period during which the activity occurred.
    *
@@ -190,7 +190,7 @@ public data class Provenance(
    * Several agents may be associated (i.e. has some responsibility for an activity) with an
    * activity and vice-versa.
    */
-  public val agent: List<Agent> = listOf(),
+  public val agent: List<Agent>,
   /** An entity used in this activity. */
   public val entity: List<Entity> = listOf(),
   /**

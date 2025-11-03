@@ -586,7 +586,7 @@ public data class TerminologyCapabilities(
         /** Code of the property supported. */
         public val code: Code,
         /** Operations supported for the property. */
-        public val op: List<Code> = listOf(),
+        public val op: List<Code>,
       ) : BackboneElement()
     }
   }

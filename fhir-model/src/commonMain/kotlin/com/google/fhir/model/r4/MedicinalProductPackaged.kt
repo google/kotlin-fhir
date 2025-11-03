@@ -143,7 +143,7 @@ public data class MedicinalProductPackaged(
   /** Batch numbering. */
   public val batchIdentifier: List<BatchIdentifier> = listOf(),
   /** A packaging item, as a contained for medicine, possibly with other packaging items within. */
-  public val packageItem: List<PackageItem> = listOf(),
+  public val packageItem: List<PackageItem>,
 ) : DomainResource() {
   /** Batch numbering. */
   @Serializable(with = MedicinalProductPackagedBatchIdentifierSerializer::class)

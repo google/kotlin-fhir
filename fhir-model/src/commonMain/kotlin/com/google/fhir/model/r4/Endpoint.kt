@@ -175,7 +175,7 @@ public data class Endpoint(
    * indicates the specific document/schema that is being transferred; e.g. DischargeSummary or
    * CarePlan.
    */
-  public val payloadType: List<CodeableConcept> = listOf(),
+  public val payloadType: List<CodeableConcept>,
   /**
    * The mime type to send the payload in - e.g. application/fhir+xml, application/fhir+json. If the
    * mime type is not specified, then the sender could send any content (including no content

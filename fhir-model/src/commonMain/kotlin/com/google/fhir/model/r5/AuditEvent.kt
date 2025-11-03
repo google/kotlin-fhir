@@ -210,7 +210,7 @@ public data class AuditEvent(
    * the known actors using the network. The agent with a network detail would be the responsible
    * agent for use of that network.
    */
-  public val agent: List<Agent> = listOf(),
+  public val agent: List<Agent>,
   /**
    * The actor that is reporting the event.
    *

@@ -535,7 +535,7 @@ public data class StructureDefinition(
      */
     override val modifierExtension: List<Extension> = listOf(),
     /** Captures constraints on each element within the resource. */
-    public val element: List<ElementDefinition> = listOf(),
+    public val element: List<ElementDefinition>,
   ) : BackboneElement()
 
   /**
@@ -582,7 +582,7 @@ public data class StructureDefinition(
      */
     override val modifierExtension: List<Extension> = listOf(),
     /** Captures constraints on each element within the resource. */
-    public val element: List<ElementDefinition> = listOf(),
+    public val element: List<ElementDefinition>,
   ) : BackboneElement()
 
   /** How an extension context is interpreted. */
