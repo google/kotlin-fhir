@@ -19,7 +19,7 @@ package com.google.fhir.model.test
 import io.kotest.core.spec.style.FunSpec
 import kotlin.test.assertEquals
 
-open class EqualityTest :
+class EqualityTest :
   FunSpec({
     listOf(
         EqualityTestSuite("R4", ::loadR4Examples, exclusionListR4, jsonR4::decodeFromString),
