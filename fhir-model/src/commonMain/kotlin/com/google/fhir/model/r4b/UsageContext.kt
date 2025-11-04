@@ -23,6 +23,7 @@ import com.google.fhir.model.r4b.serializers.UsageContextValueSerializer
 import kotlin.String
 import kotlin.Suppress
 import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 
 /**
@@ -59,6 +60,14 @@ public data class UsageContext(
    */
   public val `value`: Value,
 ) : Element() {
+  public open fun toBuilder(): Builder =
+    with(this) {
+      Builder(code.toBuilder(), `value`).apply {
+        id = this@with.id
+        extension = this@with.extension.map { it.toBuilder() }.toMutableList()
+      }
+    }
+
   @Serializable(with = UsageContextValueSerializer::class)
   public sealed interface Value {
     public fun asCodeableConcept(): CodeableConcept? = this as? CodeableConcept
@@ -93,5 +102,43 @@ public data class UsageContext(
         return null
       }
     }
+  }
+
+  public open class Builder(
+    /** A code that identifies the type of context being specified by this usage context. */
+    public open var code: Coding.Builder,
+    /**
+     * A value that defines the context specified in this context of use. The interpretation of the
+     * value is defined by the code.
+     */
+    public open var `value`: Value,
+  ) {
+    /**
+     * Unique id for the element within a resource (for internal references). This may be any string
+     * value that does not contain spaces.
+     */
+    public open var id: String? = null
+
+    /**
+     * May be used to represent additional information that is not part of the basic definition of
+     * the element. To make the use of extensions safe and manageable, there is a strict set of
+     * governance applied to the definition and use of extensions. Though any implementer can define
+     * an extension, there is a set of requirements that SHALL be met as part of the definition of
+     * the extension.
+     *
+     * There can be no stigma associated with the use of extensions by any application, project, or
+     * standard - regardless of the institution or jurisdiction that uses or defines the extensions.
+     * The use of extensions is what allows the FHIR specification to retain a core level of
+     * simplicity for everyone.
+     */
+    public open var extension: MutableList<Extension.Builder> = mutableListOf()
+
+    public open fun build(): UsageContext =
+      UsageContext(
+        id = id,
+        extension = extension.map { it.build() },
+        code = code.build(),
+        `value` = `value`,
+      )
   }
 }

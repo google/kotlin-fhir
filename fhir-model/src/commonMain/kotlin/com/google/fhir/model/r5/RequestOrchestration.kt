@@ -32,6 +32,7 @@ import com.google.fhir.model.r5.serializers.RequestOrchestrationActionTimingSeri
 import com.google.fhir.model.r5.serializers.RequestOrchestrationSerializer
 import kotlin.Suppress
 import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -214,6 +215,37 @@ public data class RequestOrchestration(
   /** The actions, if any, produced by the evaluation of the artifact. */
   public val action: List<Action> = listOf(),
 ) : DomainResource() {
+  override fun toBuilder(): Builder =
+    with(this) {
+      Builder(status, intent).apply {
+        id = this@with.id
+        meta = this@with.meta?.toBuilder()
+        implicitRules = this@with.implicitRules?.toBuilder()
+        language = this@with.language?.toBuilder()
+        text = this@with.text?.toBuilder()
+        contained = this@with.contained.map { it.toBuilder() }.toMutableList()
+        extension = this@with.extension.map { it.toBuilder() }.toMutableList()
+        modifierExtension = this@with.modifierExtension.map { it.toBuilder() }.toMutableList()
+        identifier = this@with.identifier.map { it.toBuilder() }.toMutableList()
+        instantiatesCanonical =
+          this@with.instantiatesCanonical.map { it.toBuilder() }.toMutableList()
+        instantiatesUri = this@with.instantiatesUri.map { it.toBuilder() }.toMutableList()
+        basedOn = this@with.basedOn.map { it.toBuilder() }.toMutableList()
+        replaces = this@with.replaces.map { it.toBuilder() }.toMutableList()
+        groupIdentifier = this@with.groupIdentifier?.toBuilder()
+        priority = this@with.priority
+        code = this@with.code?.toBuilder()
+        subject = this@with.subject?.toBuilder()
+        encounter = this@with.encounter?.toBuilder()
+        authoredOn = this@with.authoredOn?.toBuilder()
+        author = this@with.author?.toBuilder()
+        reason = this@with.reason.map { it.toBuilder() }.toMutableList()
+        goal = this@with.goal.map { it.toBuilder() }.toMutableList()
+        note = this@with.note.map { it.toBuilder() }.toMutableList()
+        action = this@with.action.map { it.toBuilder() }.toMutableList()
+      }
+    }
+
   /** The actions, if any, produced by the evaluation of the artifact. */
   @Serializable(with = RequestOrchestrationActionSerializer::class)
   public class Action(
@@ -381,6 +413,42 @@ public data class RequestOrchestration(
     /** Sub actions. */
     public val action: List<Action> = listOf(),
   ) : BackboneElement() {
+    public fun toBuilder(): Builder =
+      with(this) {
+        Builder().apply {
+          id = this@with.id
+          extension = this@with.extension.map { it.toBuilder() }.toMutableList()
+          modifierExtension = this@with.modifierExtension.map { it.toBuilder() }.toMutableList()
+          linkId = this@with.linkId?.toBuilder()
+          prefix = this@with.prefix?.toBuilder()
+          title = this@with.title?.toBuilder()
+          description = this@with.description?.toBuilder()
+          textEquivalent = this@with.textEquivalent?.toBuilder()
+          priority = this@with.priority
+          code = this@with.code.map { it.toBuilder() }.toMutableList()
+          documentation = this@with.documentation.map { it.toBuilder() }.toMutableList()
+          goal = this@with.goal.map { it.toBuilder() }.toMutableList()
+          condition = this@with.condition.map { it.toBuilder() }.toMutableList()
+          input = this@with.input.map { it.toBuilder() }.toMutableList()
+          output = this@with.output.map { it.toBuilder() }.toMutableList()
+          relatedAction = this@with.relatedAction.map { it.toBuilder() }.toMutableList()
+          timing = this@with.timing
+          location = this@with.location?.toBuilder()
+          participant = this@with.participant.map { it.toBuilder() }.toMutableList()
+          type = this@with.type?.toBuilder()
+          groupingBehavior = this@with.groupingBehavior
+          selectionBehavior = this@with.selectionBehavior
+          requiredBehavior = this@with.requiredBehavior
+          precheckBehavior = this@with.precheckBehavior
+          cardinalityBehavior = this@with.cardinalityBehavior
+          resource = this@with.resource?.toBuilder()
+          definition = this@with.definition
+          transform = this@with.transform?.toBuilder()
+          dynamicValue = this@with.dynamicValue.map { it.toBuilder() }.toMutableList()
+          action = this@with.action.map { it.toBuilder() }.toMutableList()
+        }
+      }
+
     /**
      * An expression that describes applicability criteria, or start/stop conditions for the action.
      */
@@ -439,7 +507,86 @@ public data class RequestOrchestration(
        * library referenced by the library element.
        */
       public val expression: Expression? = null,
-    ) : BackboneElement()
+    ) : BackboneElement() {
+      public fun toBuilder(): Builder =
+        with(this) {
+          Builder(kind).apply {
+            id = this@with.id
+            extension = this@with.extension.map { it.toBuilder() }.toMutableList()
+            modifierExtension = this@with.modifierExtension.map { it.toBuilder() }.toMutableList()
+            expression = this@with.expression?.toBuilder()
+          }
+        }
+
+      public class Builder(
+        /**
+         * The kind of condition.
+         *
+         * Applicability criteria are used to determine immediate applicability when a plan
+         * definition is applied to a given context. Start and stop criteria are carried through
+         * application and used to describe enter/exit criteria for an action.
+         */
+        public var kind: Enumeration<ActionConditionKind>
+      ) {
+        /**
+         * Unique id for the element within a resource (for internal references). This may be any
+         * string value that does not contain spaces.
+         */
+        public var id: kotlin.String? = null
+
+        /**
+         * May be used to represent additional information that is not part of the basic definition
+         * of the element. To make the use of extensions safe and managable, there is a strict set
+         * of governance applied to the definition and use of extensions. Though any implementer can
+         * define an extension, there is a set of requirements that SHALL be met as part of the
+         * definition of the extension.
+         *
+         * There can be no stigma associated with the use of extensions by any application, project,
+         * or standard - regardless of the institution or jurisdiction that uses or defines the
+         * extensions. The use of extensions is what allows the FHIR specification to retain a core
+         * level of simplicity for everyone.
+         */
+        public var extension: MutableList<Extension.Builder> = mutableListOf()
+
+        /**
+         * May be used to represent additional information that is not part of the basic definition
+         * of the element and that modifies the understanding of the element in which it is
+         * contained and/or the understanding of the containing element's descendants. Usually
+         * modifier elements provide negation or qualification. To make the use of extensions safe
+         * and managable, there is a strict set of governance applied to the definition and use of
+         * extensions. Though any implementer can define an extension, there is a set of
+         * requirements that SHALL be met as part of the definition of the extension. Applications
+         * processing a resource are required to check for modifier extensions.
+         *
+         * Modifier extensions SHALL NOT change the meaning of any elements on Resource or
+         * DomainResource (including cannot change the meaning of modifierExtension itself).
+         *
+         * There can be no stigma associated with the use of extensions by any application, project,
+         * or standard - regardless of the institution or jurisdiction that uses or defines the
+         * extensions. The use of extensions is what allows the FHIR specification to retain a core
+         * level of simplicity for everyone.
+         */
+        public var modifierExtension: MutableList<Extension.Builder> = mutableListOf()
+
+        /**
+         * An expression that returns true or false, indicating whether or not the condition is
+         * satisfied.
+         *
+         * The expression may be inlined, or may be a reference to a named expression within a logic
+         * library referenced by the library element.
+         */
+        public var expression: Expression.Builder? = null
+
+        public fun build(): Condition =
+          Condition(
+            id = id,
+            extension = extension.map { it.build() },
+            modifierExtension = modifierExtension.map { it.build() },
+            kind = kind,
+            expression = expression?.build(),
+          )
+      }
+    }
 
     /** Defines input data requirements for the action. */
     @Serializable(with = RequestOrchestrationActionInputSerializer::class)
@@ -497,7 +644,90 @@ public data class RequestOrchestration(
        * input to a different action
        */
       public val relatedData: Id? = null,
-    ) : BackboneElement()
+    ) : BackboneElement() {
+      public fun toBuilder(): Builder =
+        with(this) {
+          Builder().apply {
+            id = this@with.id
+            extension = this@with.extension.map { it.toBuilder() }.toMutableList()
+            modifierExtension = this@with.modifierExtension.map { it.toBuilder() }.toMutableList()
+            title = this@with.title?.toBuilder()
+            requirement = this@with.requirement?.toBuilder()
+            relatedData = this@with.relatedData?.toBuilder()
+          }
+        }
+
+      public class Builder() {
+        /**
+         * Unique id for the element within a resource (for internal references). This may be any
+         * string value that does not contain spaces.
+         */
+        public var id: kotlin.String? = null
+
+        /**
+         * May be used to represent additional information that is not part of the basic definition
+         * of the element. To make the use of extensions safe and managable, there is a strict set
+         * of governance applied to the definition and use of extensions. Though any implementer can
+         * define an extension, there is a set of requirements that SHALL be met as part of the
+         * definition of the extension.
+         *
+         * There can be no stigma associated with the use of extensions by any application, project,
+         * or standard - regardless of the institution or jurisdiction that uses or defines the
+         * extensions. The use of extensions is what allows the FHIR specification to retain a core
+         * level of simplicity for everyone.
+         */
+        public var extension: MutableList<Extension.Builder> = mutableListOf()
+
+        /**
+         * May be used to represent additional information that is not part of the basic definition
+         * of the element and that modifies the understanding of the element in which it is
+         * contained and/or the understanding of the containing element's descendants. Usually
+         * modifier elements provide negation or qualification. To make the use of extensions safe
+         * and managable, there is a strict set of governance applied to the definition and use of
+         * extensions. Though any implementer can define an extension, there is a set of
+         * requirements that SHALL be met as part of the definition of the extension. Applications
+         * processing a resource are required to check for modifier extensions.
+         *
+         * Modifier extensions SHALL NOT change the meaning of any elements on Resource or
+         * DomainResource (including cannot change the meaning of modifierExtension itself).
+         *
+         * There can be no stigma associated with the use of extensions by any application, project,
+         * or standard - regardless of the institution or jurisdiction that uses or defines the
+         * extensions. The use of extensions is what allows the FHIR specification to retain a core
+         * level of simplicity for everyone.
+         */
+        public var modifierExtension: MutableList<Extension.Builder> = mutableListOf()
+
+        /**
+         * A human-readable label for the data requirement used to label data flows in BPMN or
+         * similar diagrams. Also provides a human readable label when rendering the data
+         * requirement that conveys its purpose to human readers.
+         */
+        public var title: String.Builder? = null
+
+        /** Defines the data that is to be provided as input to the action. */
+        public var requirement: DataRequirement.Builder? = null
+
+        /**
+         * Points to an existing input or output element that provides data to this input.
+         *
+         * The relatedData element allows indicating that an input to a parent action is an input to
+         * specific child actions. It also allows the output of one action to be identified as the
+         * input to a different action
+         */
+        public var relatedData: Id.Builder? = null
+
+        public fun build(): Input =
+          Input(
+            id = id,
+            extension = extension.map { it.build() },
+            modifierExtension = modifierExtension.map { it.build() },
+            title = title?.build(),
+            requirement = requirement?.build(),
+            relatedData = relatedData?.build(),
+          )
+      }
+    }
 
     /** Defines the outputs of the action, if any. */
     @Serializable(with = RequestOrchestrationActionOutputSerializer::class)
@@ -555,7 +785,90 @@ public data class RequestOrchestration(
        * output of a different action
        */
       public val relatedData: String? = null,
-    ) : BackboneElement()
+    ) : BackboneElement() {
+      public fun toBuilder(): Builder =
+        with(this) {
+          Builder().apply {
+            id = this@with.id
+            extension = this@with.extension.map { it.toBuilder() }.toMutableList()
+            modifierExtension = this@with.modifierExtension.map { it.toBuilder() }.toMutableList()
+            title = this@with.title?.toBuilder()
+            requirement = this@with.requirement?.toBuilder()
+            relatedData = this@with.relatedData?.toBuilder()
+          }
+        }
+
+      public class Builder() {
+        /**
+         * Unique id for the element within a resource (for internal references). This may be any
+         * string value that does not contain spaces.
+         */
+        public var id: kotlin.String? = null
+
+        /**
+         * May be used to represent additional information that is not part of the basic definition
+         * of the element. To make the use of extensions safe and managable, there is a strict set
+         * of governance applied to the definition and use of extensions. Though any implementer can
+         * define an extension, there is a set of requirements that SHALL be met as part of the
+         * definition of the extension.
+         *
+         * There can be no stigma associated with the use of extensions by any application, project,
+         * or standard - regardless of the institution or jurisdiction that uses or defines the
+         * extensions. The use of extensions is what allows the FHIR specification to retain a core
+         * level of simplicity for everyone.
+         */
+        public var extension: MutableList<Extension.Builder> = mutableListOf()
+
+        /**
+         * May be used to represent additional information that is not part of the basic definition
+         * of the element and that modifies the understanding of the element in which it is
+         * contained and/or the understanding of the containing element's descendants. Usually
+         * modifier elements provide negation or qualification. To make the use of extensions safe
+         * and managable, there is a strict set of governance applied to the definition and use of
+         * extensions. Though any implementer can define an extension, there is a set of
+         * requirements that SHALL be met as part of the definition of the extension. Applications
+         * processing a resource are required to check for modifier extensions.
+         *
+         * Modifier extensions SHALL NOT change the meaning of any elements on Resource or
+         * DomainResource (including cannot change the meaning of modifierExtension itself).
+         *
+         * There can be no stigma associated with the use of extensions by any application, project,
+         * or standard - regardless of the institution or jurisdiction that uses or defines the
+         * extensions. The use of extensions is what allows the FHIR specification to retain a core
+         * level of simplicity for everyone.
+         */
+        public var modifierExtension: MutableList<Extension.Builder> = mutableListOf()
+
+        /**
+         * A human-readable label for the data requirement used to label data flows in BPMN or
+         * similar diagrams. Also provides a human readable label when rendering the data
+         * requirement that conveys its purpose to human readers.
+         */
+        public var title: String.Builder? = null
+
+        /** Defines the data that results as output from the action. */
+        public var requirement: DataRequirement.Builder? = null
+
+        /**
+         * Points to an existing input or output element that is results as output from the action.
+         *
+         * The relatedData element allows indicating that the output of child action is also the
+         * output of a parent action. It also allows the input of one action to be identified as the
+         * output of a different action
+         */
+        public var relatedData: String.Builder? = null
+
+        public fun build(): Output =
+          Output(
+            id = id,
+            extension = extension.map { it.build() },
+            modifierExtension = modifierExtension.map { it.build() },
+            title = title?.build(),
+            requirement = requirement?.build(),
+            relatedData = relatedData?.build(),
+          )
+      }
+    }
 
     /** A relationship to another action such as "before" or "30-60 minutes after start of". */
     @Serializable(with = RequestOrchestrationActionRelatedActionSerializer::class)
@@ -609,6 +922,17 @@ public data class RequestOrchestration(
        */
       public val offset: Offset? = null,
     ) : BackboneElement() {
+      public fun toBuilder(): Builder =
+        with(this) {
+          Builder(targetId.toBuilder(), relationship).apply {
+            id = this@with.id
+            extension = this@with.extension.map { it.toBuilder() }.toMutableList()
+            modifierExtension = this@with.modifierExtension.map { it.toBuilder() }.toMutableList()
+            endRelationship = this@with.endRelationship
+            offset = this@with.offset
+          }
+        }
+
       @Serializable(with = RequestOrchestrationActionRelatedActionOffsetSerializer::class)
       public sealed interface Offset {
         public fun asDuration(): Duration? = this as? Duration
@@ -629,6 +953,73 @@ public data class RequestOrchestration(
             return null
           }
         }
+      }
+
+      public class Builder(
+        /** The element id of the target related action. */
+        public var targetId: Id.Builder,
+        /** The relationship of this action to the related action. */
+        public var relationship: Enumeration<ActionRelationshipType>,
+      ) {
+        /**
+         * Unique id for the element within a resource (for internal references). This may be any
+         * string value that does not contain spaces.
+         */
+        public var id: kotlin.String? = null
+
+        /**
+         * May be used to represent additional information that is not part of the basic definition
+         * of the element. To make the use of extensions safe and managable, there is a strict set
+         * of governance applied to the definition and use of extensions. Though any implementer can
+         * define an extension, there is a set of requirements that SHALL be met as part of the
+         * definition of the extension.
+         *
+         * There can be no stigma associated with the use of extensions by any application, project,
+         * or standard - regardless of the institution or jurisdiction that uses or defines the
+         * extensions. The use of extensions is what allows the FHIR specification to retain a core
+         * level of simplicity for everyone.
+         */
+        public var extension: MutableList<Extension.Builder> = mutableListOf()
+
+        /**
+         * May be used to represent additional information that is not part of the basic definition
+         * of the element and that modifies the understanding of the element in which it is
+         * contained and/or the understanding of the containing element's descendants. Usually
+         * modifier elements provide negation or qualification. To make the use of extensions safe
+         * and managable, there is a strict set of governance applied to the definition and use of
+         * extensions. Though any implementer can define an extension, there is a set of
+         * requirements that SHALL be met as part of the definition of the extension. Applications
+         * processing a resource are required to check for modifier extensions.
+         *
+         * Modifier extensions SHALL NOT change the meaning of any elements on Resource or
+         * DomainResource (including cannot change the meaning of modifierExtension itself).
+         *
+         * There can be no stigma associated with the use of extensions by any application, project,
+         * or standard - regardless of the institution or jurisdiction that uses or defines the
+         * extensions. The use of extensions is what allows the FHIR specification to retain a core
+         * level of simplicity for everyone.
+         */
+        public var modifierExtension: MutableList<Extension.Builder> = mutableListOf()
+
+        /** The relationship of the end of this action to the related action. */
+        public var endRelationship: Enumeration<ActionRelationshipType>? = null
+
+        /**
+         * A duration or range of durations to apply to the relationship. For example, 30-60 minutes
+         * before.
+         */
+        public var offset: Offset? = null
+
+        public fun build(): RelatedAction =
+          RelatedAction(
+            id = id,
+            extension = extension.map { it.build() },
+            modifierExtension = modifierExtension.map { it.build() },
+            targetId = targetId.build(),
+            relationship = relationship,
+            endRelationship = endRelationship,
+            offset = offset,
+          )
       }
     }
 
@@ -692,6 +1083,21 @@ public data class RequestOrchestration(
       /** A reference to the actual participant. */
       public val actor: Actor? = null,
     ) : BackboneElement() {
+      public fun toBuilder(): Builder =
+        with(this) {
+          Builder().apply {
+            id = this@with.id
+            extension = this@with.extension.map { it.toBuilder() }.toMutableList()
+            modifierExtension = this@with.modifierExtension.map { it.toBuilder() }.toMutableList()
+            type = this@with.type
+            typeCanonical = this@with.typeCanonical?.toBuilder()
+            typeReference = this@with.typeReference?.toBuilder()
+            role = this@with.role?.toBuilder()
+            function = this@with.function?.toBuilder()
+            actor = this@with.actor
+          }
+        }
+
       @Serializable(with = RequestOrchestrationActionParticipantActorSerializer::class)
       public sealed interface Actor {
         public fun asCanonical(): Canonical? = this as? Canonical
@@ -712,6 +1118,86 @@ public data class RequestOrchestration(
             return null
           }
         }
+      }
+
+      public class Builder() {
+        /**
+         * Unique id for the element within a resource (for internal references). This may be any
+         * string value that does not contain spaces.
+         */
+        public var id: kotlin.String? = null
+
+        /**
+         * May be used to represent additional information that is not part of the basic definition
+         * of the element. To make the use of extensions safe and managable, there is a strict set
+         * of governance applied to the definition and use of extensions. Though any implementer can
+         * define an extension, there is a set of requirements that SHALL be met as part of the
+         * definition of the extension.
+         *
+         * There can be no stigma associated with the use of extensions by any application, project,
+         * or standard - regardless of the institution or jurisdiction that uses or defines the
+         * extensions. The use of extensions is what allows the FHIR specification to retain a core
+         * level of simplicity for everyone.
+         */
+        public var extension: MutableList<Extension.Builder> = mutableListOf()
+
+        /**
+         * May be used to represent additional information that is not part of the basic definition
+         * of the element and that modifies the understanding of the element in which it is
+         * contained and/or the understanding of the containing element's descendants. Usually
+         * modifier elements provide negation or qualification. To make the use of extensions safe
+         * and managable, there is a strict set of governance applied to the definition and use of
+         * extensions. Though any implementer can define an extension, there is a set of
+         * requirements that SHALL be met as part of the definition of the extension. Applications
+         * processing a resource are required to check for modifier extensions.
+         *
+         * Modifier extensions SHALL NOT change the meaning of any elements on Resource or
+         * DomainResource (including cannot change the meaning of modifierExtension itself).
+         *
+         * There can be no stigma associated with the use of extensions by any application, project,
+         * or standard - regardless of the institution or jurisdiction that uses or defines the
+         * extensions. The use of extensions is what allows the FHIR specification to retain a core
+         * level of simplicity for everyone.
+         */
+        public var modifierExtension: MutableList<Extension.Builder> = mutableListOf()
+
+        /** The type of participant in the action. */
+        public var type: Enumeration<ActionParticipantType>? = null
+
+        /** The type of participant in the action. */
+        public var typeCanonical: Canonical.Builder? = null
+
+        /**
+         * The type of participant in the action.
+         *
+         * When this element is a reference, it SHOULD be a reference to a definitional resource
+         * (for example, a location type, rather than a specific location).
+         */
+        public var typeReference: Reference.Builder? = null
+
+        /** The role the participant should play in performing the described action. */
+        public var role: CodeableConcept.Builder? = null
+
+        /**
+         * Indicates how the actor will be involved in the action - author, reviewer, witness, etc.
+         */
+        public var function: CodeableConcept.Builder? = null
+
+        /** A reference to the actual participant. */
+        public var actor: Actor? = null
+
+        public fun build(): Participant =
+          Participant(
+            id = id,
+            extension = extension.map { it.build() },
+            modifierExtension = modifierExtension.map { it.build() },
+            type = type,
+            typeCanonical = typeCanonical?.build(),
+            typeReference = typeReference?.build(),
+            role = role?.build(),
+            function = function?.build(),
+            actor = actor,
+          )
       }
     }
 
@@ -783,7 +1269,94 @@ public data class RequestOrchestration(
        * library referenced by the library element.
        */
       public val expression: Expression? = null,
-    ) : BackboneElement()
+    ) : BackboneElement() {
+      public fun toBuilder(): Builder =
+        with(this) {
+          Builder().apply {
+            id = this@with.id
+            extension = this@with.extension.map { it.toBuilder() }.toMutableList()
+            modifierExtension = this@with.modifierExtension.map { it.toBuilder() }.toMutableList()
+            path = this@with.path?.toBuilder()
+            expression = this@with.expression?.toBuilder()
+          }
+        }
+
+      public class Builder() {
+        /**
+         * Unique id for the element within a resource (for internal references). This may be any
+         * string value that does not contain spaces.
+         */
+        public var id: kotlin.String? = null
+
+        /**
+         * May be used to represent additional information that is not part of the basic definition
+         * of the element. To make the use of extensions safe and managable, there is a strict set
+         * of governance applied to the definition and use of extensions. Though any implementer can
+         * define an extension, there is a set of requirements that SHALL be met as part of the
+         * definition of the extension.
+         *
+         * There can be no stigma associated with the use of extensions by any application, project,
+         * or standard - regardless of the institution or jurisdiction that uses or defines the
+         * extensions. The use of extensions is what allows the FHIR specification to retain a core
+         * level of simplicity for everyone.
+         */
+        public var extension: MutableList<Extension.Builder> = mutableListOf()
+
+        /**
+         * May be used to represent additional information that is not part of the basic definition
+         * of the element and that modifies the understanding of the element in which it is
+         * contained and/or the understanding of the containing element's descendants. Usually
+         * modifier elements provide negation or qualification. To make the use of extensions safe
+         * and managable, there is a strict set of governance applied to the definition and use of
+         * extensions. Though any implementer can define an extension, there is a set of
+         * requirements that SHALL be met as part of the definition of the extension. Applications
+         * processing a resource are required to check for modifier extensions.
+         *
+         * Modifier extensions SHALL NOT change the meaning of any elements on Resource or
+         * DomainResource (including cannot change the meaning of modifierExtension itself).
+         *
+         * There can be no stigma associated with the use of extensions by any application, project,
+         * or standard - regardless of the institution or jurisdiction that uses or defines the
+         * extensions. The use of extensions is what allows the FHIR specification to retain a core
+         * level of simplicity for everyone.
+         */
+        public var modifierExtension: MutableList<Extension.Builder> = mutableListOf()
+
+        /**
+         * The path to the element to be customized. This is the path on the resource that will hold
+         * the result of the calculation defined by the expression. The specified path SHALL be a
+         * FHIRPath resolvable on the specified target type of the ActivityDefinition, and SHALL
+         * consist only of identifiers, constant indexers, and a restricted subset of functions. The
+         * path is allowed to contain qualifiers (.) to traverse sub-elements, as well as indexers
+         * ([x]) to traverse multiple-cardinality sub-elements (see the
+         * [Simple FHIRPath Profile](fhirpath.html#simple) for full details).
+         *
+         * To specify the path to the current action being realized, the %action environment
+         * variable is available in this path. For example, to specify the description element of
+         * the target action, the path would be %action.description. The path attribute contains a
+         * [Simple FHIRPath Subset](fhirpath.html#simple) that allows path traversal, but not
+         * calculation.
+         */
+        public var path: String.Builder? = null
+
+        /**
+         * An expression specifying the value of the customized element.
+         *
+         * The expression may be inlined or may be a reference to a named expression within a logic
+         * library referenced by the library element.
+         */
+        public var expression: Expression.Builder? = null
+
+        public fun build(): DynamicValue =
+          DynamicValue(
+            id = id,
+            extension = extension.map { it.build() },
+            modifierExtension = modifierExtension.map { it.build() },
+            path = path?.build(),
+            expression = expression?.build(),
+          )
+      }
+    }
 
     @Serializable(with = RequestOrchestrationActionTimingSerializer::class)
     public sealed interface Timing {
@@ -855,6 +1428,466 @@ public data class RequestOrchestration(
         }
       }
     }
+
+    public class Builder() {
+      /**
+       * Unique id for the element within a resource (for internal references). This may be any
+       * string value that does not contain spaces.
+       */
+      public var id: kotlin.String? = null
+
+      /**
+       * May be used to represent additional information that is not part of the basic definition of
+       * the element. To make the use of extensions safe and managable, there is a strict set of
+       * governance applied to the definition and use of extensions. Though any implementer can
+       * define an extension, there is a set of requirements that SHALL be met as part of the
+       * definition of the extension.
+       *
+       * There can be no stigma associated with the use of extensions by any application, project,
+       * or standard - regardless of the institution or jurisdiction that uses or defines the
+       * extensions. The use of extensions is what allows the FHIR specification to retain a core
+       * level of simplicity for everyone.
+       */
+      public var extension: MutableList<Extension.Builder> = mutableListOf()
+
+      /**
+       * May be used to represent additional information that is not part of the basic definition of
+       * the element and that modifies the understanding of the element in which it is contained
+       * and/or the understanding of the containing element's descendants. Usually modifier elements
+       * provide negation or qualification. To make the use of extensions safe and managable, there
+       * is a strict set of governance applied to the definition and use of extensions. Though any
+       * implementer can define an extension, there is a set of requirements that SHALL be met as
+       * part of the definition of the extension. Applications processing a resource are required to
+       * check for modifier extensions.
+       *
+       * Modifier extensions SHALL NOT change the meaning of any elements on Resource or
+       * DomainResource (including cannot change the meaning of modifierExtension itself).
+       *
+       * There can be no stigma associated with the use of extensions by any application, project,
+       * or standard - regardless of the institution or jurisdiction that uses or defines the
+       * extensions. The use of extensions is what allows the FHIR specification to retain a core
+       * level of simplicity for everyone.
+       */
+      public var modifierExtension: MutableList<Extension.Builder> = mutableListOf()
+
+      /**
+       * The linkId of the action from the PlanDefinition that corresponds to this action in the
+       * RequestOrchestration resource.
+       */
+      public var linkId: String.Builder? = null
+
+      /**
+       * A user-visible prefix for the action. For example a section or item numbering such as 1. or
+       * A.
+       */
+      public var prefix: String.Builder? = null
+
+      /** The title of the action displayed to a user. */
+      public var title: String.Builder? = null
+
+      /** A short description of the action used to provide a summary to display to the user. */
+      public var description: Markdown.Builder? = null
+
+      /**
+       * A text equivalent of the action to be performed. This provides a human-interpretable
+       * description of the action when the definition is consumed by a system that might not be
+       * capable of interpreting it dynamically.
+       */
+      public var textEquivalent: Markdown.Builder? = null
+
+      /** Indicates how quickly the action should be addressed with respect to other actions. */
+      public var priority: Enumeration<RequestPriority>? = null
+
+      /**
+       * A code that provides meaning for the action or action group. For example, a section may
+       * have a LOINC code for a section of a documentation template.
+       */
+      public var code: MutableList<CodeableConcept.Builder> = mutableListOf()
+
+      /**
+       * Didactic or other informational resources associated with the action that can be provided
+       * to the CDS recipient. Information resources can include inline text commentary and links to
+       * web resources.
+       */
+      public var documentation: MutableList<RelatedArtifact.Builder> = mutableListOf()
+
+      /** Goals that are intended to be achieved by following the requests in this action. */
+      public var goal: MutableList<Reference.Builder> = mutableListOf()
+
+      /**
+       * An expression that describes applicability criteria, or start/stop conditions for the
+       * action.
+       *
+       * When multiple conditions of the same kind are present, the effects are combined using AND
+       * semantics, so the overall condition is true only if all of the conditions are true.
+       */
+      public var condition: MutableList<Condition.Builder> = mutableListOf()
+
+      /** Defines input data requirements for the action. */
+      public var input: MutableList<Input.Builder> = mutableListOf()
+
+      /** Defines the outputs of the action, if any. */
+      public var output: MutableList<Output.Builder> = mutableListOf()
+
+      /** A relationship to another action such as "before" or "30-60 minutes after start of". */
+      public var relatedAction: MutableList<RelatedAction.Builder> = mutableListOf()
+
+      /**
+       * An optional value describing when the action should be performed.
+       *
+       * The intent of the timing element is to provide timing for when the action should be
+       * performed. The timing may be absolute (specified as a dateTime or Period) or relative
+       * (specified as an Age, Duration, or Range), or it may be a more complex, potentially
+       * repeating timing specified using Timing.
+       */
+      public var timing: Timing? = null
+
+      /**
+       * Identifies the facility where the action will occur; e.g. home, hospital, specific clinic,
+       * etc.
+       *
+       * May reference a specific clinical location or may just identify a type of location.
+       */
+      public var location: CodeableReference.Builder? = null
+
+      /**
+       * The participant that should perform or be responsible for this action.
+       *
+       * Because request orchestrations represent potential options for performing activities, some
+       * specific participants may still be unknown, so this element allows for both definitional
+       * participants (in the same way they are specified in ActivityDefinition and PlanDefinition
+       * resources) as well as identifying specific participants when they are known.
+       */
+      public var participant: MutableList<Participant.Builder> = mutableListOf()
+
+      /** The type of action to perform (create, update, remove). */
+      public var type: CodeableConcept.Builder? = null
+
+      /** Defines the grouping behavior for the action and its children. */
+      public var groupingBehavior: Enumeration<ActionGroupingBehavior>? = null
+
+      /** Defines the selection behavior for the action and its children. */
+      public var selectionBehavior: Enumeration<ActionSelectionBehavior>? = null
+
+      /** Defines expectations around whether an action is required. */
+      public var requiredBehavior: Enumeration<ActionRequiredBehavior>? = null
+
+      /** Defines whether the action should usually be preselected. */
+      public var precheckBehavior: Enumeration<ActionPrecheckBehavior>? = null
+
+      /** Defines whether the action can be selected multiple times. */
+      public var cardinalityBehavior: Enumeration<ActionCardinalityBehavior>? = null
+
+      /**
+       * The resource that is the target of the action (e.g. CommunicationRequest).
+       *
+       * The target resource SHALL be a [Request](request.html) resource with a Request.intent set
+       * to "option".
+       */
+      public var resource: Reference.Builder? = null
+
+      /**
+       * A reference to an ActivityDefinition that describes the action to be taken in detail, a
+       * PlanDefinition that describes a series of actions to be taken, a Questionnaire that should
+       * be filled out, a SpecimenDefinition describing a specimen to be collected, or an
+       * ObservationDefinition that specifies what observation should be captured.
+       *
+       * Note that the definition is optional, and if no definition is specified, a dynamicValue
+       * with a root ($this) path can be used to define the entire resource dynamically.
+       */
+      public var definition: Definition? = null
+
+      /**
+       * A reference to a StructureMap resource that defines a transform that can be executed to
+       * produce the intent resource using the ActivityDefinition instance as the input.
+       *
+       * Note that when a referenced ActivityDefinition also defines a transform, the transform
+       * specified here generally takes precedence. In addition, if both a transform and dynamic
+       * values are specific, the dynamic values are applied to the result of the transform.
+       */
+      public var transform: Canonical.Builder? = null
+
+      /**
+       * Customizations that should be applied to the statically defined resource. For example, if
+       * the dosage of a medication must be computed based on the patient's weight, a customization
+       * would be used to specify an expression that calculated the weight, and the path on the
+       * resource that would contain the result.
+       *
+       * Dynamic values are applied in the order in which they are defined in the
+       * RequestOrchestration resource. Note that when dynamic values are also specified by a
+       * referenced ActivityDefinition, the dynamicValues from the ActivityDefinition are applied
+       * first, followed by the dynamicValues specified here. In addition, if both a transform and
+       * dynamic values are specific, the dynamic values are applied to the result of the transform.
+       */
+      public var dynamicValue: MutableList<DynamicValue.Builder> = mutableListOf()
+
+      /** Sub actions. */
+      public var action: MutableList<Builder> = mutableListOf()
+
+      public fun build(): Action =
+        Action(
+          id = id,
+          extension = extension.map { it.build() },
+          modifierExtension = modifierExtension.map { it.build() },
+          linkId = linkId?.build(),
+          prefix = prefix?.build(),
+          title = title?.build(),
+          description = description?.build(),
+          textEquivalent = textEquivalent?.build(),
+          priority = priority,
+          code = code.map { it.build() },
+          documentation = documentation.map { it.build() },
+          goal = goal.map { it.build() },
+          condition = condition.map { it.build() },
+          input = input.map { it.build() },
+          output = output.map { it.build() },
+          relatedAction = relatedAction.map { it.build() },
+          timing = timing,
+          location = location?.build(),
+          participant = participant.map { it.build() },
+          type = type?.build(),
+          groupingBehavior = groupingBehavior,
+          selectionBehavior = selectionBehavior,
+          requiredBehavior = requiredBehavior,
+          precheckBehavior = precheckBehavior,
+          cardinalityBehavior = cardinalityBehavior,
+          resource = resource?.build(),
+          definition = definition,
+          transform = transform?.build(),
+          dynamicValue = dynamicValue.map { it.build() },
+          action = action.map { it.build() },
+        )
+    }
+  }
+
+  public class Builder(
+    /**
+     * The current state of the request. For request orchestrations, the status reflects the status
+     * of all the requests in the orchestration.
+     */
+    public var status: Enumeration<RequestStatus>,
+    /**
+     * Indicates the level of authority/intentionality associated with the request and where the
+     * request fits into the workflow chain.
+     */
+    public var intent: Enumeration<RequestIntent>,
+  ) : DomainResource.Builder() {
+    /**
+     * The logical id of the resource, as used in the URL for the resource. Once assigned, this
+     * value never changes.
+     *
+     * Within the context of the FHIR RESTful interactions, the resource has an id except for cases
+     * like the create and conditional update. Otherwise, the use of the resouce id depends on the
+     * given use case.
+     */
+    public var id: kotlin.String? = null
+
+    /**
+     * The metadata about the resource. This is content that is maintained by the infrastructure.
+     * Changes to the content might not always be associated with version changes to the resource.
+     */
+    public var meta: Meta.Builder? = null
+
+    /**
+     * A reference to a set of rules that were followed when the resource was constructed, and which
+     * must be understood when processing the content. Often, this is a reference to an
+     * implementation guide that defines the special rules along with other profiles etc.
+     *
+     * Asserting this rule set restricts the content to be only understood by a limited set of
+     * trading partners. This inherently limits the usefulness of the data in the long term.
+     * However, the existing health eco-system is highly fractured, and not yet ready to define,
+     * collect, and exchange data in a generally computable sense. Wherever possible, implementers
+     * and/or specification writers should avoid using this element. Often, when used, the URL is a
+     * reference to an implementation guide that defines these special rules as part of its
+     * narrative along with other profiles, value sets, etc.
+     */
+    public var implicitRules: Uri.Builder? = null
+
+    /**
+     * The base language in which the resource is written.
+     *
+     * Language is provided to support indexing and accessibility (typically, services such as text
+     * to speech use the language tag). The html language tag in the narrative applies to the
+     * narrative. The language tag on the resource may be used to specify the language of other
+     * presentations generated from the data in the resource. Not all the content has to be in the
+     * base language. The Resource.language should not be assumed to apply to the narrative
+     * automatically. If a language is specified, it should it also be specified on the div element
+     * in the html (see rules in HTML5 for information about the relationship between xml:lang and
+     * the html lang attribute).
+     */
+    public var language: Code.Builder? = null
+
+    /**
+     * A human-readable narrative that contains a summary of the resource and can be used to
+     * represent the content of the resource to a human. The narrative need not encode all the
+     * structured data, but is required to contain sufficient detail to make it "clinically safe"
+     * for a human to just read the narrative. Resource definitions may define what content should
+     * be represented in the narrative to ensure clinical safety.
+     *
+     * Contained resources do not have a narrative. Resources that are not contained SHOULD have a
+     * narrative. In some cases, a resource may only have text with little or no additional discrete
+     * data (as long as all minOccurs=1 elements are satisfied). This may be necessary for data from
+     * legacy systems where information is captured as a "text blob" or where text is additionally
+     * entered raw or narrated and encoded information is added later.
+     */
+    public var text: Narrative.Builder? = null
+
+    /**
+     * These resources do not have an independent existence apart from the resource that contains
+     * them - they cannot be identified independently, nor can they have their own independent
+     * transaction scope. This is allowed to be a Parameters resource if and only if it is
+     * referenced by a resource that provides context/meaning.
+     *
+     * This should never be done when the content can be identified properly, as once identification
+     * is lost, it is extremely difficult (and context dependent) to restore it again. Contained
+     * resources may have profiles and tags in their meta elements, but SHALL NOT have security
+     * labels.
+     */
+    public var contained: MutableList<Resource.Builder> = mutableListOf()
+
+    /**
+     * May be used to represent additional information that is not part of the basic definition of
+     * the resource. To make the use of extensions safe and managable, there is a strict set of
+     * governance applied to the definition and use of extensions. Though any implementer can define
+     * an extension, there is a set of requirements that SHALL be met as part of the definition of
+     * the extension.
+     *
+     * There can be no stigma associated with the use of extensions by any application, project, or
+     * standard - regardless of the institution or jurisdiction that uses or defines the extensions.
+     * The use of extensions is what allows the FHIR specification to retain a core level of
+     * simplicity for everyone.
+     */
+    public var extension: MutableList<Extension.Builder> = mutableListOf()
+
+    /**
+     * May be used to represent additional information that is not part of the basic definition of
+     * the resource and that modifies the understanding of the element that contains it and/or the
+     * understanding of the containing element's descendants. Usually modifier elements provide
+     * negation or qualification. To make the use of extensions safe and managable, there is a
+     * strict set of governance applied to the definition and use of extensions. Though any
+     * implementer is allowed to define an extension, there is a set of requirements that SHALL be
+     * met as part of the definition of the extension. Applications processing a resource are
+     * required to check for modifier extensions.
+     *
+     * Modifier extensions SHALL NOT change the meaning of any elements on Resource or
+     * DomainResource (including cannot change the meaning of modifierExtension itself).
+     *
+     * There can be no stigma associated with the use of extensions by any application, project, or
+     * standard - regardless of the institution or jurisdiction that uses or defines the extensions.
+     * The use of extensions is what allows the FHIR specification to retain a core level of
+     * simplicity for everyone.
+     */
+    public var modifierExtension: MutableList<Extension.Builder> = mutableListOf()
+
+    /** Allows a service to provide a unique, business identifier for the request. */
+    public var identifier: MutableList<Identifier.Builder> = mutableListOf()
+
+    /**
+     * A canonical URL referencing a FHIR-defined protocol, guideline, orderset or other definition
+     * that is adhered to in whole or in part by this request.
+     */
+    public var instantiatesCanonical: MutableList<Canonical.Builder> = mutableListOf()
+
+    /**
+     * A URL referencing an externally defined protocol, guideline, orderset or other definition
+     * that is adhered to in whole or in part by this request.
+     */
+    public var instantiatesUri: MutableList<Uri.Builder> = mutableListOf()
+
+    /** A plan, proposal or order that is fulfilled in whole or in part by this request. */
+    public var basedOn: MutableList<Reference.Builder> = mutableListOf()
+
+    /**
+     * Completed or terminated request(s) whose function is taken by this new request.
+     *
+     * The replacement could be because the initial request was immediately rejected (due to an
+     * issue) or because the previous request was completed, but the need for the action described
+     * by the request remains ongoing.
+     */
+    public var replaces: MutableList<Reference.Builder> = mutableListOf()
+
+    /**
+     * A shared identifier common to multiple independent Request instances that were
+     * activated/authorized more or less simultaneously by a single author. The presence of the same
+     * identifier on each request ties those requests together and may have business ramifications
+     * in terms of reporting of results, billing, etc. E.g. a requisition number shared by a set of
+     * lab tests ordered together, or a prescription number shared by all meds ordered at one time.
+     *
+     * Requests are linked either by a "basedOn" relationship (i.e. one request is fulfilling
+     * another) or by having a common requisition. Requests that are part of the same requisition
+     * are generally treated independently from the perspective of changing their state or
+     * maintaining them after initial creation.
+     */
+    public var groupIdentifier: Identifier.Builder? = null
+
+    /** Indicates how quickly the request should be addressed with respect to other requests. */
+    public var priority: Enumeration<RequestPriority>? = null
+
+    /**
+     * A code that identifies what the overall request orchestration is.
+     *
+     * This element can be used to provide a code that captures the meaning of the request
+     * orchestration as a whole, as opposed to the code of the action element, which captures the
+     * meaning of the individual actions within the request orchestration.
+     */
+    public var code: CodeableConcept.Builder? = null
+
+    /** The subject for which the request orchestration was created. */
+    public var subject: Reference.Builder? = null
+
+    /** Describes the context of the request orchestration, if any. */
+    public var encounter: Reference.Builder? = null
+
+    /** Indicates when the request orchestration was created. */
+    public var authoredOn: DateTime.Builder? = null
+
+    /** Provides a reference to the author of the request orchestration. */
+    public var author: Reference.Builder? = null
+
+    /** Describes the reason for the request orchestration in coded or textual form. */
+    public var reason: MutableList<CodeableReference.Builder> = mutableListOf()
+
+    /**
+     * Goals that are intended to be achieved by following the requests in this
+     * RequestOrchestration.
+     */
+    public var goal: MutableList<Reference.Builder> = mutableListOf()
+
+    /** Provides a mechanism to communicate additional information about the response. */
+    public var note: MutableList<Annotation.Builder> = mutableListOf()
+
+    /** The actions, if any, produced by the evaluation of the artifact. */
+    public var action: MutableList<Action.Builder> = mutableListOf()
+
+    override fun build(): RequestOrchestration =
+      RequestOrchestration(
+        id = id,
+        meta = meta?.build(),
+        implicitRules = implicitRules?.build(),
+        language = language?.build(),
+        text = text?.build(),
+        contained = contained.map { it.build() },
+        extension = extension.map { it.build() },
+        modifierExtension = modifierExtension.map { it.build() },
+        identifier = identifier.map { it.build() },
+        instantiatesCanonical = instantiatesCanonical.map { it.build() },
+        instantiatesUri = instantiatesUri.map { it.build() },
+        basedOn = basedOn.map { it.build() },
+        replaces = replaces.map { it.build() },
+        groupIdentifier = groupIdentifier?.build(),
+        status = status,
+        intent = intent,
+        priority = priority,
+        code = code?.build(),
+        subject = subject?.build(),
+        encounter = encounter?.build(),
+        authoredOn = authoredOn?.build(),
+        author = author?.build(),
+        reason = reason.map { it.build() },
+        goal = goal.map { it.build() },
+        note = note.map { it.build() },
+        action = action.map { it.build() },
+      )
   }
 
   /** Identifies the level of importance to be assigned to actioning the request. */

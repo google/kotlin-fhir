@@ -23,6 +23,7 @@ import com.google.fhir.model.r5.serializers.ExtensionValueSerializer
 import kotlin.String
 import kotlin.Suppress
 import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 
 /** Extension Type: Optional Extension Element - found in all resources. */
@@ -60,6 +61,15 @@ public data class Extension(
    */
   public val `value`: Value? = null,
 ) : DataType() {
+  public open fun toBuilder(): Builder =
+    with(this) {
+      Builder(url).apply {
+        id = this@with.id
+        extension = this@with.extension.map { it.toBuilder() }.toMutableList()
+        `value` = this@with.`value`
+      }
+    }
+
   @Serializable(with = ExtensionValueSerializer::class)
   public sealed interface Value {
     public fun asBase64Binary(): Base64Binary? = this as? Base64Binary
@@ -412,5 +422,45 @@ public data class Extension(
         return null
       }
     }
+  }
+
+  public open class Builder(
+    /**
+     * Source of the definition for the extension code - a logical name or a URL.
+     *
+     * The definition may point directly to a computable or human-readable definition of the
+     * extensibility codes, or it may be a logical URI as declared in some other specification. The
+     * definition SHALL be a URI for the Structure Definition defining the extension.
+     */
+    public open var url: String
+  ) {
+    /**
+     * Unique id for the element within a resource (for internal references). This may be any string
+     * value that does not contain spaces.
+     */
+    public open var id: String? = null
+
+    /**
+     * May be used to represent additional information that is not part of the basic definition of
+     * the element. To make the use of extensions safe and managable, there is a strict set of
+     * governance applied to the definition and use of extensions. Though any implementer can define
+     * an extension, there is a set of requirements that SHALL be met as part of the definition of
+     * the extension.
+     *
+     * There can be no stigma associated with the use of extensions by any application, project, or
+     * standard - regardless of the institution or jurisdiction that uses or defines the extensions.
+     * The use of extensions is what allows the FHIR specification to retain a core level of
+     * simplicity for everyone.
+     */
+    public open var extension: MutableList<Builder> = mutableListOf()
+
+    /**
+     * Value of extension - must be one of a constrained set of the data types (see
+     * [Extensibility](extensibility.html) for a list).
+     */
+    public open var `value`: Value? = null
+
+    public open fun build(): Extension =
+      Extension(id = id, extension = extension.map { it.build() }, url = url, `value` = `value`)
   }
 }

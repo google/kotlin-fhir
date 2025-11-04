@@ -23,6 +23,7 @@ import com.google.fhir.model.r4.serializers.SubstanceAmountReferenceRangeSeriali
 import com.google.fhir.model.r4.serializers.SubstanceAmountSerializer
 import kotlin.Suppress
 import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 
 /**
@@ -92,6 +93,19 @@ public data class SubstanceAmount(
   /** Reference range of possible or expected values. */
   public val referenceRange: ReferenceRange? = null,
 ) : BackboneElement() {
+  public open fun toBuilder(): Builder =
+    with(this) {
+      Builder().apply {
+        id = this@with.id
+        extension = this@with.extension.map { it.toBuilder() }.toMutableList()
+        modifierExtension = this@with.modifierExtension.map { it.toBuilder() }.toMutableList()
+        amount = this@with.amount
+        amountType = this@with.amountType?.toBuilder()
+        amountText = this@with.amountText?.toBuilder()
+        referenceRange = this@with.referenceRange?.toBuilder()
+      }
+    }
+
   /** Reference range of possible or expected values. */
   @Serializable(with = SubstanceAmountReferenceRangeSerializer::class)
   public class ReferenceRange(
@@ -117,7 +131,53 @@ public data class SubstanceAmount(
     public val lowLimit: Quantity? = null,
     /** Upper limit possible or expected. */
     public val highLimit: Quantity? = null,
-  ) : Element()
+  ) : Element() {
+    public fun toBuilder(): Builder =
+      with(this) {
+        Builder().apply {
+          id = this@with.id
+          extension = this@with.extension.map { it.toBuilder() }.toMutableList()
+          lowLimit = this@with.lowLimit?.toBuilder()
+          highLimit = this@with.highLimit?.toBuilder()
+        }
+      }
+
+    public class Builder() {
+      /**
+       * Unique id for the element within a resource (for internal references). This may be any
+       * string value that does not contain spaces.
+       */
+      public var id: kotlin.String? = null
+
+      /**
+       * May be used to represent additional information that is not part of the basic definition of
+       * the element. To make the use of extensions safe and manageable, there is a strict set of
+       * governance applied to the definition and use of extensions. Though any implementer can
+       * define an extension, there is a set of requirements that SHALL be met as part of the
+       * definition of the extension.
+       *
+       * There can be no stigma associated with the use of extensions by any application, project,
+       * or standard - regardless of the institution or jurisdiction that uses or defines the
+       * extensions. The use of extensions is what allows the FHIR specification to retain a core
+       * level of simplicity for everyone.
+       */
+      public var extension: MutableList<Extension.Builder> = mutableListOf()
+
+      /** Lower limit possible or expected. */
+      public var lowLimit: Quantity.Builder? = null
+
+      /** Upper limit possible or expected. */
+      public var highLimit: Quantity.Builder? = null
+
+      public fun build(): ReferenceRange =
+        ReferenceRange(
+          id = id,
+          extension = extension.map { it.build() },
+          lowLimit = lowLimit?.build(),
+          highLimit = highLimit?.build(),
+        )
+    }
+  }
 
   @Serializable(with = SubstanceAmountAmountSerializer::class)
   public sealed interface Amount {
@@ -145,5 +205,81 @@ public data class SubstanceAmount(
         return null
       }
     }
+  }
+
+  public open class Builder() {
+    /**
+     * Unique id for the element within a resource (for internal references). This may be any string
+     * value that does not contain spaces.
+     */
+    public open var id: kotlin.String? = null
+
+    /**
+     * May be used to represent additional information that is not part of the basic definition of
+     * the element. To make the use of extensions safe and manageable, there is a strict set of
+     * governance applied to the definition and use of extensions. Though any implementer can define
+     * an extension, there is a set of requirements that SHALL be met as part of the definition of
+     * the extension.
+     *
+     * There can be no stigma associated with the use of extensions by any application, project, or
+     * standard - regardless of the institution or jurisdiction that uses or defines the extensions.
+     * The use of extensions is what allows the FHIR specification to retain a core level of
+     * simplicity for everyone.
+     */
+    public open var extension: MutableList<Extension.Builder> = mutableListOf()
+
+    /**
+     * May be used to represent additional information that is not part of the basic definition of
+     * the element and that modifies the understanding of the element in which it is contained
+     * and/or the understanding of the containing element's descendants. Usually modifier elements
+     * provide negation or qualification. To make the use of extensions safe and manageable, there
+     * is a strict set of governance applied to the definition and use of extensions. Though any
+     * implementer can define an extension, there is a set of requirements that SHALL be met as part
+     * of the definition of the extension. Applications processing a resource are required to check
+     * for modifier extensions.
+     *
+     * Modifier extensions SHALL NOT change the meaning of any elements on Resource or
+     * DomainResource (including cannot change the meaning of modifierExtension itself).
+     *
+     * There can be no stigma associated with the use of extensions by any application, project, or
+     * standard - regardless of the institution or jurisdiction that uses or defines the extensions.
+     * The use of extensions is what allows the FHIR specification to retain a core level of
+     * simplicity for everyone.
+     */
+    public open var modifierExtension: MutableList<Extension.Builder> = mutableListOf()
+
+    /**
+     * Used to capture quantitative values for a variety of elements. If only limits are given, the
+     * arithmetic mean would be the average. If only a single definite value for a given element is
+     * given, it would be captured in this field.
+     */
+    public open var amount: Amount? = null
+
+    /**
+     * Most elements that require a quantitative value will also have a field called amount type.
+     * Amount type should always be specified because the actual value of the amount is often
+     * dependent on it. EXAMPLE: In capturing the actual relative amounts of substances or molecular
+     * fragments it is essential to indicate whether the amount refers to a mole ratio or weight
+     * ratio. For any given element an effort should be made to use same the amount type for all
+     * related definitional elements.
+     */
+    public open var amountType: CodeableConcept.Builder? = null
+
+    /** A textual comment on a numeric value. */
+    public open var amountText: String.Builder? = null
+
+    /** Reference range of possible or expected values. */
+    public open var referenceRange: ReferenceRange.Builder? = null
+
+    public open fun build(): SubstanceAmount =
+      SubstanceAmount(
+        id = id,
+        extension = extension.map { it.build() },
+        modifierExtension = modifierExtension.map { it.build() },
+        amount = amount,
+        amountType = amountType?.build(),
+        amountText = amountText?.build(),
+        referenceRange = referenceRange?.build(),
+      )
   }
 }

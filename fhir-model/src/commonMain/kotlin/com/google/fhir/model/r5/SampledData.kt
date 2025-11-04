@@ -21,6 +21,7 @@ package com.google.fhir.model.r5
 import com.google.fhir.model.r5.serializers.SampledDataSerializer
 import kotlin.Suppress
 import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 
 /**
@@ -109,4 +110,127 @@ public data class SampledData(
    * required for any actual use of a SampledData.
    */
   public val `data`: String? = null,
-) : DataType()
+) : DataType() {
+  public open fun toBuilder(): Builder =
+    with(this) {
+      Builder(origin.toBuilder(), intervalUnit.toBuilder(), dimensions.toBuilder()).apply {
+        id = this@with.id
+        extension = this@with.extension.map { it.toBuilder() }.toMutableList()
+        interval = this@with.interval?.toBuilder()
+        factor = this@with.factor?.toBuilder()
+        lowerLimit = this@with.lowerLimit?.toBuilder()
+        upperLimit = this@with.upperLimit?.toBuilder()
+        codeMap = this@with.codeMap?.toBuilder()
+        offsets = this@with.offsets?.toBuilder()
+        `data` = this@with.`data`?.toBuilder()
+      }
+    }
+
+  public open class Builder(
+    /**
+     * The base quantity that a measured value of zero represents. In addition, this provides the
+     * units of the entire measurement series.
+     */
+    public open var origin: Quantity.Builder,
+    /** The measurement unit in which the sample interval is expressed. */
+    public open var intervalUnit: Code.Builder,
+    /**
+     * The number of sample points at each time point. If this value is greater than one, then the
+     * dimensions will be interlaced - all the sample points for a point in time will be recorded at
+     * once.
+     *
+     * If there is more than one dimension, the code for the type of data will define the meaning of
+     * the dimensions (typically ECG data).
+     */
+    public open var dimensions: PositiveInt.Builder,
+  ) {
+    /**
+     * Unique id for the element within a resource (for internal references). This may be any string
+     * value that does not contain spaces.
+     */
+    public open var id: kotlin.String? = null
+
+    /**
+     * May be used to represent additional information that is not part of the basic definition of
+     * the element. To make the use of extensions safe and managable, there is a strict set of
+     * governance applied to the definition and use of extensions. Though any implementer can define
+     * an extension, there is a set of requirements that SHALL be met as part of the definition of
+     * the extension.
+     *
+     * There can be no stigma associated with the use of extensions by any application, project, or
+     * standard - regardless of the institution or jurisdiction that uses or defines the extensions.
+     * The use of extensions is what allows the FHIR specification to retain a core level of
+     * simplicity for everyone.
+     */
+    public open var extension: MutableList<Extension.Builder> = mutableListOf()
+
+    /**
+     * Amount of intervalUnits between samples, e.g. milliseconds for time-based sampling.
+     *
+     * This is usually a whole number.
+     */
+    public open var interval: Decimal.Builder? = null
+
+    /**
+     * A correction factor that is applied to the sampled data points before they are added to the
+     * origin.
+     */
+    public open var factor: Decimal.Builder? = null
+
+    /**
+     * The lower limit of detection of the measured points. This is needed if any of the data points
+     * have the value "L" (lower than detection limit).
+     */
+    public open var lowerLimit: Decimal.Builder? = null
+
+    /**
+     * The upper limit of detection of the measured points. This is needed if any of the data points
+     * have the value "U" (higher than detection limit).
+     */
+    public open var upperLimit: Decimal.Builder? = null
+
+    /**
+     * Reference to ConceptMap that defines the codes used in the data.
+     *
+     * The ConceptMap cannot define meanings for the codes 'E', 'U', or 'L' (nor 'e', 'u', or 'l').
+     */
+    public open var codeMap: Canonical.Builder? = null
+
+    /**
+     * A series of data points which are decimal values separated by a single space (character u20).
+     * The units in which the offsets are expressed are found in intervalUnit. The absolute point at
+     * which the measurements begin SHALL be conveyed outside the scope of this datatype, e.g.
+     * Observation.effectiveDateTime for a timing offset.
+     *
+     * If offsets is present, the number of data points must be equal to the number of offsets
+     * mlutipled by the dimensions.
+     */
+    public open var offsets: String.Builder? = null
+
+    /**
+     * A series of data points which are decimal values or codes separated by a single space
+     * (character u20). The special codes "E" (error), "L" (below detection limit) and "U" (above
+     * detection limit) are also defined for used in place of decimal values.
+     *
+     * The data may be missing if it is omitted for summarization purposes. In general, data is
+     * required for any actual use of a SampledData.
+     */
+    public open var `data`: String.Builder? = null
+
+    public open fun build(): SampledData =
+      SampledData(
+        id = id,
+        extension = extension.map { it.build() },
+        origin = origin.build(),
+        interval = interval?.build(),
+        intervalUnit = intervalUnit.build(),
+        factor = factor?.build(),
+        lowerLimit = lowerLimit?.build(),
+        upperLimit = upperLimit?.build(),
+        dimensions = dimensions.build(),
+        codeMap = codeMap?.build(),
+        offsets = offsets?.build(),
+        `data` = `data`?.build(),
+      )
+  }
+}

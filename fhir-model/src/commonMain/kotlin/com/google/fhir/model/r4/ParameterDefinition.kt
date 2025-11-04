@@ -22,6 +22,7 @@ import com.google.fhir.model.r4.serializers.ParameterDefinitionSerializer
 import com.google.fhir.model.r4.terminologies.FHIRAllTypes
 import kotlin.Suppress
 import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 
 /**
@@ -71,6 +72,82 @@ public data class ParameterDefinition(
    */
   public val profile: Canonical? = null,
 ) : Element() {
+  public open fun toBuilder(): Builder =
+    with(this) {
+      Builder(use, type).apply {
+        id = this@with.id
+        extension = this@with.extension.map { it.toBuilder() }.toMutableList()
+        name = this@with.name?.toBuilder()
+        min = this@with.min?.toBuilder()
+        max = this@with.max?.toBuilder()
+        documentation = this@with.documentation?.toBuilder()
+        profile = this@with.profile?.toBuilder()
+      }
+    }
+
+  public open class Builder(
+    /** Whether the parameter is input or output for the module. */
+    public open var use: Enumeration<OperationParameterUse>,
+    /** The type of the parameter. */
+    public open var type: Enumeration<FHIRAllTypes>,
+  ) {
+    /**
+     * Unique id for the element within a resource (for internal references). This may be any string
+     * value that does not contain spaces.
+     */
+    public open var id: kotlin.String? = null
+
+    /**
+     * May be used to represent additional information that is not part of the basic definition of
+     * the element. To make the use of extensions safe and manageable, there is a strict set of
+     * governance applied to the definition and use of extensions. Though any implementer can define
+     * an extension, there is a set of requirements that SHALL be met as part of the definition of
+     * the extension.
+     *
+     * There can be no stigma associated with the use of extensions by any application, project, or
+     * standard - regardless of the institution or jurisdiction that uses or defines the extensions.
+     * The use of extensions is what allows the FHIR specification to retain a core level of
+     * simplicity for everyone.
+     */
+    public open var extension: MutableList<Extension.Builder> = mutableListOf()
+
+    /**
+     * The name of the parameter used to allow access to the value of the parameter in evaluation
+     * contexts.
+     */
+    public open var name: Code.Builder? = null
+
+    /** The minimum number of times this parameter SHALL appear in the request or response. */
+    public open var min: Integer.Builder? = null
+
+    /**
+     * The maximum number of times this element is permitted to appear in the request or response.
+     */
+    public open var max: String.Builder? = null
+
+    /** A brief discussion of what the parameter is for and how it is used by the module. */
+    public open var documentation: String.Builder? = null
+
+    /**
+     * If specified, this indicates a profile that the input data must conform to, or that the
+     * output data will conform to.
+     */
+    public open var profile: Canonical.Builder? = null
+
+    public open fun build(): ParameterDefinition =
+      ParameterDefinition(
+        id = id,
+        extension = extension.map { it.build() },
+        name = name?.build(),
+        use = use,
+        min = min?.build(),
+        max = max?.build(),
+        documentation = documentation?.build(),
+        type = type,
+        profile = profile?.build(),
+      )
+  }
+
   /** Whether an operation parameter is an input or an output parameter. */
   public enum class OperationParameterUse(
     private val code: kotlin.String,

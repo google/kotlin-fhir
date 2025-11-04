@@ -154,6 +154,8 @@ class ModelFileSpecGenerator(val codegenContext: CodegenContext) {
 
           addSealedInterfaces(modelClassName, structureDefinition.rootElements)
 
+          addModelBuilderSupport(structureDefinition, modelClassName, codegenContext.valueSetMap)
+
           addEnumClassTypeSpec(
             valueSetMap = codegenContext.valueSetMap,
             elements = structureDefinition.rootElements,
@@ -287,6 +289,12 @@ class ModelFileSpecGenerator(val codegenContext: CodegenContext) {
             )
             // Add sealed interfaces inside a backbone element
             .addSealedInterfaces(backboneElementClassName, elements)
+            .addBackboneElementBuilderSupport(
+              structureDefinition,
+              backboneElementClassName,
+              valueSetMap,
+              elements,
+            )
             .build()
         )
       }

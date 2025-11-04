@@ -23,6 +23,7 @@ import com.google.fhir.model.r5.serializers.AvailabilityNotAvailableTimeSerializ
 import com.google.fhir.model.r5.serializers.AvailabilitySerializer
 import kotlin.Suppress
 import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 
 /** Availability Type: Availability data for an {item}. */
@@ -51,6 +52,16 @@ public data class Availability(
   /** Not available during this time due to provided reason. */
   public val notAvailableTime: List<NotAvailableTime> = listOf(),
 ) : DataType() {
+  public open fun toBuilder(): Builder =
+    with(this) {
+      Builder().apply {
+        id = this@with.id
+        extension = this@with.extension.map { it.toBuilder() }.toMutableList()
+        availableTime = this@with.availableTime.map { it.toBuilder() }.toMutableList()
+        notAvailableTime = this@with.notAvailableTime.map { it.toBuilder() }.toMutableList()
+      }
+    }
+
   /** Times the {item} is available. */
   @Serializable(with = AvailabilityAvailableTimeSerializer::class)
   public class AvailableTime(
@@ -88,7 +99,71 @@ public data class Availability(
      * The timezone is expected to be specified or implied by the context this datatype is used.
      */
     public val availableEndTime: Time? = null,
-  ) : Element()
+  ) : Element() {
+    public fun toBuilder(): Builder =
+      with(this) {
+        Builder().apply {
+          id = this@with.id
+          extension = this@with.extension.map { it.toBuilder() }.toMutableList()
+          daysOfWeek = this@with.daysOfWeek.toMutableList()
+          allDay = this@with.allDay?.toBuilder()
+          availableStartTime = this@with.availableStartTime?.toBuilder()
+          availableEndTime = this@with.availableEndTime?.toBuilder()
+        }
+      }
+
+    public class Builder() {
+      /**
+       * Unique id for the element within a resource (for internal references). This may be any
+       * string value that does not contain spaces.
+       */
+      public var id: kotlin.String? = null
+
+      /**
+       * May be used to represent additional information that is not part of the basic definition of
+       * the element. To make the use of extensions safe and managable, there is a strict set of
+       * governance applied to the definition and use of extensions. Though any implementer can
+       * define an extension, there is a set of requirements that SHALL be met as part of the
+       * definition of the extension.
+       *
+       * There can be no stigma associated with the use of extensions by any application, project,
+       * or standard - regardless of the institution or jurisdiction that uses or defines the
+       * extensions. The use of extensions is what allows the FHIR specification to retain a core
+       * level of simplicity for everyone.
+       */
+      public var extension: MutableList<Extension.Builder> = mutableListOf()
+
+      /** mon | tue | wed | thu | fri | sat | sun. */
+      public var daysOfWeek: MutableList<Enumeration<DaysOfWeek>> = mutableListOf()
+
+      /** Always available? i.e. 24 hour service. */
+      public var allDay: Boolean.Builder? = null
+
+      /**
+       * Opening time of day (ignored if allDay = true).
+       *
+       * The timezone is expected to be specified or implied by the context this datatype is used.
+       */
+      public var availableStartTime: Time.Builder? = null
+
+      /**
+       * Closing time of day (ignored if allDay = true).
+       *
+       * The timezone is expected to be specified or implied by the context this datatype is used.
+       */
+      public var availableEndTime: Time.Builder? = null
+
+      public fun build(): AvailableTime =
+        AvailableTime(
+          id = id,
+          extension = extension.map { it.build() },
+          daysOfWeek = daysOfWeek,
+          allDay = allDay?.build(),
+          availableStartTime = availableStartTime?.build(),
+          availableEndTime = availableEndTime?.build(),
+        )
+    }
+  }
 
   /** Not available during this time due to provided reason. */
   @Serializable(with = AvailabilityNotAvailableTimeSerializer::class)
@@ -126,7 +201,100 @@ public data class Availability(
     public val description: String? = null,
     /** Service not available during this period. */
     public val during: Period? = null,
-  ) : Element()
+  ) : Element() {
+    public fun toBuilder(): Builder =
+      with(this) {
+        Builder().apply {
+          id = this@with.id
+          extension = this@with.extension.map { it.toBuilder() }.toMutableList()
+          description = this@with.description?.toBuilder()
+          during = this@with.during?.toBuilder()
+        }
+      }
+
+    public class Builder() {
+      /**
+       * Unique id for the element within a resource (for internal references). This may be any
+       * string value that does not contain spaces.
+       */
+      public var id: kotlin.String? = null
+
+      /**
+       * May be used to represent additional information that is not part of the basic definition of
+       * the element. To make the use of extensions safe and managable, there is a strict set of
+       * governance applied to the definition and use of extensions. Though any implementer can
+       * define an extension, there is a set of requirements that SHALL be met as part of the
+       * definition of the extension.
+       *
+       * There can be no stigma associated with the use of extensions by any application, project,
+       * or standard - regardless of the institution or jurisdiction that uses or defines the
+       * extensions. The use of extensions is what allows the FHIR specification to retain a core
+       * level of simplicity for everyone.
+       */
+      public var extension: MutableList<Extension.Builder> = mutableListOf()
+
+      /**
+       * Reason presented to the user explaining why time not available.
+       *
+       * The reason will generally be provided to give the textual reason for displaying when the
+       * {item} is not available, e.g. 'Closed public holidays' or 'Independence Day'. In cases such
+       * as this, the `during` might not be included and local knowledge would be required in such
+       * cases (as don't desire to keep updating when the holiday occurs each year).
+       *
+       * e.g.2: 'Closed for maintenance over the summer' for this example you would want to include
+       * the `during` period, unless this was a university hospital and the "summer" period was well
+       * known, but would recommend its inclusion anyway.
+       */
+      public var description: String.Builder? = null
+
+      /** Service not available during this period. */
+      public var during: Period.Builder? = null
+
+      public fun build(): NotAvailableTime =
+        NotAvailableTime(
+          id = id,
+          extension = extension.map { it.build() },
+          description = description?.build(),
+          during = during?.build(),
+        )
+    }
+  }
+
+  public open class Builder() {
+    /**
+     * Unique id for the element within a resource (for internal references). This may be any string
+     * value that does not contain spaces.
+     */
+    public open var id: kotlin.String? = null
+
+    /**
+     * May be used to represent additional information that is not part of the basic definition of
+     * the element. To make the use of extensions safe and managable, there is a strict set of
+     * governance applied to the definition and use of extensions. Though any implementer can define
+     * an extension, there is a set of requirements that SHALL be met as part of the definition of
+     * the extension.
+     *
+     * There can be no stigma associated with the use of extensions by any application, project, or
+     * standard - regardless of the institution or jurisdiction that uses or defines the extensions.
+     * The use of extensions is what allows the FHIR specification to retain a core level of
+     * simplicity for everyone.
+     */
+    public open var extension: MutableList<Extension.Builder> = mutableListOf()
+
+    /** Times the {item} is available. */
+    public open var availableTime: MutableList<AvailableTime.Builder> = mutableListOf()
+
+    /** Not available during this time due to provided reason. */
+    public open var notAvailableTime: MutableList<NotAvailableTime.Builder> = mutableListOf()
+
+    public open fun build(): Availability =
+      Availability(
+        id = id,
+        extension = extension.map { it.build() },
+        availableTime = availableTime.map { it.build() },
+        notAvailableTime = notAvailableTime.map { it.build() },
+      )
+  }
 
   /** The days of the week. */
   public enum class DaysOfWeek(

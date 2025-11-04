@@ -21,6 +21,7 @@ package com.google.fhir.model.r4
 import kotlin.String
 import kotlin.Suppress
 import kotlin.collections.List
+import kotlin.collections.MutableList
 
 /** Base StructureDefinition for boolean Type: Value of "true" or "false" */
 public data class Boolean(
@@ -42,11 +43,45 @@ public data class Boolean(
   /** The actual value */
   public val `value`: kotlin.Boolean? = null,
 ) : Element(id, extension) {
+  public open fun toBuilder(): Builder =
+    with(this) {
+      Builder().apply {
+        id = this@with.id
+        extension = this@with.extension.map { it.toBuilder() }.toMutableList()
+        `value` = this@with.`value`
+      }
+    }
+
   public fun toElement(): Element? {
     if (id != null || extension.isNotEmpty()) {
       return Element(id, extension)
     }
     return null
+  }
+
+  public open class Builder() {
+    /** unique id for the element within a resource (for internal references) */
+    public open var id: String? = null
+
+    /**
+     * May be used to represent additional information that is not part of the basic definition of
+     * the resource. To make the use of extensions safe and manageable, there is a strict set of
+     * governance applied to the definition and use of extensions. Though any implementer can define
+     * an extension, there is a set of requirements that SHALL be met as part of the definition of
+     * the extension.
+     *
+     * There can be no stigma associated with the use of extensions by any application, project, or
+     * standard - regardless of the institution or jurisdiction that uses or defines the extensions.
+     * The use of extensions is what allows the FHIR specification to retain a core level of
+     * simplicity for everyone.
+     */
+    public open var extension: MutableList<Extension.Builder> = mutableListOf()
+
+    /** The actual value */
+    public open var `value`: kotlin.Boolean? = null
+
+    public open fun build(): Boolean =
+      Boolean(id = id, extension = extension.map { it.build() }, `value` = `value`)
   }
 
   public companion object {

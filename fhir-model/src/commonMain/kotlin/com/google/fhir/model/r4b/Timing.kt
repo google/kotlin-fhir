@@ -24,6 +24,7 @@ import com.google.fhir.model.r4b.serializers.TimingSerializer
 import kotlin.String
 import kotlin.Suppress
 import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 
 /**
@@ -91,6 +92,18 @@ public data class Timing(
    */
   public val code: CodeableConcept? = null,
 ) : BackboneElement() {
+  public open fun toBuilder(): Builder =
+    with(this) {
+      Builder().apply {
+        id = this@with.id
+        extension = this@with.extension.map { it.toBuilder() }.toMutableList()
+        modifierExtension = this@with.modifierExtension.map { it.toBuilder() }.toMutableList()
+        event = this@with.event.map { it.toBuilder() }.toMutableList()
+        repeat = this@with.repeat?.toBuilder()
+        code = this@with.code?.toBuilder()
+      }
+    }
+
   /** A set of rules that describe when the event is scheduled. */
   @Serializable(with = TimingRepeatSerializer::class)
   public class Repeat(
@@ -203,6 +216,29 @@ public data class Timing(
      */
     public val offset: UnsignedInt? = null,
   ) : Element() {
+    public fun toBuilder(): Builder =
+      with(this) {
+        Builder().apply {
+          id = this@with.id
+          extension = this@with.extension.map { it.toBuilder() }.toMutableList()
+          bounds = this@with.bounds
+          count = this@with.count?.toBuilder()
+          countMax = this@with.countMax?.toBuilder()
+          duration = this@with.duration?.toBuilder()
+          durationMax = this@with.durationMax?.toBuilder()
+          durationUnit = this@with.durationUnit
+          frequency = this@with.frequency?.toBuilder()
+          frequencyMax = this@with.frequencyMax?.toBuilder()
+          period = this@with.period?.toBuilder()
+          periodMax = this@with.periodMax?.toBuilder()
+          periodUnit = this@with.periodUnit
+          dayOfWeek = this@with.dayOfWeek.toMutableList()
+          timeOfDay = this@with.timeOfDay.map { it.toBuilder() }.toMutableList()
+          `when` = this@with.`when`.toMutableList()
+          offset = this@with.offset?.toBuilder()
+        }
+      }
+
     @Serializable(with = TimingRepeatBoundsSerializer::class)
     public sealed interface Bounds {
       public fun asDuration(): Duration? = this as? Duration
@@ -230,6 +266,227 @@ public data class Timing(
         }
       }
     }
+
+    public class Builder() {
+      /**
+       * Unique id for the element within a resource (for internal references). This may be any
+       * string value that does not contain spaces.
+       */
+      public var id: String? = null
+
+      /**
+       * May be used to represent additional information that is not part of the basic definition of
+       * the element. To make the use of extensions safe and manageable, there is a strict set of
+       * governance applied to the definition and use of extensions. Though any implementer can
+       * define an extension, there is a set of requirements that SHALL be met as part of the
+       * definition of the extension.
+       *
+       * There can be no stigma associated with the use of extensions by any application, project,
+       * or standard - regardless of the institution or jurisdiction that uses or defines the
+       * extensions. The use of extensions is what allows the FHIR specification to retain a core
+       * level of simplicity for everyone.
+       */
+      public var extension: MutableList<Extension.Builder> = mutableListOf()
+
+      /**
+       * Either a duration for the length of the timing schedule, a range of possible length, or
+       * outer bounds for start and/or end limits of the timing schedule.
+       */
+      public var bounds: Bounds? = null
+
+      /**
+       * A total count of the desired number of repetitions across the duration of the entire timing
+       * specification. If countMax is present, this element indicates the lower bound of the
+       * allowed range of count values.
+       *
+       * If you have both bounds and count, then this should be understood as within the bounds
+       * period, until count times happens.
+       */
+      public var count: PositiveInt.Builder? = null
+
+      /**
+       * If present, indicates that the count is a range - so to perform the action between [count]
+       * and [countMax] times.
+       */
+      public var countMax: PositiveInt.Builder? = null
+
+      /**
+       * How long this thing happens for when it happens. If durationMax is present, this element
+       * indicates the lower bound of the allowed range of the duration.
+       *
+       * For some events the duration is part of the definition of the event (e.g. IV infusions,
+       * where the duration is implicit in the specified quantity and rate). For others, it's part
+       * of the timing specification (e.g. exercise).
+       */
+      public var duration: Decimal.Builder? = null
+
+      /**
+       * If present, indicates that the duration is a range - so to perform the action between
+       * [duration] and [durationMax] time length.
+       *
+       * For some events the duration is part of the definition of the event (e.g. IV infusions,
+       * where the duration is implicit in the specified quantity and rate). For others, it's part
+       * of the timing specification (e.g. exercise).
+       */
+      public var durationMax: Decimal.Builder? = null
+
+      /** The units of time for the duration, in UCUM units. */
+      public var durationUnit: Enumeration<UnitsOfTime>? = null
+
+      /**
+       * The number of times to repeat the action within the specified period. If frequencyMax is
+       * present, this element indicates the lower bound of the allowed range of the frequency.
+       */
+      public var frequency: PositiveInt.Builder? = null
+
+      /**
+       * If present, indicates that the frequency is a range - so to repeat between [frequency] and
+       * [frequencyMax] times within the period or period range.
+       */
+      public var frequencyMax: PositiveInt.Builder? = null
+
+      /**
+       * Indicates the duration of time over which repetitions are to occur; e.g. to express "3
+       * times per day", 3 would be the frequency and "1 day" would be the period. If periodMax is
+       * present, this element indicates the lower bound of the allowed range of the period length.
+       */
+      public var period: Decimal.Builder? = null
+
+      /**
+       * If present, indicates that the period is a range from [period] to [periodMax], allowing
+       * expressing concepts such as "do this once every 3-5 days.
+       */
+      public var periodMax: Decimal.Builder? = null
+
+      /** The units of time for the period in UCUM units. */
+      public var periodUnit: Enumeration<UnitsOfTime>? = null
+
+      /**
+       * If one or more days of week is provided, then the action happens only on the specified
+       * day(s).
+       *
+       * If no days are specified, the action is assumed to happen every day as otherwise specified.
+       * The elements frequency and period cannot be used as well as dayOfWeek.
+       */
+      public var dayOfWeek: MutableList<Enumeration<DaysOfWeek>> = mutableListOf()
+
+      /**
+       * Specified time of day for action to take place.
+       *
+       * When time of day is specified, it is inferred that the action happens every day (as
+       * filtered by dayofWeek) on the specified times. The elements when, frequency and period
+       * cannot be used as well as timeOfDay.
+       */
+      public var timeOfDay: MutableList<Time.Builder> = mutableListOf()
+
+      /**
+       * An approximate time period during the day, potentially linked to an event of daily living
+       * that indicates when the action should occur.
+       *
+       * When more than one event is listed, the event is tied to the union of the specified events.
+       */
+      public var `when`: MutableList<Enumeration<EventTiming>> = mutableListOf()
+
+      /**
+       * The number of minutes from the event. If the event code does not indicate whether the
+       * minutes is before or after the event, then the offset is assumed to be after the event.
+       */
+      public var offset: UnsignedInt.Builder? = null
+
+      public fun build(): Repeat =
+        Repeat(
+          id = id,
+          extension = extension.map { it.build() },
+          bounds = bounds,
+          count = count?.build(),
+          countMax = countMax?.build(),
+          duration = duration?.build(),
+          durationMax = durationMax?.build(),
+          durationUnit = durationUnit,
+          frequency = frequency?.build(),
+          frequencyMax = frequencyMax?.build(),
+          period = period?.build(),
+          periodMax = periodMax?.build(),
+          periodUnit = periodUnit,
+          dayOfWeek = dayOfWeek,
+          timeOfDay = timeOfDay.map { it.build() },
+          `when` = `when`,
+          offset = offset?.build(),
+        )
+    }
+  }
+
+  public open class Builder() {
+    /**
+     * Unique id for the element within a resource (for internal references). This may be any string
+     * value that does not contain spaces.
+     */
+    public open var id: String? = null
+
+    /**
+     * May be used to represent additional information that is not part of the basic definition of
+     * the element. To make the use of extensions safe and manageable, there is a strict set of
+     * governance applied to the definition and use of extensions. Though any implementer can define
+     * an extension, there is a set of requirements that SHALL be met as part of the definition of
+     * the extension.
+     *
+     * There can be no stigma associated with the use of extensions by any application, project, or
+     * standard - regardless of the institution or jurisdiction that uses or defines the extensions.
+     * The use of extensions is what allows the FHIR specification to retain a core level of
+     * simplicity for everyone.
+     */
+    public open var extension: MutableList<Extension.Builder> = mutableListOf()
+
+    /**
+     * May be used to represent additional information that is not part of the basic definition of
+     * the element and that modifies the understanding of the element in which it is contained
+     * and/or the understanding of the containing element's descendants. Usually modifier elements
+     * provide negation or qualification. To make the use of extensions safe and manageable, there
+     * is a strict set of governance applied to the definition and use of extensions. Though any
+     * implementer can define an extension, there is a set of requirements that SHALL be met as part
+     * of the definition of the extension. Applications processing a resource are required to check
+     * for modifier extensions.
+     *
+     * Modifier extensions SHALL NOT change the meaning of any elements on Resource or
+     * DomainResource (including cannot change the meaning of modifierExtension itself).
+     *
+     * There can be no stigma associated with the use of extensions by any application, project, or
+     * standard - regardless of the institution or jurisdiction that uses or defines the extensions.
+     * The use of extensions is what allows the FHIR specification to retain a core level of
+     * simplicity for everyone.
+     */
+    public open var modifierExtension: MutableList<Extension.Builder> = mutableListOf()
+
+    /** Identifies specific times when the event occurs. */
+    public open var event: MutableList<DateTime.Builder> = mutableListOf()
+
+    /** A set of rules that describe when the event is scheduled. */
+    public open var repeat: Repeat.Builder? = null
+
+    /**
+     * A code for the timing schedule (or just text in code.text). Some codes such as BID are
+     * ubiquitous, but many institutions define their own additional codes. If a code is provided,
+     * the code is understood to be a complete statement of whatever is specified in the structured
+     * timing data, and either the code or the data may be used to interpret the Timing, with the
+     * exception that .repeat.bounds still applies over the code (and is not contained in the code).
+     *
+     * BID etc. are defined as 'at institutionally specified times'. For example, an institution may
+     * choose that BID is "always at 7am and 6pm". If it is inappropriate for this choice to be
+     * made, the code BID should not be used. Instead, a distinct organization-specific code should
+     * be used in place of the HL7-defined BID code and/or a structured representation should be
+     * used (in this case, specifying the two event times).
+     */
+    public open var code: CodeableConcept.Builder? = null
+
+    public open fun build(): Timing =
+      Timing(
+        id = id,
+        extension = extension.map { it.build() },
+        modifierExtension = modifierExtension.map { it.build() },
+        event = event.map { it.build() },
+        repeat = repeat?.build(),
+        code = code?.build(),
+      )
   }
 
   /** A unit of time (units from UCUM). */
