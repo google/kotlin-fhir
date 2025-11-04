@@ -350,7 +350,7 @@ public data class ImplementationGuide(
    * implementation matures and different implementation communities are stuck at different versions
    * by regulation or market dynamics.
    */
-  public val fhirVersion: List<Enumeration<FHIRVersion>> = listOf(),
+  public val fhirVersion: List<Enumeration<FHIRVersion>>,
   /**
    * Another implementation guide that this implementation depends on. Typically, an implementation
    * guide uses value sets, profiles etc.defined in other implementation guides.
@@ -959,7 +959,7 @@ public data class ImplementationGuide(
      * structure definition, capability statements etc.) are obvious candidates for inclusion, but
      * any kind of resource can be included as an example resource.
      */
-    public val resource: List<Resource> = listOf(),
+    public val resource: List<Resource>,
     /** Information about a page within the IG. */
     public val page: List<Page> = listOf(),
     /** Indicates a relative path to an image that exists within the IG. */

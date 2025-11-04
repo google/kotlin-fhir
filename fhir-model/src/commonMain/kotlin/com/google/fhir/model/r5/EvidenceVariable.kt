@@ -631,7 +631,7 @@ public data class EvidenceVariable(
       /** Provides the value of "n" when "at-least" or "at-most" codes are used. */
       public val threshold: PositiveInt? = null,
       /** A defining factor of the characteristic. */
-      public val characteristic: List<Characteristic> = listOf(),
+      public val characteristic: List<Characteristic>,
     ) : BackboneElement()
 
     /** Timing in which the characteristic is determined. */

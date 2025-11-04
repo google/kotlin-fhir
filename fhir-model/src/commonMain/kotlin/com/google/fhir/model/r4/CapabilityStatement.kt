@@ -339,7 +339,7 @@ public data class CapabilityStatement(
    * "xml", "json" and "ttl" are allowed, which describe the simple encodings described in the
    * specification (and imply appropriate bundle support). Otherwise, mime types are legal here.
    */
-  public val format: List<Code> = listOf(),
+  public val format: List<Code>,
   /**
    * A list of the patch formats supported by this implementation using their content types.
    *

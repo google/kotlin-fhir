@@ -159,7 +159,7 @@ public data class Consent(
    * A classification of the type of consents found in the statement. This element supports indexing
    * and retrieval of consent statements.
    */
-  public val category: List<CodeableConcept> = listOf(),
+  public val category: List<CodeableConcept>,
   /**
    * The patient/healthcare consumer to whom this consent applies.
    *

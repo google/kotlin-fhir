@@ -415,7 +415,7 @@ public data class CodeSystem(
     /** A description of how or why the filter is used. */
     public val description: String? = null,
     /** A list of operators that can be used with the filter. */
-    public val `operator`: List<Enumeration<FilterOperator>> = listOf(),
+    public val `operator`: List<Enumeration<FilterOperator>>,
     /** A description of what the value for the filter should be. */
     public val `value`: String,
   ) : BackboneElement()

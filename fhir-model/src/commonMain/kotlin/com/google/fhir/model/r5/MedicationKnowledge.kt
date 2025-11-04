@@ -295,7 +295,7 @@ public data class MedicationKnowledge(
     /** The category of the associated medication knowledge reference. */
     public val type: CodeableConcept,
     /** Associated documentation about the associated medication knowledge. */
-    public val reference: List<Reference> = listOf(),
+    public val reference: List<Reference>,
   ) : BackboneElement()
 
   /** Associated documentation about the medication. */
@@ -630,7 +630,7 @@ public data class MedicationKnowledge(
          */
         public val type: CodeableConcept,
         /** Dosage for the medication for the specific guidelines. */
-        public val dosage: List<com.google.fhir.model.r5.Dosage> = listOf(),
+        public val dosage: List<com.google.fhir.model.r5.Dosage>,
       ) : BackboneElement()
 
       /**

@@ -331,7 +331,7 @@ public data class EvidenceVariable(
    * criteria, ranging from simple codes, all the way to using an expression language to express the
    * criteria.
    */
-  public val characteristic: List<Characteristic> = listOf(),
+  public val characteristic: List<Characteristic>,
 ) : DomainResource() {
   /**
    * A characteristic that defines the members of the evidence element. Multiple characteristics are

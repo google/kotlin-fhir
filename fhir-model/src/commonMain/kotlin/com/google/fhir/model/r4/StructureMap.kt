@@ -283,7 +283,7 @@ public data class StructureMap(
   /** Other maps used by this map (canonical URLs). */
   public val `import`: List<Canonical> = listOf(),
   /** Organizes the mapping into manageable chunks for human review/ease of maintenance. */
-  public val group: List<Group> = listOf(),
+  public val group: List<Group>,
 ) : DomainResource() {
   /**
    * A structure definition used by this map. The structure definition may describe instances that
@@ -404,9 +404,9 @@ public data class StructureMap(
      *
      * If no inputs are named, then the entry mappings are type based.
      */
-    public val input: List<Input> = listOf(),
+    public val input: List<Input>,
     /** Transform Rule from source to target. */
-    public val rule: List<Rule> = listOf(),
+    public val rule: List<Rule>,
   ) : BackboneElement() {
     /**
      * A name assigned to an instance of data. The instance must be provided when the mapping is
@@ -504,7 +504,7 @@ public data class StructureMap(
       /** Name of the rule for internal references. */
       public val name: Id,
       /** Source inputs to the mapping. */
-      public val source: List<Source> = listOf(),
+      public val source: List<Source>,
       /** Content to create because of this mapping rule. */
       public val target: List<Target> = listOf(),
       /** Rules contained in this rule. */
@@ -1146,7 +1146,7 @@ public data class StructureMap(
         /** Name of a rule or group to apply. */
         public val name: Id,
         /** Variable to pass to the rule or group. */
-        public val variable: List<String> = listOf(),
+        public val variable: List<String>,
       ) : BackboneElement()
     }
   }

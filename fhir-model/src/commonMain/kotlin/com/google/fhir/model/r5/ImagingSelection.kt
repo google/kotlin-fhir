@@ -425,7 +425,7 @@ public data class ImagingSelection(
        * For a description of how 2D coordinates are encoded, see
        * [DICOM PS3.3 C.18.6](http://dicom.nema.org/medical/dicom/current/output/chtml/part03/sect_C.18.6.html).
        */
-      public val coordinate: List<Decimal> = listOf(),
+      public val coordinate: List<Decimal>,
     ) : BackboneElement()
 
     /**
@@ -486,7 +486,7 @@ public data class ImagingSelection(
        * For a description of how 3D coordinates are encoded, see
        * [DICOM PS3.3 C.18.9](http://dicom.nema.org/medical/dicom/current/output/chtml/part03/sect_C.18.9.html).
        */
-      public val coordinate: List<Decimal> = listOf(),
+      public val coordinate: List<Decimal>,
     ) : BackboneElement()
   }
 

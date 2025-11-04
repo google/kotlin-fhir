@@ -395,7 +395,7 @@ public data class EventDefinition(
    * The trigger element defines when the event occurs. If more than one trigger condition is
    * specified, the event fires whenever any one of the trigger conditions is met.
    */
-  public val trigger: List<TriggerDefinition> = listOf(),
+  public val trigger: List<TriggerDefinition>,
 ) : DomainResource() {
   @Serializable(with = EventDefinitionVersionAlgorithmSerializer::class)
   public sealed interface VersionAlgorithm {

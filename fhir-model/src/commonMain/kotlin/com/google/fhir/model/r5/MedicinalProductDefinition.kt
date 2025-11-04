@@ -249,7 +249,7 @@ public data class MedicinalProductDefinition(
    */
   public val code: List<Coding> = listOf(),
   /** The product's name, including full name and possibly coded parts. */
-  public val name: List<Name> = listOf(),
+  public val name: List<Name>,
   /**
    * Reference to another product, e.g. for linking authorised to investigational product, or a
    * virtual product.

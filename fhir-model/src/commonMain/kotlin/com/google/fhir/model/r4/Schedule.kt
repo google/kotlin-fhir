@@ -152,7 +152,7 @@ public data class Schedule(
    * to the system exposing them as a group. Common examples of this are where the combination of a
    * practitioner and a room (Location) are always required by a system.
    */
-  public val actor: List<Reference> = listOf(),
+  public val actor: List<Reference>,
   /**
    * The period of time that the slots that reference this Schedule resource cover (even if none
    * exist). These cover the amount of time that an organization's planning horizon; the interval

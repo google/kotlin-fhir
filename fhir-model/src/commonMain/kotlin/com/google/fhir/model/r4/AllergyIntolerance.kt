@@ -355,7 +355,7 @@ public data class AllergyIntolerance(
      * screen as part of a list of adverse reactions, as recommended in the UK NHS CUI guidelines.
      * Terminologies commonly used include, but are not limited to, SNOMED CT or ICD10.
      */
-    public val manifestation: List<CodeableConcept> = listOf(),
+    public val manifestation: List<CodeableConcept>,
     /**
      * Text description about the reaction as a whole, including details of the manifestation if
      * required.

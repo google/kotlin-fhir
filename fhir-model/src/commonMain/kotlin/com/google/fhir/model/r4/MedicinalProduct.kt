@@ -166,7 +166,7 @@ public data class MedicinalProduct(
   /** Clinical trials or studies that this product is involved in. */
   public val clinicalTrial: List<Reference> = listOf(),
   /** The product's name, including full name and possibly coded parts. */
-  public val name: List<Name> = listOf(),
+  public val name: List<Name>,
   /** Reference to another product, e.g. for linking authorised to investigational product. */
   public val crossReference: List<Identifier> = listOf(),
   /** An operation applied to the product, for manufacturing or adminsitrative purpose. */

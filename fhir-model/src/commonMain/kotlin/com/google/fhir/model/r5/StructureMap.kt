@@ -327,7 +327,7 @@ public data class StructureMap(
   /** Definition of a constant value used in the map rules. */
   public val `const`: List<Const> = listOf(),
   /** Organizes the mapping into managable chunks for human review/ease of maintenance. */
-  public val group: List<Group> = listOf(),
+  public val group: List<Group>,
 ) : DomainResource() {
   /**
    * A structure definition used by this map. The structure definition may describe instances that
@@ -494,7 +494,7 @@ public data class StructureMap(
      *
      * If no inputs are named, then the entry mappings are type based.
      */
-    public val input: List<Input> = listOf(),
+    public val input: List<Input>,
     /** Transform Rule from source to target. */
     public val rule: List<Rule> = listOf(),
   ) : BackboneElement() {
@@ -594,7 +594,7 @@ public data class StructureMap(
       /** Name of the rule for internal references. */
       public val name: Id? = null,
       /** Source inputs to the mapping. */
-      public val source: List<Source> = listOf(),
+      public val source: List<Source>,
       /** Content to create because of this mapping rule. */
       public val target: List<Target> = listOf(),
       /** Rules contained in this rule. */
@@ -893,7 +893,7 @@ public data class StructureMap(
         /** Name of a rule or group to apply. */
         public val name: Id,
         /** Parameter to pass to the rule or group. */
-        public val parameter: List<Target.Parameter> = listOf(),
+        public val parameter: List<Target.Parameter>,
       ) : BackboneElement()
     }
   }

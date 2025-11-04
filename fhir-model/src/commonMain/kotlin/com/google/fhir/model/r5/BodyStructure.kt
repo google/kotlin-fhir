@@ -151,7 +151,7 @@ public data class BodyStructure(
    */
   public val morphology: CodeableConcept? = null,
   /** The anatomical location(s) or region(s) of the specimen, lesion, or body structure. */
-  public val includedStructure: List<IncludedStructure> = listOf(),
+  public val includedStructure: List<IncludedStructure>,
   /**
    * The anatomical location(s) or region(s) not occupied or represented by the specimen, lesion, or
    * body structure.

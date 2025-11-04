@@ -141,7 +141,7 @@ public data class MedicinalProductPharmaceutical(
   /** Characteristics e.g. a products onset of action. */
   public val characteristics: List<Characteristics> = listOf(),
   /** The path by which the pharmaceutical product is taken into or makes contact with the body. */
-  public val routeOfAdministration: List<RouteOfAdministration> = listOf(),
+  public val routeOfAdministration: List<RouteOfAdministration>,
 ) : DomainResource() {
   /** Characteristics e.g. a products onset of action. */
   @Serializable(with = MedicinalProductPharmaceuticalCharacteristicsSerializer::class)

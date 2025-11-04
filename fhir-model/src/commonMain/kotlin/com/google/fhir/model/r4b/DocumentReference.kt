@@ -248,7 +248,7 @@ public data class DocumentReference(
    * The document and format referenced. There may be multiple content element repetitions, each
    * with a different format.
    */
-  public val content: List<Content> = listOf(),
+  public val content: List<Content>,
   /**
    * The clinical context in which the document was prepared.
    *

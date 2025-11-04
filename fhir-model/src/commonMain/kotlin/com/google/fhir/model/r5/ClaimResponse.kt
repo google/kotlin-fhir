@@ -903,7 +903,7 @@ public data class ClaimResponse(
        * For example: Providing a tooth code allows an insurer to identify a provider performing a
        * filling on a tooth that was previously removed.
        */
-      public val site: List<CodeableReference> = listOf(),
+      public val site: List<CodeableReference>,
       /** A region or surface of the bodySite, e.g. limb region or tooth surface(s). */
       public val subSite: List<CodeableConcept> = listOf(),
     ) : BackboneElement()

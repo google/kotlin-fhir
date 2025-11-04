@@ -145,7 +145,7 @@ public data class ImmunizationRecommendation(
    * A given instance of the .recommendation backbone element should correspond to a single
    * recommended administration.
    */
-  public val recommendation: List<Recommendation> = listOf(),
+  public val recommendation: List<Recommendation>,
 ) : DomainResource() {
   /** Vaccine administration recommendations. */
   @Serializable(with = ImmunizationRecommendationRecommendationSerializer::class)

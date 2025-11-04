@@ -152,7 +152,7 @@ public data class Endpoint(
    * in the XDS example. If there are multiple payload types or mimetypes they are all applicable
    * for all connection types, and all have the same status.
    */
-  public val connectionType: List<CodeableConcept> = listOf(),
+  public val connectionType: List<CodeableConcept>,
   /** A friendly name that this endpoint can be referred to with. */
   public val name: String? = null,
   /**

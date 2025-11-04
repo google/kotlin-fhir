@@ -286,7 +286,7 @@ public data class TestReport(
      * An action should contain either an operation or an assertion but not both. It can contain any
      * number of variables.
      */
-    public val action: List<Action> = listOf(),
+    public val action: List<Action>,
   ) : BackboneElement() {
     /** Action would contain either an operation or an assertion. */
     @Serializable(with = TestReportSetupActionSerializer::class)
@@ -481,7 +481,7 @@ public data class TestReport(
      * An action should contain either an operation or an assertion but not both. It can contain any
      * number of variables.
      */
-    public val action: List<Action> = listOf(),
+    public val action: List<Action>,
   ) : BackboneElement() {
     /** Action would contain either an operation or an assertion. */
     @Serializable(with = TestReportTestActionSerializer::class)
@@ -579,7 +579,7 @@ public data class TestReport(
      * An action should contain either an operation or an assertion but not both. It can contain any
      * number of variables.
      */
-    public val action: List<Action> = listOf(),
+    public val action: List<Action>,
   ) : BackboneElement() {
     /** The teardown action will only contain an operation. */
     @Serializable(with = TestReportTeardownActionSerializer::class)

@@ -370,7 +370,7 @@ public data class ConceptMap(
      * value set, but a given concept may be mapped multiple times with different comments or
      * dependencies.
      */
-    public val element: List<Element> = listOf(),
+    public val element: List<Element>,
     /**
      * What to do when there is no mapping for the source concept. "Unmapped" does not include codes
      * that are unmatched, and the unmapped element is ignored in a code is specified to have

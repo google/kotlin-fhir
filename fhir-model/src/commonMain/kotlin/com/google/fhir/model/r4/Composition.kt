@@ -197,7 +197,7 @@ public data class Composition(
    * Identifies who is responsible for the information in the composition, not necessarily who typed
    * it in.
    */
-  public val author: List<Reference> = listOf(),
+  public val author: List<Reference>,
   /**
    * Official human-readable label for the composition.
    *

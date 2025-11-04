@@ -419,7 +419,7 @@ public data class ServiceRequest(
     /** Indicates the context of the order details by reference. */
     public val parameterFocus: CodeableReference? = null,
     /** The parameter details for the service being requested. */
-    public val parameter: List<Parameter> = listOf(),
+    public val parameter: List<Parameter>,
   ) : BackboneElement() {
     /** The parameter details for the service being requested. */
     @Serializable(with = ServiceRequestOrderDetailParameterSerializer::class)

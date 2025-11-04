@@ -146,7 +146,7 @@ public data class Linkage(
    * Identifies which record considered as the reference to the same real-world occurrence as well
    * as how the items should be evaluated within the collection of linked items.
    */
-  public val item: List<Item> = listOf(),
+  public val item: List<Item>,
 ) : DomainResource() {
   /**
    * Identifies which record considered as the reference to the same real-world occurrence as well

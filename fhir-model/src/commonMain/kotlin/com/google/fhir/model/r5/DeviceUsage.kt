@@ -248,7 +248,7 @@ public data class DeviceUsage(
     /** Type of adherence. */
     public val code: CodeableConcept,
     /** Reason for adherence type. */
-    public val reason: List<CodeableConcept> = listOf(),
+    public val reason: List<CodeableConcept>,
   ) : BackboneElement()
 
   @Serializable(with = DeviceUsageTimingSerializer::class)

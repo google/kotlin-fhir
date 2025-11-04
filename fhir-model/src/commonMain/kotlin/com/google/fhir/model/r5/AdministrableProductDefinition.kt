@@ -203,7 +203,7 @@ public data class AdministrableProductDefinition(
    * this is referred to as the licenced or approved route. RouteOfAdministration cannot be used
    * when the 'formOf' product already uses MedicinalProductDefinition.route (and vice versa).
    */
-  public val routeOfAdministration: List<RouteOfAdministration> = listOf(),
+  public val routeOfAdministration: List<RouteOfAdministration>,
 ) : DomainResource() {
   /** Characteristics e.g. a product's onset of action. */
   @Serializable(with = AdministrableProductDefinitionPropertySerializer::class)

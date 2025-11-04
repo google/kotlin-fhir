@@ -183,7 +183,7 @@ public data class AuditEvent(
    * For example, an activity may be initiated by one user for other users or involve more than one
    * user. However, only one user may be the initiator/requestor for the activity.
    */
-  public val agent: List<Agent> = listOf(),
+  public val agent: List<Agent>,
   /**
    * The system that is reporting the event.
    *

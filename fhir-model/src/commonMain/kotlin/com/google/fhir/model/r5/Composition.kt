@@ -225,7 +225,7 @@ public data class Composition(
    * Identifies who is responsible for the information in the composition, not necessarily who typed
    * it in.
    */
-  public val author: List<Reference> = listOf(),
+  public val author: List<Reference>,
   /**
    * A natural language name identifying the {{title}}. This name should be usable as an identifier
    * for the module by machine processing applications such as code generation.

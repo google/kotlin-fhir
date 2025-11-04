@@ -140,7 +140,7 @@ public data class ImmunizationRecommendation(
   /** Indicates the authority who published the protocol (e.g. ACIP). */
   public val authority: Reference? = null,
   /** Vaccine administration recommendations. */
-  public val recommendation: List<Recommendation> = listOf(),
+  public val recommendation: List<Recommendation>,
 ) : DomainResource() {
   /** Vaccine administration recommendations. */
   @Serializable(with = ImmunizationRecommendationRecommendationSerializer::class)
