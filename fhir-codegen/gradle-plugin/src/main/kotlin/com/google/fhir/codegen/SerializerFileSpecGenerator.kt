@@ -27,6 +27,7 @@ import com.squareup.kotlinpoet.CodeBlock
 import com.squareup.kotlinpoet.FileSpec
 import com.squareup.kotlinpoet.FunSpec
 import com.squareup.kotlinpoet.KModifier
+import com.squareup.kotlinpoet.MemberName
 import com.squareup.kotlinpoet.ParameterizedTypeName.Companion.parameterizedBy
 import com.squareup.kotlinpoet.PropertySpec
 import com.squareup.kotlinpoet.TypeSpec
@@ -34,8 +35,6 @@ import com.squareup.kotlinpoet.asClassName
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.json.JsonDecoder
 import kotlinx.serialization.json.JsonEncoder
-import kotlinx.serialization.json.JsonObject
-import kotlinx.serialization.json.JsonPrimitive
 
 // Package names
 private const val KOTLINX_SERIALIZATION_DESCRIPTORS = "kotlinx.serialization.descriptors"
@@ -157,20 +156,6 @@ private fun TypeSpec.Builder.addMultiChoicePropertiesProperty(
 ): TypeSpec.Builder {
   return apply {
     if (paths.isNotEmpty()) {
-      // If the StructureDefinition.Kind is a resource, the resourceType will be removed
-      // from original JSON during Deserialization and added to the final JSON during
-      // Serialization, this is because the property is not used in the surrogates.
-      addProperty(
-        PropertySpec.builder("resourceType", String::class.asClassName().copy(nullable = true))
-          .addModifiers(KModifier.PRIVATE)
-          .initializer(
-            if (StructureDefinition.Kind.RESOURCE == structureDefinitionKindAndName?.first)
-              "\"${structureDefinitionKindAndName.second}\""
-            else "null"
-          )
-          .mutable(false)
-          .build()
-      )
       addProperty(
         PropertySpec.builder("multiChoiceProperties", List::class.parameterizedBy(String::class))
           .addModifiers(KModifier.PRIVATE)
@@ -250,23 +235,21 @@ private fun TypeSpec.Builder.addDeserializeFunction(
           // Unflatten the multi-choice JsonObjects; recreate nested JsonObject
           addCode(
             """
-                val jsonDecoder = 
-                  decoder as? %T ?: error("This serializer only supports JSON decoding")
-                val oldJsonObject =
-                  if (resourceType.isNullOrBlank()) {
-                    jsonDecoder.decodeJsonElement().%T
-                  } else JsonObject(jsonDecoder.decodeJsonElement().%T.toMutableMap().apply {
-                    remove("resourceType")
-                  })
-                val unflattenedJsonObject = %T.unflatten(oldJsonObject, multiChoiceProperties)
-                val surrogate = 
-                  jsonDecoder.json.decodeFromJsonElement(surrogateSerializer, unflattenedJsonObject)
-                return surrogate.toModel()
-              """
+              val jsonDecoder = 
+                decoder as? %T ?: error("This serializer only supports JSON decoding")
+              val oldJsonObject =
+                %T(jsonDecoder.decodeJsonElement().%M.toMutableMap().apply {
+                  remove("resourceType")
+                })
+              val unflattenedJsonObject = %T.unflatten(oldJsonObject, multiChoiceProperties)
+              val surrogate = 
+                jsonDecoder.json.decodeFromJsonElement(surrogateSerializer, unflattenedJsonObject)
+              return surrogate.toModel()
+            """
               .trimIndent(),
             JsonDecoder::class,
-            ClassName("kotlinx.serialization.json", "jsonObject"),
-            ClassName("kotlinx.serialization.json", "jsonObject"),
+            ClassName("kotlinx.serialization.json", "JsonObject"),
+            MemberName("kotlinx.serialization.json", "jsonObject"),
             ClassName(className.packageName, "FhirJsonTransformer"),
           )
         } else {
@@ -298,28 +281,17 @@ private fun TypeSpec.Builder.addSerializeFunction(
               val jsonEncoder = 
                 encoder as? %T ?: error("This serializer only supports JSON encoding")
               val surrogate = %T.fromModel(value)
-              val oldJsonObject = if (resourceType.isNullOrBlank()) {
-                jsonEncoder.json.encodeToJsonElement(surrogateSerializer, surrogate).%T
-              } else {
-                %T(
-                  mutableMapOf("resourceType" to %T(resourceType)).plus(
-                    jsonEncoder.json.encodeToJsonElement(
-                      surrogateSerializer,
-                      surrogate
-                    ).%T
-                  )
-                )
-              }
+              val oldJsonObject = 
+                jsonEncoder.json.encodeToJsonElement(
+                  surrogateSerializer,
+                  surrogate
+                ).jsonObject
               val flattenedJsonObject = %T.flatten(oldJsonObject, multiChoiceProperties)
               jsonEncoder.encodeJsonElement(flattenedJsonObject)
             """
               .trimIndent(),
             JsonEncoder::class,
             className.toSurrogateClassName(),
-            ClassName("kotlinx.serialization.json", "jsonObject"),
-            JsonObject::class,
-            JsonPrimitive::class,
-            ClassName("kotlinx.serialization.json", "jsonObject"),
             ClassName(className.packageName, "FhirJsonTransformer"),
           )
         } else {

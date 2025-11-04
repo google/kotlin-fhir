@@ -23,7 +23,7 @@ import io.kotest.core.spec.style.FunSpec
  * This test verifies the generated code can be used to deserialize published FHIR examples and
  * serialize them back to the original JSON.
  */
-open class SerializationRoundTripTest :
+class SerializationRoundTripTest :
   FunSpec({
     listOf(
         SerializationRoundTripTestSuite("R4", ::loadR4Examples, exclusionListR4) {
