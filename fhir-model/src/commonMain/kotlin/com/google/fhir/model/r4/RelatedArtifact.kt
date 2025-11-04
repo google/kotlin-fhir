@@ -21,6 +21,7 @@ package com.google.fhir.model.r4
 import com.google.fhir.model.r4.serializers.RelatedArtifactSerializer
 import kotlin.Suppress
 import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 
 /**
@@ -86,6 +87,100 @@ public data class RelatedArtifact(
    */
   public val resource: Canonical? = null,
 ) : Element() {
+  public open fun toBuilder(): Builder =
+    with(this) {
+      Builder(type).apply {
+        id = this@with.id
+        extension = this@with.extension.map { it.toBuilder() }.toMutableList()
+        label = this@with.label?.toBuilder()
+        display = this@with.display?.toBuilder()
+        citation = this@with.citation?.toBuilder()
+        url = this@with.url?.toBuilder()
+        document = this@with.document?.toBuilder()
+        resource = this@with.resource?.toBuilder()
+      }
+    }
+
+  public open class Builder(
+    /** The type of relationship to the related artifact. */
+    public open var type: Enumeration<RelatedArtifactType>
+  ) {
+    /**
+     * Unique id for the element within a resource (for internal references). This may be any string
+     * value that does not contain spaces.
+     */
+    public open var id: kotlin.String? = null
+
+    /**
+     * May be used to represent additional information that is not part of the basic definition of
+     * the element. To make the use of extensions safe and manageable, there is a strict set of
+     * governance applied to the definition and use of extensions. Though any implementer can define
+     * an extension, there is a set of requirements that SHALL be met as part of the definition of
+     * the extension.
+     *
+     * There can be no stigma associated with the use of extensions by any application, project, or
+     * standard - regardless of the institution or jurisdiction that uses or defines the extensions.
+     * The use of extensions is what allows the FHIR specification to retain a core level of
+     * simplicity for everyone.
+     */
+    public open var extension: MutableList<Extension.Builder> = mutableListOf()
+
+    /**
+     * A short label that can be used to reference the citation from elsewhere in the containing
+     * artifact, such as a footnote index.
+     */
+    public open var label: String.Builder? = null
+
+    /**
+     * A brief description of the document or knowledge resource being referenced, suitable for
+     * display to a consumer.
+     */
+    public open var display: String.Builder? = null
+
+    /**
+     * A bibliographic citation for the related artifact. This text SHOULD be formatted according to
+     * an accepted citation format.
+     *
+     * Additional structured information about citations should be captured as extensions.
+     */
+    public open var citation: Markdown.Builder? = null
+
+    /**
+     * A url for the artifact that can be followed to access the actual content.
+     *
+     * If a document or resource element is present, this element SHALL NOT be provided (use the url
+     * or reference in the Attachment or resource reference).
+     */
+    public open var url: Url.Builder? = null
+
+    /**
+     * The document being referenced, represented as an attachment. This is exclusive with the
+     * resource element.
+     */
+    public open var document: Attachment.Builder? = null
+
+    /**
+     * The related resource, such as a library, value set, profile, or other knowledge resource.
+     *
+     * If the type is predecessor, this is a reference to the succeeding knowledge resource. If the
+     * type is successor, this is a reference to the prior knowledge resource.
+     */
+    public open var resource: Canonical.Builder? = null
+
+    public open fun build(): RelatedArtifact =
+      RelatedArtifact(
+        id = id,
+        extension = extension.map { it.build() },
+        type = type,
+        label = label?.build(),
+        display = display?.build(),
+        citation = citation?.build(),
+        url = url?.build(),
+        document = document?.build(),
+        resource = resource?.build(),
+      )
+  }
+
   /** The type of relationship to the related artifact. */
   public enum class RelatedArtifactType(
     private val code: kotlin.String,

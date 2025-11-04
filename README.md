@@ -492,61 +492,27 @@ Within each package, you'll find the corresponding Kotlin classes for all FHIR r
 version. For example, the `Patient` class generated for FHIR R4 can be found in the
 `com.google.fhir.model.r4` package.
 
-To create a new instance of a FHIR resource, use the Kotlin class's primary constructor. Since the
-primary constructor includes all properties of the class as arguments, **always use
-Kotlin's [named arguments](https://kotlinlang.org/docs/functions.html#named-arguments)** for
-improved code readability and to avoid errors caused by incorrect parameter order. For example:
+To create a new instance of a FHIR resource, use the provided builder class. For example:
 
 ```kotlin
-import com.google.fhir.model.r4.Address
-import com.google.fhir.model.r4.Patient
+import com.google.fhir.model.r4.Date
+import com.google.fhir.model.r4.FhirDate
 import com.google.fhir.model.r4.HumanName
+import com.google.fhir.model.r4.Patient
 
 fun main() {
-    val patient = Patient(
-        id = "001",
-        name = listOf(
-            HumanName(
-                given = listOf(com.google.fhir.r4.String(value = "Jing")),
-                family = com.google.fhir.r4.String(value = "Tang"),
-            ),
-        ),
-        address = listOf(
-            Address(city = com.google.fhir.r4.String(value = "London")),
-        ),
-        multipleBirth = Patient.MultipleBirth.Boolean(
-            com.google.fhir.r4.Boolean(value = false)
-        ),
-    )
-}
-```
-
-Alternatively, use Kotlin's `apply` function whilst creating new FHIR resources for additional
-flexibility:
-
-```kotlin
-import com.google.fhir.model.r4.Address
-import com.google.fhir.model.r4.Patient
-import com.google.fhir.model.r4.HumanName
-
-fun main() {
-    val patient = Patient().apply {
-        id = "001"
-        name = listOf(
-            HumanName().apply {
-                given = listOf(com.google.fhir.r4.String(value = "Jing"))
-                family = com.google.fhir.r4.String(value = "Tang")
+    val patient =
+        Patient.Builder()
+            .apply {
+                id = "patient-01"
+                name.add(
+                    HumanName.Builder().apply {
+                        given.add(com.google.fhir.model.r4.String.Builder().apply { value = "John" })
+                    }
+                )
+                birthDate = Date.Builder().apply { value = FhirDate.fromString("2000-01-01") }
             }
-        )
-        address = listOf(
-            Address().apply {
-                city = com.google.fhir.r4.String(value = "London")
-            }
-        )
-        multipleBirth = Patient.MultipleBirth.Boolean(
-            com.google.fhir.r4.Boolean(value = false)
-        )
-    }
+            .build()
 }
 ```
 
@@ -609,8 +575,8 @@ consistent formatting using the [`spotless`](https://github.com/diffplug/spotles
 
 ### Testing
 
-The library includes comprehensive **serialization round-trip and equality tests** for the example
-resources published in the following packages:
+The library includes comprehensive tests suites for the example resources published in the following
+packages:
 
 - [hl7.fhir.r4.examples](https://simplifier.net/packages/hl7.fhir.r4.examples) (5309 examples)
 - [hl7.fhir.r4b.examples](https://simplifier.net/packages/hl7.fhir.r4b.examples) (2840 examples)
@@ -619,15 +585,20 @@ resources published in the following packages:
 For each JSON example of a FHIR resource in the referenced packages, three categories of tests are
 executed:
 
-1. Serialization round-trip test:
-   - Deserialization: The JSON is parsed into its corresponding generated Kotlin resource class.
-   - Serialization: That Kotlin object is then converted back into JSON.
-   - Verification: The regenerated JSON is compared character by character[^7] with the original to
-     confirm exact fidelity.
-2. Equality test:
-   - First instance: Deserialize the JSON into a Kotlin resource object.
-   - Second instance: Deserialize the same JSON into a separate Kotlin resource object.
+1. Equality test:
+   - First instance: Deserialize the JSON into a FHIR resource object.
+   - Second instance: Deserialize the same JSON into another FHIR resource object.
    - Verification: The two objects are structurally equal (using `==` operator).
+2. Serialization round-trip test:
+   - Deserialization: Deserialize the JSON into a FHIR resource object.
+   - Serialization: Serialize the object back into JSON.
+   - Verification: The regenerated JSON is compared character by character[^7] with the original
+     JSON.
+3. Builder round-trip test:
+   - Deserialization: Deserialize the JSON into a resource object.
+   - Conversion to builder: Convert the object into a builder using `toBuilder()` function.
+   - Conversion to resource: Build a new FHIR resource object using `build()` function
+   - Verification: The reconstructed object from the builder is equal to the original object.
 
 [^7]: There are several exceptions. The FHIR specification allows for some variability in data
 representation, which may lead to differences between the original and newly serialized JSON. For

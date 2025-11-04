@@ -67,4 +67,10 @@ public abstract class Resource {
    * in HTML5 for information about the relationship between xml:lang and the html lang attribute).
    */
   public abstract val language: Code?
+
+  public abstract fun toBuilder(): Builder
+
+  public abstract class Builder {
+    public abstract fun build(): Resource
+  }
 }

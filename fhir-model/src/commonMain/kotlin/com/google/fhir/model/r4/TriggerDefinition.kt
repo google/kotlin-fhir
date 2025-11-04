@@ -22,6 +22,7 @@ import com.google.fhir.model.r4.serializers.TriggerDefinitionSerializer
 import com.google.fhir.model.r4.serializers.TriggerDefinitionTimingSerializer
 import kotlin.Suppress
 import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 
 /**
@@ -87,6 +88,18 @@ public data class TriggerDefinition(
    */
   public val condition: Expression? = null,
 ) : Element() {
+  public open fun toBuilder(): Builder =
+    with(this) {
+      Builder(type).apply {
+        id = this@with.id
+        extension = this@with.extension.map { it.toBuilder() }.toMutableList()
+        name = this@with.name?.toBuilder()
+        timing = this@with.timing
+        `data` = this@with.`data`.map { it.toBuilder() }.toMutableList()
+        condition = this@with.condition?.toBuilder()
+      }
+    }
+
   @Serializable(with = TriggerDefinitionTimingSerializer::class)
   public sealed interface Timing {
     public fun asTiming(): Timing? = this as? Timing
@@ -123,6 +136,81 @@ public data class TriggerDefinition(
         return null
       }
     }
+  }
+
+  public open class Builder(
+    /** The type of triggering event. */
+    public open var type: Enumeration<TriggerType>
+  ) {
+    /**
+     * Unique id for the element within a resource (for internal references). This may be any string
+     * value that does not contain spaces.
+     */
+    public open var id: kotlin.String? = null
+
+    /**
+     * May be used to represent additional information that is not part of the basic definition of
+     * the element. To make the use of extensions safe and manageable, there is a strict set of
+     * governance applied to the definition and use of extensions. Though any implementer can define
+     * an extension, there is a set of requirements that SHALL be met as part of the definition of
+     * the extension.
+     *
+     * There can be no stigma associated with the use of extensions by any application, project, or
+     * standard - regardless of the institution or jurisdiction that uses or defines the extensions.
+     * The use of extensions is what allows the FHIR specification to retain a core level of
+     * simplicity for everyone.
+     */
+    public open var extension: MutableList<Extension.Builder> = mutableListOf()
+
+    /**
+     * A formal name for the event. This may be an absolute URI that identifies the event formally
+     * (e.g. from a trigger registry), or a simple relative URI that identifies the event in a local
+     * context.
+     *
+     * An event name can be provided for all event types, but is required for named events. If a
+     * name is provided for a type other than named events, it is considered to be a shorthand for
+     * the semantics described by the formal description of the event.
+     */
+    public open var name: String.Builder? = null
+
+    /** The timing of the event (if this is a periodic trigger). */
+    public open var timing: Timing? = null
+
+    /**
+     * The triggering data of the event (if this is a data trigger). If more than one data is
+     * requirement is specified, then all the data requirements must be true.
+     *
+     * This element shall be present for any data type trigger.
+     */
+    public open var `data`: MutableList<DataRequirement.Builder> = mutableListOf()
+
+    /**
+     * A boolean-valued expression that is evaluated in the context of the container of the trigger
+     * definition and returns whether or not the trigger fires.
+     *
+     * This element can be only be specified for data type triggers and provides additional
+     * semantics for the trigger. The context available within the condition is based on the type of
+     * data event. For all events, the current resource will be available as context. In addition,
+     * for modification events, the previous resource will also be available. The expression may be
+     * inlined, or may be a simple absolute URI, which is a reference to a named expression within a
+     * logic library referenced by a library element or extension within the containing resource. If
+     * the expression is a FHIR Path expression, it evaluates in the context of a resource of one of
+     * the type identified in the data requirement, and may also refer to the variable %previous for
+     * delta comparisons on events of type data-changed, data-modified, and data-deleted which will
+     * always have the same type.
+     */
+    public open var condition: Expression.Builder? = null
+
+    public open fun build(): TriggerDefinition =
+      TriggerDefinition(
+        id = id,
+        extension = extension.map { it.build() },
+        type = type,
+        name = name?.build(),
+        timing = timing,
+        `data` = `data`.map { it.build() },
+        condition = condition?.build(),
+      )
   }
 
   /** The type of trigger. */

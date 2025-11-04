@@ -16,6 +16,10 @@
 
 package com.google.fhir.model.test
 
+import com.google.fhir.model.r4.Date
+import com.google.fhir.model.r4.FhirDate
+import com.google.fhir.model.r4.HumanName
+import com.google.fhir.model.r4.Patient
 import io.kotest.assertions.json.shouldEqualJson
 import io.kotest.core.spec.style.FunSpec
 
@@ -40,6 +44,19 @@ open class SerializationRoundTripTest :
         context(
           "${testSuite.fhirVersion} JSON should be the same after deserialization and serialization"
         ) {
+          val patient =
+            Patient.Builder()
+              .apply {
+                id = "patient-01"
+                name.add(
+                  HumanName.Builder().apply {
+                    given.add(com.google.fhir.model.r4.String.Builder().apply { value = "John" })
+                  }
+                )
+                birthDate = Date.Builder().apply { value = FhirDate.fromString("2000-01-01") }
+              }
+              .build()
+          println(jsonR4.encodeToString(patient))
           testSuite
             .exampleLoader { filterFileName(it) && !testSuite.exclusionList.contains(it) }
             .forEach { (fileName, json) ->

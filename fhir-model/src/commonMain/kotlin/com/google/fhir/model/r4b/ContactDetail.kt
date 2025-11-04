@@ -21,6 +21,7 @@ package com.google.fhir.model.r4b
 import com.google.fhir.model.r4b.serializers.ContactDetailSerializer
 import kotlin.Suppress
 import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 
 /**
@@ -55,4 +56,54 @@ public data class ContactDetail(
   public val name: String? = null,
   /** The contact details for the individual (if a name was provided) or the organization. */
   public val telecom: List<ContactPoint> = listOf(),
-) : Element()
+) : Element() {
+  public open fun toBuilder(): Builder =
+    with(this) {
+      Builder().apply {
+        id = this@with.id
+        extension = this@with.extension.map { it.toBuilder() }.toMutableList()
+        name = this@with.name?.toBuilder()
+        telecom = this@with.telecom.map { it.toBuilder() }.toMutableList()
+      }
+    }
+
+  public open class Builder() {
+    /**
+     * Unique id for the element within a resource (for internal references). This may be any string
+     * value that does not contain spaces.
+     */
+    public open var id: kotlin.String? = null
+
+    /**
+     * May be used to represent additional information that is not part of the basic definition of
+     * the element. To make the use of extensions safe and manageable, there is a strict set of
+     * governance applied to the definition and use of extensions. Though any implementer can define
+     * an extension, there is a set of requirements that SHALL be met as part of the definition of
+     * the extension.
+     *
+     * There can be no stigma associated with the use of extensions by any application, project, or
+     * standard - regardless of the institution or jurisdiction that uses or defines the extensions.
+     * The use of extensions is what allows the FHIR specification to retain a core level of
+     * simplicity for everyone.
+     */
+    public open var extension: MutableList<Extension.Builder> = mutableListOf()
+
+    /**
+     * The name of an individual to contact.
+     *
+     * If there is no named individual, the telecom information is for the organization as a whole.
+     */
+    public open var name: String.Builder? = null
+
+    /** The contact details for the individual (if a name was provided) or the organization. */
+    public open var telecom: MutableList<ContactPoint.Builder> = mutableListOf()
+
+    public open fun build(): ContactDetail =
+      ContactDetail(
+        id = id,
+        extension = extension.map { it.build() },
+        name = name?.build(),
+        telecom = telecom.map { it.build() },
+      )
+  }
+}

@@ -22,6 +22,7 @@ import com.google.fhir.model.r5.serializers.RelatedArtifactSerializer
 import com.google.fhir.model.r5.terminologies.PublicationStatus
 import kotlin.Suppress
 import kotlin.collections.List
+import kotlin.collections.MutableList
 import kotlinx.serialization.Serializable
 
 /**
@@ -106,6 +107,128 @@ public data class RelatedArtifact(
   /** The date of publication of the artifact being referred to. */
   public val publicationDate: Date? = null,
 ) : DataType() {
+  public open fun toBuilder(): Builder =
+    with(this) {
+      Builder(type).apply {
+        id = this@with.id
+        extension = this@with.extension.map { it.toBuilder() }.toMutableList()
+        classifier = this@with.classifier.map { it.toBuilder() }.toMutableList()
+        label = this@with.label?.toBuilder()
+        display = this@with.display?.toBuilder()
+        citation = this@with.citation?.toBuilder()
+        document = this@with.document?.toBuilder()
+        resource = this@with.resource?.toBuilder()
+        resourceReference = this@with.resourceReference?.toBuilder()
+        publicationStatus = this@with.publicationStatus
+        publicationDate = this@with.publicationDate?.toBuilder()
+      }
+    }
+
+  public open class Builder(
+    /**
+     * The type of relationship to the related artifact.
+     *
+     * The presence of both sides of a relationship type (e.g. successor and predecessor) is
+     * required to support use cases where one side of a relationship is not represented in FHIR.
+     * However, this feature SHALL NOT be used to create bi-directional resource links in FHIR
+     * instances. Specifically, following the methodology of "new points to old" and "many points to
+     * one", when using related artifact elements to describe and reference FHIR resources, the type
+     * element SHALL be drawn from the fhir-related-artifact-type ValueSet.
+     */
+    public open var type: Enumeration<RelatedArtifactType>
+  ) {
+    /**
+     * Unique id for the element within a resource (for internal references). This may be any string
+     * value that does not contain spaces.
+     */
+    public open var id: kotlin.String? = null
+
+    /**
+     * May be used to represent additional information that is not part of the basic definition of
+     * the element. To make the use of extensions safe and managable, there is a strict set of
+     * governance applied to the definition and use of extensions. Though any implementer can define
+     * an extension, there is a set of requirements that SHALL be met as part of the definition of
+     * the extension.
+     *
+     * There can be no stigma associated with the use of extensions by any application, project, or
+     * standard - regardless of the institution or jurisdiction that uses or defines the extensions.
+     * The use of extensions is what allows the FHIR specification to retain a core level of
+     * simplicity for everyone.
+     */
+    public open var extension: MutableList<Extension.Builder> = mutableListOf()
+
+    /** Provides additional classifiers of the related artifact. */
+    public open var classifier: MutableList<CodeableConcept.Builder> = mutableListOf()
+
+    /**
+     * A short label that can be used to reference the citation from elsewhere in the containing
+     * artifact, such as a footnote index.
+     */
+    public open var label: String.Builder? = null
+
+    /**
+     * A brief description of the document or knowledge resource being referenced, suitable for
+     * display to a consumer.
+     */
+    public open var display: String.Builder? = null
+
+    /**
+     * A bibliographic citation for the related artifact. This text SHOULD be formatted according to
+     * an accepted citation format.
+     *
+     * Additional structured information about citations should be captured as extensions.
+     */
+    public open var citation: Markdown.Builder? = null
+
+    /**
+     * The document being referenced, represented as an attachment. This is exclusive with the
+     * resource element.
+     */
+    public open var document: Attachment.Builder? = null
+
+    /**
+     * The related artifact, such as a library, value set, profile, or other knowledge resource.
+     *
+     * If the type is predecessor, this is a reference to the succeeding knowledge resource. If the
+     * type is successor, this is a reference to the prior knowledge resource.
+     */
+    public open var resource: Canonical.Builder? = null
+
+    /**
+     * The related artifact, if the artifact is not a canonical resource, or a resource reference to
+     * a canonical resource.
+     *
+     * If both resource and resourceReference are present, they SHOULD be consistent and reference
+     * the same resource. Although relatedArtifact is intended to support references to definitional
+     * resources, there are cases where non-definitional resources can be definitional (such as
+     * Location where the kind is mode). Related artifacts SHOULD be used to reference definitional
+     * resources, and profiles SHOULD be used to make that explicit for particular use cases.
+     */
+    public open var resourceReference: Reference.Builder? = null
+
+    /** The publication status of the artifact being referred to. */
+    public open var publicationStatus: Enumeration<PublicationStatus>? = null
+
+    /** The date of publication of the artifact being referred to. */
+    public open var publicationDate: Date.Builder? = null
+
+    public open fun build(): RelatedArtifact =
+      RelatedArtifact(
+        id = id,
+        extension = extension.map { it.build() },
+        type = type,
+        classifier = classifier.map { it.build() },
+        label = label?.build(),
+        display = display?.build(),
+        citation = citation?.build(),
+        document = document?.build(),
+        resource = resource?.build(),
+        resourceReference = resourceReference?.build(),
+        publicationStatus = publicationStatus,
+        publicationDate = publicationDate?.build(),
+      )
+  }
+
   /** The type of relationship to the related artifact. */
   public enum class RelatedArtifactType(
     private val code: kotlin.String,

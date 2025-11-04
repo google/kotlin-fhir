@@ -129,4 +129,8 @@ public abstract class DomainResource : Resource() {
    * simplicity for everyone.
    */
   public abstract val modifierExtension: List<Extension>
+
+  abstract override fun toBuilder(): Builder
+
+  public abstract class Builder : Resource.Builder()
 }
