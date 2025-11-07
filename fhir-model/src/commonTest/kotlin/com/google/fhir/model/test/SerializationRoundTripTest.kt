@@ -16,12 +16,55 @@
 
 package com.google.fhir.model.test
 
-import com.google.fhir.model.r4.Date
-import com.google.fhir.model.r4.FhirDate
-import com.google.fhir.model.r4.HumanName
-import com.google.fhir.model.r4.Patient
 import io.kotest.assertions.json.shouldEqualJson
 import io.kotest.core.spec.style.FunSpec
+import io.kotest.core.test.Enabled
+
+/** A map from the test case name to the reason why the test case is skipped in R4. */
+private val skippedR4TestCaseNameToReasonMap =
+  mapOf(
+    "Bundle-terminologies.json" to "Hanging",
+    "CodeSystem-v2-0003.json" to "Hanging",
+    "Bundle-valueset-expansions.json" to "Hanging",
+    "Bundle-resources.json" to "Java heap space",
+    "Bundle-dataelements.json" to "Java heap space",
+    "CodeSystem-v3-ManagedParticipationStatus.json" to "Java heap space",
+    "ValueSet-v3-hl7PublishingSubSection.json" to "Instant with trailing 0s",
+    "Observation-decimal.json" to "Scientific notation",
+    "ActivityDefinition-administer-zika-virus-exposure-assessment.json" to "Invalid resources",
+    "ImplementationGuide-fhir.json" to "Invalid resources",
+    "Questionnaire-qs1.json" to "Invalid resources",
+    "ig-r4.json" to "Invalid resources",
+    "Observation-body-height.json" to
+      "Floating point issue https://github.com/google/kotlin-fhir/issues/60",
+  )
+
+/** A map from the test case name to the reason why the test case is skipped in R4B. */
+private val skippedR4BTestCaseNameToReasonMap =
+  mapOf(
+    "Bundle-resources.json" to "Java heap space",
+    "Observation-decimal.json" to "Scientific notation",
+    "Bundle-valuesets.json" to "Invalid resources",
+    "CodeSystem-catalogType.json" to "Invalid resources",
+    "ValueSet-catalogType.json" to "Invalid resources",
+    "ActivityDefinition-administer-zika-virus-exposure-assessment.json" to "Invalid resources",
+    "Observation-body-height.json" to
+      "Floating point issue https://github.com/google/kotlin-fhir/issues/60",
+  )
+
+/** A map from the test case name to the reason why the test case is skipped in R5. */
+private val skippedR5CaseNameToReasonMap =
+  mapOf(
+    "Bundle-searchParams.json" to "Hanging",
+    "Bundle-resources.json" to "Java heap space",
+    "ArtifactAssessment-example-certainty-rating.json" to "Trailing 0 in milliseconds",
+    "Citation-citation-example-research-doi.json" to "Trailing 0 in milliseconds",
+    "Observation-decimal.json" to "Scientific notation",
+    "ChargeItemDefinition-ebm.json" to
+      "Unknown code 'text/CQL' for enum ExpressionLanguage; codes are case-sensitive",
+    "Observation-body-height.json" to
+      "Floating point issue https://github.com/google/kotlin-fhir/issues/60",
+  )
 
 /**
  * This test verifies the generated code can be used to deserialize published FHIR examples and
@@ -30,13 +73,17 @@ import io.kotest.core.spec.style.FunSpec
 class SerializationRoundTripTest :
   FunSpec({
     listOf(
-        SerializationRoundTripTestSuite("R4", ::loadR4Examples, exclusionListR4) {
+        SerializationRoundTripTestSuite("R4", ::loadR4Examples, skippedR4TestCaseNameToReasonMap) {
           jsonR4.encodeToString(jsonR4.decodeFromString(it))
         },
-        SerializationRoundTripTestSuite("R4B", ::loadR4BExamples, exclusionListR4B) {
+        SerializationRoundTripTestSuite(
+          "R4B",
+          ::loadR4BExamples,
+          skippedR4BTestCaseNameToReasonMap,
+        ) {
           jsonR4B.encodeToString(jsonR4B.decodeFromString(it))
         },
-        SerializationRoundTripTestSuite("R5", ::loadR5Examples, exclusionListR5) {
+        SerializationRoundTripTestSuite("R5", ::loadR5Examples, skippedR5CaseNameToReasonMap) {
           jsonR5.encodeToString(jsonR5.decodeFromString(it))
         },
       )
@@ -44,102 +91,26 @@ class SerializationRoundTripTest :
         context(
           "${testSuite.fhirVersion} JSON should be the same after deserialization and serialization"
         ) {
-          val patient =
-            Patient.Builder()
-              .apply {
-                id = "patient-01"
-                name.add(
-                  HumanName.Builder().apply {
-                    given.add(com.google.fhir.model.r4.String.Builder().apply { value = "John" })
-                  }
-                )
-                birthDate = Date.Builder().apply { value = FhirDate.fromString("2000-01-01") }
+          testSuite.exampleLoader().forEach { (fileName, json) ->
+            test(fileName).config(
+              enabledOrReasonIf = {
+                testSuite.skippedTestCaseToReasonMap[fileName]?.let { Enabled.disabled(it) }
+                  ?: Enabled.enabled
               }
-              .build()
-          println(jsonR4.encodeToString(patient))
-          testSuite
-            .exampleLoader { filterFileName(it) && !testSuite.exclusionList.contains(it) }
-            .forEach { (fileName, json) ->
-              test(fileName) { assertEqualsIgnoringZeros(json, testSuite.roundTripFunction(json)) }
+            ) {
+              assertEqualsIgnoringZeros(json, testSuite.roundTripFunction(json))
             }
+          }
         }
       }
   })
 
 private data class SerializationRoundTripTestSuite(
   val fhirVersion: String,
-  val exampleLoader: (filter: (String) -> Boolean) -> Sequence<FhirResourceJsonExample>,
-  val exclusionList: List<String>,
+  val exampleLoader: () -> Sequence<FhirResourceJsonExample>,
+  val skippedTestCaseToReasonMap: Map<String, String>,
   val roundTripFunction: (String) -> String,
 )
-
-private val exclusionListR4 =
-  listOf(
-    // Hanging for no reason
-    "Bundle-terminologies.json",
-    "CodeSystem-v2-0003.json",
-    "Bundle-valueset-expansions.json",
-
-    // Java heap space
-    "Bundle-resources.json",
-    "Bundle-dataelements.json",
-    "CodeSystem-v3-ManagedParticipationStatus.json",
-
-    // Instant with trailing 0s
-    "ValueSet-v3-hl7PublishingSubSection.json",
-
-    // Scientific notation
-    "Observation-decimal.json",
-
-    // Invalid resources
-    "ActivityDefinition-administer-zika-virus-exposure-assessment.json",
-    "ImplementationGuide-fhir.json",
-    "Questionnaire-qs1.json",
-    "ig-r4.json",
-
-    // Floating point issue https://github.com/google/kotlin-fhir/issues/60
-    "Observation-body-height.json",
-  )
-
-private val exclusionListR4B =
-  listOf(
-    // Java heap space
-    "Bundle-resources.json",
-
-    // Scientific notation
-    "Observation-decimal.json",
-
-    // Invalid resources
-    "Bundle-valuesets.json",
-    "CodeSystem-catalogType.json",
-    "ValueSet-catalogType.json",
-    "ActivityDefinition-administer-zika-virus-exposure-assessment.json",
-
-    // Floating point issue https://github.com/google/kotlin-fhir/issues/60
-    "Observation-body-height.json",
-  )
-
-private val exclusionListR5 =
-  listOf(
-    // Hanging
-    "Bundle-searchParams.json",
-
-    // Java heap space
-    "Bundle-resources.json",
-
-    // Trailing 0 in milliseconds
-    "ArtifactAssessment-example-certainty-rating.json",
-    "Citation-citation-example-research-doi.json",
-
-    // Scientific notation
-    "Observation-decimal.json",
-
-    // Unknown code 'text/CQL' for enum ExpressionLanguage; codes are case-sensitive
-    "ChargeItemDefinition-ebm.json",
-
-    // Floating point issue https://github.com/google/kotlin-fhir/issues/60
-    "Observation-body-height.json",
-  )
 
 private fun assertEqualsIgnoringZeros(exampleJson: String, reserializedString: String) {
   val expected =

@@ -18,25 +18,13 @@ package com.google.fhir.model.test
 
 import java.io.File
 
-actual fun loadR4Examples(fileNameFilter: (String) -> Boolean): Sequence<String> {
-  return loadExamplesFromFileSystem(r4ExamplePackage, fileNameFilter)
-}
-
-actual fun loadR4BExamples(fileNameFilter: (String) -> Boolean): Sequence<String> {
-  return loadExamplesFromFileSystem(r4bExamplePackage, fileNameFilter)
-}
-
-actual fun loadR5Examples(fileNameFilter: (String) -> Boolean): Sequence<String> {
-  return loadExamplesFromFileSystem(r5ExamplePackage, fileNameFilter)
-}
-
-private fun loadExamplesFromFileSystem(
-  directoryName: String,
+actual fun loadExamplesFromFileSystem(
+  packageSubdirectory: String,
   fileNameFilter: (String) -> Boolean,
-): Sequence<String> {
-  return File("${System.getProperty("projectRootDir")}/third_party/${directoryName}")
+): Sequence<FhirResourceJsonExample> {
+  return File("${System.getProperty("projectRootDir")}/third_party/${packageSubdirectory}")
     .listFiles()!!
     .asSequence()
     .filter { fileNameFilter(it.name) }
-    .map { it.readText() }
+    .map { FhirResourceJsonExample(it.name, it.readText()) }
 }

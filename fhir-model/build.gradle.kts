@@ -132,6 +132,9 @@ kotlin {
         val androidMain by getting
         val androidUnitTest by getting {
             dependsOn(commonTest)
+            dependencies {
+                implementation(libs.kotest.runner.junit5)
+            }
         }
         val jvmMain by getting
         val jvmTest by getting {
@@ -151,21 +154,19 @@ android {
         minSdk = libs.versions.android.minSdk.get().toInt()
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
-    sourceSets {
-        getByName("androidTest") {
-            // Make third party package available to Android instrumented tests
-            val projectRootPath = project.rootDir.absolutePath
-            assets.srcDir("$projectRootPath/third_party")
+    testOptions {
+        unitTests.all { test ->
+            // Allow tests to access third_party
+            test.systemProperty("projectRootDir", project.rootDir.absolutePath)
+            test.maxHeapSize = "4g"
+            test.useJUnitPlatform()
         }
     }
 }
 
-tasks.withType<Test>().configureEach {
+tasks.named<Test>("jvmTest") {
     // Allow tests to access third_party
     systemProperty("projectRootDir", project.rootDir.absolutePath)
-}
-
-tasks.named<Test>("jvmTest") {
     maxHeapSize = "4g"
     useJUnitPlatform()
 }

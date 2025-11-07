@@ -16,21 +16,34 @@
 
 package com.google.fhir.model.test
 
-const val r4ExamplePackage = "hl7.fhir.r4.examples/package/"
-const val r4bExamplePackage = "hl7.fhir.r4b.examples/package/"
-const val r5ExamplePackage = "hl7.fhir.r5.examples/package/"
+data class FhirResourceJsonExample(val fileName: String, val json: String)
 
-fun filterFileName(name: String): Boolean {
+fun loadR4Examples(): Sequence<FhirResourceJsonExample> =
+  loadExamplesFromFileSystem(
+    packageSubdirectory = "hl7.fhir.r4.examples/package/",
+    ::filterFileName,
+  )
+
+fun loadR4BExamples(): Sequence<FhirResourceJsonExample> =
+  loadExamplesFromFileSystem(
+    packageSubdirectory = "hl7.fhir.r4b.examples/package/",
+    ::filterFileName,
+  )
+
+fun loadR5Examples(): Sequence<FhirResourceJsonExample> =
+  loadExamplesFromFileSystem(
+    packageSubdirectory = "hl7.fhir.r5.examples/package/",
+    ::filterFileName,
+  )
+
+expect fun loadExamplesFromFileSystem(
+  packageSubdirectory: String,
+  fileNameFilter: (String) -> Boolean,
+): Sequence<FhirResourceJsonExample>
+
+private fun filterFileName(name: String): Boolean {
   return name.endsWith(".json") &&
     !name.startsWith('.') // filter out `.index.json` file
     &&
     name != "package.json"
 }
-
-data class FhirResourceJsonExample(val fileName: String, val json: String)
-
-expect fun loadR4Examples(fileNameFilter: (String) -> Boolean): Sequence<FhirResourceJsonExample>
-
-expect fun loadR4BExamples(fileNameFilter: (String) -> Boolean): Sequence<FhirResourceJsonExample>
-
-expect fun loadR5Examples(fileNameFilter: (String) -> Boolean): Sequence<FhirResourceJsonExample>
