@@ -17,80 +17,68 @@
 package com.google.fhir.model.test
 
 import io.kotest.core.spec.style.FunSpec
+import io.kotest.core.test.Enabled
 import kotlin.sequences.forEach
 import kotlin.test.assertEquals
+
+/** A map from the test case name to the reason why the test case is skipped in R4. */
+private val skippedR4TestCaseNameToReasonMap =
+  mapOf(
+    "ActivityDefinition-administer-zika-virus-exposure-assessment.json" to "Invalid resources",
+    "ImplementationGuide-fhir.json" to "Invalid resources",
+    "Questionnaire-qs1.json" to "Invalid resources",
+    "ig-r4.json" to "Invalid resources",
+  )
+
+/** A map from the test case name to the reason why the test case is skipped in R4B. */
+private val skippedR4BTestCaseNameToReasonMap =
+  mapOf(
+    "Bundle-valuesets.json" to "Invalid resources",
+    "CodeSystem-catalogType.json" to "Invalid resources",
+    "ValueSet-catalogType.json" to "Invalid resources",
+    "ActivityDefinition-administer-zika-virus-exposure-assessment.json" to "Invalid resources",
+  )
+
+/** A map from the test case name to the reason why the test case is skipped in R5. */
+private val skippedR5TestCaseNameToReasonMap =
+  mapOf(
+    "ChargeItemDefinition-ebm.json" to
+      "Unknown code 'text/CQL' for enum ExpressionLanguage; codes are case-sensitive"
+  )
 
 open class BuilderRoundTripTest :
   FunSpec({
     listOf(
-        BuilderRoundTripTestSuite(
-          "R4",
-          ::loadR4Examples,
-          exclusionListR4,
-          {
-            jsonR4.decodeFromString(it).let { resource -> resource to resource.toBuilder().build() }
-          },
-        ),
-        BuilderRoundTripTestSuite(
-          "R4B",
-          ::loadR4BExamples,
-          exclusionListR4B,
-          {
-            jsonR4B.decodeFromString(it).let { resource ->
-              resource to resource.toBuilder().build()
-            }
-          },
-        ),
-        BuilderRoundTripTestSuite(
-          "R5",
-          ::loadR5Examples,
-          exclusionListR5,
-          {
-            jsonR5.decodeFromString(it).let { resource -> resource to resource.toBuilder().build() }
-          },
-        ),
+        BuilderRoundTripTestSuite("R4", ::loadR4Examples, skippedR4TestCaseNameToReasonMap) {
+          jsonR4.decodeFromString(it).let { resource -> resource to resource.toBuilder().build() }
+        },
+        BuilderRoundTripTestSuite("R4B", ::loadR4BExamples, skippedR4BTestCaseNameToReasonMap) {
+          jsonR4B.decodeFromString(it).let { resource -> resource to resource.toBuilder().build() }
+        },
+        BuilderRoundTripTestSuite("R5", ::loadR5Examples, skippedR5TestCaseNameToReasonMap) {
+          jsonR5.decodeFromString(it).let { resource -> resource to resource.toBuilder().build() }
+        },
       )
       .forEach { testSuite ->
         context("${testSuite.fhirVersion} builder should reconstruct resource") {
-          testSuite
-            .exampleLoader { filterFileName(it) && !testSuite.exclusionList.contains(it) }
-            .forEach { (fileName, json) ->
-              test(fileName) {
-                val (resource, copy) = testSuite.decodeAndCopyFunction(json)
-                assertEquals(resource, copy)
+          testSuite.exampleLoader().forEach { (fileName, json) ->
+            test(fileName).config(
+              enabledOrReasonIf = {
+                testSuite.skippedTestCaseNameToReasonMap[fileName]?.let { Enabled.disabled(it) }
+                  ?: Enabled.enabled
               }
+            ) {
+              val (resource, copy) = testSuite.decodeAndCopyFunction(json)
+              assertEquals(resource, copy)
             }
+          }
         }
       }
   })
 
 private data class BuilderRoundTripTestSuite(
   val fhirVersion: String,
-  val exampleLoader: (filter: (String) -> Boolean) -> Sequence<FhirResourceJsonExample>,
-  val exclusionList: List<String>,
+  val exampleLoader: () -> Sequence<FhirResourceJsonExample>,
+  val skippedTestCaseNameToReasonMap: Map<String, String>,
   val decodeAndCopyFunction: (String) -> Pair<Any, Any>,
 )
-
-private val exclusionListR4 =
-  listOf(
-    // Invalid resources
-    "ActivityDefinition-administer-zika-virus-exposure-assessment.json",
-    "ImplementationGuide-fhir.json",
-    "Questionnaire-qs1.json",
-    "ig-r4.json",
-  )
-
-private val exclusionListR4B =
-  listOf(
-    // Invalid resource
-    "Bundle-valuesets.json",
-    "CodeSystem-catalogType.json",
-    "ValueSet-catalogType.json",
-    "ActivityDefinition-administer-zika-virus-exposure-assessment.json",
-  )
-
-private val exclusionListR5 =
-  listOf(
-    // Unknown code 'text/CQL' for enum ExpressionLanguage; codes are case-sensitive
-    "ChargeItemDefinition-ebm.json"
-  )

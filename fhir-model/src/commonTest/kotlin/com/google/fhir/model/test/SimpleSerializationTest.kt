@@ -22,6 +22,7 @@ import com.google.fhir.model.r5.FhirR5Json
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.shouldBe
 
+/** See https://github.com/google/kotlin-fhir/issues/66. */
 class SimpleSerializationTest :
   FunSpec({
     test("Serialized resource in R4 should have resourceType property") {
