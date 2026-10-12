@@ -35,6 +35,16 @@ jobs:
           distribution: 'zulu'
           java-version: 21
 
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v4
+
+      - name: Run codegen unit tests
+        run: >-
+          ./gradlew :fhir-codegen:gradle-plugin:test
+          --stacktrace
+          --no-daemon
+          --build-cache
+
       - name: Add swap space
         run: |
           sudo swapoff -a || true
@@ -44,9 +54,6 @@ jobs:
           sudo mkswap /mnt/swapfile
           sudo swapon /mnt/swapfile
           free -h
-
-      - name: Setup Gradle
-        uses: gradle/actions/setup-gradle@v4
 
       - name: Verify codegen output matches committed sources
         env:

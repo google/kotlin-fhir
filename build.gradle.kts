@@ -50,6 +50,11 @@ tasks.named("spotlessMarkdown") {
     dependsOn(":fhir-model-r4:codegen", ":fhir-model-r4b:codegen", ":fhir-model-r5:codegen")
 }
 
+// Run codegen unit tests when running `./gradlew check` locally
+tasks.named("check") {
+    dependsOn(gradle.includedBuild("fhir-codegen").task(":gradle-plugin:test"))
+}
+
 // ---------------------------------------------------------------------------
 // verifyCodegen – regenerate all FHIR models and assert the committed sources
 // are byte-for-byte identical with the codegen output.
