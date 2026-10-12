@@ -283,18 +283,21 @@ parameter.
 There are two ways to serialize a resource, and the caller picks which by the static type of the
 value handed to kotlinx. When the static type is the concrete class (i.e.
 `json.encodeToString(patient)`), kotlinx dispatches directly to `PatientSerializer`, whose
-descriptor includes `resourceType` at slot 0 and which writes it itself.
+descriptor includes `resourceType` at slot 0 and which writes it itself (calling
+`serializeInternal(this, descriptor, 1, value)`).
 
 When the static type is `Resource` (i.e. `json.encodeToString<Resource>(patient)`), kotlinx routes through
-`ResourcePolymorphicSerializer`, which looks up the concrete subclass and delegates to
-`PatientPolymorphicSerializer`. On this path kotlinx-json itself injects `resourceType` as the
-class discriminator, so `PatientPolymorphicSerializer`'s descriptor must omit `resourceType`.
+`ResourcePolymorphicSerializer`, which looks up the concrete subclass and delegates to a
+`FhirResourcePolymorphicSerializer(PatientSerializer)` wrapper. On this path kotlinx-json itself
+injects `resourceType` as the class discriminator, so `FhirResourcePolymorphicSerializer` builds its
+descriptor via `PatientSerializer.buildDescriptor(...)` without `resourceType` and calls
+`serializeInternal(this, descriptor, 0, value)`.
 
 ```mermaid
 graph TB
-    A["Patient instance"] -->|"json.encodeToString(patient)"| PS["PatientSerializer<br/>writes resourceType + fields"]
+    A["Patient instance"] -->|"json.encodeToString(patient)"| PS["PatientSerializer<br/>writes resourceType + fields (offset 1)"]
     A -->|"json.encodeToString&ltResource&gt(patient)"| RPS["ResourcePolymorphicSerializer<br/>(AbstractPolymorphicSerializer)"]
-    RPS -->|"byClass[Patient::class]"| PPS["PatientPolymorphicSerializer<br/>writes fields only"]
+    RPS -->|"byClass[Patient::class]"| PPS["FhirResourcePolymorphicSerializer(PatientSerializer)<br/>writes fields only (offset 0)"]
     RPS -.->|"kotlinx-json injects<br/>resourceType discriminator"| O
     PS --> O["JSON output<br/>{ resourceType, ... }"]
     PPS --> O
@@ -320,38 +323,38 @@ graph LR
     }
     "]
     E["**Patient object**
-    gender: Code
-    deceased: Patient.Deceased
+    gender: Enumeration&lt;AdministrativeGender&gt;?
+    deceased: Patient.Deceased?
     #nbsp;#nbsp;↳ .Boolean | .DateTime
-    multipleBirth: Patient.MultipleBirth
+    multipleBirth: Patient.MultipleBirth?
     #nbsp;#nbsp;↳ .Boolean | .Integer
     contact: List&lt;Patient.Contact&gt;
     "]
 
-    subgraph PS["PatientSerializer  (descriptorOffset = 1)"]
+    subgraph PS["PatientSerializer.deserializeInternal(decoder, descriptor, offset)"]
       direction TB
       Desc["**descriptor**
-      0 → resourceType
+      0 → resourceType (when offset = 1)
       ...
-      16 → gender / 17 → _gender
-      20 → deceasedBoolean / 21 → _deceasedBoolean
-      22 → deceasedDateTime / 23 → _deceasedDateTime
-      26 → multipleBirthBoolean / 27 → _multipleBirthBoolean
-      28 → multipleBirthInteger / 29 → _multipleBirthInteger
-      31 → contact / 32 → communication / 35 → link"]
+      gender / _gender
+      deceasedBoolean / _deceasedBoolean
+      deceasedDateTime / _deceasedDateTime
+      multipleBirthBoolean / _multipleBirthBoolean
+      multipleBirthInteger / _multipleBirthInteger
+      contact / communication / link"]
 
       Loop["**while** (true) {
       #nbsp;#nbsp;val i = decoder.decodeElementIndex(descriptor)
       #nbsp;#nbsp;if (i == DECODE_DONE) break
       #nbsp;#nbsp;**when** (i - descriptorOffset) {
       #nbsp;#nbsp;#nbsp;#nbsp;-1 → resourceType discarded
-      #nbsp;#nbsp;#nbsp;#nbsp;0..33 → per-key wire locals
+      #nbsp;#nbsp;#nbsp;#nbsp;0..N → per-key wire locals
       #nbsp;#nbsp;}
       }"]
 
       Loop -- "JSON key → i lookup" --> Desc
       Desc -. "return i" .-> Loop
-      Loop -- "when(16/17) gender, when(20..23) deceased expansions, when(26..29) multipleBirth expansions, ..." --> Locals[per-key locals]
+      Loop -- "gender, deceased expansions, multipleBirth expansions, ..." --> Locals[per-key locals]
       Locals -- "MultipleBirth.from(boolean, _boolean, integer, _integer)" --> Seal[sealed values synthesized]
       Locals -- "Deceased.from(boolean, _boolean, dateTime, _dateTime)" --> Seal
       Locals -- "PatientContact / Communication / LinkSerializer.deserialize" --> BB[backbone elements]
@@ -434,9 +437,10 @@ KotlinPoet) that `buildSrc` cannot cleanly support.
 
 - the model class (the primary class) in the root package e.g. `dev.ohs.fhir.model.r4`, and
 - a custom `KSerializer` per type (e.g. `PatientSerializer`, plus one per BackboneElement) in the
-  serializer package e.g. `dev.ohs.fhir.model.r4.serializers`. Resource types additionally get a
-  thin `XPolymorphicSerializer` (descriptor without `resourceType`) used by
-  `ResourcePolymorphicSerializer` for class-discriminator dispatch.
+  serializer package e.g. `dev.ohs.fhir.model.r4.serializers`. Resource serializers implement
+  `FhirResourceSerializer` so `ResourcePolymorphicSerializer` can delegate to a generic
+  `FhirResourcePolymorphicSerializer` wrapper without generating separate per-resource polymorphic
+  serializer classes.
 
 using
 [`ModelFileSpecGenerator`](fhir-codegen/gradle-plugin/src/main/kotlin/dev/ohs/fhir/codegen/ModelFileSpecGenerator.kt)
@@ -924,11 +928,15 @@ semantic equivalence is maintained.
 
 These tests use inline test data, run across all platforms, and are parameterized across FHIR versions (R4, R4B, R5):
 
-- **Primitive types:**
+- **Primitive and value types:**
   - `FhirDateTest`: Date parsing and formatting (`YYYY`, `YYYY-MM`, `YYYY-MM-DD`).
   - `FhirDateTimeTest`: DateTime parsing, timezone validation, and millisecond precision.
   - `FhirDecimalTest`: Lexical precision, scientific notation, `BigDecimal` conversions, and arithmetic.
+  - `FhirEnumTest`: `Enumeration<T>` helpers, `getCode()`, extensions, and factory creation.
   - `ExtensibleEnumerationTest`: Sealed hierarchy (`Predefined` / `Custom`) and companion factory resolution for extensible value set bindings.
+  - `SpdxLicenseBindingTest`: SPDX license code binding behavior across FHIR versions.
+  - `FhirChoiceTest`: Polymorphic choice-type accessors (`value?.asQuantity()`, `asString()`, etc.) and builders.
+  - `NullSafetyTest`: Nullability and optionality contracts on generated models and builders.
 - **Serialization:**
   - `PolymorphicSerializationTest`: `resourceType` discriminator handling.
   - `EnumerationSerializationTest`: Enum element extensions (`_field`) and missing-value lists.
@@ -940,7 +948,7 @@ These tests use inline test data, run across all platforms, and are parameterize
 
 #### Platform coverage and CI
 
-The [CI pipeline](.github/workflows/ci.yml) runs tests across six platform targets on every push
+The [CI pipeline](.github/workflows/run-tests.yml) runs tests across six platform targets on every push
 and pull request. Unit tests run on all platforms, while example-based tests only run on JVM and
 Android since they require loading HL7 example packages from the local filesystem.
 
