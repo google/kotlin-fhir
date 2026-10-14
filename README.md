@@ -784,6 +784,10 @@ val json = Json {
 > `classDiscriminator` have no effect because field encoding and null handling are handled directly
 > by the generated serializers.
 
+> [!NOTE]
+> Kotlin-Fhir is fast and lightweight, but does not currently contain guards against recursion
+> or other forms of input hardening. Always assume inputs from servers or users are untrusted.
+
 #### Serialization
 
 To serialize a FHIR resource to a JSON string, use `encodeToString()`:
